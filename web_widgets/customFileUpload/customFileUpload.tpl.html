@@ -1,0 +1,105 @@
+<div ng-class="{
+    'form-horizontal': properties.labelPosition === 'left' && !properties.labelHidden,
+    'row': properties.labelPosition === 'top' && !properties.labelHidden || properties.labelHidden
+    }">
+    <div class="form-group">
+        <label
+            ng-if="!properties.labelHidden"
+            ng-class="{ 'control-label--required': properties.required }"
+            class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}">
+            {{ properties.label | uiTranslate }}
+        </label>
+        <div class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+           
+                <div class="input-group">
+					<form action="{{ctrl.urlUpload}}"
+						 ng-upload="ctrl.uploadComplete(content)"
+						 ng-upload-loading="ctrl.startUploading()"
+						 error-catcher="ctrl.uploadError(error)"
+						 upload-options-enable-csrf
+						 upload-options-csrf-param="CSRFToken">
+            
+						<input type="text" ng-focus="ctrl.preventFocus($event)" placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" 
+								class="form-control" 
+								ng-show="ctrl.isFile === true"/>
+						
+					  
+						<!-- using a ng-if broke the file loading : so use a ng-show -->
+						<input class="custom-file-upload-input"
+								 ng-class="{'file-upload-input--disabled':$isUploading}"
+								 name="{{ctrl.name}}" type="file"
+								 ng-required="properties.required"
+								 ng-model="ctrl.filemodel"
+								 ng-show="ctrl.isFile === true "
+								 />
+					</form>
+                    <!-- URL text -->
+                    <input type="text" ng-readonly="properties.readOnly" class="form-control"
+                       placeholder="{{properties.placeholder | uiTranslate}}" 
+                       ng-model="ctrl.url"
+					   ng-if="ctrl.isFile === false"
+                       />                             
+                             
+					<div class="input-group-btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}" >
+				<table>
+				<tr><td>
+				    <!-- show it if we are in URL mode -->
+					<button uib-tooltip="Upload file" tooltip-placement="top" tooltip-popup-delay="300" class="{{ctrl.getClassIsFile()}}" 
+								ng-click="ctrl.showUpload()" 
+								ng-if="! properties.readOnly">
+                              <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}" ></i>
+					</button>
+					
+				</td><td>
+                    <a uib-tooltip="Download file" tooltip-placement="top" tooltip-popup-delay="300" 
+                         class="btn btn-primary" 
+                         ng-if="!ctrl.newFile && ctrl.isFile == true" ng-href="{{ctrl.downloadUrl}}">
+                        <i class="glyphicon glyphicon-download"></i>
+                    </a>
+				<!--</td><td>
+                    <button uib-tooltip="Edit current file" tooltip-placement="top" tooltip-popup-delay="300" class="btn btn-primary" 
+                        ng-click="ctrl.edit()" 
+                        ng-if="!ctrl.newFile && !properties.readOnly">
+                        <i class="glyphicon glyphicon-tag"></i>
+                    </button>
+				-->
+				</td><td>
+                    <button uib-tooltip="Cancel edit" tooltip-placement="top" tooltip-popup-delay="300" 
+                            class="btn btn-primary" 
+                            ng-click="ctrl.cancelEdit()" 
+                            ng-if="ctrl.editMode">
+                        <i class="glyphicon glyphicon-ban-circle" ></i>
+                    </button>
+				</td><td>
+					<button uib-tooltip="Clear" tooltip-placement="top" tooltip-popup-delay="300" 
+							class="btn btn-primary"
+							ng-click="ctrl.clear()"							
+							ng-if="ctrl.filemodel"  >
+							<i class="glyphicon glyphicon-remove-circle"></i>
+							<span class="hide" translate>Close</span>
+					</button>
+				</td><td>
+                    <button uib-tooltip="Delete file" tooltip-placement="top" tooltip-popup-delay="300" 
+                        class="btn btn-primary" 
+                        ng-click="ctrl.deleteCurrentFile()" 
+                        ng-if="!ctrl.newFile && !properties.readOnly && ctrl.isFile == true">
+                        <i class="glyphicon glyphicon-trash" ></i>
+                    </button>
+				</td><td>
+                    <button uib-tooltip="Give the url to the document" tooltip-placement="top" tooltip-popup-delay="300" class="{{ctrl.getClassIsUrl()}}"
+                        ng-click="ctrl.showUrlDoc()" 
+                        ng-if="! properties.readOnly">
+                        <i class="glyphicon glyphicon-globe" ></i>
+                    </button>
+				</td><td>
+				</tr></table>
+                </div> <!-- end div disabled -->
+                 
+                </div>
+        </div> <!-- end div class 12 -->
+
+
+        <div ng-messages="$form[ctrl.name].$dirty && $form[ctrl.name].$error " ng-messages-include="forms-generic-errors.html" role="alert"></div>
+        
+    </div> <!-- end div class="group"-->
+</div>

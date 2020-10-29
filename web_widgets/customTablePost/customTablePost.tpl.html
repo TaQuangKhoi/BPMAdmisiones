@@ -1,0 +1,37 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                     <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>
+                   {{row.segundoNombre}} {{row.primerNombre}} {{row.apellidoPaterno}} {{row.apellidoMaterno}}<br>
+                   {{row.correoElectronico}}<br>
+                   {{row.curp}}
+                </td>
+                <td>
+                    {{row.catCampus.descripcion}}<br>
+                    {{row.catEstado.descripcion}}<br>
+                    {{row.catPeriodo.descripcion}}
+                </td>
+                <td>
+                    {{row.catEstado.descripcion}}<br>
+                    {{row.catBachilleratos.descripcion}}<br>
+                    {{row.promedioGeneral}}
+                </td>
+                <td></td>
+                <td>
+                    <button class="btn btn-default" ng-click="asignarTarea(row)">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

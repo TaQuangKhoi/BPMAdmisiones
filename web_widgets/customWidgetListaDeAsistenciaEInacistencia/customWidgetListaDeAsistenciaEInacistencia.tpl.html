@@ -1,0 +1,304 @@
+<div class="row">
+    <div class="col-md-2 col-3 col-xs-3 col-lg-3">
+        <button type="button" style="background-color: rgb(88, 80, 80)"><i class="fa fa-arrow-left" aria-hidden="true" style="color:white"> </i><label style="color:white"> Regresar</label> </button>
+    </div>
+    <div class="col-md-8 col-8 col-xs-8 col-lg-8">
+        <h1>LISTA DE ASISTENCIA E INASISTENCIA</h1>
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+    </div>
+</div>
+<hr>
+<label>Filtrado por:</label> <label>Nombre que contenga j</label>
+<div class="row">
+    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+        <button class="btn btn-primary" type="button" ng-click="FiltroEspecifico()">Filtro especifico</button>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <button class="btn btn-warning" type="button">Imprimir</button>
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+        <button class="btn btn-warning" type="button">Excel</button>
+        <button class="btn btn-warning" type="button">PDF</button>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ngb-pagination [collectionSize]=" collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true"
+            (pageChange)="pageChanged($event)" [pageSize]="pageSize" [boundaryLinks]="true"
+            aria-label="Default pagination">
+        </ngb-pagination>
+    </div>
+</div>
+<!--tabla-->
+<div class="col-lg-12">
+    <table  class="table table-bordered">
+        <tbody>
+            <tr style="background: #a39a96;">
+                <th style="color: black;"> ID</th>
+                <th style="color: black;">NOMBRE / BANNER / CORREO <button ng-click="modalNombreBannerCorreo()"><i class="fa fa-filter"
+                    ></i></button></th>
+                <th style="color: black;">UNIVERSIDAD / LICENCIATURA / PERIODO <button ng-click="modalUniversidadLicenciaturaPeriodo()"><i class="fa fa-filter"
+                    ></i></button> </th>
+                <th style="color: black;">NOMBRE / TIPO <button ng-click="modalNombreTipo()"><i class="fa fa-filter"
+                    ></i></button> </th>
+                <th style="color: black;">FECHA INICIO / HORA INICIO <button ng-click="modalFechaInicioHoraInicio()"><i class="fa fa-filter"
+                    ></i></button> </th>
+                <th style="color: black;"> PROCEDENCIA <button ng-click="modalProcedencia()"><i class="fa fa-filter"
+                    ></i></button></th>
+                <th>VER</th>
+            </tr>
+            <tr style="border: 1px solid #f4f5f8;">
+                <td>002552266</td>
+                <td>
+                    <h5>José Carlos Garcia Romero</h5>
+                    <h5>BANNER: 00364321</h5>
+                    <h5>jose@correo.com</h5>
+                   
+                </td>
+                <td>
+                    <h5>Universidad de Anáhuac Cancún</h5>
+                </td>
+                <td>
+                    <h5>Examen DPAA</h5>
+                    <h5>Collage Board</h5>
+                </td>
+                <td>
+                    <h5>2019-02-21 15:00</h5>
+                </td>
+                <td>Local</td>
+                <td>
+                    <h3 style="text-align: center;"> <i class="fa fa-check-circle" aria-hidden="true"></i> <i class="fa fa-search" aria-hidden="true"></i> </h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ngb-pagination [collectionSize]=" collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true"
+            (pageChange)="pageChanged($event)" [pageSize]="pageSize" [boundaryLinks]="true"
+            aria-label="Default pagination">
+        </ngb-pagination>
+    </div>
+</div>
+
+<!-- Modal Filtro especifico-->
+<div id="FiltroEspecifico" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Descripcion del filtro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Columna</label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label></label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>valor</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <br>
+                </div>
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tbody>
+                            <tr style="background: #a39a96;">
+                                <th style="color: black;">Columna</th>
+                                <th style="color: black;">Operador</th>
+                                <th style="color: black;">Valor</th>
+                            </tr>
+                            <tr style="border: 1px solid #f4f5f8;">
+                                <td>
+                                    <h5>Nombre</h5>
+                                </td>
+                                <td>
+                                    <h5>Que contenga</h5>
+                                </td>
+                                <td>
+                                    <h5>J</h5>
+                                </td>
+                                <td>
+                                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalNombreBannerCorreo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Nombre, Banner y Correo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Nombre</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Banner</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Correo</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalUniversidadLicenciaturaPeriodo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Universidad, Licenciatura y Periodo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Universidad</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Licenciatura</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+                        <label>Periodo</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal-->
+<div id="modalNombreTipo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Nombre y Tipo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Nombre</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Tipo</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalFechaInicioHoraInicio" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Fecha inicio y Hora inicio</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Fecha inicio</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Hora inicio</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalProcedencia" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Procedencia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Procedencia</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>

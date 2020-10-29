@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="col-md-5 col-5 col-xs-5 col-lg-5">
+        <button type="button" style="background-color: rgb(88, 80, 80)"><i class="fa fa-arrow-left" aria-hidden="true"
+                style="color:white"> </i><label style="color:white"> Regresar</label> </button>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <h1>Notificaciones</h1>
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-3 col-3 col-xs-3 col-lg-3">
+        <button class="btn btn-primary" type="button" ng-click="FiltroEspecifico()">Filtro mas especifico</button>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<label>Filtrado por:</label>
+<label>Todos los registros del campo Código que contiene "CORREO" <i class="fa fa-times" aria-hidden="true"></i></label>
+<div class="col-lg-12">
+    <br>
+</div>
+<!--tabla-->
+<div class="col-lg-12">
+    <table class="table table-bordered">
+        <tbody >
+            <tr style="background: #a39a96;">
+                <th style="color: black;">Nombre </th>
+                <th style="color: black;">Código </th>
+                <th style="color: black;">Descripcion </th>
+                <th style="color: black;">Tipo documento </th>
+                <th style="color: black;">Acciones</th>
+            </tr>
+            <tr style="border: 1px solid #f4f5f8;">
+                <td>
+                    <h5>REGISTRO</h5>
+                    <h5>DESCRIPCION DE SOLICITUD</h5>
+                    <h5>OFERTAS DE BECAS</h5>
+                </td>
+                <td>
+                    <h5>CORREO s4-F1</h5>
+                    <h5>CORREO s4-F2</h5>
+                    <h5>CORREO s4-F3</h5>
+                </td>
+                <td>
+                    <h5>Este correo se envio </h5>
+                    <h5>Este correo se envio</h5>
+                    <h5>Este correo se envio</h5>
+                </td>
+                <td>
+                    <h5>Correo</h5>
+                    <h5>Correo</h5>
+                    <h5>Correo</h5>
+                </td>
+                <td>
+                    <h3 style="text-align: center;"> <i class="fa fa-pencil" aria-hidden="true"></i> <i class="fa fa-eye" aria-hidden="true"></i> <i class="fa fa-trash" aria-hidden="true"></i>
+                    </h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ngb-pagination [collectionSize]=" collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true"
+            (pageChange)="pageChanged($event)" [pageSize]="pageSize" [boundaryLinks]="true"
+            aria-label="Default pagination">
+        </ngb-pagination>
+    </div>
+</div>
+
+<!-- Modal Filtro especifico-->
+<div id="FiltroEspecifico" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Descripcion del filtro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label>Columna</label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label></label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label>valor</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <br>
+                </div>
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tbody>
+                            <tr style="background: #a39a96;">
+                                <th style="color: black;">Columna</th>
+                                <th style="color: black;">Operador</th>
+                                <th style="color: black;">Valor</th>
+                            </tr>
+                            <tr style="border: 1px solid #f4f5f8;">
+                                <td>
+                                    <h5>Campus</h5>
+                                </td>
+                                <td>
+                                    <h5>Que contenga</h5>
+                                </td>
+                                <td>
+                                    <h5>Universidad Anáhuac México</h5>
+                                </td>
+                                <td>
+                                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>

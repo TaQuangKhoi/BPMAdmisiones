@@ -1,0 +1,18 @@
+<div class="campus-list-container col-lg-12 col-md-12 col-sm-12">
+    <div class="row">
+        <div class="campus-element col-lg-6 col-md-6 col-sm-6" ng-repeat="campus in properties.campusList">
+            <div class="campus-info col-lg-10 col-md-10 col-sm-12" ng-click="setSelected(campus.persistenceId)">
+                <!--<imput type="radio" ng-model="selected" value="{{campus.campusName}}"></imput> {{campus.campusName}}-->
+                <div class="radio-container col-lg-2 col-md-2 col-sm-2">
+                   <input type="radio" ng-model="properties.campusSelected"
+                   ng-change="string"
+                   ng-value="campus.persistenceId"> 
+                </div>
+                <div class="info-container text-center col-lg-8 col-md-8 col-sm-8">
+                    {{campus.descripcion}}<br>
+                    <img class="anahuac-logo-mini" ng-src="{{properties.src}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

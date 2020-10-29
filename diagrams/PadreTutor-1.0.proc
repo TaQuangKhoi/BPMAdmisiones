@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_hXFrwBSuEeu_f_YUOUUeHQ" name="PadreTutor" author="jasz1" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574001C50616472655475746F72372E31312E312D303031372E31312E327370">
+    <elements xmi:type="process:Pool" xmi:id="_hXFrwRSuEeu_f_YUOUUeHQ" name="PadreTutor">
+      <elements xmi:type="process:Lane" xmi:id="_hXFrwhSuEeu_f_YUOUUeHQ" name="Administrador" actor="_hXFr2xSuEeu_f_YUOUUeHQ">
+        <elements xmi:type="process:StartEvent" xmi:id="_hXFrwxSuEeu_f_YUOUUeHQ" name="Inicio1" outgoing="_2E6lsBSuEeu_f_YUOUUeHQ">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_hXFrxBSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_hXFrxRSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_hXFrxhSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:EndTerminatedEvent" xmi:id="_2ERFcBSuEeu_f_YUOUUeHQ" name="Fin1" incoming="_2E6lsBSuEeu_f_YUOUUeHQ">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_2ERFchSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_2ERFcRSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_2ERFcxSuEeu_f_YUOUUeHQ" name="" content="" returnTypeFixed="true"/>
+        </elements>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_RkxTMBVWEeulgL8HJ_zZVQ" name="padresTutor" dataType="_hXFr9BSuEeu_f_YUOUUeHQ" className="com.anahuac.model.PadresTutor">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_TCVdYBVWEeulgL8HJ_zZVQ" name="initPadresTutor()" content="def padresTutorVar = new com.anahuac.model.PadresTutor()&#xD;&#xA;padresTutorVar.catTitulo = {&#xD;&#xA;&#x9;//Retrieve aggregated CatTitulo using its DAO and persistenceId&#xD;&#xA;&#x9;def catTituloVar = catTituloDAO.findByPersistenceId(padresTutorInput?.catTitulo?.persistenceId_string?.trim() ? padresTutorInput.catTitulo.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catTituloVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catTitulo?.persistenceId_string?.trim() ? padresTutorInput.catTitulo.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatTitulo` with the persistence id &quot; + padresTutorInput?.catTitulo?.persistenceId_string?.trim() ? padresTutorInput.catTitulo.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catTituloVar}()&#xD;&#xA;padresTutorVar.catParentezco = {&#xD;&#xA;&#x9;//Retrieve aggregated CatParentesco using its DAO and persistenceId&#xD;&#xA;&#x9;def catParentescoVar = catParentescoDAO.findByPersistenceId(padresTutorInput?.catParentezco?.persistenceId_string?.trim() ? padresTutorInput.catParentezco.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catParentescoVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catParentezco?.persistenceId_string?.trim() ? padresTutorInput.catParentezco.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatParentesco` with the persistence id &quot; + padresTutorInput?.catParentezco?.persistenceId_string?.trim() ? padresTutorInput.catParentezco.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catParentescoVar}()&#xD;&#xA;padresTutorVar.nombre = padresTutorInput?.nombre&#xD;&#xA;padresTutorVar.apellidos = padresTutorInput?.apellidos&#xD;&#xA;padresTutorVar.correoElectronico = padresTutorInput?.correoElectronico&#xD;&#xA;padresTutorVar.catEscolaridad = {&#xD;&#xA;&#x9;//Retrieve aggregated CatEscolaridad using its DAO and persistenceId&#xD;&#xA;&#x9;def catEscolaridadVar = catEscolaridadDAO.findByPersistenceId(padresTutorInput?.catEscolaridad?.persistenceId_string?.trim() ? padresTutorInput.catEscolaridad.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catEscolaridadVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catEscolaridad?.persistenceId_string?.trim() ? padresTutorInput.catEscolaridad.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEscolaridad` with the persistence id &quot; + padresTutorInput?.catEscolaridad?.persistenceId_string?.trim() ? padresTutorInput.catEscolaridad.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catEscolaridadVar}()&#xD;&#xA;padresTutorVar.catEgresoAnahuac = {&#xD;&#xA;&#x9;//Retrieve aggregated CatEgresadoUniversidadAnahuac using its DAO and persistenceId&#xD;&#xA;&#x9;def catEgresadoUniversidadAnahuacVar = catEgresadoUniversidadAnahuacDAO.findByPersistenceId(padresTutorInput?.catEgresoAnahuac?.persistenceId_string?.trim() ? padresTutorInput.catEgresoAnahuac.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catEgresadoUniversidadAnahuacVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catEgresoAnahuac?.persistenceId_string?.trim() ? padresTutorInput.catEgresoAnahuac.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEgresadoUniversidadAnahuac` with the persistence id &quot; + padresTutorInput?.catEgresoAnahuac?.persistenceId_string?.trim() ? padresTutorInput.catEgresoAnahuac.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catEgresadoUniversidadAnahuacVar}()&#xD;&#xA;padresTutorVar.catCampusEgreso = {&#xD;&#xA;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(padresTutorInput?.catCampusEgreso?.persistenceId_string?.trim() ? padresTutorInput.catCampusEgreso.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catCampusEgreso?.persistenceId_string?.trim() ? padresTutorInput.catCampusEgreso.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + padresTutorInput?.catCampusEgreso?.persistenceId_string?.trim() ? padresTutorInput.catCampusEgreso.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catCampusVar}()&#xD;&#xA;padresTutorVar.catTrabaja = {&#xD;&#xA;&#x9;//Retrieve aggregated CatPadreTrabaja using its DAO and persistenceId&#xD;&#xA;&#x9;def catPadreTrabajaVar = catPadreTrabajaDAO.findByPersistenceId(padresTutorInput?.catTrabaja?.persistenceId_string?.trim() ? padresTutorInput.catTrabaja.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catPadreTrabajaVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catTrabaja?.persistenceId_string?.trim() ? padresTutorInput.catTrabaja.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatPadreTrabaja` with the persistence id &quot; + padresTutorInput?.catTrabaja?.persistenceId_string?.trim() ? padresTutorInput.catTrabaja.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catPadreTrabajaVar}()&#xD;&#xA;padresTutorVar.empresaTrabaja = padresTutorInput?.empresaTrabaja&#xD;&#xA;padresTutorVar.giroEmpresa = padresTutorInput?.giroEmpresa&#xD;&#xA;padresTutorVar.puesto = padresTutorInput?.puesto&#xD;&#xA;padresTutorVar.isTutor = padresTutorInput?.isTutor&#xD;&#xA;padresTutorVar.vive = padresTutorInput?.vive&#xD;&#xA;padresTutorVar.calle = padresTutorInput?.calle&#xD;&#xA;padresTutorVar.catPais = {&#xD;&#xA;&#x9;//Retrieve aggregated CatPais using its DAO and persistenceId&#xD;&#xA;&#x9;def catPaisVar = catPaisDAO.findByPersistenceId(padresTutorInput?.catPais?.persistenceId_string?.trim() ? padresTutorInput.catPais.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catPaisVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catPais?.persistenceId_string?.trim() ? padresTutorInput.catPais.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatPais` with the persistence id &quot; + padresTutorInput?.catPais?.persistenceId_string?.trim() ? padresTutorInput.catPais.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catPaisVar}()&#xD;&#xA;padresTutorVar.numeroExterior = padresTutorInput?.numeroExterior&#xD;&#xA;padresTutorVar.numeroInterior = padresTutorInput?.numeroInterior&#xD;&#xA;padresTutorVar.catEstado = {&#xD;&#xA;&#x9;//Retrieve aggregated CatEstados using its DAO and persistenceId&#xD;&#xA;&#x9;def catEstadosVar = catEstadosDAO.findByPersistenceId(padresTutorInput?.catEstado?.persistenceId_string?.trim() ? padresTutorInput.catEstado.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;if (!catEstadosVar) {&#xD;&#xA;&#x9;&#x9;if (padresTutorInput?.catEstado?.persistenceId_string?.trim() ? padresTutorInput.catEstado.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEstados` with the persistence id &quot; + padresTutorInput?.catEstado?.persistenceId_string?.trim() ? padresTutorInput.catEstado.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;return null&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return catEstadosVar}()&#xD;&#xA;padresTutorVar.ciudad = padresTutorInput?.ciudad&#xD;&#xA;padresTutorVar.colonia = padresTutorInput?.colonia&#xD;&#xA;padresTutorVar.telefono = padresTutorInput?.telefono&#xD;&#xA;padresTutorVar.codigoPostal = padresTutorInput?.codigoPostal&#xD;&#xA;padresTutorVar.viveContigo = padresTutorInput?.viveContigo&#xD;&#xA;padresTutorVar.otroParentesco = padresTutorInput?.otroParentesco&#xD;&#xA;return padresTutorVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.PadresTutor">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_TCVdYRVWEeulgL8HJ_zZVQ" name="padresTutorInput" type="COMPLEX"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdYhVWEeulgL8HJ_zZVQ" name="catTituloDAO" content="catTituloDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTituloDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdYxVWEeulgL8HJ_zZVQ" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdZBVWEeulgL8HJ_zZVQ" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdZRVWEeulgL8HJ_zZVQ" name="catPadreTrabajaDAO" content="catPadreTrabajaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPadreTrabajaDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdZhVWEeulgL8HJ_zZVQ" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdZxVWEeulgL8HJ_zZVQ" name="catEscolaridadDAO" content="catEscolaridadDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEscolaridadDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdaBVWEeulgL8HJ_zZVQ" name="catParentescoDAO" content="catParentescoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatParentescoDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TCVdaRVWEeulgL8HJ_zZVQ" name="catEgresadoUniversidadAnahuacDAO" content="catEgresadoUniversidadAnahuacDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEgresadoUniversidadAnahuacDAO" returnTypeFixed="true"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_hXFr1BSuEeu_f_YUOUUeHQ">
+        <targetForm xmi:type="expression:Expression" xmi:id="_bZMlMBVXEeulgL8HJ_zZVQ" name="newForm5" content="01179038-7106-450c-9d7e-d82c4434577a" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_hXFr1hSuEeu_f_YUOUUeHQ">
+        <targetForm xmi:type="expression:Expression" xmi:id="_hXFr1xSuEeu_f_YUOUUeHQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_2E6lsBSuEeu_f_YUOUUeHQ" target="_2ERFcBSuEeu_f_YUOUUeHQ" source="_hXFrwxSuEeu_f_YUOUUeHQ">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_2E7MwBSuEeu_f_YUOUUeHQ"/>
+        <condition xmi:type="expression:Expression" xmi:id="_2E7MwRSuEeu_f_YUOUUeHQ" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <actors xmi:type="process:Actor" xmi:id="_hXFr2xSuEeu_f_YUOUUeHQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Administrador" initiator="true"/>
+      <contract xmi:type="process:Contract" xmi:id="_hXFr3BSuEeu_f_YUOUUeHQ">
+        <inputs xmi:type="process:ContractInput" xmi:id="_TCU2UBVWEeulgL8HJ_zZVQ" name="padresTutorInput" type="COMPLEX" dataReference="padresTutor">
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2URVWEeulgL8HJ_zZVQ" name="catTitulo" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2UhVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2UxVWEeulgL8HJ_zZVQ" name="catParentezco" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2VBVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2VRVWEeulgL8HJ_zZVQ" name="nombre"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2VhVWEeulgL8HJ_zZVQ" name="apellidos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2VxVWEeulgL8HJ_zZVQ" name="correoElectronico"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2WBVWEeulgL8HJ_zZVQ" name="catEscolaridad" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2WRVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2WhVWEeulgL8HJ_zZVQ" name="catEgresoAnahuac" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2WxVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2XBVWEeulgL8HJ_zZVQ" name="catCampusEgreso" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2XRVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2XhVWEeulgL8HJ_zZVQ" name="catTrabaja" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2XxVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2YBVWEeulgL8HJ_zZVQ" name="empresaTrabaja"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2YRVWEeulgL8HJ_zZVQ" name="giroEmpresa"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2YhVWEeulgL8HJ_zZVQ" name="puesto"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2YxVWEeulgL8HJ_zZVQ" name="isTutor" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2ZBVWEeulgL8HJ_zZVQ" name="vive" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2ZRVWEeulgL8HJ_zZVQ" name="calle"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2ZhVWEeulgL8HJ_zZVQ" name="catPais" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2ZxVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2aBVWEeulgL8HJ_zZVQ" name="numeroExterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2aRVWEeulgL8HJ_zZVQ" name="numeroInterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2ahVWEeulgL8HJ_zZVQ" name="catEstado" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_TCU2axVWEeulgL8HJ_zZVQ" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2bBVWEeulgL8HJ_zZVQ" name="ciudad"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2bRVWEeulgL8HJ_zZVQ" name="colonia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2bhVWEeulgL8HJ_zZVQ" name="telefono"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2bxVWEeulgL8HJ_zZVQ" name="codigoPostal"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2cBVWEeulgL8HJ_zZVQ" name="viveContigo" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TCU2cRVWEeulgL8HJ_zZVQ" name="otroParentesco"/>
+        </inputs>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2chVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catTitulo || padresTutorInput?.catTitulo?.persistenceId_string" errorMessage="CatTitulo must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catTitulo">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2cxVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catParentezco || padresTutorInput?.catParentezco?.persistenceId_string" errorMessage="CatParentesco must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catParentezco">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2dBVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catEscolaridad || padresTutorInput?.catEscolaridad?.persistenceId_string" errorMessage="CatEscolaridad must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catEscolaridad">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2dRVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catEgresoAnahuac || padresTutorInput?.catEgresoAnahuac?.persistenceId_string" errorMessage="CatEgresadoUniversidadAnahuac must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catEgresoAnahuac">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2dhVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catCampusEgreso || padresTutorInput?.catCampusEgreso?.persistenceId_string" errorMessage="CatCampus must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catCampusEgreso">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2dxVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catTrabaja || padresTutorInput?.catTrabaja?.persistenceId_string" errorMessage="CatPadreTrabaja must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catTrabaja">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2eBVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catPais || padresTutorInput?.catPais?.persistenceId_string" errorMessage="CatPais must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catPais">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_TCU2eRVWEeulgL8HJ_zZVQ" expression="!padresTutorInput?.catEstado || padresTutorInput?.catEstado?.persistenceId_string" errorMessage="CatEstados must reference an existing instance with a persistenceId for PadresTutor" name="aggregation_padresTutorInput_catEstado">
+          <inputNames>padresTutorInput</inputNames>
+        </constraints>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hXFr3RSuEeu_f_YUOUUeHQ">
+        <name xmi:type="expression:Expression" xmi:id="_hXFr3hSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_hXFr3xSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hXFr4BSuEeu_f_YUOUUeHQ">
+        <name xmi:type="expression:Expression" xmi:id="_hXFr4RSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_hXFr4hSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hXFr4xSuEeu_f_YUOUUeHQ">
+        <name xmi:type="expression:Expression" xmi:id="_hXFr5BSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_hXFr5RSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hXFr5hSuEeu_f_YUOUUeHQ">
+        <name xmi:type="expression:Expression" xmi:id="_hXFr5xSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_hXFr6BSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hXFr6RSuEeu_f_YUOUUeHQ">
+        <name xmi:type="expression:Expression" xmi:id="_hXFr6hSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_hXFr6xSuEeu_f_YUOUUeHQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <datatypes xmi:type="process:BooleanType" xmi:id="_hXFr7BSuEeu_f_YUOUUeHQ" name="Boolean"/>
+    <datatypes xmi:type="process:DateType" xmi:id="_hXFr7RSuEeu_f_YUOUUeHQ" name="Date"/>
+    <datatypes xmi:type="process:IntegerType" xmi:id="_hXFr7hSuEeu_f_YUOUUeHQ" name="Integer"/>
+    <datatypes xmi:type="process:LongType" xmi:id="_hXFr7xSuEeu_f_YUOUUeHQ" name="Long"/>
+    <datatypes xmi:type="process:DoubleType" xmi:id="_hXFr8BSuEeu_f_YUOUUeHQ" name="Double"/>
+    <datatypes xmi:type="process:StringType" xmi:id="_hXFr8RSuEeu_f_YUOUUeHQ" name="Text"/>
+    <datatypes xmi:type="process:JavaType" xmi:id="_hXFr8hSuEeu_f_YUOUUeHQ" name="Java_object"/>
+    <datatypes xmi:type="process:XMLType" xmi:id="_hXFr8xSuEeu_f_YUOUUeHQ" name="XML"/>
+    <datatypes xmi:type="process:BusinessObjectType" xmi:id="_hXFr9BSuEeu_f_YUOUUeHQ" name="Business_Object"/>
+  </process:MainProcess>
+  <notation:Diagram xmi:id="_hXFr9RSuEeu_f_YUOUUeHQ" type="Process" element="_hXFrwBSuEeu_f_YUOUUeHQ" name="MiDiagrama1" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_hXFr9hSuEeu_f_YUOUUeHQ" type="2007" element="_hXFrwRSuEeu_f_YUOUUeHQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_hXFr9xSuEeu_f_YUOUUeHQ" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_hXFr-BSuEeu_f_YUOUUeHQ" type="7001">
+        <children xmi:type="notation:Node" xmi:id="_hXFr-RSuEeu_f_YUOUUeHQ" type="3007" element="_hXFrwhSuEeu_f_YUOUUeHQ">
+          <children xmi:type="notation:DecorationNode" xmi:id="_hXFr-hSuEeu_f_YUOUUeHQ" type="5007"/>
+          <children xmi:type="notation:DecorationNode" xmi:id="_hXFr-xSuEeu_f_YUOUUeHQ" type="7002">
+            <children xmi:type="notation:Shape" xmi:id="_hXFr_xSuEeu_f_YUOUUeHQ" type="3002" element="_hXFrwxSuEeu_f_YUOUUeHQ" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_hXFsABSuEeu_f_YUOUUeHQ" type="5024">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_hXFsARSuEeu_f_YUOUUeHQ" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hXFsAhSuEeu_f_YUOUUeHQ" x="60" y="68"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_2EUv0BSuEeu_f_YUOUUeHQ" type="3062" element="_2ERFcBSuEeu_f_YUOUUeHQ" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_2EWlABSuEeu_f_YUOUUeHQ" type="5090">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_2EWlARSuEeu_f_YUOUUeHQ" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2EUv0RSuEeu_f_YUOUUeHQ" x="186" y="68"/>
+            </children>
+          </children>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_hXFsAxSuEeu_f_YUOUUeHQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hXFsBBSuEeu_f_YUOUUeHQ" fontName="Segoe UI"/>
+          <styles xmi:type="notation:LineStyle" xmi:id="_hXFsBRSuEeu_f_YUOUUeHQ"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_hXFsBhSuEeu_f_YUOUUeHQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hXFsBxSuEeu_f_YUOUUeHQ"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_hXFsCBSuEeu_f_YUOUUeHQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_hXFsCRSuEeu_f_YUOUUeHQ" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_hXFsChSuEeu_f_YUOUUeHQ"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_hXFsCxSuEeu_f_YUOUUeHQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hXFsDBSuEeu_f_YUOUUeHQ" width="800" height="250"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_hXFsDRSuEeu_f_YUOUUeHQ"/>
+    <edges xmi:type="notation:Connector" xmi:id="_2E9pABSuEeu_f_YUOUUeHQ" type="4001" element="_2E6lsBSuEeu_f_YUOUUeHQ" source="_hXFr_xSuEeu_f_YUOUUeHQ" target="_2EUv0BSuEeu_f_YUOUUeHQ" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_2E-3IBSuEeu_f_YUOUUeHQ" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_2E-3IRSuEeu_f_YUOUUeHQ" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_2E9pARSuEeu_f_YUOUUeHQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_2E-QEBSuEeu_f_YUOUUeHQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>
