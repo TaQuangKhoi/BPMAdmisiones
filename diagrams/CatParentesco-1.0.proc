@@ -12,15 +12,15 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_K-hLYRfcEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_K-hLYBfcEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_K-hLYhfcEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
-          <operations xmi:type="expression:Operation" xmi:id="_UZNkNxfcEeuoSd8nCjYXgw">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_UZNkOBfcEeuoSd8nCjYXgw" name="lstCatParentesco" content="lstCatParentesco" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UZNkORfcEeuoSd8nCjYXgw" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco"/>
+          <operations xmi:type="expression:Operation" xmi:id="_W5QXNx3_Eeunj4DJqM7xOA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_W5QXOB3_Eeunj4DJqM7xOA" name="lstCatParentesco" content="lstCatParentesco" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_W5QXOR3_Eeunj4DJqM7xOA" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_UZNkOhfcEeuoSd8nCjYXgw" name="lstCatParentescoInput" content="def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = lstCatParentesco.find { it.persistenceId.toString() == currentCatParentescoInput.persistenceId_string} ?: new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = currentCatParentescoInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_UZNkOxfcEeuoSd8nCjYXgw" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UZNkPBfcEeuoSd8nCjYXgw" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_W5QXOh3_Eeunj4DJqM7xOA" name="lstCatParentescoInput" content="def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = lstCatParentesco.find { it.persistenceId.toString() == currentCatParentescoInput.persistenceId_string} ?: new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = currentCatParentescoInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_W5QXOx3_Eeunj4DJqM7xOA" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_W5QXPB3_Eeunj4DJqM7xOA" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco"/>
             </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_UZNkPRfcEeuoSd8nCjYXgw" type="ASSIGNMENT" expression="addAll">
+            <operator xmi:type="expression:Operator" xmi:id="_W5QXPR3_Eeunj4DJqM7xOA" type="ASSIGNMENT" expression="addAll">
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
@@ -30,28 +30,28 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_K-hLZxfcEeuoSd8nCjYXgw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_K-hLZhfcEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_K-hLaRfcEeuoSd8nCjYXgw">
-            <targetForm xmi:type="expression:Expression" xmi:id="_K-hLahfcEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_HY6OwB3_Eeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_K-hLaBfcEeuoSd8nCjYXgw">
-            <inputs xmi:type="process:ContractInput" xmi:id="_UZNkMBfcEeuoSd8nCjYXgw" name="lstCatParentescoInput" type="COMPLEX" multiple="true" dataReference="lstCatParentesco" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkMRfcEeuoSd8nCjYXgw" name="persistenceId_string" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkMhfcEeuoSd8nCjYXgw" name="clave" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkMxfcEeuoSd8nCjYXgw" name="descripcion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkNBfcEeuoSd8nCjYXgw" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkNRfcEeuoSd8nCjYXgw" name="usuarioCreacion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_UZNkNhfcEeuoSd8nCjYXgw" name="isEliminado" type="BOOLEAN" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_W5QXMB3_Eeunj4DJqM7xOA" name="lstCatParentescoInput" type="COMPLEX" multiple="true" dataReference="lstCatParentesco" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXMR3_Eeunj4DJqM7xOA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXMh3_Eeunj4DJqM7xOA" name="clave" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXMx3_Eeunj4DJqM7xOA" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXNB3_Eeunj4DJqM7xOA" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXNR3_Eeunj4DJqM7xOA" name="usuarioCreacion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_W5QXNh3_Eeunj4DJqM7xOA" name="isEliminado" type="BOOLEAN" createMode="false"/>
             </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_K-hLaxfcEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
       </elements>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_THgEsBfcEeuoSd8nCjYXgw" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Y6kaFhfdEeuoSd8nCjYXgw" name="initLstCatParentesco()" content="def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = currentCatParentescoInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_Y6kaFxfdEeuoSd8nCjYXgw" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_CpQBsB3_Eeunj4DJqM7xOA" name="lstCatParentesco" multiple="true" dataType="_sZaMhA9hEeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatParentesco">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_EVdE1h3_Eeunj4DJqM7xOA" name="initLstCatParentesco()" content="def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = currentCatParentescoInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_EVdE1x3_Eeunj4DJqM7xOA" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_sZaMZA9hEeuWmKuQrw-sHQ">
-        <targetForm xmi:type="expression:Expression" xmi:id="_zrB68BfUEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_HY6OwR3_Eeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_sZaMZg9hEeuWmKuQrw-sHQ">
         <targetForm xmi:type="expression:Expression" xmi:id="_sZaMZw9hEeuWmKuQrw-sHQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -66,12 +66,12 @@
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_sZaMaw9hEeuWmKuQrw-sHQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
       <contract xmi:type="process:Contract" xmi:id="_sZaMbA9hEeuWmKuQrw-sHQ">
-        <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaEBfdEeuoSd8nCjYXgw" name="lstCatParentescoInput" type="COMPLEX" multiple="true" dataReference="lstCatParentesco">
-          <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaERfdEeuoSd8nCjYXgw" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaEhfdEeuoSd8nCjYXgw" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaExfdEeuoSd8nCjYXgw" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaFBfdEeuoSd8nCjYXgw" name="usuarioCreacion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Y6kaFRfdEeuoSd8nCjYXgw" name="isEliminado" type="BOOLEAN"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_EVdE0B3_Eeunj4DJqM7xOA" name="lstCatParentescoInput" type="COMPLEX" multiple="true" dataReference="lstCatParentesco">
+          <inputs xmi:type="process:ContractInput" xmi:id="_EVdE0R3_Eeunj4DJqM7xOA" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_EVdE0h3_Eeunj4DJqM7xOA" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_EVdE0x3_Eeunj4DJqM7xOA" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_EVdE1B3_Eeunj4DJqM7xOA" name="usuarioCreacion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_EVdE1R3_Eeunj4DJqM7xOA" name="isEliminado" type="BOOLEAN"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_sZaMbQ9hEeuWmKuQrw-sHQ">

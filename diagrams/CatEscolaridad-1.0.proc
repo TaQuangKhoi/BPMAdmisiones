@@ -12,15 +12,36 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_ZfLN4RfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_ZfLN4BfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_ZfLN4hfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_DEmFtx1WEeuvSK3muaEJqg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_DEmFuB1WEeuvSK3muaEJqg" name="lstCatEscolaridad" content="lstCatEscolaridad" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DEmFuR1WEeuvSK3muaEJqg" name="lstCatEscolaridad" multiple="true" dataType="_nLjVYw8-EeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatEscolaridad"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_DEmFuh1WEeuvSK3muaEJqg" name="lstCatEscolaridadInput" content="def catEscolaridadList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatEscolaridadInput.each{&#xD;&#xA;&#x9;//Add CatEscolaridad instance&#xD;&#xA;&#x9;catEscolaridadList.add({ currentCatEscolaridadInput ->&#xD;&#xA;&#x9;&#x9;def catEscolaridadVar = lstCatEscolaridad.find { it.persistenceId.toString() == currentCatEscolaridadInput.persistenceId_string} ?: new com.anahuac.catalogos.CatEscolaridad()&#xD;&#xA;&#x9;&#x9;catEscolaridadVar.clave = currentCatEscolaridadInput.clave&#xD;&#xA;&#x9;&#x9;catEscolaridadVar.descripcion = currentCatEscolaridadInput.descripcion&#xD;&#xA;&#x9;&#x9;catEscolaridadVar.fechaCreacion = currentCatEscolaridadInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catEscolaridadVar.usuarioCreacion = currentCatEscolaridadInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catEscolaridadVar.isEliminado = currentCatEscolaridadInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catEscolaridadVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catEscolaridadList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_DEmFux1WEeuvSK3muaEJqg" name="lstCatEscolaridadInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DEmFvB1WEeuvSK3muaEJqg" name="lstCatEscolaridad" multiple="true" dataType="_nLjVYw8-EeuWmKuQrw-sHQ" className="com.anahuac.catalogos.CatEscolaridad"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_DEmswB1WEeuvSK3muaEJqg" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ZfLN4xfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ZfLN5BfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ZfLN5RfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_ZfLN5xfbEeuoSd8nCjYXgw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_ZfLN5hfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_ZfLN6RfbEeuoSd8nCjYXgw">
-            <targetForm xmi:type="expression:Expression" xmi:id="_ZfLN6hfbEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_jjBHkB1QEeuvSK3muaEJqg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_ZfLN6BfbEeuoSd8nCjYXgw"/>
+          <contract xmi:type="process:Contract" xmi:id="_ZfLN6BfbEeuoSd8nCjYXgw">
+            <inputs xmi:type="process:ContractInput" xmi:id="_DEmFsB1WEeuvSK3muaEJqg" name="lstCatEscolaridadInput" type="COMPLEX" multiple="true" dataReference="lstCatEscolaridad" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFsR1WEeuvSK3muaEJqg" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFsh1WEeuvSK3muaEJqg" name="clave" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFsx1WEeuvSK3muaEJqg" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFtB1WEeuvSK3muaEJqg" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFtR1WEeuvSK3muaEJqg" name="usuarioCreacion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_DEmFth1WEeuvSK3muaEJqg" name="isEliminado" type="BOOLEAN" createMode="false"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_ZfLN6xfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
       </elements>
@@ -30,7 +51,7 @@
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_nLjVQw8-EeuWmKuQrw-sHQ">
-        <targetForm xmi:type="expression:Expression" xmi:id="_21Y-IBfUEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_tICu0B1VEeuvSK3muaEJqg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_nLjVRQ8-EeuWmKuQrw-sHQ">
         <targetForm xmi:type="expression:Expression" xmi:id="_nLjVRg8-EeuWmKuQrw-sHQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
