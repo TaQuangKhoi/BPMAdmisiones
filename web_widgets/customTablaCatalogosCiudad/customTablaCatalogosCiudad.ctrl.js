@@ -31,6 +31,7 @@ function PbTableCtrl($scope, $http, modalService) {
             $scope.properties.selectedToModificate[0].pais = $scope.properties.contenido[index].pais;
             $scope.properties.selectedToModificate[0].estado = $scope.properties.contenido[index].estado;
             $scope.properties.selectedToModificate[0].campus = $scope.properties.contenido[index].campus;
+            $scope.properties.selectedToModificate[0].region = $scope.properties.contenido[index].region;
             $scope.properties.isModificacion = true;
             $scope.properties.index = index;
     }

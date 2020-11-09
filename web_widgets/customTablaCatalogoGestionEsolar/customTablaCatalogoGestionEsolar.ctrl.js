@@ -29,8 +29,8 @@ function PbTableCtrl($scope, $http, modalService) {
             $scope.properties.selectedToModificate[0].propedeutico = $scope.properties.contenido[index].propedeutico;
             $scope.properties.selectedToModificate[0].programaparcial = $scope.properties.contenido[index].programaparcial;
             $scope.properties.selectedToModificate[0].matematicas = $scope.properties.contenido[index].matematicas;
-            $scope.properties.selectedToModificate[0].inscripcionenero = $scope.properties.contenido[index].inscripcionenero;
-            $scope.properties.selectedToModificate[0].inscripcionagosto = $scope.properties.contenido[index].inscripcionagosto;
+            $scope.properties.selectedToModificate[0].inscripcionenero = parseInt($scope.properties.contenido[index].inscripcionenero);
+            $scope.properties.selectedToModificate[0].inscripcionagosto = parseInt($scope.properties.contenido[index].inscripcionagosto);
             $scope.properties.selectedToModificate[0].periododisponible = $scope.properties.contenido[index].periododisponible;
             $scope.properties.selectedToModificate[0].tipocentroestudios = $scope.properties.contenido[index].tipocentroestudios;
             $scope.properties.selectedToModificate[0].usuarioCreacion = $scope.properties.contenido[index].usuarioCreacion;

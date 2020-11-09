@@ -23,6 +23,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.contenido[$scope.properties.index].pais = $scope.properties.nuevosValores[0].pais;
                 $scope.properties.contenido[$scope.properties.index].estado = $scope.properties.nuevosValores[0].estado;
                 $scope.properties.contenido[$scope.properties.index].campus = $scope.properties.nuevosValores[0].campus;
+                $scope.properties.contenido[$scope.properties.index].region = $scope.properties.nuevosValores[0].region;
                 $scope.properties.nuevosValores = [];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }
