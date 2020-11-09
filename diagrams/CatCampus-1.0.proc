@@ -30,7 +30,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_ZUYagRfYEeuoSd8nCjYXgw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_ZUYagBfYEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_ZUYagxfYEeuoSd8nCjYXgw">
-            <targetForm xmi:type="expression:Expression" xmi:id="_aYNvoBiUEeu38ZF-48EFNQ" name="newForm8" content="a8d8b93f-af29-47c5-8179-18eba661159f" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_E1PFUBoTEeuwVMVyp1Ycow" name="newForm13" content="8809a180-d09b-4582-8c74-0a6d68742baa" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_ZUYaghfYEeuoSd8nCjYXgw">
             <inputs xmi:type="process:ContractInput" xmi:id="_0lA6IBfYEeuoSd8nCjYXgw" name="lstcatCampusInput" type="COMPLEX" multiple="true" dataReference="lstCatCampus" createMode="false">
@@ -52,8 +52,13 @@
           <referencedElements xmi:type="process:ContractInput" xmi:id="_ksDn8RfZEeuoSd8nCjYXgw" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_WWGwgByDEeuYptiZIOErIQ" name="objProcesoCaso" dataType="_0DQy1BIfEeunGIjL610y7g" className="com.anahuac.model.ProcesoCaso">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Y0amAxyDEeuYptiZIOErIQ" name="initObjProcesoCaso()" content="def procesoCasoVar = new com.anahuac.model.ProcesoCaso()&#xD;&#xA;procesoCasoVar.campus = objProcesoCasoInput?.campus&#xD;&#xA;procesoCasoVar.proceso = objProcesoCasoInput?.proceso&#xD;&#xA;return procesoCasoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.ProcesoCaso">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_Y0amBByDEeuYptiZIOErIQ" name="objProcesoCasoInput" type="COMPLEX"/>
+        </defaultValue>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_0DQytBIfEeunGIjL610y7g">
-        <targetForm xmi:type="expression:Expression" xmi:id="_U4Z6MBijEeu38ZF-48EFNQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_4OdyEByDEeuYptiZIOErIQ" name="newForm21" content="eb20e370-ab37-4efe-94e1-4ac6e120b245" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_0DQythIfEeunGIjL610y7g">
         <targetForm xmi:type="expression:Expression" xmi:id="_0DQytxIfEeunGIjL610y7g" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -76,6 +81,10 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_ksDA5RfZEeuoSd8nCjYXgw" name="fechaImplementacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_ksDA5hfZEeuoSd8nCjYXgw" name="clave"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_ksDA5xfZEeuoSd8nCjYXgw" name="isEnabled" type="BOOLEAN"/>
+        </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_Y0amAByDEeuYptiZIOErIQ" name="objProcesoCasoInput" type="COMPLEX" dataReference="objProcesoCaso">
+          <inputs xmi:type="process:ContractInput" xmi:id="_Y0amARyDEeuYptiZIOErIQ" name="campus"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Y0amAhyDEeuYptiZIOErIQ" name="proceso"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_0DQyvRIfEeunGIjL610y7g">

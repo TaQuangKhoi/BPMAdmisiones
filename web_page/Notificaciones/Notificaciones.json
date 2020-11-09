@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Notificaciones",
   "name" : "Notificaciones",
-  "lastUpdate" : 1603924067450,
+  "lastUpdate" : 1604868671010,
   "rows" : [
     [
       {
@@ -740,40 +740,22 @@
                           "Tipo de correo",
                           "Código",
                           "Descripción",
-                          "Tipo",
+                          "Tipo correo",
                           "Acciones"
                         ]
                       },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "Bonita API"
-                      },
-                      "apiUrl" : {
-                        "type" : "constant",
-                        "value" : "../API/"
-                      },
-                      "params" : {
-                        "type" : "constant"
-                      },
-                      "content" : {
-                        "type" : "constant"
-                      },
                       "columnsKey" : {
-                        "type" : "constant"
-                      },
-                      "sortColumns" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : [
+                          "tipoCorreo",
+                          "codigo",
+                          "descripcion",
+                          "tipoDocumento"
+                        ]
                       },
                       "selectedRow" : {
                         "type" : "variable",
                         "value" : ""
-                      },
-                      "pageSize" : {
-                        "type" : "constant",
-                        "value" : 10
-                      },
-                      "filter" : {
-                        "type" : "constant"
                       },
                       "striped" : {
                         "type" : "constant",
@@ -786,11 +768,65 @@
                       "bordered" : {
                         "type" : "constant",
                         "value" : false
+                      },
+                      "contenido" : {
+                        "type" : "variable",
+                        "value" : "getCatNotificaciones"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "urlConsulta" : {
+                        "type" : "interpolation"
+                      },
+                      "objTaskInformation" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "urlTaskInformation" : {
+                        "type" : "interpolation"
+                      },
+                      "isModificacion" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "selectedToModificate" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "index" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "mostrarPantallaEditar" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : "selectedIndex"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Siguiente"
+                      },
+                      "wizardLength" : {
+                        "type" : "variable",
+                        "value" : "wizardContent.length"
                       }
                     },
-                    "reference" : "d7b61cfe-a970-47de-886b-172a3ff7a0bf",
+                    "reference" : "e69ea0b2-7d16-45bb-a085-71e57874a3b3",
                     "hasValidationError" : false,
-                    "id" : "pbDataTable"
+                    "id" : "customTablaCatalogoNotificaciones"
                   }
                 ]
               ]
@@ -2118,272 +2154,6 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 5
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<span class=\"\" aria-hidden=\"true\"></span> Rotar"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "warning"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "6329c0e6-74d1-48e0-843e-2ea3f8846222",
-                          "hasValidationError" : false,
-                          "id" : "pbButton"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Recortar"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "warning"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "0c64ab61-2fd4-4bac-8cbf-1f63cbde7953",
-                          "hasValidationError" : false,
-                          "id" : "pbButton"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<span class=\"glyphicon glyphicon-repeat\" aria-hidden=\"true\"></span> Rotar"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "right"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "warning"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "1de4f9b2-75d2-40e1-af78-b7f92fd6494a",
-                          "hasValidationError" : false,
-                          "id" : "pbButton"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
                             "md" : 12,
                             "lg" : 12
                           },
@@ -2396,23 +2166,61 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "srcType" : {
+                            "required" : {
                               "type" : "constant",
-                              "value" : "URL"
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Subirimagen"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
                             },
                             "url" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : "../API/formFileUpload"
                             },
-                            "assetName" : {
-                              "type" : "constant"
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "imagenBanner"
                             },
-                            "alt" : {
-                              "type" : "interpolation"
+                            "errorContent" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "urlretorno" : {
+                              "type" : "variable",
+                              "value" : "urlImagenBanner"
+                            },
+                            "isImagen" : {
+                              "type" : "variable",
+                              "value" : "true"
+                            },
+                            "isPDF" : {
+                              "type" : "variable",
+                              "value" : "false"
+                            },
+                            "anguloImagen" : {
+                              "type" : "variable",
+                              "value" : ""
                             }
                           },
-                          "reference" : "28a00d3e-dfb4-40bd-b55b-a25bac6da663",
+                          "reference" : "4209822c-22c6-47eb-87c8-52e7710078a0",
                           "hasValidationError" : false,
-                          "id" : "pbImage"
+                          "id" : "customUploadCustomImagenNotificaciones"
                         }
                       ],
                       [
@@ -2537,60 +2345,74 @@
                               "type" : "constant",
                               "value" : "warning"
                             },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
+                            "contenido" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "getCatPagoExamen"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "objTaskInformation[0].id"
                             },
                             "dataToSend" : {
-                              "type" : "constant"
+                              "type" : "variable",
+                              "value" : "formOutput"
                             },
-                            "dataFromSuccess" : {
+                            "urlConsulta" : {
+                              "type" : "interpolation",
+                              "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatNotificaciones?q=getCatNotificaciones&p=0&c=9999"
+                            },
+                            "objTaskInformation" : {
+                              "type" : "variable",
+                              "value" : "objTaskInformation"
+                            },
+                            "urlTaskInformation" : {
+                              "type" : "interpolation",
+                              "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+                            },
+                            "nuevosValores" : {
+                              "type" : "variable",
+                              "value" : "selectedToModificate"
+                            },
+                            "isModificacion" : {
+                              "type" : "variable",
+                              "value" : "true"
+                            },
+                            "index" : {
+                              "type" : "variable",
+                              "value" : "objModificacion.index"
+                            },
+                            "mostrarPantallaEditar" : {
                               "type" : "variable",
                               "value" : ""
                             },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
+                            "mostrarPantallaAgregarPagoExamenAdmision" : {
                               "type" : "variable",
                               "value" : ""
                             },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
+                            "cerrarOpcionesDePago" : {
+                              "type" : "variable",
                               "value" : ""
                             },
-                            "collectionPosition" : {
+                            "cerrarPantallaDePago" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "cerrarPantallaPagoDeshabilitado" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "pagoExamenDeshabilitadoOHabilitado" : {
                               "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
+                              "value" : true
                             }
                           },
-                          "reference" : "8b5cf4c2-2e6f-421b-aeaa-5ee5441df941",
+                          "reference" : "b96d24b2-9a0d-4f04-a72d-933cbd6e432a",
                           "hasValidationError" : false,
-                          "id" : "pbButton"
+                          "id" : "customBtnGuardarImagenNotificaciones"
                         }
                       ],
                       [
@@ -7015,6 +6837,10 @@
                       "valor" : {
                         "type" : "constant",
                         "value" : true
+                      },
+                      "selectedIndex" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "9a9c350e-4377-4694-a978-c88f727ae401",
@@ -10288,130 +10114,6 @@
               ]
             },
             {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 3
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "col-lg-offset-1 col-md-offset-1 col-sm-offset-1"
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "selectedIndex < 0"
-                },
-                "value" : {
-                  "type" : "constant",
-                  "value" : "This is the initial value"
-                },
-                "color" : {
-                  "type" : "constant",
-                  "value" : "RebeccaPurple"
-                },
-                "background" : {
-                  "type" : "constant",
-                  "value" : "Yellow"
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Anterior"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "wizardLength" : {
-                  "type" : "variable",
-                  "value" : "wizardContent.length"
-                },
-                "selectedIndex" : {
-                  "type" : "variable",
-                  "value" : "selectedIndex"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Anterior"
-                }
-              },
-              "reference" : "1fce646a-d3bf-4bc0-931c-f88a4daddda1",
-              "hasValidationError" : false,
-              "id" : "customWitgetBtnWizardNotificaciones"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 3
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "col-lg-offset-1 col-md-offset-1 col-sm-offset-1"
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "value" : {
-                  "type" : "constant",
-                  "value" : "This is the initial value"
-                },
-                "color" : {
-                  "type" : "constant",
-                  "value" : "RebeccaPurple"
-                },
-                "background" : {
-                  "type" : "constant",
-                  "value" : "Yellow"
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Siguiente"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "wizardLength" : {
-                  "type" : "variable",
-                  "value" : "wizardContent.length"
-                },
-                "selectedIndex" : {
-                  "type" : "variable",
-                  "value" : "selectedIndex"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Siguiente"
-                }
-              },
-              "reference" : "8017b81d-d4fe-42e8-acba-c2b893aac00e",
-              "hasValidationError" : false,
-              "id" : "customWitgetBtnWizardNotificaciones"
-            },
-            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -10443,9 +10145,68 @@
           ]
         ]
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "{{urlImagenBanner}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "774430e4-d1e4-46e7-9c5c-166f933a247b",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
     ]
   ],
   "assets" : [
+    {
+      "id" : "e17d3ef7-a1f9-4472-b8f9-859f6db3a5c7",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
     {
       "id" : "7125392e-78af-40ee-9b9f-b805a84ec148",
       "name" : "jquery.min.js",
@@ -10464,13 +10225,6 @@
       "id" : "a795bd7a-3f29-43dd-aaf6-bddf987c4378",
       "name" : "localization.json",
       "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "e17d3ef7-a1f9-4472-b8f9-859f6db3a5c7",
-      "name" : "style.css",
-      "type" : "css",
       "order" : 0,
       "external" : false
     },
@@ -10540,6 +10294,129 @@
       "type" : "json",
       "value" : [
         "{\"visible\": false}"
+      ],
+      "exposed" : false
+    },
+    "imagenBanner" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "urlImagenBanner" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "context" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return { lstCatNotificacionesInput: $data.objContrato }\t"
+      ],
+      "exposed" : false
+    },
+    "getCatNotificaciones" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatNotificaciones?q=getCatNotificaciones&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "objCaseInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCampus&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+      ],
+      "exposed" : false
+    },
+    "objContrato" : {
+      "type" : "expression",
+      "value" : [
+        "var obj={};\r",
+        "var resultado=[];\r",
+        "for(var index in $data.getCatNotificaciones){\r",
+        "   obj[\"persistenceId_string\"]= $data.getCatNotificaciones[index].persistenceId_string;\r",
+        "    obj[\"descripcion\"]= $data.getCatNotificaciones[index].descripcion;\r",
+        "    obj[\"tipoCorreo\"]= $data.getCatNotificaciones[index].tipoCorreo;\r",
+        "    obj[\"isEliminado\"]= $data.getCatNotificaciones[index].isEliminado;\r",
+        "    obj[\"codigo\"]= $data.getCatNotificaciones[index].codigo;\r",
+        "    obj[\"tipoDocumento\"]= $data.getCatNotificaciones[index].tipoDocumento;\r",
+        "    obj[\"nombreImagenHeader\"]= $data.getCatNotificaciones[index].nombreImagenHeader;\r",
+        "    obj[\"anguloImagenHeader\"]= $data.getCatNotificaciones[index].anguloImagenHeader;\r",
+        "    obj[\"nombreImagenFooter\"]= $data.getCatNotificaciones[index].nombreImagenFooter;\r",
+        "    obj[\"anguloImagenFooter\"]= $data.getCatNotificaciones[index].anguloImagenFooter;\r",
+        "    resultado.push(angular.copy(obj));\r",
+        "}\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "objModificacion" : {
+      "type" : "expression",
+      "value" : [
+        "{\"index\" : \"\",",
+        " \"isModifica cion\" : false,",
+        " \"validacion\" : false",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "objTaskInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+      ],
+      "exposed" : false
+    },
+    "selectedToModificate" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    {\r",
+        "        \"persistenceId_string\" : \"\",\r",
+        "        \"tipoCorreo\" : \"\",\r",
+        "        \"descripcion\" : \"\",\r",
+        "        \"codigo\" : \"\",\r",
+        "        \"tipoDocumento\": \"\",\r",
+        "        \"nombreImagenHeader\": \"\",\r",
+        "        \"anguloImagenHeader\": \"\",\r",
+        "        \"nombreImagenFooter\": \"\",\r",
+        "        \"anguloImagenFooter\": \"\",\r",
+        "        \"instruccionesDePago\": \"\"\r",
+        "    }\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "submit_errors_list" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutput && $data.formOutput._submitError && $data.formOutput._submitError.explanations){ const liElements = $data.formOutput._submitError.explanations .filter(cause => cause !== null) .map(cause => \"<li>\" + cause + \"</li>\") .join(''); if(liElements){ return \"<ul>\" + liElements + \"</ul>\"; } }\t"
+      ],
+      "exposed" : false
+    },
+    "task" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.objTaskInformation[0].id"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
       ],
       "exposed" : false
     }

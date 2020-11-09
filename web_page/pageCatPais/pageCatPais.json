@@ -1,0 +1,113 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "pageCatPais",
+  "name" : "pageCatPais",
+  "lastUpdate" : 1603991986536,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{contrato|json}}</pre>.\n<pre>{{objTaskInformation|json}}</pre>."
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "fe4fa54c-eea8-4e4f-9fd9-c8f18560e23b",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "30e0ec88-d2df-45ff-b3a9-19b949d9243a",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "3f834b58-69d1-4882-80e6-1da859c42b2d",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "objCaseInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatPais&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+      ],
+      "exposed" : false
+    },
+    "objTaskInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+      ],
+      "exposed" : false
+    },
+    "contrato" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"lstCatPaisInput\": $data.getPais",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getPais" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPais&p=0&c=9999"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "bf908f68-5ac4-407b-a470-edf54445af76",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}
