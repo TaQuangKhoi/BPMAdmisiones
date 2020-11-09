@@ -20,8 +20,6 @@ function PbButtonCtrl($scope, $http,  modalService) {
             }else{
                 $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
-                $scope.properties.contenido[$scope.properties.index].fechaCreacion = $scope.properties.nuevosValores[0].fechaCreacion;
-                $scope.properties.contenido[$scope.properties.index].usuarioCreacion = $scope.properties.nuevosValores[0].usuarioCreacion;
                 $scope.properties.nuevosValores = [];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }

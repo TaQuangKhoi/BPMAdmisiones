@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "comentarios",
   "name" : "comentarios",
-  "lastUpdate" : 1604445280354,
+  "lastUpdate" : 1604592770476,
   "rows" : [
     [
       {
@@ -191,12 +191,89 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "comentario"
                       }
                     },
                     "reference" : "3b98d164-9de1-4cc2-8b47-461fd40facd9",
                     "hasValidationError" : false,
                     "id" : "pbTextarea"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "minLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "maxLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "readOnly" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Modulo"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "modulo"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "text"
+                      },
+                      "min" : {
+                        "type" : "constant"
+                      },
+                      "max" : {
+                        "type" : "constant"
+                      },
+                      "step" : {
+                        "type" : "constant",
+                        "value" : 1
+                      }
+                    },
+                    "reference" : "6fd03a77-d67e-43de-93b1-3e1926d799c1",
+                    "hasValidationError" : false,
+                    "id" : "pbInput"
                   }
                 ],
                 [
@@ -235,7 +312,7 @@
                       },
                       "action" : {
                         "type" : "constant",
-                        "value" : "Submit task"
+                        "value" : "Start process"
                       },
                       "assign" : {
                         "type" : "constant",
@@ -249,7 +326,8 @@
                         "value" : ""
                       },
                       "dataToSend" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "formOutput"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -261,7 +339,7 @@
                       },
                       "dataFromError" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "formOutput._submitError"
                       },
                       "targetUrlOnSuccess" : {
                         "type" : "interpolation"
@@ -507,9 +585,9 @@
                         "type" : "variable"
                       }
                     },
-                    "reference" : "7fce602c-e0b7-4745-8a0f-b80e9ac26b54",
+                    "reference" : "b61611bc-b9f3-457b-81ad-9a91131dc94f",
                     "hasValidationError" : false,
-                    "id" : "customWidgetButtoncustome"
+                    "id" : "customButtonPrint"
                   }
                 ],
                 [
@@ -544,10 +622,17 @@
                         ]
                       },
                       "content" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "lstCatBitacoraComentarios"
                       },
                       "columnsKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : [
+                          "comentario",
+                          "usuario",
+                          "fechaCreacion",
+                          "modulo"
+                        ]
                       },
                       "selectedRow" : {
                         "type" : "variable",
@@ -595,9 +680,82 @@
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "lstCatBitacoraComentarios" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.bitacora.CatBitacoraComentarios?q=getCatBitacoraComentarios&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "datos" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"comentario\":$data.comentario,",
+        "    \"usuario\": $data.userData.user_name,",
+        "    \"modulo\":$data.modulo,",
+        "    \"fechaCreacion\":$data.getFecha,",
+        "    \"isEliminado\":false",
+        "    }"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "getFecha" : {
+      "type" : "expression",
+      "value" : [
+        "const date = new Date();",
+        "const offsetMs = date.getTimezoneOffset() * 60 * 1000;",
+        "const msLocal =  date.getTime() - offsetMs;",
+        "const dateLocal = new Date(msLocal);",
+        "const iso = dateLocal.toISOString();",
+        "const isoLocal = iso.slice(0, 19);",
+        "return isoLocal;"
+      ],
+      "exposed" : false
+    },
+    "comentario" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "modulo" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "\tlstCatBitacoraComentariosInput: $data.datos",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "submit_errors_list" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutput && $data.formOutput._submitError && $data.formOutput._submitError.explanations){",
+        "\tconst liElements = $data.formOutput._submitError.explanations",
+        "\t\t.filter(cause => cause !== null)",
+        "\t\t.map(cause => \"<li>\" + cause + \"</li>\")",
+        "\t\t.join('');",
+        "\tif(liElements){",
+        "\t\treturn \"<ul>\" + liElements + \"</ul>\";",
+        "\t}",
+        "}"
+      ],
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "d654e17b-8d4e-40e3-8601-3b2f63fc6aaa",
-  "type" : "page",
+  "type" : "form",
   "description" : "Page generated with Bonita UI designer"
 }

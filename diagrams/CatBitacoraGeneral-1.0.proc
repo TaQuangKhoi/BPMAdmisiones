@@ -3,51 +3,20 @@
   <process:MainProcess xmi:id="_AiwHEB4yEeunj4DJqM7xOA" name="CatBitacoraGeneral" author="pc" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002443617442697461636F726147656E6572616C372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_AiwHER4yEeunj4DJqM7xOA" name="CatBitacoraGeneral">
       <elements xmi:type="process:Lane" xmi:id="_AiwHEh4yEeunj4DJqM7xOA" name="Employee lane" actor="_AiwHKx4yEeunj4DJqM7xOA">
-        <elements xmi:type="process:StartEvent" xmi:id="_AiwHEx4yEeunj4DJqM7xOA" name="Start1" outgoing="_AiwHKB4yEeunj4DJqM7xOA">
+        <elements xmi:type="process:StartEvent" xmi:id="_AiwHEx4yEeunj4DJqM7xOA" name="Start1" outgoing="_qCwwEB7uEeuE88m-k65S0g">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_AiwHFB4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_AiwHFR4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_AiwHFh4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:Task" xmi:id="_AiwHFx4yEeunj4DJqM7xOA" name="ACCIONES" outgoing="_gZBDIB40Eeunj4DJqM7xOA" incoming="_AiwHKB4yEeunj4DJqM7xOA _gZBDIB40Eeunj4DJqM7xOA" overrideActorsOfTheLane="false">
-          <dynamicLabel xmi:type="expression:Expression" xmi:id="_AiwHGB4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
-          <dynamicDescription xmi:type="expression:Expression" xmi:id="_AiwHGR4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
-          <stepSummary xmi:type="expression:Expression" xmi:id="_AiwHGh4yEeunj4DJqM7xOA" name="" content="" returnTypeFixed="true"/>
-          <operations xmi:type="expression:Operation" xmi:id="_Sv728B43Eeunj4DJqM7xOA">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_Sv728R43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneral" content="lstCatBitacoraGeneral" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Sv728h43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneral" multiple="true" dataType="_AiwHRB4yEeunj4DJqM7xOA" className="com.anahuac.bitacora.CatBitacoraComentarios"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_Sv728x43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneralInput" content="def catBitacoraComentariosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatBitacoraGeneralInput.each{&#xD;&#xA;&#x9;//Add CatBitacoraComentarios instance&#xD;&#xA;&#x9;catBitacoraComentariosList.add({ currentCatBitacoraComentariosInput ->&#xD;&#xA;&#x9;&#x9;def catBitacoraComentariosVar = lstCatBitacoraGeneral.find { it.persistenceId.toString() == currentCatBitacoraComentariosInput.persistenceId_string} ?: new com.anahuac.bitacora.CatBitacoraComentarios()&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.comentario = currentCatBitacoraComentariosInput.comentario&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.usuario = currentCatBitacoraComentariosInput.usuario&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.fechaCreacion = currentCatBitacoraComentariosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.modulo = currentCatBitacoraComentariosInput.modulo&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.isEliminado = currentCatBitacoraComentariosInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catBitacoraComentariosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catBitacoraComentariosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_Sv729B43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneralInput" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Sv729R43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneral" multiple="true" dataType="_AiwHRB4yEeunj4DJqM7xOA" className="com.anahuac.bitacora.CatBitacoraComentarios"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_Sv729h43Eeunj4DJqM7xOA" type="ASSIGNMENT" expression="addAll">
-              <inputTypes>java.util.Collection</inputTypes>
-            </operator>
-          </operations>
-          <loopCondition xmi:type="expression:Expression" xmi:id="_AiwHGx4yEeunj4DJqM7xOA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <loopMaximum xmi:type="expression:Expression" xmi:id="_AiwHHB4yEeunj4DJqM7xOA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
-          <cardinalityExpression xmi:type="expression:Expression" xmi:id="_AiwHHR4yEeunj4DJqM7xOA" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
-          <iteratorExpression xmi:type="expression:Expression" xmi:id="_AiwHHh4yEeunj4DJqM7xOA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
-          <completionCondition xmi:type="expression:Expression" xmi:id="_AiwHHx4yEeunj4DJqM7xOA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_AiwHIB4yEeunj4DJqM7xOA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_AiwHIR4yEeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
-          </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_AiwHIh4yEeunj4DJqM7xOA">
-            <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P4B43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneralInput" type="COMPLEX" multiple="true" dataReference="lstCatBitacoraGeneral" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P4R43Eeunj4DJqM7xOA" name="persistenceId_string" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P4h43Eeunj4DJqM7xOA" name="comentario" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P4x43Eeunj4DJqM7xOA" name="usuario" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P5B43Eeunj4DJqM7xOA" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P5R43Eeunj4DJqM7xOA" name="modulo" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_Sv7P5h43Eeunj4DJqM7xOA" name="isEliminado" type="BOOLEAN" createMode="false"/>
-            </inputs>
-          </contract>
-          <expectedDuration xmi:type="expression:Expression" xmi:id="_AiwHIx4yEeunj4DJqM7xOA" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
+        <elements xmi:type="process:EndTerminatedEvent" xmi:id="_o4GTwB7uEeuE88m-k65S0g" name="End1" incoming="_qCwwEB7uEeuE88m-k65S0g">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_o4G60R7uEeuE88m-k65S0g" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_o4G60B7uEeuE88m-k65S0g" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_o4G60h7uEeuE88m-k65S0g" name="" content="" returnTypeFixed="true"/>
         </elements>
       </elements>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_O18GkB43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneral" multiple="true" dataType="_AiwHRB4yEeunj4DJqM7xOA" className="com.anahuac.bitacora.CatBitacoraComentarios">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_PjVYFh43Eeunj4DJqM7xOA" name="initLstCatBitacoraGeneral()" content="def catBitacoraComentariosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatBitacoraGeneralInput.each{&#xD;&#xA;&#x9;//Add a new composed CatBitacoraComentarios instance&#xD;&#xA;&#x9;catBitacoraComentariosList.add({ currentCatBitacoraComentariosInput ->&#xD;&#xA;&#x9;&#x9;def catBitacoraComentariosVar = new com.anahuac.bitacora.CatBitacoraComentarios()&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.comentario = currentCatBitacoraComentariosInput.comentario&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.usuario = currentCatBitacoraComentariosInput.usuario&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.fechaCreacion = currentCatBitacoraComentariosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.modulo = currentCatBitacoraComentariosInput.modulo&#xD;&#xA;&#x9;&#x9;catBitacoraComentariosVar.isEliminado = currentCatBitacoraComentariosInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catBitacoraComentariosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catBitacoraComentariosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_PjVYFx43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneralInput" type="COMPLEX" multiple="true"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_tXX7cB7uEeuE88m-k65S0g" name="lstCatBitacoraGeneral" dataType="_AiwHRB4yEeunj4DJqM7xOA" className="com.anahuac.bitacora.CatBitacoraGeneral">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_utyUxh7uEeuE88m-k65S0g" name="initLstCatBitacoraGeneral()" content="def catBitacoraGeneralVar = new com.anahuac.bitacora.CatBitacoraGeneral()&#xD;&#xA;catBitacoraGeneralVar.eventos = lstCatBitacoraGeneralInput?.eventos&#xD;&#xA;catBitacoraGeneralVar.usuario = lstCatBitacoraGeneralInput?.usuario&#xD;&#xA;catBitacoraGeneralVar.fechaModificacion = lstCatBitacoraGeneralInput?.fechaModificacion&#xD;&#xA;catBitacoraGeneralVar.modulo = lstCatBitacoraGeneralInput?.modulo&#xD;&#xA;catBitacoraGeneralVar.isEliminado = lstCatBitacoraGeneralInput?.isEliminado&#xD;&#xA;return catBitacoraGeneralVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.bitacora.CatBitacoraGeneral">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_utyUxx7uEeuE88m-k65S0g" name="lstCatBitacoraGeneralInput" type="COMPLEX"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_AiwHJB4yEeunj4DJqM7xOA">
@@ -56,22 +25,18 @@
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_AiwHJh4yEeunj4DJqM7xOA">
         <targetForm xmi:type="expression:Expression" xmi:id="_AiwHJx4yEeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </overviewFormMapping>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_AiwHKB4yEeunj4DJqM7xOA" target="_AiwHFx4yEeunj4DJqM7xOA" source="_AiwHEx4yEeunj4DJqM7xOA">
-        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_AiwHKR4yEeunj4DJqM7xOA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_AiwHKh4yEeunj4DJqM7xOA" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-      </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_gZBDIB40Eeunj4DJqM7xOA" target="_AiwHFx4yEeunj4DJqM7xOA" source="_AiwHFx4yEeunj4DJqM7xOA">
-        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_gZBqMB40Eeunj4DJqM7xOA"/>
-        <condition xmi:type="expression:Expression" xmi:id="_gZBqMR40Eeunj4DJqM7xOA" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_qCwwEB7uEeuE88m-k65S0g" target="_o4GTwB7uEeuE88m-k65S0g" source="_AiwHEx4yEeunj4DJqM7xOA">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_qCxXIB7uEeuE88m-k65S0g"/>
+        <condition xmi:type="expression:Expression" xmi:id="_qCxXIR7uEeuE88m-k65S0g" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_AiwHKx4yEeunj4DJqM7xOA" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
       <contract xmi:type="process:Contract" xmi:id="_AiwHLB4yEeunj4DJqM7xOA">
-        <inputs xmi:type="process:ContractInput" xmi:id="_PjVYEB43Eeunj4DJqM7xOA" name="lstCatBitacoraGeneralInput" type="COMPLEX" multiple="true" dataReference="lstCatBitacoraGeneral">
-          <inputs xmi:type="process:ContractInput" xmi:id="_PjVYER43Eeunj4DJqM7xOA" name="comentario"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PjVYEh43Eeunj4DJqM7xOA" name="usuario"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PjVYEx43Eeunj4DJqM7xOA" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PjVYFB43Eeunj4DJqM7xOA" name="modulo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PjVYFR43Eeunj4DJqM7xOA" name="isEliminado" type="BOOLEAN"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_utyUwB7uEeuE88m-k65S0g" name="lstCatBitacoraGeneralInput" type="COMPLEX" dataReference="lstCatBitacoraGeneral">
+          <inputs xmi:type="process:ContractInput" xmi:id="_utyUwR7uEeuE88m-k65S0g" name="eventos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_utyUwh7uEeuE88m-k65S0g" name="usuario"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_utyUwx7uEeuE88m-k65S0g" name="fechaModificacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_utyUxB7uEeuE88m-k65S0g" name="modulo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_utyUxR7uEeuE88m-k65S0g" name="isEliminado" type="BOOLEAN"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_AiwHLR4yEeunj4DJqM7xOA">
@@ -112,15 +77,17 @@
         <children xmi:type="notation:Node" xmi:id="_AiwuJB4yEeunj4DJqM7xOA" type="3007" element="_AiwHEh4yEeunj4DJqM7xOA">
           <children xmi:type="notation:DecorationNode" xmi:id="_AiwuJR4yEeunj4DJqM7xOA" type="5007"/>
           <children xmi:type="notation:DecorationNode" xmi:id="_AiwuJh4yEeunj4DJqM7xOA" type="7002">
-            <children xmi:type="notation:Shape" xmi:id="_AiwuJx4yEeunj4DJqM7xOA" type="3005" element="_AiwHFx4yEeunj4DJqM7xOA" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
-              <children xmi:type="notation:DecorationNode" xmi:id="_AiwuKB4yEeunj4DJqM7xOA" type="5005"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AiwuKR4yEeunj4DJqM7xOA" x="160" y="60"/>
-            </children>
             <children xmi:type="notation:Shape" xmi:id="_AiwuKh4yEeunj4DJqM7xOA" type="3002" element="_AiwHEx4yEeunj4DJqM7xOA" fontName="Segoe UI">
               <children xmi:type="notation:DecorationNode" xmi:id="_AiwuKx4yEeunj4DJqM7xOA" type="5024">
                 <layoutConstraint xmi:type="notation:Location" xmi:id="_AiwuLB4yEeunj4DJqM7xOA" y="5"/>
               </children>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AiwuLR4yEeunj4DJqM7xOA" x="60" y="68"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_o4II8B7uEeuE88m-k65S0g" type="3062" element="_o4GTwB7uEeuE88m-k65S0g" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_o4IwAB7uEeuE88m-k65S0g" type="5090">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_o4IwAR7uEeuE88m-k65S0g" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_o4II8R7uEeuE88m-k65S0g" x="194" y="68"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_AiwuLh4yEeunj4DJqM7xOA"/>
@@ -137,21 +104,13 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AiwuNx4yEeunj4DJqM7xOA" width="1320" height="250"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_AiwuOB4yEeunj4DJqM7xOA"/>
-    <edges xmi:type="notation:Connector" xmi:id="_AiwuOR4yEeunj4DJqM7xOA" type="4001" element="_AiwHKB4yEeunj4DJqM7xOA" source="_AiwuKh4yEeunj4DJqM7xOA" target="_AiwuJx4yEeunj4DJqM7xOA" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_AiwuOh4yEeunj4DJqM7xOA" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_AiwuOx4yEeunj4DJqM7xOA" y="-10"/>
+    <edges xmi:type="notation:Connector" xmi:id="_qCylQB7uEeuE88m-k65S0g" type="4001" element="_qCwwEB7uEeuE88m-k65S0g" source="_AiwuKh4yEeunj4DJqM7xOA" target="_o4II8B7uEeuE88m-k65S0g" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_qCylQx7uEeuE88m-k65S0g" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_qCzMUB7uEeuE88m-k65S0g" y="-10"/>
       </children>
-      <styles xmi:type="notation:FontStyle" xmi:id="_AiwuPB4yEeunj4DJqM7xOA" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_AiwuPR4yEeunj4DJqM7xOA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_gZCRQB40Eeunj4DJqM7xOA" type="4001" element="_gZBDIB40Eeunj4DJqM7xOA" source="_AiwuJx4yEeunj4DJqM7xOA" target="_AiwuJx4yEeunj4DJqM7xOA" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_gZCRQx40Eeunj4DJqM7xOA" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_gZCRRB40Eeunj4DJqM7xOA" y="-10"/>
-      </children>
-      <styles xmi:type="notation:FontStyle" xmi:id="_gZCRQR40Eeunj4DJqM7xOA" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gZCRQh40Eeunj4DJqM7xOA" points="[0, 3, 19, 0]$[0, 9, 19, 6]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_gZEtgB40Eeunj4DJqM7xOA" id="(1.0,0.66)"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_gZEtgR40Eeunj4DJqM7xOA" id="(0.81,0.72)"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_qCylQR7uEeuE88m-k65S0g" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qCylQh7uEeuE88m-k65S0g" points="[0, -14, -119, -1]$[114, -28, -5, -15]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qC1okB7uEeuE88m-k65S0g" id="(1.0,0.9333333333333333)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

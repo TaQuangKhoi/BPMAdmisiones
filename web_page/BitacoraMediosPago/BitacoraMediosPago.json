@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "BitacoraMediosPago",
   "name" : "BitacoraMediosPago",
-  "lastUpdate" : 1604442893660,
+  "lastUpdate" : 1604592729603,
   "rows" : [
     [
       {
@@ -292,9 +292,9 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "1b3f7409-a99f-4b75-ab49-6651ce074bca",
+              "reference" : "d5e4263f-7a9b-427a-a38b-362c45260698",
               "hasValidationError" : false,
-              "id" : "customWidgetButtoncustome"
+              "id" : "customButtonPrint"
             }
           ],
           [
@@ -422,7 +422,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "2 registro | Pag 1/1"
+                              "value" : "{{lstCatBitacoraMetodoPago.length}} registro | Pag 1/1"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -713,10 +713,21 @@
                   ]
                 },
                 "content" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "lstCatBitacoraMetodoPago"
                 },
                 "columnsKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : [
+                    "noTransaccion",
+                    "eventos",
+                    "usuarioAspirante",
+                    "monto",
+                    "fechaMovimiento",
+                    "medioPago",
+                    "estatus",
+                    "observaciones"
+                  ]
                 },
                 "selectedRow" : {
                   "type" : "variable",
@@ -768,7 +779,22 @@
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "objCaseInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatBitacoraMetodoPago&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+      ],
+      "exposed" : false
+    },
+    "lstCatBitacoraMetodoPago" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.bitacora.CatBitacoraMetodoPago?q=getCatBitacoraMetodoPago&p=0&c=9999"
+      ],
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "236f5a5f-d666-447a-9c6d-4eb45a7b04fe",
   "type" : "page",

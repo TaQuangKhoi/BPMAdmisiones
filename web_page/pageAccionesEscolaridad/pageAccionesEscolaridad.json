@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesEscolaridad",
   "name" : "pageAccionesEscolaridad",
-  "lastUpdate" : 1604441141542,
+  "lastUpdate" : 1604703880371,
   "rows" : [
     [
       {
@@ -415,8 +415,8 @@
                                   "value" : true
                                 },
                                 "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
+                                  "type" : "expression",
+                                  "value" : "otrasVariables.isModificacion"
                                 },
                                 "dateFormat" : {
                                   "type" : "constant",
@@ -493,119 +493,6 @@
                               "reference" : "39405bdc-8a5e-4cc2-b69b-c3b93e5ef91d",
                               "hasValidationError" : false,
                               "id" : "pbDateTimePicker",
-                              "description" : ""
-                            }
-                          ],
-                          [
-                            {
-                              "type" : "component",
-                              "dimension" : {
-                                "md" : 12,
-                                "sm" : 12,
-                                "xs" : 12,
-                                "lg" : 12
-                              },
-                              "propertyValues" : {
-                                "labelHidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "labelPosition" : {
-                                  "type" : "constant",
-                                  "value" : "top"
-                                },
-                                "cssClasses" : {
-                                  "type" : "constant",
-                                  "value" : ""
-                                },
-                                "readOnly" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "labelWidth" : {
-                                  "type" : "constant",
-                                  "value" : 1
-                                },
-                                "placeholder" : {
-                                  "type" : "constant"
-                                },
-                                "label" : {
-                                  "type" : "interpolation",
-                                  "value" : "Usuario Creacion"
-                                },
-                                "type" : {
-                                  "type" : "constant",
-                                  "value" : "text"
-                                },
-                                "value" : {
-                                  "type" : "variable",
-                                  "value" : "$item.usuarioCreacion"
-                                },
-                                "dimension" : {
-                                  "type" : "constant",
-                                  "value" : 12
-                                },
-                                "required" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                }
-                              },
-                              "reference" : "c9062f81-4fcf-41f8-98f4-b9c8c14f20d8",
-                              "hasValidationError" : false,
-                              "id" : "pbInput",
-                              "description" : ""
-                            }
-                          ],
-                          [
-                            {
-                              "type" : "component",
-                              "dimension" : {
-                                "md" : 12,
-                                "sm" : 12,
-                                "xs" : 12,
-                                "lg" : 12
-                              },
-                              "propertyValues" : {
-                                "labelHidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "cssClasses" : {
-                                  "type" : "constant",
-                                  "value" : ""
-                                },
-                                "disabled" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "label" : {
-                                  "type" : "interpolation",
-                                  "value" : "Is Eliminado"
-                                },
-                                "value" : {
-                                  "type" : "variable",
-                                  "value" : "$item.isEliminado"
-                                },
-                                "dimension" : {
-                                  "type" : "constant",
-                                  "value" : 12
-                                },
-                                "required" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                }
-                              },
-                              "reference" : "567f5753-f127-41ed-a2f5-5184a217d537",
-                              "hasValidationError" : false,
-                              "id" : "pbCheckbox",
                               "description" : ""
                             }
                           ],
@@ -846,7 +733,7 @@
                           },
                           "valueToAdd" : {
                             "type" : "expression",
-                            "value" : "{  \"persistenceId_string\" : \"\",  \"clave\" : \"\",  \"descripcion\" : \"\",  \"usuarioCreacion\" : \"\",  \"isEliminado\" : false}"
+                            "value" : "{  \"persistenceId_string\" : \"\",  \"clave\" : \"\",  \"descripcion\" : \"\",  \"usuarioCreacion\" : userData.user_name,  \"isEliminado\" : false}"
                           },
                           "collectionToModify" : {
                             "type" : "variable",

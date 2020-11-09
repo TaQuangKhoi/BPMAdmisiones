@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesSexo",
   "name" : "pageAccionesSexo",
-  "lastUpdate" : 1604441226443,
+  "lastUpdate" : 1604703939398,
   "rows" : [
     [
       {
@@ -397,8 +397,8 @@
                                   "value" : true
                                 },
                                 "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
+                                  "type" : "expression",
+                                  "value" : "otrasVariables.isModificacion"
                                 },
                                 "dateFormat" : {
                                   "type" : "constant",
@@ -475,115 +475,6 @@
                               "reference" : "fb38a2b7-c03b-4fb2-8a27-61b7e6f4e720",
                               "hasValidationError" : false,
                               "id" : "pbDateTimePicker",
-                              "description" : ""
-                            }
-                          ],
-                          [
-                            {
-                              "type" : "component",
-                              "dimension" : {
-                                "md" : 12,
-                                "sm" : 12,
-                                "xs" : 12,
-                                "lg" : 12
-                              },
-                              "propertyValues" : {
-                                "labelHidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "labelPosition" : {
-                                  "type" : "constant",
-                                  "value" : "top"
-                                },
-                                "cssClasses" : {
-                                  "type" : "constant",
-                                  "value" : ""
-                                },
-                                "readOnly" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "labelWidth" : {
-                                  "type" : "constant",
-                                  "value" : 1
-                                },
-                                "placeholder" : {
-                                  "type" : "constant"
-                                },
-                                "label" : {
-                                  "type" : "interpolation",
-                                  "value" : "Usuario Creacion"
-                                },
-                                "type" : {
-                                  "type" : "constant",
-                                  "value" : "text"
-                                },
-                                "value" : {
-                                  "type" : "variable",
-                                  "value" : "$item.usuarioCreacion"
-                                },
-                                "dimension" : {
-                                  "type" : "constant",
-                                  "value" : 12
-                                },
-                                "required" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                }
-                              },
-                              "reference" : "08e3503f-1b35-4d7c-a20a-b6edacd2dec1",
-                              "hasValidationError" : false,
-                              "id" : "pbInput",
-                              "description" : ""
-                            }
-                          ],
-                          [
-                            {
-                              "type" : "component",
-                              "dimension" : {
-                                "md" : 12,
-                                "sm" : 12,
-                                "xs" : 12,
-                                "lg" : 12
-                              },
-                              "propertyValues" : {
-                                "labelHidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "cssClasses" : {
-                                  "type" : "constant",
-                                  "value" : ""
-                                },
-                                "disabled" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "label" : {
-                                  "type" : "interpolation",
-                                  "value" : "Is Eliminado"
-                                },
-                                "value" : {
-                                  "type" : "variable",
-                                  "value" : "$item.isEliminado"
-                                },
-                                "dimension" : {
-                                  "type" : "constant",
-                                  "value" : 12
-                                }
-                              },
-                              "reference" : "d59f8dff-dd49-4d18-b818-5128bc508c81",
-                              "hasValidationError" : false,
-                              "id" : "pbCheckbox",
                               "description" : ""
                             }
                           ],
@@ -824,7 +715,7 @@
                           },
                           "valueToAdd" : {
                             "type" : "expression",
-                            "value" : "{\r\n  \"persistenceId_string\" : \"\",\r\n  \"clave\" : \"\",\r\n  \"descripcion\" : \"\",\r\n  \"usuarioCreacion\" : \"\",\r\n  \"isEliminado\" : false\r\n}"
+                            "value" : "{  \"persistenceId_string\" : \"\",  \"clave\" : \"\",  \"descripcion\" : \"\",  \"usuarioCreacion\" : userData.user_name,  \"isEliminado\" : false}"
                           },
                           "collectionToModify" : {
                             "type" : "variable",

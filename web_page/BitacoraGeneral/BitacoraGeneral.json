@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "BitacoraGeneral",
   "name" : "BitacoraGeneral",
-  "lastUpdate" : 1604442877701,
+  "lastUpdate" : 1604592533125,
   "rows" : [
     [
       {
@@ -139,7 +139,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Bitácora"
+                  "value" : "Bitácora General"
                 },
                 "level" : {
                   "type" : "constant",
@@ -292,9 +292,9 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "41be38d7-b96f-4e37-a0a2-2df72454bbfa",
+              "reference" : "af132318-b96d-4da9-8151-405eb3dc8171",
               "hasValidationError" : false,
-              "id" : "customWidgetButtoncustome"
+              "id" : "customButtonPrint"
             }
           ],
           [
@@ -422,7 +422,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "2 registro | Pag 1/1"
+                              "value" : "{{lstCatBitacoraGeneral.length}} registro | Pagina 1/1"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -704,15 +704,22 @@
                   "value" : [
                     "Eventos",
                     "Usuario",
-                    "Fecha Movimiento",
+                    "Fecha Modificacion",
                     "Modulo"
                   ]
                 },
                 "content" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "lstCatBitacoraGeneral"
                 },
                 "columnsKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : [
+                    "eventos",
+                    "usuario",
+                    "fechaModificacion",
+                    "modulo"
+                  ]
                 },
                 "selectedRow" : {
                   "type" : "variable",
@@ -764,7 +771,15 @@
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "lstCatBitacoraGeneral" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.bitacora.CatBitacoraGeneral?q=getCatBitacoraGeneral&p=0&c=9999"
+      ],
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "b9dfdc3c-dd95-4baf-b923-8e8b721656eb",
   "type" : "page",
