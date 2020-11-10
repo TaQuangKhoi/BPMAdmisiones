@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ListaGestionEscolar",
   "name" : "ListaGestionEscolar",
-  "lastUpdate" : 1604967616889,
+  "lastUpdate" : 1605025885539,
   "rows" : [
     [
       {
@@ -769,7 +769,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Filtrado por: <b>nombre filtro</b>"
+                              "value" : "Filtrado por: <b>nombre filtro</b> {{lstCampus}}"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3409,6 +3409,84 @@
       "value" : [
         "console.log(\"$data.formInput.lstCatGestionEscolarInput\");",
         "console.log($data.formInput.lstCatGestionEscolarInput);"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "",
+        "for(var x in $data.lstCampusByUser){",
+        "    for(var index in $data.lstCampusRole){",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
+        "            resultado.push($data.lstCampusRole[index]);",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=[];",
+        "",
+        "for(var x in $data.lstMembership){",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){",
+        "        resultado.push($data.lstMembership[x].group_id.name);",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "json",
+      "value" : [
+        "[{\r",
+        "\t\"descripcion\":\"Anáhuac Cancún\",\r",
+        "\t\"valor\":\"CAMPUS-CANCUN\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac Mayab\",\r",
+        "\t\"valor\":\"CAMPUS-MAYAB\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac México Norte\",\r",
+        "\t\"valor\":\"CAMPUS-MNORTE\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac México Sur\",\r",
+        "\t\"valor\":\"CAMPUS-MSUR\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac Oaxaca\",\r",
+        "\t\"valor\":\"CAMPUS-OAXACA\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac Puebla\",\r",
+        "\t\"valor\":\"CAMPUS-PUEBLA\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac Querétaro\",\r",
+        "\t\"valor\":\"CAMPUS-QUERETARO\"\r",
+        "},\r",
+        "{\r",
+        "\t\"descripcion\":\"Anáhuac Xalapa\",\r",
+        "\t\"valor\":\"CAMPUS-XALAPA\"\r",
+        "}\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id"
       ],
       "exposed" : false
     }
