@@ -11,6 +11,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             $("#loading").modal("show");
             $scope.loading = true;
             if($scope.properties.isModificacion === false){
+                debugger;
                 $scope.properties.nuevosValores.forEach(element =>{
                     $scope.properties.contenido.push(element);
                 })

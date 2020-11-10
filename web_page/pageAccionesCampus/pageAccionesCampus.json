@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesCampus",
   "name" : "pageAccionesCampus",
-  "lastUpdate" : 1604704447724,
+  "lastUpdate" : 1604973555232,
   "rows" : [
     [
       {
@@ -469,106 +469,6 @@
                                 "lg" : 12
                               },
                               "propertyValues" : {
-                                "showNow" : {
-                                  "type" : "constant",
-                                  "value" : true
-                                },
-                                "inlineInput" : {
-                                  "type" : "constant",
-                                  "value" : true
-                                },
-                                "hidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "dateFormat" : {
-                                  "type" : "constant",
-                                  "value" : "MM/dd/yyyy"
-                                },
-                                "cssClasses" : {
-                                  "type" : "constant",
-                                  "value" : ""
-                                },
-                                "readOnly" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "labelWidth" : {
-                                  "type" : "constant",
-                                  "value" : 1
-                                },
-                                "label" : {
-                                  "type" : "interpolation",
-                                  "value" : "Fecha Implementacion"
-                                },
-                                "type" : {
-                                  "type" : "constant"
-                                },
-                                "required" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "todayLabel" : {
-                                  "type" : "constant",
-                                  "value" : "Today"
-                                },
-                                "timePlaceholder" : {
-                                  "type" : "constant",
-                                  "value" : "Enter a time (h:mm:ss a)"
-                                },
-                                "labelHidden" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                },
-                                "showToday" : {
-                                  "type" : "constant",
-                                  "value" : true
-                                },
-                                "labelPosition" : {
-                                  "type" : "constant",
-                                  "value" : "top"
-                                },
-                                "timeFormat" : {
-                                  "type" : "constant",
-                                  "value" : "h:mm:ss a"
-                                },
-                                "placeholder" : {
-                                  "type" : "constant",
-                                  "value" : "Enter a date (mm/dd/yyyy)"
-                                },
-                                "nowLabel" : {
-                                  "type" : "constant",
-                                  "value" : "Now"
-                                },
-                                "value" : {
-                                  "type" : "variable",
-                                  "value" : "$item.fechaImplementacion"
-                                },
-                                "dimension" : {
-                                  "type" : "constant",
-                                  "value" : 12
-                                },
-                                "withTimeZone" : {
-                                  "type" : "constant",
-                                  "value" : false
-                                }
-                              },
-                              "reference" : "ba7f3fa8-9515-4866-bcdb-e4b53a0613ff",
-                              "hasValidationError" : false,
-                              "id" : "pbDateTimePicker",
-                              "description" : ""
-                            }
-                          ],
-                          [
-                            {
-                              "type" : "component",
-                              "dimension" : {
-                                "md" : 12,
-                                "sm" : 12,
-                                "xs" : 12,
-                                "lg" : 12
-                              },
-                              "propertyValues" : {
                                 "labelHidden" : {
                                   "type" : "constant",
                                   "value" : false
@@ -960,7 +860,7 @@
                           },
                           "valueToAdd" : {
                             "type" : "expression",
-                            "value" : "{   \"persistenceId_string\" : \"\", \"id\" : \"\",  \"descripcion\" : \"\",  \"isEliminado\" : false,  \"usuarioBanner\" : userData.user_name,  \"clave\" : \"\",  \"urlAvisoPrivacidad\" : \"\",  \"urlDatosVeridicos\" : \"\",  \"urlAutorDatos\" : \"\",  \"isEnabled\" : true}"
+                            "value" : "{   \"persistenceId_string\" : \"\", \"id\" : \"\",  \"descripcion\" : \"\",  \"isEliminado\" : false,  \"usuarioBanner\" : userData.user_name,  \"clave\" : \"\",  \"urlAvisoPrivacidad\" : \"\",  \"urlDatosVeridicos\" : \"\",  \"urlAutorDatos\" : \"\",  \"isEnabled\" : true, \"fechaImplementacion\":getFecha, \"fechaCreacion\":getFecha }"
                           },
                           "collectionToModify" : {
                             "type" : "variable",
@@ -1515,6 +1415,19 @@
       "type" : "url",
       "value" : [
         "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "getFecha" : {
+      "type" : "expression",
+      "value" : [
+        "const date = new Date();",
+        "const offsetMs = date.getTimezoneOffset() * 60 * 1000;",
+        "const msLocal =  date.getTime() - offsetMs;",
+        "const dateLocal = new Date(msLocal);",
+        "const iso = dateLocal.toISOString();",
+        "const isoLocal = iso.slice(0, 19);",
+        "return isoLocal;"
       ],
       "exposed" : false
     }
