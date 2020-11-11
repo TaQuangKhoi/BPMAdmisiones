@@ -25,8 +25,9 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
          swal("Formato no valido!", "Solo puede agregar imanges con formato jpg y png!", "warning");
      }else{
         $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
-       // $scope.properties.urlretorno.slice(4,0);
-         console.log(urlImg);
+        $scope.properties.anguloImagenHeader = angulo;
+        $scope.properties.urlImagenHeader;
+         //console.log(urlImg);
         if(!event.target.value) {
           return;
         }
@@ -99,15 +100,16 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
     $scope.properties.value = response;
   }
   $('#rotarDerecha').click(function(){
-       angulo = angulo + 45
-       
+       angulo = angulo + 45;
+       $scope.properties.anguloImagenHeader = angulo;
         console.log("deg= " + angulo);
     $('#image').css({
          "-webkit-transform":'rotate(' + angulo + 'deg)'
     });
 });
   $('#rotarIzquierda').click(function(){
-       angulo = angulo - 45
+       angulo = angulo - 45;
+       $scope.properties.anguloImagenHeader = angulo;
         console.log("deg= " + angulo);
     $('#image').css({
          "-webkit-transform":'rotate(' + angulo + 'deg)'

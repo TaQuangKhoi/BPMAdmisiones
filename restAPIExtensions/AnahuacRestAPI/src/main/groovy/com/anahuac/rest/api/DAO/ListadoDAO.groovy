@@ -1,5 +1,6 @@
 package com.anahuac.rest.api.DAO
 
+import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.process.ProcessDefinition
@@ -231,6 +232,27 @@ class ListadoDAO {
 		return resultado
 	}
 	
+	public Result getDocumentoTest(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Long caseId =11001L;
+		try {
+				
+			for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(caseId, "DocInformacionDocumento", 0, 10)) {
+				String encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+				LOGGER.error encoded;
+			}
+			
+			
+			
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			LOGGER.error "ERROR=================================";
+			LOGGER.error e.getMessage();
+			e.printStackTrace();
+		}
+		return resultado
+	}
 	//public Result getSolicitudTramite(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 	//		Result resultado = new Result();
 	//		List<String> lstResultado = new ArrayList<String>();

@@ -58,6 +58,9 @@ class Index implements RestApiController {
 				case "getSolicitudTramite":
 					result = lDao.getSolicitudTramite(parameterP, parameterC, jsonData, context);
 					break;
+				case "getDocumentoTest":
+					result = lDao.getDocumentoTest(parameterP, parameterC, jsonData, context);
+					break;
 				case "pagoOxxoCash":
 					result = cDao.pagoOxxoCash(parameterP, parameterC, jsonData, context);
 					break;

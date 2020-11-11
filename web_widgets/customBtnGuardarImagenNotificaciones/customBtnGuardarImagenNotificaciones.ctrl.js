@@ -5,7 +5,7 @@ function PbButtonCtrl($scope, $http) {
     $scope.loading = false;
     
     $scope.sendData = function() {
-        if ($scope.loading == false) {
+        if ($scope.loading === false) {
             if($scope.properties.isModificacion === false){
                  
             }else{
