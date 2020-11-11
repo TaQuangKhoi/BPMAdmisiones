@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatBachillerato",
   "name" : "CatBachillerato",
-  "lastUpdate" : 1604971704345,
+  "lastUpdate" : 1605053680781,
   "rows" : [
     [
       {
@@ -2318,13 +2318,15 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "Pais"
+                          "value" : "lstCatPais"
                         },
                         "displayedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "descripcion"
                         },
                         "returnedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "clave"
                         },
                         "value" : {
                           "type" : "variable",
@@ -2382,13 +2384,15 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "Estados"
+                          "value" : "lstCatEstados"
                         },
                         "displayedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "descripcion"
                         },
                         "returnedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "clave"
                         },
                         "value" : {
                           "type" : "variable",
@@ -2446,13 +2450,15 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "Ciudad"
+                          "value" : "lstCatCiudad"
                         },
                         "displayedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "descripcion"
                         },
                         "returnedKey" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : "clave"
                         },
                         "value" : {
                           "type" : "variable",
@@ -2684,8 +2690,8 @@
                                 "value" : false
                               },
                               "disabled" : {
-                                "type" : "constant",
-                                "value" : false
+                                "type" : "expression",
+                                "value" : "!otrasVariables.Validado"
                               },
                               "label" : {
                                 "type" : "interpolation",
@@ -3056,6 +3062,35 @@
       "type" : "url",
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatBachilleratos?q=getCatBachilleratos&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "validar" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "if( $data.formInput.lstCatBachilleratosInput.length >=1){",
+        "    $data.formInput.lstCatBachilleratosInput.forEach(element =>{",
+        "        if(element.clave.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.descripcion.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.fechaCreacion.trim()===\"\" || element.fechaCreacion.trim().length <19){",
+        "            validado = false;",
+        "        }else if(element.pais.trim() === \"\"){",
+        "           validado = false; ",
+        "        }else if(element.estado.trim() === \"\"){",
+        "           validado = false; ",
+        "        }else if(element.ciudad.trim() === \"\"){",
+        "           validado = false; ",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "    $data.otrasVariables.isModificacion = false;",
+        "}",
+        "",
+        "$data.otrasVariables.Validado = validado;"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ListaGestionEscolar",
   "name" : "ListaGestionEscolar",
-  "lastUpdate" : 1605025885539,
+  "lastUpdate" : 1605052676368,
   "rows" : [
     [
       {
@@ -239,7 +239,7 @@
           ],
           [
             {
-              "type" : "container",
+              "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -254,6 +254,74 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar Campus"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstCampus"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "valor"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "campusSelected"
+                }
+              },
+              "reference" : "b77eb75f-8a67-4fec-914e-4dcda2757a9b",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "cargar_catDatos"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -769,7 +837,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Filtrado por: <b>nombre filtro</b> {{lstCampus}}"
+                              "value" : "Filtrado por: <b>nombre filtro</b>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -863,7 +931,7 @@
                       },
                       "urlConsulta" : {
                         "type" : "interpolation",
-                        "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolar&p=0&c=9999"
+                        "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolarByCampus&p=0&c=9999&f=campus={{campusSelected}}"
                       },
                       "objTaskInformation" : {
                         "type" : "variable",
@@ -871,7 +939,7 @@
                       },
                       "urlTaskInformation" : {
                         "type" : "interpolation",
-                        "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+                        "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{caseId}}&f=isFailed%3dfalse"
                       },
                       "selectedToModificate" : {
                         "type" : "variable",
@@ -2231,8 +2299,8 @@
                           "value" : ""
                         },
                         "hidden" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : "formInput.lstCatGestionEscolarInput[0].nombre !== \"Medicina\""
                         },
                         "repeatedCollection" : {
                           "type" : "variable",
@@ -3095,8 +3163,8 @@
                           "value" : false
                         },
                         "disabled" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : "!otrasVariables.Validado"
                         },
                         "label" : {
                           "type" : "interpolation",
@@ -3128,7 +3196,7 @@
                         },
                         "urlConsulta" : {
                           "type" : "interpolation",
-                          "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolar&p=0&c=9999"
+                          "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolarByCampus&p=0&c=9999&f=campus={{campusSelected}}"
                         },
                         "objTaskInformation" : {
                           "type" : "variable",
@@ -3136,7 +3204,7 @@
                         },
                         "urlTaskInformation" : {
                           "type" : "interpolation",
-                          "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+                          "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{caseId}}&f=isFailed%3dfalse"
                         },
                         "nuevosValores" : {
                           "type" : "variable",
@@ -3242,7 +3310,7 @@
     "lstCatGestionEscolar" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolar&p=0&c=9999"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolarByCampus&p=0&c=9999&f=campus={{campusSelected}}"
       ],
       "exposed" : false
     },
@@ -3277,14 +3345,7 @@
     "objTaskInformation" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
-      ],
-      "exposed" : false
-    },
-    "objCaseInformation" : {
-      "type" : "url",
-      "value" : [
-        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatGestionEscolar&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+        "../API/bpm/task?p=0&c=10&f=caseId={{caseId}}&f=isFailed%3dfalse"
       ],
       "exposed" : false
     },
@@ -3317,7 +3378,7 @@
         "    \"usuarioCreacion\":\"\",\r",
         "    \"fechaCreacion\":\"\"\r",
         "  }]\r",
-        "}"
+        "}\r"
       ],
       "exposed" : false
     },
@@ -3344,30 +3405,6 @@
       ],
       "exposed" : false
     },
-    "centro_estudios" : {
-      "type" : "expression",
-      "value" : [
-        "var lista = [];",
-        "$data.lstCentroEstudio.forEach(element =>{",
-        "    lista.push(element.clave);",
-        "});",
-        "",
-        "return lista;"
-      ],
-      "exposed" : false
-    },
-    "Periodo" : {
-      "type" : "expression",
-      "value" : [
-        "var lista = [];",
-        "$data.lstPeriodo.forEach(element =>{",
-        "    lista.push(element.clave);",
-        "});",
-        "",
-        "return lista;"
-      ],
-      "exposed" : false
-    },
     "otrasVariables" : {
       "type" : "json",
       "value" : [
@@ -3375,18 +3412,6 @@
         "    \"isModificacion\": false,",
         "    \"index\":0,",
         "    \"Validado\":false",
-        "}"
-      ],
-      "exposed" : false
-    },
-    "asignar_usuarioCreacion" : {
-      "type" : "expression",
-      "value" : [
-        "",
-        "if(!$data.otrasVariables.isModificacion){",
-        "    $data.formInput.lstCatGestionEscolarInput[0].usuarioCreacion = $data.userData.user_name;",
-        "    $data.formInput.lstCatGestionEscolarInput[0].fechaCreacion = $data.getFecha;",
-        "    ",
         "}"
       ],
       "exposed" : false
@@ -3401,14 +3426,6 @@
         "const iso = dateLocal.toISOString();",
         "const isoLocal = iso.slice(0, 19);",
         "return isoLocal;"
-      ],
-      "exposed" : false
-    },
-    "prueba" : {
-      "type" : "expression",
-      "value" : [
-        "console.log(\"$data.formInput.lstCatGestionEscolarInput\");",
-        "console.log($data.formInput.lstCatGestionEscolarInput);"
       ],
       "exposed" : false
     },
@@ -3487,6 +3504,118 @@
       "type" : "url",
       "value" : [
         "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id"
+      ],
+      "exposed" : false
+    },
+    "campusSelected" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "getCaseId" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.ProcesoCaso?q=getCaseId&f=campus={{campusSelected}}&f=proceso={{proceso}}&p=0&c=1"
+      ],
+      "exposed" : false
+    },
+    "proceso" : {
+      "type" : "constant",
+      "value" : [
+        "CatGestionEscolar"
+      ],
+      "exposed" : false
+    },
+    "asignar_campoEstudio" : {
+      "type" : "expression",
+      "value" : [
+        "if(!$data.otrasVariables.isModificacion){",
+        "    if($data.campusSelected !== undefined && $data.campusSelected !== null &&  $data.campusSelected.trim() !== \"\"){",
+        "    $data.lstCentroEstudio.forEach(element =>{",
+        "        if($data.campusSelected===element.clave){",
+        "            $data.formInput.lstCatGestionEscolarInput[0].tipocentroestudios = element;",
+        "        }",
+        "    });",
+        "}",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "asignar_valores" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "if(!$data.otrasVariables.isModificacion){",
+        "    $data.formInput.lstCatGestionEscolarInput[0].usuarioCreacion = $data.userData.user_name;",
+        "    $data.formInput.lstCatGestionEscolarInput[0].fechaCreacion = $data.getFecha;",
+        "    //$data.formInput.objProcesoCasoInput.proceso = $data.proceso;",
+        "    //$data.formInput.objProcesoCasoInput.campus = $data.campusSelected;",
+        "    /*",
+        "    ,",
+        "   \"objProcesoCasoInput\" : {",
+        "    \"campus\" : \"\",",
+        "    \"proceso\" : \"\"",
+        "  }",
+        "    */",
+        "    $data.formInput.lstCatGestionEscolarInput[0].campus = $data.campusSelected;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "cargar_catDatos" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.campusSelected === undefined||$data.campusSelected ===null||$data.campusSelected.length <=1){",
+        "    return true;",
+        "}else{",
+        "    return false;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=0;",
+        "",
+        "if($data.getCaseId != undefined || $data.getCaseId != null){",
+        "    if($data.getCaseId.length > 0){",
+        "        resultado = $data.getCaseId[0].caseId;",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "validacion" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "debugger;",
+        "if( $data.formInput.lstCatGestionEscolarInput.length >=1){",
+        "    $data.formInput.lstCatGestionEscolarInput.forEach(element =>{",
+        "        if(element.nombre.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.descripcion.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.fechaCreacion.trim()===\"\" || element.fechaCreacion.trim().length <19){",
+        "            validado = false;",
+        "        }else if(element.enlace.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.inscripcionenero  <= 0){",
+        "            validado = false;",
+        "        }else if(element.inscripcionagosto <= 0){",
+        "            validado = false;",
+        "        }else if(element.periododisponible.clave === undefined){",
+        "            validado = false;",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "    $data.otrasVariables.isModificacion = false;",
+        "}",
+        "",
+        "$data.otrasVariables.Validado = validado;"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesCiudad",
   "name" : "pageAccionesCiudad",
-  "lastUpdate" : 1604972881802,
+  "lastUpdate" : 1605054163895,
   "rows" : [
     [
       {
@@ -1172,7 +1172,7 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "console.log($data.formInput.lstCatCiudadInput)",
+        "console.log($data.lstCatCiudad)",
         "return {",
         "\tlstCatCiudadInput: $data.objContrato",
         "}"
@@ -1260,6 +1260,14 @@
         "            validado = false;",
         "        }else if(element.fechaCreacion.trim()===\"\" || element.fechaCreacion.trim().length <19){",
         "            validado = false;",
+        "        }else if(element.estado.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.pais.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.campus.clave === undefined){",
+        "            validado = false;",
+        "        }else if(element.region.trim()===\"\"){",
+        "            validado = false;",
         "        }",
         "    });  ",
         "}else{",
@@ -1303,14 +1311,17 @@
     "cargar_Campus" : {
       "type" : "expression",
       "value" : [
-        "var lista = [];",
+        "/*var lista = [];",
         "$data.lstCatCiudad.forEach(element =>{",
         "    if(element.links[0].rel === \"campus\"){",
-        "        $data.urlCampus = element.links[0].href;",
+        "        $data.urlCampus =  element.links[0].href;",
+        "        console.log($data.urlCampus);",
         "        element.campus = $data.infoCampus;",
+        "        console.log($data.infoCampus);",
         "    }",
         "});",
-        "return lista;"
+        "return lista;*/",
+        "//console.log($data.lstCatCiudad);"
       ],
       "exposed" : false
     },

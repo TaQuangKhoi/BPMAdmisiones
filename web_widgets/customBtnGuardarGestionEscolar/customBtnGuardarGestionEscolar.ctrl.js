@@ -14,9 +14,9 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.nuevosValores.forEach(element =>{
                     $scope.properties.contenido.push(element);
                 })
-                //console.log("$scope.properties.contenido")
-               //console.log($scope.properties.contenido)
-                $scope.properties.nuevosValores = [{"nombre" : "", "descripcion" : "", "enlace" : "", "propedeutico" : false, "programaparcial" : false, "matematicas" : false, "inscripcionenero" : "", "inscripcionagosto" : "", "periododisponible" : "", "isEliminado" : false, "tipocentroestudios":"", "persistenceId_string" : "" ,"usuarioCreacion":"", "fechaCreacion":""}];
+                console.log("$scope.properties.contenido")
+                console.log($scope.properties.contenido)
+                $scope.properties.nuevosValores = [{"nombre" : "", "descripcion" : "", "enlace" : "", "propedeutico" : false, "programaparcial" : false, "matematicas" : false, "inscripcionenero" : "", "inscripcionagosto" : "", "periododisponible" : {"persistenceId_string" : ""}, "isEliminado" : false, "tipocentroestudios":{"persistenceId_string" : ""}, "persistenceId_string" : "" ,"usuarioCreacion":"", "fechaCreacion":""}];
             }else{
                 $scope.properties.contenido[$scope.properties.index].nombre = $scope.properties.nuevosValores[0].nombre;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
@@ -28,7 +28,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.contenido[$scope.properties.index].inscripcionagosto = $scope.properties.nuevosValores[0].inscripcionagosto;
                 $scope.properties.contenido[$scope.properties.index].periododisponible = $scope.properties.nuevosValores[0].periododisponible;
                 $scope.properties.contenido[$scope.properties.index].tipocentroestudios = $scope.properties.nuevosValores[0].tipocentroestudios;
-                $scope.properties.nuevosValores = [{"nombre" : "", "descripcion" : "", "enlace" : "", "propedeutico" : false, "programaparcial" : false, "matematicas" : false, "inscripcionenero" : "", "inscripcionagosto" : "", "periododisponible" : "", "isEliminado" : false, "tipocentroestudios":"", "persistenceId_string" : "" ,"usuarioCreacion":"", "fechaCreacion":""}];
+                $scope.properties.nuevosValores = [{"nombre" : "", "descripcion" : "", "enlace" : "", "propedeutico" : false, "programaparcial" : false, "matematicas" : false, "inscripcionenero" : "", "inscripcionagosto" : "", "periododisponible" : {"persistenceId_string" : ""}, "isEliminado" : false, "tipocentroestudios":{"persistenceId_string" : ""}, "persistenceId_string" : "" ,"usuarioCreacion":"", "fechaCreacion":""}];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }
             
