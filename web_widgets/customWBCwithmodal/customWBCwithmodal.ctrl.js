@@ -83,7 +83,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else {
       $log.log('Impossible to retrieve the process definition id value from the URL');
     }
+    $scope.registrarBonita();
+    
   }
+  
+  
+  
+  
+   $scope.registrarBonita = function() {
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=RegistrarUsuario&p=0&c=10",
+            data: angular.copy($scope.properties.strBonita)
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                //console.log("$scope.properties.dataToSend");
+                //console.log($scope.properties.dataToSend);
+            })
+            .error(function(data, status) {
+                $("#loading").modal("hide");
+                $scope.loading = false;
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {});
+    }
 
   /**
    * Execute a get/post request to an URL
