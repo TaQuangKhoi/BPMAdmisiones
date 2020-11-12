@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesNacionalidad",
   "name" : "pageAccionesNacionalidad",
-  "lastUpdate" : 1603908096432,
+  "lastUpdate" : 1604877064852,
   "rows" : [
     [
       {
@@ -96,6 +96,18 @@
                 "dimension" : {
                   "type" : "constant",
                   "value" : 12
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
                 }
               },
               "reference" : "f864b2b8-2204-4a6c-8f16-b48d5d105eb9",
@@ -138,47 +150,6 @@
           "rows" : [
             [
               {
-                "type" : "component",
-                "dimension" : {
-                  "md" : 12,
-                  "sm" : 12,
-                  "xs" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "level" : {
-                    "type" : "constant",
-                    "value" : "Level 4"
-                  },
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "Lst Cat Nacionalidad"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "left"
-                  },
-                  "dimension" : {
-                    "type" : "constant",
-                    "value" : 12
-                  }
-                },
-                "reference" : "bf74e2d3-b159-4bc2-a053-3ec4344407f9",
-                "hasValidationError" : false,
-                "id" : "pbTitle",
-                "description" : ""
-              }
-            ],
-            [
-              {
                 "type" : "container",
                 "dimension" : {
                   "md" : 12,
@@ -193,7 +164,7 @@
                   },
                   "hidden" : {
                     "type" : "constant",
-                    "value" : false
+                    "value" : true
                   },
                   "cssClasses" : {
                     "type" : "constant",
@@ -208,6 +179,47 @@
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 4"
+                        },
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "Lst Cat Nacionalidad"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        }
+                      },
+                      "reference" : "bf74e2d3-b159-4bc2-a053-3ec4344407f9",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle",
+                      "description" : ""
+                    }
+                  ],
                   [
                     {
                       "type" : "component",
@@ -255,7 +267,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.descripcion"
+                          "value" : "$item.descripcion"
                         },
                         "dimension" : {
                           "type" : "constant",
@@ -373,7 +385,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.fechaCreacion"
+                          "value" : "$item.fechaCreacion"
                         },
                         "dimension" : {
                           "type" : "constant",
@@ -422,11 +434,15 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.isEliminado"
+                          "value" : "$item.isEliminado"
                         },
                         "dimension" : {
                           "type" : "constant",
                           "value" : 12
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
                         }
                       },
                       "reference" : "6106b2d9-ddb6-47dd-9662-ceb9a93e1cf8",
@@ -482,7 +498,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.usuarioBanner"
+                          "value" : "$item.usuarioBanner"
                         },
                         "dimension" : {
                           "type" : "constant",
@@ -600,7 +616,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.fechaImportacion"
+                          "value" : "$item.fechaImportacion"
                         },
                         "dimension" : {
                           "type" : "constant",
@@ -664,7 +680,7 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.clave"
+                          "value" : "$item.clave"
                         },
                         "dimension" : {
                           "type" : "constant",
@@ -731,11 +747,15 @@
                         },
                         "value" : {
                           "type" : "variable",
-                          "value" : "lstCatNacionalidad.isEnabled"
+                          "value" : "$item.isEnabled"
                         },
                         "dimension" : {
                           "type" : "constant",
                           "value" : 12
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
                         }
                       },
                       "reference" : "9f299d15-668a-478c-830b-58e983bab2b4",
@@ -743,160 +763,168 @@
                       "id" : "pbCheckbox",
                       "description" : ""
                     }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "allowHtml" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "!formOutput._submitError.message"
+                        },
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : "alert alert-danger col-lg-6 col-lg-offset-3"
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<strong>Debug message</strong>\n<br/>\n{{formOutput._submitError.message}}\n{{submit_errors_list}}"
+                        },
+                        "label" : {
+                          "type" : "interpolation"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        }
+                      },
+                      "reference" : "f641b032-6a92-488c-ac4b-bbb0b02d525b",
+                      "hasValidationError" : false,
+                      "id" : "pbText",
+                      "description" : ""
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "md" : 12,
+                        "sm" : 12,
+                        "xs" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "removeItem" : {
+                          "type" : "variable"
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Submit"
+                        },
+                        "dataToSend" : {
+                          "type" : "expression",
+                          "value" : "formOutput"
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : "formOutput._submitError"
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation",
+                          "value" : "/bonita"
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant"
+                        },
+                        "valueToAdd" : {
+                          "type" : "expression"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Submit task"
+                        },
+                        "disabled" : {
+                          "type" : "expression",
+                          "value" : "$form.$invalid"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        },
+                        "dimension" : {
+                          "type" : "constant",
+                          "value" : 12
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "c4be688d-c4ae-41f6-a6a1-08efaba43b3b",
+                      "hasValidationError" : false,
+                      "id" : "pbButton",
+                      "description" : ""
+                    }
                   ]
                 ]
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "md" : 12,
-                  "sm" : 12,
-                  "xs" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "removeItem" : {
-                    "type" : "variable"
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "buttonStyle" : {
-                    "type" : "constant",
-                    "value" : "primary"
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "Submit"
-                  },
-                  "dataToSend" : {
-                    "type" : "expression",
-                    "value" : "formOutput"
-                  },
-                  "dataFromError" : {
-                    "type" : "variable",
-                    "value" : "formOutput._submitError"
-                  },
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "targetUrlOnSuccess" : {
-                    "type" : "interpolation",
-                    "value" : "/bonita"
-                  },
-                  "collectionPosition" : {
-                    "type" : "constant"
-                  },
-                  "valueToAdd" : {
-                    "type" : "expression"
-                  },
-                  "collectionToModify" : {
-                    "type" : "variable"
-                  },
-                  "action" : {
-                    "type" : "constant",
-                    "value" : "Submit task"
-                  },
-                  "disabled" : {
-                    "type" : "expression",
-                    "value" : "$form.$invalid"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "center"
-                  },
-                  "dimension" : {
-                    "type" : "constant",
-                    "value" : 12
-                  },
-                  "assign" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "url" : {
-                    "type" : "interpolation"
-                  },
-                  "responseStatusCode" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "dataFromSuccess" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "closeOnSuccess" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "modalId" : {
-                    "type" : "constant",
-                    "value" : ""
-                  }
-                },
-                "reference" : "c4be688d-c4ae-41f6-a6a1-08efaba43b3b",
-                "hasValidationError" : false,
-                "id" : "pbButton",
-                "description" : ""
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "md" : 12,
-                  "sm" : 12,
-                  "xs" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "allowHtml" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "hidden" : {
-                    "type" : "expression",
-                    "value" : "!formOutput._submitError.message"
-                  },
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : "alert alert-danger col-lg-6 col-lg-offset-3"
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "<strong>Debug message</strong>\n<br/>\n{{formOutput._submitError.message}}\n{{submit_errors_list}}"
-                  },
-                  "label" : {
-                    "type" : "interpolation"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "left"
-                  },
-                  "dimension" : {
-                    "type" : "constant",
-                    "value" : 12
-                  }
-                },
-                "reference" : "f641b032-6a92-488c-ac4b-bbb0b02d525b",
-                "hasValidationError" : false,
-                "id" : "pbText",
-                "description" : ""
               }
             ]
           ]
@@ -991,16 +1019,76 @@
                 },
                 "contenido" : {
                   "type" : "variable",
-                  "value" : "lstCatNacionalidad"
+                  "value" : "getCatNacionalidad"
                 },
                 "isEnabled" : {
                   "type" : "constant",
                   "value" : true
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "objTaskInformation[0].id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutput"
+                },
+                "urlConsulta" : {
+                  "type" : "interpolation",
+                  "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidad&p=0&c=9999"
+                },
+                "objTaskInformation" : {
+                  "type" : "variable",
+                  "value" : "objTaskInformation"
+                },
+                "urlTaskInformation" : {
+                  "type" : "interpolation",
+                  "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
                 }
               },
               "reference" : "0b4f03dc-6f9b-4cec-a7eb-8eb1d5b55640",
               "hasValidationError" : false,
               "id" : "customTablaActualizacionBanner"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "value" : {
+                  "type" : "constant",
+                  "value" : "This is the initial value"
+                },
+                "color" : {
+                  "type" : "constant",
+                  "value" : "RebeccaPurple"
+                },
+                "background" : {
+                  "type" : "constant",
+                  "value" : "Yellow"
+                }
+              },
+              "reference" : "1c50b20b-570a-4470-916b-0629a7f1bf29",
+              "hasValidationError" : false,
+              "id" : "customLoading"
             }
           ]
         ]
@@ -1013,6 +1101,20 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "2be0d742-971c-4d68-b3d1-f951c0347464",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "07bc9be9-1c0d-4144-8bee-db655ea81664",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
       "external" : false
     },
     {
@@ -1050,19 +1152,8 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "if( $data.lstCatNacionalidad ){",
-        "\treturn {",
-        "\t\t//map lstCatNacionalidad variable to expected task contract input",
-        "\t\tlstCatNacionalidadInput: {",
-        "\t\t\tdescripcion: $data.lstCatNacionalidad.descripcion !== undefined ? $data.lstCatNacionalidad.descripcion : null,",
-        "\t\t\tfechaCreacion: $data.lstCatNacionalidad.fechaCreacion !== undefined ? $data.lstCatNacionalidad.fechaCreacion : null,",
-        "\t\t\tisEliminado: $data.lstCatNacionalidad.isEliminado !== undefined ? $data.lstCatNacionalidad.isEliminado : null,",
-        "\t\t\tusuarioBanner: $data.lstCatNacionalidad.usuarioBanner !== undefined ? $data.lstCatNacionalidad.usuarioBanner : null,",
-        "\t\t\tfechaImportacion: $data.lstCatNacionalidad.fechaImportacion !== undefined ? $data.lstCatNacionalidad.fechaImportacion : null,",
-        "\t\t\tclave: $data.lstCatNacionalidad.clave !== undefined ? $data.lstCatNacionalidad.clave : null,",
-        "\t\t\tisEnabled: $data.lstCatNacionalidad.isEnabled !== undefined ? $data.lstCatNacionalidad.isEnabled : null",
-        "\t\t}",
-        "\t}",
+        "return {",
+        "\t'lstCatNacionalidadInput': $data.objContrato",
         "}"
       ],
       "exposed" : false
@@ -1077,14 +1168,62 @@
     "lstCatNacionalidad" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidad&p=0&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidad&p=0&c=9999"
       ],
       "exposed" : false
     },
     "taskId" : {
-      "type" : "urlparameter",
+      "type" : "expression",
       "value" : [
-        "id"
+        "return $data.objTaskInformation[0].id\t"
+      ],
+      "exposed" : false
+    },
+    "getCatNacionalidad" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidad&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "objCaseInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatNacionalidad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+      ],
+      "exposed" : false
+    },
+    "objContrato" : {
+      "type" : "expression",
+      "value" : [
+        "var obj={};\r",
+        "var resultado=[];\r",
+        "for(var index in $data.getCatNacionalidad){\r",
+        "    obj[\"persistenceId_string\"]= $data.getCatNacionalidad[index].persistenceId_string;\r",
+        "    obj[\"descripcion\"]= $data.getCatNacionalidad[index].descripcion;\r",
+        "    obj[\"fechaCreacion\"]= $data.getCatNacionalidad[index].fechaCreacion;\r",
+        "    obj[\"isEliminado\"]= $data.getCatNacionalidad[index].isEliminado;\r",
+        "    obj[\"usuarioBanner\"]= $data.getCatNacionalidad[index].usuarioBanner;\r",
+        "    obj[\"fechaImportacion\"]= $data.getCatNacionalidad[index].fechaImportacion;\r",
+        "    obj[\"clave\"]= $data.getCatNacionalidad[index].clave;\r",
+        "    obj[\"isEnabled\"]= $data.getCatNacionalidad[index].isEnabled;\r",
+        "    resultado.push(angular.copy(obj));\r",
+        "}\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "objTaskInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
       ],
       "exposed" : false
     }

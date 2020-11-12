@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_wcjfYCB9EeutYKHMa0KIkQ" name="CatNotificaciones" author="EMUI" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400234361744E6F74696669636163696F6E6573372E31312E312D303031372E31312E327370">
+    <elements xmi:type="process:Pool" xmi:id="_wckGcCB9EeutYKHMa0KIkQ" name="CatNotificaciones">
+      <elements xmi:type="process:Lane" xmi:id="_wckGcSB9EeutYKHMa0KIkQ" name="ADMINISTRADOR" actor="_wckGiiB9EeutYKHMa0KIkQ">
+        <elements xmi:type="process:StartEvent" xmi:id="_wckGciB9EeutYKHMa0KIkQ" name="Inicio1" outgoing="_wckGhyB9EeutYKHMa0KIkQ">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_wckGcyB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_wckGdCB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_wckGdSB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:Task" xmi:id="_wckGdiB9EeutYKHMa0KIkQ" name="ACCIONES" outgoing="_k4eD8CH4Eeu3velHmCJ-Pw" incoming="_wckGhyB9EeutYKHMa0KIkQ _k4eD8CH4Eeu3velHmCJ-Pw" overrideActorsOfTheLane="false">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_wckGdyB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_wckGeCB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_wckGeSB9EeutYKHMa0KIkQ" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_BDxJSSB-EeutYKHMa0KIkQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_BDxJSiB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" content="lstCatNotificaciones" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BDxJSyB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_BDxJTCB-EeutYKHMa0KIkQ" name="lstCatNotificacionesInput" content="def catNacionalidadList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;     .each{&#xD;&#xA;&#x9;//Add CatNacionalidad instance&#xD;&#xA;&#x9;catNacionalidadList.add({ currentCatNacionalidadInput ->&#xD;&#xA;&#x9;&#x9;def catNacionalidadVar = lstCatNotificaciones.find { it.persistenceId.toString() == currentCatNacionalidadInput.persistenceId_string} ?: new com.anahuac.catalogos.CatNacionalidad()&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.descripcion = currentCatNacionalidadInput.descripcion&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.fechaCreacion = currentCatNacionalidadInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.isEliminado = currentCatNacionalidadInput.isEliminado&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.usuarioBanner = currentCatNacionalidadInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.fechaImportacion = currentCatNacionalidadInput.fechaImportacion&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.clave = currentCatNacionalidadInput.clave&#xD;&#xA;&#x9;&#x9;catNacionalidadVar.isEnabled = currentCatNacionalidadInput.isEnabled&#xD;&#xA;&#x9;&#x9;return catNacionalidadVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNacionalidadList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BDxJTiB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_BDxJTyB-EeutYKHMa0KIkQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_iF8JsCB-EeutYKHMa0KIkQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_iF8JsSB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" content="lstCatNotificaciones" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_iF8JsiB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_iF8JsyB-EeutYKHMa0KIkQ" name="lstCatNotificacionesInput" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;     .each{&#xD;&#xA;&#x9;//Add CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = lstCatNotificaciones.find { it.persistenceId.toString() == currentCatNotificacionesInput.persistenceId_string} ?: new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.attribute = currentCatNotificacionesInput.attribute&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipo = currentCatNotificacionesInput.tipo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_iF8JtSB-EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_iF8JtiB-EeutYKHMa0KIkQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_-WpJyiB_EeutYKHMa0KIkQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_-WpJyyB_EeutYKHMa0KIkQ" name="lstCatNotificaciones" content="lstCatNotificaciones" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_-WpJzCB_EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_-WpJzSB_EeutYKHMa0KIkQ" name="lstCatNotificacionesInput" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;     .each{&#xD;&#xA;&#x9;//Add CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = lstCatNotificaciones.find { it.persistenceId.toString() == currentCatNotificacionesInput.persistenceId_string} ?: new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoDocumento = currentCatNotificacionesInput.tipoDocumento&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_-Wpw0CB_EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_-Wpw0SB_EeutYKHMa0KIkQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_UXsQOyCuEeutYKHMa0KIkQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_UXs3QCCuEeutYKHMa0KIkQ" name="lstCatNotificaciones" content="lstCatNotificaciones" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UXs3QSCuEeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_UXs3QiCuEeutYKHMa0KIkQ" name="lstCatNotificacionesInput" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatNotificacionesInput.each{&#xD;&#xA;&#x9;//Add CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = lstCatNotificaciones.find { it.persistenceId.toString() == currentCatNotificacionesInput.persistenceId_string} ?: new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoDocumento = currentCatNotificacionesInput.tipoDocumento&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.isEliminado = currentCatNotificacionesInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_UXs3QyCuEeutYKHMa0KIkQ" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UXs3RCCuEeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_UXs3RSCuEeutYKHMa0KIkQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <loopCondition xmi:type="expression:Expression" xmi:id="_wckGeiB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <loopMaximum xmi:type="expression:Expression" xmi:id="_wckGeyB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <cardinalityExpression xmi:type="expression:Expression" xmi:id="_wckGfCB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <iteratorExpression xmi:type="expression:Expression" xmi:id="_wckGfSB9EeutYKHMa0KIkQ" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
+          <completionCondition xmi:type="expression:Expression" xmi:id="_wckGfiB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_wckGfyB9EeutYKHMa0KIkQ">
+            <targetForm xmi:type="expression:Expression" xmi:id="_CSVOICB-EeutYKHMa0KIkQ" name="Notificaciones" content="46e89ea6-416f-458f-879b-72726c0b913c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          </formMapping>
+          <contract xmi:type="process:Contract" xmi:id="_wckGgSB9EeutYKHMa0KIkQ">
+            <inputs xmi:type="process:ContractInput" xmi:id="_UXsQMCCuEeutYKHMa0KIkQ" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true" dataReference="lstCatNotificaciones" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQMSCuEeutYKHMa0KIkQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQMiCuEeutYKHMa0KIkQ" name="tipoCorreo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQMyCuEeutYKHMa0KIkQ" name="codigo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQNCCuEeutYKHMa0KIkQ" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQNSCuEeutYKHMa0KIkQ" name="tipoDocumento" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQNiCuEeutYKHMa0KIkQ" name="nombreImagenHeader" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQNyCuEeutYKHMa0KIkQ" name="anguloImagenHeader" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQOCCuEeutYKHMa0KIkQ" name="nombreImagenFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQOSCuEeutYKHMa0KIkQ" name="anguloImagenFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_UXsQOiCuEeutYKHMa0KIkQ" name="isEliminado" type="BOOLEAN" createMode="false"/>
+            </inputs>
+          </contract>
+          <expectedDuration xmi:type="expression:Expression" xmi:id="_wckGgiB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
+        </elements>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_8BHuwCB9EeutYKHMa0KIkQ" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_TYbLmiCuEeutYKHMa0KIkQ" name="initLstCatNotificaciones()" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatNotificacionesInput.each{&#xD;&#xA;&#x9;//Add a new composed CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoDocumento = currentCatNotificacionesInput.tipoDocumento&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.isEliminado = currentCatNotificacionesInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_TYbLmyCuEeutYKHMa0KIkQ" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_wckGgyB9EeutYKHMa0KIkQ">
+        <targetForm xmi:type="expression:Expression" xmi:id="_HIXIICCuEeutYKHMa0KIkQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_wckGhSB9EeutYKHMa0KIkQ">
+        <targetForm xmi:type="expression:Expression" xmi:id="_wckGhiB9EeutYKHMa0KIkQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_wckGhyB9EeutYKHMa0KIkQ" target="_wckGdiB9EeutYKHMa0KIkQ" source="_wckGciB9EeutYKHMa0KIkQ">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_wckGiCB9EeutYKHMa0KIkQ"/>
+        <condition xmi:type="expression:Expression" xmi:id="_wckGiSB9EeutYKHMa0KIkQ" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_k4eD8CH4Eeu3velHmCJ-Pw" target="_wckGdiB9EeutYKHMa0KIkQ" source="_wckGdiB9EeutYKHMa0KIkQ">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_k4xl8CH4Eeu3velHmCJ-Pw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_k4xl8SH4Eeu3velHmCJ-Pw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <actors xmi:type="process:Actor" xmi:id="_wckGiiB9EeutYKHMa0KIkQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <contract xmi:type="process:Contract" xmi:id="_wckGiyB9EeutYKHMa0KIkQ">
+        <inputs xmi:type="process:ContractInput" xmi:id="_TYbLkCCuEeutYKHMa0KIkQ" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true" dataReference="lstCatNotificaciones">
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLkSCuEeutYKHMa0KIkQ" name="tipoCorreo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLkiCuEeutYKHMa0KIkQ" name="codigo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLkyCuEeutYKHMa0KIkQ" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLlCCuEeutYKHMa0KIkQ" name="tipoDocumento"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLlSCuEeutYKHMa0KIkQ" name="nombreImagenHeader"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLliCuEeutYKHMa0KIkQ" name="anguloImagenHeader"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLlyCuEeutYKHMa0KIkQ" name="nombreImagenFooter"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLmCCuEeutYKHMa0KIkQ" name="anguloImagenFooter"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TYbLmSCuEeutYKHMa0KIkQ" name="isEliminado" type="BOOLEAN"/>
+        </inputs>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_wckGjCB9EeutYKHMa0KIkQ">
+        <name xmi:type="expression:Expression" xmi:id="_wckGjSB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_wckGjiB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_wckGjyB9EeutYKHMa0KIkQ">
+        <name xmi:type="expression:Expression" xmi:id="_wckGkCB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_wckGkSB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_wckGkiB9EeutYKHMa0KIkQ">
+        <name xmi:type="expression:Expression" xmi:id="_wckGkyB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_wckGlCB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_wckGlSB9EeutYKHMa0KIkQ">
+        <name xmi:type="expression:Expression" xmi:id="_wckGliB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_wckGlyB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_wckGmCB9EeutYKHMa0KIkQ">
+        <name xmi:type="expression:Expression" xmi:id="_wckGmSB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_wckGmiB9EeutYKHMa0KIkQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <datatypes xmi:type="process:BooleanType" xmi:id="_wckGmyB9EeutYKHMa0KIkQ" name="Boolean"/>
+    <datatypes xmi:type="process:DateType" xmi:id="_wckGnCB9EeutYKHMa0KIkQ" name="Date"/>
+    <datatypes xmi:type="process:IntegerType" xmi:id="_wckGnSB9EeutYKHMa0KIkQ" name="Integer"/>
+    <datatypes xmi:type="process:LongType" xmi:id="_wckGniB9EeutYKHMa0KIkQ" name="Long"/>
+    <datatypes xmi:type="process:DoubleType" xmi:id="_wckGnyB9EeutYKHMa0KIkQ" name="Double"/>
+    <datatypes xmi:type="process:StringType" xmi:id="_wckGoCB9EeutYKHMa0KIkQ" name="Text"/>
+    <datatypes xmi:type="process:JavaType" xmi:id="_wckGoSB9EeutYKHMa0KIkQ" name="Java_object"/>
+    <datatypes xmi:type="process:XMLType" xmi:id="_wckGoiB9EeutYKHMa0KIkQ" name="XML"/>
+    <datatypes xmi:type="process:BusinessObjectType" xmi:id="_wckGoyB9EeutYKHMa0KIkQ" name="Business_Object"/>
+  </process:MainProcess>
+  <notation:Diagram xmi:id="_wckGpCB9EeutYKHMa0KIkQ" type="Process" element="_wcjfYCB9EeutYKHMa0KIkQ" name="MiDiagrama1" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_wckGpSB9EeutYKHMa0KIkQ" type="2007" element="_wckGcCB9EeutYKHMa0KIkQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_wckGpiB9EeutYKHMa0KIkQ" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_wckGpyB9EeutYKHMa0KIkQ" type="7001">
+        <children xmi:type="notation:Node" xmi:id="_wckGqCB9EeutYKHMa0KIkQ" type="3007" element="_wckGcSB9EeutYKHMa0KIkQ">
+          <children xmi:type="notation:DecorationNode" xmi:id="_wckGqSB9EeutYKHMa0KIkQ" type="5007"/>
+          <children xmi:type="notation:DecorationNode" xmi:id="_wckGqiB9EeutYKHMa0KIkQ" type="7002">
+            <children xmi:type="notation:Shape" xmi:id="_wckGqyB9EeutYKHMa0KIkQ" type="3005" element="_wckGdiB9EeutYKHMa0KIkQ" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
+              <children xmi:type="notation:DecorationNode" xmi:id="_wckGrCB9EeutYKHMa0KIkQ" type="5005"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wckGrSB9EeutYKHMa0KIkQ" x="160" y="60"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_wckGriB9EeutYKHMa0KIkQ" type="3002" element="_wckGciB9EeutYKHMa0KIkQ" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_wckGryB9EeutYKHMa0KIkQ" type="5024">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_wckGsCB9EeutYKHMa0KIkQ" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wckGsSB9EeutYKHMa0KIkQ" x="60" y="68"/>
+            </children>
+          </children>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_wcktgCB9EeutYKHMa0KIkQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_wcktgSB9EeutYKHMa0KIkQ" fontName="Segoe UI"/>
+          <styles xmi:type="notation:LineStyle" xmi:id="_wcktgiB9EeutYKHMa0KIkQ"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_wcktgyB9EeutYKHMa0KIkQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wckthCB9EeutYKHMa0KIkQ"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_wckthSB9EeutYKHMa0KIkQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_wckthiB9EeutYKHMa0KIkQ" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_wckthyB9EeutYKHMa0KIkQ"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_wcktiCB9EeutYKHMa0KIkQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wcktiSB9EeutYKHMa0KIkQ" width="1320" height="250"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_wcktiiB9EeutYKHMa0KIkQ"/>
+    <edges xmi:type="notation:Connector" xmi:id="_wcktiyB9EeutYKHMa0KIkQ" type="4001" element="_wckGhyB9EeutYKHMa0KIkQ" source="_wckGriB9EeutYKHMa0KIkQ" target="_wckGqyB9EeutYKHMa0KIkQ" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_wcktjCB9EeutYKHMa0KIkQ" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_wcktjSB9EeutYKHMa0KIkQ" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_wcktjiB9EeutYKHMa0KIkQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_wcktjyB9EeutYKHMa0KIkQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_k54ZMCH4Eeu3velHmCJ-Pw" type="4001" element="_k4eD8CH4Eeu3velHmCJ-Pw" source="_wckGqyB9EeutYKHMa0KIkQ" target="_wckGqyB9EeutYKHMa0KIkQ" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_k54ZMyH4Eeu3velHmCJ-Pw" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_k54ZNCH4Eeu3velHmCJ-Pw" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_k54ZMSH4Eeu3velHmCJ-Pw" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_k54ZMiH4Eeu3velHmCJ-Pw" points="[0, -6, 62, 12]$[62, -6, 124, 12]$[62, 82, 124, 100]$[-47, 82, 15, 100]$[-47, 20, 15, 38]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k6F0kCH4Eeu3velHmCJ-Pw" id="(1.0,0.6)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k6F0kSH4Eeu3velHmCJ-Pw" id="(0.38,0.24)"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

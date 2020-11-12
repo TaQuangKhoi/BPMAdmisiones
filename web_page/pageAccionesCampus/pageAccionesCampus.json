@@ -1,0 +1,408 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "pageAccionesCampus",
+  "name" : "pageAccionesCampus",
+  "lastUpdate" : 1604704037227,
+  "rows" : [
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12
+        },
+        "propertyValues" : { },
+        "reference" : "01eb1a0a-22e1-422f-b1c5-8a3c7af1917a",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "md" : 12,
+                "sm" : 12,
+                "xs" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 1"
+                },
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{ task.displayName }}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "dimension" : {
+                  "type" : "constant",
+                  "value" : 12
+                }
+              },
+              "reference" : "5f7a2b95-e0d3-4886-a420-6722c784a82d",
+              "hasValidationError" : false,
+              "id" : "pbTitle",
+              "description" : ""
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "md" : 12,
+                "sm" : 12,
+                "xs" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "allowHtml" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{ task.displayDescription }}"
+                },
+                "label" : {
+                  "type" : "interpolation"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "dimension" : {
+                  "type" : "constant",
+                  "value" : 12
+                }
+              },
+              "reference" : "452279e5-bdf1-4067-b9a1-eae9bd16e0ec",
+              "hasValidationError" : false,
+              "id" : "pbText",
+              "description" : ""
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "903acbcc-45e6-4a45-97d9-4ced09f975f2",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Clave",
+                    "Descripción",
+                    "Usuario banner",
+                    "Fecha creación",
+                    "Fecha Importación",
+                    "Acciones"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "clave",
+                    "descripcion",
+                    "usuarioBanner",
+                    "fechaCreacion",
+                    "fechaImplementacion"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "getCatCampus"
+                },
+                "isEnabled" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "objTaskInformation[0].id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutput"
+                },
+                "consulta" : {
+                  "type" : "variable",
+                  "value" : "getCatCampus"
+                },
+                "urlConsulta" : {
+                  "type" : "interpolation",
+                  "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=9999"
+                },
+                "objTaskInformation" : {
+                  "type" : "variable",
+                  "value" : "objTaskInformation"
+                },
+                "urlTaskInformation" : {
+                  "type" : "interpolation",
+                  "value" : "/bonita/API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+                }
+              },
+              "reference" : "6683347b-bd64-43ad-bb79-12482fa2b88f",
+              "hasValidationError" : false,
+              "id" : "customTablaActualizacionBanner"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "constant",
+            "value" : "This is the initial value"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          }
+        },
+        "reference" : "e44bb101-317a-4700-af95-ece84fac1ae5",
+        "hasValidationError" : false,
+        "id" : "customLoading"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "d12b0a43-78da-444b-85b7-9a46e68422aa",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "47ff0179-349b-403c-bef6-25baf6552198",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "008a2f2d-586f-46f4-b148-44589b283850",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "0ce409a3-9f86-42fd-96aa-cf1163435dd6",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "task" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}"
+      ],
+      "exposed" : false
+    },
+    "submit_errors_list" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutput && $data.formOutput._submitError && $data.formOutput._submitError.explanations){",
+        "\tconst liElements = $data.formOutput._submitError.explanations",
+        "\t\t.filter(cause => cause !== null)",
+        "\t\t.map(cause => \"<li>\" + cause + \"</li>\")",
+        "\t\t.join('');",
+        "\tif(liElements){",
+        "\t\treturn \"<ul>\" + liElements + \"</ul>\";",
+        "\t}",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "\tlstcatCampusInput: $data.objContrato",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "context" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.objTaskInformation[0].id"
+      ],
+      "exposed" : false
+    },
+    "getCatCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "objCaseInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCampus&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&s="
+      ],
+      "exposed" : false
+    },
+    "objTaskInformation" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/task?p=0&c=10&f=caseId={{objCaseInformation[0].id}}&f=isFailed%3dfalse"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "objContrato" : {
+      "type" : "expression",
+      "value" : [
+        "var obj={};",
+        "var resultado=[];",
+        "for(var index in $data.getCatCampus){",
+        "    obj[\"persistenceId_string\"]= $data.getCatCampus[index].persistenceId_string;",
+        "    obj[\"descripcion\"]= $data.getCatCampus[index].descripcion;",
+        "    obj[\"fechaCreacion\"]= $data.getCatCampus[index].fechaCreacion;",
+        "    obj[\"isEliminado\"]= $data.getCatCampus[index].isEliminado;",
+        "    obj[\"usuarioBanner\"]= $data.getCatCampus[index].usuarioBanner;",
+        "    obj[\"fechaImplementacion\"]= $data.getCatCampus[index].fechaImplementacion;",
+        "    obj[\"clave\"]= $data.getCatCampus[index].clave;",
+        "    obj[\"isEnabled\"]= $data.getCatCampus[index].isEnabled;",
+        "    resultado.push(angular.copy(obj));",
+        "}",
+        "return resultado;"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "8ef13c8b-96b5-46f2-ad48-e49472520d2d",
+  "type" : "form",
+  "description" : "Page generated with Bonita UI designer"
+}
