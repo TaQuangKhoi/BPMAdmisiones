@@ -177,6 +177,27 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.DetalleSolicitud">
+            <fields>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatDescuentos" fetchType="EAGER" name="catDescuentos" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPagoDeExamenDeAdmision" fetchType="LAZY" name="catPagoDeExamenDeAdmision" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isCurpValidado" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="promedioCoincide" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="revisado" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="tipoAlumno" nullable="true" collection="false"/>
+                <field type="FLOAT" length="255" name="descuento" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="observacionesDescuento" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="observacionesCambio" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="observacionesRechazo" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="observacionesListaRoja" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="ordenPago" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatActualmenteTrabajas">
             <fields>
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
@@ -276,10 +297,10 @@
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="pais" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="EAGER" name="campus" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="estado" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="region" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="LAZY" name="campus" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
@@ -603,11 +624,12 @@
                 <field type="BOOLEAN" length="255" name="matematicas" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="inscripcionenero" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="inscripcionagosto" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="periododisponible" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tipocentroestudios" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPeriodo" fetchType="EAGER" name="periododisponible" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="EAGER" name="tipocentroestudios" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="campus" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -1345,25 +1367,6 @@
                     <queryParameters/>
                 </query>
             </queries>
-            <indexes/>
-        </businessObject>
-        <businessObject qualifiedName="com.anahuac.model.DetalleSolicitud">
-            <fields>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatDescuentos" fetchType="EAGER" name="catDescuentos" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPagoDeExamenDeAdmision" fetchType="LAZY" name="catPagoDeExamenDeAdmision" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="isCurpValidado" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="promedioCoincide" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="revisado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tipoAlumno" nullable="true" collection="false"/>
-                <field type="FLOAT" length="255" name="descuento" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="observacionesDescuento" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="observacionesCambio" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="observacionesRechazo" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="observacionesListaRoja" nullable="true" collection="false"/>
-            </fields>
-            <uniqueConstraints/>
-            <queries/>
             <indexes/>
         </businessObject>
     </businessObjects>

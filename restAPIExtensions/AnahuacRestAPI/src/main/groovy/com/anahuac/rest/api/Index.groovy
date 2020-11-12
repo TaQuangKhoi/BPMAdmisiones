@@ -64,12 +64,16 @@ class Index implements RestApiController {
 					result = lDao.getDocumentoTest(parameterP, parameterC, jsonData, context);
 					break;
 				case "pagoOxxoCash":
+					LOGGER.error "pago oxxo"
 					result = cDao.pagoOxxoCash(parameterP, parameterC, jsonData, context);
 					break;
-				case "pagoTarjeta":
+		  		case "pagoTarjeta":
+					LOGGER.error "pago tarjeta"
 					result = cDao.pagoTarjeta(parameterP, parameterC, jsonData, context);
-				case "prueba":
-				 	result =  uDAO.getTest(parameterP, parameterC, jsonData, context);
+					break;
+		  		case "pagoSPEI":
+					LOGGER.error "pago spei"
+					result = cDao.pagoSPEI(parameterP, parameterC, jsonData, context);
 					break;
 				case "RegistrarUsuario":
 					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
