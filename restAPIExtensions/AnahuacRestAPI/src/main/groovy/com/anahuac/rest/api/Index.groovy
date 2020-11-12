@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory
 import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.TestDAO
+import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.bonitasoft.web.extension.rest.RestApiController
@@ -48,6 +49,7 @@ class Index implements RestApiController {
 		TestDAO dao =  new TestDAO();
 		ListadoDAO lDao = new ListadoDAO();
 		ConektaDAO cDao = new ConektaDAO();
+		UsuariosDAO uDAO = new UsuariosDAO();
 		
 		//MAPEO DE SERVICIOS==================================================
 		try {
@@ -66,6 +68,11 @@ class Index implements RestApiController {
 					break;
 				case "pagoTarjeta":
 					result = cDao.pagoTarjeta(parameterP, parameterC, jsonData, context);
+				case "prueba":
+				 	result =  uDAO.getTest(parameterP, parameterC, jsonData, context);
+					break;
+				case "RegistrarUsuario":
+					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
 					break;
 				default:
 					result = notFound(url);

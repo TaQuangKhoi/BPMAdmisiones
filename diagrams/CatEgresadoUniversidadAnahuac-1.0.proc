@@ -12,15 +12,36 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_NE9I4hfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_NE9I4RfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_NE9I4xfbEeuoSd8nCjYXgw" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_c8snsB38Eeunj4DJqM7xOA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_c8snsR38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuac" content="lstCatEgresadoUniversidadAnahuac" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c8snsh38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuac" multiple="true" dataType="_iasPhA8zEeudGog8GSiNtg" className="com.anahuac.catalogos.CatEgresadoUniversidadAnahuac"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_c8snsx38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuacInput" content="def catEgresadoUniversidadAnahuacList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatEgresadoUniversidadAnahuacInput.each{&#xD;&#xA;&#x9;//Add CatEgresadoUniversidadAnahuac instance&#xD;&#xA;&#x9;catEgresadoUniversidadAnahuacList.add({ currentCatEgresadoUniversidadAnahuacInput ->&#xD;&#xA;&#x9;&#x9;def catEgresadoUniversidadAnahuacVar = lstCatEgresadoUniversidadAnahuac.find { it.persistenceId.toString() == currentCatEgresadoUniversidadAnahuacInput.persistenceId_string} ?: new com.anahuac.catalogos.CatEgresadoUniversidadAnahuac()&#xD;&#xA;&#x9;&#x9;catEgresadoUniversidadAnahuacVar.descripcion = currentCatEgresadoUniversidadAnahuacInput.descripcion&#xD;&#xA;&#x9;&#x9;catEgresadoUniversidadAnahuacVar.clave = currentCatEgresadoUniversidadAnahuacInput.clave&#xD;&#xA;&#x9;&#x9;catEgresadoUniversidadAnahuacVar.fechaCreacion = currentCatEgresadoUniversidadAnahuacInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catEgresadoUniversidadAnahuacVar.usuarioCreacion = currentCatEgresadoUniversidadAnahuacInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catEgresadoUniversidadAnahuacVar.isEliminado = currentCatEgresadoUniversidadAnahuacInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catEgresadoUniversidadAnahuacVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catEgresadoUniversidadAnahuacList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_c8sntB38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuacInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_c8sntR38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuac" multiple="true" dataType="_iasPhA8zEeudGog8GSiNtg" className="com.anahuac.catalogos.CatEgresadoUniversidadAnahuac"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_c8snth38Eeunj4DJqM7xOA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_NE9I5BfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_NE9I5RfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_NE9I5hfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_NE9I6BfbEeuoSd8nCjYXgw" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_NE9I5xfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_NE9I6hfbEeuoSd8nCjYXgw">
-            <targetForm xmi:type="expression:Expression" xmi:id="_NE9I6xfbEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_eKeCYB38Eeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
-          <contract xmi:type="process:Contract" xmi:id="_NE9I6RfbEeuoSd8nCjYXgw"/>
+          <contract xmi:type="process:Contract" xmi:id="_NE9I6RfbEeuoSd8nCjYXgw">
+            <inputs xmi:type="process:ContractInput" xmi:id="_c8qLcB38Eeunj4DJqM7xOA" name="lstCatEgresadoUniversidadAnahuacInput" type="COMPLEX" multiple="true" dataReference="lstCatEgresadoUniversidadAnahuac" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLcR38Eeunj4DJqM7xOA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLch38Eeunj4DJqM7xOA" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLcx38Eeunj4DJqM7xOA" name="clave" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLdB38Eeunj4DJqM7xOA" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLdR38Eeunj4DJqM7xOA" name="usuarioCreacion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_c8qLdh38Eeunj4DJqM7xOA" name="isEliminado" type="BOOLEAN" createMode="false"/>
+            </inputs>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_NE9I7BfbEeuoSd8nCjYXgw" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
       </elements>
@@ -30,7 +51,7 @@
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_iasPZA8zEeudGog8GSiNtg">
-        <targetForm xmi:type="expression:Expression" xmi:id="_vmtw8BfUEeuoSd8nCjYXgw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_eKeCYR38Eeunj4DJqM7xOA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_iasPZg8zEeudGog8GSiNtg">
         <targetForm xmi:type="expression:Expression" xmi:id="_iasPZw8zEeudGog8GSiNtg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
