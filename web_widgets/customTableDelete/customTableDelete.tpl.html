@@ -6,7 +6,7 @@
                      <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
                   	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
                 </th>
-                <th>
+                <th style="width: 10%;" class="text-center">
                     Acción
                 </th>
             </tr>
@@ -19,7 +19,7 @@
                 <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
                 </td>
-                <td>
+                <td class="text-center">
                     <span class="glyphicon glyphicon-remove buttonDelete" ng-click="deleteContent(row)" aria-hidden="true"></span>
                 </td>
             </tr>
@@ -28,7 +28,7 @@
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                 <td ng-if="!properties.allowHTML"> {{ row | uiTranslate }}</td>
                 <td ng-if="properties.allowHTML" ng-bind-html="row | uiTranslate"></td>
-                <td>
+                <td class="text-center">
                     <span class="glyphicon glyphicon-remove buttonDelete" ng-click="deleteContent(row)" aria-hidden="true"></span>
                 </td>
             </tr>
