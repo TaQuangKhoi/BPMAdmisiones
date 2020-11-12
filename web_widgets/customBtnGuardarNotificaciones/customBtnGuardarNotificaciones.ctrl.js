@@ -1,148 +1,45 @@
-function PbButtonCtrl($scope, $http) {
+function PbButtonCtrl($scope, $http, modalService) {
     'use strict';
     var vm = this;
-    var validacion = "";
 
     this.isArray = Array.isArray;
     $scope.loading = false;
+    $scope.lstContenidoRespaldo = [];
 
-    
+    $scope.generateObjContrato = function() {
+        console.log($scope.properties.informacionEnviar)
+        $scope.asignarTarea();
+    }
+
     $scope.sendData = function() {
         if ($scope.loading == false) {
-            if($scope.properties.isModificacion === false){
-                if($scope.properties.pagoExamenDeshabilitadoOHabilitado === true){
-                    if($scope.properties.nuevosValores[0].clave && $scope.properties.nuevosValores[0].descripcion && $scope.properties.nuevosValores[0].montoAspiranteLocal && $scope.properties.nuevosValores[0].montoAspitanteForaneo && $scope.properties.nuevosValores[0].montoAspiranteLocalDolares && $scope.properties.nuevosValores[0].montoAspiranteForaneoDolares && $scope.properties.nuevosValores[0].instruccionesDePago){
-                        $("#loading").modal("show");
-                        $scope.loading = true;
-                        $scope.properties.nuevosValores.forEach(element =>{
-                        $scope.properties.contenido.push(element);
-                    })
-                    $scope.properties.mostrarPantallaEditar = false;
-                    $scope.properties.cerrarOpcionesDePago = false;
-                    $scope.properties.cerrarPantallaDePago = false;
-                    $scope.properties.cerrarPantallaPagoDeshabilitado = false;
-                    $scope.properties.nuevosValores = [];
-                    $("#loading").modal("show");
-                    $scope.loading = true;
-                    $scope.asignarTarea()
-                }else{
-                    if(!$scope.properties.nuevosValores[0].clave){
-                        this.validacion = "Clave";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].descripcion){
-                        debugger
-                        this.validacion = "Descripción";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].montoAspiranteLocal){
-                        debugger
-                        this.validacion = "Monto a pagar aspirante local";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].montoAspitanteForaneo){
-                        debugger
-                        this.validacion = "Monto a pagar aspirante foráneo";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].montoAspiranteLocalDolares){
-                        debugger
-                        this.validacion = "Monto a pagar aspirante local dólares";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                     if(!$scope.properties.nuevosValores[0].montoAspiranteForaneoDolares){
-                        debugger
-                        this.validacion = "Monto a pagar aspirante foráneo dólares";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].instruccionesDePago){
-                        debugger
-                        this.validacion = "Texto instrucciones de pago";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                }
-            } 
-             if($scope.properties.pagoExamenDeshabilitadoOHabilitado === false){
-                 debugger
-               if($scope.properties.nuevosValores[0].clave && $scope.properties.nuevosValores[0].descripcion && $scope.properties.nuevosValores[0].deshabilitarPagoDeExamenDeAdmision && $scope.properties.nuevosValores[0].textoDescriptivoPagoDeshabilitado){
-                    $("#loading").modal("show");
-                        $scope.loading = true;
-                        $scope.properties.nuevosValores.forEach(element =>{
-                        $scope.properties.contenido.push(element);
-                    })
-                    $scope.properties.mostrarPantallaEditar = false;
-                    $scope.properties.cerrarOpcionesDePago = false;
-                    $scope.properties.cerrarPantallaDePago = false;
-                    $scope.properties.cerrarPantallaPagoDeshabilitado = false;
-                    $scope.properties.nuevosValores = [];
-                    $("#loading").modal("show");
-                    $scope.loading = true;
-                    $scope.asignarTarea()
-               }else{
-                    if(!$scope.properties.nuevosValores[0].clave){
-                        this.validacion = "Clave";
-                        $("#modalValidacion").modal("show");
-                        //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].descripcion){
-                        debugger
-                        this.validacion = "Descripción";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                     if(!$scope.properties.nuevosValores[0].deshabilitarPagoDeExamenDeAdmision){
-                        debugger
-                        this.validacion = "Deshabilitar pago de Examen de admisión";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                    if(!$scope.properties.nuevosValores[0].deshabilitarPagoDeExamenDeAdmision){
-                        debugger
-                        this.validacion = "Deshabilitar pago de Examen de admisión";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-                   if(!$scope.properties.nuevosValores[0].textoDescriptivoPagoDeshabilitado){
-                        debugger
-                        this.validacion = "Texto descriptivo";
-                        $("#modalValidacion").modal("show");
-                         //SweetAlert.swal("Falto capturar informacion en:", this.validacion);
-                    }
-               }
-             }
-        }else{
             $("#loading").modal("show");
             $scope.loading = true;
-            $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
-            $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
-            $scope.properties.contenido[$scope.properties.index].fechaCreacion = $scope.properties.nuevosValores[0].fechaCreacion;
-            $scope.properties.contenido[$scope.properties.index].usuarioCreacion = $scope.properties.nuevosValores[0].usuarioCreacion;
-            $scope.properties.contenido[$scope.properties.index].montoAspiranteLocal = $scope.properties.nuevosValores[0].montoAspiranteLocal;
-            $scope.properties.contenido[$scope.properties.index].montoAspitanteForaneo = $scope.properties.nuevosValores[0].montoAspitanteForaneo;
-            $scope.properties.contenido[$scope.properties.index].montoAspiranteLocalDolares = $scope.properties.nuevosValores[0].montoAspiranteLocalDolares;
-            $scope.properties.contenido[$scope.properties.index].montoAspiranteForaneoDolares = $scope.properties.nuevosValores[0].montoAspiranteForaneoDolares;
-            $scope.properties.contenido[$scope.properties.index].instruccionesDePago = $scope.properties.nuevosValores[0].instruccionesDePago;
-            $scope.properties.contenido[$scope.properties.index].textoDescriptivoPagoDeshabilitado = $scope.properties.nuevosValores[0].textoDescriptivoPagoDeshabilitado;
-            $scope.properties.contenido[$scope.properties.index].deshabilitarPagoDeExamenDeAdmision = $scope.properties.nuevosValores[0].deshabilitarPagoDeExamenDeAdmision;
-        
-            $scope.properties.mostrarPantallaEditar = false;
-            $scope.properties.cerrarOpcionesDePago = false;
-            $scope.properties.cerrarPantallaDePago = false;
-            $scope.properties.cerrarPantallaPagoDeshabilitado = false;
-            $scope.properties.nuevosValores = [];
+            if ($scope.properties.isModificacion === false) {
+                $scope.properties.nuevosValores.forEach(element => {
+                    $scope.properties.contenido.push(element);
+                })
+                $scope.properties.nuevosValores = [];
+            } else {
+                $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
+                $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
+                $scope.properties.contenido[$scope.properties.index].fechaCreacion = $scope.properties.nuevosValores[0].fechaCreacion;
+                $scope.properties.contenido[$scope.properties.index].usuarioCreacion = $scope.properties.nuevosValores[0].usuarioCreacion;
+                $scope.properties.nuevosValores = [];
+            }
+
             $scope.asignarTarea()
-        }
-        
         } else {
             console.log("click doble");
         }
+    }
+
+    function openModal(modalId) {
+        modalService.open(modalId);
+    }
+
+    function closeModal() {
+        modalService.close();
     }
 
     $scope.asignarTarea = function() {
@@ -159,7 +56,6 @@ function PbButtonCtrl($scope, $http) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -184,23 +80,19 @@ function PbButtonCtrl($scope, $http) {
     }
 
     $scope.submitTask = function() {
-        
         var req = {
             method: "POST",
             url: "/bonita/API/bpm/userTask/" + $scope.properties.taskId + "/execution?assign=false",
-            data: angular.copy($scope.properties.dataToSend)
+            data: angular.copy($scope.properties.informacionEnviar)
         };
 
         return $http(req)
             .success(function(data, status) {
-                console.log("$scope.properties.dataToSend");
-                console.log($scope.properties.dataToSend);
                 $scope.getConsulta();
             })
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -236,13 +128,26 @@ function PbButtonCtrl($scope, $http) {
             .success(function(data, status) {
                 $scope.properties.objTaskInformation = data;
                 $scope.loading = false;
+                closeModal();
                 $("#loading").modal("hide");
+                $scope.properties.nuevosValores = angular.copy($scope.properties.dataToSet);
+                $scope.properties.variableDestino = angular.copy($scope.properties.variableAcopiar);
+                $scope.properties.ocultarTable = false;
+                $scope.properties.isModificacion = false;
             })
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
+    }
+
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 }

@@ -11,7 +11,6 @@ function PbButtonCtrl($scope, $http) {
             }else{
                 $("#loading").modal("show");
                 $scope.loading = true;
-                debugger
                 $scope.properties.contenido[$scope.properties.index].tipoCorreo = $scope.properties.nuevosValores[0].tipoCorreo;
                 $scope.properties.contenido[$scope.properties.index].codigo = $scope.properties.nuevosValores[0].codigo;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;

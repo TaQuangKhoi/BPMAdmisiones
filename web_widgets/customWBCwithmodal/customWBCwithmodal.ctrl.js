@@ -79,11 +79,50 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       var prom = doRequest('POST', '../API/bpm/process/' + id + '/instantiation', getUserParam()).then(function() {
         localStorageService.delete($window.location.href);
       });
-
+      $scope.registrarBonita();
     } else {
       $log.log('Impossible to retrieve the process definition id value from the URL');
     }
   }
+  
+  
+  
+  
+   $scope.registrarBonita = function() {
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=RegistrarUsuario&p=0&c=10",
+            data: angular.copy($scope.properties.strBonita)
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                if($scope.properties.ayuda === true){
+                    $scope.necesitaAyuda();
+                }
+            })
+            .error(function(data, status) {
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {});
+    }
+    
+    $scope.necesitaAyuda = function() {
+        var req = {
+            method: "POST",
+            url: $scope.properties.urlAyuda,
+            data: angular.copy($scope.properties.strBonita)
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                
+            })
+            .error(function(data, status) {
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {});
+    }
 
   /**
    * Execute a get/post request to an URL

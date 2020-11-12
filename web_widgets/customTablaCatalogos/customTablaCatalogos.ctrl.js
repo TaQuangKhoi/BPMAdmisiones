@@ -23,23 +23,13 @@ function PbTableCtrl($scope, $http, modalService) {
    $scope.modificarData = function(row, index) {
             closeModal();
             openModal("modalInputs");
-            $scope.properties.selectedToModificate = [{"persistenceId_string" : "","clave" : "","descripcion" : "","usuarioCreacion" : "","isEliminado" : false,"fechaCreacion": "","montoAspiranteLocal": "","montoAspitanteForaneo": "","montoAspiranteLocalDolares": "","montoAspiranteForaneoDolares": "","instruccionesDePago": "","textoDescriptivoPagoDeshabilitado": "","deshabilitarPagoDeExamenDeAdmision": ""}];
+            $scope.properties.selectedToModificate = [{"persistenceId_string" : "",  "clave" : "",  "descripcion" : "",  "usuarioCreacion" : "",  "isEliminado" : false}];
             $scope.properties.selectedToModificate[0].clave = $scope.properties.contenido[index].clave;
- 			$scope.properties.selectedToModificate[0].descripcion = $scope.properties.contenido[index].descripcion;
- 			$scope.properties.selectedToModificate[0].fechaCreacion = $scope.properties.contenido[index].fechaCreacion;
- 			$scope.properties.selectedToModificate[0].isEliminado = $scope.properties.contenido[index].isEliminado;
- 			$scope.properties.selectedToModificate[0].usuarioCreacion = $scope.properties.contenido[index].usuarioCreacion;
- 			$scope.properties.selectedToModificate[0].montoAspiranteLocal = $scope.properties.contenido[index].montoAspiranteLocal;
- 			$scope.properties.selectedToModificate[0].montoAspitanteForaneo = $scope.properties.contenido[index].montoAspitanteForaneo;
- 			$scope.properties.selectedToModificate[0].montoAspiranteLocalDolares = $scope.properties.contenido[index].montoAspiranteLocalDolares;
- 			$scope.properties.selectedToModificate[0].montoAspiranteForaneoDolares = $scope.properties.contenido[index].montoAspiranteForaneoDolares;
- 			$scope.properties.selectedToModificate[0].instruccionesDePago = $scope.properties.contenido[index].instruccionesDePago;
- 			$scope.properties.selectedToModificate[0].textoDescriptivoPagoDeshabilitado = $scope.properties.contenido[index].textoDescriptivoPagoDeshabilitado;
- 			$scope.properties.selectedToModificate[0].deshabilitarPagoDeExamenDeAdmision = $scope.properties.contenido[index].deshabilitarPagoDeExamenDeAdmision;
+            $scope.properties.selectedToModificate[0].descripcion = $scope.properties.contenido[index].descripcion;
+            $scope.properties.selectedToModificate[0].fechaCreacion = $scope.properties.contenido[index].fechaCreacion;
+            $scope.properties.selectedToModificate[0].usuarioCreacion = $scope.properties.contenido[index].usuarioCreacion;
             $scope.properties.isModificacion = true;
             $scope.properties.index = index;
-            $scope.properties.mostrarPantallaEditar = true
-            console.log( $scope.properties.selectedToModificate);
     }
     
     function openModal(modalId) {

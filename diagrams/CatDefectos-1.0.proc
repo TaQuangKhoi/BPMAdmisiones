@@ -12,15 +12,15 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_Cw9tQRbuEeuZpoB7ty9Mew" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_Cw9tQBbuEeuZpoB7ty9Mew" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_Cw9tQhbuEeuZpoB7ty9Mew" name="" content="" returnTypeFixed="true"/>
-          <operations xmi:type="expression:Operation" xmi:id="_w9Ip0BbuEeuZpoB7ty9Mew">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_w9Ip0RbuEeuZpoB7ty9Mew" name="lstCatDefectos" content="lstCatDefectos" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_w9Ip0hbuEeuZpoB7ty9Mew" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos"/>
+          <operations xmi:type="expression:Operation" xmi:id="_Hfa_OBx6EeuYptiZIOErIQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_Hfa_ORx6EeuYptiZIOErIQ" name="lstCatDefectos" content="lstCatDefectos" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Hfa_Ohx6EeuYptiZIOErIQ" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_w9Ip0xbuEeuZpoB7ty9Mew" name="lstCatDefectosInput" content="def catDefectosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatDefectosInput.each{&#xD;&#xA;&#x9;//Add CatDefectos instance&#xD;&#xA;&#x9;catDefectosList.add({ currentCatDefectosInput ->&#xD;&#xA;&#x9;&#x9;def catDefectosVar = lstCatDefectos.find { it.persistenceId.toString() == currentCatDefectosInput.persistenceId_string} ?: new com.anahuac.catalogos.CatDefectos()&#xD;&#xA;&#x9;&#x9;catDefectosVar.clave = currentCatDefectosInput.clave&#xD;&#xA;&#x9;&#x9;catDefectosVar.descripcion = currentCatDefectosInput.descripcion&#xD;&#xA;&#x9;&#x9;catDefectosVar.fechaCreacion = currentCatDefectosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.usuarioCreacion = currentCatDefectosInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.isEliminado = currentCatDefectosInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catDefectosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catDefectosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_w9Ip1BbuEeuZpoB7ty9Mew" name="lstCatDefectosInput" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_w9Ip1RbuEeuZpoB7ty9Mew" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Hfa_Oxx6EeuYptiZIOErIQ" name="lstCatDefectosInput" content="def catDefectosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatDefectosInput.each{&#xD;&#xA;&#x9;//Add CatDefectos instance&#xD;&#xA;&#x9;catDefectosList.add({ currentCatDefectosInput ->&#xD;&#xA;&#x9;&#x9;def catDefectosVar = lstCatDefectos.find { it.persistenceId.toString() == currentCatDefectosInput.persistenceId_string} ?: new com.anahuac.catalogos.CatDefectos()&#xD;&#xA;&#x9;&#x9;catDefectosVar.clave = currentCatDefectosInput.clave&#xD;&#xA;&#x9;&#x9;catDefectosVar.descripcion = currentCatDefectosInput.descripcion&#xD;&#xA;&#x9;&#x9;catDefectosVar.fechaCreacion = currentCatDefectosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.usuarioCreacion = currentCatDefectosInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.isEliminado = currentCatDefectosInput.isEliminado&#xD;&#xA;&#x9;&#x9;catDefectosVar.campus = currentCatDefectosInput.campus&#xD;&#xA;&#x9;&#x9;return catDefectosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catDefectosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Hfa_PBx6EeuYptiZIOErIQ" name="lstCatDefectosInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Hfa_PRx6EeuYptiZIOErIQ" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos"/>
             </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_w9Ip1hbuEeuZpoB7ty9Mew" type="ASSIGNMENT" expression="addAll">
+            <operator xmi:type="expression:Operator" xmi:id="_Hfa_Phx6EeuYptiZIOErIQ" type="ASSIGNMENT" expression="addAll">
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
@@ -33,25 +33,32 @@
             <targetForm xmi:type="expression:Expression" xmi:id="_O7zdABbvEeuZpoB7ty9Mew" name="pageAccionesDefectos" content="f734a923-b5ec-42e3-b006-78ecb92c3e6f" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_rp-HEBbuEeuZpoB7ty9Mew">
-            <inputs xmi:type="process:ContractInput" xmi:id="_w9ICwBbuEeuZpoB7ty9Mew" name="lstCatDefectosInput" type="COMPLEX" multiple="true" dataReference="lstCatDefectos" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICwRbuEeuZpoB7ty9Mew" name="persistenceId_string" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICwhbuEeuZpoB7ty9Mew" name="clave" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICwxbuEeuZpoB7ty9Mew" name="descripcion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICxBbuEeuZpoB7ty9Mew" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICxRbuEeuZpoB7ty9Mew" name="usuarioCreacion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_w9ICxhbuEeuZpoB7ty9Mew" name="isEliminado" type="BOOLEAN" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_MBx6EeuYptiZIOErIQ" name="lstCatDefectosInput" type="COMPLEX" multiple="true" dataReference="lstCatDefectos" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_MRx6EeuYptiZIOErIQ" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_Mhx6EeuYptiZIOErIQ" name="clave" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_Mxx6EeuYptiZIOErIQ" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_NBx6EeuYptiZIOErIQ" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_NRx6EeuYptiZIOErIQ" name="usuarioCreacion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_Nhx6EeuYptiZIOErIQ" name="isEliminado" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Hfa_Nxx6EeuYptiZIOErIQ" name="campus" createMode="false"/>
             </inputs>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_rp-HExbuEeuZpoB7ty9Mew" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
       </elements>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_olKSQBbuEeuZpoB7ty9Mew" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_q8Kl5hbuEeuZpoB7ty9Mew" name="initLstCatDefectos()" content="def catDefectosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatDefectosInput.each{&#xD;&#xA;&#x9;//Add a new composed CatDefectos instance&#xD;&#xA;&#x9;catDefectosList.add({ currentCatDefectosInput ->&#xD;&#xA;&#x9;&#x9;def catDefectosVar = new com.anahuac.catalogos.CatDefectos()&#xD;&#xA;&#x9;&#x9;catDefectosVar.clave = currentCatDefectosInput.clave&#xD;&#xA;&#x9;&#x9;catDefectosVar.descripcion = currentCatDefectosInput.descripcion&#xD;&#xA;&#x9;&#x9;catDefectosVar.fechaCreacion = currentCatDefectosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.usuarioCreacion = currentCatDefectosInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.isEliminado = currentCatDefectosInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catDefectosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catDefectosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_q8Kl5xbuEeuZpoB7ty9Mew" name="lstCatDefectosInput" type="COMPLEX" multiple="true"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_BBTFMBx6EeuYptiZIOErIQ" name="lstCatDefectos" multiple="true" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.catalogos.CatDefectos">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_E9fN9xx6EeuYptiZIOErIQ" name="initLstCatDefectos()" content="def catDefectosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatDefectosInput.each{&#xD;&#xA;&#x9;//Add a new composed CatDefectos instance&#xD;&#xA;&#x9;catDefectosList.add({ currentCatDefectosInput ->&#xD;&#xA;&#x9;&#x9;def catDefectosVar = new com.anahuac.catalogos.CatDefectos()&#xD;&#xA;&#x9;&#x9;catDefectosVar.clave = currentCatDefectosInput.clave&#xD;&#xA;&#x9;&#x9;catDefectosVar.descripcion = currentCatDefectosInput.descripcion&#xD;&#xA;&#x9;&#x9;catDefectosVar.fechaCreacion = currentCatDefectosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.usuarioCreacion = currentCatDefectosInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catDefectosVar.isEliminado = currentCatDefectosInput.isEliminado&#xD;&#xA;&#x9;&#x9;catDefectosVar.campus = currentCatDefectosInput.campus&#xD;&#xA;&#x9;&#x9;return catDefectosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catDefectosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_E9fN-Bx6EeuYptiZIOErIQ" name="lstCatDefectosInput" type="COMPLEX" multiple="true"/>
+        </defaultValue>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_tJx5cBx_EeuYptiZIOErIQ" name="objProcesoCaso" dataType="_aS6XlA2oEeurv9SeGkAVjQ" className="com.anahuac.model.ProcesoCaso">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_vfOG0xx_EeuYptiZIOErIQ" name="initObjProcesoCaso()" content="def procesoCasoVar = new com.anahuac.model.ProcesoCaso()&#xD;&#xA;procesoCasoVar.campus = objProcesoCasoInput?.campus&#xD;&#xA;procesoCasoVar.proceso = objProcesoCasoInput?.proceso&#xD;&#xA;procesoCasoVar.caseId = processInstanceId&#xD;&#xA;return procesoCasoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.ProcesoCaso">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_0t2H0Bx_EeuYptiZIOErIQ" name="objProcesoCasoInput" type="COMPLEX"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_0t2H0Rx_EeuYptiZIOErIQ" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_aS6XdA2oEeurv9SeGkAVjQ">
-        <targetForm xmi:type="expression:Expression" xmi:id="_zb8OkRbuEeuZpoB7ty9Mew" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_KCkpsByAEeuYptiZIOErIQ" name="newForm19" content="92611044-50f2-49bd-a7b9-9a737d93e589" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_aS6Xdg2oEeurv9SeGkAVjQ">
         <targetForm xmi:type="expression:Expression" xmi:id="_aS6Xdw2oEeurv9SeGkAVjQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -66,12 +73,17 @@
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_aS6Xew2oEeurv9SeGkAVjQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
       <contract xmi:type="process:Contract" xmi:id="_aS6XfA2oEeurv9SeGkAVjQ">
-        <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl4BbuEeuZpoB7ty9Mew" name="lstCatDefectosInput" type="COMPLEX" multiple="true" dataReference="lstCatDefectos">
-          <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl4RbuEeuZpoB7ty9Mew" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl4hbuEeuZpoB7ty9Mew" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl4xbuEeuZpoB7ty9Mew" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl5BbuEeuZpoB7ty9Mew" name="usuarioCreacion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_q8Kl5RbuEeuZpoB7ty9Mew" name="isEliminado" type="BOOLEAN"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_E9fN8Bx6EeuYptiZIOErIQ" name="lstCatDefectosInput" type="COMPLEX" multiple="true" dataReference="lstCatDefectos">
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN8Rx6EeuYptiZIOErIQ" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN8hx6EeuYptiZIOErIQ" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN8xx6EeuYptiZIOErIQ" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN9Bx6EeuYptiZIOErIQ" name="usuarioCreacion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN9Rx6EeuYptiZIOErIQ" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_E9fN9hx6EeuYptiZIOErIQ" name="campus"/>
+        </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_vfOG0Bx_EeuYptiZIOErIQ" name="objProcesoCasoInput" type="COMPLEX" dataReference="objProcesoCaso">
+          <inputs xmi:type="process:ContractInput" xmi:id="_vfOG0Rx_EeuYptiZIOErIQ" name="campus"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_vfOG0hx_EeuYptiZIOErIQ" name="proceso"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_aS6XfQ2oEeurv9SeGkAVjQ">
