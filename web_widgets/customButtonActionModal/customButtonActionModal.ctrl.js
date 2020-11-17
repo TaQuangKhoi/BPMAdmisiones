@@ -5,6 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
   this.action = function action() {
+      debugger;
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
       closeModal($scope.properties.closeOnSuccess);
@@ -21,6 +22,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Close modal') {
       closeModal(true);
     } else if ($scope.properties.url) {
+        debugger;
       doRequest($scope.properties.action, $scope.properties.url);
     }
   };

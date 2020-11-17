@@ -3,7 +3,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   'use strict';
 
   var vm = this;
-   
+  var localS = localStorage;
   this.action = function action() {
     if ($scope.properties.action === 'Remove from collection') {
       removeFromCollection();
@@ -29,6 +29,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Close modal') {
       closeModal(true);
     } else if ($scope.properties.url) {
+        debugger;
         if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.datosVeridicos){
             swal("Aviso!", "Debe aceptar que los datos ingresados son veridicos!", "warning");
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.aceptoAvisoPrivacidad){
@@ -36,6 +37,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.confirmarAutorDatos){
             swal("Aviso!", "Debe aceptar que confirma que es el auto de los datos de este formulario!", "warning");
         }else{
+            localS.removeItem("catSolicitudDeAdmisionInput");
+            localS.removeItem("selectedIndex");
+            localS.removeItem("fotopasaporte");
+            localS.removeItem("actanacimiento");
+            localS.removeItem("descuento");
+            localS.removeItem("isPadretutor");
+            localS.removeItem("isMadretutor");
+            localS.removeItem("preparatoriaSeleccionada");
+            localS.removeItem("kardex");
+            $scope.properties.formInput.catSolicitudDeAdmisionInput.promedioGeneral = $scope.properties.formInput.catSolicitudDeAdmisionInput.promedioGeneral + "";
             doRequest($scope.properties.action, $scope.properties.url);
         }
     }

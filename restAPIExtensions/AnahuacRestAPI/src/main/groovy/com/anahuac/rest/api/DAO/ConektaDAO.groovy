@@ -69,23 +69,23 @@ class ConektaDAO {
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
-					+ "'shipping_lines': [{"
+					/*+ "'shipping_lines': [{"
 						+ "'amount': 1500,"
 						+ "'carrier': 'FEDEX'"
-					+ "}],"
+					+ "}],"*/
 					+ "'currency': 'MXN',"
 					+ "'customer_info': {"
 						+ "'name': '" + name + "',"
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					+ "'shipping_contact':{"
+					/*+ "'shipping_contact':{"
 						+ "'address': {"
 							+ "'street1': '" + street1 + "',"
 							+ "'postal_code': '" + postal_code + "',"
 							+ "'country': '" + country + "'"
 						+ "}"
-					 + "},"
+					 + "},"*/
 					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
 						  + "'payment_method': {"
@@ -121,7 +121,10 @@ class ConektaDAO {
             e.printStackTrace();
         } catch (io.conekta.ErrorList error) {
 			LOGGER.error error.details.get(0).message
+			resultado.setSuccess(false);
+			resultado.setError(error.details.get(0).message);
 		} 
+		
 		
         return resultado
     }
@@ -203,6 +206,9 @@ class ConektaDAO {
 		    System.out.println(e.getMessage());
 		} catch (io.conekta.ErrorList error) {
 			LOGGER.error error.details.get(0).message
+			LOGGER.error error.details.get(0).message
+			resultado.setSuccess(false);
+			resultado.setError(error.details.get(0).message);
 		} 
 		return resultado;
 	
@@ -242,23 +248,23 @@ class ConektaDAO {
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
-					+ "'shipping_lines': [{"
+					/*+ "'shipping_lines': [{"
 						+ "'amount': 1500,"
 						+ "'carrier': 'FEDEX'"
-					+ "}],"
+					+ "}],"*/
 					+ "'currency': 'MXN',"
 					+ "'customer_info': {"
 						+ "'name': '" + name + "',"
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					+ "'shipping_contact':{"
+					/*+ "'shipping_contact':{"
 						+ "'address': {"
 							+ "'street1': '" + street1 + "',"
 							+ "'postal_code': '" + postal_code + "',"
 							+ "'country': '" + country + "'" 
 						+ "}"
-					 + "},"
+					 + "},"*/
 					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
 					  	+ "'payment_method': {"
@@ -286,6 +292,9 @@ class ConektaDAO {
 			resultado.setSuccess(true);
 		} catch (io.conekta.ErrorList error) {
 			LOGGER.error error.details.get(0).message
+			LOGGER.error error.details.get(0).message
+			resultado.setSuccess(false);
+			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());

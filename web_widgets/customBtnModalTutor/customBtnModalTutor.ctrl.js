@@ -3,8 +3,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     'use strict';
 
     var vm = this;
-
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.action = function action() {
+        debugger;
         $scope.agregootro = false;
         $scope.faltaotro = false;
         if ($scope.properties.action === 'Remove from collection') {
@@ -43,6 +44,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("Apellidos del tutor!", "Debe agregar los apellidos del tutor!", "warning");
                 } else if ($scope.properties.tutor.correoElectronico === "") {
                     swal("Correo electrónico!", "Debe agregar el correo electrónico del tutor!", "warning");
+                } else if(!re.test(String($scope.properties.tutor.correoElectronico.trim()).toLowerCase())){
+                    swal("Correo electrónico!", "El correo electrónico no es valido!", "warning");
                 } else if ($scope.properties.tutor.catEgresoAnahuac === null) {
                     swal("Egreso Anahuac!", "Debe seleccionar si su tutor egresó de la universidad Anahuac!", "warning");
                 } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si") {
@@ -65,9 +68,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -100,6 +105,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -128,57 +136,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                     }
                                 }
+                            } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
                             }
                             $scope.properties.tutor = {
-                                "catTitulo": {
-                                    "persistenceId_string": ""
-                                },
-                                "catParentezco": {
-                                    "persistenceId_string": ""
-                                },
-                                "nombre": "",
-                                "apellidos": "",
-                                "correoElectronico": "",
-                                "catEscolaridad": {
-                                    "persistenceId_string": ""
-                                },
-                                "catEgresoAnahuac": {
-                                    "persistenceId_string": ""
-                                },
-                                "catCampusEgreso": {
-                                    "persistenceId_string": ""
-                                },
-                                "catTrabaja": {
-                                    "persistenceId_string": ""
-                                },
-                                "empresaTrabaja": "",
-                                "giroEmpresa": "",
-                                "puesto": "",
-                                "isTutor": false,
-                                "vive": {
-                                    "persistenceId_string": ""
-                                },
-                                "calle": "",
-                                "catPais": {
-                                    "persistenceId_string": ""
-                                },
-                                "numeroExterior": "",
-                                "numeroInterior": "",
-                                "catEstado": {
-                                    "persistenceId_string": ""
-                                },
-                                "ciudad": "",
-                                "colonia": "",
-                                "telefono": "",
-                                "codigoPostal": "",
-                                "viveContigo": false,
-                                "otroParentesco": ""
-                            };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                             closeModal(true);
                         }
                     } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -191,9 +204,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -226,6 +241,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -254,57 +272,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                 }
                             }
-                        }
+                        } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
+                            }
                         $scope.properties.tutor = {
-                            "catTitulo": {
-                                "persistenceId_string": ""
-                            },
-                            "catParentezco": {
-                                "persistenceId_string": ""
-                            },
-                            "nombre": "",
-                            "apellidos": "",
-                            "correoElectronico": "",
-                            "catEscolaridad": {
-                                "persistenceId_string": ""
-                            },
-                            "catEgresoAnahuac": {
-                                "persistenceId_string": ""
-                            },
-                            "catCampusEgreso": {
-                                "persistenceId_string": ""
-                            },
-                            "catTrabaja": {
-                                "persistenceId_string": ""
-                            },
-                            "empresaTrabaja": "",
-                            "giroEmpresa": "",
-                            "puesto": "",
-                            "isTutor": false,
-                            "vive": {
-                                "persistenceId_string": ""
-                            },
-                            "calle": "",
-                            "catPais": {
-                                "persistenceId_string": ""
-                            },
-                            "numeroExterior": "",
-                            "numeroInterior": "",
-                            "catEstado": {
-                                "persistenceId_string": ""
-                            },
-                            "ciudad": "",
-                            "colonia": "",
-                            "telefono": "",
-                            "codigoPostal": "",
-                            "viveContigo": false,
-                            "otroParentesco": ""
-                        };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                         closeModal(true);
                     }
                 } else if ($scope.properties.tutor.catTrabaja === null) {
@@ -324,9 +347,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -354,11 +379,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.numeroExterior = $scope.properties.tutor.numeroExterior;
                             $scope.properties.formInput.padreInput.numeroInterior = $scope.properties.tutor.numeroInterior;
                             $scope.properties.formInput.padreInput.catEstado = $scope.properties.tutor.catEstado;
+                            $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
                             $scope.properties.formInput.padreInput.ciudad = $scope.properties.tutor.ciudad;
                             $scope.properties.formInput.padreInput.colonia = $scope.properties.tutor.colonia;
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -387,57 +415,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                 }
                             }
-                        }
+                        } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
+                            }
                         $scope.properties.tutor = {
-                            "catTitulo": {
-                                "persistenceId_string": ""
-                            },
-                            "catParentezco": {
-                                "persistenceId_string": ""
-                            },
-                            "nombre": "",
-                            "apellidos": "",
-                            "correoElectronico": "",
-                            "catEscolaridad": {
-                                "persistenceId_string": ""
-                            },
-                            "catEgresoAnahuac": {
-                                "persistenceId_string": ""
-                            },
-                            "catCampusEgreso": {
-                                "persistenceId_string": ""
-                            },
-                            "catTrabaja": {
-                                "persistenceId_string": ""
-                            },
-                            "empresaTrabaja": "",
-                            "giroEmpresa": "",
-                            "puesto": "",
-                            "isTutor": false,
-                            "vive": {
-                                "persistenceId_string": ""
-                            },
-                            "calle": "",
-                            "catPais": {
-                                "persistenceId_string": ""
-                            },
-                            "numeroExterior": "",
-                            "numeroInterior": "",
-                            "catEstado": {
-                                "persistenceId_string": ""
-                            },
-                            "ciudad": "",
-                            "colonia": "",
-                            "telefono": "",
-                            "codigoPostal": "",
-                            "viveContigo": false,
-                            "otroParentesco": ""
-                        };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                         closeModal(true);
                     }
                 } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -450,9 +483,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.numeroExterior === "") {
                     swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                } else if ($scope.properties.tutor.catEstado === null) {
-                    swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                } else if ($scope.properties.tutor.ciudad === "") {
+                } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                     swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.colonia === "") {
                     swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -485,6 +520,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                         $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                         $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                        $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                        $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                        $scope.properties.isPadretutor = true;
                         for (var i = 0; i < $scope.properties.catVive.length; i++) {
                             if ($scope.properties.catVive[i].descripcion === "Si") {
                                 $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -513,57 +551,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                         $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                         $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                        $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                        $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                        $scope.properties.isMadretutor = true;
                         for (var i = 0; i < $scope.properties.catVive.length; i++) {
                             if ($scope.properties.catVive[i].descripcion === "Si") {
                                 $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                             }
                         }
-                    }
+                    } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
+                            }
                     $scope.properties.tutor = {
-                        "catTitulo": {
-                            "persistenceId_string": ""
-                        },
-                        "catParentezco": {
-                            "persistenceId_string": ""
-                        },
-                        "nombre": "",
-                        "apellidos": "",
-                        "correoElectronico": "",
-                        "catEscolaridad": {
-                            "persistenceId_string": ""
-                        },
-                        "catEgresoAnahuac": {
-                            "persistenceId_string": ""
-                        },
-                        "catCampusEgreso": {
-                            "persistenceId_string": ""
-                        },
-                        "catTrabaja": {
-                            "persistenceId_string": ""
-                        },
-                        "empresaTrabaja": "",
-                        "giroEmpresa": "",
-                        "puesto": "",
-                        "isTutor": false,
-                        "vive": {
-                            "persistenceId_string": ""
-                        },
-                        "calle": "",
-                        "catPais": {
-                            "persistenceId_string": ""
-                        },
-                        "numeroExterior": "",
-                        "numeroInterior": "",
-                        "catEstado": {
-                            "persistenceId_string": ""
-                        },
-                        "ciudad": "",
-                        "colonia": "",
-                        "telefono": "",
-                        "codigoPostal": "",
-                        "viveContigo": false,
-                        "otroParentesco": ""
-                    };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                     closeModal(true);
                 }
             } else {
@@ -574,7 +617,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("Apellidos del tutor!", "Debe agregar los apellidos del tutor!", "warning");
                     } else if ($scope.properties.tutor.correoElectronico === "") {
                         swal("Correo electrónico!", "Debe agregar el correo electrónico del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEgresoAnahuac === null) {
+                    } else if(!re.test(String($scope.properties.tutor.correoElectronico.trim()).toLowerCase())){
+                        swal("Correo electrónico!", "El correo electrónico no es valido!", "warning");
+                    }  else if ($scope.properties.tutor.catEgresoAnahuac === null) {
                         swal("Egreso Anahuac!", "Debe seleccionar si su tutor egresó de la universidad Anahuac!", "warning");
                     } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si") {
                         if ($scope.properties.tutor.catCampusEgreso === null) {
@@ -596,9 +641,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.numeroExterior === "") {
                                 swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                            } else if ($scope.properties.tutor.catEstado === null) {
-                                swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                            } else if ($scope.properties.tutor.ciudad === "") {
+                            } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                                 swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -631,6 +678,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                     $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                     $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                    $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                    $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                    $scope.properties.isPadretutor = true;
                                     for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                         if ($scope.properties.catVive[i].descripcion === "Si") {
                                             $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -659,57 +709,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                     $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                     $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                    $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                    $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                    $scope.properties.isMadretutor = true;
                                     for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                         if ($scope.properties.catVive[i].descripcion === "Si") {
                                             $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                         }
                                     }
-                                }
+                                } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
+                            }
                                 $scope.properties.tutor = {
-                                    "catTitulo": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "catParentezco": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "nombre": "",
-                                    "apellidos": "",
-                                    "correoElectronico": "",
-                                    "catEscolaridad": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "catEgresoAnahuac": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "catCampusEgreso": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "catTrabaja": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "empresaTrabaja": "",
-                                    "giroEmpresa": "",
-                                    "puesto": "",
-                                    "isTutor": false,
-                                    "vive": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "calle": "",
-                                    "catPais": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "numeroExterior": "",
-                                    "numeroInterior": "",
-                                    "catEstado": {
-                                        "persistenceId_string": ""
-                                    },
-                                    "ciudad": "",
-                                    "colonia": "",
-                                    "telefono": "",
-                                    "codigoPostal": "",
-                                    "viveContigo": false,
-                                    "otroParentesco": ""
-                                };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                                 closeModal(true);
                             }
                         } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -722,9 +777,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -757,6 +814,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -785,57 +845,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                     }
                                 }
+                            } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
                             }
                             $scope.properties.tutor = {
-                                "catTitulo": {
-                                    "persistenceId_string": ""
-                                },
-                                "catParentezco": {
-                                    "persistenceId_string": ""
-                                },
-                                "nombre": "",
-                                "apellidos": "",
-                                "correoElectronico": "",
-                                "catEscolaridad": {
-                                    "persistenceId_string": ""
-                                },
-                                "catEgresoAnahuac": {
-                                    "persistenceId_string": ""
-                                },
-                                "catCampusEgreso": {
-                                    "persistenceId_string": ""
-                                },
-                                "catTrabaja": {
-                                    "persistenceId_string": ""
-                                },
-                                "empresaTrabaja": "",
-                                "giroEmpresa": "",
-                                "puesto": "",
-                                "isTutor": false,
-                                "vive": {
-                                    "persistenceId_string": ""
-                                },
-                                "calle": "",
-                                "catPais": {
-                                    "persistenceId_string": ""
-                                },
-                                "numeroExterior": "",
-                                "numeroInterior": "",
-                                "catEstado": {
-                                    "persistenceId_string": ""
-                                },
-                                "ciudad": "",
-                                "colonia": "",
-                                "telefono": "",
-                                "codigoPostal": "",
-                                "viveContigo": false,
-                                "otroParentesco": ""
-                            };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                             closeModal(true);
                         }
                     } else if ($scope.properties.tutor.catTrabaja === null) {
@@ -855,9 +920,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -890,6 +957,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -918,57 +988,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                     }
                                 }
+                            } else {
+                                $scope.properties.isPadretutor = false;
+                                $scope.properties.isMadretutor = false;
                             }
                             $scope.properties.tutor = {
-                                "catTitulo": {
-                                    "persistenceId_string": ""
-                                },
-                                "catParentezco": {
-                                    "persistenceId_string": ""
-                                },
-                                "nombre": "",
-                                "apellidos": "",
-                                "correoElectronico": "",
-                                "catEscolaridad": {
-                                    "persistenceId_string": ""
-                                },
-                                "catEgresoAnahuac": {
-                                    "persistenceId_string": ""
-                                },
-                                "catCampusEgreso": {
-                                    "persistenceId_string": ""
-                                },
-                                "catTrabaja": {
-                                    "persistenceId_string": ""
-                                },
-                                "empresaTrabaja": "",
-                                "giroEmpresa": "",
-                                "puesto": "",
-                                "isTutor": false,
-                                "vive": {
-                                    "persistenceId_string": ""
-                                },
-                                "calle": "",
-                                "catPais": {
-                                    "persistenceId_string": ""
-                                },
-                                "numeroExterior": "",
-                                "numeroInterior": "",
-                                "catEstado": {
-                                    "persistenceId_string": ""
-                                },
-                                "ciudad": "",
-                                "colonia": "",
-                                "telefono": "",
-                                "codigoPostal": "",
-                                "viveContigo": false,
-                                "otroParentesco": ""
-                            };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                             closeModal(true);
                         }
                     } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -981,9 +1056,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1016,6 +1093,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.padreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -1044,57 +1124,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero =$scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
                                 }
                             }
+                        }else{
+                            $scope.properties.isPadretutor = false;
+                            $scope.properties.isMadretutor = false;
                         }
                         $scope.properties.tutor = {
-                            "catTitulo": {
-                                "persistenceId_string": ""
-                            },
-                            "catParentezco": {
-                                "persistenceId_string": ""
-                            },
-                            "nombre": "",
-                            "apellidos": "",
-                            "correoElectronico": "",
-                            "catEscolaridad": {
-                                "persistenceId_string": ""
-                            },
-                            "catEgresoAnahuac": {
-                                "persistenceId_string": ""
-                            },
-                            "catCampusEgreso": {
-                                "persistenceId_string": ""
-                            },
-                            "catTrabaja": {
-                                "persistenceId_string": ""
-                            },
-                            "empresaTrabaja": "",
-                            "giroEmpresa": "",
-                            "puesto": "",
-                            "isTutor": false,
-                            "vive": {
-                                "persistenceId_string": ""
-                            },
-                            "calle": "",
-                            "catPais": {
-                                "persistenceId_string": ""
-                            },
-                            "numeroExterior": "",
-                            "numeroInterior": "",
-                            "catEstado": {
-                                "persistenceId_string": ""
-                            },
-                            "ciudad": "",
-                            "colonia": "",
-                            "telefono": "",
-                            "codigoPostal": "",
-                            "viveContigo": false,
-                            "otroParentesco": ""
-                        };
+    "catTitulo" : {
+      "persistenceId_string" : ""
+    },
+    "catParentezco" : {
+      "persistenceId_string" : ""
+    },
+    "nombre" : "",
+    "apellidos" : "",
+    "correoElectronico" : "",
+    "catEscolaridad" : {
+      "persistenceId_string" : ""
+    },
+    "catEgresoAnahuac" : {
+      "persistenceId_string" : ""
+    },
+    "catCampusEgreso" : {
+      "persistenceId_string" : ""
+    },
+    "catTrabaja" : {
+      "persistenceId_string" : ""
+    },
+    "empresaTrabaja" : "",
+    "giroEmpresa" : "",
+    "puesto" : "",
+    "isTutor" : false,
+    "calle" : "",
+    "catPais" : {
+      "persistenceId_string" : ""
+    },
+    "numeroExterior" : "",
+    "numeroInterior" : "",
+    "catEstado" : {
+      "persistenceId_string" : ""
+    },
+    "ciudad" : "",
+    "colonia" : "",
+    "telefono" : "",
+    "codigoPostal" : "",
+    "viveContigo" : false,
+    "otroParentesco" : "",
+    "delegacionMunicipio":"",
+    "estadoExtranjero":""
+  };
                         closeModal(true);
                     }
                 }

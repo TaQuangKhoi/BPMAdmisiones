@@ -28,6 +28,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.contenido[$scope.properties.index].inscripcionagosto = $scope.properties.nuevosValores[0].inscripcionagosto;
                 $scope.properties.contenido[$scope.properties.index].periododisponible = $scope.properties.nuevosValores[0].periododisponible;
                 $scope.properties.contenido[$scope.properties.index].tipocentroestudios = $scope.properties.nuevosValores[0].tipocentroestudios;
+                $scope.properties.contenido[$scope.properties.index].orden = $scope.properties.nuevosValores[0].orden;
                 $scope.properties.nuevosValores = [{"nombre" : "", "descripcion" : "", "enlace" : "", "propedeutico" : false, "programaparcial" : false, "matematicas" : false, "inscripcionenero" : "", "inscripcionagosto" : "", "periododisponible" : {"persistenceId_string" : ""}, "isEliminado" : false, "tipocentroestudios":{"persistenceId_string" : ""}, "persistenceId_string" : "" ,"usuarioCreacion":"", "fechaCreacion":""}];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }

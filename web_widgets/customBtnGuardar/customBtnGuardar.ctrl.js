@@ -1,33 +1,35 @@
-function PbButtonCtrl($scope, $http, modalService) {
+function PbButtonCtrl($scope, $http,  modalService) {
     'use strict';
     var vm = this;
+
     this.isArray = Array.isArray;
     $scope.loading = false;
+
 
     $scope.sendData = function() {
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;
-            if ($scope.properties.isModificacion === false) {
-                $scope.properties.nuevosValores.forEach(element => {
-                        $scope.properties.contenido.push(element);
-                    })
-                    //console.log("$scope.properties.contenido")
-                    //console.log($scope.properties.contenido)
+            if($scope.properties.isModificacion === false){
+                $scope.properties.nuevosValores.forEach(element =>{
+                    $scope.properties.contenido.push(element);
+                })
+                //console.log("$scope.properties.contenido")
+               //console.log($scope.properties.contenido)
                 $scope.properties.nuevosValores = [];
-            } else {
+            }else{
                 $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
                 $scope.properties.nuevosValores = [];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }
-
+            
             $scope.asignarTarea()
         } else {
             console.log("click doble");
         }
     }
-
+    
     function openModal(modalId) {
         modalService.open(modalId);
     }
@@ -50,6 +52,7 @@ function PbButtonCtrl($scope, $http, modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -74,7 +77,6 @@ function PbButtonCtrl($scope, $http, modalService) {
     }
 
     $scope.submitTask = function() {
-
         var req = {
             method: "POST",
             url: "/bonita/API/bpm/userTask/" + $scope.properties.taskId + "/execution?assign=false",
@@ -83,11 +85,14 @@ function PbButtonCtrl($scope, $http, modalService) {
 
         return $http(req)
             .success(function(data, status) {
+                //console.log("$scope.properties.dataToSend");
+                //console.log($scope.properties.dataToSend);
                 $scope.getConsulta();
             })
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -129,7 +134,7 @@ function PbButtonCtrl($scope, $http, modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }

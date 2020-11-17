@@ -14,7 +14,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            debugger;
             if ($scope.properties.accion === "Solicitar cambios") {
                 $scope.properties.dataToSend.conIsInformacionValidada = false;
                 $scope.properties.dataToSend.conIs100Descuento = false;
@@ -116,7 +115,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.idBanner === null) {
                         swal("idBanner!", "Debe agregar el idBanner!", "warning");
                     } else {
-                        $scope.properties.dataToSend.conIsInformacionValidada = false;
+                        $scope.properties.dataToSend.conIsInformacionValidada = true;
                         $scope.properties.dataToSend.conIsListaRoja = false;
                         $scope.properties.dataToSend.conIs100Descuento = false;
                         $scope.properties.dataToSend.conIsAdmisionAnahuac = true;

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesPais",
   "name" : "pageAccionesPais",
-  "lastUpdate" : 1604973022371,
+  "lastUpdate" : 1605654622684,
   "rows" : [
     [
       {
@@ -31,7 +31,7 @@
                 },
                 "level" : {
                   "type" : "constant",
-                  "value" : "Level 1"
+                  "value" : "Level 2"
                 },
                 "cssClasses" : {
                   "type" : "constant",
@@ -39,7 +39,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "{{ task.displayName }}"
+                  "value" : "Catalogo de Pais"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -254,6 +254,83 @@
                             {
                               "type" : "component",
                               "dimension" : {
+                                "xs" : 12,
+                                "sm" : 12,
+                                "md" : 12,
+                                "lg" : 12
+                              },
+                              "propertyValues" : {
+                                "cssClasses" : {
+                                  "type" : "constant",
+                                  "value" : ""
+                                },
+                                "hidden" : {
+                                  "type" : "constant",
+                                  "value" : false
+                                },
+                                "required" : {
+                                  "type" : "constant",
+                                  "value" : false
+                                },
+                                "minLength" : {
+                                  "type" : "constant",
+                                  "value" : ""
+                                },
+                                "maxLength" : {
+                                  "type" : "constant",
+                                  "value" : 1
+                                },
+                                "readOnly" : {
+                                  "type" : "constant",
+                                  "value" : false
+                                },
+                                "labelHidden" : {
+                                  "type" : "constant",
+                                  "value" : false
+                                },
+                                "label" : {
+                                  "type" : "interpolation",
+                                  "value" : "Orden"
+                                },
+                                "labelPosition" : {
+                                  "type" : "constant",
+                                  "value" : "top"
+                                },
+                                "labelWidth" : {
+                                  "type" : "constant",
+                                  "value" : 4
+                                },
+                                "placeholder" : {
+                                  "type" : "interpolation"
+                                },
+                                "value" : {
+                                  "type" : "variable",
+                                  "value" : "$item.orden"
+                                },
+                                "type" : {
+                                  "type" : "constant",
+                                  "value" : "text"
+                                },
+                                "min" : {
+                                  "type" : "constant"
+                                },
+                                "max" : {
+                                  "type" : "constant"
+                                },
+                                "step" : {
+                                  "type" : "constant",
+                                  "value" : 1
+                                }
+                              },
+                              "reference" : "31df0211-aa1a-408a-a837-ea2cd4b1bea5",
+                              "hasValidationError" : false,
+                              "id" : "customInputNumerico"
+                            }
+                          ],
+                          [
+                            {
+                              "type" : "component",
+                              "dimension" : {
                                 "md" : 12,
                                 "sm" : 12,
                                 "xs" : 12,
@@ -430,7 +507,7 @@
                                 },
                                 "hidden" : {
                                   "type" : "constant",
-                                  "value" : false
+                                  "value" : true
                                 },
                                 "cssClasses" : {
                                   "type" : "constant",
@@ -459,7 +536,7 @@
                                   "value" : "Item"
                                 },
                                 "valueToAdd" : {
-                                  "type" : "expression"
+                                  "type" : "constant"
                                 },
                                 "collectionToModify" : {
                                   "type" : "variable",
@@ -525,91 +602,42 @@
                           "lg" : 12
                         },
                         "propertyValues" : {
-                          "removeItem" : {
-                            "type" : "variable"
-                          },
-                          "hidden" : {
-                            "type" : "expression",
-                            "value" : "otrasVariables.isModificacion"
-                          },
                           "cssClasses" : {
                             "type" : "constant",
                             "value" : ""
                           },
-                          "buttonStyle" : {
+                          "hidden" : {
                             "type" : "constant",
-                            "value" : "primary"
-                          },
-                          "label" : {
-                            "type" : "interpolation",
-                            "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Add CatPais"
-                          },
-                          "dataToSend" : {
-                            "type" : "expression"
-                          },
-                          "labelHidden" : {
-                            "type" : "constant",
-                            "value" : false
-                          },
-                          "targetUrlOnSuccess" : {
-                            "type" : "interpolation"
-                          },
-                          "collectionPosition" : {
-                            "type" : "constant"
-                          },
-                          "valueToAdd" : {
-                            "type" : "expression",
-                            "value" : "{  \"persistenceId_string\" : \"\",  \"clave\" : \"\",  \"descripcion\" : \"\", \"fechaCreacion\":getFecha, \"usuarioCreacion\" : userData.user_name,  \"isEliminado\" : false}"
-                          },
-                          "collectionToModify" : {
-                            "type" : "variable",
-                            "value" : "formInput.lstCatPaisInput"
-                          },
-                          "action" : {
-                            "type" : "constant",
-                            "value" : "Add to collection"
+                            "value" : true
                           },
                           "disabled" : {
                             "type" : "constant",
                             "value" : false
                           },
+                          "label" : {
+                            "type" : "interpolation",
+                            "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar Pais"
+                          },
                           "alignment" : {
                             "type" : "constant",
                             "value" : "left"
                           },
-                          "dimension" : {
+                          "buttonStyle" : {
                             "type" : "constant",
-                            "value" : 12
+                            "value" : "primary"
                           },
-                          "assign" : {
-                            "type" : "constant",
-                            "value" : false
+                          "strJson" : {
+                            "type" : "expression",
+                            "value" : "str"
                           },
-                          "url" : {
-                            "type" : "interpolation"
-                          },
-                          "responseStatusCode" : {
-                            "type" : "variable"
-                          },
-                          "dataFromSuccess" : {
-                            "type" : "variable"
-                          },
-                          "closeOnSuccess" : {
-                            "type" : "constant",
-                            "value" : false
-                          },
-                          "dataFromError" : {
-                            "type" : "variable"
-                          },
-                          "modalId" : {
-                            "type" : "constant",
-                            "value" : ""
+                          "dataReset" : {
+                            "type" : "variable",
+                            "value" : "formInput.lstCatPaisInput"
                           }
                         },
-                        "reference" : "d575219f-f528-47c7-b810-92f7eff6f52a",
+                        "reference" : "b5fad741-58b7-4f52-98db-502d132cf873",
                         "hasValidationError" : false,
-                        "id" : "pbButton",
-                        "description" : ""
+                        "id" : "customBtnCollection"
                       }
                     ],
                     [
@@ -627,8 +655,8 @@
                             "value" : ""
                           },
                           "hidden" : {
-                            "type" : "constant",
-                            "value" : false
+                            "type" : "expression",
+                            "value" : "taskId == undefined"
                           },
                           "disabled" : {
                             "type" : "expression",
@@ -690,6 +718,102 @@
                         "reference" : "b8388d63-2520-4c14-813f-074bf46358a8",
                         "hasValidationError" : false,
                         "id" : "customBtnGuardar"
+                      }
+                    ],
+                    [
+                      {
+                        "type" : "component",
+                        "dimension" : {
+                          "xs" : 12,
+                          "sm" : 12,
+                          "md" : 12,
+                          "lg" : 12
+                        },
+                        "propertyValues" : {
+                          "cssClasses" : {
+                            "type" : "constant",
+                            "value" : ""
+                          },
+                          "hidden" : {
+                            "type" : "expression",
+                            "value" : "taskId != undefined"
+                          },
+                          "disabled" : {
+                            "type" : "expression",
+                            "value" : "!otrasVariables.Validado"
+                          },
+                          "label" : {
+                            "type" : "interpolation",
+                            "value" : "Guardar"
+                          },
+                          "alignment" : {
+                            "type" : "constant",
+                            "value" : "center"
+                          },
+                          "buttonStyle" : {
+                            "type" : "constant",
+                            "value" : "success"
+                          },
+                          "action" : {
+                            "type" : "constant",
+                            "value" : "POST"
+                          },
+                          "assign" : {
+                            "type" : "constant",
+                            "value" : false
+                          },
+                          "url" : {
+                            "type" : "interpolation",
+                            "value" : "{{processUrl}}"
+                          },
+                          "responseStatusCode" : {
+                            "type" : "variable",
+                            "value" : ""
+                          },
+                          "dataToSend" : {
+                            "type" : "expression",
+                            "value" : "formOutput"
+                          },
+                          "dataFromSuccess" : {
+                            "type" : "variable",
+                            "value" : ""
+                          },
+                          "closeOnSuccess" : {
+                            "type" : "constant",
+                            "value" : true
+                          },
+                          "dataFromError" : {
+                            "type" : "variable",
+                            "value" : ""
+                          },
+                          "targetUrlOnSuccess" : {
+                            "type" : "interpolation"
+                          },
+                          "collectionToModify" : {
+                            "type" : "variable"
+                          },
+                          "modalId" : {
+                            "type" : "constant",
+                            "value" : ""
+                          },
+                          "collectionPosition" : {
+                            "type" : "constant",
+                            "value" : "Last"
+                          },
+                          "valueToAdd" : {
+                            "type" : "constant"
+                          },
+                          "removeItem" : {
+                            "type" : "variable"
+                          },
+                          "formInput" : {
+                            "type" : "variable",
+                            "value" : ""
+                          }
+                        },
+                        "reference" : "1a08e7a9-07bd-42d7-a8fb-816c7edc8151",
+                        "hasValidationError" : false,
+                        "id" : "customBtnGenericInstancia"
                       }
                     ],
                     [
@@ -801,6 +925,10 @@
           "dataReset" : {
             "type" : "variable",
             "value" : "formInput.lstCatPaisInput"
+          },
+          "strJson" : {
+            "type" : "expression",
+            "value" : "str"
           }
         },
         "reference" : "eb246e07-dcaf-4b29-94fe-ae17f4f2cbc7",
@@ -860,6 +988,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
+                    "Orden",
                     "Clave",
                     "Descripción",
                     "Fecha creación",
@@ -870,6 +999,7 @@
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
+                    "Orden",
                     "clave",
                     "descripcion",
                     "fechaCreacion",
@@ -1042,10 +1172,12 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "console.log(\"$data.objContrato\")",
-        "console.log($data.objContrato)",
-        "return {",
+        "if($data.taskId === undefined){",
+        "    return {lstCatPaisInput: $data.formInput.lstCatPaisInput}",
+        "}else {",
+        "    return {",
         "\tlstCatPaisInput: $data.objContrato",
+        "    }",
         "}"
       ],
       "exposed" : false
@@ -1121,14 +1253,18 @@
         "var validado = true;",
         "if( $data.formInput.lstCatPaisInput.length >=1){",
         "    $data.formInput.lstCatPaisInput.forEach(element =>{",
-        "        if(element.clave.trim()===\"\"){",
+        "         if(element.orden === 0){",
+        "            validado = false;",
+        "        }if(element.clave.trim()===\"\"){",
         "            validado = false;",
         "        }else if(element.descripcion.trim()===\"\"){",
         "            validado = false;",
         "        }else if(element.fechaCreacion.trim()===\"\" || element.fechaCreacion.trim().length <19){",
         "            validado = false;",
+        "            element.fechaCreacion = $data.getFecha;",
         "        } else if(element.usuarioCreacion.trim()===\"\"){",
         "            validado = false;",
+        "            element.usuarioCreacion = $data.userData.user_name;",
         "        }",
         "    });  ",
         "}else{",
@@ -1152,10 +1288,48 @@
         "return isoLocal;"
       ],
       "exposed" : false
+    },
+    "str" : {
+      "type" : "constant",
+      "value" : [
+        "{  \"persistenceId_string\" : \"\",  \"clave\" : \"\",  \"descripcion\" : \"\", \"fechaCreacion\":\"\", \"usuarioCreacion\" : \"\",  \"isEliminado\" : false, \"orden\":0}"
+      ],
+      "exposed" : false
+    },
+    "processId" : {
+      "type" : "expression",
+      "value" : [
+        "let value = \"\";\r",
+        "value = $data.processList[0].id;\r",
+        "return value;"
+      ],
+      "exposed" : false
+    },
+    "processList" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED&f=name=CatPais"
+      ],
+      "exposed" : false
+    },
+    "processUrl" : {
+      "type" : "expression",
+      "value" : [
+        "let ipBonita = window.location.protocol + \"//\" + window.location.host + \"/bonita\";    \r",
+        "return ipBonita + \"/API/bpm/process/\" + $data.processId + \"/instantiation\";"
+      ],
+      "exposed" : false
+    },
+    "humantask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=100&f=processId={{processid}}"
+      ],
+      "exposed" : false
     }
   },
   "hasValidationError" : false,
   "uuid" : "d2dd58b9-6606-459d-9327-5e4ee1238490",
-  "type" : "form",
+  "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }

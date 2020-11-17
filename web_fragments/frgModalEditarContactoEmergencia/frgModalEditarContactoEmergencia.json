@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgModalEditarContactoEmergencia",
   "name" : "frgModalEditarContactoEmergencia",
-  "lastUpdate" : 1605177510851,
+  "lastUpdate" : 1605653442738,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "EDITAR CONTACTO DE EMERGENCIA"
+            "value" : "<label class=\"color-orange\">Editar Contacto de Emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -60,7 +60,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "CONTACTO DE EMERGENCIA"
+            "value" : "<label class=\"color-orange\">Contacto de Emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -159,7 +159,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showalertpadre === \"true\""
+            "value" : "!showmadrealert"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -211,7 +211,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showalertmadre === \"true\""
+            "value" : "!showpadrealert"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -275,7 +275,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "expression",
@@ -319,9 +319,9 @@
             "value" : 1
           }
         },
-        "reference" : "1f215162-d441-4c1e-8ae2-d7c52a6ef66b",
+        "reference" : "18209836-d0e5-47f1-9aa6-a27b3b931405",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -350,7 +350,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 10
           },
           "readOnly" : {
             "type" : "expression",
@@ -394,9 +394,9 @@
             "value" : 1
           }
         },
-        "reference" : "62e8cfd4-82f6-4939-ace8-1e02358673ff",
+        "reference" : "b2309889-0258-4b9a-ab77-5e1869b40eda",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputNumerico"
       }
     ],
     [
@@ -427,7 +427,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 10
           },
           "readOnly" : {
             "type" : "expression",
@@ -471,9 +471,9 @@
             "value" : 1
           }
         },
-        "reference" : "d3634aa8-9487-40bb-8901-82c29aa1d79e",
+        "reference" : "8e70c824-05d3-4cd3-ae73-27e608f8dd7e",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputNumerico"
       },
       {
         "type" : "component",
@@ -598,7 +598,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 1
           },
           "readOnly" : {
             "type" : "expression",
@@ -643,9 +643,9 @@
             "value" : 1
           }
         },
-        "reference" : "b8be78d9-4af2-48e1-bcbb-cab68a5afe50",
+        "reference" : "c339b52e-b2a8-426d-82fe-66c1431f7bf8",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       }
     ],
     [
@@ -768,7 +768,7 @@
     "datosPadre" : {
       "type" : "expression",
       "value" : [
-        "var mostrar = true;\r",
+        "var mostrar = false;\r",
         "var otro = true;\r",
         "for (var x = 0; x < $data.catCasoDeEmergencia.length; x++) {\r",
         "  if($data.casoEmergenciaJSON.catCasoDeEmergencia !== null){\r",
@@ -777,7 +777,6 @@
         "            if ($data.padrevive) {\r",
         "                $data.casoEmergenciaJSON.nombre = $data.formInput.padreInput.nombre + \" \" + $data.formInput.padreInput.apellidos;\r",
         "                $data.casoEmergenciaJSON.telefono = $data.formInput.padreInput.telefono;\r",
-        "\r",
         "                otro = false;\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.catCasoDeEmergencia[x].descripcion;\r",
         "                for (var j = 0; j < $data.catParentesco.length; j++) {\r",
@@ -795,15 +794,14 @@
         "                  \"parentesco\": \"\",\r",
         "                  \"catParentesco\": null\r",
         "                }\r",
-        "                $data.showalertpadre = \"false\";\r",
-        "                $data.showalertmadre = \"true\";\r",
+        "                $data.showpadrealert = false;\r",
+        "                $data.showmadrealert = true;\r",
+        "\t\t\t\tmostrar = true;\r",
         "            }\r",
-        "\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Madre\") {\r",
         "            if ($data.madrevive) {\r",
         "                $data.casoEmergenciaJSON.nombre = $data.formInput.madreInput.nombre + \" \" + $data.formInput.madreInput.apellidos;\r",
         "                $data.casoEmergenciaJSON.telefono = $data.formInput.madreInput.telefono;\r",
-        "                //$data.casoEmergenciaJSON.idCatParentesco = $data.formInput.solicitudDeAdmisionInput.madre.idCatParentesco;\r",
         "                otro = false;\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.catCasoDeEmergencia[x].descripcion;\r",
         "                for (var j = 0; j < $data.catParentesco.length; j++) {\r",
@@ -822,22 +820,21 @@
         "                  \"catParentesco\": null\r",
         "                }\r",
         "            }\r",
-        "            $data.showalertmadre = \"false\";\r",
-        "            $data.showalertpadre = \"true\";\r",
+        "            $data.showmadrealert = false;\r",
+        "            $data.showpadrealert = true;\r",
+        "\t\t\tmostrar = true;\r",
         "\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Tutor\") {\r",
-        "            $data.showalertpadre = \"true\";\r",
-        "            $data.showalertmadre = \"true\";\r",
+        "            $data.showpadrealert = false;\r",
+        "            $data.showmadrealert = false;\r",
         "            $data.casoEmergenciaJSON.nombre = $data.formInput.tutorInput[0].nombre + \" \" + $data.formInput.tutorInput[0].apellidos;\r",
         "            $data.casoEmergenciaJSON.telefono = $data.formInput.tutorInput[0].telefono;\r",
         "            $data.casoEmergenciaJSON.catParentesco = $data.formInput.tutorInput[0].catParentezco;\r",
-        "            //otro = false;\r",
         "            if($data.formInput.tutorInput[0].otroParentesco !== \"\"){\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.formInput.tutorInput[0].otroParentesco;\r",
         "            }else{\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.formInput.tutorInput[0].catParentezco.descripcion;\r",
         "            }\r",
-        "            \r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Otro\") {\r",
         "            $data.contactoJson = {\r",
         "              \"nombre\": \"\",\r",
@@ -847,8 +844,8 @@
         "              \"parentesco\": \"\",\r",
         "              \"catParentesco\": null\r",
         "            }\r",
-        "            $data.showalertmadre = \"true\";\r",
-        "            $data.showalertpadre = \"true\";\r",
+        "            $data.showmadrealert = false;\r",
+        "            $data.showpadrealert = false;\r",
         "        }\r",
         "    }\r",
         "  }\r",
@@ -873,6 +870,20 @@
       "exposed" : false
     },
     "formInput" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "showpadrealert" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "showmadrealert" : {
       "type" : "constant",
       "value" : [
         ""

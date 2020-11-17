@@ -14,9 +14,11 @@ function PbTableCtrl($scope, $http, modalService) {
         }
     };
 
+
     this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
+
 
     $scope.modificarData = function(row, index) {
         $scope.properties.selectedToModificate = row;
@@ -54,6 +56,7 @@ function PbTableCtrl($scope, $http, modalService) {
         $scope.properties.mostrarPantallaEditar = true
         console.log($scope.properties.selectedToModificate);*/
     }
+
 
     $scope.deleteData = function(row, index) {
 

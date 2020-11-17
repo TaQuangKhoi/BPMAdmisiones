@@ -50,6 +50,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -80,6 +83,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.madreInput.telefono = "";
                                     $scope.properties.formInput.madreInput.codigoPostal = "";
                                     $scope.properties.formInput.madreInput.viveContigo = false;
+                                    $scope.properties.formInput.madreInput.delegacionMunicipio = "";
+                                    $scope.properties.formInput.madreInput.estadoExtranjero = "";
+                                    $scope.properties.isMadretutor = false;
                                 }
                             } else if ($scope.properties.jsonModificarTutor.catParentezco.descripcion === "Madre") {
                                 $scope.properties.formInput.madreInput.catTitulo = $scope.properties.tutor.catTitulo;
@@ -104,6 +110,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -133,6 +142,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.padreInput.codigoPostal = "";
                                     $scope.properties.formInput.padreInput.viveContigo = false;
                                     $scope.properties.formInput.padreInput.vive = null;
+                                    $scope.properties.formInput.padreInput.delegacionMunicipio = "";
+                                    $scope.properties.formInput.padreInput.estadoExtranjero = "";
+                                    $scope.properties.isPadretutor = false;
                                 }
                             }else{
                                 if($scope.properties.formInput.padreInput.vive.descripcion === "Si" && $scope.properties.formInput.padreInput.isTutor){
@@ -159,6 +171,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.padreInput.codigoPostal = "";
                                     $scope.properties.formInput.padreInput.viveContigo = false;
                                     $scope.properties.formInput.padreInput.vive = null;
+                                    $scope.properties.formInput.padreInput.delegacionMunicipio = "";
+                                    $scope.properties.formInput.padreInput.estadoExtranjero = "";
+                                    $scope.properties.isPadretutor = false;
                                     if($scope.properties.formInput.contactoEmergenciaInput.length > 0){
                                         for(var x=0; x<$scope.properties.formInput.contactoEmergenciaInput.length; x++){
                                             if($scope.properties.formInput.contactoEmergenciaInput[x].catParentesco.descripcion === "Padre"){
@@ -191,6 +206,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.madreInput.telefono = "";
                                     $scope.properties.formInput.madreInput.codigoPostal = "";
                                     $scope.properties.formInput.madreInput.viveContigo = false;
+                                    $scope.properties.formInput.madreInput.delegacionMunicipio = "";
+                                    $scope.properties.formInput.madreInput.estadoExtranjero ="";
+                                    $scope.properties.isMadretutor = false;
                                     if($scope.properties.formInput.contactoEmergenciaInput.length > 0){
                                         for(var x=0; x<$scope.properties.formInput.contactoEmergenciaInput.length; x++){
                                             if($scope.properties.formInput.contactoEmergenciaInput[x].catParentesco.descripcion === "Madre"){
@@ -267,6 +285,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.tutor.codigoPostal !== $scope.properties.jsonModificarTutor.codigoPostal) {
                 $scope.properties.tutor.codigoPostal = $scope.properties.jsonModificarTutor.codigoPostal
             }
+            if ($scope.properties.tutor.delegacionMunicipio != $scope.properties.jsonModificarTutor.delegacionMunicipio) {
+                $scope.properties.tutor.delegacionMunicipio = $scope.properties.jsonModificarTutor.delegacionMunicipio
+            }
+            if ($scope.properties.tutor.estadoExtranjero != $scope.properties.jsonModificarTutor.estadoExtranjero) {
+                $scope.properties.tutor.estadoExtranjero = $scope.properties.jsonModificarTutor.estadoExtranjero
+            }
             if ($scope.properties.tutor.catTitulo === null) {
                 swal("Título!", "Debe seleccionar el título para identificar al tutor!", "warning");
                 $scope.faltaotro = true;
@@ -310,7 +334,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
@@ -344,6 +370,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -372,6 +401,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -421,7 +453,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "telefono": "",
                                 "codigoPostal": "",
                                 "viveContigo": false,
-                                "otroParentesco": ""
+                                "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                             };
                             closeModal(true);
                         }
@@ -435,9 +469,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -469,6 +505,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -497,6 +536,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -546,7 +588,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "telefono": "",
                             "codigoPostal": "",
                             "viveContigo": false,
-                            "otroParentesco": ""
+                            "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                         };
                         closeModal(true);
                     }
@@ -567,9 +611,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -601,6 +647,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -629,6 +678,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -678,7 +730,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "telefono": "",
                             "codigoPostal": "",
                             "viveContigo": false,
-                            "otroParentesco": ""
+                            "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                         };
                         closeModal(true);
                     }
@@ -692,9 +746,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.numeroExterior === "") {
                     swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                } else if ($scope.properties.tutor.catEstado === null) {
-                    swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                } else if ($scope.properties.tutor.ciudad === "") {
+                } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                     swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.colonia === "") {
                     swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -726,6 +782,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                         $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                         $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                        $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                        $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                        $scope.properties.isPadretutor = true;
                         for (var i = 0; i < $scope.properties.catVive.length; i++) {
                             if ($scope.properties.catVive[i].descripcion === "Si") {
                                 $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -754,6 +813,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                         $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                         $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                        $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                        $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                        $scope.properties.isMadretutor = true;
                         for (var i = 0; i < $scope.properties.catVive.length; i++) {
                             if ($scope.properties.catVive[i].descripcion === "Si") {
                                 $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -803,7 +865,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         "telefono": "",
                         "codigoPostal": "",
                         "viveContigo": false,
-                        "otroParentesco": ""
+                        "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                     };
                     closeModal(true);
                 }
@@ -837,9 +901,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.numeroExterior === "") {
                                 swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                            } else if ($scope.properties.tutor.catEstado === null) {
-                                swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                            } else if ($scope.properties.tutor.ciudad === "") {
+                            } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                                 swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -871,6 +937,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                     $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                     $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                    $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                    $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                    $scope.properties.isPadretutor = true;
                                     for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                         if ($scope.properties.catVive[i].descripcion === "Si") {
                                             $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -899,6 +968,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                     $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                     $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                    $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                    $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                    $scope.properties.isMadretutor = true;
                                     for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                         if ($scope.properties.catVive[i].descripcion === "Si") {
                                             $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -948,7 +1020,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     "telefono": "",
                                     "codigoPostal": "",
                                     "viveContigo": false,
-                                    "otroParentesco": ""
+                                    "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                                 };
                                 closeModal(true);
                             }
@@ -962,9 +1036,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -996,6 +1072,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -1024,6 +1103,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -1073,7 +1155,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "telefono": "",
                                 "codigoPostal": "",
                                 "viveContigo": false,
-                                "otroParentesco": ""
+                                "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                             };
                             closeModal(true);
                         }
@@ -1094,9 +1178,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.numeroExterior === "") {
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.catEstado === null) {
+                        } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1128,6 +1214,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isPadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -1156,6 +1245,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                                 $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                                 $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                                $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                                $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                                $scope.properties.isMadretutor = true;
                                 for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                     if ($scope.properties.catVive[i].descripcion === "Si") {
                                         $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -1205,7 +1297,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "telefono": "",
                                 "codigoPostal": "",
                                 "viveContigo": false,
-                                "otroParentesco": ""
+                                "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                             };
                             closeModal(true);
                         }
@@ -1219,9 +1313,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("País!", "Debe agregar el país del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.catEstado === null) {
-                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                    } else if ($scope.properties.tutor.ciudad === "") {
+                    } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                        }else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1253,6 +1349,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.padreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.padreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.padreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.padreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.padreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isPadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.padreInput.vive = $scope.properties.catVive[i];
@@ -1281,6 +1380,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.madreInput.telefono = $scope.properties.tutor.telefono;
                             $scope.properties.formInput.madreInput.codigoPostal = $scope.properties.tutor.codigoPostal;
                             $scope.properties.formInput.madreInput.viveContigo = $scope.properties.tutor.viveContigo;
+                            $scope.properties.formInput.madreInput.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.formInput.madreInput.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                            $scope.properties.isMadretutor = true;
                             for (var i = 0; i < $scope.properties.catVive.length; i++) {
                                 if ($scope.properties.catVive[i].descripcion === "Si") {
                                     $scope.properties.formInput.madreInput.vive = $scope.properties.catVive[i];
@@ -1330,7 +1432,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "telefono": "",
                             "codigoPostal": "",
                             "viveContigo": false,
-                            "otroParentesco": ""
+                            "otroParentesco": "",
+                            "delegacionMunicipio":"",
+                            "estadoExtranjero":""
                         };
                         closeModal(true);
                     }

@@ -35,6 +35,7 @@ function PbTableCtrl($scope, $http, modalService) {
             $scope.properties.selectedToModificate[0].tipocentroestudios = $scope.properties.contenido[index].tipocentroestudios;
             $scope.properties.selectedToModificate[0].usuarioCreacion = $scope.properties.contenido[index].usuarioCreacion;
             $scope.properties.selectedToModificate[0].FechaCreacion = $scope.properties.contenido[index].FechaCreacion;
+            $scope.properties.selectedToModificate[0].orden = $scope.properties.contenido[index].orden;
             $scope.properties.isModificacion = true;
             $scope.properties.index = index;
             console.log($scope.properties.selectedToModificate[0]);

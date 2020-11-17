@@ -77,5 +77,13 @@ function PbTableCtrl($scope, $http, $window) {
     $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
+    
+    
+    $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
+        if (newValue !== undefined) {
+            doRequest("POST", $scope.properties.urlPost);
+        }
+        console.log($scope.properties.dataToSend);
+    });
 
 }

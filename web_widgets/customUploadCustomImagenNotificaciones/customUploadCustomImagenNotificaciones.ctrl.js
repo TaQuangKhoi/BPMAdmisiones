@@ -27,6 +27,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
         $scope.properties.anguloImagenHeader = angulo;
         $scope.properties.urlImagenHeader;
+         //console.log(urlImg);
         if(!event.target.value) {
           return;
         }

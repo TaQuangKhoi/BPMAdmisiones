@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergencia",
   "name" : "frgAgregarContactoEmergencia",
-  "lastUpdate" : 1605177510712,
+  "lastUpdate" : 1605653442684,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "AGREGAR CONTACTO DE EMERGENCIA"
+            "value" : "<label class=\"color-orange\">Agregar Contacto de Emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -176,7 +176,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showalertpadre === \"true\""
+            "value" : "!showmadrealert"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -200,7 +200,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<b>En la información de padre selecciono la opción no vive, no puede seleccionarlo como contacto de emergencia."
+            "value" : "<b>En la información de padre seleccionó la opción no vive o desconozco sus datos por lo tanto no puede seleccionarlo como contacto de emergencia."
           },
           "alignment" : {
             "type" : "constant",
@@ -228,7 +228,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showalertmadre === \"true\""
+            "value" : "!showpadrealert"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -252,7 +252,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<b>En la información de madre selecciono la opción no vive, no puede seleccionarlo como contacto de emergencia."
+            "value" : "<b>En la información de la madre seleccionó la opción no vive o desconozco sus datos por lo tanto no puede seleccionarlo como contacto de emergencia."
           },
           "alignment" : {
             "type" : "constant",
@@ -292,7 +292,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "constant",
@@ -336,9 +336,9 @@
             "value" : 1
           }
         },
-        "reference" : "3b4d1ab1-869c-4e7e-8913-15523fcd9dab",
+        "reference" : "c0c27559-ba5b-42e7-911e-7dc9f6e8a3e2",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -367,7 +367,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 10
           },
           "readOnly" : {
             "type" : "constant",
@@ -411,9 +411,9 @@
             "value" : 1
           }
         },
-        "reference" : "5325cc7c-0dcc-4830-b32c-8945dce75be1",
+        "reference" : "a8bc763d-a880-451d-ab38-98d56fcf0caf",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputNumerico"
       }
     ],
     [
@@ -444,7 +444,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 10
           },
           "readOnly" : {
             "type" : "constant",
@@ -488,9 +488,9 @@
             "value" : 1
           }
         },
-        "reference" : "6c4365ce-6fc6-4008-a609-34aa41b6fea4",
+        "reference" : "2c60cafc-6718-4dbb-a6fe-1c37b804c480",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputNumerico"
       },
       {
         "type" : "component",
@@ -575,6 +575,168 @@
           },
           "hidden" : {
             "type" : "constant",
+            "value" : true
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "df6cc068-cdfa-47a8-a44d-62a7ce492444",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [ ]
+        ]
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<b>En la información de padre seleccionó la opción no vive o desconozco sus datos por lo tanto no puede seleccionarlo."
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "addca889-c058-4498-9b35-5c2382dacb93",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "c274cb8d-f56d-4a86-9997-8823b4ae5af8",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [ ]
+        ]
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<b>En la información de la madre seleccionó la opción no vive o desconozco sus datos por lo tanto no puede seleccionarlo."
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "fedde90d-5df6-4498-a72d-14b3afda7410",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
             "value" : false
           },
           "repeatedCollection" : {
@@ -616,7 +778,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 1
           },
           "readOnly" : {
             "type" : "constant",
@@ -660,9 +822,9 @@
             "value" : 1
           }
         },
-        "reference" : "4dfa12a1-7bc3-4cd0-a8a2-de4c193402b3",
+        "reference" : "b6fbaa45-b6f5-4795-9517-ec8866f030fc",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       }
     ]
   ],
@@ -700,6 +862,7 @@
     "addParentesco" : {
       "type" : "expression",
       "value" : [
+        "debugger;\r",
         "var mostrar = true;\r",
         "for (var x = 0; x < $data.catParentesco.length; x++) {\r",
         "    if ($data.casoEmergenciaJSON.catParentesco === undefined) {\r",
@@ -708,7 +871,18 @@
         "        if ($data.catParentesco[x].persistenceId === $data.casoEmergenciaJSON.catParentesco.persistenceId) {\r",
         "            if ($data.catParentesco[x].descripcion === \"Otro\") {\r",
         "                mostrar = false;\r",
+        "                $data.showmadrealert = false;\r",
+        "                $data.showpadrealert = false;\r",
+        "            } else if($data.catParentesco[x].descripcion === \"Padre\"){\r",
+        "                if(!$data.padrevive){\r",
+        "                    $data.showpadrealert = true;\r",
+        "                    $data.showmadrealert = false;\r",
+        "                    $data.casoEmergenciaJSON.catParentesco = undefined;\r",
+        "                }\r",
+        "                \r",
         "            } else {\r",
+        "                $data.showmadrealert = false;\r",
+        "                $data.showpadrealert = false;\r",
         "                mostrar = true;\r",
         "            }\r",
         "        }\r",
@@ -723,7 +897,7 @@
     "datosPadre" : {
       "type" : "expression",
       "value" : [
-        "var mostrar = true;\r",
+        "var mostrar = false;\r",
         "var otro = true;\r",
         "for (var x = 0; x < $data.catCasoDeEmergencia.length; x++) {\r",
         "  if($data.casoEmergenciaJSON.catCasoDeEmergencia !== null){\r",
@@ -749,8 +923,9 @@
         "                  \"parentesco\": \"\",\r",
         "                  \"catParentesco\": null\r",
         "                }\r",
-        "                $data.showalertpadre = \"false\";\r",
-        "                $data.showalertmadre = \"true\";\r",
+        "                $data.showpadrealert = false;\r",
+        "                $data.showmadrealert = true;\r",
+        "\t\t\t\tmostrar = true;\r",
         "            }\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Madre\") {\r",
         "            if ($data.madrevive) {\r",
@@ -774,12 +949,13 @@
         "                  \"catParentesco\": null\r",
         "                }\r",
         "            }\r",
-        "            $data.showalertmadre = \"false\";\r",
-        "            $data.showalertpadre = \"true\";\r",
+        "            $data.showmadrealert = false;\r",
+        "            $data.showpadrealert = true;\r",
+        "\t\t\tmostrar = true;\r",
         "\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Tutor\") {\r",
-        "            $data.showalertpadre = \"true\";\r",
-        "            $data.showalertmadre = \"true\";\r",
+        "            $data.showpadrealert = false;\r",
+        "            $data.showmadrealert = false;\r",
         "            $data.casoEmergenciaJSON.nombre = $data.formInput.tutorInput[0].nombre + \" \" + $data.formInput.tutorInput[0].apellidos;\r",
         "            $data.casoEmergenciaJSON.telefono = $data.formInput.tutorInput[0].telefono;\r",
         "            $data.casoEmergenciaJSON.catParentesco = $data.formInput.tutorInput[0].catParentezco;\r",
@@ -797,8 +973,8 @@
         "              \"parentesco\": \"\",\r",
         "              \"catParentesco\": null\r",
         "            }\r",
-        "            $data.showalertmadre = \"true\";\r",
-        "            $data.showalertpadre = \"true\";\r",
+        "            $data.showmadrealert = false;\r",
+        "            $data.showpadrealert = false;\r",
         "        }\r",
         "    }\r",
         "  }\r",
@@ -850,16 +1026,30 @@
     "showalertpadre" : {
       "type" : "constant",
       "value" : [
-        "true"
+        ""
       ],
       "exposed" : false
     },
     "showalertmadre" : {
       "type" : "constant",
       "value" : [
-        "true"
+        ""
       ],
       "exposed" : false
+    },
+    "showmadrealert" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "showpadrealert" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
     }
   },
   "hasValidationError" : false,

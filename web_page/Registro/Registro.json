@@ -2,11 +2,11 @@
   "designerVersion" : "1.11.52",
   "id" : "Registro",
   "name" : "Registro",
-  "lastUpdate" : 1605140904613,
+  "lastUpdate" : 1605653378798,
   "rows" : [
     [
       {
-        "type" : "container",
+        "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -22,52 +22,88 @@
             "type" : "constant",
             "value" : false
           },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
+          "value" : {
+            "type" : "constant",
+            "value" : "This is the initial value"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
           }
         },
-        "reference" : "042e0aa9-e2fe-42d0-8304-a23723c762be",
+        "reference" : "5cfc876f-6b8d-4974-a971-e5f946fd5139",
         "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<b>Registrate</b>"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 2"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "c607c333-0309-46ba-884e-28eefffdfcd5",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ]
-        ]
+        "id" : "customLoading"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "assetName" : {
+            "type" : "constant",
+            "value" : "Fondo completo.png"
+          }
+        },
+        "reference" : "ff2dcfb8-9eb9-4cf5-842a-f9b33112fb15",
+        "hasValidationError" : false,
+        "id" : "customCustomBackgroundImage"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 10,
+          "sm" : 2,
+          "md" : 2,
+          "lg" : 2
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "srcType" : {
+            "type" : "constant",
+            "value" : "Asset"
+          },
+          "url" : {
+            "type" : "constant"
+          },
+          "assetName" : {
+            "type" : "constant",
+            "value" : "Logo-Red-de-Universidades---blanco.png"
+          },
+          "alt" : {
+            "type" : "interpolation"
+          }
+        },
+        "reference" : "2192bc99-10d1-4f8d-966e-9e822103a97f",
+        "hasValidationError" : false,
+        "id" : "pbImage"
       }
     ],
     [
@@ -75,18 +111,18 @@
         "type" : "formContainer",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "sm" : 8,
+          "md" : 8,
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "absolute-center"
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "navigationVar !== \"register\""
           }
         },
         "reference" : "3166bc82-2c16-4ff2-882c-80dd1265f0d1",
@@ -108,379 +144,13 @@
                 "dimension" : {
                   "xs" : 12,
                   "sm" : 12,
-                  "md" : 6,
-                  "lg" : 6
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "repeatedCollection" : {
-                    "type" : "variable",
-                    "value" : ""
-                  }
-                },
-                "reference" : "7094927b-abd3-46f1-bac1-3ffd0b3a271d",
-                "hasValidationError" : false,
-                "id" : "pbContainer",
-                "rows" : [
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Primer nombre: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.PrimerNombre"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "text"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "c23980d0-c233-41d1-8241-402bcba65bd1",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Apellido paterno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.ApellidoPaterno"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "text"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "66392859-f6df-48ba-809e-63285e87833e",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
-                    }
-                  ]
-                ]
-              },
-              {
-                "type" : "container",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 6,
-                  "lg" : 6
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "repeatedCollection" : {
-                    "type" : "variable",
-                    "value" : ""
-                  }
-                },
-                "reference" : "9dde76e3-dcfb-41ab-9e9e-9f60ad44df55",
-                "hasValidationError" : false,
-                "id" : "pbContainer",
-                "rows" : [
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Segundo nombre:"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.SegundoNombre"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "text"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "d4cba621-378b-4e68-bcd6-7a242bb62e58",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Apellido materno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.ApellidoMaterno"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "text"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "2eeee7d5-64d5-4abb-ba02-e30c2c4a75ed",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
-                    }
-                  ]
-                ]
-              }
-            ],
-            [
-              {
-                "type" : "container",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
                   "md" : 12,
                   "lg" : 12
                 },
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "bg-white"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -491,18 +161,18 @@
                     "value" : ""
                   }
                 },
-                "reference" : "4856007c-dc35-4b09-9ae9-0037d5debfa9",
+                "reference" : "02c360ec-9ca3-46d7-8cf8-25ee63e78f9b",
                 "hasValidationError" : false,
                 "id" : "pbContainer",
                 "rows" : [
                   [
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
-                        "md" : 6,
-                        "lg" : 6
+                        "md" : 12,
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -513,148 +183,782 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Correo electrónico: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
-                          "value" : "strRegistro.CorreoElectronico"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "email"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
+                          "value" : ""
                         }
                       },
-                      "reference" : "287984c1-1dd8-4af4-8f3f-e9533bad14d6",
+                      "reference" : "042e0aa9-e2fe-42d0-8304-a23723c762be",
                       "hasValidationError" : false,
-                      "id" : "pbInput"
-                    },
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 6,
-                        "lg" : 6
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Confirma tu correo: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.ConfirmarCorreo"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "email"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "46239f01-b08a-4c44-ac1e-0cdf75b9ce9a",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "color-orange"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "text" : {
+                                "type" : "interpolation",
+                                "value" : "<b>Regístrate</b>"
+                              },
+                              "level" : {
+                                "type" : "constant",
+                                "value" : "Level 2"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              }
+                            },
+                            "reference" : "c607c333-0309-46ba-884e-28eefffdfcd5",
+                            "hasValidationError" : false,
+                            "id" : "pbTitle"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "container",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "repeatedCollection" : {
+                                "type" : "variable",
+                                "value" : ""
+                              }
+                            },
+                            "reference" : "7094927b-abd3-46f1-bac1-3ffd0b3a271d",
+                            "hasValidationError" : false,
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 50
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Primer nombre: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.PrimerNombre"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "idInput" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    }
+                                  },
+                                  "reference" : "7ebdb975-fd6b-4868-83d8-fc8d2fe7e4ea",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputMinMay"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 50
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Segundo nombre:"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.SegundoNombre"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "idInput" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    }
+                                  },
+                                  "reference" : "812bea94-7c11-4b37-9005-8f86bec5373a",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputMinMay"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 50
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Apellido paterno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.ApellidoPaterno"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    },
+                                    "idInput" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    }
+                                  },
+                                  "reference" : "63e18729-07ed-4ab1-b9b3-0fbe75dc9164",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputMinMay"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 50
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Apellido materno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.ApellidoMaterno"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "11f00b8b-eeb3-44ec-a0a2-216798f5c722",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputMinMay"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Correo electronico: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.CorreoElectronico"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "email"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "287984c1-1dd8-4af4-8f3f-e9533bad14d6",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Confirma correo: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.ConfirmarCorreo"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "email"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "46239f01-b08a-4c44-ac1e-0cdf75b9ce9a",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 16
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.Password"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "password"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "a8ecb092-711f-4ecd-8be5-d782faaa5158",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputLimit"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 6,
+                                    "md" : 6,
+                                    "lg" : 6
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : 18
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Confirmar Contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.ConfirmarPassword"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "password"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "36b81957-80f3-43b5-9cab-4e4ac0988050",
+                                  "hasValidationError" : false,
+                                  "id" : "customInputLimit"
+                                }
+                              ]
+                            ]
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "container",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "repeatedCollection" : {
+                                "type" : "variable",
+                                "value" : ""
+                              }
+                            },
+                            "reference" : "4856007c-dc35-4b09-9ae9-0037d5debfa9",
+                            "hasValidationError" : false,
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "disabled" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Necesito asesoría para terminar de elegir mi carrera:</label> <span class=\"glyphicon glyphicon-asterisk color-orange resize-asterisk\"></span>"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "strRegistro.Ayuda"
+                                    }
+                                  },
+                                  "reference" : "90637080-7a54-4ae4-81d1-36546ddfb28a",
+                                  "hasValidationError" : false,
+                                  "id" : "pbCheckbox"
+                                }
+                              ]
+                            ]
+                          }
+                        ]
+                      ]
                     }
                   ],
                   [
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
-                        "md" : 6,
-                        "lg" : 6
+                        "md" : 12,
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -665,138 +969,167 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
-                          "value" : "strRegistro.Password"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "password"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
+                          "value" : ""
                         }
                       },
-                      "reference" : "b863322d-daab-4133-aa64-a441db3659f3",
+                      "reference" : "84b3b082-f188-461e-98d8-bd3c716fc976",
                       "hasValidationError" : false,
-                      "id" : "pbInput"
-                    },
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 6,
-                        "lg" : 6
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "minLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "maxLength" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "readOnly" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Confirmar contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "strRegistro.ConfirmarPassword"
-                        },
-                        "type" : {
-                          "type" : "constant",
-                          "value" : "password"
-                        },
-                        "min" : {
-                          "type" : "constant"
-                        },
-                        "max" : {
-                          "type" : "constant"
-                        },
-                        "step" : {
-                          "type" : "constant",
-                          "value" : 1
-                        }
-                      },
-                      "reference" : "3caec4e8-fb59-4c88-9e27-60d581dcce74",
-                      "hasValidationError" : false,
-                      "id" : "pbInput"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "text-center"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "He leído y acepto el  <a class=\"color-orange\" href=\"{{aviso_privacidad}}\" target=\"_blank\"><u>Aviso de privacidad</u></a> <span class=\"glyphicon glyphicon-asterisk color-orange resize-asterisk\"></span>"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "strRegistro.Aceptar"
+                              }
+                            },
+                            "reference" : "2a44eb26-7428-4a97-b1e8-947ca4cfac06",
+                            "hasValidationError" : false,
+                            "id" : "pbCheckbox"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "REGISTRAR"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "center"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Start process"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "expression",
+                                "value" : "formInput"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : "formOutput._submitError"
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "constant"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "processId" : {
+                                "type" : "variable",
+                                "value" : "processList[0].id"
+                              },
+                              "strBonita" : {
+                                "type" : "variable",
+                                "value" : "registrar_bonita"
+                              },
+                              "strRegistro" : {
+                                "type" : "variable",
+                                "value" : "strRegistro"
+                              },
+                              "navigationVar" : {
+                                "type" : "variable",
+                                "value" : "navigationVar"
+                              },
+                              "erroMessage" : {
+                                "type" : "variable",
+                                "value" : "erroMessage"
+                              }
+                            },
+                            "reference" : "27177fc4-353f-49bd-b283-665949af9a2c",
+                            "hasValidationError" : false,
+                            "id" : "customCustomBtnSubmitProcessForm1"
+                          }
+                        ]
+                      ]
                     }
                   ]
                 ]
@@ -811,54 +1144,25 @@
         "type" : "container",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
-          "md" : 4,
-          "lg" : 4
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
-          }
-        },
-        "reference" : "bb4a0a2b-dc0f-4204-9595-1099981fca23",
-        "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [ ]
-        ]
-      },
-      {
-        "type" : "container",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
+          "sm" : 8,
+          "md" : 8,
           "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "absolute-center bg-white"
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "navigationVar !== \"formSuccess\""
           },
           "repeatedCollection" : {
             "type" : "variable",
             "value" : ""
           }
         },
-        "reference" : "5d38862c-928d-4f86-ba56-b2204326aaf4",
+        "reference" : "77d1bf63-5e90-4203-9b38-e1a954550106",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -880,26 +1184,38 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
+                "labelHidden" : {
                   "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Necesito asesoría para terminar de elegir mi carrera"
+                  "value" : "Default label"
                 },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "strRegistro.Ayuda"
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Ya casi esta listo.\n<br/>Revisa tu correo electrónico. A tu bandeja de correo llegará un enlace \n<br/>al cual tendrás que acceder para completar tu registro.<br>\nPresiona Aceptar para continuar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
                 }
               },
-              "reference" : "90637080-7a54-4ae4-81d1-36546ddfb28a",
+              "reference" : "e81ffeef-1f31-4050-bfdd-2362d186cfe8",
               "hasValidationError" : false,
-              "id" : "pbCheckbox"
+              "id" : "pbText"
             }
           ],
           [
@@ -920,53 +1236,42 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
+                "text" : {
                   "type" : "interpolation",
-                  "value" : "He leído y acepto el  <a href=\"{{aviso_privacidad}}\"><u>Aviso de privacidad</u></a> <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Aceptar"
                 },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "strRegistro.Aceptar"
-                }
-              },
-              "reference" : "2a44eb26-7428-4a97-b1e8-947ca4cfac06",
-              "hasValidationError" : false,
-              "id" : "pbCheckbox"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 8,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
+                "type" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "URL"
                 },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "strRegistro.OcultarCorreoDuplicado == true"
+                "targetUrl" : {
+                  "type" : "constant",
+                  "value" : "/bonita/apps/login/login/"
                 },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "strRegistro.Validado== false"
+                "pageToken" : {
+                  "type" : "constant"
                 },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "REGISTRAR"
+                "processName" : {
+                  "type" : "constant"
+                },
+                "processVersion" : {
+                  "type" : "constant"
+                },
+                "taskId" : {
+                  "type" : "constant"
+                },
+                "caseId" : {
+                  "type" : "constant"
+                },
+                "target" : {
+                  "type" : "constant",
+                  "value" : "_self"
+                },
+                "appToken" : {
+                  "type" : "constant"
+                },
+                "urlParams" : {
+                  "type" : "constant"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -974,528 +1279,26 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "warning"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : "formOutput._submitError"
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "expression",
-                  "value" : "nombremodal"
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "idmodal" : {
-                  "type" : "constant",
-                  "value" : "registrocorrecto"
-                },
-                "strBonita" : {
-                  "type" : "variable",
-                  "value" : "registrar_bonita"
-                },
-                "ayuda" : {
-                  "type" : "variable",
-                  "value" : "formInput.catRegistroInput.ayuda"
+                  "value" : "primary"
                 }
               },
-              "reference" : "a2f85ca9-dff4-4bd6-8993-ef5b2a8be4d1",
+              "reference" : "264c0e8a-c800-4cb1-b594-431f71634aa1",
               "hasValidationError" : false,
-              "id" : "customWBCwithmodal"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 8,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "strRegistro.OcultarCorreoDuplicado == false"
-                },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "strRegistro.OcultarCorreoDuplicado == false"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "REGISTRAR"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "warning"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Open modal"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : "correoduplicado"
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                }
-              },
-              "reference" : "2bef2f00-25e5-41df-b38a-fe7df7c9158f",
-              "hasValidationError" : false,
-              "id" : "customWidgetButtoncustome"
+              "id" : "pbLink"
             }
           ]
         ]
       }
-    ],
-    [
-      {
-        "type" : "modalContainer",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "modalId" : {
-            "type" : "constant",
-            "value" : "correoduplicado"
-          },
-          "size" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "animation" : {
-            "type" : "constant",
-            "value" : true
-          }
-        },
-        "reference" : "6fc90512-0e5f-4ca0-9def-290463106231",
-        "hasValidationError" : false,
-        "id" : "pbModalContainer",
-        "container" : {
-          "type" : "container",
-          "dimension" : {
-            "xs" : 12
-          },
-          "propertyValues" : { },
-          "reference" : "7c90229f-6e18-4f17-bfa6-a694fe1b82b6",
-          "hasValidationError" : false,
-          "id" : "pbContainer",
-          "rows" : [
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "El correo que intenta registrar ya existe"
-                  },
-                  "level" : {
-                    "type" : "constant",
-                    "value" : "Level 4"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "center"
-                  }
-                },
-                "reference" : "a4afa0f2-fc6a-49d6-8339-125f11231a0b",
-                "hasValidationError" : false,
-                "id" : "pbTitle"
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "disabled" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "ACEPTAR"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "center"
-                  },
-                  "buttonStyle" : {
-                    "type" : "constant",
-                    "value" : "warning"
-                  },
-                  "action" : {
-                    "type" : "constant",
-                    "value" : "Close modal"
-                  },
-                  "assign" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "url" : {
-                    "type" : "interpolation"
-                  },
-                  "responseStatusCode" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "dataToSend" : {
-                    "type" : "constant"
-                  },
-                  "dataFromSuccess" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "closeOnSuccess" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "dataFromError" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "targetUrlOnSuccess" : {
-                    "type" : "interpolation"
-                  },
-                  "collectionToModify" : {
-                    "type" : "variable"
-                  },
-                  "modalId" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "collectionPosition" : {
-                    "type" : "constant",
-                    "value" : "Last"
-                  },
-                  "valueToAdd" : {
-                    "type" : "constant"
-                  },
-                  "removeItem" : {
-                    "type" : "variable"
-                  }
-                },
-                "reference" : "01bee5aa-3a32-4624-ac89-39c9225d1515",
-                "hasValidationError" : false,
-                "id" : "customWidgetButtoncustome"
-              }
-            ]
-          ]
-        }
-      }
-    ],
-    [
-      {
-        "type" : "modalContainer",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "modalId" : {
-            "type" : "constant",
-            "value" : "registrocorrecto"
-          },
-          "size" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "animation" : {
-            "type" : "constant",
-            "value" : true
-          }
-        },
-        "reference" : "65d88fb0-613e-43e9-8013-7cdd008c769e",
-        "hasValidationError" : false,
-        "id" : "pbModalContainer",
-        "container" : {
-          "type" : "container",
-          "dimension" : {
-            "xs" : 12
-          },
-          "propertyValues" : { },
-          "reference" : "304f4b87-5538-4c4e-8e7c-fae821e08ede",
-          "hasValidationError" : false,
-          "id" : "pbContainer",
-          "rows" : [
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "labelHidden" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "Default label"
-                  },
-                  "labelPosition" : {
-                    "type" : "constant",
-                    "value" : "top"
-                  },
-                  "labelWidth" : {
-                    "type" : "constant",
-                    "value" : 4
-                  },
-                  "allowHTML" : {
-                    "type" : "constant",
-                    "value" : true
-                  },
-                  "text" : {
-                    "type" : "interpolation",
-                    "value" : "Ya casi esta listo.\n<br/>Revisa tu correo electrónico. A tu bandeja de correo llegará un enlace \n<br/>al cual tendrás que acceder para completar tur registro"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "center"
-                  }
-                },
-                "reference" : "e81ffeef-1f31-4050-bfdd-2362d186cfe8",
-                "hasValidationError" : false,
-                "id" : "pbText"
-              }
-            ],
-            [
-              {
-                "type" : "component",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "disabled" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "label" : {
-                    "type" : "interpolation",
-                    "value" : "ACEPTAR"
-                  },
-                  "alignment" : {
-                    "type" : "constant",
-                    "value" : "center"
-                  },
-                  "buttonStyle" : {
-                    "type" : "constant",
-                    "value" : "warning"
-                  },
-                  "action" : {
-                    "type" : "constant",
-                    "value" : "Close modal"
-                  },
-                  "assign" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "url" : {
-                    "type" : "interpolation"
-                  },
-                  "responseStatusCode" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "dataToSend" : {
-                    "type" : "constant"
-                  },
-                  "dataFromSuccess" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "closeOnSuccess" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "dataFromError" : {
-                    "type" : "variable",
-                    "value" : ""
-                  },
-                  "targetUrlOnSuccess" : {
-                    "type" : "interpolation"
-                  },
-                  "collectionToModify" : {
-                    "type" : "variable"
-                  },
-                  "modalId" : {
-                    "type" : "constant",
-                    "value" : ""
-                  },
-                  "collectionPosition" : {
-                    "type" : "constant",
-                    "value" : "Last"
-                  },
-                  "valueToAdd" : {
-                    "type" : "constant"
-                  },
-                  "removeItem" : {
-                    "type" : "variable"
-                  }
-                },
-                "reference" : "0e0665e6-9e74-4222-9429-c21a3cebfd00",
-                "hasValidationError" : false,
-                "id" : "customWidgetButtoncustome"
-              }
-            ]
-          ]
-        }
-      }
     ]
   ],
   "assets" : [
+    {
+      "id" : "09e1e264-bc6e-4636-98b9-7dbc8a791a5c",
+      "name" : "Logo-Red-de-Universidades---blanco.png",
+      "type" : "img",
+      "order" : 6,
+      "external" : false
+    },
     {
       "id" : "de108208-af00-4de4-b96a-585626a2b983",
       "name" : "localization.json",
@@ -1508,6 +1311,41 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "3b5d7796-ddd8-43ec-bef2-7405e208d321",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "c6a0f43c-686b-4872-825f-4dd915c0a51d",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "d5e886b8-3f3a-466f-91a1-fc76cf490a4d",
+      "name" : "Fondo completo.png",
+      "type" : "img",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "db6d4a80-8bd9-4c2b-aa0f-2587f7cbb388",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "6317a35d-3057-4de2-804d-c203eba05ed1",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 4,
       "external" : false
     }
   ],
@@ -1543,7 +1381,9 @@
         "    \"Ayuda\": false,",
         "    \"Aceptar\":false,",
         "    \"Validado\":false,",
-        "    \"OcultarCorreoDuplicado\":false",
+        "    \"OcultarCorreoDuplicado\":false,",
+        "    \"error\":false",
+        "",
         "}"
       ],
       "exposed" : false
@@ -1551,60 +1391,104 @@
     "validar" : {
       "type" : "expression",
       "value" : [
-        "var validado = true;",
-        "",
-        "if($data.strRegistro.PrimerNombre.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.ApellidoPaterno.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.ApellidoMaterno.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.CorreoElectronico.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.ConfirmarCorreo.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.Password.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.ConfirmarPassword.trim()===\"\"){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.CorreoElectronico.trim() !== $data.strRegistro.ConfirmarCorreo.trim()){",
-        "    validado = false;",
-        "}",
-        "else if($data.strRegistro.Password.trim() !==$data.strRegistro.ConfirmarPassword.trim()){",
-        "    validado = false;",
-        "}",
-        "",
-        "else if($data.strRegistro.Aceptar === false){",
-        "    validado = false;",
-        "}",
-        "else if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/.test($data.strRegistro.CorreoElectronico))",
-        "{",
-        "    validado = true;",
-        "} else{",
-        "      validado = false;",
-        "}",
-        "    ",
-        "",
-        "$data.strRegistro.Validado = validado;",
-        "",
-        "if($data.strRegistro.Validado === true){",
-        "    $data.modal_seleccionado",
-        "    $data.strRegistro.NombreUsuario = $data.strRegistro.CorreoElectronico;",
-        "}"
+        "var validado = true;\r",
+        "// $data.strRegistro.error = false;\r",
+        "// const re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\r",
+        "const re = /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/;\r",
+        "const regexEmail = \"^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$\";\r",
+        "var hasNumber = /\\d/;\r",
+        "\r",
+        "if($data.strRegistro.PrimerNombre.trim() === \"\"){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Primer nombre no debe estar vacío.\";\r",
+        "} else if($data.strRegistro.PrimerNombre.trim().length > 50){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Primer nombre no debe exceder los 50 caracteres.\";\r",
+        "} else if($data.strRegistro.SegundoNombre.trim().length > 50){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Segundo nombre no debe exceder los 50 caracteres.\";\r",
+        "} else if($data.strRegistro.ApellidoPaterno.trim() === \"\"){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Apellido paterno no debe estar vacío.\";\r",
+        "} else if($data.strRegistro.ApellidoPaterno.trim().length > 50){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Apellido paterno no debe exceder los 50 caracteres.\";\r",
+        "} else if($data.strRegistro.ApellidoMaterno.trim() === \"\"){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Apellido materno no debe estar vacío.\";\r",
+        "} else if($data.strRegistro.ApellidoMaterno.trim().length > 50){\r",
+        "    validado = false;\r",
+        "     $data.strRegistro.error = true;\r",
+        "     $data.erroMessage = \"El campo Apellido materno no debe exceder los 50 caracteres.\";\r",
+        "} \r",
+        "// re.test(String($data.strRegistro.ConfirmarCorreo.trim()).toLowerCase())\r",
+        "// else if (!$data.strRegistro.CorreoElectronico.match(regexEmail)){\r",
+        "else if (!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El formato del correo electrónico no es válido.\";\r",
+        "} \r",
+        "\r",
+        "else if($data.strRegistro.CorreoElectronico.trim() === \"\"){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Correo electrónico no debe estar vacío.\";\r",
+        "}  else if($data.strRegistro.CorreoElectronico.trim() !== $data.strRegistro.ConfirmarCorreo.trim()){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"Los correos no coinciden.\";\r",
+        "}  else if ($data.userNameAlreadyExists){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El correo ya está registrado.\";\r",
+        "} else if($data.strRegistro.Password.trim() === \"\"){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El campo Contraseña no debe estar vacío.\";\r",
+        "} else if($data.strRegistro.Password.length < 8){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"La contraseña debe contener de 8 a 16 caracteres.\";\r",
+        "} else if($data.strRegistro.Password.trim() !== $data.strRegistro.ConfirmarPassword.trim()){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"Las contraseñas no coinciden.\";\r",
+        "} else if($data.strRegistro.Aceptar === false){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"Debe aceptar  el aviso de privacidad.\";\r",
+        "} else if($data.strRegistro.CorreoElectronico.trim().length > 1 && !$data.strRegistro.error){\r",
+        "    if(!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
+        "        validado = false;\r",
+        "        $data.strRegistro.error = true;\r",
+        "        $data.erroMessage = \"El formato de correo electrónico no es válido.\";\r",
+        "    }\r",
+        "} else if($data.strRegistro.ConfirmarCorreo.trim().length > 1 && !$data.strRegistro.error ){\r",
+        "    if (!re.test(String($data.strRegistro.ConfirmarCorreo.trim()).toLowerCase())){\r",
+        "        validado = false;\r",
+        "        $data.strRegistro.error = true;\r",
+        "        $data.erroMessage = \"el correo electronico no esta correcto\";\r",
+        "    }\r",
+        "}else {\r",
+        "    validado = true;\r",
+        "    $data.strRegistro.Validado = validado;\r",
+        "    $data.strRegistro.error = false;\r",
+        "    $data.erroMessage = \"\";\r",
+        "    $data.strRegistro.NombreUsuario = $data.strRegistro.CorreoElectronico;\r",
+        "}\r"
       ],
       "exposed" : false
     },
     "aviso_privacidad" : {
       "type" : "constant",
       "value" : [
-        "https://www.google.com.mx"
+        "https://redanahuac.mx/mobile/aviso.html"
       ],
       "exposed" : false
     },
@@ -1681,7 +1565,7 @@
     "getCorreo" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=getCatRegistroByCorreo&p=0&c=50&f=correoelectronico={{formInput.catRegistroInput.correoelectronico}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=getCatRegistroByCorreo&p=0&c=50&f=correoelectronico={{strRegistro.CorreoElectronico}}"
       ],
       "exposed" : false
     },
@@ -1710,10 +1594,10 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"nombreusaurio\": $data.formInput.catRegistroInput.nombreusuario,\r",
-        "    \"nombre\": $data.formInput.catRegistroInput.primernombre+ \" \"+$data.formInput.catRegistroInput.segundonombre,\r",
-        "    \"apellido\": $data.formInput.catRegistroInput.apellidopaterno+ \" \"+$data.formInput.catRegistroInput.apellidomaterno,\r",
-        "    \"password\": $data.formInput.catRegistroInput.password\r",
+        "    \"nombreusaurio\": $data.formInput.catRegistroInput.NombreUsuario,\r",
+        "    \"nombre\": $data.formInput.catRegistroInput.PrimerNombre + \" \" + $data.formInput.catRegistroInput.SegundoNombre,\r",
+        "    \"apellido\": $data.formInput.catRegistroInput.ApellidoPaterno+ \" \"+$data.formInput.catRegistroInput.ApellidoMaterno,\r",
+        "    \"password\": $data.formInput.catRegistroInput.Password\r",
         "}"
       ],
       "exposed" : false
@@ -1722,6 +1606,81 @@
       "type" : "url",
       "value" : [
         "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "erroMessage" : {
+      "type" : "constant",
+      "value" : [
+        "Tiene un dato erroneo"
+      ],
+      "exposed" : false
+    },
+    "caseList" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case?c=1&f=processDefinitionId={{processList[0].id}}"
+      ],
+      "exposed" : false
+    },
+    "processList" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=1000&p=0&f=name=CatRegistro"
+      ],
+      "exposed" : false
+    },
+    "isCaseStarted" : {
+      "type" : "expression",
+      "value" : [
+        "let output = false;",
+        "if($data.caseList !== undefined){",
+        "    if($data.caseList.length > 0){",
+        "        output = true;",
+        "    } else {",
+        "        output = false;",
+        "    }",
+        "} else {",
+        "    output = false;",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "navigationVar" : {
+      "type" : "constant",
+      "value" : [
+        "register"
+      ],
+      "exposed" : false
+    },
+    "userNameAlreadyExists" : {
+      "type" : "expression",
+      "value" : [
+        "let output = false;",
+        "",
+        "// if($data.getUserByEmail !== undefined ){",
+        "//     if($data.getUserByEmail.length > 0){",
+        "//         output = true;",
+        "//     } else {",
+        "//         output = false;",
+        "//     }",
+        "// } else {",
+        "//     output = false;",
+        "// }",
+        "",
+        "if($data.getCorreo !== undefined ){",
+        "    if($data.getCorreo.length > 0){",
+        "        output = true;",
+        "    } else {",
+        "        output = false;",
+        "    }",
+        "} else {",
+        "    output = false;",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

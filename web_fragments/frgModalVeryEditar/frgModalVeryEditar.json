@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgModalVeryEditar",
   "name" : "frgModalVeryEditar",
-  "lastUpdate" : 1605177510862,
+  "lastUpdate" : 1605653442741,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Modificar Tutor"
+            "value" : "<label class=\"color-orange\">Modificar Tutor</label>"
           },
           "level" : {
             "type" : "constant",
@@ -60,7 +60,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Información Tutor"
+            "value" : "<label class=\"color-orange\">Información Tutor</label>"
           },
           "level" : {
             "type" : "constant",
@@ -288,7 +288,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "expression",
@@ -332,9 +332,9 @@
             "value" : 1
           }
         },
-        "reference" : "b4259e73-7a2d-4ccc-8330-bc17c3f635c4",
+        "reference" : "47ec8b3b-448f-4863-9dc7-35dc842be9e3",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -363,7 +363,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 1
           },
           "readOnly" : {
             "type" : "expression",
@@ -407,9 +407,9 @@
             "value" : 1
           }
         },
-        "reference" : "c2e4e0fb-16de-48d2-a33f-738a39fb619b",
+        "reference" : "e2cbd0b4-f089-4ec1-8c97-ca57403daf41",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -438,7 +438,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "expression",
@@ -482,9 +482,9 @@
             "value" : 1
           }
         },
-        "reference" : "9de2066f-7066-49ef-8a0f-f51572bb0bba",
+        "reference" : "519d629a-b4da-495a-82d6-4ccbdb0d6ec3",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -942,7 +942,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "readOnly" : {
                         "type" : "expression",
@@ -986,9 +986,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "86707bfd-c8d9-4213-adbb-ea8f2bfbffa3",
+                    "reference" : "0a569fbc-cda9-438d-8aee-3a488733a43c",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customInputMinMay"
                   }
                 ],
                 [
@@ -1019,7 +1019,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "readOnly" : {
                         "type" : "expression",
@@ -1063,9 +1063,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "ef13fb22-aa7b-4ae3-bf45-5d650777c9b7",
+                    "reference" : "b41541e0-c198-43a8-b009-bb9a2ab1bc61",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customInputMinMay"
                   }
                 ],
                 [
@@ -1096,7 +1096,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : 1
                       },
                       "readOnly" : {
                         "type" : "expression",
@@ -1140,9 +1140,9 @@
                         "value" : 1
                       }
                     },
-                    "reference" : "658834cb-5dfe-4aa5-8b95-7994322d1231",
+                    "reference" : "f41d73fd-b240-4215-a60b-b4763e36f72d",
                     "hasValidationError" : false,
-                    "id" : "pbInput"
+                    "id" : "customInputMinMay"
                   }
                 ]
               ]
@@ -1272,6 +1272,316 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona una opción"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catPais"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.catPais"
+                },
+                "formInput" : {
+                  "type" : "variable",
+                  "value" : "datosJson"
+                },
+                "datosCP" : {
+                  "type" : "variable",
+                  "value" : "cp"
+                }
+              },
+              "reference" : "da4ba942-8b6b-4853-9bc2-8d3da36e6551",
+              "hasValidationError" : false,
+              "id" : "customSelectChangeValueTutor"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 5
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Código postal: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.codigoPostal"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "e6181321-6dd0-424b-be73-f02a7cf39e38",
+              "hasValidationError" : false,
+              "id" : "customInputNumerico"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Submit"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "default"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "{{urlCodigoPostal}}"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "constant"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "objResponseCP"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : "objResponseCPError"
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "expression",
+                  "value" : "modalCodigoPostal"
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "lugarCargar" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "d0f3c7e3-d8a3-4902-956c-343c6aafe248",
+              "hasValidationError" : false,
+              "id" : "customButtonActionModalCP"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "datosJson.catPais.descripcion !== 'México'"
+                },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona una opción"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catEstado"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.catEstado"
+                }
+              },
+              "reference" : "42fc41ba-f47a-4097-bcfc-6c0e3438f183",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "datosJson.catPais.descripcion === 'México'"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
@@ -1286,7 +1596,311 @@
                 },
                 "readOnly" : {
                   "type" : "expression",
-                  "value" : "ver"
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.estadoExtranjero"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "86b66448-830d-43ba-bc50-30364a6bf274",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Ciudad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.ciudad"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "3bfedcbc-d006-4a0b-977d-8ee8ed5c2879",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Delegación/Municipio"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.delegacionMunicipio"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "cf4b5776-8616-4b73-bd1e-01566dc01fd0",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Colonia: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosJson.colonia"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "53160503-f5b1-4faf-9b20-dfe2d21baed8",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "ver || datosJson.viveContigo"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1347,73 +1961,6 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "ver"
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation",
-                  "value" : "Selecciona una opción"
-                },
-                "availableValues" : {
-                  "type" : "expression",
-                  "value" : "catPais"
-                },
-                "displayedKey" : {
-                  "type" : "constant",
-                  "value" : "descripcion"
-                },
-                "returnedKey" : {
-                  "type" : "constant"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "datosJson.catPais"
-                }
-              },
-              "reference" : "0e027f83-0d6e-4359-abad-7d25511a1629",
-              "hasValidationError" : false,
-              "id" : "pbSelect"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 3,
-                "lg" : 3
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
@@ -1424,11 +1971,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "expression",
-                  "value" : "ver"
+                  "value" : "ver || datosJson.viveContigo"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1468,17 +2015,19 @@
                   "value" : 1
                 }
               },
-              "reference" : "df83f13f-cac5-4983-836c-54be1076ca12",
+              "reference" : "b0008315-dd85-44fe-9751-f0946154e0e9",
               "hasValidationError" : false,
-              "id" : "pbInput"
-            },
+              "id" : "customInputNumerico"
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1503,7 +2052,7 @@
                 },
                 "readOnly" : {
                   "type" : "expression",
-                  "value" : "ver"
+                  "value" : "ver || datosJson.viveContigo"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1564,73 +2113,6 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "ver"
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation",
-                  "value" : "Selecciona una opción"
-                },
-                "availableValues" : {
-                  "type" : "expression",
-                  "value" : "catEstado"
-                },
-                "displayedKey" : {
-                  "type" : "constant",
-                  "value" : "descripcion"
-                },
-                "returnedKey" : {
-                  "type" : "constant"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "datosJson.catEstado"
-                }
-              },
-              "reference" : "42fc41ba-f47a-4097-bcfc-6c0e3438f183",
-              "hasValidationError" : false,
-              "id" : "pbSelect"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
@@ -1641,86 +2123,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 10
                 },
                 "readOnly" : {
                   "type" : "expression",
-                  "value" : "ver"
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Colonia: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "datosJson.colonia"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "53160503-f5b1-4faf-9b20-dfe2d21baed8",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "ver"
+                  "value" : "ver || datosJson.viveContigo"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1760,161 +2167,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "974306d5-d4e3-4a07-9605-c7e6ab75188d",
+              "reference" : "9847325e-a1ae-457c-9b08-6ee02dca2db1",
               "hasValidationError" : false,
-              "id" : "pbInput"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "ver"
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Delegación/Municipio/Ciudad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "datosJson.ciudad"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "cf4b5776-8616-4b73-bd1e-01566dc01fd0",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "ver"
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Código postal: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "datosJson.codigoPostal"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "ab2ca320-c9fe-463f-8d73-409088a4fbe0",
-              "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             }
           ]
         ]
@@ -2003,7 +2258,7 @@
         "        mostrar = true;",
         "    } else {",
         "        if ($data.catPadreTrabaja[x].persistenceId === $data.datosJson.catTrabaja.persistenceId) {",
-        "            if ($data.catPadreTrabaja[x].descripcion === \"Si\") {",
+        "            if ($data.catPadreTrabaja[x].descripcion === \"Si\" || $data.catPadreTrabaja[x].descripcion === \"SI\") {",
         "                mostrar = false;",
         "            } else {",
         "                mostrar = true;",
@@ -2025,7 +2280,7 @@
         "        mostrar = true;\r",
         "    } else {\r",
         "        if ($data.catEgresoAnahuac[x].persistenceId === $data.datosJson.catEgresoAnahuac.persistenceId) {\r",
-        "            if ($data.catEgresoAnahuac[x].descripcion === \"Si\") {\r",
+        "            if ($data.catEgresoAnahuac[x].descripcion === \"Si\" || $data.catEgresoAnahuac[x].descripcion === \"SI\") {\r",
         "                mostrar = false;\r",
         "            } else {\r",
         "                mostrar = true;\r",
@@ -2071,6 +2326,41 @@
       "exposed" : true
     },
     "catParentesco" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "objResponseCP" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "objResponseCPError" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "modalCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "cp" : {
       "type" : "constant",
       "value" : [
         ""

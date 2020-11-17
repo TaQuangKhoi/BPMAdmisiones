@@ -1,4 +1,4 @@
-function PbTableCtrl($scope, $http) {
+function PbTableCtrl($scope, $http, modalService) {
 
     this.isArray = Array.isArray;
     $scope.loading = false;
@@ -18,7 +18,29 @@ function PbTableCtrl($scope, $http) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
 
+   $scope.modificarData = function(row, index) {
+            closeModal();
+            openModal("modalInputs");
+            $scope.properties.selectedToModificate = [{   "persistenceId_string" : "", "clave" : "",  "descripcion" : "",  "isEliminado" : false,  "usuarioBanner" : "",  "orden" : "",  "fechaCreacion" : "",  "fechaImplementacion" : "", "isEnabled" : true}];
+            $scope.properties.selectedToModificate[0].clave = $scope.properties.contenido[index].clave;
+            $scope.properties.selectedToModificate[0].descripcion = $scope.properties.contenido[index].descripcion;
+            $scope.properties.selectedToModificate[0].fechaCreacion = $scope.properties.contenido[index].fechaCreacion;
+            $scope.properties.selectedToModificate[0].usuarioBanner = $scope.properties.contenido[index].usuarioBanner;
+            $scope.properties.selectedToModificate[0].fechaImplementacion = $scope.properties.contenido[index].fechaImplementacion;
+            $scope.properties.selectedToModificate[0].orden = $scope.properties.contenido[index].orden;
+            $scope.properties.selectedToModificate[0].isEnabled = $scope.properties.contenido[index].isEnabled;
+            $scope.properties.selectedToModificate[0].isEliminado = $scope.properties.contenido[index].isEliminado;
+            $scope.properties.selectedToModificate[0].persistenceId_string = $scope.properties.contenido[index].persistenceId_string;
 
+            $scope.properties.isModificacion = true;
+            $scope.properties.index = index;
+    }
+    function openModal(modalId) {
+        modalService.open(modalId);
+    }
+        function closeModal() {
+        modalService.close();
+    }
     $scope.deleteData = function(row, index) {
 
         if ($scope.loading == false) {

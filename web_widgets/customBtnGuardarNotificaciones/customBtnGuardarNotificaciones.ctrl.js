@@ -56,6 +56,7 @@ function PbButtonCtrl($scope, $http, modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -88,11 +89,14 @@ function PbButtonCtrl($scope, $http, modalService) {
 
         return $http(req)
             .success(function(data, status) {
+                //console.log("$scope.properties.informacionEnviar");
+                //console.log($scope.properties.informacionEnviar);
                 $scope.getConsulta();
             })
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }

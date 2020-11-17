@@ -9,8 +9,11 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
+import com.anahuac.rest.api.DAO.MailGunDAO
+import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.TestDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
@@ -39,7 +42,7 @@ class Index implements RestApiController {
 		if (url == null) {
 			return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
-		
+				
 		//VARIABLES===========================================================
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
@@ -50,15 +53,20 @@ class Index implements RestApiController {
 		ListadoDAO lDao = new ListadoDAO();
 		ConektaDAO cDao = new ConektaDAO();
 		UsuariosDAO uDAO = new UsuariosDAO();
-		
+		NotificacionDAO nDAO = new NotificacionDAO();
+		MailGunDAO mgDAO = new MailGunDAO();
+		CatalogoBachilleratoDAO bDao = new CatalogoBachilleratoDAO()
 		//MAPEO DE SERVICIOS==================================================
 		try {
 			switch(url) {
 				case "test":
 					result = dao.testFuction(parameterP, parameterC, jsonData);
 					break;
-				case "getSolicitudTramite":
-					result = lDao.getSolicitudTramite(parameterP, parameterC, jsonData, context);
+				case "getNuevasSolicitudes":
+					result = lDao.getNuevasSolicitudes(parameterP, parameterC, jsonData, context);
+					break;
+				case "getAspirantesProceso":
+					result = lDao.getAspirantesProceso(parameterP, parameterC, jsonData, context);
 					break;
 				case "getDocumentoTest":
 					result = lDao.getDocumentoTest(parameterP, parameterC, jsonData, context);
@@ -78,10 +86,41 @@ class Index implements RestApiController {
 				case "RegistrarUsuario":
 					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
 					break;
+				/*case "encode":
+					result =  aDAO.base64Encode(parameterP, parameterC, jsonData, context);
+					break;
+				case "decode":
+					result =  aDAO.base64Decode(parameterP, parameterC, jsonData, context);
+					break;*/
+				case "recuparaPassword":
+					result =  uDAO.postRecuperarPassword(parameterP, parameterC, jsonData, context);
+					break;
+				case "sendEmail":
+					result = mgDAO.sendEmail(parameterP, parameterC, jsonData, context);
+					break;
+				case "generateHtml":
+					result = nDAO.generateHtml(parameterP, parameterC, jsonData, context);
+					break;
+				case "getTestUpdate":
+					result = nDAO.getDocumentoTest(parameterP, parameterC, jsonData, context);
+					break;
+					case "insertLicenciatura":
+					result = nDAO.insertLicenciatura(parameterP, parameterC, jsonData, context)
+					break;
+					case "insertBachillerato":
+					result = bDao.insert(parameterP, parameterC, jsonData, context)
+					break;
+					case "updateBachillerato":
+					result = bDao.update(parameterP, parameterC, jsonData, context)
+					break;
+					case "getBachillerato":
+					result = bDao.get(parameterP, parameterC, jsonData, context)
+					break;
 				default:
 					result = notFound(url);
 					break;
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace()
 		}
