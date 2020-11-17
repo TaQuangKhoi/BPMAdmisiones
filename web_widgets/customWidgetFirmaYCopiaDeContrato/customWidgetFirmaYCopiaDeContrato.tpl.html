@@ -1,0 +1,155 @@
+<div class="row">
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <button style="background-color: rgb(88, 80, 80)"><i class="fa fa-arrow-left" aria-hidden="true"
+                style="color:white"></i><label style="color:white"> &nbsp; Regresar</label> </button>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <h1 style="text-align: center;">Notificaciones</h1>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4"></div>
+</div>
+<hr>
+<div class="col-lg-12">
+    <br>
+</div>
+
+<div class="col-lg-12">
+    <br>
+</div>
+<div class="row">
+    <div class="col-md-10 col-10 col-xs-10 col-lg-10">
+        <label>Usuario que firma</label>
+        <select class="form-control" name="java" id="">
+            <option disabled value="">Select option...</option>
+            <option></option>
+        </select>
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+        <button class="btn btn-warning" style="margin-top: 22px" ng-click ="modalAgregarPersonaFirma()"><span style="color:black"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</span> </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-10 col-xs-10 col-lg-10">
+        <label>Asignar correo con copia</label>
+        <input class="form-control">
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+        <button class="btn btn-warning" style="margin-top: 22px"><span style="color:black"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</span> </button>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<!--tabla-->
+<div class="col-lg-12">
+    <table  class="table">
+        <tbody>
+            <tr style="background: #a39a96;">
+                <th style="color: black;"> Descripcion</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th style="color: black;"> Acciones</th>
+            </tr>
+            <tr style="border: 1px solid #f4f5f8;">
+                <td>
+                    <h5>Descripcion</h5>
+                    <h5>Correo</h5>
+                    <h5>Universidad</h5>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<div class="row">
+    <div  class="col-md-12 col-12 col-xs-12 col-lg-12">
+        <label>Contenido de correo</label>
+        <ckeditor ></ckeditor>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<div class="row">
+    <div class="col-md-3 col-3 col-xs-3 col-lg-3"></div>
+   <div class="col-md-3 col-4 col-xs-4 col-lg-4"></div>
+    <div class="col-md-5 col-5 col-xs-5 col-lg-5" style="text-align:right">
+        <button class="btn btn-warning"> <i class="fa fa-eye"
+            aria-hidden="true" style="color:black"></i>&nbsp; Previsualizar</button>&nbsp;&nbsp;
+        <button class="btn btn-dark" style="background-color: rgb(88, 80, 80)"> <i class="fa fa-times"
+                aria-hidden="true" style="color:white">&nbsp; Cancelar </i></button>&nbsp;&nbsp;
+        <button class="btn btn-warning"><i class="fa fa-arrow-right" aria-hidden="true" style="color:black"></i> Siguiente</button>
+    </div>
+</div>
+<!-- Modal agregar persona que firma-->
+<div id="modalAgregarPersonaFirma" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align: center;">Agregar Persona para firmar</h4>
+                <br>
+                <div class="row">
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Nombre completo</label>
+                        <input class="form-control">
+                    </div>
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Cargo</label>
+                        <input class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Sexo</label>
+                        <input class="form-control">
+                    </div>
+                    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+                        <label>Grupo</label>
+                        <input class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Correo</label>
+                        <input class="form-control">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-dark" style="background-color: rgb(88, 80, 80)" data-dismiss="modal"> <i class="fa fa-times"
+                    aria-hidden="true" style="color:white">&nbsp; Cancelar </i></button>
+                <button type="button" data-dismiss="modal" class="btn btn-warning"  ng-click="">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>

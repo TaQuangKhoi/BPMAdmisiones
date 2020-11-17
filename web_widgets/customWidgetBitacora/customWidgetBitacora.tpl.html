@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-md-2 col-4 col-xs-4 col-lg-4">
+        <button type="button" style="background-color: rgb(88, 80, 80)"><i class="fa fa-arrow-left" aria-hidden="true" style="color:white"> </i><label style="color:white"> Regresar</label> </button>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <h1>Bitácora</h1>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+    </div>
+</div>
+<hr>
+<label>Filtrado por:</label> <label>Nombre que contenga j</label>
+<div class="row">
+    <div class="col-md-6 col-6 col-xs-6 col-lg-6">
+        <button class="btn btn-primary" type="button" ng-click="FiltroEspecifico()">Filtro especifico</button>
+    </div>
+    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+        <button class="btn btn-warning" type="button">Imprimir</button>
+    </div>
+    <div class="col-md-2 col-2 col-xs-2 col-lg-2">
+        <button class="btn btn-warning" type="button">Excel</button>
+        <button class="btn btn-warning" type="button">PDF</button>
+    </div>
+</div>
+<div class="col-lg-12">
+    <br>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ngb-pagination [collectionSize]=" collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true"
+            (pageChange)="pageChanged($event)" [pageSize]="pageSize" [boundaryLinks]="true"
+            aria-label="Default pagination">
+        </ngb-pagination>
+    </div>
+</div>
+<!--tabla-->
+<div class="col-lg-12">
+    <table  class="table table-bordered">
+        <tbody>
+            <tr style="background: #a39a96;">
+                <th style="color: black;"> Eventos <button ng-click="modalEventos()"><i class="fa fa-filter"></i></button></th>
+                <th style="color: black;">Usuario <button ng-click="modalUsuario()"><i class="fa fa-filter"
+                    ></i></button></th>
+                <th style="color: black;">Fecha modificacion <button ng-click="modalFechaModificacion()"><i class="fa fa-filter"
+                    ></i></button> </th>
+                <th style="color: black;">Modulo <button ng-click="modalModulo()"><i class="fa fa-filter"
+                    ></i></button> </th>
+            </tr>
+            <tr style="border: 1px solid #f4f5f8;">
+                <td>Se elimino el expediente idbanner 02145235</td>
+                <td>
+                    <h5>José Carlos Garcia Romero</h5>
+                   
+                </td>
+                <td>
+                    <h5>23/09/2020 07:00 A</h5>
+                </td>
+                <td>
+                    <h5>Aspirantes Rechazados</h5>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <ngb-pagination [collectionSize]=" collectionSize" [(page)]="page" [maxSize]="maxSize" [rotate]="true"
+            (pageChange)="pageChanged($event)" [pageSize]="pageSize" [boundaryLinks]="true"
+            aria-label="Default pagination">
+        </ngb-pagination>
+    </div>
+</div>
+
+<!-- Modal Filtro especifico-->
+<div id="FiltroEspecifico" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Descripcion del filtro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label>Columna</label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                      <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label></label>
+                        <select class="form-control" name="java" id="">
+                            <option disabled value="">Select option...</option>
+                            <option></option>
+                        </select>
+                    </div>
+                      <div class="col-md-4 col-4 col-xs-4 col-lg-4">
+                        <label>valor</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <br>
+                </div>
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tbody>
+                            <tr style="background: #a39a96;">
+                                <th style="color: black;">Columna</th>
+                                <th style="color: black;">Operador</th>
+                                <th style="color: black;">Valor</th>
+                            </tr>
+                            <tr style="border: 1px solid #f4f5f8;">
+                                <td>
+                                    <h5>Nombre</h5>
+                                </td>
+                                <td>
+                                    <h5>Que contenga</h5>
+                                </td>
+                                <td>
+                                    <h5>J</h5>
+                                </td>
+                                <td>
+                                    <h5><i class="fa fa-times" aria-hidden="true"></i></h5>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalEventos" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por evento</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Evento</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalUsuario" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                   <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Usuario</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal-->
+<div id="modalFechaModificacion" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por fecha modificacion</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Fecha modificacion</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modalModulo" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align: center;">Filtrado por Modulo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-12 col-xs-12 col-lg-12">
+                        <label>Modulo</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-warning" ng-click="">Cancelar</button>
+                <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="">Filtrar</button>
+            </div>
+        </div>
+    </div>
+</div>
