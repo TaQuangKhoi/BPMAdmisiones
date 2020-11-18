@@ -1,8 +1,8 @@
 {
   "designerVersion" : "1.11.52",
-  "id" : "APPNuevasSolicitudes",
-  "name" : "APPNuevasSolicitudes",
-  "lastUpdate" : 1605634013192,
+  "id" : "APPSolicitudesEnProceso",
+  "name" : "APPSolicitudesEnProceso",
+  "lastUpdate" : 1605670047800,
   "rows" : [
     [
       {
@@ -37,8 +37,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -51,7 +51,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Nuevas solicitudes"
+                  "value" : "SOLICITUDES EN PROCESO"
                 },
                 "level" : {
                   "type" : "constant",
@@ -577,6 +577,58 @@
                 },
                 "hidden" : {
                   "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<div class=\"row\">\n    <div class=\"col-lg-12\">\n        <pre>{{lstContenido|json}}</pre>\n    </div>\n</div>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "2af0b210-ab4f-4307-8fc0-34191f256e42",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
                   "value" : false
                 },
                 "allowHTML" : {
@@ -586,7 +638,6 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "FOTO",
                     "NOMBRE / EMAIL / CURP",
                     "CAMPUS / PROGRAMA / INGRESO",
                     "ESTADO / PREPARATORIA / PROMEDIO",
@@ -619,7 +670,7 @@
                 },
                 "urlPost" : {
                   "type" : "constant",
-                  "value" : "../API/extension/AnahuacRest?url=getNuevasSolicitudes&p=0&c=100"
+                  "value" : "../API/extension/AnahuacRest?url=getSolicitudTramite&p=0&c=100"
                 },
                 "dataToSend" : {
                   "type" : "variable",
@@ -631,7 +682,7 @@
                 },
                 "userId" : {
                   "type" : "variable",
-                  "value" : "userData.user_id"
+                  "value" : ""
                 }
               },
               "reference" : "274bcb29-c876-4f06-beff-fdba7fb59410",
@@ -1543,13 +1594,6 @@
         "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros\r",
         "};"
-      ],
-      "exposed" : false
-    },
-    "userData" : {
-      "type" : "url",
-      "value" : [
-        "../API/system/session/unusedId"
       ],
       "exposed" : false
     }

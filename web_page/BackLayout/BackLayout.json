@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "BackLayout",
   "name" : "BackLayout",
-  "lastUpdate" : 1605653338296,
+  "lastUpdate" : 1605668085713,
   "rows" : [
     [
       {
@@ -1174,7 +1174,8 @@
                           "value" : ""
                         },
                         "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
+                          "type" : "interpolation",
+                          "value" : "/bonita/apps/adminLogin/login/"
                         },
                         "collectionToModify" : {
                           "type" : "variable"
@@ -1603,7 +1604,7 @@
       "type" : "expression",
       "value" : [
         "if ($data.logoutSuccess) {",
-        "    window.location.reload();",
+        "    window.top.location.href = window.location.reload();",
         "}"
       ],
       "exposed" : false
@@ -1719,17 +1720,17 @@
     "displayLoginPage" : {
       "type" : "expression",
       "value" : [
-        "if ($data.logoutSuccessAndLogin) {",
-        "    let location = window.location.pathname + '?' + window.location.search;",
-        "    window.location.assign('../../../login.jsp?redirectUrl=' + encodeURIComponent(location));",
-        "}"
+        "// if ($data.logoutSuccessAndLogin) {",
+        "//     let location = window.location.pathname + '?' + window.location.search;",
+        "//     window.location.assign('../../../login.jsp?redirectUrl=' + encodeURIComponent(location));",
+        "// }"
       ],
       "exposed" : false
     },
     "logoutURL" : {
       "type" : "constant",
       "value" : [
-        "../../../logoutservice"
+        "../../../logoutservice?redirect=false"
       ],
       "exposed" : false
     },
