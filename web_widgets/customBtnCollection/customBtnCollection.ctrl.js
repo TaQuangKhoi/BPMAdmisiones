@@ -5,6 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
     $scope.myFunc = function() {
+        console.log("paso");
       var contact = JSON.parse($scope.properties.strJson);
       $scope.properties.dataReset.push(contact);
     };

@@ -62,8 +62,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "parentesco": "",
                             "catParentesco": null
                         }
-                        $scope.properties.showpadrealert = false;
-                        $scope.properties.showmadrealert = false;
                         closeModal(true);
                     }
                 } else {
@@ -77,8 +75,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         "parentesco": "",
                         "catParentesco": null
                     }
-                    $scope.properties.showpadrealert = false;
-                    $scope.properties.showmadrealert = false;
                     closeModal(true);
                 }
             } else {
@@ -91,8 +87,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     "parentesco": "",
                     "catParentesco": null
                 }
-                $scope.properties.showpadrealert = false;
-                $scope.properties.showmadrealert = false;
                 closeModal(true);
             }
     } else if ($scope.properties.url) {

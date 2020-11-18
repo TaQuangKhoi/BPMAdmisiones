@@ -77,9 +77,8 @@ function ($scope) {
     }
     
     function getElementOnScreen( _id){
-        //let element = document.getElementById(_id);
-        //element.scrollIntoView();
-        document.getElementById(_id).scrollIntoView({block: "end", behavior: "smooth"});
+        let element = document.getElementById(_id);
+        element.scrollIntoView();
     }
     
     $scope.$watchCollection("properties.content", function(newValue, oldValue) {

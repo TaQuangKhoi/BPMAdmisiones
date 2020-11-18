@@ -5,12 +5,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        $scope.execute();
+        // $scope.execute();
+        $scope.validateCard();
     };
     $scope.tokenParams = {};
     $scope.tokenId = "";
     
+    $scope.showModal = function(){
+        $("#loading").modal("show");
+    };
+    
+    $scope.hideModal = function(){
+        $("#loading").modal("hide");
+    };
+    
+    $scope.validateCard = function(){
+        if($scope.properties.validateCardFormat.isValid){
+            $scope.execute();
+        } else {
+            swal("Atención", $scope.properties.validateCardFormat.message, "warning");
+        }
+    };
+    
     $scope.execute = function () {
+        $scope.showModal();
         $scope.tokenParams = {
             "card": {
               "number": $scope.properties.dataToSend.cardNumber,
@@ -26,6 +44,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     
     var successResponseHandler = function (token) {
+        $scope.hideModal();
         $scope.properties.dataFromSuccess = token.id;
         $scope.properties.cardToken = token.id;
         let data = angular.copy($scope.properties.objectCard);
@@ -35,7 +54,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
     
     var errorResponseHandler = function (error) {
-        console.error(error)
+        $scope.hideModal();
+        swal("Error", error.message_to_purchaser, "warning");
     };
     
     /**
@@ -54,15 +74,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
         .success(function(data, status) {
-            $scope.properties.dataFromSuccess = data;
-            $scope.properties.responseStatusCode = status;
-            $scope.properties.dataFromError = undefined;
-            $scope.properties.paymentInfoCard = data
-            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
-            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                redirectIfNeeded();
+            if(data.success){
+                $scope.properties.dataFromSuccess = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                $scope.properties.paymentInfoCard = data
+                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    redirectIfNeeded();
+                }
+                closeModal($scope.properties.closeOnSuccess);
+            } else {
+                swal("Error", data.error, "error");
             }
-            closeModal($scope.properties.closeOnSuccess);
         })
         .error(function(data, status) {
             $scope.properties.dataFromError = data;
@@ -71,6 +95,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
         })
         .finally(function() {
+            $scope.hideModal();
             vm.busy = false;
         });
     }

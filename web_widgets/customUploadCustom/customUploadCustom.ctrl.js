@@ -51,7 +51,6 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
              debugger;
              $scope.properties.urlretorno  = reader.result;                
              //console.log(base64data);
-             acept
          }*/
         if(!event.target.value) {
           return;
