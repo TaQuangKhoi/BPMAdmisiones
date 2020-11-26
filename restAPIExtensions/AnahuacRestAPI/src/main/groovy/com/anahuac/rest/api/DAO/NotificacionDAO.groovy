@@ -21,6 +21,7 @@ import groovy.json.JsonSlurper
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import java.sql.ResultSetMetaData
 import java.sql.Statement
 
 import org.bonitasoft.engine.bpm.document.Document
@@ -29,6 +30,10 @@ import org.slf4j.LoggerFactory
 
 class NotificacionDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NotificacionDAO.class);
+	Connection con;
+	Statement stm;
+	ResultSet rs;
+	PreparedStatement pstm;
 	
 	public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -65,13 +70,20 @@ class NotificacionDAO {
 			ProcesoCaso procesoCaso = procesoCasoDAO.getCaseId(object.campus, "CatNotificaciones");
 			errorlog += ", Despues con el campus " + object.campus + " se obtuvo el caseid " + procesoCaso.getCaseId()
 			def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
-			CatNotificaciones catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId())
+			CatNotificaciones catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
 			
 			errorlog += ", se obtiene el catNotificaciones para generar el b64 del documento "
-			def catNotificacionDAO = context.apiClient.getDAO(CatNotificacionesDAO.class);
-			List<CatNotificaciones> lcn = catNotificacionDAO.findByCodigo(object.codigo, 0, 999)
-			for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "ImageHeader", 0, 10)) {
-			 encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))	
+
+			errorlog += ",  catNotificacionDAO"
+
+			errorlog += ",  lcn"
+			List<Document> lstDoc =context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "imageHeader", 0, 10)
+			errorlog += ",  lstDoc"
+			if(lstDoc.size()>0) {
+				errorlog += ",  lstDoc.size="+lstDoc.size()
+				for(Document doc : lstDoc) {
+				 encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))	
+				}
 			}
 			errorlog += ", se genera el b64 banner"
 			List<Document> docEtapaProceso = context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "docEtapaProceso", 0, 100)
@@ -79,7 +91,7 @@ class NotificacionDAO {
 			List<Document> docGuiaEstudio = context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "docGuiaEstudio", 0, 100)
 			// 1 variable plantilla [banner-href]
 			errorlog += ", Variable1"
-			CatNotificaciones cn = lcn.get(0)
+			CatNotificaciones cn = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
 			plantilla=plantilla.replace("[banner-href]", cn.getEnlaceBanner())
 			// 2 variable plantilla [banner]
 			errorlog += ", Variable2"
@@ -124,46 +136,56 @@ class NotificacionDAO {
 			
 			
 			//8 Seccion table atributos usuario
-			errorlog += ", Variable8"
+			errorlog += ", Variable8.1 listado de correos copia"
 			String tablaUsuario= ""
 			String plantillaTabla="<tr> <td align= \"left \" valign= \"top \" style= \"text-align: justify; \"> <font face= \"'Source Sans Pro', sans-serif \" color= \"#585858 \"style= \"font-size: 17px; line-height: 25px; \"> <span style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #585858; font-size: 17px; line-height: 25px; \"> [clave] </span> </font> </td> <td align= \"left \" valign= \"top \" style= \"text-align: justify; \"> <font face= \"'Source Sans Pro', sans-serif \" color= \"#585858 \"style= \"font-size: 17px; line-height: 25px; \"> <span style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; color: #ff5a00; font-size: 17px; line-height: 25px; \"> [valor] </span> </font> </td> </tr>"
-			
+			errorlog += ", Variable8.2 object.correo=" + object.correo
 			correo=object.correo;
+			errorlog += ", Variable8.3 cn.getAsunto()=" + cn.getAsunto()
 			asunto=cn.getAsunto();
-			
-			for(def row: cn.getLstCorreoCopia()) {
-				if(cc == "") {
-					cc = row
-				}else {
-					cc = cc + ";" + row
-				}
-			}
-			plantilla = DataUsuarioAdmision(plantilla, context, correo, cn, errorlog);
-			plantilla = DataUsuarioRegistro(plantilla, context, correo, cn, errorlog);
-			
-			String tablaPasos=""
-			String plantillaPasos="<tr> <td class= \"col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center aling-middle backgroundOrange color-index number-table \"> [numero]</td> <td class= \"col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center aling-middle backgroundDGray \"> <div class= \"row \"> <div class= \"col-12 form-group color-titulo \"> <img src= \"[imagen] \"> </div> <div class= \"col-12 color-index sub-img \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [titulo] </div> </div> </td> <td class= \"col-xs-7 col-sm-7 col-md-7 col-lg-7 col-7 text-justify aling-middle backgroundLGray \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [descripcion] </td> </tr>"
-			def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
-			List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
-			Integer numero= 0;
-			if(lci.size()>0) {
-				plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
-			}
-			for(CatImageNotificacion ci: lci) {
-				numero++
-				errorlog += ", Variable10."+numero
-				String imagen= "";
-				//Descripcion es el nombre del documento
-				errorlog += ", Variable10.1 doc=" + ci.getDescripcion()
-				if(docEtapaProceso.size()>0) {
-				for(Document doc:docEtapaProceso) {
-					errorlog += ", Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
-					if(doc.getContentFileName().equals(ci.getDescripcion())) {
-						imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+			errorlog += ", Variable8.4 cn.getLstCorreoCopia().size()=" + cn.getLstCorreoCopia().size()
+			if(cn.getLstCorreoCopia().size()>0) {
+				for(String row: cn.getLstCorreoCopia()) {
+					if(cc == "") {
+						cc = row
+					}else {
+						cc = cc + ";" + row
 					}
 				}
-				tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
 			}
+			errorlog += ", Variable8.5 DataUsuarioAdmision"
+			plantilla = DataUsuarioAdmision(plantilla, context, correo, cn, errorlog);
+			errorlog += ", Variable8.6 DataUsuarioRegistro"
+			plantilla = DataUsuarioRegistro(plantilla, context, correo, cn, errorlog);
+
+			String tablaPasos=""
+			String plantillaPasos="<tr> <td class= \"col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center aling-middle backgroundOrange color-index number-table \"> [numero]</td> <td class= \"col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center aling-middle backgroundDGray \"> <div class= \"row \"> <div class= \"col-12 form-group color-titulo \"> <img src= \"[imagen] \"> </div> <div class= \"col-12 color-index sub-img \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [titulo] </div> </div> </td> <td class= \"col-xs-7 col-sm-7 col-md-7 col-lg-7 col-7 text-justify aling-middle backgroundLGray \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [descripcion] </td> </tr>"
+			
+			def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
+			errorlog += ", Variable9.1 catImageNotificacion.findByCaseId"
+			List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
+			Integer numero= 0;
+			errorlog += ", Variable9.2 lci.size()=" + lci.size()
+			if(lci.size()>0) {
+				plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
+				for(CatImageNotificacion ci: lci) {
+					if(ci.getCodigo().equals(cn.getCodigo())) {
+					numero++
+					errorlog += ", Variable10."+numero
+					String imagen= "";
+					//Descripcion es el nombre del documento
+					errorlog += ", Variable10.1 doc=" + ci.getDescripcion()
+					if(docEtapaProceso.size()>0) {
+						for(Document doc:docEtapaProceso) {
+								errorlog += ", Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
+								if(doc.getContentFileName().equals(ci.getDescripcion())) {
+									imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+								}
+							}
+							tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
+						}
+					}
+				}
 			}
 			errorlog += ", Variable11"
 			plantilla=plantilla.replace("[pasos]", tablaPasos)
@@ -188,7 +210,7 @@ class NotificacionDAO {
 			errorlog += ", Variable15"
 			
 			
-			for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "ImageFooter", 0, 10)) {
+			for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "imageFooter", 0, 10)) {
 				encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
 			}
 			   
@@ -203,10 +225,9 @@ class NotificacionDAO {
 			lstAdditionalData.add("asunto="+asunto)
 			lstAdditionalData.add("cc="+cc)
 			if(object.isEnviar) {
-				mgd.sendEmail(correo, asunto, plantilla, cc)
+				resultado = mgd.sendEmailPlantilla(correo, asunto, plantilla, cc, object.campus, context)
 			}
 			
-			resultado.setAdditional_data(lcn)
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -264,26 +285,26 @@ class NotificacionDAO {
 					}
 					
 				}
-				plantilla=plantilla.replace("[Nombre]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
-				plantilla=plantilla.replace("[Universidad]", objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
-				plantilla=plantilla.replace("[Licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
-				plantilla=plantilla.replace("[Campus de examen]",objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
-				plantilla=plantilla.replace("[Correo]",objSolicitudDeAdmision.get(0).getCorreoElectronico())
-				plantilla=plantilla.replace("[Periodo]",objSolicitudDeAdmision.get(0).getCatPeriodo().getDescripcion())
-				plantilla=plantilla.replace("[Preparatoria]",objSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion())
-				plantilla=plantilla.replace("[Promedio]",objSolicitudDeAdmision.get(0).getPromedioGeneral())
-				plantilla=plantilla.replace("[Estatus de tu solicitud]",objSolicitudDeAdmision.get(0).getEstatusSolicitud())
+				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
+				plantilla=plantilla.replace("[UNIVERSIDAD]", objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
+				plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
+				plantilla=plantilla.replace("[CAMPUSEXAMEN]",objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
+				plantilla=plantilla.replace("[CORREO]",objSolicitudDeAdmision.get(0).getCorreoElectronico())
+				plantilla=plantilla.replace("[PERIODO]",objSolicitudDeAdmision.get(0).getCatPeriodo().getDescripcion())
+				plantilla=plantilla.replace("[PREPARATORIA]",objSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion())
+				plantilla=plantilla.replace("[PROMEDIO]",objSolicitudDeAdmision.get(0).getPromedioGeneral())
+				plantilla=plantilla.replace("[ESTATUS]",objSolicitudDeAdmision.get(0).getEstatusSolicitud())
 				errorlog += ", Variable14"
 				if(cn.isInformacionLic()) {
 					plantilla=plantilla.replace("<!--isInformacionLic-->", "<table class=\"table\"> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-4\" style=\"margin: 0; padding:0; vertical-align: middle;\"> <img src=\"data:image/jpeg;base64,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\"> </td> <td class=\"col-4\"style=\"background: #bf6d27; vertical-align: middle; padding: 0; margin: 0;\"> <div class=\"row\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"data:image/png;base64,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\"> </div> <div class=\"col-12 color-index sub-img\"style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a style=\"text-decoration: underline; cursor: pointer;\">[licenciatura]</a> </div> </div> </td> <td class=\"col-4\"style=\"text-decoration: underline; font-size: 9em; background: orange; color: white; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; margin: 0; padding:0; vertical-align: middle;\"> <p>[descripcion-licenciatura] </p> </td> </tr> </tbody> </table>")
-					plantilla=plantilla.replace("[licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getNombre())
+					plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getNombre())
 					plantilla=plantilla.replace("[descripcion-licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
 				}
 				
 				def objDetalleSolicitudDAO = context.getApiClient().getDAO(DetalleSolicitudDAO.class)
 				List<DetalleSolicitud> detalleSolicitud = objDetalleSolicitudDAO.findByCaseId(objSolicitudDeAdmision.get(0).getCaseId()+"", 0, 999)
 				if(detalleSolicitud.size()>0) {
-					plantilla=plantilla.replace("[ID Banner]",detalleSolicitud.get(0).getIdBanner())
+					plantilla=plantilla.replace("[ID BANNER]",detalleSolicitud.get(0).getIdBanner())
 				}
 		}
 			errorlog += ", Variable10 tablaUsuario"
@@ -306,7 +327,7 @@ class NotificacionDAO {
 			if(objSolicitudDeAdmision.size()>0) {
 				for(String variables:cn.getLstVariableNotificacion()) {
 					if(variables.equals("Nombre")) {
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getPrimernombre()()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
+						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
 					}
 
 					if(variables.equals("Correo")){
@@ -315,10 +336,10 @@ class NotificacionDAO {
 					
 					
 				}
-				plantilla=plantilla.replace("[Nombre]",objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidopaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
-				plantilla=plantilla.replace("[Correo]",objSolicitudDeAdmision.get(0).getCorreoelectronico())
+				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidopaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
+				plantilla=plantilla.replace("[CORREO]",objSolicitudDeAdmision.get(0).getCorreoelectronico())
 				errorlog += ", Variable14"
-		}
+			}
 			errorlog += ", Variable10 tablaUsuario"
 			if(!tablaUsuario.equals("")) {
 				plantilla = plantilla.replace("<!--[Variables de usuario]-->", "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"88%\"style=\"width: 88% !important; min-width: 88%; max-width: 88%; padding-left: 50px;padding-right: 50px;\"> [getLstVariableNotificacion] </table>")
@@ -356,10 +377,6 @@ class NotificacionDAO {
 		}
 		public Result insertLicenciatura(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 			Result resultado = new Result();
-			Connection con;
-			Statement stm;
-			ResultSet rs;
-			PreparedStatement pstm;
 			try {
 				
 				def jsonSlurper = new JsonSlurper();
@@ -387,4 +404,138 @@ class NotificacionDAO {
 			}
 			return resultado
 		}
+
+		public Result insertLicenciaturaBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+			Result resultado = new Result();
+			try {
+				
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				assert object instanceof List;
+				
+				con = new DBConnect().getConnectionBonita();
+				for(def row: object) {
+					pstm = con.prepareStatement(row)
+					//pstm.setString(1, "165")
+					//pstm.setString(2, "Administración Pública y Gobierno")
+					//pstm.setString(3, "2020-11-16")
+					//pstm.setBoolean(4, false)
+					//pstm.setString(5, "1")
+					//pstm.setLong(6, 1L)
+					//pstm.setLong(7, 1L)
+					pstm.execute()
+				}
+				} catch (Exception e) {
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
+			}finally {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+			return resultado
+		}
+		
+	public Result simpleSelect(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public void validarConexion() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno=true
+		}
+	}
+	
+	public void validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+	}
 }

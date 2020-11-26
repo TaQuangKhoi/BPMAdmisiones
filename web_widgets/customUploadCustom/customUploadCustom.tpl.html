@@ -16,7 +16,7 @@
                  error-catcher="ctrl.uploadError(error)"
                  upload-options-enable-csrf
                  upload-options-csrf-param="CSRFToken">
-                <div class="input-group file-upload">
+                <div class="input-group file-upload paddingpx">
                     <input type="text" ng-focus="ctrl.preventFocus($event)" placeholder="{{properties.placeholder | uiTranslate}}" value="{{ctrl.filename}}" class="form-control">
 
                     <button type="button" ng-if="ctrl.filemodel" ng-click="ctrl.clear()" class="file-upload-clear">
@@ -29,7 +29,8 @@
                                    ng-class="{'file-upload-input--disabled':$isUploading}"
                                    name="{{ctrl.name}}" type="file"
                                    ng-required="properties.required"
-                                   ng-model="ctrl.filemodel" />
+                                   ng-model="ctrl.filemodel" 
+                                   accept="image/jpg, image/jpeg, application/pdf"/>
                             <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}"></i>
                         </span>
                     </span>

@@ -23,7 +23,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataToSend.catRegistroInput.ayuda = $scope.properties.strRegistro.Ayuda;
             
             $scope.strBonita = {
-                "nombreusaurio" : $scope.properties.strRegistro.CorreoElectronico,
+                "nombreusuario" : $scope.properties.strRegistro.CorreoElectronico,
                 "nombre": $scope.properties.strRegistro.PrimerNombre + " " + $scope.properties.strRegistro.SegundoNombre,
                 "apellido": $scope.properties.strRegistro.ApellidoPaterno + " " + $scope.properties.strRegistro.ApellidoMaterno,
                 "password": $scope.properties.strRegistro.Password
@@ -98,9 +98,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         // var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', getUserParam()).then(function() {
         //     localStorageService.delete($window.location.href);
         // });
-        var prom = doRequest('POST', '../API/bpm/process/7402162953942435682/instantiation', getUserParam()).then(function() {
+        
+        /*INTEGRAACIÓN*/
+        // var prom = doRequest('POST', '../API/bpm/process/7402162953942435682/instantiation', getUserParam()).then(function() {
+        //     localStorageService.delete($window.location.href);
+        // });
+        
+        /*PRE PRODUCCIÓN*/
+        var prom = doRequest('POST', '../API/bpm/process/8130793842527796733/instantiation', getUserParam()).then(function() {
             localStorageService.delete($window.location.href);
         });
+        
     }
   
     $scope.showLoading = function(){

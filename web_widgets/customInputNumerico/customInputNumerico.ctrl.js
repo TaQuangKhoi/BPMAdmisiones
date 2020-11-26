@@ -10,7 +10,6 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   
     $scope.forceKeyPressUppercase = function(e)
   {
-      
     var charInput = e.keyCode;
     var limite = $scope.properties.maxLength === 1?250:$scope.properties.maxLength;
     if((charInput >=48) && (charInput <=57)&&(e.target.value.length) <limite){

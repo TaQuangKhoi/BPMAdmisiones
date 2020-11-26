@@ -14,6 +14,36 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
+            debugger;
+            if($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.descuento === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.descuento = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.observacionesDescuento === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.observacionesDescuento = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.observacionesCambio === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.observacionesCambio = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.observacionesRechazo === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.observacionesRechazo = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.catPagoDeExamenDeAdmision === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.catPagoDeExamenDeAdmision = null; 
+            }
+            if($scope.properties.dataToSend.detalleSolicitudInput.idBanner === undefined){
+               $scope.properties.dataToSend.detalleSolicitudInput.idBanner = ""; 
+            }
+           /* descuento: $data.detalleSolicitud.descuento !== undefined ? $data.detalleSolicitud.descuento : null,
+			observacionesDescuento: $data.detalleSolicitud.observacionesDescuento !== undefined ? $data.detalleSolicitud.observacionesDescuento : null,
+			observacionesCambio: $data.detalleSolicitud.observacionesCambio !== undefined ? $data.detalleSolicitud.observacionesCambio : null,
+			observacionesRechazo: $data.detalleSolicitud.observacionesRechazo !== undefined ? $data.detalleSolicitud.observacionesRechazo : null,
+			observacionesListaRoja: $data.detalleSolicitud.observacionesListaRoja !== undefined ? $data.detalleSolicitud.observacionesListaRoja : null*/
             if ($scope.properties.accion === "Solicitar cambios") {
                 $scope.properties.dataToSend.conIsInformacionValidada = false;
                 $scope.properties.dataToSend.conIs100Descuento = false;

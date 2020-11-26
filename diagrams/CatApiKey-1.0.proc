@@ -12,16 +12,16 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_X0HHWCaOEeuzn-zr68FNzA" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_X0HHWSaOEeuzn-zr68FNzA" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_X0HHWiaOEeuzn-zr68FNzA" name="" content="" returnTypeFixed="true"/>
-          <operations xmi:type="expression:Operation" xmi:id="_2peWiSbREeuLdb_4vMqUPg">
-            <leftOperand xmi:type="expression:Expression" xmi:id="_2peWiibREeuLdb_4vMqUPg" name="lstCatApiKey" content="lstCatApiKey" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_2peWiybREeuLdb_4vMqUPg" name="lstCatApiKey" multiple="true" dataType="_X0HHhCaOEeuzn-zr68FNzA" className="com.anahuac.catalogos.CatApiKey"/>
+          <operations xmi:type="expression:Operation" xmi:id="_Pg79PC1SEeuSOOImESoqmA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_Pg79PS1SEeuSOOImESoqmA" name="lstCatApiKey" content="lstCatApiKey" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Pg79Pi1SEeuSOOImESoqmA" name="lstCatApiKey" multiple="true" dataType="_X0HHhCaOEeuzn-zr68FNzA" className="com.anahuac.catalogos.CatApiKey"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_2peWjCbREeuLdb_4vMqUPg" name="lstCatApiKeyInput" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = lstCatApiKey.find { it.persistenceId.toString() == currentCatApiKeyInput.persistenceId_string} ?: new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_2peWjSbREeuLdb_4vMqUPg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="expression:Expression" xmi:id="_2peWjibREeuLdb_4vMqUPg" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_2peWjybREeuLdb_4vMqUPg" name="lstCatApiKey" multiple="true" dataType="_X0HHhCaOEeuzn-zr68FNzA" className="com.anahuac.catalogos.CatApiKey"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Pg79Py1SEeuSOOImESoqmA" name="lstCatApiKeyInput" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = lstCatApiKey.find { it.persistenceId.toString() == currentCatApiKeyInput.persistenceId_string} ?: new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunDominio = currentCatApiKeyInput.mailgunDominio&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunCorreo = currentCatApiKeyInput.mailgunCorreo&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conektaPublicKey = currentCatApiKeyInput.conektaPublicKey&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Pg79QC1SEeuSOOImESoqmA" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_Pg79QS1SEeuSOOImESoqmA" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Pg79Qi1SEeuSOOImESoqmA" name="lstCatApiKey" multiple="true" dataType="_X0HHhCaOEeuzn-zr68FNzA" className="com.anahuac.catalogos.CatApiKey"/>
             </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="_2peWkCbREeuLdb_4vMqUPg" type="ASSIGNMENT" expression="addAll">
+            <operator xmi:type="expression:Operator" xmi:id="_Pg79Qy1SEeuSOOImESoqmA" type="ASSIGNMENT" expression="addAll">
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
@@ -31,20 +31,23 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_X0HHXiaOEeuzn-zr68FNzA" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_X0HHXyaOEeuzn-zr68FNzA" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_X0HHYCaOEeuzn-zr68FNzA">
-            <targetForm xmi:type="expression:Expression" xmi:id="_Dl8M8CbSEeuLdb_4vMqUPg" name="PageAccionesCatApiKey" content="0d3ce545-ff19-4268-be54-1db6f25235f2" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_TjRUwC1TEeuSOOImESoqmA" name="newForm57" content="bdbea0af-8680-4339-ab52-a9fa7f6052f8" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_X0HHYiaOEeuzn-zr68FNzA">
-            <inputs xmi:type="process:ContractInput" xmi:id="_2peWgCbREeuLdb_4vMqUPg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWgSbREeuLdb_4vMqUPg" name="persistenceId_string" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWgibREeuLdb_4vMqUPg" name="campus" type="COMPLEX" createMode="false">
-                <inputs xmi:type="process:ContractInput" xmi:id="_2peWgybREeuLdb_4vMqUPg" name="persistenceId_string" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_Pg79MC1SEeuSOOImESoqmA" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79MS1SEeuSOOImESoqmA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79Mi1SEeuSOOImESoqmA" name="campus" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_Pg79My1SEeuSOOImESoqmA" name="persistenceId_string" createMode="false"/>
               </inputs>
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWhCbREeuLdb_4vMqUPg" name="conekta" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWhSbREeuLdb_4vMqUPg" name="mailgun" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWhibREeuLdb_4vMqUPg" name="crispChat" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_2peWhybREeuLdb_4vMqUPg" name="isEliminado" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79NC1SEeuSOOImESoqmA" name="conekta" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79NS1SEeuSOOImESoqmA" name="mailgun" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79Ni1SEeuSOOImESoqmA" name="mailgunDominio" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79Ny1SEeuSOOImESoqmA" name="mailgunCorreo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79OC1SEeuSOOImESoqmA" name="crispChat" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79OS1SEeuSOOImESoqmA" name="isEliminado" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Pg79Oi1SEeuSOOImESoqmA" name="conektaPublicKey" createMode="false"/>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_2peWiCbREeuLdb_4vMqUPg" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_Pg79Oy1SEeuSOOImESoqmA" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
               <inputNames>lstCatApiKeyInput</inputNames>
             </constraints>
           </contract>
@@ -52,13 +55,13 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_vZ1WcCbFEeuLdb_4vMqUPg" name="lstCatApiKey" multiple="true" dataType="_X0HHhCaOEeuzn-zr68FNzA" className="com.anahuac.catalogos.CatApiKey">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_xIwWYSbFEeuLdb_4vMqUPg" name="initLstCatApiKey()" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add a new composed CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_xIwWYibFEeuLdb_4vMqUPg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_xIwWYybFEeuLdb_4vMqUPg" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_JreDuynmEeuCJMe7EIL5YQ" name="initLstCatApiKey()" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add a new composed CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunDominio = currentCatApiKeyInput.mailgunDominio&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunCorreo = currentCatApiKeyInput.mailgunCorreo&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conektaPublicKey = currentCatApiKeyInput.conektaPublicKey&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_JreDvCnmEeuCJMe7EIL5YQ" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_JreDvSnmEeuCJMe7EIL5YQ" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_X0HHZCaOEeuzn-zr68FNzA">
-        <targetForm xmi:type="expression:Expression" xmi:id="_BL30sCbGEeuLdb_4vMqUPg" name="instanciacionCatApiKey" content="5a45b890-90fb-470c-afdb-d122614f9aae" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_BlJDQCqKEeu4-r-0hvoThw" name="instanciarCatApiKey" content="83e2a61f-90eb-4c99-9501-5665789b4bb4" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_X0HHZiaOEeuzn-zr68FNzA">
         <targetForm xmi:type="expression:Expression" xmi:id="_X0HHZyaOEeuzn-zr68FNzA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -73,16 +76,19 @@
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_X0HHayaOEeuzn-zr68FNzA" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
       <contract xmi:type="process:Contract" xmi:id="_X0HHbCaOEeuzn-zr68FNzA">
-        <inputs xmi:type="process:ContractInput" xmi:id="_xIvvUCbFEeuLdb_4vMqUPg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey">
-          <inputs xmi:type="process:ContractInput" xmi:id="_xIvvUSbFEeuLdb_4vMqUPg" name="campus" type="COMPLEX">
-            <inputs xmi:type="process:ContractInput" xmi:id="_xIvvUibFEeuLdb_4vMqUPg" name="persistenceId_string"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_JreDsCnmEeuCJMe7EIL5YQ" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey">
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDsSnmEeuCJMe7EIL5YQ" name="campus" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_JreDsinmEeuCJMe7EIL5YQ" name="persistenceId_string"/>
           </inputs>
-          <inputs xmi:type="process:ContractInput" xmi:id="_xIvvUybFEeuLdb_4vMqUPg" name="conekta"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_xIvvVCbFEeuLdb_4vMqUPg" name="mailgun"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_xIvvVSbFEeuLdb_4vMqUPg" name="crispChat"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_xIvvVibFEeuLdb_4vMqUPg" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDsynmEeuCJMe7EIL5YQ" name="conekta"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDtCnmEeuCJMe7EIL5YQ" name="mailgun"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDtSnmEeuCJMe7EIL5YQ" name="mailgunDominio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDtinmEeuCJMe7EIL5YQ" name="mailgunCorreo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDtynmEeuCJMe7EIL5YQ" name="conektaPublicKey"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDuCnmEeuCJMe7EIL5YQ" name="crispChat"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_JreDuSnmEeuCJMe7EIL5YQ" name="isEliminado" type="BOOLEAN"/>
         </inputs>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_xIwWYCbFEeuLdb_4vMqUPg" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_JreDuinmEeuCJMe7EIL5YQ" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
           <inputNames>lstCatApiKeyInput</inputNames>
         </constraints>
       </contract>

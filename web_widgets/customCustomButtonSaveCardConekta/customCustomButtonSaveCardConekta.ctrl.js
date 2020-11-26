@@ -5,9 +5,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        // $scope.execute();
         $scope.validateCard();
     };
+    
     $scope.tokenParams = {};
     $scope.tokenId = "";
     
@@ -39,7 +39,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               "address": $scope.properties.dataToSend.address
             }
         };
-        Conekta.setPublicKey("key_BKn3nrrQJGw1qybfcirDprg");
+        Conekta.setPublicKey($scope.publicApiKey);
         Conekta.Token.create($scope.tokenParams, successResponseHandler, errorResponseHandler);
     }
     
@@ -99,4 +99,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             vm.busy = false;
         });
     }
+
+    function getConektaPublicKey(data) {
+        vm.busy = true;
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacRest?url=getConektaPublicKey&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+        .success(function(data, status) {
+            if(data.success){
+                $scope.publicApiKey = data.data[0];
+            } else {
+                swal("Error", data.error, "error");
+            }
+        })
+        .error(function(data, status) {
+            swal("Algo salió mal.", data.error, "error");
+        })
+        .finally(function() {
+            $scope.hideModal();
+            vm.busy = false;
+        });
+    }
+
+    $scope.$watch("properties.objectCard", function(){
+        if($scope.properties.objectCard !== undefined){
+            if($scope.properties.objectCard.campus_id !== undefined){
+                getConektaPublicKey({
+                    "campus_id": $scope.properties.objectCard.campus_id
+                });
+            }
+        }
+    })
 }

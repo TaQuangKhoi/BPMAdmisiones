@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pagoDeExamenAdmision",
   "name" : "pagoDeExamenAdmision",
-  "lastUpdate" : 1605650493762,
+  "lastUpdate" : 1605739725102,
   "rows" : [
     [
       {
@@ -339,11 +339,11 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : false
                 },
                 "disabled" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!campusSelected"
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -426,6 +426,18 @@
                 "campus" : {
                   "type" : "variable",
                   "value" : "campusSelected"
+                },
+                "proceso" : {
+                  "type" : "variable",
+                  "value" : "processId"
+                },
+                "objProcesoCaso" : {
+                  "type" : "variable",
+                  "value" : "formInput.objProcesoCasoInput"
+                },
+                "lstCatPagoDeExamenDeAdmisionInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "bb620fc5-bfaf-4155-b7f0-9aa1760779b4",
@@ -703,8 +715,8 @@
                   "value" : "mostrarPagoExamen.visible"
                 },
                 "pagoDesabilitado" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "variable",
+                  "value" : "selectedToModificate[0].deshabilitarPagoDeExamenDeAdmision"
                 },
                 "mostrarPagoDeshabilitado" : {
                   "type" : "variable",
@@ -725,6 +737,10 @@
                 "pagoHabilitadoODeshabilitado" : {
                   "type" : "variable",
                   "value" : "guardarPagoHabilitadoODeshabilitado.tipoPago"
+                },
+                "textoDescriptivo" : {
+                  "type" : "variable",
+                  "value" : "selectedToModificate[0].textoDescriptivoPagoDeshabilitado"
                 }
               },
               "reference" : "a968f501-ed5d-4624-8d91-1cd4250aef2e",
@@ -840,7 +856,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "!mostrarPagoExamen.visible"
+            "value" : "!mostrarOpcionesPagoExamenAdmision.visible"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -1011,7 +1027,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "f0675a52-e6b5-43b1-918e-5bc7885c94b5",
+              "reference" : "3a7f5b3e-3636-4bd4-b574-2d7547f6dda8",
               "hasValidationError" : false,
               "id" : "pbInput"
             },
@@ -1054,7 +1070,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Descripción"
+                  "value" : "Descripcion"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1086,7 +1102,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "8a901bd3-5a74-4f6f-971f-c1d0bc79ddf1",
+              "reference" : "734780a9-325e-478a-9cd8-757f3af9ca5c",
               "hasValidationError" : false,
               "id" : "pbInput"
             }
@@ -1461,7 +1477,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
+                "md" : 5,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -1490,7 +1506,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
+                "md" : 3,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -1499,8 +1515,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "mostrarPagoDeshabilitado.visible"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1603,8 +1619,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "mostrarPagoDeshabilitado.visible || taskId == undefined"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1706,6 +1722,140 @@
               "reference" : "4a3fda7e-b194-4c3a-be75-7ed91a13eab8",
               "hasValidationError" : false,
               "id" : "customBtnGuardarPagoExamenAdmision"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Guardar i"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "warning"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "{{processUrl}}"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "formInput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "selectedToModificate" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "campusSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "objContrato" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "lstCatPagoDeExamenDeAdmisionInput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "mostrarPantallaEditar" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "cerrarOpcionesDePago" : {
+                  "type" : "variable",
+                  "value" : "mostrarPagoDeshabilitado.visible"
+                },
+                "cerrarPantallaDePago" : {
+                  "type" : "variable",
+                  "value" : "mostrarPagoExamen.visible"
+                },
+                "cerrarPantallaPagoDeshabilitado" : {
+                  "type" : "variable",
+                  "value" : "mostrarOpcionesPagoExamenAdmision.visible"
+                }
+              },
+              "reference" : "e766b921-a3b1-4287-a14a-9e977be3f3ef",
+              "hasValidationError" : false,
+              "id" : "customBtnGenericInstanciaPagoExamen"
             }
           ]
         ]
@@ -1818,158 +1968,6 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Clave"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "selectedToModificate[0].clave"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "886d7154-effe-4cd7-b63c-7ef9ceb31401",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 6,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Descripción"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "selectedToModificate[0].descripcion"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "9689a3e6-b9c6-40c3-b3c4-a8c86dff30e1",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
                 "md" : 12,
                 "lg" : 12
               },
@@ -2061,7 +2059,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
+                "md" : 4,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -2090,7 +2088,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
+                "md" : 4,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -2203,8 +2201,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "taskId == undefined"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -2306,6 +2304,140 @@
               "reference" : "fe79f726-0d2b-4b21-aeee-d4e34f92dc8a",
               "hasValidationError" : false,
               "id" : "customBtnGuardarPagoExamenAdmision"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<span class=\"glyphicon glyphicon-floppy-save\" aria-hidden=\"true\"></span> Guardar i"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "warning"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "{{processUrl}}"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "formInput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "selectedToModificate" : {
+                  "type" : "variable",
+                  "value" : "selectedToModificate"
+                },
+                "campusSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "objContrato" : {
+                  "type" : "variable",
+                  "value" : "formInput.lstCatPagoDeExamenDeAdmisionInput"
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "lstCatPagoDeExamenDeAdmisionInput" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "mostrarPantallaEditar" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "cerrarOpcionesDePago" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "cerrarPantallaDePago" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "cerrarPantallaPagoDeshabilitado" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "b0b8ae14-5df0-434f-ae3d-d810746aaa5c",
+              "hasValidationError" : false,
+              "id" : "customBtnGenericInstanciaPagoExamen"
             }
           ]
         ]
@@ -3326,7 +3458,7 @@
     "getCatPagoExamen" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPagoDeExamenDeAdmision?q=getCatPagoDeExamenDeAdmision&f=campus={{campusSelected}}&p=0&c=9999"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPagoDeExamenDeAdmision?q=getPagoByCaseId&f=campus={{campusSelected}}&p=0&c=9999&f=caseId={{caseId}}"
       ],
       "exposed" : false
     },
@@ -3340,8 +3472,20 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "return {",
+        "/*return {",
+        "\tlstCatPagoDeExamenDeAdmisionInput:  $data.selectedToModificate",
+        "}*/",
+        "if($data.taskId === undefined){",
+        "  return {",
+        "      objProcesoCasoInput: $data.formInput.objProcesoCasoInput,",
+        "      lstCatPagoDeExamenDeAdmisionInput: $data.selectedToModificate",
+        "//\tobjProcesoCasoInput: $data.formInput.objProcesoCasoInput,",
+        "\t//lstCatPagoDeExamenDeAdmisionInput: $data.formInput.lstCatPagoDeExamenDeAdmisionInput",
+        "}",
+        "}else {",
+        "    return {",
         "\tlstCatPagoDeExamenDeAdmisionInput: $data.objContrato",
+        "    }",
         "}"
       ],
       "exposed" : false
@@ -3479,7 +3623,17 @@
         "    }",
         "}",
         "",
-        "return resultado;"
+        "return resultado;",
+        "",
+        "/*var resultado=0;",
+        "",
+        "if($data.objCaseInformation[0].id != undefined || $data.objCaseInformation[0].id != null){",
+        "    if($data.objCaseInformation[0].id.length > 0){",
+        "        resultado = $data.objCaseInformation[0].id;",
+        "    }",
+        "}",
+        "",
+        "return resultado;*/"
       ],
       "exposed" : false
     },
@@ -3563,7 +3717,50 @@
     "objProcesoCasoInput" : {
       "type" : "json",
       "value" : [
-        "[]"
+        "{\r",
+        "  \"objProcesoCasoInput\" : {\r",
+        "    \"campus\" : \"\",\r",
+        "    \"proceso\" : \"\"\r",
+        "  },\r",
+        "  \"lstCatPagoDeExamenDeAdmisionInput\" : [ ]\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "processId" : {
+      "type" : "expression",
+      "value" : [
+        "let value = \"\";\r",
+        "value = $data.processList[0].id;\r",
+        "return value;"
+      ],
+      "exposed" : false
+    },
+    "processUrl" : {
+      "type" : "expression",
+      "value" : [
+        "let ipBonita = window.location.protocol + \"//\" + window.location.host + \"/bonita\";    \r",
+        "return ipBonita + \"/API/bpm/process/\" + $data.processId + \"/instantiation\";"
+      ],
+      "exposed" : false
+    },
+    "processList" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?p=0&c=1000&o=displayName%20ASC&f=activationState%3dENABLED&f=name=CatPagoDeExamenDeAdmision"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"objProcesoCasoInput\" : {\r",
+        "    \"campus\":\"\",\r",
+        "    \"proceso\" : \"\"\r",
+        "  },\r",
+        "  \"lstCatPagoDeExamenDeAdmisionInput\" : [ ]\r",
+        "}"
       ],
       "exposed" : false
     }

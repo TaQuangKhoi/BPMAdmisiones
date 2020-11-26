@@ -26,9 +26,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("Nombre!", "Debe agregar el nombre del contacto de emergencia!", "warning");
             } else if ($scope.properties.contactoJson.telefono === "") {
                 swal("Teléfono!", "Debe agregar el teléfono del contacto de emergencia!", "warning");
-            } else if ($scope.properties.contactoJson.telefonoCelular === "") {
+            } /*else if ($scope.properties.contactoJson.telefonoCelular === "") {
                 swal("Teléfono celular!", "Debe agregar el teléfono celular del contacto de emergencia!", "warning");
-            } else if ($scope.properties.contactoJson.catCasoDeEmergencia.descripcion === "Otro") {
+            }*/ else if ($scope.properties.contactoJson.catCasoDeEmergencia.descripcion === "Otro") {
                 if ($scope.properties.contactoJson.catParentesco === null) {
                     swal("Parentesco!", "Debe agregar el parentesco del contacto de emergencia!", "warning");
                 } else if ($scope.properties.contactoJson.catParentesco.descripcion === "Otro") {

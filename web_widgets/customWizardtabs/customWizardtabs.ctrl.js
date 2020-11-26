@@ -72,9 +72,9 @@ function ($scope) {
     
     $scope.selectStepManually = function(_index){
         debugger;
-        //if(_index <= $scope.maxCompletedStep){
+        if(_index <= $scope.maxCompletedStep){
             $scope.properties.selectedIndex = _index;
-        //}
+        }
     }
     
     function getElementOnScreen( _id){

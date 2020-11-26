@@ -32,8 +32,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("Colonia!", "Debe agregar la colonia!", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono === "") {
                     swal("Teléfono!", "Debe el agregar el teléfono!", "warning");
-                } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.otroTelefonoContacto === "") {
-                    swal("Otro teléfono de contacto!", "Debe agregar otro teléfono de contacto!", "warning");
                 } else if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {

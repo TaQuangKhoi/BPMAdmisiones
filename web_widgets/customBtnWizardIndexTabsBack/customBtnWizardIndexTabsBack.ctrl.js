@@ -16,6 +16,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.selectedIndexFamiliar--;
             }
             //selectedIndexFamiliar
+        }else if($scope.properties.selectedIndex === 4){
+            if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndexRevision > 0) {
+                    $scope.properties.selectedIndexRevision--;
+            }
+            //selectedIndexRevision
         }
         
         

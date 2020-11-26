@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergencia",
   "name" : "frgAgregarContactoEmergencia",
-  "lastUpdate" : 1605653442684,
+  "lastUpdate" : 1606236992001,
   "rows" : [
     [
       {
@@ -269,7 +269,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -344,7 +344,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -421,7 +421,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -456,7 +456,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Teléfono celular:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "Teléfono celular:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -496,7 +496,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -564,7 +564,7 @@
         "type" : "container",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -593,7 +593,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -645,7 +645,7 @@
         "type" : "container",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -674,7 +674,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -726,7 +726,7 @@
         "type" : "container",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -755,7 +755,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 6,
           "md" : 6,
           "lg" : 6
         },
@@ -862,7 +862,6 @@
     "addParentesco" : {
       "type" : "expression",
       "value" : [
-        "debugger;\r",
         "var mostrar = true;\r",
         "for (var x = 0; x < $data.catParentesco.length; x++) {\r",
         "    if ($data.casoEmergenciaJSON.catParentesco === undefined) {\r",
@@ -904,8 +903,8 @@
         "    if ($data.catCasoDeEmergencia[x].persistenceId === $data.casoEmergenciaJSON.catCasoDeEmergencia.persistenceId) {\r",
         "        if ($data.catCasoDeEmergencia[x].descripcion === \"Padre\") {\r",
         "            if ($data.padrevive) {\r",
-        "                $data.casoEmergenciaJSON.nombre = $data.formInput.padreInput.nombre + \" \" + $data.formInput.padreInput.apellidos;\r",
-        "                $data.casoEmergenciaJSON.telefono = $data.formInput.padreInput.telefono;\r",
+        "                $data.casoEmergenciaJSON.nombre = $data.padre.nombre + \" \" + $data.padre.apellidos;\r",
+        "                $data.casoEmergenciaJSON.telefono = $data.padre.telefono;\r",
         "                otro = false;\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.catCasoDeEmergencia[x].descripcion;\r",
         "                for (var j = 0; j < $data.catParentesco.length; j++) {\r",
@@ -929,8 +928,8 @@
         "            }\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Madre\") {\r",
         "            if ($data.madrevive) {\r",
-        "                $data.casoEmergenciaJSON.nombre = $data.formInput.madreInput.nombre + \" \" + $data.formInput.madreInput.apellidos;\r",
-        "                $data.casoEmergenciaJSON.telefono = $data.formInput.madreInput.telefono;\r",
+        "                $data.casoEmergenciaJSON.nombre = $data.madre.nombre + \" \" + $data.madre.apellidos;\r",
+        "                $data.casoEmergenciaJSON.telefono = $data.madre.telefono;\r",
         "                otro = false;\r",
         "                $data.casoEmergenciaJSON.parentesco = $data.catCasoDeEmergencia[x].descripcion;\r",
         "                for (var j = 0; j < $data.catParentesco.length; j++) {\r",
@@ -956,13 +955,13 @@
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Tutor\") {\r",
         "            $data.showpadrealert = false;\r",
         "            $data.showmadrealert = false;\r",
-        "            $data.casoEmergenciaJSON.nombre = $data.formInput.tutorInput[0].nombre + \" \" + $data.formInput.tutorInput[0].apellidos;\r",
-        "            $data.casoEmergenciaJSON.telefono = $data.formInput.tutorInput[0].telefono;\r",
-        "            $data.casoEmergenciaJSON.catParentesco = $data.formInput.tutorInput[0].catParentezco;\r",
-        "            if($data.formInput.tutorInput[0].otroParentesco !== \"\"){\r",
-        "                $data.casoEmergenciaJSON.parentesco = $data.formInput.tutorInput[0].otroParentesco;\r",
+        "            $data.casoEmergenciaJSON.nombre = $data.tutorbdm[0].nombre + \" \" + $data.tutorbdm[0].apellidos;\r",
+        "            $data.casoEmergenciaJSON.telefono = $data.tutorbdm[0].telefono;\r",
+        "            $data.casoEmergenciaJSON.catParentesco = $data.tutorbdm[0].catParentezco;\r",
+        "            if($data.tutorbdm[0].otroParentesco !== \"\"){\r",
+        "                $data.casoEmergenciaJSON.parentesco = $data.tutorbdm[0].otroParentesco;\r",
         "            }else{\r",
-        "                $data.casoEmergenciaJSON.parentesco = $data.formInput.tutorInput[0].catParentezco.descripcion;\r",
+        "                $data.casoEmergenciaJSON.parentesco = $data.tutorbdm[0].catParentezco.descripcion;\r",
         "            }\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Otro\") {\r",
         "            $data.contactoJson = {\r",
@@ -1045,6 +1044,20 @@
       "exposed" : true
     },
     "showpadrealert" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "padre" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "madre" : {
       "type" : "constant",
       "value" : [
         ""

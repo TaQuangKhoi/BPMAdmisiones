@@ -15,5 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.properties.mostrarPagoDeshabilitado = true;  //$scope.properties.valorDeshabilitado;
     $scope.properties.pagoHabilitadoODeshabilitado = false; // pago deshabilitado
     console.log($scope.properties.pagoHabilitadoODeshabilitado);
+    $scope.properties.pagoDesabilitado = false;
+    $scope.properties.textoDescriptivo ="";
   };
 }

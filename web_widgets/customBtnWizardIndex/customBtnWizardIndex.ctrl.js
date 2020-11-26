@@ -301,8 +301,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("Colonia!", "Debe agregar la colonia!", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono === "") {
                     swal("Teléfono!", "Debe el agregar el teléfono!", "warning");
-                } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.otroTelefonoContacto === "") {
-                    swal("Otro teléfono de contacto!", "Debe agregar otro teléfono de contacto!", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catBachilleratos === null) {
                     swal("Preparatoria!", "Debe seleccionar una preparatoria en caso de no encontrar la suya seleccionar la opción otro!", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catBachilleratos.descripcion === "Otro") {

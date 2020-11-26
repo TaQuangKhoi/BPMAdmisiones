@@ -30,6 +30,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             
         }
     ];
-      
+      $scope.properties.objProcesoCaso ={
+          "campus":$scope.properties.campus,
+          "proceso":$scope.properties.proceso
+      }
   }
 }

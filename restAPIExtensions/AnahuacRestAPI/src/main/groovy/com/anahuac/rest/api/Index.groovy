@@ -68,6 +68,9 @@ class Index implements RestApiController {
 				case "getAspirantesProceso":
 					result = lDao.getAspirantesProceso(parameterP, parameterC, jsonData, context);
 					break;
+				case "getAspirantesByStatus":
+					result = lDao.getAspirantesByStatus(parameterP, parameterC, jsonData, context);
+					break;
 				case "getDocumentoTest":
 					result = lDao.getDocumentoTest(parameterP, parameterC, jsonData, context);
 					break;
@@ -85,6 +88,18 @@ class Index implements RestApiController {
 					break;
 				case "RegistrarUsuario":
 					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
+					break;
+				case "getOrderPaymentMethod":
+					result = cDao.getOrderPaymentMethod(parameterP, parameterC, jsonData, context);
+					break;
+				case "getOrderDetails":
+					result =  cDao.getOrderDetails(parameterP, parameterC, jsonData, context);
+					break;
+				case "getConektaPublicKey":
+					result = cDao.getConektaPublicKey(parameterP, parameterC, jsonData, context);
+					break;
+				case "ejecutarEsperarPago":
+					result = cDao.ejecutarEsperarPago(parameterP, parameterC, jsonData, context);
 					break;
 				/*case "encode":
 					result =  aDAO.base64Encode(parameterP, parameterC, jsonData, context);
@@ -104,8 +119,17 @@ class Index implements RestApiController {
 				case "getTestUpdate":
 					result = nDAO.getDocumentoTest(parameterP, parameterC, jsonData, context);
 					break;
-					case "insertLicenciatura":
+				case "insertLicenciatura":
 					result = nDAO.insertLicenciatura(parameterP, parameterC, jsonData, context)
+					break;
+				case "insertLicenciaturaBonita":
+					result = nDAO.insertLicenciaturaBonita(parameterP, parameterC, jsonData, context)
+					break;
+				case "simpleSelect":
+					result = nDAO.simpleSelect(parameterP, parameterC, jsonData, context)
+					break;
+				case "simpleSelectBonita":
+					result = nDAO.simpleSelectBonita(parameterP, parameterC, jsonData, context)
 					break;
 					case "insertBachillerato":
 					result = bDao.insert(parameterP, parameterC, jsonData, context)
@@ -131,7 +155,7 @@ class Index implements RestApiController {
 	public Result notFound(String url) {
 		Result resultado = new Result();
 		resultado.setSuccess(false);
-		resultado.setError("No se reconose el servicio: "+url);
+		resultado.setError("No se reconoce el servicio: "+url);
 		return resultado
 	}
 

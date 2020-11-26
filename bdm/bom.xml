@@ -79,8 +79,11 @@
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="EAGER" name="campus" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="conekta" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="mailgun" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="mailgunDominio" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="mailgunCorreo" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="crispChat" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="conektaPublicKey" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -119,7 +122,6 @@
                 <field type="BOOLEAN" length="255" name="isEnabled" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="perteneceRed" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaImportacion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="testAtribute" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -227,7 +229,38 @@
                         <queryParameter name="caseId" className="java.lang.String"/>
                     </queryParameters>
                 </query>
+                <query name="getCatCiudadEstadoByCaso" content="SELECT c &#13;&#10;FROM CatCiudad c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;AND c.caseId = :caseId&#13;&#10;ORDER BY c.estado ASC" returnType="com.anahuac.catalogos.CatCiudad">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
+                <query name="getCatCiudadPaisByCaso" content="SELECT c &#13;&#10;FROM CatCiudad c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;AND c.caseId = :caseId&#13;&#10;ORDER BY c.pais ASC" returnType="com.anahuac.catalogos.CatCiudad">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                    </queryParameters>
+                </query>
             </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.catalogos.CatCodigoPostal">
+            <fields>
+                <field type="STRING" length="255" name="codigoPostal" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="asentamiento" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="tipoAsentamiento" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="claveEstado" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="estado" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="claveMunicipio" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="municipio" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="clavePais" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isAnahuac" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="ciudad" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatConQienTeLlevasMejor">
@@ -618,9 +651,10 @@
         <businessObject qualifiedName="com.anahuac.catalogos.CatImageNotificacion">
             <fields>
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="texto" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="texto" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="titulo" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="codigo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -758,6 +792,21 @@
             </queries>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.catalogos.CatMunicipio">
+            <fields>
+                <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="claveEstado" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isAnahuac" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatNacionalidad">
             <fields>
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
@@ -779,6 +828,9 @@
                     <queryParameters>
                         <queryParameter name="caseId" className="java.lang.String"/>
                     </queryParameters>
+                </query>
+                <query name="getCatNacionalidadOrden" content="SELECT c &#13;&#10;FROM CatNacionalidad c&#13;&#10;ORDER BY c.orden ASC" returnType="java.util.List">
+                    <queryParameters/>
                 </query>
             </queries>
             <indexes/>
@@ -811,12 +863,14 @@
                 <field type="TEXT" length="255" name="contenido" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="contenidoCorreo" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="contenidoLeonel" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="docGuiaEstudio" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
-                <query name="getCatNotificaciones" content="SELECT c &#13;&#10;FROM CatNotificaciones c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;AND c.caseId = :caseId&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatNotificaciones">
+                <query name="getCatNotificaciones" content="SELECT c &#13;&#10;FROM CatNotificaciones c &#13;&#10;WHERE c.isEliminado = false&#13;&#10;AND c.caseId = :caseId&#13;&#10;AND c.codigo= :codigo&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatNotificaciones">
                     <queryParameters>
                         <queryParameter name="caseId" className="java.lang.String"/>
+                        <queryParameter name="codigo" className="java.lang.String"/>
                     </queryParameters>
                 </query>
             </queries>
@@ -963,7 +1017,8 @@
                 <field type="LOCALDATETIME" length="255" name="fechaImportacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEnabled" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="campus" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="EAGER" name="campus" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="nombreCampus" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -1093,11 +1148,14 @@
             <fields>
                 <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPeriodo" fetchType="EAGER" name="catPeriodo" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaEjecucion" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaInicio" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaFinal" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="nombreCampus" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCampus" fetchType="LAZY" name="campus" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -1231,15 +1289,6 @@
                     <queryParameters/>
                 </query>
             </queries>
-            <indexes/>
-        </businessObject>
-        <businessObject qualifiedName="com.anahuac.catalogos.CatTest">
-            <fields>
-                <field type="STRING" length="255" name="attribute1" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="attribute2" nullable="true" collection="false"/>
-            </fields>
-            <uniqueConstraints/>
-            <queries/>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatTipoDeDireccion">
@@ -1393,6 +1442,7 @@
                 <field type="TEXT" length="255" name="observacionesListaRoja" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="ordenPago" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="cbCoincide" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>

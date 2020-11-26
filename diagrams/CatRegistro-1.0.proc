@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_0DMmQBh3EeuzopfQYlDlBw" name="CatRegistro" author="pc" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574001D436174526567697374726F372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_0DMmQRh3EeuzopfQYlDlBw" name="CatRegistro">
       <elements xmi:type="process:Lane" xmi:id="_0DMmQhh3EeuzopfQYlDlBw" name="Administrador" actor="_0DMmWxh3EeuzopfQYlDlBw">
@@ -19,6 +19,12 @@
           <referencedElements xmi:type="process:ContractInput" xmi:id="_1-CF2xh4EeuzopfQYlDlBw" name="catRegistroInput" type="COMPLEX"/>
         </defaultValue>
       </data>
+      <data xmi:type="process:Data" xmi:id="_DfFXQCsVEeu9HM8nd1QZ3A" name="xApiBonitaToken" dataType="_0DMmcRh3EeuzopfQYlDlBw">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_DfFXQSsVEeu9HM8nd1QZ3A" content=""/>
+      </data>
+      <data xmi:type="process:Data" xmi:id="_FBN4YCsVEeu9HM8nd1QZ3A" name="cookie" dataType="_0DMmcRh3EeuzopfQYlDlBw">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_FBN4YSsVEeu9HM8nd1QZ3A" content=""/>
+      </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_0DMmVBh3EeuzopfQYlDlBw">
         <targetForm xmi:type="expression:Expression" xmi:id="_26YZUBh4EeuzopfQYlDlBw" name="Registro" content="e8d8ab3f-51f1-41c4-8b79-c8650dadf108" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
@@ -30,6 +36,10 @@
         <condition xmi:type="expression:Expression" xmi:id="_u7R_Uhh5EeuzopfQYlDlBw" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_0DMmWxh3EeuzopfQYlDlBw" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
+      <parameters xmi:type="parameter:Parameter" xmi:id="_rv6zQCsUEeu9HM8nd1QZ3A" name="password" typeClassname="java.lang.String"/>
+      <parameters xmi:type="parameter:Parameter" xmi:id="_snRSACsUEeu9HM8nd1QZ3A" name="usuario" typeClassname="java.lang.String"/>
+      <parameters xmi:type="parameter:Parameter" xmi:id="_v6hygCsUEeu9HM8nd1QZ3A" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
+      <parameters xmi:type="parameter:Parameter" xmi:id="_w0m1ICsUEeu9HM8nd1QZ3A" name="urlLogin" typeClassname="java.lang.String"/>
       <contract xmi:type="process:Contract" xmi:id="_0DMmXBh3EeuzopfQYlDlBw">
         <inputs xmi:type="process:ContractInput" xmi:id="_1-CF0Bh4EeuzopfQYlDlBw" name="catRegistroInput" type="COMPLEX" dataReference="catRegistro">
           <inputs xmi:type="process:ContractInput" xmi:id="_1-CF0Rh4EeuzopfQYlDlBw" name="nombreusuario"/>
