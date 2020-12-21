@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgInformaciondelPadre",
   "name" : "frgInformaciondelPadre",
-  "lastUpdate" : 1606236992009,
+  "lastUpdate" : 1606965607992,
   "rows" : [
     [
       {
@@ -68,7 +68,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Desconozco los datos porque no convivo con el."
+            "value" : "Desconozco los datos porque no convivo con él."
           },
           "value" : {
             "type" : "variable",
@@ -100,6 +100,72 @@
           },
           "disabled" : {
             "type" : "expression",
+            "value" : "formInput.padreInput.isTutor || formInput.padreInput.desconozcoDatosPadres || isPadretutor"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "¿Vive?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Selecciona una opción"
+          },
+          "availableValues" : {
+            "type" : "expression",
+            "value" : "catVive"
+          },
+          "displayedKey" : {
+            "type" : "constant",
+            "value" : "descripcion"
+          },
+          "returnedKey" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.vive"
+          }
+        },
+        "reference" : "7f9bdcd8-ca11-4ef7-a425-57da4be26be1",
+        "hasValidationError" : false,
+        "id" : "pbSelect"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "expression",
             "value" : "formInput.padreInput.desconozcoDatosPadres || isPadretutor"
           },
           "required" : {
@@ -112,7 +178,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Titulo:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "Título:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -146,7 +212,9 @@
         "reference" : "4784c353-a697-4715-8628-c3a39c6929ed",
         "hasValidationError" : false,
         "id" : "pbSelect"
-      },
+      }
+    ],
+    [
       {
         "type" : "component",
         "dimension" : {
@@ -186,7 +254,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Nombre: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "Nombres: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -221,9 +289,7 @@
         "reference" : "32c5cf9d-d9d2-4383-a9b4-ea5f73ec33fe",
         "hasValidationError" : false,
         "id" : "customInputMinMay"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
@@ -298,72 +364,6 @@
         "reference" : "efe258d3-9730-494f-8c80-801e1c6c771b",
         "hasValidationError" : false,
         "id" : "customInputMinMay"
-      },
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 6,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "disabled" : {
-            "type" : "expression",
-            "value" : "formInput.padreInput.isTutor || formInput.padreInput.desconozcoDatosPadres || isPadretutor"
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Vive?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "placeholder" : {
-            "type" : "interpolation",
-            "value" : "Selecciona una opción"
-          },
-          "availableValues" : {
-            "type" : "expression",
-            "value" : "catVive"
-          },
-          "displayedKey" : {
-            "type" : "constant",
-            "value" : "descripcion"
-          },
-          "returnedKey" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "formInput.padreInput.vive"
-          }
-        },
-        "reference" : "7f9bdcd8-ca11-4ef7-a425-57da4be26be1",
-        "hasValidationError" : false,
-        "id" : "pbSelect"
       }
     ],
     [
@@ -425,7 +425,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Egresó de la universidad Anáhuac?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "¿Egresó de la Universidad Anáhuac?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -734,7 +734,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Tú padre trabaja?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "¿Tu padre trabaja?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -887,7 +887,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Giro de la empresa"
+                  "value" : "Giro de la empresa:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1068,7 +1068,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "¿Tú padre vive en el mismo domicilio que tú?"
+            "value" : "¿Tu padre vive en el mismo domicilio que tú?"
           },
           "value" : {
             "type" : "variable",
@@ -1148,7 +1148,11 @@
           },
           "datosCP" : {
             "type" : "variable",
-            "value" : ""
+            "value" : "cp"
+          },
+          "haveCiudad" : {
+            "type" : "variable",
+            "value" : "haveCiudad"
           }
         },
         "reference" : "0c6a9cbd-65cc-409a-a68e-56ce25b51d2a",
@@ -1170,7 +1174,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "isvivo"
+            "value" : "isvivo || formInput.padreInput.catPais.descripcion !== 'México'"
           },
           "required" : {
             "type" : "constant",
@@ -1229,6 +1233,199 @@
         "reference" : "c3f0d3b0-8cbf-498f-b0c8-c5e81b93c521",
         "hasValidationError" : false,
         "id" : "customInputNumerico"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "isvivo || formInput.padreInput.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "expression",
+            "value" : "formInput.padreInput.viveContigo || isPadretutor"
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Código postal:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.codigoPostal"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "28256ab8-bc1e-42af-873a-ea6f67535577",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "formInput.padreInput.catPais.descripcion !== 'México'"
+          },
+          "disabled" : {
+            "type" : "expression",
+            "value" : "isvivo"
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Verificar código postal"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "right"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Open modal"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "expression",
+            "value" : "modalCodigoPostal"
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          },
+          "estado" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.catEstado"
+          },
+          "ciudad" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.ciudad"
+          },
+          "municipio" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.delegacionMunicipio"
+          },
+          "asentamiento" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.colonia"
+          },
+          "estadoExtranjero" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.estadoExtranjero"
+          },
+          "cp" : {
+            "type" : "variable",
+            "value" : "cp"
+          },
+          "haveCiudad" : {
+            "type" : "variable",
+            "value" : "haveCiudad"
+          }
+        },
+        "reference" : "818413c0-6c44-46ff-9f0c-48685db6e0be",
+        "hasValidationError" : false,
+        "id" : "customBtnCodigoPostal"
       }
     ],
     [
@@ -1251,7 +1448,7 @@
           },
           "disabled" : {
             "type" : "expression",
-            "value" : "formInput.padreInput.viveContigo || isPadretutor"
+            "value" : "formInput.padreInput.viveContigo || isPadretutor || formInput.padreInput.catPais.descripcion === 'México'"
           },
           "required" : {
             "type" : "constant",
@@ -1404,7 +1601,7 @@
           },
           "readOnly" : {
             "type" : "expression",
-            "value" : "formInput.padreInput.viveContigo  || isPadretutor"
+            "value" : "formInput.padreInput.viveContigo  || isPadretutor || haveCiudad"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -1481,7 +1678,7 @@
           },
           "readOnly" : {
             "type" : "expression",
-            "value" : "formInput.padreInput.viveContigo || isPadretutor"
+            "value" : "formInput.padreInput.viveContigo || isPadretutor || formInput.padreInput.catPais.descripcion === 'México'"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -1489,7 +1686,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Delegación/Municipio"
+            "value" : "Delegación/Municipio:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -1556,7 +1753,7 @@
           },
           "readOnly" : {
             "type" : "expression",
-            "value" : "formInput.padreInput.viveContigo || isPadretutor"
+            "value" : "formInput.padreInput.viveContigo || isPadretutor || formInput.padreInput.catPais.descripcion === 'México'"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -1703,8 +1900,7 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 1
+            "type" : "constant"
           },
           "readOnly" : {
             "type" : "expression",
@@ -1716,7 +1912,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Num. Exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "Núm. Exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -1793,7 +1989,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Num. Interior:"
+            "value" : "Núm. Interior:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -1844,7 +2040,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "isvivo"
+            "value" : "isvivo || formInput.padreInput.catPais.descripcion !== 'México'"
           },
           "required" : {
             "type" : "constant",
@@ -1856,7 +2052,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : 1
+            "value" : 10
           },
           "readOnly" : {
             "type" : "expression",
@@ -1901,6 +2097,81 @@
           }
         },
         "reference" : "a8927168-99bb-4def-93e7-8602867b4727",
+        "hasValidationError" : false,
+        "id" : "customInputNumerico"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "isvivo || formInput.padreInput.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 14
+          },
+          "readOnly" : {
+            "type" : "expression",
+            "value" : "formInput.padreInput.viveContigo || isPadretutor"
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Teléfono:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "formInput.padreInput.telefono"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "2ee67ff7-a76b-42e9-8a4f-a7378e011bf5",
         "hasValidationError" : false,
         "id" : "customInputNumerico"
       }
@@ -1984,7 +2255,7 @@
         "        mostrar = true;\r",
         "    } else {\r",
         "        if ($data.catVive[x].persistenceId === $data.formInput.padreInput.vive.persistenceId) {\r",
-        "            if ($data.catVive[x].descripcion === \"Si\" || $data.catVive[x].descripcion === \"SI\") {\r",
+        "            if ($data.catVive[x].descripcion === \"Si\" || $data.catVive[x].descripcion === \"SI\" || $data.catVive[x].descripcion === \"Sí\") {\r",
         "                mostrar = false;\r",
         "                $data.vive = true;\r",
         "            } else {\r",
@@ -2011,7 +2282,7 @@
         "        $data.anahuac = false;\r",
         "    } else {\r",
         "        if ($data.catEgresoAnahuac[x].persistenceId === $data.formInput.padreInput.catEgresoAnahuac.persistenceId) {\r",
-        "            if ($data.catEgresoAnahuac[x].descripcion === \"Si\" || $data.catEgresoAnahuac[x].descripcion === \"SI\") {\r",
+        "            if ($data.catEgresoAnahuac[x].descripcion === \"Si\" || $data.catEgresoAnahuac[x].descripcion === \"SI\" || $data.catEgresoAnahuac[x].descripcion === \"Sí\") {\r",
         "                mostrar = false;\r",
         "                $data.anahuac = true;\r",
         "            } else {\r",
@@ -2036,7 +2307,7 @@
         "        $data.trabaja = false;\r",
         "    } else {\r",
         "        if ($data.catPadreTrabaja[x].persistenceId === $data.formInput.padreInput.catTrabaja.persistenceId) {\r",
-        "            if ($data.catPadreTrabaja[x].descripcion === \"Si\" || $data.catPadreTrabaja[x].descripcion === \"SI\") {\r",
+        "            if ($data.catPadreTrabaja[x].descripcion === \"Si\" || $data.catPadreTrabaja[x].descripcion === \"SI\" || $data.catPadreTrabaja[x].descripcion === \"Sí\") {\r",
         "                mostrar = false;\r",
         "                $data.trabaja = true;\r",
         "            } else {\r",
@@ -2073,6 +2344,99 @@
       "exposed" : true
     },
     "isPadretutor" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "desconozcoDatos" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formInput.padreInput.desconozcoDatosPadres){",
+        "    $data.formInput.padreInput = {",
+        "    \"catTitulo\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"nombre\" : \"\",",
+        "    \"apellidos\" : \"\",",
+        "    \"correoElectronico\" : \"\",",
+        "    \"catEscolaridad\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"catEgresoAnahuac\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"catCampusEgreso\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"catTrabaja\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"empresaTrabaja\" : \"\",",
+        "    \"giroEmpresa\" : \"\",",
+        "    \"puesto\" : \"\",",
+        "    \"isTutor\" : false,",
+        "    \"vive\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"calle\" : \"\",",
+        "    \"catPais\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"numeroExterior\" : \"\",",
+        "    \"numeroInterior\" : \"\",",
+        "    \"catEstado\" : {",
+        "      \"persistenceId_string\" : \"\"",
+        "    },",
+        "    \"ciudad\" : \"\",",
+        "    \"colonia\" : \"\",",
+        "    \"telefono\" : \"\",",
+        "    \"codigoPostal\" : \"\",",
+        "    \"viveContigo\" : false,",
+        "    \"desconozcoDatosPadres\" : true,",
+        "    \"delegacionMunicipio\" : \"\",",
+        "    \"estadoExtranjero\" : \"\"",
+        "  }",
+        "}",
+        "",
+        "return \"hello\";"
+      ],
+      "exposed" : false
+    },
+    "urlCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "objResponseCP" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "objResponseCPError" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "modalCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "cp" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "haveCiudad" : {
       "type" : "constant",
       "value" : [
         ""

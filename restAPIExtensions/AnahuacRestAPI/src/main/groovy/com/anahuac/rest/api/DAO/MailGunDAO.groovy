@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatApiKey
 import com.anahuac.catalogos.CatApiKeyDAO
+import com.anahuac.catalogos.CatCampus
+import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.EstructuraMailGun
 import com.mashape.unirest.http.HttpResponse
@@ -47,17 +49,23 @@ class MailGunDAO {
 			def jsonSlurper = new JsonSlurper()
 			def object = jsonSlurper.parseText(jsonData)
 			def correocopia = ""
+			
 			assert object instanceof Map
 			if(object.lstCopia != null) {
 				assert object.lstCopia instanceof List
 			}
 			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Cancún");
-			objGrupoCampus.put("valor","CAMPUS-CANCUN");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			lstGrupoCampus = new ArrayList<Map<String, String>>();
+			for(CatCampus objCatCampus : lstCatCampus) {
+				objGrupoCampus = new HashMap<String, String>();
+				objGrupoCampus.put("descripcion", objCatCampus.getDescripcion());
+				objGrupoCampus.put("valor", objCatCampus.getGrupoBonita());
+				lstGrupoCampus.add(objGrupoCampus);
+			}
+			
+			/*objGrupoCampus = new HashMap<String, String>();
 			objGrupoCampus.put("descripcion","Anáhuac Mayab");
 			objGrupoCampus.put("valor","CAMPUS-MAYAB");
 			lstGrupoCampus.add(objGrupoCampus);
@@ -100,7 +108,7 @@ class MailGunDAO {
 			objGrupoCampus = new HashMap<String, String>();
 			objGrupoCampus.put("descripcion","Juan Pablo II");
 			objGrupoCampus.put("valor","CAMPUS-JP2");
-			lstGrupoCampus.add(objGrupoCampus);
+			lstGrupoCampus.add(objGrupoCampus);*/
 
 			campus =  String.valueOf(object.campus);
 			casoString = String.valueOf(object.idcaso)
@@ -203,57 +211,67 @@ class MailGunDAO {
 			estructura.setSubject(asunto)
 			estructura.setBody(body)
 			errorlog += ", get lstCatApikey"
+
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Cancún");
+//			objGrupoCampus.put("valor","CAMPUS-CANCUN");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Mayab");
+//			objGrupoCampus.put("valor","CAMPUS-MAYAB");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac México Norte");
+//			objGrupoCampus.put("valor","CAMPUS-MNORTE");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac México Sur");
+//			objGrupoCampus.put("valor","CAMPUS-MSUR");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Oaxaca");
+//			objGrupoCampus.put("valor","CAMPUS-OAXACA");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Puebla");
+//			objGrupoCampus.put("valor","CAMPUS-PUEBLA");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
+//			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
+//			lstGrupoCampus.add(objGrupoCampus);
+//		
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Xalapa");
+//			objGrupoCampus.put("valor","CAMPUS-XALAPA");
+//			lstGrupoCampus.add(objGrupoCampus);
+//			
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Anáhuac Cordoba");
+//			objGrupoCampus.put("valor","CAMPUS-CORDOBA");
+//			lstGrupoCampus.add(objGrupoCampus);
+//			
+//			objGrupoCampus = new HashMap<String, String>();
+//			objGrupoCampus.put("descripcion","Juan Pablo II");
+//			objGrupoCampus.put("valor","CAMPUS-JP2");
+//			lstGrupoCampus.add(objGrupoCampus);
+
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			lstGrupoCampus = new ArrayList<Map<String, String>>();
+			for(CatCampus objCatCampus : lstCatCampus) {
+				objGrupoCampus = new HashMap<String, String>();
+				objGrupoCampus.put("descripcion", objCatCampus.getDescripcion());
+				objGrupoCampus.put("valor", objCatCampus.getGrupoBonita());
+				lstGrupoCampus.add(objGrupoCampus);
+			}
 			
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Cancún");
-			objGrupoCampus.put("valor","CAMPUS-CANCUN");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Mayab");
-			objGrupoCampus.put("valor","CAMPUS-MAYAB");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac México Norte");
-			objGrupoCampus.put("valor","CAMPUS-MNORTE");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac México Sur");
-			objGrupoCampus.put("valor","CAMPUS-MSUR");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Oaxaca");
-			objGrupoCampus.put("valor","CAMPUS-OAXACA");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Puebla");
-			objGrupoCampus.put("valor","CAMPUS-PUEBLA");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
-			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
-			lstGrupoCampus.add(objGrupoCampus);
-		
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Xalapa");
-			objGrupoCampus.put("valor","CAMPUS-XALAPA");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Cordoba");
-			objGrupoCampus.put("valor","CAMPUS-CORDOBA");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Juan Pablo II");
-			objGrupoCampus.put("valor","CAMPUS-JP2");
-			lstGrupoCampus.add(objGrupoCampus);
 			errorlog += ", for Comparar"
 			for(Map<String, String> row : lstGrupoCampus) {
 				if(row.get("valor").equals(campus)) {
@@ -297,12 +315,12 @@ class MailGunDAO {
 	public static JsonNode sendSimpleMessage(EstructuraMailGun estructura) throws UnirestException {
 				HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + estructura.getSandBox() + "/messages")
 					.basicAuth("api", estructura.getApiKey())
-					.field("from", "servicios <servicios@"+ estructura.getSandBox() +">")
+					.field("from", "Universidad Anáhuac <servicios@"+ estructura.getSandBox() +">")
 					.field("to", estructura.getTo())
 					//.field("to", "ricardo.riveroll@anahuac.mx")
 					//.field("cc", estructura.getCc())
 					.field("subject", estructura.getSubject())
-					.field("html", estructura.getBody())
+					.field("html", estructura.getBody().replace("\\", ""))
 					.asJson()
 		
 				return request.getBody()

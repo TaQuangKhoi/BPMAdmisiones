@@ -1,6 +1,6 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
-    'use strict';
+  'use strict';
 
     var vm = this;
 
@@ -30,7 +30,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             
             if(!$scope.properties.strRegistro.Validado){
-                swal("Atención!", $scope.properties.erroMessage, "warning");
+                swal("¡Atención!", $scope.properties.erroMessage, "warning");
             } else {
                 startProcess();
             }
@@ -95,22 +95,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        // var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', getUserParam()).then(function() {
-        //     localStorageService.delete($window.location.href);
-        // });
-        
-        /*INTEGRAACIÓN*/
-        // var prom = doRequest('POST', '../API/bpm/process/7402162953942435682/instantiation', getUserParam()).then(function() {
-        //     localStorageService.delete($window.location.href);
-        // });
-        
-        /*PRE PRODUCCIÓN*/
-        var prom = doRequest('POST', '../API/bpm/process/8130793842527796733/instantiation', getUserParam()).then(function() {
+        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', getUserParam()).then(function() {
             localStorageService.delete($window.location.href);
         });
         
+        /*INTEGRAACIÓN*/
+         //var prom = doRequest('POST', '../API/bpm/process/4768112034171842957/instantiation', getUserParam()).then(function() {
+             //localStorageService.delete($window.location.href);
+        // });
+        
+        /*PRE PRODUCCIÓN*/
+        //var prom = doRequest('POST', '../API/bpm/process/8130793842527796733/instantiation', getUserParam()).then(function() {
+            //localStorageService.delete($window.location.href);
+        //});
+        
     }
-  
+
     $scope.showLoading = function(){
         $("#loading").modal("show");
     }
@@ -131,13 +131,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if($scope.properties.ayuda === true){
                 $scope.necesitaAyuda();
             } else {
-                $scope.properties.navigationVar = "formSuccess";
+                if(data.success){
+                  $scope.properties.navigationVar = "formSuccess";
+                } else {
+                  swal("Error", JSON.stringify(data.error), "error");
+                }
             }
         })
         .error(function(data, status) {
-           // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+          if(data.error.includes("A user with name")){
+            swal("Error", "Este correo electrónico ya está registrado.", "error");
+          } else {
+            swal("Error", "Ha ocurrido un error inesperado. Inténtelo de nuevo mas tarde.", "error");
+          }
+          // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         })
         .finally(function() {
+            $scope.properties.disabled = false;
             $scope.hideLoading();
         });
     }
@@ -166,6 +176,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function doRequest(method, url, params) {
         $scope.showLoading();
         vm.busy = true;
+        $scope.properties.disabled = true;
         var req = {
             method: method,
             url: url,
@@ -183,8 +194,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             
             notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+
             if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-            redirectIfNeeded();
+                redirectIfNeeded();
             }
             closeModal($scope.properties.closeOnSuccess);
         })

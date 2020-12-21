@@ -22,7 +22,6 @@ function ($scope, $http) {
    // $scope.getCommentList();
     
     $scope.$watch("properties.reload", function(){
-        debugger;
         if(($scope.properties.reload === undefined || $scope.properties.reload.length === 0) && $scope.properties.campusSeleccionado !== undefined){
             $("#loading").modal("show");
         }else{

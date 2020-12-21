@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatPeriodoAcciones",
   "name" : "CatPeriodoAcciones",
-  "lastUpdate" : 1606351869007,
+  "lastUpdate" : 1607510858435,
   "rows" : [
     [
       {
@@ -273,6 +273,7 @@
                     "Clave",
                     "Descripcion",
                     "UsuarioBanner",
+                    "Cuatrimestre",
                     "Fecha Creacion",
                     "Fecha Importacion"
                   ]
@@ -287,8 +288,9 @@
                     "clave",
                     "descripcion",
                     "usuarioBanner",
-                    "fechaCreacion",
-                    "fechaImportacion"
+                    "isCuatrimestral",
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'",
+                    "fechaImportacion| date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -457,8 +459,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 4,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -532,8 +534,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "md" : 4,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -554,7 +556,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -598,9 +600,47 @@
                   "value" : 1
                 }
               },
-              "reference" : "80c07f0b-bd37-4094-8f7e-a011da8744a9",
+              "reference" : "a1521419-2424-4942-89be-e3aca61b9333",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cuatrimestral"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catPeriodo_selected.isCuatrimestral"
+                }
+              },
+              "reference" : "b50b11ac-67b4-4096-bebf-9959a9cc9e90",
+              "hasValidationError" : false,
+              "id" : "customCheckboxLabel"
             }
           ],
           [
@@ -609,8 +649,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 3,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -674,8 +714,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 6
+                "md" : 3,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -684,7 +724,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -712,7 +752,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=find&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.valor}}"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -782,6 +822,120 @@
               "reference" : "73438d7c-3b5d-4f72-8139-978cf809f0f7",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.valor}}"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catPeriodo"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"campus\": null,  \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"fechaImportacion\":\"\", \t\"isEliminado\": false, \t\"usuarioBanner\": \"\", \t\"isEnabled\":true, \t\"clave\": \"\", \t\"todelete\": false , \"nombreCampus\":\"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catPeriodo_selected"
+                }
+              },
+              "reference" : "2f65296d-3d44-4fc1-a0d9-2b469f45c5e3",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatPeriodo"
             }
           ]
         ]
@@ -820,8 +974,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 4,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -895,8 +1049,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "md" : 4,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -917,7 +1071,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -961,9 +1115,47 @@
                   "value" : 1
                 }
               },
-              "reference" : "32cab096-8a9e-4c2e-a109-3f42153b085d",
+              "reference" : "39ae9e23-c3c6-4614-aaca-1c6bee8028a4",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cuatrimestral"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatPeriodoInput[0].isCuatrimestral"
+                }
+              },
+              "reference" : "e4935eb6-23e0-425b-b3e3-dc59c8e44f74",
+              "hasValidationError" : false,
+              "id" : "customCheckboxLabel"
             }
           ],
           [
@@ -972,8 +1164,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1030,7 +1222,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1039,7 +1231,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -1067,7 +1259,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=find&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.valor}}"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -1137,6 +1329,120 @@
               "reference" : "3d7ad2fd-b50c-4b9f-b802-840672cabb2f",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.valor}}"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catPeriodo"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatPeriodoInput\": [         {             \"campus\": null,             \"nombreCampus\":\"\",             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioBanner\": \"\",              \"fechaImportacion\":null,             \"clave\": \"\",              \"fechaCreacion\": null,             \"isEnabled\":true         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "69fad33f-d9ce-482b-b3ef-cac5310de159",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatPeriodo"
             }
           ]
         ]
@@ -1171,7 +1477,7 @@
     "catPeriodo" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.descripcion}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p={{inicio}}&c=10&f=nombreCampus={{campus_selected.valor}}"
       ],
       "exposed" : false
     },
@@ -1192,7 +1498,8 @@
         "\t\"usuarioBanner\": \"\",\r",
         "\t\"isEnabled\":true,\r",
         "\t\"clave\": \"\",\r",
-        "\t\"todelete\": false\r",
+        "\t\"todelete\": false,\r",
+        "\t\"isCuatrimestral\":false\r",
         "}"
       ],
       "exposed" : false
@@ -1284,7 +1591,7 @@
     "urlRefreshPaginado" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p=\"+$data.inicio+\"&c=10&f=nombreCampus=\"+$data.campus_selected.descripcion;"
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=findByNombreCampus&p=\"+$data.inicio+\"&c=10&f=nombreCampus=\"+$data.campus_selected.valor;"
       ],
       "exposed" : false
     },
@@ -1309,7 +1616,8 @@
         "            \"fechaImportacion\":null,\r",
         "            \"clave\": \"\", \r",
         "            \"fechaCreacion\": null,\r",
-        "            \"isEnabled\":true\r",
+        "            \"isEnabled\":true,\r",
+        "            \"isCuatrimestral\":false\r",
         "        }\r",
         "    ]\r",
         "}"
@@ -1346,7 +1654,8 @@
         "       $data.formOutputAgregar.lstCatPeriodoInput[0].usuarioBanner = $data.userData.user_name;",
         "       validar = false;",
         "    }else if($data.formOutputAgregar.lstCatPeriodoInput[0].campus === null){",
-        "        $data.formOutputAgregar.lstCatPeriodoInput[0].nombreCampus = $data.campus_selected.descripcion;",
+        "        debugger;",
+        "        $data.formOutputAgregar.lstCatPeriodoInput[0].nombreCampus = $data.campus_selected.valor;",
         "        $data.formOutputAgregar.lstCatPeriodoInput[0].campus= $data.campus_selected;",
         "        validar = false;",
         "    }",
@@ -1371,6 +1680,8 @@
         "for(var x in $data.lstCampusUsuario){",
         "    for(var index in $data.lstCatCampus){",
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
+        "            debugger",
+        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;",
         "            resultado.push($data.lstCatCampus[index]);",
         "        }",
         "    }",

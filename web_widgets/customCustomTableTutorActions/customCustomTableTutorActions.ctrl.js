@@ -29,6 +29,7 @@ function PbTableCtrl($scope, modalService) {
         $scope.properties.ocultar = true;
         $scope.properties.ver = false;
         $scope.properties.datosEditar = row;
+        $scope.properties.jsonRow = row;
         openModal($scope.properties.modalid);
     }
 

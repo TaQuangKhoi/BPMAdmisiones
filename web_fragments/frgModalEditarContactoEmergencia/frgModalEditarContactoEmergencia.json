@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgModalEditarContactoEmergencia",
   "name" : "frgModalEditarContactoEmergencia",
-  "lastUpdate" : 1606236992038,
+  "lastUpdate" : 1606965608001,
   "rows" : [
     [
       {
@@ -768,6 +768,7 @@
     "datosPadre" : {
       "type" : "expression",
       "value" : [
+        "debugger;\r",
         "var mostrar = false;\r",
         "var otro = true;\r",
         "for (var x = 0; x < $data.catCasoDeEmergencia.length; x++) {\r",
@@ -785,6 +786,8 @@
         "                        $data.casoEmergenciaJSON.catParentesco = $data.catParentesco[j];\r",
         "                    }\r",
         "                }\r",
+        "                $data.showmadrealert = false;\r",
+        "                $data.showpadrealert = false;\r",
         "            } else {\r",
         "                $data.casoEmergenciaJSON = {\r",
         "                  \"nombre\": \"\",\r",
@@ -810,6 +813,8 @@
         "                        $data.casoEmergenciaJSON.catParentesco = $data.catParentesco[j];\r",
         "                    }\r",
         "                }\r",
+        "                $data.showmadrealert = false;\r",
+        "                $data.showpadrealert = false;\r",
         "            } else {\r",
         "                $data.casoEmergenciaJSON = {\r",
         "                  \"nombre\": \"\",\r",
@@ -819,11 +824,10 @@
         "                  \"parentesco\": \"\",\r",
         "                  \"catParentesco\": null\r",
         "                }\r",
+        "                $data.showmadrealert = false;\r",
+        "                $data.showpadrealert = true;\r",
+        "    \t\t\tmostrar = true;\r",
         "            }\r",
-        "            $data.showmadrealert = false;\r",
-        "            $data.showpadrealert = true;\r",
-        "\t\t\tmostrar = true;\r",
-        "\r",
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Tutor\") {\r",
         "            $data.showpadrealert = false;\r",
         "            $data.showmadrealert = false;\r",
@@ -884,6 +888,20 @@
       "exposed" : true
     },
     "showmadrealert" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "padrevive" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "madrevive" : {
       "type" : "constant",
       "value" : [
         ""

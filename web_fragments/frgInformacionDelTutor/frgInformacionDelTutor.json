@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgInformacionDelTutor",
   "name" : "frgInformacionDelTutor",
-  "lastUpdate" : 1606236992017,
+  "lastUpdate" : 1606965607994,
   "rows" : [
     [
       {
@@ -107,7 +107,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "En caso de contratar el servicio de educación garantizada, se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio en caso de ser requerido."
+                  "value" : "En caso de contratar el servicio de educación garantizada, se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio en caso de ser requerido. Puedes agregar más de un tutor."
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -144,8 +144,9 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Nombre",
-                    "Apellidos"
+                    "Nombres",
+                    "Apellidos",
+                    "Parentesco"
                   ]
                 },
                 "content" : {
@@ -156,7 +157,8 @@
                   "type" : "constant",
                   "value" : [
                     "nombre",
-                    "apellidos"
+                    "apellidos",
+                    "catParentezco.descripcion"
                   ]
                 },
                 "selectedRow" : {
@@ -202,9 +204,13 @@
                 "formInput" : {
                   "type" : "variable",
                   "value" : "formInput"
+                },
+                "jsonRow" : {
+                  "type" : "variable",
+                  "value" : "jsonRow"
                 }
               },
-              "reference" : "cfd580e1-a482-428a-b4d4-63da10a3c912",
+              "reference" : "3e0b2e0d-7b60-4fe1-a913-5be8592c1932",
               "hasValidationError" : false,
               "id" : "customCustomTableTutorActions"
             }
@@ -363,6 +369,13 @@
       "exposed" : true
     },
     "eliminarDato" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "jsonRow" : {
       "type" : "constant",
       "value" : [
         ""
