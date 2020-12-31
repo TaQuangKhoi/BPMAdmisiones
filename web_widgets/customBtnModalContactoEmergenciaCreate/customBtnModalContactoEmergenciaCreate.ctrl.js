@@ -21,7 +21,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Close modal') {
             debugger;
             if ($scope.properties.contactoJson.catCasoDeEmergencia === null) {
-                swal("¡Contacto de emergencia!", "No puedes esta opción como contacto de emergencia", "warning");
+                swal("¡Contacto de emergencia!", "Debes de agregar por lo menos un contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.nombre === "") {
                 swal("¡Nombre!", "Debes agregar el nombre del contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.telefono === "") {

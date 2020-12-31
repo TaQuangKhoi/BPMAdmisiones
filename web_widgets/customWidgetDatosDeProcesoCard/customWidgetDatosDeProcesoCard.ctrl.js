@@ -6,19 +6,159 @@
  * 
  * You can leave the controller empty if you do not need it.
  */
-function ($scope) {
-    var white = 'white';
-    
-    // add a new variable in AngularJS scope. It'll be usable in the template directly with {{ backgroudColor }} 
-    $scope.backgroudColor = white;
-    
-    // define a function to be used in template with ctrl.toggleBackgroundColor()
-    this.toggleBackgroundColor = function() {
-        if ($scope.backgroudColor === white) {
-           // use the custom widget property backgroudColor with $scope.properties.backgroudColor
-            $scope.backgroudColor = $scope.properties.background;
-        } else {
-            $scope.backgroudColor = white;
+function($scope, $http, blockUI) {
+
+    $scope.redirect = function(_param, filtro) {
+        if (_param === "progreso") {
+            window.top.location.href = "/bonita/apps/administrativo/solicitudes_progreso/";
+        } else if (_param === "nuevas") {
+            window.top.location.href = "/bonita/apps/administrativo/nuevasSolicitudes/";
+        } else if (_param === "aspirantesProceso") {
+            window.top.location.href = "/bonita/apps/administrativo/aspirantesEnProceso/?estatusSelected=" + filtro;
         }
     };
+
+
+
+    function doRequest(method, url, params, dataToSend, callback) {
+        blockUI.start();
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(dataToSend),
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                callback(data)
+            })
+            .error(function(data, status) {
+                console.error(data)
+            })
+            .finally(function() {
+
+                blockUI.stop();
+            });
+    }
+    $scope.enProceso = 0;
+    $scope.nuevasSolicitudes = 0;
+    $scope.esperandoPago = 0;
+    $scope.autodescripcion = 0;
+
+    $scope.AutodescripcionEnProceso = 0;
+    $scope.EleccionPruebasNoCalendarizado = 0;
+    $scope.NoImpresoCredencial = 0;
+    $scope.YaSeImprimioSuCredencial = 0;
+    $scope.initializeDatosProceso = function() {
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.enProceso = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Nuevas solicitudes",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.nuevasSolicitudes = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Solicitud en espera de pago",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.esperandoPago = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Solicitud con pago aceptado",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.autodescripcion = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Solicitud en progreso",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.solicitudProgreso = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Autodescripción en proceso",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.AutodescripcionEnProceso = datos.totalRegistros;
+        });
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Elección de pruebas no calendarizado",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.EleccionPruebasNoCalendarizado = datos.totalRegistros;
+        });
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "No se ha impreso credencial",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.NoImpresoCredencial = datos.totalRegistros;
+        });
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "estatusSolicitud": "Ya se imprimió su credencial",
+            "tarea": "Validar Información",
+            "lstFiltro": [],
+            "type": "aspirantes_proceso",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.YaSeImprimioSuCredencial = datos.totalRegistros;
+        });
+
+    }
+    $scope.initializeDatosProceso();
 }

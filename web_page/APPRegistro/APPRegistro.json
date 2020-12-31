@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1608580206179,
+  "lastUpdate" : 1608655781813,
   "rows" : [
     [
       {
@@ -326,14 +326,6 @@
                               "type" : "variable",
                               "value" : "presentadoSolicitd"
                             },
-                            "padrevive" : {
-                              "type" : "variable",
-                              "value" : "padrevive"
-                            },
-                            "madrevive" : {
-                              "type" : "variable",
-                              "value" : "madrevive"
-                            },
                             "datosPadres" : {
                               "type" : "variable",
                               "value" : "llenadodatospadres"
@@ -387,9 +379,9 @@
                               "value" : "pasoInformacionFamiliar"
                             }
                           },
-                          "reference" : "5fe9791b-dd74-4ac9-9d91-f2c6a69d6037",
+                          "reference" : "e1bd9e7c-22f2-4428-8805-dfb36a025a88",
                           "hasValidationError" : false,
-                          "id" : "customBtnWizardIndex"
+                          "id" : "customBtnWizardIndexRegistro"
                         }
                       ],
                       [
@@ -4747,8 +4739,7 @@
         "    $data.strRegistro.error = true;\r",
         "    $data.erroMessage = \"El formato del correo electrónico no es válido.\";\r",
         "} \r",
-        "\r",
-        "else if($data.strRegistro.CorreoElectronico.trim() === \"\"){\r",
+        "else if($data.strRegistro.CorreoElectronico === undefined || $data.strRegistro.CorreoElectronico === null || $data.strRegistro.CorreoElectronico === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
         "    $data.erroMessage = \"El campo Correo electrónico no debe estar vacío.\";\r",

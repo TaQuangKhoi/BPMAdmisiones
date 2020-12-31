@@ -76,6 +76,11 @@ function($scope, blockUI) {
                            }
                            
                         }
+                        if($scope.properties.catSolicitudDeAdmision.catNacionalidad !== null){
+                            if($scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana"){
+                                $scope.properties.idExtranjero = $scope.properties.catSolicitudDeAdmision.curp;
+                            }
+                        }
                         $scope.properties.showbuttons = false;
                         blockUI.stop();
                     }

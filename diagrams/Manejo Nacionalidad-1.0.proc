@@ -19,8 +19,8 @@
           <referencedElements xmi:type="process:ContractInput" xmi:id="_4onFEC4WEeuZicxA6F132Q" name="lstCatNacionalidadInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_NEDB1C4HEeuZicxA6F132Q">
-        <targetForm xmi:type="expression:Expression" xmi:id="_hMSs8C4IEeuZicxA6F132Q" name="newForm58" content="a6038ea8-57b9-4782-85b3-d583d938f10c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_NEDB1C4HEeuZicxA6F132Q" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_hMSs8C4IEeuZicxA6F132Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_NEDB1i4HEeuZicxA6F132Q">
         <targetForm xmi:type="expression:Expression" xmi:id="_NEDB1y4HEeuZicxA6F132Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -93,9 +93,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_qbYvMy4HEeuZicxA6F132Q" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_9kZ0MC4XEeuZicxA6F132Q" name="lstCatNacionalidad" multiple="true" dataType="_NEDB9C4HEeuZicxA6F132Q" className="com.anahuac.catalogos.CatNacionalidad">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_DRerwC4YEeuZicxA6F132Q" name="initLstCatNacionalidad()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;import com.anahuac.catalogos.CatNacionalidad&#xD;&#xA;&#xD;&#xA;def catNacionalidadList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatNacionalidadInput: lstCatNacionalidadInput) {&#xD;&#xA;    if (Boolean.TRUE.equals(objCatNacionalidadInput.todelete))&#xD;&#xA;        continue;&#xD;&#xA;    CatNacionalidad objCatNacionalidad = catNacionalidadDAO.findByPersistenceId(objCatNacionalidadInput.persistenceId);&#xD;&#xA;    if (objCatNacionalidad != null) {&#xD;&#xA;        objCatNacionalidad.descripcion = objCatNacionalidadInput.descripcion;&#xD;&#xA;        objCatNacionalidad.isEliminado = objCatNacionalidadInput.isEliminado;&#xD;&#xA;        objCatNacionalidad.usuarioBanner = objCatNacionalidadInput.usuarioBanner;&#xD;&#xA;        objCatNacionalidad.fechaImplementacion = LocalDateTime.now()&#xD;&#xA;        objCatNacionalidad.clave = objCatNacionalidadInput.clave;&#xD;&#xA;        objCatNacionalidad.isEnabled = objCatNacionalidadInput.isEnabled;&#xD;&#xA;        objCatNacionalidad.orden = objCatNacionalidadInput.orden;&#xD;&#xA;        objCatNacionalidad.caseId = objCatNacionalidadInput.caseId;&#xD;&#xA;        catNacionalidadList.add(objCatNacionalidad)&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;return catNacionalidadList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_jJ9q0C4ZEeuZicxA6F132Q" name="lstCatNacionalidadInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_jJ-R4C4ZEeuZicxA6F132Q" name="catNacionalidadDAO" content="catNacionalidadDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNacionalidadDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_DRerwC4YEeuZicxA6F132Q" name="initLstCatNacionalidad()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;import com.anahuac.catalogos.CatNacionalidad&#xD;&#xA;&#xD;&#xA;def catNacionalidadList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatNacionalidadInput: lstCatNacionalidadInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatNacionalidadInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatNacionalidad objCatNacionalidad = catNacionalidadDAO.findByPersistenceId(objCatNacionalidadInput.persistenceId);&#xD;&#xA;&#x9;if (objCatNacionalidad != null) {&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.descripcion = objCatNacionalidadInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.isEliminado = objCatNacionalidadInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.usuarioBanner = objCatNacionalidadInput.usuarioBanner;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.fechaImplementacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.clave = objCatNacionalidadInput.clave;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.isEnabled = objCatNacionalidadInput.isEnabled;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.orden = objCatNacionalidadInput.orden;&#xD;&#xA;&#x9;&#x9;objCatNacionalidad.caseId = objCatNacionalidadInput.caseId;&#xD;&#xA;&#x9;&#x9;catNacionalidadList.add(objCatNacionalidad)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catNacionalidadList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_JKVUcC7nEeuP4u9L93tjFQ" name="lstCatNacionalidadInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_JKV7gC7nEeuP4u9L93tjFQ" name="catNacionalidadDAO" content="catNacionalidadDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNacionalidadDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_SHIRYC4YEeuZicxA6F132Q" name="lstCatNacionalidadToDelete" multiple="true" dataType="_NEDB9C4HEeuZicxA6F132Q" className="com.anahuac.catalogos.CatNacionalidad">
@@ -104,8 +104,8 @@
           <referencedElements xmi:type="process:ContractInput" xmi:id="_465AgS4ZEeuZicxA6F132Q" name="lstCatNacionalidadInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_h4A__y4HEeuZicxA6F132Q">
-        <targetForm xmi:type="expression:Expression" xmi:id="_AtZTgC4aEeuZicxA6F132Q" name="newForm59" content="c5f9e90e-792b-4cbb-8967-331419819bfa" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_h4A__y4HEeuZicxA6F132Q" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_AtZTgC4aEeuZicxA6F132Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_h4BAAS4HEeuZicxA6F132Q">
         <targetForm xmi:type="expression:Expression" xmi:id="_h4BAAi4HEeuZicxA6F132Q" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>

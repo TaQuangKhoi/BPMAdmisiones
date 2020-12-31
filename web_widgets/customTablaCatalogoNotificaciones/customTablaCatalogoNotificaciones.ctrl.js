@@ -23,6 +23,7 @@ function PbTableCtrl($scope, $http, modalService) {
     $scope.modificarData = function(row, index) {
         $scope.properties.selectedToModificate = row;
         $scope.properties.selectedIndex = index;
+        localStorage.setItem("index",index);
         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
             $scope.properties.selectedIndex--;
         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -179,6 +180,34 @@ function PbTableCtrl($scope, $http, modalService) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {});
+    }
+    
+        $scope.preview = function(codigo) {
+            
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
+            data: angular.copy({
+                                  "campus": $scope.properties.campusSelected,
+                                  "correo": "eventosgiley@gmail.com",
+                                  "codigo": codigo,
+                                  "isEnviar": false
+                                })
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.properties.previewHtml = data.data[0]
+                modalService.open("previewerid");
+                $scope.$apply();
+
+
+            })
+            .error(function(data, status) {
+                $("#loading").modal("hide");
+                console.error(data)
             })
             .finally(function() {});
     }

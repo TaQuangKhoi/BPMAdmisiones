@@ -525,7 +525,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_fSijnTQ4EeukNO-8Kutm_g" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_fSijnjQ4EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:ServiceTask" xmi:id="_fSijnzQ4EeukNO-8Kutm_g" name="Notificación de seleccion de cita" outgoing="_fSk_XjQ4EeukNO-8Kutm_g" incoming="_fSk_WzQ4EeukNO-8Kutm_g">
+        <elements xmi:type="process:ServiceTask" xmi:id="_fSijnzQ4EeukNO-8Kutm_g" name="Notificación de seleccion de cita" outgoing="_fSk_XjQ4EeukNO-8Kutm_g" incoming="_sLib4EV5Eeuyt4p1bC5Grg">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_fSijoDQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_fSijoTQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_fSijojQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
@@ -2194,7 +2194,7 @@
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_fSjx4zQ4EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:Task" xmi:id="_fSjx5DQ4EeukNO-8Kutm_g" name="Autodescripción" outgoing="_fSk_WzQ4EeukNO-8Kutm_g" incoming="_fSk_qDQ4EeukNO-8Kutm_g" overrideActorsOfTheLane="false">
+        <elements xmi:type="process:Task" xmi:id="_fSjx5DQ4EeukNO-8Kutm_g" name="Autodescripción" outgoing="_fSk_WzQ4EeukNO-8Kutm_g" incoming="_fSk_qDQ4EeukNO-8Kutm_g _sbfjcEV5Eeuyt4p1bC5Grg" overrideActorsOfTheLane="false">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_fSjx5TQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_fSjx5jQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_fSjx5zQ4EeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
@@ -2204,7 +2204,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_fSjx6zQ4EeukNO-8Kutm_g" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_fSjx7DQ4EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_fSjx7TQ4EeukNO-8Kutm_g" type="NONE">
-            <targetForm xmi:type="expression:Expression" xmi:id="_fSjx7jQ4EeukNO-8Kutm_g" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_p1rs4EV7Eeuyt4p1bC5Grg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <filters xmi:type="process:ActorFilter" xmi:id="_fSjx7zQ4EeukNO-8Kutm_g" name="Solicitante" definitionId="initiator" definitionVersion="1.0.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_fSjx8DQ4EeukNO-8Kutm_g" definitionId="initiator" version="1.0.0">
@@ -2213,7 +2213,190 @@
               </parameters>
             </configuration>
           </filters>
-          <contract xmi:type="process:Contract" xmi:id="_fSjx8zQ4EeukNO-8Kutm_g"/>
+          <contract xmi:type="process:Contract" xmi:id="_fSjx8zQ4EeukNO-8Kutm_g">
+            <inputs xmi:type="process:ContractInput" xmi:id="_mGgFYEV7Eeuyt4p1bC5Grg" name="autodescripcionInput" type="COMPLEX" dataReference="autodescripcion" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFYUV7Eeuyt4p1bC5Grg" name="catPadreVive" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFYkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFY0V7Eeuyt4p1bC5Grg" name="anoMuertePadre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFZEV7Eeuyt4p1bC5Grg" name="catMadreVive" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFZUV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFZkV7Eeuyt4p1bC5Grg" name="anoMuerteMadre" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFZ0V7Eeuyt4p1bC5Grg" name="catConQuienVives" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFaEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFaUV7Eeuyt4p1bC5Grg" name="catEstadoCivilPadres" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFakV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFa0V7Eeuyt4p1bC5Grg" name="otroEstadoCivilPadres" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFbEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFbUV7Eeuyt4p1bC5Grg" name="hermanos" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFbkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFb0V7Eeuyt4p1bC5Grg" name="escuelas" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFcEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFcUV7Eeuyt4p1bC5Grg" name="materiasTeGustan" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFckV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFc0V7Eeuyt4p1bC5Grg" name="materiasNoTeGustan" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFdEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFdUV7Eeuyt4p1bC5Grg" name="materiasCalifAltas" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFdkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFd0V7Eeuyt4p1bC5Grg" name="materiasCalifBajas" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFeEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFeUV7Eeuyt4p1bC5Grg" name="catEstudiadoExtranjero" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFekV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFe0V7Eeuyt4p1bC5Grg" name="paisEstudiasteExtranjero" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFfEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFfUV7Eeuyt4p1bC5Grg" name="tiempoEstudiasteExtranjero" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFfkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFf0V7Eeuyt4p1bC5Grg" name="catAreaBachillerato" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFgEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFgUV7Eeuyt4p1bC5Grg" name="catHasPresentadoExamenExtraordinario" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFgkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFg0V7Eeuyt4p1bC5Grg" name="cualExamenExtraPresentaste" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFhEV7Eeuyt4p1bC5Grg" name="motivoExamenExtraordinario" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFhUV7Eeuyt4p1bC5Grg" name="catHasReprobado" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFhkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFh0V7Eeuyt4p1bC5Grg" name="periodoReprobaste" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFiEV7Eeuyt4p1bC5Grg" name="motivoReprobaste" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFiUV7Eeuyt4p1bC5Grg" name="catInscritoOtraUniversidad" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFikV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFi0V7Eeuyt4p1bC5Grg" name="universidadesHasEstado" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFjEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFjUV7Eeuyt4p1bC5Grg" name="informacionEscolar" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFjkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFj0V7Eeuyt4p1bC5Grg" name="catHasTenidoTrabajo" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFkEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFkUV7Eeuyt4p1bC5Grg" name="puestoTrabajo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFkkV7Eeuyt4p1bC5Grg" name="catExperienciaAyudaCarrera" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFk0V7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFlEV7Eeuyt4p1bC5Grg" name="motivoTrabajoAyudaElegirCarrera" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFlUV7Eeuyt4p1bC5Grg" name="catActualnenteTrabajas" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFlkV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFl0V7Eeuyt4p1bC5Grg" name="catMotivoTrabajas" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFmEV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFmUV7Eeuyt4p1bC5Grg" name="empresaTrabajas" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFmkV7Eeuyt4p1bC5Grg" name="catGiroEmpresa" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFm0V7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFnEV7Eeuyt4p1bC5Grg" name="catHaceCuantoTiempoTrabajas" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFnUV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFnkV7Eeuyt4p1bC5Grg" name="catHorarioDeTrabajo" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFn0V7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_mGgFoEV7Eeuyt4p1bC5Grg" name="idiomas" type="COMPLEX" multiple="true" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_mGgFoUV7Eeuyt4p1bC5Grg" name="persistenceId_string" createMode="false"/>
+              </inputs>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_jcHGQEV8Eeuyt4p1bC5Grg" name="isAutodescripcionTerminadaCont">
+              <mapping xmi:type="process:ContractInputMapping" xmi:id="_jcHGQUV8Eeuyt4p1bC5Grg"/>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgscEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catPadreVive || autodescripcionInput?.catPadreVive?.persistenceId_string" errorMessage="Catvive must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catPadreVive">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgscUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catMadreVive || autodescripcionInput?.catMadreVive?.persistenceId_string" errorMessage="Catvive must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catMadreVive">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsckV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catConQuienVives || autodescripcionInput?.catConQuienVives?.persistenceId_string" errorMessage="CatConQuienVives must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catConQuienVives">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsc0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catEstadoCivilPadres || autodescripcionInput?.catEstadoCivilPadres?.persistenceId_string" errorMessage="CatEstadoCivilPadres must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catEstadoCivilPadres">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsdEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.otroEstadoCivilPadres || autodescripcionInput?.otroEstadoCivilPadres?.persistenceId_string" errorMessage="CatBitacoraComentarios must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_otroEstadoCivilPadres">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsdUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.hermanos || autodescripcionInput?.hermanos?.persistenceId_string" errorMessage="Hermano must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_hermanos">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsdkV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.escuelas || autodescripcionInput?.escuelas?.persistenceId_string" errorMessage="EscuelasHasEstado must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_escuelas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsd0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.materiasTeGustan || autodescripcionInput?.materiasTeGustan?.persistenceId_string" errorMessage="CatMaterias must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_materiasTeGustan">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgseEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.materiasNoTeGustan || autodescripcionInput?.materiasNoTeGustan?.persistenceId_string" errorMessage="CatMaterias must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_materiasNoTeGustan">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgseUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.materiasCalifAltas || autodescripcionInput?.materiasCalifAltas?.persistenceId_string" errorMessage="CatMaterias must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_materiasCalifAltas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsekV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.materiasCalifBajas || autodescripcionInput?.materiasCalifBajas?.persistenceId_string" errorMessage="CatMaterias must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_materiasCalifBajas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgse0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catEstudiadoExtranjero || autodescripcionInput?.catEstudiadoExtranjero?.persistenceId_string" errorMessage="CatEstudiasteEnElExtranjero must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catEstudiadoExtranjero">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsfEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.paisEstudiasteExtranjero || autodescripcionInput?.paisEstudiasteExtranjero?.persistenceId_string" errorMessage="CatPais must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_paisEstudiasteExtranjero">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsfUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.tiempoEstudiasteExtranjero || autodescripcionInput?.tiempoEstudiasteExtranjero?.persistenceId_string" errorMessage="CatCuantoTiempo must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_tiempoEstudiasteExtranjero">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsfkV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catAreaBachillerato || autodescripcionInput?.catAreaBachillerato?.persistenceId_string" errorMessage="CatUltimoCursoBachiller must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catAreaBachillerato">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsf0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catHasPresentadoExamenExtraordinario || autodescripcionInput?.catHasPresentadoExamenExtraordinario?.persistenceId_string" errorMessage="CatExamenExtraordinario must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catHasPresentadoExamenExtraordinario">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsgEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catHasReprobado || autodescripcionInput?.catHasReprobado?.persistenceId_string" errorMessage="CatSemestreReprobado must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catHasReprobado">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsgUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catInscritoOtraUniversidad || autodescripcionInput?.catInscritoOtraUniversidad?.persistenceId_string" errorMessage="CatUniversidadAIngresar must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catInscritoOtraUniversidad">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsgkV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.universidadesHasEstado || autodescripcionInput?.universidadesHasEstado?.persistenceId_string" errorMessage="Universidades must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_universidadesHasEstado">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsg0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.informacionEscolar || autodescripcionInput?.informacionEscolar?.persistenceId_string" errorMessage="InformacionEscolar must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_informacionEscolar">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgshEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catHasTenidoTrabajo || autodescripcionInput?.catHasTenidoTrabajo?.persistenceId_string" errorMessage="CatActualmenteTrabajas must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catHasTenidoTrabajo">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgshUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catExperienciaAyudaCarrera || autodescripcionInput?.catExperienciaAyudaCarrera?.persistenceId_string" errorMessage="CatExperienciaAyudaCarrera must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catExperienciaAyudaCarrera">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgshkV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catActualnenteTrabajas || autodescripcionInput?.catActualnenteTrabajas?.persistenceId_string" errorMessage="CatActualmenteTrabajas must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catActualnenteTrabajas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsh0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catMotivoTrabajas || autodescripcionInput?.catMotivoTrabajas?.persistenceId_string" errorMessage="CatMotivoTrabajas must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catMotivoTrabajas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsiEV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catGiroEmpresa || autodescripcionInput?.catGiroEmpresa?.persistenceId_string" errorMessage="CatGiroEmpresa must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catGiroEmpresa">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsiUV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catHaceCuantoTiempoTrabajas || autodescripcionInput?.catHaceCuantoTiempoTrabajas?.persistenceId_string" errorMessage="CatCuantoTiempo must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catHaceCuantoTiempoTrabajas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsikV7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.catHorarioDeTrabajo || autodescripcionInput?.catHorarioDeTrabajo?.persistenceId_string" errorMessage="CatHorarioDeTrabajo must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_catHorarioDeTrabajo">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_mGgsi0V7Eeuyt4p1bC5Grg" expression="!autodescripcionInput?.idiomas || autodescripcionInput?.idiomas?.persistenceId_string" errorMessage="IdiomasHablas must reference an existing instance with a persistenceId for Autodescripcion" name="aggregation_autodescripcionInput_idiomas">
+              <inputNames>autodescripcionInput</inputNames>
+            </constraints>
+          </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_fSjx9DQ4EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
         </elements>
         <elements xmi:type="process:Task" xmi:id="_fSjx9TQ4EeukNO-8Kutm_g" name="Generar credencial" outgoing="_fSk_cjQ4EeukNO-8Kutm_g" incoming="_fSk_ZDQ4EeukNO-8Kutm_g" overrideActorsOfTheLane="false">
@@ -4602,8 +4785,8 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_YimqFTQ5EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_YimqFzQ5EeukNO-8Kutm_g" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_YimqFjQ5EeukNO-8Kutm_g" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_YimqGTQ5EeukNO-8Kutm_g">
-            <targetForm xmi:type="expression:Expression" xmi:id="_FIGtADgaEeuRNfWv8cMvnQ" name="newForm68" content="56cf8658-6f7b-46eb-97e1-55fbe4e1838c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_YimqGTQ5EeukNO-8Kutm_g" type="NONE">
+            <targetForm xmi:type="expression:Expression" xmi:id="_FIGtADgaEeuRNfWv8cMvnQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_YimqGDQ5EeukNO-8Kutm_g">
             <inputs xmi:type="process:ContractInput" xmi:id="_LK1cEDRXEeu5ksLAp6jCxQ" name="isEnviarSolicitudCont" type="BOOLEAN">
@@ -4899,6 +5082,11 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_BxOqYDRBEeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_BxODUDRBEeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_BxOqYTRBEeukNO-8Kutm_g" name="" content="" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:XORGateway" xmi:id="_sJso0EV5Eeuyt4p1bC5Grg" name="Compuerta6" outgoing="_sLib4EV5Eeuyt4p1bC5Grg _sbfjcEV5Eeuyt4p1bC5Grg" incoming="_fSk_WzQ4EeukNO-8Kutm_g">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_sJ-VoUV5Eeuyt4p1bC5Grg" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_sJ-VoEV5Eeuyt4p1bC5Grg" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_sJ-VokV5Eeuyt4p1bC5Grg" name="" content="" returnTypeFixed="true"/>
         </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_fSkX2zQ4EeukNO-8Kutm_g" name="Admisiones" actor="_fSk_4zQ4EeukNO-8Kutm_g">
@@ -6188,8 +6376,14 @@
           <referencedElements xmi:type="expression:Expression" xmi:id="_Ho0uozTrEeuIiOJ_XQnFTQ" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_fSk_JTQ4EeukNO-8Kutm_g">
-        <targetForm xmi:type="expression:Expression" xmi:id="_LandEDUeEeuIiOJ_XQnFTQ" name="newForm65" content="a860e54b-dcab-451a-a8ee-988381012537" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      <data xmi:type="process:Data" xmi:id="_7OePkEV5Eeuyt4p1bC5Grg" name="isAutodescripcionTerminada" dataType="_fSlA3TQ4EeukNO-8Kutm_g">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_7OePkUV5Eeuyt4p1bC5Grg" content="" returnType="java.lang.Boolean"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_e_veEEV7Eeuyt4p1bC5Grg" name="autodescripcion" dataType="_fSlA5TQ4EeukNO-8Kutm_g" className="com.anahuac.model.Autodescripcion">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_e_veEUV7Eeuyt4p1bC5Grg" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_fSk_JTQ4EeukNO-8Kutm_g" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_LandEDUeEeuIiOJ_XQnFTQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_fSk_JzQ4EeukNO-8Kutm_g">
         <targetForm xmi:type="expression:Expression" xmi:id="_fSk_KDQ4EeukNO-8Kutm_g" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -6254,7 +6448,7 @@
           <referencedElements xmi:type="process:Data" xmi:id="_fSk_WjQ4EeukNO-8Kutm_g" name="isPagoValidado" dataType="_fSlA3TQ4EeukNO-8Kutm_g"/>
         </condition>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_fSk_WzQ4EeukNO-8Kutm_g" target="_fSijnzQ4EeukNO-8Kutm_g" source="_fSjx5DQ4EeukNO-8Kutm_g">
+      <connections xmi:type="process:SequenceFlow" xmi:id="_fSk_WzQ4EeukNO-8Kutm_g" target="_sJso0EV5Eeuyt4p1bC5Grg" source="_fSjx5DQ4EeukNO-8Kutm_g">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_fSk_XDQ4EeukNO-8Kutm_g"/>
         <condition xmi:type="expression:Expression" xmi:id="_fSk_XTQ4EeukNO-8Kutm_g" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
@@ -6465,6 +6659,16 @@
       <connections xmi:type="process:SequenceFlow" xmi:id="_7VZysDivEeu0ELIMPr3xAg" target="_fSkX3DQ4EeukNO-8Kutm_g" source="_fSkZYDQ4EeukNO-8Kutm_g">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_7VaZwDivEeu0ELIMPr3xAg"/>
         <condition xmi:type="expression:Expression" xmi:id="_7VaZwTivEeu0ELIMPr3xAg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_sLib4EV5Eeuyt4p1bC5Grg" target="_fSijnzQ4EeukNO-8Kutm_g" source="_sJso0EV5Eeuyt4p1bC5Grg">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_sLjC8EV5Eeuyt4p1bC5Grg"/>
+        <condition xmi:type="expression:Expression" xmi:id="_sLjC8UV5Eeuyt4p1bC5Grg" name="newScript()" content="return isAutodescripcionTerminada;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:Data" xmi:id="_-PXNsEV5Eeuyt4p1bC5Grg" name="isAutodescripcionTerminada" dataType="_fSlA3TQ4EeukNO-8Kutm_g"/>
+        </condition>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_sbfjcEV5Eeuyt4p1bC5Grg" target="_fSjx5DQ4EeukNO-8Kutm_g" source="_sJso0EV5Eeuyt4p1bC5Grg" isDefault="true">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_sbgKgEV5Eeuyt4p1bC5Grg"/>
+        <condition xmi:type="expression:Expression" xmi:id="_sbgKgUV5Eeuyt4p1bC5Grg" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_fSk_4TQ4EeukNO-8Kutm_g" name="Aspirante" initiator="true"/>
       <actors xmi:type="process:Actor" xmi:id="_fSk_4jQ4EeukNO-8Kutm_g" name="Admisiones/Orientación vocacional"/>
@@ -6831,6 +7035,12 @@
               </children>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BxOqYzRBEeukNO-8Kutm_g" x="785" y="133"/>
             </children>
+            <children xmi:type="notation:Shape" xmi:id="_sLGXAEV5Eeuyt4p1bC5Grg" type="3008" element="_sJso0EV5Eeuyt4p1bC5Grg" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_sLIzQEV5Eeuyt4p1bC5Grg" type="5026">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_sLIzQUV5Eeuyt4p1bC5Grg" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sLGXAUV5Eeuyt4p1bC5Grg" x="1226" y="128"/>
+            </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_fSlmCDQ4EeukNO-8Kutm_g"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_fSlmCTQ4EeukNO-8Kutm_g" fontName="Segoe UI"/>
@@ -7068,13 +7278,12 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_fSlmyDQ4EeukNO-8Kutm_g" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fSlmyTQ4EeukNO-8Kutm_g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_fSlmyjQ4EeukNO-8Kutm_g" type="4001" element="_fSk_WzQ4EeukNO-8Kutm_g" source="_fSllyjQ4EeukNO-8Kutm_g" target="_fSllozQ4EeukNO-8Kutm_g" roundedBendpointsRadius="10" routing="Rectilinear">
+    <edges xmi:type="notation:Connector" xmi:id="_fSlmyjQ4EeukNO-8Kutm_g" type="4001" element="_fSk_WzQ4EeukNO-8Kutm_g" source="_fSllyjQ4EeukNO-8Kutm_g" target="_sLGXAEV5Eeuyt4p1bC5Grg" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_fSlmyzQ4EeukNO-8Kutm_g" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_fSlmzDQ4EeukNO-8Kutm_g" y="-10"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_fSlmzTQ4EeukNO-8Kutm_g" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fSlmzjQ4EeukNO-8Kutm_g" points="[0, 25, -33, -108]$[0, 126, -33, -7]"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Ckg9gDwNEeuD97iRjCvzNw" id="(0.775,0.11666666666666667)"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fSlmzjQ4EeukNO-8Kutm_g" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_fSlmzzQ4EeukNO-8Kutm_g" type="4001" element="_fSk_XjQ4EeukNO-8Kutm_g" source="_fSllozQ4EeukNO-8Kutm_g" target="_fSll0DQ4EeukNO-8Kutm_g" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_fSlm0DQ4EeukNO-8Kutm_g" type="6001">
@@ -7453,6 +7662,22 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7VbA0jivEeu0ELIMPr3xAg" points="[-50, 18, 267, 294]$[-50, 32, 267, 308]$[-463, 32, -146, 308]$[-463, -270, -146, 6]$[-398, -270, -81, 6]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7VddEDivEeu0ELIMPr3xAg" id="(1.0,0.64)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7VddETivEeu0ELIMPr3xAg" id="(0.7641509433962265,0.3888888888888889)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_sLkREEV5Eeuyt4p1bC5Grg" type="4001" element="_sLib4EV5Eeuyt4p1bC5Grg" source="_sLGXAEV5Eeuyt4p1bC5Grg" target="_fSllozQ4EeukNO-8Kutm_g" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_sLlfMEV5Eeuyt4p1bC5Grg" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_sLlfMUV5Eeuyt4p1bC5Grg" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_sLkREUV5Eeuyt4p1bC5Grg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sLkREkV5Eeuyt4p1bC5Grg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_sbtl4EV5Eeuyt4p1bC5Grg" type="4001" element="_sbfjcEV5Eeuyt4p1bC5Grg" source="_sLGXAEV5Eeuyt4p1bC5Grg" target="_fSllyjQ4EeukNO-8Kutm_g" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_sbuM8kV5Eeuyt4p1bC5Grg" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_sbuM80V5Eeuyt4p1bC5Grg" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_sbuM8EV5Eeuyt4p1bC5Grg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sbuM8UV5Eeuyt4p1bC5Grg" points="[0, -13, -22, 62]$[46, -13, 24, 62]$[46, -79, 24, -4]$[32, -79, 10, -4]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sbwCIEV5Eeuyt4p1bC5Grg" id="(1.0,0.7906976744186046)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sbwpMEV5Eeuyt4p1bC5Grg" id="(0.9,0.58)"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

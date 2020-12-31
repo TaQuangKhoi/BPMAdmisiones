@@ -73,13 +73,6 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_iYRgIi-CEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_iYRgIS-CEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_iYRgIy-CEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_tR_ZkDEgEeupp93G9myzBA">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_tR_ZkTEgEeupp93G9myzBA" name="lstCatEstadosToDelete" content="lstCatEstadosToDelete" type="TYPE_VARIABLE" returnType="java.util.List">
-            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_t2_kEDEgEeupp93G9myzBA" name="lstCatEstadosToDelete" multiple="true" dataType="_LdveRC-CEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatEstados"/>
-          </leftOperand>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_tR_ZkjEgEeupp93G9myzBA" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_tR_ZkzEgEeupp93G9myzBA" type="DELETION"/>
-        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_iYRgJC-CEeuRQaY-GsxD1g" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_iYRgJS-CEeuRQaY-GsxD1g" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="_iYRgJi-CEeuRQaY-GsxD1g" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -91,16 +84,16 @@
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_i4gfYS-CEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_i4gfYy-CEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
       </elements>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_8l3OYC-CEeuRQaY-GsxD1g" name="lstCatEstadosToDelete" multiple="true" dataType="_LdveRC-CEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatEstados">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_r1uP4DEgEeupp93G9myzBA" name="initLstCatEstadosToDelete()" content="import com.anahuac.catalogos.CatEstados&#xD;&#xA;&#xD;&#xA;def catEstadosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatEstadosInput: lstCatEstadosInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatEstadosInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatEstados objCatEstados = catEstadosDAO.findByPersistenceId(objCatEstadosInput.persistenceId);&#xD;&#xA;&#x9;&#x9;if (objCatEstados != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catEstadosList.add(objCatEstados);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catEstadosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="expression:Expression" xmi:id="_6ahWEDEgEeupp93G9myzBA" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_6ahWETEgEeupp93G9myzBA" name="lstCatEstadosInput" type="COMPLEX" multiple="true"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_x9COgC-CEeuRQaY-GsxD1g" name="lstCatEstados" multiple="true" dataType="_LdveRC-CEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatEstados">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_y_B3CS-CEeuRQaY-GsxD1g" name="initLstCatEstados()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatEstados&#xD;&#xA;&#xD;&#xA;def catEstadosList = []&#xD;&#xA;&#xD;&#xA;   for (Map objCatEstadosInput: lstCatEstadosInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatEstadosInput.todelete))&#xD;&#xA;&#x9; continue;&#xD;&#xA;&#xD;&#xA;   CatEstados objCatEstados = catEstadosDAO.findByPersistenceId(objCatEstadosInput.persistenceId);&#xD;&#xA;   if (objCatEstados != null) {&#xD;&#xA;&#x9;  objCatEstados.clave = objCatEstadosInput.clave&#xD;&#xA;&#x9;  objCatEstados.descripcion = objCatEstadosInput.descripcion&#xD;&#xA;&#x9;  objCatEstados.fechaCreacion = objCatEstadosInput.fechaCreacion&#xD;&#xA;&#x9;  objCatEstados.usuarioCreacion = objCatEstadosInput.usuarioCreacion&#xD;&#xA;&#x9;  objCatEstados.isEliminado = objCatEstadosInput.isEliminado&#xD;&#xA;&#x9;  objCatEstados.pais = objCatEstadosInput.pais&#xD;&#xA;&#x9;  objCatEstados.orden = objCatEstadosInput.orden&#xD;&#xA;&#x9;  objCatEstados.caseId = objCatEstadosInput.caseId&#xD;&#xA;&#x9; catEstadosList.add(objCatEstados)&#xD;&#xA;   }&#xD;&#xA;}&#xD;&#xA;return catEstadosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_3S8PUC-aEeuRQaY-GsxD1g" name="lstCatEstadosInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3S8PUS-aEeuRQaY-GsxD1g" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_q2JCMDEgEeupp93G9myzBA" name="lstCatEstados" multiple="true" dataType="_LdveRC-CEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatEstados">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_y8mL-TEgEeupp93G9myzBA" name="initLstCatEstados()" content="import com.anahuac.catalogos.CatEstados&#xD;&#xA;&#xD;&#xA;def catEstadosList = []&#xD;&#xA;&#xD;&#xA;  for (Map objCatEstadosInput: lstCatEstadosInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatEstadosInput.todelete))&#xD;&#xA;   continue;&#xD;&#xA;&#xD;&#xA;   CatEstados objCatEstados = catEstadosDAO.findByPersistenceId(objCatEstadosInput.persistenceId);&#xD;&#xA;   if (objCatEstados != null) {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;objCatEstados.clave = objCatEstadosInput.clave&#xD;&#xA;&#x9;&#x9;objCatEstados.descripcion = objCatEstadosInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatEstados.fechaCreacion = objCatEstadosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;objCatEstados.usuarioCreacion = objCatEstadosInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;objCatEstados.isEliminado = objCatEstadosInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatEstados.pais = objCatEstadosInput.pais&#xD;&#xA;&#x9;&#x9;objCatEstados.orden = objCatEstadosInput.orden&#xD;&#xA;&#x9;&#x9;objCatEstados.caseId = objCatEstadosInput.caseId&#xD;&#xA;&#x9;&#x9;   catEstadosList.add(objCatEstados)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catEstadosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_et5okDEhEeupp93G9myzBA" name="lstCatEstadosInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_et5okTEhEeupp93G9myzBA" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_8l3OYC-CEeuRQaY-GsxD1g" name="lstCatEstadosToDelete" multiple="true" dataType="_LdveRC-CEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatEstados">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_8l3OYS-CEeuRQaY-GsxD1g" name="init_lstCatEstadosToDelete()" content="import com.anahuac.catalogos.CatEstados&#xD;&#xA;&#xD;&#xA;def catCatEstadosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatEstadosInput:   lstCatEstadosInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatEstadosInput.todelete)){&#xD;&#xA;&#x9; CatEstados objCatEstados = catPaisDAO.findByPersistenceId(objCatEstadosInput.persistenceId);&#xD;&#xA;&#x9; if (objCatEstados != null) {&#xD;&#xA;&#x9;   catCatEstadosList.add(objCatEstados)&#xD;&#xA;&#x9; }&#xD;&#xA;   }&#xD;&#xA;}&#xD;&#xA;return catCatEstadosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="expression:Expression" xmi:id="_6PxEQC-DEeuRQaY-GsxD1g" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_6PxEQS-DEeuRQaY-GsxD1g" name="lstCatEstadosInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_hAt3YC-CEeuRQaY-GsxD1g" type="NONE">
@@ -118,15 +111,18 @@
         <condition xmi:type="expression:Expression" xmi:id="_i4ppVC-CEeuRQaY-GsxD1g" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <contract xmi:type="process:Contract" xmi:id="_hAt3ZC-CEeuRQaY-GsxD1g">
-        <inputs xmi:type="process:ContractInput" xmi:id="_y8mL8DEgEeupp93G9myzBA" name="lstCatEstadosInput" type="COMPLEX" multiple="true" dataReference="lstCatEstados">
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL8TEgEeupp93G9myzBA" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL8jEgEeupp93G9myzBA" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL8zEgEeupp93G9myzBA" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL9DEgEeupp93G9myzBA" name="usuarioCreacion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL9TEgEeupp93G9myzBA" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL9jEgEeupp93G9myzBA" name="pais"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL9zEgEeupp93G9myzBA" name="orden" type="INTEGER"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_y8mL-DEgEeupp93G9myzBA" name="caseId"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_y_B3AC-CEeuRQaY-GsxD1g" name="lstCatEstadosInput" type="COMPLEX" multiple="true" dataReference="lstCatEstados">
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3AS-CEeuRQaY-GsxD1g" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3Ai-CEeuRQaY-GsxD1g" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3Ay-CEeuRQaY-GsxD1g" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3BC-CEeuRQaY-GsxD1g" name="usuarioCreacion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3BS-CEeuRQaY-GsxD1g" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3Bi-CEeuRQaY-GsxD1g" name="pais"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3By-CEeuRQaY-GsxD1g" name="orden" type="INTEGER"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_y_B3CC-CEeuRQaY-GsxD1g" name="caseId"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_zja9gC-CEeuRQaY-GsxD1g" name="todelete">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_zja9gS-CEeuRQaY-GsxD1g"/>
+          </inputs>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_hAt3US-CEeuRQaY-GsxD1g">

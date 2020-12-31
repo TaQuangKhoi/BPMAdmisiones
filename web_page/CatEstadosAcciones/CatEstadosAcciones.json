@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatEstadosAcciones",
   "name" : "CatEstadosAcciones",
-  "lastUpdate" : 1606538206879,
+  "lastUpdate" : 1608759921948,
   "rows" : [
     [
       {
@@ -200,8 +200,8 @@
                     "clave",
                     "descripcion",
                     "pais",
-                    "fechaCreacion",
-                    "usuarioCreacion"
+                    "usuarioCreacion",
+                    "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -384,7 +384,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -428,9 +428,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "47c8f47f-3a52-4dcd-af13-e9a2d591ed04",
+              "reference" : "4c94a1de-9f82-4f7f-b45f-1e5f4b2a515b",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumericoCatalogos"
             },
             {
               "type" : "component",
@@ -503,7 +503,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "a15c6aad-91a8-4db7-80fe-19edb2bbe38d",
+              "reference" : "1c14ce28-ecba-437d-9d72-b85f6cd529af",
               "hasValidationError" : false,
               "id" : "pbInput"
             }
@@ -536,7 +536,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -580,9 +580,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "b80c70d9-cd8e-4eab-91b6-de364440f29d",
+              "reference" : "2b055503-95be-49ac-b284-b34e387bb6f7",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -659,8 +659,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -725,7 +725,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -734,7 +734,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -746,7 +746,7 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "left"
+                  "value" : "right"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
@@ -832,6 +832,120 @@
               "reference" : "bcfbd7b2-343b-4c0b-bf8e-9f2882666f5f",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=find&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEstados"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"id\": \"\",      \"descripcion\": \"\",      \"clave\": \"\",      \"isEliminado\": false,      \"fechaCreacion\":null,     \"usuarioCreacion\":\"\",     \"orden\":\"\",     \"caseId\":\"\",     \"pais\":\"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catEstados_selected"
+                }
+              },
+              "reference" : "0cf5e4e6-2121-4674-9fa7-ceff6b754ea1",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEstados"
             }
           ]
         ]
@@ -928,7 +1042,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -972,9 +1086,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "4e37d97e-65b2-444f-969e-7fdb11086db3",
+              "reference" : "a1e0e8be-4064-4ac9-a82a-4ffc5f93f5ea",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumericoCatalogos"
             },
             {
               "type" : "component",
@@ -1047,7 +1161,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "3b6b38c9-c352-4062-b109-7162c527153f",
+              "reference" : "c905675a-4c0e-4987-94fa-7a92efebe9fd",
               "hasValidationError" : false,
               "id" : "pbInput"
             }
@@ -1080,7 +1194,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1124,9 +1238,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "e8eb6ea8-2f70-45bf-ab1b-1ea33d88c070",
+              "reference" : "271f262d-ca96-4bd9-847a-859d552ed2fa",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -1203,8 +1317,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1261,7 +1375,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1270,7 +1384,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -1368,6 +1482,120 @@
               "reference" : "bc98fba5-e414-4ce1-a867-4e706b9aba18",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=find&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEstados"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatEstadosInput\": [         {             \"orden\": \"\",              \"descripcion\": \"\",              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"isEliminado\": false,              \"pais\":\"\",             \"fechaCreacion\":null,             \"caseId\": null         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "c19797f8-c92a-404b-9166-17d3a8206b80",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEstados"
             }
           ]
         ]

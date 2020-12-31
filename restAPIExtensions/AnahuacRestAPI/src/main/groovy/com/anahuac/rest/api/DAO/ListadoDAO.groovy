@@ -709,9 +709,23 @@ class ListadoDAO {
 				else if(object.estatusSolicitud.equals("Solicitud con pago aceptado")) {
 					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud con pago aceptado')"
 				}
+				else if(object.estatusSolicitud.equals("Autodescripción en proceso")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Autodescripción en proceso')"
+				}
+				else if(object.estatusSolicitud.equals("Elección de pruebas no calendarizado")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Elección de pruebas no calendarizado')"
+				}
+				else if(object.estatusSolicitud.equals("No se ha impreso credencial")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='No se ha impreso credencial')"
+				}
+				else if(object.estatusSolicitud.equals("Ya se imprimió su credencial")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Ya se imprimió su credencial')"
+				}
 
 			}
-			campus+=" AND ("
+			if(lstGrupo.size()>0) {
+				campus+=" AND ("
+			}
 			for(Integer i=0; i<lstGrupo.size(); i++) {
 				String campusMiembro=lstGrupo.get(i);
 				campus+="campus.descripcion='"+campusMiembro+"'"

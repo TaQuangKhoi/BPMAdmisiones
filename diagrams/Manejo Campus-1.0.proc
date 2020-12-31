@@ -15,8 +15,10 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_0T9zsDMyEeupp93G9myzBA" name="lstCatCampus" multiple="true" dataType="_XgWr5C7PEeuP4u9L93tjFQ" className="com.anahuac.catalogos.CatCampus">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_2ImaEDMyEeupp93G9myzBA" name="initLstCatCampus()" content="import java.time.LocalDateTime&#xD;&#xA;def catCampusList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatCampusInput.each{&#xD;&#xA;&#x9;//Add a new composed CatCampus instance&#xD;&#xA;&#x9;catCampusList.add({ currentCatCampusInput ->&#xD;&#xA;&#x9;&#x9;def catCampusVar = new com.anahuac.catalogos.CatCampus()&#xD;&#xA;&#x9;&#x9;catCampusVar.id = currentCatCampusInput.id&#xD;&#xA;&#x9;&#x9;catCampusVar.descripcion = currentCatCampusInput.descripcion&#xD;&#xA;&#x9;&#x9;catCampusVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catCampusVar.isEliminado = currentCatCampusInput.isEliminado&#xD;&#xA;&#x9;&#x9;catCampusVar.usuarioBanner = currentCatCampusInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catCampusVar.fechaImplementacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catCampusVar.clave = currentCatCampusInput.clave&#xD;&#xA;&#x9;&#x9;catCampusVar.urlAvisoPrivacidad = currentCatCampusInput.urlAvisoPrivacidad&#xD;&#xA;&#x9;&#x9;catCampusVar.urlDatosVeridicos = currentCatCampusInput.urlDatosVeridicos&#xD;&#xA;&#x9;&#x9;catCampusVar.urlAutorDatos = currentCatCampusInput.urlAutorDatos&#xD;&#xA;&#x9;&#x9;catCampusVar.isEnabled = currentCatCampusInput.isEnabled&#xD;&#xA;&#x9;&#x9;catCampusVar.grupoBonita = currentCatCampusInput.grupoBonita&#xD;&#xA;&#x9;&#x9;catCampusVar.orden = currentCatCampusInput.orden&#xD;&#xA;&#x9;&#x9;return catCampusVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_8K9lIDMyEeupp93G9myzBA" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_5gIxYEL7EeuZjpbsUk1dKw" name="initLstCatCampus()" content="import java.time.LocalDateTime&#xD;&#xA;def catCampusList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatCampusInput.each{&#xD;&#xA;&#x9;//Add a new composed CatCampus instance&#xD;&#xA;&#x9;catCampusList.add({ currentCatCampusInput ->&#xD;&#xA;&#x9;&#x9;def catCampusVar = new com.anahuac.catalogos.CatCampus()&#xD;&#xA;&#x9;&#x9;catCampusVar.id = currentCatCampusInput.id&#xD;&#xA;&#x9;&#x9;catCampusVar.descripcion = currentCatCampusInput.descripcion&#xD;&#xA;&#x9;&#x9;catCampusVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catCampusVar.isEliminado = currentCatCampusInput.isEliminado&#xD;&#xA;&#x9;&#x9;catCampusVar.usuarioBanner = currentCatCampusInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catCampusVar.fechaImplementacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catCampusVar.clave = currentCatCampusInput.clave&#xD;&#xA;&#x9;&#x9;catCampusVar.urlAvisoPrivacidad = currentCatCampusInput.urlAvisoPrivacidad&#xD;&#xA;&#x9;&#x9;catCampusVar.urlDatosVeridicos = currentCatCampusInput.urlDatosVeridicos&#xD;&#xA;&#x9;&#x9;catCampusVar.urlAutorDatos = currentCatCampusInput.urlAutorDatos&#xD;&#xA;&#x9;&#x9;catCampusVar.isEnabled = currentCatCampusInput.isEnabled&#xD;&#xA;&#x9;&#x9;catCampusVar.grupoBonita = currentCatCampusInput.grupoBonita&#xD;&#xA;&#x9;&#x9;catCampusVar.orden = currentCatCampusInput.orden&#xD;&#xA;&#x9;&#x9;catCampusVar.calle = currentCatCampusInput.calle&#xD;&#xA;&#x9;&#x9;catCampusVar.colonia = currentCatCampusInput.colonia&#xD;&#xA;&#x9;&#x9;catCampusVar.numeroExterior = currentCatCampusInput.numeroExterior&#xD;&#xA;&#x9;&#x9;catCampusVar.numeroInterior = currentCatCampusInput.numeroInterior&#xD;&#xA;&#x9;&#x9;catCampusVar.codigoPostal = currentCatCampusInput.codigoPostal&#xD;&#xA;&#x9;&#x9;catCampusVar.municipio = currentCatCampusInput.municipio&#xD;&#xA;&#x9;&#x9;catCampusVar.pais = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatPais using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catPaisVar = catPaisDAO.findByPersistenceId(currentCatCampusInput.pais?.persistenceId_string?.trim() ? currentCatCampusInput.pais.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catPaisVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatCampusInput.pais?.persistenceId_string?.trim() ? currentCatCampusInput.pais.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatPais` with the persistence id &quot; + currentCatCampusInput.pais?.persistenceId_string?.trim() ? currentCatCampusInput.pais.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catPaisVar}()&#xD;&#xA;&#x9;&#x9;catCampusVar.estado = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatEstados using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catEstadosVar = catEstadosDAO.findByPersistenceId(currentCatCampusInput.estado?.persistenceId_string?.trim() ? currentCatCampusInput.estado.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catEstadosVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatCampusInput.estado?.persistenceId_string?.trim() ? currentCatCampusInput.estado.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEstados` with the persistence id &quot; + currentCatCampusInput.estado?.persistenceId_string?.trim() ? currentCatCampusInput.estado.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catEstadosVar}()&#xD;&#xA;&#x9;&#x9;return catCampusVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_NPnMsEL8EeuZjpbsUk1dKw" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_NPnMsUL8EeuZjpbsUk1dKw" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_NPnMskL8EeuZjpbsUk1dKw" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_XgWrxC7PEeuP4u9L93tjFQ" type="NONE">
@@ -31,21 +33,39 @@
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_XgWryy7PEeuP4u9L93tjFQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
       <contract xmi:type="process:Contract" xmi:id="_XgWrzC7PEeuP4u9L93tjFQ">
-        <inputs xmi:type="process:ContractInput" xmi:id="_2IlzADMyEeupp93G9myzBA" name="lstCatCampusInput" type="COMPLEX" multiple="true" dataReference="lstCatCampus">
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzATMyEeupp93G9myzBA" name="id"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzAjMyEeupp93G9myzBA" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzAzMyEeupp93G9myzBA" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzBDMyEeupp93G9myzBA" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzBTMyEeupp93G9myzBA" name="usuarioBanner"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzBjMyEeupp93G9myzBA" name="fechaImplementacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzBzMyEeupp93G9myzBA" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzCDMyEeupp93G9myzBA" name="urlAvisoPrivacidad"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzCTMyEeupp93G9myzBA" name="urlDatosVeridicos"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzCjMyEeupp93G9myzBA" name="urlAutorDatos"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzCzMyEeupp93G9myzBA" name="isEnabled" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzDDMyEeupp93G9myzBA" name="grupoBonita"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_2IlzDTMyEeupp93G9myzBA" name="orden" type="INTEGER"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_5gHjQEL7EeuZjpbsUk1dKw" name="lstCatCampusInput" type="COMPLEX" multiple="true" dataReference="lstCatCampus">
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjQUL7EeuZjpbsUk1dKw" name="id"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjQkL7EeuZjpbsUk1dKw" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjQ0L7EeuZjpbsUk1dKw" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjREL7EeuZjpbsUk1dKw" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjRUL7EeuZjpbsUk1dKw" name="usuarioBanner"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjRkL7EeuZjpbsUk1dKw" name="fechaImplementacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjR0L7EeuZjpbsUk1dKw" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjSEL7EeuZjpbsUk1dKw" name="urlAvisoPrivacidad"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjSUL7EeuZjpbsUk1dKw" name="urlDatosVeridicos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjSkL7EeuZjpbsUk1dKw" name="urlAutorDatos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjS0L7EeuZjpbsUk1dKw" name="isEnabled" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjTEL7EeuZjpbsUk1dKw" name="grupoBonita"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjTUL7EeuZjpbsUk1dKw" name="orden" type="INTEGER"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjTkL7EeuZjpbsUk1dKw" name="calle"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjT0L7EeuZjpbsUk1dKw" name="colonia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjUEL7EeuZjpbsUk1dKw" name="numeroExterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjUUL7EeuZjpbsUk1dKw" name="numeroInterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjUkL7EeuZjpbsUk1dKw" name="codigoPostal"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjU0L7EeuZjpbsUk1dKw" name="municipio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjVEL7EeuZjpbsUk1dKw" name="pais" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_5gHjVUL7EeuZjpbsUk1dKw" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5gHjVkL7EeuZjpbsUk1dKw" name="estado" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_5gHjV0L7EeuZjpbsUk1dKw" name="persistenceId_string"/>
+          </inputs>
         </inputs>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_5gIKUEL7EeuZjpbsUk1dKw" expression="lstCatCampusInput?.pais.flatten().every{!it || it.persistenceId_string}" errorMessage="CatPais must reference an existing instance with a persistenceId for CatCampus" name="aggregation_lstCatCampusInput_pais">
+          <inputNames>lstCatCampusInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_5gIKUUL7EeuZjpbsUk1dKw" expression="lstCatCampusInput?.estado.flatten().every{!it || it.persistenceId_string}" errorMessage="CatEstados must reference an existing instance with a persistenceId for CatCampus" name="aggregation_lstCatCampusInput_estado">
+          <inputNames>lstCatCampusInput</inputNames>
+        </constraints>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_XgWrzS7PEeuP4u9L93tjFQ">
         <name xmi:type="expression:Expression" xmi:id="_XgWrzi7PEeuP4u9L93tjFQ" content="" returnTypeFixed="true"/>
@@ -97,15 +117,17 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_bU8iMy7QEeuP4u9L93tjFQ" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_EUvvsDMzEeupp93G9myzBA" name="lstCatCampus" multiple="true" dataType="_XgWr5C7PEeuP4u9L93tjFQ" className="com.anahuac.catalogos.CatCampus">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Fs9f0DMzEeupp93G9myzBA" name="initLstCatCampus()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatCampus&#xD;&#xA;def catCampusList = []&#xD;&#xA;&#xD;&#xA;&#x9;for (Map objCatCampusInput: lstCatCampusInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatCampusInput.todelete))&#xD;&#xA;&#x9;  continue;&#xD;&#xA;&#xD;&#xA;&#x9;CatCampus objCatCampus = catCampusDAO.findByPersistenceId(objCatCampusInput.persistenceId);&#xD;&#xA;&#x9;if (objCatCampus != null) {&#xD;&#xA;&#x9;&#x9;objCatCampus.id = objCatCampusInput.id&#xD;&#xA;&#x9;&#x9;objCatCampus.descripcion = objCatCampusInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatCampus.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatCampus.isEliminado = objCatCampusInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatCampus.usuarioBanner = objCatCampusInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatCampus.fechaImplementacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatCampus.clave = objCatCampusInput.clave&#xD;&#xA;&#x9;&#x9;objCatCampus.urlAvisoPrivacidad = objCatCampusInput.urlAvisoPrivacidad&#xD;&#xA;&#x9;&#x9;objCatCampus.urlDatosVeridicos = objCatCampusInput.urlDatosVeridicos&#xD;&#xA;&#x9;&#x9;objCatCampus.urlAutorDatos = objCatCampusInput.urlAutorDatos&#xD;&#xA;&#x9;&#x9;objCatCampus.isEnabled = objCatCampusInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatCampus.grupoBonita = objCatCampusInput.grupoBonita&#xD;&#xA;&#x9;&#x9;objCatCampus.orden = objCatCampusInput.orden&#xD;&#xA;&#x9;&#x9;catCampusList.add(objCatCampus)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_W7H08DMzEeupp93G9myzBA" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_W7H08TMzEeupp93G9myzBA" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_QtpZ0EL8EeuZjpbsUk1dKw" name="initLstCatCampus()" content="import com.anahuac.catalogos.CatCampus&#xD;&#xA;import java.time.LocalDateTime&#xD;&#xA;def catCampusList = []&#xD;&#xA;for (Map objCatCampusInput: lstCatCampusInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatCampusInput.todelete))&#xD;&#xA;&#x9;  continue;&#xD;&#xA;&#xD;&#xA;&#x9;CatCampus objCatCampus = catCampusDAO.findByPersistenceId(objCatCampusInput.persistenceId);&#xD;&#xA;&#x9;if (objCatCampus != null) {&#xD;&#xA;&#x9;&#x9;objCatCampus.id = objCatCampusInput.id&#xD;&#xA;&#x9;&#x9;objCatCampus.descripcion = objCatCampusInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatCampus.fechaCreacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatCampus.isEliminado = objCatCampusInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatCampus.usuarioBanner = objCatCampusInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatCampus.fechaImplementacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatCampus.clave = objCatCampusInput.clave&#xD;&#xA;&#x9;&#x9;objCatCampus.urlAvisoPrivacidad = objCatCampusInput.urlAvisoPrivacidad&#xD;&#xA;&#x9;&#x9;objCatCampus.urlDatosVeridicos = objCatCampusInput.urlDatosVeridicos&#xD;&#xA;&#x9;&#x9;objCatCampus.urlAutorDatos = objCatCampusInput.urlAutorDatos&#xD;&#xA;&#x9;&#x9;objCatCampus.isEnabled = objCatCampusInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatCampus.grupoBonita = objCatCampusInput.grupoBonita&#xD;&#xA;&#x9;&#x9;objCatCampus.orden = objCatCampusInput.orden&#xD;&#xA;&#x9;&#x9;objCatCampus.calle = objCatCampusInput.calle&#xD;&#xA;&#x9;&#x9;objCatCampus.colonia = objCatCampusInput.colonia&#xD;&#xA;&#x9;&#x9;objCatCampus.numeroExterior = objCatCampusInput.numeroExterior&#xD;&#xA;&#x9;&#x9;objCatCampus.numeroInterior = objCatCampusInput.numeroInterior&#xD;&#xA;&#x9;&#x9;objCatCampus.codigoPostal = objCatCampusInput.codigoPostal&#xD;&#xA;&#x9;&#x9;objCatCampus.municipio = objCatCampusInput.municipio&#xD;&#xA;&#x9;&#x9;objCatCampus.pais = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatPais using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catPaisVar = catPaisDAO.findByPersistenceId(objCatCampusInput.pais?.persistenceId_string?.trim() ? objCatCampusInput.pais.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catPaisVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (objCatCampusInput.pais?.persistenceId_string?.trim() ? objCatCampusInput.pais.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatPais` with the persistence id &quot; + objCatCampusInput.pais?.persistenceId_string?.trim() ? objCatCampusInput.pais.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catPaisVar}()&#xD;&#xA;&#x9;&#x9;objCatCampus.estado = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatEstados using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catEstadosVar = catEstadosDAO.findByPersistenceId(objCatCampusInput.estado?.persistenceId_string?.trim() ? objCatCampusInput.estado.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catEstadosVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (objCatCampusInput.estado?.persistenceId_string?.trim() ? objCatCampusInput.estado.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEstados` with the persistence id &quot; + objCatCampusInput.estado?.persistenceId_string?.trim() ? objCatCampusInput.estado.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catEstadosVar}()&#xD;&#xA;&#x9;&#x9;catCampusList.add(objCatCampus)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_xFtGQEL8EeuZjpbsUk1dKw" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_xFtGQUL8EeuZjpbsUk1dKw" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_xFtGQkL8EeuZjpbsUk1dKw" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_xFtGQ0L8EeuZjpbsUk1dKw" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_zfAIUDM3Eeupp93G9myzBA" name="lstCatCampusToDelete" multiple="true" dataType="_XgWr5C7PEeuP4u9L93tjFQ" className="com.anahuac.catalogos.CatCampus">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_zfAIUTM3Eeupp93G9myzBA" name="init_lstCatCampusToDelete()" content="import com.anahuac.catalogos.CatCampus&#xD;&#xA;&#xD;&#xA;def catCampusList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatCampusInput: lstCatCampusInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatCampusInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatCampus objCatCampus = catCampusDAO.findByPersistenceId(objCatCampusInput.persistenceId);&#xD;&#xA;&#x9;&#x9;if (objCatCampus != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catCampusList.add(objCatCampus);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_UgrZgDM4Eeupp93G9myzBA" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_UgrZgTM4Eeupp93G9myzBA" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_zfAIUTM3Eeupp93G9myzBA" name="init_lstCatCampusToDelete()" content="import com.anahuac.catalogos.CatCampus&#xD;&#xA;&#xD;&#xA;def catCampusList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatCampusInput:    lstCatCampusInput  ) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatCampusInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatCampus objCatCampus = catCampusDAO.findByPersistenceId(objCatCampusInput.persistenceId);&#xD;&#xA;&#x9;&#x9;if (objCatCampus != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catCampusList.add(objCatCampus);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCampusList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="expression:Expression" xmi:id="_0BY0QEL8EeuZjpbsUk1dKw" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_0BY0QUL8EeuZjpbsUk1dKw" name="lstCatCampusInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_tb1roC7PEeuP4u9L93tjFQ">
@@ -123,24 +145,39 @@
         <condition xmi:type="expression:Expression" xmi:id="_bVGTMi7QEeuP4u9L93tjFQ" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <contract xmi:type="process:Contract" xmi:id="_tb1rpC7PEeuP4u9L93tjFQ">
-        <inputs xmi:type="process:ContractInput" xmi:id="_Fs84wDMzEeupp93G9myzBA" name="lstCatCampusInput" type="COMPLEX" multiple="true" dataReference="lstCatCampus">
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84wTMzEeupp93G9myzBA" name="id"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84wjMzEeupp93G9myzBA" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84wzMzEeupp93G9myzBA" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84xDMzEeupp93G9myzBA" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84xTMzEeupp93G9myzBA" name="usuarioBanner"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84xjMzEeupp93G9myzBA" name="fechaImplementacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84xzMzEeupp93G9myzBA" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84yDMzEeupp93G9myzBA" name="urlAvisoPrivacidad"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84yTMzEeupp93G9myzBA" name="urlDatosVeridicos"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84yjMzEeupp93G9myzBA" name="urlAutorDatos"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84yzMzEeupp93G9myzBA" name="isEnabled" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84zDMzEeupp93G9myzBA" name="grupoBonita"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Fs84zTMzEeupp93G9myzBA" name="orden" type="INTEGER"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_GdY3MDMzEeupp93G9myzBA" name="todelete">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_GdY3MTMzEeupp93G9myzBA"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_QtoLsEL8EeuZjpbsUk1dKw" name="lstCatCampusInput" type="COMPLEX" multiple="true" dataReference="lstCatCampus">
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLsUL8EeuZjpbsUk1dKw" name="id"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLskL8EeuZjpbsUk1dKw" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLs0L8EeuZjpbsUk1dKw" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLtEL8EeuZjpbsUk1dKw" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLtUL8EeuZjpbsUk1dKw" name="usuarioBanner"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLtkL8EeuZjpbsUk1dKw" name="fechaImplementacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLt0L8EeuZjpbsUk1dKw" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLuEL8EeuZjpbsUk1dKw" name="urlAvisoPrivacidad"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLuUL8EeuZjpbsUk1dKw" name="urlDatosVeridicos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLukL8EeuZjpbsUk1dKw" name="urlAutorDatos"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLu0L8EeuZjpbsUk1dKw" name="isEnabled" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLvEL8EeuZjpbsUk1dKw" name="grupoBonita"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLvUL8EeuZjpbsUk1dKw" name="orden" type="INTEGER"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLvkL8EeuZjpbsUk1dKw" name="calle"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLv0L8EeuZjpbsUk1dKw" name="colonia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLwEL8EeuZjpbsUk1dKw" name="numeroExterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLwUL8EeuZjpbsUk1dKw" name="numeroInterior"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLwkL8EeuZjpbsUk1dKw" name="codigoPostal"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLw0L8EeuZjpbsUk1dKw" name="municipio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLxEL8EeuZjpbsUk1dKw" name="pais" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_QtoLxUL8EeuZjpbsUk1dKw" name="persistenceId_string"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_QtoLxkL8EeuZjpbsUk1dKw" name="estado" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_QtoLx0L8EeuZjpbsUk1dKw" name="persistenceId_string"/>
           </inputs>
         </inputs>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_QtoywEL8EeuZjpbsUk1dKw" expression="lstCatCampusInput?.pais.flatten().every{!it || it.persistenceId_string}" errorMessage="CatPais must reference an existing instance with a persistenceId for CatCampus" name="aggregation_lstCatCampusInput_pais">
+          <inputNames>lstCatCampusInput</inputNames>
+        </constraints>
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_QtoywUL8EeuZjpbsUk1dKw" expression="lstCatCampusInput?.estado.flatten().every{!it || it.persistenceId_string}" errorMessage="CatEstados must reference an existing instance with a persistenceId for CatCampus" name="aggregation_lstCatCampusInput_estado">
+          <inputNames>lstCatCampusInput</inputNames>
+        </constraints>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_tb1rkS7PEeuP4u9L93tjFQ">
         <name xmi:type="expression:Expression" xmi:id="_tb1rki7PEeuP4u9L93tjFQ" content="" returnTypeFixed="true"/>

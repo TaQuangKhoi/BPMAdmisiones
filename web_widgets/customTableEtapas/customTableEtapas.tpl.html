@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <tbody>
-            <tr ng-repeat="row in properties.contenido track by $index">
+            <tr ng-repeat="row in filterItems(properties.codigo); track by $index">
 				<td class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center aling-middle backgroundOrange color-index">{{$index+1}}</td>
 				<td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center aling-middle backgroundDGray">
 					<div class="row">
@@ -9,14 +9,28 @@
 							{{row.descripcion}}
 						</div>
 						<div class="col-lg-12 color-index">
-							{{row.titulo}}
+							<input type="text" class="form-control"  ng-model="row.titulo">
 						</div>
 					</div>
 				</td>
 				<td class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-justify aling-middle backgroundLGray">
-					{{row.texto}}
+					 <textarea class="form-control" rows="5" ng-model="row.texto"></textarea>
+				</td>
+				<td>
+				    <button class="btn btn-link" ng-click="eliminarRegistro($index)"> <span class="glyphicon glyphicon-trash"></span></button>
 				</td>
 			</tr>
         </tbody>
+    </table>
+</div>
+<div class="table-responsive oculto">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Pasos</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
     </table>
 </div>

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatCiudadAcciones",
   "name" : "CatCiudadAcciones",
-  "lastUpdate" : 1606700963229,
+  "lastUpdate" : 1608759791973,
   "rows" : [
     [
       {
@@ -202,7 +202,7 @@
                     "descripcion",
                     "pais",
                     "estado",
-                    "fechaCreacion",
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'",
                     "usuarioCreacion"
                   ]
                 },
@@ -329,7 +329,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 5,
-                "lg" : 4
+                "lg" : 5
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -358,7 +358,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 3,
-                "lg" : 4
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -425,7 +425,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 4
+                "lg" : 5
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -477,7 +477,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -521,9 +521,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "7778b7f4-ec5f-4792-aa5d-d45a0b3df2c0",
+              "reference" : "d9577acc-470e-4f61-a1e5-441bb8ec721b",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumericoCatalogos"
             },
             {
               "type" : "component",
@@ -629,7 +629,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -673,9 +673,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "6f934785-eac7-42c5-9828-3718e235304e",
+              "reference" : "00d61a48-c4f8-49ef-abe6-20f6558230e7",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -684,7 +684,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
+                "md" : 2,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -750,7 +750,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
+                "md" : 2,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -904,7 +904,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -948,9 +948,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "dd60467b-6775-4d15-b7ca-1eef2043b20e",
+              "reference" : "a2d657a6-c3fc-4be6-b1d8-174a36dde336",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -959,8 +959,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1025,7 +1025,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1034,7 +1034,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -1132,6 +1132,120 @@
               "reference" : "932643dc-067a-41db-91b1-0516a23d65d7",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByOrden&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catCiudad"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"pais\": null, \t\"clave\": \"\", \t\"isEnabled\": true, \t\"orden\": null, \t\"caseId\": null, \t\"campus\":\"\", \t\"estado\":null, \t\"region\":\"\", \t\"isEstado\":\"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catCiudad_selected"
+                }
+              },
+              "reference" : "a8366322-2b81-49ea-afca-7b4a1dd07e85",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatCiudad"
             }
           ]
         ]
@@ -1198,7 +1312,7 @@
                       "xs" : 12,
                       "sm" : 12,
                       "md" : 5,
-                      "lg" : 4
+                      "lg" : 5
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -1227,7 +1341,7 @@
                       "xs" : 12,
                       "sm" : 12,
                       "md" : 3,
-                      "lg" : 4
+                      "lg" : 2
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -1349,7 +1463,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1393,9 +1507,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "8bfd5fc9-5569-4b9f-bd28-9d8795059b3b",
+              "reference" : "eca6f6ac-6790-4f5b-a83e-4d88f02eba0a",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumericoCatalogos"
             },
             {
               "type" : "component",
@@ -1501,7 +1615,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1545,9 +1659,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "71798224-d700-424b-8d5a-7eb4355ceece",
+              "reference" : "8b4b1dd0-4be8-4438-9495-638e71c61556",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -1556,7 +1670,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
+                "md" : 2,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -1622,7 +1736,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
+                "md" : 2,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -1776,7 +1890,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1820,9 +1934,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "6fd034a5-639c-4b1a-9ebc-2c7e5bb1fc0d",
+              "reference" : "e81fde54-2c86-43ac-9b47-8e8a818c52ad",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -1831,8 +1945,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1889,7 +2003,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1898,7 +2012,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "expression",
@@ -1996,6 +2110,120 @@
               "reference" : "b431fb63-5751-4d64-9564-d9489ecc6de7",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByOrden&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catCiudad"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatCiudadInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"isEnabled\": false,              \"orden\": 0,              \"caseId\": null,              \"fechaCreacion\": null,              \"region\":\"\",             \"estado\":null,             \"campus\":\"\",             \"pais\": null,             \"isEstado\":\"Pais\"         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "aa2fb8fc-43aa-42ad-8173-03e745d36551",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatCiudad"
             }
           ]
         ]

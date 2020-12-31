@@ -11,6 +11,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 
                 
                 document.getElementById('iframe').contentWindow.document.write(data);
+                //document.getElementById('iframe').src = "data:text/html;" + escape(data);
                 //$scope.openCloseModal();
             })
         

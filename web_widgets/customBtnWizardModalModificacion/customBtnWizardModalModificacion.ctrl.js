@@ -1,6 +1,7 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
-
+    var cont = 0;
     $scope.action = function() {
+        $scope.properties.disabled = true;
         if ($scope.properties.selectedIndex === 0) {
         } else if ($scope.properties.selectedIndex === 1) {
             console.log("Modal continuar");
@@ -47,8 +48,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                 $scope.properties.selectedIndex--;
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                                $scope.properties.selectedIndex++;
-                                //$scope.assignTask();
+                                //$scope.properties.selectedIndex++;
+                                $scope.assignTask();
                             }
                         }
 
@@ -183,7 +184,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   function doRequest(method, url, params) {
         //vm.busy = true;
         $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex+1;
-        console.log($scope.properties.dataToSend);
+        console.log($scope.properties.dataToSend.catSolicitudDeAdmisionInput);
         var req = {
             method: method,
             url: url,
@@ -194,8 +195,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function(data, status) {
                 getTask();
-                closeModal($scope.properties.modalid);
-                $scope.properties.selectedIndex++;
+                // closeModal($scope.properties.modalid);
+                // $scope.properties.selectedIndex++;
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
@@ -207,18 +208,66 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
-    function getTask(){
-        setTimeout(function(){ 
-            var req = {
+    // function getTask(){
+    //     setTimeout(function(){ 
+    //         var req = {
+    //         method: 'GET',
+    //         url: $scope.properties.urlCurrentTask
+    //     };
+
+    //     return $http(req)
+    //         .success(function(data, status) {
+    //             console.log("SUCCSES")
+    //             console.log(data);
+    //             $scope.properties.currentTask = data;
+    //         })
+    //         .error(function(data, status) {
+    //             console.log("Error al avanzar tarea")
+    //             console.log(data);
+    //             console.log(status);
+    //         })
+    //         .finally(function() {
+    //             //vm.busy = false;
+    //         });
+            
+    //     }, 1000);
+        
+    // }
+
+    function getTask() {
+        debugger;
+        var req = {
             method: 'GET',
             url: $scope.properties.urlCurrentTask
         };
-
+    
         return $http(req)
             .success(function(data, status) {
                 console.log("SUCCSES")
                 console.log(data);
-                $scope.properties.currentTask = data;
+                if(data.length > 0){
+                    if(data[0].id === $scope.properties.taskId){
+                        if (cont === 100) {
+                            location.reload();
+                        } else {
+                            getTask();
+                            cont++;
+                        }
+                    }else{
+                        $scope.properties.currentTask = data;
+                        topFunction();
+                        closeModal($scope.properties.modalid);
+                        $scope.properties.disabled = false;
+                        $scope.properties.selectedIndex++;
+                    }
+                }else{
+                    if (cont === 100) {
+                        location.reload();
+                    } else {
+                        getTask();
+                        cont++;
+                    }
+                }
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
@@ -228,8 +277,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
                 //vm.busy = false;
             });
-            
-        }, 1000);
-        
+    }
+    
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 }

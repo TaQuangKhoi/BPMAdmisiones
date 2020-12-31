@@ -53,7 +53,6 @@ function ($scope) {
       }
 
     $scope.setSelected = function(_index){
-        debugger;
         let isStepForward = _index ===  ($scope.maxCompletedStep + 1) || (_index === ($scope.properties.currentWindow - 1));
         let isStepBAckward = _index === ($scope.properties.currentWindow - 1);
         if( isStepBAckward || isStepForward || $scope.maxCompletedStep >= _index){

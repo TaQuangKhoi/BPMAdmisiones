@@ -42,6 +42,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   }
 
   function addToCollection() {
+      debugger;
     if (!$scope.properties.collectionToModify) {
       $scope.properties.collectionToModify = [];
     }
@@ -51,8 +52,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var item = angular.copy($scope.properties.valueToAdd);
 
     if ($scope.properties.collectionPosition === 'First') {
+        item.codigo=$scope.properties.codigo
       $scope.properties.collectionToModify.unshift(item);
     } else {
+        item.codigo=$scope.properties.codigo
       $scope.properties.collectionToModify.push(item);
     }
     

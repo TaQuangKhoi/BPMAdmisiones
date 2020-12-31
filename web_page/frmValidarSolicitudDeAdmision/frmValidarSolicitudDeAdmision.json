@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1608342893860,
+  "lastUpdate" : 1609369637022,
   "rows" : [
     [
       {
@@ -184,7 +184,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "objSolicitudDeAdmision.catCampus.descripcion"
+                  "value" : "objSolicitudDeAdmision.catCampusEstudio.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -2141,7 +2141,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "constant",
-                                          "value" : false
+                                          "value" : true
                                         },
                                         "required" : {
                                           "type" : "constant",
@@ -2218,7 +2218,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "constant",
-                                          "value" : false
+                                          "value" : true
                                         },
                                         "required" : {
                                           "type" : "constant",
@@ -2295,7 +2295,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "constant",
-                                          "value" : false
+                                          "value" : true
                                         },
                                         "required" : {
                                           "type" : "constant",
@@ -17564,6 +17564,46 @@
                           "hasValidationError" : false,
                           "id" : "pbCheckbox"
                         }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "formOutput.detalleSolicitudInput.admisionAnahuac"
+                            }
+                          },
+                          "reference" : "887db1b8-930c-4ff8-97c1-6faaec92afb8",
+                          "hasValidationError" : false,
+                          "id" : "pbCheckbox"
+                        }
                       ]
                     ]
                   }
@@ -17671,6 +17711,14 @@
                       "isMexicano" : {
                         "type" : "expression",
                         "value" : "objSolicitudDeAdmision.catNacionalidad.descripcion == \"Mexicana\""
+                      },
+                      "cartaAA" : {
+                        "type" : "variable",
+                        "value" : "objDocumentos.cartaAA"
+                      },
+                      "admisionAnahuac" : {
+                        "type" : "variable",
+                        "value" : "formOutput.detalleSolicitudInput.admisionAnahuac"
                       }
                     },
                     "reference" : "afad5c25-20b7-4ffc-9d26-80de351997c4",
@@ -17833,20 +17881,155 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "lstTipoAlumno"
+                  "value" : "cattipoAlumno"
                 },
                 "displayedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "descripcion"
                 },
                 "returnedKey" : {
                   "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "tipoAlumno"
+                  "value" : "formOutput.detalleSolicitudInput.catTipoAlumno"
+                }
+              },
+              "reference" : "825bce3e-efc8-41ae-bf5b-7eada761ba7b",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Residencia"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona una opción"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catResidencia"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutput.detalleSolicitudInput.catResidencia"
                 }
               },
               "reference" : "8bacaab3-577a-4993-9702-4474b78e6ce4",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Tipo de admisión"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona una opción"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catTipoAdmision"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutput.detalleSolicitudInput.catTipoAdmision"
+                }
+              },
+              "reference" : "be2bafa0-35e9-4d8c-a801-0395f5cdfeac",
               "hasValidationError" : false,
               "id" : "pbSelect"
             }
@@ -25331,7 +25514,17 @@
         "\t\t\tobservacionesCambio: $data.detalleSolicitud.observacionesCambio !== undefined ? $data.detalleSolicitud.observacionesCambio : null,",
         "\t\t\tobservacionesRechazo: $data.detalleSolicitud.observacionesRechazo !== undefined ? $data.detalleSolicitud.observacionesRechazo : null,",
         "\t\t\tobservacionesListaRoja: $data.detalleSolicitud.observacionesListaRoja !== undefined ? $data.detalleSolicitud.observacionesListaRoja : null,",
-        "\t\t\tcbCoincide:$data.detalleSolicitud.cbCoincide !== undefined ? $data.detalleSolicitud.cbCoincide : null",
+        "\t\t\tcbCoincide:$data.detalleSolicitud.cbCoincide !== undefined ? $data.detalleSolicitud.cbCoincide : null,",
+        "\t\t\tadmisionAnahuac: $data.detalleSolicitud.admisionAnahuac !== undefined ? $data.detalleSolicitud.admisionAnahuac : null,",
+        "\t\t\tcatTipoAlumno: $data.detalleSolicitud.catTipoAlumno ? {",
+        "\t\t\t\tpersistenceId_string: $data.detalleSolicitud.catTipoAlumno.persistenceId_string !== undefined ? $data.detalleSolicitud.catTipoAlumno.persistenceId_string : null",
+        "\t\t\t} : null,",
+        "\t\t\tcatResidencia: $data.detalleSolicitud.catResidencia ? {",
+        "\t\t\t\tpersistenceId_string: $data.detalleSolicitud.catResidencia.persistenceId_string !== undefined ? $data.detalleSolicitud.catResidencia.persistenceId_string : null",
+        "\t\t\t} : null,",
+        "\t\t\tcatTipoAdmision: $data.detalleSolicitud.catTipoAdmision ? {",
+        "\t\t\t\tpersistenceId_string: $data.detalleSolicitud.catTipoAdmision.persistenceId_string !== undefined ? $data.detalleSolicitud.catTipoAdmision.persistenceId_string : null",
+        "\t\t\t} : null",
         "\t\t},",
         "\t\tconIsRechazada: $data.formInput.conIsRechazada",
         "\t}",
@@ -25371,7 +25564,9 @@
       "type" : "expression",
       "value" : [
         "\r",
-        "debugger;\r",
+        "/*if($data.objGetDescuentosCiudadBachillerato == null){\r",
+        "    $data.objGetDescuentosCiudadBachillerato = [];\r",
+        "}*/\r",
         "$data.formOutput.detalleSolicitudInput.isCurpValidado = $data.isCurpValidado;\r",
         "if ($data.descuentoManual) {\r",
         "    console.log(1)\r",
@@ -26281,7 +26476,8 @@
         "    \"fotoPasaporte\": \"/bonita/portal/\" + $data.context.fotoPasaporte_ref[0].url,\r",
         "    \"actaNacimiento\": \"/bonita/portal/\" + $data.context.actaNacimiento_ref[0].url,\r",
         "    \"constancia\": \"/bonita/portal/\" + $data.context.constancia_ref[0].url,\r",
-        "    \"resultadoCB\":($data.context.resultadoCB_ref.length>0)?(\"/bonita/portal/\"+$data.context.resultadoCB_ref[0].url):null\r",
+        "    \"resultadoCB\":($data.context.resultadoCB_ref.length>0)?(\"/bonita/portal/\"+$data.context.resultadoCB_ref[0].url):null,\r",
+        "    \"cartaAA\":($data.context.cartaAA_ref.length>0)?(\"/bonita/portal/\"+$data.context.cartaAA_ref[0].url):null\r",
         "}"
       ],
       "exposed" : false
@@ -26368,13 +26564,14 @@
     "objGetDescuentosCiudadBachillerato" : {
       "type" : "url",
       "value" : [
-        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCiudadBachillerato&bachillerato={{objSolicitudDeAdmision.catBachilleratos.descripcion}}&campus={{campus}}&ciudad={{objSolicitudDeAdmision.ciudadExamen.descripcion}}&p=0&c=1&correo=null"
+        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCiudadBachillerato&bachillerato={{objSolicitudDeAdmision.catBachilleratos.descripcion}}&campus={{campus}}&ciudad={{objSolicitudDeAdmision.ciudadExamen.descripcion==null?\"\":objSolicitudDeAdmision.ciudadExamen.descripcion}}&p=0&c=1&correo=null"
       ],
       "exposed" : false
     },
     "objDescuentoMax" : {
       "type" : "expression",
       "value" : [
+        "",
         "var resultado = {};",
         "\t\tif($data.objGetDescuentosCiudadBachillerato.length > 0){",
         "\t\t    var a={\"descuento\":-1};",
@@ -26651,6 +26848,7 @@
     "descuentoFalso" : {
       "type" : "expression",
       "value" : [
+        "",
         "if(!$data.descuentoManual){",
         "\tif($data.objGetDescuentosCiudadBachillerato.length > 0){",
         "    var a={\"descuento\":-1};",
@@ -26730,6 +26928,36 @@
         "            \"limit\": 999,\r",
         "            \"offset\": 0\r",
         "        }"
+      ],
+      "exposed" : false
+    },
+    "cattipoAlumno" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAlumno?q=find&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "catResidencia" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatResidencia?q=find&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "catTipoAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAdmision?q=find&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "testdescuento" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;",
+        "",
+        "console.log($data.objGetDescuentosCiudadBachillerato)"
       ],
       "exposed" : false
     }

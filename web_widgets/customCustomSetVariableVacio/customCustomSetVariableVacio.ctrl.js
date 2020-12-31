@@ -1,8 +1,5 @@
 function ($scope, $http) {
     $scope.$watch("properties.catSolicitudDeAdmision.catGestionEscolar", function(){
-        debugger;
-
-        console.log("entre a llenar la variable")
         if($scope.properties.catSolicitudDeAdmision.catGestionEscolar !== undefined){
             if($scope.properties.gestionActual !== undefined){
                 if($scope.properties.gestionActual.descripcion !== $scope.properties.catSolicitudDeAdmision.catGestionEscolar.descripcion){

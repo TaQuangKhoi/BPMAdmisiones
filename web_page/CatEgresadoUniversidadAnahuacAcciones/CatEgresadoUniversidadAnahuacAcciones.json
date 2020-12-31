@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatEgresadoUniversidadAnahuacAcciones",
   "name" : "CatEgresadoUniversidadAnahuacAcciones",
-  "lastUpdate" : 1606447173060,
+  "lastUpdate" : 1608759849665,
   "rows" : [
     [
       {
@@ -51,7 +51,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Catálogo egresado de universidad anáhuac"
+                  "value" : "Egresado Universidad Anáhuac"
                 },
                 "level" : {
                   "type" : "constant",
@@ -183,8 +183,8 @@
                   "value" : [
                     "Clave",
                     "Descripción",
-                    "Fecha creación",
-                    "Usuario creación"
+                    "Usuario creación",
+                    "Fecha creación"
                   ]
                 },
                 "content" : {
@@ -196,8 +196,8 @@
                   "value" : [
                     "clave",
                     "descripcion",
-                    "fechaCreacion",
-                    "usuarioCreacion"
+                    "usuarioCreacion",
+                    "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -241,9 +241,9 @@
                   "value" : "urlRefreshPaginado"
                 }
               },
-              "reference" : "b487657d-56f0-4d57-983d-24bd359a27ca",
+              "reference" : "3146cc45-855e-453b-bb53-17fc57fedd07",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionar"
+              "id" : "customTableSeleccionarIsEliminado"
             }
           ],
           [
@@ -322,8 +322,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 2,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -371,7 +371,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "catEgresadoUniversidadAnahuac_selected.descripcion"
+                  "value" : "catEgresadoUniversidadAnahuac_selected.clave"
                 },
                 "type" : {
                   "type" : "constant",
@@ -391,16 +391,14 @@
               "reference" : "60109dd5-cc10-46a9-8b12-79c4453c1bd7",
               "hasValidationError" : false,
               "id" : "pbInput"
-            }
-          ],
-          [
+            },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 10,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -421,7 +419,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -448,7 +446,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "catEgresadoUniversidadAnahuac_selected.clave"
+                  "value" : "catEgresadoUniversidadAnahuac_selected.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -465,9 +463,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "1572e320-5811-4d53-8f8e-851b3ec8a95d",
+              "reference" : "4ac6495a-b1f5-4575-8dc4-d6ff1d5f3441",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -476,8 +474,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -542,7 +540,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -551,11 +549,11 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!validado.validar"
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -579,7 +577,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=find&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p={{inicio}}&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -649,6 +647,120 @@
               "reference" : "5c1f9f07-cf1c-4519-9374-d9833320a2c5",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEgresadoUniversidadAnahuac"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catEgresadoUniversidadAnahuac_selected"
+                }
+              },
+              "reference" : "94638917-6105-4eff-81c4-6206d1491213",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEgresadoUniversidadAnahuac"
             }
           ]
         ]
@@ -687,8 +799,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 2,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -756,16 +868,14 @@
               "reference" : "87ab6ea8-b0c2-42aa-877b-ccb1bc30ff7b",
               "hasValidationError" : false,
               "id" : "pbInput"
-            }
-          ],
-          [
+            },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 10,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -786,7 +896,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 1
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -830,9 +940,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "fc4e9651-885a-469f-9b4d-05fa6dff84f9",
+              "reference" : "ddc2453b-a4bc-46eb-b5ff-6a6169a8b4f2",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMayCustom"
             }
           ],
           [
@@ -841,8 +951,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 6
+                "md" : 8,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -899,7 +1009,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -908,11 +1018,11 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "!validado.validar"
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -936,7 +1046,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=find&p={{inicio}}&c=10"
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p={{inicio}}&c=10"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -1006,6 +1116,120 @@
               "reference" : "c1a98f0c-923f-4297-850d-a126c1dc9a82",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catEgresadoUniversidadAnahuac"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatEgresadoUniversidadAnahuacInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",             \"fechaCreacion\": null         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "65a05095-ada3-4449-8ac4-dc2b3bd88238",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatEgresadoUniversidadAnahuac"
             }
           ]
         ]
@@ -1072,7 +1296,7 @@
     "catEgresadoUniversidadAnahuac" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=find&p={{inicio}}&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p={{inicio}}&c=10"
       ],
       "exposed" : false
     },
@@ -1100,7 +1324,7 @@
     "countCatEgresadoUniversidadAnahuac" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=countForFind&p=0&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCountByEliminado&p=0&c=10"
       ],
       "exposed" : false
     },
@@ -1175,7 +1399,7 @@
     "urlRefreshPaginado" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=find&p=\"+$data.inicio+\"&c=10\";"
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatEgresadoUniversidadAnahuac?q=getCatEgresadoUniversidadAnahuac&p=\"+$data.inicio+\"&c=10\";"
       ],
       "exposed" : false
     },
@@ -1212,6 +1436,66 @@
         "lstResultado.push($data.catEgresadoUniversidadAnahuac_selectedNR);",
         "",
         "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "validado" : {
+      "type" : "json",
+      "value" : [
+        "{\"validar\":false}"
+      ],
+      "exposed" : false
+    },
+    "validarAgregar" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "if( $data.formOutputAgregar.lstCatEgresadoUniversidadAnahuacInput.length >=1){",
+        "    $data.formOutputAgregar.lstCatEgresadoUniversidadAnahuacInput.forEach(element =>{",
+        "        debugger;",
+        "        if(element.descripcion.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.clave.trim()===\"\"){",
+        "            validado = false;",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "}",
+        "",
+        "$data.validado.validar = validado;"
+      ],
+      "exposed" : false
+    },
+    "validarEditar" : {
+      "type" : "expression",
+      "value" : [
+        "var validado = true;",
+        "if( $data.formOutput.lstCatEgresadoUniversidadAnahuacInput.length >=1){",
+        "    $data.formOutput.lstCatEgresadoUniversidadAnahuacInput.forEach(element =>{",
+        "        debugger;",
+        "        if(element.descripcion.trim()===\"\"){",
+        "            validado = false;",
+        "        }else if(element.clave.trim()===\"\"){",
+        "            validado = false;",
+        "        }",
+        "    });  ",
+        "}else{",
+        "    validado = false;",
+        "}",
+        "",
+        "$data.validado.validar = validado;"
+      ],
+      "exposed" : false
+    },
+    "propedeuticoSeleccionado" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstPropedeutico" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPropedeutico?q=getCatPropedeutico&p=0&c=9999"
       ],
       "exposed" : false
     }

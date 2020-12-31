@@ -1,7 +1,8 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
-
+    var cont = 0;
     $scope.action = function() {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        $scope.properties.disabled = true;
         var localS = localStorage;
         console.log("boton de siguiente");
         console.log($scope.properties.collageBoard);
@@ -298,14 +299,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.datosPreparatoria.nombreBachillerato === "") {
                         swal("¡Preparatoria!", "Debes agregar el nombre de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.paisBachillerato === undefined || $scope.properties.datosPreparatoria.paisBachillerato === "") {
-                        swal("¡País preparatoria!", "Debes agregar el país de tu preparatoria", "warning");
+                        swal("¡País de tu preparatoria!", "Debes agregar el país de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.estadoBachillerato === undefined || $scope.properties.datosPreparatoria.estadoBachillerato === "") {
-                        swal("¡Estado preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
+                        swal("¡Estado de tu preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined || $scope.properties.datosPreparatoria.ciudadBachillerato === "") {
-                        swal("¡Ciudad preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
+                        swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
                     } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
-                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
+                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                     } else {
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -360,10 +361,53 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
 
                             if (!$scope.fallo) {
+                                if($scope.properties.catSolicitudDeAdmision.admisionAnahuac){
+                                    if(JSON.stringify($scope.properties.cartaAA) === "{}"){
+                                        $scope.fallo = true;
+                                        swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                    }else{
+                                        if($scope.properties.cartaAAarchivo.length > 0){
+                                            var auxData = null;
+                                            if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
+                                                auxData = $scope.properties.cartaAAarchivo[0];
+                                            } else {
+                                                auxData = angular.copy($scope.properties.cartaAAarchivo[0].newValue);
+                                            }
+                                            auxData.filename = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.filename === '' ? null : $scope.properties.cartaAA.filename);
+                                            auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
+                                            auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
+                                            if (auxData.id !== undefined) {
+                                                $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
+                                                        "id": angular.copy(auxData.id),
+                                                        "newValue": angular.copy(auxData)
+                                                    });*/
+                                            } else {
+                                                if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
+                                                    $scope.properties.cartaAAarchivo[0] = ({
+                                                        "newValue": angular.copy(auxData)
+                                                    });
+                                                }
+                                            }
+                                        }else{
+                                            if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
+                                                $scope.properties.cartaAAarchivo = [];
+                                                $scope.properties.cartaAAarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.cartaAA)
+                                                });
+                                            } else {
+                                                $scope.fallo = true;
+                                                swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                            }
+                                        }
+                                    }  
+                                }
+                            } 
+
+                            if (!$scope.fallo) {
                                 if ($scope.properties.tienePAA) {
                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
-                                        swal("¡Resultado (PAA) del Examen Collage Board!", "La calificación debe ser mayor a cero", "warning");
+                                        swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero", "warning");
                                     } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
                                         if ($scope.properties.collageBoardarchivo.length > 0) {
                                             if(JSON.stringify($scope.properties.collageBoard) === "{}"){
@@ -409,7 +453,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     }
                                 } else {
                                     $scope.properties.collageBoardarchivo = [];
-                                    if ($scope.properties.tieneDescuento === true) {
+                                    if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
                                         if ($scope.properties.descuentoarchivo.length > 0) {
                                             if(JSON.stringify($scope.properties.descuento) === "{}"){
                                                 $scope.fallo = true;
@@ -461,7 +505,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             }
                             if (!$scope.fallo) {
-                                if ($scope.properties.tieneDescuento === true) {
+                                if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
                                     if ($scope.properties.descuentoarchivo.length > 0) {
                                         if(JSON.stringify($scope.properties.descuento) === "{}"){
                                             $scope.fallo = true;
@@ -524,7 +568,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                         }
                     }
-                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
+                } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
+                    swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                 } else {
                     debugger;
@@ -570,13 +616,55 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
                             }
                         }
+
                         if (!$scope.fallo) {
-                            //catSolicitudDeAdmision.catBachilleratos.pertenecered !== "t"
-                            //if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.perteneceRed) {
-                            if($scope.properties.catSolicitudDeAdmision.catBachilleratos.pertenecered === "t"){
+                            if($scope.properties.catSolicitudDeAdmision.admisionAnahuac){
+                                if(JSON.stringify($scope.properties.cartaAA) === "{}"){
+                                    $scope.fallo = true;
+                                    swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                }else{
+                                    if($scope.properties.cartaAAarchivo.length > 0){
+                                        var auxData = null;
+                                        if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
+                                            auxData = $scope.properties.cartaAAarchivo[0];
+                                        } else {
+                                            auxData = angular.copy($scope.properties.cartaAAarchivo[0].newValue);
+                                        }
+                                        auxData.filename = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.filename === '' ? null : $scope.properties.cartaAA.filename);
+                                        auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
+                                        auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
+                                        if (auxData.id !== undefined) {
+                                            $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
+                                                    "id": angular.copy(auxData.id),
+                                                    "newValue": angular.copy(auxData)
+                                                });*/
+                                        } else {
+                                            if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
+                                                $scope.properties.cartaAAarchivo[0] = ({
+                                                    "newValue": angular.copy(auxData)
+                                                });
+                                            }
+                                        }
+                                    }else{
+                                        if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
+                                            $scope.properties.cartaAAarchivo = [];
+                                            $scope.properties.cartaAAarchivo.push({
+                                                "newValue": angular.copy($scope.properties.cartaAA)
+                                            });
+                                        } else {
+                                            $scope.fallo = true;
+                                            swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                        }
+                                    }
+                                }  
+                            }
+                        } 
+
+                        if (!$scope.fallo) {
+                            if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                     $scope.fallo = true;
-                                    swal("¡Resultado (PAA) del Examen Collage Board!", "La calificación Debes ser mayor a cero ", "warning");
+                                    swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero ", "warning");
                                 } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
                                     if(JSON.stringify($scope.properties.collageBoard) === "{}"){
                                         $scope.fallo = true;
@@ -614,113 +702,66 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.fallo = true;
                                                 swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
                                             }
-    
+
                                         }
                                     }
                                 }
                             } else {
-                                if ($scope.properties.tienePAA) {
-                                    if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
-                                        $scope.fallo = true;
-                                        swal("¡Resultado (PAA) del Examen Collage Board!", "La calificación debe ser mayor a cero ", "warning");
-                                    } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
-                                        if(JSON.stringify($scope.properties.collageBoard) === "{}"){
+                                $scope.properties.collageBoardarchivo = [];
+                                if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
+                                    if ($scope.properties.descuentoarchivo.length > 0) {
+                                        if(JSON.stringify($scope.properties.descuento) === "{}"){
                                             $scope.fallo = true;
-                                            swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
+                                            swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                         }else{
-                                            if ($scope.properties.collageBoardarchivo.length > 0) {
-                                                var auxData = null;
-                                                if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
-                                                    auxData = $scope.properties.collageBoardarchivo[0];
-                                                } else {
-                                                    auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
-                                                }
-                                                auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
-                                                auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
-                                                auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
-                                                if (auxData.id !== undefined) {
-                                                    $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                        "id": angular.copy(auxData.id),
-                                                        "newValue": angular.copy(auxData)
-                                                    });*/
-                                                } else {
-                                                    if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
-                                                        $scope.properties.collageBoardarchivo[0] = ({
-                                                            "newValue": angular.copy(auxData)
-                                                        });
-                                                    }
-                                                }
+                                            var auxData = null;
+                                            if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
+                                                auxData = $scope.properties.descuentoarchivo[0];
                                             } else {
-                                                if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
-                                                    $scope.properties.collageBoardarchivo = [];
-                                                    $scope.properties.collageBoardarchivo.push({
-                                                        "newValue": angular.copy($scope.properties.collageBoard)
+                                                auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
+                                            }
+                                            auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
+                                            auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
+                                            auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
+                                            if (auxData.id !== undefined) {
+                                                $scope.properties.descuentoarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
+                                                    "id": angular.copy(auxData.id),
+                                                    "newValue": angular.copy(auxData)
+                                                });*/
+                                            } else {
+                                                if ($scope.properties.descuentoarchivo[0].newValue.filename !== $scope.properties.descuento.filename) {
+                                                    $scope.properties.descuentoarchivo[0] = ({
+                                                        "newValue": angular.copy(auxData)
                                                     });
-                                                } else {
-                                                    $scope.fallo = true;
-                                                    swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
                                                 }
-    
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    $scope.properties.collageBoardarchivo = [];
-                                    if ($scope.properties.tieneDescuento === true) {
-                                        if ($scope.properties.descuentoarchivo.length > 0) {
-                                            if(JSON.stringify($scope.properties.descuento) === "{}"){
-                                                $scope.fallo = true;
-                                                swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
-                                            }else{
-                                                var auxData = null;
-                                                if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
-                                                    auxData = $scope.properties.descuentoarchivo[0];
-                                                } else {
-                                                    auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
-                                                }
-                                                auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
-                                                auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
-                                                auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
-                                                if (auxData.id !== undefined) {
-                                                    $scope.properties.descuentoarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                        "id": angular.copy(auxData.id),
-                                                        "newValue": angular.copy(auxData)
-                                                    });*/
-                                                } else {
-                                                    if ($scope.properties.descuentoarchivo[0].newValue.filename !== $scope.properties.descuento.filename) {
-                                                        $scope.properties.descuentoarchivo[0] = ({
-                                                            "newValue": angular.copy(auxData)
-                                                        });
-                                                    }
-                                                }
-                                            }
-                                        } else {
-                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
-                                                $scope.properties.descuentoarchivo = [];
-                                                $scope.properties.descuentoarchivo.push({
-                                                    "newValue": angular.copy($scope.properties.descuento)
-                                                });
-                                            } else {
-                                                $scope.fallo = true;
-                                                swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                             }
                                         }
                                     } else {
-                                        $scope.properties.descuentoarchivo = [];
-                                        if ($scope.properties.idExtranjero !== undefined) {
-                                            $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                            $scope.properties.descuentoarchivo = [];
+                                            $scope.properties.descuentoarchivo.push({
+                                                "newValue": angular.copy($scope.properties.descuento)
+                                            });
+                                        } else {
+                                            $scope.fallo = true;
+                                            swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                         }
-                                        $scope.properties.pasoInformacionPersonal = true;
-                                        //$scope.properties.selectedIndex++;
-                                        $scope.assignTask();
-                                        $scope.fallo = true;
                                     }
+                                } else {
+                                    $scope.properties.descuentoarchivo = [];
+                                    if ($scope.properties.idExtranjero !== undefined) {
+                                        $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    }
+                                    $scope.properties.pasoInformacionPersonal = true;
+                                    //$scope.properties.selectedIndex++;
+                                    $scope.assignTask();
+                                    $scope.fallo = true;
                                 }
                             }
                         }
 
                         if (!$scope.fallo) {
-                            if ($scope.properties.tieneDescuento === true) {
+                            if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
                                 if ($scope.properties.descuentoarchivo.length > 0) {
                                     if(JSON.stringify($scope.properties.descuento) === "{}"){
                                         $scope.fallo = true;
@@ -2333,10 +2374,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   function doRequest(method, url, params) {
         //vm.busy = true;
         $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex+1;
-        /*if($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== undefined){
-            $scope.properties.Bachilleratopersistenceid = angular.copy($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string);
-            $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos.persistenceId_string = $scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string;
-        }*/
+        if($scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos !== null){
+            if($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== undefined && $scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== null){
+                $scope.properties.Bachilleratopersistenceid = angular.copy($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string);
+                //$scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos.persistenceId_string = $scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string;
+            }
+        }
+        
         if($scope.properties.Bachilleratopersistenceid !== undefined && $scope.properties.Bachilleratopersistenceid !== null && $scope.properties.Bachilleratopersistenceid !== ""){
             if($scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos === null){
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos = {};
@@ -2370,8 +2414,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
                 closeModal($scope.properties.closeOnSuccess);*/
                 getTask();
-                topFunction();
-                $scope.properties.selectedIndex++;
+                //topFunction();
+                //$scope.properties.selectedIndex++;
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
@@ -2393,18 +2437,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
-    function getTask(){
-        setTimeout(function(){ 
-            var req = {
+    function getTask() {
+        debugger;
+        var req = {
             method: 'GET',
             url: $scope.properties.urlCurrentTask
         };
-
+    
         return $http(req)
             .success(function(data, status) {
                 console.log("SUCCSES")
                 console.log(data);
-                $scope.properties.currentTask = data;
+                if(data.length > 0){
+                    if(data[0].id === $scope.properties.taskId){
+                        if (cont === 100) {
+                            location.reload();
+                        } else {
+                            getTask();
+                            cont++;
+                        }
+                    }else{
+                        $scope.properties.currentTask = data;
+                        topFunction();
+                        $scope.properties.disabled = false;
+                        $scope.properties.selectedIndex++;
+                    }
+                }else{
+                    if (cont === 100) {
+                        location.reload();
+                    } else {
+                        getTask();
+                        cont++;
+                    }
+                }
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
@@ -2414,9 +2479,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
                 //vm.busy = false;
             });
-            
-        }, 1000);
-        
     }
 
     function topFunction() {
