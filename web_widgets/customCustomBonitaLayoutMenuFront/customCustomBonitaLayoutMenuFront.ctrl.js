@@ -59,24 +59,33 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
     
     ctrl.validateUrl = function(appToken){
-        // let outputToken = "";
         let outputToken = appToken;
         
-        if(appToken === "nueva_solicitud" && !$scope.properties.isCaseStarted){
+        if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Llenar solicitud"){
             outputToken = "nueva_solicitud";
         } else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName !== "Modificar información"){
             outputToken = "solicitud_iniciada";
         } else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Modificar información"){
             outputToken = "modificar_solicitud";
-        } else {
+        } 
+        // else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Pago de examen"){
+        //     outputToken = "verSolicitudAdmision";
+        // } 
+        else {
             outputToken = appToken;
-        }
+        } 
  
         return outputToken;
     }
      
      
     ctrl.goTo = function(_token){
+        // if(_token === "verSolicitudAdmision"){
+        //     window.location.href = "../" + token;
+        // } else {
+        //     window.location.href = "../" + token + "?id=" + $scope.properties.taskId + "&displayConfirmation=false";
+        // }
+        
         window.location.href = "../" + token;
     }
     
@@ -96,7 +105,12 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         var previousPath = window.location.pathname;
          
         ctrl.pageToken = token;
-        var urlPath = previousPath.substring(0, previousPath.length-previousToken.length-1) + token + '/' + $window.location.search;
+        var urlPath = "";
+        if(previousToken === "autodescripcion" || previousToken === "pago_de_examen"){
+            previousPath.substring(0, previousPath.length-previousToken.length-2) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);
+        } else {
+            previousPath.substring(0, previousPath.length-previousToken.length-1) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);
+        }
          
         var stateObject = { title: "" + token + "", url: "" +  urlPath  + ""};
         if (typeof ($window.history.pushState) != "undefined") {
@@ -145,10 +159,10 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     
     function setApplicationMenuList(application) {
         return $http.get('../API/living/application-menu/?c=100&f=applicationId%3D'+application.id+'&d=applicationPageId&o=menuIndex+ASC')
-            .success(function(data) { 
-                ctrl.applicationMenuList = data;
-                ctrl.applicationMenuList[0].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[0].applicationPageId.token);
-            });
+        .success(function(data) { 
+            ctrl.applicationMenuList = data;
+            ctrl.applicationMenuList[0].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[0].applicationPageId.token);
+        });
     }
  
     function searchSeparator() {
@@ -160,7 +174,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         // so we change it's value to undefined and then delay to the correct value
         $scope.properties.targetUrl = undefined;
         $timeout(function(){
-            $scope.properties.targetUrl = "../../../portal/resource/app/"+ctrl.applicationToken+"/"+ ctrl.pageToken+"/content/"+ $window.location.search + searchSeparator() + "app=" + ctrl.applicationToken;
+            $scope.properties.targetUrl = "../../../portal/resource/app/" + ctrl.applicationToken + "/" + ctrl.pageToken + "/content/" + $window.location.search + searchSeparator() + "app=" + ctrl.applicationToken;
         }, 0);
     }
      
@@ -176,7 +190,14 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     function setApplication(){
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
-        ctrl.pageToken = $scope.properties.pageToken;
+        if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago"){
+            ctrl.pageToken = "pago_de_examen";
+        } else if ($scope.properties.currentTaskName === "Autodescripción"){
+            ctrl.pageToken = "autodescripcion"
+        } else {
+            ctrl.pageToken = $scope.properties.pageToken;
+        }
+        
         ctrl.applicationName = $scope.properties.application.displayName;
         setApplicationMenuList(application);
         setTargetedUrl();
@@ -207,7 +228,4 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             } 
         }
     });
-    
-    // setApplication();
- 
- }
+}

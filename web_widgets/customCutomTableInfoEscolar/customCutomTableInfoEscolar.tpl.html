@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row, $index)" ng-class="{'info': ctrl.isSelected(row)}">
+            <tr ng-repeat="row in properties.content" ng-class="{'info': ctrl.isSelected(row)}">
                 <td>
                     {{row.grado.descripcion}}
                 </td>
@@ -29,15 +29,25 @@
                     {{row.promedio}}
                 </td>
                 <td>
-                    <button class="btn btn-link" ng-click="ctrl.showModalEditar(false)">
+                    <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'ver')">
                        <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
-                    <button class="btn btn-link" ng-click="ctrl.showModalEditar(true)">
+                    <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'editar')">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </button>
-                     <button class="btn btn-link" ng-click="ctrl.showModalEliminar()">
+                     <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'eliminar')">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
+                    
+                    <!--<button class="btn btn-link" ng-click="ctrl.showModalEditar(false)">-->
+                    <!--   <span class="glyphicon glyphicon-eye-open"></span>-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-link" ng-click="ctrl.showModalEditar(true)">-->
+                    <!--    <span class="glyphicon glyphicon-pencil"></span>-->
+                    <!--</button>-->
+                    <!-- <button class="btn btn-link" ng-click="ctrl.showModalEliminar()">-->
+                    <!--    <span class="glyphicon glyphicon-remove"></span>-->
+                    <!--</button>-->
                 </td>
             </tr>
         </tbody>

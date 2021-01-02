@@ -35,6 +35,7 @@ function ($scope, blockUI) {
             $scope.properties.formInput.informacionEscolar = [];
             $scope.properties.formInput.universidadesHasEstado = [];
             $scope.properties.formInput.idiomas = [];
+            $scope.properties.formInput.parienteEgresadoAnahuac = [];
             
              $scope.$watch("properties.objetoHermanos",function(){
                 if($scope.properties.objetoHermanos !== undefined){
@@ -80,6 +81,12 @@ function ($scope, blockUI) {
             $scope.$watch("properties.objetoIdiomas",function(){
                 if($scope.properties.objetoIdiomas !== undefined){
                     $scope.properties.formInput.idiomas = $scope.properties.objetoIdiomas;
+                }
+            });
+            
+            $scope.$watch("properties.objetoFamiliarEgresadoAnahuac",function(){
+                if($scope.properties.objetoFamiliarEgresadoAnahuac !== undefined){
+                    $scope.properties.formInput.parienteEgresadoAnahuac = $scope.properties.objetoFamiliarEgresadoAnahuac;
                 }
             });
             

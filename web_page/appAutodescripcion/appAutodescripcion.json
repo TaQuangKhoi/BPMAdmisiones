@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1609271661915,
+  "lastUpdate" : 1609607420302,
   "rows" : [
     [
       {
@@ -157,6 +157,10 @@
           "selectedIndex" : {
             "type" : "variable",
             "value" : "selectedIndex"
+          },
+          "objetoFamiliarEgresadoAnahuac" : {
+            "type" : "variable",
+            "value" : "objetoFamiliarEgresadoAnahuac"
           }
         },
         "reference" : "a420bbf5-adc0-45ff-8e6c-483712b4fc33",
@@ -176,7 +180,7 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "hide-element"
           },
           "hidden" : {
             "type" : "constant",
@@ -188,7 +192,7 @@
           },
           "valor" : {
             "type" : "variable",
-            "value" : "objetoPadre.vive"
+            "value" : "returnPadreVive"
           }
         },
         "reference" : "7ec92a46-f4eb-489c-9bfc-cd1cd33f8a5c",
@@ -208,7 +212,7 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "hide-element"
           },
           "hidden" : {
             "type" : "constant",
@@ -220,7 +224,7 @@
           },
           "valor" : {
             "type" : "variable",
-            "value" : "objetoMadre.vive"
+            "value" : "returnMadreVive"
           }
         },
         "reference" : "0e8133c8-0e03-4230-9145-38d5a7884608",
@@ -240,7 +244,39 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "hide-element"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "variableDestino" : {
+            "type" : "variable",
+            "value" : "formInput.parienteEgresadoAnahuac"
+          },
+          "valor" : {
+            "type" : "variable",
+            "value" : "objetoFamiliarEgresadoAnahuac"
+          }
+        },
+        "reference" : "6f0f1cad-152e-4d36-9522-a83312902a4b",
+        "hasValidationError" : false,
+        "id" : "customLoadDataBDM"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "hide-element"
           },
           "hidden" : {
             "type" : "constant",
@@ -274,6 +310,38 @@
         "reference" : "9cbf0e0f-68b6-46b0-9f91-000e7d9d0efa",
         "hasValidationError" : false,
         "id" : "customLoadConQuienVives"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "hide-element"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "variableDestino" : {
+            "type" : "variable",
+            "value" : "formInput.catReligion"
+          },
+          "valor" : {
+            "type" : "variable",
+            "value" : "objectSolicitud.catReligion"
+          }
+        },
+        "reference" : "c7bd9067-6eac-434e-869c-b20ff480bcac",
+        "hasValidationError" : false,
+        "id" : "customLoadDataBDM"
       }
     ],
     [
@@ -351,58 +419,6 @@
         "reference" : "2a62efb0-94fb-44da-8a99-7d1473d9f86d",
         "hasValidationError" : false,
         "id" : "pbInput"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "{{newTaskId}} {{caseList}}"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
-          }
-        },
-        "reference" : "040f9b39-f361-4891-97fd-167a15429f4d",
-        "hasValidationError" : false,
-        "id" : "pbText"
       }
     ],
     [
@@ -580,7 +596,7 @@
                       },
                       "disabled" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "required" : {
                         "type" : "constant",
@@ -679,7 +695,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Selecciona..."
+                        "value" : "Ejemplo: 2020"
                       },
                       "value" : {
                         "type" : "variable",
@@ -757,7 +773,7 @@
                       },
                       "disabled" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "required" : {
                         "type" : "constant",
@@ -856,7 +872,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Selecciona..."
+                        "value" : "Ejemplo: 2020"
                       },
                       "value" : {
                         "type" : "variable",
@@ -995,7 +1011,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catEstadoCivilPadres.clave !== \"otro\""
+                        "value" : "formInput.catEstadoCivilPadres.descripcion !== \"Otro\""
                       },
                       "required" : {
                         "type" : "constant",
@@ -1072,7 +1088,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "color-orange"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -1104,7 +1120,7 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "left"
+                  "value" : "center"
                 }
               },
               "reference" : "9a676b43-2e38-4a45-bc76-b86cb2084675",
@@ -2073,7 +2089,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -2161,7 +2177,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -2905,7 +2921,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Default label"
+                                "value" : "Empresa: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -2979,8 +2995,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -3067,8 +3083,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -3382,7 +3398,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -3470,7 +3486,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -3604,7 +3620,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "hide-element"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -4396,7 +4412,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿En qué materia has obtenido calificaciones más altas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "¿En qué materia has obtenido calificaciones más bajas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -5274,7 +5290,7 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
+                      "xs" : 6,
                       "sm" : 6,
                       "md" : 6,
                       "lg" : 6
@@ -5325,6 +5341,22 @@
                       },
                       "messageTitle" : {
                         "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "d988a429-ccdc-4967-845f-75dfde3d4067",
@@ -5334,7 +5366,7 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
+                      "xs" : 6,
                       "sm" : 6,
                       "md" : 6,
                       "lg" : 6
@@ -5671,7 +5703,7 @@
                         },
                         "disabled" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\""
+                          "value" : "accionModalGradoEscolar === \"ver\" || objNuevoInformacionEscolar.isDefault === true"
                         },
                         "required" : {
                           "type" : "constant",
@@ -5743,100 +5775,6 @@
                       "hasValidationError" : false,
                       "id" : "pbContainer",
                       "rows" : [
-                        [
-                          {
-                            "type" : "container",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "constant",
-                                "value" : true
-                              },
-                              "repeatedCollection" : {
-                                "type" : "variable",
-                                "value" : ""
-                              }
-                            },
-                            "reference" : "d5783b89-305f-4e9f-bd7d-74e00ae9d385",
-                            "hasValidationError" : false,
-                            "id" : "pbContainer",
-                            "rows" : [
-                              [
-                                {
-                                  "type" : "component",
-                                  "dimension" : {
-                                    "xs" : 12,
-                                    "sm" : 12,
-                                    "md" : 12,
-                                    "lg" : 12
-                                  },
-                                  "propertyValues" : {
-                                    "cssClasses" : {
-                                      "type" : "constant",
-                                      "value" : ""
-                                    },
-                                    "hidden" : {
-                                      "type" : "expression",
-                                      "value" : "objNuevoInformacionEscolar.catGradoAcacemico.descripcion !== \"Preparatoria/Bachillerato\""
-                                    },
-                                    "readOnly" : {
-                                      "type" : "expression",
-                                      "value" : "accionModalGradoEscolar === \"ver\""
-                                    },
-                                    "required" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "labelHidden" : {
-                                      "type" : "constant",
-                                      "value" : false
-                                    },
-                                    "label" : {
-                                      "type" : "interpolation",
-                                      "value" : "Escuela: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                                    },
-                                    "labelPosition" : {
-                                      "type" : "constant",
-                                      "value" : "top"
-                                    },
-                                    "labelWidth" : {
-                                      "type" : "constant",
-                                      "value" : 4
-                                    },
-                                    "placeholder" : {
-                                      "type" : "interpolation",
-                                      "value" : "Escriba el nombre de la escuela"
-                                    },
-                                    "availableValues" : {
-                                      "type" : "expression",
-                                      "value" : "catBachillerato"
-                                    },
-                                    "displayedKey" : {
-                                      "type" : "constant",
-                                      "value" : "descripcion"
-                                    },
-                                    "value" : {
-                                      "type" : "variable",
-                                      "value" : "objNuevoInformacionEscolar.escuela"
-                                    }
-                                  },
-                                  "reference" : "f45d45af-c90d-4c7f-8f1a-29a7a9edc98a",
-                                  "hasValidationError" : false,
-                                  "id" : "pbAutocomplete"
-                                }
-                              ]
-                            ]
-                          }
-                        ],
                         [
                           {
                             "type" : "component",
@@ -6650,7 +6588,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -6738,8 +6676,8 @@
                     {
                       "type" : "container",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -6766,7 +6704,7 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 6,
+                              "sm" : 12,
                               "md" : 12,
                               "lg" : 12
                             },
@@ -6856,9 +6794,7 @@
                             "reference" : "42980161-ff7c-4fb0-a88f-7f86bb70b479",
                             "hasValidationError" : false,
                             "id" : "customCustomButtonAgregarEscuela"
-                          }
-                        ],
-                        [
+                          },
                           {
                             "type" : "component",
                             "dimension" : {
@@ -7180,8 +7116,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -7268,8 +7204,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -8002,7 +7938,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -8090,7 +8026,7 @@
                     {
                       "type" : "container",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -8540,8 +8476,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -8628,8 +8564,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -9560,8 +9496,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -9609,6 +9545,25 @@
                       "errorMessage" : {
                         "type" : "expression",
                         "value" : "errorMessageStep3"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "e21ceff9-f63f-4f89-a7c7-567a6623cfae",
@@ -9618,8 +9573,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -9970,8 +9925,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -10019,6 +9974,25 @@
                       "errorMessage" : {
                         "type" : "expression",
                         "value" : "errorMessageStep4"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "41400090-6322-4c9c-a7d0-b57b8562b126",
@@ -10028,8 +10002,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -10817,7 +10791,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 6,
                         "md" : 6,
                         "lg" : 6
@@ -10905,8 +10879,8 @@
                     {
                       "type" : "container",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -10933,7 +10907,7 @@
                             "type" : "component",
                             "dimension" : {
                               "xs" : 12,
-                              "sm" : 6,
+                              "sm" : 12,
                               "md" : 12,
                               "lg" : 12
                             },
@@ -11347,8 +11321,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -11435,8 +11409,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -11515,12 +11489,12 @@
                         },
                         "removeItem" : {
                           "type" : "variable",
-                          "value" : "idiomaSeleccionado"
+                          "value" : "objNuevoIdioma"
                         }
                       },
-                      "reference" : "39f46175-ade2-4357-abed-29d0f9fc9516",
+                      "reference" : "f12212a1-91dc-48b2-a519-48c3436b5b16",
                       "hasValidationError" : false,
-                      "id" : "pbButton"
+                      "id" : "customCustomBtnEliminarIdioma"
                     }
                   ]
                 ]
@@ -12252,8 +12226,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -12301,6 +12275,25 @@
                       "errorMessage" : {
                         "type" : "expression",
                         "value" : "errorMessageStep5"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "3b6c3dfe-3036-46b1-9db1-fe78dc02a2b4",
@@ -12310,8 +12303,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -12657,8 +12650,8 @@
                   "value" : false
                 },
                 "disabled" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "formInput.hermanos.length === 0"
                 },
                 "required" : {
                   "type" : "constant",
@@ -13288,8 +13281,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -13336,6 +13329,25 @@
                       },
                       "errorMessage" : {
                         "type" : "constant"
+                      },
+                      "messageTitle" : {
+                        "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "850d875b-c5d3-468c-9fbc-abaaa8e19a74",
@@ -13345,8 +13357,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -14097,7 +14109,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿En que asociación(es) o grupo(s) has tenido un rol directivo?:"
+                        "value" : "¿En que asociación(es) o grupo(s) has tenido un rol directivo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -14126,8 +14138,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -14152,7 +14164,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Qué haces en tu tiempo libre?"
+                  "value" : "¿Qué haces en tu tiempo libre? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -14294,7 +14306,7 @@
                       },
                       "organizaciones" : {
                         "type" : "variable",
-                        "value" : "formInput.gruposSociales"
+                        "value" : "objetoGruposSociales"
                       },
                       "catCuantoTiempo" : {
                         "type" : "variable",
@@ -14307,6 +14319,14 @@
                       "catGrupoSocial" : {
                         "type" : "variable",
                         "value" : "catGrupoSocial"
+                      },
+                      "content" : {
+                        "type" : "variable",
+                        "value" : "formInput.gruposSociales"
+                      },
+                      "catPertenecesAUnClub" : {
+                        "type" : "variable",
+                        "value" : "catPErtenecesAUnClub"
                       }
                     },
                     "reference" : "5433eb89-1d3a-4d8b-af81-f196c13cac7d",
@@ -14903,11 +14923,15 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "objNuevoFamiliar" : {
+                  "type" : "variable",
+                  "value" : "objNuevoFamiliarEgresadoAnahuac"
                 }
               },
-              "reference" : "1be9191f-0f64-4c9f-95ad-4dc93a2dcfb2",
+              "reference" : "13c113a0-1130-46f7-8181-f84bdb2d3d66",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnModalAgregarFamiliar"
             }
           ],
           [
@@ -14941,8 +14965,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -14993,6 +15017,22 @@
                       },
                       "messageTitle" : {
                         "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "b816af03-4594-4863-ac38-aec2c75fbe7a",
@@ -15002,8 +15042,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -15856,8 +15896,8 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -15944,8 +15984,8 @@
                     {
                       "type" : "container",
                       "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
+                        "xs" : 6,
+                        "sm" : 6,
                         "md" : 6,
                         "lg" : 6
                       },
@@ -17022,8 +17062,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -17075,6 +17115,22 @@
                       "messageTitle" : {
                         "type" : "expression",
                         "value" : "errorMessageStep8"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "87c3deb9-052c-4b3d-886c-073d2a96f486",
@@ -17084,8 +17140,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -17276,7 +17332,7 @@
                       },
                       "disabled" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "required" : {
                         "type" : "constant",
@@ -17321,6 +17377,69 @@
                     "reference" : "591a1dec-2904-4b85-8ddc-9e435b69f273",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "formInput.catReligion.descripcion !== \"Católica\" || formInput.catReligion.descripcion !== \"Catolica\""
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "inline" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "¿ Que sacramentos has recibido?"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "catSacramentos"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant"
+                      },
+                      "selectedValues" : {
+                        "type" : "variable",
+                        "value" : "formInput.sacramentos"
+                      }
+                    },
+                    "reference" : "32c98936-9358-47d3-8eff-818a1bb083f5",
+                    "hasValidationError" : false,
+                    "id" : "pbChecklist"
                   }
                 ],
                 [
@@ -17719,7 +17838,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Qué aspectos no te gustan de tu religión?"
+                        "value" : "¿Qué aspectos no te gustan de tu religión? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -17779,7 +17898,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Por qué no te gustan estos aspectos de tu religión?:"
+                        "value" : "¿Por qué no te gustan estos aspectos de tu religión? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -17833,8 +17952,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -17886,6 +18005,22 @@
                       "messageTitle" : {
                         "type" : "expression",
                         "value" : "titleMessageStep9"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "fe3e2e20-aedd-41b3-9135-0d6f6c9385da",
@@ -17895,8 +18030,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -18058,13 +18193,21 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : true
-                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18086,24 +18229,28 @@
                   "type" : "interpolation",
                   "value" : "Select an option"
                 },
-                "availableValues" : {
-                  "type" : "expression",
-                  "value" : "catCampus"
-                },
-                "displayedKey" : {
-                  "type" : "constant"
-                },
-                "returnedKey" : {
-                  "type" : "constant"
-                },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formInput.campusSeleccionado"
+                  "value" : "objectSolicitud.catCampus.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
                 }
               },
-              "reference" : "abaf8a2c-0bb2-4fe5-8f18-b5c655c90c7b",
+              "reference" : "3e856fa7-1d8b-4cef-9aa4-b62d842c1308",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "pbInput"
             },
             {
               "type" : "component",
@@ -18182,13 +18329,21 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : true
-                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18210,23 +18365,28 @@
                   "type" : "interpolation",
                   "value" : "Select an option"
                 },
-                "availableValues" : {
-                  "type" : "constant"
-                },
-                "displayedKey" : {
-                  "type" : "constant"
-                },
-                "returnedKey" : {
-                  "type" : "constant"
-                },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formInput.carreraSeleccionada"
+                  "value" : "objectSolicitud.catGestionEscolar.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
                 }
               },
-              "reference" : "7173ac55-eab6-4cb7-9e43-0e5999d6f7ca",
+              "reference" : "5d98be7c-14b1-4a68-b8bd-56210a46f39f",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "pbInput"
             },
             {
               "type" : "component",
@@ -18531,7 +18691,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Dónde obtuviste información de la carrera? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Fuentes que influyeron en tu desición : <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -19005,8 +19165,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -19081,8 +19241,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -19248,8 +19408,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -19324,8 +19484,8 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
+                      "xs" : 6,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -19700,7 +19860,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Enviar mi solicitud"
+                  "value" : "Enviar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -19896,17 +20056,17 @@
       "external" : false
     },
     {
-      "id" : "e3542ff5-c399-411a-90a8-7160254f2d75",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 1,
-      "external" : false
-    },
-    {
       "id" : "6ac335e9-1cbe-4781-9159-591df2da541b",
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "e3542ff5-c399-411a-90a8-7160254f2d75",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     }
   ],
@@ -20131,6 +20291,7 @@
         "    \"detallesPersonalidad\":\"\",\r",
         "\r",
         "    \"catReligion\": null,\r",
+        "    \"sacramentos\":[],\r",
         "    \"catRecibirAtencionEspiritual\": null,\r",
         "    \"catRegnumChris\": null,\r",
         "    \"valoresApordatoReligion\":\"\",\r",
@@ -20300,14 +20461,6 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep2 = \"¿Cúanto tiempo estudiaste en el extranjero?\";\r",
         "    $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
-        "} else if($data.formInput.materiasTeGustan.length === 0){\r",
-        "    isValid = false;\r",
-        "    $data.titleMessageStep2 = \"¿Qué materias te gustan más?\";\r",
-        "    $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
-        "} else if($data.formInput.materiasNoTeGustan.length === 0){\r",
-        "    isValid = false;\r",
-        "    $data.titleMessageStep2 = \"¿Qué materias te gustan menos?\";\r",
-        "    $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
         "} else if($data.formInput.materiasCalifAltas.length === 0){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep2 = \"¿En qué materia has obtenido calificaciones más altas?\";\r",
@@ -20316,6 +20469,22 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep2 = \"¿En qué materia has obtenido calificaciones más bajas?\";\r",
         "    $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "} else if(!validarMateriasCalificaciones()){\r",
+        "    isValid = false;\r",
+        "    $data.titleMessageStep2 = \"¿En qué materia has obtenido calificaciones más altas?\";\r",
+        "    $data.errorMessageStep2 = \"No puedes seleccionar la misma materia en ¿En qué materia has obtenido calificaciones más altas? y ¿En qué materia has obtenido calificaciones más bajas?.\";\r",
+        "} else if($data.formInput.materiasTeGustan.length === 0){\r",
+        "    isValid = false;\r",
+        "    $data.titleMessageStep2 = \"¿Qué materias te gustan más?\";\r",
+        "    $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "} else if($data.formInput.materiasNoTeGustan.length === 0){\r",
+        "    isValid = false;\r",
+        "    $data.titleMessageStep2 = \"¿Qué materias te gustan menos?\";\r",
+        "    $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "} else if(!validarMateriasGustan()){\r",
+        "    isValid = false;\r",
+        "    $data.titleMessageStep2 = \"¿Qué materias te gustan más?\";\r",
+        "    $data.errorMessageStep2 = \"No puedes seleccionar la misma materia en ¿Qué materias te gustan más? y ¿Qué materias te gustan más?.\";\r",
         "} else if($data.formInput.catHasPresentadoExamenExtraordinario === null){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep2 = \"¿Has presentado exámenes extraordinarios?\";\r",
@@ -20386,7 +20555,175 @@
         "    }\r",
         "\r",
         "    return isValid;\r",
-        "}\r"
+        "}\r",
+        "\r",
+        "function validarMateriasGustan(){\r",
+        "    let isValid = true;\r",
+        "\r",
+        "    for(let i = 0; i < $data.formInput.materiasTeGustan.length; i++){\r",
+        "        for(let j = 0; j < $data.formInput.materiasNoTeGustan.length; j++){\r",
+        "            if($data.formInput.materiasTeGustan[i] === $data.formInput.materiasNoTeGustan[j]){\r",
+        "                isValid = false;\r",
+        "                break;\r",
+        "            }\r",
+        "        }       \r",
+        "\r",
+        "        if(!isValid){\r",
+        "            break;\r",
+        "        }\r",
+        "    }\r",
+        "\r",
+        "    return isValid;\r",
+        "}\r",
+        "\r",
+        "function validarMateriasCalificaciones(){\r",
+        "    let isValid = true;\r",
+        "    \r",
+        "    for(let i = 0; i < $data.formInput.materiasCalifAltas.length; i++){\r",
+        "        for(let j = 0; j < $data.formInput.materiasCalifBajas.length; j++){\r",
+        "            if($data.formInput.materiasCalifAltas[i] === $data.formInput.materiasCalifBajas[j]){\r",
+        "                isValid = false;\r",
+        "                break;\r",
+        "            }\r",
+        "        }       \r",
+        "\r",
+        "        if(!isValid){\r",
+        "            break;\r",
+        "        }\r",
+        "    }\r",
+        "\r",
+        "    return isValid;\r",
+        "}\r",
+        "// let isValid = true;\r",
+        "// let validarInfoEscolar = {\r",
+        "//     \"preparatoria\": false,\r",
+        "//     \"secundaria\": false,\r",
+        "//     \"primaria\": false\r",
+        "// };\r",
+        "\r",
+        "// if($data.formInput.informacionEscolar !== undefined && $data.formInput.informacionEscolar !== null){\r",
+        "//     for(let i = 0; i < $data.formInput.informacionEscolar.length; i++){\r",
+        "//         if($data.formInput.informacionEscolar[i].grado.descripcion === \"Preparatoria/Bachillerato\"){\r",
+        "//             validarInfoEscolar.preparatoria = true;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].grado.descripcion === \"Secundaria\"){\r",
+        "//             validarInfoEscolar.secundaria = true;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].grado.descripcion === \"Primaria\"){\r",
+        "//             validarInfoEscolar.primaria = true;\r",
+        "//         }\r",
+        "//     }\r",
+        "// }\r",
+        "\r",
+        "// if(!validarInfoEscolar.preparatoria || !validarInfoEscolar.secundaria || !validarInfoEscolar.primaria){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¡Escuelas!\";\r",
+        "//     $data.errorMessageStep2 = \"Debes poner al menos una opción correspondiente a Preparatoria, Secundaria y Primaria.\";\r",
+        "// } else if (!validarEscuelas()){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¡Escuelas!\";\r",
+        "//     $data.errorMessageStep2 = \"Debes Llenar los datos de todas las escuelas, a demás de tener al menos una opción correspondiente a Preparatoria, Secundaria y Primaria.\";\r",
+        "// } else if($data.formInput.catAreaBachillerato === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Qué área cursas o cursaste en el último año de bachillerato?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.catEstudiadoExtranjero === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Has estudiado en el extranjero?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.catEstudiadoExtranjero.descripcion === \"Sí\" && $data.formInput.paisEstudiasteExtranjero === null ){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿En que país estudiaste?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.catEstudiadoExtranjero.descripcion === \"Sí\" && $data.formInput.tiempoEstudiasteExtranjero === null ){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Cúanto tiempo estudiaste en el extranjero?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.materiasTeGustan.length === 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Qué materias te gustan más?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "// } else if($data.formInput.materiasNoTeGustan.length === 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Qué materias te gustan menos?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "// } else if($data.formInput.materiasCalifAltas.length === 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿En qué materia has obtenido calificaciones más altas?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "// } else if($data.formInput.materiasCalifBajas.length === 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿En qué materia has obtenido calificaciones más bajas?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar al menos una de las opciones.\";\r",
+        "// } else if($data.formInput.catHasPresentadoExamenExtraordinario === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Has presentado exámenes extraordinarios?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.catHasPresentadoExamenExtraordinario.descripcion === \"Sí\" && $data.formInput.cualExamenExtraPresentaste === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Cúal(es) exámenes has presentado?\";\r",
+        "//     $data.errorMessageStep2 = \"Este campo no debe ir vacío\";\r",
+        "// } else if($data.formInput.catHasPresentadoExamenExtraordinario.descripcion === \"Sí\" && $data.formInput.motivoExamenExtraordinario === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Por qué tuviste que hacerlos?\";\r",
+        "//     $data.errorMessageStep2 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if($data.formInput.catHasReprobado === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Has reprobado algún año o semestre?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if($data.formInput.catHasReprobado.descripcion === \"Sí\" && $data.formInput.periodoReprobaste === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Qué periodo reprobaste?\";\r",
+        "//     $data.errorMessageStep2 = \"Este campo no debe ir vacío\";\r",
+        "// } else if($data.formInput.catHasReprobado.descripcion === \"Sí\" && $data.formInput.motivoReprobaste === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Por qué lo reprobaste?\";\r",
+        "//     $data.errorMessageStep2 = \"Este campo no debe ir vacío;\";\r",
+        "// } else if($data.formInput.catInscritoOtraUniversidad === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¿Has estado inscrito en otra(s) universidad(es)?\";\r",
+        "//     $data.errorMessageStep2 = \"Debes seleccionar un valor.\";\r",
+        "// } else if ($data.formInput.catInscritoOtraUniversidad.descripcion === \"Sí\" && $data.formInput.universidadesHasEstado.length === 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep2 = \"¡Universidades!\";\r",
+        "//     $data.errorMessageStep2 = \"Si seleccionaste Sí en el campo ¿Has estado inscrito en otra(s) universidad(es)?, debes agregar al menos una.\";\r",
+        "// }\r",
+        "\r",
+        "// return isValid;\r",
+        "\r",
+        "// function validarEscuelas(){\r",
+        "//     let isValid = true;\r",
+        "//     for(let i = 0; i < $data.formInput.informacionEscolar.length; i++){\r",
+        "//         if($data.formInput.informacionEscolar[i].grado === null){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].grado.descripcion === \"Preparatoria/Bachillerato\" && ($data.formInput.informacionEscolar[i].escuelaString === null || $data.formInput.informacionEscolar[i].escuelaString === \"\")){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if ($data.formInput.informacionEscolar[i].grado.descripcion !== \"Preparatoria/Bachillerato\" && $data.formInput.informacionEscolar[i].otraEscuela === \"\"){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].pais === null){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].estado === null && ($data.formInput.informacionEscolar[i].estadoString === \"\" || $data.formInput.informacionEscolar[i].estadoString === null || $data.formInput.informacionEscolar[i].estadoString === undefined)){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].ciudad === \"\"){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].anoInicio === \"\"){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].anoFin === \"\"){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         } else if($data.formInput.informacionEscolar[i].promedio === \"\"){\r",
+        "//             isValid = false;\r",
+        "//             break;\r",
+        "//         }\r",
+        "//     }\r",
+        "\r",
+        "//     return isValid;\r",
+        "// }\r"
       ],
       "exposed" : false
     },
@@ -20798,10 +21135,10 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Con quién de tu familia te llevas mejor?\";\r",
         "    $data.errorMessageStep6 = \"Debes seleccionar un valor.\";\r",
-        "} else if($data.formInput.catRelacionHermanos === null && $data.formInput.tienesHermanos === true){\r",
+        "} else if($data.formInput.catRelacionHermanos === null && $data.formInput.hermanos.length > 0){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Como es la relación con tus hermanos?\";\r",
-        "    $data.errorMessageStep6 = \"Debes seleccionar un valor.\";\r",
+        "    $data.errorMessageStep6 = \"Si en la sección Información familiar agregaste uno o mas hermanos, debes seleccionar un valor.\";\r",
         "} else if ($data.formInput.admirasPersonalidadPadre === \"\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Qué características de personalidad admiras de tu padre?\";\r",
@@ -20889,7 +21226,7 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep7 = \"¿Te gusta leer?\";\r",
         "    $data.errorMessageStep7 = \"Debes seleccionar un valor.\";\r",
-        "} else if ($data.formInput.catTeGustaLeer.descripcion === \"Sí\" && $data.formInput.deportes.length === 0){\r",
+        "} else if ($data.formInput.catTeGustaLeer.descripcion === \"Sí\" && $data.formInput.lecturas.length === 0){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep7 = \"¿Qué tipo de lectura prefieres?\";\r",
         "    $data.errorMessageStep7 = \"Si seleccionaste Sí en el campo ¿Te gusta leer? debes seleccionar al menos una opción.\";\r",
@@ -20940,7 +21277,7 @@
         "                let nombreOrg = $data.formInput.gruposSociales[i].nombre;\r",
         "                let afiliacionOrg = $data.formInput.gruposSociales[i].catAfiliacion;\r",
         "                let tiempoOrg = $data.formInput.gruposSociales[i].catCuantoTiempo;\r",
-        "    \r",
+        "                \r",
         "                if(pertenecesOrg === \"Sí\" && (nombreOrg === \"\" || afiliacionOrg === null || tiempoOrg === null)){\r",
         "                    isValid = false;\r",
         "                    break;\r",
@@ -20950,8 +21287,7 @@
         "    }\r",
         "\r",
         "    return isValid;\r",
-        "}\r",
-        "\r"
+        "}"
       ],
       "exposed" : false
     },
@@ -21052,8 +21388,8 @@
     "taskId" : {
       "type" : "expression",
       "value" : [
-        " return $data.currentTask[0].id;",
-        "// return $data.newTaskId;"
+        "//  return $data.currentTask[0].id;",
+        "return $data.newTaskId;"
       ],
       "exposed" : false
     },
@@ -21096,7 +21432,7 @@
         "    \"lstHermanosInput\": ($data.formInput.hermanos === undefined ? []: $data.formInput.hermanos),",
         "\t\"lstTerapiaInput\": ($data.formInput.terapias === undefined ? [] : $data.formInput.terapias),",
         "\t\"lstGruposSocialesInput\": ($data.formInput.gruposSociales === undefined ? [] : $data.formInput.gruposSociales),",
-        "\t\"lstInformacionEscolarInput\": ($data.formInput.informacionEscolar === undefined ? [] : $data.formInput.informacionEscolar),",
+        "\t\"lstInformacionEscolarInput\": ($data.formInput.informacionEscolar === undefined || $data.formInput.informacionEscolar === null ? [] : $data.formInput.informacionEscolar),",
         "\t\"lstUniversidadesHasEstadoInput\": ($data.formInput.universidadesHasEstado === undefined ? [] : $data.formInput.universidadesHasEstado),",
         "\t\"lstIdiomasInput\": ($data.formInput.idiomas === undefined ? [] : $data.formInput.idiomas),",
         "\t\"lstParienteEgresadoAnahuacInput\": ($data.formInput.parienteEgresadoAnahuac === undefined ? [] : $data.formInput.parienteEgresadoAnahuac)",
@@ -21583,6 +21919,62 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.tutor_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "objetoFamiliarEgresadoAnahuac" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.lstParienteEgresadoAnahuac_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "catSacramentos" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatSacramentos?q=getCatSacramentos&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "returnPadreVive" : {
+      "type" : "expression",
+      "value" : [
+        "let output;",
+        "//objetoPadre.vive",
+        "if($data.objetoPadre !== undefined){",
+        "    if($data.objetoPadre.vive !== null ){",
+        "        output = $data.objetoPadre.vive;",
+        "    } else {",
+        "        for(let i = 0; i < $data.catVive.length; i++){",
+        "            if($data.catVive[i].descripcion === \"Sí\"){",
+        "                output = $data.catVive[i];",
+        "            } ",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "returnMadreVive" : {
+      "type" : "expression",
+      "value" : [
+        "let output;",
+        "//objetoPadre.vive",
+        "if($data.objetoMadre !== undefined){",
+        "    if($data.objetoMadre.vive !== null ){",
+        "        output = $data.objetoMadre.vive;",
+        "    } else {",
+        "        for(let i = 0; i < $data.catVive.length; i++){",
+        "            if($data.catVive[i].descripcion === \"Sí\"){",
+        "                output = $data.catVive[i];",
+        "            } ",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

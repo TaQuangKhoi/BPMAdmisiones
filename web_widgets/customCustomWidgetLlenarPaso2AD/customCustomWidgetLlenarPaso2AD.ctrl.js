@@ -11,10 +11,22 @@ function ($scope){
             if($scope.properties.bdmAutodescripcion.length > 0){
                 $scope.properties.formInput.informacionEscolar = $scope.properties.bdmAutodescripcion;
             } else {
-                $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+                // $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+                if($scope.properties.formInput.informacionEscolar === null || $scope.properties.formInput.informacionEscolar === undefined){
+                    $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+                } else if ($scope.properties.formInput.informacionEscolar.length == 0){
+                    $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+                }
             }
         } else {
-            $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+            //informacionEscolar.length === 0
+            if($scope.properties.formInput.informacionEscolar === null || $scope.properties.formInput.informacionEscolar === undefined){
+                $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+            } else if ($scope.properties.formInput.informacionEscolar.length == 0){
+                $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
+            }
+            
+            // $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
         }
     }
 
@@ -35,7 +47,9 @@ function ($scope){
                     "promedio": "",
                     "catBachillerato": null,
                     "otraEscuela":"",
-                    "persistenceId_string": null
+                    "estadoString":"",
+                    "persistenceId_string": null,
+                    "isDefault": true
                 }
                 
                 output.push(infoEscolar);
@@ -56,7 +70,9 @@ function ($scope){
                     "promedio": "",
                     "catBachillerato": null,
                     "otraEscuela":"",
-                    "persistenceId_string": null
+                    "estadoString":"",
+                    "persistenceId_string": null,
+                    "isDefault": true
                 }
 
                 output.push(infoEscolar);
@@ -68,7 +84,8 @@ function ($scope){
                 let infoEscolar = {
                     "grado": _gradosEscolares[i],
                     "tipo": null,
-                    "escuela": null,
+                    "escuela": $scope.properties.bdmSolicitud.catBachilleratos,
+                    "escuelaString" : $scope.properties.bdmSolicitud.catBachilleratos.descripcion,
                     "pais": null,
                     "estado": null, 
                     "ciudad": "",
@@ -77,7 +94,9 @@ function ($scope){
                     "promedio": "",
                     "catBachillerato": null,
                     "otraEscuela":"",
-                    "persistenceId_string": null
+                    "estadoString":"",
+                    "persistenceId_string": null,
+                    "isDefault": true
                 }
                 
                 output.push(infoEscolar);
@@ -105,11 +124,14 @@ function ($scope){
 
     function startWatcherAD(){
         $scope.$watch("properties.bdmAutodescripcion", function(oldValue, newValue){
+            debugger;
             autodescripcionCargada = true;
-            if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-                llenadoIniciado = true;
-                llenarPaso2();
-            }
+            // if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
+            //     llenadoIniciado = true;
+            //     llenarPaso2();
+            // }
+            
+            llenarPaso2();
         });
     }
     

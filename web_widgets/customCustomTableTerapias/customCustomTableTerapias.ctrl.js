@@ -29,7 +29,8 @@ function PbTableCtrl($scope) {
     };
     
     function initTable(){
-        if(!$scope.loaded){
+        debugger
+        if($scope.properties.content === undefined || $scope.properties.content === null || $scope.properties.content.length === 0){
             if($scope.properties.catTipoTerapia !== undefined && $scope.properties.catTerapia !== undefined){
                 if($scope.properties.catTipoTerapia.length > 0 && $scope.properties.catTerapia.length > 0){
                     $scope.properties.content = [];
@@ -47,7 +48,9 @@ function PbTableCtrl($scope) {
                             "tipoTerapia": "",
                             "cuantoTiempo": "",
                             "recibidoTerapiaString":"No",
-                            "persistenceId_string": null
+                            "persistenceId_string": null,
+                            "terapiaString": "",
+                            "otraTerapia":""
                         };
                         
                         $scope.properties.content.push(objTerapia);
@@ -58,30 +61,39 @@ function PbTableCtrl($scope) {
     }
     
     $scope.$watch("properties.catTerapia", function(){
-       if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
-           initTable();
-       } 
+    //    if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
+    //        initTable();
+    //    } 
+        if($scope.properties.catTerapia !== undefined){
+            startWatcherTipoTerapia();
+        }
     });
     
-    $scope.$watch("properties.catTipoTerapia", function(){
-       if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
-           initTable();
-       } 
-    });
+    function startWatcherTipoTerapia(){
+        $scope.$watch("properties.catTipoTerapia", function(){
+            // if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
+            //     initTable();
+            // } 
+            if($scope.properties.catTipoTerapia !== undefined){
+                startWatcherBDM();
+            }
+        });
+    }
     
-    $scope.$watch("properties.objetoTerapias", function(){
-        if($scope.properties.objetoTerapias !== undefined ){
-            if($scope.properties.objetoTerapias.length  > 0){
-                if($scope.loaded){
+    function startWatcherBDM(){
+        $scope.$watch("properties.objetoTerapias", function(){
+            if($scope.properties.objetoTerapias !== undefined ){
+                if($scope.properties.objetoTerapias.length > 0){
                     $scope.loaded = true;
-                    $scope.properties.content = $scope.properties.objetoTerapias;    
+                    $scope.properties.content = $scope.properties.objetoTerapias;
                 } else {
-                    $scope.objLoaded = true;
+                    $scope.loaded = false;
                     initTable();
                 }
-               
+            } else {
+                $scope.loaded = false;
+                initTable();
             }
-        } 
-    });
-    
+        });
+    }
 }

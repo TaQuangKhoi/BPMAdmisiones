@@ -56,11 +56,12 @@ class CatalogosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "WHERE c.ISELIMINADO=false", orderby = "ORDER BY ", errorLog ="";
+		String consulta = Statements.GET_CATCAMPUS
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 	
-			String consulta = Statements.GET_CATCAMPUS
+			
 			CatCampusCustomFiltro row = new CatCampusCustomFiltro();
 			List < CatCampusCustomFiltro > rows = new ArrayList<CatCampusCustomFiltro>();
 			closeCon = validarConexion();
@@ -467,10 +468,10 @@ class CatalogosDAO {
 					orderby += "persistenceid"
 					break;
 			}
-			errorLog+= "orderby"
+			errorLog+= ""
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
-			pstm = con.prepareStatement(consulta.replace("*", "COUNT(c.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("c.*, p.descripcion as pais ,e.descripcion as estado", "COUNT(c.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -509,6 +510,8 @@ class CatalogosDAO {
 				row.setNumeroInterior(rs.getString("numeroInterior"));
 				row.setCodigoPostal(rs.getString("codigoPostal"));
 				row.setMunicipio(rs.getString("municipio"));
+				row.setPais_pid(rs.getString("pais_pid"))
+				row.setEstado_pid(rs.getString("pais_pid"))
 				errorLog+= "pais"
 				try {
 					row.setPais(new CatPais())
@@ -534,7 +537,7 @@ class CatalogosDAO {
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog)
+			resultado.setError_info(consulta)
 		}finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -547,11 +550,12 @@ class CatalogosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 			String where ="WHERE ISELIMINADO=false", orderby="ORDER BY "
+			String consulta = Statements.GET_CATPAIS;
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
-				String consulta = Statements.GET_CATPAIS;
+				
 				CatPaisCustomFiltro row = new CatPaisCustomFiltro();
 				List<CatPaisCustomFiltro> rows = new ArrayList<CatPaisCustomFiltro>();
 				closeCon = validarConexion();
@@ -750,11 +754,12 @@ class CatalogosDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 			String where ="WHERE ISELIMINADO=false", orderby="ORDER BY "
+			String consulta = Statements.GET_CATESTADOS;
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
-				String consulta = Statements.GET_CATESTADOS;
+				
 				CatEstadoCustomFiltro row = new CatEstadoCustomFiltro();
 				List<CatEstadoCustomFiltro> rows = new ArrayList<CatEstadoCustomFiltro>();
 				closeCon = validarConexion();
@@ -959,6 +964,7 @@ class CatalogosDAO {
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
+			resultado.setError_info(consulta)
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {

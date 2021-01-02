@@ -33,7 +33,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let errorMessage = "";
         let titleMessage = "";
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        debugger;
         
         if($scope.properties.infoFamiliar.catParentesco === null){
             isValid = false;
@@ -57,15 +56,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             errorMessage = "El formato del correo electrónico es incorrecto.";
         } else if($scope.properties.infoFamiliar.catCampus === null){
             isValid = false;
-            titleMessage = "¡Parentesco!";
+            titleMessage = "¡Campus!";
             errorMessage = "Debes seleccionar una opción";
         } else if($scope.properties.infoFamiliar.carrera === ""){
             isValid = false;
-            titleMessage = "Carrera!";
+            titleMessage = "¡Carrera!";
             errorMessage = "Debes capturar la carrera de  tu familiar o conocido.";
         } else if($scope.properties.infoFamiliar.catDiploma === null){
             isValid = false;
-            titleMessage = "Diploma!";
+            titleMessage = "¡Diploma!";
             errorMessage = "Debes seleccionar una opción";
         } 
     

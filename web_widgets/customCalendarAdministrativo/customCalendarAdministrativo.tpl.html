@@ -135,7 +135,7 @@
             <label>Pruebas de la sesión</label>
         </div>
         <div class="col-xs-6 text-right">
-            <button class="btn btn-primary" ng-click="agregarPruebaNueva('prueba')"> <i class="glyphicon glyphicon-plus"></i> Agregar prueba</button>
+            <button class="btn btn-primary" ng-click="agregarPruebaNueva('prueba')"> <i class="glyphicon glyphicon-plus"></i>{{(editarP)?'Guardar':'Agregar'}} prueba</button>
         </div>
     </div>
 
@@ -292,28 +292,30 @@
     <div class="col-xs-12">
         <div class="form-group">
             <label>Dirección de campus</label>
-            <select class="form-control" ng-model="prueba.campus_pid" ng-options="campus.persistenceId as getLabel(campus.descripcion)  for campus in catcampus">
+            <select class="form-control" ng-change="setDirCampus()" ng-model="campusDirSelected" ng-options="campus as getLabel(campus.descripcion)  for campus in catcampus">
                 <option value="">Seleccionar</option>
             </select>
         </div>
     </div>
-    <div class="col-xs-4" ng-show="prueba.estado_pid==null || prueba.estado_pid==0 || prueba.estado_pid==undefined">
+    <div class="col-xs-4" >
         <div class="form-group">
             <label>País</label>
-            <multiselect class="input-xlarge" multiple="false" key="persistenceId" label="descripcion" ng-model="prueba.pais_pid" options="pais.persistenceId as pais.descripcion  for pais in paises" change="selected()"></multiselect>
+            <multiselect ng-show="(prueba.estado_pid==null || prueba.estado_pid==0 || prueba.estado_pid==undefined) && (campusDirSelected.persistenceId==null||campusDirSelected.persistenceId==0||campusDirSelected.persistenceId==undefined)" class="input-xlarge" multiple="false" key="persistenceId" label="descripcion" ng-model="prueba.pais_pid" options="pais.persistenceId as pais.descripcion  for pais in paises" change="selected()"></multiselect>
+            <input disabled="disabled" class="form-control" ng-if="prueba.estado_pid>0 || campusDirSelected.persistenceId>0" ng-model="displayPais">
         </div>
     </div>
-    <div class="col-xs-4" ng-show="prueba.pais_pid==null || prueba.pais_pid==0 || prueba.pais_pid==undefined">
+    <div class="col-xs-4" >
         <div class="form-group">
             <label>Estado</label>
-            <multiselect class="input-xlarge" multiple="false" key="persistenceId" label="descripcion" ng-model="prueba.estado_pid" options="estado.persistenceId as estado.descripcion  for estado in estados" change="selected()"></multiselect>
+            <multiselect ng-show="(prueba.pais_pid==null || prueba.pais_pid==0 || prueba.pais_pid==undefined) && (campusDirSelected.persistenceId==null||campusDirSelected.persistenceId==0||campusDirSelected.persistenceId==undefined)" class="input-xlarge" multiple="false" key="persistenceId" label="descripcion" ng-model="prueba.estado_pid" options="estado.persistenceId as estado.descripcion  for estado in estados" change="selected()"></multiselect>
+            <input disabled="disabled" class="form-control" ng-if="prueba.pais_pid>0 || campusDirSelected.persistenceId>0" ng-model="displayEstado">
         </div>
     </div>
     <div class="col-xs-4">
         <label>Código postal</label>
         <div class="{{(codigoPostalBtn)?'input-group':'form-group'}}">
 
-            <input type="text" class="form-control" ng-model="prueba.codigo_postal">
+            <input ng-disabled="dblCP" type="text" class="form-control" ng-model="prueba.codigo_postal">
             <span class="input-group-btn" ng-if="codigoPostalBtn">
                 <button class="btn btn-primary" ng-click="buscarCodigo(prueba.codigo_postal)" type="button"> <span class="glyphicon glyphicon-search" aria-hidden="true">
                 </span></button>
@@ -323,36 +325,36 @@
     <div class="col-xs-12">
         <div class="form-group">
             <label>Calle</label>
-            <input type="text" class="form-control" ng-model="prueba.calle">
+            <input ng-disabled="dblCalle" type="text" class="form-control" ng-model="prueba.calle">
         </div>
     </div>
     <div class="col-xs-4">
         <div class="form-group">
             <label>Ciudad</label>
-            <input type="text" class="form-control" ng-model="prueba.municipio">
+            <input ng-disabled="dblCiudad" type="text" class="form-control" ng-model="prueba.municipio">
         </div>
     </div>
     <div class="col-xs-4">
         <div class="form-group">
             <label>Número exterior</label>
-            <input type="text" class="form-control" ng-model="prueba.numero_ext">
+            <input ng-disabled="dblNext" type="text" class="form-control" ng-model="prueba.numero_ext">
         </div>
     </div>
     <div class="col-xs-4">
         <div class="form-group">
             <label>Número interior</label>
-            <input type="text" class="form-control" ng-model="prueba.numero_int">
+            <input ng-disabled="dblNint" type="text" class="form-control" ng-model="prueba.numero_int">
         </div>
     </div>
     <div class="col-xs-9">
         <div class="form-group">
             <label>Colonia</label>
-            <input type="text" class="form-control" ng-model="prueba.colonia">
+            <input ng-disabled="dblColonia" type="text" class="form-control" ng-model="prueba.colonia">
         </div>
     </div>
     <div class="col-xs-12 text-right">
         <button class="btn btn-primary" ng-click="pantallaCambiar('sesion')"><i class="glyphicon glyphicon-remove"></i> Cancelar</button>
-        <button class="btn btn-primary" ng-click="agregarPrueba()"><i class="glyphicon glyphicon-floppy-disk"></i> Agregar</button>
+        <button class="btn btn-primary" ng-click="agregarPrueba()"><i class="glyphicon glyphicon-floppy-disk"></i> {{editarP?'Guardar':'Agregar'}}</button>
     </div>
 </div>
 <!-- Modal -->
@@ -377,11 +379,11 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>{{(pselected.licenciatura.length==0 || pselected.licenciatura == null)?"Todas las licenciaturas":"Licenciatura"}}</th>
+                                    <th>{{(pselected.licenciaturas.length==0 || pselected.licenciaturas == null)?"Todas las licenciaturas":"Licenciatura"}}</th>
                                 </tr>
                             </thead>
-                            <tbody ng-show="pselected.licenciatura.length>0">
-                                <tr ng-repeat="lic in pselected.licenciatura.split(',')">
+                            <tbody ng-show="pselected.licenciaturas.length>0">
+                                <tr ng-repeat="lic in pselected.licenciaturas.split(',')">
                                     <td>{{lic}}</td>
                                     <td><button class="btn btn-link" ng-click="eliminarLicenciatura($index)"><i class="material-icons">clear</i></button></td>
                                 </tr>
@@ -394,7 +396,7 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label>Licenciatura</label>
-                            <multiselect key="nombre" class="input-xlarge" multiple="true" ng-model="pselected.licenciatura" options="c.nombre for c in lstGestionEscolar" change="selected()"></multiselect>
+                            <multiselect key="nombre" class="input-xlarge" multiple="true" ng-model="pselected.licenciaturas" options="c.nombre for c in lstGestionEscolar" change="selected()"></multiselect>
                         </div>
                     </div>
                     <div class="col-xs-12">

@@ -119,6 +119,7 @@ function($scope, $http, blockUI) {
         "numero_ext": null,
         "duracion": null,
         "cambioDuracion": false
+
     }
 
     $scope.show_minical = function() {
@@ -241,36 +242,35 @@ function($scope, $http, blockUI) {
             $("#inicio").val("");
             $("#fin").val("");
             $("#fecha_inicio").val("");
-            $scope.tipoPruebaSelected={};
+            $scope.tipoPruebaSelected = {};
         }
         if (pantalla == "prueba") {
             ///bonita/API/extension/AnahuacRestGet?url=getCatTipoPrueba&p=0&c=10
             for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                 const element = $scope.sesion.pruebas[index];
-                if (element.tipo.descripcion=="Examen Psicométrico") {
+                if (element.tipo.descripcion == "Examen Psicométrico") {
                     for (let i = 0; i < $scope.tipoPrueba.length; i++) {
                         const ele = $scope.tipoPrueba[i];
-                        if(ele.descripcion=="Examen Psicométrico" && $scope.prueba.tipo.descripcion != "Examen Psicométrico"){
+                        if (ele.descripcion == "Examen Psicométrico" && $scope.prueba.tipo.descripcion != "Examen Psicométrico") {
                             $scope.tipoPrueba.splice(i, 1);
                         }
                     }
-                }else if (element.tipo.descripcion=="College Board") {
+                } else if (element.tipo.descripcion == "College Board") {
                     for (let i = 0; i < $scope.tipoPrueba.length; i++) {
                         const ele = $scope.tipoPrueba[i];
-                        if(ele.descripcion=="College Board" && $scope.prueba.tipo.descripcion != "College Board"){
+                        if (ele.descripcion == "College Board" && $scope.prueba.tipo.descripcion != "College Board") {
+                            $scope.tipoPrueba.splice(i, 1);
+                        }
+                    }
+                } else if (element.tipo.descripcion == "Sesión Internacionalización") {
+                    for (let i = 0; i < $scope.tipoPrueba.length; i++) {
+                        const ele = $scope.tipoPrueba[i];
+                        if (ele.descripcion == "Sesión Internacionalización" && $scope.prueba.tipo.descripcion != "Sesión Internacionalización") {
                             $scope.tipoPrueba.splice(i, 1);
                         }
                     }
                 }
-                else if (element.tipo.descripcion=="Sesión Internacionalización") {
-                    for (let i = 0; i < $scope.tipoPrueba.length; i++) {
-                        const ele = $scope.tipoPrueba[i];
-                        if(ele.descripcion=="Sesión Internacionalización" && $scope.prueba.tipo.descripcion != "Sesión Internacionalización"){
-                            $scope.tipoPrueba.splice(i, 1);
-                        }
-                    }
-                }
-                
+
             }
 
 
@@ -278,7 +278,7 @@ function($scope, $http, blockUI) {
 
         }
     }
-    $scope.agregarPruebaNueva=function(pantalla){
+    $scope.agregarPruebaNueva = function(pantalla) {
         $scope.prueba = {
             "campus": {
                 "fechaImplementacion": null,
@@ -350,13 +350,21 @@ function($scope, $http, blockUI) {
             "numero_ext": null,
             "duracion": null,
             "cambioDuracion": false
-        }
 
+        }
+        $scope.displayEstado = "";
+        $scope.displayPais = "";
+        $scope.dblCP = false;
+        $scope.dblCalle = false;
+        $scope.dblCiudad = false;
+        $scope.dblNext = false;
+        $scope.dblNint = false;
+        $scope.dblColonia = false;
         $("#aplicacion").val("");
         $("#ultimo").val("");
         $("#inicio").val("");
         $("#fin").val("");
-        $scope.tipoPruebaSelected ={};
+        $scope.tipoPruebaSelected = {};
         $scope.pantallaCambiar(pantalla);
     }
     $scope.getLabel = function(desc) {
@@ -380,7 +388,7 @@ function($scope, $http, blockUI) {
     $scope.agregarResponsable = function() {
         if ($scope.psicologo != null) {
             $scope.psicologo.lstFechasDisponibles = $scope.lstFechasDisponibles;
-            $scope.prueba.psicologos.push(angular.copy($scope.psicologo));
+            $scope.prueba.psicologos.push(angular.copy({...$scope.psicologo, licenciaturas: "" }));
 
             for (let index = 0; index < $scope.lstResponsables.length; index++) {
                 const element = $scope.lstResponsables[index];
@@ -395,9 +403,9 @@ function($scope, $http, blockUI) {
 
     }
     $scope.eliminarLicenciatura = function(indice) {
-        var a = $scope.pselected.licenciatura.split(',');
+        var a = $scope.pselected.licenciaturas.split(',');
         a.splice(indice, 1);
-        $scope.pselected.licenciatura = a.join();
+        $scope.pselected.licenciaturas = a.join();
     }
     $scope.setCupoValue = function() {
         $scope.prueba.cupo = 0;
@@ -470,7 +478,7 @@ function($scope, $http, blockUI) {
     $scope.psicologo = null;
 
     $scope.confirmarEliminarPruebas = function(prueba) {
-        $scope.prueba =prueba;
+        $scope.prueba = prueba;
         Swal.fire({
             title: `¿Está seguro que desea eliminar prueba ${prueba.nombre}?`,
             icon: "warning",
@@ -508,20 +516,20 @@ function($scope, $http, blockUI) {
 
                 }
             } else {
-                var push=true;
+                var push = true;
                 for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                     const element = $scope.sesion.pruebas[index];
                     if (element.persistenceId = $scope.prueba.persistenceId) {
                         $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
-                        push=false
+                        push = false
                     }
 
                 }
-                if(push){
+                if (push) {
                     $scope.sesion.pruebas.push(angular.copy($scope.prueba));
                 }
-                
-            } 
+
+            }
             //$scope.pantalla = 'sesion';
             console.log(JSON.stringify($scope.sesion));
             $scope.insertSesion($scope.sesion.borrador);
@@ -569,8 +577,8 @@ function($scope, $http, blockUI) {
     $scope.setFechaUltimo = function() {
         $scope.prueba.ultimo_dia_inscripcion = $("#ultimo").val();
     }
-    $scope.setFechaInicio=function(){
-        $scope.sesion.fecha_inicio=$("#fecha_inicio").val();
+    $scope.setFechaInicio = function() {
+        $scope.sesion.fecha_inicio = $("#fecha_inicio").val();
     }
     $scope.cantidadEntrevistas = 0;
     $scope.lstFechasDisponibles = [];
@@ -643,7 +651,7 @@ function($scope, $http, blockUI) {
                         })
                     })
 
-                }else{
+                } else {
 
                 }
             })
@@ -689,6 +697,13 @@ function($scope, $http, blockUI) {
             var tipos = $scope.tipoPrueba[i];
             if (tipos.persistenceId == $scope.prueba.cattipoprueba_pid) {
                 $scope.tipoPruebaSelected = tipos
+            }
+        }
+        for (let index = 0; index < $scope.catcampus.length; index++) {
+            const element = $scope.catcampus[index];
+            if (element.persistenceId == $scope.prueba.campus_pid) {
+                $scope.campusDirSelected = element;
+                $scope.setDirCampus()
             }
         }
         $scope.getResponsables();
@@ -912,6 +927,41 @@ function($scope, $http, blockUI) {
         })
     }
     $scope.setCodigoSelected = function(codigo) {
+        $scope.displayEstado = "";
+        $scope.displayPais = "";
+        $scope.dblCP = false;
+        $scope.dblCalle = false;
+        $scope.dblCiudad = false;
+        $scope.dblNext = false;
+        $scope.dblNint = false;
+        $scope.dblColonia = false;
+        for (let index = 0; index < $scope.estados.length; index++) {
+            const element = $scope.estados[index];
+            if (element.descripcion == codigo.estado) {
+                $scope.displayEstado = element.descripcion;
+                $scope.prueba.estado_pid = element.persistenceId;
+            }
+
+        }
+        for (let index = 0; index < $scope.paises.length; index++) {
+            const element = $scope.paises[index];
+            if (element.persistenceId == $scope.prueba.pais_pid) {
+                $scope.displayPais = element.descripcion;
+            }
+
+        }
+        if (codigo.ciudad != null) {
+            $scope.dblCiudad = true;
+            $scope.prueba.municipio = codigo.ciudad;
+        }
+        if (codigo.municipio != null) {
+            $scope.dblCiudad = true;
+            $scope.prueba.municipio = codigo.municipio;
+        }
+        if (codigo.asentamiento != null) {
+            $scope.dblColonia = true;
+        }
+        $scope.prueba.ciudad = codigo.ciudad
         $scope.prueba.municipio = codigo.municipio;
         $scope.prueba.colonia = codigo.asentamiento;
         $("#modal-codigo-postal").modal("hide");
@@ -1017,46 +1067,119 @@ function($scope, $http, blockUI) {
         }
         return error;
     }
-    $scope.validarBtnGuardarPublicar=function(){
+    $scope.validarBtnGuardarPublicar = function() {
         var entrevista = false;
         var college = false;
         var psicometrico = false;
-        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
-            const element = $scope.sesion.pruebas[index];
-            if (element.tipo.descripcion=="Examen Psicométrico") {
-                psicometrico = true;
-            } if (element.tipo.descripcion=="College Board") {
-                college = true;
-            } if (element.tipo.descripcion=="Entrevista") {
-                entrevista = true;
+        try {
+            for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                const element = $scope.sesion.pruebas[index];
+                if (element.tipo.descripcion == "Examen Psicométrico") {
+                    psicometrico = true;
+                }
+                if (element.tipo.descripcion == "College Board") {
+                    college = true;
+                }
+                if (element.tipo.descripcion == "Entrevista") {
+                    entrevista = true;
+                }
+
             }
-            
+        } catch (error) {
+            entrevista = false;
+            college = false;
+            psicometrico = false;
         }
+
         return entrevista && college & psicometrico;
     }
-    $scope.setDisponibleOcupado=function(disponibles){
-        if(!disponibles.ocupado){
-            disponibles.disponible=!disponibles.disponible; 
+    $scope.setDisponibleOcupado = function(disponibles) {
+        if (!disponibles.ocupado) {
+            disponibles.disponible = !disponibles.disponible;
             setCupoValue();
-        }else{
+        } else {
             Swal.fire(
                 "Imposible",
                 "No es posible modificar la disponibilidad ya que actualmente hay un alumno registrado en el horario seleccionado",
                 'info'
             )
         }
-        
+
     }
-    $scope.checkRegistrado=function(psi){
+    $scope.checkRegistrado = function(psi) {
         var registrados = false;
         for (let index = 0; index < psi.lstFechasDisponibles.length; index++) {
             const element = psi.lstFechasDisponibles[index];
-            if(element.ocupado){
+            if (element.ocupado) {
                 registrados = true;
             }
-            
+
         }
         return registrados;
+    }
+    $scope.campusDirSelected = {}
+    $scope.displayEstado = "";
+    $scope.displayPais = "";
+    $scope.dblCP = false;
+    $scope.dblCalle = false;
+    $scope.dblCiudad = false;
+    $scope.dblNext = false;
+    $scope.dblNint = false;
+    $scope.dblColonia = false;
+    $scope.setDirCampus = function() {
+        try {
+            if ($scope.campusDirSelected.persistenceId > 0) {
+                $scope.dblCP = true;
+                $scope.dblCalle = true;
+                $scope.dblCiudad = true;
+                $scope.dblNext = true;
+                $scope.dblNint = true;
+                $scope.dblColonia = true;
+
+                $scope.prueba.campus_pid = $scope.campusDirSelected.persistenceId
+                $scope.prueba.calle = $scope.campusDirSelected.calle
+                $scope.prueba.colonia = $scope.campusDirSelected.colonia
+                $scope.prueba.numero_ext = $scope.campusDirSelected.numeroExterior
+                $scope.prueba.numero_int = $scope.campusDirSelected.numeroInterior
+                $scope.prueba.codigo_postal = $scope.campusDirSelected.codigoPostal
+
+                $scope.prueba.municipio = $scope.campusDirSelected.municipio
+                for (let index = 0; index < $scope.estados.length; index++) {
+                    const element = $scope.estados[index];
+                    if (element.persistenceId == $scope.campusDirSelected.estado_pid) {
+                        $scope.displayEstado = element.descripcion;
+                    }
+                }
+                for (let index = 0; index < $scope.paises.length; index++) {
+                    const element = $scope.paises[index];
+                    if (element.persistenceId == $scope.campusDirSelected.pais_pid) {
+                        $scope.displayPais = element.descripcion;
+                    }
+                }
+            } else {
+                $scope.displayEstado = "";
+                $scope.displayPais = "";
+                $scope.dblCP = false;
+                $scope.dblCalle = false;
+                $scope.dblCiudad = false;
+                $scope.dblNext = false;
+                $scope.dblNint = false;
+                $scope.dblColonia = false;
+            }
+        } catch (error) {
+            $scope.displayEstado = "";
+            $scope.displayPais = "";
+            $scope.dblCP = false;
+            $scope.dblCalle = false;
+            $scope.dblCiudad = false;
+            $scope.dblNext = false;
+            $scope.dblNint = false;
+            $scope.dblColonia = false;
+        }
+
+
+
+
     }
     $scope.loadCatalogs();
     var hidden = document.getElementsByClassName("oculto");

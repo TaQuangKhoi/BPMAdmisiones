@@ -14,7 +14,15 @@ class SesionesAspiranteCustom {
 	private String salida;
 	private String horario;
 	private String tipoprueba_PID;
+	private Boolean asistencia;
 	
+	
+	public Boolean getAsistencia() {
+		return asistencia;
+	}
+	public void setAsistencia(Boolean asistencia) {
+		this.asistencia = asistencia;
+	}
 	public String getTipoprueba_PID() {
 		return tipoprueba_PID;
 	}

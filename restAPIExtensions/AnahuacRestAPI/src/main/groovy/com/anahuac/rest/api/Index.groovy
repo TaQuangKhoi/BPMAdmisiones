@@ -275,6 +275,37 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+					case "getSesionesCalendarizadasPasadas":
+					result = new SesionesDAO().getSesionesCalendarizadasPasadas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "insertPaseLista":
+					result = new SesionesDAO().insertPaseLista(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "updatePaseLista":
+					result = new SesionesDAO().updatePaseLista(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				/**************JESUS OSUNA FIN*********************/
 				/***********************ERIC ROSAS**********************/
 					case "getCatPeriodo":
@@ -577,7 +608,7 @@ class Index implements RestApiController {
 							rc.setPersistenceId(psi.persistenceId)
 							rc.setIseliminado(psi.iseliminado)
 							rc.setLstFechasDisponibles(new ArrayList())
-							
+							rc.setLicenciaturas(psi.licenciaturas)
 							for(int k=0; k<psi.lstFechasDisponibles.size();k++) {
 								def disponible=psi.lstFechasDisponibles[k]
 								ResponsableDisponible rd = new ResponsableDisponible()
@@ -585,6 +616,7 @@ class Index implements RestApiController {
 								rd.setHorario(disponible.horario)
 								rd.setPersistenceVersion(disponible.persistenceVersion)
 								rd.setPersistenceId(disponible.persistenceId)
+								
 								rc.getLstFechasDisponibles().add(rd)
 							}
 							prueba.getPsicologos().add(rc)
@@ -603,6 +635,16 @@ class Index implements RestApiController {
 				case "getSesionesCalendario":
 				String fecha=request.getParameter "fecha"
 				result = new SesionesDAO().getSesionesCalendario(fecha,jsonData)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getSesionesCalendarioAspirante":
+				String fecha=request.getParameter "fecha"
+				result = new SesionesDAO().getSesionesCalendarioAspirante(fecha,jsonData)
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 				}else {

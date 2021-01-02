@@ -115,7 +115,7 @@ function($scope, $http, blockUI, $window) {
                 "valor": $scope.properties.detalleSolicitud[0].tipoAlumno
             }
             $scope.dataToSend.lstFiltro.push(angular.copy(filtro))*/
-        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendario&p=0&c=10&fecha=" + fechaReporte, null, $scope.dataToSend, null, function(datos, extra) {
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte, null, $scope.dataToSend, null, function(datos, extra) {
             scheduler.clearAll();
             scheduler.parse(datos.data, "json");
         })

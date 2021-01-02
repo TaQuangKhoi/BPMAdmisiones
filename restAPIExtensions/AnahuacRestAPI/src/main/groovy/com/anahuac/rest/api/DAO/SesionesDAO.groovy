@@ -23,6 +23,8 @@ import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
 import java.text.SimpleDateFormat
+
+import org.apache.commons.collections4.functors.ComparatorPredicate.Criterion
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserMembership
@@ -517,9 +519,10 @@ class SesionesDAO {
 							pstm.setBoolean(2, disponible.getDisponible())
 							pstm.setLong(3, responsable.getId())
 							pstm.setLong(4,prueba.getPersistenceId())
+							pstm.setString(5, responsable.getLicenciaturas())
 							if(disponible.getPersistenceId()>0){
-								pstm.setBoolean(5, (responsable.getIseliminado()==null)?false:responsable.getIseliminado())
-								pstm.setLong(6, disponible.getPersistenceId())
+								pstm.setBoolean(6, (responsable.getIseliminado()==null)?false:responsable.getIseliminado())
+								pstm.setLong(7, disponible.getPersistenceId())
 								pstm.executeUpdate()
 							}else {
 								pstm.executeUpdate()
@@ -543,9 +546,10 @@ class SesionesDAO {
 							pstm.setNull(2, java.sql.Types.NULL)
 							pstm.setLong(3, responsable.getId())
 							pstm.setLong(4,prueba.getPersistenceId())
+							pstm.setNull(5,java.sql.Types.NULL)
 							if(responsable.getPersistenceId()>0){
-								pstm.setBoolean(5, (responsable.getIseliminado()==null)?false:responsable.getIseliminado())
-								pstm.setLong(6, responsable.getPersistenceId())
+								pstm.setBoolean(6, (responsable.getIseliminado()==null)?false:responsable.getIseliminado())
+								pstm.setLong(7, responsable.getPersistenceId())
 								pstm.executeUpdate()
 							}else {
 							pstm.executeUpdate()
@@ -705,7 +709,7 @@ class SesionesDAO {
 		Boolean closeCon = false;
 		List<Calendario> lstCalendario = new ArrayList();
 		Calendario calendario = new Calendario();
-		String where=" WHERE ( between ? and  ?) AND s.isborrador=false ", consulta =""
+		String where=" WHERE (s.FECHA_INICIO>=now() and s.FECHA_INICIO between ? and ?) AND s.borrador=false ", consulta =""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -732,9 +736,9 @@ class SesionesDAO {
 					}else {
 						where+= " WHERE "
 					}
-					where +=" (s.bachillerato_pid";
+					where +=" (s.preparatoria_pid";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor] OR s.bachillerato_pid=0)"
+						where+="=[valor] OR s.preparatoria_pid=0)"
 					}else {
 						where+="LIKE '%[valor]%'"
 					}
@@ -783,6 +787,7 @@ class SesionesDAO {
 			resultado.setSuccess(true)
 		} catch (Exception e) {
 			resultado.setSuccess(false);
+			resultado.setError_info(consulta)
 			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
@@ -863,8 +868,10 @@ class SesionesDAO {
 					p.setPsicologos(new ArrayList())
 					
 					User usr;
+					UserMembership membership
 					if(rs.getLong("RESPONSABLEID")>0) {
 						usr = context.getApiClient().getIdentityAPI().getUser(rs.getLong("RESPONSABLEID"))
+						membership=context.getApiClient().getIdentityAPI().getUserMemberships(usr.getId(), 0, 100, UserMembershipCriterion.GROUP_NAME_ASC).get(0)
 					}
 					
 					if(sesion.getPruebas().contains(p)) {
@@ -875,10 +882,14 @@ class SesionesDAO {
 						fd.setHorario(rs.getString("horario"))
 						fd.setPersistenceId(rs.getLong("rid"))
 						fd.setResponsableId(rs.getLong("RESPONSABLEID"))
+						psi.setLicenciaturas(rs.getString("licenciaturas"))
 						psi.setPersistenceId(rs.getLong("rid"))
+						
 						try {
 							psi.setFirstname(usr.getFirstName())
 							psi.setLastname(usr.getLastName())
+							psi.setGrupo(membership.groupName)
+							psi.setRol(membership.roleName)
 						}catch(Exception e) {
 							resultado.setError_info(e.getMessage())
 						}
@@ -905,9 +916,12 @@ class SesionesDAO {
 						psi.setId(rs.getLong("RESPONSABLEID"))
 						fd.setPersistenceId(rs.getLong("rid"))
 						fd.setResponsableId(rs.getLong("RESPONSABLEID"))
+						psi.setLicenciaturas(rs.getString("licenciaturas"))
 						psi.setPersistenceId(rs.getLong("rid"))
 						psi.setLstFechasDisponibles(new ArrayList())
 						try {
+							psi.setGrupo(membership.groupName)
+							psi.setRol(membership.roleName)
 							psi.setFirstname(usr.getFirstName())
 							psi.setLastname(usr.getLastName())
 							
@@ -1348,15 +1362,15 @@ class SesionesDAO {
 				pstm.setInt(1, object.prueba)
 				rs= pstm.executeQuery();
 				if(rs.next()) {
-					tipo = (rs.getInt("registros"))
+					tipo = (rs.getInt("tipoprueba_pid"))
 				}
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 				}else {
 					consulta=consulta.replace("[ENTREVISTA]", "")
 				}
-				
-				pstm = con.prepareStatement(consulta.replace("SA.*,RD.responsableid,RD.prueba_pid, S.fecha_inicio, P.nombre as nombre_prueba,P.Lugar as lugar_prueba, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, c.persistenceid as tipoprueba_pid", "COUNT(SA.username) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				errorlog+="tipo "+tipo
+				pstm = con.prepareStatement(consulta.replace("SA.*,RD.responsableid,RD.prueba_pid, S.fecha_inicio, P.nombre as nombre_prueba,P.Lugar as lugar_prueba, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, c.persistenceid as tipoprueba_pid, PL.asistencia", "COUNT(SA.username) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
 				pstm.setInt(3, object.usuario)
@@ -1402,6 +1416,12 @@ class SesionesDAO {
 					row.setNombre_prueba(rs.getString("nombre_prueba"));
 					row.setHorario(rs.getString("horario"));
 					row.setTipoprueba_PID(rs.getString("tipoprueba_pid"));
+					row.setEntrada(rs.getString("asistencia"))
+					if(row.getEntrada() != null) {
+						errorlog+="entro if "
+						row.setAsistencia(rs.getBoolean("asistencia"));
+					}
+					
 					
 					String aspirantessesion=Statements.GET_ASPIRANTESDELASESION
 					aspirantessesion=aspirantessesion.replace("[ORDERBY]", orderbyUsuario)
@@ -1751,12 +1771,47 @@ class SesionesDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA)
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
 				pstm.setLong(1, object.prueba);
 				pstm.setString(2, object.username);
 				pstm.setBoolean(3,object.asistencia);
 				pstm.setString(4,object.fecha);
 				pstm.setString(5,object.usuarioPaseLista);
+				
+				pstm.executeUpdate();
+				
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result updatePaseLista(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.UPDATE_PASEDELISTA)
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setString(2,object.fecha);
+				pstm.setString(3,object.usuarioPaseLista);
+				pstm.setLong(4, object.prueba)
+				pstm.setString(5, object.username)
 				
 				pstm.executeUpdate();
 				

@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
     $scope.action = function(){
         if($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0){
             $scope.properties.selectedIndex --; 
@@ -27,7 +27,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function doRequest(method, url) {
         let dataToSend = angular.copy($scope.properties.formOutput);
         dataToSend.autodescripcionInput.pageIndex = $scope.properties.selectedIndex;
-        debugger;
+        
         var req = {
             method: method,
             url: url,
@@ -55,13 +55,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
         .success(function(data, status) {
-            debugger;
-            if(data[0].id === $scope.properties.taskId){
+            if (data.length === 0){
+                console.log("retry, no task found");
+                getCurrentTask();
+            } else if(data[0].id === $scope.properties.taskId){
+                console.log("retry, same id");
                 getCurrentTask();
             } else {
                 $scope.properties.taskId = data[0].id;
+                console.log("Nueva tarea", $scope.properties.taskId);
             }
-            console.log("Nueva tarea", $scope.properties.taskId);
+            
         })
         .error(function(data, status) {
             getCurrentTask();
