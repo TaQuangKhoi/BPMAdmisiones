@@ -1,0 +1,47 @@
+<div class="Centro">
+<p>Hola {{properties.content.primerNombre}},  vamos a generar tu credencial digital para que puedas identificarte y acceder a tus exámenes. Verifica que toda la información a continuación sea correcta.</p>
+</div>
+<div class="table-responsive">
+  
+    
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+
+  <tr>
+        <th>Nombre: </th>
+        <td>
+            {{properties.content.primerNombre+" "+properties.content.segundoNombre+" "+properties.content.apellidoPaterno+" "+properties.content.apellidoMaterno}} 
+        </td>
+    </tr>
+  
+  <tr>
+        <th>Expediente: </th>
+        <td >
+            {{properties.datosUsuarioId.idBanner}}
+        </td>
+    </tr>
+    <tr>
+        <th>Universidad de ingreso: </th>
+        <td >
+            {{properties.content.catCampus.descripcion}}
+        </td>
+    </tr>
+    <tr>
+        <th>Carrera: </th>
+        <td >
+            {{properties.content.catGestionEscolar.nombre}}
+        </td>
+    </tr>
+    <tr>
+        <th>Período de ingreso: </th>
+        <td >
+            {{properties.content.catGestionEscolar.periodoDisponible[0].descripcion}}
+        </td>
+    </tr>
+    <tr>
+        <th>Lugar de examen: </th>
+        <td >
+            {{ properties.content.catLugarExamen.descripcion }}
+        </td>
+    </tr>
+</table>
+</div>

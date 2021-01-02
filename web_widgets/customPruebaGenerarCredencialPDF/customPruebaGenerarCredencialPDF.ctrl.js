@@ -1,0 +1,61 @@
+function PbButtonCtrl($scope, $sanitize, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
+
+   $scope.$watchCollection('properties.datosUsuarioId', function(items) {
+       
+        if ($scope.properties.datosUsuarioId != undefined) {
+              var qrcode = new QRCode(document.getElementById("qrcode"))
+             var JSON='{"nombre":"'+$scope.properties.usuario.primerNombre+" "+$scope.properties.usuario.segundoNombre+" "+$scope.properties.usuario.apellidoPaterno+" "+$scope.properties.usuario.apellidoMaterno+'","idbanner":"'+$scope.properties.datosUsuarioId.idBanner+'"}';
+                qrcode.makeCode(JSON);
+        }
+    });
+
+  var vm = this;
+  $scope.lstDatos =null;
+  
+   $scope.$watchCollection('properties.correoUsuario', function(items) {
+       debugger
+        if ($scope.properties.correoUsuario != undefined) {
+            $scope.getDataImagenUsuario();
+        }
+    });
+
+
+
+function doRequest(method, url, params, dataToSend, extra, callback) {
+    vm.busy = true;
+    blockUI.start();
+    var req = {
+        method: method,
+        url: url,
+        data: angular.copy(dataToSend),
+        params: params
+    };
+
+    return $http(req)
+        .success(function(data, status) {
+            callback(data, extra)
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+            vm.busy = false;
+            blockUI.stop();
+        });
+}
+
+$scope.getDataImagenUsuario = function() {
+    debugger
+    
+    $scope.dataToSend = {
+        "tarea":"Validar Información","lstFiltro":[{"columna":"EMAIL","operador":"Igual a","valor": $scope.properties.correoUsuario.userName }],"type":"aspirantes_proceso","orderby":"","orientation":"DESC","limit":20,"offset":0,"usuario":"Administrador"
+    }
+    
+    doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", null, $scope.dataToSend, null, function(datos, extra) {
+    $scope.lstDatos= datos.data;
+    })
+}
+
+
+}
+

@@ -1,0 +1,190 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "AnimacionCredencial",
+  "name" : "AnimacionCredencial",
+  "lastUpdate" : 1609623636076,
+  "rows" : [
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "2bfe4f6c-38c2-4fdd-8688-b26cc4246ced",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "Datoss" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "Fechass" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "RutaFotoUsuario" : {
+                  "type" : "variable",
+                  "value" : "RutaFotoUsuario"
+                },
+                "datosUsuarioId" : {
+                  "type" : "variable",
+                  "value" : "datosUsuarioId[0]"
+                },
+                "usuario" : {
+                  "type" : "variable",
+                  "value" : "usuario[0]"
+                },
+                "fechasExamenes" : {
+                  "type" : "variable",
+                  "value" : "fechasExamenes"
+                },
+                "correoUsuario" : {
+                  "type" : "variable",
+                  "value" : "userDataEmail[0]"
+                }
+              },
+              "reference" : "49a44b71-b7c7-4399-96de-d7eb30b2521c",
+              "hasValidationError" : false,
+              "id" : "customPRUEBAGENERARCREDENCIAL"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "94499f7b-af92-46f3-8b0e-c714394d5fa6",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "4009ce8c-4c82-4ced-845e-8d9941456922",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "RutaFotoUsuario" : {
+      "type" : "constant",
+      "value" : [
+        "http://38.65.156.253:9080/Imagenes/img2.jpg"
+      ],
+      "exposed" : false
+    },
+    "datosUsuarioId" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=10&f=caseId={{caseId}}"
+      ],
+      "exposed" : false
+    },
+    "usuario" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+      ],
+      "exposed" : false
+    },
+    "fechasExamenes" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getDatosSesionUsername&p=0&c=10&username={{userDataEmail[0].userName}}"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "userDataEmail" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+      ],
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.usuario[0].caseId;"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "45f3dba6-febe-4f00-9db5-8879160708ec",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}
