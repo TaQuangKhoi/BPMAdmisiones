@@ -22,7 +22,7 @@ function ($scope) {
         }
     };
     $scope.$watch(function(){
-        debugger;
+        console.log("Datos del solicitante");
         if($scope.properties.getCatRegistro !== undefined){
             if($scope.properties.getCatRegistro.length > 0){
                 if($scope.properties.isDataRegistro === undefined || $scope.properties.isDataRegistro === null || $scope.properties.isDataRegistro === ""){

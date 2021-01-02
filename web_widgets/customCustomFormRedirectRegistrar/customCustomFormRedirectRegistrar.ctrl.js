@@ -7,9 +7,12 @@
  * You can leave the controller empty if you do not need it.
  */
 function ($scope) {
+    $scope.width = $(window).width();
     $(document).ready(function(){
-        let height = $(".b-left").height() + "px";
-        $(".re-dimension").css("height", height);
+        if($scope.width >= 768){
+            let height = $(".b-left").height() + "px";
+            $(".re-dimension").css("height", height);
+        }
     });
     
     var white = 'white';

@@ -2,8 +2,44 @@
   "designerVersion" : "1.11.52",
   "id" : "frgNewTestRequest",
   "name" : "frgNewTestRequest",
-  "lastUpdate" : 1605653442744,
+  "lastUpdate" : 1606979979099,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<span class=\"glyphicon glyphicon-chevron-right color-orange\"></span><span class=\"glyphicon glyphicon-chevron-right color-orange icontransform\"></span><b>Selecciona el campus donde deseas cursar tu licenciatura <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 5"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "09dbb09a-abf1-4b56-9e62-2093d7ef742e",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -24,7 +60,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<span class=\"glyphicon glyphicon-chevron-right color-orange\"></span><span class=\"glyphicon glyphicon-chevron-right color-orange icontransform\"></span><b>Selecciona el campus donde deseas cursar tu licenciatura <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "<span class=\"glyphicon glyphicon-chevron-right color-orange\"></span><span class=\"glyphicon glyphicon-chevron-right color-orange icontransform\"></span><b>¿A cuál de las universidades de la Red Anáhuac deseas ingresar? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
           },
           "level" : {
             "type" : "constant",
@@ -35,7 +71,7 @@
             "value" : "left"
           }
         },
-        "reference" : "09dbb09a-abf1-4b56-9e62-2093d7ef742e",
+        "reference" : "d22fa848-04e9-494b-b894-2f467a76b4da",
         "hasValidationError" : false,
         "id" : "pbTitle"
       }
@@ -211,12 +247,12 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
                         "type" : "expression",
                         "value" : "setPeriodo"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -228,7 +264,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "<span class=\"glyphicon glyphicon-chevron-right color-orange\"></span><span class=\"glyphicon glyphicon-chevron-right color-orange icontransform\"></span>Elige el periodo de ingreso <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "<span class=\"glyphicon glyphicon-chevron-right color-orange\"></span><span class=\"glyphicon glyphicon-chevron-right color-orange icontransform\"></span>Elige el período de ingreso <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -244,7 +280,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "catPeriodo"
+                        "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.periodoDisponible"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -270,6 +306,58 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
+                      "md" : 6,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!formInput.catSolicitudDeAdmisionInput.catGestionEscolar.programaparcial"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<label class=\"text-red\">Programa parcial: Estas licenciaturas se ofrecen parcialmente en el campus seleccionado en una licenciatura afín, para posteriormente transferirse a otro campus que ofrezca el programa completo.</label>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4d686514-bec5-44ff-9f66-edc1d5ec5aed",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 6,
                       "md" : 6,
                       "lg" : 6
                     },
@@ -312,7 +400,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "catPropedeutico"
+                        "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.propedeuticos"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -440,7 +528,7 @@
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
-                      "sm" : 12,
+                      "sm" : 5,
                       "md" : 5,
                       "lg" : 4
                     },
@@ -536,7 +624,7 @@
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
-                      "sm" : 12,
+                      "sm" : 3,
                       "md" : 3,
                       "lg" : 4
                     },
@@ -641,8 +729,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "expression",
-                              "value" : "lugarexamen !== \"En un estado\""
+                              "type" : "constant",
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -726,6 +814,72 @@
                             },
                             "label" : {
                               "type" : "interpolation",
+                              "value" : "Estado"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "getEstadosRUA"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "estadoSeleccionado"
+                            }
+                          },
+                          "reference" : "37e9ac4b-d518-46b9-a5f4-0d22cc2f6605",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "lugarexamen !== \"En un estado\""
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
                               "value" : "Ciudad"
                             },
                             "labelPosition" : {
@@ -767,7 +921,7 @@
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
-                      "sm" : 12,
+                      "sm" : 4,
                       "md" : 4,
                       "lg" : 4
                     },
@@ -872,8 +1026,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "expression",
-                              "value" : "lugarexamen !== \"En el extranjero (solo si vives fuera de México)\""
+                              "type" : "constant",
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -957,6 +1111,72 @@
                             },
                             "label" : {
                               "type" : "interpolation",
+                              "value" : "País"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "getPaisesRUA"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "paisSeleccionado"
+                            }
+                          },
+                          "reference" : "3c82d3ad-5091-4529-9a1b-5bc79529e1ec",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "lugarexamen !== \"En el extranjero (solo si vives fuera de México)\""
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
                               "value" : "Ciudad"
                             },
                             "labelPosition" : {
@@ -993,6 +1213,58 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "a1747fea-e90c-477f-85d2-8ef70177fbd7",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -1188,7 +1460,8 @@
     "setPeriodo" : {
       "type" : "expression",
       "value" : [
-        "var deshabilitar = false;",
+        "",
+        "/*var deshabilitar = false;",
         "if($data.formInput.catSolicitudDeAdmisionInput.catPropedeutico !== null){",
         "    if($data.formInput.catSolicitudDeAdmisionInput.catPropedeutico.persistenceId_string !== \"\"){",
         "        $data.formInput.catSolicitudDeAdmisionInput.catPeriodo = $data.formInput.catSolicitudDeAdmisionInput.catPropedeutico.catPeriodo;",
@@ -1201,7 +1474,9 @@
         "}",
         "",
         "",
-        "return deshabilitar;"
+        "return deshabilitar;*/",
+        "",
+        "return false;"
       ],
       "exposed" : false
     },
@@ -1275,6 +1550,50 @@
         "]",
         "",
         "*/"
+      ],
+      "exposed" : false
+    },
+    "paisSeleccionado" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "getPaisesRUA" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "getEstadosRUA" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "estadoSeleccionado" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "setValorEstado" : {
+      "type" : "expression",
+      "value" : [
+        "for(var x=0; x<$data.catEstado.length;x++){",
+        "    if($data.catEstado[x].descripcion.trim() === $data.estadoSeleccionado.trim()){",
+        "        $data.formInput.catSolicitudDeAdmisionInput.catEstadoExamen = $data.catEstado[x];",
+        "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "setValorPais" : {
+      "type" : "expression",
+      "value" : [
+        "for(var x=0; x<$data.getPaisesNoMexico.length;x++){",
+        "    if($data.getPaisesNoMexico[x].descripcion.trim() === $data.paisSeleccionado.trim()){",
+        "        $data.formInput.catSolicitudDeAdmisionInput.catPaisExamen = $data.getPaisesNoMexico[x];",
+        "    }",
+        "}"
       ],
       "exposed" : false
     }

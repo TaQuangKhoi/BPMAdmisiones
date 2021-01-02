@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "pageAccionesCiudad",
   "name" : "pageAccionesCiudad",
-  "lastUpdate" : 1605654599401,
+  "lastUpdate" : 1605802729872,
   "rows" : [
     [
       {
@@ -1203,7 +1203,7 @@
           "columnsKey" : {
             "type" : "constant",
             "value" : [
-              "Orden",
+              "orden",
               "clave",
               "descripcion",
               "pais",
@@ -1246,7 +1246,7 @@
           },
           "urlConsulta" : {
             "type" : "interpolation",
-            "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=9999"
+            "value" : "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=9999&f=caseId={{objCaseInformation[0].id}}"
           },
           "objTaskInformation" : {
             "type" : "variable",
@@ -1370,7 +1370,6 @@
     "formOutput" : {
       "type" : "expression",
       "value" : [
-        "console.log($data.lstCatCiudad)",
         "return {",
         "\tlstCatCiudadInput: $data.objContrato",
         "}"
@@ -1387,7 +1386,7 @@
     "lstCatCiudad" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=9999"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=9999&f=caseId={{objCaseInformation[0].id}}"
       ],
       "exposed" : false
     },
@@ -1450,8 +1449,6 @@
       "type" : "expression",
       "value" : [
         "var validado = true;",
-        "debugger",
-        "console.log($data.formInput.lstCatCiudadInput);",
         "if( $data.formInput.lstCatCiudadInput.length >=1){",
         "    $data.formInput.lstCatCiudadInput.forEach(element =>{",
         "        if(element.orden === 0){",

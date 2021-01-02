@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Registro",
   "name" : "Registro",
-  "lastUpdate" : 1605653378798,
+  "lastUpdate" : 1607110385307,
   "rows" : [
     [
       {
@@ -112,8 +112,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 8,
-          "md" : 8,
-          "lg" : 6
+          "md" : 11,
+          "lg" : 8
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -204,6 +204,44 @@
                             "propertyValues" : {
                               "cssClasses" : {
                                 "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "srcType" : {
+                                "type" : "constant",
+                                "value" : "Asset"
+                              },
+                              "url" : {
+                                "type" : "constant"
+                              },
+                              "assetName" : {
+                                "type" : "constant",
+                                "value" : "under.png"
+                              },
+                              "alt" : {
+                                "type" : "interpolation"
+                              }
+                            },
+                            "reference" : "3203373c-1c3a-48bb-bc86-ab0db74cae96",
+                            "hasValidationError" : false,
+                            "id" : "pbImage"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
                                 "value" : "color-orange"
                               },
                               "hidden" : {
@@ -255,6 +293,42 @@
                             "hasValidationError" : false,
                             "id" : "pbContainer",
                             "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "campusList" : {
+                                      "type" : "variable",
+                                      "value" : "setAssetCampus"
+                                    },
+                                    "src" : {
+                                      "type" : "variable",
+                                      "value" : "imgSrc"
+                                    },
+                                    "campusSelected" : {
+                                      "type" : "variable",
+                                      "value" : "formInput.catRegistroInput.catCampus"
+                                    }
+                                  },
+                                  "reference" : "1d2139ae-5f51-4c2a-8e8c-a0e8723fdf16",
+                                  "hasValidationError" : false,
+                                  "id" : "customCampusSelectorRegistro"
+                                }
+                              ],
                               [
                                 {
                                   "type" : "component",
@@ -611,7 +685,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Correo electronico: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                      "value" : "Correo electrónico: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -838,7 +912,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Confirmar Contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                      "value" : "Confirmar contraseña: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -873,6 +947,73 @@
                                   "reference" : "36b81957-80f3-43b5-9cab-4e4ac0988050",
                                   "hasValidationError" : false,
                                   "id" : "customInputLimit"
+                                }
+                              ],
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 12,
+                                    "lg" : 12
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "disabled" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Elige la licenciatura a estudiar <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation",
+                                      "value" : "Select an option"
+                                    },
+                                    "availableValues" : {
+                                      "type" : "expression",
+                                      "value" : "CatGestionEscolar"
+                                    },
+                                    "displayedKey" : {
+                                      "type" : "constant",
+                                      "value" : "descripcion"
+                                    },
+                                    "returnedKey" : {
+                                      "type" : "constant"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "formInput.catRegistroInput.catGestionEscolar"
+                                    }
+                                  },
+                                  "reference" : "ef71b130-c94d-4b22-ba47-607e68790241",
+                                  "hasValidationError" : false,
+                                  "id" : "pbSelect"
                                 }
                               ]
                             ]
@@ -933,7 +1074,7 @@
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Necesito asesoría para terminar de elegir mi carrera:</label> <span class=\"glyphicon glyphicon-asterisk color-orange resize-asterisk\"></span>"
+                                      "value" : "Necesito asesoría para terminar de elegir mi carrera"
                                     },
                                     "value" : {
                                       "type" : "variable",
@@ -1006,7 +1147,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "He leído y acepto el  <a class=\"color-orange\" href=\"{{aviso_privacidad}}\" target=\"_blank\"><u>Aviso de privacidad</u></a> <span class=\"glyphicon glyphicon-asterisk color-orange resize-asterisk\"></span>"
+                                "value" : "He leído y acepto el  <a class=\"color-orange\" href=\"{{aviso_privacidad}}\" target=\"_blank\"><u>Aviso de privacidad</u></a>"
                               },
                               "value" : {
                                 "type" : "variable",
@@ -1042,7 +1183,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "REGISTRAR"
+                                "value" : "Registrar"
                               },
                               "alignment" : {
                                 "type" : "constant",
@@ -1184,6 +1325,34 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "assetName" : {
+                  "type" : "constant",
+                  "value" : "Fondo completo.png"
+                }
+              },
+              "reference" : "44b40fd3-d4c3-4f57-a80e-d8abb5c1ad32",
+              "hasValidationError" : false,
+              "id" : "customCustomBackgroundImage"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
                 "labelHidden" : {
                   "type" : "constant",
                   "value" : true
@@ -1206,7 +1375,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Ya casi esta listo.\n<br/>Revisa tu correo electrónico. A tu bandeja de correo llegará un enlace \n<br/>al cual tendrás que acceder para completar tu registro.<br>\nPresiona Aceptar para continuar"
+                  "value" : "Ya casi está listo.\n<br/>Revisa tu correo electrónico. A tu bandeja de correo llegará un enlace \n<br/>al cual tendrás que acceder para completar tu registro.<br>\nPresiona Aceptar para continuar."
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -1289,9 +1458,136 @@
           ]
         ]
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "constant",
+            "value" : "This is the initial value"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          }
+        },
+        "reference" : "2728aede-5379-4448-aa31-5714a62de21b",
+        "hasValidationError" : false,
+        "id" : "customWidgetChat"
+      }
     ]
   ],
   "assets" : [
+    {
+      "id" : "c842af27-2f9c-4640-b28b-3ae5c45c8a83",
+      "name" : "LogoAnahuacMerida.png",
+      "type" : "img",
+      "order" : 16,
+      "external" : false
+    },
+    {
+      "id" : "d5e886b8-3f3a-466f-91a1-fc76cf490a4d",
+      "name" : "Fondo completo.png",
+      "type" : "img",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "db6d4a80-8bd9-4c2b-aa0f-2587f7cbb388",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "02b95899-7744-4a5f-925c-90cb52f93dbb",
+      "name" : "LogoInstitutoJuanPabloII.png",
+      "type" : "img",
+      "order" : 8,
+      "external" : false
+    },
+    {
+      "id" : "9f2ad058-9f5a-4fce-9b4d-ea4cc75ae85c",
+      "name" : "LogoAnahuacVeracruzXalapa.png",
+      "type" : "img",
+      "order" : 9,
+      "external" : false
+    },
+    {
+      "id" : "0b6a7a2e-5942-43d9-b267-301fba1c740b",
+      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
+      "type" : "img",
+      "order" : 11,
+      "external" : false
+    },
+    {
+      "id" : "0b84a28a-ca14-4662-81a8-63ac3187c493",
+      "name" : "LogoAnahuacOaxaca.png",
+      "type" : "img",
+      "order" : 13,
+      "external" : false
+    },
+    {
+      "id" : "3999cc7e-1c93-4d91-842c-cc601da62638",
+      "name" : "LogoAnahuacQueretaro.png",
+      "type" : "img",
+      "order" : 10,
+      "external" : false
+    },
+    {
+      "id" : "ab1fbccd-71e3-49e1-a784-e7e4a1fe052c",
+      "name" : "LogoAnahuacPuebla.png",
+      "type" : "img",
+      "order" : 12,
+      "external" : false
+    },
+    {
+      "id" : "bc514590-9282-4a09-ba22-4be8eed18b85",
+      "name" : "LogoAnahuacCancun.png",
+      "type" : "img",
+      "order" : 17,
+      "external" : false
+    },
+    {
+      "id" : "c6a0f43c-686b-4872-825f-4dd915c0a51d",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "90c883e4-3bea-4d88-be6b-1c1a098af1fd",
+      "name" : "LogoAnahuacMexicoSur.png",
+      "type" : "img",
+      "order" : 15,
+      "external" : false
+    },
+    {
+      "id" : "cf13faf2-37b2-4485-8604-2f793a396c10",
+      "name" : "LogoAnahuacMexicoNorte.png",
+      "type" : "img",
+      "order" : 14,
+      "external" : false
+    },
     {
       "id" : "09e1e264-bc6e-4636-98b9-7dbc8a791a5c",
       "name" : "Logo-Red-de-Universidades---blanco.png",
@@ -1321,24 +1617,10 @@
       "external" : false
     },
     {
-      "id" : "c6a0f43c-686b-4872-825f-4dd915c0a51d",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "d5e886b8-3f3a-466f-91a1-fc76cf490a4d",
-      "name" : "Fondo completo.png",
+      "id" : "a32cac10-f52e-412b-9025-997551b39a90",
+      "name" : "under.png",
       "type" : "img",
-      "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "db6d4a80-8bd9-4c2b-aa0f-2587f7cbb388",
-      "name" : "sweetalert.min.js",
-      "type" : "js",
-      "order" : 5,
+      "order" : 7,
       "external" : false
     },
     {
@@ -1505,7 +1787,9 @@
         "    \"correoelectronico\" : \"\",\r",
         "    \"password\" : \"\",\r",
         "    \"isEliminado\" : false,\r",
-        "    \"ayuda\": false\r",
+        "    \"ayuda\": false,\r",
+        "    \"catCampus\": null,\r",
+        "    \"catGestionEscolar\":null\r",
         "  }\r",
         "}"
       ],
@@ -1594,7 +1878,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"nombreusaurio\": $data.formInput.catRegistroInput.NombreUsuario,\r",
+        "    \"nombreusuario\": $data.formInput.catRegistroInput.NombreUsuario,\r",
         "    \"nombre\": $data.formInput.catRegistroInput.PrimerNombre + \" \" + $data.formInput.catRegistroInput.SegundoNombre,\r",
         "    \"apellido\": $data.formInput.catRegistroInput.ApellidoPaterno+ \" \"+$data.formInput.catRegistroInput.ApellidoMaterno,\r",
         "    \"password\": $data.formInput.catRegistroInput.Password\r",
@@ -1626,7 +1910,7 @@
     "processList" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?c=1000&p=0&f=name=CatRegistro"
+        "../API/bpm/process?c=1000&p=0&f=name=Proceso%20admisiones&f=activationState=ENABLED"
       ],
       "exposed" : false
     },
@@ -1681,6 +1965,93 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "setAssetCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var lstCampus = angular.copy($data.catCampus);",
+        "for(var x=0;x<lstCampus.length;x++){",
+        "    for(var y=0;y<$data.campusAsset.length;y++){",
+        "        if(lstCampus[x].descripcion === $data.campusAsset[y].nombre){",
+        "            lstCampus[x][\"asset\"] = $data.campusAsset[y].asset;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return lstCampus"
+      ],
+      "exposed" : false
+    },
+    "imgSrc" : {
+      "type" : "constant",
+      "value" : [
+        "assets/img/Logo Instituto Juan Pablo II.png?format=text"
+      ],
+      "exposed" : false
+    },
+    "campusSelected" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "campusAsset" : {
+      "type" : "json",
+      "value" : [
+        "[{\r",
+        "\t\"nombre\":\"Anáhuac Querétaro\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacQueretaro.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac México Norte\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacMexicoNorte.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac México Sur\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacMexicoSur.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Mayab\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacMerida.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Cancún\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacCancun.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Xalapa\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacVeracruzXalapa.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Oaxaca\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacOaxaca.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Puebla\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacPuebla.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Anáhuac Cordoba\",\r",
+        "\t\"asset\":\"assets/img/LogoAnahuacVeracruzCoroba-Orizaba.png?format=text\"\r",
+        "},\r",
+        "{\r",
+        "\t\"nombre\":\"Juan Pablo II\",\r",
+        "\t\"asset\":\"assets/img/LogoInstitutoJuanPabloII.png?format=text\"\r",
+        "}]"
+      ],
+      "exposed" : false
+    },
+    "catCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=getCatCampus&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "CatGestionEscolar" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolarByCampus&p=0&c=9999&f=campus={{formInput.catRegistroInput.catCampus.grupoBonita}}"
       ],
       "exposed" : false
     }

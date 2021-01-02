@@ -241,9 +241,13 @@ body > div.container-fluid > div.row:nth-child(2) iframe {
 }
 
 .footer-fixed{
-        position: relative;
-        bottom: 0;
-    }
+    position: relative;
+    bottom: 0;
+}
+
+.fheight{
+    scrollbar-width: none;
+}
 
 @media only screen and (min-width: 768px){
     .user-info, .top-layout{
@@ -327,9 +331,14 @@ body > div.container-fluid > div.row:nth-child(2) iframe {
     
     .fheight{
         overflow-y: scroll;
+        scrollbar-width: none;
     }
     
     .fheight::-webkit-scrollbar {
+        display: none;
+    }
+
+    .fheight::-moz-scrollbar {
         display: none;
     }
 }
@@ -359,7 +368,12 @@ body > div.container-fluid > div.row:nth-child(2) iframe {
     .footer-fixed{
         overflow-x: hidden;
     }
+
     .fheight::-webkit-scrollbar {
+        display: none;
+    }
+
+    .fheight::-moz-scrollbar {
         display: none;
     }
 }
@@ -388,4 +402,10 @@ body > div.container-fluid > div.row:nth-child(2) iframe {
 
 .m-top{
     margin-top: 1rem;
+}
+
+body > .container-fluid > div.row:nth-child(2), body > div.container-fluid > div.row:nth-child(2) div, .living-application-iframe :nth-child(1) {
+    display: initial;
+    flex-direction: column;
+    flex: 1;
 }

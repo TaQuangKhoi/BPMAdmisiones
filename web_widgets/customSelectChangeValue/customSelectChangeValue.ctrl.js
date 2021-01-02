@@ -73,13 +73,15 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.formInput.catSolicitudDeAdmisionInput.delegacionMunicipio = "";
             $scope.properties.formInput.catSolicitudDeAdmisionInput.colonia = "";
             $scope.properties.formInput.catSolicitudDeAdmisionInput.codigoPostal = "";
-            $scope.properties.datosCP.response = undefined;
+            $scope.properties.haveCiudad = false;
+            $scope.properties.datosCP = undefined;
       }else{
           $scope.properties.formInput.catSolicitudDeAdmisionInput.ciudad = "";
             $scope.properties.formInput.catSolicitudDeAdmisionInput.delegacionMunicipio = "";
             $scope.properties.formInput.catSolicitudDeAdmisionInput.colonia = "";
             $scope.properties.formInput.catSolicitudDeAdmisionInput.codigoPostal = "";
-            $scope.properties.datosCP.response = undefined;
+            $scope.properties.haveCiudad = false;
+            $scope.properties.datosCP = undefined;
       }
         
   } 

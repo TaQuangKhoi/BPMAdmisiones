@@ -2,8 +2,44 @@
   "designerVersion" : "1.11.52",
   "id" : "DashBoard",
   "name" : "DashBoard",
-  "lastUpdate" : 1603235428018,
+  "lastUpdate" : 1608678573671,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "color-orange"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Mesa de trabajo"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "fe4e9ab8-75f8-46df-9911-02a1e3e3c17a",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -22,22 +58,22 @@
             "type" : "constant",
             "value" : false
           },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "Datos del proceso"
-          },
-          "level" : {
+          "value" : {
             "type" : "constant",
-            "value" : "Level 2"
+            "value" : "This is the initial value"
           },
-          "alignment" : {
+          "color" : {
             "type" : "constant",
-            "value" : "center"
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
           }
         },
-        "reference" : "fe4e9ab8-75f8-46df-9911-02a1e3e3c17a",
+        "reference" : "2c6b02b7-afc0-4be6-80a0-376ea7f40567",
         "hasValidationError" : false,
-        "id" : "pbTitle"
+        "id" : "customWidgetDatosDeProcesoCard"
       }
     ],
     [
@@ -92,7 +128,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -105,7 +141,7 @@
         "rows" : [
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -121,52 +157,122 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "Pie"
-                },
-                "data" : {
-                  "type" : "constant",
-                  "value" : [
-                    65,
-                    59,
-                    80,
-                    81,
-                    56,
-                    55,
-                    40
-                  ]
-                },
-                "labels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Alumnos aceptados",
-                    "Alumnos rechazados"
-                  ]
-                },
-                "setLabels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Default set label"
-                  ]
-                },
-                "legendHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "colors" : {
-                  "type" : "constant"
-                },
-                "options" : {
-                  "type" : "constant"
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
-              "reference" : "b1165708-de60-4c4c-a909-d9e815eb6136",
+              "reference" : "8b2a91b0-f176-4a54-bd22-dfebcc066f8a",
               "hasValidationError" : false,
-              "id" : "pbChart"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "Pie"
+                      },
+                      "data" : {
+                        "type" : "constant",
+                        "value" : [
+                          65,
+                          59,
+                          80,
+                          81,
+                          56,
+                          55,
+                          40
+                        ]
+                      },
+                      "labels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Alumnos aceptados",
+                          "Alumnos rechazados"
+                        ]
+                      },
+                      "setLabels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Default set label"
+                        ]
+                      },
+                      "legendHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "colors" : {
+                        "type" : "constant",
+                        "value" : [
+                          "#FF5900",
+                          "#FD3535"
+                        ]
+                      },
+                      "options" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "b1165708-de60-4c4c-a909-d9e815eb6136",
+                    "hasValidationError" : false,
+                    "id" : "pbChart"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Alumnos rechazados y aceptados"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "0daa5a21-6830-4d17-b2e7-7fdb1ad21ab6",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -182,51 +288,120 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "Bar"
-                },
-                "data" : {
-                  "type" : "constant",
-                  "value" : [
-                    "1054",
-                    "135",
-                    "98",
-                    "54"
-                  ]
-                },
-                "labels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Total de aspirantes",
-                    "Solicitudes Aceptadas",
-                    "Solicitudes rechazadas",
-                    "Lista Roja"
-                  ]
-                },
-                "setLabels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Default set label"
-                  ]
-                },
-                "legendHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "colors" : {
-                  "type" : "constant"
-                },
-                "options" : {
-                  "type" : "constant"
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
-              "reference" : "57def15c-fcd8-47e5-a83d-f737beb9bdf2",
+              "reference" : "1f852182-a4a6-4f8a-b254-a560a8e3ed69",
               "hasValidationError" : false,
-              "id" : "pbChart"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "Bar"
+                      },
+                      "data" : {
+                        "type" : "constant",
+                        "value" : [
+                          "1054",
+                          "135",
+                          "98",
+                          "54"
+                        ]
+                      },
+                      "labels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Total de aspirantes",
+                          "Solicitudes Aceptadas",
+                          "Solicitudes rechazadas",
+                          "Lista Roja"
+                        ]
+                      },
+                      "setLabels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Default set label"
+                        ]
+                      },
+                      "legendHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "colors" : {
+                        "type" : "constant",
+                        "value" : [
+                          "#FF5900"
+                        ]
+                      },
+                      "options" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "57def15c-fcd8-47e5-a83d-f737beb9bdf2",
+                    "hasValidationError" : false,
+                    "id" : "pbChart"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Estadística de proceso"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4af07449-a0ec-419a-bd17-0acac94e5f82",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -242,189 +417,118 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "Bar"
-                },
-                "data" : {
-                  "type" : "constant",
-                  "value" : [
-                    "65",
-                    "59",
-                    "80"
-                  ]
-                },
-                "labels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Agricultura",
-                    "Arquitectura",
-                    "Administración"
-                  ]
-                },
-                "setLabels" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Default set label"
-                  ]
-                },
-                "legendHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "colors" : {
-                  "type" : "constant"
-                },
-                "options" : {
-                  "type" : "constant"
-                }
-              },
-              "reference" : "67b67e4c-386e-46d9-b600-d39a5e771b25",
-              "hasValidationError" : false,
-              "id" : "pbChart"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 5,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
+                "repeatedCollection" : {
+                  "type" : "variable",
                   "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Alumnos rechazados y aceptados"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
                 }
               },
-              "reference" : "0daa5a21-6830-4d17-b2e7-7fdb1ad21ab6",
+              "reference" : "75ee370e-145a-41a3-b382-3100dd2bc07d",
               "hasValidationError" : false,
-              "id" : "pbTitle"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Estadisticas de proceso"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "4af07449-a0ec-419a-bd17-0acac94e5f82",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 3,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Aspirantes por carrera"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "4157f726-b90f-4d73-adc7-1a39a02a22ad",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "Bar"
+                      },
+                      "data" : {
+                        "type" : "constant",
+                        "value" : [
+                          "65",
+                          "59",
+                          "80"
+                        ]
+                      },
+                      "labels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Arquitectura",
+                          "Medicina",
+                          "Programación"
+                        ]
+                      },
+                      "setLabels" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Default set label"
+                        ]
+                      },
+                      "legendHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "colors" : {
+                        "type" : "constant",
+                        "value" : [
+                          "#FF5900"
+                        ]
+                      },
+                      "options" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "67b67e4c-386e-46d9-b600-d39a5e771b25",
+                    "hasValidationError" : false,
+                    "id" : "pbChart"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Aspirantes por carrera"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4157f726-b90f-4d73-adc7-1a39a02a22ad",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ]
+              ]
             }
           ]
         ]
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "value" : {
-            "type" : "constant",
-            "value" : "This is the initial value"
-          },
-          "color" : {
-            "type" : "constant",
-            "value" : "RebeccaPurple"
-          },
-          "background" : {
-            "type" : "constant",
-            "value" : "Yellow"
-          }
-        },
-        "reference" : "2c6b02b7-afc0-4be6-80a0-376ea7f40567",
-        "hasValidationError" : false,
-        "id" : "customWidgetDatosDeProcesoCard"
       }
     ],
     [
@@ -543,6 +647,27 @@
   ],
   "assets" : [
     {
+      "id" : "88545f44-6633-41f1-9fcb-0f2a834cabcb",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "4206e2cc-7e96-49dd-8ab1-a662dc2da134",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "bf65834c-547b-40f9-a2fa-36d836f288ca",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
       "id" : "525590e5-bcdd-4c35-b226-2799c92108fa",
       "name" : "bootstrap.min.js",
       "type" : "js",
@@ -557,24 +682,10 @@
       "external" : false
     },
     {
-      "id" : "88545f44-6633-41f1-9fcb-0f2a834cabcb",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "5ff77365-4757-4859-bc61-e723c8e9bdc7",
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "bf65834c-547b-40f9-a2fa-36d836f288ca",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
       "external" : false
     }
   ],

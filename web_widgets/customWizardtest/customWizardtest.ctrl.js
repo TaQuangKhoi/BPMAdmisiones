@@ -25,7 +25,8 @@ function ($scope) {
     
     $scope.scrollTo = function scrollToCategory(_direction) {
         var elem = document.getElementById("wizard-container");
-        var elemWidth = document.querySelector(".wizard-step-container").scrollWidth;
+        // var elemWidth = document.querySelector(".wizard-step-container").scrollWidth;
+        var elemWidth = 200;
         if (_direction === "back") {
           if (elem.scrollLeft === 0) {
             elem.scrollTo({
@@ -56,11 +57,19 @@ function ($scope) {
     $scope.setSelected = function(_index){
         let isStepForward = _index ===  ($scope.maxCompletedStep + 1) || (_index === ($scope.properties.currentWindow - 1));
         let isStepBAckward = _index === ($scope.properties.currentWindow - 1);
+        let isSkip = _index > $scope.maxCompletedStep;
+        
+        if(isSkip){
+            $scope.maxCompletedStep = _index;
+        }
+        
         if( isStepBAckward || isStepForward || $scope.maxCompletedStep >= _index){
             for(let i = 0; i < $scope.properties.content.length; i++){
                 if(_index === i){
                     if(isStepForward){
                        $scope.maxCompletedStep = $scope.maxCompletedStep < _index ? _index : $scope.maxCompletedStep; 
+                    } else if (isSkip){
+                       $scope.maxCompletedStep =  _index;
                     }
 
                     getElementOnScreen("wizard_step_" + _index);
@@ -77,8 +86,9 @@ function ($scope) {
     }
     
     function getElementOnScreen( _id){
-        let element = document.getElementById(_id);
-        element.scrollIntoView();
+        //let element = document.getElementById(_id);
+        //element.scrollIntoView();
+        document.getElementById(_id).scrollIntoView({block: "end", behavior: "smooth"});
     }
     
     $scope.$watchCollection("properties.content", function(newValue, oldValue) {

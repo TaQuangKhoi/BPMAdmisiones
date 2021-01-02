@@ -1,0 +1,1418 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "CatUniversidadAIngresarAcciones",
+  "name" : "CatUniversidadAIngresarAcciones",
+  "lastUpdate" : 1609374871834,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Catalogo de Universidad a Ingresar"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "a63a8c02-b7d4-4613-b1bf-2694c06b0b50",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<hr>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "d813f76e-8c9a-4628-bfd8-bb3096a62a7b",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'tabla'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "6d107d4e-cf51-47e5-8145-1ae0df87bcf2",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'agregar'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "0d126637-4de1-4b15-a720-62bc39e93d0b",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Clave",
+                    "Descripción",
+                    "Usuario Banner",
+                    "Fecha Creación",
+                    "Fecha Implementación"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : ""
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "clave",
+                    "descripcion",
+                    "usuarioBanner",
+                    "fechaCreacion",
+                    "fechaImplementacion"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selectedNR"
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutputBorrar"
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar"
+                },
+                "urlGet" : {
+                  "type" : "expression",
+                  "value" : "urlRefreshPaginado"
+                }
+              },
+              "reference" : "5fd3b872-4dd4-4167-915b-186b3f2ea922",
+              "hasValidationError" : false,
+              "id" : "customTableSeleccionarBanner"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "value" : {
+                  "type" : "expression",
+                  "value" : "countCatUniversidadAIngresar[0]"
+                },
+                "inicio" : {
+                  "type" : "variable",
+                  "value" : "inicio"
+                },
+                "fin" : {
+                  "type" : "variable",
+                  "value" : "final"
+                },
+                "valorSeleccionado" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "615d6dc0-f0e0-41e4-9d47-c319ef9c79bf",
+              "hasValidationError" : false,
+              "id" : "customPaginado"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Clave",
+                    "Descripción",
+                    "Usuario Banner",
+                    "Fecha Creación",
+                    "Fecha Implementación"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : "catUniversidadAIngresar"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "clave",
+                    "descripcion",
+                    "usuarioBanner",
+                    "fechaCreacion",
+                    "fechaImplementacion"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selectedNR"
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar"
+                },
+                "urlGet" : {
+                  "type" : "constant"
+                },
+                "filtroToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutputBorrar"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=getCatFiltradoCalalogosAdMisiones&p=0&c=100"
+                },
+                "dataToSendFiltro" : {
+                  "type" : "variable",
+                  "value" : "formOutputBorrar"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar"
+                }
+              },
+              "reference" : "1c76996b-b75e-4149-a23c-26aa382de6a9",
+              "hasValidationError" : false,
+              "id" : "customTableSeleccionarCatalogosAutoDescripcion"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "b6288491-8459-440a-b41d-a905022ae3f1",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "9680d562-fe96-41c1-b7cd-f3a3cbfd6960",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [ ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'editar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "829aab23-e8eb-4574-b324-bd0a7579bf1b",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selected.clave"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "8e4830f2-0f68-46d7-84ac-55ab240e9f87",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 10,
+                "lg" : 10
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descripción"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selected.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "a36329bd-c1a0-4008-8c48-19d8337a479d",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 10,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cancelar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "default"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'tabla'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                },
+                "variableDestino2" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selected"
+                },
+                "variableAcopiar2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioBanner\": \"\", \t\"clave\": \"\" }"
+                }
+              },
+              "reference" : "e5546ff9-e038-42d4-862f-f5c3e9c8b054",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValorDoble"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatUniversidadAIngresar?q=getCatUniversidadAIngresar&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"fechaImplementacion\":null, \t\"isEliminado\": false, \t\"isEnabled\":true, \t\"usuarioBanner\": \"\", \t\"clave\": \"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar_selected"
+                }
+              },
+              "reference" : "990972f0-0f46-474d-8953-aabd323e0d31",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatUniversidadIngresar"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'agregar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "345f18e0-f01c-46a3-ab60-595be6b9b58c",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatUniversidadAIngresarInput[0].clave"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "e1e4fc88-30de-412c-8416-45889b15f27d",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 10,
+                "lg" : 10
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descripción"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatUniversidadAIngresarInput[0].descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "4585e0c7-f7e3-4be8-8ca5-4083fd8875ea",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 10,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cancelar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "default"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'tabla'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "2c1bca78-eb98-45c9-a609-c4191a69da24",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catUniversidadAIngresar"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatUniversidadAIngresarInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,             \"isEnabled\": true,             \"usuarioBanner\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null,             \"fechaImplementacion\":null         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "984e6def-24f5-4618-b5d4-a8ec3361ee13",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatUniversidadIngresar"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "0fb5c478-1504-4544-b3cf-4d28f1fd628f",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "5fc97838-a587-48fd-ad0a-6b8724b83ca9",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "1fa3370e-cbde-4658-9b4c-6e46b399fb7e",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "5a01b0c5-4cae-49e9-a513-f0af89dd099e",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "catUniversidadAIngresar" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatUniversidadAIngresar?q=getCatUniversidadAIngresar&p={{inicio}}&c=10"
+      ],
+      "exposed" : false
+    },
+    "catUniversidadAIngresar_selected" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "\t\"persistenceId\": 0,\r",
+        "\t\"persistenceId_string\": \"0\",\r",
+        "\t\"persistenceVersion\": 0,\r",
+        "\t\"persistenceVersion_string\": \"0\",\r",
+        "\t\"descripcion\": \"\",\r",
+        "\t\"fechaCreacion\": \"\",\r",
+        "\t\"fechaImplementacion\":null,\r",
+        "\t\"isEliminado\": false,\r",
+        "\t\"isEnabled\":true,\r",
+        "\t\"usuarioBanner\": \"\",\r",
+        "\t\"clave\": \"\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "catUniversidadAIngresar_selectedNR" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "countCatUniversidadAIngresar" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatUniversidadAIngresar?q=countForIsEliminado&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "editable" : {
+      "type" : "constant",
+      "value" : [
+        "tabla"
+      ],
+      "exposed" : false
+    },
+    "final" : {
+      "type" : "constant",
+      "value" : [
+        "10"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    lstCatUniversidadAIngresarInput:$data.lstCatUniversidadAIngresar",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputBorrar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\"lstCatUniversidadAIngresarInput\":$data.lstCatUniversidadAIngresarBorrar}"
+      ],
+      "exposed" : false
+    },
+    "inicio" : {
+      "type" : "constant",
+      "value" : [
+        "0"
+      ],
+      "exposed" : false
+    },
+    "lstCatUniversidadAIngresar" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catUniversidadAIngresar_selected);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCatUniversidadAIngresarBorrar" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catUniversidadAIngresar_selectedNR);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "processAgregarData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=10&p=0&f=name=Agregar%20UniversidadAIngresar"
+      ],
+      "exposed" : false
+    },
+    "processEditData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=1000&p=0&f=name=Editar%20UniversidadAIngresar"
+      ],
+      "exposed" : false
+    },
+    "urlRefreshPaginado" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatUniversidadAIngresar?q=getCatUniversidadAIngresar&p=\"+$data.inicio+\"&c=10\";"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "formOutputAgregar" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"lstCatUniversidadAIngresarInput\": [\r",
+        "        {\r",
+        "            \"descripcion\": \"\", \r",
+        "            \"isEliminado\": false,\r",
+        "            \"isEnabled\": true,\r",
+        "            \"usuarioBanner\": \"\", \r",
+        "            \"clave\": \"\", \r",
+        "            \"fechaCreacion\": null,\r",
+        "            \"fechaImplementacion\":null\r",
+        "        }\r",
+        "    ]\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "cargar_datos" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "    if($data.editable === \"editar\"){",
+        "        $data.catUniversidadAIngresar_selected = $data.catUniversidadAIngresar_selectedNR;",
+        "    }"
+      ],
+      "exposed" : false
+    },
+    "validar" : {
+      "type" : "expression",
+      "value" : [
+        "var validar = true;",
+        "if($data.editable === \"editar\"){",
+        "    if($data.catUniversidadAIngresar_selected.clave.trim()=== \"\"){",
+        "        validar = false;",
+        "    }else if($data.catUniversidadAIngresar_selected.descripcion.trim()=== \"\"){",
+        "        validar = false;",
+        "    }",
+        "}else if($data.editable === \"agregar\"){",
+        "    if($data.formOutputAgregar.lstCatUniversidadAIngresarInput[0].clave.trim()=== \"\"){",
+        "        validar = false;",
+        "    }else if($data.formOutputAgregar.lstCatUniversidadAIngresarInput[0].descripcion.trim()=== \"\"){",
+        "        validar = false;",
+        "    } else if($data.formOutputAgregar.lstCatUniversidadAIngresarInput[0].usuarioBanner.trim()=== \"\"){",
+        "       $data.formOutputAgregar.lstCatUniversidadAIngresarInput[0].usuarioBanner = $data.userData.user_name;",
+        "       validar = false;",
+        "    }",
+        "}",
+        "",
+        "return validar;"
+      ],
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Cat campus\",\r",
+        "    \"tarea\":\"Cat Campus\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"solicitudes_progreso\",\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":100,\r",
+        "    \"offset\":0,\r",
+        "    \"catalogo\":\"CatUniversidadAIngresar\"\r",
+        "};"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "d6638684-221e-489a-a7fa-d8afa32be6aa",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

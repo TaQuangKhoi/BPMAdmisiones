@@ -13,12 +13,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       closeModal($scope.properties.closeOnSuccess);
     } else if ($scope.properties.action === 'Start process') {
         if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.datosVeridicos){
-            swal("Aviso!", "Debe aceptar que los datos ingresados son veridicos!", "warning");
+            swal("¡Aviso!", "Debe aceptar que los datos ingresados son verídicos", "warning");
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.aceptoAvisoPrivacidad){
-            swal("Aviso!", "Debe aceptar el aviso de privacidad!", "warning");
+            swal("¡Aviso!", "Debe aceptar el aviso de privacidad", "warning");
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.confirmarAutorDatos){
-            swal("Aviso!", "Debe aceptar que confirma que es el auto de los datos de este formulario!", "warning");
+            swal("¡Aviso!", "Debe aceptar que confirma que es el autor de los datos de este formulario", "warning");
         }else{
+            $scope.properties.disabled = true;
             startProcess();
         }
     } else if ($scope.properties.action === 'Submit task') {
@@ -31,12 +32,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.url) {
         debugger;
         if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.datosVeridicos){
-            swal("Aviso!", "Debe aceptar que los datos ingresados son veridicos!", "warning");
+            swal("¡Aviso!", "Debe aceptar que los datos ingresados son veridicos", "warning");
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.aceptoAvisoPrivacidad){
-            swal("Aviso!", "Debe aceptar el aviso de privacidad!", "warning");
+            swal("¡Aviso!", "Debe aceptar el aviso de privacidad", "warning");
         }else if(!$scope.properties.formInput.catSolicitudDeAdmisionInput.confirmarAutorDatos){
-            swal("Aviso!", "Debe aceptar que confirma que es el auto de los datos de este formulario!", "warning");
+            swal("¡Aviso!", "Debe aceptar que confirma que es el autor de los datos de este formulario", "warning");
         }else{
+            $scope.properties.disabled = true;
             localS.removeItem("catSolicitudDeAdmisionInput");
             localS.removeItem("selectedIndex");
             localS.removeItem("fotopasaporte");
@@ -140,6 +142,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         $scope.properties.dataFromError = data;
         $scope.properties.responseStatusCode = status;
         $scope.properties.dataFromSuccess = undefined;
+        $scope.properties.disabled = false;
         notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
       })
       .finally(function() {

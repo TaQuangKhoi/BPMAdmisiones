@@ -9,8 +9,11 @@ import javax.naming.Context
 import javax.naming.InitialContext
 import javax.sql.DataSource
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 class DBConnect {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBConnect.class);
 	
 		/* The data source. /
 	
@@ -28,7 +31,14 @@ class DBConnect {
 		 */
 		public final Connection getConnection() throws Exception {
 			Context initContext = new InitialContext();
+			//BDM
 			DataSource dataSource = (DataSource) initContext.lookup("java:/comp/env/NotManagedBizDataDS");
+			return dataSource.getConnection();
+		}
+		public final Connection getConnectionBonita() throws Exception {
+			Context initContext = new InitialContext();
+			//Bonita instancias etc...
+			DataSource dataSource = (DataSource) initContext.lookup("java:/comp/env/bonitaSequenceManagerDS");
 			return dataSource.getConnection();
 		}
 		public void closeObj(Connection con, Statement stm, ResultSet rs, PreparedStatement pstm) {

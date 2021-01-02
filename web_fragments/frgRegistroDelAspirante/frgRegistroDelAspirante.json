@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgRegistroDelAspirante",
   "name" : "frgRegistroDelAspirante",
-  "lastUpdate" : 1605653442746,
+  "lastUpdate" : 1606979979103,
   "rows" : [
     [
       {
@@ -80,7 +80,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">AVISO: Debes escribir tu nombre tal y como aparece en tu acta de nacimiento, tomando en cuenta acentos y demás signos de puntuación . La información llenada en esta pantalla se mantendrá durante todo el proceso de admisión.</label>"
+            "value" : "<label class=\"color-orange\">AVISO: Debes escribir tu nombre tal y como aparece en tu acta de nacimiento, tomando en cuenta acentos y signos de puntuación. La información llenada en esta pantalla se mantendrá durante todo el proceso de admisión. </label>"
           },
           "alignment" : {
             "type" : "constant",
@@ -564,7 +564,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿A cual de las universidades de la red Anahuac deseas ingresar?"
+                  "value" : "¿A cuál de las universidades de la Red Anáhuac deseas ingresar?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -715,7 +715,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "catPropedeutico"
+                  "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.propedeuticos"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -766,7 +766,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Periodo de ingreso <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Período de ingreso <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -782,7 +782,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "catPeriodo"
+                  "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.periodoDisponible"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -841,7 +841,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Lugar examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Lugar de examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -918,7 +918,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Lugar examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Lugar de examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -933,7 +933,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formInput.catSolicitudDeAdmisionInput.ciudadExamen.descripcion"
+                  "value" : "ciudadestado"
                 },
                 "type" : {
                   "type" : "constant",
@@ -995,7 +995,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Lugar examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Lugar de examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1010,7 +1010,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "formInput.catSolicitudDeAdmisionInput.ciudadExamenPais.descripcion"
+                  "value" : "ciudadpais"
                 },
                 "type" : {
                   "type" : "constant",
@@ -1970,7 +1970,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "labelHidden" : {
             "type" : "constant",
@@ -1994,7 +1994,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">AVISO: El campus seleccionado en la opción \"Lugar donde realizarás tu examen\" es solamente el lugar donde deseas presentarlo. Para seleccionar el campus donde deseas llevar a cabo tus estudios, selecciona el campus correcto en la opción \"¿A cúal de las universidades de la Red Anáhuac deseas ingresar?\".</label>"
+            "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label>"
           },
           "alignment" : {
             "type" : "constant",
@@ -2071,7 +2071,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Estoy de acuerdo y he leido el"
+            "value" : "Estoy de acuerdo y he leído el"
           },
           "value" : {
             "type" : "variable",
@@ -2208,7 +2208,7 @@
     "setPeriodo" : {
       "type" : "expression",
       "value" : [
-        "var deshabilitar = false;\r",
+        "/*var deshabilitar = false;\r",
         "if($data.formInput.catSolicitudDeAdmisionInput.catPropedeutico !== null){\r",
         "    if($data.formInput.catSolicitudDeAdmisionInput.catPropedeutico.persistenceId_string !== \"\"){\r",
         "        $data.formInput.catSolicitudDeAdmisionInput.catPeriodo = $data.formInput.catSolicitudDeAdmisionInput.catPropedeutico.catPeriodo;\r",
@@ -2221,7 +2221,26 @@
         "}\r",
         "\r",
         "\r",
-        "return deshabilitar;"
+        "return deshabilitar;*/\r",
+        "\r",
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "ciudadestado" : {
+      "type" : "expression",
+      "value" : [
+        "var city = $data.formInput.catSolicitudDeAdmisionInput.ciudadExamen.descripcion + \", \" +$data.formInput.catSolicitudDeAdmisionInput.ciudadExamen.estado",
+        "",
+        "return city;"
+      ],
+      "exposed" : false
+    },
+    "ciudadpais" : {
+      "type" : "expression",
+      "value" : [
+        "var city = $data.formInput.catSolicitudDeAdmisionInput.ciudadExamenPais.descripcion +\", \"+ $data.formInput.catSolicitudDeAdmisionInput.ciudadExamenPais.estado",
+        "return city;"
       ],
       "exposed" : false
     }

@@ -10,7 +10,6 @@ function ($scope) {
     
     
     function loadLocalStorage(){
-        debugger;
         var localS = localStorage;
         if(localS.getItem("catSolicitudDeAdmisionInput") !== null){
             $scope.properties.formInput = JSON.parse(localS.getItem("catSolicitudDeAdmisionInput"));  

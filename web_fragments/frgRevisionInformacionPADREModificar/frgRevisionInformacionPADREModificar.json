@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgRevisionInformacionPADREModificar",
   "name" : "frgRevisionInformacionPADREModificar",
-  "lastUpdate" : 1605670128468,
+  "lastUpdate" : 1606076375096,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "INFORMACIÓN DEL PADRE"
+            "value" : "<label class=\"color-orange\">Información del Padre</label>"
           },
           "level" : {
             "type" : "constant",
@@ -85,7 +85,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -160,7 +160,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -235,7 +235,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -302,7 +302,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -377,7 +377,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -442,7 +442,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -509,7 +509,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -584,7 +584,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -659,7 +659,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -751,7 +751,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "DOMICILIO PERMANENTE DEL PADRE"
+            "value" : "<label class=\"color-orange\">Domicilio Permanente del Padre</label>"
           },
           "level" : {
             "type" : "constant",
@@ -812,7 +812,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -887,7 +887,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -962,7 +962,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -1039,7 +1039,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -1114,7 +1114,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -1189,7 +1189,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 4
         },
@@ -1256,7 +1256,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 6
         },
@@ -1321,7 +1321,7 @@
         "type" : "component",
         "dimension" : {
           "xs" : 12,
-          "sm" : 12,
+          "sm" : 4,
           "md" : 4,
           "lg" : 6
         },
@@ -1437,11 +1437,11 @@
       "value" : [
         "var mostrar = true;\r",
         "for (var x = 0; x < $data.catPadreTrabaja.length; x++) {\r",
-        "    if ($data.catVive.catTrabaja === undefined) {\r",
+        "    if ($data.padre.catTrabaja === undefined) {\r",
         "        mostrar = true;\r",
         "        $data.trabaja = false;\r",
         "    } else {\r",
-        "        if ($data.catPadreTrabaja[x].persistenceId === $data.catVive.catTrabaja.persistenceId) {\r",
+        "        if ($data.catPadreTrabaja[x].persistenceId === $data.padre.catTrabaja.persistenceId) {\r",
         "            if ($data.catPadreTrabaja[x].descripcion === \"Si\") {\r",
         "                mostrar = false;\r",
         "                $data.trabaja = true;\r",
@@ -1462,13 +1462,13 @@
       "value" : [
         "var mostrar = true;\r",
         "for (var x = 0; x < $data.catVive.length; x++) {\r",
-        "    if ($data.catVive.vive === undefined || $data.catVive.vive === null) {\r",
+        "    if ($data.padre.catVive.vive === undefined || $data.padre.catVive.vive === null) {\r",
         "        $data.egresoanahuac = true;\r",
         "        $data.padretrabaja = true;\r",
         "        $data.vive = false;\r",
         "        mostrar = true;\r",
         "    } else {\r",
-        "        if ($data.catVive[x].persistenceId === $data.catVive.vive.persistenceId) {\r",
+        "        if ($data.catVive[x].persistenceId === $data.padre.vive.persistenceId) {\r",
         "            if ($data.catVive[x].descripcion === \"Si\") {\r",
         "                mostrar = false;\r",
         "                $data.vive = true;\r",

@@ -11,7 +11,7 @@ function PbButtonCtrl($scope, $http) {
         if ($scope.loading == false) {
             if($scope.properties.isModificacion === false){
                 if($scope.properties.pagoExamenDeshabilitadoOHabilitado === true){
-                    if($scope.properties.nuevosValores[0].campus && $scope.properties.nuevosValores[0].conekta && $scope.properties.nuevosValores[0].mailgun && $scope.properties.nuevosValores[0].crispChat){
+                    if($scope.properties.nuevosValores[0].campus && $scope.properties.nuevosValores[0].conekta && $scope.properties.nuevosValores[0].mailgun && $scope.properties.nuevosValores[0].crispChat && $scope.properties.nuevosValores[0].mailgunDominio && $scope.properties.nuevosValores[0].mailgunCorreo){
                         $("#loading").modal("show");
                         debugger
                         $scope.loading = true;

@@ -1,0 +1,55 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th>Tipo:</th>
+                <th>Nombre:</th>
+                <th>Año inicio:</th>
+                <th>Año fin:</th>
+                <th>Promedio:</th>
+                <th>Acciones:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in properties.content" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>
+                    {{row.grado.descripcion}}
+                </td>
+                <td>
+                    {{row.grado.descripcion === "Preparatoria/Bachillerato"? row.escuela.descripcion : row.otraEscuela}}
+                    {{row.escuelaString === "Otro" ? row.otraEscuela:""}}
+                </td>
+                <td>
+                    {{row.anoInicio}}
+                </td>
+                <td>
+                    {{row.anoFin}}
+                </td>
+                <td>
+                    {{row.promedio}}
+                </td>
+                <td>
+                    <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'ver')">
+                       <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
+                    <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'editar')">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                     <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'eliminar')">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    
+                    <!--<button class="btn btn-link" ng-click="ctrl.showModalEditar(false)">-->
+                    <!--   <span class="glyphicon glyphicon-eye-open"></span>-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-link" ng-click="ctrl.showModalEditar(true)">-->
+                    <!--    <span class="glyphicon glyphicon-pencil"></span>-->
+                    <!--</button>-->
+                    <!-- <button class="btn btn-link" ng-click="ctrl.showModalEliminar()">-->
+                    <!--    <span class="glyphicon glyphicon-remove"></span>-->
+                    <!--</button>-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

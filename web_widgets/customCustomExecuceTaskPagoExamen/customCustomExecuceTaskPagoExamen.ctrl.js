@@ -1,4 +1,4 @@
-function ($scope, $http) {
+function ($scope, $http, modalService) {
     
     $scope.formInput = { 
         "conIsPagoValidado" : false, 
@@ -8,16 +8,52 @@ function ($scope, $http) {
         }
     }
     
+    $scope.showModal = function(){
+        $("#loading").modal("show");
+    };
+    
+    $scope.hideModal = function(){
+        $("#loading").modal("hide");
+    };
+    
     $scope.newNavValue = "";
+    
+    $scope.assignTask = function () {
+        $scope.showModal();
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": $scope.properties.userId
+            }
+        };
 
-    function executeTask(){
+        return $http(req).success(function(data, status) {
+            $scope.executeTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
+    }
+
+    $scope.executeTask = function(){
         let ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
         let url = ipBonita + "/API/bpm/userTask/" + $scope.properties.taskId + "/execution";
         
         $http.post(url, $scope.formInput).success(function(data){
-            $scope.properties.navigationVar = $scope.newNavValue;
+            $scope.hideModal();
+            $scope.properties.navigationVar = "hideall"
+            swal("Pago exitoso", "Redireccionando.", "success");
             if($scope.reloadPage){
-                window.location.reload();   
+                setTimeout(function(){
+                    window.location.reload();
+                }, 3000);   
             }
         }).error(function(error){
             console.log("Fallo la tarea" + JSON.stringify(error));
@@ -30,9 +66,9 @@ function ($scope, $http) {
                 $scope.formInput.isPagoTarjeta = false;
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.bankInformationSPEI.data[0].id;
                 if($scope.properties.isCorrectTask){
-                    $scope.newNavValue = "paymentWaiting";
+                    // $scope.newNavValue = "paymentWaiting";
                     $scope.reloadPage = false;
-                    executeTask();  
+                    $scope.assignTask();  
                 }
             }
         }
@@ -44,9 +80,9 @@ function ($scope, $http) {
                 $scope.formInput.isPagoTarjeta = false;
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.paymentInformationOXXO.data[0].id;
                 if($scope.properties.isCorrectTask){
-                    $scope.newNavValue = "paymentWaiting";
+                    // $scope.newNavValue = "paymentWaiting";
                     $scope.reloadPage = false;
-                    executeTask();    
+                    $scope.assignTask();    
                 }
             }
         }
@@ -58,9 +94,9 @@ function ($scope, $http) {
                 $scope.formInput.isPagoTarjeta = true;
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.paymentInfoCard.data[0].id;
                 if($scope.properties.isCorrectTask){
-                    $scope.newNavValue = "cardPaid";
+                    // $scope.newNavValue = "cardPaid";
                     $scope.reloadPage = true;
-                    executeTask();
+                    $scope.assignTask();
                 }
             }
         }
@@ -81,5 +117,5 @@ function ($scope, $http) {
         if($scope.properties.orderObject !== undefined && $scope.properties.orderObject !== null){
             $scope.getOrderInformation();
         }
-    })
+    });
 }

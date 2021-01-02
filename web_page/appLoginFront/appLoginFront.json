@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appLoginFront",
   "name" : "appLoginFront",
-  "lastUpdate" : 1605668142941,
+  "lastUpdate" : 1608759431778,
   "rows" : [
     [
       {
@@ -145,7 +145,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "col-sm-offset-1 col-md-offset-2 col-lg-offset-3 bg-white"
+                  "value" : "col-sm-offset-1 col-md-offset-2 col-lg-offset-3 col-xs-offset-1 bg-white"
                 },
                 "hidden" : {
                   "type" : "expression",
@@ -1047,7 +1047,7 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : "absolute-center bg-main col-sm-offset-3 col-md-offset-4 col-lg-offset-4 bg-white"
+            "value" : "absolute-center bg-main col-sm-offset-3 col-md-offset-4 col-lg-offset-4 col-xs-offset-1 bg-white"
           },
           "hidden" : {
             "type" : "expression",
@@ -1247,7 +1247,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Ingresa tu nombre de usuario para comenzar el proceso de recuperación de contraseña. En breve recibrás un correo electrónico con las instrucciones para continuar"
+                        "value" : "Ingresa tu Correo electrónico para comenzar el proceso de recuperación de contraseña. En breve recibirás un correo electrónico con las instrucciones para continuar."
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1299,7 +1299,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Nombre de usuario"
+                        "value" : "Correo electrónico : <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -1314,11 +1314,11 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "objUser.email"
                       },
                       "type" : {
                         "type" : "constant",
-                        "value" : "text"
+                        "value" : "email"
                       },
                       "min" : {
                         "type" : "constant"
@@ -1373,60 +1373,18 @@
                   "type" : "constant",
                   "value" : "primary"
                 },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
+                "objUser" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "objUser"
                 },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
+                "navigationVar" : {
                   "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
+                  "value" : "navigationVar"
                 }
               },
-              "reference" : "df3faf3a-95cb-4f96-8a8b-8e97e21aa0aa",
+              "reference" : "202c0e44-fdda-4130-9cf5-b8a320eadcb2",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnRequestChangePassword"
             }
           ]
         ]
@@ -1434,7 +1392,7 @@
     ],
     [
       {
-        "type" : "modalContainer",
+        "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -1444,156 +1402,28 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : "m-top m-bottom"
+            "value" : ""
           },
-          "modalId" : {
+          "hidden" : {
             "type" : "constant",
-            "value" : "recoverPassword"
+            "value" : false
           },
-          "size" : {
+          "value" : {
             "type" : "constant",
-            "value" : "sm"
+            "value" : "This is the initial value"
           },
-          "animation" : {
+          "color" : {
             "type" : "constant",
-            "value" : true
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
           }
         },
-        "reference" : "d042fcd5-1851-4027-ac67-8489c95fa433",
+        "reference" : "2ba47659-7d48-4049-be67-7d62a2ff4de5",
         "hasValidationError" : false,
-        "id" : "pbModalContainer",
-        "container" : {
-          "type" : "container",
-          "dimension" : {
-            "xs" : 12
-          },
-          "propertyValues" : { },
-          "reference" : "5956122d-b743-441b-9ec3-a48c259787af",
-          "hasValidationError" : false,
-          "id" : "pbContainer",
-          "rows" : [
-            [
-              {
-                "type" : "container",
-                "dimension" : {
-                  "xs" : 12,
-                  "sm" : 12,
-                  "md" : 12,
-                  "lg" : 12
-                },
-                "propertyValues" : {
-                  "cssClasses" : {
-                    "type" : "constant",
-                    "value" : "modal-footer"
-                  },
-                  "hidden" : {
-                    "type" : "constant",
-                    "value" : false
-                  },
-                  "repeatedCollection" : {
-                    "type" : "variable",
-                    "value" : ""
-                  }
-                },
-                "reference" : "e9a8df11-b151-4c72-ab61-66711b137010",
-                "hasValidationError" : false,
-                "id" : "pbContainer",
-                "rows" : [
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 6,
-                        "md" : 6,
-                        "lg" : 6
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Cancelar"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "default"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Close modal"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "constant"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
-                        }
-                      },
-                      "reference" : "a00e1d09-ea4c-4b36-a5f2-22a37d460975",
-                      "hasValidationError" : false,
-                      "id" : "pbButton"
-                    }
-                  ]
-                ]
-              }
-            ]
-          ]
-        }
+        "id" : "customWidgetChat"
       }
     ]
   ],
@@ -1697,6 +1527,16 @@
       "type" : "constant",
       "value" : [
         "login"
+      ],
+      "exposed" : false
+    },
+    "objUser" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"email\": \"\",",
+        "    \"password\": \"\"",
+        "}"
       ],
       "exposed" : false
     }

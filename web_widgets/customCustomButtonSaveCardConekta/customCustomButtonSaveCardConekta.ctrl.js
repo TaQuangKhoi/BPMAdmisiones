@@ -4,10 +4,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     
     var vm = this;
 
+    $scope.isPublicApiKey = false;
+
     this.action = function action() {
-        // $scope.execute();
         $scope.validateCard();
     };
+    
     $scope.tokenParams = {};
     $scope.tokenId = "";
     
@@ -22,8 +24,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.validateCard = function(){
         if($scope.properties.validateCardFormat.isValid){
             $scope.execute();
+        } else if (!$scope.isPublicApiKey){
+            swal("¡Atención!", "La api Key de Conekta no pudo cargarse.", "warning");
         } else {
-            swal("Atención", $scope.properties.validateCardFormat.message, "warning");
+            swal("¡Atención!", $scope.properties.validateCardFormat.message, "warning");
         }
     };
     
@@ -39,12 +43,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               "address": $scope.properties.dataToSend.address
             }
         };
-        Conekta.setPublicKey("key_BKn3nrrQJGw1qybfcirDprg");
+        Conekta.setPublicKey($scope.publicApiKey);
         Conekta.Token.create($scope.tokenParams, successResponseHandler, errorResponseHandler);
     }
     
     var successResponseHandler = function (token) {
-        $scope.hideModal();
         $scope.properties.dataFromSuccess = token.id;
         $scope.properties.cardToken = token.id;
         let data = angular.copy($scope.properties.objectCard);
@@ -89,14 +92,50 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         })
         .error(function(data, status) {
+            swal("Error", data.error, "error");
             $scope.properties.dataFromError = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromSuccess = undefined;
-            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
         })
         .finally(function() {
             $scope.hideModal();
             vm.busy = false;
         });
     }
+
+    function getConektaPublicKey(data) {
+        vm.busy = true;
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacRest?url=getConektaPublicKey&p=0&c=10",
+            data: data
+        };
+
+        return $http(req)
+        .success(function(data, status) {
+            if(data.success){
+                $scope.publicApiKey = data.data[0];
+                $scope.isPublicApiKey = true;
+            } else {
+                swal("Error", data.error, "error");
+            }
+        })
+        .error(function(data, status) {
+            swal("Algo salió mal.", data.error, "error");
+        })
+        .finally(function() {
+            $scope.hideModal();
+            vm.busy = false;
+        });
+    }
+
+    $scope.$watch("properties.objectCard", function(){
+        if($scope.properties.objectCard !== undefined){
+            if($scope.properties.objectCard.campus_id !== undefined){
+                getConektaPublicKey({
+                    "campus_id": $scope.properties.objectCard.campus_id
+                });
+            }
+        }
+    })
 }

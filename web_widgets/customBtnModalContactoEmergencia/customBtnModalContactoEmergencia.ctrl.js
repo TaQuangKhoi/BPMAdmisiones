@@ -21,19 +21,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Close modal') {
             debugger;
             if ($scope.properties.contactoJson.catCasoDeEmergencia === null) {
-                swal("Contacto de emergencia!", "Debe seleccionar quien será la persona a contactar en caso de emergencia!", "warning");
+                swal("¡Contacto de emergencia!", "No puedes esta opción como contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.nombre === "") {
-                swal("Nombre!", "Debe agregar el nombre del contacto de emergencia!", "warning");
+                swal("¡Nombre!", "Debe agregar el nombre del contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.telefono === "") {
-                swal("Teléfono!", "Debe agregar el teléfono del contacto de emergencia!", "warning");
-            } else if ($scope.properties.contactoJson.telefonoCelular === "") {
-                swal("Teléfono celular!", "Debe agregar el teléfono celular del contacto de emergencia!", "warning");
-            } else if ($scope.properties.contactoJson.catCasoDeEmergencia.descripcion === "Otro") {
+                swal("¡Teléfono!", "Debe agregar el teléfono del contacto de emergencia", "warning");
+            } /*else if ($scope.properties.contactoJson.telefonoCelular === "") {
+                swal("¡Teléfono celular!", "Debe agregar el teléfono celular del contacto de emergencia!", "warning");
+            }*/ else if ($scope.properties.contactoJson.catCasoDeEmergencia.descripcion === "Otro") {
                 if ($scope.properties.contactoJson.catParentesco === null) {
-                    swal("Parentesco!", "Debe agregar el parentesco del contacto de emergencia!", "warning");
+                    swal("¡Parentesco!", "Debe agregar el parentesco del contacto de emergencia", "warning");
                 } else if ($scope.properties.contactoJson.catParentesco.descripcion === "Otro") {
                     if ($scope.properties.contactoJson.parentesco === "" || $scope.properties.contactoJson.parentesco === undefined) {
-                        swal("Parentesco!", "Debe agregar el parentesco del contacto de emergencia!", "warning");
+                        swal("¡Parentesco!", "Debe agregar el parentesco del contacto de emergencia", "warning");
                     } else {
                         $scope.properties.formInput.contactoEmergenciaInput.push($scope.properties.contactoJson);
                         $scope.properties.contactoJson = {
