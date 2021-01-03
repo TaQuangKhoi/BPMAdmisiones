@@ -10,7 +10,7 @@ function($scope, $http, blockUI) {
 
     $scope.redirect = function(_param, filtro) {
         if (_param === "progreso") {
-            window.top.location.href = "/bonita/apps/administrativo/solicitudes_progreso/";
+            window.top.location.href = "/bonita/apps/administrativo/solicitudesEnProgreso/";
         } else if (_param === "nuevas") {
             window.top.location.href = "/bonita/apps/administrativo/nuevasSolicitudes/";
         } else if (_param === "aspirantesProceso") {

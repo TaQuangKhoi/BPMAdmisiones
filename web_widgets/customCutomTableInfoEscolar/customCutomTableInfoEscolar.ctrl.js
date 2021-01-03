@@ -42,7 +42,7 @@ function PbTableCtrl($scope, modalService) {
                 this.showModalEditar(false);
             } else if(action === "editar" ){
                 this.showModalEditar(true);
-            } else if(action === "ver" ){
+            } else if(action === "eliminar" ){
                 this.showModalEliminar();
             }
         }

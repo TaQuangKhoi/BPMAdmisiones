@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_ag2f8D8wEeu2TvJogrtWZw" name="Manejo CatFrecuenciaLees" author="EMUI" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002A4D616E656A6F204361744672656375656E6369614C656573372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_ag2f8T8wEeu2TvJogrtWZw" name="Agregar CatFrecuenciaLees">
       <elements xmi:type="process:Lane" xmi:id="_ag2f8j8wEeu2TvJogrtWZw" name="Empleado (lane) " actor="_ag2gCz8wEeu2TvJogrtWZw">
@@ -30,6 +30,33 @@
         <condition xmi:type="expression:Expression" xmi:id="_cHJvYj8wEeu2TvJogrtWZw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_ag2gCz8wEeu2TvJogrtWZw" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_M73SYE1REeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_M73SZ01REeuiD5640oS5Sw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_M73SaE1REeuiD5640oS5Sw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_M73SaU1REeuiD5640oS5Sw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_M73Sak1REeuiD5640oS5Sw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_M73Sa01REeuiD5640oS5Sw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_M73SbE1REeuiD5640oS5Sw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SYU1REeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SYk1REeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SY01REeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SZE1REeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SZU1REeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M73SZk1REeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_ag2gDD8wEeu2TvJogrtWZw">
         <inputs xmi:type="process:ContractInput" xmi:id="_rQOnUD8wEeu2TvJogrtWZw" name="lstCatFrecuenciaLeesInput" type="COMPLEX" multiple="true" dataReference="lstCatFrecuenciaLees">
           <inputs xmi:type="process:ContractInput" xmi:id="_rQOnUT8wEeu2TvJogrtWZw" name="clave"/>
@@ -107,6 +134,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_eM9lWT8wEeu2TvJogrtWZw"/>
         <condition xmi:type="expression:Expression" xmi:id="_eM9lWj8wEeu2TvJogrtWZw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_RFrncE1REeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrncU1REeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrnck1REeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrnc01REeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrndE1REeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrndU1REeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RFrndk1REeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_cpJCND8wEeu2TvJogrtWZw">
         <inputs xmi:type="process:ContractInput" xmi:id="_vSmQkD8wEeu2TvJogrtWZw" name="lstCatFrecuenciaLeesInput" type="COMPLEX" multiple="true" dataReference="lstCatFrecuenciaLees">
           <inputs xmi:type="process:ContractInput" xmi:id="_vSmQkT8wEeu2TvJogrtWZw" name="clave"/>

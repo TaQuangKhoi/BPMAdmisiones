@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_lEVT4DW7Eeu2j_E9AlEHwg" name="Manejo ActualmenteTrabajas" author="josec" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002C4D616E656A6F2041637475616C6D656E746554726162616A6173372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_lEVT4TW7Eeu2j_E9AlEHwg" name="Agregar ActualmenteTrabajas">
       <elements xmi:type="process:Lane" xmi:id="_lEVT4jW7Eeu2j_E9AlEHwg" name="Employee lane" actor="_lEVT9TW7Eeu2j_E9AlEHwg">
@@ -30,6 +30,33 @@
         <condition xmi:type="expression:Expression" xmi:id="_lEVT9DW7Eeu2j_E9AlEHwg" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_lEVT9TW7Eeu2j_E9AlEHwg" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_V-fbYE1PEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_V-fbZ01PEeuiD5640oS5Sw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_V-fbaE1PEeuiD5640oS5Sw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_V-gCcE1PEeuiD5640oS5Sw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_V-gCcU1PEeuiD5640oS5Sw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_V-gCck1PEeuiD5640oS5Sw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_V-gCc01PEeuiD5640oS5Sw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbYU1PEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbYk1PEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbY01PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbZE1PEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbZU1PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_V-fbZk1PEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_lEVT9jW7Eeu2j_E9AlEHwg">
         <inputs xmi:type="process:ContractInput" xmi:id="_lEVT9zW7Eeu2j_E9AlEHwg" name="lstCatActualmenteTrabajasInput" type="COMPLEX" multiple="true" dataReference="lstCatActualmenteTrabajas">
           <inputs xmi:type="process:ContractInput" xmi:id="_lEVT-DW7Eeu2j_E9AlEHwg" name="clave"/>
@@ -114,6 +141,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_lEVUMzW7Eeu2j_E9AlEHwg"/>
         <condition xmi:type="expression:Expression" xmi:id="_lEVUNDW7Eeu2j_E9AlEHwg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_YsvxYE1PEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxYU1PEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxYk1PEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxY01PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxZE1PEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxZU1PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_YsvxZk1PEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_lEVUNTW7Eeu2j_E9AlEHwg">
         <inputs xmi:type="process:ContractInput" xmi:id="_lEVUNjW7Eeu2j_E9AlEHwg" name="lstCatActualmenteTrabajasInput" type="COMPLEX" multiple="true" dataReference="lstCatActualmenteTrabajas">
           <inputs xmi:type="process:ContractInput" xmi:id="_lEVUNzW7Eeu2j_E9AlEHwg" name="clave"/>

@@ -74,7 +74,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function startProcess() {
         debugger
 	if($scope.properties.dataToChange2.id != undefined){
-		if( $scope.properties.dataToChange2.id &&  $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.grupoBonita && $scope.properties.dataToChange2.urlAvisoPrivacidad && $scope.properties.dataToChange2.urlDatosVeridicos && $scope.properties.dataToChange2.urlAutorDatos){
+		if( $scope.properties.dataToChange2.id &&  $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.grupoBonita && $scope.properties.dataToChange2.urlAvisoPrivacidad && $scope.properties.dataToChange2.urlDatosVeridicos && $scope.properties.dataToChange2.urlAutorDatos && $scope.properties.dataToChange2.calle && $scope.properties.dataToChange2.colonia && $scope.properties.dataToChange2.numeroExterior && $scope.properties.dataToChange2.numeroInterior && $scope.properties.dataToChange2.codigoPostal && $scope.properties.dataToChange2.municipio && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estado) {
 		 if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                 doRequest("GET", $scope.properties.url).then(function() {
@@ -88,6 +88,33 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
 	   }else {
+        if(!$scope.properties.dataToChange2.estado ){
+			swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+		}
+        if(!$scope.properties.dataToChange2.pais ){
+			swal("¡Aviso!", "Faltó capturar información en: Pais", "warning");
+		}
+        if(!$scope.properties.dataToChange2.municipio ){
+			swal("¡Aviso!", "Faltó capturar información en: Municipio", "warning");
+		}
+        if(!$scope.properties.dataToChange2.codigoPostal ){
+			swal("¡Aviso!", "Faltó capturar información en: Codigo postal", "warning");
+		}
+        if(!$scope.properties.dataToChange2.numeroInterior ){
+			swal("¡Aviso!", "Faltó capturar información en: Numero interior", "warning");
+		}
+        if(!$scope.properties.dataToChange2.numeroExterior ){
+			swal("¡Aviso!", "Faltó capturar información en: Numero exterior", "warning");
+        }
+        if(!$scope.properties.dataToChange2.colonia ){
+			swal("¡Aviso!", "Faltó capturar información en: Colonia", "warning");
+		}
+        if(!$scope.properties.dataToChange2.colonia ){
+			swal("¡Aviso!", "Faltó capturar información en: Colonia", "warning");
+		}
+        if(!$scope.properties.dataToChange2.calle ){
+			swal("¡Aviso!", "Faltó capturar información en: Calle", "warning");
+		}
 		if(!$scope.properties.dataToChange2.urlAutorDatos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Autor Datos", "warning");
 		}
@@ -116,7 +143,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 			
 	
 	}else{
-		if( $scope.properties.dataToChange2.lstCatCampusInput[0].id &&  $scope.properties.dataToChange2.lstCatCampusInput[0].clave && $scope.properties.dataToChange2.lstCatCampusInput[0].orden && $scope.properties.dataToChange2.lstCatCampusInput[0].descripcion && $scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad && $scope.properties.dataToChange2.lstCatCampusInput[0].urlDatosVeridicos && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos){
+		if( $scope.properties.dataToChange2.lstCatCampusInput[0].id &&  $scope.properties.dataToChange2.lstCatCampusInput[0].clave && $scope.properties.dataToChange2.lstCatCampusInput[0].orden && $scope.properties.dataToChange2.lstCatCampusInput[0].descripcion && $scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad && $scope.properties.dataToChange2.lstCatCampusInput[0].urlDatosVeridicos && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos && $scope.properties.dataToChange2.lstCatCampusInput[0].calle && $scope.properties.dataToChange2.lstCatCampusInput[0].colonia && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroExterior && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroInterior && $scope.properties.dataToChange2.lstCatCampusInput[0].codigoPostal && $scope.properties.dataToChange2.lstCatCampusInput[0].municipio && $scope.properties.dataToChange2.lstCatCampusInput[0].pais && $scope.properties.dataToChange2.lstCatCampusInput[0].estado){
 			 if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                 doRequest("GET", $scope.properties.url).then(function() {
@@ -130,6 +157,33 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
 	   }else {
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].estado ){
+			swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].pais ){
+			swal("¡Aviso!", "Faltó capturar información en: Pais", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].municipio ){
+			swal("¡Aviso!", "Faltó capturar información en: Municipio", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].codigoPostal ){
+			swal("¡Aviso!", "Faltó capturar información en: Codigo postal", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].numeroInterior ){
+			swal("¡Aviso!", "Faltó capturar información en: Numero interior", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].numeroExterior ){
+			swal("¡Aviso!", "Faltó capturar información en: Numero exterior", "warning");
+        }
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].colonia ){
+			swal("¡Aviso!", "Faltó capturar información en: Colonia", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].colonia ){
+			swal("¡Aviso!", "Faltó capturar información en: Colonia", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].calle ){
+			swal("¡Aviso!", "Faltó capturar información en: Calle", "warning");
+		}
 		if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Autor Datos", "warning");
 		}

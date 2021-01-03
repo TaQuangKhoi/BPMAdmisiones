@@ -27,15 +27,30 @@ function ($scope, blockUI) {
     
     $scope.$watch("properties.objetoAutodescripcion",function(){
         if($scope.properties.objetoAutodescripcion !== undefined){
+            debugger;
             $scope.properties.formInput = $scope.properties.objetoAutodescripcion;
             $scope.properties.selectedIndex = $scope.properties.formInput.pageIndex === undefined ? 0 : $scope.properties.formInput.pageIndex;
             $scope.properties.formInput.hermanos = [];
             $scope.properties.formInput.gruposSociales = [];
             $scope.properties.formInput.terapias = [];
-            $scope.properties.formInput.informacionEscolar = [];
+            // $scope.properties.formInput.informacionEscolar = [];
+            if($scope.properties.formInput.informacionEscolar === undefined ){
+                $scope.properties.formInput.informacionEscolar = [];
+            } else if ($scope.properties.formInput.informacionEscolar.length === 0){
+                $scope.properties.formInput.informacionEscolar = []
+            }
+            
             $scope.properties.formInput.universidadesHasEstado = [];
             $scope.properties.formInput.idiomas = [];
             $scope.properties.formInput.parienteEgresadoAnahuac = [];
+            
+            if($scope.properties.formInput.anoMuertePadre !== null && $scope.properties.formInput.anoMuertePadre !== undefined){
+                $scope.properties.formInput.anoMuertePadre = parseInt($scope.properties.formInput.anoMuertePadre); 
+            } 
+            
+            if($scope.properties.formInput.anoMuerteMadre !== null && $scope.properties.formInput.anoMuerteMadre !== undefined){
+                $scope.properties.formInput.anoMuerteMadre = parseInt($scope.properties.formInput.anoMuerteMadre); 
+            }
             
              $scope.$watch("properties.objetoHermanos",function(){
                 if($scope.properties.objetoHermanos !== undefined){
@@ -45,14 +60,6 @@ function ($scope, blockUI) {
             
             $scope.$watch("properties.objetoTerapias",function(){
                 if($scope.properties.objetoTerapias !== undefined){
-                    // let terapias = [];
-                    // for(let i = 0; i < $scope.properties.objetoTerapias.length; i++){
-                    //     let terapia = $scope.properties.objetoTerapias[i];
-                    //     terapia.catTipoTerapia = JSON.parse(terapia.catTipoTerapia);
-                    //     terapias.push(terapia);
-                    // }
-                    
-                    // $scope.properties.formInput.terapias = terapias;
                     $scope.properties.formInput.terapias = $scope.properties.objetoTerapias;
                 }
             });

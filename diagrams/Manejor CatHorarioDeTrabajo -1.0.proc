@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_dZ2wMD7qEeu5mc8RqRADiA" name="Manejor CatHorarioDeTrabajo " author="EMUI" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002E4D616E656A6F7220436174486F726172696F446554726162616A6F20372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_dZ2wMT7qEeu5mc8RqRADiA" name="Agregar HorarioTrabajo">
       <elements xmi:type="process:Lane" xmi:id="_dZ2wMj7qEeu5mc8RqRADiA" name="Empleado (lane) " actor="_dZ2wSz7qEeu5mc8RqRADiA">
@@ -19,7 +19,7 @@
           <referencedElements xmi:type="process:ContractInput" xmi:id="_D_gnUD7rEeu5mc8RqRADiA" name="lstCatHorarioDeTrabajoInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_dZ2wRD7qEeu5mc8RqRADiA">
+      <formMapping xmi:type="process:FormMapping" xmi:id="_dZ2wRD7qEeu5mc8RqRADiA" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_ey1qcD7sEeu5mc8RqRADiA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_dZ2wRj7qEeu5mc8RqRADiA">
@@ -30,6 +30,33 @@
         <condition xmi:type="expression:Expression" xmi:id="_wURLwj7qEeu5mc8RqRADiA" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_dZ2wSz7qEeu5mc8RqRADiA" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_uSQtAE1qEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_uSQtB01qEeuiD5640oS5Sw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_uSQtCE1qEeuiD5640oS5Sw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_uSQtCU1qEeuiD5640oS5Sw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_uSQtCk1qEeuiD5640oS5Sw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_uSQtC01qEeuiD5640oS5Sw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_uSQtDE1qEeuiD5640oS5Sw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtAU1qEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtAk1qEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtA01qEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtBE1qEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtBU1qEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uSQtBk1qEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_dZ2wTD7qEeu5mc8RqRADiA">
         <inputs xmi:type="process:ContractInput" xmi:id="_2YmFsD7qEeu5mc8RqRADiA" name="lstCatHorarioDeTrabajoInput" type="COMPLEX" multiple="true" dataReference="lstCatHorarioDeTrabajo">
           <inputs xmi:type="process:ContractInput" xmi:id="_2YmFsT7qEeu5mc8RqRADiA" name="clave"/>
@@ -100,7 +127,7 @@
           <referencedElements xmi:type="expression:Expression" xmi:id="_Rynx4T7rEeu5mc8RqRADiA" name="catHorarioDeTrabajoDAO" content="catHorarioDeTrabajoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatHorarioDeTrabajoDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_Ef3ibz7rEeu5mc8RqRADiA">
+      <formMapping xmi:type="process:FormMapping" xmi:id="_Ef3ibz7rEeu5mc8RqRADiA" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_fF034D7sEeu5mc8RqRADiA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_Ef3icT7rEeu5mc8RqRADiA">
@@ -114,6 +141,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_GTD-UD7rEeu5mc8RqRADiA"/>
         <condition xmi:type="expression:Expression" xmi:id="_GTD-UT7rEeu5mc8RqRADiA" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_w_d6IE1qEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6IU1qEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6Ik1qEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6I01qEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6JE1qEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6JU1qEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_w_d6Jk1qEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_Ef3icz7rEeu5mc8RqRADiA">
         <inputs xmi:type="process:ContractInput" xmi:id="_KbM4YD7rEeu5mc8RqRADiA" name="lstCatHorarioDeTrabajoInput" type="COMPLEX" multiple="true" dataReference="lstCatHorarioDeTrabajo">
           <inputs xmi:type="process:ContractInput" xmi:id="_KbM4YT7rEeu5mc8RqRADiA" name="clave"/>

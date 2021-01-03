@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_NAiFEDAHEeu4ZoZSLp5srw" name="Manejo EgresadoUniversidadAnahuac" author="EMUI" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400334D616E656A6F20456772657361646F556E697665727369646164416E6168756163372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_NAiFETAHEeu4ZoZSLp5srw" name="Agregar EgresadoUniversidadAnahuac">
       <elements xmi:type="process:Lane" xmi:id="_NAiFEjAHEeu4ZoZSLp5srw" name="Empleado (lane) " actor="_NAiFKzAHEeu4ZoZSLp5srw">
@@ -30,6 +30,33 @@
         <condition xmi:type="expression:Expression" xmi:id="_UDmfMjAHEeu4ZoZSLp5srw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_NAiFKzAHEeu4ZoZSLp5srw" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_vtsnsE1TEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_vtsnt01TEeuiD5640oS5Sw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_vtsnuE1TEeuiD5640oS5Sw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_vtsnuU1TEeuiD5640oS5Sw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_vtsnuk1TEeuiD5640oS5Sw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_vtsnu01TEeuiD5640oS5Sw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_vtsnvE1TEeuiD5640oS5Sw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsnsU1TEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsnsk1TEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsns01TEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsntE1TEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsntU1TEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_vtsntk1TEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_NAiFLDAHEeu4ZoZSLp5srw">
         <inputs xmi:type="process:ContractInput" xmi:id="_gS3T4DEkEeupp93G9myzBA" name="lstCatEgresadoUniversidadAnahuacInput" type="COMPLEX" multiple="true" dataReference="lstCatEgresadoUniversidadAnahuac">
           <inputs xmi:type="process:ContractInput" xmi:id="_gS3T4TEkEeupp93G9myzBA" name="descripcion"/>
@@ -114,6 +141,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_WZ95oTAHEeu4ZoZSLp5srw"/>
         <condition xmi:type="expression:Expression" xmi:id="_WZ95ojAHEeu4ZoZSLp5srw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_yI6s8E1TEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s8U1TEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s8k1TEeuiD5640oS5Sw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s801TEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s9E1TEeuiD5640oS5Sw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s9U1TEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yI6s9k1TEeuiD5640oS5Sw" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_UqAX8zAHEeu4ZoZSLp5srw">
         <inputs xmi:type="process:ContractInput" xmi:id="_naKYoDEiEeupp93G9myzBA" name="lstCatEgresadoUniversidadAnahuacInput" type="COMPLEX" multiple="true" dataReference="lstCatEgresadoUniversidadAnahuac">
           <inputs xmi:type="process:ContractInput" xmi:id="_naKYoTEiEeupp93G9myzBA" name="descripcion"/>
