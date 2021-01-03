@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1608759479729,
+  "lastUpdate" : 1609661150376,
   "rows" : [
     [
       {
@@ -1641,11 +1641,11 @@
                             },
                             "minLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 1
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 5
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -1668,7 +1668,8 @@
                               "value" : 4
                             },
                             "placeholder" : {
-                              "type" : "interpolation"
+                              "type" : "interpolation",
+                              "value" : "Ejemplo: 123"
                             },
                             "value" : {
                               "type" : "variable",
@@ -1676,22 +1677,24 @@
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "text"
+                              "value" : "number"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 0
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 999
                             },
                             "step" : {
                               "type" : "constant",
                               "value" : 1
                             }
                           },
-                          "reference" : "2d82b98b-ed12-46c9-8e66-c5241857155b",
+                          "reference" : "1d5ce2bc-274c-4130-9dfa-1feb3d831d03",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customInputNumerico"
                         },
                         {
                           "type" : "component",
@@ -4303,7 +4306,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName !== \"Autodescripción\" || !orderOutput.authorizationCode"
+            "value" : "currentTaskName === \"Pago de examen\" || !orderOutput.authorizationCode"
           },
           "repeatedCollection" : {
             "type" : "variable",

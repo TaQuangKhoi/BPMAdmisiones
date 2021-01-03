@@ -15,10 +15,11 @@
                     <select ng-model="row.catTipoTerapia" style="visibility: hidden">
                         <option ng-repeat="terapia in properties.catTipoTerapia">{{terapia.descripcion}}</option>
                     </select>
-                    <input class="form-control col-xs-12" ng-model="row.otraTerapia" ng-show="row.catTipoTerapia.descripcion === 'Otr'">
                 </td>
-                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
-                    <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
+                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index" 
+                ng-class="{'no-padding': row.catTipoTerapia.descripcion === 'Otro'}" class="inline-items">
+                    <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate" ng-hide="row.catTipoTerapia.descripcion === 'Otro'"></div>&nbsp;
+                    <input class="form-control col-xs-12" ng-model="row.otraTerapia" ng-show="row.catTipoTerapia.descripcion === 'Otro'" placeholder="Otro" maxlength="50">
                 </td>
                 <td>
                     <select ng-model="row.recibidoTerapiaString" class="form-control col-xs-12" ng-change="setValue(row.recibidoTerapiaString, $index)">

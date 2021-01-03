@@ -3485,6 +3485,15 @@
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_KxZ4QE2ZEeuiD5640oS5Sw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_KxZ4QU2ZEeuiD5640oS5Sw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_MgnMEE2ZEeuiD5640oS5Sw" name="catSolicitudDeAdmision" dataType="_HsVC_Uq9Eeub5vA0cE8CBg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_KxZ4Qk2ZEeuiD5640oS5Sw" name="updateEstatus()" content="return &quot;Autodescripción en proceso&quot;;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_KxZ4Q02ZEeuiD5640oS5Sw" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_HsTOGEq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_HsTOGUq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_HsTOGkq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -4239,7 +4248,7 @@
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_HsTyl0q9Eeub5vA0cE8CBg" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_HsTymEq9Eeub5vA0cE8CBg" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_HsTymUq9Eeub5vA0cE8CBg" name="" content="" returnTypeFixed="true"/>
-          <connectors xmi:type="process:Connector" xmi:id="_HsTymkq9Eeub5vA0cE8CBg" name="getCookie" definitionId="rest-post" event="ON_ENTER" ignoreErrors="true" definitionVersion="1.1.0">
+          <connectors xmi:type="process:Connector" xmi:id="_HsTymkq9Eeub5vA0cE8CBg" name="getCookie" definitionId="rest-post" event="ON_FINISH" ignoreErrors="true" definitionVersion="1.1.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_HsTym0q9Eeub5vA0cE8CBg" definitionId="rest-post" version="1.1.0" modelVersion="7.11.1-001">
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_HsTynEq9Eeub5vA0cE8CBg" key="url">
                 <expression xmi:type="expression:Expression" xmi:id="_HsTynUq9Eeub5vA0cE8CBg" name="url()" content="String resultado = urlLogin;&#xD;&#xA;&#xD;&#xA;resultado = resultado.replace(&quot;[USUARIO]&quot;, usuario);&#xD;&#xA;resultado = resultado.replace(&quot;[PASSWORD]&quot;, password);&#xD;&#xA;&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
@@ -4352,7 +4361,7 @@
               <operator xmi:type="expression:Operator" xmi:id="_HsTy5Eq9Eeub5vA0cE8CBg" type="ASSIGNMENT"/>
             </outputs>
           </connectors>
-          <connectors xmi:type="process:Connector" xmi:id="_HsTy5Uq9Eeub5vA0cE8CBg" name="sendMail();" definitionId="rest-post" event="ON_ENTER" ignoreErrors="true" definitionVersion="1.1.0">
+          <connectors xmi:type="process:Connector" xmi:id="_HsTy5Uq9Eeub5vA0cE8CBg" name="sendMail();" definitionId="rest-post" event="ON_FINISH" ignoreErrors="true" definitionVersion="1.1.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_HsTy5kq9Eeub5vA0cE8CBg" definitionId="rest-post" version="1.1.0" modelVersion="7.11.1-001">
               <parameters xmi:type="connectorconfiguration:ConnectorParameter" xmi:id="_HsTy50q9Eeub5vA0cE8CBg" key="url">
                 <expression xmi:type="expression:Expression" xmi:id="_HsTy6Eq9Eeub5vA0cE8CBg" name="url()" content="return urlEnvioCorreo;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnTypeFixed="true">
@@ -5922,6 +5931,15 @@
               <inputTypes>java.lang.Boolean</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_eG-o0E14EeuiD5640oS5Sw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_eG-o0U14EeuiD5640oS5Sw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_jn7v8E14EeuiD5640oS5Sw" name="catSolicitudDeAdmision" dataType="_HsVC_Uq9Eeub5vA0cE8CBg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_eG-o0k14EeuiD5640oS5Sw" name="updateEstatus()" content="return &quot;Solicitud en progreso&quot;;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT"/>
+            <operator xmi:type="expression:Operator" xmi:id="_eG-o0014EeuiD5640oS5Sw" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_HsUaN0q9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_HsUaOEq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_HsUaOUq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -6538,7 +6556,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_HsUby0q9Eeub5vA0cE8CBg" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_HsUbzEq9Eeub5vA0cE8CBg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <formMapping xmi:type="process:FormMapping" xmi:id="_HsUbzUq9Eeub5vA0cE8CBg">
-            <targetForm xmi:type="expression:Expression" xmi:id="_UU-esErEEeub5vA0cE8CBg" name="frmValidarSolicitudDeAdmision" content="c7182d62-d558-4d59-9b12-78af57ef919f" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_UU-esErEEeub5vA0cE8CBg" name="viewValidarSolicitudDeAdmision" content="c7182d62-d558-4d59-9b12-78af57ef919f" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_HsUbz0q9Eeub5vA0cE8CBg">
             <inputs xmi:type="process:ContractInput" xmi:id="_HsUb0Eq9Eeub5vA0cE8CBg" name="conIsAdmisionAnahuac" type="BOOLEAN">

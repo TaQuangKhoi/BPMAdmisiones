@@ -16,7 +16,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $scope.properties.isSelected = 'editar';
     };
     this.selectRowDelete = function(row) {
-        swal("Esta seguro que desea eliminar?", {
+        swal("¡Aviso!","¿Está seguro que desea eliminar?","warning", {
                 buttons: {
                     cancel: "No",
                     catch: {
@@ -68,7 +68,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req)
             .success(function(data, status) {
                 $scope.properties.lstContenido = data.data;
-                swal("Eliminado correctamente!", "", "success");
+                swal("¡Eliminado correctamente!", "", "success");
                 $scope.value = data.totalRegistros;
                 $scope.loadPaginado();
                 doRequest("POST", $scope.properties.urlPost);

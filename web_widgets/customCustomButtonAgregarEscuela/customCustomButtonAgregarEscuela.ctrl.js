@@ -52,7 +52,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             isValid = false;
             titleMessage = "¡País!";
             errorMessage = "Debe capturar el País de su escuela.";
-        } else if ($scope.properties.infoEscuela.estado === null && $scope.properties.infoEscuela.estado === ""){
+        } else if ($scope.properties.infoEscuela.pais.descripcion === "México" && $scope.properties.infoEscuela.estado === null){
+            isValid = false;
+            titleMessage = "¡Estado!";
+            errorMessage = "Debe capturar el Estado de su escuela.";
+        } else if ($scope.properties.infoEscuela.pais.descripcion !== "México" && $scope.properties.infoEscuela.estado === ""){
             isValid = false;
             titleMessage = "¡Estado!";
             errorMessage = "Debe capturar el Estado de su escuela.";

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1609607420302,
+  "lastUpdate" : 1609661136516,
   "rows" : [
     [
       {
@@ -384,7 +384,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Default label"
+            "value" : "Ir a la pantalla (Pruebas):"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -1047,7 +1047,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Selecciona..."
+                        "value" : "Describe el estado civil"
                       },
                       "value" : {
                         "type" : "variable",
@@ -3266,7 +3266,7 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Eliminar herman(a)"
+                          "value" : "Eliminar hermano(a)"
                         },
                         "level" : {
                           "type" : "constant",
@@ -11911,7 +11911,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label>¿Cuál(es) problemas de ateción médica contínua presentas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>\n</label><br>\nEsta información se guardará de forma estadística y no la compartiremos con nadie. Esta información nos ayuda a tener mejor preparados los insumos de primeros auxilios que tenemos en la enfermería de la Universidad."
+                        "value" : "<label>¿Cuál(es) problemas de atención médica contínua presentas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>\n</label><br>\nEsta información se guardará de forma estadística y no la compartiremos con nadie. Esta información nos ayuda a tener mejor preparados los insumos de primeros auxilios que tenemos en la enfermería de la Universidad."
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -12571,6 +12571,46 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "viveTuPadre" : {
+                  "type" : "variable",
+                  "value" : "objetoPadre.vive"
+                },
+                "viveTuMadre" : {
+                  "type" : "variable",
+                  "value" : "objetoMadre.vive"
+                },
+                "catConQuienTeLlevasMejor" : {
+                  "type" : "variable",
+                  "value" : "catFamiliarTeLlevasMejor"
+                },
+                "returnCatConQuienVives" : {
+                  "type" : "variable",
+                  "value" : "newCatFamiliarTeLlevasMejor"
+                }
+              },
+              "reference" : "67a07bad-3537-4e24-aca6-5f7e8c87a8af",
+              "hasValidationError" : false,
+              "id" : "customLlenarCatalogoConQuienTeLlevasMejor"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
                 "sm" : 6,
                 "md" : 6,
                 "lg" : 6
@@ -12614,7 +12654,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "catFamiliarTeLlevasMejor"
+                  "value" : "newCatFamiliarTeLlevasMejor"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -17395,7 +17435,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catReligion.descripcion !== \"Católica\" || formInput.catReligion.descripcion !== \"Catolica\""
+                        "value" : "formInput.catReligion.descripcion !== \"Católico\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -19747,7 +19787,7 @@
                 },
                 "targetUrl" : {
                   "type" : "expression",
-                  "value" : "objectSolicitud.carCampus.urlAvisoPrivacidad"
+                  "value" : "objectSolicitud.catCampus.urlAvisoPrivacidad"
                 },
                 "pageToken" : {
                   "type" : "constant"
@@ -19903,7 +19943,7 @@
                 },
                 "targetUrlOnSuccess" : {
                   "type" : "interpolation",
-                  "value" : "/bonita/apps/aspirante/solicitud_iniciada/"
+                  "value" : "/bonita/portal/resource/app/aspirante/verSesiones/content/?app=aspirante"
                 },
                 "collectionToModify" : {
                   "type" : "variable"
@@ -20345,7 +20385,7 @@
         "    isValid = false;\r",
         "    $data.errorMessageStep1 = \"Captura el estado civil de tus padres.\";\r",
         "    $data.titleMessageStep1 = \"¡Tus padres están!\";\r",
-        "} else if($data.formInput.catEstadoCivilPadres.clave === \"otro\" && $data.formInput.otroEstadoCivilPadres === \"\"){\r",
+        "} else if($data.formInput.catEstadoCivilPadres.descripcion === \"Otro\" && $data.formInput.otroEstadoCivilPadres === \"\"){\r",
         "    isValid = false;\r",
         "    $data.errorMessageStep1 = \"Debes capturar el estado civil de tus padres.\";\r",
         "    $data.titleMessageStep1 = \"¿Cuál es el estado civil de tus padres?\";\r",
@@ -20785,7 +20825,7 @@
     "catPais" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=find&p=0&c=100"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=find&p=0&c=100000"
       ],
       "exposed" : false
     },
@@ -21077,11 +21117,16 @@
         "    let isValid = true;\r",
         "    if($data.formInput.terapias !== undefined && $data.formInput.terapias.length > 0){\r",
         "        for(let i = 0; i < $data.formInput.terapias.length; i++){\r",
+        "            let terapia = $data.formInput.terapias[i].catTipoTerapia.descripcion;\r",
+        "            let otraTerapia = $data.formInput.terapias[i].otraTerapia;\r",
         "            let recibidoTerapia = $data.formInput.terapias[i].catRecibidoTerapia.descripcion;\r",
         "            let tipoTerapia = $data.formInput.terapias[i].tipoTerapia;\r",
         "            let cuantoTiempo = $data.formInput.terapias[i].cuantoTiempo;\r",
         "            \r",
         "            if(recibidoTerapia === \"Sí\" && (tipoTerapia === \"\" || cuantoTiempo === \"\")){\r",
+        "                isValid = false;\r",
+        "                break;\r",
+        "            } else if (terapia === \"Otro\" && otraTerapia === \"\"){\r",
         "                isValid = false;\r",
         "                break;\r",
         "            }\r",
@@ -21975,6 +22020,13 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "newCatFamiliarTeLlevasMejor" : {
+      "type" : "json",
+      "value" : [
+        "{}"
       ],
       "exposed" : false
     }

@@ -1,5 +1,4 @@
 function ($scope, $http) {
-    debugger;
     $scope.$watch("properties.CatLugarExamen",function(){
         if($scope.properties.CatLugarExamen === 2){
             $scope.properties.ciudadPaisExamen = null;

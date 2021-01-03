@@ -264,47 +264,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 vm.busy = false;
             });
     }
-            $scope.lstCampus = [{
-        "descripcion": "Anáhuac Cancún",
-        "valor": "CAMPUS-CANCUN"
-    },
-    {
-        "descripcion": "Anáhuac Mayab",
-        "valor": "CAMPUS-MAYAB"
-    },
-    {
-        "descripcion": "Anáhuac México Norte",
-        "valor": "CAMPUS-MNORTE"
-    },
-    {
-        "descripcion": "Anáhuac México Sur",
-        "valor": "CAMPUS-MSUR"
-    },
-    {
-        "descripcion": "Anáhuac Oaxaca",
-        "valor": "CAMPUS-OAXACA"
-    },
-    {
-        "descripcion": "Anáhuac Puebla",
-        "valor": "CAMPUS-PUEBLA"
-    },
-    {
-        "descripcion": "Anáhuac Querétaro",
-        "valor": "CAMPUS-QUERETARO"
-    },
-    {
-        "descripcion": "Anáhuac Xalapa",
-        "valor": "CAMPUS-XALAPA"
-    },
-    {
-        "descripcion": "Juan Pablo II",
-        "valor": "CAMPUS-JP2"
-    },
-    {
-        "descripcion": "Anáhuac Cordoba",
-        "valor": "CAMPUS-CORDOBA"
-    }
-    ];
+            $scope.lstCampus = [];
         $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
         for (var i = 0; i < $scope.lstCampus.length; i++) {
@@ -372,4 +332,27 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         
         doRequest("POST", $scope.properties.urlPost);
     }
+    
+    $scope.getCatCampus = function() {
+        var req = {
+            method: "GET",
+            url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.lstCampus = [];
+                for(var index in data){
+                    $scope.lstCampus.push({
+                        "descripcion": data[index].descripcion,
+                        "valor": data[index].grupoBonita
+                    })                    
+                }
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
+    $scope.getCatCampus();
 }

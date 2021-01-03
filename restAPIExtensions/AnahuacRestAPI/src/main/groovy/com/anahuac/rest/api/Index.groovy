@@ -597,6 +597,7 @@ class Index implements RestApiController {
 						for(int j =0; j<obj.psicologos.size(); j++) {
 							def psi = obj.psicologos[j]
 							ResponsableCustom rc = new ResponsableCustom()
+							rc.setPersistenceId(psi.persistenceId)
 							rc.setFirstname(psi.firstname)
 							rc.setGrupo(psi.grupo)
 							try {

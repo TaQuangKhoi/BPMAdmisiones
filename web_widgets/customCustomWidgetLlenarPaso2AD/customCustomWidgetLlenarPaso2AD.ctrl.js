@@ -124,52 +124,8 @@ function ($scope){
 
     function startWatcherAD(){
         $scope.$watch("properties.bdmAutodescripcion", function(oldValue, newValue){
-            debugger;
             autodescripcionCargada = true;
-            // if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-            //     llenadoIniciado = true;
-            //     llenarPaso2();
-            // }
-            
             llenarPaso2();
         });
     }
-    
-    
-    // $scope.$watch("properties.catGradoEscolar", function(){
-    //     if($scope.properties.catGradoEscolar !== undefined){
-    //         catGradoEscolar = true;
-    //         if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-    //             llenadoIniciado = true;
-    //             llenarPaso2();
-    //         }
-    //     }
-    // });
-    
-    // $scope.$watch("properties.bdmAutodescripcion", function(oldValue, newValue){
-    //     // if($scope.properties.bdmAutodescripcion !== undefined){
-    //     //     autodescripcionCargada = true;
-    //     //     if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-    //     //         llenadoIniciado = true;
-    //     //         llenarPaso2();
-    //     //         //$scope.properties.formInput.informacionEscolar = $scope.properties.bdmAutodescripcion.informacionEscolar
-    //     //     }
-    //     // }
-    //     autodescripcionCargada = true;
-    //     if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-    //         llenadoIniciado = true;
-    //         llenarPaso2();
-    //         //$scope.properties.formInput.informacionEscolar = $scope.properties.bdmAutodescripcion.informacionEscolar
-    //     }
-    // });
-    
-    // $scope.$watch("properties.bdmSolicitud", function(){
-    //     if($scope.properties.bdmSolicitud !== undefined){
-    //         solicitudCargada = true;
-    //         if(solicitudCargada && autodescripcionCargada && catGradoEscolar && !llenadoIniciado){
-    //             llenadoIniciado = true;
-    //             llenarPaso2();
-    //         }
-    //     }
-    // });
 }

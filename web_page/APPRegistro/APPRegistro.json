@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1609443178687,
+  "lastUpdate" : 1609642111913,
   "rows" : [
     [
       {
@@ -4199,14 +4199,14 @@
     "getCiudades" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudad&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
     "getCiudadesExtranjero" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadExtranjero&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadExtranjero&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
@@ -4328,21 +4328,21 @@
     "getCiudadesByEstado" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByEstado&f=estado={{formInput.catSolicitudDeAdmisionInput.catEstadoExamen.descripcion===undefined ? \"\" : formInput.catSolicitudDeAdmisionInput.catEstadoExamen.descripcion}}&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByEstado&f=estado={{formInput.catSolicitudDeAdmisionInput.catEstadoExamen.descripcion===undefined ? \"\" : formInput.catSolicitudDeAdmisionInput.catEstadoExamen.descripcion}}&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
     "getPaisesNoMexico" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPaisExtranjero&p=0&c=100&f=caseId={{objCaseInformationPaises[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPaisExtranjero&p=0&c=100&f=caseId=00000"
       ],
       "exposed" : false
     },
     "getCiudadesByPais" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCiudadesByPais&f=pais={{formInput.catSolicitudDeAdmisionInput.catPaisExamen.descripcion===undefined ? \"\" : formInput.catSolicitudDeAdmisionInput.catPaisExamen.descripcion}}&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCiudadesByPais&f=pais={{formInput.catSolicitudDeAdmisionInput.catPaisExamen.descripcion===undefined ? \"\" : formInput.catSolicitudDeAdmisionInput.catPaisExamen.descripcion}}&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
@@ -4619,7 +4619,7 @@
     "getCiudadPais" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
@@ -4633,7 +4633,7 @@
     "getCiudadEstadoByCaso" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadEstadoByCaso&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadEstadoByCaso&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
@@ -4740,16 +4740,15 @@
         "} \r",
         "// re.test(String($data.strRegistro.ConfirmarCorreo.trim()).toLowerCase())\r",
         "// else if (!$data.strRegistro.CorreoElectronico.match(regexEmail)){\r",
-        "else if (!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
-        "    validado = false;\r",
-        "    $data.strRegistro.error = true;\r",
-        "    $data.erroMessage = \"El formato del correo electrónico no es válido.\";\r",
-        "} \r",
         "else if($data.strRegistro.CorreoElectronico === undefined || $data.strRegistro.CorreoElectronico === null || $data.strRegistro.CorreoElectronico === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
         "    $data.erroMessage = \"El campo Correo electrónico no debe estar vacío.\";\r",
-        "}  else if($data.strRegistro.CorreoElectronico.trim() !== $data.strRegistro.ConfirmarCorreo.trim()){\r",
+        "} else if (!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
+        "    validado = false;\r",
+        "    $data.strRegistro.error = true;\r",
+        "    $data.erroMessage = \"El formato del correo electrónico no es válido.\";\r",
+        "} else if($data.strRegistro.CorreoElectronico.trim() !== $data.strRegistro.ConfirmarCorreo.trim()){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
         "    $data.erroMessage = \"Los correos no coinciden.\";\r",

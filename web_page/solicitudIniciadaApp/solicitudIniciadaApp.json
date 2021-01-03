@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "solicitudIniciadaApp",
   "name" : "solicitudIniciadaApp",
-  "lastUpdate" : 1607397533235,
+  "lastUpdate" : 1609661165237,
   "rows" : [
     [
       {
@@ -20,7 +20,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName !== \"Validar Información\" && currentTaskName !== \"Pago de examen\""
+            "value" : "showScreen"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -46,8 +46,44 @@
                   "value" : "color-orange"
                 },
                 "hidden" : {
+                  "type" : "expression",
+                  "value" : "currentTaskName !== \"Pago de examen\" && currentTaskName !== \"Esperar pago\" && currentTaskName !== \"Autodescripción\" && currentTaskName !== \"Seleccionar cita\" && taskName !== \"Pase de lista\" && taskName !== \"Carga y consulta de resultados\" && taskName !== \"Resultado final de comité\""
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Tu solicitud ha sido validada"
+                },
+                "level" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "5df66b47-3a0f-4252-8c4b-f67e2ca6a7c6",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "color-orange"
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "currentTaskName !== \"Validar Información\""
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -134,8 +170,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "currentTaskName !== \"Validar Información\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -169,6 +205,127 @@
               "reference" : "9cad8f23-e9bc-4546-b5cf-5f5ea5b8fc13",
               "hasValidationError" : false,
               "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "currentTaskName !== \"Pago de examen\" && currentTaskName !== \"Esperar pago\" && currentTaskName !== \"Autodescripción\" && currentTaskName !== \"Seleccionar cita\" && taskName !== \"Pase de lista\" && taskName !== \"Carga y consulta de resultados\" && taskName !== \"Resultado final de comité\""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Puedes consultar la información de tu solicitud  dando click en el botón <label>Visualizar solicitud</label> debajo de este mensaje."
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "a7cdab41-b446-4b94-9daa-9c5f79619ab3",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Visualizar solicitud"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "targetUrl" : {
+                  "type" : "expression",
+                  "value" : "viewUrl"
+                },
+                "pageToken" : {
+                  "type" : "constant"
+                },
+                "processName" : {
+                  "type" : "constant"
+                },
+                "processVersion" : {
+                  "type" : "constant"
+                },
+                "taskId" : {
+                  "type" : "constant"
+                },
+                "caseId" : {
+                  "type" : "constant"
+                },
+                "target" : {
+                  "type" : "constant",
+                  "value" : "_self"
+                },
+                "appToken" : {
+                  "type" : "constant"
+                },
+                "urlParams" : {
+                  "type" : "constant"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                }
+              },
+              "reference" : "ab3c3a8e-f261-4ed2-8b3a-c8585dcd386d",
+              "hasValidationError" : false,
+              "id" : "pbLink"
             }
           ]
         ]
@@ -277,7 +434,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Tu solicitud ha sido rechazada \nLo sentimos. La revisión de su solicitud ha sido rechazada por el área de admisiones."
+                  "value" : "Tu solicitud ha sido rechazada \nTu solicitud ha sido rechazada. Para conocer los motivos revisa tu correo electrónico en la bandeja de entrada o de correo no deseado."
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -384,6 +541,35 @@
         "}",
         "",
         "return value;"
+      ],
+      "exposed" : false
+    },
+    "viewUrl" : {
+      "type" : "expression",
+      "value" : [
+        "// return \"/bonita/apps/aspirante/verSolicitudAdmision/?id=\" + $data.currentTask[0].id + \"&displayConfirmation=false\"",
+        "return \"/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=\" + $data.currentTask[0].id + \"&displayConfirmation=false\""
+      ],
+      "exposed" : false
+    },
+    "showScreen" : {
+      "type" : "expression",
+      "value" : [
+        "if(\r",
+        "    $data.currentTaskName !== \"Validar Información\" \r",
+        "    && $data.currentTaskName !== \"Pago de examen\" \r",
+        "    && $data.currentTaskName !== \"Esperar pago\" \r",
+        "    && $data.currentTaskName !== \"Autodescripción\" \r",
+        "    && $data.currentTaskName !== \"Seleccionar cita\" \r",
+        "    && $data.currentTaskName !== \"\" \r",
+        "    && $data.taskName !== \"Pase de lista\" \r",
+        "    && $data.taskName !== \"Carga y consulta de resultados\"\r",
+        "    && $data.taskName !== \"Resultado final de comité\"\r",
+        "){\r",
+        "    return true;\r",
+        "} else {\r",
+        "    return false\r",
+        "}"
       ],
       "exposed" : false
     }
