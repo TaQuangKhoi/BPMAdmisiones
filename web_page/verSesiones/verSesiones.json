@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "verSesiones",
   "name" : "verSesiones",
-  "lastUpdate" : 1609607507161,
+  "lastUpdate" : 1610469992887,
   "rows" : [
     [
       {
@@ -136,6 +136,10 @@
                 "detalleSolicitud" : {
                   "type" : "variable",
                   "value" : "detalleSolicitud"
+                },
+                "isCorrectTask" : {
+                  "type" : "variable",
+                  "value" : "isCorrectTask"
                 }
               },
               "reference" : "3d44c8fe-5870-45b9-a955-fcb042ec8215",
@@ -294,6 +298,38 @@
       "type" : "url",
       "value" : [
         "/bonita/portal/resource/app/aspirante/verSesiones/API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=10&f=caseId={{user[0].caseId}}"
+      ],
+      "exposed" : false
+    },
+    "getCatRegistro" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{userData.user_name}}&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "currentTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready"
+      ],
+      "exposed" : false
+    },
+    "isCorrectTask" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.currentTask[0].name === \"Seleccionar cita\"){\r",
+        "    return true;\r",
+        "} else {\r",
+        "    return false;\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "taskContext" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{currentTask[0].id}}/context"
       ],
       "exposed" : false
     }

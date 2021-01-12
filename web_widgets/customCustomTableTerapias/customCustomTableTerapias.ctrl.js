@@ -29,7 +29,6 @@ function PbTableCtrl($scope) {
     };
     
     function initTable(){
-        debugger
         if($scope.properties.content === undefined || $scope.properties.content === null || $scope.properties.content.length === 0){
             if($scope.properties.catTipoTerapia !== undefined && $scope.properties.catTerapia !== undefined){
                 if($scope.properties.catTipoTerapia.length > 0 && $scope.properties.catTerapia.length > 0){
@@ -61,9 +60,6 @@ function PbTableCtrl($scope) {
     }
     
     $scope.$watch("properties.catTerapia", function(){
-    //    if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
-    //        initTable();
-    //    } 
         if($scope.properties.catTerapia !== undefined){
             startWatcherTipoTerapia();
         }
@@ -71,9 +67,6 @@ function PbTableCtrl($scope) {
     
     function startWatcherTipoTerapia(){
         $scope.$watch("properties.catTipoTerapia", function(){
-            // if($scope.properties.catTerapia !== undefined && $scope.properties.catTipoTerapia !== undefined && $scope.properties.content.length === 0){
-            //     initTable();
-            // } 
             if($scope.properties.catTipoTerapia !== undefined){
                 startWatcherBDM();
             }

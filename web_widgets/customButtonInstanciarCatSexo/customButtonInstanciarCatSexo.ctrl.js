@@ -72,8 +72,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
 
-
-
+var validar = false;
 function startProcess() {
     debugger
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
@@ -92,15 +91,15 @@ function startProcess() {
                 }
             } else {
                 if (!$scope.properties.dataToChange2.descripcion) {
-                    swal("¡Aviso!", " Falto capurar informacion en: Descripcion" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción." , "warning");
                 }
                 if (!$scope.properties.dataToChange2.clave) {
-                    swal("¡Aviso!", "Falto capurar informacion en: Clave" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 }
             }
 
         } else {
-            if ($scope.properties.dataToChange2.lstCatMotivoTrabajasInput[0].clave && $scope.properties.dataToChange2.lstCatMotivoTrabajasInput[0].descripcion) {
+            if ($scope.properties.dataToChange2.lstCatSexoInput[0].clave && $scope.properties.dataToChange2.lstCatSexoInput[0].descripcion) {
                 if ($scope.properties.processId) {
                     var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
                         doRequest("GET", $scope.properties.url).then(function () {
@@ -114,16 +113,19 @@ function startProcess() {
                     $log.log('Impossible to retrieve the process definition id value from the URL');
                 }
             } else {
-                if (!$scope.properties.dataToChange2.lstCatMotivoTrabajasInput[0].descripcion) {
-                    swal("¡Aviso!", "Falto capurar informacion en: Descripcion" , "warning");
+                if (!$scope.properties.dataToChange2.lstCatSexoInput[0].descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 }
-                if (!$scope.properties.dataToChange2.lstCatMotivoTrabajasInput[0].clave) {
-                    swal("¡Aviso!", "Falto capurar informacion en: Clave" , "warning");
+                if (!$scope.properties.dataToChange2.lstCatSexoInput[0].clave) {
+                    swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 }
                
             }
         }
-}
+    }
+
+
+
 
 
     /**

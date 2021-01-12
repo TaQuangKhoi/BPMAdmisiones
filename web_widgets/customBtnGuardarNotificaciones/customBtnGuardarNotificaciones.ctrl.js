@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, modalService) {
+function PbButtonCtrl($scope, $http, modalService, $window) {
     'use strict';
     var vm = this;
 
@@ -336,7 +336,8 @@ function PbButtonCtrl($scope, $http, modalService) {
                             console.log(generated);
                             doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function (value) {
                                 vm.busy = false;
-                                $scope.getConsulta();
+                                //$scope.getConsulta();
+                                $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");
                             })
 
                         }

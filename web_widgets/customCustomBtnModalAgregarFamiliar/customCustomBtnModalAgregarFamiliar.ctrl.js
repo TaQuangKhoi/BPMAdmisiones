@@ -16,6 +16,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action === 'Submit task') {
       submitTask();
     } else if ($scope.properties.action === 'Open modal') {
+        $scope.properties.accionModalFamiliarEgresadoAnahuac = "";
       closeModal($scope.properties.closeOnSuccess);
       $scope.properties.objNuevoFamiliar = {
         "catParentesco":null,

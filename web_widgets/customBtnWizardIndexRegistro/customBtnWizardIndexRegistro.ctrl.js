@@ -12,7 +12,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                 $scope.properties.selectedIndex++;
             }*/
-            if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catCampus.persistenceId_string === "") {
+            if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catCampusEstudio.persistenceId_string === "") {
                 swal("¡Campus!", "Debes seleccionar un campus donde cursarás tus estudios", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catGestionEscolar === null) {
                 swal("¡Licenciatura!", "Debes seleccionar una licenciatura", "warning");
