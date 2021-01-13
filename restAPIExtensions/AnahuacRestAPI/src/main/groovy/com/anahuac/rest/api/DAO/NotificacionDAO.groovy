@@ -356,6 +356,8 @@ class NotificacionDAO {
 	
 					}
 				}
+			}else if(object.codigo.equals("registrar") && object.isEnviar) {
+				plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + object.correo + "");
 			}
 			   
 			 
