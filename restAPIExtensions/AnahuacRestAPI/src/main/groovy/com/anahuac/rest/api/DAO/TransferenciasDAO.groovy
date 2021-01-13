@@ -9,12 +9,16 @@ import java.sql.Statement
 
 
 import org.bonitasoft.engine.api.APIClient
+import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
+import org.bonitasoft.engine.search.Order
+import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
+import org.bonitasoft.engine.search.SearchResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -445,7 +449,10 @@ class TransferenciasDAO {
 	public Result transferirAspirante(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
+		Boolean closeCon = false;
 		try {
+			ProcessAPI processAPI
+			Boolean avanzartarea = false;
 			String username = "";
 			String password = "";
 			Properties prop = new Properties();
@@ -468,12 +475,85 @@ class TransferenciasDAO {
 			errorLog = errorLog + "";
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 			apiClient.login(username, password)
-			HumanTaskInstance htask = apiClient.getProcessAPI().getHumanTaskInstance(Long.parseLong(object.caseId));
 			
-			LOGGER.error "apiClient.login" + htask.getDisplayName();
-			resultado.setError_info("apiClient.login" + htask.getDisplayName());
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
+			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
+			final SearchOptions searchOptions = searchBuilder.done();
+			SearchResult<HumanTaskInstance> SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
+			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				errorLog += "Tarea " + objHumanTaskInstance.getName();
+				if(objHumanTaskInstance.getName().equals("Generar credencial") || objHumanTaskInstance.getName().equals("Pase de lista college board") || objHumanTaskInstance.getName().equals("Carga y consulta de resultados") || objHumanTaskInstance.getName().equals("Resultado final de comité")) {
+					errorLog += "Update y avanzar " + objHumanTaskInstance.getName()
+					Map<String, Serializable> inputs = new HashMap<String, Serializable>();
+					if(objHumanTaskInstance.getName().equals("Pase de lista college board")) {
+						inputs.put("isAsistenciaAspirante",  false);
+						inputs.put("isTransferencia",  true);
+					}else if(objHumanTaskInstance.getName().equals("Carga y consulta de resultados")) {
+						inputs.put("isTransferencia",  true);
+					}else if(objHumanTaskInstance.getName().equals("Resultado final de comité")) {
+						inputs.put("isTransferencia",  true);
+					}
+					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
+				}else {
+					errorLog += " Update " + objHumanTaskInstance.getName()
+				}
+			}
+			
+			errorLog += " Antes del update "
+			closeCon = validarConexion();
+			errorLog += " closeCon " + closeCon
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA)
+			pstm.setLong(1, object.campus);
+			pstm.setLong(2, object.licenciatura);
+			if(object.propedeutico == null) {
+				pstm.setNull(3, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(3, object.propedeutico);
+			}
+			pstm.setLong(4, object.periodo);
+			pstm.setLong(5, object.lugarexamen);
+			if(object.estadoexamen == null) {
+				pstm.setNull(6, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(6, object.estadoexamen);
+			}
+			if(object.ciudadexamen == null) {
+				pstm.setNull(7, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(7, object.ciudadexamen);
+			}
+			if(object.paisexamen == null) {
+				pstm.setNull(8, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(8, object.paisexamen);
+			}
+			if(object.ciudadpaisexamen == null) {
+				pstm.setNull(9, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(9, object.ciudadpaisexamen);
+			}
+			pstm.setLong(10, object.campusestudio);
+			pstm.setLong(11, Long.valueOf(object.caseid));
+			pstm.executeUpdate();
+			
+			con.commit();
+			errorLog += " DESPUES del update "
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
 		}catch(Exception ex){
-			resultado.setError_info(ex.getMessage());
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		
 		return resultado;

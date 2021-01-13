@@ -79,7 +79,7 @@ function($scope, $http, blockUI, $window) {
                     )
                     $scope.getSesionById($scope.sesionid);
                 }
-                if (data.error="Los psicólogos disponibles para esta sesión son especializados para otra licenciatura") {
+                if (data.error=="Los psicólogos disponibles para esta sesión son especializados para otra licenciatura") {
                     Swal.fire(
                         "Psicólogo para diferente licenciatura",
                         "Los psicólogos disponibles para esta sesión son especializados para otra licenciatura",

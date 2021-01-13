@@ -670,8 +670,10 @@ class ListadoDAO {
 				}
 				//CODIGO PP
 				else if(object.estatusSolicitud.equals("Aspirantes en proceso")) {
-					where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' )"
-				}
+					//where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' )"
+					where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud a modificar' )"
+					
+					}
 			}
 			if(lstGrupo.size()>0) {
 				campus+=" AND ("
@@ -691,7 +693,22 @@ class ListadoDAO {
 				errorlog+="object.lstFiltro" +object.lstFiltro
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
-				String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+				
+				
+				
+				//String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+				
+				//PP
+				if(object.aspirantes.equals("fechas")) {
+					
+					String consulta = Statements.GET_ASPIRANTES_EN_PROCESO_FECHAS
+				}
+				else {
+					
+					String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+				}
+				
+				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
                     errorlog+=", columna "+ filtro.get("columna")
 					switch(filtro.get("columna")) {

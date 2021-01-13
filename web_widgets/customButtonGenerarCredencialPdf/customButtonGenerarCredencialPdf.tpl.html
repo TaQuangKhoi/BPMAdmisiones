@@ -1,7 +1,8 @@
-<div onclick="generatePDF()" class="text-{{ properties.alignment }}">
+<div  class="text-{{ properties.alignment }}">
     <button
+        id="btnDescargar"
         ng-class="'btn btn-' + properties.buttonStyle"
-        ng-click="ctrl.action()"
+        ng-click="generatePDF()"
         type="button"
         ng-disabled="properties.disabled || ctrl.busy" ng-bind-html="properties.label | uiTranslate"></button>
 </div>

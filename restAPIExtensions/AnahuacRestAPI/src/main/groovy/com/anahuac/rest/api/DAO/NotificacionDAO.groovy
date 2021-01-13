@@ -326,8 +326,8 @@ class NotificacionDAO {
 				SesionesDAO sd = new SesionesDAO()
 				resultado = sd.getDatosSesionUsername(object.correo)
 				object.data = resultado.getData();
-				for (def index = 0; index < object.data.length; index++) {
-					def element = object.data[index];
+				for (def index = 0; index < resultado.getData().size(); index++) {
+					def element = resultado.getData().get(index);
 					plantilla=plantilla.replace("[SNOMBRE]",  element.snombre)
 					plantilla=plantilla.replace("[SDESCRIPCION]",  element.sdescripcion)
 					if(element.descripcion == "College Board"){
@@ -720,6 +720,20 @@ class NotificacionDAO {
 							}
 							where = where.replace("[valor]", filtro.get("valor"))
 						break;
+						case "CAMPUS":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(CAMPUS) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 					}
 				}
 				switch(object.orderby) {
@@ -743,6 +757,9 @@ class NotificacionDAO {
 					break;
 					case "PARA":
 						orderby+="PARA";
+					break;
+					case "CAMPUS":
+					orderby+="CAMPUS";
 					break;
 					default:
 					orderby+="PERSISTENCEID";
@@ -776,6 +793,7 @@ class NotificacionDAO {
 						catBitacoraCorreo.setFechacreacion(rs.getString("fechacreacion"))
 						catBitacoraCorreo.setMensaje(rs.getString("mensaje"))
 						catBitacoraCorreo.setPara(rs.getString("para"))
+						catBitacoraCorreo.setCampus(rs.getString("campus"))
 	
 						rows.add(catBitacoraCorreo)
 					}

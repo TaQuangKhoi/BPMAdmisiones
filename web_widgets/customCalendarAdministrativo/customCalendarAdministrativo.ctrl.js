@@ -531,6 +531,7 @@ function($scope, $http, blockUI) {
 
             }
             //$scope.pantalla = 'sesion';
+            
             console.log(JSON.stringify($scope.sesion));
             $scope.insertSesion($scope.sesion.borrador);
         }
@@ -1020,6 +1021,10 @@ function($scope, $http, blockUI) {
                 sweet.texto = 'Favor de capturar "Duración de las entrevistas(min)"'
             }
 
+        } else if($scope.prueba.psicologos.length==0){
+            error = true;
+            sweet.titulo = "Responsables";
+            sweet.texto = 'Favor de agregar por lo menos un responsable'
         }
 
         if (error) {

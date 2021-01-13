@@ -75,7 +75,8 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
                 blockUI.stop();
             });
     }
-    $scope.content=[];
+    $scope.content = [];
+
     function doRequestGet() {
         blockUI.start();
         var req = {
@@ -255,15 +256,31 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
     }
     $scope.sendMail = function(data) {
-        var dataToSend = {
-            "campus": data.campus,
-            "correo": data.para,
-            "codigo": data.codigo,
-            "isEnviar": true
-        }
-        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10", {}, dataToSend, function(data) {
-           swal("Enviado","Correo enviado correctamente", "success");
+        Swal.fire({
+            title: `¿Está seguro que desea reenviar email?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#FF5900',
+            cancelButtonColor: '#231F20',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var dataToSend = {
+                    "campus": data.campus,
+                    "correo": data.para,
+                    "codigo": data.codigo,
+                    "isEnviar": true
+                }
+                doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10", {}, dataToSend, function(data) {
+                    Swal.fire("Enviado", "Correo enviado correctamente", "success");
+                })
+
+            } else {
+
+            }
         })
+
 
     }
 }

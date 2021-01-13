@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $sanitize, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
 
    $scope.$watchCollection('properties.datosUsuarioId', function(items) {
        
