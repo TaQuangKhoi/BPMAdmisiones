@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="btn-group btn-group-md" role="group" aria-label="Large button group">
-        <button type="button" class="btn btn-default" style="background-color: #ff5900;color:white;">{{properties.detalleSolicitud[0].tipoAlumno}}</button>
+        <button type="button" class="btn btn-default" style="background-color: #ff5900;color:white;">{{properties.detalleSolicitud[0].catResidencia.descripcion}}</button>
         <button type="button" class="btn btn-default" style="background-color: black;color: white;">{{(properties.usuario[0].catCampus.descripcion=='Anáhuac Mayab')?'Anáhuac Mérida': properties.usuario[0].catCampus.descripcion}}</button>
         <button type="button" class="btn btn-default" style="background-color: black;color: white;">{{properties.usuario[0].catGestionEscolar.descripcion}}</button>
     </div>
@@ -8,7 +8,7 @@
 <br>
 <br>
 <br>
-<div class="panel panel-danger col-md-12" ng-show="properties.hideCalendario!==true">
+<div class="panel panel-danger col-md-12" ng-hide="properties.hideCalendario==true || properties.isCorrectTask==false">
     <div class="panel-heading" style="background-color: #ff5900" align="center"><strong style="color:white;">Calendario de entrevistas</strong></div>
     <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:80vh; padding:10px;'>
         <div class="dhx_cal_navline">
@@ -26,7 +26,7 @@
         <div class="dhx_cal_data"></div>
     </div>
 </div>
-<div class="col-lg-12" ng-show="properties.hideCalendario==true" style="text-align: center;">
+<div class="col-lg-12" ng-show="properties.hideCalendario==true || properties.isCorrectTask==false" style="text-align: center;">
     <div class="row">
         <h2>Sesión: {{sesion.nombre}}</h2>
         <h2>Descripción: {{sesion.descripcion}}</h2>
@@ -37,7 +37,8 @@
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Nombre cita:</strong>{{jsonCollage.nombre}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Descripción:</strong>{{jsonCollage.descripcion}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonCollage.aplicacion}}</li>
-            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonCollage.entrada}} - {{jsonCollage.salida}}</li>
+            <li ng-if="properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonCollage.entrada}} - {{jsonCollage.salida}}</li>
+            <li ng-if="!properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonCollage.horario}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Lugar:</strong>{{jsonCollage.lugar}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonCollage.municipio}},{{jsonCollage.colonia}} CP:{{jsonCollage.codigo_postal}}</li>
         </ul>
@@ -46,12 +47,13 @@
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Nombre cita:</strong>{{jsonPsicometrico.nombre}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Descripción:</strong>{{jsonPsicometrico.descripcion}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonPsicometrico.aplicacion}}</li>
-            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonPsicometrico.entrada}} - {{jsonPsicometrico.salida}}</li>
+            <li ng-if="properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonPsicometrico.entrada}} - {{jsonPsicometrico.salida}}</li>
+            <li ng-if="!properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonPsicometrico.horario}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Lugar:</strong>{{jsonPsicometrico.lugar}}</li>
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonPsicometrico.municipio}},{{jsonPsicometrico.colonia}} CP:{{jsonPsicometrico.codigo_postal}}</li>
         </ul>
         <ul class="list-group col-lg-6 col-md-6">
-            <li style="cursor: pointer; text-align: left;" class="list-group-item btn-primary"  ng-click="modalConfirmar()"><strong>Entrevista</strong></li>
+            <li title="{{entrevistaSelected?'Editar':'Agregar'}} entrevista" style="cursor: pointer; text-align: left;" class="list-group-item btn-primary"  ng-click="properties.isCorrectTask?modalConfirmar():null"><strong>Entrevista  <i class="small material-icons">add_alarm</i></strong></li>
             <li ng-show="entrevistaSelected" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Nombre cita:</strong>{{jsonEntrevista.nombre}}</li>
             <li ng-show="entrevistaSelected" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Descripción:</strong>{{jsonEntrevista.descripcion}}</li>
             <li ng-show="entrevistaSelected" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonEntrevista.aplicacion}}</li>
@@ -60,11 +62,11 @@
             <li ng-show="entrevistaSelected" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonEntrevista.municipio}},{{jsonEntrevista.colonia}} CP:{{jsonEntrevista.codigo_postal}}</li>
         </ul>
     </div>
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-12 col-md-12" ng-if="properties.isCorrectTask">
         <div class="row col-lg-6 col-md-6" style="text-align: center;">
             <button class="btn btn-info" ng-click="setShowCalendar()">Atrás</button>
         </div>
-        <div class="row col-lg-6 col-md-6" style="text-align: center;">
+        <div ng-show="entrevistaSelected" class="row col-lg-6 col-md-6" style="text-align: center;">
             <button class="btn btn-primary" ng-click="insertSesionAspirante()">Confirmar sesión</button>
         </div>
     </div>

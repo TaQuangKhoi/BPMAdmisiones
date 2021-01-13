@@ -163,6 +163,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if (!$scope.properties.dataToChange2.nombre) {
                     swal("¡Aviso!", "Faltó capturar información en: Nombre licenciatura", "warning");
                 }
+                if(!$scope.properties.dataToChange2.clave){
+                    swal("¡Aviso!","Faltó capturar informacion en: Clave","warning");
+                }
             }
         } else {// validacion guardar
             if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion) {
@@ -250,6 +253,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
                 if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre) {
                     swal("¡Aviso!", "Faltó capturar información en: Nombre licenciatura", "warning");
+                }
+                if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].clave) {
+                    swal("¡Aviso!", "Faltó capturar información en: clave", "warning");
                 }
             }
         }

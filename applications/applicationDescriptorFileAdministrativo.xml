@@ -49,7 +49,7 @@
             <applicationPage customPage="custompage_PaseListaDeLaSesion" token="PaseDeLista"/>
             <applicationPage customPage="custompage_AnimacionCredencial" token="PruebaAnimacion"/>
             <applicationPage customPage="custompage_GenerarCredencialPDF" token="PruebaGenerarCredencial"/>
-            <applicationPage customPage="custompage_Panelaudiencias" token="sesiones"/>
+            <applicationPage customPage="custompage_SesionesAdministrador" token="sesiones"/>
             <applicationPage customPage="custompage_CatCuantoTiempoAcciones" token="CatCuantoTiempo"/>
             <applicationPage customPage="custompage_CatConQuienVivesAcciones" token="CatConQuienVives"/>
             <applicationPage customPage="custompage_CatviveAcciones" token="CatVive"/>
@@ -57,6 +57,10 @@
             <applicationPage customPage="custompage_CatGradoAcademicoAcciones" token="GradoAcademico"/>
             <applicationPage customPage="custompage_CatUltimoCursoBachillerAcciones" token="CatUltimoCursoBachillerato"/>
             <applicationPage customPage="custompage_CatEstudiasteEnElExtranjeroAcciones" token="CatEstudiasteEnElExtranjero"/>
+            <applicationPage customPage="custompage_CatMateriaCalificacionAltaAcciones" token="CatMateriaCalificacionMasAlta"/>
+            <applicationPage customPage="custompage_CatMateriaTeGustaMasAcciones" token="CatMateriaTeGustaMas"/>
+            <applicationPage customPage="custompage_CatMateriaCalificacionBajaAcciones" token="CatMateriaCalificacionMasBaja"/>
+            <applicationPage customPage="custompage_CatMateriaTeGustaMenosAcciones" token="CatMateriaTeGustaMenos"/>
             <applicationPage customPage="custompage_CatExamenExtraordinarioAcciones" token="CatHasPresentadoExamenExtraordinario"/>
             <applicationPage customPage="custompage_CatSemestreReprobadoAcciones" token="CatHasReprobado"/>
             <applicationPage customPage="custompage_CatActualmenteTrabajasAcciones" token="CatActualMenteTrabajas"/>
@@ -77,6 +81,7 @@
             <applicationPage customPage="custompage_CatProblemasSaludAtencionAcciones" token="CatProblemasDeSalud"/>
             <applicationPage customPage="custompage_PaseListaSesionCalendarizadas" token="SesionCalendarizadas"/>
             <applicationPage customPage="custompage_CatPersonaSaludableAcciones" token="CatTeConsiderasSaludable"/>
+            <applicationPage customPage="custompage_CatRecibidoTerapiaAcciones" token="CatHasRecididoTerapia"/>
             <applicationPage customPage="custompage_CatTipoTerapiaAcciones" token="CatTipoTerapia"/>
             <applicationPage customPage="custompage_CatTerapiaAcciones" token="CatRecividoTerapia"/>
             <applicationPage customPage="custompage_ConfirmacionGeneracionDeCredencial" token="ConfirmarDatosCredencial"/>
@@ -112,11 +117,22 @@
             <applicationPage customPage="custompage_CatPadresEstanDeAcuerdoAcciones" token="CatTusPadresEstanDeAcuerdo"/>
             <applicationPage customPage="custompage_CatPasatiemposAcciones" token="CatQueHasesEnTuTiempoLibre"/>
             <applicationPage customPage="custompage_CatDiplomaAcciones" token="CatDiploma"/>
+            <applicationPage customPage="custompage_SesionCalendarizadasPasadas" token="SesionCalendarizadasPasadas"/>
             <applicationPage customPage="custompage_CatTipoAdmisionAcciones" token="CatTipoAdmision"/>
             <applicationPage customPage="custompage_CatTipoAlumnoAcciones" token="CatTipoAlumno"/>
             <applicationPage customPage="custompage_CatResidenciaAcciones" token="CatResidencia"/>
+            <applicationPage customPage="custompage_PaseListaReporte" token="PaseListaReporte"/>
             <applicationPage customPage="custompage_migracion" token="migracion"/>
             <applicationPage customPage="custompage_CatSacramentosAcciones" token="CatSacramentos"/>
+            <applicationPage customPage="custompage_APPTrasferenciasAspirantes" token="appTransferenciasAspirantes"/>
+            <applicationPage customPage="custompage_PaginaCatalogos" token="configuracion_general"/>
+            <applicationPage customPage="custompage_appBitacoraPagos" token="bitacora_pagos"/>
+            <applicationPage customPage="custompage_appBitacoraTecnicaConekta" token="bitacora_tecnica_conekta"/>
+            <applicationPage customPage="custompage_CatTituloAcciones" token="CatTitulo"/>
+            <applicationPage customPage="custompage_CatEstadoCivilAcciones" token="catEstado_civil"/>
+            <applicationPage customPage="custompage_CatBitacoraCorreos" token="bitacoraCorreos"/>
+            <applicationPage customPage="custompage_APPAspirantesProcesoM" token="Aspirantes_ProcesoM"/>
+            <applicationPage customPage="custompage_APPAspirantesProcesoFechas" token="Aspirantes_ProcesoF"/>
         </applicationPages>
         <applicationMenus>
             <applicationMenu applicationPage="dashboard">
@@ -125,38 +141,20 @@
             <applicationMenu>
                 <displayName>Catálogos</displayName>
                 <applicationMenus>
-                    <applicationMenu applicationPage="CatCampusAcciones">
-                        <displayName>Campus</displayName>
+                    <applicationMenu applicationPage="configuracion_general">
+                        <displayName>Configuración General</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="CatGestionEscolarAcciones">
-                        <displayName>Gestion escolar</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="bachillerato">
-                        <displayName>Bachillerato</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="pais">
-                        <displayName>País</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="estados">
-                        <displayName>Estados</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="CatCiudadAcciones">
-                        <displayName>Ciudad</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="egresadoUniversidadAnahuac">
-                        <displayName>Egresado universidad anáhuac </displayName>
+                    <applicationMenu applicationPage="CatNotificacionesFirma">
+                        <displayName>Notificaciones Firmas</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="catApiKeyAcciones">
                         <displayName>Api Keys</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="catEscolaridad">
-                        <displayName>Escolaridad</displayName>
+                    <applicationMenu applicationPage="CatGestionEscolarAcciones">
+                        <displayName>Gestion escolar</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="catParentesco">
-                        <displayName>Parentesco</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="catSexo">
-                        <displayName>Sexo</displayName>
+                    <applicationMenu applicationPage="egresadoUniversidadAnahuac">
+                        <displayName>Egresado universidad anáhuac</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="catDescuentos">
                         <displayName>Descuentos</displayName>
@@ -164,41 +162,11 @@
                     <applicationMenu applicationPage="catPagoExamen">
                         <displayName>Pago de examen</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="catPeriodoAcciones">
-                        <displayName>Periodo</displayName>
-                    </applicationMenu>
                     <applicationMenu applicationPage="notificaciones">
                         <displayName>Correos y Notificaciones</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="moonrover">
-                        <displayName>Master</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="CatNacionalidades">
-                        <displayName>Nacionalidad</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="CatGestionEscolarAcciones">
-                        <displayName>Gestión escolar</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="CatNotificacionesFirma">
-                        <displayName>Notificaciones Firmas</displayName>
-                    </applicationMenu>
                     <applicationMenu applicationPage="CatPropedeuticoAcciones">
                         <displayName>Propedéutico</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="PruebaAnimacion">
-                        <displayName>Animacion</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="PruebaGenerarCredencial">
-                        <displayName>PruebaGenerarCredencial</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="sesiones">
-                        <displayName>Sesiones</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="SesionCalendarizadas">
-                        <displayName>Sesiones Calendarizadas</displayName>
-                    </applicationMenu>
-                    <applicationMenu applicationPage="ConfirmarDatosCredencial">
-                        <displayName>Confirmacion Generar Credencial</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="CatReligion">
                         <displayName>Catálogo religión</displayName>
@@ -212,13 +180,34 @@
                     <applicationMenu applicationPage="CatTipoAlumno">
                         <displayName>Tipo Alumno</displayName>
                     </applicationMenu>
+                    <applicationMenu applicationPage="bitacora_pagos">
+                        <displayName>Bitacora pagos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bitacora_tecnica_conekta">
+                        <displayName>Bitácora técnica de Conelta</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="PruebaAnimacion">
+                        <displayName>Animacioncredencial </displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="sesiones">
+                        <displayName>Sesiones</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bitacoraCorreos">
+                        <displayName>Bitácora de correos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="ConfirmarDatosCredencial">
+                        <displayName>Credencial Confirmacion</displayName>
+                    </applicationMenu>
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
                 <displayName>Admisiones</displayName>
                 <applicationMenus>
-                    <applicationMenu applicationPage="aspirantesEnProceso">
+                    <applicationMenu applicationPage="Aspirantes_ProcesoM">
                         <displayName>Aspirantes en proceso</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="Aspirantes_ProcesoF">
+                        <displayName>Aspirantes en proceso fechas</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="nuevasSolicitudes">
                         <displayName>Nuevas solicitudes</displayName>
@@ -237,6 +226,12 @@
                     </applicationMenu>
                     <applicationMenu applicationPage="aspirantesCuentaNoValidada">
                         <displayName>Aspirantes sin cuenta validada</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="appTransferenciasAspirantes">
+                        <displayName>Transferencias</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="SesionCalendarizadasPasadas">
+                        <displayName>Listado de sesiones calendarizadas</displayName>
                     </applicationMenu>
                 </applicationMenus>
             </applicationMenu>
@@ -417,8 +412,13 @@
                     <applicationMenu applicationPage="CatSacramentos">
                         <displayName>Catálogo sacramento</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="sesiones">
-                        <displayName>Sesiones</displayName>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Pase de lista</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="SesionCalendarizadas">
+                        <displayName>Sesiones calendarizadas</displayName>
                     </applicationMenu>
                 </applicationMenus>
             </applicationMenu>

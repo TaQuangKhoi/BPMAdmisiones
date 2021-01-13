@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ConfirmacionGeneracionDeCredencial",
   "name" : "ConfirmacionGeneracionDeCredencial",
-  "lastUpdate" : 1609623675294,
+  "lastUpdate" : 1610492074053,
   "rows" : [
     [
       {
@@ -19,8 +19,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "isCorrectTask !== true"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -238,7 +238,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "CORRECTO, GENERAR CREDENCIAL"
+                  "value" : "GENERAR CREDENCIAL"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -422,6 +422,45 @@
       "type" : "url",
       "value" : [
         "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready"
+      ],
+      "exposed" : false
+    },
+    "redirectIfNeeded" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.currentTask !== undefined){",
+        "    if($data.currentTask[0].name !== \"Generar credencial\"){",
+        "        let ipBonita = window.location.protocol + \"//\" + window.location.host + \"/bonita\";",
+        "        let url = \"\";",
+        "        url = ipBonita + \"/portal/resource/app/aspirante/generar_credencial/content/?app=aspirante\";",
+        "        window.location.href = url;",
+        "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "isCorrectTask" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.currentTaskName === \"Generar credencial\"){\r",
+        "    return true;\r",
+        "} else {\r",
+        "    return false;\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "currentTaskName" : {
+      "type" : "expression",
+      "value" : [
+        "let value = \"\";",
+        "if($data.currentTask !== undefined){",
+        "    if($data.currentTask.length > 0){",
+        "        value = $data.currentTask[0].name;    ",
+        "    }",
+        "}",
+        "",
+        "return value;"
       ],
       "exposed" : false
     }

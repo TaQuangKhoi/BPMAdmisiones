@@ -5,6 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)){
             if($scope.properties.isValidStep){
                 $scope.properties.selectedIndex ++; 
+                blockUI.start();
                 submitTask();
             } else {
                 swal($scope.properties.messageTitle, $scope.properties.errorMessage, "warning");
@@ -46,6 +47,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     
     function getCurrentTask(){
+        let contador = 0;
+        let limite = 99
+        
         let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId +"&fstate=ready";
         
         var req = {
@@ -64,12 +68,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
                 $scope.properties.taskId = data[0].id;
                 console.log("Nueva tarea", $scope.properties.taskId);
+                blockUI.stop();
             }
-            
         })
         .error(function(data, status) {
             getCurrentTask();
-            // swal("¡Error!","NO se ha podido obtener los datos de la tarea.","error");
+            if(contador <= limite){
+                contador ++;
+                getCurrentTask();
+            } else {
+                blockUI.stop();
+            }
         });
     }
 }

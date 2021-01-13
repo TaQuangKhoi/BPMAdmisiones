@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "PaseListaDeLaSesion",
   "name" : "PaseListaDeLaSesion",
-  "lastUpdate" : 1609704438768,
+  "lastUpdate" : 1610486073561,
   "rows" : [
     [
       {
@@ -358,8 +358,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : ""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -456,96 +456,6 @@
                           "hasValidationError" : false,
                           "id" : "customButtonSetValor"
                         }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 6,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<i class=\"glyphicon glyphicon-print\"></i> Imprimir"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "13cbc5f5-c5b8-4fa4-acea-38ffc0dde257",
-                          "hasValidationError" : false,
-                          "id" : "customButtonPrint"
-                        }
                       ]
                     ]
                   },
@@ -564,7 +474,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -581,8 +491,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 8,
-                            "lg" : 8
+                            "md" : 6,
+                            "lg" : 6
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -594,8 +504,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "lstContenido.length < 1"
                             },
                             "label" : {
                               "type" : "interpolation",
@@ -603,7 +513,7 @@
                             },
                             "alignment" : {
                               "type" : "constant",
-                              "value" : "left"
+                              "value" : "right"
                             },
                             "buttonStyle" : {
                               "type" : "constant",
@@ -611,21 +521,23 @@
                             },
                             "action" : {
                               "type" : "constant",
-                              "value" : "Submit task"
+                              "value" : "POST"
                             },
                             "assign" : {
                               "type" : "constant",
                               "value" : false
                             },
                             "url" : {
-                              "type" : "interpolation"
+                              "type" : "interpolation",
+                              "value" : "../API/extension/AnahuacRest?url=getExcelPaseLista&p=0&c=10"
                             },
                             "responseStatusCode" : {
                               "type" : "variable",
                               "value" : ""
                             },
                             "dataToSend" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "Files"
                             },
                             "dataFromSuccess" : {
                               "type" : "variable",
@@ -673,8 +585,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 6,
+                            "lg" : 6
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -686,8 +598,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "lstContenido.length < 1"
                             },
                             "label" : {
                               "type" : "interpolation",
@@ -703,21 +615,23 @@
                             },
                             "action" : {
                               "type" : "constant",
-                              "value" : "Submit task"
+                              "value" : "POST"
                             },
                             "assign" : {
                               "type" : "constant",
                               "value" : false
                             },
                             "url" : {
-                              "type" : "interpolation"
+                              "type" : "interpolation",
+                              "value" : "../API/extension/AnahuacRest?url=getPdfPaseLista&p=0&c=10"
                             },
                             "responseStatusCode" : {
                               "type" : "variable",
                               "value" : ""
                             },
                             "dataToSend" : {
-                              "type" : "constant"
+                              "type" : "expression",
+                              "value" : "Files"
                             },
                             "dataFromSuccess" : {
                               "type" : "variable",
@@ -753,7 +667,7 @@
                             },
                             "fileExtension" : {
                               "type" : "constant",
-                              "value" : "xls"
+                              "value" : "pdf"
                             }
                           },
                           "reference" : "d91f6a98-b175-4b6a-ad8c-390bbe086b97",
@@ -868,6 +782,10 @@
                 "datosUsuario" : {
                   "type" : "variable",
                   "value" : "strUsuario"
+                },
+                "habilitado" : {
+                  "type" : "variable",
+                  "value" : "strSesion.habilitado"
                 }
               },
               "reference" : "6baa367c-46ef-4aa0-8487-0c712b3d4fdb",
@@ -2572,7 +2490,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "borderBlack img_heigth"
                             },
                             "hidden" : {
                               "type" : "constant",
@@ -3247,7 +3165,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>*Nombre cita:</strong>{{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>*Fecha:</strong>{{strUsuario.fecha}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>*Hora:</strong>{{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>*Lugar:</strong>{{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
+                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Nombre cita:</strong> {{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Fecha:</strong> {{strUsuario.fecha}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Hora:</strong> {{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Lugar:</strong> {{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3274,6 +3192,58 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
+                        "value" : "color-text-orange"
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "strSesion.habilitado == true"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<h4>*No es {{strUsuario.fecha != getFechas ? \"el día (\"+strUsuario.fecha+\") ni\":\"\"}} el horario ({{strUsuario.horario}}) para pasar lista </h4>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "107c3d87-0ae4-4caf-a72f-1261b96d4a68",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
                         "value" : ""
                       },
                       "hidden" : {
@@ -3281,8 +3251,8 @@
                         "value" : "strUsuario.asistencia== true"
                       },
                       "disabled" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "strSesion.habilitado == false"
                       },
                       "label" : {
                         "type" : "interpolation",
@@ -3311,6 +3281,10 @@
                       "dataToSend" : {
                         "type" : "variable",
                         "value" : "strAsistencia"
+                      },
+                      "datosUsuario" : {
+                        "type" : "variable",
+                        "value" : "strUsuario"
                       }
                     },
                     "reference" : "dfd4a294-9c9d-41d9-a1a5-0a3d5d9a16ec",
@@ -3337,8 +3311,8 @@
                         "value" : "strUsuario.asistencia== null || strUsuario.asistencia=== false"
                       },
                       "disabled" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "strSesion.habilitado == false"
                       },
                       "label" : {
                         "type" : "interpolation",
@@ -3367,6 +3341,10 @@
                       "dataToSend" : {
                         "type" : "variable",
                         "value" : "strAsistencia"
+                      },
+                      "datosUsuario" : {
+                        "type" : "variable",
+                        "value" : "strUsuario"
                       }
                     },
                     "reference" : "a95a75d1-c74e-4748-954e-baa5ecc4f0a6",
@@ -4201,11 +4179,11 @@
         "    \"NOMBRE\",\r",
         "    \"EMAIL\",\r",
         "    \"UNIVERSIDAD\",\r",
-        "    \"LICENCIATURA\",\r",
-        "    \"TIPO\",\r",
-        "    \"SEXO\",\r",
         "    \"PROMEDIO\",\r",
-        "    \"PREPARATORIA\"\r",
+        "    \"PREPARATORIA\",\r",
+        "    \"RESIDENCIA\",\r",
+        "    \"SEXO\",\r",
+        "    \"LICENCIATURA\"\r",
         "]"
       ],
       "exposed" : false
@@ -4214,7 +4192,6 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
         "    \"fecha\": $data.getFechas+\"\",\r",
@@ -4223,7 +4200,6 @@
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
-        "    \"estatusSolicitud\": \"Solicitud con pago aceptado\",\r",
         "    \"offset\":0\r",
         "};"
       ],
@@ -4268,14 +4244,7 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"NOMBRE\":\"\",",
-        "    \"DESCRIPCION\":\"\",",
-        "    \"FECHA\":\"26/SEP/2020 10:00\",",
-        "    \"ISMEDICINA\":\"\",",
-        "    \"catPreparatoria\":[],",
-        "    \"catEstado\": [],",
-        "    \"catPais\": [],",
-        "    \"BORRADOR\": \"\"",
+        "    \"habilitado\":false",
         "}"
       ],
       "exposed" : false
@@ -4409,6 +4378,26 @@
         "    \"username\":$data.strUsuario.username,",
         "    \"asistencia\":$data.strUsuario.asistencia,",
         "    \"usuarioPaseLista\":$data.userData.user_name",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "Files" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": [],\r",
+        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"fecha\": $data.getFechas+\"\",\r",
+        "    \"sesion\": parseInt($data.idSesion),\r",
+        "    \"prueba\":parseInt($data.idPrueba),\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuarioNombre\":$data.userData.user_name,\r",
+        "    \"nombrePrueba\":$data.lstContenido[0].nombre_prueba,\r",
+        "    \"type\": \"paselista\",\r",
         "};"
       ],
       "exposed" : false

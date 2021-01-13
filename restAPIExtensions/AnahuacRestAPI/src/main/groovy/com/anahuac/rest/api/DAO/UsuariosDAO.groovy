@@ -23,6 +23,7 @@ import com.anahuac.catalogos.CatRegistro
 import com.anahuac.catalogos.CatRegistroDAO
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
+import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -123,6 +124,20 @@ class UsuariosDAO {
 			error_log = error_log + " | plantilla = plantilla.replace([href-confirmar], prop.getProperty";
 			MailGunDAO dao = new MailGunDAO();
 			resultado = dao.sendEmailPlantilla(str.correo, "Completar Registro", plantilla.replace("\\", ""), "", object.campus, context);
+			CatBitacoraCorreo catBitacoraCorreo = new CatBitacoraCorreo();
+			catBitacoraCorreo.setCodigo("registrar")
+			catBitacoraCorreo.setDe(resultado.getAdditional_data().get(0))
+			catBitacoraCorreo.setMensaje("")
+			catBitacoraCorreo.setPara(str.correo)
+			catBitacoraCorreo.setCampus(object.campus)
+			
+			if(resultado.success) {
+				catBitacoraCorreo.setEstatus("Enviado a Mailgun")
+				
+			}else {
+				catBitacoraCorreo.setEstatus("Fallido")
+			}
+			new NotificacionDAO().insertCatBitacoraCorreos(catBitacoraCorreo)
 			error_log = error_log + " | resultado = dao.sendEmailPlantilla(str.correo,";
 			lstResultado.add(plantilla.replace("\\", ""))
 			error_log = error_log + " | lstResultado.add(plantilla.replace(";

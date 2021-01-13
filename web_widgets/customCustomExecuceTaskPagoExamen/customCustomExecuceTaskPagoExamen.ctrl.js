@@ -48,13 +48,28 @@ function ($scope, $http, modalService) {
         
         $http.post(url, $scope.formInput).success(function(data){
             $scope.hideModal();
-            $scope.properties.navigationVar = "hideall"
-            swal("Pago exitoso", "Redireccionando.", "success");
-            if($scope.reloadPage){
-                setTimeout(function(){
-                    window.location.reload();
-                }, 3000);   
+            $scope.properties.navigationVar = "hideall";
+            let title = "";
+            let message = "";
+
+            if($scope.formInput.isPagoTarjeta){
+                title = "Pago realizado con éxito.";
+                message = "Redireccionando...";
+            } else {
+                title = "Referencia generada con éxito.";
+                message = "Redireccionando...";
             }
+
+            swal(title, message, "success");
+
+            setTimeout(function(){
+                window.location.reload();
+            }, 3000);  
+            // if($scope.isPagoTarjeta){
+            //     setTimeout(function(){
+            //         window.location.reload();
+            //     }, 3000);   
+            // }
         }).error(function(error){
             console.log("Fallo la tarea" + JSON.stringify(error));
         })
@@ -67,7 +82,8 @@ function ($scope, $http, modalService) {
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.bankInformationSPEI.data[0].id;
                 if($scope.properties.isCorrectTask){
                     // $scope.newNavValue = "paymentWaiting";
-                    $scope.reloadPage = false;
+                    // $scope.isPagoTarjeta = false;
+                    $scope.isPagoTarjeta = true;
                     $scope.assignTask();  
                 }
             }
@@ -81,7 +97,8 @@ function ($scope, $http, modalService) {
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.paymentInformationOXXO.data[0].id;
                 if($scope.properties.isCorrectTask){
                     // $scope.newNavValue = "paymentWaiting";
-                    $scope.reloadPage = false;
+                    // $scope.isPagoTarjeta = false;
+                    $scope.isPagoTarjeta = true;
                     $scope.assignTask();    
                 }
             }
@@ -95,7 +112,7 @@ function ($scope, $http, modalService) {
                 $scope.formInput.detalleSolicitudInput.ordenPago = $scope.properties.paymentInfoCard.data[0].id;
                 if($scope.properties.isCorrectTask){
                     // $scope.newNavValue = "cardPaid";
-                    $scope.reloadPage = true;
+                    $scope.isPagoTarjeta = true;
                     $scope.assignTask();
                 }
             }

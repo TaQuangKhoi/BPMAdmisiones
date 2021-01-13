@@ -6,7 +6,6 @@ function ($scope){
     var llenadoIniciado = false;
     
     function llenarPaso2(){
-        debugger;
         if($scope.properties.bdmAutodescripcion !== undefined){
             if($scope.properties.bdmAutodescripcion.length > 0){
                 $scope.properties.formInput.informacionEscolar = $scope.properties.bdmAutodescripcion;

@@ -6,11 +6,23 @@ function PbTableCtrl($scope, modalService) {
         return $scope.properties.isBound('selectedRow');
     };
 
-    this.selectRow = function (row, index) {
+    this.selectRow = function (row, index, action) {
+        // if (this.isClickable()) {
+        //     // $scope.properties.selectedRow = row;
+        //     row.index = index;
+        //     $scope.properties.selectedRow = angular.copy(row);
+        // }
         if (this.isClickable()) {
-            // $scope.properties.selectedRow = row;
             row.index = index;
             $scope.properties.selectedRow = angular.copy(row);
+            
+            if(action === "ver" ){
+                this.showModalEditar(false);
+            } else if(action === "editar" ){
+                this.showModalEditar(true);
+            } else if(action === "eliminar" ){
+                this.showModalEliminar();
+            }
         }
     };
 

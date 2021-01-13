@@ -109,6 +109,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       vm.busy = true;
       let dataToSend = angular.copy($scope.properties.dataToSend);
       dataToSend.isAutodescripcionTerminadaCont = true;
+      dataToSend.autodescripcionInput.pageIndex = 0;
       
       var req = {
         method: method,

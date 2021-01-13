@@ -10,6 +10,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
 
     $scope.isValid = false;
     $scope.forceKeyPressUppercase = function(e) {
+        debugger;
         var charInput = e.keyCode;
         if (charInput === 69) {
             $scope.isValid = true;
@@ -42,6 +43,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     }
     
     $scope.$watch("properties.value", function() {
+        debugger;
         if($scope.properties.value === "E"){
             if($scope.properties.value.length > 1){
                 $scope.properties.value = null;
@@ -73,7 +75,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 }
             }
         }else{
-            if (parseFloat($scope.properties.value) >= $scope.properties.max) {
+            if (parseFloat($scope.properties.value) > $scope.properties.max) {
                 $scope.properties.value = null;
                 //$scope.properties.value = $scope.properties.max;
             }

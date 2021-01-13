@@ -64,7 +64,7 @@
                         {{row.aspirantes[0].campus}}<br> {{row.aspirantes[0].licenciatura}}
                     </td>
                     <td>
-                        {{row.aspirantes[0].tipoalumno}}
+                        {{row.aspirantes[0].residencia }}
                     </td>
                     <td>
                         {{row.aspirantes[0].sexo}}
@@ -78,7 +78,7 @@
                         {{row.horario}}
                     </td>
                     <td>
-                        <div class=" middle-td text-center"  ng-click="doRequestRedirect(row)">
+                        <div class=" middle-td text-center"  ng-click="doRequestRedirect(row); blockPaseLista(row)">
                             <span ng-class="row.asistencia === true?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true"></span>
                             <i class="glyphicon glyphicon-user iconograndetabla"></i>
                         </div>
@@ -91,7 +91,7 @@
                                 </button>
                                 </td>-->
                                 <td>
-                                    <button class="btn btn-primary" ng-click="redirectComentario(row)">
+                                    <button class="btn btn-primary" ng-click="redirectComentario(row); blockPaseLista(row)">
                                     <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                 </button>
                                 </td>

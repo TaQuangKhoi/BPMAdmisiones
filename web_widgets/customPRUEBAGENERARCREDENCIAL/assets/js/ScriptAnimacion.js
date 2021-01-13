@@ -5,7 +5,7 @@
 			//***************************************************************
 			lowLag.init({
 				sm2url: '/Scripts/sm2/swf/',
-				urlPrefix: 'http://38.65.156.253:9080/sounds/'
+				urlPrefix: 'assets/img/'
 			});
 
 			lowLag.load(['mixdown.mp3', 'mixdown.ogg', 'mixdown.aif'], 'mixdown');
@@ -211,12 +211,15 @@
 
 			$("#botonINI").on("click", this, function () {
 				if (actualState == 'download') {
-					console.log("redirect")
                     let ipBonita = window.location.protocol + "//" + window.location.host + "";
                     let url = "";
-					url = ipBonita + "/apps/administrativo/PruebaGenerarCredencial/";
+                    
+					//url = ipBonita + "/apps/administrativo/PruebaGenerarCredencial/";
+					
+				    url = ipBonita + "/apps/aspirante/generar_credencial/";
 					console.log(url)
 					
+
 					
 					window.location.replace(url); 
 				} else {

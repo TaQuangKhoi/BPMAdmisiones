@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1609661150376,
+  "lastUpdate" : 1610481949491,
   "rows" : [
     [
       {
@@ -334,7 +334,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Estimado {{loggedUser.firstname}}, te comunicamos que has sido beneficiado con el descuento del {{montoParcial.descuentoPorcentaje}}% en el pago de tu derecho a examen"
+                        "value" : "Estimado {{loggedUser.firstname}}, te comunicamos que has sido beneficiado con el descuento del {{montoParcial.descuentoPorcentaje}}% en el pago de tu examen."
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -452,7 +452,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<ul>\n<li>Por favor selecciona un método de pago.</li>\n<li>En el caso de Oxxo cash y SPEI, descarga tu referencia bancaria para realizar el pago.</li>\n<li>En el caso de que desees pagar en línea simplemente da click en \"Pagar con tarjeta\" y rellena los datos del formulario para pagar con tarjeta.</li>\n<li>Realiza tu pago correspondiente por el medio de tu preferencia y conserva muy bien tu comprobante para cualquier aclaración, no es necesario que nos envíes el comprobante de pago, nosotros validaremos tu pago de manera automatizada.</li>\n<li>Ten a la mano tus datos de facturación para solicitar tu factura por este mismo medio.</li>\n</ul>"
+                        "value" : "<ul>\n<li>Por favor selecciona un método de pago.</li>\n<li>En el caso de Oxxo cash y SPEI, descarga tu referencia bancaria para realizar el pago.</li>\n<li>En el caso de que desees pagar en línea simplemente da click en \"Pagar con tarjeta\" y rellena los datos del formulario para pagar con tarjeta.</li>\n<li>Realiza tu pago correspondiente por el medio de tu preferencia y conserva muy bien tu comprobante para cualquier aclaración, no es necesario que nos envíes el comprobante de pago, nosotros validaremos tu pago de manera automatizada.</li>\n<li>En caso de requerir factura, ten a la mano tus datos de facturación para solicitar tu factura por este mismo medio.</li>\n</ul>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -2826,7 +2826,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Leyenda de OXXO tu pago se vera reflejado en 24Hrs máximo."
+                              "value" : "Tu pago se vera reflejado en 24Hrs máximo."
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3923,7 +3923,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<div class=\"opps-instructions\">\n\t\t\t\t<h3>Instrucciones</h3>\n\t\t\t\t<ol>\n\t\t\t\t\t<li>Acude a la tienda OXXO más cercana. <a href=\"https://www.google.com.mx/maps/search/oxxo/\" target=\"_blank\">Encuéntrala aquí</a>.</li>\n\t\t\t\t\t<li>Indica en caja que quieres realizar un pago de <strong>OXXOPay</strong>.</li>\n\t\t\t\t\t<li>Dicta al cajero el número de referencia en esta ficha para que tecleé directamete en la pantalla de venta.</li>\n\t\t\t\t\t<li>Realiza el pago correspondiente con dinero en efectivo.</li>\n\t\t\t\t\t<li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>\n\t\t\t\t</ol>\n\t\t\t\t\n\t\t\t</div>"
+                              "value" : "<div class=\"opps-instructions\">\n\t\t\t\t<h3>Instrucciones</h3>\n\t\t\t\t<ol>\n\t\t\t\t\t<li>Acude a la tienda OXXO más cercana. <a href=\"https://www.google.com.mx/maps/search/oxxo/\" target=\"_blank\">Encuéntrala aquí</a>.</li>\n\t\t\t\t\t<li>Indica en caja que quieres realizar un pago de <strong>OXXOPay</strong>.</li>\n\t\t\t\t\t<li>Dicta al cajero el número de referencia de esta ficha para que lo capture directamete en la pantalla de venta.</li>\n\t\t\t\t\t<li>Realiza el pago correspondiente con dinero en efectivo.</li>\n\t\t\t\t\t<li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>\n<li>No es necesario mandar el comprobante de pago, el sistema en no mas de 20 minutos, nos avisará en automático que ya se ha realizado este de manera correcta</li>\n\t\t\t\t</ol>\n\t\t\t\t\n\t\t\t</div>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -5759,7 +5759,9 @@
         "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
         "    \"country\": $data.objectSolicitud.catPais.clave,",
         "    \"phone\": $data.objectSolicitud.telefono,",
-        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\"",
+        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
+        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "    \"campus\": $data.objectSolicitud.catCampus.descripcion",
         "}"
       ],
       "exposed" : false
@@ -5794,7 +5796,9 @@
         "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
         "    \"country\": $data.objectSolicitud.catPais.clave,",
         "    \"phone\": $data.objectSolicitud.telefono,",
-        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\"",
+        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
+        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "    \"campus\": $data.objectSolicitud.catCampus.descripcion",
         "}"
       ],
       "exposed" : false
@@ -5892,6 +5896,7 @@
         "    output = \"Mastercard\";   \r",
         "}\r",
         "\r",
+        "\r",
         "// AMEX\r",
         "re = new RegExp(\"^3[47]\");\r",
         "if (number.match(re) !== null){\r",
@@ -5906,13 +5911,25 @@
     "objectCard" : {
       "type" : "expression",
       "value" : [
-        " return {",
+        "let last4 = \"\";",
+        "",
+        "if($data.cardInformation !== undefined){",
+        "    if($data.cardInformation.cardNumber.length > 3){",
+        "        last4 = $data.cardInformation.cardNumber.substr(cardNumber.length - 4);    ",
+        "    }",
+        "    ",
+        "}",
+        "return {",
         "    \"name\": $data.objectSolicitud.primerNombre + \" \"+ $data.objectSolicitud.apellidoPaterno,",
         "    \"email\": $data.objectSolicitud.correoElectronico,",
         "    \"phone\": $data.objectSolicitud.telefono,",
         "    \"campus_id\": $data.objectSolicitud.catCampus.persistenceId + \"\",",
-        "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
-        "    \"idToken\": $data.idTokenCard",
+        "    \"unit_price\": $data.montoParcial === null ? \"\" : parseInt((100 * ($data.montoParcial.montoTotal)))+ \"\",",
+        "    \"idToken\": $data.idTokenCard,",
+        "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
+        "    \"last4\": last4,",
+        "    \"nombrePago\": $data.cardInformation.cardholder,",
+        "    \"campus\": $data.objectSolicitud.catCampus.descripcion",
         "}"
       ],
       "exposed" : false
@@ -6019,27 +6036,32 @@
         "}\r",
         "\r",
         "function getTotal(montoParcial, descuento){\r",
-        "    // let output = (parseInt(montoParcial).toFixed(2) - parseInt(descuento).toFixed(2));\r",
-        "    let output = (parseInt(montoParcial).toFixed(2) - parseInt(descuento).toFixed(2)).toFixed(2);\r",
+        "    // let output = (parseInt(montoParcial).toFixed(2) - parseInt(descuento).toFixed(2)).toFixed(2);\r",
+        "    let output = (parseFloat(montoParcial).toFixed(2) - parseFloat(descuento).toFixed(2)).toFixed(2);\r",
         "    return output;\r",
         "}\r",
         "\r",
         "function getDescuento(montoParcial, descuento){\r",
         "    let output = \"0\";\r",
-        "    if (parseInt(descuento) > 0){\r",
-        "        output = parseInt(montoParcial).toFixed(2) * (0.01 * parseInt(descuento).toFixed(2));\r",
+        "    // if (parseInt(descuento) > 0){\r",
+        "    if (parseFloat(descuento) > 0){\r",
+        "        // output = parseInt(montoParcial).toFixed(2) * (0.01 * parseInt(descuento).toFixed(2));\r",
+        "        output = parseFloat(montoParcial).toFixed(2) * (0.01 * parseFloat(descuento).toFixed(2));\r",
         "    }\r",
-        "    return parseInt(output).toFixed(2) + \"\";\r",
+        "    return parseFloat(output).toFixed(2) + \"\";\r",
         "}\r",
         "\r",
         "function getMontoByTipoEstudiante(){\r",
         "    let output = \"\";\r",
         "    if($data.objectDetalleSolicitud.tipoAlumno === \"Local\"){\r",
-        "        output = parseInt($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
+        "        // output = parseInt($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
+        "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
         "    } else if($data.objectDetalleSolicitud.tipoAlumno === \"Foraneo\"){\r",
-        "        output = parseInt($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
+        "        // output = parseInt($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
+        "        output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
         "    } else {\r",
-        "        output = parseInt($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
+        "        // output = parseInt($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
+        "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
         "    }\r",
         "    \r",
         "    return output;\r",
@@ -6048,8 +6070,10 @@
         "function returnDescuento(){\r",
         "    let output = \"\";\r",
         "    if($data.objectDetalleSolicitud.descuento !== null && $data.objectDetalleSolicitud.descuento !== undefined && $data.objectDetalleSolicitud.descuento !== \"\"){\r",
-        "        if(parseInt($data.objectDetalleSolicitud.descuento) > 0){\r",
-        "            output = parseInt($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
+        "        // if(parseInt($data.objectDetalleSolicitud.descuento) > 0){\r",
+        "        if(parseFloat($data.objectDetalleSolicitud.descuento) > 0){\r",
+        "            // output = parseInt($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
+        "            output = parseFloat($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
         "        } else {\r",
         "            output = \"0\";\r",
         "        }\r",
@@ -6153,7 +6177,9 @@
       "type" : "json",
       "value" : [
         "{ ",
-        "    \"isCambioMetodoPago\" : true ",
+        "    \"isCambioMetodoPago\" : true,",
+        "    \"isCambioMetodoPagoCont\" : true,",
+        "    \"isPagoValidadoCont\": false",
         "}"
       ],
       "exposed" : false

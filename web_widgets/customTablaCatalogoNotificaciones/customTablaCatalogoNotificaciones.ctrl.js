@@ -1,4 +1,4 @@
-function PbTableCtrl($scope, $http, modalService) {
+function PbTableCtrl($scope, $http, modalService, blockUI) {
 
     this.isArray = Array.isArray;
     $scope.loading = false;
@@ -185,7 +185,7 @@ function PbTableCtrl($scope, $http, modalService) {
     }
     
         $scope.preview = function(codigo) {
-            
+         blockUI.start()   
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
@@ -209,6 +209,8 @@ function PbTableCtrl($scope, $http, modalService) {
                 $("#loading").modal("hide");
                 console.error(data)
             })
-            .finally(function() {});
+            .finally(function() {
+                blockUI.stop()
+            });
     }
 }

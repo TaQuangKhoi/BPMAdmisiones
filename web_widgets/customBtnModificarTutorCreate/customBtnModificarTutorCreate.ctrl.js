@@ -50,6 +50,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.tutor.catTitulo = $scope.properties.jsonModificarTutor.catTitulo
                 }
                 if ($scope.properties.tutor.catParentezco != $scope.properties.jsonModificarTutor.catParentezco) {
+                    if($scope.properties.tutor.catParentezco.descripcion === "Padre"){
+                        $scope.properties.padre.catTitulo = null;
+                            $scope.properties.padre.nombre = "";
+                            $scope.properties.padre.apellidos = "";
+                            $scope.properties.padre.correoElectronico = "";
+                            $scope.properties.padre.catEscolaridad = null;
+                            $scope.properties.padre.catEgresoAnahuac = null;
+                            $scope.properties.padre.catCampusEgreso = null;
+                            $scope.properties.padre.catTrabaja = null;
+                            $scope.properties.padre.empresaTrabaja = "";
+                            $scope.properties.padre.giroEmpresa = "";
+                            $scope.properties.padre.puesto = "";
+                            $scope.properties.padre.isTutor = false;
+                            $scope.properties.padre.calle = "";
+                            $scope.properties.padre.catPais = null;
+                            $scope.properties.padre.numeroExterior = "";
+                            $scope.properties.padre.numeroInterior = "";
+                            $scope.properties.padre.catEstado = null;
+                            $scope.properties.padre.ciudad = "";
+                            $scope.properties.padre.colonia = "";
+                            $scope.properties.padre.telefono = "";
+                            $scope.properties.padre.codigoPostal = "";
+                            $scope.properties.padre.viveContigo = false;
+                            $scope.properties.padre.vive = null;
+                            $scope.properties.padre.delegacionMunicipio = "";
+                            $scope.properties.padre.estadoExtranjero = "";
+                            $scope.properties.isPadretutor = false;
+                    }else if($scope.properties.tutor.catParentezco.descripcion === "Madre"){
+                        $scope.properties.madre.vive = null;
+                            $scope.properties.madre.catTitulo = null;
+                            $scope.properties.madre.nombre = "";
+                            $scope.properties.madre.apellidos = "";
+                            $scope.properties.madre.correoElectronico = "";
+                            $scope.properties.madre.catEscolaridad = null;
+                            $scope.properties.madre.catEgresoAnahuac = null;
+                            $scope.properties.madre.catCampusEgreso = null;
+                            $scope.properties.madre.catTrabaja = null;
+                            $scope.properties.madre.empresaTrabaja = "";
+                            $scope.properties.madre.giroEmpresa = "";
+                            $scope.properties.madre.puesto = "";
+                            $scope.properties.madre.isTutor = false;
+                            $scope.properties.madre.calle = "";
+                            $scope.properties.madre.catPais = null;
+                            $scope.properties.madre.numeroExterior = "";
+                            $scope.properties.madre.numeroInterior = "";
+                            $scope.properties.madre.catEstado = null;
+                            $scope.properties.madre.ciudad = "";
+                            $scope.properties.madre.colonia = "";
+                            $scope.properties.madre.telefono = "";
+                            $scope.properties.madre.codigoPostal = "";
+                            $scope.properties.madre.viveContigo = false;
+                            $scope.properties.madre.delegacionMunicipio = "";
+                            $scope.properties.madre.estadoExtranjero = "";
+                            $scope.properties.isMadretutor = false;
+                    }
+
                     $scope.properties.tutor.catParentezco = $scope.properties.jsonModificarTutor.catParentezco
                     if ($scope.properties.jsonModificarTutor.catParentezco.descripcion === "Padre") {
                         $scope.properties.padre.catTitulo = $scope.properties.tutor.catTitulo;
@@ -349,7 +405,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.tutor.empresaTrabaja === "") {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                             } else if ($scope.properties.tutor.giroEmpresa === "") {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo del tutor", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo del tutor", "warning");
                             } else if ($scope.properties.tutor.puesto === "") {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo del tutor", "warning");
                             } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -628,7 +684,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.tutor.empresaTrabaja === "") {
                             swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                         } else if ($scope.properties.tutor.giroEmpresa === "") {
-                            swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo del tutor", "warning");
+                            swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo del tutor", "warning");
                         } else if ($scope.properties.tutor.puesto === "") {
                             swal("¡Puesto!", "Debes agregar el puesto de trabajo del tutor", "warning");
                         } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -922,7 +978,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.tutor.empresaTrabaja === "") {
                                     swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                                 } else if ($scope.properties.tutor.giroEmpresa === "") {
-                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo del tutor", "warning");
+                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo del tutor", "warning");
                                 } else if ($scope.properties.tutor.puesto === "") {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo del tutor", "warning");
                                 } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -1201,7 +1257,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.tutor.empresaTrabaja === "") {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                             } else if ($scope.properties.tutor.giroEmpresa === "") {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo del tutor", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo del tutor", "warning");
                             } else if ($scope.properties.tutor.puesto === "") {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo del tutor", "warning");
                             } else if ($scope.properties.tutor.catEscolaridad === null) {

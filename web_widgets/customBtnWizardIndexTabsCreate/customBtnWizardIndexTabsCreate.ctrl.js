@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
     var cont = 0;
     $scope.action = function() {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -311,7 +311,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                     swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                                 } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                    swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
+                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
                                 } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                                 } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -391,7 +391,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                             } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
                             } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                             } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -584,7 +584,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.madre.empresaTrabaja === "" || $scope.properties.madre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu madre trabaja", "warning");
                             } else if ($scope.properties.madre.giroEmpresa === "" || $scope.properties.madre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del trabajo de tu madre!", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre!", "warning");
                             } else if ($scope.properties.madre.puesto === "" || $scope.properties.madre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu madre", "warning");
                             } else if ($scope.properties.madre.correoElectronico === "" || $scope.properties.madre.correoElectronico === undefined) {
@@ -714,6 +714,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.assignTask = function() {
         //$scope.showModal();
+        blockUI.start();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
 
         var req = {
@@ -729,8 +730,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 submitTask();
             })
             .error(function(data, status) {
-                $scope.hideModal();
-                swal("Error", data.message, "error");
+                //$scope.hideModal();
+                swal("¡Error!", data.message, "error");
             })
             .finally(function() {
 
@@ -864,6 +865,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.currentTask = data;
                         topFunction();
                         $scope.properties.disabled = false;
+                        blockUI.stop();
                         $scope.properties.selectedIndex++;
                     }
                 }else{

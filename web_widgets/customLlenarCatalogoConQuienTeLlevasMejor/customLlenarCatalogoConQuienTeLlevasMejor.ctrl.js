@@ -7,15 +7,16 @@ function ($scope) {
             if(viveTuPadre === null && output[i].descripcion.toLowerCase().includes("papá")){
                 output.splice(i, 1);
                 i--;
-            } else if(viveTuPadre.descripcion === "No" && output[i].descripcion.toLowerCase().includes("papá")){
+            } else if(viveTuPadre !== null && viveTuPadre.descripcion === "No" && output[i].descripcion.toLowerCase().includes("papá")){
                 output.splice(i, 1);
                 i--;
             } 
             
+            debugger;
             if(viveTuMadre === null && output[i].descripcion.toLowerCase().includes("mamá")){
                 output.splice(i, 1);
                 i--;
-            } else if(viveTuMadre.descripcion === "No" && output[i].descripcion.toLowerCase().includes("mamá")){
+            } else if(viveTuMadre !== null && viveTuMadre.descripcion === "No" && output[i].descripcion.toLowerCase().includes("mamá")){
                 output.splice(i, 1);
                 i--;
             }

@@ -6,16 +6,6 @@ function PbTableCtrl($scope, modalService) {
         return $scope.properties.isBound('selectedRow');
     };
 
-    // this.selectRow = function (row, index) {
-    //     debugger;
-    //     if (this.isClickable()) {
-    //         // $scope.properties.selectedRow = row;
-    //         row.index = index;
-    //         $scope.properties.selectedRow = null;
-    //         $scope.properties.selectedRow = angular.copy(row);
-    //     }
-    // };
-    
     this.selectRow = function (row, index, action) {
         if (this.isClickable()) {
             row.index = index;

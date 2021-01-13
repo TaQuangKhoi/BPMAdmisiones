@@ -510,7 +510,7 @@ function($scope, $http, blockUI) {
             if ($scope.prueba.persistenceId > 0) {
                 for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                     const element = $scope.sesion.pruebas[index];
-                    if (element.persistenceId = $scope.prueba.persistenceId) {
+                    if (element.persistenceId == $scope.prueba.persistenceId) {
                         $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
                     }
 
@@ -519,7 +519,7 @@ function($scope, $http, blockUI) {
                 var push = true;
                 for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                     const element = $scope.sesion.pruebas[index];
-                    if (element.persistenceId = $scope.prueba.persistenceId) {
+                    if (element.persistenceId == $scope.prueba.persistenceId) {
                         $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
                         push = false
                     }
@@ -531,6 +531,7 @@ function($scope, $http, blockUI) {
 
             }
             //$scope.pantalla = 'sesion';
+            
             console.log(JSON.stringify($scope.sesion));
             $scope.insertSesion($scope.sesion.borrador);
         }
@@ -1009,10 +1010,6 @@ function($scope, $http, blockUI) {
             error = true;
             sweet.titulo = "Cupo";
             sweet.texto = 'Cupo debe de ser mayor a 0'
-        } else if ($scope.prueba.numero_ext == null || $scope.prueba.numero_ext == undefined || $scope.prueba.numero_ext.trim() == "") {
-            error = true;
-            sweet.titulo = "Número exterior";
-            sweet.texto = 'Número exterior es obligatorio'
         } else if ($scope.prueba.colonia == null || $scope.prueba.colonia == undefined || $scope.prueba.colonia.trim() == "") {
             error = true;
             sweet.titulo = "Colonia";
@@ -1024,6 +1021,10 @@ function($scope, $http, blockUI) {
                 sweet.texto = 'Favor de capturar "Duración de las entrevistas(min)"'
             }
 
+        } else if($scope.prueba.psicologos.length==0){
+            error = true;
+            sweet.titulo = "Responsables";
+            sweet.texto = 'Favor de agregar por lo menos un responsable'
         }
 
         if (error) {
