@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 class AzureBlobFileUpload {
 /*
-    public static final String STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;" + "AccountName=integrasoa;" + "AccountKey=NMuzPqjIfIlJ5RVtpyDbkboC4V6Viw3ONlUBm9J0KSb+lCNeMUapCaZUK/oKfGESN7Jlkj0PuRK69ImeOgIzsA==";
+    public static final String STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;" + "AccountName=integrasoa;" + "AccountKey=";
     private static final Logger LOGGER = Logger.getLogger(AzureBlobFileUpload.class.getName());
 
     public static void main(String[] args) throws URISyntaxException, StorageException, InvalidKeyException, IOException {
