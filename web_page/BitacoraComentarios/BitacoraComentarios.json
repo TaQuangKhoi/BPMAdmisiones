@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "BitacoraComentarios",
   "name" : "BitacoraComentarios",
-  "lastUpdate" : 1608759561286,
+  "lastUpdate" : 1610576770937,
   "rows" : [
     [
       {
@@ -1366,18 +1366,20 @@
       "exposed" : false
     },
     "lstCampusRole" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "[{\"descripcion\":\"Anáhuac México Norte\", \"valor\":\"CAMPUS-MNORTE\"},\r",
-        "{\"descripcion\":\"Anáhuac México Sur\", \"valor\":\"CAMPUS-MSUR\"},\r",
-        "{\"descripcion\":\"Anáhuac Mayab\", \"valor\":\"CAMPUS-MAYAB\"},\r",
-        "{\"descripcion\":\"Anáhuac Xalapa\", \"valor\":\"CAMPUS-XALAPA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cordoba\", \"valor\":\"CAMPUS-CORDOBA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cancún\", \"valor\":\"CAMPUS-CANCUN\"},\r",
-        "{\"descripcion\":\"Anáhuac Oaxaca\", \"valor\":\"CAMPUS-OAXACA\"},\r",
-        "{\"descripcion\":\"Anáhuac Puebla\", \"valor\":\"CAMPUS-PUEBLA\"},\r",
-        "{\"descripcion\":\"Anáhuac Querétaro\", \"valor\":\"CAMPUS-QUERETARO\"},\r",
-        "{\"descripcion\":\"Juan Pablo II\", \"valor\":\"CAMPUS-JP2\"}]"
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "objData = {\r",
+        "\"descripcion\":\"\",\r",
+        "\"valor\":\"\"\r",
+        "}\r",
+        "objData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "objData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "lstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
       ],
       "exposed" : false
     },

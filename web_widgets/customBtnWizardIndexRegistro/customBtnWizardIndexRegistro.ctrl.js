@@ -21,9 +21,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Curso propedéutico!", "Favor de seleccionar un curso propedéutico", "warning");
                 } else {
                     if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catPeriodo === null) {
-                        swal("¡Período!", "Debes seleccionar un período donde cursarás tus estudios", "warning");
+                        swal("¡Período!", "Debes seleccionar el período donde cursarás tus estudios", "warning");
                     } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen === null) {
-                        swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
+                        swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás tu examen", "warning");
                     } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen.persistenceId_string !== "") {
                         if ($scope.properties.lugarexamen === "En un estado") {
                             if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catEstadoExamen === null) {
@@ -84,13 +84,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
 
                     } else {
-                        swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
+                        swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás el examen", "warning");
                     }
                 }
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catPeriodo === null) {
-                swal("¡Período!", "Debes seleccionar un período donde cursarás tus estudios", "warning");
+                swal("¡Período!", "Debes seleccionar el periodo donde cursarás tus estudios", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen === null) {
-                swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
+                swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás tu examen", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen.persistenceId_string !== "") {
                 if ($scope.properties.lugarexamen === "En un estado") {
                     if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catEstadoExamen === null) {
@@ -153,7 +153,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
 
             } else {
-                swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
+                swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás el examen", "warning");
             }
         } else if ($scope.properties.selectedIndex === 1) {
 
@@ -188,7 +188,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Curso propedéutico!", "Favor de seleccionar un curso propedéutico", "warning");
                 } else {
                     if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen === null) {
-                        swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
+                        swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás tu examen", "warning");
                     } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.avisoPrivacidad === false) {
                         swal("¡Aviso de privacidad!", "Debes aceptar el aviso de privacidad", "warning");
                     } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen.persistenceId_string !== "") {
@@ -233,7 +233,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen === null) {
-                swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
+                swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás tu examen", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.avisoPrivacidad === false) {
                 swal("¡Aviso de privacidad!", "Debes aceptar el aviso de privacidad", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen.persistenceId_string !== "") {

@@ -1,8 +1,8 @@
 {
   "designerVersion" : "1.11.52",
-  "id" : "appNuevaSolicitudDeAdmision",
+  "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1610470015695,
+  "lastUpdate" : 1610758769019,
   "rows" : [
     [
       {
@@ -3140,7 +3140,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Resultado (PAA) del Examen Collage Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Resultado (PAA) del Examen College Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3218,7 +3218,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el Collage Board. Si la carta fue emitida hace más de un año ya no tiene validez.</label>"
+                              "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el College Board. Si la carta fue emitida hace más de un año ya no tiene validez.</label>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3906,7 +3906,7 @@
                     "rows" : [
                       [
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -3919,29 +3919,59 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "catSolicitudDeAdmision.catBachilleratos.pertenecered !== \"t\""
                             },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Cuentas con carta de Admisión Anáhuac?"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "catSolicitudDeAdmision.admisionAnahuac"
+                              "value" : ""
                             }
                           },
-                          "reference" : "ea53016b-9965-4ccf-915f-466d4cfe31d0",
+                          "reference" : "3f3802b4-d81e-4c1c-924c-110eb9294f39",
                           "hasValidationError" : false,
-                          "id" : "pbCheckbox"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "¿Cuentas con carta de Admisión Anáhuac?"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "catSolicitudDeAdmision.admisionAnahuac"
+                                  }
+                                },
+                                "reference" : "ea53016b-9965-4ccf-915f-466d4cfe31d0",
+                                "hasValidationError" : false,
+                                "id" : "pbCheckbox"
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]
@@ -4716,7 +4746,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Resultado (PAA) del Examen Collage Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Resultado (PAA) del Examen College Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -4794,7 +4824,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el Collage Board. Si la carta fue emitida hace más de un año ya no tiene validez.</label>"
+                                    "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el College Board. Si la carta fue emitida hace más de un año ya no tiene validez.</label>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -4846,7 +4876,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Carga tu carta constancia oficial de Collage Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Carga tu carta constancia oficial de College Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -5271,7 +5301,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Carga tu carta constancia oficial de Collage Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Carga tu carta constancia oficial de College Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -6859,7 +6889,8 @@
                   "madre" : "madre",
                   "tutorbdm" : "tutorbdm",
                   "catParentescoCompleto" : "catParentesco",
-                  "isOtroContacto" : "isOtroContacto"
+                  "isOtroContacto" : "isOtroContacto",
+                  "isExtranjero" : "catSolicitudDeAdmision.catNacionalidad.descripcion !== \"Mexicana\""
                 }
               }
             ],
@@ -14831,87 +14862,80 @@
   ],
   "assets" : [
     {
-      "id" : "85133c90-fd8e-479c-af08-6798ca08c02c",
-      "name" : "LogoAnahuacVeracruzXalapa.png",
-      "type" : "img",
-      "order" : 35,
-      "external" : false
-    },
-    {
-      "id" : "943a8d15-1ef2-4780-9664-189c6994582d",
+      "id" : "215d3e00-ccf3-4f79-bb43-b2e40aa5a1e5",
       "name" : "noimageavailable.png",
       "type" : "img",
-      "order" : 15,
+      "order" : 52,
       "external" : false
     },
     {
-      "id" : "3c60e731-cd72-424f-9f84-eed2fd342d1a",
-      "name" : "pdf.png",
-      "type" : "img",
-      "order" : 12,
-      "external" : false
-    },
-    {
-      "id" : "8301ac82-9531-4dd2-b30d-74936aa59e14",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 13,
-      "external" : false
-    },
-    {
-      "id" : "4bde76a2-eeae-4c7e-acb3-ef83c2e28541",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 14,
-      "external" : false
-    },
-    {
-      "id" : "8621b08f-5f1e-410f-8a5e-4e9a3c9906d4",
-      "name" : "LogoInstitutoJuanPabloII.png",
-      "type" : "img",
-      "order" : 36,
-      "external" : false
-    },
-    {
-      "id" : "8c9160ed-c0b1-49f0-aecd-a3a1540b5499",
-      "name" : "LogoAnahuacMexicoSur.png",
-      "type" : "img",
-      "order" : 30,
-      "external" : false
-    },
-    {
-      "id" : "48196ac9-fa77-4cc2-84df-9c48e3199fa3",
-      "name" : "LogoAnahuacMexicoNorte.png",
-      "type" : "img",
-      "order" : 29,
-      "external" : false
-    },
-    {
-      "id" : "3ae1cfac-c18e-4bd8-87db-2de24f89bb6c",
+      "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
       "name" : "LogoAnahuacMerida.png",
       "type" : "img",
-      "order" : 28,
+      "order" : 43,
       "external" : false
     },
     {
-      "id" : "c50cf302-0a0a-4162-b9c4-1dfb877ac1d3",
-      "name" : "LogoAnahuacQueretaro.png",
+      "id" : "82fd3565-70a3-45b1-8ada-7e5a0bdb6899",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 38,
+      "external" : false
+    },
+    {
+      "id" : "d2e8123d-edee-4cc8-9f9f-9f5be34ded68",
+      "name" : "LogoAnahuacMexicoNorte.png",
       "type" : "img",
-      "order" : 33,
+      "order" : 44,
       "external" : false
     },
     {
-      "id" : "ff25d46d-e683-4494-b732-d1ee60dfdf04",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "17ab7a83-60c2-42c1-b881-0260a16e05dd",
+      "id" : "2be7c5cc-1e4a-4f7e-94ff-9ec33ea5e8a8",
       "name" : "LogoAnahuacPuebla.png",
       "type" : "img",
-      "order" : 32,
+      "order" : 47,
+      "external" : false
+    },
+    {
+      "id" : "69e0ca47-fc70-4185-87ac-702de7e0d6c7",
+      "name" : "LogoAnahuacQueretaro.png",
+      "type" : "img",
+      "order" : 48,
+      "external" : false
+    },
+    {
+      "id" : "84aee134-2db8-4d7b-9283-87cafbedb8c4",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 40,
+      "external" : false
+    },
+    {
+      "id" : "b857eda8-2f97-4671-a0ad-5cd384f41366",
+      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
+      "type" : "img",
+      "order" : 49,
+      "external" : false
+    },
+    {
+      "id" : "953e9d17-4c6c-441f-aa43-87e3d9064081",
+      "name" : "LogoAnahuacMexicoSur.png",
+      "type" : "img",
+      "order" : 45,
+      "external" : false
+    },
+    {
+      "id" : "662f6aa6-73e1-4572-ac70-4fa0c4983f6a",
+      "name" : "pdf.png",
+      "type" : "img",
+      "order" : 53,
+      "external" : false
+    },
+    {
+      "id" : "ed9ed6d8-fed4-4a55-96ad-42eb35387590",
+      "name" : "LogoAnahuacVeracruzXalapa.png",
+      "type" : "img",
+      "order" : 50,
       "external" : false
     },
     {
@@ -14922,38 +14946,45 @@
       "external" : false
     },
     {
-      "id" : "a415defc-6433-4417-9c20-d807b27d15fd",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 26,
-      "external" : false
-    },
-    {
-      "id" : "194f3dfe-66fe-4ee6-a878-cfbc4a98b6e3",
-      "name" : "LogoAnahuacCancun.png",
-      "type" : "img",
-      "order" : 27,
-      "external" : false
-    },
-    {
-      "id" : "9cbc773c-b7f3-4ab6-ae67-b7b443ee57d5",
-      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
-      "type" : "img",
-      "order" : 34,
-      "external" : false
-    },
-    {
-      "id" : "22a81598-46ae-4f9e-979a-eb1dfecacaec",
-      "name" : "LogoAnahuacOaxaca.png",
-      "type" : "img",
-      "order" : 31,
-      "external" : false
-    },
-    {
-      "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
+      "id" : "49e19cbf-f5da-4136-b45e-e0a076424aed",
       "name" : "style.css",
       "type" : "css",
-      "order" : 0,
+      "order" : 37,
+      "external" : false
+    },
+    {
+      "id" : "26408b6c-8d57-467f-98de-659b1a5055db",
+      "name" : "LogoAnahuacCancun.png",
+      "type" : "img",
+      "order" : 42,
+      "external" : false
+    },
+    {
+      "id" : "2f9b8c41-2147-4408-bd97-da3aca028711",
+      "name" : "LogoAnahuacOaxaca.png",
+      "type" : "img",
+      "order" : 46,
+      "external" : false
+    },
+    {
+      "id" : "3cd41096-68a6-4f8f-91b0-f42023ead457",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 41,
+      "external" : false
+    },
+    {
+      "id" : "159355d6-3c1a-4e26-8f86-a1a4944d01e0",
+      "name" : "LogoInstitutoJuanPabloII.png",
+      "type" : "img",
+      "order" : 51,
+      "external" : false
+    },
+    {
+      "id" : "d584a429-2599-47a2-976e-645325750c85",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 39,
       "external" : false
     }
   ],

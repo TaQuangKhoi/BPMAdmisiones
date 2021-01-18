@@ -151,6 +151,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "selectAspirantesMigrados":
+					result = lDao.selectAspirantesMigrados(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "selectAspirantesEnprocesoFechas":
 					result = lDao.selectAspirantesEnprocesoFechas(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
@@ -280,6 +288,15 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "getCatEstadoG":
+					result = new CatalogosDAO().getCatEstadoG(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 					
 					case "getSesionesCalendarizadas":
 					result = new SesionesDAO().getSesionesCalendarizadas(jsonData, context)
@@ -381,6 +398,26 @@ class Index implements RestApiController {
 					
 					case "getPdfSesionesCalendarizadas":
 					result = new ListadoDAO().getPdfSesionesCalendarizadas(parameterP, parameterC, jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getSesionesAspirantesReporte":
+					result = new SesionesDAO().getSesionesCalendarizadasReporte(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getCatGestionEscolar":
+					result = new CatalogosDAO().getCatGestionEscolar(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -602,7 +639,7 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
-				case "insertFirma":
+				case "deleteFirma":
 					def jsonSlurper = new JsonSlurper();
 					def object = jsonSlurper.parseText(jsonData);
 					
@@ -622,7 +659,42 @@ class Index implements RestApiController {
 					firma.setTelefono(object.telefono)
 					firma.setTitulo(object.titulo)
 					firma.setCampus(object.campus)
+					firma.setFacebook(object.facebook)
+					firma.setTwitter(object.twitter)
+					firma.setApellido(object.apellido)
+					firma.setBanner(object.banner)
 					result = new NotificacionDAO().insertFirma(firma)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					case "insertFirma":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					assert object instanceof Map;
+					CatNotificacionesFirma firma = new CatNotificacionesFirma()
+					firma.setPersistenceId(object.persistenceId)
+					firma.setCargo(object.cargo)
+					firma.setCorreo(object.correo)
+					firma.setGrupo(object.grupo)
+					firma.setNombreCompleto(object.nombreCompleto)
+					firma.setPersistenceVersion(object.persistenceVersion)
+					firma.setShowCargo(object.showCargo)
+					firma.setShowCorreo(object.showCorreo)
+					firma.setShowGrupo(object.showGrupo)
+					firma.setShowTelefono(object.showTelefono)
+					firma.setShowTitulo(object.showTitulo)
+					firma.setTelefono(object.telefono)
+					firma.setTitulo(object.titulo)
+					firma.setCampus(object.campus)
+					firma.setFacebook(object.facebook)
+					firma.setTwitter(object.twitter)
+					firma.setApellido(object.apellido)
+					firma.setBanner(object.banner)
+					result = new NotificacionDAO().deleteFirma(firma)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -771,6 +843,10 @@ class Index implements RestApiController {
 					firma.setTelefono(object.telefono)
 					firma.setTitulo(object.titulo)
 					firma.setCampus(object.campus)
+					firma.setFacebook(object.facebook)
+					firma.setTwitter(object.twitter)
+					firma.setApellido(object.apellido)
+					firma.setBanner(object.banner)
 					result = new NotificacionDAO().updateFirma(firma)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -802,6 +878,31 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "createOrUpdateModificar":
+					result = hDAO.createOrUpdateModificar(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "createOrUpdateValidar":
+					result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "createOrUpdateRechazoLRoja":
+					result = hDAO.createOrUpdateRechazoLRoja(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				/***********************MARIO ICEDO**********************/
 				case "getUsuariosTransferencia":
 					result = tDAO.getUsuariosTransferencia(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -818,6 +919,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "selectBitacoraTransferencias":
+					result = tDAO.selectBitacoraTransferencias(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				/*******************MARIO ICEDO FIN**********************/
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {

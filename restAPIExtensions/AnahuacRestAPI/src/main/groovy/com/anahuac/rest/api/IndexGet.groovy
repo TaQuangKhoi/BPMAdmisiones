@@ -154,6 +154,15 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "generarFirma":
+				String persistenceId =request.getParameter "persistenceId"
+				String resultado = new NotificacionDAO().generarFirma(persistenceId)
+				responseBuilder.withMediaType("text/html; charset=utf-8")
+				
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
+				
+				break;
+				
 				case "getCatBitacoraComentario":
 				String jsonData =request.getParameter "jsonData"
 				result = new CatalogoBachilleratoDAO().getCatBitacoraComentario(jsonData, context)
@@ -279,6 +288,17 @@ class IndexGet implements RestApiController {
 				case "getCatBitacoraCorreo":
 				String jsonData =request.getParameter "jsonData"
 				result = new NotificacionDAO().getCatBitacoraCorreo(jsonData)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
+				case "getUsuarios":
+				String jsonData =request.getParameter "jsonData"
+				result = new UsuariosDAO().getUsuarios(jsonData)
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 				}else {

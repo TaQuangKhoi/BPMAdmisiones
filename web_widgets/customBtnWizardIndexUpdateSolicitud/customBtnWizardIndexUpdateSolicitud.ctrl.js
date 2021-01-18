@@ -261,11 +261,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Sexo!", "Debes seleccionar tu sexo", "warning");
                 $scope.faltacampo = true;
             } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus === null) {
-                swal("¡Presento examen en otro campus!", "Debes seleccionar si ha realizado la solicitud en otro campus", "warning");
+                swal("¡Presentaste solicitud en otro campus!", "Debes seleccionar si ha realizado la solicitud en otro campus", "warning");
                 $scope.faltacampo = true;
             } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === "Si") {
                 if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
-                    swal("¡Campus presentado!", "Debes seleccionar el/los campus donde ha presentado tu solicitud", "warning");
+                    swal("¡Campus presentado!", "Debes seleccionar el/los campus donde has presentado tu solicitud", "warning");
                     $scope.faltacampo = true;
                 }
             }
@@ -293,7 +293,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono === "") {
                     swal("¡Teléfono!", "Debes el agregar el teléfono", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
-                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria en caso de no encontrar la suya seleccionar la opción otro", "warning");
+                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria, en caso de no encontrar la tuya, seleccionar la opción Otro", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion === "Otro") {
                     if ($scope.properties.datosPreparatoria.nombreBachillerato === "") {
                         swal("¡Preparatoria!", "Debes agregar el nombre de tu preparatoria", "warning");
@@ -304,9 +304,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined || $scope.properties.datosPreparatoria.ciudadBachillerato === "") {
                         swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
                     } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
-                        swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                        swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                     } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
-                        swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                        swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                     } else {
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
@@ -387,12 +387,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
-                                        swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero", "warning");
+                                        swal("¡Resultado (PAA) del Examen College Board!", "Tu puntuación debe ser mayor a cero", "warning");
                                     } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
                                         if ($scope.properties.collageBoardarchivo.length > 0) {
                                             if(JSON.stringify($scope.properties.collageBoard) === "{}"){
                                                 $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
+                                                swal("¡Constancia College Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el College Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
                                             }else{
                                                 var auxData = null;
                                                 if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
@@ -426,14 +426,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 });
                                             } else {
                                                 $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
+                                                swal("¡Constancia College Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el College Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
                                             }
 
                                         }
                                     }
                                     /*if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
-                                        swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero", "warning");
+                                        swal("¡Resultado (PAA) del Examen College Board!", "Tu puntuación debe ser mayor a cero", "warning");
                                     } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
                                         if ($scope.properties.collageBoardarchivo.length > 0) {
                                             if ($scope.properties.collageBoard !== undefined) {
@@ -448,7 +448,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 });
                                             } else {
                                                 $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
+                                                swal("¡Constancia College Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el College Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
                                             }
 
                                         }
@@ -477,8 +477,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }
                                     } else {
                                         $scope.properties.descuentoarchivo = [];
-                                        if ($scope.properties.idExtranjero !== undefined) {
+                                        // if ($scope.properties.idExtranjero !== undefined) {
+                                        //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        // }
+                                        if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                             $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        } else {
+                                            $scope.properties.idExtranjero = "";
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
                                         $scope.properties.selectedIndex++;
@@ -493,8 +498,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         if ($scope.properties.descuento !== undefined) {
                                             $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
                                         }
-                                        if ($scope.properties.idExtranjero !== undefined) {
+                                        // if ($scope.properties.idExtranjero !== undefined) {
+                                        //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        // }
+                                        if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                             $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        } else {
+                                            $scope.properties.idExtranjero = "";
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
                                         //$scope.assignTask();
@@ -504,8 +514,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuentoarchivo.push({
                                                 "newValue": angular.copy($scope.properties.descuento)
                                             });
-                                            if ($scope.properties.idExtranjero !== undefined) {
+                                            // if ($scope.properties.idExtranjero !== undefined) {
+                                            //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                            // }
+                                            if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                                 $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                            } else {
+                                                $scope.properties.idExtranjero = "";
                                             }
                                             $scope.properties.pasoInformacionPersonal = true;
                                             //$scope.assignTask();
@@ -517,8 +532,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     }
                                 } else {
                                     $scope.properties.descuentoarchivo = [];
-                                    if ($scope.properties.idExtranjero !== undefined) {
+                                    // if ($scope.properties.idExtranjero !== undefined) {
+                                    //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    // }
+                                    if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    } else {
+                                        $scope.properties.idExtranjero = "";
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
                                     //$scope.assignTask();
@@ -529,9 +549,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
                     }
                 } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
-                    swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                    swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                 }  else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
-                    swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                    swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                 } else {
                     debugger;
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -605,11 +625,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                     $scope.fallo = true;
-                                    swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero ", "warning");
+                                    swal("¡Resultado (PAA) del Examen College Board!", "Tu puntuación debe ser mayor a cero ", "warning");
                                 } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
                                     if(JSON.stringify($scope.properties.collageBoard) === "{}"){
                                         $scope.fallo = true;
-                                        swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
+                                        swal("¡Constancia College Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el College Board. ", "warning");
                                     }else{
                                         if ($scope.properties.collageBoardarchivo.length > 0) {
                                             var auxData = null;
@@ -641,7 +661,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 });
                                             } else {
                                                 $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
+                                                swal("¡Constancia College Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el College Board. ", "warning");
                                             }
 
                                         }
@@ -690,8 +710,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     }
                                 } else {
                                     $scope.properties.descuentoarchivo = [];
-                                    if ($scope.properties.idExtranjero !== undefined) {
+                                    // if ($scope.properties.idExtranjero !== undefined) {
+                                    //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    // }
+                                    if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    } else {
+                                        $scope.properties.idExtranjero = "";
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
                                     $scope.properties.selectedIndex++;
@@ -707,8 +732,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     if ($scope.properties.descuento !== undefined) {
                                         $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
                                     }
-                                    if ($scope.properties.idExtranjero !== undefined) {
+                                    // if ($scope.properties.idExtranjero !== undefined) {
+                                    //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    // }
+                                    if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    } else {
+                                        $scope.properties.idExtranjero = "";
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
                                     $scope.properties.selectedIndex++;
@@ -717,8 +747,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuentoarchivo.push({
                                             "newValue": angular.copy($scope.properties.descuento)
                                         });
-                                        if ($scope.properties.idExtranjero !== undefined) {
+                                        // if ($scope.properties.idExtranjero !== undefined) {
+                                        //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        // }
+                                        if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                             $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        } else {
+                                            $scope.properties.idExtranjero = "";
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
                                         $scope.properties.selectedIndex++;
@@ -730,8 +765,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             } else {
                                 $scope.properties.descuentoarchivo = [];
-                                if ($scope.properties.idExtranjero !== undefined) {
+                                // if ($scope.properties.idExtranjero !== undefined) {
+                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                // }
+                                if ($scope.properties.idExtranjero !== undefined && catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                } else {
+                                    $scope.properties.idExtranjero = "";
                                 }
                                 $scope.properties.pasoInformacionPersonal = true;
                                 $scope.properties.selectedIndex++;
@@ -774,10 +814,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                 } else if ($scope.properties.datosPadres.madrevive) {
                     if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                         if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                         } else {
                             if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                 swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");
@@ -982,10 +1022,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Padre vive!", "Debes seleccionar si el padre vive", "warning");
             } else if ($scope.properties.datosPadres.padrevive) {
                 if ($scope.properties.padreInput.catEgresoAnahuac === 0 || $scope.properties.padreInput.catEgresoAnahuac === null) {
-                    swal("¡Egreso Anáhuac!", "Debes seleccionar si tu padre egreso de la universidad Anáhuac", "warning");
+                    swal("¡Egresado Anáhuac!", "Debes seleccionar si tu padre egresó de la Universidad Anáhuac", "warning");
                 } else if ($scope.properties.datosPadres.padreegresoanahuac) {
                     if ($scope.properties.padreInput.catCampusEgreso === 0 || $scope.properties.padreInput.catCampusEgreso === null) {
-                        swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu padre", "warning");
+                        swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu padre", "warning");
                     } else {
                         if ($scope.properties.padreInput.catTrabaja === 0 || $scope.properties.padreInput.catTrabaja === null) {
                             swal("¡Trabaja!", "Debes seleccionar si tu padre trabaja", "warning");
@@ -1044,10 +1084,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                                 } else if ($scope.properties.datosPadres.madrevive) {
                                     if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                                         if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                                         } else {
                                             if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                                 swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");
@@ -1290,10 +1330,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                                 } else if ($scope.properties.datosPadres.madrevive) {
                                     if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                                         if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                                         } else {
                                             if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                                 swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");
@@ -1544,10 +1584,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                         } else if ($scope.properties.datosPadres.madrevive) {
                             if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                                swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                                swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                             } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                                 if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                                    swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                                    swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                                 } else {
                                     if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                         swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");
@@ -1790,10 +1830,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                         } else if ($scope.properties.datosPadres.madrevive) {
                             if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                                swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                                swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                             } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                                 if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                                    swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                                    swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                                 } else {
                                     if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                         swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");
@@ -1999,10 +2039,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
                 } else if ($scope.properties.datosPadres.madrevive) {
                     if ($scope.properties.madreInput.catEgresoAnahuac === 0 || $scope.properties.madreInput.catEgresoAnahuac === null) {
-                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                         if ($scope.properties.madreInput.catCampusEgreso === 0 || $scope.properties.madreInput.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                         } else {
                             if ($scope.properties.madreInput.catTrabaja === 0 || $scope.properties.madreInput.catTrabaja === null) {
                                 swal("¡Trabaja!", "Debes seleccionar si tu madre trabaja", "warning");

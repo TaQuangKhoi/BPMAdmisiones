@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergenciaUpdate",
   "name" : "frgAgregarContactoEmergenciaUpdate",
-  "lastUpdate" : 1610470015523,
+  "lastUpdate" : 1610758786456,
   "rows" : [
     [
       {
@@ -366,8 +366,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 10
+            "type" : "expression",
+            "value" : "telefonoMaxLength"
           },
           "readOnly" : {
             "type" : "expression",
@@ -1170,6 +1170,24 @@
     },
     "bloqueoDatos" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "isExtranjero" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "telefonoMaxLength" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.isExtranjero){",
+        "    return 14",
+        "} else {",
+        "    return 10;",
+        "}"
+      ],
       "exposed" : false
     }
   },

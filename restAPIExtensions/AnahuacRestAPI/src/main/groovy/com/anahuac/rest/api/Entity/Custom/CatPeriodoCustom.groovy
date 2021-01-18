@@ -1,5 +1,6 @@
 package com.anahuac.rest.api.Entity.Custom
 
+import com.anahuac.catalogos.CatCampus
 import javax.xml.bind.annotation.XmlElement
 import javax.xml.bind.annotation.XmlRootElement
 
@@ -29,6 +30,17 @@ class CatPeriodoCustom {
 	private String persistenceId_string;
 	@XmlElement
 	private Boolean isCuatrimestral
+	
+	@XmlElement
+	private Boolean isSemestral
+	@XmlElement
+	private Boolean isAnual
+	@XmlElement
+	private Date fechaFin;
+	@XmlElement
+	private Date fechaInicio;
+	
+	private CatCampus Campus;
 	
 	public Date getFechaImportacion() {
 		return fechaImportacion;
@@ -102,6 +114,40 @@ class CatPeriodoCustom {
 	public void setIsEnabled(Boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
+	public Boolean getIsSemestral() {
+		return isSemestral;
+	}
+	public void setIsSemestral(Boolean isSemestral) {
+		this.isSemestral = isSemestral;
+	}
+	public Boolean getIsAnual() {
+		return isAnual;
+	}
+	public void setIsAnual(Boolean isAnual) {
+		this.isAnual = isAnual;
+	}
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public CatCampus getCampus() {
+		return Campus;
+	}
+	public void setCampus(CatCampus catCampus) {
+		this.Campus = catCampus;
+	}
+	
+	
+	
+	
 	
 	
 	

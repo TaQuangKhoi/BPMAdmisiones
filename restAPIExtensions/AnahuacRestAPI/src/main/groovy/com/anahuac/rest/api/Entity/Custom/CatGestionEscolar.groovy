@@ -17,7 +17,14 @@ class CatGestionEscolar {
 	private Date fechaCreacion;
 	private String campus;
 	private String caseId;
+	private String TipoLicenciatura;
 	
+	public String getTipoLicenciatura() {
+		return TipoLicenciatura;
+	}
+	public void setTipoLicenciatura(String tipoLicenciatura) {
+		TipoLicenciatura = tipoLicenciatura;
+	}
 	public Long getPersistenceId() {
 		return persistenceId;
 	}

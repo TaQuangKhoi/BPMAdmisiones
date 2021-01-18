@@ -74,10 +74,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if (!re.test(String($scope.properties.tutor.correoElectronico.trim()).toLowerCase())) {
                     swal("¡Correo electrónico!", "El correo electrónico de tu tutor no es valido", "warning");
                 } else if ($scope.properties.tutor.catEgresoAnahuac === null) {
-                    swal("¡Egreso Anahuac!", "Debes seleccionar si tu tutor egresó de la universidad Anáhuac", "warning");
+                    swal("¡Egreso Anáhuac!", "Debes seleccionar si tu tutor egresó de la Universidad Anáhuac", "warning");
                 } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si" || $scope.properties.tutor.catEgresoAnahuac.descripcion === "Sí") {
                     if ($scope.properties.tutor.catCampusEgreso === null) {
-                        swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu tutor", "warning");
+                        swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu tutor", "warning");
                     } else if ($scope.properties.tutor.catTrabaja === null) {
                         swal("¿Trabaja?", "Debes seleccionar si tu tutor trabaja", "warning");
                     } else if ($scope.properties.tutor.catTrabaja.descripcion === "Si" || $scope.properties.tutor.catTrabaja.descripcion === "Sí") {
@@ -367,7 +367,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.tutor.puesto === "") {
                         swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu tutor", "warning");
                     } else if ($scope.properties.tutor.giroEmpresa === "") {
-                        swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo de tu tutor", "warning");
+                        swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu tutor", "warning");
                     } else if ($scope.properties.tutor.catEscolaridad === null) {
                         swal("¡Escolaridad!", "Debes seleccionar la escolaridad de tu tutor", "warning");
                     } else if (!$scope.properties.tutor.isTutor) {
@@ -651,17 +651,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if (!re.test(String($scope.properties.tutor.correoElectronico.trim()).toLowerCase())) {
                         swal("¡Correo electrónico!", "El correo electrónico no es valido", "warning");
                     } else if ($scope.properties.tutor.catEgresoAnahuac === null) {
-                        swal("¡Egreso Anahuac!", "Debes seleccionar si tu tutor egresó de la universidad Anahuac", "warning");
+                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu tutor egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si" || $scope.properties.tutor.catEgresoAnahuac.descripcion === "Sí") {
                         if ($scope.properties.tutor.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anahuac egresó tu tutor", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu tutor", "warning");
                         } else if ($scope.properties.tutor.catTrabaja === null) {
                             swal("¿Trabaja?", "Debes seleccionar si tu tutor trabaja", "warning");
                         } else if ($scope.properties.tutor.catTrabaja.descripcion === "Si" || $scope.properties.tutor.catTrabaja.descripcion === "Sí") {
                             if ($scope.properties.tutor.empresaTrabaja === "") {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                             } else if ($scope.properties.tutor.giroEmpresa === "") {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo de tu tutor", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu tutor", "warning");
                             } else if ($scope.properties.tutor.puesto === "") {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu tutor", "warning");
                             } else if ($scope.properties.tutor.catEscolaridad === null) {
@@ -942,7 +942,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.tutor.empresaTrabaja === "") {
                             swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu tutor trabaja", "warning");
                         } else if ($scope.properties.tutor.giroEmpresa === "") {
-                            swal("¡Giro empresa!", "Debes agregar el giro de la empresa del de trabajo de tu tutor", "warning");
+                            swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu tutor", "warning");
                         } else if ($scope.properties.tutor.puesto === "") {
                             swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu tutor", "warning");
                         } else if ($scope.properties.tutor.catEscolaridad === null) {

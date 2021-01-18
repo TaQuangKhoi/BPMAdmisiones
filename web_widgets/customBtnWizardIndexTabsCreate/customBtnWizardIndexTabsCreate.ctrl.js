@@ -77,7 +77,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Sexo!", "Debes seleccionar tu sexo", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus === null) {
-                    swal("¡Presentó examen en otro campus!", "Debes seleccionar si has realizado la solicitud en otro campus", "warning");
+                    swal("¡Presentaste solicitud en otro campus!", "Debes seleccionar si has realizado la solicitud en otro campus", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === "Sí" || $scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === "Si") {
                     if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
@@ -169,8 +169,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             }
                             if (!$scope.fallo) {
-                                if ($scope.properties.idExtranjero !== undefined) {
+                                // if ($scope.properties.idExtranjero !== undefined) {
+                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                // }
+                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                } else {
+                                    $scope.properties.idExtranjero = "";
                                 }
                                 //$scope.properties.selectedIndex++;
                                 $scope.assignTask();
@@ -183,7 +188,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
-                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria en caso de no encontrar la suya seleccionar la opción otro", "warning");
+                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria, en caso de no encontrar la tuya, seleccionar la opción Otro", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion === "Otro") {
                     if ($scope.properties.datosPreparatoria.nombreBachillerato === "") {
                         swal("¡Preparatoria!", "Debes agregar el nombre de tu preparatoria", "warning");
@@ -192,9 +197,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.datosPreparatoria.estadoBachillerato === undefined) {
                         swal("¡Estado preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined) {
-                        swal("¡Ciudad preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
+                        swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
                     } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
-                        swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                        swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                     } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                         swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
                     } else {
@@ -215,8 +220,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.tieneDescuento === true) {
                                 if ($scope.properties.descuento !== undefined) {
                                     $scope.properties.descuentoarchivo["newValue"] = $scope.properties.descuento;
-                                    if ($scope.properties.idExtranjero !== undefined) {
+                                    // if ($scope.properties.idExtranjero !== undefined) {
+                                    //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    // }
+                                    if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                    } else {
+                                        $scope.properties.idExtranjero = "";
                                     }
                                     //$scope.properties.selectedIndex++;
                                     $scope.assignTask();
@@ -224,8 +234,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                 }
                             } else {
-                                if ($scope.properties.idExtranjero !== undefined) {
+                                // if ($scope.properties.idExtranjero !== undefined) {
+                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                // }
+                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                } else {
+                                    $scope.properties.idExtranjero = "";
                                 }
                                 //$scope.properties.selectedIndex++;
                                 $scope.assignTask();
@@ -233,7 +248,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
                     }
                 } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
-                    swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
+                    swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                 } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                     swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
                 } else {
@@ -246,8 +261,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.tieneDescuento === true) {
                             if ($scope.properties.descuento !== undefined) {
                                 $scope.properties.descuentoarchivo["newValue"] = $scope.properties.descuento;
-                                if ($scope.properties.idExtranjero !== undefined) {
+                                // if ($scope.properties.idExtranjero !== undefined) {
+                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                // }
+                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                } else {
+                                    $scope.properties.idExtranjero = "";
                                 }
                                 //$scope.properties.selectedIndex++;
                                 $scope.assignTask();
@@ -255,8 +275,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                             }
                         } else {
-                            if ($scope.properties.idExtranjero !== undefined) {
+                            // if ($scope.properties.idExtranjero !== undefined) {
+                            //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                            // }
+                            if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
                                 $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                            } else {
+                                $scope.properties.idExtranjero = "";
                             }
                             //$scope.properties.selectedIndex++;
                             $scope.assignTask();
@@ -291,19 +316,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.assignTask();
                     }
                 } else if ($scope.properties.padre.vive === 0 || $scope.properties.padre.vive === null) {
-                    swal("¡Padre vive!", "Debes seleccionar si la padre vive", "warning");
+                    swal("¡Padre vive!", "Debes seleccionar si tu padre vive", "warning");
                 } else if ($scope.properties.padre.catTitulo === 0 || $scope.properties.padre.catTitulo === null) {
-                    swal("¡Título!", "Debes seleccionar el título para identificar al padre", "warning");
+                    swal("¡Título!", "Debes seleccionar el título para identificar a tu padre", "warning");
                 } else if ($scope.properties.padre.nombre === "" || $scope.properties.padre.nombre === undefined) {
                     swal("¡Nombre de tu padre!", "Debes agregar el nombre de tu padre", "warning");
                 } else if ($scope.properties.padre.apellidos === "" || $scope.properties.padre.apellidos === undefined) {
                     swal("¡Apellidos de tu padre!", "Debes agregar los apellidos de tu padre", "warning");
                 } else if ($scope.properties.datosPadres.padrevive) {
                     if ($scope.properties.padre.catEgresoAnahuac === 0 || $scope.properties.padre.catEgresoAnahuac === null) {
-                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu padre egresó del universidad Anáhuac", "warning");
+                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu padre egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.padreegresoanahuac) {
                         if ($scope.properties.padre.catCampusEgreso === 0 || $scope.properties.padre.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu padre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu padre", "warning");
                         } else {
                             if ($scope.properties.padre.catTrabaja === 0 || $scope.properties.padre.catTrabaja === null) {
                                 swal("¿Trabaja?", "Debes seleccionar si tu padre trabaja", "warning");
@@ -311,7 +336,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                     swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                                 } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
+                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre", "warning");
                                 } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                                 } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -391,7 +416,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                             } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre!", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre", "warning");
                             } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                             } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -484,7 +509,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.assignTask();
                     }
                 } else if ($scope.properties.madre.vive === 0 || $scope.properties.madre.vive === null) {
-                    swal("¡Madre vive!", "Debes seleccionar si la madre vive", "warning");
+                    swal("¡Madre vive!", "Debes seleccionar si tu madre vive", "warning");
                 } else if ($scope.properties.madre.catTitulo === 0 || $scope.properties.madre.catTitulo === null) {
                     swal("¡Título!", "Debes seleccionar el título para identificar a tu madre", "warning");
                 } else if ($scope.properties.madre.nombre === "" || $scope.properties.madre.nombre === undefined) {
@@ -493,10 +518,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Apellidos de tu madre!", "Debes agregar los apellidos de tu madre", "warning");
                 } else if ($scope.properties.datosPadres.madrevive) {
                     if ($scope.properties.madre.catEgresoAnahuac === 0 || $scope.properties.madre.catEgresoAnahuac === null) {
-                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la universidad Anáhuac", "warning");
+                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                         if ($scope.properties.madre.catCampusEgreso === 0 || $scope.properties.madre.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
                         } else {
                             if ($scope.properties.madre.catTrabaja === 0 || $scope.properties.madre.catTrabaja === null) {
                                 swal("¿Trabaja?", "Debes seleccionar si tu madre trabaja", "warning");
@@ -504,7 +529,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.madre.empresaTrabaja === "" || $scope.properties.madre.empresaTrabaja === undefined) {
                                     swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu madre trabaja", "warning");
                                 } else if ($scope.properties.madre.giroEmpresa === "" || $scope.properties.madre.giroEmpresa === undefined) {
-                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre!", "warning");
+                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre", "warning");
                                 } else if ($scope.properties.madre.puesto === "" || $scope.properties.madre.puesto === undefined) {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu madre", "warning");
                                 } else if ($scope.properties.madre.correoElectronico === "" || $scope.properties.madre.correoElectronico === undefined) {
@@ -584,7 +609,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.madre.empresaTrabaja === "" || $scope.properties.madre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu madre trabaja", "warning");
                             } else if ($scope.properties.madre.giroEmpresa === "" || $scope.properties.madre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre!", "warning");
+                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre", "warning");
                             } else if ($scope.properties.madre.puesto === "" || $scope.properties.madre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu madre", "warning");
                             } else if ($scope.properties.madre.correoElectronico === "" || $scope.properties.madre.correoElectronico === undefined) {

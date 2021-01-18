@@ -12,6 +12,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
     };
     this.selectRowEditar = function(row) {
+        debugger;
         $scope.properties.selectedRow = row;
         $scope.properties.isSelected = 'editar';
     };
@@ -32,7 +33,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                         $scope.properties.selectedRow = row;
                         row.isEliminado = true
                         $scope.properties.selectedRow["todelete"] = false;
-                        
+                        $scope.properties.selectedRow["isEliminado"] = true;
+                        $scope.properties.selectedRow["pais"].persistenceId_string = $scope.properties.selectedRow["pais"].persistenceId;
+                        $scope.properties.selectedRow["estado"].persistenceId_string = $scope.properties.selectedRow["estado"].persistenceId;
                         $scope.$apply();
                         startProcess();
                         break;
@@ -64,7 +67,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             data: angular.copy($scope.properties.dataToSendFiltro),
             params: params
         };
-
+        
         return $http(req)
             .success(function(data, status) {
                 $scope.properties.lstContenido = data.data;

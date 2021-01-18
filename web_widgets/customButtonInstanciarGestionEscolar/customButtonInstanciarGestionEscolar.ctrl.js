@@ -76,23 +76,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function startProcess() {
         if ($scope.properties.dataToChange2.campus) { // validacion editar
-            // if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.enlace) {
-            if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.descripcion) {
+            if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.enlace  && !duplicados($scope.properties.dataToChange2.clave,2,false,$scope.properties.dataToChange2.persistenceId) ) {
+            //if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.descripcion) {
                 if ($scope.properties.dataToChange2.propedeutico === false) {
                     $scope.properties.dataToChange2.propedeuticos = [];
-                    if ($scope.properties.dataToChange2.periodoDisponible <= 0) {
+                    if ($scope.properties.dataToChange2.periodoDisponible < 0) {
                         validarPeriodoDisponible = false
                         swal("¡Seleccione por lo menos un!", "Periodo disponible", "warning");
                     } else {
                         validarPeriodoDisponible = true;
                     }
-                    if ($scope.properties.dataToChange2.inscripcionagosto) {
+                    if (parseInt($scope.properties.dataToChange2.inscripcionagosto) >=0) {
                         validarInscripcionagosto = true;
                     } else {
-                        swal("¡Aviso!", "Faltó capturar información en: Inscripcion Agosto 2021", "warning");
+                        swal("¡Aviso!", "Faltó capturar información en: Inscripción Agosto 2021", "warning");
                         validarInscripcionagosto = false;
                     }
-                    if ($scope.properties.dataToChange2.inscripcionenero) {
+                    if (parseInt($scope.properties.dataToChange2.inscripcionenero) >= 0) {
                         validarInscripcionenero = true;
                     } else {
                         swal("¡Aviso!", "Faltó capturar información en: Inscripción Enero 2021", "warning");
@@ -114,19 +114,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
                 if ($scope.properties.dataToChange2.propedeutico === true) {
-                    if ($scope.properties.dataToChange2.periodoDisponible <= 0) {
+                    if ($scope.properties.dataToChange2.periodoDisponible < 0) {
                         validarPeriodoDisponible = false
                         swal("¡Seleccione por lo menos un!", "Periodo disponible", "warning");
                     } else {
                         validarPeriodoDisponible = true;
                     }
-                    if ($scope.properties.dataToChange2.inscripcionagosto) {
+                    if (parseInt($scope.properties.dataToChange2.inscripcionagosto) >=0) {
                         validarInscripcionagosto = true;
                     } else {
-                        swal("¡Aviso!", "Faltó capturar información en: Inscripcion Agosto 2021", "warning");
+                        swal("¡Aviso!", "Faltó capturar información en: Inscripción Agosto 2021", "warning");
                         validarInscripcionagosto = false;
                     }
-                    if ($scope.properties.dataToChange2.inscripcionenero) {
+                    if (parseInt($scope.properties.dataToChange2.inscripcionenero) >=0) {
                         validarInscripcionenero = true;
                     } else {
                         swal("¡Aviso!", "Faltó capturar información en: Inscripción Enero 2021", "warning");
@@ -154,9 +154,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else {
-                // if (!$scope.properties.dataToChange2.enlace) {
-                //     swal("¡Aviso!", "Faltó capturar información en: Enlace de sitio web", "warning");
-                // }
+                if (!$scope.properties.dataToChange2.enlace) {
+                    swal("¡Aviso!", "Faltó capturar información en: Enlace de sitio web", "warning");
+                }
                 if (!$scope.properties.dataToChange2.descripcion) {
                     swal("¡Aviso!", "Faltó capturar información en: Descripción de la Carrera", "warning");
                 }
@@ -166,24 +166,28 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if(!$scope.properties.dataToChange2.clave){
                     swal("¡Aviso!","Faltó capturar informacion en: Clave","warning");
                 }
+				if(duplicados($scope.properties.dataToChange2.clave,2,false,$scope.properties.dataToChange2.persistenceId)){
+					 swal("¡Aviso!", "La Clave se encuantra duplicada", "warning");
+				}
             }
         } else {// validacion guardar
-            if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion) {
-            // if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].enlace) {
+            //if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion) {
+            if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].enlace && !duplicados($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].clave,2,true) ) {
                 if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].propedeutico === false) {
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible <= 0) {
+					//if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible <= 0) {
+                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible < 0) {
                         validarPeriodoDisponible = false
                         swal("¡Seleccione por lo menos un!", "Periodo disponible", "warning");
                     } else {
                         validarPeriodoDisponible = true;
                     }
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionagosto) {
+                    if (parseInt($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionagosto) >=0) {
                         validarInscripcionagosto = true;
                     } else {
-                        swal("¡Aviso!", "Faltó capturar información en: Inscripcion Agosto 2021", "warning");
+                        swal("¡Aviso!", "Faltó capturar información en: Inscripción Agosto 2021", "warning");
                         validarInscripcionagosto = false;
                     }
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionenero) {
+                    if (parseInt($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionenero) >=0) {
                         validarInscripcionenero = true;
                     } else {
                         swal("¡Aviso!", "Faltó capturar información en: Inscripción Enero 2021", "warning");
@@ -205,19 +209,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
                 if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].propedeutico === true) {
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible <= 0) {
+				    //if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible <= 0) {
+                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible < 0) {
                         validarPeriodoDisponible = false
                         swal("¡Seleccione por lo menos un!", "Periodo disponible", "warning");
                     } else {
                         validarPeriodoDisponible = true;
                     }
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionagosto) {
+                    if (parseInt($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionagosto) >=0) {
                         validarInscripcionagosto = true;
                     } else {
                         swal("¡Aviso!", "Faltó capturar información en: Inscripcion Agosto 2021", "warning");
                         validarInscripcionagosto = false;
                     }
-                    if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionenero) {
+                    if (parseInt($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].inscripcionenero) >=0) {
                         validarInscripcionenero = true;
                     } else {
                         swal("¡Aviso!", "Faltó capturar información en: Inscripción Enero 2021", "warning");
@@ -245,9 +250,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else {
-                // if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].enlace) {
-                //     swal("¡Aviso!", "Faltó capturar información en: Enlace de sitio web", "warning");
-                // }
+                if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].enlace) {
+                     swal("¡Aviso!", "Faltó capturar información en: Enlace de sitio web", "warning");
+                }
                 if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion) {
                     swal("¡Aviso!", "Faltó capturar información en: Descripción de la Carrera", "warning");
                 }
@@ -257,6 +262,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if (!$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].clave) {
                     swal("¡Aviso!", "Faltó capturar información en: clave", "warning");
                 }
+				if(duplicados($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].clave,2,true)){
+					 swal("¡Aviso!", "La Clave se encuantra duplicada", "warning");
+				}
             }
         }
     }
@@ -348,4 +356,67 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
+	
+	function ValidateEmail(mail) 
+	{
+		let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return res.test(mail);
+	}
+
+	function validateURL(textval) {
+		var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+		return urlregex.test(textval);
+	}
+	
+	function duplicados(datos,eleccion,tipo,id){
+		var i = 0, iguales = false, count = 0;
+		switch (eleccion){
+			case 1:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if( $scope.properties.lstContenido[i].id !=undefined && $scope.properties.lstContenido[i].id != null && $scope.properties.lstContenido[i].id.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}else{
+						
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].id !=undefined && $scope.properties.lstContenido[i].id != null && $scope.properties.lstContenido[i].id.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+			case 2:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if( $scope.properties.lstContenido[i].clave !=undefined && $scope.properties.lstContenido[i].clave != null && $scope.properties.lstContenido[i].clave.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}else{
+						
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].clave !=undefined && $scope.properties.lstContenido[i].clave != null &&$scope.properties.lstContenido[i].clave.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+			case 3:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if($scope.properties.lstContenido[i].orden !=undefined && $scope.properties.lstContenido[i].orden != null && $scope.properties.lstContenido[i].orden.toString().normalize() === datos.toString().normalize()){
+							count++;
+						}
+					}else{
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].orden !=undefined && $scope.properties.lstContenido[i].orden != null && $scope.properties.lstContenido[i].orden.toString().normalize() === datos.toString().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+		}
+		
+		return iguales;
+	}
 }

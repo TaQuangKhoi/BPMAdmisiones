@@ -50,6 +50,10 @@ class CatCampusCustomFiltro {
 	@XmlElement
 	private String municipio;
 	@XmlElement
+	private String urlImagen;
+	@XmlElement
+	private String email;
+	@XmlElement
 	private CatPais pais;
 	@XmlElement
 	private CatEstados estado;
@@ -350,6 +354,24 @@ class CatCampusCustomFiltro {
 	public void setEstado_pid(String estado_pid) {
 		this.estado_pid = estado_pid;
 	}
+	
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 
 
 

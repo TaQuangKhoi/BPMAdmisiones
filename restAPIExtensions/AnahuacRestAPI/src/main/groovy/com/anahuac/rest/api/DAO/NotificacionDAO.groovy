@@ -69,11 +69,101 @@ class NotificacionDAO {
 			
 			userLogged = context.getApiSession().getUserId();
 			errorlog += "| Se obtuvo el usuario " + userLogged;
-			def procesoCasoDAO = context.getApiClient().getDAO(ProcesoCasoDAO.class);
-			ProcesoCaso procesoCaso = procesoCasoDAO.getCaseId(object.campus, "CatNotificaciones");
-			errorlog += "| Despues con el campus " + object.campus + " se obtuvo el caseid " + procesoCaso.getCaseId()
-			def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
-			CatNotificaciones catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+			CatNotificaciones catNotificaciones= null;
+			ProcesoCaso procesoCaso = new ProcesoCaso()
+			CatNotificaciones cn = new CatNotificaciones()
+			try {
+				def procesoCasoDAO = context.getApiClient().getDAO(ProcesoCasoDAO.class);
+				procesoCaso = procesoCasoDAO.getCaseId(object.campus, "CatNotificaciones");
+				errorlog += "| Despues con el campus " + object.campus + " se obtuvo el caseid " + procesoCaso.getCaseId()
+				def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
+				catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+				cn=catNotificaciones
+			} catch (Exception e) {
+				Boolean closeCon2=false;
+				try {
+					closeCon2 = validarConexion();
+					String ordenpago = ""
+					String campus_id =""
+					pstm = con.prepareStatement(Statements.GET_CAT_NOTIFICACIONES_CAMPUS_PROCESO_CODIGO)
+					pstm.setString(1, object.campus)
+					pstm.setString(2, object.codigo)
+					rs = pstm.executeQuery()
+					if (rs.next()) {
+						catNotificaciones = new CatNotificaciones()
+						catNotificaciones.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
+						catNotificaciones.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
+						catNotificaciones.setAsunto(rs.getString("asunto"))
+						catNotificaciones.setBloqueAspirante(rs.getBoolean("bloqueAspirante"))
+						catNotificaciones.setCaseId(rs.getString("caseId"))
+						catNotificaciones.setCodigo(rs.getString("codigo"))
+						catNotificaciones.setComentarioLeon(rs.getString("comentarioLeon"))
+						catNotificaciones.setContenido(rs.getString("contenido"))
+						catNotificaciones.setContenidoCorreo(rs.getString("contenidoCorreo"))
+						catNotificaciones.setContenidoLeonel(rs.getString("contenidoLeonel"))
+						catNotificaciones.setDescripcion(rs.getString("descripcion"))
+						catNotificaciones.setDocGuiaEstudio(rs.getString("docGuiaEstudio"))
+						catNotificaciones.setEnlaceBanner(rs.getString("enlaceBanner"))
+						catNotificaciones.setEnlaceContacto(rs.getString("enlaceContacto"))
+						catNotificaciones.setEnlaceFacebook(rs.getString("enlaceFacebook"))
+						catNotificaciones.setEnlaceFooter(rs.getString("enlaceFooter"))
+						catNotificaciones.setEnlaceInstagram(rs.getString("enlaceInstagram"))
+						catNotificaciones.setEnlaceTwitter(rs.getString("enlaceTwitter"))
+						catNotificaciones.setInformacionLic(rs.getBoolean("informacionLic"))
+						catNotificaciones.setIsEliminado(rs.getBoolean("isEliminado"))
+						catNotificaciones.setNombreImagenFooter(rs.getString("nombreImagenFooter"))
+						catNotificaciones.setNombreImagenHeader(rs.getString("nombreImagenHeader"))
+						catNotificaciones.setPersistenceId(rs.getLong("persistenceId"))
+						catNotificaciones.setPersistenceVersion(rs.getLong("persistenceVersion"))
+						catNotificaciones.setTextoFooter(rs.getString("textoFooter"))
+						catNotificaciones.setTipoCorreo(rs.getString("tipoCorreo"))
+						catNotificaciones.setTitulo(rs.getString("titulo"))
+						catNotificaciones.setLstCorreoCopia(new ArrayList<String>())
+						catNotificaciones.setLstVariableNotificacion(new ArrayList<String>())
+						procesoCaso.setCaseId(rs.getString("caseId"))
+						cn.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
+						cn.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
+						cn.setAsunto(rs.getString("asunto"))
+						cn.setBloqueAspirante(rs.getBoolean("bloqueAspirante"))
+						cn.setCaseId(rs.getString("caseId"))
+						cn.setCodigo(rs.getString("codigo"))
+						cn.setComentarioLeon(rs.getString("comentarioLeon"))
+						cn.setContenido(rs.getString("contenido"))
+						cn.setContenidoCorreo(rs.getString("contenidoCorreo"))
+						cn.setContenidoLeonel(rs.getString("contenidoLeonel"))
+						cn.setDescripcion(rs.getString("descripcion"))
+						cn.setDocGuiaEstudio(rs.getString("docGuiaEstudio"))
+						cn.setEnlaceBanner(rs.getString("enlaceBanner"))
+						cn.setEnlaceContacto(rs.getString("enlaceContacto"))
+						cn.setEnlaceFacebook(rs.getString("enlaceFacebook"))
+						cn.setEnlaceFooter(rs.getString("enlaceFooter"))
+						cn.setEnlaceInstagram(rs.getString("enlaceInstagram"))
+						cn.setEnlaceTwitter(rs.getString("enlaceTwitter"))
+						cn.setInformacionLic(rs.getBoolean("informacionLic"))
+						cn.setIsEliminado(rs.getBoolean("isEliminado"))
+						cn.setNombreImagenFooter(rs.getString("nombreImagenFooter"))
+						cn.setNombreImagenHeader(rs.getString("nombreImagenHeader"))
+						cn.setPersistenceId(rs.getLong("persistenceId"))
+						cn.setPersistenceVersion(rs.getLong("persistenceVersion"))
+						cn.setTextoFooter(rs.getString("textoFooter"))
+						cn.setTipoCorreo(rs.getString("tipoCorreo"))
+						cn.setTitulo(rs.getString("titulo"))
+						
+					}
+				}catch(Exception ex) {
+					errorlog +=", consulta custom " + ex.getMessage();
+				}finally {
+				if(closeCon2) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
+					
+				}
+			}
+			
+			
+			//SELECT * from catnotificaciones where caseid=(SELECT caseid FROM procesocaso where campus = 'CAMPUS-MNORTE' and proceso='CatNotificaciones') and codigo='registrar'
+			
+			
 			
 			errorlog += "| se obtiene el catNotificaciones para generar el b64 del documento "
 
@@ -103,7 +193,7 @@ class NotificacionDAO {
 			errorlog += "| Variable1"
 			errorlog += "| | procesoCaso.getCaseId() = "+procesoCaso.getCaseId()
 			
-			CatNotificaciones cn = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+			//cn = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
 			errorlog += "|  lstDoc"
 			/*if(lstDoc.size()>0) {
 				errorlog += "|  lstDoc.size="+lstDoc.size()
@@ -259,33 +349,37 @@ class NotificacionDAO {
 
 			String tablaPasos=""
 			String plantillaPasos="<tr> <td class= \"col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center aling-middle backgroundOrange color-index number-table \"> [numero]</td> <td class= \"col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center aling-middle backgroundDGray \"> <div class= \"row \"> <div class= \"col-12 form-group color-titulo \"> <img src= \"[imagen] \"> </div> <div class= \"col-12 color-index sub-img \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [titulo] </div> </div> </td> <td class= \"col-xs-7 col-sm-7 col-md-7 col-lg-7 col-7 text-justify aling-middle backgroundLGray \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [descripcion] </td> </tr>"
-			
-			def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
-			errorlog += "| Variable9.1 catImageNotificacion.findByCaseId"
-			List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
-			Integer numero= 0;
-			errorlog += "| Variable9.2 lci.size()=" + lci.size()
-			if(lci.size()>0) {
-				plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
-				for(CatImageNotificacion ci: lci) {
-					if(ci.getCodigo().equals(cn.getCodigo())) {
-					numero++
-					errorlog += "| Variable10."+numero
-					String imagen= "";
-					//Descripcion es el nombre del documento
-					errorlog += "| Variable10.1 doc=" + ci.getDescripcion()
-					if(docEtapaProceso.size()>0) {
-						for(Document doc:docEtapaProceso) {
-								errorlog += "| Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
-								if(doc.getContentFileName().equals(ci.getDescripcion())) {
-									imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+			try {
+				def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
+				errorlog += "| Variable9.1 catImageNotificacion.findByCaseId"
+				List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
+				Integer numero= 0;
+				errorlog += "| Variable9.2 lci.size()=" + lci.size()
+				if(lci.size()>0) {
+					plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
+					for(CatImageNotificacion ci: lci) {
+						if(ci.getCodigo().equals(cn.getCodigo())) {
+						numero++
+						errorlog += "| Variable10."+numero
+						String imagen= "";
+						//Descripcion es el nombre del documento
+						errorlog += "| Variable10.1 doc=" + ci.getDescripcion()
+						if(docEtapaProceso.size()>0) {
+							for(Document doc:docEtapaProceso) {
+									errorlog += "| Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
+									if(doc.getContentFileName().equals(ci.getDescripcion())) {
+										imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+									}
 								}
+								tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
 							}
-							tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
 						}
 					}
 				}
+			} catch (Exception e) {
+				errorlog += "| Fallo al momento de obtener los pasos"
 			}
+			
 			errorlog += "| Variable11"
 			plantilla=plantilla.replace("[pasos]", tablaPasos)
 			errorlog += "| Variable12"
@@ -472,11 +566,13 @@ class NotificacionDAO {
 				
 				if(cn.isInformacionLic()) {
 					errorlog += ", Variable14.1"
-					plantilla=plantilla.replace("<!--isInformacionLic-->", "<table width=\"80%\"> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-4\" style=\"width:33.33%;margin: 0; padding:0; vertical-align: middle;\"> <img src=\"https://i.ibb.co/RbptTkY/licenciatura.jpg\"> </td> <td class=\"col-4\" style=\"width:33.33%; background: #BA6205; vertical-align: middle; padding: 0; margin: 0;\"> <div class=\"row\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"https://i.ibb.co/C8yv3pD/sello.png\"> </div> <div class=\"col-12 color-index sub-img\" style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a style=\"font-size: 15px;color: white;text-decoration:none;\">[LICENCIATURA]</a> </div> </div> </td> <td class=\"col-4\" style=\"width:33.33%; text-decoration: underline; font-size: 9px; background: #ff5900; color: white; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; margin: 0; padding:0; vertical-align: middle;\"> <p>[descripcion-licenciatura] </p> </td> </tr> </tbody> </table>")
+					plantilla=plantilla.replace("<!--isInformacionLic-->", "<table width=\"80%\"> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-4\" style=\"width:33.33%;margin: 0; padding:0; vertical-align: middle;\"> <img src=\"https://i.ibb.co/RbptTkY/licenciatura.jpg\"> </td> <td class=\"col-4\" style=\"width:33.33%; background: #BA6205; vertical-align: middle; padding: 0; margin: 0;\"> <div class=\"row\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"https://i.ibb.co/C8yv3pD/sello.png\"> </div> <div class=\"col-12 color-index sub-img\" style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a  style=\"font-size: 15px;color: white;\" href=\"[LICENCIATURA-URL]\"  target=\"_blank\">[LICENCIATURA]</a> </div> </div> </td> <td class=\"col-4\" style=\"width:33.33%; text-decoration: underline; font-size: 9px; background: #ff5900; color: white; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; margin: 0; padding:0; vertical-align: middle;\"> <p>[descripcion-licenciatura] </p> </td> </tr> </tbody> </table>")
 					errorlog += ", Variable14.2"
 					plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getNombre())
 					errorlog += ", Variable14.3"
 					plantilla=plantilla.replace("[descripcion-licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
+					
+					plantilla=plantilla.replace("[LICENCIATURA-URL]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getEnlace())
 				}
 				errorlog += ", Variable15"
 				try {
@@ -1001,7 +1097,7 @@ class NotificacionDAO {
 	public Result getFirma(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where ="", orderby="ORDER BY ", errorlog=""
+		String where =" WHERE isEliminar=false ", orderby="ORDER BY ", errorlog=""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1110,6 +1206,62 @@ class NotificacionDAO {
 						}
 						where = where.replace("[valor]", filtro.get("valor"))
 					break;
+					case "FACEBOOK":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" LOWER(FACEBOOK) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
+							case "TWITTER":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(TWITTER) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						case "BANNER":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(BANNER) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						case "APELLIDO":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(APELLIDO) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					case "CAMPUS":
 						if(where.contains("WHERE")) {
 							where+= " AND "
@@ -1151,6 +1303,18 @@ class NotificacionDAO {
 				case "CAMPUS":
 				orderby+="CAMPUS";
 									break;
+				case "APELLIDO":
+				orderby+="APELLIDO";
+				break;
+				case "FACEBOOK":
+				orderby+="FACEBOOK";
+				break;
+				case "TWITTER":
+				orderby+="TWITTER";
+									break;
+				case "BANNER":
+				orderby+="BANNER";
+							break;
 				default:
 				orderby+="PERSISTENCEID";
 				break;
@@ -1159,8 +1323,8 @@ class NotificacionDAO {
 			String consulta = Statements.GET_CAT_NOTIFICACION_FIRMA;
 			consulta=consulta.replace("[WHERE]", where);
 			errorlog+="consulta:"
-			errorlog+=consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
-				pstm = con.prepareStatement(consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			errorlog+=consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
+				pstm = con.prepareStatement(consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1189,6 +1353,10 @@ class NotificacionDAO {
 					firma.setTelefono(rs.getString("telefono"))
 					firma.setTitulo(rs.getString("titulo"))
 					firma.setCampus(rs.getString("campus"))
+					firma.setFacebook(rs.getString("facebook"))
+					firma.setTwitter(rs.getString("twitter"))
+					firma.setApellido(rs.getString("apellido"))
+					firma.setBanner(rs.getString("banner"))
 					rows.add(firma)
 				}
 				resultado.setSuccess(true)
@@ -1227,6 +1395,10 @@ class NotificacionDAO {
 				pstm.setString(10,firma.getTelefono())
 				pstm.setString(11,firma.getTitulo())
 				pstm.setString(12,firma.getCampus())
+				pstm.setString(13,firma.getFacebook())
+				pstm.setString(14,firma.getTwitter())
+				pstm.setString(15,firma.getApellido())
+				pstm.setString(16,firma.getBanner())
 				
 				rs = pstm.executeQuery()
 				if(rs.next()) {
@@ -1268,7 +1440,37 @@ class NotificacionDAO {
 				pstm.setString(10,firma.getTelefono())
 				pstm.setString(11,firma.getTitulo())
 				pstm.setString(12,firma.getCampus())
-				pstm.setLong(13,firma.getPersistenceId())
+				pstm.setString(13,firma.getFacebook())
+				pstm.setString(14,firma.getTwitter())
+				pstm.setString(15,firma.getApellido())
+				pstm.setString(16,firma.getBanner())
+				pstm.setLong(17,firma.getPersistenceId())
+				
+				pstm.execute()
+				
+				resultado.setSuccess(true)
+				rows.add(firma)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	public Result deleteFirma(CatNotificacionesFirma firma) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+				List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.DELETE_CAT_NOTIFICACIONES_FIRMA)
+				
+				pstm.setLong(1,firma.getPersistenceId())
 				
 				pstm.execute()
 				
@@ -1327,6 +1529,9 @@ class NotificacionDAO {
 		String telefono = "";
 		String pagina = "";
 		String correo = "";
+		String facebook ="";
+		String twitter = "";
+		String banner = "";
 		if(!persistenceId.equals("")) {
 		try {
 		closeCon = validarConexion();
@@ -1350,11 +1555,21 @@ class NotificacionDAO {
 				firma.setTelefono(rs.getString("telefono"))
 				firma.setTitulo(rs.getString("titulo"))
 				firma.setCampus(rs.getString("campus"))
-				 nombretitulo = "<br><br><br><p><b>"+firma.titulo + " " +firma.nombreCompleto+"</b> <br>";
-				 cargo = firma.cargo+"</p>";
-				 telefono = "<p><img style='width: 10px;'src='https://i.ibb.co/hd0n9K1/Telephone-icon-orange-300x300.png'>&nbsp;"+firma.telefono+"<br>";
-				 pagina = "<img style='width: 10px;'src='https://e7.pngegg.com/pngimages/102/938/png-clipart-universidad-anahuac-mexico-sur-universidad-anahuac-queretaro-anahuac-university-network-lions-angle-text.png'>&nbsp;"+firma.grupo+"<br>";
-				 correo = "<img style='width: 10px;'src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz4uRldQmURlsu0KPNiQ0FcXNM0G8No6IOcg&usqp=CAU'>&nbsp;"+firma.correo+"<br> </p>";
+				firma.setFacebook(rs.getString("facebook"))
+				firma.setTwitter(rs.getString("twitter"))
+				firma.setApellido(rs.getString("apellido"))
+				firma.setBanner(rs.getString("banner"))
+				
+				nombretitulo = "<p><b>" + firma.titulo + " " + firma.nombreCompleto + " <span style='color: #FF5900;'>"+firma.apellido+" </span></b> <br>";
+				cargo = (firma.cargo == null || firma.cargo.equals(""))?"":firma.cargo + "</p>";
+				telefono = (firma.telefono == null || firma.telefono.equals(""))?"":"<p><img style='width: 10px;'src='https://i.ibb.co/vsCB2MF/icono-UA-04.png'>&nbsp;" + firma.telefono + "<br> ";
+				pagina = (firma.grupo == null || firma.grupo.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/172hPYQ/icono-UA-Mesa-de-trabajo-1.png'>&nbsp;" + firma.grupo + "<br>";
+				facebook = (firma.facebook == null || firma.facebook.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/B49GzyB/icono-UA-03.png'>&nbsp;"+firma.facebook+"<br>";
+				twitter = (firma.twitter == null || firma.twitter.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/7Wd817H/icono-UA-02.png'>&nbsp;"+firma.twitter+"<br>";
+				correo = (firma.correo == null || firma.correo.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/Yc0TXX9/Iconos-UA-05.png'>&nbsp;" + firma.correo + "<br> "
+				banner = (firma.banner == null || firma.banner.equals(""))?"</p>":"<img style='width: 100%;'src='"+firma.banner+"'><br> </p>"
+				
+
 				
 			}
 		}catch(Exception ex) {
@@ -1366,7 +1581,7 @@ class NotificacionDAO {
 			
 		}
 		
-			return nombretitulo + cargo + telefono + pagina + correo;
+			return nombretitulo + cargo + telefono + pagina + facebook + twitter + correo + banner;
 		}else {
 			return ""
 		}

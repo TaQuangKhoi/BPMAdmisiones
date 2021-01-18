@@ -27,7 +27,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if ($scope.properties.contactoJson.telefono === "") {
                 swal("¡Teléfono!", "Debes agregar el teléfono del contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.telefonoCelular === "") {
-                swal("¡Teléfono celular!", "Debes agregar el teléfono celular del contacto de emergencia!", "warning");
+                swal("¡Teléfono celular!", "Debes agregar el teléfono celular del contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.catCasoDeEmergencia.descripcion === "Otro") {
                 if ($scope.properties.contactoJson.catParentesco === null) {
                     swal("¡Parentesco!", "Debes agregar el parentesco del contacto de emergencia", "warning");

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatPropedeuticoAcciones1",
   "name" : "CatPropedeuticoAcciones",
-  "lastUpdate" : 1610495009410,
+  "lastUpdate" : 1610575214665,
   "rows" : [
     [
       {
@@ -1587,18 +1587,20 @@
       "exposed" : false
     },
     "lstCampusRole" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "[{\"descripcion\":\"Anáhuac México Norte\", \"valor\":\"CAMPUS-MNORTE\"},\r",
-        "{\"descripcion\":\"Anáhuac México Sur\", \"valor\":\"CAMPUS-MSUR\"},\r",
-        "{\"descripcion\":\"Anáhuac Mayab\", \"valor\":\"CAMPUS-MAYAB\"},\r",
-        "{\"descripcion\":\"Anáhuac Xalapa\", \"valor\":\"CAMPUS-XALAPA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cordoba\", \"valor\":\"CAMPUS-CORDOBA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cancún\", \"valor\":\"CAMPUS-CANCUN\"},\r",
-        "{\"descripcion\":\"Anáhuac Oaxaca\", \"valor\":\"CAMPUS-OAXACA\"},\r",
-        "{\"descripcion\":\"Anáhuac Puebla\", \"valor\":\"CAMPUS-PUEBLA\"},\r",
-        "{\"descripcion\":\"Anáhuac Querétaro\", \"valor\":\"CAMPUS-QUERETARO\"},\r",
-        "{\"descripcion\":\"Juan Pablo II\", \"valor\":\"CAMPUS-JP2\"}]\r"
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
       ],
       "exposed" : false
     },
@@ -1678,7 +1680,7 @@
     "lstMembership" : {
       "type" : "url",
       "value" : [
-        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id"
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
       ],
       "exposed" : false
     },

@@ -17,6 +17,14 @@ class CatGenericoFiltro {
 	
 	private Boolean isEliminado;
 	
+	private String orden;
+	
+	public String getOrden() {
+		return orden;
+	}
+	public void setOrden(String orden) {
+		this.orden = orden;
+	}
 	public Long getPersistenceId() {
 		return persistenceId;
 	}

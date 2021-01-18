@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "solicitudIniciadaApp",
   "name" : "solicitudIniciadaApp",
-  "lastUpdate" : 1610481970724,
+  "lastUpdate" : 1610671618445,
   "rows" : [
     [
       {
@@ -20,7 +20,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showScreen"
+            "value" : "currentTaskName === \"Envio a lista roja\" || currentTaskName === \"Admisión rechazada\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -47,7 +47,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "currentTaskName !== \"Pago de examen\" && currentTaskName !== \"Esperar pago\" && currentTaskName !== \"Autodescripción\" && currentTaskName !== \"Seleccionar cita\" && taskName !== \"Pase de lista\" && taskName !== \"Carga y consulta de resultados\" && taskName !== \"Resultado final de comité\""
+                  "value" : "currentTaskName === \"Validar Información\""
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -223,7 +223,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "currentTaskName !== \"Pago de examen\" && currentTaskName !== \"Esperar pago\" && currentTaskName !== \"Autodescripción\" && currentTaskName !== \"Seleccionar cita\" && taskName !== \"Pase de lista\" && taskName !== \"Carga y consulta de resultados\" && taskName !== \"Resultado final de comité\""
+                  "value" : "currentTaskName === \"Validar Información\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -555,16 +555,32 @@
     "showScreen" : {
       "type" : "expression",
       "value" : [
+        "// if(\r",
+        "//     $data.currentTaskName !== \"Pago de examen\" \r",
+        "//     && $data.currentTaskName !== \"Esperar pago\" \r",
+        "//     && $data.currentTaskName !== \"Autodescripción\" \r",
+        "//     && $data.currentTaskName !== \"Seleccionar cita\" \r",
+        "//     && $data.currentTaskName !== \"Generar credencial\" \r",
+        "//     && $data.taskName !== \"Pase de lista college board\" \r",
+        "//     && $data.taskName !== \"Carga y consulta de resultados\"\r",
+        "//     && $data.taskName !== \"Resultado final de comité\"\r",
+        "// ){\r",
+        "//     return true;\r",
+        "// } else {\r",
+        "//     return false\r",
+        "// }\r",
+        "\r",
         "if(\r",
-        "    $data.currentTaskName !== \"Validar Información\" \r",
-        "    && $data.currentTaskName !== \"Pago de examen\" \r",
+        "    $data.currentTaskName !== \"Pago de examen\" \r",
         "    && $data.currentTaskName !== \"Esperar pago\" \r",
         "    && $data.currentTaskName !== \"Autodescripción\" \r",
         "    && $data.currentTaskName !== \"Seleccionar cita\" \r",
         "    && $data.currentTaskName !== \"Generar credencial\" \r",
-        "    && $data.taskName !== \"Pase de lista college board\" \r",
-        "    && $data.taskName !== \"Carga y consulta de resultados\"\r",
-        "    && $data.taskName !== \"Resultado final de comité\"\r",
+        "    && $data.currentTaskName !== \"Pase de lista college board\" \r",
+        "    && $data.currentTaskName !== \"Carga y consulta de resultados\"\r",
+        "    && $data.currentTaskName !== \"Resultado final de comité\"\r",
+        "    && $data.currentTaskName !== \"Envio a lista roja\" \r",
+        "    && $data.currentTaskName !== \"Admisión rechazada\"\r",
         "){\r",
         "    return true;\r",
         "} else {\r",

@@ -74,7 +74,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function startProcess() {
         debugger
 	if($scope.properties.dataToChange2.id != undefined){
-		if( $scope.properties.dataToChange2.id &&  $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.grupoBonita && $scope.properties.dataToChange2.urlAvisoPrivacidad && $scope.properties.dataToChange2.urlDatosVeridicos && $scope.properties.dataToChange2.urlAutorDatos && $scope.properties.dataToChange2.calle && $scope.properties.dataToChange2.colonia && $scope.properties.dataToChange2.numeroExterior && $scope.properties.dataToChange2.numeroInterior && $scope.properties.dataToChange2.codigoPostal && $scope.properties.dataToChange2.municipio && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estado) {
+		if( $scope.properties.dataToChange2.id &&  $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.grupoBonita && $scope.properties.dataToChange2.urlAvisoPrivacidad  && $scope.properties.dataToChange2.calle && $scope.properties.dataToChange2.colonia && $scope.properties.dataToChange2.numeroExterior && $scope.properties.dataToChange2.numeroInterior && $scope.properties.dataToChange2.codigoPostal && $scope.properties.dataToChange2.municipio && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estado && $scope.properties.dataToChange2.email && $scope.properties.dataToChange2.urlImagen && ValidateEmail($scope.properties.dataToChange2.email) && !duplicados($scope.properties.dataToChange2.id,1,false,$scope.properties.dataToChange2.persistenceId) && !duplicados($scope.properties.dataToChange2.clave,2,false,$scope.properties.dataToChange2.persistenceId) && !duplicados($scope.properties.dataToChange2.orden,3,false,$scope.properties.dataToChange2.persistenceId)) {
 		 if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                 doRequest("GET", $scope.properties.url).then(function() {
@@ -88,11 +88,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
 	   }else {
+	    if(!$scope.properties.dataToChange2.email || $scope.properties.dataToChange2.email.trim().length <=0){
+			swal("¡Aviso!", "Faltó capturar información en: Correo electronico", "warning");
+		}
+		if(!ValidateEmail($scope.properties.dataToChange2.email)){
+			swal("¡Aviso!", "El formato del correo eletrónico no es valido", "warning");
+		}
+        if(!$scope.properties.dataToChange2.urlImagen || $scope.properties.dataToChange2.urlImagen.trim().length <=0){
+			swal("¡Aviso!", "Faltó capturar información en: Url de la imagen", "warning");
+		}
         if(!$scope.properties.dataToChange2.estado ){
 			swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
 		}
         if(!$scope.properties.dataToChange2.pais ){
-			swal("¡Aviso!", "Faltó capturar información en: Pais", "warning");
+			swal("¡Aviso!", "Faltó capturar información en: País", "warning");
 		}
         if(!$scope.properties.dataToChange2.municipio ){
 			swal("¡Aviso!", "Faltó capturar información en: Municipio", "warning");
@@ -115,35 +124,47 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if(!$scope.properties.dataToChange2.calle ){
 			swal("¡Aviso!", "Faltó capturar información en: Calle", "warning");
 		}
-		if(!$scope.properties.dataToChange2.urlAutorDatos ){
+		/*if(!$scope.properties.dataToChange2.urlAutorDatos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Autor Datos", "warning");
 		}
 		if(!$scope.properties.dataToChange2.urlDatosVeridicos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Datos verídicos", "warning");
-		}
-		   if(!$scope.properties.dataToChange2.urlAvisoPrivacidad ){
-			   swal("¡Aviso!", "Faltó capturar información en: Url Aviso Privacidad", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.grupoBonita ){
-				   swal("¡Aviso!", "Faltó capturar información en: Grupo relacionado", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.descripcion ){
-			   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.orden){
-				   swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.clave){
-			   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.id){
-				swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
-		   }
+		}*/
+	    if(!$scope.properties.dataToChange2.urlAvisoPrivacidad ){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Url aviso privacidad", "warning");
+	    }
+	/*	if(!validateURL($scope.properties.dataToChange2.urlAvisoPrivacidad)){
+			swal("¡Aviso!", "El formato de la Url aviso privacidad no es valido", "warning");
+		}*/
+	    if(!$scope.properties.dataToChange2.grupoBonita ){
+	 		   swal("¡Aviso!", "Faltó capturar información en: Grupo relacionado", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.descripcion ){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.orden){
+	 		   swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+	    }
+		if(duplicados($scope.properties.dataToChange2.orden,3,false,$scope.properties.dataToChange2.persistenceId)){
+	 		   swal("¡Aviso!", "El Orden esta duplicado", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.clave){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+	    }
+		if(duplicados($scope.properties.dataToChange2.clave,2,false,$scope.properties.dataToChange2.persistenceId)){
+	 	   swal("¡Aviso!", "La Clave esta duplicada", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.id){
+	 		swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
+	    }
+		if(duplicados($scope.properties.dataToChange2.id,1,false,$scope.properties.dataToChange2.persistenceId)){
+	 		swal("¡Aviso!", "El Id esta duplicado", "warning");
+	    }
 	   }
 			
 	
 	}else{
-		if( $scope.properties.dataToChange2.lstCatCampusInput[0].id &&  $scope.properties.dataToChange2.lstCatCampusInput[0].clave && $scope.properties.dataToChange2.lstCatCampusInput[0].orden && $scope.properties.dataToChange2.lstCatCampusInput[0].descripcion && $scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad && $scope.properties.dataToChange2.lstCatCampusInput[0].urlDatosVeridicos && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos && $scope.properties.dataToChange2.lstCatCampusInput[0].calle && $scope.properties.dataToChange2.lstCatCampusInput[0].colonia && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroExterior && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroInterior && $scope.properties.dataToChange2.lstCatCampusInput[0].codigoPostal && $scope.properties.dataToChange2.lstCatCampusInput[0].municipio && $scope.properties.dataToChange2.lstCatCampusInput[0].pais && $scope.properties.dataToChange2.lstCatCampusInput[0].estado){
+		if( $scope.properties.dataToChange2.lstCatCampusInput[0].id &&  $scope.properties.dataToChange2.lstCatCampusInput[0].clave && $scope.properties.dataToChange2.lstCatCampusInput[0].orden && $scope.properties.dataToChange2.lstCatCampusInput[0].descripcion && $scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita && $scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad && $scope.properties.dataToChange2.lstCatCampusInput[0].calle && $scope.properties.dataToChange2.lstCatCampusInput[0].colonia && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroExterior && $scope.properties.dataToChange2.lstCatCampusInput[0].numeroInterior && $scope.properties.dataToChange2.lstCatCampusInput[0].codigoPostal && $scope.properties.dataToChange2.lstCatCampusInput[0].municipio && $scope.properties.dataToChange2.lstCatCampusInput[0].pais && $scope.properties.dataToChange2.lstCatCampusInput[0].estado && $scope.properties.dataToChange2.lstCatCampusInput[0].urlImagen && $scope.properties.dataToChange2.lstCatCampusInput[0].email  && ValidateEmail($scope.properties.dataToChange2.lstCatCampusInput[0].email) &&  !duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].id,1,true) && !duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].clave,2,true) && !duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].orden,3,true) ){
 			 if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                 doRequest("GET", $scope.properties.url).then(function() {
@@ -157,10 +178,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
 	   }else {
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].email && $scope.properties.dataToChange2.lstCatCampusInput[0].email.trim().length <= 0){
+			swal("¡Aviso!", "Faltó capturar información en: Correo electrónico", "warning");
+		}
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlImagen && $scope.properties.dataToChange2.lstCatCampusInput[0].urlImagen.trim().length <= 0){
+			swal("¡Aviso!", "Faltó capturar información en: URL de la imagen", "warning");
+		}
+		if(!ValidateEmail($scope.properties.dataToChange2.lstCatCampusInput[0].email)){
+			swal("¡Aviso!", "El formato del correo eletrónico no es valido", "warning");
+		}
         if(!$scope.properties.dataToChange2.lstCatCampusInput[0].estado ){
 			swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
 		}
-        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].pais ){
+        if(!$scope.properties.dataToChange2.lstCatCampusInput[0].país ){
 			swal("¡Aviso!", "Faltó capturar información en: Pais", "warning");
 		}
         if(!$scope.properties.dataToChange2.lstCatCampusInput[0].municipio ){
@@ -184,30 +214,52 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if(!$scope.properties.dataToChange2.lstCatCampusInput[0].calle ){
 			swal("¡Aviso!", "Faltó capturar información en: Calle", "warning");
 		}
-		if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos ){
+		/*if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlAutorDatos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Autor Datos", "warning");
 		}
 		if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlDatosVeridicos ){
 			swal("¡Aviso!", "Faltó capturar información en: Url Datos verídicos", "warning");
+		}*/
+		if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad ){
+		 swal("¡Aviso!", "Faltó capturar información en: Url aviso privacidad", "warning");
 		}
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad ){
-			   swal("¡Aviso!", "Faltó capturar información en: Url Aviso Privacidad", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita ){
-				   swal("¡Aviso!", "Faltó capturar información en: Grupo relacionado", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].descripcion ){
-			   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].orden){
-				   swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].clave){
-			   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-		   }
-		   if(!$scope.properties.dataToChange2.lstCatCampusInput[0].id){
-				swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
-		   }
+		/*if(!validateURL($scope.properties.dataToChange2.lstCatCampusInput[0].urlAvisoPrivacidad)){
+			swal("¡Aviso!", "El formato de la Url aviso privacidad no es valido", "warning");
+		}*/
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].grupoBonita ){
+	 		   swal("¡Aviso!", "Faltó capturar información en: Grupo relacionado", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].descripcion ){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+	    }
+	    /*if(!$scope.properties.dataToChange2.lstCatCampusInput[0].orden){
+	 		   swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].clave){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].id){
+	 		swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
+	    }*/
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].orden){
+	 		   swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+	    }
+	    
+		if(duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].orden,3,true)){
+	 		   swal("¡Aviso!", "El Orden esta duplicado", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].clave){
+	 	   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+	    }
+		if(duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].clave,2,true)){
+	 	   swal("¡Aviso!", "La Clave esta duplicada", "warning");
+	    }
+	    if(!$scope.properties.dataToChange2.lstCatCampusInput[0].id){
+	 		swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
+	    }
+		if(duplicados($scope.properties.dataToChange2.lstCatCampusInput[0].id,1,true)){
+	 		swal("¡Aviso!", "El Id esta duplicado", "warning");
+	    }
 	   }
     }	
 }
@@ -300,5 +352,68 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
+	
+	function ValidateEmail(mail) 
+	{
+		let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return res.test(mail);
+	}
+
+	function validateURL(textval) {
+		var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+		return urlregex.test(textval);
+	}
+	
+	function duplicados(datos,eleccion,tipo,id){
+		var i = 0, iguales = false, count = 0;
+		switch (eleccion){
+			case 1:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if( $scope.properties.lstContenido[i].id !=undefined && $scope.properties.lstContenido[i].id != null && $scope.properties.lstContenido[i].id.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}else{
+						
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].id !=undefined && $scope.properties.lstContenido[i].id != null && $scope.properties.lstContenido[i].id.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+			case 2:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if( $scope.properties.lstContenido[i].clave !=undefined && $scope.properties.lstContenido[i].clave != null && $scope.properties.lstContenido[i].clave.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}else{
+						
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].clave !=undefined && $scope.properties.lstContenido[i].clave != null &&$scope.properties.lstContenido[i].clave.toString().toLocaleLowerCase().normalize() === datos.toString().toLocaleLowerCase().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+			case 3:
+				for (i = 0; i < $scope.properties.lstContenido.length; i++) {
+					if(tipo){
+						if($scope.properties.lstContenido[i].orden !=undefined && $scope.properties.lstContenido[i].orden != null && $scope.properties.lstContenido[i].orden.toString().normalize() === datos.toString().normalize()){
+							count++;
+						}
+					}else{
+						if($scope.properties.lstContenido[i].persistenceId != id && $scope.properties.lstContenido[i].orden !=undefined && $scope.properties.lstContenido[i].orden != null && $scope.properties.lstContenido[i].orden.toString().normalize() === datos.toString().normalize()){
+							count++;
+						}
+					}
+				}
+				iguales =  (count>0 ?true:false);
+			break;
+		}
+		
+		return iguales;
+	}
 
 }

@@ -5,8 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
-
-
+import java.text.SimpleDateFormat
 
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.ProcessAPI
@@ -28,6 +27,8 @@ import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.Transferencias
+import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 import groovy.json.JsonSlurper
@@ -72,7 +73,7 @@ class TransferenciasDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false "
-			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
 //				if(object.estatusSolicitud !=null) {
 				
 //					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
@@ -124,7 +125,6 @@ class TransferenciasDAO {
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				String consulta = Statements.GET_SOLICITUDES_TRANSFERENCIA
-				errorlog+="Aqui tomo la primer consulta: "+consulta
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					errorlog+=", columna "+ filtro.get("columna")
 					switch(filtro.get("columna")) {
@@ -375,7 +375,7 @@ class TransferenciasDAO {
 				consulta=consulta.replace("[TIPOALUMNO]", tipoalumno)
 				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
 				consulta=consulta.replace("[WHERE]", where);
-				
+				errorlog+=" EL CAMPUS ES "+campus
 				//pstm = con.prepareStatement(consulta.replace("SELECT sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, prepa.DESCRIPCION AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, le.descripcion, ciudadestado.descripcion, ciudadpais.descripcion, estadoexamen.descripcion, pais.descripcion FROM SOLICITUDDEADMISION sda ", "SELECT COUNT(sda.persistenceid) as registros FROM SOLICITUDDEADMISION sda ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion, campus.descripcion, gestionescolar.DESCRIPCION, periodo.DESCRIPCION, estado.DESCRIPCION, prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, le.descripcion, ciudadestado.descripcion, ciudadpais.descripcion, estadoexamen.descripcion, pais.descripcion", "GROUP BY sda.persistenceid"))
 				//errorlog+=consulta
 				String consultaCount = Statements.GET_COUNT_SOLICITUDES_TRASNFERENCIA;
@@ -396,8 +396,7 @@ class TransferenciasDAO {
 				}
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-				errorlog+=" AQUI VOY A REALIZAR LA CONSULTA "+consulta
-				errorlog+=" LIMIT "+object.limit + " OFFSET " +object.offset
+				errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.limit)
 				pstm.setInt(2, object.offset)
@@ -451,7 +450,8 @@ class TransferenciasDAO {
 		String errorLog ="";
 		Boolean closeCon = false;
 		try {
-			ProcessAPI processAPI
+			Transferencias transferencia = new Transferencias();
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			Boolean avanzartarea = false;
 			String username = "";
 			String password = "";
@@ -470,12 +470,11 @@ class TransferenciasDAO {
 			password = prop.getProperty("PASSWORD");
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			
-			LOGGER.error "def object = jsonSlurper.parseText(jsonData);";
-			errorLog = errorLog + "";
+			assert object instanceof Map;
+
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 			apiClient.login(username, password)
-			
+
 			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
 			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
@@ -484,22 +483,16 @@ class TransferenciasDAO {
 			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
 			
 			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
-				errorLog += "Tarea " + objHumanTaskInstance.getName();
-				if(objHumanTaskInstance.getName().equals("Generar credencial") || objHumanTaskInstance.getName().equals("Pase de lista college board") || objHumanTaskInstance.getName().equals("Carga y consulta de resultados") || objHumanTaskInstance.getName().equals("Resultado final de comité")) {
-					errorLog += "Update y avanzar " + objHumanTaskInstance.getName()
+				if(objHumanTaskInstance.getName().equals("Generar credencial") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 1") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 2") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 3") || objHumanTaskInstance.getName().equals("Carga y consulta de resultados") || objHumanTaskInstance.getName().equals("Resultado final de comité")) {
 					Map<String, Serializable> inputs = new HashMap<String, Serializable>();
-					if(objHumanTaskInstance.getName().equals("Pase de lista college board")) {
-						inputs.put("isAsistenciaAspirante",  false);
-						inputs.put("isTransferencia",  true);
-					}else if(objHumanTaskInstance.getName().equals("Carga y consulta de resultados")) {
+					if(objHumanTaskInstance.getName().equals("Carga y consulta de resultados")) {
 						inputs.put("isTransferencia",  true);
 					}else if(objHumanTaskInstance.getName().equals("Resultado final de comité")) {
 						inputs.put("isTransferencia",  true);
 					}
+					
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
-				}else {
-					errorLog += " Update " + objHumanTaskInstance.getName()
 				}
 			}
 			
@@ -543,6 +536,24 @@ class TransferenciasDAO {
 			
 			con.commit();
 			errorLog += " DESPUES del update "
+			errorLog += " insertare en la bitacora "
+			transferencia.setAspirante(object.aspirante);
+			transferencia.setCorreoAspirante(object.correoaspirante);
+			transferencia.setValorOriginal(object.valororginal.toString());
+			transferencia.setValorCambio(object.valorcambio.toString());
+			transferencia.setUsuarioCreacion(object.usuario);
+			transferencia.setCampusAnterior(object.campusAnterior);
+			transferencia.setCampusNuevo(object.campusNuevo);
+			//errorLog += " datos bitacora aspirante " + object.aspirante + " correo " + object.correoaspirante + " valor original " + object.valororginal + " valor cambio " + object.valorcambio + " usuario " + object.usuario;
+			Result resultadoinsert = insertCatBitacoraTransferencia(transferencia);
+			errorLog += " el error en el insert es: " + resultadoinsert.getError_info();
+			if(resultadoinsert.isSuccess()) {
+				errorLog += " inserte en la bitacora " + resultadoinsert.isSuccess().toString();
+			}else {
+				errorLog += " NO inserte en la bitacora " resultadoinsert.isSuccess().toString();
+			}
+			
+			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		}catch(Exception ex){
@@ -566,4 +577,265 @@ class TransferenciasDAO {
 			retorno=true
 		}
 	}
+	
+	public Result insertCatBitacoraTransferencia(Transferencias transferencia) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorlog = "";
+		List<Transferencias> data = new ArrayList<Transferencias>()
+		try {
+			errorlog += " antes de revisar la conexion "
+			closeCon = validarConexion();
+			errorlog += " antes del preparent " + " CONEXION " + closeCon
+			pstm = con.prepareStatement(Statements.INSERT_BITACORA_TRANSFERENCIA)
+			pstm.setString(1, transferencia.getAspirante())
+			pstm.setString(2, transferencia.getCorreoAspirante())
+			pstm.setString(3, transferencia.getValorOriginal())
+			pstm.setString(4, transferencia.getValorCambio())
+			pstm.setString(5, transferencia.getUsuarioCreacion())
+			pstm.setString(6, transferencia.getCampusAnterior())
+			pstm.setString(7, transferencia.getCampusNuevo())
+			errorlog += " CONSULTA " + Statements.INSERT_BITACORA_TRANSFERENCIA;
+			errorlog += " ASPIRANTE " + transferencia.getAspirante()
+			errorlog += " CORREO " +  transferencia.getCorreoAspirante()
+			errorlog += " ORIGINAL " + transferencia.getValorOriginal()
+			errorlog += " CAMBIO " + transferencia.getValorCambio()
+			errorlog += " USUARIO " + transferencia.getUsuarioCreacion()
+			errorlog += " CAMPUSANTERIOR " + transferencia.getCampusAnterior()
+			errorlog += " CAMPUSNUEVO " + transferencia.getCampusNuevo()
+			
+			errorlog += " antes de hacer le execute update "
+			pstm.executeUpdate();
+			errorlog += " ya hice el insert "
+			/*rs = pstm.getGeneratedKeys()
+			errorlog += " voy por el key "
+			if(rs.next()) {
+				errorlog += " asignare el pid "
+				transferencia.setPersistenceId(rs.getLong("persistenceId"))
+				errorlog += " asigne el pid "
+			}
+			errorlog += " data "
+			data.add(transferencia)*/
+			resultado.setSuccess(true);
+			resultado.setData(data)
+			resultado.setError_info(errorlog);
+			} catch (Exception e) {
+			errorlog += " falle " + e.getMessage()
+			resultado.setError_info(errorlog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result selectBitacoraTransferencias(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = " ", orderby = "ORDER BY ", errorlog = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Long userLogged = 0L;
+		List<String> lstGrupo = new ArrayList<String>();
+		List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
+		String campus="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			Transferencias row = new Transferencias();
+			List<Transferencias> rows = new ArrayList<Transferencias>();
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+
+
+			if(lstGrupo.size()>0) {
+				where+=" WHERE LOWER(campus.DESCRIPCION) = ("
+			}
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				where+="campus.descripcion='"+campusMiembro+"'"
+				if(i==(lstGrupo.size()-1)) {
+					where+=") "
+				}
+				else {
+					where+=" OR "
+				}
+			}
+			errorlog = " campus " + where
+			
+			closeCon = validarConexion();
+			
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				switch(filtro.get("columna")) {
+					case "ASPIRANTE":
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						} else {
+							where+= " WHERE ";
+						}
+						where +=" LOWER(ASPIRANTE) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')";
+						}else {
+							where+="LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "CORREOELECTRONICO":
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						} else {
+							where+= " WHERE ";
+						}
+						where +=" LOWER(CORREOELECTRONICO) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')";
+						}else {
+							where+="LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "FECHAMOVIMIENTO":
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						} else {
+							where+= " WHERE ";
+						}
+						where +=" LOWER(FECHAMOVIMIENTO) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')";
+						}else {
+							where+="LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "USUARIO":
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						} else {
+							where+= " WHERE ";
+						}
+						where +=" LOWER(USUARIO) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')";
+						}else {
+							where+="LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "CAMPUS":
+						errorlog+="CAMPUS"
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						} else {
+							where+= " WHERE ";
+						}
+						where +=" LOWER(campus.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					default:
+					break;
+				}
+			}
+						
+			switch(object.orderby) {
+				case "ASPIRANTE":
+					orderby += "aspirante";
+				break;
+				case "CORREOELECTRONICO":
+					orderby += "correoaspirante";
+				break;
+				case "FECHAMOVIMIENTO":
+					orderby += "fechacreacion";
+				break;
+				case "USUARIO":
+					orderby += "usuariocreacion";
+				break;
+				case "CAMPUS":
+					orderby+="campus.DESCRIPCION"
+				break;
+			}
+			
+			if(orderby.equals("ORDER BY ")) {
+				orderby += "PERSISTENCEID";
+			}
+			
+			orderby += " " + object.orientation;
+			
+		
+		
+			String consulta = Statements.GET_BITACORA_TRANSFERENCIA;
+			consulta = consulta.replace("[WHERE]", where);
+			
+			String consultaCount = Statements.GET_COUNT_BITACORA_TRANSFERENCIA;
+			consultaCount = consultaCount.replace("[WHERE]", where);
+			
+			errorlog += " //////////////////////////////////////////// esta es la consulta final " + consulta
+			/*pstm = con.prepareStatement(consultaCount.replace("*", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			rs = pstm.executeQuery();
+			
+			//errorlog = consulta.replace("*", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "");
+			
+			if(rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"));
+			}
+			
+			consulta = consulta.replace("[ORDERBY]", orderby);
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			errorlog += " consulta " + consulta + " where " + where;
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()){
+				row = new Transferencias();
+				row.setAspirante(rs.getString("aspirante"));
+				row.setCorreoAspirante(rs.getString("correoaspirante"));
+				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+				row.setValorCambio(rs.getString("valorcambio"));
+				row.setValorOriginal(rs.getString("valororiginal"));
+				
+				rows.add(row);
+			}*/
+			resultado.setSuccess(true);
+			resultado.setError_info(errorlog);
+			resultado.setData(rows);
+			
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 }

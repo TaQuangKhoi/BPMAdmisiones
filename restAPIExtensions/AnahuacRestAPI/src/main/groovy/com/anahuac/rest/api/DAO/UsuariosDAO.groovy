@@ -1,5 +1,10 @@
 package com.anahuac.rest.api.DAO
 
+import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.Statement
+
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.IdentityAPI
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
@@ -21,8 +26,10 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatRegistro
 import com.anahuac.catalogos.CatRegistroDAO
+import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
+import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
@@ -33,7 +40,10 @@ import groovy.json.JsonSlurper
 
 class UsuariosDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ListadoDAO.class);
-	
+	Connection con;
+	Statement stm;
+	ResultSet rs;
+	PreparedStatement pstm;
 	public Result getTest(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		List<String> lstResultado = new ArrayList<String>();
@@ -404,9 +414,203 @@ class UsuariosDAO {
 		}
 		return resultado;
 	}
+	public Result getUsuarios(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where ="", orderby="ORDER BY ", errorlog=""
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			ModuloUsuario row = new ModuloUsuario()
+			List<ModuloUsuario> rows = new ArrayList<ModuloUsuario>();
+			closeCon = validarConexionBonita();
+			
+			
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				switch(filtro.get("columna")) {
+					case "ID":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" user_.id ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						}else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					case "CAMPUS":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" group_.id ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor]"
+					}else {
+						where+="=[valor]"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					case "NOMBRE":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(user_.firstname) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					case "APELLIDO":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(user_.lastname) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					case "FECHA CREACIÓN":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" user_.creationdate ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="='[valor]'"
+						}else {
+							where+="LIKE '%[valor]%'"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					case "USUARIO":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" LOWER(user_.username) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
+				
+				case "ÚLTIMA CONEXIÓN":
+				if(where.contains("WHERE")) {
+					where+= " AND "
+				}else {
+					where+= " WHERE "
+				}
+				where +=" ul.lastconnection ";
+				if(filtro.get("operador").equals("Igual a")) {
+					where+="='[valor]'"
+				}else {
+					where+="LIKE '%[valor]%'"
+				}
+				where = where.replace("[valor]", filtro.get("valor"))
+			break;
+				
+				}
+			}
+			switch(object.orderby) {
+				case "ID":
+				orderby+="user_.id";
+				break;
+				case"NOMBRE":
+				orderby+="user_.firstname"
+				break;
+				 case"APELLIDO":
+				 orderby+="user_.lastname"
+				 break;
+				 case"FECHA CREACIÓN":
+				 orderby+="user_.creationdate"
+				 break;
+				 case"USUARIO":
+				 orderby+="user_.userName"
+				 break;
+				 case"ÚLTIMA CONEXIÓN":
+				 orderby+="ul.lastconnection"
+				 break;
+				default:
+				orderby+="user_.id";
+				break;
+			}
+			orderby+=" "+object.orientation;
+			String consulta = ModuloUsuario.GET_USUARIOS_CUSTOM
+			consulta=consulta.replace("[WHERE]", where);
+			errorlog+="consulta:"
+			resultado.setError_info(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
+				pstm = con.prepareStatement(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
+				rs = pstm.executeQuery()
+				if(rs.next()) {
+					resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+				consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				errorlog+="consulta:"
+				errorlog+=consulta
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, object.limit)
+				pstm.setInt(2, object.offset)
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					row = new ModuloUsuario()
+					row.setFirstname(rs.getString("firstname"))
+					row.setId(rs.getLong("id"))
+					row.setLast_connection(rs.getLong("last_connection"))
+					row.setLastname(rs.getString("lastname"))
+					row.setMembresia(rs.getString("membresia"))
+					row.setUserName(rs.getString("username"))
+					row.setCreation_date(rs.getLong("creationdate"))
+					rows.add(row)
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
+				resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	
-	
+	public Boolean validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+	}
 	private static String generateRandomString(int length, String seedChars) {
 		StringBuilder sb = new StringBuilder();
 		int i = 0;

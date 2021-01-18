@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatRegistro
 import com.anahuac.catalogos.CatRegistroDAO
+import com.anahuac.model.DetalleSolicitud
+import com.anahuac.model.DetalleSolicitudDAO
 import com.anahuac.model.PadresTutor
 import com.anahuac.model.PadresTutorDAO
 import com.anahuac.model.SolicitudDeAdmision
@@ -46,6 +48,10 @@ class HubspotDAO {
 		
 		String strError = "";
 		String nombreCompleto = "";
+		String catLugarExamenDescripcion = "";
+		String lugarExamen = "";
+		String estadoExamen = "";
+		String ciudadExamen ="";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -61,6 +67,12 @@ class HubspotDAO {
 			LOGGER.error "email: "+object.email;
 			if(lstCatRegistro != null) {
 				LOGGER.error "lstCatRegistro in join";
+				strError = strError + " | object.email: "+object.email;
+				
+				strError = strError + " | lstSolicitudDeAdmision.size: "+lstSolicitudDeAdmision.size();
+				strError = strError + " | lstSolicitudDeAdmision.empty: "+lstSolicitudDeAdmision.empty;
+				strError = strError + " | lstCatRegistro.size: "+lstCatRegistro.size();
+				strError = strError + " | lstCatRegistro.empty: "+lstCatRegistro.empty;
 				
 				if(!lstCatRegistro.empty && !lstSolicitudDeAdmision.empty) {
 					LOGGER.error "size: "+lstCatRegistro.size();
@@ -69,13 +81,22 @@ class HubspotDAO {
 					//PENDIENTE ESTATUS DE GESTION ESCOLAR------------------
 					//objHubSpotData.put("carrera", "[CLAVE-GESTION-ESCOLAR]");
 					
-					String estadoExamen = lstSolicitudDeAdmision.get(0).getCatEstadoExamen() == null ? "" : lstSolicitudDeAdmision.get(0).getCatEstadoExamen().getDescripcion();
-					String ciudadExamen = lstSolicitudDeAdmision.get(0).getCiudadExamen() == null ? "" : lstSolicitudDeAdmision.get(0).getCiudadExamen().getDescripcion();
+					catLugarExamenDescripcion = lstSolicitudDeAdmision.get(0).getCatLugarExamen().descripcion;
 					
-					strError = strError + " | estadoExamen: "+estadoExamen;
-					strError = strError + " | ciudadExamen: "+ciudadExamen;
+					if(catLugarExamenDescripcion.equals("En un estado")){
+						lugarExamen = "México, "+lstSolicitudDeAdmision.get(0).getCatEstadoExamen().getDescripcion()+", "+lstSolicitudDeAdmision.get(0).getCiudadExamen().getDescripcion();
+					}
+					if(catLugarExamenDescripcion.equals("En el extranjero (solo si vives fuera de México)")){
+						lugarExamen = lstSolicitudDeAdmision.get(0).getCatPaisExamen().getDescripcion()+", "+lstSolicitudDeAdmision.get(0).getCiudadExamenPais().getDescripcion();
+					}
+					if(catLugarExamenDescripcion.equals("En el mismo campus en donde realizaré mi licenciatura")){
+						lugarExamen = lstSolicitudDeAdmision.get(0).getCatCampus().getDescripcion();
+					}
 					
-					objHubSpotData.put("lugar_de_examen", estadoExamen.equals("")? ciudadExamen : estadoExamen);
+					strError = strError + " | catLugarExamenDescripcion: "+catLugarExamenDescripcion;
+					strError = strError + " | lugarExamen: "+lugarExamen;
+										
+					objHubSpotData.put("lugar_de_examen", lugarExamen);
 					objHubSpotData.put("periodo_de_ingreso", lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave());
 					objHubSpotData.put("campus_vpd", lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					objHubSpotData.put("firstname", lstCatRegistro.get(0).getPrimernombre()+" "+(lstCatRegistro.get(0).getSegundonombre() == null ? "" : lstCatRegistro.get(0).getSegundonombre()));
@@ -85,14 +106,20 @@ class HubspotDAO {
 					
 					resultado = createOrUpdateHubspot(object.email, objHubSpotData);
 				}
+				else {
+					strError = strError + " | ------------------------------------------";
+					strError = strError + " | lstSolicitudDeAdmision.empty: "+lstSolicitudDeAdmision.empty;
+					strError = strError + " | lstCatRegistro.empty: "+lstCatRegistro.empty;
+					strError = strError + " | ------------------------------------------";
+				}
 				
 			}
 			LOGGER.error "listo";
-			resultado.setError_info(strError);
-			resultado.setSuccess(true);
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
-			resultado.setError_info(strError);
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
@@ -111,6 +138,8 @@ class HubspotDAO {
 		
 		String strError = "";
 		String nombreCompleto = "";
+		String catLugarExamenDescripcion ="";
+		String lugarExamen = "";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -121,7 +150,7 @@ class HubspotDAO {
 			def objCatRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
 			
 			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
-			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.email, 0, 1)
+			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.email, 0, 1);
 
 			LOGGER.error "lstCatRegistro";
 			LOGGER.error "email: "+object.email;
@@ -145,43 +174,55 @@ class HubspotDAO {
 									objHubSpotData.put("correo_tutor", objPadresTutor.getCorreoElectronico() == null ? "" : objPadresTutor.getCorreoElectronico());
 									objHubSpotData.put("nombre_de_tutor", (objPadresTutor.getNombre() == null ? "" : objPadresTutor.getNombre())+(objPadresTutor.getApellidos() == null ? "" : " " + objPadresTutor.getApellidos()) );
 								}
+								if(objPadresTutor.getCatParentezco().getDescripcion().equals("Padre")) {
+									objHubSpotData.put("nombre_del_padre", (objPadresTutor.getNombre() == null ? "" : objPadresTutor.getNombre())+(objPadresTutor.getApellidos() == null ? "" : " " + objPadresTutor.getApellidos()));
+									objHubSpotData.put("correo_del_padre", objPadresTutor.getCorreoElectronico());
+									objHubSpotData.put("telefono_del_padre", objPadresTutor.getTelefono());
+								}
+								if(objPadresTutor.getCatParentezco().getDescripcion().equals("Madre")) {
+									objHubSpotData.put("nombre_de_la_madre", (objPadresTutor.getNombre() == null ? "" : objPadresTutor.getNombre())+(objPadresTutor.getApellidos() == null ? "" : " " + objPadresTutor.getApellidos()));
+									objHubSpotData.put("correo_de_la_madre", objPadresTutor.getCorreoElectronico());
+									objHubSpotData.put("telefono_de_la_madre", objPadresTutor.getTelefono());
+								}
 							}
 						}
 					}
 					
 					
 					
-					LOGGER.error "size: "+lstSolicitudDeAdmision.size();
-					//PENDIENTE ESTATUS DE GESTION ESCOLAR------------------
-					//objHubSpotData.put("pais", "[CLAVE-GESTION-ESCOLAR]");
-					//objHubSpotData.put("ciudades", "[CLAVE-GESTION-ESCOLAR]");
-					//objHubSpotData.put("carrera", "[CLAVE-GESTION-ESCOLAR]");		
+					LOGGER.error "size: "+lstSolicitudDeAdmision.size();					
 					
+					catLugarExamenDescripcion = lstSolicitudDeAdmision.get(0).getCatLugarExamen().descripcion;
 					
-					String estadoExamen = lstSolicitudDeAdmision.get(0).getCatEstadoExamen() == null ? "" : lstSolicitudDeAdmision.get(0).getCatEstadoExamen().getDescripcion();
-					String ciudadExamen = lstSolicitudDeAdmision.get(0).getCiudadExamen() == null ? "" : lstSolicitudDeAdmision.get(0).getCiudadExamen().getDescripcion();
+					if(catLugarExamenDescripcion.equals("En un estado")){
+						lugarExamen = "México, "+lstSolicitudDeAdmision.get(0).getCatEstadoExamen().getDescripcion()+", "+lstSolicitudDeAdmision.get(0).getCiudadExamen().getDescripcion();
+					}
+					if(catLugarExamenDescripcion.equals("En el extranjero (solo si vives fuera de México)")){
+						lugarExamen = lstSolicitudDeAdmision.get(0).getCatPaisExamen().getDescripcion()+", "+lstSolicitudDeAdmision.get(0).getCiudadExamenPais().getDescripcion();
+					}
+					if(catLugarExamenDescripcion.equals("En el mismo campus en donde realizaré mi licenciatura")){
+						lugarExamen = lstSolicitudDeAdmision.get(0).getCatCampus().getDescripcion();
+					}
 					
-					strError = strError + " | estadoExamen: "+estadoExamen;
-					strError = strError + " | ciudadExamen: "+ciudadExamen;
+					strError = strError + " | catLugarExamenDescripcion: "+catLugarExamenDescripcion;
+					strError = strError + " | lugarExamen: "+lugarExamen;
+										
+					objHubSpotData.put("lugar_de_examen", lugarExamen);
 					fechaNacimiento = Date.from(lstSolicitudDeAdmision.get(0).getFechaNacimiento().atZone(ZoneId.systemDefault()).toInstant());
 					
+					//objHubSpotData.put("ciudades", (lstSolicitudDeAdmision.get(0).getCiudad()=="" ? "" : lstSolicitudDeAdmision.get(0).getCiudad())+", "+(lstSolicitudDeAdmision.get(0).getDelegacionMunicipio()==null ? "" : lstSolicitudDeAdmision.get(0).getDelegacionMunicipio()));
+					objHubSpotData.put("pais", lstSolicitudDeAdmision.get(0).getCatPais().descripcion);
 					objHubSpotData.put("campus_admision", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
 					objHubSpotData.put("periodo_de_ingreso", lstSolicitudDeAdmision.get(0).getCatPeriodo().getClave());
 					objHubSpotData.put("campus_vpd", lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
-					objHubSpotData.put("lugar_de_examen", estadoExamen.equals("")? ciudadExamen : estadoExamen);
 					objHubSpotData.put("firstname", lstCatRegistro.get(0).getPrimernombre()+" "+(lstCatRegistro.get(0).getSegundonombre() == null ? "" : lstCatRegistro.get(0).getSegundonombre()));
 					objHubSpotData.put("lastname", lstCatRegistro.get(0).getApellidopaterno()+" "+lstCatRegistro.get(0).getApellidomaterno());
 					objHubSpotData.put("email", object.email);
 					objHubSpotData.put("date_of_birth", dfSalida.format(fechaNacimiento));
 					objHubSpotData.put("gender", lstSolicitudDeAdmision.get(0).getCatSexo().getDescripcion() == null ? "" : lstSolicitudDeAdmision.get(0).getCatSexo().getDescripcion());
-					objHubSpotData.put("relationship_status", lstSolicitudDeAdmision.get(0).getCatEstadoCivil().getDescripcion() == null ? "" : lstSolicitudDeAdmision.get(0).getCatEstadoCivil().getDescripcion());
+					//objHubSpotData.put("relationship_status", lstSolicitudDeAdmision.get(0).getCatEstadoCivil().getDescripcion() == null ? "" : lstSolicitudDeAdmision.get(0).getCatEstadoCivil().getDescripcion());
 					objHubSpotData.put("promedio", lstSolicitudDeAdmision.get(0).getPromedioGeneral() == null ? "" : lstSolicitudDeAdmision.get(0).getPromedioGeneral());
 					objHubSpotData.put("propiedades_de_smart_campus", "Envío de Solicitud");
-					//objHubSpotData.put("telefono_del_padre", lstSolicitudDeAdmision.get(0).getPrimerNombre());
-					//objHubSpotData.put("nombre_de_la_madre", lstSolicitudDeAdmision.get(0).getPrimerNombre());
-					//objHubSpotData.put("correo_de_la_madre", lstSolicitudDeAdmision.get(0).getPrimerNombre());
-					//objHubSpotData.put("telefono_de_la_madre", lstSolicitudDeAdmision.get(0).getPrimerNombre());
-					
 					strError = strError + "| INFORMACION DE REGISTRO";
 					strError = strError + ", GENDER-ZIP";
 										
@@ -190,13 +231,224 @@ class HubspotDAO {
 				}
 			}
 			LOGGER.error "listo";
-			//resultado.setError_info(strError);
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
-			//resultado.setError_info(strError);
-			//resultado.setSuccess(false);
-			//resultado.setError(e.getMessage());
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado
+	}
+	
+	public Result createOrUpdateModificar(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
+		
+		Map<String, String> objHubSpotData = new HashMap<String, String>();
+		
+		String strError = "";
+		String nombreCompleto = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof Map;
+			def objCatRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			def objDetalleSolicitudDAO = context.apiClient.getDAO(DetalleSolicitudDAO.class);
+			
+			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
+			
+			
+			Date fecha = new Date();
+			
+			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			
+			if(lstCatRegistro != null) {
+				if(!lstCatRegistro.empty) {
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
+					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
+					
+					strError = strError + " | lstDetalleSolicitud.empty: "+lstDetalleSolicitud.empty;
+					strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
+					
+					if(lstDetalleSolicitud != null) {
+						if(!lstDetalleSolicitud.empty) {
+							objHubSpotData.put("mensaje", lstDetalleSolicitud.get(0).getObservacionesCambio());
+							objHubSpotData.put("fecha_actualizacion_sc", dfSalida.format(fecha));
+							objHubSpotData.put("propiedades_de_smart_campus", "Solicitud Cambios");
+							resultado = createOrUpdateHubspot(object.email, objHubSpotData);
+							strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
+						}
+					}
+					
+				}
+			}
+			LOGGER.error "listo";
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			//resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "e: "+e.getMessage();
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado
+	}
+	
+	public Result createOrUpdateValidar(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
+		
+		Map<String, String> objHubSpotData = new HashMap<String, String>();
+		
+		String strError = "";
+		String residencia = "";
+		String nombreCompleto = "";
+		String tipoAdmision = "";
+		String descuento = "";
+		String catDescuento = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof Map;
+			def objCatRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			def objDetalleSolicitudDAO = context.apiClient.getDAO(DetalleSolicitudDAO.class);
+			
+			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
+			
+			
+			Date fecha = new Date();
+			
+			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			
+			if(lstCatRegistro != null) {
+				if(!lstCatRegistro.empty) {
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
+					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
+					
+					strError = strError + " | lstDetalleSolicitud.empty: "+lstDetalleSolicitud.empty;
+					strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
+					
+					
+					if(lstDetalleSolicitud != null) {
+						if(!lstDetalleSolicitud.empty) {
+							residencia = lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("F") ? "L" : (lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("R") ? "R" : "E");
+							tipoAdmision = lstDetalleSolicitud.get(0).getCatTipoAdmision().getClave();
+							
+							strError = strError + " | residencia: "+residencia;
+							strError = strError + " | tipoAdmision: "+tipoAdmision;
+							strError = strError + " | getDescuento: "+lstDetalleSolicitud.get(0).getDescuento();
+							
+							descuento = ""+lstDetalleSolicitud.get(0).getDescuento();
+							catDescuento = ""+(lstDetalleSolicitud.get(0).getCatDescuentos()== null ? "" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento());
+							
+							strError = strError + " | descuento: "+descuento;
+							strError = strError + " | catDescuento: "+catDescuento;
+							
+							objHubSpotData.put("tipo_de_alumno", lstDetalleSolicitud.get(0).getCatTipoAlumno().getClave());
+							objHubSpotData.put("porcentaje_de_descuento", lstDetalleSolicitud.get(0).getDescuento()==null? (lstDetalleSolicitud.get(0).getCatDescuentos() == null ? "0" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento()):"0");
+							objHubSpotData.put("id_banner", lstDetalleSolicitud.get(0).getIdBanner());
+							objHubSpotData.put("fecha_actualizacion_sc", dfSalida.format(fecha));
+							objHubSpotData.put("tipo_de_admision", tipoAdmision);
+							objHubSpotData.put("aac_bp", residencia);
+							//objHubSpotData.put("propiedades_de_smart_campus", "Solicitud Cambios"); PENDIENTE
+							resultado = createOrUpdateHubspot(object.email, objHubSpotData);
+							strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
+						}
+					}
+					
+				}
+			}
+			LOGGER.error "listo";
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			//resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "e: "+e.getMessage();
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado
+	}
+	
+	public Result createOrUpdateRechazoLRoja(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
+		
+		Map<String, String> objHubSpotData = new HashMap<String, String>();
+		
+		String strError = "";
+		String mensaje = "";
+		String estatus = "";
+		String nombreCompleto = "";
+		
+		Boolean isRechazo=false;
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof Map;
+			def objCatRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			def objDetalleSolicitudDAO = context.apiClient.getDAO(DetalleSolicitudDAO.class);
+			
+			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
+			isRechazo=object.isRechazo;
+			
+			Date fecha = new Date();
+			
+			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			
+			if(lstCatRegistro != null) {
+				if(!lstCatRegistro.empty) {
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+lstCatRegistro.get(0).getCaseId();
+					strError = strError + " | lstCatRegistro.get(0).getCaseId: "+(lstCatRegistro.get(0).getCaseId() == null ? "" : lstCatRegistro.get(0).getCaseId().toString());
+					lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
+					
+					strError = strError + " | lstDetalleSolicitud.empty: "+lstDetalleSolicitud.empty;
+					strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
+					
+					if(lstDetalleSolicitud != null) {
+						if(!lstDetalleSolicitud.empty) {
+							if(isRechazo) {
+								mensaje = lstDetalleSolicitud.get(0).getObservacionesRechazo() == null ? "" : lstDetalleSolicitud.get(0).getObservacionesRechazo();
+								estatus = "Rechazado";
+							}
+							else {
+								mensaje = lstDetalleSolicitud.get(0).getObservacionesListaRoja() == null ? "" : lstDetalleSolicitud.get(0).getObservacionesListaRoja();
+								estatus = "Rechazado";
+							}
+							objHubSpotData.put("mensaje", mensaje);
+							objHubSpotData.put("fecha_actualizacion_sc", dfSalida.format(fecha));
+							objHubSpotData.put("propiedades_de_smart_campus", estatus);
+							resultado = createOrUpdateHubspot(object.email, objHubSpotData);
+							strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
+						}
+					}
+					
+				}
+			}
+			LOGGER.error "listo";
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			//resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "e: "+e.getMessage();
+			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
 			e.printStackTrace();
 		}
 		return resultado
@@ -254,3 +506,4 @@ class HubspotDAO {
 		return resultado
 	}
 }
+
