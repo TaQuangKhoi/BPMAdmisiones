@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgModalEditarContactoEmergenciaUpdate",
   "name" : "frgModalEditarContactoEmergenciaUpdate",
-  "lastUpdate" : 1610758786477,
+  "lastUpdate" : 1614103303089,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Editar Contacto de Emergencia</label>"
+            "value" : "<label class=\"color-orange\">Editar contacto de emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -60,7 +60,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Contacto de Emergencia</label>"
+            "value" : "<label class=\"color-orange\">Contacto de emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -349,8 +349,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 10
+            "type" : "expression",
+            "value" : "telefonoMaxLength"
           },
           "readOnly" : {
             "type" : "expression",
@@ -426,8 +426,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 10
+            "type" : "expression",
+            "value" : "telefonoMaxLength"
           },
           "readOnly" : {
             "type" : "expression",
@@ -930,6 +930,25 @@
       "exposed" : true
     },
     "catParentescoCompleto" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "telefonoMaxLength" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;\r",
+        "if($data.isExtranjero || $data.casoEmergenciaJSON.catCasoDeEmergencia.descripcion === \"Otro\"){\r",
+        "    return 14\r",
+        "} else {\r",
+        "    return 10;\r",
+        "}\r"
+      ],
+      "exposed" : false
+    },
+    "isExtranjero" : {
       "type" : "constant",
       "value" : [
         ""

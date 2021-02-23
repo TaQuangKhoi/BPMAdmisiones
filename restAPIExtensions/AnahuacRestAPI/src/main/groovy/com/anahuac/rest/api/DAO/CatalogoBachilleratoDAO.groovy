@@ -58,6 +58,8 @@ class CatalogoBachilleratoDAO {
 		}
 		return resultado
 	}
+	
+	
 	public Result insertCatBitacoraComentario(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -97,7 +99,6 @@ class CatalogoBachilleratoDAO {
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				pstm = con.prepareStatement(StatementsBachillerato.GET)
-				
 				
 				rs = pstm.executeQuery()
 				rows = new ArrayList<Map<String, Object>>();
@@ -522,5 +523,6 @@ class CatalogoBachilleratoDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 }

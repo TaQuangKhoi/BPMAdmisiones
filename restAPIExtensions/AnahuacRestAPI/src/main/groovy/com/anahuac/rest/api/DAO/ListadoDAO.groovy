@@ -19,6 +19,7 @@ import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessInstance
 import org.bonitasoft.engine.bpm.process.ProcessInstanceCriterion
+import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.search.Order
@@ -37,6 +38,7 @@ import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.Transferencias
 import com.anahuac.catalogos.CatBachilleratosDAO
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
@@ -45,6 +47,7 @@ import com.anahuac.rest.api.Entity.Custom.CatBachilleratosCustom
 import com.anahuac.rest.api.Entity.Custom.CatCampusCustom
 import com.anahuac.rest.api.Entity.Custom.CatCampusCustomFiltro
 import com.anahuac.rest.api.Entity.Custom.CatEstadosCustom
+import com.anahuac.rest.api.Entity.Custom.CatGenericoFiltro
 import com.anahuac.rest.api.Entity.Custom.CatGestionEscolar
 import com.anahuac.rest.api.Entity.Custom.CatLicenciaturaCustom
 import com.anahuac.rest.api.Entity.Custom.CatPeriodoCustom
@@ -91,7 +94,6 @@ class ListadoDAO {
 		List<SolicitudAdmisionCustom> lstResultado = new ArrayList<SolicitudAdmisionCustom>();
 		List<String> lstGrupo = new ArrayList<String>();
 		//List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
-		
 		
 		Long userLogged = 0L;
 		Long caseId = 0L;
@@ -636,7 +638,10 @@ class ListadoDAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false"
+			where+=" WHERE sda.iseliminado=false "
+			if(object.campus != null){
+				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
+			}			
 				if(object.estatusSolicitud !=null) {
 				if(object.estatusSolicitud.equals("Solicitud lista roja")) {
 					where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
@@ -695,204 +700,564 @@ class ListadoDAO {
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				
-				
-				
 				String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
-				
-				
 				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
                     errorlog+=", columna "+ filtro.get("columna")
 					switch(filtro.get("columna")) {
+					
+					case "NOMBRE,EMAIL,CURP":
+						errorlog+="NOMBRE,EMAIL,CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
 						
-                        case "NOMBRE":
-                            errorlog+="NOMBRE"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-                            where = where.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "EMAIL":
-                            errorlog+="EMAIL"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.correoelectronico) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-                            where = where.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "CURP":
-                            errorlog+="CURP"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.curp) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-                            where = where.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "CAMPUS":
-                            errorlog+="CAMPUS"
-							campus +=" AND LOWER(campus.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								campus+="=LOWER('[valor]')"
-							}else {
-								campus+="LIKE LOWER('%[valor]%')"
-							}
-                            campus = campus.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "PREPARATORIA":
-                            errorlog+="PREPARATORIA"
-							bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								bachillerato+="=LOWER('[valor]')"
-							}else {
-								bachillerato+="LIKE LOWER('%[valor]%')"
-							}
-                            bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "PROGRAMA":
-                            errorlog+="PROGRAMA"
-							programa +=" AND LOWER(gestionescolar.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								programa+="=LOWER('[valor]')"
-							}else {
-								programa+="LIKE LOWER('%[valor]%')"
-							}
-                            programa = programa.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "INGRESO":
-                            errorlog+="INGRESO"
-							ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								ingreso+="=LOWER('[valor]')"
-							}else {
-								ingreso+="LIKE LOWER('%[valor]%')"
-							}
-                            ingreso = ingreso.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "ESTADO":
-                            errorlog+="ESTADO"
-							estado +=" AND LOWER(estado.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								estado+="=LOWER('[valor]')"
-							}else {
-								estado+="LIKE LOWER('%[valor]%')"
-							}
-                            estado = estado.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "PROMEDIO":
-                            errorlog+="PROMEDIO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.PROMEDIOGENERAL) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-                            where = where.replace("[valor]", filtro.get("valor"))
-                            break;
-                        case "ESTATUS":
-                            errorlog+="ESTATUS"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.ESTATUSSOLICITUD) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-                            where = where.replace("[valor]", filtro.get("valor"))
-                            break;
-						case "TELEFONO":
-							errorlog+="TELEFONO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.telefonocelular) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-                        case "TIPO":
-                            errorlog+="TIPO"
-							tipoalumno +=" AND LOWER(da.TIPOALUMNO) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-                            tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-                            break;
-						case "IDBANNER":
-							errorlog+="IDBANNER"
-							tipoalumno +=" AND LOWER(da.idbanner) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "LISTAROJA":
-							errorlog+="LISTAROJA"
-							tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "RECHAZO":
-							errorlog+="RECHAZO"
-							tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						default:
-						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-						//consulta=consulta.replace("[WHERE]", where);
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROGRAMA,PERÍODO DE INGRESO,CAMPUS INGRESO":
+						errorlog+="PROGRAMA, PERÍODO DE INGRESO, CAMPUS INGRESO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
+						
+					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "ULTIMA MODIFICACION":
+						errorlog+="FECHAULTIMAMODIFICACION"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" (LOWER(fechaultimamodificacion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where +=" OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where+="LIKE LOWER('%[valor]%'))";
+
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+				//filtrado utilizado en lista roja y rechazado
+					case "NOMBRE,EMAIL,CURP":
+						errorlog+="NOMBRE,EMAIL,CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CAMPUS,PROGRAMA,INGRESO":
+						errorlog+="PROGRAMA,INGRESO,CAMPUS"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+						
+					case "ESTADO,PREPARATORIA,PROMEDIO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +="( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ESTATUS,TIPO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(R.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "INDICADORES":
+						errorlog+="INDICADORES"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						
+						where +=" ( LOWER(R.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(TA.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(TAL.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+						
+					// filtrados normales	
+					case "NÚMERO DE SOLICITUD":
+                        errorlog+="SOLICITUD"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(CAST(sda.caseid AS varchar)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+						
+                    case "NOMBRE":
+                        errorlog+="NOMBRE"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "EMAIL":
+                        errorlog+="EMAIL"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.correoelectronico) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "CURP":
+                        errorlog+="CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.curp) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "CAMPUS":
+                        errorlog+="CAMPUS"
+						campus +=" AND LOWER(campus.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							campus+="=LOWER('[valor]')"
+						}else {
+							campus+="LIKE LOWER('%[valor]%')"
+						}
+                        campus = campus.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "PREPARATORIA":
+                        errorlog+="PREPARATORIA"
+						bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							bachillerato+="=LOWER('[valor]')"
+						}else {
+							bachillerato+="LIKE LOWER('%[valor]%')"
+						}
+                        bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "PROGRAMA":
+                        errorlog+="PROGRAMA"
+						programa +=" AND LOWER(gestionescolar.Nombre) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							programa+="=LOWER('[valor]')"
+						}else {
+							programa+="LIKE LOWER('%[valor]%')"
+						}
+                        programa = programa.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "INGRESO":
+                        errorlog+="INGRESO"
+						ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							ingreso+="=LOWER('[valor]')"
+						}else {
+							ingreso+="LIKE LOWER('%[valor]%')"
+						}
+                        ingreso = ingreso.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "ESTADO":
+                        errorlog+="ESTADO"
+						estado +=" AND LOWER(estado.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							estado+="=LOWER('[valor]')"
+						}else {
+							estado+="LIKE LOWER('%[valor]%')"
+						}
+                        estado = estado.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "PROMEDIO":
+                        errorlog+="PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.PROMEDIOGENERAL) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+                    case "ESTATUS":
+                        errorlog+="ESTATUS"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.ESTATUSSOLICITUD) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "TELEFONO":
+						errorlog+="TELEFONO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.telefonocelular) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+                    case "TIPO":
+                        errorlog+="TIPO"
+						tipoalumno +=" AND LOWER(R.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+                        tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "IDBANNER":
+						errorlog+="IDBANNER"
+						tipoalumno +=" AND LOWER(da.idbanner) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ID BANNER":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(da.idbanner) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "LISTAROJA":
+						errorlog+="LISTAROJA"
+						tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "MOTIVO DE LISTA ROJA":
+						errorlog+="LISTAROJA"
+						tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "RECHAZO":
+						errorlog+="RECHAZO"
+						tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "MOTIVO DE LISTA RECHAZO":
+						errorlog+="RECHAZO"
+						tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "FECHA SOLICITUD":
+						errorlog+="FECHA SOLICITUD"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(fechasolicitudenviada) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						
+						
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					/*============================================*/
+					case "CIUDAD":
+						errorlog+="CIUDAD";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.ciudad) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PROCEDENCIA":
+						errorlog+="PROCEDENCIA";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(estado.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PAÍS":
+						errorlog+="PAÍS";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(catPais.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "CAMPUS INGRESO":
+						errorlog+="CAMPUS INGRESO";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(campusEstudio.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "FECHA DE ENVIO":
+						errorlog+="FECHA DE ENVIO";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" to_char(sda.fechasolicitudenviada::timestamp, 'DD-MM-YYYY HH24:MI:SS') ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "ADMISIÓN ANÁHUAC":
+						errorlog+="ADMISIÓN ANÁHUAC";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.admisionAnahuac ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PAA (COLLEGE BOARD)":
+						errorlog+="PAA (COLLEGE BOARD)";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.tienePAA ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "DESCUENTO EN EXAMEN":
+						errorlog+="DESCUENTO EN EXAMEN";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.tieneDescuento ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					/*====================================================================*/
+						
+					default:
+					
+					//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+					//consulta=consulta.replace("[WHERE]", where);
+					
+					break;
 					} 
+					
 				}
+				
 				switch(object.orderby) {
+					case "RESIDEICA":
+					orderby+="residensia";
+					break;
+					case "TIPODEADMISION":
+					orderby+="tipoadmision";
+					break;
+					case "TIPODEALUMNO":
+					orderby+="tipoDeAlumno";
+					break;
+					case "FECHAULTIMAMODIFICACION":
+					orderby+="sda.fechaultimamodificacion";
+					break;
 					case "NOMBRE":
 					orderby+="sda.primernombre";
 					break;
@@ -909,7 +1274,7 @@ class ListadoDAO {
 					orderby+="prepa.DESCRIPCION"
 					break;
 					case "PROGRAMA":
-					orderby+="gestionescolar.DESCRIPCION"
+					orderby+="gestionescolar.NOMBRE"
 					break;
 					case "INGRESO":
 					orderby+="periodo.DESCRIPCION"
@@ -932,11 +1297,17 @@ class ListadoDAO {
 					case "IDBANNER":
 					orderby+="da.idbanner";
 					break;
+					case "SOLICITUD":
+					orderby+="sda.caseid::INTEGER";
+					break;
 					case "LISTAROJA":
 					orderby+="da.observacionesListaRoja";
 					break;
 					case "RECHAZO":
 					orderby+="da.observacionesRechazo";
+					break;
+					case "FECHASOLICITUD":
+					orderby+="sda.fechasolicitudenviada";
 					break;
 					default:
 					orderby+="sda.persistenceid"
@@ -953,10 +1324,14 @@ class ListadoDAO {
 				//consulta=consulta.replace("[TIPODEADMISION]", tipodeadmision)
 				//consulta=consulta.replace("[SEDEDELEXAMEN]", sededelexamen)
 				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
+				
+				
 				//where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno+" "+tiporecidencia+" "+tipodeadmision+" "+sededelexamen
 				consulta=consulta.replace("[WHERE]", where);
 				
-				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+//				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				
 				//pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				
 				rs= pstm.executeQuery()
@@ -965,7 +1340,8 @@ class ListadoDAO {
 				}
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-				errorlog+=consulta
+				errorlog=consulta
+				
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.limit)
 				pstm.setInt(2, object.offset)
@@ -1011,6 +1387,7 @@ class ListadoDAO {
 		return resultado
 	}
 	
+	
 	public Result selectAspirantesMigrados(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -1043,12 +1420,7 @@ class ListadoDAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false"
-				if(object.estatusSolicitud !=null) {
-				if(object.estatusSolicitud.equals("Aspirante migrado")) {
-					where+=" AND sda.ESTATUSSOLICITUD='Aspirante migrado'"
-				}
-			}
+			where+=" WHERE sda.iseliminado=false AND sda.ESTATUSSOLICITUD='Aspirante migrado'"
 			if(lstGrupo.size()>0) {
 				campus+=" AND ("
 			}
@@ -1070,7 +1442,7 @@ class ListadoDAO {
 				
 				
 				
-				String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+				String consulta = Statements.GET_ASPIRANTES_MIGRADOS
 				
 				
 				
@@ -1329,7 +1701,7 @@ class ListadoDAO {
 				//where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno+" "+tiporecidencia+" "+tipodeadmision+" "+sededelexamen
 				consulta=consulta.replace("[WHERE]", where);
 				
-				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				//pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				
 				rs= pstm.executeQuery()
@@ -1387,7 +1759,7 @@ class ListadoDAO {
 	public Result selectAspirantesEnprocesoFechas(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where ="", bachillerato="", campus="", programa="", ingreso="", estado ="", tipoalumno ="", orderby="ORDER BY ", errorlog=""
+		String where ="", bachillerato="", campus="", programa="", ingreso="", estado ="", tipoalumno ="", orderby="ORDER BY ", errorlog="",tipo_sesion="";
 		List<String> lstGrupo = new ArrayList<String>();
 		List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
 		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
@@ -1417,6 +1789,9 @@ class ListadoDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false"
+			if(object.campus != null){
+				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
+			}
 				if(object.estatusSolicitud !=null) {
 				if(object.estatusSolicitud.equals("Solicitud lista roja")) {
 					where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
@@ -1452,7 +1827,8 @@ class ListadoDAO {
 				//CODIGO PP
 				else if(object.estatusSolicitud.equals("Aspirantes en proceso")) {
 					//where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' )"
-					where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud a modificar' )"
+					//where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en progreso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud a modificar' )"
+					 where+=" AND (sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' )"
 					
 					}
 			}
@@ -1475,202 +1851,568 @@ class ListadoDAO {
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				
-				
-				
 				String consulta = Statements.GET_ASPIRANTES_EN_PROCESO_FECHAS
+				if(object.sesiones) {
+					consulta = Statements.GET_ASPIRANTES_EN_PROCESO_FECHAS_SESIONES;
+				}
 				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					errorlog+=", columna "+ filtro.get("columna")
 					switch(filtro.get("columna")) {
+					
+					case "NOMBRE,EMAIL,CURP":
+						errorlog+="NOMBRE,EMAIL,CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
 						
-						case "NOMBRE":
-							errorlog+="NOMBRE"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "EMAIL":
-							errorlog+="EMAIL"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.correoelectronico) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "CURP":
-							errorlog+="CURP"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.curp) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "CAMPUS":
-							errorlog+="CAMPUS"
-							campus +=" AND LOWER(campus.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								campus+="=LOWER('[valor]')"
-							}else {
-								campus+="LIKE LOWER('%[valor]%')"
-							}
-							campus = campus.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PREPARATORIA":
-							errorlog+="PREPARATORIA"
-							bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								bachillerato+="=LOWER('[valor]')"
-							}else {
-								bachillerato+="LIKE LOWER('%[valor]%')"
-							}
-							bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PROGRAMA":
-							errorlog+="PROGRAMA"
-							programa +=" AND LOWER(gestionescolar.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								programa+="=LOWER('[valor]')"
-							}else {
-								programa+="LIKE LOWER('%[valor]%')"
-							}
-							programa = programa.replace("[valor]", filtro.get("valor"))
-							break;
-						case "INGRESO":
-							errorlog+="INGRESO"
-							ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								ingreso+="=LOWER('[valor]')"
-							}else {
-								ingreso+="LIKE LOWER('%[valor]%')"
-							}
-							ingreso = ingreso.replace("[valor]", filtro.get("valor"))
-							break;
-						case "ESTADO":
-							errorlog+="ESTADO"
-							estado +=" AND LOWER(estado.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								estado+="=LOWER('[valor]')"
-							}else {
-								estado+="LIKE LOWER('%[valor]%')"
-							}
-							estado = estado.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PROMEDIO":
-							errorlog+="PROMEDIO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.PROMEDIOGENERAL) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "ESTATUS":
-							errorlog+="ESTATUS"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.ESTATUSSOLICITUD) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "TELEFONO":
-							errorlog+="TELEFONO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.telefonocelular) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "TIPO":
-							errorlog+="TIPO"
-							tipoalumno +=" AND LOWER(da.TIPOALUMNO) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "IDBANNER":
-							errorlog+="IDBANNER"
-							tipoalumno +=" AND LOWER(da.idbanner) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "LISTAROJA":
-							errorlog+="LISTAROJA"
-							tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "RECHAZO":
-							errorlog+="RECHAZO"
-							tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						default:
-						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-						//consulta=consulta.replace("[WHERE]", where);
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROGRAMA,PERÍODO DE INGRESO,CAMPUS INGRESO":
+						errorlog+="PROGRAMA, PERÍODO DE INGRESO, CAMPUS INGRESO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
+						
+					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "ULTIMA MODIFICACION":
+						errorlog+="FECHAULTIMAMODIFICACION"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" (LOWER(sda.fechaultimamodificacion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where +=" OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+						where+="LIKE LOWER('%[valor]%'))";
+	
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+				//filtrado utilizado en lista roja y rechazado
+					case "NOMBRE,EMAIL,CURP":
+						errorlog+="NOMBRE,EMAIL,CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CAMPUS,PROGRAMA,INGRESO":
+						errorlog+="PROGRAMA,INGRESO,CAMPUS"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+						
+					case "ESTADO,PREPARATORIA,PROMEDIO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +="( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "NOMBRE SESION,TIPO DE SESION,FECHA DE LA SESION":
+						errorlog+="NOMBRE SESION,TIPO DE SESION,FECHA DE LA SESION"
+						
+						tipo_sesion +=" WHERE( LOWER(nombre_sesion) like lower('%[valor]%') ";
+						tipo_sesion = tipo_sesion.replace("[valor]", filtro.get("valor"))
+						
+						tipo_sesion +=" OR LOWER(tipo_sesion) like lower('%[valor]%') ";
+						tipo_sesion = tipo_sesion.replace("[valor]", filtro.get("valor"))
+						
+						tipo_sesion +=" OR LOWER(CAST(fecha_sesion as varchar)) like lower('%[valor]%') ) ";
+						tipo_sesion = tipo_sesion.replace("[valor]", filtro.get("valor"))
+						break;
+					
+					case "ESTATUS,TIPO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(R.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "INDICADORES":
+						errorlog+="INDICADORES"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						
+						where +=" ( LOWER(R.descripcion) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(TA.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						
+						break;
+						
+					// filtrados normales
+					case "NÚMERO DE SOLICITUD":
+						errorlog+="SOLICITUD"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(CAST(sda.caseid AS varchar)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "NOMBRE":
+						errorlog+="NOMBRE"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "EMAIL":
+						errorlog+="EMAIL"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.correoelectronico) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "CURP":
+						errorlog+="CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.curp) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "CAMPUS":
+						errorlog+="CAMPUS"
+						campus +=" AND LOWER(campus.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							campus+="=LOWER('[valor]')"
+						}else {
+							campus+="LIKE LOWER('%[valor]%')"
+						}
+						campus = campus.replace("[valor]", filtro.get("valor"))
+						break;
+					case "PREPARATORIA":
+						errorlog+="PREPARATORIA"
+						bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							bachillerato+="=LOWER('[valor]')"
+						}else {
+							bachillerato+="LIKE LOWER('%[valor]%')"
+						}
+						bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
+						break;
+					case "PROGRAMA":
+						errorlog+="PROGRAMA"
+						programa +=" AND LOWER(gestionescolar.Nombre) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							programa+="=LOWER('[valor]')"
+						}else {
+							programa+="LIKE LOWER('%[valor]%')"
+						}
+						programa = programa.replace("[valor]", filtro.get("valor"))
+						break;
+					case "INGRESO":
+						errorlog+="INGRESO"
+						ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							ingreso+="=LOWER('[valor]')"
+						}else {
+							ingreso+="LIKE LOWER('%[valor]%')"
+						}
+						ingreso = ingreso.replace("[valor]", filtro.get("valor"))
+						break;
+					case "ESTADO":
+						errorlog+="ESTADO"
+						estado +=" AND LOWER(estado.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							estado+="=LOWER('[valor]')"
+						}else {
+							estado+="LIKE LOWER('%[valor]%')"
+						}
+						estado = estado.replace("[valor]", filtro.get("valor"))
+						break;
+					case "PROMEDIO":
+						errorlog+="PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.PROMEDIOGENERAL) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "ESTATUS":
+						errorlog+="ESTATUS"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.ESTATUSSOLICITUD) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "TELEFONO":
+						errorlog+="TELEFONO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.telefonocelular) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "TIPO":
+						errorlog+="TIPO"
+						tipoalumno +=" AND LOWER(R.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "IDBANNER":
+						errorlog+="IDBANNER"
+						tipoalumno +=" AND LOWER(da.idbanner) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ID BANNER":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(da.idbanner) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "LISTAROJA":
+						errorlog+="LISTAROJA"
+						tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "MOTIVO DE LISTA ROJA":
+						errorlog+="LISTAROJA"
+						tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "RECHAZO":
+						errorlog+="RECHAZO"
+						tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "MOTIVO DE LISTA RECHAZO":
+						errorlog+="RECHAZO"
+						tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							tipoalumno+="=LOWER('[valor]')"
+						}else {
+							tipoalumno+="LIKE LOWER('%[valor]%')"
+						}
+						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+						break;
+					case "FECHA SOLICITUD":
+						errorlog+="FECHA SOLICITUD"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(fechasolicitudenviada) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						
+						
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					/*============================================*/
+					case "CIUDAD":
+						errorlog+="CIUDAD";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(sda.ciudad) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PROCEDENCIA":
+						errorlog+="PROCEDENCIA";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(estado.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PAÍS":
+						errorlog+="PAÍS";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(catPais.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "CAMPUS INGRESO":
+						errorlog+="CAMPUS INGRESO";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(campusEstudio.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "FECHA DE ENVIO":
+						errorlog+="FECHA DE ENVIO";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" to_char(sda.fechasolicitudenviada::timestamp, 'DD-MM-YYYY HH24:MI:SS') ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						} else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "ADMISIÓN ANÁHUAC":
+						errorlog+="ADMISIÓN ANÁHUAC";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.admisionAnahuac ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "PAA (COLLEGE BOARD)":
+						errorlog+="PAA (COLLEGE BOARD)";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.tienePAA ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "DESCUENTO EN EXAMEN":
+						errorlog+="DESCUENTO EN EXAMEN";
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						} else {
+							where+= " WHERE "
+						}
+						where +=" sda.tieneDescuento ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=[valor]"
+						} else {
+							where+="=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					/*====================================================================*/
+						
+					default:
+					
+					//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+					//consulta=consulta.replace("[WHERE]", where);
+					
+					break;
 					}
+					
 				}
 				switch(object.orderby) {
+					case "FECHAULTIMAMODIFICACION":
+					orderby+="sda.fechaultimamodificacion";
+					break;
 					case "NOMBRE":
 					orderby+="sda.primernombre";
 					break;
@@ -1687,7 +2429,7 @@ class ListadoDAO {
 					orderby+="prepa.DESCRIPCION"
 					break;
 					case "PROGRAMA":
-					orderby+="gestionescolar.DESCRIPCION"
+					orderby+="gestionescolar.NOMBRE"
 					break;
 					case "INGRESO":
 					orderby+="periodo.DESCRIPCION"
@@ -1710,11 +2452,28 @@ class ListadoDAO {
 					case "IDBANNER":
 					orderby+="da.idbanner";
 					break;
+					case "SOLICITUD":
+					orderby+="sda.caseid::INTEGER";
+					break;
 					case "LISTAROJA":
 					orderby+="da.observacionesListaRoja";
 					break;
 					case "RECHAZO":
 					orderby+="da.observacionesRechazo";
+					break;
+					case "FECHASOLICITUD":
+					orderby+="sda.fechasolicitudenviada";
+					break;
+					
+					case "NOMBRESESION":
+					orderby+="S.nombre";
+					break;
+					
+					case "TIPOSESION":
+					orderby+="s.tipo";
+					break;
+					case "FECHASESION":
+					orderby+="s.fecha_inicio";
 					break;
 					default:
 					orderby+="sda.persistenceid"
@@ -1727,11 +2486,12 @@ class ListadoDAO {
 				consulta=consulta.replace("[ESTADO]", estado)
 				consulta=consulta.replace("[BACHILLERATO]", bachillerato)
 				consulta=consulta.replace("[TIPOALUMNO]", tipoalumno)
+				consulta=consulta.replace("[RESIDENCIA]", tipo_sesion)
 				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
 				consulta=consulta.replace("[WHERE]", where);
-				errorlog += consulta;
+				//errorlog += consulta;
 				
-				
+				//errorlog= consulta;
 				String consultaR= Statements.GET_ASPIRANTES_EN_PROCESO_FECHAS2;
 				
 				consultaR=consultaR.replace("[CAMPUS]", campus)
@@ -1742,11 +2502,12 @@ class ListadoDAO {
 				consultaR=consultaR.replace("[TIPOALUMNO]", tipoalumno)
 				consultaR=consultaR.replace("[WHERE]", where);
 				
+				//errorlog += " || "+consultaR;
 				pstm = con.prepareStatement(consultaR);
 				
 				//pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, catcampus.descripcion as transferencia, STRING_AGG( tipo.descripcion || '  ' || p.aplicacion || '   ' || case when tipo.persistenceid=1 then rd.horario  else p.entrada ||' - '||p.salida end, ',' ORDER BY tipo.descripcion , p.aplicacion, horario ) fechasExamenes ", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
-				errorlog = pstm
-
+				//errorlog = pstm
+	
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1754,12 +2515,13 @@ class ListadoDAO {
 				//consultaR=consultaR.replace("[ORDERBY]", orderby)
 				//consultaR=consultaR.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 				
-//				consulta=consulta.replace("[ORDERBY]", orderby)
-				consulta=consulta.replace("[ORDERBY]", "")
+				//consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 				
 				
 				errorlog += consulta;
+				resultado.setError_info(errorlog);
 				
 				pstm = con.prepareStatement(consulta)
 				errorlog= object.limit;
@@ -1779,445 +2541,47 @@ class ListadoDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 	
 					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
-							String encoded = "";
-							try {
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64", encoded);
+						if(metaData.getColumnLabel(i).toLowerCase().equals("responsables")) {
+							User usr;
+							UserMembership membership;
+							
+							String responsables = rs.getString("responsables");
+							String nombres= "";
+							if(!responsables.equals("null") && responsables != null) {
+								errorlog+=" "+responsables;
+								String[] arrOfStr = responsables.split(",");
+								for (String a: arrOfStr) {
+									if(Long.parseLong(a)>0) {
+										usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(a))
+										nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
+									}
 								}
-							}catch(Exception e) {
-								columns.put("fotografiab64", "");
-								errorlog+= ""+e.getMessage();
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), nombres);								
+							}
+						} else{
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+							if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+								String encoded = "";
+								try {
+									for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
+								}catch(Exception e) {
+									columns.put("fotografiab64", "");
+									errorlog+= ""+e.getMessage();
+								}
 							}
 						}
+						
+						
 					}
 	
 					rows.add(columns);
 				}
 				resultado.setSuccess(true)
 				
-				resultado.setError_info(errorlog);
-				resultado.setData(rows)
 				
-			} catch (Exception e) {
-			resultado.setError_info(errorlog)
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-		}finally {
-			if(closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		return resultado
-	}
-	
-	public Result selectSolicitudesEnProceso(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
-		Result resultado = new Result();
-		Boolean closeCon = false;
-		String where ="", bachillerato="", campus="", programa="", ingreso="", estado ="", tipoalumno ="", orderby="ORDER BY ", errorlog=""
-		List<String> lstGrupo = new ArrayList<String>();
-		List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
-		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
-		
-		Long userLogged = 0L;
-		Long caseId = 0L;
-		Long total = 0L;
-		Map<String, String> objGrupoCampus = new HashMap<String, String>();
-		try {
-			def jsonSlurper = new JsonSlurper();
-			def object = jsonSlurper.parseText(jsonData);
-			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
-			
-			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
-			/*
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Cancún");
-			objGrupoCampus.put("valor","CAMPUS-CANCUN");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Mayab");
-			objGrupoCampus.put("valor","CAMPUS-MAYAB");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac México Norte");
-			objGrupoCampus.put("valor","CAMPUS-MNORTE");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac México Sur");
-			objGrupoCampus.put("valor","CAMPUS-MSUR");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Oaxaca");
-			objGrupoCampus.put("valor","CAMPUS-OAXACA");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Puebla");
-			objGrupoCampus.put("valor","CAMPUS-PUEBLA");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
-			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Xalapa");
-			objGrupoCampus.put("valor","CAMPUS-XALAPA");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
-			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Juan Pablo II");
-			objGrupoCampus.put("valor","CAMPUS-JP2");
-			lstGrupoCampus.add(objGrupoCampus);
-			
-			objGrupoCampus = new HashMap<String, String>();
-			objGrupoCampus.put("descripcion","Anáhuac Cordoba");
-			objGrupoCampus.put("valor","CAMPUS-CORDOBA");
-			lstGrupoCampus.add(objGrupoCampus);*/
-					
-			userLogged = context.getApiSession().getUserId();
-			
-			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-			for(UserMembership objUserMembership : lstUserMembership) {
-				for(CatCampus rowGrupo : lstCatCampus) {
-					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
-			
-			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false"
-			if(object.estatusSolicitud !=null) {
-				if(object.estatusSolicitud.equals("Solicitud en progreso")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en progreso')"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-				} else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-				}
-			}
-			
-			campus+=" AND ("
-			
-			for(Integer i=0; i<lstGrupo.size(); i++) {
-				String campusMiembro=lstGrupo.get(i);
-				campus+="campus.descripcion='"+campusMiembro+"'"
-				if(i==(lstGrupo.size()-1)) {
-					campus+=") "
-				}
-				else {
-					campus+=" OR "
-				}
-			}
-			
-			errorlog+="campus" + campus;
-				errorlog+="object.lstFiltro" +object.lstFiltro
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
-				closeCon = validarConexion();
-				String consulta = Statements.GET_SOLICITUDES_EN_PROCESO
-				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
-					errorlog+=", columna "+ filtro.get("columna")
-					switch(filtro.get("columna")) {
-						
-						case "NOMBRE":
-							errorlog+="NOMBRE"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "EMAIL":
-							errorlog+="EMAIL"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.correoelectronico) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "CURP":
-							errorlog+="CURP"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.curp) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "CAMPUS":
-							errorlog+="CAMPUS"
-							campus +=" AND LOWER(campus.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								campus+="=LOWER('[valor]')"
-							}else {
-								campus+="LIKE LOWER('%[valor]%')"
-							}
-							campus = campus.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PREPARATORIA":
-							errorlog+="PREPARATORIA"
-							bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								bachillerato+="=LOWER('[valor]')"
-							}else {
-								bachillerato+="LIKE LOWER('%[valor]%')"
-							}
-							bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PROGRAMA":
-							errorlog+="PROGRAMA"
-							programa +=" AND LOWER(gestionescolar.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								programa+="=LOWER('[valor]')"
-							}else {
-								programa+="LIKE LOWER('%[valor]%')"
-							}
-							programa = programa.replace("[valor]", filtro.get("valor"))
-							break;
-						case "INGRESO":
-							errorlog+="INGRESO"
-							ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								ingreso+="=LOWER('[valor]')"
-							}else {
-								ingreso+="LIKE LOWER('%[valor]%')"
-							}
-							ingreso = ingreso.replace("[valor]", filtro.get("valor"))
-							break;
-						case "ESTADO":
-							errorlog+="ESTADO"
-							estado +=" AND LOWER(estado.DESCRIPCION) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								estado+="=LOWER('[valor]')"
-							}else {
-								estado+="LIKE LOWER('%[valor]%')"
-							}
-							estado = estado.replace("[valor]", filtro.get("valor"))
-							break;
-						case "PROMEDIO":
-							errorlog+="PROMEDIO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.PROMEDIOGENERAL) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "ESTATUS":
-							errorlog+="ESTATUS"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.ESTATUSSOLICITUD) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "TELEFONO":
-							errorlog+="TELEFONO"
-							if(where.contains("WHERE")) {
-								where+= " AND "
-							}else {
-								where+= " WHERE "
-							}
-							where +=" LOWER(sda.telefonocelular) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								where+="=LOWER('[valor]')"
-							}else {
-								where+="LIKE LOWER('%[valor]%')"
-							}
-							where = where.replace("[valor]", filtro.get("valor"))
-							break;
-						case "TIPO":
-							errorlog+="TIPO"
-							tipoalumno +=" AND LOWER(da.TIPOALUMNO) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "IDBANNER":
-							errorlog+="IDBANNER"
-							tipoalumno +=" AND LOWER(da.idbanner) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "LISTAROJA":
-							errorlog+="LISTAROJA"
-							tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						case "RECHAZO":
-							errorlog+="RECHAZO"
-							tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
-							if(filtro.get("operador").equals("Igual a")) {
-								tipoalumno+="=LOWER('[valor]')"
-							}else {
-								tipoalumno+="LIKE LOWER('%[valor]%')"
-							}
-							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-							break;
-						default:
-						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-						//consulta=consulta.replace("[WHERE]", where);
-						
-						break;
-					}
-				}
-				switch(object.orderby) {
-					case "NOMBRE":
-					orderby+="sda.primernombre";
-					break;
-					case "EMAIL":
-					orderby+="sda.correoelectronico";
-					break;
-					case "CURP":
-					orderby+="sda.curp";
-					break;
-					case "CAMPUS":
-					orderby+="campus.DESCRIPCION"
-					break;
-					case "PREPARATORIA":
-					orderby+="prepa.DESCRIPCION"
-					break;
-					case "PROGRAMA":
-					orderby+="gestionescolar.DESCRIPCION"
-					break;
-					case "INGRESO":
-					orderby+="periodo.DESCRIPCION"
-					break;
-					case "ESTADO":
-					orderby +="estado.DESCRIPCION";
-					break;
-					case "PROMEDIO":
-					orderby+="sda.PROMEDIOGENERAL";
-					break;
-					case "ESTATUS":
-					orderby+="sda.ESTATUSSOLICITUD";
-					break;
-					case "TIPO":
-					orderby+="da.TIPOALUMNO";
-					break;
-					case "TELEFONO":
-					orderby+="sda.telefonocelular";
-					break;
-					case "IDBANNER":
-					orderby+="da.idbanner";
-					break;
-					case "LISTAROJA":
-					orderby+="da.observacionesListaRoja";
-					break;
-					case "RECHAZO":
-					orderby+="da.observacionesRechazo";
-					break;
-					default:
-					orderby+="sda.persistenceid"
-					break;
-				}
-				orderby+=" "+object.orientation;
-				consulta=consulta.replace("[CAMPUS]", campus)
-				consulta=consulta.replace("[PROGRAMA]", programa)
-				consulta=consulta.replace("[INGRESO]", ingreso)
-				consulta=consulta.replace("[ESTADO]", estado)
-				consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-				consulta=consulta.replace("[TIPOALUMNO]", tipoalumno)
-				consulta=consulta.replace("[WHERE]", where);
-				
-				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
-				rs= pstm.executeQuery()
-				if(rs.next()) {
-					resultado.setTotalRegistros(rs.getInt("registros"))
-				}
-				consulta=consulta.replace("[ORDERBY]", orderby)
-				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-				errorlog+=consulta
-				pstm = con.prepareStatement(consulta)
-				pstm.setInt(1, object.limit)
-				pstm.setInt(2, object.offset)
-				rs = pstm.executeQuery()
-				rows = new ArrayList<Map<String, Object>>();
-				ResultSetMetaData metaData = rs.getMetaData();
-				int columnCount = metaData.getColumnCount();
-				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
-							String encoded = "";
-							try {
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64", encoded);
-								}
-							}catch(Exception e) {
-								columns.put("fotografiab64", "");
-								errorlog+= ""+e.getMessage();
-							}
-						}
-					}
-	
-					rows.add(columns);
-				}
-				resultado.setSuccess(true)
-				
-				resultado.setError_info(errorlog);
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
@@ -2288,7 +2652,7 @@ class ListadoDAO {
 			if(object.lstFiltro != null) {
 				assert object.lstFiltro instanceof List;
 			}
-
+	
 			/*
 			objGrupoCampus = new HashMap<String, String>();
 			objGrupoCampus.put("descripcion","Anáhuac Cancún");
@@ -2363,7 +2727,7 @@ class ListadoDAO {
 			}*/
 			LOGGER.error "--------------------------------------------------------------------------------------------------"			
 			
-
+	
 			lstAllSolicitud = objSolicitudDeAdmisionDAO.find(0, 99999);
 			
 			for(SolicitudDeAdmision objAllSolicitud : lstAllSolicitud) {
@@ -2753,6 +3117,653 @@ class ListadoDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
+		}
+		return resultado
+	}
+	public Result selectSolicitudesEnProceso(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where ="", bachillerato="", campus="", programa="", ingreso="", estado ="", tipoalumno ="", orderby="ORDER BY ", errorlog=""
+		List<String> lstGrupo = new ArrayList<String>();
+		List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
+		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
+		
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			/*
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Cancún");
+			objGrupoCampus.put("valor","CAMPUS-CANCUN");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Mayab");
+			objGrupoCampus.put("valor","CAMPUS-MAYAB");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac México Norte");
+			objGrupoCampus.put("valor","CAMPUS-MNORTE");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac México Sur");
+			objGrupoCampus.put("valor","CAMPUS-MSUR");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Oaxaca");
+			objGrupoCampus.put("valor","CAMPUS-OAXACA");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Puebla");
+			objGrupoCampus.put("valor","CAMPUS-PUEBLA");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
+			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Xalapa");
+			objGrupoCampus.put("valor","CAMPUS-XALAPA");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Querétaro");
+			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Juan Pablo II");
+			objGrupoCampus.put("valor","CAMPUS-JP2");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Anáhuac Cordoba");
+			objGrupoCampus.put("valor","CAMPUS-CORDOBA");
+			lstGrupoCampus.add(objGrupoCampus);*/
+					
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			assert object instanceof Map;
+			where+=" WHERE sda.iseliminado=false"
+			if(object.campus != null){
+				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
+			}		
+//			if(object.estatusSolicitud !=null) {
+//				if(object.estatusSolicitud.equals("Solicitud en progreso")) {
+//					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en progreso')"
+//				} else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
+//					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
+//				} else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
+//					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
+//				}
+//			}
+			
+			//Cambio aplicado para que fusione los tres estatus en un solo reporte
+			if(object.estatusSolicitud !=null) {
+				where += " AND (sda.ESTATUSSOLICITUD='Solicitud en progreso' OR sda.ESTATUSSOLICITUD='Solicitud a modificar'  OR sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta' OR sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta') ";
+			}
+			
+			campus+=" AND ("
+			
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				campus+="campus.descripcion='"+campusMiembro+"'"
+				if(i==(lstGrupo.size()-1)) {
+					campus+=") "
+				}
+				else {
+					campus+=" OR "
+				}
+			}
+			
+			errorlog+="campus" + campus;
+				errorlog+="object.lstFiltro" +object.lstFiltro
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				String consulta = Statements.GET_SOLICITUDES_EN_PROCESO
+				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+					errorlog+=", columna "+ filtro.get("columna")
+					switch(filtro.get("columna")) {
+						
+						case "NOMBRE,EMAIL,CURP":
+							errorlog+="NOMBRE,EMAIL,CURP"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+						case "PROGRAMA,INGRESO,CAMPUS":
+							errorlog+="PROGRAMA,INGRESO,CAMPUS"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							break;
+							
+						case "PREPARATORIA,PROCEDENCIA,PROMEDIO":
+							errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +="( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+						case "FECHAULTIMAMODIFICACION":
+							errorlog+="FECHAULTIMAMODIFICACION"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(fechaultimamodificacion) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+						case "ULTIMA MODIFICACION":
+							errorlog+="FECHAULTIMAMODIFICACION"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(fechaultimamodificacion) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where +=" OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+							where+="LIKE LOWER('%[valor]%')";
+							
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+						case "NÚMERO DE SOLICITUD":
+                            errorlog+="SOLICITUD"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(CAST(sda.caseid AS varchar)) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+                            where = where.replace("[valor]", filtro.get("valor"))
+                            break;
+						case "NOMBRE":
+							errorlog+="NOMBRE"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "EMAIL":
+							errorlog+="EMAIL"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.correoelectronico) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CURP":
+							errorlog+="CURP"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.curp) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CAMPUS":
+							errorlog+="CAMPUS"
+							campus +=" AND LOWER(campus.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								campus+="=LOWER('[valor]')"
+							}else {
+								campus+="LIKE LOWER('%[valor]%')"
+							}
+							campus = campus.replace("[valor]", filtro.get("valor"))
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(campus.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PREPARATORIA":
+							errorlog+="PREPARATORIA"
+							bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								bachillerato+="=LOWER('[valor]')"
+							}else {
+								bachillerato+="LIKE LOWER('%[valor]%')"
+							}
+							bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PROGRAMA":
+							errorlog+="PROGRAMA"
+							programa +=" AND LOWER(gestionescolar.NOMBRE) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								programa+="=LOWER('[valor]')"
+							}else {
+								programa+="LIKE LOWER('%[valor]%')"
+							}
+							programa = programa.replace("[valor]", filtro.get("valor"))
+							break;
+						case "INGRESO":
+							errorlog+="INGRESO"
+							ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								ingreso+="=LOWER('[valor]')"
+							}else {
+								ingreso+="LIKE LOWER('%[valor]%')"
+							}
+							ingreso = ingreso.replace("[valor]", filtro.get("valor"))
+							
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(periodo.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "ESTADO":
+							errorlog+="ESTADO"
+							estado +=" AND LOWER(estado.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								estado+="=LOWER('[valor]')"
+							}else {
+								estado+="LIKE LOWER('%[valor]%')"
+							}
+							estado = estado.replace("[valor]", filtro.get("valor"))
+							
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(estado.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PROMEDIO":
+							errorlog+="PROMEDIO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.PROMEDIOGENERAL) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "ESTATUS":
+							errorlog+="ESTATUS"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.ESTATUSSOLICITUD) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "TELEFONO":
+							errorlog+="TELEFONO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.telefonocelular) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "TIPO":
+							errorlog+="TIPO"
+							tipoalumno +=" AND LOWER(da.TIPOALUMNO) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "IDBANNER":
+							errorlog+="IDBANNER"
+							tipoalumno +=" AND LOWER(da.idbanner) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "LISTAROJA":
+							errorlog+="LISTAROJA"
+							tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "RECHAZO":
+							errorlog+="RECHAZO"
+							tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						/*ARTURO INICIO=====================================================*/
+						case "CIUDAD":
+							errorlog += "CIUDAD"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " LOWER(sda.ciudad) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PAÍS":
+							errorlog += "PAÍS"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " LOWER(catPais.descripcion) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CAMPUS INGRESO":
+							errorlog += "CAMPUS INGRESO"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " LOWER(campusEstudio.descripcion) ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "FECHA DE ULTIMO MOVIMIENTO":
+							errorlog += "FECHA DE ULTIMO MOVIMIENTO"
+							if (where.contains("WHERE")) {
+								where += " AND "
+							} else {
+								where += " WHERE "
+							}
+							where += " to_char(sda.fechaultimamodificacion::timestamp, 'DD-MM-YYYY HH24:MI:SS') ";
+							if (filtro.get("operador").equals("Igual a")) {
+								where += "=LOWER('[valor]')"
+							} else {
+								where += "LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						/*ARTURO FIN========================================================*/
+						default:
+						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+						//consulta=consulta.replace("[WHERE]", where);
+						
+						break;
+					}
+				}
+				switch(object.orderby) {
+					case "FECHAULTIMAMODIFICACION":
+					orderby+="sda.fechaultimamodificacion";
+					break;
+					case "NOMBRE":
+					orderby+="sda.primernombre";
+					break;
+					case "EMAIL":
+					orderby+="sda.correoelectronico";
+					break;
+					case "CURP":
+					orderby+="sda.curp";
+					break;
+					case "CAMPUS":
+					orderby+="campus.DESCRIPCION"
+					break;
+					case "PREPARATORIA":
+					orderby+="prepa.DESCRIPCION"
+					break;
+					case "PROGRAMA":
+					orderby+="gestionescolar.DESCRIPCION"
+					break;
+					case "INGRESO":
+					orderby+="periodo.DESCRIPCION"
+					break;
+					case "ESTADO":
+					orderby +="estado.DESCRIPCION";
+					break;
+					case "PROMEDIO":
+					orderby+="sda.PROMEDIOGENERAL";
+					break;
+					case "ESTATUS":
+					orderby+="sda.ESTATUSSOLICITUD";
+					break;
+					case "TIPO":
+					orderby+="da.TIPOALUMNO";
+					break;
+					case "TELEFONO":
+					orderby+="sda.telefonocelular";
+					break;
+					case "IDBANNER":
+					orderby+="da.idbanner";
+					break;
+					case "SOLICITUD":
+					orderby+="sda.caseid::INTEGER";
+					break;
+					case "LISTAROJA":
+					orderby+="da.observacionesListaRoja";
+					break;
+					case "RECHAZO":
+					orderby+="da.observacionesRechazo";
+					break;
+					case "CIUDAD":
+					orderby+="sda.ciudad";
+					break;
+					case "PAÍS":
+					orderby+="catPais.descripcion";
+					break;
+					case "CAMPUS INGRESO":
+					orderby+="campusEstudio.descripcion";
+					break;
+					case "FECHA DE ULTIMO MOVIMIENTO":
+					orderby+="sda.fechaultimamodificacion";
+					break;
+					default:
+					orderby+="sda.persistenceid"
+					break;
+				}
+				orderby+=" "+object.orientation;
+				consulta=consulta.replace("[CAMPUS]", campus)
+				consulta=consulta.replace("[PROGRAMA]", programa)
+				consulta=consulta.replace("[INGRESO]", ingreso)
+				consulta=consulta.replace("[ESTADO]", estado)
+				consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+				consulta=consulta.replace("[TIPOALUMNO]", tipoalumno)
+				consulta=consulta.replace("[WHERE]", where);
+				//|123|
+//				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechaultimamodificacion, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				rs= pstm.executeQuery()
+				if(rs.next()) {
+					resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+				consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				errorlog+=consulta
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, object.limit)
+				pstm.setInt(2, object.offset)
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+							String encoded = "";
+							try {
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64", "");
+								errorlog+= ""+e.getMessage();
+							}
+						}
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setError_info(errorlog);
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado
 	}
@@ -3719,13 +4730,14 @@ class ListadoDAO {
 	
 	public Result getExcelFile(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
+		List<Object> lstParams;
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
 			Result dataResult = new Result();
 			int rowCount = 0;
-			List<Object> lstParams; 
+			
 			String type = object.type;
 			XSSFWorkbook workbook = new XSSFWorkbook();
 			XSSFSheet sheet = workbook.createSheet(type);
@@ -3735,7 +4747,7 @@ class ListadoDAO {
 			style.setFont(font);
 			
 			if(type.equals("nuevas_solicitudes")) {
-				dataResult = getNuevasSolicitudes(parameterP, parameterC, jsonData, context);
+				dataResult = selectAspirantesEnproceso(parameterP, parameterC, jsonData, context);
 				
 				if (dataResult.success) {
 					lstParams = dataResult.getData();
@@ -3749,6 +4761,7 @@ class ListadoDAO {
 				cellReporte.setCellStyle(style);
 				Cell cellTitle = titleRow.createCell(2);
 				cellTitle.setCellValue("NUEVAS SOLICITUDES");
+				
 				Cell cellFecha = titleRow.createCell(4);
 				cellFecha.setCellValue("Fecha:");
 				cellFecha.setCellStyle(style);
@@ -3757,7 +4770,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -3779,7 +4792,7 @@ class ListadoDAO {
 				
 				Row headersRow = sheet.createRow(++rowCount);
 				Cell header1 = headersRow.createCell(0);
-				header1.setCellValue("SOLICITUD");
+				header1.setCellValue("NÚMERO DE SOLICITUD");
 				header1.setCellStyle(style);
 				Cell header2 = headersRow.createCell(1);
 				header2.setCellValue("NOMBRE");
@@ -3788,52 +4801,219 @@ class ListadoDAO {
 				header3.setCellValue("EMAIL");
 				header3.setCellStyle(style);
 				Cell header4 = headersRow.createCell(3);
-				header4.setCellValue("TELÉFONO");
+				header4.setCellValue("CURP");
 				header4.setCellStyle(style);
-				Cell header5= headersRow.createCell(4);
-				header5.setCellValue("PREPARATORIA");
-				header5.setCellStyle(style);
-				Cell header6 = headersRow.createCell(5);
+				
+				Cell header10= headersRow.createCell(4);
+				header10.setCellValue("PROGRAMA");
+				header10.setCellStyle(style);
+				Cell header11 = headersRow.createCell(5);
+				header11.setCellValue("PERÍODO DE INGRESO");
+				header11.setCellStyle(style);
+				Cell header12 = headersRow.createCell(6);
+				header12.setCellValue("CAMPUS INGRESO");
+				header12.setCellStyle(style);
+				
+				
+				Cell header6 = headersRow.createCell(7);
 				header6.setCellValue("PROCEDENCIA");
 				header6.setCellStyle(style);
-				Cell header7 = headersRow.createCell(6);
+				Cell header5= headersRow.createCell(8);
+				header5.setCellValue("PREPARATORIA");
+				header5.setCellStyle(style);
+				Cell header7 = headersRow.createCell(9);
 				header7.setCellValue("PROMEDIO");
 				header7.setCellStyle(style);
-				Cell header8 = headersRow.createCell(7);
+				
+				Cell header8 = headersRow.createCell(10);
 				header8.setCellValue("FECHA DE ENVIO");
 				header8.setCellStyle(style);
+				Cell header9 = headersRow.createCell(11);
+				header9.setCellValue("FECHA ULTIMA MODIFICACIÓN");
+				header9.setCellStyle(style);
 				
-				SolicitudAdmisionCustom  solicitud = new SolicitudAdmisionCustom();
+				//SolicitudAdmisionCustom  solicitud = new SolicitudAdmisionCustom();
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				
 				for (int i = 0; i < lstParams.size(); ++i){
-					solicitud = new SolicitudAdmisionCustom();
-					solicitud = (SolicitudAdmisionCustom)lstParams.get(i);
+					//solicitud = new SolicitudAdmisionCustom();
+					//solicitud = (SolicitudAdmisionCustom)lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
 					Cell cell1 = row.createCell(0);
-					cell1.setCellValue(solicitud.getPersistenceId().toString());
+					cell1.setCellValue(lstParams[i].caseid);
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(
-						solicitud.getPrimerNombre() + " " + 
-						solicitud.getSegundoNombre() + " " +
-						solicitud.getApellidoPaterno() + " " +
-						solicitud.getApellidoMaterno()
+						lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre + " " +
+						lstParams[i].apellidopaterno + " " +
+						lstParams[i].apellidomaterno
 					);
 					Cell cell3 = row.createCell(2);
-					cell3.setCellValue(solicitud.getCorreoElectronico());
+					cell3.setCellValue(lstParams[i].correoelectronico);
 					Cell cell4 = row.createCell(3);
-					cell4.setCellValue(solicitud.getTelefono());
-					Cell cell5= row.createCell(4);
-					cell5.setCellValue(solicitud.getCatBachilleratos().getDescripcion());
-					Cell cell6 = row.createCell(5);
-					cell6.setCellValue(solicitud.getCatEstado().getDescripcion());
-					Cell cell7 = row.createCell(6);
-					cell7.setCellValue(solicitud.getPromedioGeneral());
-					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(solicitud.getUpdateDate());
+					cell4.setCellValue(lstParams[i].curp);
+					
+					Cell cell10= row.createCell(4);
+					cell10.setCellValue(lstParams[i].licenciatura);
+					Cell cell11 = row.createCell(5);
+					cell11.setCellValue(lstParams[i].ingreso);
+					Cell cell12 = row.createCell(6);
+					cell12.setCellValue(lstParams[i].campus);
+					
+					
+					Cell cell5= row.createCell(7);
+					cell5.setCellValue(lstParams[i].preparatoria);
+					Cell cell6 = row.createCell(8);
+					cell6.setCellValue(lstParams[i].estado);
+					Cell cell7 = row.createCell(9);
+					cell7.setCellValue(lstParams[i].promediogeneral);
+					
+					Cell cell8 = row.createCell(10);
+					if(lstParams[i].fechasolicitudenviada != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechasolicitudenviada.toString())
+						cell8.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell8.setCellValue("");
+					}
+					
+					Cell cell9 = row.createCell(11);
+					if(lstParams[i].fechaultimamodificacion != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechaultimamodificacion.toString())
+						cell9.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell9.setCellValue("");
+					}
+					
+				}
+			} else if (type.equals("solicitudes_progreso")) {
+				dataResult = selectSolicitudesEnProceso(parameterP, parameterC, jsonData, context);
+				
+				if (dataResult.success) {
+					lstParams = dataResult.getData();
+				} else {
+					throw new Exception("No encontro datos");
+				}
+				Row titleRow = sheet.createRow(++rowCount);
+				Cell cellReporte = titleRow.createCell(1);
+				cellReporte.setCellValue("Reporte:");
+				cellReporte.setCellStyle(style);
+				Cell cellTitle = titleRow.createCell(2);
+				cellTitle.setCellValue("SOLICITUDES EN PROCESO");
+				Cell cellFecha = titleRow.createCell(4);
+				cellFecha.setCellValue("Fecha:");
+				cellFecha.setCellStyle(style);
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.HOUR_OF_DAY, -7);
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				/*Date date = new Date();
+				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
+				formatter.setTimeZone(timeZone);
+				String sDate = formatter.format(date);*/
+				String sDate = formatter.format(date);
+				Cell cellFechaData = titleRow.createCell(5);
+				cellFechaData.setCellValue(sDate);
+				Row blank = sheet.createRow(++rowCount);
+				Cell cellusuario = blank.createCell(4);
+				cellusuario.setCellValue("Usuario:");
+				cellusuario.setCellStyle(style);
+				Cell cellusuarioData = blank.createCell(5);
+				cellusuarioData.setCellValue(object.usuario);
+				Row espacio = sheet.createRow(++rowCount);
+//				Cell headerprbs = espacio.createCell(10);
+//				headerprbs.setCellValue("SOLICITUDES EN PROGRESO");
+//                headerprbs.setCellStyle(style);
+				Row headersRow = sheet.createRow(++rowCount);
+				Cell header0 = headersRow.createCell(0);
+				header0.setCellValue("NÚMERO DE SOLICITUD");
+				header0.setCellStyle(style);
+				Cell header1 = headersRow.createCell(1);
+				header1.setCellValue("NOMBRE");
+				header1.setCellStyle(style);
+				Cell header2 = headersRow.createCell(2);
+				header2.setCellValue("EMAIL");
+				header2.setCellStyle(style);
+				Cell header3 = headersRow.createCell(3);
+				header3.setCellValue("CURP");
+				header3.setCellStyle(style);
+				Cell header4 = headersRow.createCell(4);
+				header4.setCellValue("PROGRAMA");
+				header4.setCellStyle(style);
+				Cell header5= headersRow.createCell(5);
+				header5.setCellValue("PERÍODO DE INGRESO");
+				header5.setCellStyle(style);
+				Cell header6 = headersRow.createCell(6);
+				header6.setCellValue("CAMPUS INGRESO");
+				header6.setCellStyle(style);
+				Cell header7 = headersRow.createCell(7);
+				header7.setCellValue("PROCEDENCIA");
+				header7.setCellStyle(style);
+				Cell header8 = headersRow.createCell(8);
+				header8.setCellValue("PREPARATORIA");
+				header8.setCellStyle(style);
+				Cell header9 = headersRow.createCell(9);
+				header9.setCellValue("PROMEDIO");
+                header9.setCellStyle(style);
+				Cell header10 = headersRow.createCell(10);
+				header10.setCellValue("ESTATUS");
+				header10.setCellStyle(style);
+				Cell header11 = headersRow.createCell(11);
+				header11.setCellValue("FECHA ULTIMA MODIFICACIÓN");
+				header11.setCellStyle(style);
+				//FORMATO DE LAS FECHAS
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
+				for (int i = 0; i < lstParams.size(); ++i){
+					//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+					Row row = sheet.createRow(++rowCount);
+					Cell cell0 = row.createCell(0);
+                    cell0.setCellValue(lstParams[i].caseid);
+					
+                    Cell cell1 = row.createCell(1);
+					cell1.setCellValue(
+                        lstParams[i].primernombre+" "+
+                        lstParams[i].segundonombre+" "+
+                        lstParams[i].apellidopaterno+" "+
+                        lstParams[i].apellidomaterno
+                    );
+					
+					Cell cell2 = row.createCell(2);
+                    cell2.setCellValue(lstParams[i].correoelectronico);
+					Cell cell3 = row.createCell(3);
+                    cell3.setCellValue(lstParams[i].curp);
+                    Cell cell4 = row.createCell(4);
+                    cell4.setCellValue(lstParams[i].licenciatura);
+					Cell cell5= row.createCell(5);
+                    cell5.setCellValue(lstParams[i].ingreso);
+                    Cell cell6= row.createCell(6);
+                    cell6.setCellValue( lstParams[i].campus);
+					Cell cell7 = row.createCell(7);
+                    cell7.setCellValue( lstParams[i].estado);
+					Cell cell8 = row.createCell(8);
+                    cell8.setCellValue( lstParams[i].preparatoria);
+                    Cell cell9 = row.createCell(9);
+                    cell9.setCellValue( lstParams[i].promediogeneral);
+					Cell cell10 = row.createCell(10);
+                    cell10.setCellValue( lstParams[i].estatussolicitud);
+					Cell cell11 = row.createCell(11);
+					
+					if(lstParams[i].fechaultimamodificacion != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechaultimamodificacion.toString())
+						cell11.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell11.setCellValue("");
+					}
+					
+					//Cell cell11 = row.createCell(10);
+					//cell11.setCellValue( lstParams[i].fechaUltimaModificacion);
 				}
 			} else if (type.equals("aspirantes_proceso")) {
-				dataResult = getAspirantesProceso(parameterP, parameterC, jsonData, context);
-				
+				//dataResult = getAspirantesProceso(parameterP, parameterC, jsonData, context);
+				dataResult = selectAspirantesEnproceso(parameterP, parameterC, jsonData, context);
 				if (dataResult.success) {
 					lstParams = dataResult.getData();
 				} else {
@@ -3853,7 +5033,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -3874,6 +5054,179 @@ class ListadoDAO {
 				Row espacio = sheet.createRow(++rowCount);
 				
 				Row headersRow = sheet.createRow(++rowCount);
+				
+				Cell header0 = headersRow.createCell(0);
+				header0.setCellValue("ID BANNER");
+				header0.setCellStyle(style);
+				
+				Cell header1 = headersRow.createCell(1);
+				header1.setCellValue("NOMBRE");
+				header1.setCellStyle(style);
+				Cell header2 = headersRow.createCell(2);
+				header2.setCellValue("EMAIL");
+				header2.setCellStyle(style);
+				Cell header3 = headersRow.createCell(3);
+				header3.setCellValue("CURP");
+				header3.setCellStyle(style);
+				Cell header4 = headersRow.createCell(4);
+				header4.setCellValue("CAMPUS");
+				header4.setCellStyle(style);
+				Cell header5= headersRow.createCell(5);
+				header5.setCellValue("PROGRAMA");
+				header5.setCellStyle(style);
+				Cell header6 = headersRow.createCell(6);
+				header6.setCellValue("INGRESO");
+				header6.setCellStyle(style);
+				Cell header7 = headersRow.createCell(7);
+				header7.setCellValue("PROCEDENCIA");
+				header7.setCellStyle(style);
+				Cell header8 = headersRow.createCell(8);
+				header8.setCellValue("PREPARATORIA");
+				header8.setCellStyle(style);
+				Cell header9 = headersRow.createCell(9);
+				header9.setCellValue("PROMEDIO");
+				header9.setCellStyle(style);
+				
+				Cell header10 = headersRow.createCell(10);
+				header10.setCellValue("ESTATUS");
+				header10.setCellStyle(style);
+				
+				Cell header13 = headersRow.createCell(11);
+				header13.setCellValue("RESIDENCIA");
+				header13.setCellStyle(style);
+				
+				Cell header14 = headersRow.createCell(12);
+				header14.setCellValue("TIPO ADMISIÓN");
+				header14.setCellStyle(style);
+				
+				
+				Cell header15 = headersRow.createCell(13);
+				header15.setCellValue("MISMO CAMPUS O TRANSFERENCIA");
+				header15.setCellStyle(style);
+				
+				Cell header11 = headersRow.createCell(14);
+				header11.setCellValue("FECHA SOLICITUD ENVIADA");
+				header11.setCellStyle(style);
+				
+				Cell header12 = headersRow.createCell(15);
+				header12.setCellValue("FECHA ULTIMA MODIFICACIÓN");
+				header12.setCellStyle(style);
+				
+				//FORMATO DE LAS FECHAS
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
+				for (int i = 0; i < lstParams.size(); ++i){
+					//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+					Row row = sheet.createRow(++rowCount);
+					
+					Cell cell0 = row.createCell(0);
+					cell0.setCellValue(lstParams[i].idbanner);
+                    //Nombre
+                    Cell cell1 = row.createCell(1);
+					cell1.setCellValue(
+						lstParams[i].primernombre+" "+
+                        lstParams[i].segundonombre+" "+
+                        lstParams[i].apellidopaterno+" "+
+                        lstParams[i].apellidomaterno
+					);
+                    //Correo Electronico
+					Cell cell2 = row.createCell(2);
+					cell2.setCellValue(lstParams[i].correoelectronico );
+                    //CURP
+					Cell cell3 = row.createCell(3);
+					cell3.setCellValue(lstParams[i].curp);
+                    //Campus
+					Cell cell4 = row.createCell(4);
+					cell4.setCellValue(lstParams[i].campus);
+                    //PROGRAMA
+					Cell cell5= row.createCell(5);
+					cell5.setCellValue(lstParams[i].licenciatura);
+                    //Ingreso
+                    Cell cell6= row.createCell(6);
+					cell6.setCellValue(lstParams[i].ingreso);
+                    //Estado
+					Cell cell7 = row.createCell(7);
+					cell7.setCellValue(lstParams[i].estado);
+                    //PREPARATORIA
+					Cell cell8 = row.createCell(8);
+					cell8.setCellValue(lstParams[i].preparatoria);
+                    //PROMEDIO
+                    Cell cell9 = row.createCell(9);
+					cell9.setCellValue(lstParams[i].promediogeneral);                   
+                    //ESTATUS
+					Cell cell10 = row.createCell(10);
+					cell10.setCellValue(lstParams[i].estatussolicitud);
+                    //TIPO
+					//Cell cell11 = row.createCell(11);
+					//cell11.setCellValue(lstParams[i].getObjDetalleSolicitud() == null ? "" : lstParams[i].getObjDetalleSolicitud().getTipoAlumno());
+					
+					Cell cell13 = row.createCell(11);
+					cell13.setCellValue(lstParams[i].residensia);
+					Cell cell14 = row.createCell(12);
+					cell14.setCellValue(lstParams[i].tipoadmision);
+					Cell cell15 = row.createCell(13);
+				    String estatus = (lstParams[i].campus.equals(lstParams[i].campussede)) ? "MISMO CAMPUS" : "TRANSFERENCIA" ;
+					cell15.setCellValue(estatus);
+					
+					Cell cell11 = row.createCell(14);
+					if(lstParams[i].fechasolicitudenviada != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechasolicitudenviada.toString())
+						cell11.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell11.setCellValue("");
+					}
+					
+					//ULTIMA MODIFICACION
+                    Cell cell12 = row.createCell(15);
+					if(lstParams[i].fechaultimamodificacion != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechaultimamodificacion.toString())
+						cell12.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell12.setCellValue("");
+					}
+					//cell12.setCellValue(solicitud.getUpdateDate());
+				}
+			}else if (type.equals("aspirantes_proceso_fechas")) {
+				dataResult = selectAspirantesEnprocesoFechas(parameterP, parameterC, jsonData, context);
+				
+				if (dataResult.success) {
+					lstParams = dataResult.getData();
+				} else {
+					throw new Exception("No encontro datos");
+				}
+				Row titleRow = sheet.createRow(++rowCount);
+				Cell cellReporte = titleRow.createCell(1);
+				cellReporte.setCellValue("Reporte:");
+				cellReporte.setCellStyle(style);
+				Cell cellTitle = titleRow.createCell(2);
+				cellTitle.setCellValue("ASPITANTES EN PROCESO");
+				Cell cellFecha = titleRow.createCell(4);
+				cellFecha.setCellValue("Fecha:");
+				cellFecha.setCellStyle(style);
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.HOUR_OF_DAY, -7);
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				/*Date date = new Date();
+				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
+				formatter.setTimeZone(timeZone);
+				String sDate = formatter.format(date);*/
+				String sDate = formatter.format(date);
+				Cell cellFechaData = titleRow.createCell(5);
+				cellFechaData.setCellValue(sDate);
+				Row blank = sheet.createRow(++rowCount);
+				Cell cellusuario = blank.createCell(4);
+				cellusuario.setCellValue("Usuario:");
+				cellusuario.setCellStyle(style);
+				Cell cellusuarioData = blank.createCell(5);
+				cellusuarioData.setCellValue(object.usuario);
+				Row espacio = sheet.createRow(++rowCount);
+				Cell headerprbs = espacio.createCell(10);
+				headerprbs.setCellValue("PRUEBAS Y HORAS DE EXAMEN");
+                headerprbs.setCellStyle(style);
+				Row headersRow = sheet.createRow(++rowCount);
 				Cell header1 = headersRow.createCell(0);
 				header1.setCellValue("NOMBRE");
 				header1.setCellStyle(style);
@@ -3890,57 +5243,114 @@ class ListadoDAO {
 				header5.setCellValue("PROGRAMA");
 				header5.setCellStyle(style);
 				Cell header6 = headersRow.createCell(5);
-				header6.setCellValue("INGRESO ESTADO");
+				header6.setCellValue("INGRESO");
 				header6.setCellStyle(style);
 				Cell header7 = headersRow.createCell(6);
-				header7.setCellValue("PREPARATORIA");
+				header7.setCellValue("ESTADO");
 				header7.setCellStyle(style);
 				Cell header8 = headersRow.createCell(7);
-				header8.setCellValue("PROMEDIO");
+				header8.setCellValue("PREPARATORIA");
 				header8.setCellStyle(style);
 				Cell header9 = headersRow.createCell(8);
-				header9.setCellValue("ESTATUS");
-				header9.setCellStyle(style);
-				Cell header10 = headersRow.createCell(9);
-				header10.setCellValue("TIPO");
-				header10.setCellStyle(style);
-				Cell header11 = headersRow.createCell(7);
-				header11.setCellValue("ÚLTIMA MODIFICACION");
-				header11.setCellStyle(style);
-				
+				header9.setCellValue("PROMEDIO");
+                header9.setCellStyle(style);
+                Cell header10 = headersRow.createCell(9);
+				header10.setCellValue("EXAMEN DE APTITUDES Y CONOCIMIENTOS");
+                header10.setCellStyle(style);
+                Cell header11 = headersRow.createCell(10);
+				header11.setCellValue("ENTREVISTA");
+                header11.setCellStyle(style);
+                Cell header12 = headersRow.createCell(11);
+				header12.setCellValue("EXAMEN PSICOMÉTRICO");
+                header12.setCellStyle(style);
+				Cell header13 = headersRow.createCell(12);
+				header13.setCellValue("ESTATUS");
+				header13.setCellStyle(style);
+				Cell header14 = headersRow.createCell(13);
+				header14.setCellValue("TIPO");
+				header14.setCellStyle(style);
 				for (int i = 0; i < lstParams.size(); ++i){
-					SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+					//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
-					Cell cell1 = row.createCell(0);
+                    //Nombre
+                    Cell cell1 = row.createCell(0);
 					cell1.setCellValue(
-						solicitud.getPrimerNombre() + " " +
-						solicitud.getSegundoNombre() + " " +
-						solicitud.getApellidoPaterno() + " " +
-						solicitud.getApellidoMaterno()
-					);
+                        lstParams[i].primernombre+" "+
+                        lstParams[i].segundonombre+" "+
+                        lstParams[i].apellidopaterno+" "+
+                        lstParams[i].apellidomaterno
+						// solicitud.getPrimerNombre() + " " +
+						// solicitud.getSegundoNombre() + " " +
+						// solicitud.getApellidoPaterno() + " " +
+						// solicitud.getApellidoMaterno()
+                    );
+                    //Correo Electronico
 					Cell cell2 = row.createCell(1);
-					cell2.setCellValue(solicitud.getCorreoElectronico());
+                    cell2.setCellValue(lstParams[i].correoelectronico);
+                    //cell2.setCellValue(solicitud.getCorreoElectronico());
+                    //CURP
 					Cell cell3 = row.createCell(2);
-					cell3.setCellValue(solicitud.getCurp());
-					Cell cell4 = row.createCell(3);
-					cell4.setCellValue(solicitud.getCatCampus().getDescripcion());
+                    cell3.setCellValue(lstParams[i].curp);
+                    //cell3.setCellValue(solicitud.getCurp());
+					//Campus
+                    Cell cell4 = row.createCell(3);
+                    cell4.setCellValue(lstParams[i].campus);
+                    //cell4.setCellValue(solicitud.getCatCampus().getDescripcion());
+                     //PROGRAMA
 					Cell cell5= row.createCell(4);
-					cell5.setCellValue(solicitud.getCatLicenciatura().getDescripcion());
-					Cell cell6 = row.createCell(5);
-					cell6.setCellValue(solicitud.getCatEstado().getDescripcion());
+                    cell5.setCellValue(lstParams[i].licenciatura);
+                    //cell5.setCellValue(solicitud.getObjCatGestionEscolar().getNombre());
+                     //Ingreso
+                    Cell cell6= row.createCell(5);
+                    cell6.setCellValue( lstParams[i].ingreso);
+                    //cell6.setCellValue(solicitud.getCatPeriodo().getDescripcion());
+                    //Estado
 					Cell cell7 = row.createCell(6);
-					cell7.setCellValue(solicitud.getCatBachilleratos().getDescripcion());
+                    cell7.setCellValue( lstParams[i].estado);
+                    //cell7.setCellValue(solicitud.getCatEstado().getDescripcion());
+                    //PREPARATORIA
 					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(solicitud.getPromedioGeneral());
-					Cell cell9 = row.createCell(8);
-					cell9.setCellValue(solicitud.getEstatusSolicitud());
-					Cell cell10 = row.createCell(9);
-					cell10.setCellValue(solicitud.getObjDetalleSolicitud() == null ? "" : solicitud.getObjDetalleSolicitud().getTipoAlumno());
-					Cell cell11 = row.createCell(10);
-					cell11.setCellValue(solicitud.getUpdateDate());
+                    cell8.setCellValue( lstParams[i].preparatoria);
+                    //cell8.setCellValue(solicitud.getCatBachilleratos().getDescripcion());
+                    //PROMEDIO
+                    Cell cell9 = row.createCell(8);
+                    cell9.setCellValue( lstParams[i].promediogeneral);       
+                    //cell9.setCellValue(solicitud.getPromedioGeneral());       
+                    //FECHAS
+                    if(lstParams[i].fechasexamenes==null || lstParams[i].fechasexamenes =="" || lstParams[i].fechasexamenes ==" "){
+                        Cell cell10 = row.createCell(9);
+                        cell10.setCellValue("SIN PROGRAMAR");  
+                        Cell cell11 = row.createCell(10);
+                        cell11.setCellValue("SIN PROGRAMAR"); 
+                        Cell cell12 = row.createCell(11);
+                        cell12.setCellValue("SIN PROGRAMAR");      
+                    }else{
+                        String[] fechas =lstParams[i].fechasexamenes.split(",");
+                        String fechas1 = fechas[0];
+                        String fechas2 = fechas[1];
+                        String fechas3 = fechas[2];
+                        Cell cell10 = row.createCell(9);
+                        cell10.setCellValue(fechas2);  
+                        Cell cell11 = row.createCell(10);
+                        cell11.setCellValue(fechas1); 
+                        Cell cell12 = row.createCell(11);
+                        cell12.setCellValue(fechas3);      
+                       
+                    }
+					// FIN FECHAS
+                    //ESTATUS
+					Cell cell13 = row.createCell(12);
+                    cell13.setCellValue( lstParams[i].estatussolicitud);
+                    //cell10.setCellValue(solicitud.getEstatusSolicitud());
+                    //TIPO
+					Cell cell14 = row.createCell(13);
+                    cell14.setCellValue( lstParams[i].tipoalumno);
+                    //cell11.setCellValue(solicitud.getObjDetalleSolicitud() == null ? "" : solicitud.getObjDetalleSolicitud().getTipoAlumno());
+
 				}
-			} else if (type.equals("lista_roja") || type.equals("aspirantes_rechazados")) {
-				dataResult = getAspirantesByStatus(parameterP, parameterC, jsonData, context);
+			}  else if (type.equals("lista_roja") || type.equals("aspirantes_rechazados")) {
+				//dataResult = getAspirantesByStatus(parameterP, parameterC, jsonData, context);
+				dataResult = selectAspirantesEnproceso(parameterP, parameterC, jsonData, context);
 				
 				if (dataResult.success) {
 					lstParams = dataResult.getData();
@@ -3963,7 +5373,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -3985,7 +5395,7 @@ class ListadoDAO {
 				
 				Row headersRow = sheet.createRow(++rowCount);
 				Cell header1 = headersRow.createCell(0);
-				header1.setCellValue("SOLICITUD");
+				header1.setCellValue("NÚMERO DE SOLICITUD");
 				header1.setCellStyle(style);
 				Cell header2 = headersRow.createCell(1);
 				header2.setCellValue("NOMBRE");
@@ -3994,7 +5404,7 @@ class ListadoDAO {
 				header3.setCellValue("EMAIL");
 				header3.setCellStyle(style);
 				Cell header4 = headersRow.createCell(3);
-				header4.setCellValue("TELÉFONO");
+				header4.setCellValue("CURP");
 				header4.setCellStyle(style);
 				Cell header5= headersRow.createCell(4);
 				header5.setCellValue("CAMPUS");
@@ -4011,36 +5421,53 @@ class ListadoDAO {
 				Cell header9 = headersRow.createCell(8);
 				header9.setCellValue(type.equals("lista_roja") ? "MOTIVO DE LISTA ROJA" : "MOTIVO DE RECHAZO");
 				header9.setCellStyle(style);
-				SolicitudAdmisionCustom  solicitud = new SolicitudAdmisionCustom();
+				Cell header10 = headersRow.createCell(9);
+				header10.setCellValue("FECHA ULTIMA MODIFICACIÓN");
+				header10.setCellStyle(style);
+				
+				//FORMATO DE LAS FECHAS
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
+				//SolicitudAdmisionCustom  solicitud = new SolicitudAdmisionCustom();
 				
 				for (int i = 0; i < lstParams.size(); ++i){
-					solicitud = new SolicitudAdmisionCustom();
-					solicitud = (SolicitudAdmisionCustom)lstParams.get(i);
+					//solicitud = new SolicitudAdmisionCustom();
+					//solicitud = (SolicitudAdmisionCustom)lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
 					Cell cell1 = row.createCell(0);
-					cell1.setCellValue(solicitud.getPersistenceId().toString());
+					cell1.setCellValue(lstParams[i].caseid);
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(
-						solicitud.getPrimerNombre() + " " +
-						solicitud.getSegundoNombre() + " " +
-						solicitud.getApellidoPaterno() + " " +
-						solicitud.getApellidoMaterno()
+						lstParams[i].primernombre+" "+
+                        lstParams[i].segundonombre+" "+
+                        lstParams[i].apellidopaterno+" "+
+                        lstParams[i].apellidomaterno
 					);
 					Cell cell3 = row.createCell(2);
-					cell3.setCellValue(solicitud.getCorreoElectronico());
+					cell3.setCellValue(lstParams[i].correoelectronico);
 					Cell cell4 = row.createCell(3);
-					cell4.setCellValue(solicitud.getTelefono());
+					cell4.setCellValue(lstParams[i].curp);
 					Cell cell5= row.createCell(4);
-					cell5.setCellValue(solicitud.getCatCampus().getDescripcion());
+					cell5.setCellValue(lstParams[i].campus);
 					Cell cell6 = row.createCell(5);
-					cell6.setCellValue(solicitud.getCatLicenciatura().getDescripcion());
+					cell6.setCellValue(lstParams[i].licenciatura);
 					Cell cell7 = row.createCell(6);
-					cell7.setCellValue(solicitud.getPromedioGeneral());
+					cell7.setCellValue(lstParams[i].ingreso);
 					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(solicitud.getPromedioGeneral());
+					cell8.setCellValue(lstParams[i].promediogeneral);
 					Cell cell9 = row.createCell(8);
-					String motivo = type.equals("lista_roja") ? solicitud.getObjDetalleSolicitud().getObservacionesListaRoja() : solicitud.getObjDetalleSolicitud().getObservacionesRechazo();
+					String motivo = type.equals("lista_roja") ? lstParams[i].observacioneslistaroja : lstParams[i].observacionesrechazo;
 					cell9.setCellValue(motivo);
+					Cell cell10 = row.createCell(9);
+					if(lstParams[i].fechaultimamodificacion != null){
+						fechaCreacion = dfSalida.parse(lstParams[i].fechaultimamodificacion.toString())
+						cell10.setCellValue(dformat.format(fechaCreacion));
+					}else{
+						cell10.setCellValue("");
+					}
+					//cell10.setCellValue(motivo);
 				}
 			} else if(type.equals("solicitudes_en_progreso")) {
 				dataResult = getNuevasSolicitudes(parameterP, parameterC, jsonData, context);
@@ -4065,7 +5492,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -4121,7 +5548,7 @@ class ListadoDAO {
 			}
 			
 			
-			for(int i=0; i<=rowCount+3; ++i) {
+			for(int i=0; i<=(rowCount+10); ++i) {
 				sheet.autoSizeColumn(i);
 			}
 			FileOutputStream outputStream = new FileOutputStream("Report.xls");
@@ -4131,9 +5558,11 @@ class ListadoDAO {
 			lstResultado.add(encodeFileToBase64Binary("Report.xls"));
 			resultado.setSuccess(true);
 			resultado.setData(lstResultado);
+			resultado.setError_info(jsonData)
 					
 		} catch (Exception e) {
 			e.printStackTrace();
+			resultado.setError_info(lstParams[0].toString());
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
@@ -4179,7 +5608,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 				Chunk glue = new Chunk(new VerticalPositionMark());
@@ -4267,7 +5696,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 				Chunk glue = new Chunk(new VerticalPositionMark());
@@ -4368,7 +5797,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 				Chunk glue = new Chunk(new VerticalPositionMark());
@@ -4455,7 +5884,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 				Chunk glue = new Chunk(new VerticalPositionMark());
@@ -4571,7 +6000,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -4592,35 +6021,43 @@ class ListadoDAO {
 				Row espacio = sheet.createRow(++rowCount);
 				
 				Row headersRow = sheet.createRow(++rowCount);
-				Cell header1 = headersRow.createCell(0);
+				Cell header0 = headersRow.createCell(0);
+				header0.setCellValue("CLAVE");
+				header0.setCellStyle(style);
+				
+				Cell header1 = headersRow.createCell(1);
 				header1.setCellValue("NOMBRE LICENCIATURA");
 				header1.setCellStyle(style);
-				Cell header2 = headersRow.createCell(1);
+				Cell header2 = headersRow.createCell(2);
 				header2.setCellValue("LIGA");
 				header2.setCellStyle(style);
-				Cell header3 = headersRow.createCell(2);
+				Cell header3 = headersRow.createCell(3);
 				header3.setCellValue("DESCRIPCION DE LA CARRERA");
 				header3.setCellStyle(style);
-				Cell header4 = headersRow.createCell(3);
-				header4.setCellValue("INSCRIPCION DE ENERO");
+				Cell header4 = headersRow.createCell(4);
+				header4.setCellValue("INSCRIPCIÓN DE ENERO");
 				header4.setCellStyle(style);
-				Cell header5= headersRow.createCell(4);
-				header5.setCellValue("INSCRIPCION DE AGOSTO");
+				Cell header5= headersRow.createCell(5);
+				header5.setCellValue("INSCRIPCIÓN DE MAYO");
 				header5.setCellStyle(style);
-				Cell header6= headersRow.createCell(5);
-				header6.setCellValue("PERIODOS");
+				Cell header6= headersRow.createCell(6);
+				header6.setCellValue("INSCRIPCIÓN DE AGOSTO");
 				header6.setCellStyle(style);
 				
-				Cell header7= headersRow.createCell(6);
-				header7.setCellValue("PROPEDEUTICO");
+				Cell header7= headersRow.createCell(7);
+				header7.setCellValue("INSCRIPCIÓN DE SEPTIEMBRE");
 				header7.setCellStyle(style);
-				Cell header8= headersRow.createCell(7);
+				Cell header8= headersRow.createCell(8);
 				header8.setCellValue("PROG PARCIAL");
 				header8.setCellStyle(style);
-				Cell header9= headersRow.createCell(8);
-				header9.setCellValue("CUATRIMESTRAL");
-				
+				Cell header9= headersRow.createCell(9);
+				header9.setCellValue("TIPO LICENCIATURA");
 				header9.setCellStyle(style);
+				
+				Cell header10= headersRow.createCell(10);
+				header10.setCellValue("TIPO CENTRO ESTUDIO");
+				header10.setCellStyle(style);
+				
 				
 				headersRow.setRowStyle(style);
 				
@@ -4630,35 +6067,31 @@ class ListadoDAO {
 					Escolar = new com.anahuac.catalogos.CatGestionEscolar();
 					Escolar = (com.anahuac.catalogos.CatGestionEscolar)lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
-					Cell cell1 = row.createCell(0);
+					Cell cell0 = row.createCell(0);
+					cell0.setCellValue(Escolar.getClave().toString());
+					Cell cell1 = row.createCell(1);
 					cell1.setCellValue(Escolar.getNombre().toString());
-					Cell cell2 = row.createCell(1);
+					Cell cell2 = row.createCell(2);
 					cell2.setCellValue(Escolar.getEnlace().toString());
-					Cell cell3 = row.createCell(2);
+					Cell cell3 = row.createCell(3);
 					cell3.setCellValue(Escolar.getDescripcion());
-					Cell cell4 = row.createCell(3);
+					Cell cell4 = row.createCell(4);
 					cell4.setCellValue("\$"+Escolar.getInscripcionenero());
-					Cell cell5= row.createCell(4);
-					cell5.setCellValue("\$"+Escolar.getInscripcionagosto());
-					com.anahuac.catalogos.CatPeriodo lstP = new com.anahuac.catalogos.CatPeriodo();
-					def periodos = "";
-					for(int f=0; f<Escolar.getPeriodoDisponible().size(); f++) {
-						lstP = new com.anahuac.catalogos.CatPeriodo();
-						lstP = (com.anahuac.catalogos.CatPeriodo)Escolar.getPeriodoDisponible().get(f);
-						periodos +=lstP.getDescripcion() + ",";
-					}
-					Cell cell6= row.createCell(5);
-					cell6.setCellValue(periodos);
+					Cell cell5= row.createCell(5);
+					cell5.setCellValue("\$"+Escolar.getInscripcionMayo());
+
+					Cell cell6= row.createCell(6);
+					cell6.setCellValue("\$"+Escolar.getInscripcionagosto());
 					
-					String isPropedeutico = Escolar.isPropedeutico() ? "Sí" : "No";
-					Cell cell7= row.createCell(6);
-					cell7.setCellValue(isPropedeutico);
-					Cell cell8= row.createCell(7);
+					Cell cell7= row.createCell(7);
+					cell7.setCellValue("\$"+Escolar.getInscripcionSeptiembre());
+					Cell cell8= row.createCell(8);
 					String isProgramaParcial = Escolar.isProgramaparcial() ? "Sí" : "No";
 					cell8.setCellValue(isProgramaParcial);
-					String isCuatrimestral = Escolar.isMatematicas()  ? "Sí" : "No";
-					Cell cell9= row.createCell(8);
-					cell9.setCellValue(isCuatrimestral);
+					Cell cell9= row.createCell(9);
+					cell9.setCellValue(Escolar.getTipoLicenciatura().toString());
+					Cell cell10= row.createCell(10);
+					cell10.setCellValue(Escolar.getTipoCentroEstudio().toString());
 				}
 			}else if(type.equals("bachilleratos")) {
 				dataResult = getBachilleratos(parameterP, parameterC, jsonData, context);
@@ -4681,7 +6114,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -4757,7 +6190,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -4820,13 +6253,13 @@ class ListadoDAO {
 				} else {
 					throw new Exception("No encontro datos");
 				}
-				def campus= (object.campus == "CAMPUS-MNORTE"?"Anáhuac México Norte":object.campus == "CAMPUS-MSUR"?"Anáhuac México Sur":object.campus == "CAMPUS-MAYAB"?"Anáhuac Merida":object.campus =="CAMPUS-XALAPA"?"Anáhuac Xalapa":object.campus =="CAMPUS-CORDOBA"?"Anáhuac Cordoba":object.campus =="CAMPUS-CANCUN"?"Anáhuac Cancún":object.campus =="CAMPUS-OAXACA"?"Anáhuac Oaxaca":object.campus =="CAMPUS-PUEBLA"?"Anáhuac Puebla":object.campus =="CAMPUS-QUERETARO"?"Anáhuac Querétaro":"Juan Pablo II");
+				//def campus= (object.campus == "CAMPUS-MNORTE"?"Anáhuac México Norte":object.campus == "CAMPUS-MSUR"?"Anáhuac México Sur":object.campus == "CAMPUS-MAYAB"?"Anáhuac Merida":object.campus =="CAMPUS-XALAPA"?"Anáhuac Xalapa":object.campus =="CAMPUS-CORDOBA"?"Anáhuac Cordoba":object.campus =="CAMPUS-CANCUN"?"Anáhuac Cancún":object.campus =="CAMPUS-OAXACA"?"Anáhuac Oaxaca":object.campus =="CAMPUS-PUEBLA"?"Anáhuac Puebla":object.campus =="CAMPUS-QUERETARO"?"Anáhuac Querétaro":"Juan Pablo II");
 				Row titleRow = sheet.createRow(++rowCount);
 				Cell cellReporte = titleRow.createCell(1);
 				cellReporte.setCellValue("Reporte:");
 				cellReporte.setCellStyle(style);
 				Cell cellTitle = titleRow.createCell(2);
-				cellTitle.setCellValue("LISTADO DE PERIODOS DEL CAMPUS \""+ campus+"\"");
+				cellTitle.setCellValue("LISTADO DE PERIODOS");
 		
 				Cell cellFecha = titleRow.createCell(4);
 				cellFecha.setCellValue("Fecha:");
@@ -4835,7 +6268,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -4851,78 +6284,96 @@ class ListadoDAO {
 				cellusuario.setCellValue("Usuario:");
 				cellusuario.setCellStyle(style);
 				Cell cellusuarioData = blank.createCell(5);
-				cellusuarioData.setCellValue(object.usuario);
+				cellusuarioData.setCellValue(object.usuarioNombre);
 				
 				Row espacio = sheet.createRow(++rowCount);
 				
 				Row headersRow = sheet.createRow(++rowCount);
-				Cell header1 = headersRow.createCell(0);
+				Cell header0 = headersRow.createCell(0);
+				header0.setCellValue("ID");
+				header0.setCellStyle(style);
+				Cell header1 = headersRow.createCell(1);
 				header1.setCellValue("CLAVE");
 				header1.setCellStyle(style);
-				Cell header2 = headersRow.createCell(1);
+				Cell header2 = headersRow.createCell(2);
 				header2.setCellValue("DESCRIPCIÓN");
 				header2.setCellStyle(style);
-				Cell header3 = headersRow.createCell(2);
+				Cell header3 = headersRow.createCell(3);
 				header3.setCellValue("CUATRIMESTRAL");
 				header3.setCellStyle(style);
-				Cell header4 = headersRow.createCell(3);
+				Cell header4 = headersRow.createCell(4);
 				header4.setCellValue("SEMESTRAL");
 				header4.setCellStyle(style);
-				Cell header5= headersRow.createCell(4);
+				Cell header5= headersRow.createCell(5);
 				header5.setCellValue("ANUAL");
 				header5.setCellStyle(style);
-				Cell header6= headersRow.createCell(5);
+				Cell header6= headersRow.createCell(6);
 				header6.setCellValue("FECHA INICIO");
 				header6.setCellStyle(style);
 				
-				Cell header7= headersRow.createCell(6);
+				Cell header7= headersRow.createCell(7);
 				header7.setCellValue("FECHA FIN");
 				header7.setCellStyle(style);
-				Cell header8= headersRow.createCell(7);
-				header8.setCellValue("USUARIO BANNER");
+				Cell header8= headersRow.createCell(8);
+				header8.setCellValue("ACTIVO");
 				header8.setCellStyle(style);
-				Cell header9= headersRow.createCell(8);
-				header9.setCellValue("FECHA CREACIÓN");
-				
+				Cell header9= headersRow.createCell(9);
+				header9.setCellValue("USUARIO BANNER");
 				header9.setCellStyle(style);
+				Cell header10= headersRow.createCell(10);
+				header10.setCellValue("FECHA CREACIÓN");
+				
+				header10.setCellStyle(style);
 				
 				headersRow.setRowStyle(style);
 				
 				CatPeriodoCustom Periodo = new CatPeriodoCustom();
-
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fecha = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
 				for (int i = 0; i < lstParams.size(); ++i){
 					Periodo = new CatPeriodoCustom();
 					Periodo = (CatPeriodoCustom)lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
-					Cell cell1 = row.createCell(0);
+					Cell cell0 = row.createCell(0);
+					cell0.setCellValue(Periodo.getId().toString());
+					Cell cell1 = row.createCell(1);
 					cell1.setCellValue(Periodo.getClave().toString());
-					Cell cell2 = row.createCell(1);
+					Cell cell2 = row.createCell(2);
 					cell2.setCellValue(Periodo.getDescripcion().toString());
-					Cell cell3 = row.createCell(2);
+					Cell cell3 = row.createCell(3);
 					String isCautrimestral = Periodo.getIsCuatrimestral() ? "Sí" : "No";
 					cell3.setCellValue(isCautrimestral);
-					Cell cell4 = row.createCell(3);
+					Cell cell4 = row.createCell(4);
 					String isSemestral = Periodo.getIsSemestral() ? "Sí" : "No";
 					cell4.setCellValue(isSemestral);
-					Cell cell5= row.createCell(4);
+					Cell cell5= row.createCell(5);
 					String isAnual = Periodo.getIsAnual()  ? "Sí" : "No";
 					cell5.setCellValue(isAnual);
 					
 					
-					Cell cell6= row.createCell(5);
+					Cell cell6= row.createCell(6);
 					//String[] fecha = Periodo.getFechaInicio().toString().split("T");
-					cell6.setCellValue(Periodo.getFechaInicio().toString());
+					fecha = dfSalida.parse(Periodo.getFechaInicio().toString())
+					cell6.setCellValue(dformat.format(fecha));
 					
-					Cell cell7= row.createCell(6);
+					Cell cell7= row.createCell(7);
 					//fecha = Periodo.getFechaFin().toString().split("T");
-					cell7.setCellValue(Periodo.getFechaFin().toString());
+					fecha = dfSalida.parse(Periodo.getFechaFin().toString())
+					cell7.setCellValue(dformat.format(fecha));
 					
-					Cell cell8= row.createCell(7);
-					cell8.setCellValue(Periodo.getUsuarioBanner().toString());
+					Cell cell8= row.createCell(8);
+					String Activo = Periodo.getActivo() ? "Sí" : "No";
+					cell8.setCellValue(Activo);
 					
-					Cell cell9= row.createCell(8);
+					Cell cell9= row.createCell(9);
+					cell9.setCellValue(Periodo.getUsuarioBanner().toString());
+					
+					Cell cell10= row.createCell(10);
 					//fecha = Periodo.getFechaCreacion().toString().split("T");
-					cell9.setCellValue(Periodo.getFechaCreacion().toString());
+					fecha = dfSalida.parse(Periodo.getFechaCreacion().toString())
+					cell10.setCellValue(dformat.format(fecha));
 				}
 			}
 			
@@ -4984,7 +6435,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 				Chunk glue = new Chunk(new VerticalPositionMark());
@@ -4994,11 +6445,14 @@ class ListadoDAO {
 				document.add(p);
 				document.add( new Paragraph(" "));
 				
-				PdfPTable table = new PdfPTable(6);
+				PdfPTable table = new PdfPTable(7);
 				table.setWidthPercentage(100f);
 				PdfPCell header = new PdfPCell();
 				header.setBackgroundColor(BaseColor.LIGHT_GRAY);
 				
+				
+				header.setPhrase(new Phrase("CLAVE",normalFont));
+				table.addCell(header);
 				header.setPhrase(new Phrase("NOMBRE lICENCIATURA",normalFont));
 				table.addCell(header);
 				header.setPhrase(new Phrase("LIGA",normalFont));
@@ -5017,6 +6471,7 @@ class ListadoDAO {
 				for (int i = 0; i < lstParams.size(); ++i){
 					G_Escolar = new com.anahuac.catalogos.CatGestionEscolar();
 					G_Escolar = (com.anahuac.catalogos.CatGestionEscolar)lstParams.get(i);
+					table.addCell(new Phrase(G_Escolar.getClave(),normalFont));
 					table.addCell(new Phrase(G_Escolar.getNombre(),normalFont));
 					table.addCell(new Phrase(G_Escolar.getEnlace(),normalFont));
 					table.addCell(new Phrase(G_Escolar.getDescripcion(),normalFont));
@@ -5052,7 +6507,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 
@@ -5115,7 +6570,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 
@@ -5302,7 +6757,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 								
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
@@ -5362,7 +6817,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				/*Date date = new Date();
 				TimeZone timeZone = TimeZone.getTimeZone("UTC-6");
 				formatter.setTimeZone(timeZone);
@@ -5542,7 +6997,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 
@@ -5642,7 +7097,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			
 				String sDate = formatter.format(date);
 				Cell cellFechaData = titleRow.createCell(5);
@@ -5660,33 +7115,47 @@ class ListadoDAO {
 				Cell header1 = headersRow.createCell(0);
 				header1.setCellValue("ID BANNER");
 				header1.setCellStyle(style);
+				
 				Cell header2 = headersRow.createCell(1);
 				header2.setCellValue("NOMBRE");
 				header2.setCellStyle(style);
-				
 				Cell header3 = headersRow.createCell(2);
 				header3.setCellValue("EMAIL");
-				header3.setCellStyle(style);
-				Cell header4 = headersRow.createCell(3);
-				header4.setCellValue("UNIVERSIDAD");
-				header4.setCellStyle(style);
-				Cell header5 = headersRow.createCell(4);
-				header5.setCellValue("LICENCIATURA");
-				header5.setCellStyle(style);
-				Cell header6 = headersRow.createCell(5);
-				header6.setCellValue("RESIDENCIA");
-				header6.setCellStyle(style);
+				header3.setCellStyle(style);		
+				Cell header11 = headersRow.createCell(3);
+				header11.setCellValue("CURP");
+				header11.setCellStyle(style);
 				
-				Cell header7 = headersRow.createCell(6);
-				header7.setCellValue("SEXO");
-				header7.setCellStyle(style);
+				
+				Cell header4 = headersRow.createCell(4);
+				header4.setCellValue("CAMPUS");
+				header4.setCellStyle(style);
+				Cell header5 = headersRow.createCell(5);
+				header5.setCellValue("PROGRAMA");
+				header5.setCellStyle(style);
+				Cell header12 = headersRow.createCell(6);
+				header12.setCellValue("INGRESO");
+				header12.setCellStyle(style);
+				
 				Cell header8 = headersRow.createCell(7);
-				header8.setCellValue("PROMEDIO");
+				header8.setCellValue("PROCEDENCIA");
 				header8.setCellStyle(style);
 				Cell header9 = headersRow.createCell(8);
 				header9.setCellValue("PREPARATORIA");
 				header9.setCellStyle(style);
-				Cell header10 = headersRow.createCell(9);
+				Cell header13 = headersRow.createCell(9);
+				header13.setCellValue("PROMEDIO");
+				header13.setCellStyle(style);
+				
+				Cell header6 = headersRow.createCell(10);
+				header6.setCellValue("RESIDENCIA");
+				header6.setCellStyle(style);
+				
+				Cell header7 = headersRow.createCell(11);
+				header7.setCellValue("SEXO");
+				header7.setCellStyle(style);
+				
+				Cell header10 = headersRow.createCell(12);
 				header10.setCellValue("ASISTENCIA");
 				header10.setCellStyle(style);
 				
@@ -5700,23 +7169,34 @@ class ListadoDAO {
 					Row row = sheet.createRow(++rowCount);
 					Cell cell1 = row.createCell(0);
 					cell1.setCellValue(Aspirantes.getAspirantes().get(0).get("idbanner").toString());
+					
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(Aspirantes.getAspirantes().get(0).get("primernombre").toString()+" "+ Aspirantes.getAspirantes().get(0).get("segundonombre").toString()+" "+ Aspirantes.getAspirantes().get(0).get("apellidopaterno").toString()+" "+Aspirantes.getAspirantes().get(0).get("apellidomaterno").toString());
 					Cell cell3 = row.createCell(2);
 					cell3.setCellValue(Aspirantes.getAspirantes().get(0).get("correoelectronico").toString());
-					Cell cell4 = row.createCell(3);
+					Cell cell11 = row.createCell(3);
+					cell11.setCellValue(Aspirantes.getAspirantes().get(0).get("CURP").toString());
+					
+					Cell cell4 = row.createCell(4);
 					cell4.setCellValue(Aspirantes.getAspirantes().get(0).get("campus").toString());
-					Cell cell5 = row.createCell(4);
+					Cell cell5 = row.createCell(5);
 					cell5.setCellValue(Aspirantes.getAspirantes().get(0).get("licenciatura").toString());
-					Cell cell6 = row.createCell(5);
-					cell6.setCellValue(Aspirantes.getAspirantes().get(0).get("residencia").toString());
-					Cell cell7 = row.createCell(6);
-					cell7.setCellValue(Aspirantes.getAspirantes().get(0).get("sexo").toString());
+					Cell cell12 = row.createCell(6);
+					cell12.setCellValue(Aspirantes.getAspirantes().get(0).get("periodo").toString());
+					
 					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(Aspirantes.getAspirantes().get(0).get("promediogeneral").toString());
+					cell8.setCellValue(Aspirantes.getAspirantes().get(0).get("procedencia").toString());
 					Cell cell9 = row.createCell(8);
 					cell9.setCellValue(Aspirantes.getAspirantes().get(0).get("preparatoria").toString());
-					Cell cell10 = row.createCell(9);
+					Cell cell13 = row.createCell(9);
+					cell13.setCellValue(Aspirantes.getAspirantes().get(0).get("promediogeneral").toString());
+					
+					Cell cell6 = row.createCell(10);
+					cell6.setCellValue(Aspirantes.getAspirantes().get(0).get("residencia").toString());
+					Cell cell7 = row.createCell(11);
+					cell7.setCellValue(Aspirantes.getAspirantes().get(0).get("sexo").toString());
+					
+					Cell cell10 = row.createCell(12);
 					cell10.setCellValue( (Aspirantes.getAsistencia() != null ? (Aspirantes.getAsistencia() == true ?"Sí":"No") : "No").toString());
 				}
 			}
@@ -5782,7 +7262,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 				String sDate = formatter.format(date);
 				
 
@@ -5909,7 +7389,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			
 				String sDate = formatter.format(date);
 				Cell cellFechaData = titleRow.createCell(5);
@@ -5927,29 +7407,46 @@ class ListadoDAO {
 				Cell header1 = headersRow.createCell(0);
 				header1.setCellValue("ID");
 				header1.setCellStyle(style);
-				Cell header2 = headersRow.createCell(1);
-				header2.setCellValue("NOMBRE");
-				header2.setCellStyle(style);
 				
-				Cell header3 = headersRow.createCell(2);
-				header3.setCellValue("ALUMNOS GENERALES");
-				header3.setCellStyle(style);
-				Cell header4 = headersRow.createCell(3);
-				header4.setCellValue("ALUMNOS ASIGNADOS");
-				header4.setCellStyle(style);
-				Cell header5 = headersRow.createCell(4);
+				Cell header0 = headersRow.createCell(1);
+				header0.setCellValue("NOMBRE DE LA SESION");
+				header0.setCellStyle(style);
+				
+				Cell header5 = headersRow.createCell(2);
 				header5.setCellValue("TIPO PRUEBA");
 				header5.setCellStyle(style);
-				Cell header6 = headersRow.createCell(5);
+				
+				Cell header2 = headersRow.createCell(3);
+				header2.setCellValue("NOMBRE DE LA PRUEBA");
+				header2.setCellStyle(style);
+				
+				Cell header3 = headersRow.createCell(4);
+				header3.setCellValue("CUPO DE LA PRUEBA");
+				header3.setCellStyle(style);
+				Cell header4 = headersRow.createCell(5);
+				header4.setCellValue("ALUMNOS REGISTRADOS");
+				header4.setCellStyle(style);
+				
+				Cell header6 = headersRow.createCell(6);
 				header6.setCellValue("RESIDENCIA");
 				header6.setCellStyle(style);
 				
-				Cell header7 = headersRow.createCell(6);
+				Cell header7 = headersRow.createCell(7);
 				header7.setCellValue("FECHA");
 				header7.setCellStyle(style);
-				Cell header8 = headersRow.createCell(7);
+				Cell header8 = headersRow.createCell(8);
 				header8.setCellValue("LUGAR");
 				header8.setCellStyle(style);
+				if(type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")){
+					Cell header9 = headersRow.createCell(9);
+					header9.setCellValue("ALUMNOS ASISTIERON");
+					header9.setCellStyle(style);
+				}
+				if(type.equals("listasesioncalendarizadas")){
+					Cell header10 = headersRow.createCell(10);
+					header10.setCellValue("RESPONSABLE");
+					header10.setCellStyle(style);
+				}
 				
 				headersRow.setRowStyle(style);
 				
@@ -5961,20 +7458,39 @@ class ListadoDAO {
 					Row row = sheet.createRow(++rowCount);
 					Cell cell1 = row.createCell(0);
 					cell1.setCellValue(SESION.getPrueba().getPersistenceId());
-					Cell cell2 = row.createCell(1);
-					cell2.setCellValue(SESION.getPrueba().getNombre());
-					Cell cell3 = row.createCell(2);
-					cell3.setCellValue(SESION.getPrueba().getCupo());
-					Cell cell4 = row.createCell(3);
-					cell4.setCellValue(SESION.getPrueba().getRegistrados());
-					Cell cell5 = row.createCell(4);
+					
+					Cell cell0 = row.createCell(1);
+					cell0.setCellValue(SESION.getSesion().getNombre());
+					
+					
+					Cell cell5 = row.createCell(2);
 					cell5.setCellValue(SESION.getPrueba().getTipo().getDescripcion());
-					Cell cell6 = row.createCell(5);
+					
+					
+					Cell cell2 = row.createCell(3);
+					cell2.setCellValue(SESION.getPrueba().getNombre());
+					
+					Cell cell3 = row.createCell(4);
+					cell3.setCellValue(SESION.getPrueba().getCupo());
+					Cell cell4 = row.createCell(5);
+					cell4.setCellValue(SESION.getPrueba().getRegistrados());
+					
+					Cell cell6 = row.createCell(6);
 					cell6.setCellValue(SESION.getSesion().getTipo());
-					Cell cell7 = row.createCell(6);
+					Cell cell7 = row.createCell(7);
 					cell7.setCellValue(SESION.getSesion().getFecha_inicio());
-					Cell cell8 = row.createCell(7);
+					Cell cell8 = row.createCell(8);
 					cell8.setCellValue(SESION.getPrueba().getLugar());
+					if(type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")){
+						Cell cell9 = row.createCell(9);
+						cell9.setCellValue(SESION.getPrueba().getAsistencia());
+					}
+					if(type.equals("listasesioncalendarizadas")){
+						Cell cell10 = row.createCell(10);
+						cell10.setCellValue(SESION.getPrueba().getResponsables());
+					}
+					
+					
 				}
 			}
 		
@@ -6042,7 +7558,7 @@ class ListadoDAO {
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ");
 				String sDate = formatter.format(date);
 				
 
@@ -6111,6 +7627,413 @@ class ListadoDAO {
 		return resultado;
 	}
 	
+	public Result getExcelGenerico(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+		
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List<Object> lstParams;
+			String type = object.type;
+			String orden = ""
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+		
+			if(!type.equals("")) {
+				
+				dataResult = new CatalogosDAO().getCatGenerico(jsonData, context)
+				
+				if (dataResult.success) {
+					lstParams = dataResult.getData();
+				} else {
+					throw new Exception("No encontro datos en "+type);
+				}
+				Row titleRow = sheet.createRow(++rowCount);
+				Cell cellReporte = titleRow.createCell(1);
+				cellReporte.setCellValue("Reporte:");
+				cellReporte.setCellStyle(style);
+				Cell cellTitle = titleRow.createCell(2);
+				cellTitle.setCellValue("LISTADO DE "+type);
+				Cell cellFecha = titleRow.createCell(4);
+				cellFecha.setCellValue("Fecha:");
+				cellFecha.setCellStyle(style);
+			
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.HOUR_OF_DAY, -7);
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ");
+			
+				String sDate = formatter.format(date);
+				Cell cellFechaData = titleRow.createCell(5);
+				cellFechaData.setCellValue(sDate);
+			
+				Row blank = sheet.createRow(++rowCount);
+				Cell cellusuario = blank.createCell(4);
+				cellusuario.setCellValue("Usuario:");
+				cellusuario.setCellStyle(style);
+				Cell cellusuarioData = blank.createCell(5);
+				cellusuarioData.setCellValue(object.usuarioNombre);
+			
+				Row headersRow = sheet.createRow(++rowCount);
+				
+				int count = 0;
+				if(object.isOrden){
+					Cell header0 = headersRow.createCell(count);
+					header0.setCellValue("ORDEN");
+					header0.setCellStyle(style);
+					count++;
+				}
+				Cell header1 = headersRow.createCell(count);
+				header1.setCellValue(object.isOrdenAD?"ORDEN":"CLAVE");
+				header1.setCellStyle(style);
+				count++;
+				
+				Cell header2 = headersRow.createCell(count);
+				header2.setCellValue("DESCRIPCION");
+				header2.setCellStyle(style);
+				count++;
+				
+				Cell header3 = headersRow.createCell(count);
+				header3.setCellValue("USUARIO CREACIÓN");
+				header3.setCellStyle(style);
+				count++;
+				
+				Cell header4 = headersRow.createCell(count);
+				header4.setCellValue("FECHA CREACIÓN");
+				header4.setCellStyle(style);
+
+				
+				headersRow.setRowStyle(style);
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
+				CatGenericoFiltro  GENERICO = new CatGenericoFiltro();
+				for (int i = 0; i < lstParams.size(); ++i){
+					GENERICO = new CatGenericoFiltro();
+					GENERICO = (CatGenericoFiltro)lstParams.get(i);
+					Row row = sheet.createRow(++rowCount);
+					int count2 = 0;
+					if(object.isOrden){
+						Cell cell1 = row.createCell(count2);
+						cell1.setCellValue(GENERICO.getOrden());
+						count2++;
+					}
+					Cell cell2 = row.createCell(count2);
+					cell2.setCellValue(GENERICO.getClave());
+					count2++;
+					Cell cell3 = row.createCell(count2);
+					cell3.setCellValue(GENERICO.getDescripcion());
+					count2++;
+					Cell cell5 = row.createCell(count2);
+					cell5.setCellValue(GENERICO.getUsuarioCreacion());
+					count2++;
+					Cell cell4 = row.createCell(count2);
+					fechaCreacion = dfSalida.parse(GENERICO.getFechaCreacion().toString())
+					cell4.setCellValue(dformat.format(fechaCreacion));
+				}
+			}
+		
+			for(int i=0; i<=rowCount+3; ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("ReportGenericos.xls");
+			workbook.write(outputStream);
+		
+			List<Object> lstResultado = new ArrayList<Object>();
+			lstResultado.add(encodeFileToBase64Binary("ReportGenericos.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+	
+		return resultado;
+	}
+	
+	
+	public Result getPdfGenerico(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List<Object> lstParams;
+			String type = object.type;
+			String orden = "";
+			def documento="ReportGenericos.pdf"
+			DocumentItext document = new DocumentItext();
+			document.setPageSize(PageSize.A4.rotate());
+			PdfWriter.getInstance(document, new FileOutputStream(documento));
+			float fontSize = 8.5f;
+			Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, fontSize, BaseColor.BLACK);
+			String phraseToInput = "";
+			if(!type.equals("")) {
+					dataResult = new CatalogosDAO().getCatGenerico(jsonData, context)
+				if (dataResult.success) {
+					lstParams = dataResult.getData();
+				} else {
+					throw new Exception("No encontro datos de "+type);
+				}
+				document.open();
+				Paragraph preface = new Paragraph("LISTADO DE "+type);
+				preface.setAlignment(Paragraph.ALIGN_CENTER);
+				document.add(preface);
+				document.add( new Paragraph(" "));
+				
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.HOUR_OF_DAY, -7);
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				String sDate = formatter.format(date);
+				
+
+				Chunk glue = new Chunk(new VerticalPositionMark());
+				Paragraph p = new Paragraph("FECHA: "+sDate);
+				p.add(new Chunk(glue));
+				p.add("USUARIO: "+object.usuarioNombre);
+				document.add(p);
+				
+				
+				document.add( new Paragraph(" "))
+				
+				PdfPTable table = new PdfPTable((object.isOrden?5:4));
+				table.setWidthPercentage(100f);
+				
+				PdfPCell header = new PdfPCell();
+				header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+				
+				
+				if(object.isOrden){
+					header.setPhrase(new Phrase("ORDEN",normalFont));
+					table.addCell(header);
+				}
+				header.setPhrase(new Phrase("CLAVE",normalFont));
+				table.addCell(header);
+				header.setPhrase(new Phrase("DESCRIPCIÓN",normalFont));
+				table.addCell(header);
+				header.setPhrase(new Phrase("USUARIO CREACIÓN",normalFont));
+				table.addCell(header);
+				header.setPhrase(new Phrase("FECHA CREACIÓN",normalFont));
+				table.addCell(header);
+				
+				CatGenericoFiltro  GENERICO = new CatGenericoFiltro();
+				DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+				Date fechaCreacion = new Date();
+				DateFormat dformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+				
+				for (int i = 0; i < lstParams.size(); ++i){
+					GENERICO = new CatGenericoFiltro();
+					GENERICO = (CatGenericoFiltro)lstParams.get(i);
+					if(object.isOrden){
+						table.addCell(new Phrase(GENERICO.getOrden().toString(),normalFont));
+					}
+					table.addCell(new Phrase(GENERICO.getClave().toString(),normalFont));
+					table.addCell(new Phrase(GENERICO.getDescripcion().toString(),normalFont));
+					table.addCell(new Phrase(GENERICO.getUsuarioCreacion().toString(),normalFont));
+					fechaCreacion = dfSalida.parse(GENERICO.getFechaCreacion().toString())
+					table.addCell(new Phrase(dformat.format(fechaCreacion),normalFont));
+				}
+				
+				document.add(table);
+				document.close();
+			}
+			
+			List<Object> lstResultado = new ArrayList<Object>();
+			lstResultado.add(encodeFileToBase64Binary("ReportGenericos.pdf"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public Result getExcelTransferencias(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+		
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List<Object> lstParams;
+			String type = object.type;
+			String orden = object.orden;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet(type);
+			CellStyle style = workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+		
+			if(type.equals("bitacoratransferencias")) {
+				
+				if(type.equals("bitacoratransferencias")) {
+					dataResult = new TransferenciasDAO().selectBitacoraTransferencias(parameterP, parameterC, jsonData, context)
+				}
+				
+				if (dataResult.success) {
+					lstParams = dataResult.getData();
+				} else {
+					throw new Exception("No encontro datos de transferencias");
+				}
+				Row titleRow = sheet.createRow(++rowCount);
+				Cell cellReporte = titleRow.createCell(1);
+				cellReporte.setCellValue("Reporte:");
+				cellReporte.setCellStyle(style);
+				Cell cellTitle = titleRow.createCell(2);
+				cellTitle.setCellValue((!type.equals("bitacoratransferencias") ?"REPORTE DE ":"")+"BITACORA DE TRANSFERENCIAS "+(orden.equals(">=") ? "ENVIADAS":orden.equals("<") ? "RECIBIDAS": "" ));
+				Cell cellFecha = titleRow.createCell(4);
+				cellFecha.setCellValue("Fecha:");
+				cellFecha.setCellStyle(style);
+			
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.HOUR_OF_DAY, -7);
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			
+				String sDate = formatter.format(date);
+				Cell cellFechaData = titleRow.createCell(5);
+				cellFechaData.setCellValue(sDate);
+			
+				Row blank = sheet.createRow(++rowCount);
+				Cell cellusuario = blank.createCell(4);
+				cellusuario.setCellValue("Usuario:");
+				cellusuario.setCellStyle(style);
+				Cell cellusuarioData = blank.createCell(5);
+				cellusuarioData.setCellValue(object.usuarioNombre);
+			
+				Row headersRow = sheet.createRow(++rowCount);
+			
+				Cell header1 = headersRow.createCell(0);
+				header1.setCellValue("ASPIRANTE");
+				header1.setCellStyle(style);
+				
+				Cell header0 = headersRow.createCell(1);
+				header0.setCellValue("CORREO ASPIRANTE");
+				header0.setCellStyle(style);
+				
+				Cell header5 = headersRow.createCell(2);
+				header5.setCellValue("FECHA MOVIMIENTO");
+				header5.setCellStyle(style);
+				
+				Cell header2 = headersRow.createCell(3);
+				header2.setCellValue("USUARIO");
+				header2.setCellStyle(style);
+				
+				Cell header3 = headersRow.createCell(4);
+				header3.setCellValue("VPD ANTERIOR");
+				header3.setCellStyle(style);
+				Cell header4 = headersRow.createCell(5);
+				header4.setCellValue("VPD ACTUAL");
+				header4.setCellStyle(style);
+				
+				/*Cell header6 = headersRow.createCell(6);
+				header6.setCellValue("RESIDENCIA");
+				header6.setCellStyle(style);
+				
+				Cell header7 = headersRow.createCell(7);
+				header7.setCellValue("FECHA");
+				header7.setCellStyle(style);
+				Cell header8 = headersRow.createCell(8);
+				header8.setCellValue("LUGAR");
+				header8.setCellStyle(style);
+				if(type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")){
+					Cell header9 = headersRow.createCell(9);
+					header9.setCellValue("ALUMNOS ASISTIERON");
+					header9.setCellStyle(style);
+				}
+				if(type.equals("listasesioncalendarizadas")){
+					Cell header10 = headersRow.createCell(10);
+					header10.setCellValue("RESPONSABLE");
+					header10.setCellStyle(style);
+				}*/
+				
+				headersRow.setRowStyle(style);
+				
+				PruebasCustom  SESION = new PruebasCustom();
+				Transferencias BT = new Transferencias();
+		
+				for (int i = 0; i < lstParams.size(); ++i){
+					BT = new Transferencias();
+					BT = (Transferencias)lstParams.get(i);
+					Row row = sheet.createRow(++rowCount);
+					Cell cell1 = row.createCell(0);
+					cell1.setCellValue(BT.getAspirante());
+					
+					Cell cell0 = row.createCell(1);
+					cell0.setCellValue(BT.getCorreoAspirante());
+					
+					
+					Cell cell5 = row.createCell(2);
+					cell5.setCellValue(BT.getFechaCreacion());
+					
+					
+					Cell cell2 = row.createCell(3);
+					cell2.setCellValue(BT.getUsuarioCreacion());
+					
+					Cell cell3 = row.createCell(4);
+					cell3.setCellValue(BT.getCampusAnterior());
+					Cell cell4 = row.createCell(5);
+					cell4.setCellValue(BT.getCampusNuevo());
+					
+					/*Cell cell6 = row.createCell(6);
+					cell6.setCellValue(SESION.getSesion().getTipo());
+					Cell cell7 = row.createCell(7);
+					cell7.setCellValue(SESION.getSesion().getFecha_inicio());
+					Cell cell8 = row.createCell(8);
+					cell8.setCellValue(SESION.getPrueba().getLugar());
+					if(type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")){
+						Cell cell9 = row.createCell(9);
+						cell9.setCellValue(SESION.getPrueba().getAsistencia());
+					}
+					if(type.equals("listasesioncalendarizadas")){
+						Cell cell10 = row.createCell(10);
+						cell10.setCellValue(SESION.getPrueba().getResponsables());
+					}*/
+					
+					
+				}
+			}
+		
+			for(int i=0; i<=rowCount+3; ++i) {
+				sheet.autoSizeColumn(i);
+			}
+			FileOutputStream outputStream = new FileOutputStream("ReportBitacoraTransferencias.xls");
+			workbook.write(outputStream);
+		
+			List<Object> lstResultado = new ArrayList<Object>();
+			lstResultado.add(encodeFileToBase64Binary("ReportBitacoraTransferencias.xls"));
+			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+	
+		return resultado;
+	}
+	
 	private String encodeFileToBase64Binary(String fileName)
 	throws IOException {
 
@@ -6145,11 +8068,13 @@ class ListadoDAO {
 		is.close();
 		return bytes;
 	}
+	
 	public Boolean validarConexion() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 }

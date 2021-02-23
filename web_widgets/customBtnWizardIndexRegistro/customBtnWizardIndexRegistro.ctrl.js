@@ -88,7 +88,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catPeriodo === null) {
-                swal("¡Período!", "Debes seleccionar el periodo donde cursarás tus estudios", "warning");
+                swal("¡Período!", "Debes seleccionar el período donde cursarás tus estudios", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen === null) {
                 swal("¡Lugar de examen!", "Debes seleccionar el lugar donde realizarás tu examen", "warning");
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catLugarExamen.persistenceId_string !== "") {

@@ -2,6 +2,7 @@ function($scope, $http, blockUI, $window) {
     var vm = this;
     $scope.resultado;
     $scope.sesion = [];
+    $scope.aplicaciones=[];
     $scope.jsonEntrevista = {};
     $scope.jsonPsicometrico = {};
     $scope.jsonCollage = {};
@@ -16,6 +17,10 @@ function($scope, $http, blockUI, $window) {
     scheduler.config.dblclick_create = false;
     scheduler.config.select = false;
 
+    $scope.asistenciaCollegeBoard = false;
+    $scope.asistenciaPsicometrico = false;
+    $scope.asistenciaEntrevista = false;
+
     document.getElementById("dhx_minical_icon").innerHTML = "<i class='glyphicon glyphicon-calendar'></i>"
         /*
             document.getElementsByClassName("dhx_cal_next_button")[0].innerHTML = "<i class='glyphicon glyphicon-arrow-right'></i>";
@@ -25,9 +30,9 @@ function($scope, $http, blockUI, $window) {
     //scheduler.parse($scope.properties.jsonEntrevistas, "json");
 
     /*Evento que se ejecuta al dar click!*/
-    $scope.sesionid=0;
+    $scope.sesionid = 0;
     scheduler.attachEvent("onClick", function(id, e) {
-        $scope.sesionid=id;
+        $scope.sesionid = id;
         $scope.getSesionById($scope.sesionid);
         $scope.properties.hideCalendario = true;
         $scope.$apply();
@@ -61,17 +66,17 @@ function($scope, $http, blockUI, $window) {
             })
             .error(function(data, status) {
                 console.error(data);
-                if(data.error == "No hay cupo"){
+                if (data.error == "No hay cupo") {
                     Swal.fire(
                         "Sesión sin cupo",
                         "Lamentamos informarle que la sesión que está intentando ingresar se ha quedado sin cupo",
                         'info'
                     )
-                    $scope.sesionid=0;
-                    $scope.properties.hideCalendario=false;
+                    $scope.sesionid = 0;
+                    $scope.properties.hideCalendario = false;
                     $scope.getLstSesion();
                 }
-                if(data.error == "Se encuentra ocupado"){
+                if (data.error == "Se encuentra ocupado") {
                     Swal.fire(
                         "Horario ocupado",
                         "Lamentamos informarle que el horario de la entrevista ha seleccionado sido ocupado",
@@ -79,15 +84,15 @@ function($scope, $http, blockUI, $window) {
                     )
                     $scope.getSesionById($scope.sesionid);
                 }
-                if (data.error=="Los psicólogos disponibles para esta sesión son especializados para otra licenciatura") {
+                if (data.error == "Los psicólogos disponibles para esta sesión son especializados para otra licenciatura") {
                     Swal.fire(
                         "Psicólogo para diferente licenciatura",
                         "Los psicólogos disponibles para esta sesión son especializados para otra licenciatura",
                         'info'
                     )
-                    $scope.sesionid=0;
-                    $scope.properties.hideCalendario=false;
-                    $scope.getLstSesion(); 
+                    $scope.sesionid = 0;
+                    $scope.properties.hideCalendario = false;
+                    $scope.getLstSesion();
                 }
             })
             .finally(function() {
@@ -97,28 +102,30 @@ function($scope, $http, blockUI, $window) {
     }
     $scope.$watch('properties.isCorrectTask', function(value) {
         if (angular.isDefined(value) && value !== null) {
-          if (!value) {
-            $scope.getDatosSesionUser();  
-          }
+            if (!value) {
+                $scope.getDatosSesionUser();
+                $scope.loadAsistencias();
+            }
         }
-      });
+    });
 
-      $scope.$watch('properties.usuario', function(value) {
+    $scope.$watch('properties.usuario', function(value) {
         if (angular.isDefined(value) && value !== null) {
-          if (!$scope.properties.isCorrectTask) {
-            $scope.getDatosSesionUser();  
-          }
+            if (!$scope.properties.isCorrectTask) {
+                $scope.getDatosSesionUser();
+                $scope.loadAsistencias();
+            }
         }
-      });
+    });
 
-      $scope.getDatosSesionUser=function(){
-        doRequest("GET","/bonita/API/extension/AnahuacRestGet?url=getDatosSesionUsername&p=0&c=10&username="+$scope.properties.usuario[0].correoElectronico,null,null,null,function(data){
-            $scope.entrevistaSelected=true;
+    $scope.getDatosSesionUser = function() {
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getDatosSesionUsername&p=0&c=10&username=" + $scope.properties.usuario[0].correoElectronico, null, null, null, function(data) {
+            $scope.entrevistaSelected = true;
             for (let index = 0; index < data.data.length; index++) {
                 const element = data.data[index];
                 $scope.sesion.nombre = element.snombre;
                 $scope.sesion.descripcion = element.sdescripcion;
-                if(element.descripcion == "College Board"){
+                if (element.descripcion == "Examen de aptitudes y conocimientos") {
                     $scope.jsonCollage.nombre = element.pnombre;
                     $scope.jsonCollage.descripcion = element.pdescripcion;
                     $scope.jsonCollage.aplicacion = element.aplicacion;
@@ -127,8 +134,10 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonCollage.municipio = element.municipio;
                     $scope.jsonCollage.colonia = element.colonia;
                     $scope.jsonCollage.codigo_postal = element.codigo_postal;
+                    $scope.jsonCollage.calle = element.calle;
+                    $scope.jsonCollage.numero_int = element.numero_int;
                 }
-                if(element.descripcion == "Examen Psicométrico"){
+                if (element.descripcion == "Examen Psicométrico") {
                     $scope.jsonPsicometrico.nombre = element.pnombre;
                     $scope.jsonPsicometrico.descripcion = element.pdescripcion;
                     $scope.jsonPsicometrico.aplicacion = element.aplicacion;
@@ -137,8 +146,10 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonPsicometrico.municipio = element.municipio;
                     $scope.jsonPsicometrico.colonia = element.colonia;
                     $scope.jsonPsicometrico.codigo_postal = element.codigo_postal;
+                    $scope.jsonPsicometrico.calle = element.calle;
+                    $scope.jsonPsicometrico.numero_int = element.numero_int;
                 }
-                if(element.descripcion == "Entrevista"){
+                if (element.descripcion == "Entrevista") {
                     $scope.jsonEntrevista.nombre = element.pnombre;
                     $scope.jsonEntrevista.descripcion = element.pdescripcion;
                     $scope.jsonEntrevista.aplicacion = element.aplicacion;
@@ -147,20 +158,22 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonEntrevista.municipio = element.municipio;
                     $scope.jsonEntrevista.colonia = element.colonia;
                     $scope.jsonEntrevista.codigo_postal = element.codigo_postal;
+                    $scope.jsonEntrevista.calle = element.calle;
+                    $scope.jsonEntrevista.numero_int = element.numero_int;
 
                 }
             }
-          })
-      }
-      $scope.$watch('properties.value', function(value) {
+        })
+    }
+    $scope.$watch('properties.value', function(value) {
         if (angular.isDefined(value) && value !== null) {
-          var items = $scope.properties.availableValues;
-          if (Array.isArray(items)) {
-            var foundItem = ctrl.findSelectedItem(items);
-            ctrl.setSelectedValue(foundItem);
-          }
+            var items = $scope.properties.availableValues;
+            if (Array.isArray(items)) {
+                var foundItem = ctrl.findSelectedItem(items);
+                ctrl.setSelectedValue(foundItem);
+            }
         }
-      });
+    });
 
 
     $scope.getSesionById = function(id) {
@@ -169,13 +182,34 @@ function($scope, $http, blockUI, $window) {
             $scope.sesion_aspirante.sesiones_pid = $scope.sesion.persistenceId;
             for (var i = 0; i < $scope.sesion.pruebas.length; i++) {
                 if ($scope.sesion.pruebas[i].tipo.descripcion == 'Entrevista') {
-                    $scope.jsonEntrevista = $scope.sesion.pruebas[i];
+                    $scope.jsonEntrevista = {"psicologos":[{"lstFechasDisponibles":[]}]}
                 } else if ($scope.sesion.pruebas[i].tipo.descripcion == 'Examen Psicométrico') {
                     $scope.jsonPsicometrico = $scope.sesion.pruebas[i];
-                } else if ($scope.sesion.pruebas[i].tipo.descripcion == 'College Board') {
+                } else if ($scope.sesion.pruebas[i].tipo.descripcion == 'Examen de aptitudes y conocimientos') {
                     $scope.jsonCollage = $scope.sesion.pruebas[i];
                 }
             }
+        })
+    }
+    $scope.getPruebasFechas = function() {
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPruebasFechas&p=0&c=10&sessionid=" + $scope.sesion.persistenceId, null, {}, null, function(datos, extra) {
+            $scope.aplicaciones = datos.data
+            $scope.modalConfirmar();
+            
+        })
+    }
+    $scope.selectFecha=function(ap){
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getHorarios&p=0&c=10&prueba_pid=" + ap.persistenceId+"&sessionid=" + $scope.sesion.persistenceId+"&correoAspirante=" + $scope.properties.usuario[0].correoElectronico, null, {}, null, function(datos, extra) { 
+            $scope.jsonEntrevista.nombre =  datos.data[0].nombre;
+            $scope.jsonEntrevista.descripcion = datos.data[0].descripcion;
+            $scope.jsonEntrevista.aplicacion = datos.data[0].aplicacion;
+            $scope.jsonEntrevista.lugar = datos.data[0].lugar;
+            $scope.jsonEntrevista.municipio = datos.data[0].municipio;
+            $scope.jsonEntrevista.colonia = datos.data[0].colonia;
+            $scope.jsonEntrevista.codigo_postal = datos.data[0].codigo_postal;
+            $scope.jsonEntrevista.calle = datos.data[0].calle;
+            $scope.jsonEntrevista.numero_int = datos.data[0].numero_int; 
+            $scope.jsonEntrevista.psicologos =  datos.data[0].psicologos;
         })
     }
     $scope.getLstSesion = function() {
@@ -197,10 +231,32 @@ function($scope, $http, blockUI, $window) {
         filtro = {
             "columna": "RESIDENCIA",
             "operador": "Parecido",
-            "valor": $scope.properties.detalleSolicitud[0].catResidencia.descripcion
+            "valor": $scope.properties.detalleSolicitud[0].catResidencia.clave
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
-        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte, null, $scope.dataToSend, null, function(datos, extra) {
+        if($scope.properties.usuario[0].catEstado!=null){
+            filtro = {
+                "columna": "ESTADO",
+                "operador": "Igual a",
+                "valor": $scope.properties.usuario[0].catEstado.persistenceId
+            }
+            $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+        }
+        
+        filtro = {
+            "columna": "PAIS",
+            "operador": "Igual a",
+            "valor": $scope.properties.usuario[0].catPais.persistenceId
+        }
+        $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+
+        filtro = {
+            "columna": "CIUDAD",
+            "operador": "Igual a",
+            "valor": ($scope.properties.usuario[0].ciudadExamen==null)?0:$scope.properties.usuario[0].ciudadExamen.persistenceId
+        }
+        $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte + "&isMedicina=" + $scope.properties.isMedicina, null, $scope.dataToSend, null, function(datos, extra) {
             scheduler.clearAll();
             scheduler.parse(datos.data, "json");
         })
@@ -245,17 +301,25 @@ function($scope, $http, blockUI, $window) {
 
     $scope.$watch('properties.detalleSolicitud', function(value) {
         if (angular.isDefined(value) && value !== null) {
-            
+
             for (let index = 0; index < value[0].links.length; index++) {
                 const element = value[0].links[index];
-                if(element.rel=="catResidencia"){
-                    doRequest("GET", element.href,null,null,null,function(datos,extra){
-                        $scope.properties.detalleSolicitud[0].catResidencia =datos;
+                if (element.rel == "catResidencia") {
+                    doRequest("GET", element.href, null, null, null, function(datos, extra) {
+                        $scope.properties.detalleSolicitud[0].catResidencia = datos;
                         $scope.getLstSesion();
                     })
                 }
-                
+
             }
+            if($scope.properties.isMedicina!==null){
+                $scope.getLstSesion();
+            }
+        }
+    });
+    $scope.$watch('properties.isMedicina', function(value) {
+        if (angular.isDefined(value) && value !== null && $scope.properties.detalleSolicitud!==null) {
+            $scope.getLstSesion();
         }
     });
 
@@ -306,6 +370,10 @@ function($scope, $http, blockUI, $window) {
         $("#modalConfirmar").modal('show')
     }
 
+    $scope.closeModal = function() {
+        $("#modalConfirmar").modal('hide')
+    }
+
     $scope.modalEntrevista = function() {
         $("#modalEntrevista").modal('show')
     }
@@ -350,7 +418,7 @@ function($scope, $http, blockUI, $window) {
     $scope.insertSesionAspirante = function() {
         if (!$scope.validarSesion()) {
             Swal.fire({
-                title: `¿Está seguro que desea gurardar la sesión ${$scope.sesion.nombre + " "} seleccionada?`,
+                title: `¿Estás seguro que deseas guardar la sesión ${$scope.sesion.nombre + " "} seleccionada?`,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -360,26 +428,26 @@ function($scope, $http, blockUI, $window) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesionAspirante&p=0&c=10", null, $scope.sesion_aspirante, null, function(datos, extra) {
-                        doRequest("GET",`/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`,null,null,null,function(datos,extra){
-                            var taskId=0;
+                        doRequest("GET", `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
+                            var taskId = 0;
                             for (let index = 0; index < datos.length; index++) {
                                 const element = datos[index];
-                                if(element.name=="Seleccionar cita"){
-                                    taskId=element.id;
+                                if (element.name == "Seleccionar cita") {
+                                    taskId = element.id;
                                     break;
                                 }
                             }
-                            
+
                             doRequest("POST", `/API/bpm/userTask/${taskId}/execution?assign=true`, null, {}, null, function(datos, extra) {
 
                                 Swal.fire({
-                                    icon: 'success',
-                                    title: 'Correcto',
-                                    text: `Sesion ${$scope.sesion.nombre} guardada correctamente`,
-                                })
-                                ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                $window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
-                                //top.location.href = '/apps/aspirante/nueva_solicitud/';
+                                        icon: 'success',
+                                        title: 'Correcto',
+                                        text: `Sesión ${$scope.sesion.nombre} guardada correctamente`,
+                                    })
+                                    ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
+                                //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
                             })
                         })
                     })
@@ -390,5 +458,38 @@ function($scope, $http, blockUI, $window) {
             })
         }
 
+    }
+
+    $scope.$watch('properties.usuario', function(value) {
+        if ($scope.properties.usuario != undefined) {
+            console.log($scope.properties.usuario);
+            $scope.loadAsistencias();
+        }
+    });
+
+
+    $scope.loadAsistencias = function() {
+        $scope.asistenciaCollegeBoard = false;
+        $scope.asistenciaPsicometrico = false;
+        $scope.asistenciaEntrevista = false;
+        $scope.loadAsistenciaCollegeBoard();
+    }
+
+    $scope.loadAsistenciaCollegeBoard = function() {
+        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
+            $scope.asistenciaCollegeBoard = (datos.value === "true");
+            $scope.loadAsistenciaPsicometrico();
+        })
+    }
+    $scope.loadAsistenciaPsicometrico = function() {
+        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaPsicometrico", null, null, null, function(datos, extra) {
+            $scope.asistenciaPsicometrico = (datos.value === "true");
+            $scope.loadAsistenciaEntrevista();
+        })
+    }
+    $scope.loadAsistenciaEntrevista = function() {
+        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaEntrevista", null, null, null, function(datos, extra) {
+            $scope.asistenciaEntrevista = (datos.value === "true");
+        })
     }
 }

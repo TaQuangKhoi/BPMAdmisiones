@@ -112,6 +112,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
     $scope.filterKeyPress= function(columna,press){
         var aplicado = true;
+        columna = columna.toUpperCase();
         for (let index = 0; index < $scope.properties.filtroToSend.lstFiltro.length; index++) {
             const element = $scope.properties.filtroToSend.lstFiltro[index];
             if(element.columna==columna){
@@ -188,6 +189,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
 
     $scope.seleccionarPagina = function(valorSeleccionado){
+        debugger;
         var objSelected = {};
         for(var i in $scope.lstPaginado){
             if($scope.lstPaginado[i].numero == valorSeleccionado){

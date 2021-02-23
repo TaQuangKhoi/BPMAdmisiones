@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1610642836501,
+  "lastUpdate" : 1613172791288,
   "rows" : [
     [
       {
@@ -30,6 +30,58 @@
         "reference" : "9047f838-27e0-4c91-ad60-a2094ec9b9e7",
         "hasValidationError" : false,
         "id" : "customCustomBackgroundImage"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{formInput|json}}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "a7aece65-260b-40b3-8021-181b3b25a17e",
+        "hasValidationError" : false,
+        "id" : "pbText"
       }
     ],
     [
@@ -122,13 +174,13 @@
                 "catPais" : "catPais",
                 "catCampus" : "catCampus",
                 "campusSelected" : "campusSelected",
-                "catPeriodo" : "catPeriodo",
+                "catPeriodo" : "catPeriodo.data",
                 "CatLugarExamen" : "orderLugarExamen",
                 "catEstado" : "catEstados",
                 "lugardelexamen" : "lugarexamen",
                 "jsonCiudades" : "ciudades",
                 "campusAsset" : "campusAsset",
-                "catPropedeutico" : "catPropedeutico",
+                "catPropedeutico" : "catPropedeutico.data",
                 "getCiudades" : "getCiudades",
                 "getCiudadesExtranjero" : "getCiudadesExtranjero",
                 "catGestionEscolar" : "getGestionEscolarByCampus",
@@ -205,8 +257,8 @@
                       "catEstado" : "catEstados",
                       "catPais" : "catPais",
                       "catGestionEscolar" : "getGestionEscolarByCampus",
-                      "catPropedeutico" : "catPropedeutico",
-                      "catPeriodo" : "catPeriodo",
+                      "catPropedeutico" : "catPropedeutico.data",
+                      "catPeriodo" : "catPeriodo.data",
                       "strRegistro" : "strRegistro"
                     }
                   }
@@ -589,6 +641,10 @@
                             "getUserBonita" : {
                               "type" : "variable",
                               "value" : "getUserBonita"
+                            },
+                            "campoError" : {
+                              "type" : "variable",
+                              "value" : "campoError"
                             }
                           },
                           "reference" : "caf02cd3-ac48-4408-85d5-a050967b534b",
@@ -926,13 +982,6 @@
       "external" : false
     },
     {
-      "id" : "943a8d15-1ef2-4780-9664-189c6994582d",
-      "name" : "noimageavailable.png",
-      "type" : "img",
-      "order" : 15,
-      "external" : false
-    },
-    {
       "id" : "8301ac82-9531-4dd2-b30d-74936aa59e14",
       "name" : "anahuac_custom_styles (1).css",
       "type" : "css",
@@ -961,31 +1010,10 @@
       "external" : false
     },
     {
-      "id" : "95f74bdc-b7d1-4432-a3b3-8b7d76436600",
-      "name" : "Logo-CAMPUS-MAYAB.png",
-      "type" : "img",
-      "order" : 41,
-      "external" : false
-    },
-    {
-      "id" : "c90ee558-9c60-4ff0-b077-ed83a70b162b",
-      "name" : "Logo-CAMPUS-XALAPA.png",
-      "type" : "img",
-      "order" : 47,
-      "external" : false
-    },
-    {
       "id" : "05d97893-ddd8-4bfb-b31e-00459ca5cbf4",
       "name" : "Logo-CAMPUS-CANCUN.png",
       "type" : "img",
       "order" : 38,
-      "external" : false
-    },
-    {
-      "id" : "ff25d46d-e683-4494-b732-d1ee60dfdf04",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 1,
       "external" : false
     },
     {
@@ -1003,24 +1031,10 @@
       "external" : false
     },
     {
-      "id" : "e79134b0-a392-4050-8042-a9e57e48c5d5",
-      "name" : "Logo-CAMPUS-MSUR.png",
-      "type" : "img",
-      "order" : 43,
-      "external" : false
-    },
-    {
       "id" : "93476d6f-c14a-4495-917e-2692fec27c01",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "ef0de21d-8e0a-4027-858d-f53053c2d249",
-      "name" : "Logo-CAMPUS-CORDOBA.png",
-      "type" : "img",
-      "order" : 39,
       "external" : false
     },
     {
@@ -1042,6 +1056,48 @@
       "name" : "Logo-CAMPUS-JP2.png",
       "type" : "img",
       "order" : 40,
+      "external" : false
+    },
+    {
+      "id" : "943a8d15-1ef2-4780-9664-189c6994582d",
+      "name" : "noimageavailable.png",
+      "type" : "img",
+      "order" : 15,
+      "external" : false
+    },
+    {
+      "id" : "95f74bdc-b7d1-4432-a3b3-8b7d76436600",
+      "name" : "Logo-CAMPUS-MAYAB.png",
+      "type" : "img",
+      "order" : 41,
+      "external" : false
+    },
+    {
+      "id" : "c90ee558-9c60-4ff0-b077-ed83a70b162b",
+      "name" : "Logo-CAMPUS-XALAPA.png",
+      "type" : "img",
+      "order" : 47,
+      "external" : false
+    },
+    {
+      "id" : "ff25d46d-e683-4494-b732-d1ee60dfdf04",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "e79134b0-a392-4050-8042-a9e57e48c5d5",
+      "name" : "Logo-CAMPUS-MSUR.png",
+      "type" : "img",
+      "order" : 43,
+      "external" : false
+    },
+    {
+      "id" : "ef0de21d-8e0a-4027-858d-f53053c2d249",
+      "name" : "Logo-CAMPUS-CORDOBA.png",
+      "type" : "img",
+      "order" : 39,
       "external" : false
     },
     {
@@ -1285,6 +1341,7 @@
         "    \"ciudadExamen\" : null,\r",
         "    \"avisoPrivacidad\" : false,\r",
         "    \"ciudadExamenPais\" : null,\r",
+        "    \"necesitoAyuda\":false,\r",
         "    \"catGestionEscolar\" : {\r",
         "      \"persistenceId_string\" : \"\"\r",
         "    },\r",
@@ -1331,7 +1388,7 @@
     "catPais" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPais&p=0&c=100&f=caseId={{objCaseInformationPaises[0].id}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPais&p=0&c=1000&f=caseId={{objCaseInformationPaises[0].id}}"
       ],
       "exposed" : false
     },
@@ -4335,7 +4392,7 @@
     "getPaisesNoMexico" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPaisExtranjero&p=0&c=100&f=caseId=00000"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=getCatPaisExtranjero&p=0&c=1000&f=caseId=00000"
       ],
       "exposed" : false
     },
@@ -4523,7 +4580,9 @@
         "            }\r",
         "            if (!registrado) {\r",
         "                if ($data.getCiudadEstadoByCaso[x].pais.trim() === 'México') {\r",
-        "                    lstEstados.push($data.getCiudadEstadoByCaso[x].estado);\r",
+        "                    if ($data.getCiudadEstadoByCaso[x].estado !== null) {\r",
+        "                        lstEstados.push($data.getCiudadEstadoByCaso[x].estado);\r",
+        "                    }\r",
         "                }\r",
         "            }\r",
         "            registrado = false;\r",
@@ -4712,30 +4771,37 @@
         "if($data.strRegistro.PrimerNombre.trim() === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Primer nombre\";\r",
         "    $data.erroMessage = \"El campo Primer nombre no debe estar vacío.\";\r",
         "} else if($data.strRegistro.PrimerNombre.trim().length > 50){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Primer nombre\";\r",
         "    $data.erroMessage = \"El campo Primer nombre no debe exceder los 50 caracteres.\";\r",
         "} else if($data.strRegistro.SegundoNombre.trim().length > 50){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Segundo nombre\";\r",
         "    $data.erroMessage = \"El campo Segundo nombre no debe exceder los 50 caracteres.\";\r",
         "} else if($data.strRegistro.ApellidoPaterno.trim() === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Apellido paterno\";\r",
         "    $data.erroMessage = \"El campo Apellido paterno no debe estar vacío.\";\r",
         "} else if($data.strRegistro.ApellidoPaterno.trim().length > 50){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Apellido paterno\";\r",
         "    $data.erroMessage = \"El campo Apellido paterno no debe exceder los 50 caracteres.\";\r",
         "} else if($data.strRegistro.ApellidoMaterno.trim() === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Apellido materno\";\r",
         "    $data.erroMessage = \"El campo Apellido materno no debe estar vacío.\";\r",
         "} else if($data.strRegistro.ApellidoMaterno.trim().length > 50){\r",
         "    validado = false;\r",
         "     $data.strRegistro.error = true;\r",
+        "     $data.campoError = \"Apellido materno\";\r",
         "     $data.erroMessage = \"El campo Apellido materno no debe exceder los 50 caracteres.\";\r",
         "} \r",
         "// re.test(String($data.strRegistro.ConfirmarCorreo.trim()).toLowerCase())\r",
@@ -4743,46 +4809,56 @@
         "else if($data.strRegistro.CorreoElectronico === undefined || $data.strRegistro.CorreoElectronico === null || $data.strRegistro.CorreoElectronico === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Correo electrónico\";\r",
         "    $data.erroMessage = \"El campo Correo electrónico no debe estar vacío.\";\r",
         "} else if (!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Correo electrónico\";\r",
         "    $data.erroMessage = \"El formato del correo electrónico no es válido.\";\r",
         "} else if($data.strRegistro.CorreoElectronico.trim() !== $data.strRegistro.ConfirmarCorreo.trim()){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Correo electrónico\";\r",
         "    $data.erroMessage = \"Los correos no coinciden.\";\r",
         "}  else if ($data.userNameAlreadyExists){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Correo electrónico\";\r",
         "    $data.erroMessage = \"El correo ya está registrado.\";\r",
         "} else if($data.strRegistro.Password.trim() === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Contraseña\";\r",
         "    $data.erroMessage = \"El campo Contraseña no debe estar vacío.\";\r",
         "} else if($data.strRegistro.Password.length < 8){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Contraseña\";\r",
         "    $data.erroMessage = \"La contraseña debe contener de 8 a 16 caracteres.\";\r",
         "} else if($data.strRegistro.Password.trim() !== $data.strRegistro.ConfirmarPassword.trim()){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Contraseña\";\r",
         "    $data.erroMessage = \"Las contraseñas no coinciden.\";\r",
         "} else if($data.strRegistro.Aceptar === false){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
+        "    $data.campoError = \"Aviso de privacidad\";\r",
         "    $data.erroMessage = \"Debes aceptar el aviso de privacidad.\";\r",
         "} else if($data.strRegistro.CorreoElectronico.trim().length > 1 && !$data.strRegistro.error){\r",
         "    if(!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
         "        validado = false;\r",
         "        $data.strRegistro.error = true;\r",
+        "        $data.campoError = \"Correo electrónico\";\r",
         "        $data.erroMessage = \"El formato de correo electrónico no es válido.\";\r",
         "    }\r",
         "} else if($data.strRegistro.ConfirmarCorreo.trim().length > 1 && !$data.strRegistro.error ){\r",
         "    if (!re.test(String($data.strRegistro.ConfirmarCorreo.trim()).toLowerCase())){\r",
         "        validado = false;\r",
         "        $data.strRegistro.error = true;\r",
-        "        $data.erroMessage = \"el correo electronico no esta correcto\";\r",
+        "        $data.campoError = \"Correo electrónico\";\r",
+        "        $data.erroMessage = \"El correo electronico no esta correcto\";\r",
         "    }\r",
         "}else {\r",
         "    validado = true;\r",
@@ -4846,6 +4922,24 @@
         "}else if($data.formInput.catSolicitudDeAdmisionInput.catLugarExamen.descripcion === \"En el extranjero (solo si vives fuera de México)\"){\r",
         "    $data.formInput.catSolicitudDeAdmisionInput.catCampus = $data.formInput.catSolicitudDeAdmisionInput.ciudadExamenPais.campus;\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "campoError" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catPropedeutico" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPropedeuticoByPeriodo&p=0&c=10&grupobonita={{formInput.catSolicitudDeAdmisionInput.catCampusEstudio.grupoBonita}}&id={{formInput.catSolicitudDeAdmisionInput.catPeriodo.persistenceId}}&tipoperiodo={{formInput.catSolicitudDeAdmisionInput.catGestionEscolar.tipoLicenciatura}}"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{formInput.catSolicitudDeAdmisionInput.catGestionEscolar.tipoLicenciatura}}"
       ],
       "exposed" : false
     }

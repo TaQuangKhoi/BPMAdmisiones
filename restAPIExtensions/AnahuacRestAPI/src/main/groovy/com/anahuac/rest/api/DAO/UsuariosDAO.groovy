@@ -1,12 +1,17 @@
 package com.anahuac.rest.api.DAO
 
+import static org.junit.Assert.format
+
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import java.sql.ResultSetMetaData
 import java.sql.Statement
 
 import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.IdentityAPI
+import org.bonitasoft.engine.api.ProcessAPI
+import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
@@ -15,6 +20,7 @@ import org.bonitasoft.engine.identity.ContactDataCreator
 import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserCreator
 import org.bonitasoft.engine.identity.UserMembership
+import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.identity.UserUpdater
 import org.bonitasoft.engine.profile.Profile
 import org.bonitasoft.engine.profile.ProfileMemberCreator
@@ -24,13 +30,22 @@ import org.bonitasoft.engine.search.SearchResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.catalogos.CatCampus
+import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.catalogos.CatRegistro
 import com.anahuac.catalogos.CatRegistroDAO
+import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
+import com.anahuac.rest.api.Entity.Custom.AppMenuRole
+import com.anahuac.rest.api.Entity.Custom.Menu
+import com.anahuac.rest.api.Entity.Custom.MenuParent
 import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
+import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
+import com.anahuac.rest.api.Entity.db.Role
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -494,7 +509,7 @@ class UsuariosDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" user_.creationdate ";
+						where +=" TO_CHAR((TIMESTAMP 'epoch' + user_.creationdate  * interval '1 ms'),'YYYY-MM-DD') ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -524,7 +539,7 @@ class UsuariosDAO {
 				}else {
 					where+= " WHERE "
 				}
-				where +=" ul.lastconnection ";
+				where +=" TO_CHAR((TIMESTAMP 'epoch' + ul.lastconnection  * interval '1 ms'),'YYYY-MM-DD') ";
 				if(filtro.get("operador").equals("Igual a")) {
 					where+="='[valor]'"
 				}else {
@@ -555,13 +570,14 @@ class UsuariosDAO {
 				 orderby+="ul.lastconnection"
 				 break;
 				default:
-				orderby+="user_.id";
+				orderby+="user_.firstname";
 				break;
 			}
 			orderby+=" "+object.orientation;
 			String consulta = ModuloUsuario.GET_USUARIOS_CUSTOM
 			consulta=consulta.replace("[WHERE]", where);
 			errorlog+="consulta:"
+			errorlog+=consulta
 			resultado.setError_info(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
 				pstm = con.prepareStatement(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
 				rs = pstm.executeQuery()
@@ -610,6 +626,7 @@ class UsuariosDAO {
 			con = new DBConnect().getConnectionBonita();
 			retorno=true
 		}
+		return retorno;
 	}
 	private static String generateRandomString(int length, String seedChars) {
 		StringBuilder sb = new StringBuilder();
@@ -620,6 +637,693 @@ class UsuariosDAO {
 			i++;
 		}
 		return sb.toString();
+	}
+	
+	public Result getUsuariosRegistrados(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where ="", bachillerato="", campus="", programa="", ingreso="", estado ="", tipoalumno ="", orderby="ORDER BY ", errorlog=""
+		List<String> lstGrupo = new ArrayList<String>();
+		List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
+		List<DetalleSolicitud> lstDetalleSolicitud = new ArrayList<DetalleSolicitud>();
+		
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			assert object instanceof Map;
+			where+=" WHERE sda.iseliminado=false "
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
+//				if(object.estatusSolicitud !=null) {
+				
+//					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
+				
+				/*if(object.estatusSolicitud.equals("Solicitud lista roja")) {
+					where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
+				}
+				else if(object.estatusSolicitud.equals("Solicitud rechazada")) {
+					where+=" AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
+				} else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
+				} else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
+				}else if(object.estatusSolicitud.equals("Solicitud en espera de pago")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en espera de pago')"
+				}
+				else if(object.estatusSolicitud.equals("Solicitud con pago aceptado")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Solicitud con pago aceptado')"
+				}
+				else if(object.estatusSolicitud.equals("Autodescripción en proceso")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Autodescripción en proceso')"
+				}
+				else if(object.estatusSolicitud.equals("Elección de pruebas no calendarizado")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Elección de pruebas no calendarizado')"
+				}
+				else if(object.estatusSolicitud.equals("No se ha impreso credencial")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='No se ha impreso credencial')"
+				}
+				else if(object.estatusSolicitud.equals("Ya se imprimió su credencial")) {
+					where+=" AND (sda.ESTATUSSOLICITUD='Ya se imprimió su credencial')"
+				}*/
+//			}
+			if(lstGrupo.size()>0) {
+				campus+=" AND ("
+			}
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				campus+="campus.descripcion='"+campusMiembro+"'"
+				if(i==(lstGrupo.size()-1)) {
+					campus+=") "
+				}
+				else {
+					campus+=" OR "
+				}
+			}
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				String consulta = Statements.GET_USUARIOS_REGISTRADOS
+				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+					switch(filtro.get("columna")) {
+						
+						case "NOMBRE":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "EMAIL":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.correoelectronico) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CURP":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.curp) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CAMPUS":
+							campus +=" AND LOWER(campus.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								campus+="=LOWER('[valor]')"
+							}else {
+								campus+="LIKE LOWER('%[valor]%')"
+							}
+							campus = campus.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PREPARATORIA":
+							bachillerato +=" AND LOWER(prepa.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								bachillerato+="=LOWER('[valor]')"
+							}else {
+								bachillerato+="LIKE LOWER('%[valor]%')"
+							}
+							bachillerato = bachillerato.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PROGRAMA":
+							programa +=" AND LOWER(gestionescolar.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								programa+="=LOWER('[valor]')"
+							}else {
+								programa+="LIKE LOWER('%[valor]%')"
+							}
+							programa = programa.replace("[valor]", filtro.get("valor"))
+							break;
+						case "INGRESO":
+							ingreso +=" AND LOWER(periodo.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								ingreso+="=LOWER('[valor]')"
+							}else {
+								ingreso+="LIKE LOWER('%[valor]%')"
+							}
+							ingreso = ingreso.replace("[valor]", filtro.get("valor"))
+							break;
+						case "ESTADO":
+							estado +=" AND LOWER(estado.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								estado+="=LOWER('[valor]')"
+							}else {
+								estado+="LIKE LOWER('%[valor]%')"
+							}
+							estado = estado.replace("[valor]", filtro.get("valor"))
+							break;
+						case "PROMEDIO":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.PROMEDIOGENERAL) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "ESTATUS":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.ESTATUSSOLICITUD) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "TELEFONO":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(sda.telefonocelular) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "TIPO":
+							tipoalumno +=" AND LOWER(da.TIPOALUMNO) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "IDBANNER":
+							tipoalumno +=" AND LOWER(da.idbanner) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "LISTAROJA":
+							tipoalumno +=" AND LOWER(da.observacionesListaRoja) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						case "RECHAZO":
+							tipoalumno +=" AND LOWER(da.observacionesRechazo) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								tipoalumno+="=LOWER('[valor]')"
+							}else {
+								tipoalumno+="LIKE LOWER('%[valor]%')"
+							}
+							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+							break;
+						default:
+						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+						//consulta=consulta.replace("[WHERE]", where);
+						
+						break;
+					}
+				}
+				switch(object.orderby) {
+					case "NOMBRE":
+					orderby+="sda.primernombre";
+					break;
+					case "EMAIL":
+					orderby+="sda.correoelectronico";
+					break;
+					case "CURP":
+					orderby+="sda.curp";
+					break;
+					case "CAMPUS":
+					orderby+="campus.DESCRIPCION"
+					break;
+					case "PREPARATORIA":
+					orderby+="prepa.DESCRIPCION"
+					break;
+					case "PROGRAMA":
+					orderby+="gestionescolar.DESCRIPCION"
+					break;
+					case "INGRESO":
+					orderby+="periodo.DESCRIPCION"
+					break;
+					case "ESTADO":
+					orderby +="estado.DESCRIPCION";
+					break;
+					case "PROMEDIO":
+					orderby+="sda.PROMEDIOGENERAL";
+					break;
+					case "ESTATUS":
+					orderby+="sda.ESTATUSSOLICITUD";
+					break;
+					case "TIPO":
+					orderby+="da.TIPOALUMNO";
+					break;
+					case "TELEFONO":
+					orderby+="sda.telefonocelular";
+					break;
+					case "IDBANNER":
+					orderby+="da.idbanner";
+					break;
+					case "LISTAROJA":
+					orderby+="da.observacionesListaRoja";
+					break;
+					case "RECHAZO":
+					orderby+="da.observacionesRechazo";
+					break;
+					default:
+					orderby+="sda.persistenceid"
+					break;
+				}
+				orderby+=" "+object.orientation;
+				consulta=consulta.replace("[CAMPUS]", campus)
+				consulta=consulta.replace("[PROGRAMA]", programa)
+				consulta=consulta.replace("[INGRESO]", ingreso)
+				consulta=consulta.replace("[ESTADO]", estado)
+				consulta=consulta.replace("[BACHILLERATO]", bachillerato)
+				consulta=consulta.replace("[TIPOALUMNO]", tipoalumno)
+				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
+				consulta=consulta.replace("[WHERE]", where);
+				
+				String consultaCount = Statements.GET_COUNT_USUARIOS_REGISTRADOS;
+				consultaCount=consultaCount.replace("[CAMPUS]", campus)
+				consultaCount=consultaCount.replace("[PROGRAMA]", programa)
+				consultaCount=consultaCount.replace("[INGRESO]", ingreso)
+				consultaCount=consultaCount.replace("[ESTADO]", estado)
+				consultaCount=consultaCount.replace("[BACHILLERATO]", bachillerato)
+				consultaCount=consultaCount.replace("[TIPOALUMNO]", tipoalumno)
+				consultaCount=consultaCount.replace("[WHERE]", where)
+				consultaCount=consultaCount.replace("[LIMITOFFSET]","");
+				consultaCount=consultaCount.replace("[ORDERBY]", "");
+				pstm = con.prepareStatement(consultaCount);
+				rs= pstm.executeQuery()
+				if(rs.next()) {
+					resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+				consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, object.limit)
+				pstm.setInt(2, object.offset)
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+							String encoded = "";
+							try {
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64", "");
+								errorlog+= ""+e.getMessage();
+							}
+						}
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setError_info(errorlog);
+				//resultado.setError(consulta);
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setError_info(errorlog)
+			//resultado.setError_info(consulta)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
+			String username = "";
+			String password = "";
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
+			username = prop.getProperty("USERNAME");
+			password = prop.getProperty("PASSWORD");
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			assert object instanceof Map;
+
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+
+			errorLog += " Antes del update "
+			closeCon = validarConexion();
+			errorLog += " closeCon " + closeCon
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(Statements.UPDATE_USUARIOS_REGISTRADOS)
+			pstm.setString(1,object.primernombre);
+			pstm.setString(2,object.segundonombre);
+			pstm.setString(3,object.apellidopaterno);
+			pstm.setString(4,object.apellidomaterno);
+			pstm.setString(5,object.correoelectronico);
+			pstm.setLong(6, object.campusestudio);
+			pstm.setLong(7, object.licenciatura);
+			if(object.periodo == null){
+				pstm.setNull(8, java.sql.Types.BIGINT);
+			}else{
+				pstm.setLong(8, object.periodo);
+			}
+			if(object.propedeutico == null) {
+				pstm.setNull(9, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(9, object.propedeutico);
+			}
+			if(object.campus == null){
+				pstm.setNull(10, java.sql.Types.BIGINT);
+			}else{
+				pstm.setLong(10, object.campus);
+			}
+			if(object.sexo == null){
+				pstm.setNull(11, java.sql.Types.BIGINT);
+			}else{
+				pstm.setLong(11, object.sexo);
+			}
+			pstm.setString(12, object.fechanacimiento);
+			if(object.estado == null){
+				pstm.setNull(13, java.sql.Types.BIGINT);
+			}else{
+				pstm.setLong(13, object.estado);
+			}
+			pstm.setString(14, object.estadoextranjero);
+			pstm.setLong(15, object.bachillerato);
+			if(object.nombrebachillerato == null){
+				pstm.setNull(16, java.sql.Types.VARCHAR);
+			}else{
+				pstm.setString(16, object.nombrebachillerato);
+			}
+			pstm.setString(17, object.paisbachillerato);
+			pstm.setString(18, object.estadobachillerato);
+			pstm.setString(19, object.ciudadbachillerato);
+			pstm.setString(20, object.promedio);
+			pstm.setLong(21, Long.valueOf(object.caseid));
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
+		}catch(Exception ex){
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
+	public Result getDatosUsername(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+		
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				pstm = con.prepareStatement(Statements.GET_USERS_BY_USERNAME)
+				pstm.setString(1, username)
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getBusinessAppMenu() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+				AppMenuRole row = new AppMenuRole()
+				Role role = new Role()
+				List<AppMenuRole> rows = new ArrayList<AppMenuRole>();
+				closeCon = validarConexionBonita();
+				pstm = con.prepareStatement(AppMenuRole.GET)
+				rs = pstm.executeQuery()
+				rows = new ArrayList<BusinessAppMenu>();
+				while(rs.next()) {
+					row = new AppMenuRole()
+					role = new Role()
+					row.setApplicationid(rs.getLong("applicationid"))
+					row.setApplicationpageid(rs.getLong("applicationpageid"))
+					row.setDisplayname(rs.getString("displayname"))
+					row.setId(rs.getLong("id"))
+					row.setIndex_(rs.getInt("index_"))
+					row.setTenantid(rs.getLong("tenantid"))
+					role.setId(rs.getLong("roleid"))
+					role.setName(rs.getString("rolename"))
+					role.setEliminado(false)
+					role.setNuevo(false)
+					row.setRoles(new ArrayList<Role>())
+					if(role.id>0) {
+						row.getRoles().add(role)
+					}
+					if(rows.contains(row)) {
+						if(!rows.get(rows.indexOf(row)).roles.contains(role)) {
+							
+							if(role.id>0) {
+								rows.get(rows.indexOf(row)).roles.add(role)
+							}
+						}
+					}else {
+						rows.add(row);
+					}
+					
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	public Result getMenuAdministrativo(RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			
+				MenuParent row = new MenuParent()
+				List<MenuParent> rows = new ArrayList<MenuParent>();
+				closeCon = validarConexionBonita();
+				pstm = con.prepareStatement(MenuParent.GET)
+				pstm.setLong(1,context.apiSession.userId)
+				rs = pstm.executeQuery()
+				rows = new ArrayList<MenuParent>();
+				while(rs.next()) {
+					row = new MenuParent()
+					row.setId(rs.getLong("id"))
+					row.setIsparent(rs.getBoolean("isparent"))
+					row.setUrl(rs.getString("url"))
+					row.setToken(rs.getString("token"))
+					row.setMenu(rs.getString("menu"))
+					row.setDisplayname(rs.getString("Displayname"))
+					row.setParent(rs.getString("parent"))
+					row.setParentid(rs.getLong("parentid"))
+					row.setParenttoken(rs.getString("parenttoken"))
+					if(rs.getBoolean("isparent")) {
+						row = new MenuParent()
+						row.setId(rs.getLong("id"))
+						row.setIsparent(rs.getBoolean("isparent"))
+						row.setUrl(rs.getString("url"))
+						row.setToken(rs.getString("token"))
+						row.setMenu(rs.getString("menu"))
+						row.setDisplayname(rs.getString("Displayname"))
+						row.setParent(rs.getString("parent"))
+						row.setParentid(rs.getLong("parentid"))
+						row.setParenttoken(rs.getString("parenttoken"))
+						row.setChild(new ArrayList<Menu>())
+						rows.add(row)
+					}else {
+						Menu menu = new Menu()
+						menu.setId(rs.getLong("id"))
+						menu.setIsparent(rs.getBoolean("isparent"))
+						menu.setUrl(rs.getString("url"))
+						menu.setToken(rs.getString("token"))
+						menu.setMenu(rs.getString("menu"))
+						menu.setDisplayname(rs.getString("Displayname"))
+						menu.setParent(rs.getString("parent"))
+						menu.setParentid(rs.getLong("parentid"))
+						menu.setParenttoken(rs.getString("parenttoken"))
+						if(rows.contains(row)) {
+							rows.get(rows.indexOf(row)).getChild().add(menu)
+						}
+					}
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	public Result updateBusinessAppMenu(AppMenuRole row) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+				
+				closeCon = validarConexionBonita();
+				for(Role rol : row.roles) {
+					if(rol.nuevo && !rol.eliminado) {
+						pstm = con.prepareStatement(AppMenuRole.INSERT)
+						pstm.setLong(1, row.getId())
+						pstm.setLong(2, rol.getId())
+						pstm.execute()
+					}else if(!rol.nuevo && rol.eliminado) {
+						pstm = con.prepareStatement(AppMenuRole.DELETE)
+						pstm.setLong(1, row.getId())
+						pstm.setLong(2, rol.getId())
+						pstm.execute()
+					}
+				}
+				
+				resultado.setSuccess(true)
+				
+				
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Boolean validarConexion() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno=true
+		}
+		return retorno;
 	}
 	
 }

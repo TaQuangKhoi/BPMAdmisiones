@@ -19,6 +19,9 @@ class CatGenericoFiltro {
 	
 	private String orden;
 	
+	private String fechaImportacion;
+	
+	
 	public String getOrden() {
 		return orden;
 	}
@@ -68,4 +71,14 @@ class CatGenericoFiltro {
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
 	}
+	public String getFechaImportacion() {
+		return fechaImportacion;
+	}
+	public void setFechaImportacion(String fechaImportacion) {
+		this.fechaImportacion = fechaImportacion;
+	}
+	
+	
+	
+	
 }

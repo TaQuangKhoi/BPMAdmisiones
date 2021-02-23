@@ -30,6 +30,8 @@ class CatNacionalidadCustomeFiltro {
 	private Boolean isEnabled;
 	@XmlElement
 	private String caseId;
+	@XmlElement
+	private String id;
 	
 	public Long getPersistenceId() {
 		return persistenceId;
@@ -114,12 +116,19 @@ class CatNacionalidadCustomeFiltro {
 	public void setFechaImplementacion(String fechaImplementacion) {
 		this.fechaImplementacion = fechaImplementacion;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		return "CatCampusCustom [persistenceId=" + persistenceId + ", persistenceVersion=" + persistenceVersion
 				+ ", descripcion=" + descripcion + ", fechaCreacion=" + fechaCreacion + ", isEliminado=" + isEliminado
 				+ ", usuarioBanner=" + usuarioBanner + ", fechaImplementacion=" + fechaImplementacion + ", clave="
-				+ clave + ", isEnable=" + isEnable + "]";
+				+ clave + ", isEnabled=" + isEnabled + ", id=" + id + "]";
 	}
 	
 	

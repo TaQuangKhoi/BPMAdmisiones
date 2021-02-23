@@ -56,7 +56,7 @@ class CatCampusCustomFiltro {
 	@XmlElement
 	private CatPais pais;
 	@XmlElement
-	private CatEstados estado;
+	private CatEstadoCustomFiltro estado;
 	private String pais_pid;
 	@XmlElement
 	private String estado_pid;
@@ -321,13 +321,13 @@ class CatCampusCustomFiltro {
 
 
 
-	public CatEstados getEstado() {
+	public CatEstadoCustomFiltro getEstado() {
 		return estado;
 	}
 
 
 
-	public void setEstado(CatEstados estado) {
+	public void setEstado(CatEstadoCustomFiltro estado) {
 		this.estado = estado;
 	}
 

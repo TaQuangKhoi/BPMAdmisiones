@@ -27,6 +27,13 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
         for (var x = 0; x < $scope.properties.availableValues.length; x++) {
             if ($scope.properties.value === $scope.properties.availableValues[x].descripcion) {
                 otro = false;
+                if($scope.properties.availableValues[x].descripcion === "Otro"){
+                    $scope.properties.datosPreparatoria.nombreBachillerato = "";
+                    $scope.properties.datosPreparatoria.paisBachillerato = "";
+                    $scope.properties.datosPreparatoria.estadoBachillerato = "";
+                    $scope.properties.datosPreparatoria.ciudadBachillerato = "";
+                    $scope.properties.value = "Otro";
+                }
                 break;
             }
         }

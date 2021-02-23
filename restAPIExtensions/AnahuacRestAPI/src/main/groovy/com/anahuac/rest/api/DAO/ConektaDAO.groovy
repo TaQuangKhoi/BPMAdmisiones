@@ -53,6 +53,7 @@ class ConektaDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 
     public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {

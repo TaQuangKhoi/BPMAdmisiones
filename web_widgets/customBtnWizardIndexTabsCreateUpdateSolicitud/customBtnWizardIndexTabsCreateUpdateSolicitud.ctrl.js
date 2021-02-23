@@ -29,10 +29,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono === "" || $scope.properties.catSolicitudDeAdmision.telefono === null) {
                     swal("¡Teléfono!", "Debes el agregar el teléfono", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono.length !== 10 && $scope.properties.catSolicitudDeAdmision.catPais.descripcion === "México") {
-                    swal("¡Teléfono celular!", "Tu teléfono celular debe ser de 10 digitos", "warning");
+                    swal("¡Teléfono celular!", "Tu teléfono celular debe ser de 10 dígitos", "warning");
                 } else if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                    topFunction();
                     $scope.properties.selectedIndex++;
                     //$scope.assignTask();
                 }
@@ -40,6 +41,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if ($scope.properties.selectedIndex === 0) {
                 $scope.faltacampo = false;
                 console.log("validar 0");
+                debugger;
                 if ($scope.properties.catSolicitudDeAdmision.curp === null) {
                     $scope.properties.catSolicitudDeAdmision.curp = "";
                 }
@@ -64,7 +66,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Teléfono celular!", "Debes agregar tu número celular", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.telefonoCelular.length !== 10 && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion === "Mexicana") {
-                    swal("¡Teléfono celular!", "Tu teléfono celular debe ser de 10 digitos", "warning");
+                    swal("¡Teléfono celular!", "Tu teléfono celular debe ser de 10 dígitos", "warning");
                     $scope.faltacampo = true;
                 }
                 else if ($scope.properties.catSolicitudDeAdmision.telefonoCelular === "" || $scope.properties.catSolicitudDeAdmision.telefonoCelular === null || $scope.properties.catSolicitudDeAdmision.telefonoCelular === undefined) {
@@ -77,7 +79,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Sexo!", "Debes seleccionar tu sexo", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus === null) {
-                    swal("¡Presentaste solicitud en otro campus!", "Debes seleccionar si has realizado la solicitud en otro campus", "warning");
+                    swal("¡Presentó examen en otro campus!", "Debes seleccionar si has realizado la solicitud en otro campus", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === "Sí" || $scope.properties.catSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === "Si") {
                     if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
@@ -89,30 +91,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-						$scope.fallo = false;
-						if($scope.properties.fotopasaportearchivo.length > 0){
+            $scope.fallo = false;
+            if($scope.properties.fotopasaportearchivo.length > 0){
                             if(JSON.stringify($scope.properties.fotopasaporte) === "{}"){
                                 $scope.fallo = true;
-								swal("¡Fotografía!", "Debes agregar una fotografía", "warning");	
+                swal("¡Fotografía!", "Debes agregar una fotografía", "warning");  
                             }else{
                                 if ($scope.properties.fotopasaporte !== undefined) {
                                     $scope.properties.fotopasaportearchivo[0]["newValue"] = $scope.properties.fotopasaporte;
                                 }
                             }
-						} else{
-							if ($scope.properties.fotopasaporte === undefined || JSON.stringify($scope.properties.fotopasaporte) == '{}') {
-								$scope.fallo = true;
-								swal("¡Fotografía!", "Debes agregar una fotografía", "warning");	
-							}else{
-								$scope.properties.fotopasaportearchivo = [];
-								$scope.properties.fotopasaportearchivo.push({
-									"newValue": angular.copy($scope.properties.fotopasaporte)
-								});
-							}
-						}
+            } else{
+              if ($scope.properties.fotopasaporte === undefined || JSON.stringify($scope.properties.fotopasaporte) == '{}') {
+                $scope.fallo = true;
+                swal("¡Fotografía!", "Debes agregar una fotografía", "warning");  
+              }else{
+                $scope.properties.fotopasaportearchivo = [];
+                $scope.properties.fotopasaportearchivo.push({
+                  "newValue": angular.copy($scope.properties.fotopasaporte)
+                });
+              }
+            }
 
-						if(!$scope.fallo){
-							if($scope.properties.actanacimientoarchivo.length > 0){
+            if(!$scope.fallo){
+              if($scope.properties.actanacimientoarchivo.length > 0){
                                 if(JSON.stringify($scope.properties.actanacimiento) === "{}"){
                                     $scope.fallo = true;
                                     swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
@@ -121,30 +123,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.actanacimientoarchivo[0]["newValue"] = $scope.properties.actanacimiento;
                                     }
                                 }                                
-							}else{
-								if ($scope.properties.actanacimiento === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
-									$scope.fallo = true;
-									swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
-								}else{
-									$scope.properties.actanacimientoarchivo = [];
-									$scope.properties.actanacimientoarchivo.push({
-										"newValue": angular.copy($scope.properties.actanacimiento)
-									});
-								}
-							}
-							if(!$scope.fallo){
-								// if ($scope.properties.idExtranjero !== undefined) {
-								// 	$scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                // }
-                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
-                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                } else {
-                                    $scope.properties.idExtranjero = "";
-                                }
+              }else{
+                if ($scope.properties.actanacimiento === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
+                  $scope.fallo = true;
+                  swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
+                }else{
+                  $scope.properties.actanacimientoarchivo = [];
+                  $scope.properties.actanacimientoarchivo.push({
+                    "newValue": angular.copy($scope.properties.actanacimiento)
+                  });
+                }
+              }
+              if(!$scope.fallo){
+                if ($scope.properties.idExtranjero !== undefined) {
+                  $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                }
+                                topFunction();
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
-							}
-						}
+              }
+            }
                     }
                 }
             } else if ($scope.properties.selectedIndex === 2) {
@@ -163,7 +161,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined) {
                         swal("¡Ciudad de tu  preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
                     } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
-                        swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
+                        swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                     } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                         swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
                     } else {
@@ -184,35 +182,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.tieneDescuento === true) {
                                 if ($scope.properties.descuento !== undefined) {
                                     $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
-                                    // if ($scope.properties.idExtranjero !== undefined) {
-                                    //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                    // }
-                                    if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
+                                    if ($scope.properties.idExtranjero !== undefined) {
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                    } else {
-                                        $scope.properties.idExtranjero = "";
                                     }
+                                    topFunction();
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 } else {
                                     swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                 }
                             } else {
-                                // if ($scope.properties.idExtranjero !== undefined) {
-                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                // }
-                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
+                                if ($scope.properties.idExtranjero !== undefined) {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                } else {
-                                    $scope.properties.idExtranjero = "";
                                 }
+                                topFunction();
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
                             }
                         }
                     }
                 } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
-                    swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
+                    swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                 } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                     swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
                 } else {
@@ -225,28 +215,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.tieneDescuento === true) {
                             if ($scope.properties.descuento !== undefined) {
                                 $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
-                                // if ($scope.properties.idExtranjero !== undefined) {
-                                //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                // }
-                                if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
+                                if ($scope.properties.idExtranjero !== undefined) {
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                } else {
-                                    $scope.properties.idExtranjero = "";
                                 }
+                                topFunction();
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
                             } else {
                                 swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                             }
                         } else {
-                            // if ($scope.properties.idExtranjero !== undefined) {
-                            //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                            // }
-                            if ($scope.properties.idExtranjero !== undefined && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
+                            if ($scope.properties.idExtranjero !== undefined) {
                                 $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                            } else {
-                                $scope.properties.idExtranjero = "";
                             }
+                            topFunction();
                             $scope.properties.selectedIndex++;
                             //$scope.assignTask();
                         }
@@ -262,6 +244,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Tutor!", "Debes agregar al menos un tutor", "warning");
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.cp = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex++;
                     //$scope.assignTask();
                 }
@@ -275,6 +258,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.cp = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -288,10 +272,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Apellidos de tu padre!", "Debes agregar los apellidos de tu padre", "warning");
                 } else if ($scope.properties.datosPadres.padrevive) {
                     if ($scope.properties.padre.catEgresoAnahuac === 0 || $scope.properties.padre.catEgresoAnahuac === null) {
-                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu padre egresó de la Universidad Anáhuac", "warning");
+                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu padre egresó del universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.padreegresoanahuac) {
                         if ($scope.properties.padre.catCampusEgreso === 0 || $scope.properties.padre.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu padre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu padre", "warning");
                         } else {
                             if ($scope.properties.padre.catTrabaja === 0 || $scope.properties.padre.catTrabaja === null) {
                                 swal("¿Trabaja?", "Debes seleccionar si tu padre trabaja", "warning");
@@ -299,7 +283,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                     swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                                 } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre", "warning");
+                                    swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del de trabajo de tu padre!", "warning");
                                 } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                                 } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -317,7 +301,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else if ($scope.properties.padre.estadoExtranjero === "" && $scope.properties.padre.catPais.descripcion !== "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
-                                    swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu padre", "warning");
+                                    swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -331,6 +315,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.selectedIndex--;
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                         $scope.properties.cp = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -351,7 +336,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else if ($scope.properties.padre.estadoExtranjero === "" && $scope.properties.padre.catPais.descripcion !== "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
-                                    swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu padre", "warning");
+                                    swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -365,6 +350,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.selectedIndex--;
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                         $scope.properties.cp = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -379,7 +365,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.padre.empresaTrabaja === "" || $scope.properties.padre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre del empresa donde tu padre trabaja", "warning");
                             } else if ($scope.properties.padre.giroEmpresa === "" || $scope.properties.padre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu padre", "warning");
+                                swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del de trabajo de tu padre!", "warning");
                             } else if ($scope.properties.padre.puesto === "" || $scope.properties.padre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu padre", "warning");
                             } else if ($scope.properties.padre.correoElectronico === "" || $scope.properties.padre.correoElectronico === undefined) {
@@ -397,7 +383,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.padre.estadoExtranjero === "" && $scope.properties.padre.catPais.descripcion !== "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
-                                swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu padre", "warning");
+                                swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -411,6 +397,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.cp = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -431,7 +418,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.padre.estadoExtranjero === "" && $scope.properties.padre.catPais.descripcion !== "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
-                                swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu padre", "warning");
+                                swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -445,6 +432,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.cp = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -456,6 +444,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.cp = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -468,6 +457,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.cp = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -481,10 +471,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Apellidos de tu madre!", "Debes agregar los apellidos de tu madre", "warning");
                 } else if ($scope.properties.datosPadres.madrevive) {
                     if ($scope.properties.madre.catEgresoAnahuac === 0 || $scope.properties.madre.catEgresoAnahuac === null) {
-                        swal("¡Egresado Anáhuac!", "Debes seleccionar si tu madre egresó de la Universidad Anáhuac", "warning");
+                        swal("¡Egreso Anáhuac!", "Debes seleccionar si tu madre egreso de la universidad Anáhuac", "warning");
                     } else if ($scope.properties.datosPadres.madreegresoanahuac) {
                         if ($scope.properties.madre.catCampusEgreso === 0 || $scope.properties.madre.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu madre", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de que campus Anáhuac egresó tu madre", "warning");
                         } else {
                             if ($scope.properties.madre.catTrabaja === 0 || $scope.properties.madre.catTrabaja === null) {
                                 swal("¿Trabaja?", "Debes seleccionar si tu madre trabaja", "warning");
@@ -492,7 +482,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.madre.empresaTrabaja === "" || $scope.properties.madre.empresaTrabaja === undefined) {
                                     swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu madre trabaja", "warning");
                                 } else if ($scope.properties.madre.giroEmpresa === "" || $scope.properties.madre.giroEmpresa === undefined) {
-                                    swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre", "warning");
+                                    swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del de trabajo de tu madre!", "warning");
                                 } else if ($scope.properties.madre.puesto === "" || $scope.properties.madre.puesto === undefined) {
                                     swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu madre", "warning");
                                 } else if ($scope.properties.madre.correoElectronico === "" || $scope.properties.madre.correoElectronico === undefined) {
@@ -510,7 +500,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else if ($scope.properties.madre.estadoExtranjero === "" && $scope.properties.madre.catPais.descripcion !== "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
-                                    swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu madre", "warning");
+                                    swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
@@ -524,6 +514,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.selectedIndex--;
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                         $scope.properties.cp = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -544,7 +535,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else if ($scope.properties.madre.estadoExtranjero === "" && $scope.properties.madre.catPais.descripcion !== "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
-                                    swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu madre", "warning");
+                                    swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
@@ -558,6 +549,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.selectedIndex--;
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                         $scope.properties.cp = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -572,7 +564,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.madre.empresaTrabaja === "" || $scope.properties.madre.empresaTrabaja === undefined) {
                                 swal("¡Empresa!", "Debes agregar el nombre de la empresa donde tu madre trabaja", "warning");
                             } else if ($scope.properties.madre.giroEmpresa === "" || $scope.properties.madre.giroEmpresa === undefined) {
-                                swal("¡Giro empresa!", "Debes agregar el giro de la empresa del trabajo de tu madre", "warning");
+                                swal("¡Giro empresa!!", "Debes agregar el giro de la empresa del de trabajo de tu madre!", "warning");
                             } else if ($scope.properties.madre.puesto === "" || $scope.properties.madre.puesto === undefined) {
                                 swal("¡Puesto!", "Debes agregar el puesto de trabajo de tu madre", "warning");
                             } else if ($scope.properties.madre.correoElectronico === "" || $scope.properties.madre.correoElectronico === undefined) {
@@ -590,7 +582,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.madre.estadoExtranjero === "" && $scope.properties.madre.catPais.descripcion !== "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
-                                swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu madre", "warning");
+                                swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
@@ -604,6 +596,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.cp = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -624,7 +617,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.madre.estadoExtranjero === "" && $scope.properties.madre.catPais.descripcion !== "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
-                                swal("¡Ciudad!", "Debes agregar la calle del domicilio de tu madre", "warning");
+                                swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
@@ -638,6 +631,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.cp = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -649,6 +643,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.cp = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -662,6 +657,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                        topFunction();
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -673,6 +669,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                    topFunction();
                     $scope.properties.selectedIndex++;
                     //$scope.assignTask();
                 }
@@ -682,6 +679,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                    topFunction();
                     $scope.properties.selectedIndex++;
                     //$scope.assignTask();
                 }
@@ -724,8 +722,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             });
     }
-	
-	function submitTask() {
+  
+  function submitTask() {
         var id;
         //id = getUrlParam('id');
         id = $scope.properties.taskId;
@@ -739,7 +737,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-	
+  
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
@@ -749,7 +747,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return {};
     }
-	
+  
     function getUrlParam(param) {
         var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
         if (paramValue) {
@@ -757,8 +755,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return '';
     }
-	
-	function doRequest(method, url, params) {
+  
+  function doRequest(method, url, params) {
         //vm.busy = true;
         debugger;
         if ($scope.properties.tabs === "Informacion Personal") {
@@ -802,6 +800,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
                 closeModal($scope.properties.closeOnSuccess);*/
                 getTask();
+                topFunction();
                 topFunction();
                 $scope.properties.selectedIndex++;
             })

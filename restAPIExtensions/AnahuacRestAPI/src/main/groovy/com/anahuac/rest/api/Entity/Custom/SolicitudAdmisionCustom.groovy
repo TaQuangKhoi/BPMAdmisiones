@@ -117,6 +117,11 @@ class SolicitudAdmisionCustom {
 	private String estatusSolicitud;
 	@XmlElement
 	private DetalleSolicitudCustom objDetalleSolicitud;
+	@XmlElement
+	private String fechaultimamodificacion;
+	@XmlElement
+	private String idBanner;
+	
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -454,6 +459,23 @@ class SolicitudAdmisionCustom {
 		this.objDetalleSolicitud = objDetalleSolicitud;
 	}
 	
+	
+	
+	public String getFechaultimamodificacion() {
+		return fechaultimamodificacion;
+	}
+	public void setFechaultimamodificacion(String fechaultimamodificacion) {
+		this.fechaultimamodificacion = fechaultimamodificacion;
+	}
+	
+	
+	
+	public String getIdBanner() {
+		return idBanner;
+	}
+	public void setIdBanner(String idBanner) {
+		this.idBanner = idBanner;
+	}
 	@Override
 	public String toString() {
 		return "SolicitudAdmisionCustom [persistenceId=" + persistenceId + ", persistenceVersion=" + persistenceVersion

@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "verSesiones",
   "name" : "verSesiones",
-  "lastUpdate" : 1610491349437,
+  "lastUpdate" : 1613694462366,
   "rows" : [
     [
       {
@@ -140,6 +140,10 @@
                 "isCorrectTask" : {
                   "type" : "variable",
                   "value" : "isCorrectTask"
+                },
+                "isMedicina" : {
+                  "type" : "variable",
+                  "value" : "solicitudAdmicion[0].catGestionEscolar.isMedicina"
                 }
               },
               "reference" : "3d44c8fe-5870-45b9-a955-fcb042ec8215",
@@ -152,13 +156,6 @@
     ]
   ],
   "assets" : [
-    {
-      "id" : "54c6e082-30f6-40d9-9aa1-434b91a531ef",
-      "name" : "panel-audiencias-pendientes.css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
     {
       "id" : "6c832c9a-6c4c-412e-adc5-4c1b323de3f7",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
@@ -199,6 +196,13 @@
       "name" : "notify.js",
       "type" : "js",
       "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "54c6e082-30f6-40d9-9aa1-434b91a531ef",
+      "name" : "panel-audiencias-pendientes.css",
+      "type" : "css",
+      "order" : 4,
       "external" : false
     }
   ],
@@ -330,6 +334,13 @@
       "type" : "url",
       "value" : [
         "../API/bpm/userTask/{{currentTask[0].id}}/context"
+      ],
+      "exposed" : false
+    },
+    "solicitudAdmicion" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCorreoElectronico [com.anahuac.model.SolicitudDeAdmision]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCorreoElectronico\",\"displayName\":\"findByCorreoElectronico\"},\"id\":\"com.anahuac.model.SolicitudDeAdmision\",\"filters\":[{\"name\":\"correoElectronico\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{userData.user_name}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

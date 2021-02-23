@@ -97,13 +97,6 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_Ko3N8i6lEeuM5sRfBP7pBw" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_Ko3N8S6lEeuM5sRfBP7pBw" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_Ko3N8y6lEeuM5sRfBP7pBw" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_cGqFEC6mEeu9W7AdnjsGyg">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_cGqFES6mEeu9W7AdnjsGyg" name="lstCatSexoToDelete" content="lstCatSexoToDelete" type="TYPE_VARIABLE" returnType="java.util.List">
-            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ciXwsC6mEeu9W7AdnjsGyg" name="lstCatSexoToDelete" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatSexo"/>
-          </leftOperand>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_cGqFEi6mEeu9W7AdnjsGyg" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_cGqFEy6mEeu9W7AdnjsGyg" type="DELETION"/>
-        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_Ko3N9C6lEeuM5sRfBP7pBw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_Ko3N9S6lEeuM5sRfBP7pBw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="_Ko3N9i6lEeuM5sRfBP7pBw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -122,9 +115,9 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_az7R4C6mEeu9W7AdnjsGyg" name="lstCatSexoToDelete" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatSexo">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_az7R4S6mEeu9W7AdnjsGyg" name="init_lstCatSexoToDelete()" content="import com.anahuac.catalogos.CatSexo&#xD;&#xA;&#xD;&#xA;def catSexoList = [];&#xD;&#xA;for(Map objCatSexoInput: lstCatSexoInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatSexoInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatSexo objCatSexo = catSexoDAO.findByPersistenceId(objCatSexoInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatSexo != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catSexoList.add(objCatSexo);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#x9;&#xD;&#xA;}&#xD;&#xA;return catSexoList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_LBK44C6oEeu9W7AdnjsGyg" name="lstCatSexoInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_LBK44S6oEeu9W7AdnjsGyg" name="catSexoDAO" content="catSexoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatSexoDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_az7R4S6mEeu9W7AdnjsGyg" name="init_lstCatSexoToDelete()" content="import com.anahuac.catalogos.CatSexo&#xD;&#xA;&#xD;&#xA;def catSexoList = [];&#xD;&#xA;for(Map objCatSexoInput: lstCatSexoInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatSexoInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatSexo objCatSexo = catSexoDAO.findByPersistenceId(objCatSexoInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatSexo != null) {&#xD;&#xA;&#x9;&#x9;&#x9;objCatSexo.isEliminado = true;&#xD;&#xA;&#x9;&#x9;&#x9;catSexoList.add(objCatSexo);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catSexoList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_6QjHYGyMEeugGfi-Ue6EgQ" name="lstCatSexoInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_6QjucGyMEeugGfi-Ue6EgQ" name="catSexoDAO" content="catSexoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatSexoDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_DY2kEC6lEeuM5sRfBP7pBw" type="NONE">

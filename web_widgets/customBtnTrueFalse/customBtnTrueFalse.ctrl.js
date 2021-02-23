@@ -5,8 +5,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
   this.action = function action() {
-      debugger;
-      $scope.properties.valor = !$scope.properties.valor
+     $scope.properties.valor = !$scope.properties.valor
+     //modalService.close();
   };
 
 

@@ -294,15 +294,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono === "") {
                     swal("¡Teléfono!", "Debes el agregar el teléfono", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
-                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria en caso de no encontrar la tuya seleccionar la opción otro", "warning");
+                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria, en caso de no encontrar la tuya selecciona la opción otro", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion === "Otro") {
-                    if ($scope.properties.datosPreparatoria.nombreBachillerato === "") {
+                    if ($scope.properties.datosPreparatoria.nombreBachillerato === "" || $scope.properties.datosPreparatoria.nombreBachillerato === null || $scope.properties.datosPreparatoria.nombreBachillerato === undefined) {
                         swal("¡Preparatoria!", "Debes agregar el nombre de tu preparatoria", "warning");
-                    } else if ($scope.properties.datosPreparatoria.paisBachillerato === undefined || $scope.properties.datosPreparatoria.paisBachillerato === "") {
+                    } else if ($scope.properties.datosPreparatoria.paisBachillerato === undefined || $scope.properties.datosPreparatoria.paisBachillerato === "" || $scope.properties.datosPreparatoria.paisBachillerato === null) {
                         swal("¡País de tu preparatoria!", "Debes agregar el país de tu preparatoria", "warning");
-                    } else if ($scope.properties.datosPreparatoria.estadoBachillerato === undefined || $scope.properties.datosPreparatoria.estadoBachillerato === "") {
+                    } else if ($scope.properties.datosPreparatoria.estadoBachillerato === undefined || $scope.properties.datosPreparatoria.estadoBachillerato === "" || $scope.properties.datosPreparatoria.estadoBachillerato === null) {
                         swal("¡Estado de tu preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
-                    } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined || $scope.properties.datosPreparatoria.ciudadBachillerato === "") {
+                    } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined || $scope.properties.datosPreparatoria.ciudadBachillerato === "" || $scope.properties.datosPreparatoria.ciudadBachillerato === null) {
                         swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
                     } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
@@ -404,7 +404,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } 
 
                             if (!$scope.fallo) {
-                                if ($scope.properties.tienePAA) {
+                                debugger;
+                                if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
                                         swal("¡Resultado (PAA) del Examen College Board!", "Tu puntuación debe ser mayor a cero", "warning");
@@ -678,6 +679,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         } 
 
                         if (!$scope.fallo) {
+                            debugger;
                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                     $scope.fallo = true;
@@ -2774,7 +2776,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } 
 
                             if (!$scope.fallo) {
-                                if ($scope.properties.tienePAA) {
+                                debugger;
+                                if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
                                         swal("¡Resultado (PAA) del Examen College Board!", "Tu puntuación debe ser mayor a cero", "warning");
@@ -3051,6 +3054,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         } 
 
                         if (!$scope.fallo) {
+                            debugger;
                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                     $scope.fallo = true;

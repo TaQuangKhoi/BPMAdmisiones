@@ -105,13 +105,6 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_Fi3vAi9qEeu1IdgvlyKxPg" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_Fi3vAS9qEeu1IdgvlyKxPg" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_Fi3vAy9qEeu1IdgvlyKxPg" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_lVvwIC99Eeu1IdgvlyKxPg">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_lVvwIS99Eeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionToDelete" content="lstCatPagoDeExamenDeAdmisionToDelete" type="TYPE_VARIABLE" returnType="java.util.List">
-            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_l-nG8C99Eeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionToDelete" multiple="true" dataType="_bAduoy9pEeu1IdgvlyKxPg" className="com.anahuac.catalogos.CatPagoDeExamenDeAdmision"/>
-          </leftOperand>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_lVvwIi99Eeu1IdgvlyKxPg" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_lVvwIy99Eeu1IdgvlyKxPg" type="DELETION"/>
-        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_Fi3vBC9qEeu1IdgvlyKxPg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_Fi3vBS9qEeu1IdgvlyKxPg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="_Fi3vBi9qEeu1IdgvlyKxPg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -130,9 +123,9 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_RYiVcC9qEeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionToDelete" multiple="true" dataType="_bAduoy9pEeu1IdgvlyKxPg" className="com.anahuac.catalogos.CatPagoDeExamenDeAdmision">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_RYiVcS9qEeu1IdgvlyKxPg" name="init_lstCatPagoDeExamenDeAdmisionToDelete()" content="import com.anahuac.catalogos.CatPagoDeExamenDeAdmision;&#xD;&#xA;&#xD;&#xA;def catPagoDeExamenDeAdmisionList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatPagoDeExamenDeAdmisionInput: lstCatPagoDeExamenDeAdmisionInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatPagoDeExamenDeAdmisionInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatPagoDeExamenDeAdmision objCatPagoDeExamenDeAdmision = catPagoDeExamenDeAdmisionDAO.findByPersistenceId(objCatPagoDeExamenDeAdmisionInput.persistenceId);&#xD;&#xA;&#x9;&#x9;if (objCatPagoDeExamenDeAdmision != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catPagoDeExamenDeAdmisionList.add(objCatPagoDeExamenDeAdmision)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPagoDeExamenDeAdmisionList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_kBiwkC9tEeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_kBiwkS9tEeu1IdgvlyKxPg" name="catPagoDeExamenDeAdmisionDAO" content="catPagoDeExamenDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPagoDeExamenDeAdmisionDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_RYiVcS9qEeu1IdgvlyKxPg" name="init_lstCatPagoDeExamenDeAdmisionToDelete()" content="import com.anahuac.catalogos.CatPagoDeExamenDeAdmision;&#xD;&#xA;&#xD;&#xA;def catPagoDeExamenDeAdmisionList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatPagoDeExamenDeAdmisionInput: lstCatPagoDeExamenDeAdmisionInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatPagoDeExamenDeAdmisionInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatPagoDeExamenDeAdmision objCatPagoDeExamenDeAdmision = catPagoDeExamenDeAdmisionDAO.findByPersistenceId(objCatPagoDeExamenDeAdmisionInput.persistenceId);&#xD;&#xA;&#x9;&#x9;if (objCatPagoDeExamenDeAdmision != null) {&#xD;&#xA;&#x9;&#x9;&#x9;objCatPagoDeExamenDeAdmision.isEliminado = true;&#xD;&#xA;&#x9;&#x9;&#x9;catPagoDeExamenDeAdmisionList.add(objCatPagoDeExamenDeAdmision)&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPagoDeExamenDeAdmisionList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_mjQn8GyNEeugGfi-Ue6EgQ" name="lstCatPagoDeExamenDeAdmisionInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_mjQn8WyNEeugGfi-Ue6EgQ" name="catPagoDeExamenDeAdmisionDAO" content="catPagoDeExamenDeAdmisionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPagoDeExamenDeAdmisionDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_1b9V0C9pEeu1IdgvlyKxPg" type="NONE">

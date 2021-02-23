@@ -6,6 +6,10 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
     this.selectRow = function(row) {
         $scope.properties.selectedRow = row;
+        if(row.catBachilleratos !== undefined && row.catBachilleratos !== null){
+            $scope.properties.selectedRow.bachillerato = row.catBachilleratos.descripcion;
+        }
+        
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
     };

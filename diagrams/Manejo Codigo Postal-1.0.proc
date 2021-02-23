@@ -96,6 +96,79 @@
         <value xmi:type="expression:Expression" xmi:id="_3uzkmy60Eeu8-OzCxTutVA" content="" returnTypeFixed="true"/>
       </searchIndexes>
     </elements>
+    <elements xmi:type="process:Pool" xmi:id="_j-i6gG_lEeuhH_6-59Rrcg" name="Editar Codigo Postal">
+      <elements xmi:type="process:StartEvent" xmi:id="_lNxtwG_lEeuhH_6-59Rrcg" name="Inicio2" outgoing="_mEIG8G_lEeuhH_6-59Rrcg">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_lNyU0W_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_lNyU0G_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_lNyU0m_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <elements xmi:type="process:EndEvent" xmi:id="_mD7SoG_lEeuhH_6-59Rrcg" name="Fin2" incoming="_mEIG8G_lEeuhH_6-59Rrcg">
+        <dynamicLabel xmi:type="expression:Expression" xmi:id="_mD7Som_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+        <dynamicDescription xmi:type="expression:Expression" xmi:id="_mD7SoW_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+        <stepSummary xmi:type="expression:Expression" xmi:id="_mD7So2_lEeuhH_6-59Rrcg" name="" content="" returnTypeFixed="true"/>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_2Uk2oG_lEeuhH_6-59Rrcg" name="lstCatCodigoPostal" multiple="true" dataType="_3uzkpC60Eeu8-OzCxTutVA" className="com.anahuac.catalogos.CatCodigoPostal">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_scTUiG_mEeuhH_6-59Rrcg" name="initLstCatCodigoPostal()" content="import com.anahuac.catalogos.CatCodigoPostal&#xD;&#xA;&#xD;&#xA;def catCodigoPostalList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;&#xD;&#xA;for (Map currentCatCodigoPostalInput: lstCatCodigoPostalInput) {&#xD;&#xA;    if (Boolean.TRUE.equals(currentCatCodigoPostalInput.isEliminado))&#xD;&#xA;    continue;&#xD;&#xA;&#x9;CatCodigoPostal objCatCodigoPostal = catCodigoPostalDAO.findByPersistenceId(currentCatCodigoPostalInput.persistenceId)&#xD;&#xA;&#x9;if(objCatCodigoPostal != null){&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.codigoPostal = currentCatCodigoPostalInput.codigoPostal&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.asentamiento = currentCatCodigoPostalInput.asentamiento&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.tipoAsentamiento = currentCatCodigoPostalInput.tipoAsentamiento&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.estado = currentCatCodigoPostalInput.estado&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.municipio = currentCatCodigoPostalInput.municipio&#xD;&#xA;&#x9;&#x9;objCatCodigoPostal.ciudad = currentCatCodigoPostalInput.ciudad&#xD;&#xA;&#x9;&#x9;catCodigoPostalList.add(objCatCodigoPostal);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCodigoPostalList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_0aqcwG_nEeuhH_6-59Rrcg" name="lstCatCodigoPostalInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_0aqcwW_nEeuhH_6-59Rrcg" name="catCodigoPostalDAO" content="catCodigoPostalDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCodigoPostalDAO" returnTypeFixed="true"/>
+        </defaultValue>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_C-134G_oEeuhH_6-59Rrcg" name="lstCatCodigoPostalEliminado" multiple="true" dataType="_3uzkpC60Eeu8-OzCxTutVA" className="com.anahuac.catalogos.CatCodigoPostal">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_C-134W_oEeuhH_6-59Rrcg" name="init_lstCatCodigoPostalEliminado()" content="import com.anahuac.catalogos.CatCodigoPostal&#xD;&#xA;&#xD;&#xA;def catCodigoPostalList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;&#xD;&#xA;for (Map currentCatCodigoPostalInput: lstCatCodigoPostalInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(currentCatCodigoPostalInput.isEliminado)){&#xD;&#xA;&#x9;&#x9;CatCodigoPostal objCatCodigoPostal = catCodigoPostalDAO.findByPersistenceId(currentCatCodigoPostalInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatCodigoPostal != null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatCodigoPostal.isEliminado = true;&#xD;&#xA;&#x9;&#x9;&#x9;catCodigoPostalList.add(objCatCodigoPostal);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catCodigoPostalList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_C-134m_oEeuhH_6-59Rrcg" name="lstCatCodigoPostalInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_C-1342_oEeuhH_6-59Rrcg" name="catCodigoPostalDAO" content="catCodigoPostalDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCodigoPostalDAO" returnTypeFixed="true"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_kEMPgG_lEeuhH_6-59Rrcg" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_kEMPgW_lEeuhH_6-59Rrcg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_kEMPgm_lEeuhH_6-59Rrcg" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_kEMPg2_lEeuhH_6-59Rrcg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_mEIG8G_lEeuhH_6-59Rrcg" target="_mD7SoG_lEeuhH_6-59Rrcg" source="_lNxtwG_lEeuhH_6-59Rrcg">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_mEKjMG_lEeuhH_6-59Rrcg"/>
+        <condition xmi:type="expression:Expression" xmi:id="_mEKjMW_lEeuhH_6-59Rrcg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_HbQ_4G_oEeuhH_6-59Rrcg" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_4W_oEeuhH_6-59Rrcg" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_4m_oEeuhH_6-59Rrcg" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_42_oEeuhH_6-59Rrcg" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_5G_oEeuhH_6-59Rrcg" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_5W_oEeuhH_6-59Rrcg" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HbQ_5m_oEeuhH_6-59Rrcg" id="OTHER"/>
+      </configurations>
+      <contract xmi:type="process:Contract" xmi:id="_kEMPhG_lEeuhH_6-59Rrcg">
+        <inputs xmi:type="process:ContractInput" xmi:id="_scTUgG_mEeuhH_6-59Rrcg" name="lstCatCodigoPostalInput" type="COMPLEX" multiple="true" dataReference="lstCatCodigoPostal">
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUgW_mEeuhH_6-59Rrcg" name="codigoPostal"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUgm_mEeuhH_6-59Rrcg" name="asentamiento"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUg2_mEeuhH_6-59Rrcg" name="tipoAsentamiento"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUhG_mEeuhH_6-59Rrcg" name="estado"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUhW_mEeuhH_6-59Rrcg" name="municipio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUhm_mEeuhH_6-59Rrcg" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_scTUh2_mEeuhH_6-59Rrcg" name="ciudad"/>
+        </inputs>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_kEIlIG_lEeuhH_6-59Rrcg">
+        <name xmi:type="expression:Expression" xmi:id="_kEJMMG_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_kEJMMW_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_kEJMMm_lEeuhH_6-59Rrcg">
+        <name xmi:type="expression:Expression" xmi:id="_kEJMM2_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_kEJMNG_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_kEJMNW_lEeuhH_6-59Rrcg">
+        <name xmi:type="expression:Expression" xmi:id="_kEJMNm_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_kEJMN2_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_kEJMOG_lEeuhH_6-59Rrcg">
+        <name xmi:type="expression:Expression" xmi:id="_kEJMOW_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_kEJMOm_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_kEJMO2_lEeuhH_6-59Rrcg">
+        <name xmi:type="expression:Expression" xmi:id="_kEJMPG_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_kEJMPW_lEeuhH_6-59Rrcg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
     <datatypes xmi:type="process:BooleanType" xmi:id="_3uzknC60Eeu8-OzCxTutVA" name="Boolean"/>
     <datatypes xmi:type="process:DateType" xmi:id="_3uzknS60Eeu8-OzCxTutVA" name="Date"/>
     <datatypes xmi:type="process:IntegerType" xmi:id="_3uzkni60Eeu8-OzCxTutVA" name="Integer"/>
@@ -139,6 +212,28 @@
       <styles xmi:type="notation:FillStyle" xmi:id="_3uzkuy60Eeu8-OzCxTutVA"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3uzkvC60Eeu8-OzCxTutVA" width="800" height="250"/>
     </children>
+    <children xmi:type="notation:Node" xmi:id="_kFmkwG_lEeuhH_6-59Rrcg" type="2007" element="_j-i6gG_lEeuhH_6-59Rrcg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_kFoZ8G_lEeuhH_6-59Rrcg" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_kFoZ8W_lEeuhH_6-59Rrcg" type="7001">
+        <children xmi:type="notation:Shape" xmi:id="_lN1YIG_lEeuhH_6-59Rrcg" type="3002" element="_lNxtwG_lEeuhH_6-59Rrcg" fontName="Segoe UI">
+          <children xmi:type="notation:DecorationNode" xmi:id="_lN2mQG_lEeuhH_6-59Rrcg" type="5024">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_lN2mQW_lEeuhH_6-59Rrcg" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lN1YIW_lEeuhH_6-59Rrcg" x="83" y="100"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_mD8gwG_lEeuhH_6-59Rrcg" type="3003" element="_mD7SoG_lEeuhH_6-59Rrcg" fontName="Segoe UI">
+          <children xmi:type="notation:DecorationNode" xmi:id="_mD8gwm_lEeuhH_6-59Rrcg" type="5025">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_mD8gw2_lEeuhH_6-59Rrcg" y="5"/>
+          </children>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mD8gwW_lEeuhH_6-59Rrcg" x="199" y="100"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_kFmkwW_lEeuhH_6-59Rrcg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_kFmkwm_lEeuhH_6-59Rrcg" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_kFmkw2_lEeuhH_6-59Rrcg"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_kFoZ8m_lEeuhH_6-59Rrcg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kFmkxG_lEeuhH_6-59Rrcg" width="800" height="250"/>
+    </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_3uzkvS60Eeu8-OzCxTutVA"/>
     <edges xmi:type="notation:Connector" xmi:id="_9M4WsC60Eeu8-OzCxTutVA" type="4001" element="_9M3IkC60Eeu8-OzCxTutVA" source="_3uzkry60Eeu8-OzCxTutVA" target="_9MxB8C60Eeu8-OzCxTutVA" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_9M49wC60Eeu8-OzCxTutVA" type="6001">
@@ -146,6 +241,13 @@
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_9M4WsS60Eeu8-OzCxTutVA" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9M4Wsi60Eeu8-OzCxTutVA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_mELKQG_lEeuhH_6-59Rrcg" type="4001" element="_mEIG8G_lEeuhH_6-59Rrcg" source="_lN1YIG_lEeuhH_6-59Rrcg" target="_mD8gwG_lEeuhH_6-59Rrcg" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_mELxUG_lEeuhH_6-59Rrcg" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_mELxUW_lEeuhH_6-59Rrcg" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_mELKQW_lEeuhH_6-59Rrcg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_mELKQm_lEeuhH_6-59Rrcg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1610758769019,
+  "lastUpdate" : 1614103304281,
   "rows" : [
     [
       {
@@ -138,8 +138,8 @@
                 "catEstado" : "catEstados",
                 "catPais" : "catPais",
                 "catGestionEscolar" : "getGestionEscolarByCampus",
-                "catPropedeutico" : "resultadoPropedeutico",
-                "catPeriodo" : "catPeriodo",
+                "catPropedeutico" : "catPropedeutico.data",
+                "catPeriodo" : "catPeriodo.data",
                 "catSolicitudDeAdmision" : "catSolicitudDeAdmision",
                 "variableDestino" : "isDataGestion"
               }
@@ -223,11 +223,734 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "selectedIndexPersonal === 1"
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "6cbdd693-0ccc-4959-a780-d7201e269e3b",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "105dca5d-d4ca-4966-97c5-5fd08b0f6abd",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(selectedIndex === 1 || !showbtnTabsAnterior) && selectedIndexPersonal !== 0"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "formInput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "pasoInformacionPersonal" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "pasoInformacionFamiliar" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            }
+                          },
+                          "reference" : "640889d8-0ef7-4577-ac07-9dedaf0e22f9",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndex"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "showbtnTabsAnterior && selectedIndexPersonal !== 1 && selectedIndexPersonal !== 2"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "formInput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tabs" : {
+                              "type" : "constant"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            }
+                          },
+                          "reference" : "9ffebd14-8e92-4f9e-a7c0-e71d95e8e0d5",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsBack"
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "a118103e-546b-4990-92fd-3506c3cd0cdd",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(showbtnTabs || showbtnTabsfamiliar || showbtnTabsRevision || isFinalStep) && selectedIndexPersonal !== 2"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision"
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : "lugarexamen"
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : "presentadoSolicitd"
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : "llenadodatospadres"
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : "modalConfirmacion"
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : "tieneDescuento"
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : "idExtranjero"
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "preparatoriaSeleccionada"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "pasoInformacionPersonal" : {
+                              "type" : "variable",
+                              "value" : "pasoInformacionPersonal"
+                            },
+                            "pasoInformacionFamiliar" : {
+                              "type" : "variable",
+                              "value" : "pasoInformacionFamiliar"
+                            },
+                            "contactoEmergenciaInput" : {
+                              "type" : "variable",
+                              "value" : "contactoEmergencia"
+                            },
+                            "tutorInput" : {
+                              "type" : "variable",
+                              "value" : "tutorbdm"
+                            },
+                            "padreInput" : {
+                              "type" : "variable",
+                              "value" : "padre"
+                            },
+                            "madreInput" : {
+                              "type" : "variable",
+                              "value" : "madre"
+                            },
+                            "kardexarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.constancia_ref"
+                            },
+                            "descuentoarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.descuento_ref"
+                            },
+                            "collageBoardarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.resultadoCB_ref"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "tienePAA" : {
+                              "type" : "variable",
+                              "value" : "tienePAA"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "users.user_id"
+                            },
+                            "assign" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "responseStatusCode" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "currentTask" : {
+                              "type" : "variable",
+                              "value" : "currentTask"
+                            },
+                            "urlCurrentTask" : {
+                              "type" : "expression",
+                              "value" : "urlCurrentTask"
+                            },
+                            "Bachilleratopersistenceid" : {
+                              "type" : "variable",
+                              "value" : "Bachilleratopersistenceid"
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            },
+                            "cartaAAarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.cartaAA_ref"
+                            }
+                          },
+                          "reference" : "0cf9ce09-0991-4b07-9de6-139d0b04ee3d",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexCreate"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(!showbtnTabs || isFinalStep) && (selectedIndexPersonal !== 0 && selectedIndexPersonal !== 1)"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardPersonalInfo.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision"
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : "lugarexamen"
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : "presentadoSolicitd"
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : "llenadodatospadres"
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : "tieneDescuento"
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : "idExtranjero"
+                            },
+                            "tabs" : {
+                              "type" : "constant",
+                              "value" : "Informacion Personal"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isMadretutor" : {
+                              "type" : "variable",
+                              "value" : "isMadretutor"
+                            },
+                            "isPadretutor" : {
+                              "type" : "variable",
+                              "value" : "isPadretutor"
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "preparatoriaSeleccionada"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "cp" : {
+                              "type" : "variable",
+                              "value" : "cp"
+                            },
+                            "tutor" : {
+                              "type" : "variable",
+                              "value" : "tutorbdm"
+                            },
+                            "padre" : {
+                              "type" : "variable",
+                              "value" : "padre"
+                            },
+                            "madre" : {
+                              "type" : "variable",
+                              "value" : "madre"
+                            },
+                            "fotopasaportearchivo" : {
+                              "type" : "variable",
+                              "value" : "context.fotoPasaporte_ref"
+                            },
+                            "actanacimientoarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.actaNacimiento_ref"
+                            },
+                            "constanciaarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuentoarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "users.user_id"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "currentTask" : {
+                              "type" : "variable",
+                              "value" : "currentTask"
+                            },
+                            "urlCurrentTask" : {
+                              "type" : "expression",
+                              "value" : "urlCurrentTask"
+                            },
+                            "Bachilleratopersistenceid" : {
+                              "type" : "variable",
+                              "value" : "Bachilleratopersistenceid"
+                            }
+                          },
+                          "reference" : "0130ac39-c966-48e9-ac50-b5db3176164f",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsCreate"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : "aqui-va"
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "selectedIndexPersonal!== 0"
+                  "value" : "selectedIndexPersonal !== 0"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -529,7 +1252,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : 50
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -573,9 +1296,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "93e0132a-d6a6-4030-9e22-9884faeb75f8",
+                          "reference" : "5a61b764-aedd-4fab-89f6-00ae2e66dd78",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
+                          "id" : "customInputLimit"
                         },
                         {
                           "type" : "component",
@@ -1514,6 +2237,58 @@
                       ],
                       [
                         {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<br/>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "df84d204-9f0f-4721-90c4-f823ac67c0eb",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
                           "type" : "container",
                           "dimension" : {
                             "xs" : 12,
@@ -1579,7 +2354,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Foto tipo pasaporte: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Fotografía Personal (<strong>Tipo</strong> pasaporte) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -1905,6 +2680,58 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<ul>\n<li>Debe de tener solo tu imagen.</li>\n<li>Tomada de frente y en proporción a una fotografía de alguna credencial.</li>\n<li>Debe ser reciente y bien enfocada.</li>\n<li>Si la fotografía no cumple con las características indicadas, puede ser rechazada y deberás corregirla antes de que puedas continuar con tu trámite.</li>\n</ul>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "fc4c9342-a2ec-4b0b-8628-a137e15a76a5",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
@@ -2204,7 +3031,7 @@
                                   },
                                   "assetName" : {
                                     "type" : "expression",
-                                    "value" : "\"noimageavailable.png\""
+                                    "value" : "\"noimageavailabledoc.png\""
                                   },
                                   "alt" : {
                                     "type" : "interpolation"
@@ -2558,7 +3385,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "selectedIndexPersonal!== 1"
+                  "value" : "selectedIndexPersonal !== 1"
                 }
               },
               "reference" : "934a23bc-be3e-4efd-a157-e4df8f0c0972",
@@ -2596,7 +3423,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "selectedIndexPersonal!== 2"
+                  "value" : "selectedIndexPersonal !== 2"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -3574,7 +4401,7 @@
                                   },
                                   "assetName" : {
                                     "type" : "expression",
-                                    "value" : "\"noimageavailable.png\""
+                                    "value" : "\"noimageavailabledoc.png\""
                                   },
                                   "alt" : {
                                     "type" : "interpolation"
@@ -3920,7 +4747,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "catSolicitudDeAdmision.catBachilleratos.pertenecered !== \"t\""
+                              "value" : "catSolicitudDeAdmision.catBachilleratos.pertenecered === \"f\""
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -4309,7 +5136,7 @@
                                   },
                                   "assetName" : {
                                     "type" : "expression",
-                                    "value" : "\"noimageavailable.png\""
+                                    "value" : "\"noimageavailabledoc.png\""
                                   },
                                   "alt" : {
                                     "type" : "interpolation"
@@ -5047,7 +5874,7 @@
                                   },
                                   "assetName" : {
                                     "type" : "expression",
-                                    "value" : "\"noimageavailable.png\""
+                                    "value" : "\"noimageavailabledoc.png\""
                                   },
                                   "alt" : {
                                     "type" : "interpolation"
@@ -5585,7 +6412,7 @@
                             },
                             "assetName" : {
                               "type" : "expression",
-                              "value" : "\"noimageavailable.png\""
+                              "value" : "\"noimageavailabledoc.png\""
                             },
                             "alt" : {
                               "type" : "interpolation"
@@ -5992,6 +6819,417 @@
           ],
           [
             {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "selectedIndexFamiliar == 0 || selectedIndexFamiliar == 3"
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "e166db94-78d4-456f-bc02-c0e13ce4c7e0",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "6150f9b9-d340-4c40-aeaa-f9868ec12dd3",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(showbtnTabsAnterior) && (selectedIndexFamiliar !== 1 || selectedIndexFamiliar !== 2)"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "formInput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tabs" : {
+                              "type" : "constant"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            }
+                          },
+                          "reference" : "1c0ac60e-97c3-4793-8286-669e5a42d505",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsBack"
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "225ba4c9-1b64-424a-ae70-52d8fe6801f5",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(!showbtnTabsfamiliar || isFinalStep) && (selectedIndexFamiliar !== 1 || selectedIndexFamiliar !== 2)"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardFamiliarinfo.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision"
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : "lugarexamen"
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : "presentadoSolicitd"
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : "llenadodatospadres"
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : "tieneDescuento"
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : "idExtranjero"
+                            },
+                            "tabs" : {
+                              "type" : "constant",
+                              "value" : "Informacion Familiar"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isMadretutor" : {
+                              "type" : "variable",
+                              "value" : "isMadretutor"
+                            },
+                            "isPadretutor" : {
+                              "type" : "variable",
+                              "value" : "isPadretutor"
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "preparatoriaSeleccionada"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "cp" : {
+                              "type" : "variable",
+                              "value" : "cp"
+                            },
+                            "tutor" : {
+                              "type" : "variable",
+                              "value" : "tutorbdm"
+                            },
+                            "padre" : {
+                              "type" : "variable",
+                              "value" : "padre"
+                            },
+                            "madre" : {
+                              "type" : "variable",
+                              "value" : "madre"
+                            },
+                            "fotopasaportearchivo" : {
+                              "type" : "variable",
+                              "value" : "context.fotoPasaporte_ref"
+                            },
+                            "actanacimientoarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.actaNacimiento_ref"
+                            },
+                            "constanciaarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuentoarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "users.user_id"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "currentTask" : {
+                              "type" : "variable",
+                              "value" : "currentTask"
+                            },
+                            "urlCurrentTask" : {
+                              "type" : "expression",
+                              "value" : "urlCurrentTask"
+                            },
+                            "Bachilleratopersistenceid" : {
+                              "type" : "variable",
+                              "value" : "Bachilleratopersistenceid"
+                            }
+                          },
+                          "reference" : "1a4adb86-b64c-495a-be30-97f86d750c6c",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsCreate"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
               "type" : "fragment",
               "dimension" : {
                 "xs" : 12,
@@ -6268,11 +7506,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Cerrar"
+                    "value" : "Cancelar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "left"
+                    "value" : "right"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -6356,11 +7594,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Agregar tutor"
+                    "value" : "Guardar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "right"
+                    "value" : "left"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -6620,11 +7858,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Cerrar"
+                    "value" : "Cancelar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "left"
+                    "value" : "right"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -6708,11 +7946,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Editar tutor"
+                    "value" : "Guardar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "right"
+                    "value" : "left"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -6970,11 +8208,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Cerrar"
+                    "value" : "Cancelar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "left"
+                    "value" : "right"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -7058,11 +8296,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Agregar contacto de emergencia"
+                    "value" : "Guardar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "right"
+                    "value" : "left"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -7223,7 +8461,8 @@
                   "tutorbdm" : "tutorbdm",
                   "padre" : "padre",
                   "madre" : "madre",
-                  "catParentescoCompleto" : "catParentesco"
+                  "catParentescoCompleto" : "catParentesco",
+                  "isExtranjero" : "catSolicitudDeAdmision.catNacionalidad.descripcion !== \"Mexicana\""
                 }
               }
             ],
@@ -7303,11 +8542,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Cerrar"
+                    "value" : "Cancelar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "left"
+                    "value" : "right"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -7391,11 +8630,11 @@
                   },
                   "label" : {
                     "type" : "interpolation",
-                    "value" : "Modificar contacto de emergencia"
+                    "value" : "Guardar"
                   },
                   "alignment" : {
                     "type" : "constant",
-                    "value" : "right"
+                    "value" : "left"
                   },
                   "buttonStyle" : {
                     "type" : "constant",
@@ -7595,6 +8834,729 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "9537363a-7629-4370-b0a7-a757d9397a17",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "eb9a9d24-4ff7-4fcc-8f09-5f4e171c65c1",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(selectedIndex === 1 || !showbtnTabsAnterior) && selectedIndexRevision !== 0"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "formInput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "pasoInformacionPersonal" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "pasoInformacionFamiliar" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            }
+                          },
+                          "reference" : "3e9db8fc-bc0e-4b0e-a080-fb4598262597",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndex"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "showbtnTabsAnterior && selectedIndexRevision !== 1"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Anterior"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "info"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Anterior"
+                            },
+                            "formInput" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tabs" : {
+                              "type" : "constant"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            }
+                          },
+                          "reference" : "ebfd050f-0ae4-4541-9254-c8456238084f",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsBack"
+                        }
+                      ]
+                    ]
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "00601c78-1355-45f5-92aa-20072bdf673e",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(showbtnTabs || showbtnTabsfamiliar || showbtnTabsRevision || isFinalStep) && selectedIndexRevision !== 1"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardContent.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndex"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision"
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : "lugarexamen"
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : "presentadoSolicitd"
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : "llenadodatospadres"
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : "fotopasaporte"
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : "actanacimiento"
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : "kardex"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : "modalConfirmacion"
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : "tieneDescuento"
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : "idExtranjero"
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "preparatoriaSeleccionada"
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : "collageBoard"
+                            },
+                            "pasoInformacionPersonal" : {
+                              "type" : "variable",
+                              "value" : "pasoInformacionPersonal"
+                            },
+                            "pasoInformacionFamiliar" : {
+                              "type" : "variable",
+                              "value" : "pasoInformacionFamiliar"
+                            },
+                            "contactoEmergenciaInput" : {
+                              "type" : "variable",
+                              "value" : "contactoEmergencia"
+                            },
+                            "tutorInput" : {
+                              "type" : "variable",
+                              "value" : "tutorbdm"
+                            },
+                            "padreInput" : {
+                              "type" : "variable",
+                              "value" : "padre"
+                            },
+                            "madreInput" : {
+                              "type" : "variable",
+                              "value" : "madre"
+                            },
+                            "kardexarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.constancia_ref"
+                            },
+                            "descuentoarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.descuento_ref"
+                            },
+                            "collageBoardarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.resultadoCB_ref"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "tienePAA" : {
+                              "type" : "variable",
+                              "value" : "tienePAA"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "users.user_id"
+                            },
+                            "assign" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "responseStatusCode" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "currentTask" : {
+                              "type" : "variable",
+                              "value" : "currentTask"
+                            },
+                            "urlCurrentTask" : {
+                              "type" : "expression",
+                              "value" : "urlCurrentTask"
+                            },
+                            "Bachilleratopersistenceid" : {
+                              "type" : "variable",
+                              "value" : "Bachilleratopersistenceid"
+                            },
+                            "cartaAA" : {
+                              "type" : "variable",
+                              "value" : "cartaAA"
+                            },
+                            "cartaAAarchivo" : {
+                              "type" : "variable",
+                              "value" : "context.cartaAA_ref"
+                            }
+                          },
+                          "reference" : "3a15db8c-00d8-40c6-a24b-0e153d4b80e2",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexCreate"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "(!showbtnTabsRevision || isFinalStep) && selectedIndexRevision !== 0"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Siguiente"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "right"
+                            },
+                            "buttonStyle" : {
+                              "type" : "constant",
+                              "value" : "primary"
+                            },
+                            "wizardLength" : {
+                              "type" : "variable",
+                              "value" : "wizardRevision.length"
+                            },
+                            "selectedIndex" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "action" : {
+                              "type" : "constant",
+                              "value" : "Siguiente"
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision"
+                            },
+                            "lugarexamen" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "presentadoSolicitud" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPadres" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaporte" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "actanacimiento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "kardex" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "modalid" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tieneDescuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuento" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "idExtranjero" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "tabs" : {
+                              "type" : "constant",
+                              "value" : "Revisa Solicitud"
+                            },
+                            "tabActual" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isMadretutor" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isPadretutor" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "cp" : {
+                              "type" : "variable",
+                              "value" : "cp"
+                            },
+                            "tutor" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "padre" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "madre" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "fotopasaportearchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "actanacimientoarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "constanciaarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "descuentoarchivo" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "selectedIndexPersonal" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexPersonal"
+                            },
+                            "selectedIndexFamiliar" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexFamiliar"
+                            },
+                            "selectedIndexRevision" : {
+                              "type" : "variable",
+                              "value" : "selectedIndexRevision"
+                            },
+                            "taskId" : {
+                              "type" : "variable",
+                              "value" : "taskId"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "users.user_id"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
+                            },
+                            "currentTask" : {
+                              "type" : "variable",
+                              "value" : "currentTask"
+                            },
+                            "urlCurrentTask" : {
+                              "type" : "expression",
+                              "value" : "urlCurrentTask"
+                            },
+                            "Bachilleratopersistenceid" : {
+                              "type" : "variable",
+                              "value" : "Bachilleratopersistenceid"
+                            }
+                          },
+                          "reference" : "cc95ee81-31b3-4988-ba7d-aeca19ec20e1",
+                          "hasValidationError" : false,
+                          "id" : "customBtnWizardIndexTabsCreate"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
                   "type" : "expression",
                   "value" : "selectedIndexRevision !== 0"
                 },
@@ -7632,7 +9594,7 @@
                     "binding" : {
                       "catLicenciatura" : "catGestionEscolar",
                       "catCampus" : "catCampus",
-                      "catPeriodo" : "catPeriodo",
+                      "catPeriodo" : "catPeriodo.data",
                       "catPresentadoSolicitudAnahuac" : "catPresentadoSolicitudAnahuac",
                       "mostrarcampus" : "mostrarcampus",
                       "selectedIndex" : "selectedIndex",
@@ -7640,7 +9602,15 @@
                       "lugarexamen" : "lugarexamen",
                       "ciudadpais" : "ciudadpais",
                       "ciudadestado" : "ciudadestado",
-                      "catSolicitudDeAdmision" : "catSolicitudDeAdmision"
+                      "catSolicitudDeAdmision" : "catSolicitudDeAdmision",
+                      "catPropedeutico" : "catPropedeutico.data",
+                      "formOutput" : "formOutput",
+                      "archivoLocalFoto" : "fotopasaporte",
+                      "archivoLocalActa" : "actanacimiento",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalDescuento" : "descuento",
+                      "archivoLocalCollegeBoard" : "collageBoard"
                     }
                   }
                 ],
@@ -7679,7 +9649,17 @@
                       "selectedIndex" : "selectedIndex",
                       "catSolicitudDeAdmision" : "catSolicitudDeAdmision",
                       "archivoFoto" : "context.fotoPasaporte_ref[0]",
-                      "archivoActa" : "context.actaNacimiento_ref[0]"
+                      "archivoActa" : "context.actaNacimiento_ref[0]",
+                      "selectedIndexPersonal" : "selectedIndexPersonal",
+                      "imgpreview" : "imgpreview",
+                      "imgMostrar" : "imgMostrar",
+                      "formOutput" : "formOutput",
+                      "archivoLocalFoto" : "fotopasaporte",
+                      "archivoLocalActa" : "actanacimiento",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalDescuento" : "descuento",
+                      "archivoLocalCollegeBoard" : "collageBoard"
                     }
                   }
                 ],
@@ -7733,7 +9713,17 @@
                       "urlcartaAA" : "urlcartaAA",
                       "isPDFAA" : "isPDFAA",
                       "archivoAA" : "context.cartaAA_ref[0]",
-                      "isImagenAA" : "isImagenAA"
+                      "isImagenAA" : "isImagenAA",
+                      "selectedIndexPersonal" : "selectedIndexPersonal",
+                      "imgpreview" : "imgpreview",
+                      "imgMostrar" : "imgMostrar",
+                      "formOutput" : "formOutput",
+                      "archivoLocalFoto" : "fotopasaporte",
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "archivoLocalDescuento" : "descuento",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalActa" : "actanacimiento"
                     }
                   }
                 ]
@@ -7798,7 +9788,17 @@
                       "catParentesco" : "catParentesco",
                       "selectedIndex" : "selectedIndex",
                       "tutorbdm" : "tutorbdm",
-                      "catCampus" : "catCampus"
+                      "catCampus" : "catCampus",
+                      "catTitulo" : "catTitulo",
+                      "selectedIndexRevision" : "selectedIndexRevision",
+                      "selectedIndexFamiliar" : "selectedIndexFamiliar",
+                      "formOutput" : "formOutput",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "archivoLocalFoto" : "fotopasaporte",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalActa" : "actanacimiento",
+                      "archivoLocalDescuento" : "descuento"
                     }
                   }
                 ],
@@ -7831,7 +9831,18 @@
                       "catPais" : "catPais",
                       "catEstado" : "catEstados",
                       "padre" : "padre",
-                      "catCampus" : "catCampus"
+                      "catCampus" : "catCampus",
+                      "catTitulo" : "catTitulo",
+                      "catEscolaridad" : "catEscolaridad",
+                      "selectedIndexFamiliar" : "selectedIndexFamiliar",
+                      "selectedIndex" : "selectedIndex",
+                      "formOutput" : "formOutput",
+                      "archivoLocalDescuento" : "descuento",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalActa" : "actanacimiento",
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalFoto" : "fotopasaporte"
                     }
                   }
                 ],
@@ -7865,7 +9876,18 @@
                       "catEstado" : "catEstados",
                       "madre" : "madre",
                       "casoEmergencia" : "contactoEmergencia",
-                      "catCampus" : "catCampus"
+                      "catCampus" : "catCampus",
+                      "catTitulo" : "catTitulo",
+                      "catEscolaridad" : "catEscolaridad",
+                      "selectedIndex" : "selectedIndex",
+                      "selectedIndexFamiliar" : "selectedIndexFamiliar",
+                      "formOutput" : "formOutput",
+                      "archivoLocalFoto" : "fotopasaporte",
+                      "archivoLocalActa" : "actanacimiento",
+                      "archivoLocalKardex" : "kardex",
+                      "archivoLocalCartaAA" : "cartaAA",
+                      "archivoLocalDescuento" : "descuento",
+                      "archivoLocalCollegeBoard" : "collageBoard"
                     }
                   }
                 ]
@@ -8228,6 +10250,10 @@
                       "collageBoard" : {
                         "type" : "variable",
                         "value" : "collageBoard"
+                      },
+                      "cartaAA" : {
+                        "type" : "variable",
+                        "value" : "cartaAA"
                       }
                     },
                     "reference" : "9ee2ceb2-7493-47c8-ba4b-dd071cd330fc",
@@ -9624,73 +11650,6 @@
                           "value" : ""
                         },
                         "hidden" : {
-                          "type" : "expression",
-                          "value" : "!catSolicitudDeAdmision.catGestionEscolar.propedeutico"
-                        },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Propedéutico <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation",
-                          "value" : "Selecciona una opción"
-                        },
-                        "availableValues" : {
-                          "type" : "expression",
-                          "value" : "resultadoPropedeutico"
-                        },
-                        "displayedKey" : {
-                          "type" : "constant",
-                          "value" : "descripcion"
-                        },
-                        "returnedKey" : {
-                          "type" : "constant"
-                        },
-                        "value" : {
-                          "type" : "variable",
-                          "value" : "catSolicitudDeAdmision.catPropedeutico"
-                        }
-                      },
-                      "reference" : "c22fa77d-75bc-4a26-99fc-6a348435a33f",
-                      "hasValidationError" : false,
-                      "id" : "pbSelect"
-                    }
-                  ],
-                  [
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 12,
-                        "lg" : 12
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
                           "type" : "constant",
                           "value" : false
                         },
@@ -9724,7 +11683,7 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "catSolicitudDeAdmision.catGestionEscolar.periodoDisponible"
+                          "value" : "catPeriodo.data"
                         },
                         "displayedKey" : {
                           "type" : "constant",
@@ -9736,11 +11695,84 @@
                         "value" : {
                           "type" : "variable",
                           "value" : "catSolicitudDeAdmision.catPeriodo"
+                        },
+                        "descripcionData" : {
+                          "type" : "constant"
                         }
                       },
-                      "reference" : "787e2f04-697f-40a7-bb2d-5d18fb2c1636",
+                      "reference" : "1230a7d7-9b3a-42ff-8de9-514688513705",
                       "hasValidationError" : false,
-                      "id" : "pbSelect"
+                      "id" : "customSelectCampus"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "!catSolicitudDeAdmision.catGestionEscolar.propedeutico"
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Propedéutico <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation",
+                          "value" : "Selecciona una opción"
+                        },
+                        "availableValues" : {
+                          "type" : "expression",
+                          "value" : "catPropedeutico.data"
+                        },
+                        "displayedKey" : {
+                          "type" : "constant",
+                          "value" : "descripcion"
+                        },
+                        "returnedKey" : {
+                          "type" : "constant"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "catSolicitudDeAdmision.catPropedeutico"
+                        },
+                        "descripcionData" : {
+                          "type" : "constant"
+                        }
+                      },
+                      "reference" : "d65ead00-ac9c-4b02-8cf0-6fd4f78887bd",
+                      "hasValidationError" : false,
+                      "id" : "customSelectCampus"
                     }
                   ]
                 ]
@@ -14175,7 +16207,7 @@
                 "propertyValues" : {
                   "cssClasses" : {
                     "type" : "constant",
-                    "value" : ""
+                    "value" : "modal-footer"
                   },
                   "hidden" : {
                     "type" : "constant",
@@ -14377,7 +16409,7 @@
     ],
     [
       {
-        "type" : "component",
+        "type" : "modalContainer",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -14388,6 +16420,304 @@
           "cssClasses" : {
             "type" : "constant",
             "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "imgpreview"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "3e2f2e10-28ff-4821-a1b3-ee3dfb206d93",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "4e6d9224-f9fa-4404-a6b6-05392d75e87c",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-header"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "a995f416-d67d-4818-9018-ddbfc9494923",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "Previsualización"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 4"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "ddf0d5e5-9173-4eeb-9383-3f1488ff5b24",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-body"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "00b0925d-1270-42d0-a9b7-416b1ec994a3",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "srcType" : {
+                          "type" : "constant",
+                          "value" : "URL"
+                        },
+                        "url" : {
+                          "type" : "expression",
+                          "value" : "imgMostrar"
+                        },
+                        "assetName" : {
+                          "type" : "constant"
+                        },
+                        "alt" : {
+                          "type" : "interpolation"
+                        }
+                      },
+                      "reference" : "4e273429-92be-41d7-89aa-6aba7a3617d6",
+                      "hasValidationError" : false,
+                      "id" : "pbImage"
+                    }
+                  ]
+                ]
+              }
+            ],
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : "modal-footer"
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "c1329d3e-529b-45e1-a531-3d28292c8d61",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cerrar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "center"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "info"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "Close modal"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "constant"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "7749df2c-4d06-489a-b3c4-9d28717322eb",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14409,21 +16739,19 @@
         "reference" : "ecff8280-bd2e-455e-88a8-b5d22ed6dda0",
         "hasValidationError" : false,
         "id" : "customLoading"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14445,21 +16773,19 @@
         "reference" : "59706b77-0f35-4e27-a1c0-7b301699b013",
         "hasValidationError" : false,
         "id" : "customCustomShowModal"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14493,65 +16819,19 @@
         "reference" : "46e0a33c-faa7-42a5-8ff2-281e75a309dd",
         "hasValidationError" : false,
         "id" : "customCheckFiles"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "commentList" : {
-            "type" : "variable",
-            "value" : ""
-          },
-          "reload" : {
-            "type" : "variable",
-            "value" : ""
-          },
-          "estadoSeleccionado" : {
-            "type" : "variable",
-            "value" : "estadoSeleccionado"
-          },
-          "catSolicitudDeAdmision" : {
-            "type" : "variable",
-            "value" : "catSolicitudDeAdmision"
-          },
-          "getCiudadesByEstado" : {
-            "type" : "variable",
-            "value" : "getCiudadesByEstado"
-          }
-        },
-        "reference" : "79faa7a8-1522-4302-b1e5-21e055ec8daa",
-        "hasValidationError" : false,
-        "id" : "customCustomSetEstadoCiudadSeleccionada"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14581,21 +16861,121 @@
         "reference" : "805e8ccc-1606-4958-b3d7-c7a849ee09b9",
         "hasValidationError" : false,
         "id" : "customCustomSetPaisCiudadSeleccionada"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
+            "value" : "heighcustom"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "commentList" : {
+            "type" : "variable",
             "value" : ""
+          },
+          "reload" : {
+            "type" : "variable",
+            "value" : "tutorbdm"
+          },
+          "datosTutor" : {
+            "type" : "variable",
+            "value" : "tutorbdm"
+          }
+        },
+        "reference" : "cba5e782-deee-41c4-868c-08b435af2cf2",
+        "hasValidationError" : false,
+        "id" : "customCustomSetDataTutor"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "heighcustom"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "commentList" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "reload" : {
+            "type" : "variable",
+            "value" : "contactoEmergencia"
+          },
+          "datosTutor" : {
+            "type" : "variable",
+            "value" : "contactoEmergencia"
+          }
+        },
+        "reference" : "7e6d115c-04d6-431a-83c1-6160ac1904c4",
+        "hasValidationError" : false,
+        "id" : "customCustomSetDataTutor"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "heighcustom"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "commentList" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "reload" : {
+            "type" : "variable",
+            "value" : "padre"
+          },
+          "datosPadres" : {
+            "type" : "variable",
+            "value" : "padre"
+          }
+        },
+        "reference" : "5e61bcec-6869-4440-bb4f-508609fec4cf",
+        "hasValidationError" : false,
+        "id" : "customCustomSetDataPadre"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14677,21 +17057,19 @@
         "reference" : "66c8b388-c8f7-414b-8d2a-310d9fef552e",
         "hasValidationError" : false,
         "id" : "customSetValuesRegistroUpdate"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14703,88 +17081,114 @@
           },
           "reload" : {
             "type" : "variable",
-            "value" : "tutorbdm"
+            "value" : ""
           },
-          "datosTutor" : {
+          "estadoSeleccionado" : {
             "type" : "variable",
-            "value" : "tutorbdm"
+            "value" : "estadoSeleccionado"
+          },
+          "catSolicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision"
+          },
+          "getCiudadesByEstado" : {
+            "type" : "variable",
+            "value" : "getCiudadesByEstado"
           }
         },
-        "reference" : "cba5e782-deee-41c4-868c-08b435af2cf2",
+        "reference" : "79faa7a8-1522-4302-b1e5-21e055ec8daa",
         "hasValidationError" : false,
-        "id" : "customCustomSetDataTutor"
-      }
-    ],
-    [
+        "id" : "customCustomSetEstadoCiudadSeleccionada"
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
             "value" : false
           },
-          "commentList" : {
+          "objEntrada" : {
             "type" : "variable",
-            "value" : ""
+            "value" : "catSolicitudDeAdmision.catCampusEstudio.grupoBonita"
           },
-          "reload" : {
+          "objSalida" : {
             "type" : "variable",
-            "value" : "contactoEmergencia"
-          },
-          "datosTutor" : {
-            "type" : "variable",
-            "value" : "contactoEmergencia"
+            "value" : "catCampusEstudioGrupoBonita"
           }
         },
-        "reference" : "7e6d115c-04d6-431a-83c1-6160ac1904c4",
+        "reference" : "a8e545a1-921e-4a8a-a4a3-66a420858349",
         "hasValidationError" : false,
-        "id" : "customCustomSetDataTutor"
-      }
-    ],
-    [
+        "id" : "customCopyData"
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 1,
+          "lg" : 1
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
             "value" : false
           },
-          "commentList" : {
+          "objEntrada" : {
             "type" : "variable",
-            "value" : ""
+            "value" : "catSolicitudDeAdmision.catPeriodo.persistenceId"
           },
-          "reload" : {
+          "objSalida" : {
             "type" : "variable",
-            "value" : "padre"
-          },
-          "datosPadres" : {
-            "type" : "variable",
-            "value" : "padre"
+            "value" : "catPeriodoPersistenceId"
           }
         },
-        "reference" : "5e61bcec-6869-4440-bb4f-508609fec4cf",
+        "reference" : "bf850269-964b-4fbf-bc25-b673854221d8",
         "hasValidationError" : false,
-        "id" : "customCustomSetDataPadre"
+        "id" : "customCopyData"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 1,
+          "lg" : 1
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "heighcustom"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "objEntrada" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.catGestionEscolar.tipoLicenciatura"
+          },
+          "objSalida" : {
+            "type" : "variable",
+            "value" : "catGestionEscolarTipoLicenciatura"
+          }
+        },
+        "reference" : "7e8946b3-f167-4784-a357-27e698633244",
+        "hasValidationError" : false,
+        "id" : "customCopyData"
       }
     ],
     [
@@ -14793,13 +17197,13 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 6,
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14821,21 +17225,19 @@
         "reference" : "8d110d5d-fbfc-4488-bf5c-455a6e73e957",
         "hasValidationError" : false,
         "id" : "customCustomSetDataPadre"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 6,
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "heighcustom"
           },
           "hidden" : {
             "type" : "constant",
@@ -14861,13 +17263,6 @@
     ]
   ],
   "assets" : [
-    {
-      "id" : "215d3e00-ccf3-4f79-bb43-b2e40aa5a1e5",
-      "name" : "noimageavailable.png",
-      "type" : "img",
-      "order" : 52,
-      "external" : false
-    },
     {
       "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
       "name" : "LogoAnahuacMerida.png",
@@ -14946,6 +17341,13 @@
       "external" : false
     },
     {
+      "id" : "0e1a8102-48fc-43f6-9ec1-31e65321ca96",
+      "name" : "noimageavailable.png",
+      "type" : "img",
+      "order" : 54,
+      "external" : false
+    },
+    {
       "id" : "49e19cbf-f5da-4136-b45e-e0a076424aed",
       "name" : "style.css",
       "type" : "css",
@@ -14978,6 +17380,13 @@
       "name" : "LogoInstitutoJuanPabloII.png",
       "type" : "img",
       "order" : 51,
+      "external" : false
+    },
+    {
+      "id" : "b217a8ed-6473-43d6-a1b9-d06227c43ecb",
+      "name" : "noimageavailabledoc.png",
+      "type" : "img",
+      "order" : 55,
       "external" : false
     },
     {
@@ -15745,14 +18154,14 @@
     "catPeriodo" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=getCatPeriodo&p=0&c=100"
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{catGestionEscolarTipoLicenciatura}}"
       ],
       "exposed" : false
     },
     "catNacionalidad" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidad&p=0&c=500"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=getCatNacionalidadOrden&p=0&c=500"
       ],
       "exposed" : false
     },
@@ -18944,7 +21353,7 @@
     "catPropedeutico" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatPropedeutico?q=getCatPropedeutico&p=0&c=1000"
+        "../API/extension/AnahuacRestGet?url=getCatPropedeuticoByPeriodo&p=0&c=10&grupobonita={{catCampusEstudioGrupoBonita}}&id={{catPeriodoPersistenceId}}&tipoperiodo={{catGestionEscolarTipoLicenciatura}}"
       ],
       "exposed" : false
     },
@@ -19922,6 +22331,43 @@
         "    }",
         "}"
       ],
+      "exposed" : false
+    },
+    "catPeriodoData" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "catPropedeuticoData" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "catCampusEstudioGrupoBonita" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catPeriodoPersistenceId" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catGestionEscolarTipoLicenciatura" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgpreview" : {
+      "type" : "constant",
+      "value" : [
+        "imgpreview"
+      ],
+      "exposed" : false
+    },
+    "imgMostrar" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

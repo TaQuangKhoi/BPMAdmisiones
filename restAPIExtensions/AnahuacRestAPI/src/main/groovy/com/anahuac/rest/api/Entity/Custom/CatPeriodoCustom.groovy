@@ -13,7 +13,8 @@ class CatPeriodoCustom {
 	@XmlElement
 	private String descripcion;
 	@XmlElement
-	private Date fechaCreacion;
+	//private Date fechaCreacion;
+	private String fechaCreacion;
 	@XmlElement
 	private Boolean isEliminado;
 	@XmlElement
@@ -36,9 +37,14 @@ class CatPeriodoCustom {
 	@XmlElement
 	private Boolean isAnual
 	@XmlElement
-	private Date fechaFin;
+	private String fechaFin;
 	@XmlElement
-	private Date fechaInicio;
+	private String fechaInicio;
+	@XmlElement
+	private String id;
+	@XmlElement
+	private Boolean activo;
+	
 	
 	private CatCampus Campus;
 	
@@ -84,12 +90,12 @@ class CatPeriodoCustom {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Date getFechaCreacion() {
+	/*public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
-	}
+	}*/
 	public Boolean getIsEliminado() {
 		return isEliminado;
 	}
@@ -126,7 +132,7 @@ class CatPeriodoCustom {
 	public void setIsAnual(Boolean isAnual) {
 		this.isAnual = isAnual;
 	}
-	public Date getFechaFin() {
+	/*public Date getFechaFin() {
 		return fechaFin;
 	}
 	public void setFechaFin(Date fechaFin) {
@@ -137,13 +143,48 @@ class CatPeriodoCustom {
 	}
 	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
-	}
+	}*/
 	public CatCampus getCampus() {
 		return Campus;
 	}
 	public void setCampus(CatCampus catCampus) {
 		this.Campus = catCampus;
 	}
+	public String getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(String fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	public String getFechaInicio() {
+		return fechaInicio;
+	}
+	public void setFechaInicio(String fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Boolean getActivo() {
+		return activo;
+	}
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
+	
+	
+	
+	
 	
 	
 	

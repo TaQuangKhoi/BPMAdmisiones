@@ -33,15 +33,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
 
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {
-                swal("¡Atención!", $scope.properties.erroMessage, "warning");
+                swal("¡"+$scope.properties.campoError+"!", $scope.properties.erroMessage, "warning");
                 blockUI.stop();
             } else {
                 var req = {
                     method: "GET",
-                    url: "../API/identity/user?p=0&c=10&o=lastname%20ASC&f=userName=" + $scope.properties.strRegistro.CorreoElectronico
+                    url: "../API/extension/AnahuacRestGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
                 };
                 return $http(req).success(function(data, status) {
-                    $scope.properties.getUserBonita = data;
+                    $scope.properties.getUserBonita = data.data;
                     if ($scope.properties.getUserBonita !== undefined) {
                         if($scope.properties.getUserBonita.length > 0){
                             swal("Error", "Este correo electrónico ya está registrado.", "error");

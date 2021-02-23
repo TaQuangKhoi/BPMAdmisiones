@@ -12,6 +12,10 @@ class Transferencias {
 	private String usuarioCreacion;
 	private String campusAnterior;
 	private String campusNuevo;
+	private Long caseid;
+	private String estatus;
+	private String licenciatura;
+	private String periodo;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -71,6 +75,30 @@ class Transferencias {
 	}
 	public void setCampusNuevo(String campusNuevo) {
 		this.campusNuevo = campusNuevo;
+	}
+	public Long getCaseid() {
+		return caseid;
+	}
+	public void setCaseid(Long caseid) {
+		this.caseid = caseid;
+	}
+	public String getEstatus() {
+		return estatus;
+	}
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
+	public String getLicenciatura() {
+		return licenciatura;
+	}
+	public void setLicenciatura(String licenciatura) {
+		this.licenciatura = licenciatura;
+	}
+	public String getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
 	}
 	
 }

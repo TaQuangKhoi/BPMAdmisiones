@@ -14,6 +14,8 @@ class PruebaCustom extends Prueba {
 	private CatEstados estado;
 	private CatTipoPrueba tipo;
 	private Boolean cambioDuracion;
+	private String asistencia;
+	private String responsables;
 	
 	public Boolean getCambioDuracion() {
 		return cambioDuracion;
@@ -52,6 +54,20 @@ class PruebaCustom extends Prueba {
 		this.estado = estado;
 	}
 	
+	
+	
+	public String getResponsables() {
+		return responsables;
+	}
+	public void setResponsables(String responsables) {
+		this.responsables = responsables;
+	}
+	public String getAsistencia() {
+		return asistencia;
+	}
+	public void setAsistencia(String asistencia) {
+		this.asistencia = asistencia;
+	}
 	@Override
 	public boolean equals(Object arg0) {
 		Boolean part1=arg0 != null;

@@ -77,7 +77,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Egreso Anáhuac!", "Debes seleccionar si tu tutor egresó de la Universidad Anáhuac", "warning");
                 } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si" || $scope.properties.tutor.catEgresoAnahuac.descripcion === "Sí") {
                     if ($scope.properties.tutor.catCampusEgreso === null) {
-                        swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu tutor", "warning");
+                        swal("¡Campus egresado!", "Debes seleccionar de cuál campus Anáhuac egresó tu tutor", "warning");
                     } else if ($scope.properties.tutor.catTrabaja === null) {
                         swal("¿Trabaja?", "Debes seleccionar si tu tutor trabaja", "warning");
                     } else if ($scope.properties.tutor.catTrabaja.descripcion === "Si" || $scope.properties.tutor.catTrabaja.descripcion === "Sí") {
@@ -654,7 +654,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Egreso Anáhuac!", "Debes seleccionar si tu tutor egresó de la Universidad Anáhuac", "warning");
                     } else if ($scope.properties.tutor.catEgresoAnahuac.descripcion === "Si" || $scope.properties.tutor.catEgresoAnahuac.descripcion === "Sí") {
                         if ($scope.properties.tutor.catCampusEgreso === null) {
-                            swal("¡Campus egresado!", "Debes seleccionar de cúal campus Anáhuac egresó tu tutor", "warning");
+                            swal("¡Campus egresado!", "Debes seleccionar de cuál campus Anáhuac egresó tu tutor", "warning");
                         } else if ($scope.properties.tutor.catTrabaja === null) {
                             swal("¿Trabaja?", "Debes seleccionar si tu tutor trabaja", "warning");
                         } else if ($scope.properties.tutor.catTrabaja.descripcion === "Si" || $scope.properties.tutor.catTrabaja.descripcion === "Sí") {
