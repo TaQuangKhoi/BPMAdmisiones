@@ -105,7 +105,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         "valor": "CAMPUS-CANCUN"
     },
     {
-        "descripcion": "Anáhuac Mayab",
+        "descripcion": "Anáhuac Merida",
         "valor": "CAMPUS-MAYAB"
     },
     {
@@ -161,6 +161,25 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             $scope.properties.dataToSend.orderby = order;
             $scope.properties.dataToSend.orientation = "ASC";
         }
+        doRequest("POST", $scope.properties.urlPost);
+    }
+    
+    $scope.filterKeyPress= function(columna,press){
+        var aplicado = true;
+        for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+            const element = $scope.properties.dataToSend.lstFiltro[index];
+            if(element.columna==columna){
+                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
+                aplicado=false;
+            }
+            
+        }
+        if(aplicado){
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            $scope.properties.dataToSend.lstFiltro.push(obj);
+        }
+        
         doRequest("POST", $scope.properties.urlPost);
     }
 
@@ -254,8 +273,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
 
-            return $http(req)
-                .success(function (data, status) {
+            return $http(req).success(function (data, status) {
                     $scope.lstMembership = data;
                 })
                 .error(function (data, status) {
@@ -307,8 +325,27 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
      $scope.doRequestRedirect = function(row) {
-        $scope.properties.datosUsuario = row;
-        $scope.properties.cambioPantalla = 'lista'
+        var info = angular.copy($scope.properties.dataToSend);
+        info.limit= 1; 
+        info.lstFiltro =  [{columna: "ID BANNER",operador: "Igual a",valor: row.aspirantes[0].idbanner}];
+        var req = {
+            method: "POST",
+            url: $scope.properties.urlPost,
+            data: info
+        };
+
+        return $http(req)
+            .success(function (data, status) {
+                //data.data[0]
+                $scope.properties.datosUsuario = data.data[0];
+                $scope.properties.cambioPantalla = 'lista'
+            })
+            .error(function (data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+            });
     }
     
     $scope.redirectComentario = function(row){

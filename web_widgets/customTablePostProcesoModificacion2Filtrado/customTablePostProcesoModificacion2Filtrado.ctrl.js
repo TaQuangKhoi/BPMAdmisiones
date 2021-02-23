@@ -51,9 +51,11 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         return $http(req)
             .success(function (data, status) {
                 debugger
-                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
+                //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
+                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
-                window.top.location.href = url;
+                //window.top.location.href = url;
+                window.open(url,'_blank');
             })
             .error(function (data, status) {
                 console.error(data);
@@ -219,9 +221,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
-        for (var i = 0; i < $scope.lstCampus.length; i++) {
-            if (campus == $scope.lstCampus[i].valor) {
-                retorno = $scope.lstCampus[i].descripcion
+        for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
+            if (campus == $scope.properties.lstCampus[i].grupoBonita) {
+                retorno = $scope.properties.lstCampus[i].descripcion
                 if($scope.lstMembership.length == 1){
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
                 }
@@ -241,6 +243,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
+                    $scope.campusByUser();
                 })
                 .error(function (data, status) {
                     console.error(data);
@@ -248,6 +251,19 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .finally(function () { });
         }
     });
+    
+    $scope.lstCampusByUser = [];
+	$scope.campusByUser = function(){
+		var resultado=[];
+		
+		for(var x in $scope.lstMembership){
+			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+				resultado.push($scope.lstMembership[x].group_id.name);
+			}
+		}
+		$scope.lstCampusByUser = resultado;
+	}
+	
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
         var filter = {

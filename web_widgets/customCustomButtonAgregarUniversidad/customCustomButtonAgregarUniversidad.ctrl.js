@@ -38,11 +38,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if($scope.properties.infoUniversidad.nombre === undefined || $scope.properties.infoUniversidad.nombre === ""){
             isValid = false;
             titleMessage = "¡Nombre!";
-            errorMessage = "Debes capturar el nombre de la institución.";
+            errorMessage = "Captura el nombre de la institución.";
+        } else if ($scope.properties.infoUniversidad.carrera === undefined || $scope.properties.infoUniversidad.carrera === ""){
+            isValid = false;
+            titleMessage = "¡Carrera que cursabas!";
+            errorMessage = "Captura el nombre de la carrera que cursabas en la institución";
         } else if($scope.properties.infoUniversidad.anoInicio === undefined || $scope.properties.infoUniversidad.anoInicio === ""){
             isValid = false;
             titleMessage = "¡Año inicio!";
-            errorMessage = "Debes capturar el año enque iniciaste tus estudios en la institución.";
+            errorMessage = "Captura el año en el que iniciaste tus estudios en la institución.";
         } else if($scope.properties.infoUniversidad.anoInicio > currentYear){
             isValid = false;
             titleMessage = "¡Año inicio!";
@@ -50,7 +54,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.infoUniversidad.anoFin === undefined || $scope.properties.infoUniversidad.anoFin === ""){
             isValid = false;
             titleMessage = "¡Año fin!";
-            errorMessage = "Debes capturar el año enque iniciaste tus estudios en la institución.";
+            errorMessage = "Captura el año en el que iniciaste tus estudios en la institución.";
         } else if (parseInt($scope.properties.infoUniversidad.anoFin) < parseInt($scope.properties.infoUniversidad.anoInicio)){
             isValid = false;
             titleMessage = "¡Año fin!";
@@ -58,15 +62,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if($scope.properties.infoUniversidad.anoFin > topYear){
             isValid = false;
             titleMessage = "¡Año Fin!";
-            errorMessage = "El año fin no puede superar por mas de un año al año actual.";
-        } else if ($scope.properties.infoUniversidad.carrera === undefined || $scope.properties.infoUniversidad.carrera === ""){
-            isValid = false;
-            titleMessage = "¡Carrera que cursabas!";
-            errorMessage = "Debes capturar el nombre de la carrera que cursabas en la institución";
+            errorMessage = "El año fin no puede superar por más de un año al año actual.";
         } else if ($scope.properties.infoUniversidad.motivoSuspension === undefined || $scope.properties.infoUniversidad.motivoSuspension === ""){
             isValid = false;
             titleMessage = "¡Motivo de suspensión!";
-            errorMessage = "Debes capturar el motivo por el cual no concluiste tus estudios en la institución.";
+            errorMessage = "Captura el motivo por el cual no concluiste tus estudios en la institución.";
         }
     
         if(!isValid){

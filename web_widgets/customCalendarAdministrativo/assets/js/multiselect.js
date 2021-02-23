@@ -136,7 +136,7 @@ angular.module('ui.multiselect', [])
           function getHeaderText() {
             scope.header = "Seleccionar";
             if (isMultiple) {
-              scope.header = (modelCtrl.$modelValue=="" || modelCtrl.$modelValue==null || modelCtrl.$modelValue==undefined)?"Seleccionar":modelCtrl.$modelValue;
+              scope.header = (modelCtrl.$modelValue=="" || modelCtrl.$modelValue==null || modelCtrl.$modelValue==undefined)?"Seleccionar":scope.singleHeader;
             } else {
               scope.header = (scope.singleHeader==undefined)?"Seleccionar":scope.singleHeader;
             }
@@ -211,13 +211,21 @@ angular.module('ui.multiselect', [])
                 }
               });
             } else {
-              angular.forEach(newVal.split(","), function (i) {
-                angular.forEach(scope.items, function (item) {
-                  if (angular.equals(item.model, i)) {
-                    item.checked = true;
-                  }
+              scope.singleHeader=""
+              try{
+                angular.forEach(newVal.split(","), function (i) {
+                  angular.forEach(scope.items, function (item) {
+                    if (angular.equals(item.model[scope.key], i)) {
+                      item.checked = true;
+                      scope.singleHeader+=item.model[scope.label]+","
+                    }
+                  });
                 });
-              });
+              }catch(exception){
+
+              }
+
+              (scope.singleHeader=="")?scope.singleHeader="Seleccionar":scope.singleHeader=scope.singleHeader.slice(0,-1);
             }
           }
 

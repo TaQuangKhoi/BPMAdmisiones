@@ -26,7 +26,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Autodescripción" ||
                 taskName === "Seleccionar cita" || 
                 taskName === "Generar credencial" || 
-                taskName === "Pase de lista college board" || 
+                taskName === "Pase de lista Prueba 1" || 
+                taskName === "Pase de lista Prueba 2" || 
+                taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
                 taskName === "Resultado final de comité"
             )
@@ -37,7 +39,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Autodescripción" ||
                 taskName === "Seleccionar cita" || 
                 taskName === "Generar credencial" || 
-                taskName === "Pase de lista college board" || 
+                taskName === "Pase de lista Prueba 1" || 
+                taskName === "Pase de lista Prueba 2" || 
+                taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
                 taskName === "Resultado final de comité"
             )
@@ -47,7 +51,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             && (
                 taskName === "Seleccionar cita" || 
                 taskName === "Generar credencial" || 
-                taskName === "Pase de lista college board" || 
+                taskName === "Pase de lista Prueba 1" || 
+                taskName === "Pase de lista Prueba 2" || 
+                taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
                 taskName === "Resultado final de comité"
              )
@@ -55,8 +61,17 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             return false;
         } else if (name === "Credencial" 
             && (
-                taskName === "Pase de lista college board" || 
+                taskName === "Pase de lista Prueba 1" || 
+                taskName === "Pase de lista Prueba 2" || 
+                taskName === "Pase de lista Prueba 3" || 
                 taskName === "Generar credencial" || 
+                taskName === "Carga y consulta de resultados" || 
+                taskName === "Resultado final de comité"
+            )
+        ){
+            return false;
+        } else if (name === "Resultado" 
+            && (
                 taskName === "Carga y consulta de resultados" || 
                 taskName === "Resultado final de comité"
             )
@@ -77,7 +92,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         } else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Modificar información"){
             // outputToken = "modificar_solicitud";
             outputToken = "modificacion_iniciada";
-        } 
+        } else if (appToken === "generar_credencial" && $scope.properties.currentTaskName === "Generar credencial"){
+            outputToken = "confirmacion_credencial";
+        }
         // else if(appToken === "nueva_solicitud" && $scope.properties.currentTaskName === "Pago de examen"){
         //     outputToken = "verSolicitudAdmision";
         // } 
@@ -111,9 +128,19 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
      
      
     ctrl.displayPage = function(token) {
+        if(ctrl.pageToken === "autodescripcion" && $scope.properties.currentTaskName === "Autodescripción"){
+            $scope.tokenNuevo = token;
+            $scope.properties.accionModal = "salir";
+            modalService.open($scope.properties.idModalConfirmacionAD);
+        } else {
+            ctrl.redirectToPage(token);
+        }
+    };
+
+    ctrl.redirectToPage = function(token){
         var previousToken = ctrl.pageToken;
         var previousPath = window.location.pathname;
-         
+            
         ctrl.pageToken = token;
         var urlPath = "";
         if(previousToken === "autodescripcion" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones"){
@@ -121,18 +148,19 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         } else {
             previousPath.substring(0, previousPath.length-previousToken.length-1) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);
         }
-         
+            
         var stateObject = { title: "" + token + "", url: "" +  urlPath  + ""};
         if (typeof ($window.history.pushState) != "undefined") {
             $window.history.pushState(stateObject, stateObject.title, stateObject.url );
         } else {
             alert("Browser does not support HTML5.");
         }
+
         //make sure the user is still logged in before refreshing the iframe
         verifySession().then(setTargetedUrl, refreshPage);
-         
+            
         return false;
-    };
+    }
     
     ctrl.setParentPageActive = function(menu){
         ctrl.parentPageId = menu.id;
@@ -148,9 +176,9 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
      
     ctrl.logoutAndUpdateSuccessfulLogoutVariable = function() {
         return $http.get($scope.properties.logoutURL)
-            .success(function(data) { 
-                $scope.properties.successfulLogoutResponse = data;
-            });
+        .success(function(data) { 
+            $scope.properties.successfulLogoutResponse = data;
+        });
     };
     
     //handle the browser back button
@@ -172,6 +200,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         .success(function(data) { 
             ctrl.applicationMenuList = data;
             ctrl.applicationMenuList[0].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[0].applicationPageId.token);
+            ctrl.applicationMenuList[4].applicationPageId.token = ctrl.validateUrl(ctrl.applicationMenuList[4].applicationPageId.token);
         });
     }
   
@@ -209,15 +238,23 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         } else if ($scope.properties.currentTaskName === "Generar credencial"){
             let array = window.location.href.split("/");
             let appName = array[array.length - 2];
+            debugger;
             if(appName === "generar_credencial"){
                 ctrl.pageToken = "generar_credencial";
             } else {
                 ctrl.pageToken = "confirmacion_credencial";
             }
-            
-            
-        }  else if ($scope.properties.currentTaskName === "Pase de lista college board"){
+        }  else if (
+            $scope.properties.currentTaskName === "Pase de lista Prueba 1" || 
+            $scope.properties.currentTaskName === "Pase de lista Prueba 2" || 
+            $scope.properties.currentTaskName === "Pase de lista Prueba 3" 
+            ){
             ctrl.pageToken = "generar_credencial";
+        }  else if (
+            $scope.properties.currentTaskName === "Carga y consulta de resultados" || 
+            $scope.properties.currentTaskName === "Resultado final de comité"
+        ){
+            ctrl.pageToken = "Resultado";
         } else {
             ctrl.pageToken = $scope.properties.pageToken;
         }
@@ -252,4 +289,12 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             } 
         }
     });
-  }
+
+    $scope.$watch("properties.cambiarPagina", function(){
+        if($scope.properties.cambiarPagina === true){
+            $scope.properties.cambiarPagina = false;
+            modalService.close();
+            ctrl.redirectToPage($scope.tokenNuevo);
+        }
+    });
+}

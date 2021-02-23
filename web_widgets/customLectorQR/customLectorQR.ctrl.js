@@ -64,7 +64,7 @@ function PbButtonCtrl($scope, $http, $window) {
                     if(jsonData.nombre !== undefined && jsonData.nombre !== null && jsonData.idbanner !== undefined && jsonData.idbanner !== null){
                         ctrl.leyendo = true;
 						///Funcion para pruebas
-						$scope.doRequest(jsonData.idbanner);
+						/*$scope.doRequest(jsonData.idbanner);
 						if($scope.properties.datosUsuario.length === 0){
                             swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} ${jsonData.idbanner}`,"warning", {
                                 closeOnClickOutside: false,
@@ -82,11 +82,11 @@ function PbButtonCtrl($scope, $http, $window) {
                             swal("¡Aspirante encontrado!", `Aspirante: ${jsonData.nombre}`,"success");
                             $scope.fechaCheck();
                             $scope.cerrar();
-                        }
+                        }*/
 						
-                        /*$scope.doRequest(jsonData.usuario).then(function() {
-                        if($scope.properties.datosUsuario.length === 0){
-                            swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} ${jsonData.usuario}`,"warning", {
+                        $scope.doRequest(jsonData.idbanner).then(function() {
+                        if($scope.properties.datosUsuario === undefined ||$scope.properties.datosUsuario == null || $scope.properties.datosUsuario.length === 0){
+                            swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} - ${jsonData.idbanner}`,"warning", {
                                 closeOnClickOutside: false,
                                 buttons: {
                                     catch: {
@@ -114,7 +114,8 @@ function PbButtonCtrl($scope, $http, $window) {
                                     }
                                 },
                             }).then((value) => { ctrl.leyendo = false });
-                        });*/
+                        });
+
                     }else{
                         ctrl.leyendo = true;
                         swal("¡QR inválido!", `El código QR escaneado no tiene datos validos`,"warning", {
@@ -168,7 +169,7 @@ function PbButtonCtrl($scope, $http, $window) {
                     if(jsonData.nombre !== undefined && jsonData.nombre !== null && jsonData.idbanner !== undefined && jsonData.idbanner !== null){
                         ctrl.leyendo = true;
 						///datos de pruebas
-						$scope.doRequest(jsonData.idbanner);
+						/*$scope.doRequest(jsonData.idbanner);
 						if($scope.properties.datosUsuario.length === 0){
                             swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} ${jsonData.idbanner}`,"warning", {
                                 closeOnClickOutside: false,
@@ -186,10 +187,10 @@ function PbButtonCtrl($scope, $http, $window) {
                             swal("¡Aspirante encontrado!", `Aspirante: ${jsonData.nombre}`,"success");
                             $scope.fechaCheck();
                             $scope.cerrar();
-                        }
-                        /*$scope.doRequest(jsonData.usuario).then(function() {
-                        if($scope.properties.datosUsuario.length === 0){
-                            swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} ${jsonData.usuario}`,"warning", {
+                        }*/
+                        $scope.doRequest(jsonData.idbanner).then(function() {
+                        if($scope.properties.datosUsuario === undefined ||$scope.properties.datosUsuario == null  ||$scope.properties.datosUsuario.length === 0){
+                            swal("¡Aspirante no registrado!", `El aspirante no se encuentra registrado en esta sesión ${jsonData.nombre} - ${jsonData.idbanner}`,"warning", {
                                 closeOnClickOutside: false,
                                 buttons: {
                                     catch: {
@@ -217,7 +218,8 @@ function PbButtonCtrl($scope, $http, $window) {
                                     }
                                 },
                             }).then((value) => { ctrl.leyendo = false });
-                        });*/
+                        });
+
                     }else{
                         ctrl.leyendo = true;
                         swal("¡QR inválido!", `El código QR escaneado no tiene datos validos`,"warning", {
@@ -280,38 +282,22 @@ function PbButtonCtrl($scope, $http, $window) {
     }
     
     $scope.doRequest = function(usuario) {
-        /*var info =  {
-            "tarea":"Validar Información",
-            "lstFiltro": [
-                {
-                    columna: "EMAIL",
-                    operador: "Igual a",
-                    valor: usuario+""
-                }
-            ], 
-            "type": "aspirantes_proceso",
-            "orderby":"",
-            "orientation":"DESC",
-            "limit":20,
-            "offset":0,
-            "usuario":"Administrador"
-        }*/
+        var info =  {
+            "fecha": $scope.properties.fecha+"",
+            "limit": 1,
+            "lstFiltro": [{columna: "ID BANNER",operador: "Igual a",valor: usuario}],
+            "offset": 0,
+            "orderby": "",
+            "orientation": "DESC",
+            "prueba": parseInt($scope.properties.pruebaSesion.prueba),
+            "sesion": parseInt($scope.properties.pruebaSesion.sesion),
+            "usuario": parseInt($scope.properties.userId),
+        }
         
-        /*
-        var info = {
-            "lstFiltro": [],
-            "usuario":"alvarado.eduardo@correo.com",
-            "orderby":"",
-            "orientation":"DESC",
-            "limit":20,
-            "offset":0
-        }*/
-        
-        /*var req = {
+        var req = {
             method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100",
-            data: info,
-            params: "31"
+            url: "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantes&p=0&c=10",
+            data: info
         };
 
         return $http(req)
@@ -324,14 +310,14 @@ function PbButtonCtrl($scope, $http, $window) {
             })
             .finally(function () {
                 
-            });*/
+            });
             
-            
+            /*
             for(var i = 0; i < $scope.properties.lstContenido.length; i++){
                 if($scope.properties.lstContenido[i].aspirantes[0].idbanner === usuario){
                    $scope.properties.datosUsuario = $scope.properties.lstContenido[i]; 
                 }
-            }
+            }*/
     }
 
     $scope.cambioCamara = function(){

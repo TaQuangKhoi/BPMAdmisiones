@@ -2,8 +2,98 @@
   "designerVersion" : "1.11.52",
   "id" : "CatActualmenteTrabajasAcciones",
   "name" : "CatActualmenteTrabajasAcciones",
-  "lastUpdate" : 1609372675373,
+  "lastUpdate" : 1614108362905,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "<i class=\"glyphicon glyphicon-arrow-left\"></i> Regresar a catálogos AD"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Submit task"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          }
+        },
+        "reference" : "ce527d15-667a-42fb-878c-1180f67e73ec",
+        "hasValidationError" : false,
+        "id" : "customButtonRegresarCatalogosAD"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -24,7 +114,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catálogo actualmente trabajas"
+            "value" : "¿Trabajas o has tenido algún trabajo?"
           },
           "level" : {
             "type" : "constant",
@@ -143,7 +233,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -151,7 +241,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -203,7 +293,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripcion",
                     "Usuario Creacion",
                     "Fecha Creacion"
@@ -333,10 +423,10 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
-                    "Descripcion",
-                    "Usuario Creacion",
-                    "Fecha Creacion"
+                    "Orden",
+                    "Descripción",
+                    "Usuario creación",
+                    "Fecha creación"
                   ]
                 },
                 "content" : {
@@ -349,7 +439,7 @@
                     "clave",
                     "descripcion",
                     "usuarioCreacion",
-                    "fechaCreacion"
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -515,7 +605,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -527,7 +617,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave:"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -559,9 +649,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "ffecc339-0db0-4e71-bfad-b7b2ef184b40",
+              "reference" : "d3d716c8-fe54-4513-9217-e33219d2c6a3",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -644,9 +734,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 4
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -667,11 +757,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -709,9 +799,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -736,7 +826,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -878,7 +968,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -890,7 +980,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave:"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -922,9 +1012,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "a6422246-af49-4b19-81a0-9fb283effe0d",
+              "reference" : "d3ff7e9f-7ad3-42b9-9833-a5fde0b1a2c6",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -1007,9 +1097,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 4
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1030,11 +1120,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1064,9 +1154,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1091,7 +1181,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1188,6 +1278,13 @@
       "external" : false
     },
     {
+      "id" : "d5d9d2d8-9891-4911-a78c-39d49155fe4c",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "5fc97838-a587-48fd-ad0a-6b8724b83ca9",
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
@@ -1200,21 +1297,14 @@
       "type" : "js",
       "order" : 2,
       "external" : false
-    },
-    {
-      "id" : "1fa3370e-cbde-4658-9b4c-6e46b399fb7e",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
   "variables" : {
     "catActualmenteTrabajas" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatActualmenteTrabajas?q=getCatActualmenteTrabajas&p={{inicio}}&c=10"
+        "[]"
       ],
       "exposed" : false
     },
@@ -1394,8 +1484,8 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"solicitudes_progreso\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
+        "    \"orderby\":\"CLAVE\",\r",
+        "    \"orientation\":\"ASC\",\r",
         "    \"limit\":100,\r",
         "    \"offset\":0,\r",
         "    \"catalogo\":\"CatActualmenteTrabajas\"\r",

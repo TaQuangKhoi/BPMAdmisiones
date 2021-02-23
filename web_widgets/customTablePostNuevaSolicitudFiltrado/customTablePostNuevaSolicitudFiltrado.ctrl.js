@@ -109,7 +109,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
                 url = url.replace("[NOMBRETAREA]", rowData.taskName);
                 url = url.replace("[TASKID]", rowData.taskId);
-                $window.location.assign(url);
+                //$window.location.assign(url);
+                 window.open(url,'_blank');
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
@@ -274,17 +275,21 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
         $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
-        for (var i = 0; i < $scope.lstCampus.length; i++) {
-            if (campus == $scope.lstCampus[i].valor) {
-                retorno = $scope.lstCampus[i].descripcion
+        for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
+            if (campus == $scope.properties.lstCampus[i].grupoBonita) {
+                retorno = $scope.properties.lstCampus[i].descripcion
                 if($scope.lstMembership.length == 1){
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
                 }
+            }else if(campus == "Todos los campus"){
+                retorno = campus
             }
             
         }
+        
         return retorno;
     }
+    
     $scope.lstMembership = [];
     $scope.$watch("properties.userId", function (newValue, oldValue) {
         if (newValue !== undefined) {
@@ -296,6 +301,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
+                    $scope.campusByUser();
                 })
                 .error(function (data, status) {
                     console.error(data);
@@ -303,46 +309,80 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .finally(function () { });
         }
     });
+    
+    $scope.lstCampusByUser = [];
+	$scope.campusByUser = function(){
+		var resultado=[];
+		var isSerua = false;
+		for(var x in $scope.lstMembership){
+		    if($scope.lstMembership[x].group_id.name.indexOf("SERUA") != -1){
+		        isSerua = true;
+		    }
+			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+				resultado.push($scope.lstMembership[x].group_id.name);
+			}
+		}
+		if(isSerua){
+            resultado.push("Todos los campus")
+        }
+		$scope.lstCampusByUser = resultado;
+	}
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
-        var filter = {
-            "columna": "CAMPUS",
-            "operador": "Igual a",
-            "valor": $scope.filtroCampus
-        }
-        if ($scope.properties.dataToSend.lstFiltro.length > 0) {
-            var encontrado = false;
-            for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
-                const element = $scope.properties.dataToSend.lstFiltro[index];
-                if (element.columna == "CAMPUS") {
-                    $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
-                    $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
-                    $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
-                    for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                        if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                        $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+        if($scope.filtroCampus != "Todos los campus"){
+            var filter = {
+                "columna": "CAMPUS",
+                "operador": "Igual a",
+                "valor": $scope.filtroCampus
+            }
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
+                        $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
+                        $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
                         }
+                        encontrado = true
                     }
-                    encontrado = true
+                }
+                
+                if (!encontrado) {
+                        $scope.properties.dataToSend.lstFiltro.push(filter);
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                }
+            } else {
+                $scope.properties.dataToSend.lstFiltro.push(filter);
+                for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                    if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                    $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                    }
+                }
+            }
+        }else{
+            
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro.splice(index,1);
+                        $scope.properties.campusSeleccionado = null;
+                    }
                 }
             }
             
-            if (!encontrado) {
-                    $scope.properties.dataToSend.lstFiltro.push(filter);
-                    for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                        if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                        $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
-                        }
-                    }
-            }
-        } else {
-            $scope.properties.dataToSend.lstFiltro.push(filter);
-            for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
-                }
-            }
         }
+       
     }
     $scope.sizing=function(){
         $scope.lstPaginado = [];

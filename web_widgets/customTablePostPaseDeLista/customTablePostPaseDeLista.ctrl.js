@@ -163,6 +163,25 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         }
         doRequest("POST", $scope.properties.urlPost);
     }
+    
+    $scope.filterKeyPress= function(columna,press){
+        var aplicado = true;
+        for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+            const element = $scope.properties.dataToSend.lstFiltro[index];
+            if(element.columna==columna){
+                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
+                aplicado=false;
+            }
+            
+        }
+        if(aplicado){
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            $scope.properties.dataToSend.lstFiltro.push(obj);
+        }
+        
+        doRequest("POST", $scope.properties.urlPost);
+    }
 
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
@@ -307,8 +326,27 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
      $scope.doRequestRedirect = function(row) {
-        $scope.properties.datosUsuario = row;
-        $scope.properties.cambioPantalla = 'lista'
+        var info = angular.copy($scope.properties.dataToSend);
+        info.limit= 1; 
+        info.lstFiltro =  [{"columna": "ID BANNER","operador": "Igual a","valor": row.aspirantes[0].idbanner}];
+        var reqInfo = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantes&p=0&c=10",
+            data: info
+        };
+
+        return $http(reqInfo)
+            .success(function (data, status) {
+                //data.data[0]
+                $scope.properties.datosUsuario = data.data[0];
+                $scope.properties.cambioPantalla = 'lista'
+            })
+            .error(function (data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+            });
     }
     
     $scope.redirectComentario = function(row){

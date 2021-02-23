@@ -48,7 +48,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         return $http(req).success(function (data, status) {
             let taskId = data[0].id;
             var url = "/bonita/portal/resource/app/aspirante/verSolicitudAdmision/content/?app=aspirante&id=" + taskId + "&displayConfirmation=false";
-            window.location.href = url;
+            //window.location.href = url;
+            window.open(url,'_blank');
         })
         .error(function (data, status) {
             console.error(data);
@@ -296,11 +297,12 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
-        $scope.getCampusByGrupo = function (campus) {
+    
+    $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
-        for (var i = 0; i < $scope.lstCampus.length; i++) {
-            if (campus == $scope.lstCampus[i].valor) {
-                retorno = $scope.lstCampus[i].descripcion
+        for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
+            if (campus == $scope.properties.lstCampus[i].grupoBonita) {
+                retorno = $scope.properties.lstCampus[i].descripcion
                 if($scope.lstMembership.length == 1){
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
                 }
@@ -320,6 +322,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
+                    $scope.campusByUser();
                 })
                 .error(function (data, status) {
                     console.error(data);
@@ -327,6 +330,19 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .finally(function () { });
         }
     });
+    
+    $scope.lstCampusByUser = [];
+	$scope.campusByUser = function(){
+		var resultado=[];
+		
+		for(var x in $scope.lstMembership){
+			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+				resultado.push($scope.lstMembership[x].group_id.name);
+			}
+		}
+		$scope.lstCampusByUser = resultado;
+	}
+	
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
         var filter = {

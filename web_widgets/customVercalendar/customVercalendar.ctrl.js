@@ -1,12 +1,17 @@
 function($scope, $http, blockUI, $window) {
+        window.mobileCheck = function() {
+        let check = false;
+        (function(a) { if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true; })(navigator.userAgent || navigator.vendor || window.opera);
+        return check;
+    };
     var vm = this;
     $scope.resultado;
     $scope.sesion = [];
-    $scope.aplicaciones=[];
+    $scope.aplicaciones = [];
     $scope.jsonEntrevista = {};
     $scope.jsonPsicometrico = {};
     $scope.jsonCollage = {};
-    scheduler.init('scheduler_here', new Date(), "month");
+    scheduler.init('scheduler_here', new Date(), window.mobileCheck() ? "day" : "month");
     scheduler.config.drag_resize = false;
     scheduler.config.drag_create = false;
     scheduler.config.drag_highlight = false;
@@ -16,7 +21,7 @@ function($scope, $http, blockUI, $window) {
     scheduler.config.edit_on_create = false;
     scheduler.config.dblclick_create = false;
     scheduler.config.select = false;
-
+    $scope.fechaSelected="";
     $scope.asistenciaCollegeBoard = false;
     $scope.asistenciaPsicometrico = false;
     $scope.asistenciaEntrevista = false;
@@ -131,6 +136,7 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonCollage.aplicacion = element.aplicacion;
                     $scope.jsonCollage.horario = element.horario;
                     $scope.jsonCollage.lugar = element.lugar;
+                    $scope.jsonCollage.online = element.online;
                     $scope.jsonCollage.municipio = element.municipio;
                     $scope.jsonCollage.colonia = element.colonia;
                     $scope.jsonCollage.codigo_postal = element.codigo_postal;
@@ -143,6 +149,7 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonPsicometrico.aplicacion = element.aplicacion;
                     $scope.jsonPsicometrico.horario = element.horario;
                     $scope.jsonPsicometrico.lugar = element.lugar;
+                    $scope.jsonPsicometrico.online = element.online;
                     $scope.jsonPsicometrico.municipio = element.municipio;
                     $scope.jsonPsicometrico.colonia = element.colonia;
                     $scope.jsonPsicometrico.codigo_postal = element.codigo_postal;
@@ -155,6 +162,7 @@ function($scope, $http, blockUI, $window) {
                     $scope.jsonEntrevista.aplicacion = element.aplicacion;
                     $scope.datosSelected.horario = element.horario;
                     $scope.jsonEntrevista.lugar = element.lugar;
+                    $scope.jsonEntrevista.online = element.online;
                     $scope.jsonEntrevista.municipio = element.municipio;
                     $scope.jsonEntrevista.colonia = element.colonia;
                     $scope.jsonEntrevista.codigo_postal = element.codigo_postal;
@@ -182,7 +190,7 @@ function($scope, $http, blockUI, $window) {
             $scope.sesion_aspirante.sesiones_pid = $scope.sesion.persistenceId;
             for (var i = 0; i < $scope.sesion.pruebas.length; i++) {
                 if ($scope.sesion.pruebas[i].tipo.descripcion == 'Entrevista') {
-                    $scope.jsonEntrevista = {"psicologos":[{"lstFechasDisponibles":[]}]}
+                    $scope.jsonEntrevista = { "psicologos": [{ "lstFechasDisponibles": [] }] }
                 } else if ($scope.sesion.pruebas[i].tipo.descripcion == 'Examen Psicométrico') {
                     $scope.jsonPsicometrico = $scope.sesion.pruebas[i];
                 } else if ($scope.sesion.pruebas[i].tipo.descripcion == 'Examen de aptitudes y conocimientos') {
@@ -195,21 +203,23 @@ function($scope, $http, blockUI, $window) {
         doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPruebasFechas&p=0&c=10&sessionid=" + $scope.sesion.persistenceId, null, {}, null, function(datos, extra) {
             $scope.aplicaciones = datos.data
             $scope.modalConfirmar();
-            
+
         })
     }
-    $scope.selectFecha=function(ap){
-        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getHorarios&p=0&c=10&prueba_pid=" + ap.persistenceId+"&sessionid=" + $scope.sesion.persistenceId+"&correoAspirante=" + $scope.properties.usuario[0].correoElectronico, null, {}, null, function(datos, extra) { 
-            $scope.jsonEntrevista.nombre =  datos.data[0].nombre;
+    $scope.selectFecha = function(ap) {
+        $scope.fechaSelected = ap.aplicacion.split("-")[2]+"-"+ap.aplicacion.split("-")[1]+"-"+ap.aplicacion.split("-")[0];
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getHorarios&p=0&c=10&prueba_pid=" + ap.persistenceId + "&sessionid=" + $scope.sesion.persistenceId + "&correoAspirante=" + $scope.properties.usuario[0].correoElectronico, null, {}, null, function(datos, extra) {
+            $scope.jsonEntrevista.nombre = datos.data[0].nombre;
             $scope.jsonEntrevista.descripcion = datos.data[0].descripcion;
             $scope.jsonEntrevista.aplicacion = datos.data[0].aplicacion;
             $scope.jsonEntrevista.lugar = datos.data[0].lugar;
+            $scope.jsonEntrevista.online = datos.data[0].online;
             $scope.jsonEntrevista.municipio = datos.data[0].municipio;
             $scope.jsonEntrevista.colonia = datos.data[0].colonia;
             $scope.jsonEntrevista.codigo_postal = datos.data[0].codigo_postal;
             $scope.jsonEntrevista.calle = datos.data[0].calle;
-            $scope.jsonEntrevista.numero_int = datos.data[0].numero_int; 
-            $scope.jsonEntrevista.psicologos =  datos.data[0].psicologos;
+            $scope.jsonEntrevista.numero_int = datos.data[0].numero_int;
+            $scope.jsonEntrevista.psicologos = datos.data[0].psicologos;
         })
     }
     $scope.getLstSesion = function() {
@@ -234,7 +244,7 @@ function($scope, $http, blockUI, $window) {
             "valor": $scope.properties.detalleSolicitud[0].catResidencia.clave
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
-        if($scope.properties.usuario[0].catEstado!=null){
+        if ($scope.properties.usuario[0].catEstado != null) {
             filtro = {
                 "columna": "ESTADO",
                 "operador": "Igual a",
@@ -242,7 +252,7 @@ function($scope, $http, blockUI, $window) {
             }
             $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
         }
-        
+
         filtro = {
             "columna": "PAIS",
             "operador": "Igual a",
@@ -253,7 +263,7 @@ function($scope, $http, blockUI, $window) {
         filtro = {
             "columna": "CIUDAD",
             "operador": "Igual a",
-            "valor": ($scope.properties.usuario[0].ciudadExamen==null)?0:$scope.properties.usuario[0].ciudadExamen.persistenceId
+            "valor": ($scope.properties.usuario[0].ciudadExamen == null) ? 0 : $scope.properties.usuario[0].ciudadExamen.persistenceId
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte + "&isMedicina=" + $scope.properties.isMedicina, null, $scope.dataToSend, null, function(datos, extra) {
@@ -312,13 +322,13 @@ function($scope, $http, blockUI, $window) {
                 }
 
             }
-            if($scope.properties.isMedicina!==null){
+            if ($scope.properties.isMedicina !== null) {
                 $scope.getLstSesion();
             }
         }
     });
     $scope.$watch('properties.isMedicina', function(value) {
-        if (angular.isDefined(value) && value !== null && $scope.properties.detalleSolicitud!==null) {
+        if (angular.isDefined(value) && value !== null && $scope.properties.detalleSolicitud !== null) {
             $scope.getLstSesion();
         }
     });
@@ -384,7 +394,7 @@ function($scope, $http, blockUI, $window) {
     $scope.validarSesion = function() {
         var error = false;
         var sweet = { "titulo": "", "texto": "" }
-        if ($scope.sesion_aspirante.responsabledisponible_pid == 0) {
+        if ($scope.sesion_aspirante.responsabledisponible_pid == 0 && !$scope.asistenciaEntrevista) {
             error = true;
             sweet.titulo = "Incorrecto";
             sweet.texto = 'Favor de seleccionar psicólogo para entrevista'
@@ -446,7 +456,7 @@ function($scope, $http, blockUI, $window) {
                                         text: `Sesión ${$scope.sesion.nombre} guardada correctamente`,
                                     })
                                     ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
-                                //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
+                                    //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
                                 window.top.location.href = '/bonita/apps/aspirante/nueva_solicitud/';
                             })
                         })
@@ -476,19 +486,19 @@ function($scope, $http, blockUI, $window) {
     }
 
     $scope.loadAsistenciaCollegeBoard = function() {
-        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
             $scope.asistenciaCollegeBoard = (datos.value === "true");
             $scope.loadAsistenciaPsicometrico();
         })
     }
     $scope.loadAsistenciaPsicometrico = function() {
-        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaPsicometrico", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
             $scope.asistenciaPsicometrico = (datos.value === "true");
             $scope.loadAsistenciaEntrevista();
         })
     }
     $scope.loadAsistenciaEntrevista = function() {
-        doRequest("GET", "../API/bpm/caseVariable/"+$scope.properties.usuario[0].caseId+"/asistenciaEntrevista", null, null, null, function(datos, extra) {
+        doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.usuario[0].caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
             $scope.asistenciaEntrevista = (datos.value === "true");
         })
     }

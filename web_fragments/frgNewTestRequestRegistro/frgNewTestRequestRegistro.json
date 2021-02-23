@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgNewTestRequestRegistro",
   "name" : "frgNewTestRequestRegistro",
-  "lastUpdate" : 1613172758229,
+  "lastUpdate" : 1614108136088,
   "rows" : [
     [
       {
@@ -470,8 +470,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -574,8 +574,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -670,8 +670,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -701,8 +701,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "pagosDeshabilitados"
                             },
                             "required" : {
                               "type" : "constant",
@@ -967,8 +967,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -998,8 +998,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "pagosDeshabilitados"
                             },
                             "required" : {
                               "type" : "constant",
@@ -1266,8 +1266,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -1291,7 +1291,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label>"
+                        "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label> {{testOptionsRadio}}"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1609,6 +1609,7 @@
       "type" : "expression",
       "value" : [
         "for(var x=0; x<$data.CatLugarExamen.length;x++){",
+        "    debugger;",
         "    if($data.testOptionsRadio === 1){",
         "        if($data.CatLugarExamen[x].descripcion === \"En el mismo campus en donde realizaré mi licenciatura\"){",
         "            $data.formInput.catSolicitudDeAdmisionInput.catLugarExamen = $data.CatLugarExamen[x];",
@@ -1687,6 +1688,22 @@
         "    if($data.getPaisesNoMexico[x].descripcion.trim() === $data.paisSeleccionado.trim()){",
         "        $data.formInput.catSolicitudDeAdmisionInput.catPaisExamen = $data.getPaisesNoMexico[x];",
         "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "pagosDeshabilitados" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "todosPagosDeshabilitados" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.pagosDeshabilitados){",
+        "    $data.testOptionsRadio = $data.radioOptionsTestPlace[0][0].value;",
         "}"
       ],
       "exposed" : false

@@ -1,9 +1,9 @@
 function PbButtonCtrl($scope, modalService) {
     
     $scope.getPdf = function(){
+        document.querySelector($scope.properties.elementSelector).scrollIntoView();
         let width = $($scope.properties.elementSelector).width();
         let height = $($scope.properties.elementSelector).height();
-        debugger;
         let millimeters = {};
         let orientation = "p";
 		millimeters.width = Math.floor(width * 0.264583);

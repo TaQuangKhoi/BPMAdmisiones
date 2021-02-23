@@ -19,9 +19,9 @@ function PbTableCtrl($scope, modalService) {
                 row.anoInicio = parseInt(row.anoInicio);
             }
             
-            if(row.promedio !== null && row.promedio !== undefined && row.promedio !== ""){
-                row.promedio = parseInt(row.promedio);
-            }
+            // if(row.promedio !== null && row.promedio !== undefined && row.promedio !== ""){
+            //     row.promedio = parseInt(row.promedio);
+            // }
             // row.anoInicio = parseInt(row.anoInicio);
             
             // row.promedio = parseFloat(row.promedio);

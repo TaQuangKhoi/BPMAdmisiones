@@ -33,23 +33,25 @@ function PbTableCtrl($scope) {
             if($scope.properties.catTipoTerapia !== undefined && $scope.properties.catTerapia !== undefined){
                 if($scope.properties.catTipoTerapia.length > 0 && $scope.properties.catTerapia.length > 0){
                     $scope.properties.content = [];
-                    let no = {};
-                    for(let i = 0; i < $scope.properties.catTerapia.length; i++){
-                        if($scope.properties.catTerapia[i].descripcion === "No"){
-                            no = $scope.properties.catTerapia[i];
-                        }
-                    }
+                    // let no = {};
+                    // for(let i = 0; i < $scope.properties.catTerapia.length; i++){
+                    //     if($scope.properties.catTerapia[i].descripcion === "No"){
+                    //         no = $scope.properties.catTerapia[i];
+                    //     }
+                    // }
             
                     for(let i = 0; i < $scope.properties.catTipoTerapia.length; i++){
                         let objTerapia = {
                             "catTipoTerapia": $scope.properties.catTipoTerapia[i],
-                            "catRecibidoTerapia": no,
+                            // "catRecibidoTerapia": no,
+                            "catRecibidoTerapia": null,
                             "tipoTerapia": "",
                             "cuantoTiempo": "",
-                            "recibidoTerapiaString":"No",
+                            // "recibidoTerapiaString":"No",
+                            "recibidoTerapiaString": "Selecciona...",
                             "persistenceId_string": null,
                             "terapiaString": "",
-                            "otraTerapia":""
+                            "otraTerapia": ""
                         };
                         
                         $scope.properties.content.push(objTerapia);

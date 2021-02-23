@@ -37,19 +37,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if($scope.properties.infoFamiliar.catParentesco === null){
             isValid = false;
             titleMessage = "¡Parentesco!";
-            errorMessage = "Debes seleccionar una opción";
+            errorMessage = "Selecciona una opción";
         } else if($scope.properties.infoFamiliar.nombre === ""){
             isValid = false;
             titleMessage = "¡Nombre!";
-            errorMessage = "Debes capturar el nombre de  tu familiar o conocido.";
+            errorMessage = "Captura el nombre de  tu familiar o conocido.";
         } else if($scope.properties.infoFamiliar.apellidos === ""){
             isValid = false;
             titleMessage = "¡Apellidos!";
-            errorMessage = "Debes capturar los apellidos de  tu familiar o conocido.";
+            errorMessage = "Captura los apellidos de  tu familiar o conocido.";
         } else if($scope.properties.infoFamiliar.correo === ""){
             isValid = false;
             titleMessage = "¡Correo!";
-            errorMessage = "Debes capturar el correo de  tu familiar o conocido.";
+            errorMessage = "Captura el correo de  tu familiar o conocido.";
         } else if (!emailRegex.test(String($scope.properties.infoFamiliar.correo.trim()).toLowerCase())){
             isValid = false;
             titleMessage = "¡Correo!";
@@ -57,15 +57,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if($scope.properties.infoFamiliar.catCampus === null){
             isValid = false;
             titleMessage = "¡Campus!";
-            errorMessage = "Debes seleccionar una opción";
+            errorMessage = "Selecciona una opción";
         } else if($scope.properties.infoFamiliar.carrera === ""){
             isValid = false;
             titleMessage = "¡Carrera!";
-            errorMessage = "Debes capturar la carrera de  tu familiar o conocido.";
+            errorMessage = "Captura la carrera de  tu familiar o conocido.";
         } else if($scope.properties.infoFamiliar.catDiploma === null){
             isValid = false;
             titleMessage = "¡Diploma!";
-            errorMessage = "Debes seleccionar una opción";
+            errorMessage = "Selecciona una opción";
         } 
     
         if(!isValid){

@@ -1,0 +1,46 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>{{row.nombres}}</td>
+                <td>{{row.apellidos}}</td>
+                <td>{{row.fechaNacimiento | date:'dd-MM-yyyy'}}</td>
+                <td>
+                    <p ng-show="row.isEstudia">Sí</p>
+                    <p ng-hide="row.isEstudia">No</p>
+                </td>
+                <td>{{row.escuelaEstudia}}</td>
+                <td>
+                    <p ng-show="row.isTrabaja">Sí</p>
+                    <p ng-hide="row.isTrabaja">No</p>
+                </td>
+                <td>{{row.empresaTrabaja}}</td>
+            </tr>
+        </tbody>
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>{{row.nombres}}</td>
+                <td>{{row.apellidos}}</td>
+                <td>{{row.fechaNacimiento | date:'dd-MM-yyyy'}}</td>
+                <td>
+                    <p ng-show="row.isEstudia">Sí</p>
+                    <p ng-hide="row.isEstudia">No</p>
+                </td>
+                <td>{{row.escuelaEstudia}}</td>
+                <td>
+                    <p ng-show="row.isTrabaja">Sí</p>
+                    <p ng-hide="row.isTrabaja">No</p>
+                </td>
+                <td>{{row.empresaTrabaja}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

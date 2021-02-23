@@ -39,35 +39,35 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if($scope.properties.infoEscuela.grado === null){
             isValid = false;
             titleMessage = "¡Grado escolar!";
-            errorMessage = "Debes seleccionar un valor.";
+            errorMessage = "Selecciona un valor.";
         } else if($scope.properties.infoEscuela.grado.descripcion === "Preparatoria/Bachillerato" && ($scope.properties.infoEscuela.escuela === null && $scope.properties.infoEscuela.otraEscuela === "")){
             isValid = false;
             titleMessage = "¡Escuela!";
-            errorMessage = "Debes capturar el nombre de la escuela.";
+            errorMessage = "Captura el nombre de la escuela.";
         } else if($scope.properties.infoEscuela.grado.descripcion !== "Preparatoria/Bachillerato" && ($scope.properties.infoEscuela.otraEscuela === undefined || $scope.properties.infoEscuela.otraEscuela === "")){
             isValid = false;
             titleMessage = "¡Escuela!";
-            errorMessage = "Debes capturar el nombre de la escuela.";
+            errorMessage = "Captura el nombre de la escuela.";
         } else if ($scope.properties.infoEscuela.pais === null){
             isValid = false;
             titleMessage = "¡País!";
-            errorMessage = "Debe capturar el País de su escuela.";
+            errorMessage = "Captura el País de tu escuela.";
         } else if ($scope.properties.infoEscuela.pais.descripcion === "México" && $scope.properties.infoEscuela.estado === null){
             isValid = false;
             titleMessage = "¡Estado!";
-            errorMessage = "Debe capturar el Estado de su escuela.";
+            errorMessage = "Captura el Estado de tu escuela.";
         } else if ($scope.properties.infoEscuela.pais.descripcion !== "México" && $scope.properties.infoEscuela.estado === ""){
             isValid = false;
             titleMessage = "¡Estado!";
-            errorMessage = "Debe capturar el Estado de su escuela.";
+            errorMessage = "Captura el Estado de tu escuela.";
         } else if ($scope.properties.infoEscuela.ciudad === ""){
             isValid = false;
             titleMessage = "¡Ciudad!";
-            errorMessage = "Debe capturar el Ciudad de su escuela.";
+            errorMessage = "Captura la Ciudad de tu escuela.";
         } else if($scope.properties.infoEscuela.anoInicio === undefined || $scope.properties.infoEscuela.anoInicio === ""){
             isValid = false;
             titleMessage = "¡Año inicio!";
-            errorMessage = "Debe capturar el Año inicio de su escuela.";
+            errorMessage = "Captura el año inicio de tu escuela.";
         } else if($scope.properties.infoEscuela.anoInicio > currentYear){
             isValid = false;
             titleMessage = "¡Año inicio!";
@@ -75,7 +75,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if($scope.properties.infoEscuela.anoFin === undefined || $scope.properties.infoEscuela.anoFin === ""){
             isValid = false;
             titleMessage = "¡Año Fin!";
-            errorMessage = "Debe capturar el Año Fin de su escuela.";
+            errorMessage = "Captura el año en que finalizaste tu escuela.";
         } else if (parseInt($scope.properties.infoEscuela.anoFin) < parseInt($scope.properties.infoEscuela.anoInicio)){
             isValid = false;
             titleMessage = "¡Año fin!";

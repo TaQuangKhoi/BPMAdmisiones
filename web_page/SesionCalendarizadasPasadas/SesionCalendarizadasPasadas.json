@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "SesionCalendarizadasPasadas",
   "name" : "SesionCalendarizadasPasadas",
-  "lastUpdate" : 1610492059506,
+  "lastUpdate" : 1614108723960,
   "rows" : [
     [
       {
@@ -229,7 +229,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Listado de sesiones calendarizadas"
+                  "value" : "Histórico calendario de pruebas"
                 },
                 "level" : {
                   "type" : "constant",
@@ -437,9 +437,9 @@
                         "value" : "lstFiltros"
                       }
                     },
-                    "reference" : "69ebd7aa-0192-4adc-b14d-5072965fcacf",
+                    "reference" : "cd0cb26a-157c-4cfd-913f-ab652e0a7669",
                     "hasValidationError" : false,
-                    "id" : "customListFiltros"
+                    "id" : "customListFiltrosNormal"
                   }
                 ]
               ]
@@ -476,8 +476,8 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 8
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -564,14 +564,16 @@
                     "reference" : "0f14c735-3be9-4bbb-a3ff-a52c88e34e71",
                     "hasValidationError" : false,
                     "id" : "customCustomBtnDownloadExcel"
-                  },
+                  }
+                ],
+                [
                   {
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 4
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -580,7 +582,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "expression",
@@ -718,7 +720,7 @@
           },
           "urlPost" : {
             "type" : "constant",
-            "value" : "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarizadasPasadas&p=0&c=10"
+            "value" : "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantesReporte&p=0&c=10"
           },
           "dataToSend" : {
             "type" : "variable",
@@ -731,10 +733,6 @@
           "userId" : {
             "type" : "variable",
             "value" : "userData.user_id"
-          },
-          "orden" : {
-            "type" : "variable",
-            "value" : "activos"
           }
         },
         "reference" : "60770672-1707-4741-a8cd-badb50370684",
@@ -1507,12 +1505,11 @@
         "return {\r",
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
-        "    \"fecha\":$data.getFecha+\"\",\r",
+        "    \"fecha\": $data.getFecha+\"\",\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"orden\":$data.activos+\"\"\r",
+        "    \"offset\":0\r",
         "};"
       ],
       "exposed" : false
@@ -1598,7 +1595,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"lstFiltro\": [],\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
         "    \"fecha\": $data.getFecha+\"\",\r",
         "    \"orderby\":\"\",\r",
@@ -1606,16 +1603,8 @@
         "    \"limit\":999999,\r",
         "    \"offset\":0,\r",
         "    \"usuarioNombre\":$data.userData.user_name,\r",
-        "    \"type\": \"sesioncalendarizadasreporte\",\r",
-        "    \"orden\":$data.activos+\"\"\r",
-        "};\r"
-      ],
-      "exposed" : false
-    },
-    "activos" : {
-      "type" : "constant",
-      "value" : [
-        "<"
+        "    \"type\": \"sesioncalendarizadasreporte\"\r",
+        "};"
       ],
       "exposed" : false
     }

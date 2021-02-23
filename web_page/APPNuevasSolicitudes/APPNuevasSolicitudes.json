@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPNuevasSolicitudes",
   "name" : "APPNuevasSolicitudes",
-  "lastUpdate" : 1612399923771,
+  "lastUpdate" : 1614108104300,
   "rows" : [
     [
       {
@@ -656,6 +656,10 @@
                 "campusSeleccionado" : {
                   "type" : "variable",
                   "value" : "getCampus"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
                 }
               },
               "reference" : "31eeb4ad-56c7-4cc2-be77-58f8e816f91a",
@@ -1591,13 +1595,6 @@
       "external" : false
     },
     {
-      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "39cb7871-2fce-4d20-b657-552ca8bf6351",
       "name" : "style.css",
       "type" : "css",
@@ -1623,6 +1620,13 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "25b6be4f-928a-44d5-84d8-03eff82ca34d",
+      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
       "external" : false
     }
   ],
@@ -1709,7 +1713,7 @@
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus+\"\"\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "};"
       ],
       "exposed" : false
@@ -1753,7 +1757,7 @@
     "lstCatCampus" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     }

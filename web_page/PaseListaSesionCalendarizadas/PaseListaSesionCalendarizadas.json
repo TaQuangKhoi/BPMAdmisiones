@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "PaseListaSesionCalendarizadas",
   "name" : "PaseListaSesionCalendarizadas",
-  "lastUpdate" : 1610486099795,
+  "lastUpdate" : 1614108701054,
   "rows" : [
     [
       {
@@ -229,7 +229,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Sesiones calendarizadas"
+                  "value" : "Calendario de pruebas"
                 },
                 "level" : {
                   "type" : "constant",
@@ -437,9 +437,9 @@
                         "value" : "lstFiltros"
                       }
                     },
-                    "reference" : "268ac46f-fc03-458a-ba08-b2b4862b678b",
+                    "reference" : "e17cb55f-1db5-41ee-b432-a6b7994b79f2",
                     "hasValidationError" : false,
-                    "id" : "customListFiltros"
+                    "id" : "customListFiltrosNormal"
                   }
                 ]
               ]
@@ -476,8 +476,8 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 8
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -564,14 +564,16 @@
                     "reference" : "88d3d56d-bfa2-49e2-a34e-8469ad2fc27a",
                     "hasValidationError" : false,
                     "id" : "customCustomBtnDownloadExcel"
-                  },
+                  }
+                ],
+                [
                   {
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 6,
-                      "lg" : 4
+                      "md" : 12,
+                      "lg" : 12
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -580,7 +582,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "expression",
@@ -592,7 +594,7 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "left"
+                        "value" : "right"
                       },
                       "buttonStyle" : {
                         "type" : "constant",
@@ -1593,7 +1595,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"lstFiltro\": [],\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
         "    \"fecha\": $data.getFecha+\"\",\r",
         "    \"orderby\":\"\",\r",
