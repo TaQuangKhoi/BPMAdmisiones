@@ -10,6 +10,18 @@ class CatPropedeuticoFilterCustom {
 	private String fechaFinal;
 	private String campus;
 	private String tipoPeriodo;
+	private String idioma;
+	
+	
+	
+	
+	
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
 	
 	public String getClave() {
 		return clave;

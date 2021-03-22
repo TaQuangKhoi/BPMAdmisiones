@@ -148,6 +148,7 @@ class SesionesDAO {
 		Integer contador = 1;
 		
 		DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		DateFormat dfSalidaTXT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar calendario = new GregorianCalendar();
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -163,12 +164,13 @@ class SesionesDAO {
 				if(!fechaFinalStr.equals(" ")) {
 					objResultado = new HashMap<String, Object>();
 					calendario.setTime(dfSalida.parse(fechaFinalStr));
-					calendario.add(Calendar.DAY_OF_YEAR, +1);
+					calendario.add(Calendar.DAY_OF_YEAR, +5);
 					calendario.set(Calendar.HOUR_OF_DAY, 23);
 					calendario.set(Calendar.MINUTE, 59);
 					calendario.set(Calendar.SECOND, 59);
 					
 					objResultado.put("tiempo", calendario.getTimeInMillis());
+					objResultado.put("tiempoText", dfSalidaTXT.format(calendario.getTime()));
 					objResultado.put("descripcion", rs.getString("descripcion"));
 					lstResultado.add(objResultado);
 				}
@@ -299,12 +301,29 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		Map<String, String> objGrupoCampus = new HashMap<String, String>();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="";
+		String where ="WHERE u.enabled=true ", orderby="ORDER BY ", errorlog="", role="", group="";
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
+				try {
+					closeCon = validarConexion()
+					pstm = con.prepareStatement("SELECT descripcion,grupobonita FROM catcampus where iseliminado=false");
+					rs = pstm.executeQuery()
+					while(rs.next()){
+						objGrupoCampus = new HashMap<String, String>();
+						objGrupoCampus.put("descripcion",rs.getString("descripcion"));
+						objGrupoCampus.put("valor",rs.getString("grupobonita"));
+						lstGrupoCampus.add(objGrupoCampus);
+					}
+				} catch (Exception e) {
+					e.printStackTrace()
+				}finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm)
+					}
+				}
 				
-				//assert object instanceof List;
+				/*assert object instanceof List;
 				objGrupoCampus = new HashMap<String, String>();
 				objGrupoCampus.put("descripcion","Anáhuac Cancún");
 				objGrupoCampus.put("valor","CAMPUS-CANCUN");
@@ -358,7 +377,7 @@ class SesionesDAO {
 				objGrupoCampus = new HashMap<String, String>();
 				objGrupoCampus.put("descripcion","Anáhuac Cordoba");
 				objGrupoCampus.put("valor","CAMPUS-CORDOBA");
-				lstGrupoCampus.add(objGrupoCampus);
+				lstGrupoCampus.add(objGrupoCampus);*/
 						
 				userLogged = context.getApiSession().getUserId();
 				
@@ -465,7 +484,7 @@ class SesionesDAO {
 				consulta=consulta.replace("[WHERE]", where);
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexionBonita();
-				pstm = con.prepareStatement(consulta.replace("u.id, u.firstname, u.lastname, g.name as grupo, r.name as rol", "COUNT(u.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("u.id, u.firstname, u.lastname", "COUNT(u.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -510,6 +529,7 @@ class SesionesDAO {
 	public Result insertSesion(SesionCustom sesion) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		Boolean singleTime=true
 		try {
 				List<SesionCustom> rows = new ArrayList<SesionCustom>();
 				closeCon = validarConexion();
@@ -534,8 +554,15 @@ class SesionesDAO {
 				pstm.setLong(9, sesion.getCampus_pid())
 				pstm.setString(10, sesion.getTipo())
 				(sesion.getCiudad_pid()==null)?pstm.setNull(11, java.sql.Types.NULL):pstm.setLong(11, sesion.getCiudad_pid())
+				if(sesion.getUltimo_dia_inscripcion().contains(":")) {
+					pstm.setString(12, sesion.getUltimo_dia_inscripcion())
+				}else {
+					pstm.setString(12, sesion.getUltimo_dia_inscripcion()+" 23:59:59")
+				}
+				pstm.setBoolean(13, sesion.getIsEliminado())
+				
 				if(sesion.getPersistenceId()>0) {
-					pstm.setLong(12, sesion.getPersistenceId())
+					pstm.setLong(14, sesion.getPersistenceId())
 					pstm.executeUpdate()
 				}
 				else {
@@ -549,6 +576,15 @@ class SesionesDAO {
 					
 				for (PruebaCustom prueba: sesion.getPruebas()) {
 					if(prueba.getPersistenceId()>0) {
+						pstm = con.prepareStatement(Statements.VALIDAR_FECHA_PRUEBA_REGISTRADOS)
+						pstm.setLong(1, prueba.getPersistenceId())
+						rs = pstm.executeQuery();
+						if(rs.next()) {
+							if(!rs.getString("aplicacion").equals(prueba.getAplicacion())) {
+								throw new Exception("No es posible guardar, la prueba tiene aspirantes registrados.")
+							}
+						}
+						
 						pstm = con.prepareStatement(Statements.UPDATE_PRUEBA)
 					}else {
 						pstm = con.prepareStatement(Statements.INSERT_PRUEBA, Statement.RETURN_GENERATED_KEYS)
@@ -558,7 +594,7 @@ class SesionesDAO {
 					pstm.setString(3, prueba.getEntrada())
 					pstm.setString(4, prueba.getSalida())
 					pstm.setInt(5, prueba.getRegistrados())
-					pstm.setDate(6,convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getUltimo_dia_inscripcion())))
+					pstm.setNull(6,java.sql.Types.NULL)
 					pstm.setInt(7, prueba.getCupo())
 					pstm.setString(8, prueba.getLugar())
 					(prueba.getCampus_pid()==null)?pstm.setNull(9, java.sql.Types.NULL):pstm.setLong(9, prueba.getCampus_pid())
@@ -597,16 +633,7 @@ class SesionesDAO {
 					
 					for (ResponsableCustom responsable: prueba.getPsicologos()) {
 						for (ResponsableDisponible disponible:responsable.getLstFechasDisponibles()) {
-							if(!prueba.iseliminado && !responsable.getIseliminado()) {
-								pstm = con.prepareStatement(Statements.REVISAR_DISPONIBLE_RESPONSABLE)
-								pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
-								pstm.setLong(2, responsable.getId())
-								pstm.setLong(3, prueba.getPersistenceId())
-								rs=pstm.executeQuery()
-								if(rs.next()) {
-									throw new Exception("Un responsable seleccionado para la prueba " + prueba.getNombre() + " no se encuentra disponible el día " + prueba.getAplicacion())
-								}
-							}
+							
 							if(responsable.getIseliminado() && disponible.getPersistenceId()>0) {
 								pstm = con.prepareStatement(Statements.DELETEHORARIOSRESPONSABLE)
 								pstm.setLong(1, disponible.getPersistenceId())
@@ -616,6 +643,14 @@ class SesionesDAO {
 							if(disponible.getPersistenceId()>0) {
 								pstm = con.prepareStatement(Statements.UPDATE_RESPONSABLEDISPONIBLE)
 							}else {
+								if(singleTime) {
+									pstm = con.prepareStatement(Statements.DELETEIFBEFORECREATED)
+									pstm.setLong(1, prueba.getPersistenceId())
+									pstm.setLong(2, responsable.getId())
+									pstm.executeUpdate()
+									singleTime=false
+								}
+								
 								pstm = con.prepareStatement(Statements.INSERT_RESPONSABLEDISPONIBLE, Statement.RETURN_GENERATED_KEYS)
 							}
 							
@@ -636,21 +671,22 @@ class SesionesDAO {
 									responsable.setPersistenceId(rs.getLong("persistenceId"))
 								}
 							}
-							
-						}
-					}
-					}else {
-						for (ResponsableCustom responsable: prueba.getPsicologos()) {
 							if(!prueba.iseliminado && !responsable.getIseliminado()) {
 								pstm = con.prepareStatement(Statements.REVISAR_DISPONIBLE_RESPONSABLE)
 								pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
 								pstm.setLong(2, responsable.getId())
 								pstm.setLong(3, prueba.getPersistenceId())
+								pstm.setString(4, prueba.getAplicacion() + " " + prueba.getEntrada());
+								pstm.setString(5, prueba.getAplicacion() + " " + prueba.getSalida());
 								rs=pstm.executeQuery()
 								if(rs.next()) {
-									throw new Exception("Un responsable seleccionado para la prueba " + prueba.getNombre() + " no se encuentra disponible el día " + prueba.getAplicacion())
+									throw new Exception("Un responsable seleccionado para la prueba " + prueba.getNombre() + " no se encuentra disponible el día " + prueba.getAplicacion() + " horario " + disponible.getHorario())
 								}
 							}
+						}
+					}
+					}else {
+						for (ResponsableCustom responsable: prueba.getPsicologos()) {
 							if(responsable.getPersistenceId()>0) {
 										   
 								pstm = con.prepareStatement(Statements.UPDATE_RESPONSABLEDISPONIBLE)
@@ -682,7 +718,13 @@ class SesionesDAO {
 					
 					
 				}
-				if(sesion.pruebas.size()>0) {
+				int count=0;
+				for(int i=0; i<sesion.pruebas.size();i++) {
+					if(!sesion.pruebas.get(0).iseliminado) {
+						count++;
+					}
+				}
+				if(count>0) {
 					pstm = con.prepareStatement(Statements.UPDATE_SESION_FECHA)
 					pstm.setLong(1, sesion.persistenceId)
 					pstm.setLong(2, sesion.persistenceId)
@@ -832,7 +874,7 @@ class SesionesDAO {
 		Boolean closeCon = false;
 		List<Calendario> lstCalendario = new ArrayList();
 		Calendario calendario = new Calendario();
-		String where=" WHERE (s.FECHA_INICIO between ? and  ?)", consulta =""
+		String where=" WHERE (s.FECHA_INICIO between ? and  ?) AND s.isEliminado!=true ", consulta =""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -896,7 +938,7 @@ class SesionesDAO {
 		Boolean closeCon = false;
 		List<Calendario> lstCalendario = new ArrayList();
 		Calendario calendario = new Calendario();
-		String where=" WHERE (s.ismedicina=false OR s.ismedicina=?) AND (p.ultimo_dia_inscripcion >=now() and s.FECHA_INICIO between ? and ?) AND s.borrador=false AND s.fecha_inicio>=now() ", consulta =""
+		String where=" WHERE s.isEliminado!=true and (s.ismedicina=false OR s.ismedicina=?) AND s.ultimo_dia_inscripcion is not null AND TO_TIMESTAMP(s.ultimo_dia_inscripcion, 'YYYY-MM-DD HH24:MI:SS')>=now() AND s.FECHA_INICIO between ? AND ? AND s.borrador=false ", consulta =""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1063,6 +1105,8 @@ class SesionesDAO {
 				sesion.setCampus_pid(rs.getLong("campus_pid"))
 				sesion.setTipo(rs.getString("tipo"))
 				sesion.setCiudad_pid(rs.getLong("ciudad_pid"))
+				sesion.setIsEliminado(rs.getBoolean("isEliminado"))
+				sesion.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_PID)
 				pstm.setLong(1, sesion.getPersistenceId())
 				rs = pstm.executeQuery()
@@ -1216,6 +1260,7 @@ class SesionesDAO {
 						sesion.setCampus_pid(rs.getLong("campus_pid"))
 						sesion.setTipo(rs.getString("tipo"))
 						sesion.setCiudad_pid(rs.getLong("ciudad_pid"))
+						sesion.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
 						pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_PID_ASPIRANTE)
 						pstm.setLong(1, sesion.getPersistenceId())
 						rs = pstm.executeQuery()
@@ -1321,7 +1366,7 @@ class SesionesDAO {
 							}
 						}
 					}
-					pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_ENTREVISTA_ASPIRANTE)
+					/*pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_ENTREVISTA_ASPIRANTE)
 					pstm.setLong(1, sesion.getPersistenceId())
 					pstm.setString(2, username)
 					pstm.setLong(3, sesion.getPersistenceId())
@@ -1405,7 +1450,7 @@ class SesionesDAO {
 						
 					}else {
 						throw new Exception("Los psicólogos disponibles para esta sesión son especializados para otra licenciatura")
-					}
+					}*/
 					lstSesion.add(sesion)
 					resultado.setError_info(consulta)
 					resultado.setData(lstSesion)
@@ -1438,7 +1483,7 @@ class SesionesDAO {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
-				String consulta = Statements.GET_SESIONESCALENDARIZADAS
+				String consulta = Statements.GET_SESIONESCALENDARIZADAS_REGISTRADOS
 				PruebaCustom row = new PruebaCustom();
 				List<PruebasCustom> rows = new ArrayList<PruebasCustom>();
 				closeCon = validarConexion();
@@ -1446,8 +1491,17 @@ class SesionesDAO {
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
+						
+					case "TIPO DE PRUEBA, RESIDENCIA":
+						residencia +=" WHERE ( LOWER(residencia) LIKE LOWER('%[valor]%')";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						break;
 					case "ID":
-						where +=" AND CAST(P.persistenceid as varchar)";
+						where +=" AND CAST(Pruebas.persistenceid as varchar)";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -1457,7 +1511,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA PRUEBA":
-						where +=" AND LOWER(P.nombre) ";
+						where +=" AND LOWER(Pruebas.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -1467,7 +1521,7 @@ class SesionesDAO {
 						break;
 						
 					case "CUPO DE LA PRUEBA":
-						where +=" AND CAST(P.cupo as varchar) ";
+						where +=" AND CAST(Pruebas.cupo as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -1477,18 +1531,37 @@ class SesionesDAO {
 						break;
 						
 					case "ALUMNOS REGISTRADOS":
-						where +=" AND CAST(P.registrados as varchar) ";
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+						
+						residencia +=" CAST(registrados as varchar) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							residencia+="='[valor]'"
+						}else {
+							residencia+="LIKE '%[valor]%'"
+						}
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						/*where +=" AND CAST(Pruebas.registrados as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
 							where+="LIKE '%[valor]%'"
 						}
-						where = where.replace("[valor]", filtro.get("valor"))
+						where = where.replace("[valor]", filtro.get("valor"))*/
 						break;
 						
 						
 					case "RESIDENCIA":
-						residencia +=" WHERE LOWER(residencia) ";
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+						residencia +=" LOWER(residencia) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							residencia+="=LOWER('[valor]')"
 						}else {
@@ -1498,14 +1571,14 @@ class SesionesDAO {
 						break;
 						
 					case "FECHA":
-						where +=" AND  ( LOWER( CAST(P.aplicacion as varchar)) LIKE LOWER('%[valor]%') ";
-						where += "OR LOWER(P.entrada) LIKE LOWER('%[valor]%') "
-						where += "OR LOWER(P.salida) LIKE LOWER('%[valor]%') )"
+						where +=" AND  ( LOWER( CAST(TO_CHAR(Pruebas.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+						where += "OR LOWER(Pruebas.entrada) LIKE LOWER('%[valor]%') "
+						where += "OR LOWER(Pruebas.salida) LIKE LOWER('%[valor]%') )"
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
 					case "LUGAR":
-						where +=" AND LOWER(P.lugar) ";
+						where +=" AND LOWER(Pruebas.lugar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -1515,8 +1588,8 @@ class SesionesDAO {
 						break;
 						
 						
-					case "TIPO PRUEBA":
-						where +=" AND LOWER(c.descripcion) ";
+					case "TIPO DE PRUEBA":
+						where +=" AND LOWER(ctipoprueba.descripcion) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -1526,7 +1599,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA SESION":
-						where +=" AND LOWER(S.nombre) ";
+						where +=" AND LOWER(Sesion.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -1545,31 +1618,31 @@ class SesionesDAO {
 						orderby+="pruebas_id";
 						break;
 						case "NOMBRE":
-						orderby+="P.nombre";
+						orderby+="Pruebas.nombre";
 						break;
 						case "ALUMNOS REGISTRADOS":
-						orderby+="P.registrados";
+						orderby+="Pruebas.registrados";
 						break;
 						case "CUPO":
-						orderby+="P.cupo";
+						orderby+="Pruebas.cupo";
 						break;
 						case "RESIDENCIA":
-						orderby+="S.tipo";
+						orderby+="Sesion.tipo";
 						break;
 						case "FECHA":
-						orderby+="P.aplicacion";
+						orderby+="Pruebas.aplicacion";
 						break;
 						case "LUGAR":
-						orderby+="P.lugar";
+						orderby+="Pruebas.lugar";
 						break;
 						case "TIPO_PRUEBA":
-						orderby+="c.descripcion";
+						orderby+="ctipoprueba.descripcion";
 						break;
 						case "NOMBRE SESION":
-						orderby+="S.nombre";
+						orderby+="Sesion.nombre";
 						break;
 						default:
-						orderby+="P.aplicacion"
+						orderby+="Pruebas.aplicacion"
 						break;
 						
 					}
@@ -1578,7 +1651,7 @@ class SesionesDAO {
 					consulta=consulta.replace("[WHERE]", where);
 					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 					errorlog+="paso el where"
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(P.persistenceid)  as pruebas_id,   P.nombre, P.aplicacion, ( CASE WHEN s.tipo LIKE '%R,F,E%'OR  s.tipo LIKE '%R,E,F%'OR  s.tipo LIKE '%F,R,E%'OR  s.tipo LIKE '%F,E,R%'OR  s.tipo LIKE '%E,F,R%'OR  s.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN s.tipo LIKE '%R,F%'OR  s.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN s.tipo LIKE '%E,F%'OR  s.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN s.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN s.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN s.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, S.persistenceid as sesiones_id, P.lugar, P.registrados as alumnos_generales, S.nombre as nombre_sesion, c.descripcion as tipo_prueba, P.cupo, P.entrada,P.salida", "COUNT( DISTINCT(P.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR  Sesion.tipo LIKE '%R,E,F%'OR  Sesion.tipo LIKE '%F,R,E%'OR  Sesion.tipo LIKE '%F,E,R%'OR  Sesion.tipo LIKE '%E,F,R%'OR  Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR  Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR  Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
 					pstm.setInt(1, object.usuario)
 					
 					rs= pstm.executeQuery()
@@ -1586,9 +1659,13 @@ class SesionesDAO {
 						resultado.setTotalRegistros(rs.getInt("registros"))
 					}
 					errorlog+="paso el registro"
+					
+					String consulta_aspirante =  Statements.EXT_SESIONESCALENDARIZADAS_REGISTRADOS
+					
 					consulta=consulta.replace("[ORDERBY]", orderby)
 					consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 					consulta=consulta.replace("[RESIDENCIA]", residencia)
+					consulta=consulta.replace("[COUNTASPIRANTES]", consulta_aspirante)
 					errorlog+="conteo exitoso "
 					
 					pstm = con.prepareStatement(consulta)
@@ -1603,7 +1680,7 @@ class SesionesDAO {
 						
 						row = new PruebaCustom();
 						row.setNombre(rs.getString("nombre"))
-						row.setRegistrados(rs.getInt("alumnos_generales"));
+						row.setRegistrados(rs.getInt("registrados"));
 						row.setLugar(rs.getString("lugar"));
 						row.setPersistenceId(rs.getLong("pruebas_id"));
 						row.setCupo(rs.getInt("cupo"));
@@ -1648,14 +1725,14 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", orderbyUsuario="ORDER BY ";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", orderbyUsuario="ORDER BY " ;
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
 				
 				
-				String consulta = Statements.GET_SESIONESASPIRANTE
+				String consulta = Statements.GET_ASPIRANTEPRUEBAASISTIOYREAGENDOACTIVOS
 				SesionesAspiranteCustom row = new SesionesAspiranteCustom();
 				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
 				List<Map<String, Object>> aspirante = new ArrayList<Map<String, Object>>();
@@ -1674,27 +1751,36 @@ class SesionesDAO {
 					switch(filtro.get("columna")) {
 						
 						
-					case "NOMBRE, EMAIL":
+					case "NOMBRE, EMAIL, CURP":
 						where +=" AND ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') )";
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
-					case "UNIVERSIDAD, LICENCIATURA":
+					case "CAMPUS, PROGRAMA, INGRESO":
 						where +=" AND ( LOWER(campus.DESCRIPCION) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(gestionescolar.nombre) like lower('%[valor]%') )";
+						where +=" OR LOWER(gestionescolar.nombre) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(CPO.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
-					case "PROMEDIO, PREPARATORIA":
-						where +=" AND ( CAST(sda.PROMEDIOGENERAL as varchar) like lower('%[valor]%') ";
+					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
+						where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
-						
-						where +=" OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') )";
+					
+						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+					
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
@@ -1821,42 +1907,51 @@ class SesionesDAO {
 				switch(object.orderby) {
 					
 					case "IDBANNER":
-					orderby+="da.idbanner";
+					orderby+="idbanner";
 					break;
 					case "NOMBRE":
-					orderby+="sda.primernombre";
+					orderby+="primernombre";
 					break;
 					case "EMAIL":
-					orderby+="sda.correoelectronico";
+					orderby+="correoelectronico";
 					break;
 					case "PREPARATORIA":
-					orderby+="prepa.DESCRIPCION"
+					orderby+="preparatoria"
 					break;
 					case "CAMPUS":
-					orderby+="campus.DESCRIPCION"
+					orderby+="campus"
 					break;
 					case "RESIDENCIA":
-					orderby+="R.descripcion";
+					orderby+="residencia";
+					break;
+					case "CURP":
+					orderby+="curp";
+					break;
+					case "PROCEDENCIA":
+					orderby+="procedencia";
+					break;
+					case "INGRESO":
+					orderby+="periodo";
 					break;
 					case "SEXO":
-					orderby+="sx.descripcion";
+					orderby+="sexo";
 					break;
 					case "LICENCIATURA":
-					orderby+="gestionescolar.DESCRIPCION";
+					orderby+="licenciatura";
 					break;
 					case "PROMEDIO":
-					orderby+="sda.PROMEDIOGENERAL";
+					orderby+="promediogeneral";
 					break;
 					case "ASISTENCIA":
-					orderby+= "PL.asistencia";
+					orderby+= "asistencia";
 					break;
 					
 					case "HORARIO":
-					orderby+= "p.entrada";
+					orderby+= "horario";
 					break;
 					
 					default:
-					orderby+="SA.username"
+					orderby+="username"
 					break;
 					
 				}
@@ -1864,38 +1959,76 @@ class SesionesDAO {
 				//orderby+="SA.username"
 				orderby+=" "+object.orientation;
 				consulta=consulta.replace("[WHERE]", where);
-				consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
-				
-				
+				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
+				//String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide";
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 				}else {
 					consulta=consulta.replace("[ENTREVISTA]", "")
 				}
-				errorlog+="tipo "+tipo
-				pstm = con.prepareStatement(consulta.replace("SA.*,RD.responsableid,RD.prueba_pid, P.aplicacion, P.nombre as nombre_prueba,P.Lugar as lugar_prueba, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, c.persistenceid as tipoprueba_pid, PL.asistencia", "COUNT(SA.username) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				//errorlog+="tipo "+tipo+" consulta count = "+consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO")
+				//pstm = con.prepareStatement(consulta.replace("SELECT * from ", "SELECT COUNT(*) as registros from").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO"))
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
 				pstm.setInt(3, object.usuario)
+				pstm.setInt(4, object.sesion)
+				pstm.setInt(5, object.prueba)
 				
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
 				}
+				
+				
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				consulta=consulta.replace("[GROUPBY]", "")
+				consulta=consulta.replace("[COUNT]", "")
+				consulta=consulta.replace("[COUNTFIN]", "")
 				errorlog+="conteo exitoso "
-					
+				//errorlog+=" consulta = "+consulta
+				
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
 				pstm.setInt(3, object.usuario)
-				pstm.setInt(4, object.limit)
-				pstm.setInt(5, object.offset)
+				pstm.setInt(4, object.sesion)
+				pstm.setInt(5, object.prueba)
+				pstm.setInt(6, object.limit)
+				pstm.setInt(7, object.offset)
 				
 				rs = pstm.executeQuery()
 				
-				while(rs.next()) {	
+				aspirante = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+							String encoded = "";
+							try {
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64", "");
+								errorlog+= ""+e.getMessage();
+							}
+						}
+					}
+					//aspirante.add(columns);
+					rows.add(columns);
+				}
+				
+				
+				/*while(rs.next()) {	
 					row = new SesionesAspiranteCustom();
 					row.setUsername(rs.getString("username"))
 					row.setSession_pid(rs.getLong("sesiones_pid"));
@@ -1913,9 +2046,9 @@ class SesionesDAO {
 					}
 					
 					
-					pstm = con.prepareStatement(Statements.GET_ASPIRANTESDELASESION)
-					pstm.setString(1, row.getUsername())
-					rs2 = pstm.executeQuery()
+					//pstm = con.prepareStatement(Statements.GET_ASPIRANTESDELASESION)
+					//pstm.setString(1, row.getUsername())
+					//rs2 = pstm.executeQuery()
 					errorlog+="otra llamada "
 					aspirante = new ArrayList<Map<String, Object>>();
 					ResultSetMetaData metaData = rs2.getMetaData();
@@ -1944,10 +2077,10 @@ class SesionesDAO {
 					row.setAspirantes(aspirante);
 					rows.add(row);
 
-				}
+				}*/
 				
 						
-				resultado.setError_info(consulta +" errorLog = "+errorlog)
+				resultado.setError_info(consulta+" errorLog = "+errorlog)
 				resultado.setData(rows)
 				resultado.setSuccess(true)
 				
@@ -1972,14 +2105,14 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", campus="", group="",residencia="",having=" HAVING  (CAST(count(CASE WHEN PL.asistencia THEN 1 END) as varchar) ";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", campus="", group="",residencia="",having=" HAVING  (CAST(count(CASE WHEN PaseLista.asistencia THEN 1 END) as varchar) ";
 		List<String> lstGrupo = new ArrayList<String>();
 		Map<String, String> objGrupoCampus = new HashMap<String, String>();
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
-				String consulta = Statements.GET_SESIONESCALENDARIZADASPASADAS
+				String consulta = Statements.GET_SESIONESCALENDARIZADASPASADAS_REGISTRADOS
 				//AND CAST(P.aplicacion AS DATE) [ORDEN] CAST([FECHA] AS DATE)
 				PruebaCustom row = new PruebaCustom();
 				List<PruebasCustom> rows = new ArrayList<PruebasCustom>();
@@ -2024,8 +2157,17 @@ class SesionesDAO {
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
+						
+					case "TIPO DE PRUEBA, RESIDENCIA":
+						residencia +=" WHERE ( LOWER(residencia) LIKE LOWER('%[valor]%')";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						break;
 					case "ID":
-						where +=" AND CAST(P.persistenceid as varchar) ";
+						where +=" AND CAST(Pruebas.persistenceid as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -2035,7 +2177,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA PRUEBA":
-						where +=" AND LOWER(P.nombre) ";
+						where +=" AND LOWER(Pruebas.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2060,7 +2202,7 @@ class SesionesDAO {
 						break;
 						
 					case "CUPO DE LA PRUEBA":
-						where +=" AND CAST(P.cupo as varchar) ";
+						where +=" AND CAST(Pruebas.cupo as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -2070,18 +2212,37 @@ class SesionesDAO {
 						break;
 						
 					case "ALUMNOS REGISTRADOS":
-						where +=" AND CAST(P.registrados as varchar) ";
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+				
+						residencia +=" CAST(registrados as varchar) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							residencia+="='[valor]'"
+						}else {
+							residencia+="LIKE '%[valor]%'"
+						}
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+					/*
+						where +=" AND CAST(Pruebas.registrados as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
 							where+="LIKE '%[valor]%'"
 						}
-						where = where.replace("[valor]", filtro.get("valor"))
+						where = where.replace("[valor]", filtro.get("valor"))*/
 						break;
 						
 						
 					case "RESIDENCIA":
-						residencia +=" WHERE LOWER(residencia) ";
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+						residencia +=" LOWER(residencia) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							residencia+="=LOWER('[valor]')"
 						}else {
@@ -2091,14 +2252,14 @@ class SesionesDAO {
 						break;
 						
 					case "FECHA":
-						where +=" AND  ( LOWER( CAST(P.aplicacion as varchar)) LIKE LOWER('%[valor]%') ";
-						where += "OR LOWER(P.entrada) LIKE LOWER('%[valor]%') "
-						where += "OR LOWER(P.salida) LIKE LOWER('%[valor]%') )"
+						where +=" AND  ( LOWER( CAST(TO_CHAR(Pruebas.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+						where += "OR LOWER(Pruebas.entrada) LIKE LOWER('%[valor]%') "
+						where += "OR LOWER(Pruebas.salida) LIKE LOWER('%[valor]%') )"
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
 					case "LUGAR":
-						where +=" AND LOWER(P.lugar) ";
+						where +=" AND LOWER(Pruebas.lugar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2108,8 +2269,8 @@ class SesionesDAO {
 						break;
 						
 						
-					case "TIPO PRUEBA":
-						where +=" AND LOWER(c.descripcion) ";
+					case "TIPO DE PRUEBA":
+						where +=" AND LOWER(ctipoprueba.descripcion) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2119,7 +2280,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA SESION":
-						where +=" AND LOWER(S.nombre) ";
+						where +=" AND LOWER(Sesion.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2151,37 +2312,37 @@ class SesionesDAO {
 						orderby+="pruebas_id";
 						break;
 						case "NOMBRE":
-						orderby+="P.nombre";
+						orderby+="Pruebas.nombre";
 						break;
 						case "ALUMNOS REGISTRADOS":
-						orderby+="P.registrados";
+						orderby+="Pruebas.registrados";
 						break;
 						case "CUPO":
-						orderby+="P.cupo";
+						orderby+="Pruebas.cupo";
 						break;
 						case "RESIDENCIA":
-						orderby+="S.residencia";
+						orderby+="Sesion.residencia";
 						break;
 						case "FECHA":
-						orderby+="P.aplicacion";
+						orderby+="Pruebas.aplicacion";
 						break;
 						case "LUGAR":
-						orderby+="P.lugar";
+						orderby+="Pruebas.lugar";
 						break;
 						case "TIPO_PRUEBA":
-						orderby+="c.descripcion";
+						orderby+="ctipoprueba.descripcion";
 						break;
 						case "NOMBRE_SESION":
-						orderby+="S.nombre";
+						orderby+="Sesion.nombre";
 						break;
 						case "CAMPUS":
 						orderby+="campus.descripcion";
 						break;
 						case "ASISTENCIA":
-						orderby+=" CAST(count(CASE WHEN PL.asistencia THEN 1 END) as varchar)"
+						orderby+=" CAST(count(CASE WHEN PaseLista.asistencia THEN 1 END) as varchar)"
 						break;
 						default:
-						orderby+="P.aplicacion"
+						orderby+="Pruebas.aplicacion"
 						break;
 						
 					}
@@ -2190,16 +2351,20 @@ class SesionesDAO {
 					consulta=consulta.replace("[CAMPUS]", campus)
 					consulta=consulta.replace("[WHERE]", where);
 					consulta=consulta.replace("[ORDEN]", object.orden);
-					consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");					
-					errorlog+="paso el where2 "
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT P.nombre, P.aplicacion, ( CASE WHEN s.tipo LIKE '%R,F,E%'OR s.tipo LIKE '%R,E,F%'OR s.tipo LIKE '%F,R,E%'OR s.tipo LIKE '%F,E,R%'OR s.tipo LIKE '%E,F,R%'OR s.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN s.tipo LIKE '%R,F%'OR s.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN s.tipo LIKE '%E,F%'OR s.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN s.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN s.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN s.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, P.persistenceid as pruebas_id, S.persistenceid as sesiones_id, P.lugar, P.registrados as alumnos_generales, S.nombre as nombre_sesion, c.descripcion as tipo_prueba, P.cupo, P.entrada,P.salida, campus.descripcion AS campus, count(CASE WHEN PL.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = P.persistenceid) as responsables", "COUNT(DISTINCT(P.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", ""))
+					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");					
+					//errorlog+="paso el where2 "+" consulta =="+consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", "")
+					pstm = con.prepareStatement(consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", ""))
 					
 					rs= pstm.executeQuery()
 					if(rs.next()) {
 						resultado.setTotalRegistros(rs.getInt("registros"))
 					}
 					errorlog+="conteo exitoso "
-					consulta=consulta.replace("[GROUPBY]", "group by P.nombre, P.aplicacion, S.tipo, P.persistenceid, S.persistenceid, P.lugar, P.registrados, S.nombre, c.descripcion, P.cupo, P.entrada,P.salida, campus.descripcion")
+					
+					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADAS;
+					
+					consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT)
+					consulta=consulta.replace("[GROUPBY]", "group by Pruebas.nombre, Pruebas.aplicacion, Sesion.tipo, Pruebas.persistenceid, Sesion.persistenceid, Pruebas.lugar, Pruebas.registrados, Sesion.nombre, ctipoprueba.descripcion, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion")
 					consulta=consulta.replace("[HAVING]", (isHaving ? having:""))
 					consulta=consulta.replace("[ORDERBY]", orderby)
 					consulta=consulta.replace("[RESIDENCIA]", residencia)
@@ -2216,7 +2381,7 @@ class SesionesDAO {
 						
 						row = new PruebaCustom();
 						row.setNombre(rs.getString("nombre"))
-						row.setRegistrados(rs.getInt("alumnos_generales"));
+						row.setRegistrados(rs.getInt("registrados"));
 						row.setLugar(rs.getString("lugar"));
 						row.setPersistenceId(rs.getLong("pruebas_id"));
 						row.setCupo(rs.getInt("cupo"));
@@ -2330,8 +2495,7 @@ class SesionesDAO {
 				pstm.setLong(1, object.prueba);
 				pstm.setString(2, object.username);
 				pstm.setBoolean(3,object.asistencia);
-				pstm.setString(4,object.fecha);
-				pstm.setString(5,object.usuarioPaseLista);
+				pstm.setString(4,object.usuarioPaseLista);
 				
 				pstm.executeUpdate();
 				
@@ -2362,10 +2526,9 @@ class SesionesDAO {
 				con.setAutoCommit(false)
 				pstm = con.prepareStatement(Statements.UPDATE_PASEDELISTA)
 				pstm.setBoolean(1,object.asistencia);
-				pstm.setString(2,object.fecha);
-				pstm.setString(3,object.usuarioPaseLista);
-				pstm.setLong(4, object.prueba)
-				pstm.setString(5, object.username)
+				pstm.setString(2,object.usuarioPaseLista);
+				pstm.setLong(3, object.prueba)
+				pstm.setString(4, object.username)
 				
 				pstm.executeUpdate();
 				
@@ -2419,12 +2582,12 @@ class SesionesDAO {
 		Long userLogged = 0L;
 		Long caseId = 0L;
 		Long total = 0L;
-		String where ="", orderby="ORDER BY SA.persistenceid, ", errorlog="", role="", group="", orderbyUsuario="ORDER BY sda.primernombre";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", orderbyUsuario="ORDER BY sda.primernombre";
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
-				String consulta = Statements.GET_SESIONESASPIRANTEPASADAS
+				String consulta = Statements.GET_ASPIRANTEPRUEBAASISTIOYREAGENDO
 				//AND CAST(S.fecha_inicio P.aplicacion AS DATE) < CAST([FECHA] AS DATE)
 				SesionesAspiranteCustom row = new SesionesAspiranteCustom();
 				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
@@ -2466,7 +2629,7 @@ class SesionesDAO {
 						break;
 						
 					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
-						where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 					
 						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
@@ -2599,51 +2762,51 @@ class SesionesDAO {
 				switch(object.orderby) {
 					
 					case "IDBANNER":
-					orderby+="da.idbanner";
+					orderby+="idbanner";
 					break;
 					case "NOMBRE":
-					orderby+="sda.primernombre";
+					orderby+="primernombre";
 					break;
 					case "EMAIL":
-					orderby+="sda.correoelectronico";
+					orderby+="correoelectronico";
 					break;
 					case "PREPARATORIA":
-					orderby+="prepa.DESCRIPCION"
+					orderby+="preparatoria"
 					break;
 					case "CAMPUS":
-					orderby+="campus.DESCRIPCION"
+					orderby+="campus"
 					break;
 					case "RESIDENCIA":
-					orderby+="R.descripcion";
+					orderby+="residencia";
 					break;
 					case "CURP":
-					orderby+="sda.curp";
+					orderby+="curp";
 					break;
 					case "PROCEDENCIA":
-					orderby+="estado.DESCRIPCION";
+					orderby+="procedencia";
 					break;
 					case "INGRESO":
-					orderby+="CPO.descripcion";
+					orderby+="periodo";
 					break;
 					case "SEXO":
-					orderby+="sx.descripcion";
+					orderby+="sexo";
 					break;
 					case "LICENCIATURA":
-					orderby+="gestionescolar.nombre";
+					orderby+="licenciatura";
 					break;
 					case "PROMEDIO":
-					orderby+="sda.PROMEDIOGENERAL";
+					orderby+="promediogeneral";
 					break;
 					case "ASISTENCIA":
-					orderby+= "PL.asistencia";
+					orderby+= "asistencia";
 					break;
 					
 					case "HORARIO":
-					orderby+= "p.entrada";
+					orderby+= "horario";
 					break;
 					
 					default:
-					orderby+="SA.username"
+					orderby+="username"
 					break;
 					
 				}
@@ -2653,8 +2816,8 @@ class SesionesDAO {
 				errorlog+="order by = "+orderby
 				consulta=consulta.replace("[WHERE]", where);
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
-				
-				
+				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide";
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 					if(object.reporte) {
@@ -2668,10 +2831,13 @@ class SesionesDAO {
 				}
 				
 				
-				errorlog+=" where = "+where
-				pstm = con.prepareStatement(consulta.replace("distinct on (SA.persistenceid) SA.*,RD.responsableid,RD.prueba_pid, P.aplicacion, P.nombre as nombre_prueba,P.Lugar as lugar_prueba, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, c.persistenceid as tipoprueba_pid, PL.asistencia", "COUNT(SA.username) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				errorlog+=" consulta =  "+ consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", HavingGroup).replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO")
+				//pstm = con.prepareStatement(consulta.replace("SELECT * from ", "SELECT COUNT(*) as registros FROM").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", HavingGroup).replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO"))
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
+				pstm.setInt(3, object.sesion)
+				pstm.setInt(4, object.prueba)
 				
 				rs= pstm.executeQuery()
 				if(rs.next()) {
@@ -2679,16 +2845,53 @@ class SesionesDAO {
 				}
 				consulta=consulta.replace("[ORDERBY]", orderby)
 				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				consulta=consulta.replace("[HAVING]", "")
+				consulta=consulta.replace("[GROUPBY]", "")
+				consulta=consulta.replace("[COUNT]", "")
+				consulta=consulta.replace("[COUNTFIN]", "")
 				errorlog+="conteo exitoso "
 					
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
-				pstm.setInt(3, object.limit)
-				pstm.setInt(4, object.offset)
+				pstm.setInt(3, object.sesion)
+				pstm.setInt(4, object.prueba)
+				pstm.setInt(5, object.limit)
+				pstm.setInt(6, object.offset)
 				
 				rs = pstm.executeQuery()
 				
+				
+				
+				errorlog+="otra llamada "
+				aspirante = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+							String encoded = "";
+							try {
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64", "");
+								errorlog+= "esto = "+e.getMessage();
+							}
+						}
+					}
+					//aspirante.add(columns);
+					rows.add(columns);
+				}
+				
+				
+				/*
 				while(rs.next()) {
 					row = new SesionesAspiranteCustom();
 					row.setUsername(rs.getString("username"))
@@ -2707,9 +2910,10 @@ class SesionesDAO {
 					}
 					
 					
-					pstm = con.prepareStatement(Statements.GET_ASPIRANTESDELASESION)
-					pstm.setString(1, row.getUsername())
-					rs2 = pstm.executeQuery()
+					//pstm = con.prepareStatement(Statements.GET_ASPIRANTESDELASESION)
+					//pstm.setString(1, row.getUsername())
+					
+					//rs2 = pstm.executeQuery()
 					errorlog+="otra llamada "
 					aspirante = new ArrayList<Map<String, Object>>();
 					ResultSetMetaData metaData = rs2.getMetaData();
@@ -2735,13 +2939,17 @@ class SesionesDAO {
 						}
 						aspirante.add(columns);
 					}
-					row.setAspirantes(aspirante);
+					
+					//row.setAspirantes(aspirante);
 					rows.add(row);
 
 				}
 				
+				*/
+				
+				
 						
-				resultado.setError_info(consulta +" errorLog = "+errorlog)
+				resultado.setError_info(" errorLog = "+errorlog)
 				resultado.setData(rows)
 				resultado.setSuccess(true)
 				
@@ -2773,7 +2981,7 @@ class SesionesDAO {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
-				String consulta = Statements.GET_SESIONESCALENDARIZADASREPORTE
+				String consulta = Statements.GET_SESIONESCALENDARIZADASREPORTE_REGISTRADOS
 				//AND CAST(P.aplicacion AS DATE) [ORDEN] CAST([FECHA] AS DATE)
 				PruebaCustom row = new PruebaCustom();
 				List<PruebasCustom> rows = new ArrayList<PruebasCustom>();
@@ -2785,8 +2993,17 @@ class SesionesDAO {
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
+					case "TIPO DE PRUEBA, RESIDENCIA":
+						residencia +=" WHERE ( LOWER(residencia) LIKE LOWER('%[valor]%')";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						
+						break;
+						
 					case "ID":
-						where +=" AND CAST(P.persistenceid as varchar) ";
+						where +=" AND CAST(Pruebas.persistenceid as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -2796,7 +3013,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA PRUEBA":
-						where +=" AND LOWER(P.nombre) ";
+						where +=" AND LOWER(Pruebas.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2806,7 +3023,7 @@ class SesionesDAO {
 						break;
 						
 					case "CUPO DE LA PRUEBA":
-						where +=" AND CAST(P.cupo as varchar) ";
+						where +=" AND CAST(Pruebas.cupo as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
@@ -2816,18 +3033,39 @@ class SesionesDAO {
 						break;
 						
 					case "ALUMNOS REGISTRADOS":
-						where +=" AND CAST(P.registrados as varchar) ";
+					
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+					
+						residencia +=" CAST(registrados as varchar) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							residencia+="='[valor]'"
+						}else {
+							residencia+="LIKE '%[valor]%'"
+						}
+						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						/*
+						where +=" AND CAST(Pruebas.registrados as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="='[valor]'"
 						}else {
 							where+="LIKE '%[valor]%'"
 						}
-						where = where.replace("[valor]", filtro.get("valor"))
+						where = where.replace("[valor]", filtro.get("valor"))*/
 						break;
 						
 						
 					case "RESIDENCIA":
-						residencia +=" WHERE LOWER(residencia) ";
+						if (residencia.contains("WHERE")) {
+							residencia += " AND "
+						} else {
+							residencia += " WHERE "
+						}
+						
+						residencia +=" LOWER(residencia) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							residencia+="=LOWER('[valor]')"
 						}else {
@@ -2837,14 +3075,14 @@ class SesionesDAO {
 						break;
 						
 					case "FECHA":
-						where +=" AND  ( LOWER( CAST(P.aplicacion as varchar)) LIKE LOWER('%[valor]%') ";
-						where += "OR LOWER(P.entrada) LIKE LOWER('%[valor]%') "
-						where += "OR LOWER(P.salida) LIKE LOWER('%[valor]%') )"
+						where +=" AND   ( LOWER( CAST(TO_CHAR(Pruebas.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+						where += "OR LOWER(Pruebas.entrada) LIKE LOWER('%[valor]%') "
+						where += "OR LOWER(Pruebas.salida) LIKE LOWER('%[valor]%') )"
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
 					case "LUGAR":
-						where +=" AND LOWER(P.lugar) ";
+						where +=" AND LOWER(Pruebas.lugar) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2854,8 +3092,8 @@ class SesionesDAO {
 						break;
 						
 						
-					case "TIPO_PRUEBA":
-						where +=" AND LOWER(c.descripcion) ";
+					case "TIPO DE PRUEBA":
+						where +=" AND LOWER(ctipoprueba.descripcion) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2865,7 +3103,7 @@ class SesionesDAO {
 						break;
 						
 					case "NOMBRE DE LA SESION":
-						where +=" AND LOWER(S.nombre) ";
+						where +=" AND LOWER(Sesion.nombre) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2896,55 +3134,59 @@ class SesionesDAO {
 						orderby+="pruebas_id";
 						break;
 						case "NOMBRE":
-						orderby+="P.nombre";
+						orderby+="Pruebas.nombre";
 						break;
 						case "ALUMNOS REGISTRADOS":
-						orderby+="P.registrados";
+						orderby+="Pruebas.registrados";
 						break;
 						case "CUPO":
-						orderby+="P.cupo";
+						orderby+="Pruebas.cupo";
 						break;
 						case "RESIDENCIA":
-						orderby+="S.tipo";
+						orderby+="Sesion.tipo";
 						break;
 						case "FECHA":
-						orderby+="P.aplicacion";
+						orderby+="Pruebas.aplicacion";
 						break;
 						case "LUGAR":
-						orderby+="P.lugar";
+						orderby+="Pruebas.lugar";
 						break;
 						case "TIPO_PRUEBA":
-						orderby+="c.descripcion";
+						orderby+="ctipoprueba.descripcion";
 						break;
 						case "NOMBRE_SESION":
-						orderby+="S.nombre";
+						orderby+="Sesion.nombre";
 						break;
 						case "ASISTENCIA":
-						orderby+=" CAST(count(CASE WHEN PL.asistencia THEN 1 END) as varchar)"
+						orderby+=" count(CASE WHEN PaseLista.asistencia THEN 1 END)"
 						break;
 						default:
-						orderby+="P.aplicacion"
+						orderby+="Pruebas.aplicacion"
 						break;
 						
 					}
 					errorlog+="paso el order "
 					orderby+=" "+object.orientation;
 					consulta=consulta.replace("[WHERE]", where);
-					consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
+					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 					errorlog+="paso el where"
 					
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(P.persistenceid)  as pruebas_id,   P.nombre, P.aplicacion, ( CASE WHEN s.tipo LIKE '%R,F,E%'OR s.tipo LIKE '%R,E,F%'OR s.tipo LIKE '%F,R,E%'OR s.tipo LIKE '%F,E,R%'OR s.tipo LIKE '%E,F,R%'OR s.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN s.tipo LIKE '%R,F%'OR s.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN s.tipo LIKE '%E,F%'OR s.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN s.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN s.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN s.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, S.persistenceid as sesiones_id, P.lugar, P.registrados as alumnos_generales, S.nombre as nombre_sesion, c.descripcion as tipo_prueba, P.cupo, P.entrada,P.salida, count(CASE WHEN PL.asistencia THEN 1 END) as asistencias", "COUNT( DISTINCT(P.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", "").replace("[GROUPBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", "").replace("[GROUPBY]", "").replace(") as datos [RESIDENCIA]", ""))
 					pstm.setInt(1, object.usuario)
 					
 					rs= pstm.executeQuery()
 					if(rs.next()) {
 						resultado.setTotalRegistros(rs.getInt("registros"))
 					}
+					
+					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADAS;
+					
 					consulta=consulta.replace("[ORDERBY]", orderby)
-					consulta=consulta.replace("[GROUPBY]", "group by P.persistenceid, P.nombre, P.aplicacion, S.tipo, S.persistenceid, P.lugar, P.registrados, S.nombre, c.descripcion, P.cupo, P.entrada,P.salida")
+					consulta=consulta.replace("[GROUPBY]", "group by Pruebas.persistenceid, Pruebas.nombre, Pruebas.aplicacion, Sesion.tipo, Sesion.persistenceid, Pruebas.lugar, Pruebas.registrados, Sesion.nombre, ctipoprueba.descripcion, Pruebas.cupo, Pruebas.entrada,Pruebas.salida")
 					consulta=consulta.replace("[HAVING]", (isHaving ? having:""))
 					consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 					consulta=consulta.replace("[RESIDENCIA]", residencia)
+					consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT)
 					errorlog+="having "+isHaving
 					
 					pstm = con.prepareStatement(consulta)
@@ -2960,7 +3202,7 @@ class SesionesDAO {
 						
 						row = new PruebaCustom();
 						row.setNombre(rs.getString("nombre"))
-						row.setRegistrados(rs.getInt("alumnos_generales"));
+						row.setRegistrados(rs.getInt("registrados"));
 						row.setLugar(rs.getString("lugar"));
 						row.setPersistenceId(rs.getLong("pruebas_id"));
 						row.setCupo(rs.getInt("cupo"));
@@ -3256,15 +3498,16 @@ class SesionesDAO {
 		return resultado
 	}
 	
-	public Result getPruebasFechas(Long sesion_pid) {
+	public Result getPruebasFechas(Long sesion_pid, String aspirante) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		PruebaCustom row = new PruebaCustom();
 		List<PruebaCustom> rows = new ArrayList();
 		try {
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(PruebasCustom.GET_PRUEBAS_FECHAS)
-				pstm.setLong(1, sesion_pid)
+				pstm = con.prepareStatement(PruebasCustom.GET_PRUEBAS_FECHAS_COMBINADOS)
+				pstm.setString(1, aspirante)
+				pstm.setLong(2, sesion_pid)
 				rs = pstm.executeQuery()
 				while(rs.next()) {
 					row = new PruebaCustom()
@@ -3279,6 +3522,7 @@ class SesionesDAO {
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
+			resultado.setError_info("sesion_pid:" + sesion_pid + ", aspirante: " + aspirante)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3293,12 +3537,10 @@ class SesionesDAO {
 		List<PruebaCustom> rows = new ArrayList();
 		try {
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(PruebasCustom.GET_HORARIOS)
+				pstm = con.prepareStatement(PruebasCustom.GET_HORARIOS_COMBINADOS)
 				pstm.setLong(1, sesion_pid)
 				pstm.setLong(2, prueba_pid)
 				pstm.setString(3, correoAspirante)
-				pstm.setLong(4, sesion_pid)
-				pstm.setString(5, correoAspirante)
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 						
@@ -3329,6 +3571,7 @@ class SesionesDAO {
 						p.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
 						p.setTipo(new CatTipoPrueba())
 						p.getTipo().setDescripcion(rs.getString("tipo"))
+						p.setOnline(rs.getBoolean("online"))
 						p.setPsicologos(new ArrayList())
 						
 						User usr;
@@ -3340,6 +3583,7 @@ class SesionesDAO {
 						rows.add(p)
 						pstm = con.prepareStatement(Statements.GET_HORARIOS_PRUEBAS_ENTREVISTA_ASPIRANTE)
 						pstm.setLong(1, p.getPersistenceId())
+						pstm.setString(2, correoAspirante)
 						rs = pstm.executeQuery()
 						while(rs.next()) {
 							ResponsableCustom psi = new ResponsableCustom()

@@ -74,39 +74,7 @@ class TransferenciasDAO {
             assert object instanceof Map;
             where += " WHERE sda.iseliminado=false "
             where += " AND (sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
-            //				AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado'
-            //if(object.estatusSolicitud !=null) {
 
-            //					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
-
-            /*if(object.estatusSolicitud.equals("Solicitud lista roja")) {
-            	where+=" AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
-            }
-            else if(object.estatusSolicitud.equals("Solicitud rechazada")) {
-            	where+=" AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
-            } else if(object.estatusSolicitud.equals("Aspirantes registrados sin validación de cuenta")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta')"
-            } else if(object.estatusSolicitud.equals("Aspirantes registrados con validación de cuenta")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta')"
-            }else if(object.estatusSolicitud.equals("Solicitud en espera de pago")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Solicitud en espera de pago')"
-            }
-            else if(object.estatusSolicitud.equals("Solicitud con pago aceptado")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Solicitud con pago aceptado')"
-            }
-            else if(object.estatusSolicitud.equals("Autodescripción en proceso")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Autodescripción en proceso')"
-            }
-            else if(object.estatusSolicitud.equals("Elección de pruebas no calendarizado")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Elección de pruebas no calendarizado')"
-            }
-            else if(object.estatusSolicitud.equals("No se ha impreso credencial")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='No se ha impreso credencial')"
-            }
-            else if(object.estatusSolicitud.equals("Ya se imprimió su credencial")) {
-            	where+=" AND (sda.ESTATUSSOLICITUD='Ya se imprimió su credencial')"
-            }*/
-            //			}
             if (lstGrupo.size() > 0) {
                 campus += " AND ("
             }
@@ -120,7 +88,6 @@ class TransferenciasDAO {
                 }
             }
 
-            //errorlog+="campus" + campus;
             errorlog += "object.lstFiltro" + object.lstFiltro
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
@@ -129,6 +96,85 @@ class TransferenciasDAO {
                 errorlog += ", columna " + filtro.get("columna")
                 switch (filtro.get("columna")) {
 
+					case "IDBANNER,NOMBRE,EMAIL":
+					errorlog+="IDBANNER,NOMBRE,EMAIL"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(da.idbanner) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+				break;
+				case "CAMPUS,PROGRAMA,PERÍODO":
+					errorlog+="CAMPUS,PROGRAMA,PERÍODO"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+				
+				break;
+				case "PREPARATORIA,ESTADO,PROMEDIO":
+					errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
+				case "ESTATUS":
+					errorlog+="ESTATUS,TIPO"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
+				case "RESIDENCIA,TIPO ALUMNO,TIPO ADMISION":
+					errorlog+="ESTATUS,TIPO"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(tipoalumno.descripcion) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +="  OR LOWER(tipoadmision.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(residencia.descripcion) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
                     case "NOMBRE":
                         if (where.contains("WHERE")) {
                             where += " AND "
@@ -172,13 +218,18 @@ class TransferenciasDAO {
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
                     case "CAMPUS":
-                        campus += " AND LOWER(campus.DESCRIPCION) ";
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+                        where += " LOWER(campus.descripcion) ";
                         if (filtro.get("operador").equals("Igual a")) {
-                            campus += "=LOWER('[valor]')"
+                            where += "=LOWER('[valor]')"
                         } else {
-                            campus += "LIKE LOWER('%[valor]%')"
+                            where += "LIKE LOWER('%[valor]%')"
                         }
-                        campus = campus.replace("[valor]", filtro.get("valor"))
+                        where = where.replace("[valor]", filtro.get("valor"))
                         break;
                     case "PREPARATORIA":
                         bachillerato += " AND LOWER(prepa.DESCRIPCION) ";
@@ -259,7 +310,7 @@ class TransferenciasDAO {
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
                     case "TIPO":
-                        tipoalumno += " AND LOWER(da.TIPOALUMNO) ";
+                        tipoalumno += " AND LOWER(residencia.descripcion) ";
                         if (filtro.get("operador").equals("Igual a")) {
                             tipoalumno += "=LOWER('[valor]')"
                         } else {
@@ -295,9 +346,6 @@ class TransferenciasDAO {
                         tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
                         break;
                     default:
-                        //consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-                        //consulta=consulta.replace("[WHERE]", where);
-
                         break;
                 }
             }
@@ -312,7 +360,7 @@ class TransferenciasDAO {
                     orderby += "sda.curp";
                     break;
                 case "CAMPUS":
-                    orderby += "campus.DESCRIPCION"
+                    orderby += "campusEstudio.descripcion"
                     break;
                 case "PREPARATORIA":
                     orderby += "prepa.DESCRIPCION"
@@ -360,9 +408,8 @@ class TransferenciasDAO {
             consulta = consulta.replace("[TIPOALUMNO]", tipoalumno)
             where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno
             consulta = consulta.replace("[WHERE]", where);
-            //pstm = con.prepareStatement(consulta.replace("SELECT sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.DESCRIPCION AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, prepa.DESCRIPCION AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, le.descripcion, ciudadestado.descripcion, ciudadpais.descripcion, estadoexamen.descripcion, pais.descripcion FROM SOLICITUDDEADMISION sda ", "SELECT COUNT(sda.persistenceid) as registros FROM SOLICITUDDEADMISION sda ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion, campus.descripcion, gestionescolar.DESCRIPCION, periodo.DESCRIPCION, estado.DESCRIPCION, prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, le.descripcion, ciudadestado.descripcion, ciudadpais.descripcion, estadoexamen.descripcion, pais.descripcion", "GROUP BY sda.persistenceid"))
-            //errorlog+=consulta
-            String consultaCount = Statements.GET_COUNT_SOLICITUDES_TRASNFERENCIA;
+			
+            String consultaCount = Statements.GET_COUNT_SOLICITUDES_TRANSFERENCIA;
             consultaCount = consultaCount.replace("[CAMPUS]", campus)
             consultaCount = consultaCount.replace("[PROGRAMA]", programa)
             consultaCount = consultaCount.replace("[INGRESO]", ingreso)
@@ -372,7 +419,6 @@ class TransferenciasDAO {
             consultaCount = consultaCount.replace("[WHERE]", where)
             consultaCount = consultaCount.replace("[LIMITOFFSET]", "");
             consultaCount = consultaCount.replace("[ORDERBY]", "");
-            //				errorlog+=" AQUI ES LA CONSULTA PARA CONTAR "+consultaCount
             pstm = con.prepareStatement(consultaCount);
             rs = pstm.executeQuery()
             if (rs.next()) {
@@ -380,7 +426,7 @@ class TransferenciasDAO {
             }
             consulta = consulta.replace("[ORDERBY]", orderby)
             consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-            errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
+			errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
             pstm = con.prepareStatement(consulta)
             pstm.setInt(1, object.limit)
             pstm.setInt(2, object.offset)
@@ -413,12 +459,10 @@ class TransferenciasDAO {
             resultado.setSuccess(true)
 
             resultado.setError_info(errorlog);
-            //resultado.setError(consulta);
             resultado.setData(rows)
 
         } catch (Exception e) {
             resultado.setError_info(errorlog)
-            //resultado.setError_info(consulta)
             resultado.setSuccess(false);
             resultado.setError(e.getMessage());
         } finally {
@@ -468,7 +512,7 @@ class TransferenciasDAO {
 
             if (!object.campusAnterior.equals(object.campusNuevo)) {
                 for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
-                    if (objHumanTaskInstance.getName().equals("Generar credencial") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 1") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 2") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 3") || objHumanTaskInstance.getName().equals("Carga y consulta de resultados") || objHumanTaskInstance.getName().equals("Resultado final de comité")) {
+					if (objHumanTaskInstance.getName().equals("Pase de lista Prueba 1") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 2") || objHumanTaskInstance.getName().equals("Pase de lista Prueba 3")) {
                         Map < String, Serializable > inputs = new HashMap < String, Serializable > ();
                         if (objHumanTaskInstance.getName().equals("Carga y consulta de resultados")) {
                             inputs.put("isTransferencia", true);
@@ -495,27 +539,6 @@ class TransferenciasDAO {
                 pstm.setLong(3, object.propedeutico);
             }
             pstm.setLong(4, object.periodo);
-//            pstm.setLong(5, object.lugarexamen);
-//            if (object.estadoexamen == null) {
-//                pstm.setNull(6, java.sql.Types.BIGINT);
-//            } else {
-//                pstm.setLong(6, object.estadoexamen);
-//            }
-//            if (object.ciudadexamen == null) {
-//                pstm.setNull(7, java.sql.Types.BIGINT);
-//            } else {
-//                pstm.setLong(7, object.ciudadexamen);
-//            }
-//            if (object.paisexamen == null) {
-//                pstm.setNull(8, java.sql.Types.BIGINT);
-//            } else {
-//                pstm.setLong(8, object.paisexamen);
-//            }
-//            if (object.ciudadpaisexamen == null) {
-//                pstm.setNull(9, java.sql.Types.BIGINT);
-//            } else {
-//                pstm.setLong(9, object.ciudadpaisexamen);
-//            }
             pstm.setLong(5, object.campusestudio);
             pstm.setLong(6, Long.valueOf(object.caseid));
             pstm.executeUpdate();
@@ -532,9 +555,10 @@ class TransferenciasDAO {
             transferencia.setCampusNuevo(object.campusNuevo);
 			transferencia.setCaseid(Long.valueOf(object.caseid));
 			transferencia.setEstatus(object.estatus);
-			transferencia.setLicenciatura(object.licenciatura);
-			transferencia.setPeriodo(object.periodo);
-            //errorLog += " datos bitacora aspirante " + object.aspirante + " correo " + object.correoaspirante + " valor original " + object.valororginal + " valor cambio " + object.valorcambio + " usuario " + object.usuario;
+			transferencia.setLicenciatura(object.licenciaturatext);
+			transferencia.setPeriodo(object.periodotext);
+			transferencia.setIdbanner(object.idbanner);
+           
             Result resultadoinsert = insertCatBitacoraTransferencia(transferencia);
             errorLog += " el error en el insert es: " + resultadoinsert.getError_info();
             if (resultadoinsert.isSuccess()) {
@@ -587,27 +611,13 @@ class TransferenciasDAO {
             pstm.setString(5, transferencia.getUsuarioCreacion())
             pstm.setString(6, transferencia.getCampusAnterior())
             pstm.setString(7, transferencia.getCampusNuevo())
-            errorlog += " CONSULTA " + Statements.INSERT_BITACORA_TRANSFERENCIA;
-            errorlog += " ASPIRANTE " + transferencia.getAspirante()
-            errorlog += " CORREO " + transferencia.getCorreoAspirante()
-            errorlog += " ORIGINAL " + transferencia.getValorOriginal()
-            errorlog += " CAMBIO " + transferencia.getValorCambio()
-            errorlog += " USUARIO " + transferencia.getUsuarioCreacion()
-            errorlog += " CAMPUSANTERIOR " + transferencia.getCampusAnterior()
-            errorlog += " CAMPUSNUEVO " + transferencia.getCampusNuevo()
-
-            errorlog += " antes de hacer le execute update "
+			pstm.setString(8, transferencia.getLicenciatura())
+			pstm.setString(9, transferencia.getPeriodo())
+			pstm.setString(10, transferencia.getEstatus())
+			pstm.setLong(11, transferencia.getCaseid())
+			pstm.setString(12, transferencia.getIdbanner())
             pstm.executeUpdate();
-            errorlog += " ya hice el insert "
-            /*rs = pstm.getGeneratedKeys()
-            errorlog += " voy por el key "
-            if(rs.next()) {
-            	errorlog += " asignare el pid "
-            	transferencia.setPersistenceId(rs.getLong("persistenceId"))
-            	errorlog += " asigne el pid "
-            }
-            errorlog += " data "
-            data.add(transferencia)*/
+
             resultado.setSuccess(true);
             resultado.setData(data)
             resultado.setError_info(errorlog);
@@ -671,156 +681,159 @@ class TransferenciasDAO {
             //				}
             //			}
 
+			if (object.orden == ">=") {
+				if (lstGrupo.size() > 0) {
+					where += " WHERE (campusAnterior IN ("
+				}
+				for (Integer i = 0; i < lstGrupo.size(); i++) {
+					String campusMiembro = lstGrupo.get(i);
+					where += "'" + campusMiembro + "'"
+					if (i == (lstGrupo.size() - 1)) {
+						where += ")) "
+					} else {
+						where += ", "
+					}
+				}
+			} else {
+				if (lstGrupo.size() > 0) {
+					where += " WHERE (campusNuevo IN ("
+				}
+				for (Integer i = 0; i < lstGrupo.size(); i++) {
+					String campusMiembro = lstGrupo.get(i);
+					where += "'" + campusMiembro + "'"
+					if (i == (lstGrupo.size() - 1)) {
+						where += ")) "
+					} else {
+						where += ", "
+					}
+				}
+			}
+			
+			
             closeCon = validarConexion();
 
             for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
                 switch (filtro.get("columna")) {
+					case "ID ASPIRANTE,NOMBRE":
+						errorlog+="ID ASPIRANTE,NOMBRE"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(aspirante) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(idbanner) like lower('%[valor]%')) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						errorlog+=" EL WHERE ES " + where;
+					break;
+					case "CARRERA,PERIODO":
+						errorlog+="CARRERA,PERIODO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(licenciatura) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(periodo) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+					break;
+					case "ESTATUS":
+					errorlog += " ESTATUS "
+						if (where.contains("WHERE")) {
+							where += " AND ";
+						} else {
+							where += " WHERE ";
+						}
+						where += " LOWER(estatus) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "VPD ORIGEN":
+					errorlog += " VPD ORIGEN "
+						if (where.contains("WHERE")) {
+							where += " AND ";
+						} else {
+							where += " WHERE ";
+						}
+						where += " LOWER(CAMPUSANTERIOR) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "VPD DESTINO":
+					errorlog += " VPD DESTINO "
+						if (where.contains("WHERE")) {
+							where += " AND ";
+						} else {
+							where += " WHERE ";
+						}
+						where += " LOWER(CAMPUSNUEVO) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "AUTOR TRANSFERENCIA,FECHA MOVIMIENTO":
+						errorlog+="AUTOR TRANSFERENCIA,FECHA MOVIMIENTO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(USUARIOCREACION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
 
-                    case "ASPIRANTE":
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(ASPIRANTE) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                    case "CORREO ASPIRANTE":
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(CORREOASPIRANTE) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                    case "FECHA":
-                        //fechacreacion
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(FECHACREACION) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                    case "USUARIO":
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(USUARIOCREACION) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                    case "CAMPUS":
-                        if (object.orden == "<") {
-                            if (where.contains("WHERE")) {
-                                campus += " AND ";
-                            } else {
-                                campus += " WHERE ";
-                            }
-                            campus += " LOWER(campusnuevo) ";
-                            if (filtro.get("operador").equals("Igual a")) {
-                                campus += "=LOWER('[valor]')"
-                            } else {
-                                campus += "LIKE LOWER('%[valor]%')"
-                            }
-							campus = campus.replace("[valor]", filtro.get("valor"))
-                        } else {
-							if (where.contains("WHERE")) {
-								campus += " AND ";
-							} else {
-								campus += " WHERE ";
-							}
-                            campus += "LOWER(campusanterior) ";
-                            if (filtro.get("operador").equals("Igual a")) {
-                                campus += "=LOWER('[valor]')"
-                            } else {
-                                campus += "LIKE LOWER('%[valor]%')"
-                            }
-                            campus = campus.replace("[valor]", filtro.get("valor"))
-                        }
-                        break;
-                    case "VPD ANTERIOR":
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(CAMPUSANTERIOR) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                    case "VPD ACTUAL":
-                        if (where.contains("WHERE")) {
-                            where += " AND ";
-                        } else {
-                            where += " WHERE ";
-                        }
-                        where += " LOWER(CAMPUSNUEVO) ";
-                        if (filtro.get("operador").equals("Igual a")) {
-                            where += "=LOWER('[valor]')";
-                        } else {
-                            where += "LIKE LOWER('%[valor]%')";
-                        }
-                        where = where.replace("[valor]", filtro.get("valor"))
-                        break;
-                        //					case "TRANSFERENCIAS ENVIADAS":
-                        //					//(campusAnterior IN (
-                        //						if(where.contains("WHERE")) {
-                        //							where+= " AND ";
-                        //						} else {
-                        //							where+= " WHERE ";
-                        //						}
-                        //						where +=" LOWER(CAMPUSNUEVO) ";
-                        //						if(filtro.get("operador").equals("Igual a")) {
-                        //							where+="=LOWER('[valor]')";
-                        //						}else {
-                        //							where+="LIKE LOWER('%[valor]%')";
-                        //						}
-                        //						where = where.replace("[valor]", filtro.get("valor"))
-                        //					break;
-                        //					case "TRANSFERENCIAS RECIBIDAS":
-                        //						if(where.contains("WHERE")) {
-                        //							where+= " AND ";
-                        //						} else {
-                        //							where+= " WHERE ";
-                        //						}
-                        //						where +=" LOWER(CAMPUSNUEVO) ";
-                        //						if(filtro.get("operador").equals("Igual a")) {
-                        //							where+="=LOWER('[valor]')";
-                        //						}else {
-                        //							where+="LIKE LOWER('%[valor]%')";
-                        //						}
-                        //						where = where.replace("[valor]", filtro.get("valor"))
-                        break;
+						where +=" OR to_char(TO_TIMESTAMP(FECHACREACION, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') like lower('%[valor]%')) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+					break;
+					case "CAMPUS":
+					errorlog += " CAMPUS " + object.orden;
+					if (object.orden == "<") {
+						if (where.contains("WHERE")) {
+							campus += " AND ";
+						} else {
+							campus += " WHERE ";
+						}
+						campus += " LOWER(campusnuevo) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							campus += "=LOWER('[valor]')"
+						} else {
+							campus += "LIKE LOWER('%[valor]%')"
+						}
+						campus = campus.replace("[valor]", filtro.get("valor"))
+					} else {
+						if (where.contains("WHERE")) {
+							campus += " AND ";
+						} else {
+							campus += " WHERE ";
+						}
+						campus += "LOWER(campusanterior) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							campus += "=LOWER('[valor]')"
+						} else {
+							campus += "LIKE LOWER('%[valor]%')"
+						}
+						campus = campus.replace("[valor]", filtro.get("valor"))
+					}
+					break;
                     default:
-                        if (object.orden == "<") {
+					errorlog += " Default and orden " + object.orden;
+                        if (object.orden == ">=") {
                             if (lstGrupo.size() > 0) {
                                 where += " WHERE (campusAnterior IN ("
                             }
@@ -852,27 +865,33 @@ class TransferenciasDAO {
             }
 
             switch (object.orderby) {
-                case "ASPIRANTE":
-                    orderby += "aspirante";
-                    break;
-                case "CORREO ASPIRANTE":
-                    orderby += "correoaspirante";
-                    break;
-                case "FECHA":
-                    orderby += "fechacreacion";
-                    break;
-                case "USUARIO":
-                    orderby += "usuariocreacion";
-                    break;
-                case "VPD ANTERIOR":
-                    orderby += "campusanterior";
-                    break;
-                case "VPD ACTUAL":
-                    orderby += "campusnuevo";
-                    break;
-                    /*case "CAMPUS":
-                    	orderby+="campus.DESCRIPCION"
-                    break;*/
+				case "IDASPIRANTE":
+					orderby += "idbanner";
+				break;
+				case "NOMBRE":
+					orderby += "aspirante";
+				break;
+				case "CARRERA":
+					orderby += "licenciatura";
+				break;
+				case "PERIODO":
+					orderby += "periodo";
+				break;
+				case "ESTATUS":
+					orderby += "estatus";
+				break;
+				case "VPDORIGEN":
+					orderby += "campusanterior";
+				break;
+				case "VPDDESTINO":
+					orderby += "campusnuevo";
+				break;
+				case "USUARIO":
+					orderby += "usuariocreacion";
+				break;
+				case "FECHA":
+					orderby += "fechacreacion";
+				break;
             }
 
             if (orderby.equals("ORDER BY ")) {
@@ -884,9 +903,11 @@ class TransferenciasDAO {
 
 
             String consulta = Statements.GET_BITACORA_TRANSFERENCIA;
+			errorlog += " WHERE " + where
+			errorlog += " campus " + campus
             consulta = consulta.replace("[WHERE]", where);
             consulta = consulta.replace("[campus]", campus);
-
+			errorlog += " GET_BITACORA_TRANSFERENCIA " + consulta;
             String consultaCount = Statements.GET_COUNT_BITACORA_TRANSFERENCIA;
             consultaCount = consultaCount.replace("[WHERE]", where);
             consultaCount = consultaCount.replace("[campus]", campus);
@@ -906,17 +927,46 @@ class TransferenciasDAO {
             pstm.setInt(2, object.offset);
             rs = pstm.executeQuery();
 
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
             while (rs.next()) {
                 row = new Transferencias();
                 row.setAspirante(rs.getString("aspirante"));
                 row.setCorreoAspirante(rs.getString("correoaspirante"));
-                row.setFechaCreacion(rs.getString("fechacreacion"));
+				
+				
+				SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+			
+				String sDate1=rs.getString("fechacreacion");
+				Date date1=formatter1.parse(sDate1);
+				String fechastring = f.format(date1);
+				
+                //row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setFechaCreacion(fechastring);
                 row.setUsuarioCreacion(rs.getString("usuariocreacion"));
                 row.setValorCambio(rs.getString("valorcambio"));
                 row.setValorOriginal(rs.getString("valororiginal"));
                 row.setCampusAnterior(rs.getString("campusanterior"));
                 row.setCampusNuevo(rs.getString("campusnuevo"));
+				row.setLicenciatura(rs.getString("licenciatura"));
+				row.setPeriodo(rs.getString("periodo"));
+				row.setEstatus(rs.getString("estatus"))
+				row.setIdbanner(rs.getString("idbanner"));
+				
+						String encoded = "";
+						try {
+							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								row.setImg(encoded);
+							}
+						} catch (Exception e) {
+							row.setImg("");
+							errorlog += "" + e.getMessage();
+						}
 
+				
+				
                 rows.add(row);
             }
             resultado.setSuccess(true);

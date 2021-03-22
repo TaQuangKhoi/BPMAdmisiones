@@ -3153,6 +3153,7 @@ public Result insertAzureConfig(AzureConfig ac){
 					row.setInscripcionSeptiembre(rs.getString("inscripcionSeptiembre"))
 					row.setUrlImgLicenciatura(rs.getString("urlImgLicenciatura"))
 					row.setIsMedicina(rs.getBoolean("isMedicina"))
+					row.setIdioma(rs.getString("idioma"))
 					
 					rows.add(row)
 				}
@@ -3173,7 +3174,7 @@ public Result insertAzureConfig(AzureConfig ac){
 		return resultado
 	}
 	
-	public Result activarDesactivarPago(String jsonData, RestAPIContext context) {
+	public Result activarDesactivarLugarExamen(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorLog = "";
@@ -3183,7 +3184,7 @@ public Result insertAzureConfig(AzureConfig ac){
 			
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
-			pstm = con.prepareStatement(Statements.UPDATE_PAGOEXAMEN)
+			pstm = con.prepareStatement(Statements.UPDATE_LUGAREXAMEN)
 			pstm.setBoolean(1,object.deshabilitado);
 			
 			pstm.executeUpdate();
@@ -5818,7 +5819,7 @@ public Result insertAzureConfig(AzureConfig ac){
 				LOGGER.error "| errorLog" + errorLog;
 				errorLog = errorLog + " | consulta: "+consulta.replace("A.persistenceid, A.clave, A.descripcion, A.id, A.persistenceversion, STRING_AGG(CONCAT(C.descripcion,' (',B.tipoperiodo,')'),', ') AS campus", "COUNT(A.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY A.persistenceid, A.clave, A.descripcion, A.id, A.persistenceversion", "");
 				LOGGER.error "| errorLog" + errorLog;
-				pstm = con.prepareStatement(consulta.replace("C.clave, C.descripcion, D.usuariocreacion, A.persistenceid AS persistenceIdCatRecibirAtencionEspiritual, D.persistenceid, D.fechainicio, D.fechafinal, B.descripcion AS campus, A.tipoperiodo", "COUNT(distinct A.persistenceid::VARCHAR) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("C.clave, C.descripcion, D.usuariocreacion, A.persistenceid AS persistenceIdCatRecibirAtencionEspiritual, D.persistenceid, D.fechainicio, D.fechafinal, B.descripcion AS campus, A.tipoperiodo, D.idioma", "COUNT(distinct A.persistenceid::VARCHAR) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"));
@@ -5844,7 +5845,7 @@ public Result insertAzureConfig(AzureConfig ac){
 					row.setFechaFinal(rs.getString("fechaFinal"));
 					row.setCampus(rs.getString("campus"));
 					row.setTipoPeriodo(rs.getString("tipoPeriodo"));
-					
+					row.setIdioma(rs.getString("idioma"))
 					rows.add(row)
 				}
 				resultado.setSuccess(true)
@@ -5864,7 +5865,7 @@ public Result insertAzureConfig(AzureConfig ac){
 			return resultado
 		}
 		
-		public Result getCatPropedeuticoByPeriodo(String id, String grupobonita, String tipoperiodo, RestAPIContext context) {
+		public Result getCatPropedeuticoByPeriodo(String id, String grupobonita, String tipoperiodo,String idioma, RestAPIContext context) {
 			Result resultado = new Result();
 			Boolean closeCon = false;
 
@@ -5910,10 +5911,14 @@ public Result insertAzureConfig(AzureConfig ac){
 									  errorLog = errorLog + " | strFechaInicio: "+strFechaInicio;
 									  errorLog = errorLog + " | strFechaFinal: "+strFechaFinal;
 									  
+									  if(idioma.equals(null) || idioma.equals(" ") || idioma.equals("") || idioma.equals("null")) {
+										  idioma = "Español";
+									  }
 									  pstm = con.prepareStatement(consulta);
 									  pstm.setString(1, grupobonita);
 									  pstm.setString(2, tipoperiodo);
 									  pstm.setString(3, strFechaFinal);
+									  pstm.setString(4, idioma)
 									  rs = pstm.executeQuery();
 									  while(rs.next()) {
 										  objCatPropedeuticoFinal = new CatPropedeuticoFinal();

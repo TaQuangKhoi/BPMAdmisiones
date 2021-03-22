@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatPagoExamenAcciones",
   "name" : "CatPagoExamenAcciones",
-  "lastUpdate" : 1610575137834,
+  "lastUpdate" : 1615396407655,
   "rows" : [
     [
       {
@@ -134,8 +134,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "lstCampusUsuario.length == 1"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -206,12 +206,12 @@
                   "value" : "catPagoDeExamenDeAdmision.length >=1"
                 },
                 "disabled" : {
-                  "type" : "expression",
-                  "value" : "agregar"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<i class=\"glyphicon glyphicon-plus\"></i> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -219,7 +219,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -339,7 +339,7 @@
                   "value" : "urlRefreshPaginado"
                 }
               },
-              "reference" : "f7b2291a-057a-4706-91a3-334601b11d69",
+              "reference" : "5cf66090-665e-4d51-b4b4-b53efd9ef246",
               "hasValidationError" : false,
               "id" : "customTableSeleccionar2"
             }
@@ -606,7 +606,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "monto a pagar examen aspirante local"
+                  "value" : "Monto a pagar examen aspirante local"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -910,7 +910,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Texto instrucciones de pago"
+                  "value" : "Instrucciones de pago"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1010,7 +1010,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Texto descriptivo"
+                  "value" : "Descripción de pago deshabilitado"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1036,7 +1036,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
+                "md" : 6,
                 "lg" : 10
               },
               "propertyValues" : {
@@ -1058,11 +1058,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1085,11 +1085,11 @@
                 },
                 "variableDestino2" : {
                   "type" : "variable",
-                  "value" : "catPagoDeExamenDeAdmision_selected"
+                  "value" : "catPagoDeExamenDeAdmision_selectedNR"
                 },
                 "variableAcopiar2" : {
                   "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                  "value" : "{ \t\"clave\" : \"\",     \"descripcion\" : \"\",     \"usuarioCreacion\" : \"\",     \"isEliminado\" : false,     \"fechaCreacion\": \"\",     \"montoAspiranteLocal\": \"\",     \"montoAspitanteForaneo\": \"\",     \"montoAspiranteLocalDolares\": \"\",     \"montoAspiranteForaneoDolares\": \"\",     \"instruccionesDePago\": \"\",     \"textoDescriptivoPagoDeshabilitado\": \"\",     \"deshabilitarPagoDeExamenDeAdmision\": false,     \"campus\": \"\", \t\"todelete\": false }"
                 }
               },
               "reference" : "4952dbbb-d3e9-4634-818d-287d24c6fa67",
@@ -1101,7 +1101,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
+                "md" : 6,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -1114,8 +1114,8 @@
                   "value" : false
                 },
                 "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -1127,7 +1127,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1204,11 +1204,14 @@
                 "dataToChange2" : {
                   "type" : "variable",
                   "value" : "catPagoDeExamenDeAdmision_selected"
+                },
+                "nombreTabla" : {
+                  "type" : "constant"
                 }
               },
-              "reference" : "f92bdf2a-ca83-4fc7-a57d-ec0a88667bd6",
+              "reference" : "6cdcb9a8-2277-40f1-a963-d5c5bdf0e476",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
+              "id" : "customButtonInstanciarCatPagoExamen"
             }
           ]
         ]
@@ -1433,7 +1436,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "monto a pagar examen aspirante local"
+                  "value" : "Monto a pagar examen aspirante local"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1737,7 +1740,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Texto instrucciones de pago"
+                  "value" : "Instrucciones de pago"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1837,7 +1840,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Texto descriptivo"
+                  "value" : "Descripción de pago deshabilitado"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1863,8 +1866,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1885,11 +1888,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1905,10 +1908,11 @@
                 },
                 "OpenModal" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : false
                 },
                 "modalId" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "catPagoDeExamenDeAdmision_selected"
                 }
               },
               "reference" : "348cc8d1-aee0-49e1-a29f-84cf3dc8b8b0",
@@ -1920,8 +1924,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1933,8 +1937,8 @@
                   "value" : false
                 },
                 "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
+                  "type" : "constant",
+                  "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -1946,7 +1950,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -2023,11 +2027,15 @@
                 "dataToChange2" : {
                   "type" : "variable",
                   "value" : "formOutputAgregar"
+                },
+                "nombreTabla" : {
+                  "type" : "constant",
+                  "value" : "lstCatPagoDeExamenDeAdmisionInput"
                 }
               },
-              "reference" : "2dcdac6b-b868-413a-a1e2-9041bfd96acd",
+              "reference" : "03f88a8f-2811-4653-87b5-85ea219cd325",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
+              "id" : "customButtonInstanciarCatPagoExamenAgregar"
             }
           ]
         ]
@@ -2125,6 +2133,7 @@
     "formOutputBorrar" : {
       "type" : "expression",
       "value" : [
+        "console.log($data.lstCampus.length)",
         "return {\"lstCatPagoDeExamenDeAdmisionInput\":$data.lstCatPagoDeExamenDeAdmisionBorrar}"
       ],
       "exposed" : false
@@ -2295,7 +2304,7 @@
     "lstCatCampus" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"find [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"find [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"100\"}}"
       ],
       "exposed" : false
     },
@@ -2308,6 +2317,9 @@
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
         "            $data.lstCatCampus[index].clave = $data.lstCampusUsuario[x].valor;",
         "            resultado.push($data.lstCatCampus[index]);",
+        "            if($data.lstCampusUsuario.length == 1){",
+        "                $data.campus_selected = resultado[0];",
+        "            }",
         "        }",
         "    }",
         "}",
@@ -2377,6 +2389,17 @@
     "lstCampusRole" : {
       "type" : "expression",
       "value" : [
+        "// [{\"descripcion\":\"Anáhuac México Norte\", \"valor\":\"CAMPUS-MNORTE\"},\r",
+        "// {\"descripcion\":\"Anáhuac México Sur\", \"valor\":\"CAMPUS-MSUR\"},\r",
+        "// {\"descripcion\":\"Anáhuac Mayab\", \"valor\":\"CAMPUS-MAYAB\"},\r",
+        "// {\"descripcion\":\"Anáhuac Xalapa\", \"valor\":\"CAMPUS-XALAPA\"},\r",
+        "// {\"descripcion\":\"Anáhuac Cordoba\", \"valor\":\"CAMPUS-CORDOBA\"},\r",
+        "// {\"descripcion\":\"Anáhuac Cancún\", \"valor\":\"CAMPUS-CANCUN\"},\r",
+        "// {\"descripcion\":\"Anáhuac Oaxaca\", \"valor\":\"CAMPUS-OAXACA\"},\r",
+        "// {\"descripcion\":\"Anáhuac Puebla\", \"valor\":\"CAMPUS-PUEBLA\"},\r",
+        "// {\"descripcion\":\"Anáhuac Querétaro\", \"valor\":\"CAMPUS-QUERETARO\"},\r",
+        "// {\"descripcion\":\"Juan Pablo II\", \"valor\":\"CAMPUS-JP2\"}]\r",
+        "\r",
         "var lstData = []\r",
         "var objData = {}\r",
         "for(var index in $data.lstCatCampus){\r",

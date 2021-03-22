@@ -1,13 +1,54 @@
-/**
- * The controller is a JavaScript function that augments the AngularJS scope and exposes functions that can be used in the custom widget template
- * 
- * Custom widget properties defined on the right can be used as variables in a controller with $scope.properties
- * To use AngularJS standard services, you must declare them in the main function arguments.
- * 
- * You can leave the controller empty if you do not need it.
- */
-function ($scope) {
+function($scope, $http) {
+    var vm = this;
+    /**
+     * Execute a get/post request to an URL
+     * It also bind custom data from success|error to a data
+     * @return {void}
+     */
+    function doRequest(method, url, params, dataToSend, callback) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: dataToSend,
+            params: params
+        };
 
-  var hidden = document.getElementsByClassName("oculto");
+        return $http(req)
+            .success(function(data, status) {
+                callback(data)
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
+    $scope.previsualizar = function() {
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10", null, $scope.properties.datosPrevisualizar, function(datos) {
+            console.log(document.getElementById($scope.properties.id).innerHTML);
+            var respuesta = datos.data[0].replace($scope.properties.replace, document.getElementById($scope.properties.id).innerHTML);
+            Swal.fire({
+
+                    html: respuesta,
+                    showCloseButton: false,
+                    width: 800,
+                    showCancelButton: false,
+                    focusConfirm: false,
+                    confirmButtonColor: "#333",
+                    confirmButtonText: 'Cerrar'
+                })
+                /*$("#modal" + $scope.properties.id).show();
+                setTimeout(function() {
+                    var element = document.getElementById("div" + $scope.properties.id);
+
+                    element.innerHTML = respuesta
+
+                }, 100);*/
+
+        });
+    }
+    var hidden = document.getElementsByClassName("oculto");
     hidden[0].classList.add("hidden")
 }

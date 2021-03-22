@@ -128,6 +128,11 @@ function customSetDataTransferencia($scope, $http) {
                     break;
                 }
             }
+            if($scope.properties.catLicenciatura.length>0){
+                if(!findLic){
+                    swal("¡Aviso!", "La licenciatura seleccionada anteriormente no se encuentra en este campus.", "warning");
+                }
+            }
         }
     });
     

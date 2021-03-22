@@ -29,9 +29,18 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   }
 
    $scope.validar = function(e){
+       debugger;
        if(window.mobileAndTabletCheck()){
            if($scope.properties.value.length > $scope.properties.maxLength){
                $scope.properties.value = $scope.properties.value.slice(0, -1) 
+            }else{
+                 //var re = /^[A-Za-z]+$/;
+                 var re = /^[0-9]*$/;
+                var textoingresado = $scope.properties.value.substring($scope.properties.value.length-1,$scope.properties.value.length);
+                //if(!isNaN(textoingresado)){
+                if(re.test(textoingresado)){
+                    $scope.properties.value = $scope.properties.value.substring(0,$scope.properties.value.length-1);
+                }
             }
         }
         else {

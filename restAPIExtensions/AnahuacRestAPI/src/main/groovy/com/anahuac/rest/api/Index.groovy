@@ -17,9 +17,11 @@ import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.MailGunDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.ResultadosAdmisionDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.TestDAO
 import com.anahuac.rest.api.DAO.TransferenciasDAO
+import com.anahuac.rest.api.DAO.ReactivacionDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
@@ -73,6 +75,8 @@ class Index implements RestApiController {
 		CatalogoBachilleratoDAO bDao = new CatalogoBachilleratoDAO()
 		HubspotDAO hDAO = new HubspotDAO();
 		TransferenciasDAO tDAO = new TransferenciasDAO();
+		ReactivacionDAO reDAO = new ReactivacionDAO();
+		ResultadosAdmisionDAO rDAO = new ResultadosAdmisionDAO();
 		//MAPEO DE SERVICIOS==================================================
 		try {
 			switch(url) {
@@ -116,6 +120,63 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "getInformacionResultado":
+					result = rDAO.obtieneDatosDelB64(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "clearInfoCartaTemporal":
+					result = rDAO.clearInfoCartaTemporal();
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "selectInfoCartaTemporal":
+					result = rDAO.selectInfoCartaTemporal(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "selectInfoCartaTemporalNoResultados":
+					result = rDAO.selectInfoCartaTemporalNoResultados(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "enviarCartas":
+					result = rDAO.enviarCartas(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "selectConsultaDeResultados":
+					result = rDAO.selectConsultaDeResultados(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "seleccionarCarta":
+					result = rDAO.seleccionarCarta(parameterP, parameterC, jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "getPdfFileCatalogo":
 					result = lDao.getPdfFileCatalogo(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
@@ -538,8 +599,8 @@ class Index implements RestApiController {
 					}
 					break;
 					
-					case "activarDesactivarPago":
-					result = new CatalogosDAO().activarDesactivarPago(jsonData, context)
+					case "activarDesactivarLugarExamen":
+					result = new CatalogosDAO().activarDesactivarLugarExamen(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -764,6 +825,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					case "updatePerteneceRed":
+					result = bDao.updatePerteneceRed(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "getBachillerato":
 					result = bDao.get(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -898,6 +967,8 @@ class Index implements RestApiController {
 					sesion.setTipo(object.tipo)
 					sesion.setCiudad_pid(object.ciudad_pid)
 					sesion.setCampus_pid(object.campus_pid)
+					sesion.setUltimo_dia_inscripcion(object.ultimo_dia_inscripcion)
+					sesion.setIsEliminado(object.isEliminado)
 					for (int i =0; i<object.pruebas.size(); i++) {
 						def obj = object.pruebas[i]
 						PruebaCustom prueba = new PruebaCustom()
@@ -1071,6 +1142,29 @@ class Index implements RestApiController {
 					row.setUrlGuiaExamenCB(object.urlGuiaExamenCB)
 					row.setUrlTestVocacional(object.urlTestVocacional)
 					row.setCampus_pid(object.campus_pid)
+					row.ciudadCarta = object.ciudadCarta
+					row.estadoCarta = object.estadoCarta
+					row.documentosEntregar = object.documentosEntregar
+					row.documentosEntregarExtranjero = object.documentosEntregarExtranjero
+					row.notasDocumentos = object.notasDocumentos
+					row.parrafoMatematicas1 = object.parrafoMatematicas1
+					row.parrafoMatematicas2 = object.parrafoMatematicas2
+					row.parrafoMatematicas3 = object.parrafoMatematicas3
+					row.parrafoEspanol1 = object.parrafoEspanol1
+					row.parrafoEspanol2 = object.parrafoEspanol2
+					row.parrafoEspanol3 = object.parrafoEspanol3
+					row.directorAdmisiones = object.directorAdmisiones
+					row.tituloDirectorAdmisiones =object.tituloDirectorAdmisiones
+					row.correoDirectorAdmisiones = object.correoDirectorAdmisiones
+					row.telefonoDirectorAdmisiones = object.telefonoDirectorAdmisiones
+					row.actividadIngreso1 = object.actividadIngreso1 
+					row.actividadIngreso2 = object.actividadIngreso2
+					row.costoSGM = object.costoSGM
+					row.educacionGarantizada = object.educacionGarantizada
+					row.instruccionesPagoBanco = object.instruccionesPagoBanco
+					row.cancelarSeguroGastosMedicos = object.cancelarSeguroGastosMedicos
+					row.cursoMatematicas1 = object.cursoMatematicas1
+					row.cursoMatematicas2 = object.cursoMatematicas2
 					result = new DocumentosTextosDAO().insertDocumentosTextos(row)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -1142,6 +1236,46 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "createOrUpdateAutodescripcion":
+					result = hDAO.createOrUpdateAutodescripcion(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "createOrUpdateSeleccionoFechaExamen":
+					result = hDAO.createOrUpdateSeleccionoFechaExamen(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				case "createOrUpdateGenerarCredencial":
+					result = hDAO.createOrUpdateGenerarCredencial(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break
+				case "createOrUpdateEsperaResultado":
+					result = hDAO.createOrUpdateEsperaResultado(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break
+				case "createOrUpdateNoAsistioPruebas":
+					result = hDAO.createOrUpdateNoAsistioPruebas(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break
 				case "reagendarExamen":
 					result = tDAO.reagendarExamen(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -1201,6 +1335,22 @@ class Index implements RestApiController {
 				case "getExcelTransferencias":
 					result = new ListadoDAO().getExcelTransferencias(parameterP, parameterC, jsonData, context)
 					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getUsuariosRechazadosComite":
+					result = reDAO.getUsuariosRechazadosComite(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "reactivarAspirante":
+					result = reDAO.reactivarAspirante(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

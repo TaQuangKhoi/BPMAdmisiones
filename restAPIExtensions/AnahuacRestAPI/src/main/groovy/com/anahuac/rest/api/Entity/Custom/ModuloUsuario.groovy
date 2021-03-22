@@ -1,7 +1,7 @@
 package com.anahuac.rest.api.Entity.Custom
 
 class ModuloUsuario {
-	public static String GET_USUARIOS_CUSTOM="Select user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia from user_ user_ left join user_membership membership on membership.userid=user_.id left join group_ group_ on group_.id=membership.groupid left join role role on role.id=membership.roleid left join user_login ul on ul.id=user_.id  [WHERE] GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id [ORDERBY] [LIMITOFFSET]"
+	public static String GET_USUARIOS_CUSTOM="Select user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia from user_ user_ left join user_membership membership on membership.userid=user_.id left join group_ group_ on group_.id=membership.groupid  left join role role on role.id=membership.roleid left join user_login ul on ul.id=user_.id  [WHERE] GROUP BY user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id [ORDERBY] [LIMITOFFSET]"
 	private String firstname;
 	private String lastname;
 	private String userName;
@@ -9,7 +9,14 @@ class ModuloUsuario {
 	private Long creation_date;
 	private Long id;
 	private String membresia;
+	private Boolean enabled;
 	
+	public Boolean getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 	public Long getCreation_date() {
 		return creation_date;
 	}

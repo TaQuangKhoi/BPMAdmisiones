@@ -22,24 +22,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal(true);
         } else if ($scope.properties.url) {
             debugger;
-            if ($scope.properties.paisSeleccionado !== undefined) {
-                for (var x = 0; x < $scope.properties.catPais.length; x++) {
-                    if ($scope.properties.paisSeleccionado === $scope.properties.catPais[x].descripcion) {
-                        $scope.properties.valoresSolicitante.catPaisExamen = $scope.properties.catPais[x];
-                        break;
-                    }
-                }
-            }
-
-            if ($scope.properties.estadoSeleccionado !== undefined) {
-                for (var x = 0; x < $scope.properties.catEstado.length; x++) {
-                    if ($scope.properties.estadoSeleccionado === $scope.properties.catEstado[x].descripcion) {
-                        $scope.properties.valoresSolicitante.catEstadoExamen = $scope.properties.catEstado[x];
-                        break;
-                    }
-                }
-            }
-
             var existecambio = false;
             var isTransferencia = false;
             if ($scope.properties.valoresSolicitante.catCampus === null) {
@@ -72,50 +54,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.JSONTransferencia.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico.persistenceId;
                 }
                 $scope.properties.JSONTransferencia.periodo = $scope.properties.valoresSolicitante.periodo.persistenceId;
-                $scope.properties.JSONTransferencia.lugarexamen = $scope.properties.valoresSolicitante.catLugarExamen.persistenceId;
-                if ($scope.properties.valoresSolicitante.catLugarExamen.descripcion === "En el mismo campus en donde realizaré mi licenciatura") {
-                    $scope.properties.valoresSolicitante.catCampus = $scope.properties.valoresSolicitante.catCampusEstudio;
-                    $scope.properties.JSONTransferencia.estadoexamen = null;
-                    $scope.properties.JSONTransferencia.ciudadexamen = null;
-                    $scope.properties.JSONTransferencia.paisexamen = null;
-                    $scope.properties.JSONTransferencia.ciudadpaisexamen = null;
-                } else if ($scope.properties.valoresSolicitante.catLugarExamen.descripcion === "En un estado") {
-                    $scope.properties.valoresSolicitante.catPaisExamen = null;
-                    $scope.properties.valoresSolicitante.ciudadExamenPais = null;
-                    if ($scope.properties.valoresSolicitante.ciudadExamen.descripcion === "Tampico") {
-                        $scope.properties.valoresSolicitante.catCampus = $scope.properties.valoresSolicitante.catCampusEstudio;
-                    } else {
-                        $scope.properties.valoresSolicitante.catCampus = $scope.properties.valoresSolicitante.ciudadExamen.campus;
-                    }
-                    if ($scope.properties.valoresSolicitante.catEstadoExamen === null) {
-                        $scope.properties.JSONTransferencia.estadoexamen = $scope.properties.valoresSolicitante.catEstadoExamen;
-                    } else {
-                        $scope.properties.JSONTransferencia.estadoexamen = $scope.properties.valoresSolicitante.catEstadoExamen.persistenceId;
-                    }
-                    if ($scope.properties.valoresSolicitante.ciudadExamen === null) {
-                        $scope.properties.JSONTransferencia.ciudadexamen = $scope.properties.valoresSolicitante.ciudadExamen;
-                    } else {
-                        $scope.properties.JSONTransferencia.ciudadexamen = $scope.properties.valoresSolicitante.ciudadExamen.persistenceId;
-                        $scope.properties.JSONTransferencia.paisexamen = null;
-                        $scope.properties.JSONTransferencia.ciudadpaisexamen = null;
-                    }
-                } else if ($scope.properties.valoresSolicitante.catLugarExamen.descripcion === "En el extranjero (solo si vives fuera de México)") {
-                    $scope.properties.valoresSolicitante.catCampus = $scope.properties.valoresSolicitante.ciudadExamenPais.campus;
-                    $scope.properties.valoresSolicitante.ciudadExamen = null;
-                    $scope.properties.valoresSolicitante.catEstadoExamen = null;
-                    if ($scope.properties.valoresSolicitante.catPaisExamen === null) {
-                        $scope.properties.JSONTransferencia.paisexamen = $scope.properties.valoresSolicitante.catPaisExamen;
-                    } else {
-                        $scope.properties.JSONTransferencia.paisexamen = $scope.properties.valoresSolicitante.catPaisExamen.persistenceId;
-                    }
-                    if ($scope.properties.valoresSolicitante.ciudadExamenPais === null) {
-                        $scope.properties.JSONTransferencia.ciudadpaisexamen = $scope.properties.valoresSolicitante.ciudadExamenPais;
-                    } else {
-                        $scope.properties.JSONTransferencia.ciudadpaisexamen = $scope.properties.valoresSolicitante.ciudadExamenPais.persistenceId;
-                        $scope.properties.JSONTransferencia.estadoexamen = null;
-                        $scope.properties.JSONTransferencia.ciudadexamen = null;
-                    }
-                }
                 $scope.properties.JSONTransferencia.campusestudio = $scope.properties.valoresSolicitante.catCampusEstudio.persistenceId;
                 $scope.properties.JSONTransferencia.campus = $scope.properties.valoresSolicitante.catCampus.persistenceId;
                 if ($scope.properties.valoresSolicitante.catCampusEstudio.descripcion !== $scope.properties.jsonOriginal.campussede) {
@@ -137,47 +75,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.valoresSolicitante.periodo.descripcion !== $scope.properties.jsonOriginal.ingreso) {
                     existecambio = true;
                 }
-                if ($scope.properties.valoresSolicitante.catLugarExamen.descripcion !== $scope.properties.jsonOriginal.lugarexamen) {
-                    existecambio = true;
-                }
-                if ($scope.properties.valoresSolicitante.catEstadoExamen === null) {
-                    if ($scope.properties.valoresSolicitante.estadoexamen !== $scope.properties.jsonOriginal.estadoexamen) {
-                        existecambio = true;
-                    }
-                } else {
-                    if ($scope.properties.valoresSolicitante.catEstadoExamen.descripcion !== $scope.properties.jsonOriginal.estadoexamen) {
-                        existecambio = true;
-                    }
-                }
-                if ($scope.properties.valoresSolicitante.ciudadExamen === null) {
-                    if ($scope.properties.valoresSolicitante.ciudadestado !== $scope.properties.jsonOriginal.ciudadestado) {
-                        existecambio = true;
-                    }
-                } else {
-                    if ($scope.properties.valoresSolicitante.ciudadExamen.descripcion !== $scope.properties.jsonOriginal.ciudadestado) {
-                        existecambio = true;
-                    }
-                }
 
-                if ($scope.properties.valoresSolicitante.catPaisExamen === null) {
-                    if ($scope.properties.valoresSolicitante.paisexamen !== $scope.properties.jsonOriginal.paisexamen) {
-                        existecambio = true;
-                    }
-                } else {
-                    if ($scope.properties.valoresSolicitante.catPaisExamen.descripcion !== $scope.properties.jsonOriginal.paisexamen) {
-                        existecambio = true;
-                    }
-                }
-                if ($scope.properties.valoresSolicitante.ciudadExamenPais === null) {
-                    if ($scope.properties.valoresSolicitante.ciudadpais !== $scope.properties.jsonOriginal.ciudadpais) {
-                        existecambio = true;
-                    }
-                } else {
-                    if ($scope.properties.valoresSolicitante.ciudadExamenPais.descripcion !== $scope.properties.jsonOriginal.paisexamen) {
-                        existecambio = true;
-                    }
-                }
-                $scope.properties.JSONTransferencia.campusestudio = $scope.properties.valoresSolicitante.catCampusEstudio.persistenceId;
                 if ($scope.properties.valoresSolicitante.catCampus.descripcion !== $scope.properties.jsonOriginal.campus) {
                     existecambio = true;
                     isTransferencia = true;
@@ -194,11 +92,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     jsonAnterior.licenciatura = $scope.properties.jsonOriginal.licenciatura;
                     jsonAnterior.propedeutico = $scope.properties.jsonOriginal.propedeutico;
                     jsonAnterior.periodo = $scope.properties.jsonOriginal.ingreso;
-                    jsonAnterior.lugarexamen = $scope.properties.jsonOriginal.lugarexamen;
-                    jsonAnterior.estadoexamen = $scope.properties.jsonOriginal.estadoexamen;
-                    jsonAnterior.ciudadexamen = $scope.properties.jsonOriginal.ciudadestado;
-                    jsonAnterior.paisexamen = $scope.properties.jsonOriginal.paisexamen;
-                    jsonAnterior.ciudadpais = $scope.properties.jsonOriginal.ciudadpais;
                     jsonAnterior.campusestudio = $scope.properties.jsonOriginal.campus;
                     jsonNuevo.campus = $scope.properties.valoresSolicitante.catCampus.descripcion;
                     jsonNuevo.licenciatura = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
@@ -208,27 +101,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         jsonNuevo.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico.descripcion
                     }
                     jsonNuevo.periodo = $scope.properties.valoresSolicitante.periodo.descripcion;
-                    jsonNuevo.lugarexamen = $scope.properties.valoresSolicitante.catLugarExamen.descripcion;
-                    if ($scope.properties.valoresSolicitante.catEstadoExamen === null) {
-                        jsonNuevo.estadoexamen = $scope.properties.valoresSolicitante.catEstadoExamen
-                    } else {
-                        jsonNuevo.estadoexamen = $scope.properties.valoresSolicitante.catEstadoExamen.descripcion
-                    }
-                    if ($scope.properties.valoresSolicitante.ciudadExamen === null) {
-                        jsonNuevo.ciudadexamen = $scope.properties.valoresSolicitante.ciudadExamen
-                    } else {
-                        jsonNuevo.ciudadexamen = $scope.properties.valoresSolicitante.ciudadExamen.descripcion
-                    }
-                    if ($scope.properties.valoresSolicitante.catPaisExamen === null) {
-                        jsonNuevo.paisexamen = $scope.properties.valoresSolicitante.catPaisExamen
-                    } else {
-                        jsonNuevo.paisexamen = $scope.properties.valoresSolicitante.catPaisExamen.descripcion
-                    }
-                    if ($scope.properties.valoresSolicitante.ciudadExamenPais === null) {
-                        jsonNuevo.ciudadpais = $scope.properties.valoresSolicitante.ciudadExamenPais
-                    } else {
-                        jsonNuevo.ciudadpais = $scope.properties.valoresSolicitante.ciudadExamenPais.descripcion
-                    }
                     jsonNuevo.campusestudio = $scope.properties.valoresSolicitante.catCampusEstudio.descripcion;
                     
                     $scope.properties.JSONTransferencia.valororginal = JSON.stringify(jsonAnterior);
@@ -244,6 +116,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.JSONTransferencia.campusNuevo = $scope.properties.valoresSolicitante.catCampus.descripcion
                     $scope.properties.JSONTransferencia.aspirante = nombreaspirante;
                     $scope.properties.JSONTransferencia.correoaspirante = $scope.properties.valoresSolicitante.correoelectronico;
+                    $scope.properties.JSONTransferencia.licenciaturatext = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
+                    $scope.properties.JSONTransferencia.periodotext = $scope.properties.valoresSolicitante.periodo.descripcion;
+                    $scope.properties.JSONTransferencia.estatus = $scope.properties.valoresSolicitante.estatussolicitud;
+                    $scope.properties.JSONTransferencia.idbanner = $scope.properties.valoresSolicitante.idbanner;
+                    $scope.properties.JSONTransferencia.catCampus = $scope.properties.valoresSolicitante.catCampus;
                     console.log($scope.properties.JSONTransferencia);
                     $scope.properties.estadoSeleccionado = undefined;
                     doRequest($scope.properties.action, $scope.properties.url);
@@ -344,7 +221,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     redirectIfNeeded();
                 }
-                getLstAspirantesTransferencia("POST", $scope.properties.urlPost);
+                sendMail($scope.properties.dataToSend);
+                // getLstAspirantesTransferencia("POST", $scope.properties.urlPost);
 
             })
             .error(function(data, status) {
@@ -445,6 +323,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 blockUI.stop();
                 closeModal($scope.properties.closeOnSuccess);
             });
+    }
+
+    //  $scope.sendMail=function(row) {
+    function sendMail(row){
+        debugger;
+             if(row.catCampus.grupoBonita==undefined){
+                 for(var i=0; i<$scope.lstCampus.length; i++){
+                     if($scope.lstCampus[i].descripcion==row.catCampus.descripcion){
+                         row.catCampus.grupoBonita=$scope.lstCampus[i].valor;
+                     }
+                 }
+             }
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
+            data: angular.copy({
+              "campus": row.catCampus.grupoBonita,
+              "correo": row.correoaspirante,
+              "codigo": "transferencia",
+              "isEnviar": true,
+              "mensaje":""
+            })
+        };
+//row.correoaspirante
+        return $http(req)
+            .success(function(data, status) {
+                getLstAspirantesTransferencia("POST", $scope.properties.urlPost);
+                //$scope.envelopeCancel();
+            })
+            .error(function(data, status) {
+                console.error(data)
+            })
+            .finally(function() {});
     }
 
 }

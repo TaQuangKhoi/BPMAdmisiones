@@ -227,11 +227,13 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 if($scope.lstMembership.length == 1){
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
                 }
-            }
-            
-        }
+            }else if(campus == "Todos los campus"){
+                retorno = campus
+            }   
+        } 
         return retorno;
     }
+    
     $scope.lstMembership = [];
     $scope.$watch("properties.userId", function (newValue, oldValue) {
         if (newValue !== undefined) {
@@ -239,7 +241,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 method: "GET",
                 url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-
+    
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
@@ -253,41 +255,54 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     });
     
     $scope.lstCampusByUser = [];
-	$scope.campusByUser = function(){
-		var resultado=[];
-		
-		for(var x in $scope.lstMembership){
-			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				resultado.push($scope.lstMembership[x].group_id.name);
-			}
-		}
-		$scope.lstCampusByUser = resultado;
-	}
-	
+    $scope.campusByUser = function(){
+        var resultado=[];
+       // var isSerua = true;
+        resultado.push("Todos los campus")
+        for(var x in $scope.lstMembership){
+            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+                resultado.push($scope.lstMembership[x].group_id.name);
+            }
+        }
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
+        $scope.lstCampusByUser = resultado;
+    }
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
-        var filter = {
-            "columna": "CAMPUS",
-            "operador": "Igual a",
-            "valor": $scope.filtroCampus
-        }
-        if ($scope.properties.dataToSend.lstFiltro.length > 0) {
-            var encontrado = false;
-            for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
-                const element = $scope.properties.dataToSend.lstFiltro[index];
-                if (element.columna == "CAMPUS") {
-                    $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
-                    $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
-                    $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
-                    for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                        if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                        $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
-                        }
-                    }
-                    encontrado = true
-                }
+        if($scope.filtroCampus != "Todos los campus"){
+            var filter = {
+                "columna": "CAMPUS",
+                "operador": "Igual a",
+                "valor": $scope.filtroCampus
             }
-            if (!encontrado) {
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
+                        $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
+                        $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                        encontrado = true
+                    }
+                }
+                
+                if (!encontrado) {
+                        $scope.properties.dataToSend.lstFiltro.push(filter);
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                }
+            } else {
                 $scope.properties.dataToSend.lstFiltro.push(filter);
                 for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
                     if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
@@ -295,14 +310,21 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                     }
                 }
             }
-        } else {
-            $scope.properties.dataToSend.lstFiltro.push(filter);
-            for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+        }else{
+            
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro.splice(index,1);
+                        $scope.properties.campusSeleccionado = null;
+                    }
                 }
             }
+            
         }
+       
     }
     $scope.sizing=function(){
         $scope.lstPaginado = [];

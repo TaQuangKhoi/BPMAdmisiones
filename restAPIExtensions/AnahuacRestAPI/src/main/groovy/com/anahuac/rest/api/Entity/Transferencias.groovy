@@ -16,6 +16,8 @@ class Transferencias {
 	private String estatus;
 	private String licenciatura;
 	private String periodo;
+	private String idbanner;
+	private String img;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -99,6 +101,18 @@ class Transferencias {
 	}
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
+	}
+	public String getIdbanner() {
+		return idbanner;
+	}
+	public void setIdbanner(String idbanner) {
+		this.idbanner = idbanner;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.bonitasoft.engine.api.APIClient
 import org.bonitasoft.engine.api.IdentityAPI
 import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
+import org.bonitasoft.engine.bpm.document.DocumentValue
 import org.bonitasoft.engine.bpm.flownode.ActivityInstanceCriterion
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
@@ -29,6 +30,8 @@ import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.bonitasoft.engine.bpm.contract.FileInputValue
+import org.apache.commons.codec.binary.Base64;
 
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
@@ -429,10 +432,15 @@ class UsuariosDAO {
 		}
 		return resultado;
 	}
-	public Result getUsuarios(String jsonData) {
+	public Result getUsuarios(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where ="", orderby="ORDER BY ", errorlog=""
+		String where ="", orderby="ORDER BY ", errorlog="",campus="";
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		List<String> lstGrupo = new ArrayList<String>();
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -440,7 +448,37 @@ class UsuariosDAO {
 			List<ModuloUsuario> rows = new ArrayList<ModuloUsuario>();
 			closeCon = validarConexionBonita();
 			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
 			
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				lstGrupo.add(objUserMembership.getGroupId());
+				//break;
+				/*for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupId().equals(rowGrupo.getPersistenceId())) {
+						
+					}
+				}*/
+			}
+			
+			if(lstGrupo.size()>0) {
+				campus+=" ("
+			}
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				campus+="group_.id="+campusMiembro
+				if(i==(lstGrupo.size()-1)) {
+					campus+=") "
+				}
+				else {
+					campus+=" OR "
+				}
+			}
+			
+			Boolean hayCampus=false;
 			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 				switch(filtro.get("columna")) {
 					case "ID":
@@ -471,9 +509,10 @@ class UsuariosDAO {
 						where+="=[valor]"
 					}
 					where = where.replace("[valor]", filtro.get("valor"))
+					hayCampus= true;
 					break;
 					
-					case "NOMBRE":
+					case "NOMBRE(S)":
 						if(where.contains("WHERE")) {
 							where+= " AND "
 						}else {
@@ -488,7 +527,7 @@ class UsuariosDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
-					case "APELLIDO":
+					case "APELLIDOS":
 						if(where.contains("WHERE")) {
 							where+= " AND "
 						}else {
@@ -554,10 +593,10 @@ class UsuariosDAO {
 				case "ID":
 				orderby+="user_.id";
 				break;
-				case"NOMBRE":
+				case"NOMBRE(S)":
 				orderby+="user_.firstname"
 				break;
-				 case"APELLIDO":
+				 case"APELLIDOS":
 				 orderby+="user_.lastname"
 				 break;
 				 case"FECHA CREACIÓN":
@@ -575,11 +614,19 @@ class UsuariosDAO {
 			}
 			orderby+=" "+object.orientation;
 			String consulta = ModuloUsuario.GET_USUARIOS_CUSTOM
+			/*if(where.length()>0) {
+				if(!hayCampus) {
+					where+=" AND "+campus;
+				}
+			}else if(!hayCampus) {
+				where+=" WHERE "+campus;
+			}*/
 			consulta=consulta.replace("[WHERE]", where);
+			//consulta=consulta.replace("[CAMPUS]", campus);
 			errorlog+="consulta:"
 			errorlog+=consulta
-			resultado.setError_info(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
-				pstm = con.prepareStatement(consulta.replace("user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
+			resultado.setError_info(consulta.replace("user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
+				pstm = con.prepareStatement(consulta.replace("user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection last_connection,user_.id, STRING_AGG(role.name || ' en ' || group_.name, ',' order by role.name ) membresia", "COUNT(user_.id) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY user_.enabled, user_.firstname, user_.lastname, user_.creationdate, user_.userName, ul.lastconnection,user_.id", ""))
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -601,6 +648,7 @@ class UsuariosDAO {
 					row.setMembresia(rs.getString("membresia"))
 					row.setUserName(rs.getString("username"))
 					row.setCreation_date(rs.getLong("creationdate"))
+					row.setEnabled(rs.getBoolean("enabled"))
 					rows.add(row)
 				}
 				resultado.setSuccess(true)
@@ -672,7 +720,8 @@ class UsuariosDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false "
-			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
+			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND 
 //				if(object.estatusSolicitud !=null) {
 				
 //					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
@@ -725,6 +774,72 @@ class UsuariosDAO {
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
+						case "NOMBRE,EMAIL,CURP":
+						errorlog+="NOMBRE,EMAIL,CURP"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+
+
+						case "CAMPUS,PROGRAMA,INGRESO":
+							errorlog+="CAMPUS,PROGRAMA,INGRESO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(gestionescolar.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(campus.DESCRIPCION) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+
+
+						case "ESTADO,PREPARATORIA,PROMEDIO":
+							errorlog+="ESTADO,PREPARATORIA,PROMEDIO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +="( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+
+						case "ESTATUS,TIPO":
+							errorlog+="ESTADO,PREPARATORIA,PROMEDIO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +="( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(tipoalumno.descripcion) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
 						case "NOMBRE":
 							if(where.contains("WHERE")) {
 								where+= " AND "
@@ -929,7 +1044,7 @@ class UsuariosDAO {
 					orderby+="sda.ESTATUSSOLICITUD";
 					break;
 					case "TIPO":
-					orderby+="da.TIPOALUMNO";
+					orderby+="tipoalumno.descripcion";
 					break;
 					case "TELEFONO":
 					orderby+="sda.telefonocelular";
@@ -991,6 +1106,7 @@ class UsuariosDAO {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 							String encoded = "";
 							try {
+								
 								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 									encoded = "../API/formsDocumentImage?document="+doc.getId();
 									columns.put("fotografiab64", encoded);
@@ -999,9 +1115,20 @@ class UsuariosDAO {
 								columns.put("fotografiab64", "");
 								errorlog+= ""+e.getMessage();
 							}
+							
+							/*try {
+								
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "actaNacimiento", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64AN", encoded);
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64AN", "");
+								errorlog+= ""+e.getMessage();
+							}*/
 						}
 					}
-	
+					
 					rows.add(columns);
 				}
 				resultado.setSuccess(true)
@@ -1054,8 +1181,36 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 			errorLog += " Antes del update "
 			closeCon = validarConexion();
 			errorLog += " closeCon " + closeCon
+			
+			String consulta = "";
+			/*if(object.catResidencia != null) {
+				consulta += " ,catResidencia_pid = "+object.catGestionEscolar.persistenceId;
+			}
+					
+			if(object.catTipoAlumno != null) {
+				consulta += " ,catTipoAlumno_pid = "+object.catGestionEscolar.persistenceId;
+			}
+				
+			if(object.catTipoAdmision != null) {
+				consulta += " ,catTipoAdmision_pid = "+object.catGestionEscolar.persistenceId;
+			}*/
+			
+			if(object.catLugarExamen != null) {
+				consulta += " ,catlugarexamen_pid = "+object.catLugarExamen.persistenceId;
+			}
+			
+			if(object.tienePAA != null && object.tienePAA) {
+				consulta += " , resultadoPAA  = "+object.resultadoPAA +(object.resultadoPAA ==0?", tienePAA = 'false'":"");
+			} else if(!object.tienePAA && object.resultadoPAA > 0){
+				consulta += " , resultadoPAA  = "+object.resultadoPAA +", tienePAA = 'true'";
+			}else if(!object.tienePAA && object.resultadoPAA == 0) {
+				consulta += " , resultadoPAA  = 0 , tienePAA = 'false'";
+			}
+			
+			consulta+=" WHERE ";
 			con.setAutoCommit(false)
-			pstm = con.prepareStatement(Statements.UPDATE_USUARIOS_REGISTRADOS)
+			errorLog += " consulta = "+Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta)
+			pstm = con.prepareStatement(Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta))
 			pstm.setString(1,object.primernombre);
 			pstm.setString(2,object.segundonombre);
 			pstm.setString(3,object.apellidopaterno);
@@ -1084,24 +1239,156 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				pstm.setLong(11, object.sexo);
 			}
 			pstm.setString(12, object.fechanacimiento);
-			if(object.estado == null){
+			/*if(object.estado == null){
 				pstm.setNull(13, java.sql.Types.BIGINT);
 			}else{
 				pstm.setLong(13, object.estado);
 			}
-			pstm.setString(14, object.estadoextranjero);
-			pstm.setLong(15, object.bachillerato);
+			pstm.setString(14, object.estadoextranjero);*/
+			pstm.setLong(13, object.bachillerato);
 			if(object.nombrebachillerato == null){
-				pstm.setNull(16, java.sql.Types.VARCHAR);
+				pstm.setNull(14, java.sql.Types.VARCHAR);
 			}else{
-				pstm.setString(16, object.nombrebachillerato);
+				pstm.setString(14, object.nombrebachillerato);
 			}
-			pstm.setString(17, object.paisbachillerato);
-			pstm.setString(18, object.estadobachillerato);
-			pstm.setString(19, object.ciudadbachillerato);
-			pstm.setString(20, object.promedio);
-			pstm.setLong(21, Long.valueOf(object.caseid));
+			pstm.setString(15, object.paisbachillerato);
+			pstm.setString(16, object.estadobachillerato);
+			pstm.setString(17, object.ciudadbachillerato);
+			pstm.setString(18, object.promedio);
+			
+			
+			if(object.catEstadoExamen == null) {
+				pstm.setNull(19, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(19, object.catEstadoExamen.persistenceId)
+			}
+			
+			if(object.catCiudadExamen == null) {
+				pstm.setNull(20, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(20, object.catCiudadExamen.persistenceId)
+			}
+			
+			if(object.catPaisExamen == null) {
+				pstm.setNull(21, java.sql.Types.BIGINT);
+			}else {
+				pstm.setLong(21, object.catPaisExamen.persistenceId)
+			}
+			
+			// el where final
+			pstm.setLong(22, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
+			
+			
+			String detalleSolicitud ="";
+			
+			if(object.catResidencia != null) {
+				detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" )+" catResidencia_pid = "+object.catResidencia.persistenceId;
+			}
+				 
+			if(object.catTipoAlumno != null) {
+				 detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" ) + " catTipoAlumno_pid = "+object.catTipoAlumno.persistenceId;
+			}
+			 
+			if(object.catTipoAdmision != null) {
+				 detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" ) +" catTipoAdmision_pid = "+object.catTipoAdmision.persistenceId;
+			}
+			if(object.cbCoincide != null) {
+				detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" ) +" cbCoincide = '"+object.cbCoincide+"'";
+			}
+			if(object.observacionListaRoja != null) {
+				detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" ) +" observacionesListaRoja = '"+object.observacionListaRoja+"'";
+			}
+			if(object.descuento != null) {
+				detalleSolicitud +=(detalleSolicitud.length() >=1?",":"" ) +" descuento = "+object.descuento;
+			}
+			
+			if(detalleSolicitud.length() >=1) {
+				detalleSolicitud+= " WHERE  caseid = '"+Long.valueOf(object.caseid)+"'"
+				errorLog+=" segunda consulta : "+Statements.UPDATE_DETALLE_SOLICITUD.replace("[SETS]",detalleSolicitud)
+				pstm = con.prepareStatement(Statements.UPDATE_DETALLE_SOLICITUD.replace("[SETS]",detalleSolicitud))
+				pstm.executeUpdate();
+			}
+			
+			//Document doc;
+			DocumentValue dv;
+			errorLog+=" documentos :"
+			byte[] b;
+			if(object.Documentos[0].url.length() > 1) {
+				errorLog+=" Imagen"
+				b = Base64.decodeBase64(object.Documentos[0].b64);
+				
+				if(object.Documentos[0].documentId != null) {
+					dv = new DocumentValue(object.Documentos[0].documentId, b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
+					dv.setIndex(0);
+					processAPI.updateDocument(object.Documentos[0].documentId,dv)
+				}else {
+					dv = new DocumentValue( b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
+					processAPI.addDocument(Long.valueOf(object.caseid),"fotoPasaporte","",dv)
+				}
+			}
+			if(object.Documentos[1].url.length() > 1) {
+				errorLog+=" acta"
+				b = Base64.decodeBase64(object.Documentos[1].b64);
+				
+				
+				if(object.Documentos[1].documentId != null) {
+					dv = new DocumentValue(object.Documentos[1].documentId, b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
+					//dv.setIndex(0);
+					processAPI.updateDocument(object.Documentos[1].documentId,dv)
+				}else {
+					dv = new DocumentValue(b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
+					processAPI.addDocument(Long.valueOf(object.caseid),"actaNacimiento","",dv)
+				}
+			}
+			if(object.Documentos[2].url.length() > 1) {
+				errorLog+=" constancia"
+				b = Base64.decodeBase64(object.Documentos[2].b64);
+				
+				if(object.Documentos[3].documentId != null) {
+					dv =new DocumentValue(object.Documentos[2].documentId, b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
+				}else {
+					dv =new DocumentValue(b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
+				}
+				dv.setIndex(0);
+				processAPI.addDocument(Long.valueOf(object.caseid),"constancia","",dv)
+				
+				
+			}
+			if(object.Documentos[3].url.length() > 1) {
+				
+				errorLog+=" cartaAA"
+				b = Base64.decodeBase64(object.Documentos[3].b64);
+				
+				if(object.Documentos[3].documentId != null) {
+					dv = new DocumentValue(object.Documentos[3].documentId, b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
+					//dv.setIndex(0);
+					processAPI.updateDocument(object.Documentos[3].documentId,dv)
+				}else {
+					dv = new DocumentValue(b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
+					processAPI.addDocument(Long.valueOf(object.caseid),"cartaAA","",dv)
+				}
+			}
+			
+			if(object.Documentos[4].url.length() > 1) {
+				
+				errorLog+=" resultadoCB"
+				b = Base64.decodeBase64(object.Documentos[4].b64);
+				
+				if(object.Documentos[4].documentId != null) {					
+					dv = new DocumentValue(object.Documentos[4].documentId, b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
+					//dv.setIndex(0);
+					processAPI.updateDocument(object.Documentos[4].documentId,dv)
+				}else {
+					dv = new DocumentValue(b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
+					processAPI.addDocument(Long.valueOf(object.caseid),"resultadoCB","",dv)
+				}
+				
+				
+			}
+			
+			//processAPI.deleteContentOfArchivedDocument(1847)
+			//new Document 1847
 			
 			con.commit();
 			resultado.setSuccess(true)
@@ -1119,6 +1406,15 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 		
 		return resultado;
 	}
+	
+	
+	def DocumentValue optionalUpdateDocument(long documentId, FileInputValue fileFromContract) {
+		return fileFromContract
+			? new DocumentValue(documentId, fileFromContract.content, fileFromContract.contentType, fileFromContract.fileName)
+			: new DocumentValue(documentId)
+	}
+	
+	
 	
 	public Result getDatosUsername(String username) {
 		Result resultado = new Result();

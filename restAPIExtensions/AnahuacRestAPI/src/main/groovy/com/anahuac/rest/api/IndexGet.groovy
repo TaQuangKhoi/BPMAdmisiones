@@ -16,6 +16,7 @@ import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatEstados
 import com.anahuac.catalogos.CatPais
+import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
@@ -214,8 +215,9 @@ class IndexGet implements RestApiController {
 					String id = request.getParameter "id";
 					String grupobonita = request.getParameter "grupobonita";
 					String tipoperiodo = request.getParameter "tipoperiodo";
+					String idioma = request.getParameter "idioma";
 					
-					result = new CatalogosDAO().getCatPropedeuticoByPeriodo(id, grupobonita, tipoperiodo, context);
+					result = new CatalogosDAO().getCatPropedeuticoByPeriodo(id, grupobonita, tipoperiodo,idioma, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
@@ -283,7 +285,8 @@ class IndexGet implements RestApiController {
 				
 				case "getPruebasFechas":
 				String persistenceId =request.getParameter "sessionid"
-				result = new SesionesDAO().getPruebasFechas(Long.parseLong(persistenceId))
+				String aspirante =request.getParameter "aspirante"
+				result = new SesionesDAO().getPruebasFechas(Long.parseLong(persistenceId),aspirante)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -405,7 +408,7 @@ class IndexGet implements RestApiController {
 				
 				case "getUsuarios":
 				String jsonData =request.getParameter "jsonData"
-				result = new UsuariosDAO().getUsuarios(jsonData)
+				result = new UsuariosDAO().getUsuarios(jsonData,context)
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 				}else {
@@ -461,6 +464,16 @@ class IndexGet implements RestApiController {
 				}else {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
+				break;
+				case "buscarCambiosBannerPreparatoria":
+					String operacion = request.getParameter "operacion";
+					result = new BannerDAO().buscarCambiosBannerPreparatoria(context, operacion);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
 				break;
 				case "getPeriodosSiguientes":
 				String tipo = request.getParameter "tipo";
@@ -544,6 +557,7 @@ class IndexGet implements RestApiController {
 				}else {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
+				break;
 			}
 		}catch (Exception e) {
 			e.printStackTrace()

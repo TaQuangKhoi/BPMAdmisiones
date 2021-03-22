@@ -24,10 +24,19 @@ class CatGestionEscolar {
 	private String inscripcionSeptiembre;
 	private String urlImgLicenciatura;
 	private Boolean isMedicina;
+	private String idioma;
 	
 	
 	
 	
+	
+	
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
 	
 	public Boolean getIsMedicina() {
 		return isMedicina;
