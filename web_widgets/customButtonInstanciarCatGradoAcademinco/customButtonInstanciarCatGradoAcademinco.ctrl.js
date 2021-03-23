@@ -73,53 +73,104 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function startProcess() {
         debugger
-        	if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-			if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) {
-				if ($scope.properties.processId) {
-				      $scope.properties.dataToChange2["todelete"] = false;
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+        if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
+            if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) {
+                if ($scope.properties.processId) {
+                    $scope.properties.dataToChange2["todelete"] = false;
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.descripcion) {
-					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.clave) {
-					swal("¡Aviso!","Falto capurar informacion en: Clave", "warning");
-				}
-			}
 
-	} else {
-			if ($scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].clave && $scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].descripcion) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+                    var req2 = {
+                        method: 'GET',
+                        url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATGRADOACADEMICO&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
+                    };
+                    return $http(req2).success(function (datos, status) {
+                        if (datos.data[0] === true) {
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                                doRequest("GET", $scope.properties.url).then(function () {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            });
+                        } else {
+                            swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].descripcion) {
-					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].clave) {
-					swal("¡Aviso!","Falto capurar informacion en: Clave", "warning");
-				}
-			}
-	}
+                    }).error(function (data, status) {
+                        console.log(data);
+                        console.log(status);
+                    })
+
+                    //  
+                    // var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                    // 	doRequest("GET", $scope.properties.url).then(function () {
+                    // 		$scope.properties.dataToChange = $scope.properties.dataToSet;
+                    // 		$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                    // 	});
+                    // 	localStorageService.delete($window.location.href);
+                    // });
+
+                } else {
+                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                }
+            } else {
+                if (!$scope.properties.dataToChange2.descripcion) {
+                    swal("¡Aviso!", "Falto capurar informacion en: Descripción", "warning");
+                }
+                if (!$scope.properties.dataToChange2.clave) {
+                    swal("¡Aviso!", "Falto capurar informacion en: Orden", "warning");
+                }
+            }
+
+        } else {
+            if ($scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].clave && $scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].descripcion) {
+                if ($scope.properties.processId) {
+
+
+
+                    var req2 = {
+                        method: 'GET',
+                        url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATGRADOACADEMICO&clave=" + $scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].clave + "&id="
+                    };
+                    return $http(req2).success(function (datos, status) {
+                        if (datos.data[0] === true) {
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                                doRequest("GET", $scope.properties.url).then(function () {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            });
+                        } else {
+                            swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+
+                    }).error(function (data, status) {
+                        console.log(data);
+                        console.log(status);
+                    })
+
+
+                    // var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                    // 	doRequest("GET", $scope.properties.url).then(function () {
+                    // 		$scope.properties.dataToChange = $scope.properties.dataToSet;
+                    // 		$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                    // 	});
+                    // 	localStorageService.delete($window.location.href);
+                    // });
+
+                } else {
+                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                }
+            } else {
+                if (!$scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].descripcion) {
+                    swal("¡Aviso!", "Falto capurar informacion en: Descripción", "warning");
+                }
+                if (!$scope.properties.dataToChange2.lstCatGradoAcademicoInput[0].clave) {
+                    swal("¡Aviso!", "Falto capurar informacion en: Orden", "warning");
+                }
+            }
+        }
     }
 
     /**
@@ -137,7 +188,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req)
-            .success(function(data, status) {
+            .success(function (data, status) {
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
@@ -147,13 +198,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
                 closeModal($scope.properties.closeOnSuccess);
             })
-            .error(function(data, status) {
+            .error(function (data, status) {
                 $scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function() {
+            .finally(function () {
                 vm.busy = false;
             });
     }
@@ -203,7 +254,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (id) {
             var params = $scope.properties.userId;
             params.assign = $scope.properties.assign;
-            doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
+            doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function () {
                 localStorageService.delete($window.location.href);
             });
         } else {

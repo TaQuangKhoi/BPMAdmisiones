@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatTipoAlumnoAcciones",
   "name" : "CatTipoAlumnoAcciones",
-  "lastUpdate" : 1609807985983,
+  "lastUpdate" : 1616526804195,
   "rows" : [
     [
       {
@@ -135,7 +135,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -177,14 +177,44 @@
               "reference" : "7ddbc3a8-fbc5-4631-b540-7e4de48cb308",
               "hasValidationError" : false,
               "id" : "customButtonSetValor"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "content" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                }
+              },
+              "reference" : "c0012c45-7466-41b7-97cc-efb973fa6ff1",
+              "hasValidationError" : false,
+              "id" : "customListFiltros"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -201,7 +231,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -209,7 +239,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -234,34 +264,6 @@
               "reference" : "854df4c7-32dd-4241-99db-459977281f6d",
               "hasValidationError" : false,
               "id" : "customButtonSetValor"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "content" : {
-                  "type" : "variable",
-                  "value" : "lstFiltros"
-                }
-              },
-              "reference" : "c0012c45-7466-41b7-97cc-efb973fa6ff1",
-              "hasValidationError" : false,
-              "id" : "customListFiltros"
             }
           ],
           [
@@ -356,9 +358,9 @@
                   "value" : "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100"
                 }
               },
-              "reference" : "73ec7348-2dde-4dcf-93dd-10708cac7e0d",
+              "reference" : "905a3be4-7e51-480f-8ad1-a39329de1d2f",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionarFiltrado"
+              "id" : "customTableSeleccionarFiltradoCatalogosChicos"
             }
           ],
           [
@@ -655,11 +657,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -698,8 +700,128 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAlumno?q=getCatTipoAlumno&p={{inicio}}&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catTipoAlumno_selected"
+                },
+                "nombreTabla" : {
+                  "type" : "constant",
+                  "value" : "lstCatTipoAlumnoInput"
+                }
+              },
+              "reference" : "46fa6ca1-08cf-44e2-99ae-69a5f75acc95",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatGenericoTipoAlumno"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -806,124 +928,6 @@
               "reference" : "1f5597e1-12c0-47c5-a69b-815a670b881e",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAlumno?q=getCatTipoAlumno&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "lstContenido"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catTipoAlumno_selected"
-                },
-                "nombreTabla" : {
-                  "type" : "constant",
-                  "value" : "lstCatTipoAlumnoInput"
-                }
-              },
-              "reference" : "d55ce1ce-d358-45ab-8357-1efb59fb7d82",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatGenerico"
             }
           ]
         ]
@@ -1136,11 +1140,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1156,137 +1160,24 @@
                 },
                 "OpenModal" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : false
                 },
                 "modalId" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
                 }
               },
-              "reference" : "6b7eb212-fa27-4904-967f-f771876d30f8",
+              "reference" : "c473170e-0973-4de4-8b2d-15bbfa677463",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
+              "id" : "customButtonSetValorTipoAlumno"
             },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAlumno?q=getCatTipoAlumno&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catTipoAlumno"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatTipoAlumnoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
-                }
-              },
-              "reference" : "322d6056-4887-46c5-a07b-b784231d0b5d",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 4,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1311,7 +1202,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1394,12 +1285,128 @@
                   "value" : "lstCatTipoAlumnoInput"
                 }
               },
-              "reference" : "ebb3b343-c826-4120-9094-781f69967164",
+              "reference" : "54abb3d4-fd96-4d98-9d03-e02e0a163ea4",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatGenerico"
+              "id" : "customButtonInstanciarCatGenericoTipoAlumno"
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "disabled" : {
+            "type" : "expression",
+            "value" : "validar != true"
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Guardar"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "right"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "info"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Start process"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation",
+            "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatTipoAlumno?q=getCatTipoAlumno&p={{inicio}}&c=10"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "expression",
+            "value" : "formOutputAgregar"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : "catTipoAlumno"
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          },
+          "processId" : {
+            "type" : "variable",
+            "value" : "processAgregarData[0].id"
+          },
+          "userId" : {
+            "type" : "variable",
+            "value" : "userData.user_id"
+          },
+          "dataToSet" : {
+            "type" : "variable",
+            "value" : "\"tabla\""
+          },
+          "dataToChange" : {
+            "type" : "variable",
+            "value" : "editable"
+          },
+          "dataToSet2" : {
+            "type" : "variable",
+            "value" : "{     \"lstCatTipoAlumnoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
+          },
+          "dataToChange2" : {
+            "type" : "variable",
+            "value" : "formOutputAgregar"
+          }
+        },
+        "reference" : "322d6056-4887-46c5-a07b-b784231d0b5d",
+        "hasValidationError" : false,
+        "id" : "customButtonInstanciar"
       }
     ],
     [

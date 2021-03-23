@@ -79,13 +79,14 @@ function ($scope){
 
         for(let i = 0; i < _gradosEscolares.length; i++){
             if(_gradosEscolares[i].descripcion === "Preparatoria/Bachillerato"){
+                debugger;
                 let infoEscolar = {
                     "grado": _gradosEscolares[i],
                     "tipo": null,
                     "escuela": $scope.properties.bdmSolicitud.catBachilleratos,
                     "escuelaString": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? "" : $scope.properties.bdmSolicitud.bachillerato,
                     // "pais": null,
-                    "pais": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? getPais($scope.properties.bdmSolicitud.catBachilleratos.pais) : getPais($scope.properties.bdmSolicitud.paisBachillerato) ,
+                    "pais": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? getPais($scope.properties.bdmSolicitud.catBachilleratos.pais) : getPais($scope.properties.bdmSolicitud.paisBachillerato),
                     "estado": $scope.properties.bdmSolicitud.catBachilleratos.pais === "México" ? getEstado($scope.properties.bdmSolicitud.catBachilleratos.estado) : null, 
                     "ciudad": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? $scope.properties.bdmSolicitud.catBachilleratos.ciudad : $scope.properties.bdmSolicitud.ciudadBachillerato,
                     "anoInicio": "",
@@ -93,7 +94,8 @@ function ($scope){
                     "promedio": $scope.properties.bdmSolicitud.promedioGeneral,
                     "catBachillerato": null,
                     "otraEscuela": "",
-                    "estadoString": $scope.properties.bdmSolicitud.estadoBachillerato,
+                    // "estadoString": $scope.properties.bdmSolicitud.estadoBachillerato,
+                    "estadoString": $scope.properties.bdmSolicitud.catBachilleratos.estado,
                     "persistenceId_string": null,
                     "isDefault": true
                 }

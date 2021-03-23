@@ -112,7 +112,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         $scope.properties.revisar = true;
         //Check whether the file is valid Image.
         //var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif)$");
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg)$");
+        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg|.jfif)$");
         // if (regex.test($scope.properties.value.filename.toLowerCase())) {
         if (regex.test(response.filename.toLowerCase())) {
             //Check whether HTML5 is supported.
@@ -133,25 +133,15 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                         var width = this.width;
                         if (height < $scope.properties.HeightMaximo || width < $scope.properties.WidthMaximo) {
                             //show width and height to user
-                            /*document.getElementById("width").innerHTML=width;
-                            document.getElementById("height").innerHTML=height;*/
                             ctrl.clear()
                             $scope.properties.permitido = false;
-                            /*$scope.properties.value = {};
-                            ctrl.filemodel = {}*/
-                            /*alert("HEIGHT" + height + " , " + "WIDTH" + width)
-                            alert("Height NO PUEDE EXCEDER " + $scope.properties.HeightMaximo + " Y EL WIDTH NO PUEDE EXCEDER" + $scope.properties.WidthMaximo);*/
+                            
                             swal("¡La resolución de la imagen debe ser mayor de 480 x 576px!", "La imagen que intenta cargar es de " + height + " x " + width + "px. " + "Favor de cargar una imagen con la resolución indicada.", "warning");
                             return false;
-                            
-                            /*
-                            swal({title: 'La imagen debe ser mayor de 480 x 576!', text: 'Mensaje de texto', html: '"Tu imagen es de " + height + "x " + width + "<br> Por favor intenta con la foto original, que no sea descargada de alguna red social."', type: 'warning'});
-                            */
                         }
 
                         $scope.properties.permitido = true;
                         $scope.properties.revisar = false;
-                        // alert("LA IMAGEN TIENE HEIGHT Y WIDTH DENTRO DEL MARGEN.");
                         $scope.properties.value = response;
                         $scope.properties.urlretorno = URL.createObjectURL(fileUpload.files[0]);
                         $scope.$apply();
@@ -159,20 +149,14 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                     };
 
                 }
-                // if(!valido){
-                //     swal("Advertencia", "Ya has agregado esta imagen y no cumple con los requisitos mínimos favor de agregar una diferente.", "warning");
-                //     ctrl.clear()
-                // }
             } else {
                 ctrl.clear()
-                // alert("This browser does not support HTML5.");
                 swal("¡HTML5!", "Este navegador no soporta HTML5", "warning");
                 return false;
             }
         } else {
             ctrl.clear()
-            // alert("POR FAVOR SELECCIONE UNA IMAGEN VALIDA.");
-            swal("¡Formato Incorrecto!", "Solo se aceptan imagenes png, jpg, jpeg", "warning");
+            swal("¡Formato Incorrecto!", "Solo se aceptan imagenes png, jpg, jpeg, jfif", "warning");
             return false;
         }
     }

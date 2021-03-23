@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1614108136631,
+  "lastUpdate" : 1616525147432,
   "rows" : [
     [
       {
@@ -192,7 +192,7 @@
                 "campusreturn" : "",
                 "paisSeleccionado" : "paisSeleccionado",
                 "estadoSeleccionado" : "estadoSeleccionado",
-                "pagosDeshabilitados" : "getPagoDeshabilitado"
+                "pagosDeshabilitados" : "ActivadoLugarExamen[0].activado"
               }
             }
           ],
@@ -4804,12 +4804,12 @@
         "    $data.strRegistro.error = true;\r",
         "    $data.campoError = \"Apellido paterno\";\r",
         "    $data.erroMessage = \"El campo Apellido paterno no debe exceder los 50 caracteres.\";\r",
-        "} else if($data.strRegistro.ApellidoMaterno.trim() === \"\"){\r",
+        "} /*else if($data.strRegistro.ApellidoMaterno.trim() === \"\"){\r",
         "    validado = false;\r",
         "    $data.strRegistro.error = true;\r",
         "    $data.campoError = \"Apellido materno\";\r",
         "    $data.erroMessage = \"El campo Apellido materno no debe estar vacío.\";\r",
-        "} else if($data.strRegistro.ApellidoMaterno.trim().length > 50){\r",
+        "}*/ else if($data.strRegistro.ApellidoMaterno.trim().length > 50){\r",
         "    validado = false;\r",
         "     $data.strRegistro.error = true;\r",
         "     $data.campoError = \"Apellido materno\";\r",
@@ -4944,7 +4944,7 @@
     "catPropedeutico" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getCatPropedeuticoByPeriodo&p=0&c=10&grupobonita={{formInput.catSolicitudDeAdmisionInput.catCampusEstudio.grupoBonita}}&id={{formInput.catSolicitudDeAdmisionInput.catPeriodo.persistenceId}}&tipoperiodo={{formInput.catSolicitudDeAdmisionInput.catGestionEscolar.tipoLicenciatura}}"
+        "../API/extension/AnahuacRestGet?url=getCatPropedeuticoByPeriodo&p=0&c=10&grupobonita={{formInput.catSolicitudDeAdmisionInput.catCampusEstudio.grupoBonita}}&id={{formInput.catSolicitudDeAdmisionInput.catPeriodo.persistenceId}}&tipoperiodo={{formInput.catSolicitudDeAdmisionInput.catGestionEscolar.tipoLicenciatura}}&idioma={{formInput.catSolicitudDeAdmisionInput.catGestionEscolar.idioma == null ?\"Español\":formInput.catSolicitudDeAdmisionInput.catGestionEscolar.idioma }}"
       ],
       "exposed" : false
     },
@@ -4955,30 +4955,10 @@
       ],
       "exposed" : false
     },
-    "getCatPagoExamen" : {
+    "ActivadoLugarExamen" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"getCatPagoDeExamenDeAdmision [com.anahuac.catalogos.CatPagoDeExamenDeAdmision]\",\"businessObjectName\":\"CatPagoDeExamenDeAdmision\",\"query\":{\"name\":\"getCatPagoDeExamenDeAdmision\",\"displayName\":\"getCatPagoDeExamenDeAdmision\"},\"id\":\"com.anahuac.catalogos.CatPagoDeExamenDeAdmision\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
-      ],
-      "exposed" : false
-    },
-    "getPagoDeshabilitado" : {
-      "type" : "expression",
-      "value" : [
-        "var count = 0;",
-        "var datos = angular.copy($data.getCatPagoExamen);",
-        "",
-        "datos.forEach(info=>{",
-        "    if(info.deshabilitarPagoDeExamenDeAdmision){",
-        "        count++;",
-        "    }",
-        "});",
-        "",
-        "if(count == datos.length){",
-        "    return true;",
-        "}else{",
-        "    return false;",
-        "}"
+        "{\"displayValue\":\"find [com.anahuac.model.SwitchLugarExamen]\",\"businessObjectName\":\"SwitchLugarExamen\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.model.SwitchLugarExamen\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

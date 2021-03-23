@@ -103,7 +103,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         $scope.properties.responseStatusCode = status;
         $scope.properties.dataFromError = undefined;
         notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
-        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+        if ($scope.properties.targetUrlOnSuccess || $scope.properties.targetUrlOnSuccess2) {
           redirectIfNeeded();
         }
         closeModal($scope.properties.closeOnSuccess);
@@ -123,7 +123,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var iframeId = $window.frameElement ? $window.frameElement.id : null;
     //Redirect only if we are not in the portal or a living app
     if (!iframeId || iframeId && iframeId.indexOf('bonitaframe') !== 0) {
-      $window.location.assign($scope.properties.targetUrlOnSuccess);
+      $window.location.assign($scope.properties.targetUrlOnSuccess2);
+    }else{
+        $window.location.assign($scope.properties.targetUrlOnSuccess2);
     }
   }
 

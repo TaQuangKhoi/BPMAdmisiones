@@ -125,9 +125,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Nombre!", "Debes ingresar tu primer nombre", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.apellidoPaterno === "") {
                 swal("¡Apellido paterno!", "Debes ingresar tu apellido paterno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
+            }/* else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
                 swal("¡Apellido materno!", "Debes ingresar tu apellido materno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
+            }*/ else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
                 swal("¡Correo electrónico!", "Debes ingresar tu correo electrónico", "warning");
             } else if (!re.test(String($scope.properties.catSolicitudDeAdmision.correoElectronico.trim()).toLowerCase())) {
                 swal("¡Correo electrónico!", "Tu correo electrónico no es válido", "warning");

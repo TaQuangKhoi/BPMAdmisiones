@@ -85,7 +85,7 @@ function PbTableCtrl($scope, $http, blockUI, $sce, $element, widgetNameFactory, 
         var info = "";
         if ($scope.firma.nombreCompleto == "") {
             error = true;
-            texto = "Faltó capturar información: Nombre";
+            texto = "Faltó capturar: Nombre";
             info = "¡Aviso!"
         } else if (!$scope.allLetter($scope.firma.nombreCompleto)) {
             error = true;
@@ -97,7 +97,7 @@ function PbTableCtrl($scope, $http, blockUI, $sce, $element, widgetNameFactory, 
             info = "¡Aviso!"
         } else if ($scope.firma.apellido == "") {
             error = true;
-            texto = "Faltó capturar información: Apellido";
+            texto = "Faltó capturar: Apellido";
             info = "¡Aviso!"
         } else if (!$scope.allLetter($scope.firma.apellido)) {
             error = true;
@@ -109,23 +109,27 @@ function PbTableCtrl($scope, $http, blockUI, $sce, $element, widgetNameFactory, 
             info = "¡Aviso!"
         } else if ($scope.firma.cargo == "") {
             error = true;
-            texto = "Faltó capturar información: Cargo";
+            texto = "Faltó capturar: Cargo";
             info = "¡Aviso!"
         } else if (!$scope.allLetter($scope.firma.cargo)) {
             error = true;
             texto = "Solo caracteres válidos en: Cargo";
             info = "¡Aviso!"
-        } else if ($scope.firma.grupo == "") {
+        } else if ($scope.firma.telefono == "") {
             error = true;
-            texto = "Faltó capturar información: Url campus";
+            texto = "Faltó capturar: Teléfono";
             info = "¡Aviso!"
-        } else if (!$scope.validUrl($scope.firma.grupo)) {
+        } else if ($scope.firma.telefono.length !== 10) {
+            error = true;
+            texto = "Favor de ingresar un teléfono válido";
+            info = "¡Aviso!"
+        } else if (!$scope.validUrl($scope.firma.grupo) && $scope.firma.grupo !== "") {
             error = true;
             texto = "Favor de ingresar url válida en: Url campus";
             info = "¡Aviso!"
         } else if ($scope.firma.correo == "") {
             error = true;
-            texto = "Faltó capturar información: Correo";
+            texto = "Faltó capturar: Correo";
             info = "¡Aviso!"
         } else if (!$scope.validateEmail($scope.firma.correo)) {
             error = true;
@@ -639,4 +643,19 @@ function PbTableCtrl($scope, $http, blockUI, $sce, $element, widgetNameFactory, 
             })
         });
     }
+
+    $scope.forceKeyPressUppercase = function(e){
+        var charInput = e.keyCode;
+        var limite = 10;
+        if((charInput >=48) && (charInput <=57)&&(e.target.value.length) <limite){
+        }else{
+            var start = e.target.selectionStart;
+            var end = e.target.selectionEnd;
+            e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
+            e.target.setSelectionRange(start+1, start+1);
+             e.preventDefault();
+        }
+      }
+
+
 }

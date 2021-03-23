@@ -30,8 +30,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 "inscripcionenero":"",
                 "inscripcionMayo":"",
                 "inscripcionagosto":"",
-                "inscripcionSeptiembre":""
-                
+                "inscripcionSeptiembre":"",
+                "urlImgLicenciatura":"",
+                "isMedicina":false
             }
             modalService.close();
         }

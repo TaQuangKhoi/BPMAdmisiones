@@ -2,8 +2,98 @@
   "designerVersion" : "1.11.52",
   "id" : "CatEstadoCivilPadresAcciones",
   "name" : "CatEstadoCivilPadresAcciones",
-  "lastUpdate" : 1609373277642,
+  "lastUpdate" : 1616525824733,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "<i class=\"glyphicon glyphicon-arrow-left\"></i> Regresar a catálogos AD"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Submit task"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          }
+        },
+        "reference" : "501601ac-2cff-4940-b2d3-e94979f9a435",
+        "hasValidationError" : false,
+        "id" : "customButtonRegresarCatalogosAD"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -24,7 +114,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catalogo de estado civil de los padres"
+            "value" : "¿Cuál es el estado civil de tus padres?"
           },
           "level" : {
             "type" : "constant",
@@ -143,7 +233,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -151,7 +241,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -203,7 +293,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
                     "Usuario Creación",
                     "Fecha Creación"
@@ -333,10 +423,10 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
-                    "Usuario Creación",
-                    "Fecha Creación"
+                    "Usuario creación",
+                    "Fecha creación"
                   ]
                 },
                 "content" : {
@@ -349,7 +439,7 @@
                     "clave",
                     "descripcion",
                     "usuarioCreacion",
-                    "fechaCreacion"
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -515,7 +605,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -527,7 +617,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -559,9 +649,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "3ecf2973-4c78-4ebb-9e1f-698a6d0230e5",
+              "reference" : "88790cbe-75e8-4431-b9ed-738fe2c87200",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -645,8 +735,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -667,11 +757,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -710,8 +800,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -736,7 +826,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -878,7 +968,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -890,7 +980,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -922,9 +1012,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "e748ff2f-df78-46bf-859c-72eab0c37f8f",
+              "reference" : "3fa43323-ce20-4656-a178-5aa535e8cc1e",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -1008,8 +1098,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1030,11 +1120,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1065,8 +1155,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1091,7 +1181,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1181,6 +1271,13 @@
   ],
   "assets" : [
     {
+      "id" : "b70b6a64-e2f0-48ad-8f96-f38e1e8d7bb1",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "0fb5c478-1504-4544-b3cf-4d28f1fd628f",
       "name" : "localization.json",
       "type" : "json",
@@ -1200,21 +1297,14 @@
       "type" : "css",
       "order" : 1,
       "external" : false
-    },
-    {
-      "id" : "1fa3370e-cbde-4658-9b4c-6e46b399fb7e",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
   "variables" : {
     "catEstadoCivilPadres" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatEstadoCivilPadres?q=getCatEstadoCivilPadres&p={{inicio}}&c=10"
+        "[]"
       ],
       "exposed" : false
     },
@@ -1395,8 +1485,8 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"solicitudes_progreso\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
+        "    \"orderby\":\"CLAVE\",\r",
+        "    \"orientation\":\"ASC\",\r",
         "    \"limit\":100,\r",
         "    \"offset\":0,\r",
         "    \"catalogo\":\"CatEstadoCivilPadres\"\r",

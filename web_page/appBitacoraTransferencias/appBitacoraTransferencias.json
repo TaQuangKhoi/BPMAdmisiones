@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appBitacoraTransferencias",
   "name" : "appBitacoraTransferencias",
-  "lastUpdate" : 1614107965819,
+  "lastUpdate" : 1616522686415,
   "rows" : [
     [
       {
@@ -370,7 +370,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -684,7 +684,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "allowHTML" : {
             "type" : "constant",
@@ -758,6 +758,106 @@
         "reference" : "553e2fe0-c6f6-40b4-abe6-d189aae11a43",
         "hasValidationError" : false,
         "id" : "customTablePostBitacoraTransferenciaListado"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "headers" : {
+            "type" : "constant",
+            "value" : [
+              "Id",
+              "Name",
+              "Description",
+              "Date"
+            ]
+          },
+          "columnsKey" : {
+            "type" : "constant"
+          },
+          "selectedRow" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "striped" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "condensed" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "bordered" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "/bonita/API/extension/AnahuacRest?url=selectBitacoraTransferencias&p=0&c=100"
+          },
+          "dataToSend" : {
+            "type" : "variable",
+            "value" : "dataToFilter"
+          },
+          "lstContenido" : {
+            "type" : "variable",
+            "value" : "lstContenido"
+          },
+          "userId" : {
+            "type" : "variable",
+            "value" : "userData.user_id"
+          },
+          "campusSeleccionado" : {
+            "type" : "variable",
+            "value" : "getCampus"
+          },
+          "lstCampus" : {
+            "type" : "variable",
+            "value" : "lstCatCampus"
+          },
+          "orden" : {
+            "type" : "variable",
+            "value" : "activos"
+          },
+          "modalid" : {
+            "type" : "constant",
+            "value" : "modalTransferencia"
+          },
+          "jsonOriginal" : {
+            "type" : "variable",
+            "value" : "jsonOriginal"
+          },
+          "jsonCambio" : {
+            "type" : "variable",
+            "value" : "jsonCambio"
+          },
+          "datosTransferencia" : {
+            "type" : "variable",
+            "value" : "datosTransferencia"
+          }
+        },
+        "reference" : "fdeea638-a419-4a13-b8bc-93b9a11b1aaa",
+        "hasValidationError" : false,
+        "id" : "customTablePostBitacoraTransferencias"
       }
     ],
     [
@@ -2032,7 +2132,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2108,8 +2208,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonOriginal.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonOriginal.lugarexamen === \"En el extranjero (solo si vives fuera de México)\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2185,8 +2285,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonOriginal.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonOriginal.lugarexamen === \"En el extranjero (solo si vives fuera de México)\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2262,8 +2362,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonOriginal.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonOriginal.lugarexamen === \"En un estado\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2339,8 +2439,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonOriginal.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonOriginal.lugarexamen === \"En un estado\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2866,7 +2966,7 @@
                               },
                               "hidden" : {
                                 "type" : "constant",
-                                "value" : false
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -2942,8 +3042,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonCambio.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonCambio.lugarexamen === \"En el extranjero (solo si vives fuera de México)\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -3019,8 +3119,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonCambio.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonCambio.lugarexamen === \"En el extranjero (solo si vives fuera de México)\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -3096,8 +3196,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonCambio.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonCambio.lugarexamen === \"En un estado\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -3173,8 +3273,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "expression",
-                                "value" : "jsonCambio.lugarexamen === \"En el mismo campus en donde realizaré mi licenciatura\" || jsonCambio.lugarexamen === \"En un estado\""
+                                "type" : "constant",
+                                "value" : true
                               },
                               "required" : {
                                 "type" : "constant",
@@ -3236,6 +3336,83 @@
                           }
                         ]
                       ]
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Fecha de transferencia"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "datosTransferencia.fechaCreacion"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "9e3c2003-14f8-413e-a505-da4fc5dccab6",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
                     }
                   ]
                 ]
@@ -3461,7 +3638,8 @@
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"orden\":$data.activos+\"\"\r",
+        "    \"orden\":$data.activos+\"\",\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "};"
       ],
       "exposed" : false
@@ -3581,6 +3759,14 @@
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "datosTransferencia" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

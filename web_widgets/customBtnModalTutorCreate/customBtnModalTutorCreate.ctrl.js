@@ -93,7 +93,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             console.log("falta tutor");
                         } else if ($scope.properties.tutor.catPais === null) {
                             swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -229,7 +229,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         console.log("falta tutor");
                     } else if ($scope.properties.tutor.catPais === null) {
                         swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                    } else if ($scope.properties.tutor.codigoPostal === "") {
+                    } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -374,7 +374,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         console.log("falta tutor");
                     } else if ($scope.properties.tutor.catPais === null) {
                         swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                    } else if ($scope.properties.tutor.codigoPostal === "") {
+                    } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -510,7 +510,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     console.log("falta tutor");
                 } else if ($scope.properties.tutor.catPais === null) {
                     swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                } else if ($scope.properties.tutor.codigoPostal === "") {
+                } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                 } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -670,7 +670,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 console.log("falta tutor");
                             } else if ($scope.properties.tutor.catPais === null) {
                                 swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                            } else if ($scope.properties.tutor.codigoPostal === "") {
+                            } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                             } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -806,7 +806,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             console.log("falta tutor");
                         } else if ($scope.properties.tutor.catPais === null) {
                             swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -951,7 +951,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             console.log("falta tutor");
                         } else if ($scope.properties.tutor.catPais === null) {
                             swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");
@@ -1087,7 +1087,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         console.log("falta tutor");
                     } else if ($scope.properties.tutor.catPais === null) {
                         swal("¡País!", "Debes agregar el país del domicilio de tu tutor", "warning");
-                    } else if ($scope.properties.tutor.codigoPostal === "") {
+                    } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu tutor", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Estado!", "Debes agregar el estado del domicilio de tu tutor", "warning");

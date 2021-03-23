@@ -72,22 +72,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
 
-var validar = false;
-function startProcess() {
-    debugger
+    var validar = false;
+    function startProcess() {
+        let claveValida = false;
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
             if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion ) {
-                if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                claveValida = validarClaveEditar($scope.properties.dataToChange2);
+                if(claveValida){
+                    if ($scope.properties.processId) {
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", $scope.properties.url).then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
                         });
-                        localStorageService.delete($window.location.href);
-                    });
-
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
                 } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                 }
             } else {
                 if (!$scope.properties.dataToChange2.descripcion) {
@@ -97,20 +101,23 @@ function startProcess() {
                     swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 }
             }
-
         } else {
+            claveValida = validarNuevaClave($scope.properties.dataToChange2);
             if ($scope.properties.dataToChange2.lstCatSexoInput[0].clave && $scope.properties.dataToChange2.lstCatSexoInput[0].descripcion) {
-                if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                if(claveValida){
+                    if ($scope.properties.processId) {
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", $scope.properties.url).then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
                         });
-                        localStorageService.delete($window.location.href);
-                    });
-
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
                 } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                 }
             } else {
                 if (!$scope.properties.dataToChange2.lstCatSexoInput[0].descripcion) {
@@ -119,13 +126,37 @@ function startProcess() {
                 if (!$scope.properties.dataToChange2.lstCatSexoInput[0].clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 }
-               
             }
         }
     }
 
+    function validarNuevaClave(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.lstCatSexoInput[0].clave.toLowerCase()){
+                isValid = false;
+                break;
+            }
+        }
 
+        return isValid;
+    }
 
+    function validarClaveEditar(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        let pidString = _value.persistenceId + "";
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.clave.toLowerCase() && pidString !== (data[i].persistenceId + "")){
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
+    }
 
 
     /**

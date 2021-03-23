@@ -62,7 +62,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             errorMessage = "Captura el Estado de tu escuela.";
         } else if ($scope.properties.infoEscuela.ciudad === ""){
             isValid = false;
-            titleMessage = "¡Ciudad!";
+            titleMessage = "¡Ciudad/Municipio/Delegación/Poblado!";
             errorMessage = "Captura la Ciudad de tu escuela.";
         } else if($scope.properties.infoEscuela.anoInicio === undefined || $scope.properties.infoEscuela.anoInicio === ""){
             isValid = false;

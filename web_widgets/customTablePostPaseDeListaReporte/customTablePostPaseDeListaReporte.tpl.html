@@ -82,43 +82,45 @@
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td>
-                        <img ng-src="{{row.aspirantes[0].fotografiab64}}" style="width: 64px;">
+                        <img ng-src="{{row.fotografiab64}}" style="width: 64px;">
                     </td>
                     <td>
-                        {{row.aspirantes[0].idbanner}}
+                        {{row.idbanner}}
                     </td>
                     <td>
-                        {{row.aspirantes[0].primernombre}} {{row.aspirantes[0].segundonombre}} {{row.aspirantes[0].apellidopaterno}} {{row.aspirantes[0].apellidomaterno}}<br> {{row.aspirantes[0].correoelectronico}} <br> {{row.aspirantes[0].curp}}
+                        {{row.primernombre}} {{row.segundonombre}} {{row.apellidopaterno}} {{row.apellidomaterno}}<br> {{row.correoelectronico}} <br> {{row.curp}}
                     </td>
                     <td>
-                        {{row.aspirantes[0].campus}}<br> {{row.aspirantes[0].licenciatura}} <br> {{row.aspirantes[0].periodo}}
+                        {{row.campus}}<br> {{row.licenciatura}} <br> {{row.periodo}}
                     </td>
                     <td>
-                        {{row.aspirantes[0].procedencia}}
+                        {{row.procedencia}}
                         <br/>
-                        {{row.aspirantes[0].preparatoria}}
+                        {{row.preparatoria}}
                         <br/>
-                        {{row.aspirantes[0].promediogeneral}}
+                        {{row.promediogeneral}}
                         
                     </td>
                     <td>
-                        {{row.aspirantes[0].residencia}}
+                        {{row.residencia}}
                     </td>
                     <td>
-                        {{row.aspirantes[0].sexo}}
+                        {{row.sexo}}
                     </td>
                     
                     <td ng-if="properties.lstContenido[0].tipoprueba_PID=='1'">
                         {{row.horario}}
                     </td>
-                   <td ng-show="row.tipoprueba_PID =='4' && row.aspirantes[0].cbcoincide == 't'">
+                   <td ng-show="row.tipoprueba_PID =='4' && row.cbcoincide == 't'">
                        <br>
                         Aspirante exento
                     </td>
-                    <td ng-hide="row.tipoprueba_PID =='4' && row.aspirantes[0].cbcoincide == 't'">
-                        <div class=" middle-td text-center"  ng-click="doRequestRedirect(row);">
-                            <span ng-class="row.asistencia === true?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true"></span>
-                            <i class="glyphicon glyphicon-user iconograndetabla"></i>
+                    <td ng-hide="row.tipoprueba_PID =='4' && row.cbcoincide == 't'">
+                        <div class=" middle-td text-center" >
+                            <span ng-class="row.asistencia === 't'?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true"></span>
+                            <!--<i class="glyphicon glyphicon-user iconograndetabla"></i>-->
+                            <span style="width:4%; display: inline-block;"> </span>
+                            <i class="glyphicon glyphicon-user iconograndetabla color-orange" ng-click="doRequestRedirect(row);"></i>
                         </div>
                     </td>
                     <td>

@@ -2,8 +2,98 @@
   "designerVersion" : "1.11.52",
   "id" : "CatCuantoTiempoAcciones",
   "name" : "CatCuantoTiempoAcciones",
-  "lastUpdate" : 1609373125898,
+  "lastUpdate" : 1616525659485,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "<i class=\"glyphicon glyphicon-arrow-left\"></i> Regresar a catálogos AD"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Submit task"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          }
+        },
+        "reference" : "bbd255c0-5b23-4cfb-9f20-7bd98e3721aa",
+        "hasValidationError" : false,
+        "id" : "customButtonRegresarCatalogosAD"
+      }
+    ],
     [
       {
         "type" : "container",
@@ -51,7 +141,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Catálogo cuánto tiempo"
+                  "value" : "¿Cuánto tiempo estudiaste en el extranjero?"
                 },
                 "level" : {
                   "type" : "constant",
@@ -148,7 +238,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Agregar"
+                        "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -156,7 +246,7 @@
                       },
                       "buttonStyle" : {
                         "type" : "constant",
-                        "value" : "info"
+                        "value" : "primary"
                       },
                       "action" : {
                         "type" : "constant",
@@ -211,7 +301,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
                     "Usuario creación",
                     "Fecha creación"
@@ -301,7 +391,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
                     "Usuario creación",
                     "Fecha creación"
@@ -317,7 +407,7 @@
                     "clave",
                     "descripcion",
                     "usuarioCreacion",
-                    "fechaCreacion"
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -459,7 +549,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -480,7 +570,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -492,7 +582,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -524,9 +614,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "eabfefd6-366d-4ced-b186-be1a62e655ce",
+              "reference" : "3bf3f712-b98f-4a97-a650-67756edce768",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -534,7 +624,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 10,
-                "lg" : 6
+                "lg" : 10
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -609,9 +699,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -632,11 +722,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -666,9 +756,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -693,7 +783,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -814,7 +904,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 2,
-                "lg" : 6
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -835,7 +925,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -847,7 +937,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -879,9 +969,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "653ed1ab-88be-4b42-bfda-872a14a81ab4",
+              "reference" : "7195198b-470c-4256-8a30-4bad19f42c0e",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -889,7 +979,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 10,
-                "lg" : 6
+                "lg" : 10
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -964,9 +1054,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -987,11 +1077,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1021,9 +1111,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1048,7 +1138,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1170,10 +1260,10 @@
   ],
   "assets" : [
     {
-      "id" : "9d2e6372-3280-4c52-914d-9cc52d0e6bd4",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
+      "id" : "ebd74f70-8130-41a2-aea1-5dbda97f1855",
+      "name" : "anahuac_custom_styles.css",
       "type" : "css",
-      "order" : 1,
+      "order" : 3,
       "external" : false
     },
     {
@@ -1184,10 +1274,10 @@
       "external" : false
     },
     {
-      "id" : "1eab1a06-71cb-4113-9bc5-c315efa05543",
+      "id" : "d8c2dee6-87f5-4990-81b5-3fb82877cc15",
       "name" : "style.css",
       "type" : "css",
-      "order" : 0,
+      "order" : 4,
       "external" : false
     },
     {
@@ -1418,8 +1508,8 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"solicitudes_progreso\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
+        "    \"orderby\":\"CLAVE\",\r",
+        "    \"orientation\":\"ASC\",\r",
         "    \"limit\":100,\r",
         "    \"offset\":0,\r",
         "    \"catalogo\":\"CatCuantoTiempo\"\r",

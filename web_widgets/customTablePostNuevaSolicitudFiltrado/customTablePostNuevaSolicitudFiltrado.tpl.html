@@ -1,4 +1,4 @@
-<div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstMembership.length>1">
+<div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstCampusByUser.length>2">
     <select class="form-control" ng-model="filtroCampus" ng-options="getCampusByGrupo(member) as getCampusByGrupo(member) for member in lstCampusByUser" ng-change="addFilter()">
         <!--<option value="" disabled selected>Seleccionar campus</option>-->
         
@@ -22,7 +22,7 @@
                 <th>Número de solicitud</th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Email<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('CURP')">Curp<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CURP'"></i></span> </th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('PROGRAMA')">Programa<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">Período de ingreso<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='INGRESO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus ingreso<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTADO')">Procedencia<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTADO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('PROCEDENCIA')">Procedencia<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROCEDENCIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última modificación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
                 <th> Acciones</th>
             </tr>
@@ -45,7 +45,7 @@
                     <b>{{row.caseid}}</b>
                 </td>
                 <td>
-                     <b>{{row.primernombre}} {{row.segundonombre}} {{row.apellidopaterno}} {{row.apellidomaterno}} </b><br>
+                     <b>{{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}} {{row.segundonombre}}</b><br>
                     {{row.correoelectronico}}<br>
                     {{row.curp}}
                 </td>
@@ -55,7 +55,8 @@
                     {{row.campus}}
                 </td>
                 <td>
-                     <b>{{row.estado}} </b><br>
+                     <!--<b>{{row.estado}} </b><br>-->
+                     <b>{{row.procedencia}} </b><br>
                     {{row.preparatoria}}<br>
                     {{row.promediogeneral}}
                 </td>

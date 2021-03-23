@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "PaseListaReporte",
   "name" : "PaseListaReporte",
-  "lastUpdate" : 1614108680230,
+  "lastUpdate" : 1616527235776,
   "rows" : [
     [
       {
@@ -2360,7 +2360,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<h4>{{strUsuario.aspirantes[0].primernombre}} {{strUsuario.aspirantes[0].segundonombre}} {{strUsuario.aspirantes[0].apellidopaterno}} {{strUsuario.aspirantes[0].apellidomaterno}}</h4>"
+                  "value" : "<h3>{{strUsuario.primernombre}} {{strUsuario.segundonombre}} {{strUsuario.apellidopaterno}} {{strUsuario.apellidomaterno}}</h3>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -2560,7 +2560,7 @@
                             },
                             "url" : {
                               "type" : "expression",
-                              "value" : "strUsuario.aspirantes[0].fotografiab64"
+                              "value" : "strUsuario.fotografiab64"
                             },
                             "assetName" : {
                               "type" : "constant",
@@ -2748,7 +2748,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].licenciatura"
+                              "value" : "strUsuario.licenciatura"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2825,7 +2825,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].campus"
+                              "value" : "strUsuario.campus"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2902,7 +2902,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].periodo"
+                              "value" : "strUsuario.periodo"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2979,7 +2979,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].lugarexamen"
+                              "value" : "strUsuario.lugarexamen"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3056,7 +3056,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].correoelectronico"
+                              "value" : "strUsuario.correoelectronico"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3133,7 +3133,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].telefonocelular"
+                              "value" : "strUsuario.telefonocelular"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3210,7 +3210,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.asistencia == null ? \"No\" : strUsuario.asistencia == true ? \"Sí\": \"No\""
+                              "value" : "strUsuario.asistencia == null ? \"No\" : strUsuario.asistencia == \"t\" ? \"Sí\": \"No\""
                             },
                             "type" : {
                               "type" : "constant",
@@ -3300,7 +3300,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Nombre cita:</strong> {{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Fecha:</strong> {{strUsuario.fecha}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Hora:</strong> {{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Lugar:</strong> {{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
+                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Nombre cita:</strong> {{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Fecha:</strong> {{strUsuario.aplicacion}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Hora:</strong> {{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Lugar:</strong> {{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -4244,7 +4244,7 @@
         "    \"modulo\":$data.modulo,\r",
         "    \"fechaCreacion\":$data.getFecha,\r",
         "    \"isEliminado\":false,\r",
-        "    \"usuarioComentario\":$data.strUsuario.aspirantes[0].correoelectronico\r",
+        "    \"usuarioComentario\":$data.strUsuario.correoelectronico\r",
         "    }"
       ],
       "exposed" : false
@@ -4285,7 +4285,7 @@
         "            \"lstFiltro\": [{\r",
         "                \"columna\": \"CAMPUS\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.aspirantes[0].grupobonita\r",
+        "                \"valor\": $data.strUsuario.grupobonita\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4295,7 +4295,7 @@
         "            {\r",
         "                \"columna\": \"USUARIOCOMENTARIO\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.aspirantes[0].correoelectronico\r",
+        "                \"valor\": $data.strUsuario.correoelectronico\r",
         "            }],\r",
         "            \"type\": \"solicitudes_progreso\",\r",
         "            \"usuario\": 0,\r",

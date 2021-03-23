@@ -1,0 +1,21 @@
+<!--<label for="excelUpload" class="btn btn-primary">Subir archivo Excel</label>-->
+<!--<input id="excelUpload" type="file" value="{{fileUpload}}">-->
+<br>
+<div class="input-group file-upload" ng-click="cleanInput()">
+    <input type="text" ng-focus="ctrl.preventFocus($event)" placeholder="Selecciona un archivo excel" value="{{fileName}}" class="form-control">
+
+    <button type="button" ng-if="ctrl.filemodel" ng-click="ctrl.clear()" class="file-upload-clear">
+        <i class="glyphicon glyphicon-remove-circle"></i>
+        <span class="hide" translate>Close</span>
+    </button>
+    <span class="input-group-btn">
+        <span class="btn" ng-class="{'btn-default disabled':$isUploading, 'btn-primary':!$isUploading}">
+            <input class="file-upload-input"
+               ng-class="{'file-upload-input--disabled':$isUploading}"
+               name="files" 
+               type="file"
+            />
+            <i class="glyphicon" ng-class="{'glyphicon-cloud-upload':$isUploading, 'glyphicon-paperclip':!$isUploading}"></i>
+        </span>
+    </span>
+</div>

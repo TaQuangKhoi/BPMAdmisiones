@@ -21,20 +21,20 @@ function PbCheckboxCtrl($scope, $http, $log, widgetNameFactory,blockUI) {
       debugger;
         blockUI.start();
         var datos ={ "deshabilitado": null};
-        datos.deshabilitado = accion;
+        datos.deshabilitado = angular.copy(accion);
 
         var req = {
             method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=activarDesactivarPago&p=0&c=10",
+            url: "/bonita/API/extension/AnahuacRest?url=activarDesactivarLugarExamen&p=0&c=10",
             data: datos,
         };
 
         return $http(req)
             .success(function (data, status) {
                if(accion){
-                   swal("¡Se han desabilitado los pagos!","","success")
+                   swal("¡Se han deshabilitado los VPD!","","success")
                }else{
-                   swal("¡Se han habilitados los pagos!","","success")
+                   swal("¡Se han habilitado los VPD!","","success")
                }
             })
             .error(function (data, status) {

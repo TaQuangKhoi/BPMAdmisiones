@@ -22,6 +22,7 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
             if ($scope.properties.value === $scope.properties.availableValues[x].descripcion) {
                 otro = false;
                 $scope.properties.completeObject = $scope.properties.availableValues[x];
+                $scope.properties.claveBachilleratoSeleccionado = $scope.properties.availableValues[x].clave;
                 break;
             }
         }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatSexoAcciones",
   "name" : "CatSexoAcciones",
-  "lastUpdate" : 1609807658362,
+  "lastUpdate" : 1616526746638,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catálogo Sexo"
+            "value" : "Catálogo sexo"
           },
           "level" : {
             "type" : "constant",
@@ -121,7 +121,7 @@
         "rows" : [
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -137,46 +137,76 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Filtro específico"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "variableDestino" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "lstFiltrosPre"
-                },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "lstFiltros"
-                },
-                "OpenModal" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : "modalFiltroEspecifico"
+                  "value" : ""
                 }
               },
-              "reference" : "f02ca32c-ff96-465b-b6e9-d379342e8c1f",
+              "reference" : "f17c52c9-8837-4256-b276-b4286651a8f0",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Filtro específico"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "lstFiltrosPre"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "lstFiltros"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : "modalFiltroEspecifico"
+                      }
+                    },
+                    "reference" : "f02ca32c-ff96-465b-b6e9-d379342e8c1f",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValor"
+                  }
+                ]
+              ]
             },
             {
               "type" : "component",
@@ -201,7 +231,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -209,7 +239,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -252,7 +282,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "content" : {
                   "type" : "variable",
@@ -356,9 +386,9 @@
                   "value" : "/bonita/API/extension/AnahuacRest?url=getCatSexo&p=0&c=100"
                 }
               },
-              "reference" : "2612ebfc-7621-4e3b-99be-d6a80fbeec80",
+              "reference" : "fc71cbdd-b7fb-45c3-b98c-7d759d17de79",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionarFiltrado"
+              "id" : "customTableSeleccionarFiltradoNoCombo"
             }
           ],
           [
@@ -547,9 +577,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "821c8b91-229b-468d-a30c-73c253c598d7",
+              "reference" : "a94c9c6e-c854-44d2-9ab4-6a8f4f903973",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMAYUS"
             },
             {
               "type" : "component",
@@ -629,12 +659,12 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -645,175 +675,91 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Cancelar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "variableDestino" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "editable"
-                },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "modalId" : {
-                  "type" : "constant"
-                },
-                "variableDestino2" : {
-                  "type" : "variable",
-                  "value" : "catSexo_selected"
-                },
-                "variableAcopiar2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                  "value" : ""
                 }
               },
-              "reference" : "2edb1a09-d663-43e0-8b9f-abfde22d954d",
+              "reference" : "195008af-a480-4ff7-832c-c5d8c68a3be2",
               "hasValidationError" : false,
-              "id" : "customButtonSetValorDoble"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      },
+                      "variableDestino2" : {
+                        "type" : "variable",
+                        "value" : "catSexo_selected"
+                      },
+                      "variableAcopiar2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                      }
+                    },
+                    "reference" : "2edb1a09-d663-43e0-8b9f-abfde22d954d",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValorDoble"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catSexo"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catSexo_selected"
-                }
-              },
-              "reference" : "7ecffec2-3bae-434e-88b6-a3b5d8537a66",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -824,102 +770,248 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "lstContenido"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catSexo_selected"
                 }
               },
-              "reference" : "14948c86-24fb-4944-b684-ac7c0b908345",
+              "reference" : "c4d41584-acc0-47ad-b685-fddf372041d3",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatSexo"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "validar != true"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catSexo"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processEditData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "catSexo_selected"
+                      }
+                    },
+                    "reference" : "7ecffec2-3bae-434e-88b6-a3b5d8537a66",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciar"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "lstContenido"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processEditData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "catSexo_selected"
+                      }
+                    },
+                    "reference" : "14948c86-24fb-4944-b684-ac7c0b908345",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarCatSexo"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -1024,9 +1116,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "16fba515-c89d-46a8-bade-890703972a63",
+              "reference" : "adbd5a0f-fb50-4180-a273-da2c76af7fe8",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMAYUS"
             },
             {
               "type" : "component",
@@ -1106,12 +1198,12 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1122,167 +1214,83 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Cancelar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "variableDestino" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "editable"
-                },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "modalId" : {
-                  "type" : "constant"
+                  "value" : ""
                 }
               },
-              "reference" : "8e7234b1-fc8e-43c3-b53f-407287122e51",
+              "reference" : "e3bf15f2-993a-4fa9-9164-066558cc10bc",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "8e7234b1-fc8e-43c3-b53f-407287122e51",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValor"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catSexo"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatSexoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
-                }
-              },
-              "reference" : "35651063-52ed-4351-a25f-5c2814230327",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1293,102 +1301,248 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "lstContenido"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatSexoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
                 }
               },
-              "reference" : "fec6e05d-8e6c-4fae-b7b3-b01eceeb63a7",
+              "reference" : "962c3093-34b0-472c-8976-cd71899fcf86",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatSexo"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "validar != true"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catSexo"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatSexoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "35651063-52ed-4351-a25f-5c2814230327",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciar"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=getCatSexo&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "lstContenido"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatSexoInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "fec6e05d-8e6c-4fae-b7b3-b01eceeb63a7",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarCatSexo"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -1790,7 +1944,7 @@
                               },
                               "buttonStyle" : {
                                 "type" : "constant",
-                                "value" : "default"
+                                "value" : "primary"
                               },
                               "action" : {
                                 "type" : "constant",
@@ -1980,7 +2134,7 @@
                               },
                               "buttonStyle" : {
                                 "type" : "constant",
-                                "value" : "default"
+                                "value" : "primary"
                               },
                               "action" : {
                                 "type" : "constant",

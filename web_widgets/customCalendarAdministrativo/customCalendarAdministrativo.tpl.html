@@ -33,10 +33,10 @@
         <h4>{{editarS?'Editar':'Nueva'}} sesión</h4>
     </div>
     <div class="col-xs-6 text-left">
-        <button class="btn btn-info" ng-if="sesion.persistenceId>0" ng-click="pantallaCambiar('principal')"><i class="glyphicon glyphicon-circle-arrow-left"></i> Regresar</button>
+        <button class="btn btn-info" ng-click="pantallaCambiar('principal')"><i class="glyphicon glyphicon-circle-arrow-left"></i> Regresar</button>
     </div>
     <div class="col-xs-6 text-right">
-        <!--button class="btn btn-default"><i class="glyphicon glyphicon-trash"></i> Eliminar</button-->
+        <button class="btn btn-default" ng-click="eliminarSesion()" ng-if="sesion.persistenceId>0 && validarRegistrados()"><i class="glyphicon glyphicon-trash"></i> Eliminar</button>
         <button class="btn btn-default" ng-click="copiarSesion()" ng-if="sesion.persistenceId>0"><i class="glyphicon glyphicon-transfer"></i> Copiar sesión</button>
     </div>
     <div class="col-xs-12">
@@ -59,6 +59,12 @@
     </div>
     <div class="col-xs-6">
         <div class="form-group">
+            <label>Último día para inscripción</label>
+            <input ng-blur="setFechaUltimo()" id="fecha_ultimo" type="date" class="form-control">
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
             <label>Residencia</label>
             <multiselect class="input-xlarge" multiple="true" ng-model="sesion.tipo" key="clave" label="descripcion" options="c.clave as c.descripcion for c in tipos" change="selected()"></multiselect>
         </div>
@@ -73,7 +79,7 @@
                     <label class="panel-label">Configuraciones avanzadas</label>
                 </div>
                 <div class="col-xs-6 text-right">
-                    <button class="btn btn-default" data-toggle="collapse" data-target="#demo"><i class="glyphicon glyphicon-cog"></i> Configuraciones avanzadas</button>
+                    <button class="btn btn-default" data-toggle="collapse" data-target="#demo" ng-click="updateTerritorios()"><i class="glyphicon glyphicon-cog"></i> Configuraciones avanzadas</button>
                 </div>
             </div>
 
@@ -135,7 +141,7 @@
             <label>Pruebas de la sesión</label>
         </div>
         <div class="col-xs-6 text-right">
-            <button class="btn btn-primary" ng-click="agregarPruebaNueva('prueba')"> <i class="glyphicon glyphicon-plus"></i> Agregar prueba</button>
+            <button class="btn btn-primary" ng-click="agregarPruebaNueva('prueba');updateTerritorios();"> <i class="glyphicon glyphicon-plus"></i> Agregar prueba</button>
         </div>
     </div>
 
@@ -149,17 +155,19 @@
                     <th>Entrada</th>
                     <th>Salida</th>
                     <th>Registrados</th>
+                    <th>Cupo</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="p in sesion.pruebas" ng-if="!p.iseliminado">
                     <td>{{p.nombre}}</td>
-                    <td>{{p.tipo.descripcion}}</td>
+                    <td>{{(p.tipo.descripcion=='Examen de aptitudes y conocimientos')?'Examen de Aptitudes y Conocimientos':p.tipo.descripcion}}</td>
                     <td>{{p.aplicacion}}</td>
                     <td>{{p.entrada}}</td>
                     <td>{{p.salida}}</td>
                     <td>{{p.registrados}}</td>
+                    <td>{{p.cupo}}</td>
                     <td>
                         <button class="btn btn-link" ng-click="editarPrueba(p)"><i class="small material-icons">create</i></button>
                         <button ng-hide="p.registrados>0" class="btn btn-link" ng-click="confirmarEliminarPruebas(p)"><i class="small material-icons">delete</i></button>
@@ -187,7 +195,7 @@
     <div class="col-xs-6">
         <div class="form-group">
             <label>Tipo de prueba</label>
-            <select ng-change="setTipoPrueba();" class="form-control" ng-disabled="prueba.registrados>0 || (countPsicologos()>0 && prueba.cattipoprueba_pid == 1)" ng-model="tipoPruebaSelected" ng-options="tipo as tipo.descripcion  for tipo in tipoPrueba">
+            <select ng-change="setTipoPrueba();" class="form-control" ng-disabled="prueba.registrados>0 || (countPsicologos()>0 && prueba.cattipoprueba_pid == 1)" ng-model="tipoPruebaSelected" ng-options="tipo as ((tipo.descripcion=='Examen de aptitudes y conocimientos')?'Examen de Aptitudes y Conocimientos':tipo.descripcion)  for tipo in tipoPrueba">
                 <option value="">Seleccionar</option>
             </select>
         </div>
@@ -208,7 +216,7 @@
     <div class="col-xs-4">
         <div class="form-group">
             <label>Fecha de aplicación</label>
-            <input id="aplicacion" type="date" class="form-control" ng-blur="setFecha()">
+            <input ng-disabled="prueba.registrados>0" id="aplicacion" type="date" class="form-control" ng-blur="setFecha()">
         </div>
     </div>
     <div class="col-xs-4">
@@ -223,18 +231,18 @@
             <input ng-disabled="prueba.entrada == null || prueba.entrada == '' || prueba.registrados>0 || countPsicologos()>0 && prueba.cattipoprueba_pid==1" id="fin" ng-blur="setHora(false)" type="time" class="form-control" name="input" placeholder="HH:mm:ss" min="08:00:00" max="18:00:00">
         </div>
     </div>
-    <div class="col-xs-6">
+    <!--div class="col-xs-6">
         <div class="form-group">
             <label>Último día para inscripción</label>
             <input id="ultimo" type="date" class="form-control" ng-blur="setFechaUltimo()">
         </div>
-    </div>
+    </div-->
     <div class="col-xs-6" ng-if="prueba.cattipoprueba_pid == 1">
         <div class="form-group">
             <label>Duración de las entrevistas(min)</label>
             <select class="form-control" ng-change="setEntrevistas()" ng-disabled="prueba.registrados>0 || countPsicologos()>0" ng-model="prueba.duracion">
                 <option value="">Seleccionar</option>
-                <option value="10">15</option>
+                <option value="15">15</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
                 <option value="60">60</option>
@@ -369,7 +377,7 @@
 
     <div class="col-xs-12 text-right">
         <button class="btn btn-info" ng-click="pantallaCambiar('sesion')"><i class="glyphicon glyphicon-remove"></i> Cancelar</button>
-        <button class="btn btn-primary" ng-click="agregarPrueba()"><i class="glyphicon glyphicon-floppy-disk"></i> {{editarP?'Guardar':'Agregar'}}</button>
+        <button class="btn btn-primary" ng-click="agregarPrueba()">Aceptar</button>
     </div>
 </div>
 <!-- Modal -->

@@ -32,7 +32,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }else{
             blockUI.start();
             //$scope.properties.dataToSend.isEnviarSolicitudCont = true;
-            debugger;
             $scope.properties.dataToSend.catSolicitudDeAdmisionInput.promedioGeneral = $scope.properties.dataToSend.catSolicitudDeAdmisionInput.promedioGeneral + "";
             $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos.persistenceId_string  = $scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string;
             //= $scope.properties.Bachilleratopersistenceid;
@@ -148,15 +147,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
 
     return $http(req)
-      .success(function(data, status) {
-        $scope.properties.dataFromSuccess = data;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromError = undefined;
-        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
-        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-          redirectIfNeeded();
-        }
-        closeModal($scope.properties.closeOnSuccess);
+    //   .success(function(data, status) {
+    //     $scope.properties.dataFromSuccess = data;
+    //     $scope.properties.responseStatusCode = status;
+    //     $scope.properties.dataFromError = undefined;
+    //     notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+    //     if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+    //       redirectIfNeeded();
+    //     }
+    //     closeModal($scope.properties.closeOnSuccess);
+    //   })
+    .success(function(data, status) {
+        setTimeout(function(){
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    blockUI.stop();
+                    redirectIfNeeded();
+            }
+            closeModal($scope.properties.closeOnSuccess);
+            blockUI.stop();
+        },5000)
       })
       .error(function(data, status) {
           blockUI.stop();
@@ -167,7 +180,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       })
       .finally(function() {
         vm.busy = false;
-        blockUI.stop();
       });
   }
 

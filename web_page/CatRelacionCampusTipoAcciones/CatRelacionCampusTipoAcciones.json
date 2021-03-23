@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatRelacionCampusTipoAcciones",
   "name" : "CatRelacionCampusTipoAcciones",
-  "lastUpdate" : 1611374015355,
+  "lastUpdate" : 1616526626281,
   "rows" : [
     [
       {
@@ -134,8 +134,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "lstCampusUsuario.length <= 1"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -688,6 +688,74 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Idioma"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "inline" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "idiomaSelected"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "idioma"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "valor"
+                },
+                "selectedValue" : {
+                  "type" : "variable",
+                  "value" : "catPropedeuticoSelected.idioma"
+                }
+              },
+              "reference" : "c3e34d3c-bb03-4c53-9867-71b93656040a",
+              "hasValidationError" : false,
+              "id" : "pbRadioButtons"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
                 "md" : 6,
                 "lg" : 6
               },
@@ -1087,7 +1155,8 @@
         "        \"persistenceIdCatRecibirAtencionEspiritual\": $data.catPropedeuticoSelected.persistenceIdCatRecibirAtencionEspiritual,\r",
         "        \"persistenceId\": $data.catPropedeuticoSelected.persistenceId === 0 ? null : $data.catPropedeuticoSelected.persistenceId,\r",
         "        \"fechaInicio\": $data.catPropedeuticoSelected.fechaInicio,\r",
-        "        \"fechaFinal\": $data.catPropedeuticoSelected.fechaFinal\r",
+        "        \"fechaFinal\": $data.catPropedeuticoSelected.fechaFinal,\r",
+        "        \"idioma\":$data.catPropedeuticoSelected.idioma\r",
         "    }\r",
         "};"
       ],
@@ -1102,6 +1171,9 @@
         "    for(var index in $data.lstCatCampus){",
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
         "            resultado.push($data.lstCatCampus[index]);",
+        "            if($data.lstCampusUsuario.length == 1){",
+        "                $data.lstFiltros[0].valor = resultado[0].descripcion;",
+        "            }",
         "        }",
         "    }",
         "}",
@@ -1117,7 +1189,16 @@
         "for(var x in $data.lstCampusByUser){",
         "    for(var index in $data.lstCampusRole){",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
-        "            resultado.push($data.lstCampusRole[index]);",
+        "            //resultado.push($data.lstCampusRole[index]);",
+        "            let i = 0;",
+        "            resultado.forEach(value =>{",
+        "                if(value == $data.lstCampusRole[index] ){",
+        "                   i++;",
+        "                }",
+        "            });",
+        "            if(i === 0){",
+        "              resultado.push($data.lstCampusRole[index]);",
+        "            }",
         "        }",
         "    }",
         "}",
@@ -1194,6 +1275,22 @@
         "\"urlAvisoPrivacidad\": \"\",",
         "\"urlDatosVeridicos\": \"\",",
         "\"usuarioBanner\": \"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "idiomaSelected" : {
+      "type" : "json",
+      "value" : [
+        "[{\"idioma\":\"Español\",\"valor\":\"Español\"},{\"idioma\":\"Ingles\",\"valor\":\"Ingles\"}]"
+      ],
+      "exposed" : false
+    },
+    "idioma" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.catPropedeuticoSelected.idioma === undefined || $data.catPropedeuticoSelected.idioma === null){",
+        "   $data.catPropedeuticoSelected.idioma = \"Español\";",
         "}"
       ],
       "exposed" : false

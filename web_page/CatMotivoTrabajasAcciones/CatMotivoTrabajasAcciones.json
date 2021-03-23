@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatMotivoTrabajasAcciones",
   "name" : "CatMotivoTrabajasAcciones",
-  "lastUpdate" : 1609374180082,
+  "lastUpdate" : 1616526200066,
   "rows" : [
     [
       {
@@ -49,9 +49,99 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<i class=\"glyphicon glyphicon-arrow-left\"></i> Regresar a catálogos AD"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "constant"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                }
+              },
+              "reference" : "2ceec5c0-dfe1-40bf-94eb-1be61a42d559",
+              "hasValidationError" : false,
+              "id" : "customButtonRegresarCatalogosAD"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Catálogo por que motivo trabajas"
+                  "value" : "¿Por qué motivo trabajas?"
                 },
                 "level" : {
                   "type" : "constant",
@@ -121,7 +211,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -129,7 +219,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -181,7 +271,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
                     "Usuario creación",
                     "Fecha creación"
@@ -311,7 +401,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
                     "Usuario creación",
                     "Fecha creación"
@@ -327,7 +417,7 @@
                     "clave",
                     "descripcion",
                     "usuarioCreacion",
-                    "fechaCreacion"
+                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -449,7 +539,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -461,7 +551,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave:"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -493,9 +583,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "3dfcfd13-592d-4d2d-96c6-6619c12119c2",
+              "reference" : "f92e987f-d494-4ad0-8922-d58b40a4645a",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -578,9 +668,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -601,11 +691,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -643,9 +733,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -670,7 +760,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -749,9 +839,9 @@
                   "value" : "catMotivoTrabajas_selected"
                 }
               },
-              "reference" : "da425af0-a727-466c-af3d-e4a0c446ce62",
+              "reference" : "f19380df-298c-4bff-a0d8-7a2de6f18da5",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatSexo"
+              "id" : "customButtonInstanciarCatMotivoTrabajas"
             }
           ]
         ]
@@ -812,7 +902,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -824,7 +914,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave:"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -856,9 +946,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "3909af20-f18f-4b96-af24-a71314412ff6",
+              "reference" : "2eb399b8-50ff-4f8e-b137-dd9875cdab8a",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -941,9 +1031,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -960,15 +1050,15 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Canbcelar"
+                  "value" : "Cancelar"
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -998,9 +1088,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1025,7 +1115,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1104,9 +1194,9 @@
                   "value" : "formOutputAgregar"
                 }
               },
-              "reference" : "6aedf974-2674-42c9-920d-6f4b7c43d684",
+              "reference" : "f80c88b7-0b42-4e98-85d7-a422ed58a6bb",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatSexo"
+              "id" : "customButtonInstanciarCatMotivoTrabajas"
             }
           ]
         ]
@@ -1147,13 +1237,6 @@
   ],
   "assets" : [
     {
-      "id" : "1d53513d-70cf-4e54-9af8-d921f2cf3db3",
-      "name" : "anahuac_custom_styles (1) (1) (1).css",
-      "type" : "css",
-      "order" : 1,
-      "external" : false
-    },
-    {
       "id" : "608a165a-70cc-4425-a845-3dfc0a349a31",
       "name" : "jquery.min.js",
       "type" : "js",
@@ -1161,10 +1244,10 @@
       "external" : false
     },
     {
-      "id" : "005dd2e2-5e9a-474f-9fd3-ab14eceeea2b",
-      "name" : "style.css",
+      "id" : "008e38ec-c536-4312-8ee9-f1b8dcfcdf34",
+      "name" : "anahuac_custom_styles.css",
       "type" : "css",
-      "order" : 0,
+      "order" : 3,
       "external" : false
     },
     {
@@ -1173,14 +1256,21 @@
       "type" : "json",
       "order" : 0,
       "external" : false
+    },
+    {
+      "id" : "b8f62172-7f6d-422e-86cb-0eb7c244880b",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 4,
+      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
   "variables" : {
     "CatMotivoTrabajas" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatMotivoTrabajas?q=getCatMotivoTrabajas&p={{inicio}}&c=10"
+        "[]"
       ],
       "exposed" : false
     },
@@ -1332,8 +1422,8 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"solicitudes_progreso\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
+        "    \"orderby\":\"CLAVE\",\r",
+        "    \"orientation\":\"ASC\",\r",
         "    \"limit\":100,\r",
         "    \"offset\":0,\r",
         "    \"catalogo\":\"CatMotivoTrabajas\"\r",

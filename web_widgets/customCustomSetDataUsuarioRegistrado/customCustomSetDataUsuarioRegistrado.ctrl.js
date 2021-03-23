@@ -25,19 +25,26 @@ function customSetDataTransferencia($scope, $http) {
                                 }
                             }
                         }
+                        
+                        
+                        
                     }else if($scope.properties.valoresSolicitante.lugarexamen.toUpperCase() === "EN EL EXTRANJERO (SOLO SI VIVES FUERA DE MÉXICO)"){
+                        debugger;
                         for(var ex=0;ex<$scope.properties.paisesRUA.length;ex++){
                             if($scope.properties.valoresSolicitante.paisexamen === $scope.properties.paisesRUA[ex]){
                                 $scope.properties.paisSeleccionado = $scope.properties.paisesRUA[ex];    
                                 $scope.properties.valoresSolicitante.catEstadoExamen = null;
                                 $scope.properties.valoresSolicitante.ciudadExamen = null;
-                                for(var pais=0;pais<$scope.properties.catPais.length;pais++){
+                                $scope.properties.valoresSolicitante.catPaisExamen = $scope.properties.valoresSolicitante.paisexamen;
+                                /*for(var pais=0;pais<$scope.properties.catPais.length;pais++){
                                     if($scope.properties.valoresSolicitante.paisexamen === $scope.properties.catPais[pais].descripcion){
                                         $scope.properties.valoresSolicitante.catPaisExamen = $scope.properties.catPais[pais];
                                     }   
-                                }
+                                }*/
                             }
                         }
+                        
+                        
                     }else{
                         $scope.properties.valoresSolicitante.catEstadoExamen = null;
                         $scope.properties.valoresSolicitante.catPaisExamen = null;
@@ -63,12 +70,50 @@ function customSetDataTransferencia($scope, $http) {
                 }   
             }
             
-            for(var x=0;x<$scope.properties.catEstado.length;x++){
+            for(var x=0;x<$scope.properties.catTipoAdmision.length;x++){
+                if($scope.properties.valoresSolicitante.tipoadmision === $scope.properties.catTipoAdmision[x].descripcion){
+                    $scope.properties.valoresSolicitante.catTipoAdmision = $scope.properties.catTipoAdmision[x];
+                    break;
+                }   
+            }
+            
+            for(var x=0;x<$scope.properties.catTipoAlumno.length;x++){
+                if($scope.properties.valoresSolicitante.tipoalumno === $scope.properties.catTipoAlumno[x].descripcion){
+                    $scope.properties.valoresSolicitante.catTipoAlumno = $scope.properties.catTipoAlumno[x];
+                    break;
+                }   
+            }
+            
+            for(var x=0;x<$scope.properties.catResidencia.length;x++){
+                if($scope.properties.valoresSolicitante.residencia === $scope.properties.catResidencia[x].descripcion){
+                    $scope.properties.valoresSolicitante.catResidencia = $scope.properties.catResidencia[x];
+                    break;
+                }   
+            }
+            
+            
+            if($scope.properties.valoresSolicitante.cbcoincide === undefined || $scope.properties.valoresSolicitante.cbcoincide === "f" || $scope.properties.valoresSolicitante.cbcoincide === null || $scope.properties.valoresSolicitante.cbcoincide === false){
+                $scope.properties.valoresSolicitante.cbcoincide2 = false;
+            }else{
+                $scope.properties.valoresSolicitante.cbcoincide2 = true;
+            }
+            
+            
+            
+            /*for(var x=0;x<$scope.properties.catEstado.length;x++){
                 if($scope.properties.valoresSolicitante.estado === $scope.properties.catEstado[x].descripcion){
                     $scope.properties.valoresSolicitante.catEstado = $scope.properties.catEstado[x];
                     break;
                 }   
+            }*/
+            
+            for(var x=0;x<$scope.properties.catLugarExamen.length;x++){
+                if($scope.properties.valoresSolicitante.lugarexamen === $scope.properties.catLugarExamen[x].descripcion){
+                    $scope.properties.valoresSolicitante.catLugarExamen = $scope.properties.catLugarExamen[x];
+                    break;
+                }   
             }
+            
             
             /*if($scope.properties.catPeriodo !== undefined){
                 for(var x=0;x<$scope.properties.catPeriodo.length;x++){
@@ -116,6 +161,27 @@ function customSetDataTransferencia($scope, $http) {
         }
     });
     
+    /*
+    $scope.$watch("properties.catCiudadPais", function(){
+       for(var x=0;x<$scope.properties.catCiudadPais.length;x++){
+            if($scope.properties.valoresSolicitante.ciudadpais === $scope.properties.catCiudadPais[x].descripcion){
+                $scope.properties.valoresSolicitante.catCiudadExamen = $scope.properties.catCiudadPais[x];
+                break;
+            }   
+        } 
+    });*/
+    
+     /*$scope.$watch("properties.catPaisVive", function(){
+        for(var x=0;x<$scope.properties.catPaisVive.length;x++){
+            if($scope.properties.valoresSolicitante.paisexamen === $scope.properties.catPaisVive[x].descripcion){
+                $scope.properties.valoresSolicitante.catPaisExamen = $scope.properties.catPaisVive[x];
+                break;
+            }   
+        }
+    });*/
+    
+
+    
     $scope.$watch("properties.catPropedeutico", function(){
         debugger;
         if($scope.properties.catPropedeutico !== undefined){
@@ -128,13 +194,42 @@ function customSetDataTransferencia($scope, $http) {
         }
     });
     
-
+    $scope.$watch("properties.catCiudades", function(){
+        debugger;
+        if($scope.properties.valoresSolicitante.ciudadestado !== undefined && $scope.properties.valoresSolicitante.ciudadestado !== null){
+            for(var x=0;x<$scope.properties.catCiudades.length;x++){
+                if($scope.properties.valoresSolicitante.ciudadestado === $scope.properties.catCiudades[x].descripcion){
+                    $scope.properties.valoresSolicitante.catCiudadExamen = $scope.properties.catCiudades[x];
+                    break;
+                }   
+            }
+        }else if($scope.properties.valoresSolicitante.ciudadpais !== undefined && $scope.properties.valoresSolicitante.ciudadpais !== null){
+            for(var x=0;x<$scope.properties.catCiudades.length;x++){
+                if($scope.properties.valoresSolicitante.ciudadpais === $scope.properties.catCiudades[x].descripcion){
+                    $scope.properties.valoresSolicitante.catCiudadExamen = $scope.properties.catCiudades[x];
+                    break;
+                }   
+            }
+        }
+    });
     
-   /* $scope.$watch("properties.catCiudadExamen", function(){
+    
+   /*$scope.$watch("properties.catCiudadExamen", function(){
         if($scope.properties.catCiudadExamen !== undefined){
             for(var x=0;x<$scope.properties.catCiudadExamen.length;x++){
                 if($scope.properties.valoresSolicitante.ciudadestado === $scope.properties.catCiudadExamen[x].descripcion){
-                    $scope.properties.valoresSolicitante.ciudadExamen = $scope.properties.catCiudadExamen[x];
+                    $scope.properties.valoresSolicitante.catCiudadExamen = $scope.properties.catCiudadExamen[x];
+                    break;
+                }   
+            }
+        }
+    });*/
+    
+    /*$scope.$watch("properties.catEstadoExamen", function(){
+        if($scope.properties.catEstadoExamen !== undefined){
+            for(var x=0;x<$scope.properties.catEstadoExamen.length;x++){
+                if($scope.properties.valoresSolicitante.estadoexamen === $scope.properties.catEstadoExamen[x].descripcion){
+                    $scope.properties.valoresSolicitante.catEstadoExamen = $scope.properties.catEstadoExamen[x];
                     break;
                 }   
             }

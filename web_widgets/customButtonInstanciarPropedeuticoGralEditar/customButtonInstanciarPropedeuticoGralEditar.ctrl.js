@@ -103,23 +103,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             	console.log("TEST DATA")
                                 var clave = $scope.properties.dataToSend.catPropedeuticoGralInput.claveYear+""+$scope.properties.dataToSend.catPropedeuticoGralInput.claveRestante;
                                 vm.busy = true;
-                                var req = {
+                                var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                    doRequest("GET", $scope.properties.url).then(function() {
+                                        $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                        $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                    });
+                                    localStorageService.delete($window.location.href);
+                                });
+                               /* var req = {
                                     method: "GET",
                                     url: "../API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatPropedeuticoGral&clave=" + clave + "&id=" + persistenceId
                                 };
                                 return $http(req)
                                     .success(function(data, status) {
-                                        if (data.data[0]) {
+                                        if (data.data[0]) {*/
                                             /*=============================================*/
-                                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                            /*var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                                                 doRequest("GET", $scope.properties.url).then(function() {
                                                     $scope.properties.dataToChange = $scope.properties.dataToSet;
                                                     $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
                                                 });
                                                 localStorageService.delete($window.location.href);
-                                            });
+                                            });*/
                                             /*=============================================*/
-                                        } else {
+                                        /*} else {
                                             swal("¡Aviso!", "La clave " + clave + " ya se encuentra registrada", "warning");
                                         }
                                     })
@@ -127,7 +134,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                                     }).finally(function() {
                                         vm.busy = false;
-                                    });
+                                    });*/
                             } else {
                                 swal("¡Aviso!", "El id " + idBanner + " ya se encuentra registrado", "warning");
                             }

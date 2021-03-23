@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:connectorconfiguration="http://wwww.bonitasoft.org/model/connector/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:parameter="http://www.bonitasoft.org/ns/studio/parameter" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_Eo01IDZbEeuCP9OGjwX6Sw" name="Proceso admisiones" version="1.2" author="Dell" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002450726F6365736F2061646D6973696F6E6573372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_Eo01ITZbEeuCP9OGjwX6Sw" name="Proceso admisiones" version="1.2">
       <elements xmi:type="process:Lane" xmi:id="_Eo01IjZbEeuCP9OGjwX6Sw" name="Aspirante" actor="_Eo2tajZbEeuCP9OGjwX6Sw">
@@ -4447,6 +4447,57 @@
       <actors xmi:type="process:Actor" xmi:id="_Eo2tajZbEeuCP9OGjwX6Sw" name="Aspirante" initiator="true"/>
       <actors xmi:type="process:Actor" xmi:id="_Eo2tazZbEeuCP9OGjwX6Sw" name="Admisiones/Orientación vocacional"/>
       <actors xmi:type="process:Actor" xmi:id="_Eo2tbDZbEeuCP9OGjwX6Sw" name="Admisiones"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_kaUNAIwfEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="walter.bates" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_kaU0EIwfEeu2N77SW-Ko6A">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_kaU0EYwfEeu2N77SW-Ko6A" name="Aspirante">
+            <groups xmi:type="actormapping:Groups" xmi:id="_kaU0EowfEeu2N77SW-Ko6A"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_kaU0E4wfEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_kaU0FIwfEeu2N77SW-Ko6A">
+              <role>ASPIRANTE</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_kaU0FYwfEeu2N77SW-Ko6A"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_kaU0FowfEeu2N77SW-Ko6A" name="Admisiones/Orientación vocacional">
+            <groups xmi:type="actormapping:Groups" xmi:id="_kaU0F4wfEeu2N77SW-Ko6A"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_kaU0GIwfEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_kaU0GYwfEeu2N77SW-Ko6A">
+              <role>ADMISIONES</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_kaU0GowfEeu2N77SW-Ko6A"/>
+          </actorMapping>
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_kaU0G4wfEeu2N77SW-Ko6A" name="Admisiones">
+            <groups xmi:type="actormapping:Groups" xmi:id="_kaU0HIwfEeu2N77SW-Ko6A"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_kaU0HYwfEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_kaU0HowfEeu2N77SW-Ko6A">
+              <role>ADMISIONES</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_kaU0H4wfEeu2N77SW-Ko6A"/>
+          </actorMapping>
+        </actorMappings>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_kaUNAYwfEeu2N77SW-Ko6A" type="ACTOR_FILTER" definitionId="initiator" definitionVersion="1.0.0" implementationId="initiator-impl" implementationVersion="1.0.0"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_kaUNAowfEeu2N77SW-Ko6A" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUNA4wfEeu2N77SW-Ko6A" id="ACTOR_FILTER">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_kaUNBIwfEeu2N77SW-Ko6A" id="initiator-impl-1.0.0">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_kaUNBYwfEeu2N77SW-Ko6A" key="initiator-impl -- 1.0.0" value="bonita-userfilter-initiator-impl-1.0.0-SNAPSHOT.jar" type="ACTOR_FILTER"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUNBowfEeu2N77SW-Ko6A" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_kaUNB4wfEeu2N77SW-Ko6A" id="rest-post-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_kaUNCIwfEeu2N77SW-Ko6A" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_kaUNCYwfEeu2N77SW-Ko6A" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_kaUNCowfEeu2N77SW-Ko6A" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_kaUNC4wfEeu2N77SW-Ko6A" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUNDIwfEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUNDYwfEeu2N77SW-Ko6A" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUNDowfEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_kaUND4wfEeu2N77SW-Ko6A" id="OTHER"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_kaU0IIwfEeu2N77SW-Ko6A" name="urlLogin" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_kaU0IYwfEeu2N77SW-Ko6A" name="usuario" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_kaU0IowfEeu2N77SW-Ko6A" name="password" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_kaU0I4wfEeu2N77SW-Ko6A" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
+      </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_Eo2tbTZbEeuCP9OGjwX6Sw" name="urlLogin" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_Eo2tbjZbEeuCP9OGjwX6Sw" name="usuario" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_Eo2tbzZbEeuCP9OGjwX6Sw" name="password" typeClassname="java.lang.String"/>

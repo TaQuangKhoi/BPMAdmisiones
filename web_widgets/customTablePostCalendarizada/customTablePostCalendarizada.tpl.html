@@ -19,9 +19,11 @@
                             ng-show="properties.dataToSend.orderby=='NOMBRE SESION'"></i></span></th>
                             
                             
-                    <th><span style="cursor:pointer" ng-click="setOrderBy('TIPO_PRUEBA')">Tipo prueba<i class="glyphicon"
+                    <th><span style="cursor:pointer" ng-click="setOrderBy('TIPO_PRUEBA')">Tipo de prueba<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPO_PRUEBA'"></i></span></th>
+                            ng-show="properties.dataToSend.orderby=='TIPO_PRUEBA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('TIPO')">Residencia<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='TIPO'"></i></span></th>
                     
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre de la prueba<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
@@ -34,10 +36,6 @@
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ALUMNOS REGISTRADOS')">Alumnos registrados<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='ALUMNOS REGISTRADOS'"></i></span></th>
-                            
-                    <th><span style="cursor:pointer" ng-click="setOrderBy('TIPO')">Residencia<i class="glyphicon"
-                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPO'"></i></span></th>
                             
                     <th style="width: 8%;" ><span style="cursor:pointer " ng-click="setOrderBy('FECHA')">Fecha<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
@@ -54,11 +52,11 @@
                <tr>
                     <td><input ng-model="dynamicInput['id']" class="form-control" ng-enter="filterKeyPress('ID',dynamicInput['id'])"></td>
                     <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('NOMBRE DE LA SESION',dynamicInput['sesion'])"></td>
-                    <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('TIPO PRUEBA',dynamicInput['tipo'])"></td>
+                    <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('TIPO DE PRUEBA, RESIDENCIA',dynamicInput['tipo'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE DE LA PRUEBA',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['alumnosg']" class="form-control" ng-enter="filterKeyPress('CUPO DE LA PRUEBA',dynamicInput['alumnosg'])"></td>
                     <td><input ng-model="dynamicInput['alumnosa']" class="form-control" ng-enter="filterKeyPress('ALUMNOS REGISTRADOS',dynamicInput['alumnosa'])"></td>
-                    <td><input ng-model="dynamicInput['residencia']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['residencia'])"></td>
+                    <!--<td><input ng-model="dynamicInput['residencia']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['residencia'])"></td>-->
                     <td><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA',dynamicInput['fecha'])"></td>
                     <td><input ng-model="dynamicInput['lugar']" class="form-control" ng-enter="filterKeyPress('LUGAR',dynamicInput['lugar'])"></td>
                     <td></td>
@@ -71,7 +69,8 @@
                         {{row.sesion.nombre}}
                     </td>
                     <td>
-                        {{row.prueba.tipo.descripcion}}
+                        <b>{{row.prueba.tipo.descripcion}}</b><br/>
+                        {{row.sesion.tipo}}
                     </td>
                     <td>
                         {{row.prueba.nombre}}
@@ -81,10 +80,6 @@
                     </td>
                     <td>
                         {{row.prueba.registrados}}
-                    </td>
-                    
-                    <td>
-                        {{row.sesion.tipo}}
                     </td>
                     <td>
                         {{row.sesion.fecha_inicio | date:'dd-MM-yyyy'}}<br/>

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgNewTestRequestRegistro",
   "name" : "frgNewTestRequestRegistro",
-  "lastUpdate" : 1614108136088,
+  "lastUpdate" : 1616525147206,
   "rows" : [
     [
       {
@@ -471,7 +471,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "pagosDeshabilitados"
+                        "value" : "pagosDeshabilitados  || deshabilitar"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -575,7 +575,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "pagosDeshabilitados"
+                        "value" : "pagosDeshabilitados || deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -671,7 +671,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "pagosDeshabilitados"
+                        "value" : "pagosDeshabilitados || deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -697,12 +697,12 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : ""
                             },
                             "disabled" : {
                               "type" : "expression",
-                              "value" : "pagosDeshabilitados"
+                              "value" : "pagosDeshabilitados || deshabilitar"
                             },
                             "required" : {
                               "type" : "constant",
@@ -968,7 +968,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "pagosDeshabilitados"
+                        "value" : "pagosDeshabilitados ||deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -999,7 +999,7 @@
                             },
                             "disabled" : {
                               "type" : "expression",
-                              "value" : "pagosDeshabilitados"
+                              "value" : "pagosDeshabilitados || deshabilitar"
                             },
                             "required" : {
                               "type" : "constant",
@@ -1266,8 +1266,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "pagosDeshabilitados"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -1291,7 +1291,87 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label> {{testOptionsRadio}}"
+                        "value" : ""
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "prepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "clavePrepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "bachilleratos" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "completeObject" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "campusseleccionado" : {
+                        "type" : "variable",
+                        "value" : "campusseleccionado"
+                      },
+                      "valorRadio" : {
+                        "type" : "variable",
+                        "value" : "testOptionsRadio"
+                      },
+                      "deshabilitar" : {
+                        "type" : "variable",
+                        "value" : "deshabilitar"
+                      }
+                    },
+                    "reference" : "f0a5f218-0468-43d2-b4f2-3adc1578b3ab",
+                    "hasValidationError" : false,
+                    "id" : "customWatcherCampusSelected"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados  || deshabilitar"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<label class=\"color-orange\">Aviso: El campus seleccionado en la opción \"Lugar dónde realizarás tu examen\" es sólo el lugar en donde presentarás tu proceso de admisión. El campus elegido en la opción \"¿A cuál de las universidades de la Red Anáhuac deseas ingresar?\", es el campus donde realizarás tus estudios. </label>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1703,6 +1783,22 @@
       "type" : "expression",
       "value" : [
         "if($data.pagosDeshabilitados){",
+        "    $data.testOptionsRadio = $data.radioOptionsTestPlace[0][0].value;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "deshabilitar" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "JPII" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.deshabilitar){",
         "    $data.testOptionsRadio = $data.radioOptionsTestPlace[0][0].value;",
         "}"
       ],

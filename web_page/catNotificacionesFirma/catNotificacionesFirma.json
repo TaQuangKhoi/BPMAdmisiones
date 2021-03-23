@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "catNotificacionesFirma",
   "name" : "catNotificacionesFirma",
-  "lastUpdate" : 1614108419429,
+  "lastUpdate" : 1616526259773,
   "rows" : [
     [
       {
@@ -82,8 +82,8 @@
                   "value" : "te"
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "lstCampusUsuario.length <= 1"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -392,13 +392,17 @@
       "type" : "expression",
       "value" : [
         "var resultado = [];\r",
-        "\r",
+        "debugger;\r",
         "for(var x in $data.lstCampusUsuario){\r",
         "    for(var index in $data.lstCatCampus){\r",
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
         "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
         "            resultado.push({...$data.lstCatCampus[index], \"group_id\":$data.lstCampusUsuario[x].group_id});\r",
+        "            if($data.lstCampusUsuario.length == 1){\r",
+        "                $data.campus_selected = resultado[0];\r",
+        "            }\r",
         "        }\r",
+        "        \r",
         "    }\r",
         "}\r",
         "return resultado;"
@@ -445,7 +449,18 @@
         "for(var x in $data.lstCampusByUser){\r",
         "    for(var index in $data.lstCampusRole){\r",
         "        if($data.lstCampusByUser[x].name === $data.lstCampusRole[index].valor){\r",
-        "            resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            //resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let r2 = [];\r",
+        "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "                if(value.valor == r2[0].valor ){\r",
+        "                   i++;\r",
+        "                }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "              resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            }\r",
         "        }\r",
         "    }\r",
         "}\r",

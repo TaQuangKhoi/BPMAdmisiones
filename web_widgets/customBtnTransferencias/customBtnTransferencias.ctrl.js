@@ -108,9 +108,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.JSONTransferencia.usuario = $scope.properties.usuario.user_name;
                     var nombreaspirante = "";
                     if($scope.properties.valoresSolicitante.segundonombre === ""){
-                        nombreaspirante = $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno;
+                        nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre ;
                     }else{
-                        nombreaspirante = $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.segundonombre + " " + $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno;
+                        nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.segundonombre ;
                     }
                     $scope.properties.JSONTransferencia.campusAnterior = $scope.properties.jsonOriginal.campus
                     $scope.properties.JSONTransferencia.campusNuevo = $scope.properties.valoresSolicitante.catCampus.descripcion

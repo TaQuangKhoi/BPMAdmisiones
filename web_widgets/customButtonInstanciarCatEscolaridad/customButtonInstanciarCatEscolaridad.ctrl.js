@@ -72,19 +72,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
 
-var validar = false;
-function startProcess() {
-    debugger
+    var validar = false;
+
+    function startProcess() {
+        let claveValida = false;
+        
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
+            claveValida = validarClaveEditar($scope.properties.dataToChange2);
             if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion ) {
                 if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                    if(claveValida){
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatEscolaridad?q=getCatEscolaridad&p=0&c=999").then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
                         });
-                        localStorageService.delete($window.location.href);
-                    });
+                    } else {
+                        swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                    }
 
                 } else {
                     $log.log('Impossible to retrieve the process definition id value from the URL');
@@ -99,16 +106,20 @@ function startProcess() {
             }
 
         } else {
+            claveValida = validarNuevaClave($scope.properties.dataToChange2);
             if ($scope.properties.dataToChange2.lstCatEscolaridadInput[0].clave && $scope.properties.dataToChange2.lstCatEscolaridadInput[0].descripcion) {
                 if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                        });
-                        localStorageService.delete($window.location.href);
-                    });
-
+                    if(claveValida){
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatEscolaridad?q=getCatEscolaridad&p=0&c=999").then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
+                        }); 
+                    } else {
+                        swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                    }
                 } else {
                     $log.log('Impossible to retrieve the process definition id value from the URL');
                 }
@@ -124,9 +135,34 @@ function startProcess() {
         }
     }
 
+    function validarNuevaClave(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.lstCatEscolaridadInput[0].clave.toLowerCase()){
+                isValid = false;
+                break;
+            }
+        }
 
+        return isValid;
+    }
 
+    function validarClaveEditar(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        let pidString = _value.persistenceId_string;
+        debugger;
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.clave.toLowerCase() && pidString !== data[i].persistenceId_string){
+                isValid = false;
+                break;
+            }
+        }
 
+        return isValid;
+    }
 
     /**
      * Execute a get/post request to an URL
@@ -142,26 +178,25 @@ function startProcess() {
             params: params
         };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
-            })
-            .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {
-                vm.busy = false;
-            });
+        return $http(req).success(function(data, status) {
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                redirectIfNeeded();
+            }
+            closeModal($scope.properties.closeOnSuccess);
+        })
+        .error(function(data, status) {
+            $scope.properties.dataFromError = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromSuccess = undefined;
+            notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 
     function redirectIfNeeded() {
@@ -184,6 +219,7 @@ function startProcess() {
         if (userId) {
             return { 'user': userId };
         }
+
         return {};
     }
 

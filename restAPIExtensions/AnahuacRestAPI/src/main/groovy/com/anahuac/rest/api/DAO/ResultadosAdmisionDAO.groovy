@@ -610,7 +610,7 @@ class ResultadosAdmisionDAO {
 			errorlog += " | | " + where;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			String countQuery = Statements.GET_INFO_CARTA_TEMPORAL_COUNT;
+			String countQuery = Statements.GET_INFO_CARTA_TEMPORAL_COUNT_NO_RESULTADOS;
 			countQuery = countQuery.replace("[WHERE]", where);
 			pstm = con.prepareStatement(countQuery);
 
@@ -695,10 +695,27 @@ class ResultadosAdmisionDAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE INFTEMP.persistenceid IS NOT null";
+			String consulta = "";
+			 
+				 if(object.tipoResultado.equals("Sin resultado")){
+					 consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
+					 where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
+				 }else{
+					  consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
+					 where+=" WHERE INFTEMP.persistenceid IS NOT null";
+					 if(object.tipoResultado.equals("Aceptado")) {
+						where+="  AND (carta='Aceptado') ";
+					 }else if(object.tipoResultado.equals("Rechazada")){
+						where+="  AND (carta='Rechazado') ";
+					 }
+				 }
+			 
+			
+			
+			//where+=" WHERE INFTEMP.persistenceid IS NOT null";
 			if(object.campus != null){
 				if(!object.campus.equals("Todos los campus")) {
-					where+=" AND LOWER(universidad) = LOWER('" + object.campus + "') ";
+					where+=" AND LOWER(campusEstudio.descripcion) = LOWER('" + object.campus + "') ";
 				}
 
 			}
@@ -709,7 +726,8 @@ class ResultadosAdmisionDAO {
 			
 			for(Integer i=0; i<lstGrupo.size(); i++) {
 				String campusMiembro=lstGrupo.get(i);
-				campus += "universidad='" + campusMiembro + "'"
+				//campus += "universidad='" + campusMiembro + "'"
+				campus += "campusEstudio.descripcion='" + campusMiembro + "'"
 				if(i == (lstGrupo.size() - 1)) {
 					campus += ") "
 				} else {
@@ -717,29 +735,13 @@ class ResultadosAdmisionDAO {
 				}
 			}
 			
-			errorlog += "universidad" + campus;
-			errorlog += "object.lstFiltro" + object.lstFiltro;
-			errorlog="1";
+
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 			closeCon = validarConexion();
-			errorlog="2";
-			String consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
-			/*
-			if(object.tipoResultado != null){
-				if(object.tipoResultado.equals("Aceptado")) {
-					consulta = consulta.replace("[TABLAINFO]", "InfoCarta");
-				}else if(object.tipoResultado.equals("Rechazada")){
-					consulta = consulta.replace("[TABLAINFO]", "InfoCarta");
-					consulta = consulta.replace("[TABLAINFO]", "InfoCartaTemporal");
-				}else if(object.tipoResultado.equals("Sin resultado")){
-					consulta = consulta.replace("[TABLAINFO]", "InfoCarta");
-					consulta = consulta.replace("[TABLAINFO]", "InfoCartaTemporal");
-				}
-			}
-			*/
-			errorlog="3";
+			//String consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
+
+			
 			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
-				errorlog="4";
 				switch(filtro.get("columna")) {
 					case "IDBANNER":
 						if(where.contains("WHERE")) {
@@ -747,7 +749,7 @@ class ResultadosAdmisionDAO {
 						}else {
 							where+= " WHERE ";
 						}
-						where +=" ( LOWER(INFTEMP.NUMERODEMATRICULA) like lower('%[valor]%') ";
+						where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"));
 					break;
 					case "NOMBRE,EMAIL,CURP":
@@ -757,7 +759,7 @@ class ResultadosAdmisionDAO {
 						}else {
 							where += " WHERE ";
 						}
-						where +=" ( LOWER(INFTEMP.NOMBRE) like lower('%[valor]%') ";
+						where +=" ( LOWER(concat(SOLAD.apellidopaterno,' ',SOLAD.apellidomaterno,' ',SOLAD.primernombre,' ', SOLAD.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"));
 						
 						where +=" OR LOWER(SOLAD.CORREOELECTRONICO) like lower('%[valor]%') ";
@@ -789,10 +791,10 @@ class ResultadosAdmisionDAO {
 						}else {
 							where+= " WHERE ";
 						}
-						where +=" ( LOWER(estado) like lower('%[valor]%') ";
+						where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"));
 						
-						where +=" OR LOWER(preparatoria) like lower('%[valor]%') ";
+						where +=" OR LOWER(CASE WHEN prepa.DESCRIPCION = 'Otro' THEN SOLAD.bachillerato ELSE prepa.DESCRIPCION END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"));
 
 						where +=" OR LOWER(SOLAD.PROMEDIOGENERAL) like lower('%[valor]%') )";
@@ -848,7 +850,7 @@ class ResultadosAdmisionDAO {
 					}else {
 						where+= " WHERE ";
 					}
-					where +=" ( LOWER(estado) like lower('%[valor]%') )";
+					where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"));
 					break;
 					case "CAMPUS INGRESO":
@@ -871,47 +873,20 @@ class ResultadosAdmisionDAO {
 					break;
 					/*====================================================================*/
 				}
-				errorlog="7";
-				/*switch(filtro.get("columna")) {
-					case "NOMBRE,EMAIL,CURP":
-						errorlog+="NOMBRE,EMAIL,CURP"
-						if(where.contains("WHERE")) {
-							where+= " AND "
-						}else {
-							where+= " WHERE "
-						}
-						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						
-						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						
-						where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
-						where = where.replace("[valor]", filtro.get("valor"))
-					break;
-					
-				}*/
+
+
 			}
 			   
 			
-			// Seleccion de resultados
-			if(object.tipoResultado != null){
-				if(object.tipoResultado.equals("Aceptado")) {
-					where+="  AND (carta='Aceptado') ";
-				}else if(object.tipoResultado.equals("Rechazada")){
-					where+="  AND (carta='Rechazado') ";
-				}else if(object.tipoResultado.equals("Sin resultado")){
-					where+="  AND (carta='Enviado a Revisión') ";
-				}
-			}
-			// Seleccion de resultados
+			
 	
 			switch(object.orderby) {
 				case "IDBANNER":
-					orderby += "INFTEMP.NUMERODEMATRICULA";
+					orderby += "DETSOL.IDBANNER";
 				break;
 				case "NOMBRE":
-					orderby += "INFTEMP.NOMBRE";
+				orderby+="SOLAD.apellidopaterno";
+				//orderby += "INFTEMP.NOMBRE";
 				break;
 				case "EMAIL":
 					orderby += "SOLAD.CORREOELECTRONICO";
@@ -920,16 +895,16 @@ class ResultadosAdmisionDAO {
 				orderby += "SOLAD.curp";
 				break;
 				case "CAMPUS":
-					orderby += "campus";
+					orderby += "campusEstudio.descripcion";
 				break;
 				case "PROGRAMA":
-					orderby += "licenciatura";
+					orderby += "gestionescolar.NOMBRE";
 				break;
 				case "INGRESO":
-					orderby += "ingreso";
+					orderby += "periodo.DESCRIPCION";
 				break;
-				case "ESTADO":
-					orderby += "estado";
+				case "PROCEDENCIA":
+					orderby += "procedencia";
 				break;
 				case "PREPARATORIA":
 					orderby += "preparatoria";
@@ -938,31 +913,36 @@ class ResultadosAdmisionDAO {
 					orderby += "SOLAD.PROMEDIOGENERAL";
 				break;
 				case "RESIDEICA":
-				orderby += "residensia";
+				orderby += "R.descripcion";
 				break;
 				case "TIPODEADMISION":
-				orderby += "tipoadmision";
+				orderby += "TA.descripcion";
 				break;
 				case "TIPODEALUMNO":
-				orderby += "tipoDeAlumno";
+				orderby += "TAL.descripcion";
 				break;
 				case "RESULTADOADMISION":
-				orderby += "INFTEMP.carta";
+				if(object.tipoResultado.equals("Sin resultado")) {
+					orderby += "SOLAD.ESTATUSSOLICITUD";
+				}else{
+					orderby += "INFTEMP.carta";
+				}
+				//orderby += "INFTEMP.carta";
 				break;
 				case "FECHAENVIO":
 				orderby += "fechaSolicitudEnviadaFormato";
 				break;
 				case "NOMBRESESION":
-				orderby += "INFTEMP.NOMBRE";
+				orderby += "DETSOL.IDBANNER";
 				break;
 				case "FECHASESION":
-				orderby += "INFTEMP.NOMBRE";
+				orderby += "DETSOL.IDBANNERE";
 				break;
 				default:
-					orderby += "INFTEMP.NOMBRE";
+					orderby += "DETSOL.IDBANNER";
 				break;
 			}
-			errorlog="8";
+
 			
 			orderby += " " + object.orientation;
 			
@@ -971,33 +951,25 @@ class ResultadosAdmisionDAO {
 			consulta = consulta.replace("[CAMPUS]", campus);
 			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno;
 			consulta = consulta.replace("[WHERE]", where);
-			String countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT;
+			//String countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT;
+			String countQuery = "";
 			
-			/*
-			 if(object.tipoResultado != null){
-				 if(object.tipoResultado.equals("Aceptado")) {
-					 countQuery = countQuery.replace("[TABLAINFO]", "InfoCarta");
-				 }else if(object.tipoResultado.equals("Rechazada")){
-					 countQuery = countQuery.replace("[TABLAINFO]", "InfoCarta");
-					 countQuery = countQuery.replace("[TABLAINFO]", "InfoCartaTemporal");
-				 }else if(object.tipoResultado.equals("Sin resultado")){
-					 countQuery = countQuery.replace("[TABLAINFO]", "InfoCarta");
-					 countQuery = countQuery.replace("[TABLAINFO]", "InfoCartaTemporal");
-				 }
+			  if(object.tipoResultado.equals("Sin resultado")){
+				 countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
+			 }else{
+				 countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT; 
 			 }
-			 */
+			 
+
 			
-			countQuery = countQuery.replace("[WHERE]", where);
-			errorlog="9 "+consulta;
-			pstm = con.prepareStatement(countQuery);
-			errorlog="10"+consulta;
+			countQuery = countQuery.replace("[WHERE]", where); 
+			pstm = con.prepareStatement(countQuery); 
 			rs= pstm.executeQuery()
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"));
 			}
 			consulta = consulta.replace("[ORDERBY]", orderby);
-			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
-			errorlog="11";
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?"); 
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit);
 			pstm.setInt(2, object.offset);
@@ -1005,8 +977,7 @@ class ResultadosAdmisionDAO {
 			rows = new ArrayList<Map<String, Object>>();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
-			errorlog = consulta;
-			errorlog="12";
+			errorlog = consulta; 
 			while(rs.next()) {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
 	
@@ -1074,18 +1045,12 @@ class ResultadosAdmisionDAO {
 			String persistenceid = object.persistenceid;
 			String consulta = "";
 			
-			LOGGER.error object.todos.toString();
-			LOGGER.error object.seleccionado.toString();
-			LOGGER.error object.persistenceid;
-			
 			if(todos) {
 				consulta = Statements.SELECCIONAR_TODAS_CARTAS;
-				LOGGER.error consulta;
 				pstm = con.prepareStatement(consulta);
 				pstm.setBoolean(1, seleccionado);
 			} else {
 				consulta = Statements.SELECCIONAR_CARTA;
-				LOGGER.error consulta;
 				pstm = con.prepareStatement(consulta);
 				pstm.setBoolean(1, seleccionado);
 				pstm.setLong(2, Long.valueOf(persistenceid));
@@ -1120,6 +1085,8 @@ class ResultadosAdmisionDAO {
 			NotificacionDAO nDAO = new NotificacionDAO();
 			String consulta = "";
 			consulta = Statements.GET_CARTAS_A_ENVIAR;
+			String where = " WHERE INFTEMP.SELECCIONADO = true  AND SOLAD.estatussolicitud = 'Carga y consulta de resultados' ";
+			consulta = consulta.replace("[WHERE]", where);
 			pstm = con.prepareStatement(consulta);
 			
 			rs = pstm.executeQuery();
@@ -1161,7 +1128,10 @@ class ResultadosAdmisionDAO {
 				errorlog = columns.get("numerodematricula") +  "||" + contract.toString() +  "||" + context.toString();
 				
 				String correoLog = "";
+				Boolean isError = false;
+				String errorInfo = "";
 				if(resultadoEnvioCarta.isSuccess()) {
+					correoLog += "Se envió la carta.";
 //					Result resultadoEjecucionTarea = ejecutarCargaResultado(columns.get("numerodematricula"), columns, context);
 //					if(resultadoEjecucionTarea.isSuccess()) {
 //						Map<String, Object> correoEnviado = new LinkedHashMap<String, Object>();
@@ -1177,33 +1147,50 @@ class ResultadosAdmisionDAO {
 //						correoError.put("errorInfo", "IDBANNER: " + columns.get("numerodematricula"));
 //						lstNoEnviados.add(correo);
 //					}
+					if(!columns.get("pdu").equals("No")) {
+						String codigoPDU = "carta-pdu";
+						String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
+						Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);
+						
+						if(resultadoEnvioPDU.isSuccess()) {
+							correoLog += " Se envió el correo del PDU.";
+						} else {
+							isError = true;
+							errorInfo = resultadoEnvioPDU.getError();
+						}
+					} else {
+						correoLog += " No requiere PDU.";
+					}
+				} else {
+					correoLog += "No se pudo enviar la carta";
+					isError = true;
+					errorInfo = resultadoEnvioCarta.getError();
+				}
+				
+				if(!isError) {
+					Result resultadoEjecucionTarea = ejecutarCargaResultado(columns.get("numerodematricula"), contract, context);
 					
+					if(resultadoEjecucionTarea.isSuccess()) {
+						correoLog += " Tarea ejecutada."
+					} else {
+						isError = true;
+						errorInfo = resultadoEjecucionTarea.getError();
+					}
+				}
+				
+				if(isError) {
+					Map<String, Object> correoError = new LinkedHashMap<String, Object>();
+					correoError.put("correo", correo);
+					correoError.put("correoLog", errorInfo);
+					correoError.put("error", true);
+					lstNoEnviados.add(correoError);
+				} else {
 					Map<String, Object> correoEnviado = new LinkedHashMap<String, Object>();
-					correoLog += "Se envió la carta";
 					correoEnviado.put("correo", correo);
 					correoEnviado.put("correoLog", correoLog);
 					correoEnviado.put("error", false);
 					lstEnviados.add(correoEnviado);
-				} else {
-					correoLog += "No se envió la carta";
-					Map<String, Object> correoError = new LinkedHashMap<String, Object>();
-					correoError.put("correo", correo);
-					correoError.put("correoLog", resultadoEnvioCarta.getError());
-					correoError.put("error", true);
-					lstNoEnviados.add(correoError);
 				}
-				
-//				Result resultadoEjecucionTarea = ejecutarCargaResultado(columns.get("numerodematricula"), contract, context);
-//				
-//				if(resultadoEjecucionTarea.isSuccess()) {
-//					lstEnviados.add(correo);
-//				} else {
-//					Map<String, Object> correoError = new LinkedHashMap<String, Object>();
-//					correoError.put("correo", correo);
-//					correoError.put("error", resultadoEjecucionTarea.getError());
-//					correoError.put("errorInfo", "IDBANNER: " + columns.get("numerodematricula"));
-//					lstNoEnviados.add(correoError);
-//				}
 			}
 			
 			lstData.add(lstEnviados);

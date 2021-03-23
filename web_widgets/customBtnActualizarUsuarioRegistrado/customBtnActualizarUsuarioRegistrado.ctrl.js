@@ -29,9 +29,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           swal("¡Aviso!", "Debe agregar el primer nombre", "warning");
       }else if($scope.properties.dataToSend.apellidopaterno === ""){
           swal("¡Aviso!", "Debe agregar el apellido paterno", "warning");
-      }else if($scope.properties.dataToSend.apellidomaterno === ""){
+      }/*else if($scope.properties.dataToSend.apellidomaterno === ""){
           swal("¡Aviso!", "Debe agregar el apellido materno", "warning");
-      }else if($scope.properties.dataToSend.correoelectronico === ""){
+      }*/
+      else if($scope.properties.dataToSend.correoelectronico === ""){
           swal("¡Aviso!", "Debe agregar el correo electrónico", "warning");
       }else if(!re.test(String($scope.properties.dataToSend.correoelectronico.trim()).toLowerCase())){
           swal("¡Aviso!", "El formato del correo electrónico no es válido", "warning");
@@ -47,24 +48,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           swal("¡Aviso!", "Debe seleccionar el campus de examen", "warning");
       }else if($scope.properties.dataToSend.catSexo === null){
           swal("¡Aviso!", "Debe seleccionar el sexo", "warning");
-      }else if($scope.properties.dataToSend.fechanacimiento === ""){
+      }else if($scope.properties.dataToSend.fechanacimiento === "" || $scope.properties.dataToSend.fechanacimiento === undefined || $scope.properties.dataToSend.fechanacimiento === null){
           swal("¡Aviso!", "Debe agregar la fecha de nacimiento", "warning");
       }else if($scope.properties.dataToSend.catEstado === null && $scope.properties.dataToSend.estadoextranjero === ""){
           swal("¡Aviso!", "Debe seleccionar el estado", "warning");
       /*}else if($scope.properties.dataToSend.estadoextranjero === ""){
           swal("¡Aviso!", "Debe agregar el estado", "warning");*/
-      }else if($scope.properties.dataToSend.catBachilleratos === null){
-          swal("¡Aviso!", "Debe seleccionar el bachillerato", "warning");
+      }else if($scope.properties.dataToSend.catBachilleratos === null || $scope.properties.dataToSend.catBachilleratos === undefined ){
+          swal("¡Aviso!", "Debe seleccionar la preparatoria", "warning");
       }else if($scope.properties.dataToSend.catBachilleratos.descripcion === "Otro" && $scope.properties.datosPreparatoria.nombreBachillerato === ""){
-          swal("¡Aviso!", "Debe agregar el nombre del bachillerato", "warning");
+          swal("¡Aviso!", "Debe agregar el nombre de la preparatoria", "warning");
       }else if($scope.properties.datosPreparatoria.paisBachillerato === ""){
-          swal("¡Aviso!", "Debe agregar el país del bachillerato", "warning");
+          swal("¡Aviso!", "Debe agregar el país de la preparatoria", "warning");
       }else if($scope.properties.datosPreparatoria.estadoBachillerato === ""){
-          swal("¡Aviso!", "Debe agregar el estado del bachillerato", "warning");
+          swal("¡Aviso!", "Debe agregar el estado de la preparatoria", "warning");
       }else if($scope.properties.datosPreparatoria.ciudadBachillerato === ""){
-          swal("¡Aviso!", "Debe agregar la ciudad del bachillerato", "warning");
-      }else if($scope.properties.dataToSend.promedio === ""){
+          swal("¡Aviso!", "Debe agregar la ciudad de la preparatoria", "warning");
+      }else if($scope.properties.dataToSend.promediogeneral === "" || $scope.properties.dataToSend.promediogeneral === undefined || $scope.properties.dataToSend.promediogeneral === null || isNaN($scope.properties.dataToSend.promediogeneral) ){
           swal("¡Aviso!", "Debe agregar el promedio", "warning");
+      }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
+          swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");
       }else{
           $scope.properties.JSONUsuarioRegistrado.caseid = $scope.properties.dataToSend.caseid;
           $scope.properties.JSONUsuarioRegistrado.primernombre = $scope.properties.dataToSend.primernombre;
@@ -82,9 +85,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.JSONUsuarioRegistrado.catPropedeutico = $scope.properties.dataToSend.catPropedeutico;
           }
           
-          //$scope.properties.JSONUsuarioRegistrado.campus = $scope.properties.dataToSend.catCampus.persistenceId;
+          $scope.properties.JSONUsuarioRegistrado.campus = $scope.properties.dataToSend.catCampus.persistenceId;
           $scope.properties.JSONUsuarioRegistrado.sexo = $scope.properties.dataToSend.catSexo.persistenceId;
-          $scope.properties.JSONUsuarioRegistrado.fechanacimiento = $scope.properties.dataToSend.fechanacimiento;
+          //$scope.properties.JSONUsuarioRegistrado.fechanacimiento = angular.copy($scope.properties.dataToSend.fechanacimiento.toString().slice(0,-1));
+          let d = new Date($scope.properties.dataToSend.fechanacimiento.toString())
+          let formatted_date = d.getFullYear()+"-"+((d.getMonth()+1) < 10 ?"0"+(d.getMonth()+1):(d.getMonth()+1) )+"-"+(d.getDate() < 10 ? "0"+d.getDate() : d.getDate() )
+          formatted_date+="t05:00:00.000";
+          $scope.properties.JSONUsuarioRegistrado.fechanacimiento = formatted_date;
           if($scope.properties.dataToSend.catEstado===null || $scope.properties.dataToSend.catEstado === undefined){
               $scope.properties.JSONUsuarioRegistrado.estado = null;
               $scope.properties.JSONUsuarioRegistrado.estadoextranjero = $scope.properties.dataToSend.estadoextranjero;
@@ -105,11 +112,46 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           $scope.properties.JSONUsuarioRegistrado.catCampusEstudio = $scope.properties.dataToSend.catCampusEstudio;
           $scope.properties.JSONUsuarioRegistrado.catGestionEscolar = $scope.properties.dataToSend.catGestionEscolar;
           $scope.properties.JSONUsuarioRegistrado.catPeriodo = $scope.properties.dataToSend.catPeriodo;
-          //$scope.properties.JSONUsuarioRegistrado.catCampus = $scope.properties.dataToSend.catCampus;
+          $scope.properties.JSONUsuarioRegistrado.catCampus = $scope.properties.dataToSend.catCampus;
           $scope.properties.JSONUsuarioRegistrado.catSexo = $scope.properties.dataToSend.catSexo;
           $scope.properties.JSONUsuarioRegistrado.catEstado = $scope.properties.dataToSend.catEstado;
           $scope.properties.JSONUsuarioRegistrado.catBachilleratos = $scope.properties.dataToSend.catBachilleratos;
           
+          $scope.properties.JSONUsuarioRegistrado.catEstadoExamen = $scope.properties.dataToSend.catEstadoExamen;
+          $scope.properties.JSONUsuarioRegistrado.catPaisExamen = $scope.properties.dataToSend.catPaisExamen;
+          $scope.properties.JSONUsuarioRegistrado.catCiudadExamen = $scope.properties.dataToSend.catCiudadExamen;
+          $scope.properties.JSONUsuarioRegistrado.catResidencia = $scope.properties.dataToSend.catResidencia;
+          $scope.properties.JSONUsuarioRegistrado.catTipoAlumno = $scope.properties.dataToSend.catTipoAlumno;
+          $scope.properties.JSONUsuarioRegistrado.catTipoAdmision = $scope.properties.dataToSend.catTipoAdmision;
+          $scope.properties.JSONUsuarioRegistrado.catLugarExamen = $scope.properties.dataToSend.catLugarExamen;
+          
+          $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
+          $scope.properties.JSONUsuarioRegistrado.tienePAA = ($scope.properties.dataToSend.tienepaa == "t" ?true:false );
+          $scope.properties.JSONUsuarioRegistrado.cbCoincide = $scope.properties.dataToSend.cbcoincide2;
+          $scope.properties.JSONUsuarioRegistrado.descuento = $scope.properties.dataToSend.descuento;
+          $scope.properties.JSONUsuarioRegistrado.Documentos = angular.copy($scope.properties.archivos);
+          
+          $scope.properties.JSONUsuarioRegistrado.observacionListaRoja = $scope.properties.dataToSend.observacioneslistaroja;
+          
+          if($scope.properties.dataToSend.tienepaa == "f" &&  $scope.properties.dataToSend.resultadopaa >= 1){
+            $scope.properties.JSONUsuarioRegistrado.tienePAA = true;
+            $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
+          }
+          
+          if( $scope.properties.JSONUsuarioRegistrado.catLugarExamen.descripcion.toUpperCase() === "EN UN ESTADO"){
+                $scope.properties.JSONUsuarioRegistrado.catPaisExamen = null;
+          } else if($scope.properties.JSONUsuarioRegistrado.catLugarExamen.descripcion.toUpperCase() === "EN EL EXTRANJERO (SOLO SI VIVES FUERA DE MÉXICO)"){
+                $scope.properties.JSONUsuarioRegistrado.catEstadoExamen = null;
+                for(var pais=0;pais<$scope.properties.catPais.length;pais++){
+                    if($scope.properties.dataToSend.catPaisExamen === $scope.properties.catPais[pais].descripcion){
+                        $scope.properties.JSONUsuarioRegistrado.catPaisExamen = $scope.properties.catPais[pais];
+                    }   
+                }
+          }else{
+            $scope.properties.JSONUsuarioRegistrado.catEstadoExamen = null;
+            $scope.properties.JSONUsuarioRegistrado.catPaisExamen = null;
+            $scope.properties.JSONUsuarioRegistrado.catCiudadExamen = null;
+          }
           if($scope.properties.JSONUsuarioRegistrado.primernombre !== $scope.properties.jsonOriginal.primernombre){
               existecambio = true;
           }
@@ -144,9 +186,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               }
           }
           
-          /*if($scope.properties.JSONUsuarioRegistrado.catCampus.descripcion !== $scope.properties.jsonOriginal.campus){
+          if($scope.properties.JSONUsuarioRegistrado.catCampus.descripcion !== $scope.properties.jsonOriginal.campus){
               existecambio = true;
-          }*/
+          }
           if($scope.properties.JSONUsuarioRegistrado.catSexo.descripcion !== $scope.properties.jsonOriginal.sexo){
               existecambio = true;
           }
@@ -302,7 +344,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
           redirectIfNeeded();
         }
+        $scope.properties.archivos= angular.copy($scope.properties.strArchivos)
         getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
+        $scope.properties.dataToSend.caseid=0;
         //closeModal($scope.properties.closeOnSuccess);
       })
       .error(function(data, status) {

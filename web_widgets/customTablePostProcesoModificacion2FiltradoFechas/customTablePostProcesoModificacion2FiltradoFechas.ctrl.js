@@ -42,25 +42,96 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 $scope.functionFechaExmenes = function (row, op) {
         let fechas;
+        let NoCollegeBoard;
+        let NoPsicometrico;
+        let NoEntrevista;
         
         
         if(row.fechasexamenes==null || row.fechasexamenes== "" || row.fechasexamenes==" "){
              fechas="Sin programar                                                 "
              
         }else{
+            
             var arrayDeCadenas = row.fechasexamenes.split(",");
+            for (var i = 0; i <arrayDeCadenas.length; i++) {
+                if (arrayDeCadenas[i].includes("Examen de aptitudes y conocimientos")) {
+                    NoCollegeBoard=i;
+                }else if (arrayDeCadenas[i].includes("Entrevista")) {
+                    NoEntrevista=i;
+                }else if (arrayDeCadenas[i].includes("Examen Psicométrico")) {
+                    NoPsicometrico=i;
+                }
+            }
             if(op==1){
-                 fechas=arrayDeCadenas[0]
+                if($scope.functionAsistenciaExmenes(row, op)){
+                    fechas=" Examen de aptitudes y conocimientos"
+                    //fechas="Asistió Examen de aptitudes y conocimientos"
+                }else{
+                    fechas=" "+arrayDeCadenas[NoCollegeBoard]
+                }
+                 
              }
             if(op==2){
-                fechas=arrayDeCadenas[1]
+                if($scope.functionAsistenciaExmenes(row, op)){
+                    fechas=" Entrevista"
+                    //fechas="Asistió Entrevista"
+                }else{
+                fechas=" "+arrayDeCadenas[NoEntrevista]
+                }
             }
              if(op==3){
-               fechas=arrayDeCadenas[2]
+                if($scope.functionAsistenciaExmenes(row, op)){
+                    fechas=" Examen Psicométrico"
+                    // fechas="Asistió Examen Psicométrico"
+                }else{
+               fechas=" "+arrayDeCadenas[NoPsicometrico]
+                }
              }
 
         }
          return fechas;
+        
+    }
+
+    $scope.functionAsistenciaExmenes = function (row, op) {
+        let resultado;
+        let NoCollegeBoard;
+        let NoPsicometrico;
+        let NoEntrevista;
+
+        var arrayDeCadenas = row.asistencia.split(",");
+        for (var i = 0; i <arrayDeCadenas.length; i++) {
+            if (arrayDeCadenas[i].includes("Examen de aptitudes y conocimientos")) {
+                NoCollegeBoard=i;
+            }else if (arrayDeCadenas[i].includes("Entrevista")) {
+                NoEntrevista=i;
+            }else if (arrayDeCadenas[i].includes("Examen Psicométrico")) {
+                NoPsicometrico=i;
+            }
+        }
+
+        if(row.asistencia !==null || row.asistencia !== "" || row.asistencia !==" "){
+            if(op===1){
+                if (arrayDeCadenas[NoCollegeBoard].includes("1")) {
+                    resultado=true;
+                } else{
+                    resultado=false
+                }
+            } else if(op===2){
+                if (arrayDeCadenas[NoEntrevista].includes("1")) {
+                    resultado=true;
+                } else{
+                    resultado=false
+                }
+            } else if(op===3){
+                if (arrayDeCadenas[NoPsicometrico].includes("1")) {
+                    resultado=true;
+                } else{
+                    resultado=false
+                }
+            }     
+        }
+         return resultado;
         
     }
 
@@ -73,7 +144,6 @@ $scope.functionFechaExmenes = function (row, op) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
                 //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
                 
@@ -243,19 +313,22 @@ $scope.functionFechaExmenes = function (row, op) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
-    $scope.getCampusByGrupo = function (campus) {
+        
+$scope.getCampusByGrupo = function (campus) {
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                if($scope.lstMembership.length == 1){
-                    $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
+                if($scope.lstCampusByUser.length === 2){
+                    $scope.properties.campusSeleccionado = $scope.properties.lstCampus[i].grupoBonita    
                 }
-            }
-            
-        }
+            }else if(campus == "Todos los campus"){
+                retorno = campus
+            }   
+        } 
         return retorno;
     }
+    
     $scope.lstMembership = [];
     $scope.$watch("properties.userId", function (newValue, oldValue) {
         if (newValue !== undefined) {
@@ -263,7 +336,7 @@ $scope.functionFechaExmenes = function (row, op) {
                 method: "GET",
                 url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-
+    
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
@@ -277,41 +350,62 @@ $scope.functionFechaExmenes = function (row, op) {
     });
     
     $scope.lstCampusByUser = [];
-	$scope.campusByUser = function(){
-		var resultado=[];
-		
-		for(var x in $scope.lstMembership){
-			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				resultado.push($scope.lstMembership[x].group_id.name);
-			}
-		}
-		$scope.lstCampusByUser = resultado;
-	}
-	
-    $scope.filtroCampus = ""
-    $scope.addFilter = function () {
-        var filter = {
-            "columna": "CAMPUS",
-            "operador": "Igual a",
-            "valor": $scope.filtroCampus
-        }
-        if ($scope.properties.dataToSend.lstFiltro.length > 0) {
-            var encontrado = false;
-            for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
-                const element = $scope.properties.dataToSend.lstFiltro[index];
-                if (element.columna == "CAMPUS") {
-                    $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
-                    $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
-                    $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
-                    for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                        if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                        $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
-                        }
+       $scope.campusByUser = function(){
+        var resultado=[];
+       // var isSerua = true;
+        resultado.push("Todos los campus")
+        for(var x in $scope.lstMembership){
+            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+                let i = 0;
+                resultado.forEach(value =>{
+                    if(value == $scope.lstMembership[x].group_id.name){
+                       i++;
                     }
-                    encontrado = true
+                });
+                if(i === 0){
+                   resultado.push($scope.lstMembership[x].group_id.name);  
                 }
             }
-            if (!encontrado) {
+        }
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
+        $scope.lstCampusByUser = resultado;
+    }
+    $scope.filtroCampus = ""
+    $scope.addFilter = function () {
+        if($scope.filtroCampus != "Todos los campus"){
+            var filter = {
+                "columna": "CAMPUS",
+                "operador": "Igual a",
+                "valor": $scope.filtroCampus
+            }
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
+                        $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
+                        $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                        encontrado = true
+                    }
+                }
+                
+                if (!encontrado) {
+                        $scope.properties.dataToSend.lstFiltro.push(filter);
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                }
+            } else {
                 $scope.properties.dataToSend.lstFiltro.push(filter);
                 for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
                     if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
@@ -319,15 +413,23 @@ $scope.functionFechaExmenes = function (row, op) {
                     }
                 }
             }
-        } else {
-            $scope.properties.dataToSend.lstFiltro.push(filter);
-            for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
-                if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
-                $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+        }else{
+            
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro.splice(index,1);
+                        $scope.properties.campusSeleccionado = null;
+                    }
                 }
             }
+            
         }
+       
     }
+
     $scope.sizing=function(){
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;

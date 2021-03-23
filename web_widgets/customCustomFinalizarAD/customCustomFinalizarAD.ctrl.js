@@ -127,7 +127,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromError = undefined;
             notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
             if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-              swal("Autorescripción completada.", "Redireccionando...", "success");
+              swal("Autodescripción completada.", "Redireccionando...", "success");
               redirectIfNeeded();
             }
             closeModal($scope.properties.closeOnSuccess);

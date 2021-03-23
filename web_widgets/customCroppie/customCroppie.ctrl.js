@@ -15,7 +15,7 @@ function ($scope, $http) {
         setTimeout(function(){
             el = document.getElementById('vanilla-demo'+$scope.properties.id);
          vanilla = new Croppie(el, {
-        viewport: { width: 720, height: 81 },
+        viewport: { width: 725, height: 81 },
         boundary: { width: 800, height: 200 },
         showZoomer: false,
         enableOrientation: true

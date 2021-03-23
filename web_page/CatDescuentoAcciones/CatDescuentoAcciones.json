@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatDescuentoAcciones",
   "name" : "CatDescuentoAcciones",
-  "lastUpdate" : 1608429616930,
+  "lastUpdate" : 1616525704808,
   "rows" : [
     [
       {
@@ -16,7 +16,7 @@
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "color-orange"
           },
           "hidden" : {
             "type" : "constant",
@@ -202,7 +202,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -260,11 +260,11 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "!campusSelected"
+                  "value" : "filtroCampus.filtroCampus.length <=0"
                 },
                 "disabled" : {
                   "type" : "expression",
-                  "value" : "!campusSelected"
+                  "value" : "filtroCampus.filtroCampus.length <=0"
                 },
                 "label" : {
                   "type" : "interpolation",
@@ -276,7 +276,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -326,9 +326,9 @@
                   "value" : "lstFiltros"
                 }
               },
-              "reference" : "c363ef76-1e24-47f1-89c0-b4fe912700d1",
+              "reference" : "ab6f1d75-e220-488d-a827-4bd0e82cc56a",
               "hasValidationError" : false,
-              "id" : "customListFiltros"
+              "id" : "customListFiltrosBloqueoCampus"
             }
           ],
           [
@@ -663,7 +663,8 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
                 },
                 "availableValues" : {
                   "type" : "expression",
@@ -675,12 +676,20 @@
                 },
                 "value" : {
                   "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
                   "value" : "catDescuentos_selected.catBachilleratos"
+                },
+                "claveBachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
                 }
               },
-              "reference" : "8ddaf974-fe34-4b7d-ac8e-7afde63f2f02",
+              "reference" : "c39e13a2-48bb-4bce-9beb-c2f2f9fae907",
               "hasValidationError" : false,
-              "id" : "pbAutocomplete"
+              "id" : "customCustomAutocompleteDescuentos"
             },
             {
               "type" : "component",
@@ -688,7 +697,79 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 4
+                "lg" : 8
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                },
+                "bachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                }
+              },
+              "reference" : "96f74b79-b474-403e-b3f7-c6353c4744dd",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentosClave"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -756,14 +837,16 @@
               "reference" : "ff49c8a3-20bd-443a-aaeb-afdea9343db9",
               "hasValidationError" : false,
               "id" : "pbInput"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 4
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1048,6 +1131,154 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "prepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                },
+                "clavePrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
+                },
+                "bachilleratos" : {
+                  "type" : "variable",
+                  "value" : "CatBachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                }
+              },
+              "reference" : "93eed523-a514-4376-bbbe-b133257daeee",
+              "hasValidationError" : false,
+              "id" : "customWatcherCancelar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "CheckCambiarPrepa" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "catTipoAdmision" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "CheckAA" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "CancelarMensajeCollege" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "PrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "pais_selected"
+                },
+                "listaCiudades" : {
+                  "type" : "variable",
+                  "value" : "lstcatCiudades"
+                },
+                "EstadoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "estado_selected"
+                }
+              },
+              "reference" : "d35bff2c-5782-45f6-a413-6211c535b6e1",
+              "hasValidationError" : false,
+              "id" : "customWatcherPaisSelected"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -1155,7 +1386,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "catDescuentos_selected.tipo != \"Ciudad\""
+                        "value" : "catDescuentos_selected.tipo != \"Ciudad\" || pais_selected !== \"México\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -1253,7 +1484,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "lstCatCiudad"
+                        "value" : "lstcatCiudades"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -1744,12 +1975,12 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1760,61 +1991,91 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Cancelar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "variableDestino" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "editable"
-                },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "modalId" : {
-                  "type" : "constant"
-                },
-                "variableDestino2" : {
-                  "type" : "variable",
-                  "value" : "catDescuentos_selected"
-                },
-                "variableAcopiar2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                  "value" : ""
                 }
               },
-              "reference" : "ff5734aa-a871-4a85-8688-0331c57d9da3",
+              "reference" : "a67f55c0-6fab-4670-99c9-cc7ae3703876",
               "hasValidationError" : false,
-              "id" : "customButtonSetValorDoble"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      },
+                      "variableDestino2" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos_selected"
+                      },
+                      "variableAcopiar2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                      }
+                    },
+                    "reference" : "ff5734aa-a871-4a85-8688-0331c57d9da3",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValorDoble"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1825,106 +2086,136 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catDescuentos"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"persistenceId\": 0,     \"persistenceId_string\": \"0\",     \"persistenceVersion\": 0,     \"persistenceVersion_string\": \"0\",     \"catBachilleratos\": null,     \"ciudad\": \"\",     \"campana\": \"\",     \"documento\": \"\",     \"convenioDescuento\": \"\",     \"inicioVigencia\": \"\",     \"finVigencia\": \"\",     \"tipo\": \"\",     \"descuento\": 0,     \"usuarioCreacion\": \"\",     \"isEliminado\": false,     \"campus\": \"\",     \"bachillerato\": \"\", \t\"todelete\": false }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catDescuentos_selected"
-                },
-                "campus" : {
-                  "type" : "interpolation",
-                  "value" : "{{campus}}"
                 }
               },
-              "reference" : "c8afdbf2-b14c-4e61-9b76-618eff80ff89",
+              "reference" : "5092c157-7016-47af-b1d7-1b3176fa3151",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarDescuentos"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processEditData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"persistenceId\": 0,     \"persistenceId_string\": \"0\",     \"persistenceVersion\": 0,     \"persistenceVersion_string\": \"0\",     \"catBachilleratos\": null,     \"ciudad\": \"\",     \"campana\": \"\",     \"documento\": \"\",     \"convenioDescuento\": \"\",     \"inicioVigencia\": \"\",     \"finVigencia\": \"\",     \"tipo\": \"\",     \"descuento\": 0,     \"usuarioCreacion\": \"\",     \"isEliminado\": false,     \"campus\": \"\",     \"bachillerato\": \"\", \t\"todelete\": false }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos_selected"
+                      },
+                      "campus" : {
+                        "type" : "interpolation",
+                        "value" : "{{campus}}"
+                      }
+                    },
+                    "reference" : "c8afdbf2-b14c-4e61-9b76-618eff80ff89",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarDescuentos"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -2029,6 +2320,138 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "PrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "pais_selected"
+                },
+                "listaCiudades" : {
+                  "type" : "variable",
+                  "value" : "lstcatCiudades"
+                },
+                "EstadoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "estado_selected"
+                }
+              },
+              "reference" : "df10425c-e334-4642-839f-4e4dd924975a",
+              "hasValidationError" : false,
+              "id" : "customWatcherPaisSelected"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "prepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
+                },
+                "clavePrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                },
+                "bachilleratos" : {
+                  "type" : "variable",
+                  "value" : "CatBachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                }
+              },
+              "reference" : "cd7a7309-f6e8-457d-b05d-df479b472c27",
+              "hasValidationError" : false,
+              "id" : "customWatcherCancelar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
                 "md" : 4,
                 "lg" : 4
               },
@@ -2041,7 +2464,7 @@
                   "type" : "expression",
                   "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Preparatoria\""
                 },
-                "disabled" : {
+                "readOnly" : {
                   "type" : "constant",
                   "value" : false
                 },
@@ -2077,17 +2500,92 @@
                   "type" : "constant",
                   "value" : "descripcion"
                 },
-                "returnedKey" : {
-                  "type" : "constant"
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                },
+                "claveBachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                }
+              },
+              "reference" : "ccf764b0-7f01-484b-bb89-ea2bfa046550",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
                 },
                 "value" : {
                   "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                },
+                "completeObject" : {
+                  "type" : "variable",
                   "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                },
+                "bachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
                 }
               },
-              "reference" : "ffa0a4d7-ffcf-4af7-9b64-eba1d13789d4",
+              "reference" : "ac4a2f90-c980-4991-be49-af2f501b83a1",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "customCustomAutocompleteDescuentosClave"
             },
             {
               "type" : "component",
@@ -2163,14 +2661,16 @@
               "reference" : "1ba2297b-8915-4073-8cbb-ea2896f8f69a",
               "hasValidationError" : false,
               "id" : "pbInput"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 4
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -2322,7 +2822,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Ciudad\""
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Ciudad\" || pais_selected !== \"México\""
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -2420,7 +2920,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "lstCatCiudad"
+                  "value" : "lstcatCiudades"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -2908,12 +3408,12 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -2924,167 +3424,83 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Cancelar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "variableDestino" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "editable"
-                },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "modalId" : {
-                  "type" : "constant"
+                  "value" : ""
                 }
               },
-              "reference" : "6ee75455-5f9c-495d-8071-1014f51fde88",
+              "reference" : "ff3eddbd-23bb-4b16-a703-13e39cdd1058",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "6ee75455-5f9c-495d-8071-1014f51fde88",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValor"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catDescuentos"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
-                }
-              },
-              "reference" : "be561d60-4984-4011-8ac2-c6476e2d6c83",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 4
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -3095,106 +3511,252 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catDescuentos"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
-                },
-                "campus" : {
-                  "type" : "interpolation",
-                  "value" : "{{campus}}"
                 }
               },
-              "reference" : "c72623b2-d86a-41b5-8f54-44a6a737ce7b",
+              "reference" : "61c5daca-d489-400b-ae79-a500ce6ed525",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarDescuentos"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "validar != true"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "be561d60-4984-4011-8ac2-c6476e2d6c83",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciar"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      },
+                      "campus" : {
+                        "type" : "interpolation",
+                        "value" : "{{campus}}"
+                      }
+                    },
+                    "reference" : "c72623b2-d86a-41b5-8f54-44a6a737ce7b",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarDescuentos"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -3596,7 +4158,7 @@
                               },
                               "buttonStyle" : {
                                 "type" : "constant",
-                                "value" : "default"
+                                "value" : "primary"
                               },
                               "action" : {
                                 "type" : "constant",
@@ -3786,7 +4348,7 @@
                               },
                               "buttonStyle" : {
                                 "type" : "constant",
-                                "value" : "default"
+                                "value" : "primary"
                               },
                               "action" : {
                                 "type" : "constant",
@@ -3833,6 +4395,13 @@
       "external" : false
     },
     {
+      "id" : "73cbaa28-3608-4d65-94e2-4abd7389a0d8",
+      "name" : "bootstrap.min (1).js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "5fc97838-a587-48fd-ad0a-6b8724b83ca9",
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
@@ -3844,13 +4413,6 @@
       "name" : "jquery.min (1).js",
       "type" : "js",
       "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "73cbaa28-3608-4d65-94e2-4abd7389a0d8",
-      "name" : "bootstrap.min (1).js",
-      "type" : "js",
-      "order" : 3,
       "external" : false
     },
     {
@@ -4038,7 +4600,6 @@
         "var validar = true;\r",
         "\r",
         "if($data.editable === \"editar\"){\r",
-        "    debugger;\r",
         "    if($data.catDescuentos_selected.ciudad !== null && $data.editar.ciudad_selected != undefined &&$data.editar.ciudad_selected.trim() === \"\"){\r",
         "        \r",
         "        $data.editar.ciudad_selected = $data.catDescuentos_selected.ciudad;\r",
@@ -4099,7 +4660,6 @@
         "        }\r",
         "    }\r",
         "}else if($data.editable === \"agregar\"){\r",
-        "    debugger\r",
         "    if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo.trim() === \"\"){\r",
         "        validar = false;\r",
         "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo === \"Preparatoria\" && $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos === null){\r",
@@ -4158,7 +4718,7 @@
     "lstCatCampus" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"find [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     },
@@ -4172,6 +4732,10 @@
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
         "            $data.lstCatCampus[index].clave = $data.lstCampusUsuario[x].valor;",
         "            resultado.push($data.lstCatCampus[index]);",
+        "            if($data.lstCampusUsuario.length == 1){",
+        "                $data.filtroCampus.filtroCampus = resultado[0].descripcion;",
+        "            }",
+        "            ",
         "        }",
         "    }",
         "}",
@@ -4182,7 +4746,7 @@
     "lstMembership" : {
       "type" : "url",
       "value" : [
-        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id"
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
       ],
       "exposed" : false
     },
@@ -4263,7 +4827,16 @@
         "for(var x in $data.lstCampusByUser){",
         "    for(var index in $data.lstCampusRole){",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
-        "            resultado.push($data.lstCampusRole[index]);",
+        "            //resultado.push($data.lstCampusRole[index]);",
+        "            let i = 0;",
+        "            resultado.forEach(value =>{",
+        "                if(value == $data.lstCampusRole[index]){",
+        "                   i++;",
+        "                }",
+        "            });",
+        "            if(i === 0){",
+        "               resultado.push($data.lstCampusRole[index]);  ",
+        "            }",
         "        }",
         "    }",
         "}",
@@ -4300,19 +4873,12 @@
     "lstCatEstados" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=findByPais&p=0&c=999&f=pais={{pais_selected}}"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=getCatEstadosByPaisDescripcion&p=0&c=999&f=pais={{pais_selected}}"
       ],
       "exposed" : false
     },
     "pais_selected" : {
       "type" : "constant",
-      "exposed" : false
-    },
-    "lstCatCiudad" : {
-      "type" : "url",
-      "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=findByEstado&p=0&c=999&f=estado={{estado_selected}}"
-      ],
       "exposed" : false
     },
     "estado_selected" : {
@@ -4447,6 +5013,52 @@
       "type" : "json",
       "value" : [
         "{\"filtroCampus\":\"\"}"
+      ],
+      "exposed" : false
+    },
+    "bachilletatoString" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "getCatBachilleratos" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatBachilleratos?q=getCatBachilleratos&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "lstcatCiudades" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "catDescuentos_selected_clave" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catDescuentos_selected_clave_Agregar" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "limpiarAgregar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable != 'agregar'){",
+        "    $data.formOutputAgregar.lstCatDescuentosInput[0].bachillerato=\"\";",
+        "    $data.catDescuentos_selected_clave_Agregar=\"\";",
+        "    $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos=null;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "limpiarEditar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable != 'editar'){",
+        "    ",
+        "}"
       ],
       "exposed" : false
     }

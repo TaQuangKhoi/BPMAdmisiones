@@ -81,10 +81,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         debugger;
         if ($scope.properties.dataToChange2.campus) { // validacion editar
             if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.tipoLicenciatura && $scope.properties.dataToChange2.tipoCentroEstudio) {
+                $scope.properties.dataToChange2.urlImgLicenciatura = ($scope.properties.dataToChange2.urlImgLicenciatura!=null && $scope.properties.dataToChange2.urlImgLicenciatura!=undefined ) ? $scope.properties.dataToChange2.urlImgLicenciatura:"" ;
                 //if ($scope.properties.dataToChange2.nombre && $scope.properties.dataToChange2.descripcion) {
                 $scope.properties.dataToChange2.propedeuticos = [];
                 $scope.properties.dataToChange2.matematicas = false;
                 $scope.properties.dataToChange2.caseId = "";
+                $scope.properties.dataToChange2.isMedicina = ($scope.properties.dataToChange2.isMedicina == null ? false:$scope.properties.dataToChange2.isMedicina) ;
                 if ($scope.properties.dataToChange2.propedeutico === false) {
                     //variable para controlar lo de tipo licenciatura
                     var validadosTipoLicenciatura = false;
@@ -292,9 +294,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else { // validacion guardar
             //if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].descripcion) 
             if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].nombre && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].tipoLicenciatura && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].tipoCentroEstudio) {
+                $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].urlImgLicenciatura = ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].urlImgLicenciatura!=null && $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].urlImgLicenciatura!=undefined ) ? $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].urlImgLicenciatura:"";
                 $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].propedeuticos = [];
                 $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].matematicas = false;
                 $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].caseId = "";
+                $scope.properties.dataToChange2.lstCatGestionEscolarInput[0].isMedicina = ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].isMedicina == null ? false:$scope.properties.dataToChange2.lstCatGestionEscolarInput[0].isMedicina) ;
                 if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].propedeutico === false) {
                     //if ($scope.properties.dataToChange2.lstCatGestionEscolarInput[0].periodoDisponible <= 0) {
                     //variable para controlar lo de tipo licenciatura

@@ -327,7 +327,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
      $scope.doRequestRedirect = function(row) {
         var info = angular.copy($scope.properties.dataToSend);
         info.limit= 1; 
-        info.lstFiltro =  [{columna: "ID BANNER",operador: "Igual a",valor: row.aspirantes[0].idbanner}];
+        info.lstFiltro =  [{columna: "ID BANNER",operador: "Igual a",valor: row.idbanner}];
         var req = {
             method: "POST",
             url: $scope.properties.urlPost,

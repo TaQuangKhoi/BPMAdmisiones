@@ -10,6 +10,16 @@
                     <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
                 </th>
             </tr>
+            <!--tr ng-show="true">
+                <th  class="middle-td text-center">
+                    
+                </th>
+                <th ng-repeat="header in properties.headers"  class="middle-td text-center">
+                    <input ng-model="dynamicInput[header]" class="form-control" ng-enter="filterKeyPress(header,dynamicInput[header])">
+                    
+                </th>
+            </tr-->
+            
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-class="{'info': ctrl.isSelected(row)}">

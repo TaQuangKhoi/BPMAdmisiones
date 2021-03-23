@@ -428,7 +428,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
                                 swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                            } else if ($scope.properties.tutor.codigoPostal === "") {
+                            } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                             } else {
                                 if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -563,7 +563,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {
                             swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                         } else {
                             if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -707,7 +707,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {
                             swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                         } else {
                             if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -842,7 +842,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                     } else if ($scope.properties.tutor.telefono === "") {
                         swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                    } else if ($scope.properties.tutor.codigoPostal === "") {
+                    } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                     } else {
                         if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -1001,7 +1001,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                                 } else if ($scope.properties.tutor.telefono === "") {
                                     swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                                } else if ($scope.properties.tutor.codigoPostal === "") {
+                                } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                                 } else {
                                     if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -1136,7 +1136,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
                                 swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                            } else if ($scope.properties.tutor.codigoPostal === "") {
+                            } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                             } else {
                                 if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -1280,7 +1280,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
                                 swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                            } else if ($scope.properties.tutor.codigoPostal === "") {
+                            } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                             } else {
                                 if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {
@@ -1415,7 +1415,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {
                             swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
-                        } else if ($scope.properties.tutor.codigoPostal === "") {
+                        } else if ($scope.properties.tutor.codigoPostal === "" && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                         } else {
                             if ($scope.properties.tutor.catParentezco.descripcion === "Padre") {

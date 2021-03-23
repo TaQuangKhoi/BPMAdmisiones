@@ -18,7 +18,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else {
                     if ($scope.properties.catSolicitudDeAdmision.catPeriodo === null) {
                         swal("¡Período!", "Debes seleccionar un período donde cursarás sus estudios", "warning");
-                    } else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
+                    } /*else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
                     } else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen.persistenceId_string !== "") {
                         if ($scope.properties.lugarexamen === "En un estado") {
@@ -58,11 +58,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                     } else {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
-                    }
+                    }*/
                 }
             } else if ($scope.properties.catSolicitudDeAdmision.catPeriodo === null) {
                 swal("¡Período!", "Debes seleccionar un período donde cursarás sus estudios", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
+            }/* else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen.persistenceId_string !== "") {
                 if ($scope.properties.lugarexamen === "En un estado") {
@@ -104,7 +104,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             } else {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
-            }
+            }*/
+            if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                        $scope.properties.selectedIndex--;
+                    } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                        $scope.properties.selectedIndex++;
+                        //$scope.assignTask();
+                    }
         } else if ($scope.properties.selectedIndex === 1) {
 
             console.log("validar 1");
@@ -119,9 +125,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Nombre!", "Debes ingresar tu primer nombre", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.apellidoPaterno === "") {
                 swal("¡Apellido paterno!", "Debes ingresar tu apellido paterno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
+            }/* else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
                 swal("¡Apellido materno!", "Debes ingresar tu apellido materno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
+            }*/ else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
                 swal("¡Correo electrónico!", "Debes ingresar tu correo electrónico", "warning");
             } else if (!re.test(String($scope.properties.catSolicitudDeAdmision.correoElectronico.trim()).toLowerCase())) {
                 swal("¡Correo electrónico!", "Tu correo electrónico no es válido", "warning");
@@ -131,7 +137,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.catSolicitudDeAdmision.catPropedeutico === null) {
                     swal("¡Examen propedéutico!", "Favor de seleccionar un examen propedéutico", "warning");
                 } else {
-                    if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
+                    /*if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
                     } else if ($scope.properties.catSolicitudDeAdmision.avisoPrivacidad === false) {
                         swal("¡Aviso de privacidad!", "Debes aceptar el aviso de privacidad", "warning");
@@ -140,11 +146,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.catSolicitudDeAdmision.ciudadExamen === null) {
                                 swal("¡Lugar de examen!", "Debes seleccionar un estado y una ciudad donde realizarás el examen", "warning");
                             } else {
-                                /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                                    $scope.properties.selectedIndex--;
-                                } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                                    $scope.properties.selectedIndex++;
-                                }*/
+
 
 
                                 openModal($scope.properties.modalid);
@@ -153,30 +155,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             if ($scope.properties.catSolicitudDeAdmision.ciudadExamenPais === null) {
                                 swal("¡Lugar de examen!", "Debes seleccionar un país y una ciudad donde realizarás el examen", "warning");
                             } else {
-                                /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                                    $scope.properties.selectedIndex--;
-                                } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                                    $scope.properties.selectedIndex++;
-                                }*/
-
-
                                 openModal($scope.properties.modalid);
                             }
                         } else {
-                            //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                            //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
-                            /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                                $scope.properties.selectedIndex--;
-                            } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                                $scope.properties.selectedIndex++;
-                            }*/
-
-
                             openModal($scope.properties.modalid);
                         }
-                    }
+                    }*/
+                    openModal($scope.properties.modalid);
                 }
-            } else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
+            }/* else if ($scope.properties.catSolicitudDeAdmision.catLugarExamen === null) {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás tu examen", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.avisoPrivacidad === false) {
                 swal("¡Aviso de privacidad!", "Debes aceptar el aviso de privacidad", "warning");
@@ -185,40 +172,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.catSolicitudDeAdmision.ciudadExamen === null) {
                         swal("¡Lugar de examen!", "Debes seleccionar un estado y una ciudad donde realizarás el examen", "warning");
                     } else {
-                        /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                            $scope.properties.selectedIndex--;
-                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                            $scope.properties.selectedIndex++;
-                        }*/
-
-
                         openModal($scope.properties.modalid);
                     }
                 } else if ($scope.properties.lugarexamen === "En el extranjero (solo si vives fuera de México)") {
                     if ($scope.properties.catSolicitudDeAdmision.ciudadExamenPais === null) {
                         swal("¡Lugar de examen!", "Debes seleccionar un país y una ciudad donde realizarás el examen", "warning");
                     } else {
-                        /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                            $scope.properties.selectedIndex--;
-                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                            $scope.properties.selectedIndex++;
-                        }*/
-
-
                         openModal($scope.properties.modalid);
                     }
                 } else {
-                    //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                    //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
-                    /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                        $scope.properties.selectedIndex--;
-                    } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                        $scope.properties.selectedIndex++;
-                    }*/
-
-
                     openModal($scope.properties.modalid);
                 }
+            }*/
+            else{
+                openModal($scope.properties.modalid);
             }
         } else if ($scope.properties.selectedIndex === 2) {
             $scope.faltacampo = false;

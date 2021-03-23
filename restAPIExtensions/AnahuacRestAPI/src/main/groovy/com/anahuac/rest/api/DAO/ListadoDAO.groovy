@@ -1887,7 +1887,7 @@ class ListadoDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where +=" ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -1922,12 +1922,12 @@ class ListadoDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
-						
+						/*
 						where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
-						
+						*/
 						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
@@ -1961,7 +1961,7 @@ class ListadoDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where +=" ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -1989,14 +1989,14 @@ class ListadoDAO {
 						
 						break;
 						
-					case "ESTADO,PREPARATORIA,PROMEDIO":
+					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
 						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
 						if(where.contains("WHERE")) {
 							where+= " AND "
 						}else {
 							where+= " WHERE "
 						}
-						where +="( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						where +="( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
@@ -2074,7 +2074,7 @@ class ListadoDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+						where +=" LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -2323,7 +2323,7 @@ class ListadoDAO {
 						} else {
 							where+= " WHERE "
 						}
-						where +=" LOWER(estado.DESCRIPCION) ";
+						where +=" LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						} else {
@@ -2431,7 +2431,7 @@ class ListadoDAO {
 					orderby+="sda.fechaultimamodificacion";
 					break;
 					case "NOMBRE":
-					orderby+="sda.primernombre";
+					orderby+="sda.apellidopaterno";
 					break;
 					case "EMAIL":
 					orderby+="sda.correoelectronico";
@@ -2451,8 +2451,8 @@ class ListadoDAO {
 					case "INGRESO":
 					orderby+="periodo.DESCRIPCION"
 					break;
-					case "ESTADO":
-					orderby +="estado.DESCRIPCION";
+					case "PROCEDENCIA":
+					orderby +="procedencia";
 					break;
 					case "PROMEDIO":
 					orderby+="sda.PROMEDIOGENERAL";
@@ -3272,7 +3272,7 @@ class ListadoDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+							where +=" ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -3309,13 +3309,14 @@ class ListadoDAO {
 							}
 							where +="( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
-							
-							where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+							where +=" OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							/*where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
-							
+							*/
 							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;
@@ -3377,7 +3378,7 @@ class ListadoDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+							where +=" LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ";
 							if(filtro.get("operador").equals("Igual a")) {
 								where+="=LOWER('[valor]')"
 							}else {
@@ -3662,7 +3663,7 @@ class ListadoDAO {
 					orderby+="sda.fechaultimamodificacion";
 					break;
 					case "NOMBRE":
-					orderby+="sda.primernombre";
+					orderby+="sda.apellidopaterno";
 					break;
 					case "EMAIL":
 					orderby+="sda.correoelectronico";
@@ -3682,8 +3683,8 @@ class ListadoDAO {
 					case "INGRESO":
 					orderby+="periodo.DESCRIPCION"
 					break;
-					case "ESTADO":
-					orderby +="estado.DESCRIPCION";
+					case "PROCEDENCIA":
+					orderby +="procedencia";
 					break;
 					case "PROMEDIO":
 					orderby+="sda.PROMEDIOGENERAL";
@@ -3735,7 +3736,7 @@ class ListadoDAO {
 				consulta=consulta.replace("[WHERE]", where);
 				//|123|
 //				pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, estado.DESCRIPCION AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
-				pstm = con.prepareStatement(consulta.replace("to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechaultimamodificacion, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				pstm = con.prepareStatement(consulta.replace("to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechaultimamodificacion, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -5487,10 +5488,10 @@ class ListadoDAO {
 						header12.setCellValue("TIPO DE ADMISIÓN");
 						header12.setCellStyle(style);
 						Cell header13 = headersRow.createCell(12);
-						header13.setCellValue("RESULTADO DE ADMISIÓN");
+						header13.setCellValue("TIPO DE ALUMNO");
 						header13.setCellStyle(style);
 						Cell header14 = headersRow.createCell(13);
-						header14.setCellValue("TIPO DE ALUMNO");
+						header14.setCellValue("RESULTADO DE ADMISIÓN");
 						header14.setCellStyle(style);
 						Cell header15 = headersRow.createCell(14);
 						header15.setCellValue("FECHA DE ENVÍO");
@@ -5512,10 +5513,10 @@ class ListadoDAO {
 							Row row = sheet.createRow(++rowCount);
 							//Nombre
 							Cell cell1 = row.createCell(0);
-							cell1.setCellValue(lstParams[i].numerodematricula);
+							cell1.setCellValue(lstParams[i].idbanner);
 							//Correo Electronico
 							Cell cell2 = row.createCell(1);
-							cell2.setCellValue(lstParams[i].nombre);
+							cell2.setCellValue(lstParams[i].primernombre+" "+lstParams[i].segundonombre+" "+lstParams[i].apellidopaterno+" "+lstParams[i].apellidomaterno);
 							//cell2.setCellValue(solicitud.getCorreoElectronico());
 							//CURP
 							Cell cell3 = row.createCell(2);
@@ -5559,7 +5560,12 @@ class ListadoDAO {
 							cell13.setCellValue( lstParams[i].tipodealumno);
 			
 							Cell cell14 = row.createCell(13);
-							cell14.setCellValue( lstParams[i].carta);
+							if(lstParams[i].carta== null || lstParams[i].carta== "null" ) {
+								cell14.setCellValue(lstParams[i].estatussolicitud);
+							}else {
+								cell14.setCellValue(lstParams[i].carta);
+							}
+							
 			
 							Cell cell15 = row.createCell(14);
 							cell15.setCellValue( lstParams[i].fechasolicitudenviadaformato);
@@ -7324,8 +7330,10 @@ class ListadoDAO {
 			def object = jsonSlurper.parseText(jsonData);
 		
 			Result dataResult = new Result();
+			Result dataResult2 = new Result();
 			int rowCount = 0;
 			List<Object> lstParams;
+			List<Object> lstParams2;
 			String type = object.type;
 			XSSFWorkbook workbook = new XSSFWorkbook();
 			XSSFSheet sheet = workbook.createSheet(type);
@@ -7347,6 +7355,14 @@ class ListadoDAO {
 				} else {
 					throw new Exception("No encontro datos de pase de lista");
 				}
+				
+				dataResult2 = new SesionesDAO().getResponsables(jsonData.prueba,context)
+				if (dataResult2.success) {
+					lstParams2 = dataResult2.getData();
+				} else {
+					throw new Exception("No encontro responsables");
+				}
+				
 				Row titleRow = sheet.createRow(++rowCount);
 				Cell cellReporte = titleRow.createCell(1);
 				cellReporte.setCellValue("Reporte:");
@@ -7367,14 +7383,17 @@ class ListadoDAO {
 				cellFechaData.setCellValue(sDate);
 			
 				Row blank = sheet.createRow(++rowCount);
+				
 				Cell cellusuario = blank.createCell(4);
 				cellusuario.setCellValue("Usuario:");
 				cellusuario.setCellStyle(style);
 				Cell cellusuarioData = blank.createCell(5);
 				cellusuarioData.setCellValue(object.usuarioNombre);
-			
+				
+				Row espacio = sheet.createRow(++rowCount);
+				
 				Row headersRow = sheet.createRow(++rowCount);
-			
+
 				Cell header1 = headersRow.createCell(0);
 				header1.setCellValue("ID BANNER");
 				header1.setCellStyle(style);
@@ -7456,7 +7475,7 @@ class ListadoDAO {
 					cell12.setCellValue(lstParams[i].periodo);
 					
 					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(lstParams[i].procedencia);
+					cell8.setCellValue(lstParams[i].preparatoriaestado);
 					Cell cell9 = row.createCell(8);
 					cell9.setCellValue(lstParams[i].preparatoria);
 					Cell cell13 = row.createCell(9);
@@ -7473,11 +7492,26 @@ class ListadoDAO {
 					Cell cell10 = row.createCell(13);
 					cell10.setCellValue( (lstParams[i].asistencia != null ? (lstParams[i].asistencia == "t" ?"Sí":"No") : "No"));
 				}
+				
+				for(int i=0; i<=13; ++i) {
+					sheet.autoSizeColumn(i);
+				}
+				
+				//se agregan los responsables, de esta manera no se ve afectado por el auto size y no queda como un renglon muy largo
+				Cell cellresponsable = blank.createCell(1);
+				cellresponsable.setCellValue("Responsable (s):");
+				cellresponsable.setCellStyle(style);
+				font.setBold(false);
+				style.setFont(font);
+				style.setShrinkToFit(true)
+				Cell cellresponsableData = blank.createCell(2)
+				cellresponsableData.setCellValue(lstParams2[0].responsables)
+				cellresponsableData.setCellStyle(style);
 			}
 		
-			for(int i=0; i<=13; ++i) {
-				sheet.autoSizeColumn(i);
-			}
+			
+			
+			
 			FileOutputStream outputStream = new FileOutputStream("ReportPaseLista.xls");
 			workbook.write(outputStream);
 		
@@ -7661,7 +7695,7 @@ class ListadoDAO {
 				cellFecha.setCellStyle(style);
 			
 				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.HOUR_OF_DAY, -7);
+				//cal.add(Calendar.HOUR_OF_DAY, -7);
 				Date date = cal.getTime();
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 			
@@ -7675,7 +7709,8 @@ class ListadoDAO {
 				cellusuario.setCellStyle(style);
 				Cell cellusuarioData = blank.createCell(5);
 				cellusuarioData.setCellValue(object.usuarioNombre);
-			
+				Row espacio = sheet.createRow(++rowCount);
+				
 				Row headersRow = sheet.createRow(++rowCount);
 			
 				Cell header1 = headersRow.createCell(0);

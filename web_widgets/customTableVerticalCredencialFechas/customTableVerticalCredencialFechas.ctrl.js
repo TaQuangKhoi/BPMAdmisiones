@@ -88,23 +88,23 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
     });
 
    $scope.$watchCollection('asistenciaCollegeBoard', function() {
-       debugger
+       
         if ($scope.asistenciaCollegeBoard != undefined && $scope.asistenciaCollegeBoard=== true) {
-            //$scope.fecha1;
-            $scope.fecha2= "Realizado";
-            //$scope.fecha3;
-        }
-    });
-       $scope.$watchCollection('asistenciaPsicometrico', function() {
-       debugger
-        if ($scope.asistenciaPsicometrico != undefined && $scope.asistenciaPsicometrico=== true) {
             //$scope.fecha1;
             $scope.fecha1= "Realizado";
             //$scope.fecha3;
         }
     });
+       $scope.$watchCollection('asistenciaPsicometrico', function() {
+       
+        if ($scope.asistenciaPsicometrico != undefined && $scope.asistenciaPsicometrico=== true) {
+            //$scope.fecha1;
+            $scope.fecha2= "Realizado";
+            //$scope.fecha3;
+        }
+    });
        $scope.$watchCollection('asistenciaEntrevista', function() {
-       debugger
+       
         if ($scope.asistenciaEntrevista != undefined && $scope.asistenciaEntrevista=== true) {
             //$scope.fecha1;
             $scope.fecha3= "Realizado";
@@ -141,10 +141,24 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
             $scope.asistenciaPsicometrico = false;
             $scope.asistenciaEntrevista = false;
 
+            $scope.NoCollegeBoard = 0;
+            $scope.NoPsicometrico = 0;
+            $scope.NoEntrevista = 0;
 
-            
+            for(var x = 0; x < $scope.properties.fechasExamenes.data.length; x++){
+                if($scope.properties.fechasExamenes.data[x].descripcion==="Examen de aptitudes y conocimientos"){
+                    $scope.NoCollegeBoard = x;
+                    
+                }else if($scope.properties.fechasExamenes.data[x].descripcion==="Examen Psicométrico"){
 
-            if (op === 2) {
+                    $scope.NoPsicometrico = x;
+
+                }else{
+                    $scope.NoEntrevista = x;
+                }
+
+            }
+            if (op === 1) {
                 //ES COLLEGGE BOARD
                 if ($scope.properties.datosUsuarioId.cbCoincide || $scope.asistenciaCollegeBoard) { //obtener si tiene college board(si esta excento)
                     resultado = "Validado";
@@ -152,19 +166,19 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
                         resultado = "Realizado";
                     }
                 } else if ($scope.properties.datosUsuarioId.cbCoincide === false || $scope.properties.datosUsuarioId.cbCoincide === "" || $scope.properties.datosUsuarioId.cbCoincide === " " || $scope.properties.datosUsuarioId.cbCoincide === null || $scope.properties.datosUsuarioId.cbCoincide === "null") { //Si no esta excento (tiene fecha asignada)
-                    fechaAsignada = $scope.properties.fechasExamenes.data[1].aplicacion;
+                    fechaAsignada = $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].aplicacion;
                     fechaEnOrden = $scope.FechasAcomodado(fechaAsignada);
-                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[1].horario + "    " + $scope.properties.fechasExamenes.data[1].lugar;
+                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].horario + "    " + $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].lugar;
                 }
 
 
-            } else if (op === 1) {
+            } else if (op === 2) {
                 if ($scope.asistenciaPsicometrico) {
                     resultado = "Realizado";
                 } else {
-                    fechaAsignada = $scope.properties.fechasExamenes.data[0].aplicacion;
+                    fechaAsignada = $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].aplicacion;
                     fechaEnOrden = $scope.FechasAcomodado(fechaAsignada);
-                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[0].horario + "    " + $scope.properties.fechasExamenes.data[0].lugar;
+                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].horario + "    " + $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].lugar;
                 }
 
 
@@ -172,9 +186,9 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
                 if ($scope.asistenciaEntrevista) {
                     resultado = "Realizado";
                 } else {
-                    fechaAsignada = $scope.properties.fechasExamenes.data[2].aplicacion;
+                    fechaAsignada = $scope.properties.fechasExamenes.data[$scope.NoEntrevista].aplicacion;
                     fechaEnOrden = $scope.FechasAcomodado(fechaAsignada);
-                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[2].horario + "    " + $scope.properties.fechasExamenes.data[2].lugar;
+                    resultado = fechaEnOrden + " " + $scope.properties.fechasExamenes.data[$scope.NoEntrevista].horario + "    " + $scope.properties.fechasExamenes.data[$scope.NoEntrevista].lugar;
                 }
             }
         }

@@ -136,14 +136,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $log.log('Impossible to retrieve the process definition id value from the URL');
                 }*/
             } else {
-                if (!$scope.properties.dataToChange2.descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
-                }
+                
                 if (!$scope.properties.dataToChange2.orden) {
                     swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
-                }
-                if (!$scope.properties.dataToChange2.clave) {
+                }else if (!$scope.properties.dataToChange2.clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
+                } else if (!$scope.properties.dataToChange2.descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 }
             }
 
@@ -205,15 +204,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $log.log('Impossible to retrieve the process definition id value from the URL');
                 }*/
             } else {
-                if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
-                }
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden) {
                     swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
-                }
-                if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave) {
+                } else if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
+                } else if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 }
+                
+                
 
             }
         }
@@ -228,11 +227,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
+        debugger;
         vm.busy = true;
+        let datos = angular.copy($scope.properties.dataToSend)
+        datos.lstCatTituloInput[0].orden = parseInt(datos.lstCatTituloInput[0].orden)
         var req = {
             method: method,
             url: url,
-            data: angular.copy($scope.properties.dataToSend),
+            data: datos,
             params: params
         };
 

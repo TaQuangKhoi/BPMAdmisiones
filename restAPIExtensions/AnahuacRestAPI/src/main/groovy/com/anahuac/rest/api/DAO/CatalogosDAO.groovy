@@ -24,6 +24,7 @@ import com.anahuac.rest.api.Entity.Custom.CatEstadoCustomFiltro
 import com.anahuac.rest.api.Entity.Custom.CatFiltradoCatalogosAutoDescripcion
 import com.anahuac.rest.api.Entity.Custom.CatGenericoFiltro
 import com.anahuac.rest.api.Entity.Custom.CatEstadoGFiltro
+import com.anahuac.rest.api.Entity.Custom.CatEstadosCustom
 import com.anahuac.rest.api.Entity.Custom.CatGestionEscolar
 import com.anahuac.rest.api.Entity.Custom.CatNacionalidadCustomeFiltro
 import com.anahuac.rest.api.Entity.Custom.CatParentescoCustom
@@ -539,7 +540,7 @@ class CatalogosDAO {
 			errorLog+= ""
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
-			pstm = con.prepareStatement(consulta.replace("c.*, p.descripcion as pais, e.clave as cEstado, e.descripcion as dEstado,e.caseId as cIEstado, e.fechaCreacion as fcEstado, e.isEliminado as eEstado, e.orden as oEstado, e.pais as pEstado, e.persistenceId as piEstado, e.persistenceVersion as pvEstado, e.usuarioCreacion as ucEstado", "COUNT(c.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
+			pstm = con.prepareStatement(consulta.replace("c.*, p.descripcion as pais, e.clave as cEstado, e.descripcion as dEstado", "COUNT(c.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -581,7 +582,7 @@ class CatalogosDAO {
 				row.setUrlImagen(rs.getString("urlImagen"));
 				row.setEmail(rs.getString("email"))
 				row.setPais_pid(rs.getString("pais_pid"))
-				row.setEstado_pid(rs.getString("pais_pid"))
+				row.setEstado_pid(rs.getString("estado_pid"))
 				errorLog+= "pais"
 				try {
 					row.setPais(new CatPais())
@@ -591,19 +592,19 @@ class CatalogosDAO {
 					errorLog += e.getMessage()
 				}
 				try {
-					row.setEstado(new CatEstadoCustomFiltro())
-					row.getEstado().setDescripcion(rs.getString("destado"))
-					row.getEstado().setClave(rs.getString("cestado"))
-					row.getEstado().setPais(rs.getString("pEstado"))
-					row.getEstado().setCaseId(rs.getString("ciestado"))
-					row.getEstado().setIsEliminado(rs.getBoolean("eestado"))
-					row.getEstado().setOrden(rs.getInt("oestado"))
-					row.getEstado().setPersistenceVersion(rs.getLong("pvestado"))
-					row.getEstado().setPersistenceVersion_string(rs.getString("pvestado"))
-					row.getEstado().setUsuarioCreacion(rs.getString("ucestado"))
-					row.getEstado().setPersistenceId(rs.getLong("piestado"))
-					row.getEstado().setPersistenceId_string(rs.getString("piestado"))
-					row.getEstado().setFechaCreacion(rs.getString("fcEstado"));
+					row.setEstados(new CatEstadosCustom())
+					row.getEstados().setDescripcion(rs.getString("destado"))
+					row.getEstados().setClave(rs.getString("cestado"))
+					row.getEstados().setPersistenceId(rs.getLong("estado_pid"))
+					//row.getEstado().setPais(rs.getString("pEstado"))
+					//row.getEstado().setCaseId(rs.getString("ciestado"))
+					//row.getEstado().setIsEliminado(rs.getBoolean("eestado"))
+					//row.getEstado().setOrden(rs.getInt("oestado"))
+					//row.getEstado().setPersistenceVersion(rs.getLong("pvestado"))
+					//row.getEstado().setPersistenceVersion_string(rs.getString("pvestado"))
+					//row.getEstado().setUsuarioCreacion(rs.getString("ucestado"))
+					//row.getEstado().setPersistenceId_string(rs.getString("piestado"))
+					//row.getEstado().setFechaCreacion(rs.getString("fcEstado"));
 				} catch (Exception e) {
 					errorLog += e.getMessage()
 				}
@@ -1060,7 +1061,61 @@ class CatalogosDAO {
 		}
 		return resultado
 	}
-public Result getCatBachillerato(String jsonData, RestAPIContext context) {
+
+	
+	
+	public Result getCatEstados(String pais) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+			String where ="WHERE ISELIMINADO=false", orderby="ORDER BY "
+			String consulta = Statements.GET_CATESTADOS;
+		try {
+			
+				CatEstadosCustom row = new CatEstadosCustom();
+				List<CatEstadosCustom> rows = new ArrayList<CatEstadosCustom>();
+				closeCon = validarConexion();
+				
+				consulta=consulta.replace("[WHERE]", " WHERE pais = '"+pais+"'");
+				pstm = con.prepareStatement(consulta.replace("*", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				rs= pstm.executeQuery()
+				if(rs.next()) {
+					resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+				consulta=consulta.replace("[ORDERBY]", "")
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, 40)
+				pstm.setInt(2, 0)
+				
+				
+				rs = pstm.executeQuery()
+				
+				while(rs.next()) {
+					row = new CatEstadosCustom();
+					row.setClave(rs.getString("clave"));
+					row.setDescripcion(rs.getString("descripcion"));
+					row.setPersistenceId(rs.getLong("persistenceId"));
+					rows.add(row)
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				resultado.setError_info(consulta)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getCatBachillerato(String jsonData, RestAPIContext context) {
 	Result resultado = new Result();
 	Boolean closeCon = false;
 	String error="";

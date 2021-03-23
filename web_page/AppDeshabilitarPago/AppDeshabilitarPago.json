@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "AppDeshabilitarPago",
   "name" : "AppDeshabilitarPago",
-  "lastUpdate" : 1614107989921,
+  "lastUpdate" : 1616524894132,
   "rows" : [
     [
       {
@@ -51,7 +51,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "{{estatus_pago? \"Habilitar\":\"Deshabilitar \"}} el pago de los exámenes"
+                  "value" : "{{Activado[0].activado? \"Habilitar\":\"Deshabilitar\"}}  VPD"
                 },
                 "level" : {
                   "type" : "constant",
@@ -69,41 +69,12 @@
           ],
           [
             {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 5,
-                "lg" : 6
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "0487b12e-af2f-4cc8-9970-5bef1064d52c",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [ ]
-              ]
-            },
-            {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 6
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -128,7 +99,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "estatus_pago"
+                  "value" : "Activado[0].activado"
                 }
               },
               "reference" : "8e173cbb-cdd8-488c-8ef5-dcdc8ee4651e",
@@ -158,31 +129,10 @@
   ],
   "inactiveAssets" : [ ],
   "variables" : {
-    "getCatPago" : {
+    "Activado" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"getCatPagoDeExamenDeAdmision [com.anahuac.catalogos.CatPagoDeExamenDeAdmision]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatPagoDeExamenDeAdmision\",\"displayName\":\"getCatPagoDeExamenDeAdmision\"},\"id\":\"com.anahuac.catalogos.CatPagoDeExamenDeAdmision\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"9999\"}}"
-      ],
-      "exposed" : false
-    },
-    "estatus_pago" : {
-      "type" : "expression",
-      "value" : [
-        "debugger;",
-        "var count = 0;",
-        "var datos = angular.copy($data.getCatPago);",
-        "",
-        "datos.forEach(info=>{",
-        "    if(info.deshabilitarPagoDeExamenDeAdmision){",
-        "        count++;",
-        "    }",
-        "});",
-        "",
-        "if(count == datos.length){",
-        "    return true;",
-        "}else{",
-        "    return false;",
-        "}"
+        "{\"displayValue\":\"find [com.anahuac.model.SwitchLugarExamen]\",\"businessObjectName\":\"SwitchLugarExamen\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.model.SwitchLugarExamen\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

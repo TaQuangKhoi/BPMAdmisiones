@@ -784,6 +784,33 @@ class SesionesDAO {
 				pstm.setString(1, sesionAspirante.getUsername())
 				rs = pstm.executeQuery()
 				if(rs.next()) {
+					
+					List<Long> pruebas = new ArrayList<Long>()
+					pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+					pstm.setString(1, sesionAspirante.getUsername())
+					rs = pstm.executeQuery()
+					while(rs.next()) {
+						pruebas.add(rs.getLong("prueba_pid"))
+					}
+					
+					for(Long pa:pruebas) {
+						pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+						pstm.setString(1, sesionAspirante.getUsername())
+						pstm.setLong(2, pa)
+						rs = pstm.executeQuery()
+						if(!rs.next()) {
+							pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+							pstm.setLong(1, pa);
+							pstm.setString(2, sesionAspirante.getUsername());
+							pstm.setBoolean(3,false);
+							pstm.setString(4,"");
+							
+							pstm.executeUpdate();
+						}
+					}
+					
+					
+					
 					responsabledisponible_pid = rs.getLong("responsabledisponible_pid")
 					if(sesionAspirante.getResponsabledisponible_pid().equals(0L)){
 						sesionAspirante.setResponsabledisponible_pid(responsabledisponible_pid)
@@ -1752,7 +1779,7 @@ class SesionesDAO {
 						
 						
 					case "NOMBRE, EMAIL, CURP":
-						where +=" AND ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where +=" AND ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -1774,10 +1801,11 @@ class SesionesDAO {
 						break;
 						
 					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
-						where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						/*where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";*/
+						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
 						where = where.replace("[valor]", filtro.get("valor"))
 					
-						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 					
 						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
@@ -1910,7 +1938,7 @@ class SesionesDAO {
 					orderby+="idbanner";
 					break;
 					case "NOMBRE":
-					orderby+="primernombre";
+					orderby+="apellidopaterno";
 					break;
 					case "EMAIL":
 					orderby+="correoelectronico";
@@ -1928,7 +1956,7 @@ class SesionesDAO {
 					orderby+="curp";
 					break;
 					case "PROCEDENCIA":
-					orderby+="procedencia";
+					orderby+="preparatoriaEstado";
 					break;
 					case "INGRESO":
 					orderby+="periodo";
@@ -1961,7 +1989,7 @@ class SesionesDAO {
 				consulta=consulta.replace("[WHERE]", where);
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 				//String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
-				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide";
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 				}else {
@@ -1975,7 +2003,7 @@ class SesionesDAO {
 				pstm.setInt(3, object.usuario)
 				pstm.setInt(4, object.sesion)
 				pstm.setInt(5, object.prueba)
-				
+				//pstm.setInt(6, object.usuario)
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1996,6 +2024,7 @@ class SesionesDAO {
 				pstm.setInt(3, object.usuario)
 				pstm.setInt(4, object.sesion)
 				pstm.setInt(5, object.prueba)
+				//pstm.setInt(6, object.usuario)
 				pstm.setInt(6, object.limit)
 				pstm.setInt(7, object.offset)
 				
@@ -2166,6 +2195,17 @@ class SesionesDAO {
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
 						
 						break;
+						
+					case "FECHA, LUGAR":
+						where +=" AND  ( LOWER( CAST(TO_CHAR(Pruebas.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+						where += "OR LOWER(Pruebas.entrada) LIKE LOWER('%[valor]%') "
+						where += "OR LOWER(Pruebas.salida) LIKE LOWER('%[valor]%') "
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(Pruebas.lugar) LIKE LOWER('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
 					case "ID":
 						where +=" AND CAST(Pruebas.persistenceid as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
@@ -2412,7 +2452,7 @@ class SesionesDAO {
 								if(Long.parseLong(a)>0) {
 									usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(a))
 									//membership=context.getApiClient().getIdentityAPI().getUserMemberships(usr.getId(), 0, 100, UserMembershipCriterion.GROUP_NAME_ASC).get(0)
-									nombres+=(nombres.length()>1?",":"")+usr.getFirstName()+" "+usr.getLastName()
+									nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
 								}
 							}
 						}
@@ -2607,7 +2647,7 @@ class SesionesDAO {
 						
 						
 					case "NOMBRE, EMAIL, CURP":
-						where +=" AND ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where +=" AND ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ', sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -2629,15 +2669,17 @@ class SesionesDAO {
 						break;
 						
 					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
-						where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+						/*where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";*/
+						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
 						where = where.replace("[valor]", filtro.get("valor"))
 					
-						where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 					
 						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+									
 						
 					case "ID BANNER":
 					
@@ -2765,7 +2807,7 @@ class SesionesDAO {
 					orderby+="idbanner";
 					break;
 					case "NOMBRE":
-					orderby+="primernombre";
+					orderby+="apellidopaterno";
 					break;
 					case "EMAIL":
 					orderby+="correoelectronico";
@@ -2783,7 +2825,7 @@ class SesionesDAO {
 					orderby+="curp";
 					break;
 					case "PROCEDENCIA":
-					orderby+="procedencia";
+					orderby+="preparatoriaEstado";
 					break;
 					case "INGRESO":
 					orderby+="periodo";
@@ -2816,8 +2858,8 @@ class SesionesDAO {
 				errorlog+="order by = "+orderby
 				consulta=consulta.replace("[WHERE]", where);
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
-				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
-				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide";
+				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 					if(object.reporte) {
@@ -3692,6 +3734,50 @@ class SesionesDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	//optener los responsables de la prueba
+	public Result getResponsables(String prueba, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+				String consulta = "select String_AGG(distinct rd.responsableid::varchar,',') as responsables from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = "+prueba;			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(consulta)
+				rs = pstm.executeQuery()
+				
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					User usr;
+					//UserMembership membership
+					String responsables = rs.getString("responsables");
+					String nombres= "";
+					if(!responsables.equals("null") && responsables != null) {
+						String[] arrOfStr = responsables.split(",");
+						for (String a: arrOfStr) {
+							if(Long.parseLong(a)>0) {
+								usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(a))
+								nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
+							}
+						}
+					}
+					rows.add("responsables",nombres);
+				}
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

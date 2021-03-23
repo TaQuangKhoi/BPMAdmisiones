@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatBitacoraCorreos",
   "name" : "CatBitacoraCorreos",
-  "lastUpdate" : 1610491314240,
+  "lastUpdate" : 1616525506455,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<b>Bitácora de correos</b>"
+            "value" : "<b>Gestión de correos</b><!--<b>Bitácora de correos</b>-->"
           },
           "level" : {
             "type" : "constant",
@@ -94,6 +94,73 @@
     ],
     [
       {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "lstCampusUsuario.length == 2"
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Campus:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Seleccionar Campus"
+          },
+          "availableValues" : {
+            "type" : "expression",
+            "value" : "lstCampus"
+          },
+          "displayedKey" : {
+            "type" : "constant",
+            "value" : "descripcion"
+          },
+          "returnedKey" : {
+            "type" : "constant"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "campus_selected"
+          }
+        },
+        "reference" : "061a34a2-dd6a-485e-9bb3-44f3087acf97",
+        "hasValidationError" : false,
+        "id" : "pbSelect"
+      }
+    ],
+    [
+      {
         "type" : "container",
         "dimension" : {
           "xs" : 12,
@@ -135,7 +202,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -195,7 +262,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "content" : {
                   "type" : "variable",
@@ -226,7 +293,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "editable != 'tabla'"
+            "value" : "editable != 'tabla' || campus_selected.descripcion == undefined"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -268,8 +335,7 @@
                     "ESTATUS",
                     "FECHACREACION",
                     "MENSAJE",
-                    "PARA",
-                    "CAMPUS"
+                    "PARA"
                   ]
                 },
                 "content" : {
@@ -335,7 +401,11 @@
                 },
                 "keyPressFilter" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
+                },
+                "campusSelected" : {
+                  "type" : "variable",
+                  "value" : "campus_selected"
                 }
               },
               "reference" : "dc0439e3-b459-451e-84ec-9fcebac87816",
@@ -3231,6 +3301,128 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "\r",
+        "var obj= {descripcion: \"Todos los campus\", grupoBonita: null}\r",
+        "\r",
+        "resultado.push(obj);\r",
+        "for(var x in $data.lstCampusUsuario){\r",
+        "    for(var index in $data.lstCatCampus){\r",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
+        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
+        "            resultado.push($data.lstCatCampus[index]);\r",
+        "            if($data.lstCampusUsuario.length == 2){\r",
+        "                $data.campus_selected = $data.lstCatCampus[index]\r",
+        "            }\r",
+        "        }        \r",
+        "    }\r",
+        "}\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=[];\r",
+        " resultado.push(\"Todos los campus\")\r",
+        "for(var x in $data.lstMembership){\r",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
+        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusUsuario" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "var isSerua = false;\r",
+        "var obj= {descripcion: \"Todos los campus\", valor: null}\r",
+        " resultado.push(obj);\r",
+        "for(var x in $data.lstCampusByUser){\r",
+        "    for(var index in $data.lstCampusRole){\r",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
+        "            //resultado.push($data.lstCampusRole[index]);\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "                if(value == $data.lstCampusRole[index]){\r",
+        "                    i++;\r",
+        "                }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "               resultado.push($data.lstCampusRole[index]);  \r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "campus_selected" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "\"clave\": \"\",",
+        "\"descripcion\": \"\",",
+        "\"fechaCreacion\": \"\",",
+        "\"fechaImplementacion\": \"\",",
+        "\"id\": \"\",",
+        "\"isEliminado\": null,",
+        "\"isEnabled\": null,",
+        "\"nombreDocumento\": \"\",",
+        "\"persistenceId\": 0,",
+        "\"persistenceId_string\": \"\",",
+        "\"persistenceVersion\": 0,",
+        "\"persistenceVersion_string\": \"\",",
+        "\"urlAutorDatos\": \"\",",
+        "\"urlAvisoPrivacidad\": \"\",",
+        "\"urlDatosVeridicos\": \"\",",
+        "\"usuarioBanner\": \"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     }

@@ -310,16 +310,30 @@ function PbTableCtrl($scope, $http, $window,blockUI, modalService) {
     
     
     $scope.lstCampusByUser = [];
-	$scope.campusByUser = function(){
-		var resultado=[];
+// 	$scope.campusByUser = function(){
+// 		var resultado=[];
 		
-		for(var x in $scope.lstMembership){
-			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				resultado.push($scope.lstMembership[x].group_id.name);
-			}
-		}
-		$scope.lstCampusByUser = resultado;
-	}
+// 		for(var x in $scope.lstMembership){
+// 			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+// 				resultado.push($scope.lstMembership[x].group_id.name);
+// 			}
+// 		}
+// 		$scope.lstCampusByUser = resultado;
+// 	}
+    $scope.campusByUser = function(){
+        var resultado=[];
+       // var isSerua = true;
+        resultado.push("Todos los campus")
+        for(var x in $scope.lstMembership){
+            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+                resultado.push($scope.lstMembership[x].group_id.name);
+            }
+        }
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
+        $scope.lstCampusByUser = resultado;
+    }
 	
     $scope.filtroCampus = ""
     $scope.addFilter = function () {

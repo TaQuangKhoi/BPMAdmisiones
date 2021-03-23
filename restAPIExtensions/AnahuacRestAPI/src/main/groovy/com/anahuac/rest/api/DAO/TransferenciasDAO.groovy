@@ -103,7 +103,7 @@ class TransferenciasDAO {
 					}else {
 						where+= " WHERE "
 					}
-					where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+					where +=" ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -130,7 +130,7 @@ class TransferenciasDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 				
 				break;
-				case "PREPARATORIA,ESTADO,PROMEDIO":
+				case "PREPARATORIA,PROCEDENCIA,PROMEDIO":
 					errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
 					if(where.contains("WHERE")) {
 						where+= " AND "
@@ -139,11 +139,11 @@ class TransferenciasDAO {
 					}
 					where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
-					
+					/*
 					where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
-					
-					where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+					*/
+					where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
@@ -181,7 +181,7 @@ class TransferenciasDAO {
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+                        where += " LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ";
                         if (filtro.get("operador").equals("Igual a")) {
                             where += "=LOWER('[valor]')"
                         } else {
@@ -258,8 +258,8 @@ class TransferenciasDAO {
                         }
                         ingreso = ingreso.replace("[valor]", filtro.get("valor"))
                         break;
-                    case "ESTADO":
-                        estado += " AND LOWER(estado.DESCRIPCION) ";
+                    case "PROCEDENCIA":
+                        estado += " AND LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) ";
                         if (filtro.get("operador").equals("Igual a")) {
                             estado += "=LOWER('[valor]')"
                         } else {
@@ -351,7 +351,7 @@ class TransferenciasDAO {
             }
             switch (object.orderby) {
                 case "NOMBRE":
-                    orderby += "sda.primernombre";
+                    orderby += "sda.apellidopaterno";
                     break;
                 case "EMAIL":
                     orderby += "sda.correoelectronico";
@@ -371,8 +371,8 @@ class TransferenciasDAO {
                 case "INGRESO":
                     orderby += "periodo.DESCRIPCION"
                     break;
-                case "ESTADO":
-                    orderby += "estado.DESCRIPCION";
+                case "PROCEDENCIA":
+                    orderby += "procedencia";
                     break;
                 case "PROMEDIO":
                     orderby += "sda.PROMEDIOGENERAL";

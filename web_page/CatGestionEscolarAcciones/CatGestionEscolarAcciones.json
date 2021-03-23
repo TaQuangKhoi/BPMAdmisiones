@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatGestionEscolarAcciones",
   "name" : "CatGestionEscolarAcciones",
-  "lastUpdate" : 1611463166424,
+  "lastUpdate" : 1616525998124,
   "rows" : [
     [
       {
@@ -111,7 +111,7 @@
                 },
                 "placeholder" : {
                   "type" : "interpolation",
-                  "value" : "Select an option"
+                  "value" : "Selecciona una opción"
                 },
                 "availableValues" : {
                   "type" : "expression",
@@ -717,7 +717,7 @@
                             },
                             "placeholder" : {
                               "type" : "interpolation",
-                              "value" : "Select an option"
+                              "value" : "Selecciona una opción"
                             },
                             "availableValues" : {
                               "type" : "expression",
@@ -1487,7 +1487,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Si"
+                        "value" : "Sí"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1661,7 +1661,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "SI"
+                        "value" : "Sí"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1737,9 +1737,185 @@
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 4,
+                "sm" : 12,
                 "md" : 4,
                 "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "25ad9891-93f1-4193-893c-2f291af4f82d",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "¿Es medicina ?"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "c0da24c0-bcb5-4d52-9050-e6bca96561d5",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].isMedicina"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Sí"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].isMedicina"
+                      },
+                      "seleccion" : {
+                        "type" : "constant",
+                        "value" : true
+                      }
+                    },
+                    "reference" : "d1dd033a-0d0b-45a2-801a-eedaae1943a3",
+                    "hasValidationError" : false,
+                    "id" : "customBtnValues"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "!formOutputAgregar.lstCatGestionEscolarInput[0].isMedicina"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "No"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].isMedicina"
+                      },
+                      "seleccion" : {
+                        "type" : "constant",
+                        "value" : false
+                      }
+                    },
+                    "reference" : "65fce380-608c-4386-a7b0-b239475cacb2",
+                    "hasValidationError" : false,
+                    "id" : "customBtnValues"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 4,
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1803,7 +1979,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Select an option"
+                        "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
                         "type" : "constant",
@@ -1827,182 +2003,6 @@
                     "reference" : "8e4dbee4-8e64-4f9e-a85a-d12f07c2a2ef",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
-                  }
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "25ad9891-93f1-4193-893c-2f291af4f82d",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "¿Cuatrimestral ?"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "c0da24c0-bcb5-4d52-9050-e6bca96561d5",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].matematicas"
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "SI"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "right"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "default"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].matematicas"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : true
-                      }
-                    },
-                    "reference" : "d1dd033a-0d0b-45a2-801a-eedaae1943a3",
-                    "hasValidationError" : false,
-                    "id" : "customBtnValues"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "!formOutputAgregar.lstCatGestionEscolarInput[0].matematicas"
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "No"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "default"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].matematicas"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : false
-                      }
-                    },
-                    "reference" : "65fce380-608c-4386-a7b0-b239475cacb2",
-                    "hasValidationError" : false,
-                    "id" : "customBtnValues"
                   }
                 ]
               ]
@@ -2176,7 +2176,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Select an option"
+                        "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
                         "type" : "expression",
@@ -2698,6 +2698,85 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Imagen de la licenciatura"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "../API/formFileUpload"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "errorContent" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "urlretorno" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].urlImgLicenciatura"
+                },
+                "isImagen" : {
+                  "type" : "variable",
+                  "value" : "strVariables.isImg"
+                },
+                "isPDF" : {
+                  "type" : "variable",
+                  "value" : "strVariables.isPdf"
+                },
+                "filename" : {
+                  "type" : "variable",
+                  "value" : "strVariables.fileName"
+                },
+                "filetype" : {
+                  "type" : "variable",
+                  "value" : "strVariables.fileType"
+                }
+              },
+              "reference" : "9f8c0000-aa7a-49df-aeea-31b6692b7f7a",
+              "hasValidationError" : false,
+              "id" : "customUploadCustomGestionEscolar"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -2865,6 +2944,74 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Idioma"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "inline" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "idiomaSelected"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "idioma"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "valor"
+                },
+                "selectedValue" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatGestionEscolarInput[0].idioma"
+                }
+              },
+              "reference" : "11eaa0fd-3cbc-413b-bdc8-3634e647c202",
+              "hasValidationError" : false,
+              "id" : "pbRadioButtons"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
                 "sm" : 10,
                 "md" : 6,
                 "lg" : 10
@@ -3022,7 +3169,7 @@
                 },
                 "dataToSet2" : {
                   "type" : "variable",
-                  "value" : "{     \"lstCatGestionEscolarInput\": [         {             \"nombre\": \"\",              \"descripcion\": \"\",              \"enlace\": \"\",              \"propedeutico\": false,              \"programaparcial\": false,              \"matematicas\": false,              \"inscripcionenero\": \"\",              \"inscripcionagosto\": \"\",             \"propedeuticos\":[],             \"periodoDisponible\": [],              \"tipocentroestudios\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"campus\": null,              \"orden\": null,             \"fechaCreacion\":null,             \"caseId\":null     , \"clave\":\"\",             \"tipoLicenciatura\": \"\"   }     ] }"
+                  "value" : "{     \"lstCatGestionEscolarInput\": [         {             \"nombre\": \"\",              \"descripcion\": \"\",              \"enlace\": \"\",              \"propedeutico\": false,              \"programaparcial\": false,              \"matematicas\": false,              \"inscripcionenero\": \"\",              \"inscripcionagosto\": \"\",             \"propedeuticos\":[],             \"periodoDisponible\": [],              \"tipocentroestudios\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"campus\": null,              \"orden\": null,             \"fechaCreacion\":null,             \"caseId\":null,             \"clave\":\"\",             \"tipoLicenciatura\": \"\",             \"tipoCentroEstudio\":\"\",             \"inscripcionMayo\":\"\",             \"inscripcionSeptiembre\":\"\",             \"urlImgLicenciatura\":\"\",             \"isMedicina\":false,             \"idioma\":\"\"         }     ] }"
                 },
                 "dataToChange2" : {
                   "type" : "variable",
@@ -3625,7 +3772,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "SI"
+                        "value" : "Sí"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -3799,7 +3946,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "SI"
+                        "value" : "Sí"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -3893,6 +4040,182 @@
                   "value" : ""
                 }
               },
+              "reference" : "4e17a755-1eea-4b52-b9f3-6c872f732884",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "¿Es medicina ?"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "7f4b54d2-a0e9-48bc-b3cc-168af8580117",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 6,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "catGestionEscolar_selected.isMedicina"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Sí"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "catGestionEscolar_selected.isMedicina"
+                      },
+                      "seleccion" : {
+                        "type" : "constant",
+                        "value" : true
+                      }
+                    },
+                    "reference" : "cd9cadd0-24b4-4285-9d15-ad370a14e3a4",
+                    "hasValidationError" : false,
+                    "id" : "customBtnValues"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 6,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "!catGestionEscolar_selected.isMedicina"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "No"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "catGestionEscolar_selected.isMedicina"
+                      },
+                      "seleccion" : {
+                        "type" : "constant",
+                        "value" : false
+                      }
+                    },
+                    "reference" : "6c024a3b-9a43-4d98-89ee-92f363a79695",
+                    "hasValidationError" : false,
+                    "id" : "customBtnValues"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 4,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
               "reference" : "c9b70e44-c991-42db-b2ac-9c2c00c188c4",
               "hasValidationError" : false,
               "id" : "pbContainer",
@@ -3941,7 +4264,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Select an option"
+                        "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
                         "type" : "constant",
@@ -3965,182 +4288,6 @@
                     "reference" : "463ba8b3-9288-4a5b-a2c5-c52e053386c1",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
-                  }
-                ]
-              ]
-            }
-          ],
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 4,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "4e17a755-1eea-4b52-b9f3-6c872f732884",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Default label"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "¿Cuatrimestral ?"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "center"
-                      }
-                    },
-                    "reference" : "7f4b54d2-a0e9-48bc-b3cc-168af8580117",
-                    "hasValidationError" : false,
-                    "id" : "pbText"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 6,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "catGestionEscolar_selected.matematicas"
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Si"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "right"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "default"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "catGestionEscolar_selected.matematicas"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : true
-                      }
-                    },
-                    "reference" : "cd9cadd0-24b4-4285-9d15-ad370a14e3a4",
-                    "hasValidationError" : false,
-                    "id" : "customBtnValues"
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 6,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "!catGestionEscolar_selected.matematicas"
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "No"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "left"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "default"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "catGestionEscolar_selected.matematicas"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : false
-                      }
-                    },
-                    "reference" : "6c024a3b-9a43-4d98-89ee-92f363a79695",
-                    "hasValidationError" : false,
-                    "id" : "customBtnValues"
                   }
                 ]
               ]
@@ -4314,7 +4461,7 @@
                       },
                       "placeholder" : {
                         "type" : "interpolation",
-                        "value" : "Select an option"
+                        "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
                         "type" : "constant"
@@ -4830,6 +4977,85 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Imagen de la licenciatura"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "../API/formFileUpload"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strVariables.value"
+                },
+                "errorContent" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "urlretorno" : {
+                  "type" : "variable",
+                  "value" : "catGestionEscolar_selected.urlImgLicenciatura"
+                },
+                "isImagen" : {
+                  "type" : "variable",
+                  "value" : "strVariables.isImg"
+                },
+                "isPDF" : {
+                  "type" : "variable",
+                  "value" : "strVariables.isPdf"
+                },
+                "filename" : {
+                  "type" : "variable",
+                  "value" : "strVariables.fileName"
+                },
+                "filetype" : {
+                  "type" : "variable",
+                  "value" : "strVariables.fileType"
+                }
+              },
+              "reference" : "04cc72bc-26ef-4c41-8008-49eb8dd1eb7e",
+              "hasValidationError" : false,
+              "id" : "customUploadCustomGestionEscolar"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -4930,6 +5156,74 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Idioma"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "inline" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "idiomaSelected"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "idioma"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "valor"
+                },
+                "selectedValue" : {
+                  "type" : "variable",
+                  "value" : "catGestionEscolar_selected.idioma"
+                }
+              },
+              "reference" : "03555852-62c5-4be8-a4c1-2290b3d46108",
+              "hasValidationError" : false,
+              "id" : "pbRadioButtons"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
                 "sm" : 10,
                 "md" : 6,
                 "lg" : 10
@@ -4984,7 +5278,7 @@
                 },
                 "variableAcopiar2" : {
                   "type" : "variable",
-                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"nombre\": null,      \"descripcion\": null,      \"enlace\": null,      \"propedeutico\": false,      \"programaparcial\": false,      \"matematicas\": false,      \"inscripcionenero\": null,      \"inscripcionagosto\": null,     \"periodoDisponible\": [],      \"tipocentroestudios\": null,      \"isEliminado\": false,      \"usuarioCreacion\": null,      \"campus\": null,      \"orden\": null,      \"todelete\": false,     \"fechaCreacion\":null,     \"caseId\":null }"
+                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"nombre\": null,      \"descripcion\": null,      \"enlace\": null,      \"propedeutico\": false,      \"programaparcial\": false,      \"matematicas\": false,      \"inscripcionenero\": null,      \"inscripcionagosto\": null,     \"periodoDisponible\": [],      \"propedeuticos\":[],     \"tipocentroestudios\": null,      \"isEliminado\": false,      \"usuarioCreacion\": null,      \"campus\": null,      \"orden\": null,      \"todelete\": false,     \"fechaCreacion\":null,     \"caseId\":null,     \"clave\":null,     \"tipoLicenciatura\":null,     \"tipoCentroEstudio\":null,     \"inscripcionMayo\":null,     \"inscripcionSeptiembre\":null,     \"urlImgLicenciatura\":false,     \"isMedicina\":false,\"idioma\":\"\" }"
                 }
               },
               "reference" : "ddc5a596-a6f1-4bc0-b367-2504d16a650f",
@@ -5094,7 +5388,7 @@
                 },
                 "dataToSet2" : {
                   "type" : "variable",
-                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"nombre\": null,      \"descripcion\": null,      \"enlace\": null,      \"propedeutico\": false,      \"programaparcial\": false,      \"matematicas\": false,      \"inscripcionenero\": null,      \"inscripcionagosto\": null,     \"periodoDisponible\": [],      \"tipocentroestudios\": null,      \"isEliminado\": false,      \"usuarioCreacion\": null,      \"campus\": null,      \"orden\": null,      \"todelete\": false,     \"fechaCreacion\":null,     \"caseId\":null, \"clave\":null}"
+                  "value" : "{     \"persistenceId\": 0,      \"persistenceId_string\": \"0\",      \"persistenceVersion\": 0,      \"persistenceVersion_string\": \"0\",      \"nombre\": null,      \"descripcion\": null,      \"enlace\": null,      \"propedeutico\": false,      \"programaparcial\": false,      \"matematicas\": false,      \"inscripcionenero\": null,      \"inscripcionagosto\": null,     \"periodoDisponible\": [],      \"propedeuticos\":[],     \"tipocentroestudios\": null,      \"isEliminado\": false,      \"usuarioCreacion\": null,      \"campus\": null,      \"orden\": null,      \"todelete\": false,     \"fechaCreacion\":null,     \"caseId\":null,     \"clave\":null,     \"tipoLicenciatura\":null,     \"tipoCentroEstudio\":null,     \"inscripcionMayo\":null,     \"inscripcionSeptiembre\":null,     \"urlImgLicenciatura\":\"\",     \"isMedicina\":false, \"idioma\":\"\" }"
                 },
                 "dataToChange2" : {
                   "type" : "variable",
@@ -5771,20 +6065,6 @@
   ],
   "assets" : [
     {
-      "id" : "3947a360-3795-4af1-93cb-7bc4c5dd454d",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "322857b5-ce01-4b49-b0ec-c8860a28aa25",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "47aae718-a022-402c-9543-ef1370371921",
       "name" : "localization.json",
       "type" : "json",
@@ -5792,10 +6072,24 @@
       "external" : false
     },
     {
+      "id" : "3947a360-3795-4af1-93cb-7bc4c5dd454d",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
       "id" : "d0a2d78d-3b43-4979-b7f4-783ad8ae861f",
       "name" : "anahuac_custom_styles (1).css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "322857b5-ce01-4b49-b0ec-c8860a28aa25",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
       "external" : false
     }
   ],
@@ -5855,7 +6149,10 @@
         "    \"tipoLicenciatura\":null,\r",
         "    \"tipoCentroEstudio\":null,\r",
         "    \"inscripcionMayo\":null,\r",
-        "    \"inscripcionSeptiembre\":null\r",
+        "    \"inscripcionSeptiembre\":null,\r",
+        "    \"urlImgLicenciatura\":false,\r",
+        "    \"isMedicina\":false,\r",
+        "    \"idioma\":\"\"\r",
         "}"
       ],
       "exposed" : false
@@ -5914,7 +6211,10 @@
         "            \"tipoLicenciatura\": \"\",\r",
         "            \"tipoCentroEstudio\":\"\",\r",
         "            \"inscripcionMayo\":\"\",\r",
-        "            \"inscripcionSeptiembre\":\"\"\r",
+        "            \"inscripcionSeptiembre\":\"\",\r",
+        "            \"urlImgLicenciatura\":\"\",\r",
+        "            \"isMedicina\":false,\r",
+        "            \"idioma\":\"\"\r",
         "        }\r",
         "    ]\r",
         "}\r"
@@ -5960,7 +6260,7 @@
     "lstCatCampus" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"9000\"}}"
       ],
       "exposed" : false
     },
@@ -6005,6 +6305,9 @@
         "    for(var index in $data.lstCampusRole){",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
         "            resultado.push($data.lstCampusRole[index]);",
+        "            if($data.lstCampusByUser.length == 1){",
+        "                $data.campusSelected = $data.lstCampusRole[index];",
+        "            }",
         "        }",
         "    }",
         "}",
@@ -6020,7 +6323,16 @@
         "",
         "for(var x in $data.lstMembership){",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){",
-        "        resultado.push($data.lstMembership[x].group_id.name);",
+        "        //resultado.push($data.lstMembership[x].group_id.name);",
+        "        let i = 0;",
+        "        resultado.forEach(value =>{",
+        "            if(value == $data.lstMembership[x].group_id.name){",
+        "               i++;",
+        "            }",
+        "        });",
+        "        if(i === 0){",
+        "           resultado.push($data.lstMembership[x].group_id.name);  ",
+        "        }",
         "    }",
         "}",
         "",
@@ -6308,6 +6620,37 @@
         "        $data.formOutputAgregar.lstCatGestionEscolarInput[0].inscripcionMayo = \"0\";",
         "        $data.formOutputAgregar.lstCatGestionEscolarInput[0].inscripcionSeptiembre = \"0\";",
         "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "strVariables" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"isPdf\":false,",
+        "    \"isImg\":false,",
+        "    \"fileName\":\"\",",
+        "    \"fileType\":\"\",",
+        "    \"value\":\"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "idiomaSelected" : {
+      "type" : "json",
+      "value" : [
+        "[{\"idioma\":\"Español\",\"valor\":\"Español\"},{\"idioma\":\"Ingles\",\"valor\":\"Ingles\"}]"
+      ],
+      "exposed" : false
+    },
+    "idioma" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutputAgregar.lstCatGestionEscolarInput[0].idioma === undefined || $data.formOutputAgregar.lstCatGestionEscolarInput[0].idioma === null){",
+        "   $data.formOutputAgregar.lstCatGestionEscolarInput[0].idioma = \"Español\";",
+        "} else if($data.catGestionEscolar_selected.idioma === undefined || $data.catGestionEscolar_selected.idioma === null){",
+        "    $data.catGestionEscolar_selected.idioma = \"Español\";",
         "}"
       ],
       "exposed" : false

@@ -65,7 +65,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             errorMessage = "El año fin no puede superar por más de un año al año actual.";
         } else if ($scope.properties.infoUniversidad.motivoSuspension === undefined || $scope.properties.infoUniversidad.motivoSuspension === ""){
             isValid = false;
-            titleMessage = "¡Motivo de suspensión!";
+            titleMessage = "¿Por qué motivo interrumpiste tus estudios?";
             errorMessage = "Captura el motivo por el cual no concluiste tus estudios en la institución.";
         }
     

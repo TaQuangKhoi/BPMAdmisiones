@@ -288,7 +288,6 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
     $scope.lstMembership = [];
     $scope.$watch("properties.userId", function (newValue, oldValue) {
-        debugger;
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
@@ -332,7 +331,6 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         }
     }
     $scope.sizing=function(){
-        debugger;
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;

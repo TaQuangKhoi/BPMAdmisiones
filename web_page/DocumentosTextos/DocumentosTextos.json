@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "DocumentosTextos",
   "name" : "DocumentosTextos",
-  "lastUpdate" : 1614108498250,
+  "lastUpdate" : 1616527008054,
   "rows" : [
     [
       {
@@ -55,8 +55,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "lstCampusUsuario.length <= 1"
           },
           "disabled" : {
             "type" : "constant",
@@ -161,7 +161,7 @@
     ],
     [
       {
-        "type" : "container",
+        "type" : "formContainer",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -174,669 +174,3186 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "expression",
-            "value" : "campus_selected.descripcion == undefined"
-          },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
+            "type" : "constant",
+            "value" : false
           }
         },
-        "reference" : "bf7a593f-8177-4cbe-87c4-68a92ccf0405",
+        "reference" : "79bb6ee7-d846-4cbb-8588-eae8152280ec",
         "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
+        "id" : "pbFormContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "225082a3-3da4-4fea-aa59-3aa3167765f9",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
                 },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "expression",
+                    "value" : "campus_selected.descripcion == undefined"
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
                 },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "0011a98c-e17d-484e-95f7-06032803e274",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [ ]
-              ]
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guía del examen CollegeBoard"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "url" : {
-                  "type" : "constant",
-                  "value" : "../API/formFileUpload"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "guiaDeExamen"
-                },
-                "errorContent" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "urlretorno" : {
-                  "type" : "variable",
-                  "value" : "documentosTextos.urlGuiaExamenCB"
-                },
-                "isImagen" : {
-                  "type" : "variable",
-                  "value" : "isimg"
-                },
-                "isPDF" : {
-                  "type" : "variable",
-                  "value" : "isimg"
-                },
-                "filename" : {
-                  "type" : "variable",
-                  "value" : "filename"
-                },
-                "filetype" : {
-                  "type" : "variable",
-                  "value" : "filetype"
-                }
-              },
-              "reference" : "eb9d1aca-0b51-4424-a460-521546d9c8f6",
-              "hasValidationError" : false,
-              "id" : "customUploadCustomGuiaExamen"
-            },
-            {
-              "type" : "container",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "repeatedCollection" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "8655e2ef-d8b8-4c2e-82fc-cf7daf23b776",
-              "hasValidationError" : false,
-              "id" : "pbContainer",
-              "rows" : [
-                [ ]
-              ]
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Tips para el examen College Board"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "documentosTextos.tipsCB"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "605863e6-f621-4de7-85bd-d3712377b767",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<br>\n<label>¿No sabes que carrera estudiar?</label>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "01bbd33b-4dd5-43e2-be5f-0005382cafd2",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "documentosTextos.noSabes"
-                },
-                "toolbarsGrp1" : {
-                  "type" : "constant",
-                  "value" : [
-                    "h1",
-                    "h2",
-                    "h3",
-                    "h4",
-                    "h5",
-                    "h6",
-                    "p",
-                    "ul",
-                    "ol"
+                "reference" : "bf7a593f-8177-4cbe-87c4-68a92ccf0405",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 4,
+                        "lg" : 4
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "0011a98c-e17d-484e-95f7-06032803e274",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [ ]
+                      ]
+                    },
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 4,
+                        "lg" : 4
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Guía del  examen de aptitudes y conocimientos"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "url" : {
+                          "type" : "constant",
+                          "value" : "../API/formFileUpload"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "guiaDeExamen"
+                        },
+                        "errorContent" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "urlretorno" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.urlGuiaExamenCB"
+                        },
+                        "isImagen" : {
+                          "type" : "variable",
+                          "value" : "isimg"
+                        },
+                        "isPDF" : {
+                          "type" : "variable",
+                          "value" : "isimg"
+                        },
+                        "filename" : {
+                          "type" : "variable",
+                          "value" : "filename"
+                        },
+                        "filetype" : {
+                          "type" : "variable",
+                          "value" : "filetype"
+                        }
+                      },
+                      "reference" : "eb9d1aca-0b51-4424-a460-521546d9c8f6",
+                      "hasValidationError" : false,
+                      "id" : "customUploadCustomGuiaExamen"
+                    },
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 4,
+                        "lg" : 4
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "8655e2ef-d8b8-4c2e-82fc-cf7daf23b776",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [ ]
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Tips para el  examen de aptitudes y conocimientos"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.tipsCB"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "605863e6-f621-4de7-85bd-d3712377b767",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<br>\n<label>¿No sabes que carrera estudiar?</label>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "01bbd33b-4dd5-43e2-be5f-0005382cafd2",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.noSabes"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "f2c6e082-1884-4c7f-b199-d606c0ec9927",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Liga para test vocacional:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.urlTestVocacional"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "913b714a-389b-4ad8-b6b8-19df017eeeea",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<small style='color:red'>Favor de agregar url válida ejemplo: https://www.anahuac.mx/ o http://www.anahuac.mx/</small>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "b329b891-de71-45d6-ad4f-9b9d7b0983bb",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "Correo de Aceptación."
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 3"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "b2c87f80-f810-4e99-a34f-587d1742235a",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "Campos para los correos de aceptación de los candidatos:"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 5"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "834f54e2-ce5d-4744-a1c1-01c01e23eb48",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Ciudad de la carta:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.ciudadCarta"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "bebb2364-560f-4154-90ff-f34e861c3a51",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 6,
+                        "lg" : 6
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Estado de la carta:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.estadoCarta"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "667249fd-4b74-4317-ae67-6850c17c0335",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Documentos a entregar:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.documentosEntregar"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "f2da90ca-50a8-4e9c-943b-738f96668eb4",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Documentos extranjeros:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.documentosEntregarExtranjero"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "ff814849-d283-4767-a691-f8b370732816",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Notas Documentos:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.notasDocumentos"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "e7b084e7-1a50-4030-ba43-8e7651b198cb",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Matemáticas 1:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoMatematicas1"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "b343731e-b4ee-43bc-880c-cd253ec9e4f5",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Matemáticas 2:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoMatematicas2"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "bde22dc0-6b57-49f5-af03-d1681ea0dde8",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Matemáticas 3: <br><strong>Esta opción también envía el Curso Matemáticas en el correo de instrucciones.</stron>"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoMatematicas3"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "e6fd0cb1-727e-4996-9c56-a37f8d4b0eb1",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Español 1:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoEspanol1"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "7d5157fb-ed97-45a2-b856-638cb4358f57",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Español 2:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoEspanol2"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "491fc8f6-02f5-4197-baf0-61e0fc075433",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Párrafo Español 3:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.parrafoEspanol3"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "adaecef3-2adc-48aa-99f2-65f8cc680f22",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Director de Admisiones:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.directorAdmisiones"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "313211c8-3ead-4d34-9879-0db56e77ecab",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Título del director de Admisiones:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.tituloDirectorAdmisiones"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "7b396518-d6bb-4319-8690-6f270fff98a1",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Correo del director de Admisiones:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.correoDirectorAdmisiones"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "56ba78a6-967b-48a2-8f6c-269912a388cd",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Teléfono del director de Admisiones"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.telefonoDirectorAdmisiones"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "9c7bd48d-b363-4c51-98ed-be9ba5245ed9",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Actividades ingreso Enero 2022:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.actividadIngreso1"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "822cae66-5e76-4f8b-b8db-64ceab427eed",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Actividades ingreso Agosto 2021:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.actividadIngreso2"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "56ee9e83-2b63-40bb-98b9-a42a7034b13f",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Costo del SGM:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation"
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.costoSGM"
+                        },
+                        "type" : {
+                          "type" : "constant",
+                          "value" : "text"
+                        },
+                        "min" : {
+                          "type" : "constant"
+                        },
+                        "max" : {
+                          "type" : "constant"
+                        },
+                        "step" : {
+                          "type" : "constant",
+                          "value" : 1
+                        }
+                      },
+                      "reference" : "053fc3cb-6995-4f7d-9558-136606fe9831",
+                      "hasValidationError" : false,
+                      "id" : "pbInput"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Educación garantizada:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.educacionGarantizada"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "158eb424-2035-4659-a2e8-41c2dbb1a6c0",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Instrucciones de pago en banco:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.instruccionesPagoBanco"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "e554c459-0759-4c77-a73f-e1faa74dc3a7",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Instrucciones de pago en caja:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.instruccionesPagoCaja"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "dc57e4ca-209a-47e5-8651-85cb67361dfa",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Cancelar seguro de gastos médicos:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.cancelarSeguroGastosMedicos"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "3b04d956-973b-4cab-a5b1-b35df34355f6",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Curso matemáticas Enero 2022:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.cursoMatematicas1"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "1f07afa8-51b2-44a7-827e-381528716b73",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "readOnly" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "minLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "maxLength" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Curso matemáticas Agosto 2021:"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "value" : {
+                          "type" : "variable",
+                          "value" : "documentosTextos.cursoMatematicas2"
+                        },
+                        "toolbarsGrp1" : {
+                          "type" : "constant",
+                          "value" : [
+                            "h1",
+                            "h2",
+                            "h3",
+                            "h4",
+                            "h5",
+                            "h6",
+                            "p",
+                            "ul",
+                            "ol"
+                          ]
+                        },
+                        "toolbarsGrp2" : {
+                          "type" : "constant",
+                          "value" : [
+                            "bold",
+                            "italics",
+                            "underline",
+                            "strikeThrough",
+                            "pre",
+                            "quote"
+                          ]
+                        },
+                        "toolbarsGrp3" : {
+                          "type" : "constant",
+                          "value" : [
+                            "justifyLeft",
+                            "justifyCenter",
+                            "justifyRight",
+                            "justifyFull",
+                            "indent",
+                            "outdent"
+                          ]
+                        },
+                        "toolbarsGrp4" : {
+                          "type" : "constant",
+                          "value" : [
+                            "html",
+                            "insertImage",
+                            "insertLink",
+                            "insertVideo",
+                            "wordcount",
+                            "charcount",
+                            "undo",
+                            "redo",
+                            "clear"
+                          ]
+                        }
+                      },
+                      "reference" : "0c499899-7c4d-4d62-a2a3-a29ed520f251",
+                      "hasValidationError" : false,
+                      "id" : "pbRichTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "disabled" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Actualizar"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
+                        },
+                        "buttonStyle" : {
+                          "type" : "constant",
+                          "value" : "primary"
+                        },
+                        "action" : {
+                          "type" : "constant",
+                          "value" : "POST"
+                        },
+                        "assign" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "url" : {
+                          "type" : "interpolation",
+                          "value" : "/bonita/API/extension/AnahuacRest?url=insertDocumentosTextos&p=0&c=10"
+                        },
+                        "responseStatusCode" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "dataToSend" : {
+                          "type" : "expression",
+                          "value" : "documentosTextos"
+                        },
+                        "dataFromSuccess" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "closeOnSuccess" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "dataFromError" : {
+                          "type" : "variable",
+                          "value" : "errorActualizar"
+                        },
+                        "targetUrlOnSuccess" : {
+                          "type" : "interpolation",
+                          "value" : "{{regresarA}}"
+                        },
+                        "collectionToModify" : {
+                          "type" : "variable"
+                        },
+                        "modalId" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "collectionPosition" : {
+                          "type" : "constant",
+                          "value" : "Last"
+                        },
+                        "valueToAdd" : {
+                          "type" : "constant"
+                        },
+                        "removeItem" : {
+                          "type" : "variable"
+                        }
+                      },
+                      "reference" : "464b1e96-46fb-4b6c-b9cc-04b7683d8842",
+                      "hasValidationError" : false,
+                      "id" : "pbButton"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "expression",
+                          "value" : "errorActualizar==undefined || errorActualizar == null || errorActualizar == ''"
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "Default label"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "allowHTML" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "<small style=\"color:red\">Error al actualizar: {{errorActualizar|json}}</small>"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "right"
+                        }
+                      },
+                      "reference" : "fe4f94b8-9c07-45c1-b780-7c609e77fb40",
+                      "hasValidationError" : false,
+                      "id" : "pbText"
+                    }
                   ]
-                },
-                "toolbarsGrp2" : {
-                  "type" : "constant",
-                  "value" : [
-                    "bold",
-                    "italics",
-                    "underline",
-                    "strikeThrough",
-                    "pre",
-                    "quote"
-                  ]
-                },
-                "toolbarsGrp3" : {
-                  "type" : "constant",
-                  "value" : [
-                    "justifyLeft",
-                    "justifyCenter",
-                    "justifyRight",
-                    "justifyFull",
-                    "indent",
-                    "outdent"
-                  ]
-                },
-                "toolbarsGrp4" : {
-                  "type" : "constant",
-                  "value" : [
-                    "html",
-                    "insertImage",
-                    "insertLink",
-                    "insertVideo",
-                    "wordcount",
-                    "charcount",
-                    "undo",
-                    "redo",
-                    "clear"
-                  ]
-                }
-              },
-              "reference" : "f2c6e082-1884-4c7f-b199-d606c0ec9927",
-              "hasValidationError" : false,
-              "id" : "pbRichTextarea"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Liga para test vocacional:"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "documentosTextos.urlTestVocacional"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "913b714a-389b-4ad8-b6b8-19df017eeeea",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<small style='color:red'>Favor de agregar url válida ejemplo: https://www.anahuac.mx/ o http://www.anahuac.mx/</small>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "b329b891-de71-45d6-ad4f-9b9d7b0983bb",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Actualizar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "POST"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "/bonita/API/extension/AnahuacRest?url=insertDocumentosTextos&p=0&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "documentosTextos"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : "errorActualizar"
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation",
-                  "value" : "{{regresarA}}"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                }
-              },
-              "reference" : "464b1e96-46fb-4b6c-b9cc-04b7683d8842",
-              "hasValidationError" : false,
-              "id" : "pbButton"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "errorActualizar==undefined || errorActualizar == null || errorActualizar == ''"
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<small style=\"color:red\">Error al actualizar: {{errorActualizar|json}}</small>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                }
-              },
-              "reference" : "fe4f94b8-9c07-45c1-b780-7c609e77fb40",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
+                ]
+              }
+            ]
           ]
-        ]
+        }
       }
     ]
   ],
@@ -911,13 +3428,37 @@
     "documentosTextos" : {
       "type" : "expression",
       "value" : [
-        "var retorno ={\"noSabes\":\"\",\"tipsCB\":\"\",\"urlGuiaExamenCB\":\"\",\"urlTestVocacional\":\"\",\"campus_pid\":$data.campus_selected.persistenceId}\r",
+        "var retorno ={\"noSabes\":\"\",\"tipsCB\":\"\",\"urlGuiaExamenCB\":\"\",\"urlTestVocacional\":\"\",\"campus_pid\":$data.campus_selected.persistenceId, \"ciudadCarta\":\"\",\"estadoCarta\":\"\",\"documentosEntregar\":\"\",\"documentosEntregarExtranjero\":\"\",\"notasDocumentos\":\"\",\"parrafoMatematicas1\":\"\", \"parrafoMatematicas2\":\"\",\"parrafoMatematicas3\":\"\",\"parrafoEspanol1\":\"\",\"parrafoEspanol2\":\"\",\"parrafoEspanol3\":\"\",\"directorAdmisiones\":\"\",\"tituloDirectorAdmisiones\":\"\",\"correoDirectorAdmisiones\":\"\",\"telefonoDirectorAdmisiones\":\"\",\"actividadIngreso1\":\"\",\"actividadIngreso2\":\"\",\"costoSGM\":\"\",\"educacionGarantizada\":\"\",\"instruccionesPagoBanco\":\"\",\"cancelarSeguroGastosMedicos\":\"\",\"cursoMatematicas1\":\"\",\"cursoMatematicas2\":\"\"}\r",
         "if($data.getDocumentosTextos.length>0){\r",
         "    retorno.noSabes=$data.getDocumentosTextos[0].noSabes;\r",
         "    retorno.tipsCB=$data.getDocumentosTextos[0].tipsCB;\r",
         "    retorno.urlGuiaExamenCB=$data.getDocumentosTextos[0].urlGuiaExamenCB;\r",
         "    retorno.urlTestVocacional=$data.getDocumentosTextos[0].urlTestVocacional;\r",
         "    retorno.campus_pid=$data.getDocumentosTextos[0].campus_pid;\r",
+        "    retorno.ciudadCarta=$data.getDocumentosTextos[0].ciudadCarta;\r",
+        "    retorno.estadoCarta=$data.getDocumentosTextos[0].estadoCarta;\r",
+        "    retorno.documentosEntregar=$data.getDocumentosTextos[0].documentosEntregar;\r",
+        "    retorno.documentosEntregarExtranjero=$data.getDocumentosTextos[0].documentosEntregarExtranjero;\r",
+        "    retorno.notasDocumentos=$data.getDocumentosTextos[0].notasDocumentos\r",
+        "    retorno.parrafoMatematicas1=$data.getDocumentosTextos[0].parrafoMatematicas1\r",
+        "    retorno.parrafoMatematicas2=$data.getDocumentosTextos[0].parrafoMatematicas2\r",
+        "    retorno.parrafoMatematicas3=$data.getDocumentosTextos[0].parrafoMatematicas3\r",
+        "    retorno.parrafoEspanol1=$data.getDocumentosTextos[0].parrafoEspanol1;\r",
+        "    retorno.parrafoEspanol2=$data.getDocumentosTextos[0].parrafoEspanol2;\r",
+        "    retorno.parrafoEspanol3=$data.getDocumentosTextos[0].parrafoEspanol3;\r",
+        "    retorno.directorAdmisiones=$data.getDocumentosTextos[0].directorAdmisiones;\r",
+        "    retorno.tituloDirectorAdmisiones=$data.getDocumentosTextos[0].tituloDirectorAdmisiones;\r",
+        "    retorno.correoDirectorAdmisiones=$data.getDocumentosTextos[0].correoDirectorAdmisiones;\r",
+        "    retorno.telefonoDirectorAdmisiones=$data.getDocumentosTextos[0].telefonoDirectorAdmisiones;\r",
+        "    retorno.actividadIngreso1=$data.getDocumentosTextos[0].actividadIngreso1;\r",
+        "    retorno.actividadIngreso2=$data.getDocumentosTextos[0].actividadIngreso2;\r",
+        "    retorno.costoSGM=$data.getDocumentosTextos[0].costoSGM;\r",
+        "    retorno.educacionGarantizada=$data.getDocumentosTextos[0].educacionGarantizada;\r",
+        "    retorno.instruccionesPagoBanco=$data.getDocumentosTextos[0].instruccionesPagoBanco;\r",
+        "    retorno.instruccionesPagoCaja=$data.getDocumentosTextos[0].instruccionesPagoCaja;\r",
+        "    retorno.cancelarSeguroGastosMedicos=$data.getDocumentosTextos[0].cancelarSeguroGastosMedicos;\r",
+        "    retorno.cursoMatematicas1=$data.getDocumentosTextos[0].cursoMatematicas1;\r",
+        "    retorno.cursoMatematicas2=$data.getDocumentosTextos[0].cursoMatematicas2;\r",
         "}\r",
         "return retorno;"
       ],
@@ -963,6 +3504,9 @@
         "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
         "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
         "            resultado.push({...$data.lstCatCampus[index], \"group_id\":$data.lstCampusUsuario[x].group_id});\r",
+        "        if($data.lstCampusUsuario.length == 1){\r",
+        "                $data.campus_selected = resultado[0];\r",
+        "            }\r",
         "        }\r",
         "    }\r",
         "}\r",
@@ -1006,11 +3550,23 @@
     "lstCampusUsuario" : {
       "type" : "expression",
       "value" : [
+        "debugger;\r",
         "var resultado = [];\r",
         "for(var x in $data.lstCampusByUser){\r",
         "    for(var index in $data.lstCampusRole){\r",
         "        if($data.lstCampusByUser[x].name === $data.lstCampusRole[index].valor){\r",
-        "            resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            //resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let r2 = [];\r",
+        "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "                if(value.valor == r2[0].valor ){\r",
+        "                   i++;\r",
+        "                }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "              resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            }\r",
         "        }\r",
         "    }\r",
         "}\r",

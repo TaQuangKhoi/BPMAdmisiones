@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ListadoSesionCalendarizadas",
   "name" : "ListadoSesionCalendarizadas",
-  "lastUpdate" : 1614108547471,
+  "lastUpdate" : 1616527062939,
   "rows" : [
     [
       {
@@ -229,7 +229,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Listado de pruebas calendarizadas"
+                  "value" : "Listado de pruebas"
                 },
                 "level" : {
                   "type" : "constant",
@@ -331,8 +331,8 @@
             {
               "type" : "container",
               "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
+                "xs" : 6,
+                "sm" : 6,
                 "md" : 6,
                 "lg" : 8
               },
@@ -370,7 +370,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -437,9 +437,9 @@
                         "value" : "lstFiltros"
                       }
                     },
-                    "reference" : "af4ae5be-89e4-4cc3-a9c4-1d65cca13643",
+                    "reference" : "ad5f5c78-6554-4817-b619-9921fe06103d",
                     "hasValidationError" : false,
-                    "id" : "customListFiltrosNormal"
+                    "id" : "customListFiltrosBloqueoCampus"
                   }
                 ]
               ]
@@ -447,8 +447,8 @@
             {
               "type" : "container",
               "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
+                "xs" : 6,
+                "sm" : 6,
                 "md" : 6,
                 "lg" : 4
               },
@@ -741,6 +741,10 @@
           "lstCampus" : {
             "type" : "variable",
             "value" : "lstCatCampus"
+          },
+          "campusSeleccionado" : {
+            "type" : "variable",
+            "value" : "getCampus"
           }
         },
         "reference" : "58f3d4e6-0ae9-4786-9b39-270bd50aa935",
@@ -1622,7 +1626,7 @@
     "activos" : {
       "type" : "constant",
       "value" : [
-        "<"
+        ">="
       ],
       "exposed" : false
     },
@@ -1631,6 +1635,10 @@
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

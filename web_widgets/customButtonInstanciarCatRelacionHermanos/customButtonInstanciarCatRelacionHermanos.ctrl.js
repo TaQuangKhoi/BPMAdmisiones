@@ -1,3 +1,4 @@
+
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
     'use strict';
@@ -72,18 +73,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger
         	if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
 			if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) {
 				if ($scope.properties.processId) {
-				      $scope.properties.dataToChange2["todelete"] = false;
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+                      $scope.properties.dataToChange2["todelete"] = false;
+                      
+                      var req2 = {
+                        method: 'GET',
+                        url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatRelacionHermanos&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
+                        };
+                        return $http(req2).success(function(datos, status) {
+                        if(datos.data[0] === true){
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                                doRequest("GET", $scope.properties.url).then(function () {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            });
+                        }else{
+                            swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+                            
+                        }).error(function(data, status) {
+                            console.log(data);
+                            console.log(status);
+                        })
+					// var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+					// 	doRequest("GET", $scope.properties.url).then(function () {
+					// 		$scope.properties.dataToChange = $scope.properties.dataToSet;
+					// 		$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+					// 	});
+					// 	localStorageService.delete($window.location.href);
+					// });
 
 				} else {
 					$log.log('Impossible to retrieve the process definition id value from the URL');
@@ -93,20 +115,43 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
 				}
 				if (!$scope.properties.dataToChange2.clave) {
-					swal("¡Aviso!","Falto capurar informacion en: Clave", "warning");
+					swal("¡Aviso!","Falto capurar informacion en: Orden", "warning");
 				}
 			}
 
 	} else {
 			if ($scope.properties.dataToChange2.lstCatRelacionHermanosInput[0].clave && $scope.properties.dataToChange2.lstCatRelacionHermanosInput[0].descripcion) {
 				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+
+
+                    var req2 = {
+                        method: 'GET',
+                        url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatRelacionHermanos&clave=" + $scope.properties.dataToChange2.lstCatRelacionHermanosInput[0].clave + "&id="
+                    };
+                return $http(req2).success(function(datos, status) {
+                    if(datos.data[0] === true){
+                         var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", $scope.properties.url).then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
+                        });
+                    }else{
+                        swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                    }
+                   
+                }).error(function(data, status) {
+                    console.log(data);
+                    console.log(status);
+                })
+					// var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+					// 	doRequest("GET", $scope.properties.url).then(function () {
+					// 		$scope.properties.dataToChange = $scope.properties.dataToSet;
+					// 		$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+					// 	});
+					// 	localStorageService.delete($window.location.href);
+					// });
 
 				} else {
 					$log.log('Impossible to retrieve the process definition id value from the URL');
@@ -116,7 +161,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
 				}
 				if (!$scope.properties.dataToChange2.lstCatRelacionHermanosInput[0].clave) {
-					swal("¡Aviso!","Falto capurar informacion en: Clave", "warning");
+					swal("¡Aviso!","Falto capurar informacion en: Orden", "warning");
 				}
 			}
 	}

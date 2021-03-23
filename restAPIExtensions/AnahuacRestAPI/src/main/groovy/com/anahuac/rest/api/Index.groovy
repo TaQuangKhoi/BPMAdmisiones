@@ -1165,6 +1165,7 @@ class Index implements RestApiController {
 					row.cancelarSeguroGastosMedicos = object.cancelarSeguroGastosMedicos
 					row.cursoMatematicas1 = object.cursoMatematicas1
 					row.cursoMatematicas2 = object.cursoMatematicas2
+					row.instruccionesPagoCaja = object.instruccionesPagoCaja
 					result = new DocumentosTextosDAO().insertDocumentosTextos(row)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

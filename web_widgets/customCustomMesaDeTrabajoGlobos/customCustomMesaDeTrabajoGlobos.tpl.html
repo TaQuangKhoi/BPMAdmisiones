@@ -1,102 +1,151 @@
 <div class="row">
     <div class="col-xs-12 text-center dashboard-baloon-container">
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('progreso', '')">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12" ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('progreso', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Solicitudes en proceso .png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Solicitudes en proceso 1.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Solicitudes en proceso 1 D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Solicitudes en proceso</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Solicitudes en proceso</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('nuevas', '')">
-            <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Nuevas solicitudes.png">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12" ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('nuevas', '')" >
+            <div class="text-center position-relative">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="nuevasSolicitudes === 0 && (isAdmisiones || isTiSerua || isSerua)" src="assets/img/Nuevas solicitudes contador 2.png">
+                    <img class="img-limited" ng-if="nuevasSolicitudes > 0 && (isAdmisiones || isTiSerua || isSerua)" src="assets/img/Nuevas solicitudes contador 1.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Nuevas solicitudes contador D.png">
+                    <div class="notification-container">
+                        <p ng-if="(isAdmisiones || isTiSerua || isSerua)" ng-class="{'text-light':nuevasSolicitudes > 0}" class="text-baloon">{{nuevasSolicitudes}}</p>
+                    </div>
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Nueva solicitudes</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Nueva solicitudes</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('aspirantesEnProceso', '')">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12" ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('aspirantesEnProceso', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Aspirantes en proceso.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Aspirantes en proceso.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Aspirantes en proceso D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Aspirantes en proceso</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Aspirantes en proceso</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('autodescripcion', '')">
+
+
+
+
+
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isPsicologo || isTiSerua || isSerua || isPsicologoSup),'balloon-container-disabled' :  !(isPsicologo || isTiSerua || isSerua || isPsicologoSup)}"  ng-click="redirect('autodescripcion', '')">
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Autodescripcion.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isPsicologo || isTiSerua || isSerua || isPsicologoSup)" src="assets/img/Autodescripcion.png">
+                    <img class="img-limited" ng-if="!(isPsicologo || isTiSerua || isSerua || isPsicologoSup)" src="assets/img/Autodescripcion D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Autodescripción</h4>
+                    <h4 ng-class="{'color-orange':(isPsicologo || isTiSerua || isSerua || isPsicologoSup),'color-gray-disabled' :  !(isPsicologo || isTiSerua || isSerua || isPsicologoSup)}">Autodescripción</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('sesiones', '')">
+
+
+
+
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isPsicologo || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isPsicologo || isTiSerua || isSerua)}" ng-click="redirect('sesiones', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Generacion de sesiones.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isPsicologo || isTiSerua || isSerua)" src="assets/img/Generacion de sesiones.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isPsicologo || isTiSerua || isSerua)" src="assets/img/Generacion de sesiones D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Generación de sesiones</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isPsicologo || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isPsicologo || isTiSerua || isSerua)}">Generación de sesiones</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" >
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isPsicologo || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isPsicologo || isTiSerua || isSerua)}" ng-click="redirect('aspisantesCitaAsignada', '')"  >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Reporte de citas.png">
+                <div class="img-center-widget">
+                    <img class="img-limited"  ng-if="(isAdmisiones || isPsicologo || isTiSerua || isSerua)" src="assets/img/Reporte de citas.png">
+                    <img class="img-limited"  ng-if="!(isAdmisiones || isPsicologo || isTiSerua || isSerua)" src="assets/img/Reporte de citas D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Reporte de citas</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isPsicologo || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isPsicologo || isTiSerua || isSerua)}">Aspirantes con sesión asignada</h4>
                 </div>
             </div>
         </div>
-        
     </div>
 
-    <div class="col-xs-12 text-center dashboard-baloon-container" ng-click="redirect('paselista', '')">
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container">
+    <div class="col-xs-12 text-center dashboard-baloon-container">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua)}" ng-click="redirect('paselista', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Pase de lista.png">
+                <div class="img-center-widget">
+                    <img class="img-limited"  ng-if="(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua)" src="assets/img/Pase de lista.png">
+                    <img class="img-limited"  ng-if="!(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua)" src="assets/img/Pase de lista D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Pase de lista</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isPsicologo || isPaseDeLista || isTiSerua || isSerua)}">Pase de lista</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('importacionResultados', '')">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('importacionResultados', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Importancia resultados.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Importancia de resultados.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Importancia de resultados D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Importación de resultados</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Importación de resultados</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('generacionCartas', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Generacion de cartas.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Generacion de cartas.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Generacion de cartas D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Generación de cartas</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Generación de cartas</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('usuariosRegistrados', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Usuarios registrados.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Usuarios registrados 1.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Usuarios registrados D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Usuarios registrados</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Usuarios registrados</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container" ng-click="redirect('transferencias', '')">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('transferencias', '')" >
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Transferencias.png">
+                <div class="img-center-widget">
+                    <img class="img-limited"  ng-if="(isAdmisiones || isTiSerua || isSerua)"src="assets/img/Transferencias.png">
+                    <img class="img-limited"  ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Transferencias D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Transferencias</h4>
+                    <!--<h4 class="color-orange">Transferencias</h4>-->
+                     <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Transferencias</h4>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 balloon-container">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 " ng-class="{'balloon-container':(isAdmisiones || isTiSerua || isSerua),'balloon-container-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}" ng-click="redirect('resultadoDeAdmision', '')">
             <div class="text-center">
-                <img class="img-center-widget" src="assets/img/Resultados admision.png">
+                <div class="img-center-widget">
+                    <img class="img-limited" ng-if="(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Resultados de admision 1.png">
+                    <img class="img-limited" ng-if="!(isAdmisiones || isTiSerua || isSerua)" src="assets/img/Resultados de admision D.png">
+                </div>
                 <div class="title">
-                    <h4 class="color-orange">Resultados de admisión</h4>
+                    <h4 ng-class="{'color-orange':(isAdmisiones || isTiSerua || isSerua),'color-gray-disabled' :  !(isAdmisiones || isTiSerua || isSerua)}">Resultados de admisión</h4>
                 </div>
             </div>
         </div>

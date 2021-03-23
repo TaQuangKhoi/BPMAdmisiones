@@ -72,111 +72,75 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger
-        if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-            if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estado && $scope.properties.dataToChange2.ciudad) {
-
-                var req = {
-                    method: 'GET',
-                    url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatBachilleratos&clave=" + $scope.properties.dataToChange2.clave + "&id="+$scope.properties.dataToChange2.persistenceId
-                };
-
-                return $http(req)
-                    .success(function(data, status) {
-                        if (data.data[0]) {
-                            if ($scope.properties.processId) {
-                                var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                                    doRequest("GET", $scope.properties.url).then(function() {
-                                        $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                        $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                                    });
-                                    localStorageService.delete($window.location.href);
-                                });
-
-                            } else {
-                                $log.log('Impossible to retrieve the process definition id value from the URL');
-                            }
-                        } else {
-                            swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                        }
-                    })
-                    .error(function(data, status) {
-                        console.log(data);
-                        console.log(status);
-                    })
-
-
-
-
-            } else {
-                if (!$scope.properties.dataToChange2.ciudad) {
-                    swal("¡Aviso!", "Faltó capturar información en: Ciudad", "warning");
-                }
-                if (!$scope.properties.dataToChange2.estado) {
-                    swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
-                }
-                if (!$scope.properties.dataToChange2.pais) {
-                    swal("¡Aviso!", "Faltó capturar información en: País", "warning");
-                }
-                if (!$scope.properties.dataToChange2.descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-                }
-                if (!$scope.properties.dataToChange2.clave) {
-                    swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-                }
-            }
-
+	debugger
+	if($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === ""){
+		if( $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estado && $scope.properties.dataToChange2.ciudad){
+			
+			 if ($scope.properties.processId) {
+            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                doRequest("GET", $scope.properties.url).then(function() {
+                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                });
+                localStorageService.delete($window.location.href);
+            });
 
         } else {
-            if ($scope.properties.dataToChange2.lstCatBachilleratosInput[0].clave && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].descripcion && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].pais && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].estado && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].ciudad) {
-
-                var req = {
-                    method: 'GET',
-                    url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatBachilleratos&clave=" + $scope.properties.dataToChange2.lstCatBachilleratosInput[0].clave + "&id="
-                };
-
-                return $http(req)
-                    .success(function(data, status) {
-                        if (data.data[0]) {
-                            if ($scope.properties.processId) {
-                                var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                                    doRequest("GET", $scope.properties.url).then(function() {
-                                        $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                        $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                                    });
-                                    localStorageService.delete($window.location.href);
-                                });
-
-                            } else {
-                                $log.log('Impossible to retrieve the process definition id value from the URL');
-                            }
-                        } else {
-                            swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                        }
-                    })
-                    .error(function(data, status) {
-                        console.log(data);
-                        console.log(status);
-                    })
-            } else {
-                if (!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].ciudad) {
-                    swal("¡Aviso!", "Faltó capturar información en: Ciudad", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].estado) {
-                    swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].pais) {
-                    swal("¡Aviso!", "Faltó capturar información en: País", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].clave) {
-                    swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-                }
-            }
+            $log.log('Impossible to retrieve the process definition id value from the URL');
         }
-    }
+	   }else {
+		if(!$scope.properties.dataToChange2.ciudad ){
+			swal("¡Aviso!", "Faltó capturar información en: Ciudad", "warning");
+		}
+		   if(!$scope.properties.dataToChange2.estado ){
+			   swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.pais ){
+				   swal("¡Aviso!", "Faltó capturar información en: País", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.descripcion ){
+			   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.clave){
+			   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+		   }
+	   }
+			
+	
+	}else{
+		if( $scope.properties.dataToChange2.lstCatBachilleratosInput[0].clave && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].descripcion && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].pais && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].estado && $scope.properties.dataToChange2.lstCatBachilleratosInput[0].ciudad){
+			
+			 if ($scope.properties.processId) {
+            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                doRequest("GET", $scope.properties.url).then(function() {
+                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                });
+                localStorageService.delete($window.location.href);
+            });
+
+        } else {
+            $log.log('Impossible to retrieve the process definition id value from the URL');
+        }
+	   }else {
+		if(!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].ciudad ){
+			swal("¡Aviso!", "Faltó capturar información en: Ciudad", "warning");
+		}
+		   if(!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].estado ){
+			   swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].pais ){
+				   swal("¡Aviso!", "Faltó capturar información en: País", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].descripcion ){
+			   swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+		   }
+		   if(!$scope.properties.dataToChange2.lstCatBachilleratosInput[0].clave){
+			   swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+		   }
+	   }
+}
+}
 
 
     /**
@@ -198,13 +162,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromSuccess = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromError = undefined;
-                notifyParentFrame({
-                    message: 'success',
-                    status: status,
-                    dataFromSuccess: data,
-                    dataFromError: undefined,
-                    responseStatusCode: status
-                });
+                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
                 if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     redirectIfNeeded();
                 }
@@ -214,13 +172,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataFromError = data;
                 $scope.properties.responseStatusCode = status;
                 $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({
-                    message: 'error',
-                    status: status,
-                    dataFromError: data,
-                    dataFromSuccess: undefined,
-                    responseStatusCode: status
-                });
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {
                 vm.busy = false;
@@ -245,9 +197,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
-            return {
-                'user': userId
-            };
+            return { 'user': userId };
         }
         return {};
     }

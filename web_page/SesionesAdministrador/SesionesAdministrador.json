@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "SesionesAdministrador",
   "name" : "SesionesAdministrador",
-  "lastUpdate" : 1614108760035,
+  "lastUpdate" : 1616527389694,
   "rows" : [
     [
       {
@@ -568,6 +568,9 @@
         "        }\r",
         "    }\r",
         "}\r",
+        "if($data.lstCampusUsuario.length == 1){\r",
+        "$data.campus_selected = resultado[0];\r",
+        "}\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -686,7 +689,18 @@
         "for(var x in $data.lstCampusByUser){\r",
         "    for(var index in $data.lstCampusRole){\r",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
-        "            resultado.push($data.lstCampusRole[index]);\r",
+        "            //resultado.push($data.lstCampusRole[index]);\r",
+        "            let r2 = [];\r",
+        "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "            if(value.valor == r2[0].valor ){\r",
+        "            i++;\r",
+        "            }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "            resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            }\r",
         "        }\r",
         "    }\r",
         "}\r",

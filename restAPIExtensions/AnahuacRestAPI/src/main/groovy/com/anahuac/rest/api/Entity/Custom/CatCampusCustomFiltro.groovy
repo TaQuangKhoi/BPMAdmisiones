@@ -57,9 +57,23 @@ class CatCampusCustomFiltro {
 	private CatPais pais;
 	@XmlElement
 	private CatEstadoCustomFiltro estado;
+	
 	private String pais_pid;
 	@XmlElement
 	private String estado_pid;
+	
+	private CatEstadosCustom estados;
+	
+	
+	
+	
+	public CatEstadosCustom getEstados() {
+		return estados;
+	}
+
+	public void setEstados(CatEstadosCustom estados) {
+		this.estados = estados;
+	}
 
 	public Long getPersistenceId() {
 		return persistenceId;

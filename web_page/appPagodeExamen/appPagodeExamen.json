@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1614108122737,
+  "lastUpdate" : 1616525130882,
   "rows" : [
     [
       {
@@ -109,6 +109,10 @@
           "isTaskExecuted" : {
             "type" : "variable",
             "value" : ""
+          },
+          "loadedOrder" : {
+            "type" : "variable",
+            "value" : "loadedOrder"
           }
         },
         "reference" : "4484eabc-6792-4ea6-878e-62ae8cbc9559",
@@ -1029,7 +1033,7 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "left"
+                        "value" : "center"
                       }
                     },
                     "reference" : "5d9176af-3d51-4b9c-930e-7e1e715c4f15",
@@ -3772,7 +3776,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<b>La referencia tiene una vigencia de XXX horas, después de ese tiempo si no has realizado tu pago tendrás que generar una nueva.</b>"
+                              "value" : "<b>La referencia tiene una vigencia de 24 horas, después de ese tiempo si no has realizado tu pago tendrás que generar una nueva.</b>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3824,7 +3828,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<div class=\"opps-instructions\">\n    <h3 class=\"fff\">Instrucciones</h3>\n    <ol>\n        <li>Accede a tu banca en línea.</li>\n        <li>Da de alta la CLABE en esta ficha. <strong>El banco deberá de ser {{orderOutput.speiBank}}</strong>.</li>\n        <li>Realiza la transferencia correspondiente por la cantidad exacta en esta ficha, <strong>de lo contrario se rechazará el cargo</strong>.</li>\n        <li>Al realizar tu pago, el portal de tu banco generará un comprobante digital. <strong>En él podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>\n        <li>No es necesario mandar el comprobante de pago. El sistema, en máximo 30 minutos, nos avisará en automático que ya se ha realizado éste de manera correcta. Revisa tu bandeja de entrada o correo no deseado con las instrucciones para continuar con tu proceso.</li>\n    </ol>\n</div>"
+                              "value" : "<div class=\"opps-instructions\">\n    <h3 class=\"fff\">Instrucciones</h3>\n    <ol>\n        <li>Accede a tu banca en línea.</li>\n        <li>Da de alta la CLABE de esta ficha.\n        <li>Realiza la transferencia correspondiente por la cantidad exacta en esta ficha, <strong>de lo contrario se rechazará el cargo</strong>.</li>\n        <li>Al realizar tu pago, el portal de tu banco generará un comprobante digital. <strong>En él podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>\n        <li>No es necesario mandar el comprobante de pago. El sistema, en máximo 30 minutos, nos avisará en automático que ya se ha realizado éste de manera correcta. Revisa tu bandeja de entrada o correo no deseado con las instrucciones para continuar con tu proceso.</li>\n    </ol>\n</div>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -4159,7 +4163,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "no-margin"
                             },
                             "hidden" : {
                               "type" : "constant",
@@ -4187,7 +4191,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<b>La referencia tiene una vigencia de XXX horas, después de ese tiempo si no has realizado tu pago tendrás que generar una nueva.</b>"
+                              "value" : "<b>La referencia tiene una vigencia de 24 horas, después de ese tiempo si no has realizado tu pago tendrás que generar una nueva.</b>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -4349,7 +4353,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<h3>Puedes cambiar tu método de pago en cualquier momento presionando el botón <b>Cambiar método de pago</b> debajo de este mensaje. Una vez presionado el botón, <b>tu actual método de pago y su respectiva referencia serán descartados y ya no será válido</b>.</h3>"
+                  "value" : "<h4>Puedes cambiar tu forma de pago en cualquier momento presionando el botón \"<b>Cambiar forma de pago</b>\" debajo de este mensaje. </h4>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -4385,7 +4389,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Cambiar método de pago"
+                  "value" : "Cambiar Forma de Pago"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -4482,7 +4486,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "currentTaskName === \"Pago de examen\" || !orderOutput.authorizationCode"
+            "value" : "currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" || !orderOutput.authorizationCode || orderOutput.status !== \"paid\""
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -4594,7 +4598,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Pago exitoso"
+                                    "value" : "Pago exitoso de examen de admisión"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -4628,8 +4632,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "orderOutput.type !== \"credit\""
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -4736,7 +4740,7 @@
                               "value" : ""
                             }
                           },
-                          "reference" : "a2f60d02-a282-4f78-80e8-66ef77c1d57c",
+                          "reference" : "e36a3432-137d-4f43-895a-7aca7572fb17",
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
@@ -4757,6 +4761,108 @@
                                   "hidden" : {
                                     "type" : "constant",
                                     "value" : false
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "Método de pago:"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  }
+                                },
+                                "reference" : "edaf5d90-b378-4492-a6c6-73e2e4f5a66c",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "limited-img"
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "srcType" : {
+                                    "type" : "constant",
+                                    "value" : "Asset"
+                                  },
+                                  "url" : {
+                                    "type" : "constant"
+                                  },
+                                  "assetName" : {
+                                    "type" : "expression",
+                                    "value" : "getMetodoPagoImagen"
+                                  },
+                                  "alt" : {
+                                    "type" : "interpolation"
+                                  }
+                                },
+                                "reference" : "5c35827d-97d6-4f86-9aad-eb4cad673cd1",
+                                "hasValidationError" : false,
+                                "id" : "pbImage"
+                              }
+                            ]
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "a2f60d02-a282-4f78-80e8-66ef77c1d57c",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 6,
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "color-orange no-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"credit\""
                                   },
                                   "text" : {
                                     "type" : "interpolation",
@@ -4789,8 +4895,8 @@
                                     "value" : "no-margin"
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"credit\""
                                   },
                                   "text" : {
                                     "type" : "interpolation",
@@ -4806,6 +4912,146 @@
                                   }
                                 },
                                 "reference" : "80dfe63b-6b8b-4bfe-9350-fa37fc40aa27",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 6,
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "color-orange no-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"oxxo\""
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "Referencia:"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  }
+                                },
+                                "reference" : "195e0c29-8092-40d0-a49c-a4aa5522c7b6",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 6,
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "no-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"oxxo\""
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{orderOutput.referencia}}"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "6f4e6130-cd47-4162-a8df-905921e50be9",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 6,
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "color-orange no-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"spei\""
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "CLABE"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  }
+                                },
+                                "reference" : "b575519a-7190-4b0a-b583-369b52899a80",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 6,
+                                  "sm" : 6,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "no-margin"
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "orderOutput.type !== \"spei\""
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{orderOutput.CLABE}}"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "984bc1ab-6563-4c8b-a0c7-84f1c582fc0e",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               }
@@ -5128,8 +5374,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "orderOutput.type !== \"credit\""
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -5236,7 +5482,7 @@
                               "value" : ""
                             }
                           },
-                          "reference" : "d74752b4-d0a5-4044-80bc-516adaba02c0",
+                          "reference" : "d830b352-d0a8-4d69-a65d-79be6c77aeeb",
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
@@ -5260,7 +5506,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "ID banner:"
+                                    "value" : "ID:"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -5271,7 +5517,7 @@
                                     "value" : "right"
                                   }
                                 },
-                                "reference" : "d043df1b-e4f8-4b12-a75f-1381bd39a694",
+                                "reference" : "2a729281-b204-4aba-9ef6-d41fd9383a00",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               },
@@ -5305,7 +5551,7 @@
                                     "value" : "left"
                                   }
                                 },
-                                "reference" : "94e8a74b-dd1c-4a7b-84a6-34b5cf15e413",
+                                "reference" : "03c7e8e9-1c07-4071-b905-e2e7e0478cac",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               }
@@ -5336,7 +5582,7 @@
                               "value" : ""
                             }
                           },
-                          "reference" : "defff81c-b1bc-4201-b11b-25c45a4e6be3",
+                          "reference" : "c0fb215a-e456-4266-b966-e4b33f750af3",
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
@@ -5360,7 +5606,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "VPD:"
+                                    "value" : "Lugar de examen:"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -5371,7 +5617,7 @@
                                     "value" : "right"
                                   }
                                 },
-                                "reference" : "ef8b7db3-0ee6-4e52-8476-c1517aafe4f5",
+                                "reference" : "cfed2ba0-f812-41d6-a139-caa4233bab01",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               },
@@ -5405,7 +5651,7 @@
                                     "value" : "left"
                                   }
                                 },
-                                "reference" : "f0760cd9-274d-4758-adda-9a5f2ceb7a53",
+                                "reference" : "132e0f36-9660-4c14-b502-84895a40976c",
                                 "hasValidationError" : false,
                                 "id" : "pbTitle"
                               }
@@ -5414,6 +5660,58 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Tu pago ha sido realizado con éxito y ya fue reflejado en nuestro sistema, <b>no es necesario enviar el comprobante</b>. Da clic en continuar para seguir con tu proceso."
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4499ce37-e8ca-4522-809a-c76fd5ebedfe",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ],
                 [
@@ -5650,7 +5948,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "isAdmisionAnahuac === true || currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" || currentTaskName === \"\" || orderOutput.authorizationCode"
+            "value" : "isAdmisionAnahuac === true || currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" ||currentTaskName === \"\"  || currentTaskName === undefined || orderOutput.authorizationCode"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -5663,43 +5961,7 @@
         "rows" : [
           [
             {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Pago  condonado"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 3"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "dba0e449-bb54-49ef-ac6d-ef65697375a0",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -5712,46 +5974,208 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "is100descuento === true || isPagoCondonado  !== true"
                 },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<hr>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
-              "reference" : "46abe590-2528-48b3-9656-d56637c833c8",
+              "reference" : "a08b6bf9-bc1f-4d35-8dea-93de92844298",
               "hasValidationError" : false,
-              "id" : "pbText"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Pago  condonado"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 3"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "dba0e449-bb54-49ef-ac6d-ef65697375a0",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<hr>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "46abe590-2528-48b3-9656-d56637c833c8",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Tu pago ha sido condonado exitosamente.  Da clic en continuar para seguir con tu proceso."
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "42051fa9-36aa-4e2e-8b6b-1aa3dac44154",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Continuar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "url" : {
+                        "type" : "constant",
+                        "value" : "/apps/aspirante/autodescripcion"
+                      }
+                    },
+                    "reference" : "dae3f3f6-10b6-4d3e-bb69-93dcaef49d65",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnRedirectLayout"
+                  }
+                ]
+              ]
             }
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -5764,85 +6188,151 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "is100descuento !== true"
                 },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "{{objectPagoExamen.textoDescriptivoPagoDeshabilitado}}"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "622906a3-a772-435a-b838-0a4c5ae709bf",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
+                "repeatedCollection" : {
+                  "type" : "variable",
                   "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Continuar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "url" : {
-                  "type" : "constant",
-                  "value" : "/apps/aspirante/autodescripcion"
                 }
               },
-              "reference" : "dae3f3f6-10b6-4d3e-bb69-93dcaef49d65",
+              "reference" : "7f0cde1c-7fba-4797-a281-ca2c3fcbee57",
               "hasValidationError" : false,
-              "id" : "customCustomBtnRedirectLayout"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Descuento 100%"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 3"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "f270066e-80c8-4f9f-a3f4-395d2ce97ce2",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Has obtenido un descuento del 100%  en el costo de tu examen de admisión.  Da clic en continuar para seguir con tu proceso."
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "138109ed-4009-47fb-b7c2-541b2bbb52b2",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Continuar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "url" : {
+                        "type" : "constant",
+                        "value" : "/apps/aspirante/autodescripcion"
+                      }
+                    },
+                    "reference" : "f0ecb5f5-8b19-4893-9679-009cdf9799cf",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnRedirectLayout"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -6258,16 +6748,13 @@
         "}\r",
         "\r",
         "function getTotal(montoParcial, descuento){\r",
-        "    // let output = (parseInt(montoParcial).toFixed(2) - parseInt(descuento).toFixed(2)).toFixed(2);\r",
         "    let output = (parseFloat(montoParcial).toFixed(2) - parseFloat(descuento).toFixed(2)).toFixed(2);\r",
         "    return output;\r",
         "}\r",
         "\r",
         "function getDescuento(montoParcial, descuento){\r",
         "    let output = \"0\";\r",
-        "    // if (parseInt(descuento) > 0){\r",
         "    if (parseFloat(descuento) > 0){\r",
-        "        // output = parseInt(montoParcial).toFixed(2) * (0.01 * parseInt(descuento).toFixed(2));\r",
         "        output = parseFloat(montoParcial).toFixed(2) * (0.01 * parseFloat(descuento).toFixed(2));\r",
         "    }\r",
         "    return parseFloat(output).toFixed(2) + \"\";\r",
@@ -6276,13 +6763,10 @@
         "function getMontoByTipoEstudiante(){\r",
         "    let output = \"\";\r",
         "    if($data.objectDetalleSolicitud.tipoAlumno === \"Local\"){\r",
-        "        // output = parseInt($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
         "    } else if($data.objectDetalleSolicitud.tipoAlumno === \"Foraneo\"){\r",
-        "        // output = parseInt($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
         "    } else {\r",
-        "        // output = parseInt($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
         "    }\r",
         "    \r",
@@ -6290,13 +6774,11 @@
         "}\r",
         "\r",
         "function returnDescuento(){\r",
-        "    debugger;\r",
         "    let output = \"\";\r",
         "    if($data.objectDetalleSolicitud.descuento !== null && $data.objectDetalleSolicitud.descuento !== undefined && $data.objectDetalleSolicitud.descuento !== \"\"){\r",
-        "        // if(parseInt($data.objectDetalleSolicitud.descuento) > 0){\r",
         "        if(parseFloat($data.objectDetalleSolicitud.descuento) > 0){\r",
-        "            // output = parseInt($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
-        "            output = parseFloat($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
+        "            // output = parseFloat($data.objectDetalleSolicitud.descuento).toFixed(2) + \"\";\r",
+        "            output = parseInt($data.objectDetalleSolicitud.descuento);\r",
         "        } else {\r",
         "            output = \"0\";\r",
         "        }\r",
@@ -6472,8 +6954,82 @@
         "    \"isPagoTarjeta\" : true ,",
         "    \"detalleSolicitudInput\" : {",
         "        \"ordenPago\":\"\"",
-        "    }",
+        "    },",
+        "    \"isPagoCondonado\": true",
         "}"
+      ],
+      "exposed" : false
+    },
+    "is100descuento" : {
+      "type" : "expression",
+      "value" : [
+        "let output = null;",
+        "if($data.caseVariables !== undefined){",
+        "    if($data.caseVariables.length > 0){",
+        "        for(let i = 0; i < $data.caseVariables.length; i++){",
+        "            if($data.caseVariables[i].name === \"is100Descuento\"){",
+        "                output = $data.caseVariables[i].value === \"true\" ? true : false;",
+        "                break;",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "getMetodoPago" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";\r",
+        "if($data.orderOutput !== undefined ){\r",
+        "    if($data.orderOutput.type === \"oxxo\"){\r",
+        "        output = \"Oxxo\";\r",
+        "        $data.getMetodoPagoImagen = \"OXXO-PAY.jpg\";\r",
+        "    } else if ($data.orderOutput.type === \"spei\"){\r",
+        "        output = \"SPEI\";\r",
+        "        $data.getMetodoPagoImagen = \"spei_brand.png\";\r",
+        "    } else{\r",
+        "        output = \"Tarjeta de crédito/débito\" ;\r",
+        "        if($data.orderOutput.cardBrand === \"visa\"){\r",
+        "            $data.getMetodoPagoImagen = \"Visa.png\";\r",
+        "        } else if($data.orderOutput.cardBrand === \"mastercard\"){\r",
+        "            $data.getMetodoPagoImagen = \"Mastercard.png\";\r",
+        "        } else if($data.orderOutput.cardBrand === \"american_express\"){\r",
+        "            $data.getMetodoPagoImagen = \"AMEX.png\";\r",
+        "        } \r",
+        "    } \r",
+        "}\r",
+        "\r",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "getMetodoPagoImagen" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "loadedOrder" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "isPagoCondonado" : {
+      "type" : "expression",
+      "value" : [
+        "let output = null;",
+        "if($data.caseVariables !== undefined){",
+        "    if($data.caseVariables.length > 0){",
+        "        for(let i = 0; i < $data.caseVariables.length; i++){",
+        "            if($data.caseVariables[i].name === \"isPagoCondonado\"){",
+        "                output = $data.caseVariables[i].value === \"true\" ? true : false;",
+        "                break;",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

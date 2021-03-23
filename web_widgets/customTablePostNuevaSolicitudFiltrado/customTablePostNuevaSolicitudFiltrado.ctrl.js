@@ -278,8 +278,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                if($scope.lstMembership.length == 1){
-                    $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
+                if($scope.lstCampusByUser.length == 2){
+                    $scope.properties.campusSeleccionado = $scope.properties.lstCampus[i].grupoBonita    
                 }
             }else if(campus == "Todos los campus"){
                 retorno = campus
@@ -311,22 +311,29 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     });
     
     $scope.lstCampusByUser = [];
-	$scope.campusByUser = function(){
-		var resultado=[];
-		var isSerua = false;
-		for(var x in $scope.lstMembership){
-		    if($scope.lstMembership[x].group_id.name.indexOf("SERUA") != -1){
-		        isSerua = true;
-		    }
-			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				resultado.push($scope.lstMembership[x].group_id.name);
-			}
-		}
-		if(isSerua){
-            resultado.push("Todos los campus")
+    $scope.campusByUser = function(){
+        var resultado=[];
+       // var isSerua = true;
+        resultado.push("Todos los campus")
+        for(var x in $scope.lstMembership){
+            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+                let i = 0;
+                resultado.forEach(value =>{
+                    if(value == $scope.lstMembership[x].group_id.name){
+                       i++;
+                    }
+                });
+                if(i === 0){
+                   resultado.push($scope.lstMembership[x].group_id.name);  
+                }
+                
+            }
         }
-		$scope.lstCampusByUser = resultado;
-	}
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
+        $scope.lstCampusByUser = resultado;
+    }
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
         if($scope.filtroCampus != "Todos los campus"){

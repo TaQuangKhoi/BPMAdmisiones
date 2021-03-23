@@ -781,7 +781,7 @@ class UsuariosDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where +=" ( LOWER(concat(sda.apellidopaterno,' ', sda.apellidomaterno,' ', sda.primernombre,' ', sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -810,7 +810,7 @@ class UsuariosDAO {
 							break;
 
 
-						case "ESTADO,PREPARATORIA,PROMEDIO":
+						case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
 							errorlog+="ESTADO,PREPARATORIA,PROMEDIO"
 							if(where.contains("WHERE")) {
 								where+= " AND "
@@ -820,7 +820,7 @@ class UsuariosDAO {
 							where +="( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+							where +=" OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
@@ -846,7 +846,7 @@ class UsuariosDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+							where +=" LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ";
 							if(filtro.get("operador").equals("Igual a")) {
 								where+="=LOWER('[valor]')"
 							}else {
@@ -918,8 +918,8 @@ class UsuariosDAO {
 							}
 							ingreso = ingreso.replace("[valor]", filtro.get("valor"))
 							break;
-						case "ESTADO":
-							estado +=" AND LOWER(estado.DESCRIPCION) ";
+						case "PROCEDENCIA":
+							estado +=" AND LOWER( CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) ";
 							if(filtro.get("operador").equals("Igual a")) {
 								estado+="=LOWER('[valor]')"
 							}else {
@@ -978,7 +978,7 @@ class UsuariosDAO {
 							}
 							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
 							break;
-						case "IDBANNER":
+						case "ID BANNER":
 							tipoalumno +=" AND LOWER(da.idbanner) ";
 							if(filtro.get("operador").equals("Igual a")) {
 								tipoalumno+="=LOWER('[valor]')"
@@ -1034,8 +1034,8 @@ class UsuariosDAO {
 					case "INGRESO":
 					orderby+="periodo.DESCRIPCION"
 					break;
-					case "ESTADO":
-					orderby +="estado.DESCRIPCION";
+					case "PROCEDENCIA":
+					orderby +="procedencia";
 					break;
 					case "PROMEDIO":
 					orderby+="sda.PROMEDIOGENERAL";

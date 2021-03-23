@@ -147,9 +147,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     return $http(req)
       .success(function(data, status) {
-          debugger;
         setTimeout(function(){
-            debugger;
             $scope.properties.dataFromSuccess = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromError = undefined;

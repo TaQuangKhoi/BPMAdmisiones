@@ -15,8 +15,8 @@ class DocumentosTextosDAO {
 	ResultSet rs;
 	PreparedStatement pstm;
 	public static final String GET="SELECT * FROM CATDOCUMENTOSTEXTOS WHERE campus_pid=?"
-	public static final String INSERT="INSERT INTO CATDOCUMENTOSTEXTOS  (NOSABES ,TIPSCB ,URLGUIAEXAMENCB , URLTESTVOCACIONAL ,persistenceid,persistenceversion, actividadingreso1, actividadingreso2, cancelarsegurogastosmedicos, ciudadcarta, correodirectoradmisiones, costosgm, cursomatematicas1, cursomatematicas2, directoradmisiones, documentosentregar, documentosentregarextranjero, educaciongarantizada, estadocarta, instruccionespagobanco, notasdocumentos, parrafoespanol1, parrafoespanol2, parrafoespanol3, parrafomatematicas1, parrafomatematicas2, parrafomatematicas3, telefonodirectoradmisiones, titulodirectoradmisiones, campus_pid) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from CATDOCUMENTOSTEXTOS  ) is null then 1 else (SELECT max(persistenceId)+1 from CATDOCUMENTOSTEXTOS) end,0,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);"
-	public static final String UPDATE="UPDATE CATDOCUMENTOSTEXTOS SET NOSABES=?, TIPSCB=?, URLGUIAEXAMENCB=?, URLTESTVOCACIONAL=?,actividadingreso1=?, actividadingreso2=?, cancelarsegurogastosmedicos=?, ciudadcarta=?, correodirectoradmisiones=?, costosgm=?, cursomatematicas1=?, cursomatematicas2=?, directoradmisiones=?, documentosentregar=?, documentosentregarextranjero=?, educaciongarantizada=?, estadocarta=?, instruccionespagobanco=?, notasdocumentos=?, parrafoespanol1=?, parrafoespanol2=?, parrafoespanol3=?, parrafomatematicas1=?, parrafomatematicas2=?, parrafomatematicas3=?, telefonodirectoradmisiones=?, titulodirectoradmisiones=? where campus_pid=?;"
+	public static final String INSERT="INSERT INTO CATDOCUMENTOSTEXTOS  (NOSABES ,TIPSCB ,URLGUIAEXAMENCB , URLTESTVOCACIONAL ,persistenceid,persistenceversion, actividadingreso1, actividadingreso2, cancelarsegurogastosmedicos, ciudadcarta, correodirectoradmisiones, costosgm, cursomatematicas1, cursomatematicas2, directoradmisiones, documentosentregar, documentosentregarextranjero, educaciongarantizada, estadocarta, instruccionespagobanco, notasdocumentos, parrafoespanol1, parrafoespanol2, parrafoespanol3, parrafomatematicas1, parrafomatematicas2, parrafomatematicas3, telefonodirectoradmisiones, titulodirectoradmisiones,instruccionespagocaja, campus_pid) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from CATDOCUMENTOSTEXTOS  ) is null then 1 else (SELECT max(persistenceId)+1 from CATDOCUMENTOSTEXTOS) end,0,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?);"
+	public static final String UPDATE="UPDATE CATDOCUMENTOSTEXTOS SET NOSABES=?, TIPSCB=?, URLGUIAEXAMENCB=?, URLTESTVOCACIONAL=?,actividadingreso1=?, actividadingreso2=?, cancelarsegurogastosmedicos=?, ciudadcarta=?, correodirectoradmisiones=?, costosgm=?, cursomatematicas1=?, cursomatematicas2=?, directoradmisiones=?, documentosentregar=?, documentosentregarextranjero=?, educaciongarantizada=?, estadocarta=?, instruccionespagobanco=?, notasdocumentos=?, parrafoespanol1=?, parrafoespanol2=?, parrafoespanol3=?, parrafomatematicas1=?, parrafomatematicas2=?, parrafomatematicas3=?, telefonodirectoradmisiones=?, titulodirectoradmisiones=?, instruccionespagocaja=? where campus_pid=?;"
 	public Boolean validarConexion() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
@@ -66,6 +66,7 @@ class DocumentosTextosDAO {
 					row.setCancelarSeguroGastosMedicos(rs.getString("cancelarSeguroGastosMedicos"))
 					row.setCursoMatematicas1(rs.getString("cursoMatematicas1"))
 					row.setCursoMatematicas2(rs.getString("cursoMatematicas2"))
+					row.setInstruccionesPagoCaja(rs.getString("instruccionesPagoCaja"))
 					row.setCampus_pid(rs.getLong("campus_pid"))
 					rows.add(row)
 				}
@@ -119,7 +120,8 @@ class DocumentosTextosDAO {
 					pstm.setString(25,row.parrafoMatematicas3);//21
 					pstm.setString(26,row.telefonoDirectorAdmisiones);//22
 					pstm.setString(27,row.tituloDirectorAdmisiones);//23
-					pstm.setLong(28, row.getCampus_pid())
+					pstm.setString(28,row.instruccionesPagoCaja);//23
+					pstm.setLong(29, row.getCampus_pid())
 					pstm.execute()
 				resultado.setSuccess(true)
 				resultado.setData(rows)

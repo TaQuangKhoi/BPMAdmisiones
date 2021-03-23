@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatReligionAcciones",
   "name" : "CatReligionAcciones",
-  "lastUpdate" : 1608656902761,
+  "lastUpdate" : 1616526677870,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catálogo de Religión"
+            "value" : "Catálogo de religión"
           },
           "level" : {
             "type" : "constant",
@@ -143,7 +143,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -151,7 +151,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -203,9 +203,9 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Orden",
                     "Clave",
                     "Descripción",
+                    "ID banner",
                     "Usuario banner",
                     "Fecha creación",
                     "Fecha implementación"
@@ -218,12 +218,12 @@
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
-                    "orden",
                     "clave",
                     "descripcion",
+                    "id",
                     "usuarioBanner",
-                    "fechaCreacion| date:'dd-MM-yyyy'",
-                    "fechaImplementacion| date:'dd-MM-yyyy'"
+                    "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'",
+                    "fechaImplementacion| date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
                 "selectedRow" : {
@@ -267,9 +267,9 @@
                   "value" : "urlRefreshPaginado"
                 }
               },
-              "reference" : "1e0ea0e3-6db8-4f8f-8d86-a69f7008515f",
+              "reference" : "49af2276-d115-48c8-b148-ed357a613754",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionarBanner"
+              "id" : "customTableSeleccionarBannerReligion"
             }
           ],
           [
@@ -288,7 +288,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "value" : {
                   "type" : "expression",
@@ -402,7 +402,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "required" : {
                   "type" : "constant",
@@ -469,7 +469,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
+                "md" : 4,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -535,16 +535,16 @@
                   "value" : 1
                 }
               },
-              "reference" : "6bf38db2-66e7-4355-918d-1265b24a8a87",
+              "reference" : "66cf403d-8f82-4308-92cb-88306b85c8d9",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMAYUS"
             },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
+                "md" : 8,
                 "lg" : 10
               },
               "propertyValues" : {
@@ -578,7 +578,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Descripcion:"
+                  "value" : "Descripción:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -621,8 +621,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "md" : 4,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -633,61 +633,73 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Cancelar"
+                  "value" : "ID banner:"
                 },
-                "alignment" : {
+                "labelPosition" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "top"
                 },
-                "buttonStyle" : {
+                "labelWidth" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : 4
                 },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
+                "placeholder" : {
+                  "type" : "interpolation"
                 },
-                "variableDestino" : {
+                "value" : {
                   "type" : "variable",
-                  "value" : "editable"
+                  "value" : "catReligion_selected.id"
                 },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
+                "type" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : "text"
                 },
-                "modalId" : {
+                "min" : {
                   "type" : "constant"
                 },
-                "variableDestino2" : {
-                  "type" : "variable",
-                  "value" : "catReligion_selected"
+                "max" : {
+                  "type" : "constant"
                 },
-                "variableAcopiar2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioBanner\": \"\", \t\"clave\": \"\" }"
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
                 }
               },
-              "reference" : "1f65341f-4955-4309-9a0b-24fa6113bb71",
+              "reference" : "8527593b-38ab-4c45-a162-67f9f3eeddde",
               "hasValidationError" : false,
-              "id" : "customButtonSetValorDoble"
-            },
+              "id" : "pbInput"
+            }
+          ],
+          [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -698,102 +710,227 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catReligion"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"fechaImportacion\":null, \t\"isEliminado\": false, \t\"isEnabled\":true, \t\"usuarioBanner\": \"\", \t\"clave\": \"\", \t\"orden\":0 }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catReligion_selected"
                 }
               },
-              "reference" : "4235110b-60ed-4bf9-9b82-aaf2fba48443",
+              "reference" : "fafe7c55-d277-4b88-8932-20f992362cba",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      },
+                      "variableDestino2" : {
+                        "type" : "variable",
+                        "value" : "catReligion_selected"
+                      },
+                      "variableAcopiar2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioBanner\": \"\", \t\"clave\": \"\" }"
+                      }
+                    },
+                    "reference" : "3ce49272-bfbf-4b48-9773-7d5995b0132a",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValorDobleReligion"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "8041c294-ddd8-4d25-aa60-722d5e19552c",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catReligion"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processEditData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"fechaImportacion\":null, \t\"isEliminado\": false, \t\"isEnabled\":true, \t\"usuarioBanner\": \"\", \t\"clave\": \"\", \t\"orden\":\"0\",\"id\":\"\"}"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "catReligion_selected"
+                      }
+                    },
+                    "reference" : "cb9246f3-11bf-4199-b9a2-03a600992417",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarReligion"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -842,7 +979,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "required" : {
                   "type" : "constant",
@@ -909,7 +1046,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
+                "md" : 4,
                 "lg" : 2
               },
               "propertyValues" : {
@@ -975,16 +1112,16 @@
                   "value" : 1
                 }
               },
-              "reference" : "9e838fea-d701-443d-af63-74f90f809042",
+              "reference" : "0a6783e2-ec6d-4140-9e22-7f7f13981773",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMAYUS"
             },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
+                "md" : 8,
                 "lg" : 10
               },
               "propertyValues" : {
@@ -1018,7 +1155,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Descripcion:"
+                  "value" : "Descripción:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -1061,8 +1198,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "md" : 4,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1073,53 +1210,73 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Cancelar"
+                  "value" : "ID banner:"
                 },
-                "alignment" : {
+                "labelPosition" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "top"
                 },
-                "buttonStyle" : {
+                "labelWidth" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : 4
                 },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
+                "placeholder" : {
+                  "type" : "interpolation"
                 },
-                "variableDestino" : {
+                "value" : {
                   "type" : "variable",
-                  "value" : "editable"
+                  "value" : "formOutputAgregar.lstCatReligionInput[0].id"
                 },
-                "variableAcopiar" : {
-                  "type" : "variable",
-                  "value" : "'tabla'"
-                },
-                "OpenModal" : {
+                "type" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : "text"
                 },
-                "modalId" : {
+                "min" : {
                   "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
                 }
               },
-              "reference" : "7d01f649-14ab-4baa-b1e7-524953b0db29",
+              "reference" : "bb9f3e26-9487-488c-aa0e-17cefa8fd9ba",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
-            },
+              "id" : "pbInput"
+            }
+          ],
+          [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1130,102 +1287,220 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "expression",
-                  "value" : "validar != true"
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catReligion"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatReligionInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,             \"isEnabled\": true,             \"usuarioBanner\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null,             \"fechaImportacion\":null,             \"orden\":0         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
                 }
               },
-              "reference" : "d7913db6-8cfc-4ee2-8f22-4150c9f89e11",
+              "reference" : "ee7dd281-4605-4bba-977a-94e4d1511a6e",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciar"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "modalId" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "8b619fc6-d0f1-45ad-89a6-60dbbfa03d72",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValorReligion"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "7948efac-f5d1-457b-a5c2-3af3df41db52",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p={{inicio}}&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catReligion"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatReligionInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,             \"isEnabled\": true,             \"usuarioBanner\": \"\",              \"clave\": \"\",              \"fechaCreacion\": null,             \"fechaImportacion\":null,             \"orden\":\"0\"        ,\"id\":\"\"  }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "65af0d27-25bf-40d8-90e7-2e06d0786325",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarReligion"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -1260,7 +1535,7 @@
     "catReligion" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p={{inicio}}&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p=0&c=999"
       ],
       "exposed" : false
     },
@@ -1279,7 +1554,8 @@
         "\t\"isEnabled\":true,\r",
         "\t\"usuarioBanner\": \"\",\r",
         "\t\"clave\": \"\",\r",
-        "\t\"orden\":0\r",
+        "\t\"orden\":\"\",\r",
+        "\t\"id\":\"\"\r",
         "}"
       ],
       "exposed" : false
@@ -1291,7 +1567,7 @@
     "countCatReligion" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=countForIsEliminado&p=0&c=10"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=countForIsEliminado&p=0&c=999"
       ],
       "exposed" : false
     },
@@ -1335,6 +1611,7 @@
     "lstCatReligion" : {
       "type" : "expression",
       "value" : [
+        "debugger;",
         "var lstResultado = [];",
         "",
         "lstResultado.push($data.catReligion_selected);",
@@ -1371,7 +1648,7 @@
     "urlRefreshPaginado" : {
       "type" : "expression",
       "value" : [
-        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p=\"+$data.inicio+\"&c=10\";"
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&&p=0&c=999\";"
       ],
       "exposed" : false
     },
@@ -1395,7 +1672,8 @@
         "            \"clave\": \"\", \r",
         "            \"fechaCreacion\": null,\r",
         "            \"fechaImportacion\":null,\r",
-        "            \"orden\":0\r",
+        "            \"orden\":\"0\",\r",
+        "            \"id\":\"\"\r",
         "        }\r",
         "    ]\r",
         "}"
@@ -1405,7 +1683,7 @@
     "cargar_datos" : {
       "type" : "expression",
       "value" : [
-        "",
+        "debugger;",
         "    if($data.editable === \"editar\"){",
         "        $data.catReligion_selected = $data.catReligion_selectedNR;",
         "    }"
@@ -1415,6 +1693,7 @@
     "validar" : {
       "type" : "expression",
       "value" : [
+        "debugger;",
         "var validar = true;",
         "if($data.editable === \"editar\"){",
         "    if($data.catReligion_selected.clave.trim()=== \"\"){",

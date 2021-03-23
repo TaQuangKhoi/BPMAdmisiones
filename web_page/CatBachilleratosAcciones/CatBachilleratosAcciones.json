@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatBachilleratosAcciones",
   "name" : "CatBachilleratosAcciones",
-  "lastUpdate" : 1611104792248,
+  "lastUpdate" : 1616525492496,
   "rows" : [
     [
       {
@@ -239,12 +239,12 @@
         "rows" : [
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 6,
-                "md" : 6,
-                "lg" : 6
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -252,86 +252,176 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "editable == 'editar' || editable == 'agregar'"
-                },
-                "disabled" : {
                   "type" : "constant",
                   "value" : false
                 },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "<i class=\"glyphicon glyphicon-download-alt\"></i> Excel"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "POST"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/extension/AnahuacRest?url=getExcelFileCatalogo&p=0&c=10"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "Files"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "fileExtension" : {
-                  "type" : "constant",
-                  "value" : "xls"
                 }
               },
-              "reference" : "3517a7cf-fab5-40db-9198-1df35a7db04a",
+              "reference" : "8d311292-047a-4999-a48d-26050ef8adba",
               "hasValidationError" : false,
-              "id" : "customCustomBtnDownloadExcel"
-            },
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "5e739461-0972-43be-b8e9-85a8a4799c9b",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 6,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "editable == 'editar' || editable == 'agregar'"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\"glyphicon glyphicon-download-alt\"></i> Excel"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacRest?url=getExcelFileCatalogo&p=0&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "Files"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "fileExtension" : {
+                        "type" : "constant",
+                        "value" : "xls"
+                      }
+                    },
+                    "reference" : "3517a7cf-fab5-40db-9198-1df35a7db04a",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnDownloadExcel"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "3c81a9e3-bb0a-4d0f-befe-7c6b745552a9",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
@@ -346,8 +436,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "editable == 'editar' || editable == 'agregar'"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -431,8 +521,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 6,
-                "md" : 6,
-                "lg" : 6
+                "md" : 2,
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -489,8 +579,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 4,
-                "md" : 4,
-                "lg" : 4
+                "md" : 2,
+                "lg" : 2
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -498,8 +588,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "editable == 'editar'"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -540,6 +630,222 @@
               "reference" : "80ed990d-9470-4e3b-9e72-cf747ba479ee",
               "hasValidationError" : false,
               "id" : "customButtonSetValor"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "e10c11cc-f4a7-4017-889d-47c36be780f7",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 10,
+                      "lg" : 10
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\"glyphicon glyphicon-time\"></i> Asignar hora"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "targetUrlOnSuccess2" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "ea86b614-625d-4ec0-bf3d-fa2f149c84f2",
+                    "hasValidationError" : false,
+                    "id" : "customWidgetButtonAsignarUnaHora"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 2,
+                      "lg" : 2
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\"glyphicon glyphicon-refresh\"></i> Sincronizar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "GET"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "/API/extension/AnahuacRestGet?url=buscarCambiosBannerPreparatoria&p=0&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "targetUrlOnSuccess2" : {
+                        "type" : "constant",
+                        "value" : "/portal/resource/app/administrativo/bachillerato/content/?app=administrativo"
+                      }
+                    },
+                    "reference" : "7221aea8-c13d-4cb1-a386-21e28c40a13c",
+                    "hasValidationError" : false,
+                    "id" : "customWidgetButtoncustome"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -845,7 +1151,7 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 4,
+                      "md" : 6,
                       "lg" : 6
                     },
                     "propertyValues" : {
@@ -889,212 +1195,6 @@
                     "reference" : "e71b62d5-3b3b-43f9-a787-58845595bada",
                     "hasValidationError" : false,
                     "id" : "pbText"
-                  },
-                  {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : ""
-                      }
-                    },
-                    "reference" : "e10c11cc-f4a7-4017-889d-47c36be780f7",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<i class=\"glyphicon glyphicon-time\"></i> Asignar hora"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "default"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "6a8352bd-e657-4515-9b58-e469eeca3764",
-                          "hasValidationError" : false,
-                          "id" : "customWidgetButtoncustome"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "<i class=\"glyphicon glyphicon-refresh\"></i> Sincronizar"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "constant"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            }
-                          },
-                          "reference" : "7221aea8-c13d-4cb1-a386-21e28c40a13c",
-                          "hasValidationError" : false,
-                          "id" : "customWidgetButtoncustome"
-                        }
-                      ]
-                    ]
                   }
                 ]
               ]
@@ -1125,6 +1225,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
+                    "ID Banner",
                     "Clave",
                     "Descripción",
                     "País",
@@ -1143,6 +1244,7 @@
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
+                    "id",
                     "clave",
                     "descripcion",
                     "pais",
@@ -1151,7 +1253,7 @@
                     "usuarioBanner",
                     "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'",
                     "fechaImportacion| date:'dd-MM-yyyy HH:mm:ss'",
-                    "perteneceRed ==  true  ? 'Sí' : 'No'"
+                    "perteneceRed"
                   ]
                 },
                 "selectedRow" : {
@@ -1203,9 +1305,9 @@
                   "value" : true
                 }
               },
-              "reference" : "e1ad4ad0-1261-4029-b81c-a9a0df9b0b6b",
+              "reference" : "18e9092b-14e1-4ce7-b89b-d2609b0883e5",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionarIsEliminado"
+              "id" : "customTableSeleccionarIsBachillerato"
             }
           ],
           [
@@ -3804,10 +3906,10 @@
   ],
   "assets" : [
     {
-      "id" : "50b1dfe2-61b4-4b6e-b8e5-d204736e4696",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 1,
+      "id" : "1738cee2-8b6d-4186-aeb4-73891b126626",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -3818,10 +3920,10 @@
       "external" : false
     },
     {
-      "id" : "1738cee2-8b6d-4186-aeb4-73891b126626",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "50b1dfe2-61b4-4b6e-b8e5-d204736e4696",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     }
   ],

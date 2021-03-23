@@ -6,8 +6,9 @@ function PbButtonCtrl($scope, $http, $window) {
 
     $scope.myFunc = function() {
         $scope.blockPaseLista().then(function() {
-            if(!$scope.properties.habilitado || $scope.properties.datosUsuario.fecha != $scope.properties.getFechas ){
-                swal(`¡No es ${($scope.properties.datosUsuario.fecha != $scope.properties.getFechas ? "el día ("+$scope.properties.datosUsuario.fecha+") ":"")} para pasar lista!`,"","warning")
+            //|| $scope.properties.datosUsuario.aplicacion != $scope.properties.getFechas
+            if(!$scope.properties.habilitado  ){
+                swal(`¡No es el día (${$scope.properties.datosUsuario.aplicacion}) para pasar lista!`,"","warning")
             }else{
                 var asis = angular.copy($scope.properties.dataToSend.asistencia)
                 $scope.properties.dataToSend.asistencia = $scope.properties.seleccion;
@@ -31,7 +32,6 @@ function PbButtonCtrl($scope, $http, $window) {
                     });
                 }
         }).catch(err => {
-            ctrl.leyendo = true;
             swal("¡Se ha producido un error!", `Al momento de obtener la fecha del servidor`,"warning", {
                 closeOnClickOutside: false,
                 buttons: {
@@ -40,7 +40,7 @@ function PbButtonCtrl($scope, $http, $window) {
                         value: "OK",
                     }
                 },
-            }).then((value) => { ctrl.leyendo = false });
+            })
         });
             
         
@@ -48,8 +48,8 @@ function PbButtonCtrl($scope, $http, $window) {
     };
     
      function doRequestCaseValue (asistencia){
-        var caseId = $scope.properties.datosUsuario.aspirantes[0].caseid;
-        var variableNombre = "asistencia"+( $scope.properties.datosUsuario.tipoprueba_PID == 1?"Entrevista": $scope.properties.datosUsuario.tipo_prueba == "Examen Psicométrico" ? "Psicometrico" : "CollegeBoard") 
+        var caseId = $scope.properties.datosUsuario.caseid;
+        var variableNombre = "asistencia"+( $scope.properties.datosUsuario.tipoprueba_pid == 1?"Entrevista": $scope.properties.datosUsuario.tipo_prueba == "Examen Psicométrico" ? "Psicometrico" : "CollegeBoard") 
         var req = {
             method: "PUT",
             url: `/API/bpm/caseVariable/${caseId}/${variableNombre}`,
@@ -89,14 +89,24 @@ function PbButtonCtrl($scope, $http, $window) {
         return $http(req)
             .success(function (data, status) {
                 
-                let fecha = moment(angular.copy(data.data[0].fecha))
-                let fecha2 =moment(angular.copy(data.data[0].fecha)).subtract(1, 'day');
+                //let fecha = moment(angular.copy(data.data[0].fecha))
+                //let fecha2 =moment(angular.copy(data.data[0].fecha)).subtract(1, 'day');
+                for(let i = 0;i<5;i++){
+                    let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
+                    if(fecha.isSame($scope.properties.datosUsuario.aplicacion)  ){
+                        $scope.properties.habilitado = true;
+                        break;
+                    }else{
+                        $scope.properties.habilitado = false;
+                    }
+                }
                 //$scope.properties.datosUsuario.fecha
-                if(fecha.isSame($scope.properties.datosUsuario.fecha) || fecha2.isSame($scope.properties.datosUsuario.fecha) ){
+                //|| fecha2.isSame($scope.properties.datosUsuario.aplicacion)
+                /*if(fecha.isSame($scope.properties.datosUsuario.aplicacion)  ){
                     $scope.properties.habilitado = true;
                 }else{
                     $scope.properties.habilitado = false;
-                }
+                }*/
             })
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
