@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <applications xmlns="http://documentation.bonitasoft.com/application-xml-schema/1.0">
-    <application token="Admisiones" version="1.0" profile="Administrator" homePage="dashboard" state="ACTIVATED" layout="custompage_BackLayout" theme="custompage_bootstrapdefaulttheme">
-        <displayName>Admisiones</displayName>
+    <application token="administrativo" version="1.0" profile="Administrator" homePage="dashboard" state="ACTIVATED" layout="custompage_BackLayout" theme="custompage_bootstrapdefaulttheme">
+        <displayName>Administrativo</displayName>
         <description></description>
         <iconPath></iconPath>
         <applicationPages>
@@ -132,25 +132,166 @@
             <applicationPage customPage="custompage_CatRelacionCampusTipoAcciones" token="CatRelacionCampusTipoAcciones"/>
             <applicationPage customPage="custompage_CatNotificacionesCampus" token="cartas_notificaciones"/>
             <applicationPage customPage="custompage_APPAspirantesProcesoM" token="Aspirantes_ProcesoM"/>
+            <applicationPage customPage="custompage_EliminarUsuarios" token="EliminarUsuarios"/>
             <applicationPage customPage="custompage_viewValidarSolicitudDeAdmision" token="verSolicitudAdmision"/>
             <applicationPage customPage="custompage_CatalogosAD" token="listaCatalogosAD"/>
             <applicationPage customPage="custompage_DocumentosTextos" token="documentostextos"/>
             <applicationPage customPage="custompage_APPDecision" token="appDecision"/>
+            <applicationPage customPage="custompage_APPAspirantesProcesoFechasFiltrado" token="Aspirantes_Proceso_Reporte_Citas"/>
+            <applicationPage customPage="custompage_appBitacoraTecnicaConektaFiltros" token="bitacora_tecnica_conekta_filtros"/>
             <applicationPage customPage="custompage_APPUsuariosRegistrados" token="UsuariosRegistrados"/>
             <applicationPage customPage="custompage_CatRequieresAsistenciaAcciones" token="CatRequieresAsistencia"/>
             <applicationPage customPage="custompage_CatTipoAsistenciaAcciones" token="CatTipoAsistencia"/>
+            <applicationPage customPage="custompage_CatCodigoPostalAcciones" token="CatCodigoPostalAcciones"/>
+            <applicationPage customPage="custompage_appVerAutodescripcionPsic" token="verAutodescripcion"/>
+            <applicationPage customPage="custompage_APPAspirantesProcesoPruebasSesiones" token="ReporteCitasPsicologo"/>
             <applicationPage customPage="custompage_appBitacoraTransferencias" token="bitacoratransferencias"/>
+            <applicationPage customPage="custompage_AppDeshabilitarPago" token="desactivarPago"/>
+            <applicationPage customPage="custompage_Permisos" token="permisos"/>
+            <applicationPage customPage="custompage_migracionModulos" token="migracionModulos"/>
+            <applicationPage customPage="custompage_APPAspirantesMigrados" token="aspirantesMigrados"/>
+            <applicationPage customPage="custompage_ModuloUsuarios" token="modulousuarios"/>
+            <applicationPage customPage="custompage_appSubirResultados" token="subir_resultados"/>
+            <applicationPage customPage="custompage_appEnvioCartas" token="envio_cartas"/>
+            <applicationPage customPage="custompage_APPConsultaDeResultadosAspirantes" token="resultados_de_admision"/>
         </applicationPages>
         <applicationMenus>
             <applicationMenu applicationPage="dashboard">
                 <displayName>Mesa de trabajo</displayName>
             </applicationMenu>
+            <applicationMenu>
+                <displayName>Catálogos TI - Registro</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="CatCampusAcciones">
+                        <displayName>Universidades </displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catPeriodoAcciones">
+                        <displayName>Períodos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatPropedeuticoGralAcciones">
+                        <displayName>Propedéutico</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="pais">
+                        <displayName>Países</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="estados">
+                        <displayName>Estados</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatCiudadAcciones">
+                        <displayName>Territorios</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Catálogos TI - Solicitud</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="CatNacionalidades">
+                        <displayName>Nacionalidad</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatReligion">
+                        <displayName>Religión</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catEstado_civil">
+                        <displayName>Estado civil</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catSexo">
+                        <displayName>Género</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatTitulo">
+                        <displayName>Título</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catParentesco">
+                        <displayName>Parentesco</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatResidencia">
+                        <displayName>Residencia</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatTipoAdmision">
+                        <displayName>Tipo admisión</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatTipoAlumno">
+                        <displayName>Tipo alumno</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catEscolaridad">
+                        <displayName>Escolaridad</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="home">
+                        <displayName>Tipo dirección</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu applicationPage="listaCatalogosAD">
+                <displayName>Catalogo TI - Autodescripción </displayName>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Configuración TI </displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="notificaciones">
+                        <displayName>Correos y notificaciones</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catApiKeyAcciones">
+                        <displayName>Api keys</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="desactivarPago">
+                        <displayName>Switch general</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="permisos">
+                        <displayName>Roles y permisos</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Bitácoras TI</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="bitacora_tecnica_conekta_filtros">
+                        <displayName>Bitácora técnica de Conekta</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="bitacora_pagos">
+                        <displayName>Bitácora pagos</displayName>
+                    </applicationMenu>
+                </applicationMenus>
+            </applicationMenu>
             <applicationMenu applicationPage="bachillerato">
-                <displayName>Gestión Catálogo Preparatoria</displayName>
+                <displayName>Gestión catálogo preparatoria</displayName>
+            </applicationMenu>
+            <applicationMenu>
+                <displayName>Configuración Universidades</displayName>
+                <applicationMenus>
+                    <applicationMenu applicationPage="modulousuarios">
+                        <displayName>Gestión de administrativos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatNotificacionesFirma">
+                        <displayName>Configuración de firmas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatGestionEscolarAcciones">
+                        <displayName>Gestión escolar</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="CatRelacionCampusTipoAcciones">
+                        <displayName>Fechas propedéuticos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="documentostextos">
+                        <displayName>Documentos y textos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="cartas_notificaciones">
+                        <displayName>Banners en correo</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catDescuentos">
+                        <displayName>Descuentos</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="sesiones">
+                        <displayName>Agendar sesiones</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="catPagoExamen">
+                        <displayName>Pago de examen</displayName>
+                    </applicationMenu>
+                </applicationMenus>
             </applicationMenu>
             <applicationMenu>
                 <displayName>Admisiones</displayName>
                 <applicationMenus>
+                    <applicationMenu applicationPage="UsuariosRegistrados">
+                        <displayName>Usuarios registrados</displayName>
+                    </applicationMenu>
                     <applicationMenu applicationPage="solicitudesEnProgreso">
                         <displayName>Solicitudes en proceso</displayName>
                     </applicationMenu>
@@ -166,14 +307,20 @@
                     <applicationMenu applicationPage="appRechazado">
                         <displayName>Solicitudes rechazadas</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="appDecision">
-                        <displayName>Decisión de aceptación</displayName>
+                    <applicationMenu applicationPage="ReporteCitasPsicologo">
+                        <displayName>Autodescripción</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="home">
+                    <applicationMenu applicationPage="Aspirantes_Proceso_Reporte_Citas">
+                        <displayName>Aspirantes con sesión asignada</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="subir_resultados">
                         <displayName>Importación de resultados</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="home">
+                    <applicationMenu applicationPage="envio_cartas">
                         <displayName>Generación de cartas</displayName>
+                    </applicationMenu>
+                    <applicationMenu applicationPage="resultados_de_admision">
+                        <displayName>Resultados de admisión</displayName>
                     </applicationMenu>
                     <applicationMenu applicationPage="appTransferenciasAspirantes">
                         <displayName>Transferencias</displayName>
@@ -181,24 +328,30 @@
                     <applicationMenu applicationPage="bitacoratransferencias">
                         <displayName>Bitacora transferencias</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="home">
-                        <displayName>Resultados de admisión</displayName>
+                    <applicationMenu applicationPage="bitacoraCorreos">
+                        <displayName>Gestión de correos</displayName>
                     </applicationMenu>
                 </applicationMenus>
             </applicationMenu>
             <applicationMenu>
-                <displayName>Gestión Universidades</displayName>
+                <displayName>Pase de lista</displayName>
                 <applicationMenus>
-                    <applicationMenu applicationPage="bitacoraCorreos">
-                        <displayName>Gestión de Correos</displayName>
+                    <applicationMenu applicationPage="SesionCalendarizadas">
+                        <displayName>Pase de lista</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="home">
-                        <displayName>Gestion de Administrativos</displayName>
+                    <applicationMenu applicationPage="ReporteSesionCalendarizadas">
+                        <displayName>Histórico de pase de lista</displayName>
                     </applicationMenu>
-                    <applicationMenu applicationPage="UsuariosRegistrados">
-                        <displayName>Usuarios Registrados</displayName>
+                    <applicationMenu applicationPage="ListaSesionesCalendarizadas">
+                        <displayName>Listado de pruebas</displayName>
                     </applicationMenu>
                 </applicationMenus>
+            </applicationMenu>
+            <applicationMenu applicationPage="envio_cartas">
+                <displayName>Envio de cartas</displayName>
+            </applicationMenu>
+            <applicationMenu applicationPage="subir_resultados">
+                <displayName>Subir resultados</displayName>
             </applicationMenu>
         </applicationMenus>
     </application>
