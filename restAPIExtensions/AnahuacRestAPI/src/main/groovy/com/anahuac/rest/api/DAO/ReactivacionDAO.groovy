@@ -508,6 +508,7 @@ class ReactivacionDAO {
 				if (objHumanTaskInstance.getName().equals("Reactivar usuario rechazado")) {
 					Map < String, Serializable > inputs = new HashMap < String, Serializable > ()
 					inputs.put("activoUsuario", true);
+					inputs.put("countReactivacion",object.countrechazos);
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 				}
@@ -516,7 +517,7 @@ class ReactivacionDAO {
 
 			closeCon = validarConexion();
 			con.setAutoCommit(false)
-			pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA)
+			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
 			pstm.setLong(1, object.campus);
 			pstm.setLong(2, object.licenciatura);
 			if (object.propedeutico == null) {
@@ -526,7 +527,8 @@ class ReactivacionDAO {
 			}
 			pstm.setLong(4, object.periodo);
 			pstm.setLong(5, object.campusestudio);
-			pstm.setLong(6, Long.valueOf(object.caseid));
+			pstm.setInt(6, Integer.valueOf(object.countrechazos));
+			pstm.setLong(7, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
 
 			con.commit();

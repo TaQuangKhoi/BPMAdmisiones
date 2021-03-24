@@ -2182,7 +2182,8 @@ class SesionesDAO {
 					where +=" AND LOWER(campus.DESCRIPCION)  = LOWER('"+object.campus+"')";
 				}
 			
-				Boolean isHaving = false;
+				Boolean isHaving = false, TR= false, AR= false;
+				String  TRs= "", ARs ="";
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
@@ -2193,7 +2194,8 @@ class SesionesDAO {
 						
 						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
-						
+						TRs = ""+filtro.get("valor");
+						TR = true;
 						break;
 						
 					case "FECHA, LUGAR":
@@ -2265,6 +2267,8 @@ class SesionesDAO {
 							residencia+="LIKE '%[valor]%'"
 						}
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						ARs = filtro.get("valor")+"";
+						AR = true;
 					/*
 						where +=" AND CAST(Pruebas.registrados as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
@@ -2391,9 +2395,19 @@ class SesionesDAO {
 					consulta=consulta.replace("[CAMPUS]", campus)
 					consulta=consulta.replace("[WHERE]", where);
 					consulta=consulta.replace("[ORDEN]", object.orden);
+					String paginado = "";
+					if(TR) {
+						paginado += " AND ( LOWER (( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END )) like LOWER('%[VALOR]%') OR lower(ctipoprueba.descripcion) like lower('%[VALOR]%') )";
+						paginado = paginado.replace("[VALOR]", TRs)
+					}
+					if(AR) {
+						paginado += " AND CAST((SELECT COUNT(*) as registros from( SELECT * from ( SELECT distinct on (SA.persistenceid) SA.*, (select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) as tieneOtraAsistencia FROM responsabledisponible as RD left join PRUEBAS  as P on P.persistenceid = RD.prueba_pid LEFT JOIN cattipoprueba c on c.PERSISTENCEID =p.cattipoprueba_pid LEFT JOIN SESIONES as S on S.persistenceid = P.sesion_pid LEFT JOIN sesionaspirante as SA on SA.sesiones_pid = S.persistenceid LEFT JOIN PaseLista as PL on PL.USERNAME = SA.USERNAME  AND PL.prueba_pid = P.persistenceid LEFT JOIN SOLICITUDDEADMISION sda ON sda.correoelectronico = SA.USERNAME LEFT JOIN detallesolicitud da ON sda.caseid::INTEGER=da.caseid::INTEGER LEFT JOIN catcampus campus ON campus.persistenceid=sda.CATCAMPUS_PID LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.CATGESTIONESCOLAR_PID LEFT JOIN catPeriodo as CPO on CPO.persistenceid = sda.CATPERIODO_PID LEFT JOIN CATESTADOs estado ON estado.persistenceid =sda.CATESTADO_PID  LEFT JOIN catbachilleratos prepa ON prepa.PERSISTENCEID =sda.CATBACHILLERATOS_PID LEFT JOIN catLugarExamen as le on le.persistenceid = sda.CATLUGAREXAMEN_PID LEFT JOIN catSexo as sx on sx.persistenceid = sda.CATSEXO_PID LEFT JOIN CATRESIDENCIA as R on R.persistenceid = da.catresidencia_pid WHERE sda.caseid is not null AND SA.sesiones_pid = Sesion.persistenceid AND P.persistenceid = Pruebas.persistenceid       GROUP BY p.persistenceid,sa.username, sa.presistenceid HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where  paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0) ORDER BY SA.persistenceid ASC  ) as datos where tieneOtraAsistencia = 0   UNION  select * from (SELECT distinct on (SA.persistenceid) SA.*,(select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username = SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) as tieneOtraAsistencia from PASELISTA PL LEFT JOIN PRUEBAS P on PL.prueba_pid = P.persistenceId LEFT JOIN SESIONES S on S.persistenceid = P.sesion_pid LEFT JOIN responsabledisponible as RD on P.persistenceid = RD.prueba_pid LEFT JOIN cattipoprueba c on c.PERSISTENCEID =p.cattipoprueba_pid LEFT JOIN SOLICITUDDEADMISION sda ON sda.correoelectronico = PL.USERNAME LEFT JOIN detallesolicitud da ON sda.caseid::INTEGER=da.caseid::INTEGER LEFT JOIN catcampus campus ON campus.persistenceid=sda.CATCAMPUS_PID LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.CATGESTIONESCOLAR_PID LEFT JOIN catPeriodo as CPO on CPO.persistenceid = sda.CATPERIODO_PID LEFT JOIN CATESTADOs estado ON estado.persistenceid =sda.CATESTADO_PID LEFT JOIN catbachilleratos prepa ON prepa.PERSISTENCEID =sda.CATBACHILLERATOS_PID LEFT JOIN catSexo as sx on sx.persistenceid = sda.CATSEXO_PID LEFT JOIN CATRESIDENCIA as R on R.persistenceid = da.catresidencia_pid LEFT JOIN catLugarExamen as le on le.persistenceid = sda.CATLUGAREXAMEN_PID LEFT JOIN sesionaspirante as SA on SA.username = PL.username  WHERE sda.caseid is not null AND PL.asistencia = 'true'  AND S.persistenceid = Sesion.persistenceid AND P.persistenceid = Pruebas.persistenceid        GROUP BY p.persistenceid,sa.username, sa.presistenceid ORDER BY SA.persistenceid ASC ) as asistencia  ) as CONTEO) as varchar) like '%[VALOR]%'";
+						paginado = paginado.replace("[VALOR]", ARs)
+					}
+					
 					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");					
-					//errorlog+="paso el where2 "+" consulta =="+consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", "")
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", ""))
+					errorlog+="paso el where2  consulta =="+consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", paginado)
+					pstm = con.prepareStatement(consulta.replace("* from (SELECT Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Pruebas.persistenceid as pruebas_id, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion,ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion AS campus, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, (select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = Pruebas.persistenceid) as responsables, [COUNTASPIRANTES]", "COUNT(DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[GROUPBY]", "").replace("[HAVING]", "").replace(") as datos [RESIDENCIA]", paginado))
 					
 					rs= pstm.executeQuery()
 					if(rs.next()) {
@@ -2466,7 +2480,7 @@ class SesionesDAO {
 						rows.add(Pruebas)
 					}
 					
-				resultado.setError_info(consulta +" errorLog = "+errorlog)
+				resultado.setError_info(" errorLog = "+errorlog)
 				resultado.setData(rows)
 				resultado.setSuccess(true)
 			} catch (Exception e) {
@@ -2860,7 +2874,7 @@ class SesionesDAO {
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
 				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
-				if(tipo == 1) {
+				if(tipo == 1 && object.type == null) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 					if(object.reporte) {
 						consulta=consulta.replace("[REPORTE]", "AND rd.responsableid = "+object.usuario)
@@ -2873,7 +2887,7 @@ class SesionesDAO {
 				}
 				
 				
-				errorlog+=" consulta =  "+ consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", HavingGroup).replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO")
+				//errorlog+=" consulta =  "+ consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", HavingGroup).replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO")
 				//pstm = con.prepareStatement(consulta.replace("SELECT * from ", "SELECT COUNT(*) as registros FROM").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				pstm = con.prepareStatement(consulta.replace("[COUNT]", "SELECT COUNT(*) as registros from(").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", HavingGroup).replace("[GROUPBY]", Group).replace("[COUNTFIN]", ") as CONTEO"))
 				pstm.setInt(1, object.sesion)
@@ -2892,7 +2906,8 @@ class SesionesDAO {
 				consulta=consulta.replace("[COUNT]", "")
 				consulta=consulta.replace("[COUNTFIN]", "")
 				errorlog+="conteo exitoso "
-					
+				
+				errorlog+=" consulta :"+consulta
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.sesion)
 				pstm.setInt(2, object.prueba)
@@ -3015,15 +3030,15 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", campus="", group="", residencia="",having=" HAVING  (CAST(count(CASE WHEN PL.asistencia THEN 1 END) as varchar) ";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", campus="", group="", residencia="",having=" HAVING  (CAST(count(CASE WHEN PaseLista.asistencia THEN 1 END) as varchar)";
 		Boolean isHaving = false;
 		List<String> lstGrupo = new ArrayList<String>();
 		Map<String, String> objGrupoCampus = new HashMap<String, String>();
+		String consulta = Statements.GET_SESIONESCALENDARIZADASREPORTE_REGISTRADOS
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
 				
-				String consulta = Statements.GET_SESIONESCALENDARIZADASREPORTE_REGISTRADOS
 				//AND CAST(P.aplicacion AS DATE) [ORDEN] CAST([FECHA] AS DATE)
 				PruebaCustom row = new PruebaCustom();
 				List<PruebasCustom> rows = new ArrayList<PruebasCustom>();
@@ -3031,7 +3046,8 @@ class SesionesDAO {
 				errorlog+="llego a filtro "+object.lstFiltro.toString()
 				
 				
-				
+				Boolean TR=false, AR = false;
+				String  TRs= "", ARs ="";
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
@@ -3041,7 +3057,8 @@ class SesionesDAO {
 						
 						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
-						
+						TRs = filtro.get("valor")+"";
+						TR = true;
 						break;
 						
 					case "ID":
@@ -3089,6 +3106,8 @@ class SesionesDAO {
 							residencia+="LIKE '%[valor]%'"
 						}
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
+						AR = true;
+						ARs = filtro.get("valor")+"";
 						/*
 						where +=" AND CAST(Pruebas.registrados as varchar) ";
 						if(filtro.get("operador").equals("Igual a")) {
@@ -3212,8 +3231,19 @@ class SesionesDAO {
 					consulta=consulta.replace("[WHERE]", where);
 					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 					errorlog+="paso el where"
+					String groupBy = "group by Pruebas.persistenceid, Pruebas.nombre, Pruebas.aplicacion, Sesion.tipo, Sesion.persistenceid, Pruebas.lugar, Pruebas.registrados, Sesion.nombre, ctipoprueba.descripcion, Pruebas.cupo, Pruebas.entrada,Pruebas.salida";
+					String paginado = "";
+					if(TR) {
+						paginado += " AND ( LOWER (( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END )) like LOWER('%[VALOR]%') OR lower(ctipoprueba.descripcion) like lower('%[VALOR]%') )";
+						paginado = paginado.replace("[VALOR]", TRs)
+					}
+					if(AR) {
+						paginado += " AND CAST((SELECT COUNT(*) as registros from( SELECT * from ( SELECT distinct on (SA.persistenceid) SA.*, (select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) as tieneOtraAsistencia FROM responsabledisponible as RD left join PRUEBAS  as P on P.persistenceid = RD.prueba_pid LEFT JOIN cattipoprueba c on c.PERSISTENCEID =p.cattipoprueba_pid LEFT JOIN SESIONES as S on S.persistenceid = P.sesion_pid LEFT JOIN sesionaspirante as SA on SA.sesiones_pid = S.persistenceid LEFT JOIN PaseLista as PL on PL.USERNAME = SA.USERNAME  AND PL.prueba_pid = P.persistenceid LEFT JOIN SOLICITUDDEADMISION sda ON sda.correoelectronico = SA.USERNAME LEFT JOIN detallesolicitud da ON sda.caseid::INTEGER=da.caseid::INTEGER LEFT JOIN catcampus campus ON campus.persistenceid=sda.CATCAMPUS_PID LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.CATGESTIONESCOLAR_PID LEFT JOIN catPeriodo as CPO on CPO.persistenceid = sda.CATPERIODO_PID LEFT JOIN CATESTADOs estado ON estado.persistenceid =sda.CATESTADO_PID  LEFT JOIN catbachilleratos prepa ON prepa.PERSISTENCEID =sda.CATBACHILLERATOS_PID LEFT JOIN catLugarExamen as le on le.persistenceid = sda.CATLUGAREXAMEN_PID LEFT JOIN catSexo as sx on sx.persistenceid = sda.CATSEXO_PID LEFT JOIN CATRESIDENCIA as R on R.persistenceid = da.catresidencia_pid WHERE sda.caseid is not null AND SA.sesiones_pid = Sesion.persistenceid AND P.persistenceid = Pruebas.persistenceid       GROUP BY p.persistenceid,sa.username, sa.presistenceid HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where  paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0) ORDER BY SA.persistenceid ASC  ) as datos where tieneOtraAsistencia = 0   UNION  select * from (SELECT distinct on (SA.persistenceid) SA.*,(select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username = SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) as tieneOtraAsistencia from PASELISTA PL LEFT JOIN PRUEBAS P on PL.prueba_pid = P.persistenceId LEFT JOIN SESIONES S on S.persistenceid = P.sesion_pid LEFT JOIN responsabledisponible as RD on P.persistenceid = RD.prueba_pid LEFT JOIN cattipoprueba c on c.PERSISTENCEID =p.cattipoprueba_pid LEFT JOIN SOLICITUDDEADMISION sda ON sda.correoelectronico = PL.USERNAME LEFT JOIN detallesolicitud da ON sda.caseid::INTEGER=da.caseid::INTEGER LEFT JOIN catcampus campus ON campus.persistenceid=sda.CATCAMPUS_PID LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.CATGESTIONESCOLAR_PID LEFT JOIN catPeriodo as CPO on CPO.persistenceid = sda.CATPERIODO_PID LEFT JOIN CATESTADOs estado ON estado.persistenceid =sda.CATESTADO_PID LEFT JOIN catbachilleratos prepa ON prepa.PERSISTENCEID =sda.CATBACHILLERATOS_PID LEFT JOIN catSexo as sx on sx.persistenceid = sda.CATSEXO_PID LEFT JOIN CATRESIDENCIA as R on R.persistenceid = da.catresidencia_pid LEFT JOIN catLugarExamen as le on le.persistenceid = sda.CATLUGAREXAMEN_PID LEFT JOIN sesionaspirante as SA on SA.username = PL.username  WHERE sda.caseid is not null AND PL.asistencia = 'true'  AND S.persistenceid = Sesion.persistenceid AND P.persistenceid = Pruebas.persistenceid        GROUP BY p.persistenceid,sa.username, sa.presistenceid ORDER BY SA.persistenceid ASC ) as asistencia  ) as CONTEO) as varchar) like '%[VALOR]%'";
+						paginado = paginado.replace("[VALOR]", ARs)
+					}
 					
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", "").replace("[GROUPBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					errorlog+=" conteo = "+consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", "").replace("[GROUPBY]", "").replace(") as datos [RESIDENCIA]",paginado)
+					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR Sesion.tipo LIKE '%R,E,F%'OR Sesion.tipo LIKE '%F,R,E%'OR Sesion.tipo LIKE '%F,E,R%'OR Sesion.tipo LIKE '%E,F,R%'OR Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, count(CASE WHEN PaseLista.asistencia THEN 1 END) as asistencias, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("[HAVING]", (isHaving ? having:"")).replace("[GROUPBY]", (isHaving?groupBy:"")).replace(") as datos [RESIDENCIA]", paginado))
 					pstm.setInt(1, object.usuario)
 					
 					rs= pstm.executeQuery()
@@ -3224,7 +3254,7 @@ class SesionesDAO {
 					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADAS;
 					
 					consulta=consulta.replace("[ORDERBY]", orderby)
-					consulta=consulta.replace("[GROUPBY]", "group by Pruebas.persistenceid, Pruebas.nombre, Pruebas.aplicacion, Sesion.tipo, Sesion.persistenceid, Pruebas.lugar, Pruebas.registrados, Sesion.nombre, ctipoprueba.descripcion, Pruebas.cupo, Pruebas.entrada,Pruebas.salida")
+					consulta=consulta.replace("[GROUPBY]", groupBy)
 					consulta=consulta.replace("[HAVING]", (isHaving ? having:""))
 					consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 					consulta=consulta.replace("[RESIDENCIA]", residencia)
@@ -3269,13 +3299,13 @@ class SesionesDAO {
 						rows.add(Pruebas)
 					}
 					
-				resultado.setError_info(consulta +" errorLog = "+errorlog)
+				resultado.setError_info(consulta+" errorLog = "+errorlog)
 				resultado.setData(rows)
 				resultado.setSuccess(true)
 			} catch (Exception e) {
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info(errorlog)
+				resultado.setError_info(consulta+" errorLog = "+errorlog)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3743,14 +3773,19 @@ class SesionesDAO {
 	}
 	
 	//optener los responsables de la prueba
-	public Result getResponsables(String prueba, RestAPIContext context) {
+	public Result getResponsables(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
+		String errorLog = "";
 		try {
-				String consulta = "select String_AGG(distinct rd.responsableid::varchar,',') as responsables from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = "+prueba;			
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				String consulta = "select String_AGG(distinct rd.responsableid::varchar,',') as responsables from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = "+object.prueba;
+				errorLog += "consulta:"+consulta;
+				List<String> rows = new ArrayList<String>();
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(consulta)
+				pstm = con.prepareStatement(consulta);
 				rs = pstm.executeQuery()
 				
 				rows = new ArrayList<Map<String, Object>>();
@@ -3771,13 +3806,16 @@ class SesionesDAO {
 							}
 						}
 					}
-					rows.add("responsables",nombres);
+					rows.add(nombres);
 				}
 				resultado.setSuccess(true)
 				resultado.setData(rows)
+				resultado.setError_info(errorLog)
+				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3785,6 +3823,313 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
+	public Result getAspirantesPasadosExcel(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", orderbyUsuario="ORDER BY sda.primernombre";
+		try {
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				String consulta = Statements.GET_ASPIRANTESEXCELLISTADO
+				SesionesAspiranteCustom row = new SesionesAspiranteCustom();
+				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
+				List<Map<String, Object>> aspirante = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				
+				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+					switch(filtro.get("columna")) {
+						
+						
+					case "NOMBRE, EMAIL, CURP":
+						where +=" AND ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ', sda.segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CAMPUS, PROGRAMA, INGRESO":
+						where +=" AND ( LOWER(campus.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(gestionescolar.nombre) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(CPO.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
+						
+						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
+						where = where.replace("[valor]", filtro.get("valor"))
+					
+						where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+					
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+									
+						
+					case "ID BANNER":
+					
+						where +=" AND CAST(da.idbanner as varchar) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="='[valor]'"
+						}else {
+							where+="LIKE '%[valor]%'"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "NOMBRE":
+						where +="  AND LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "EMAIL":
+						where +=" AND LOWER(sda.correoelectronico) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROMEDIO":
+							where +=" AND CAST(sda.PROMEDIOGENERAL as varchar )";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="='[valor]'"
+							}else {
+								where+="LIKE '%[valor]%'"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+					case "PREPARATORIA":
+							where +=" AND LOWER(prepa.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where= where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+					case "RESIDENCIA":
+						where +="AND  LOWER(R.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "SEXO":
+						where +=" AND LOWER(sx.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "LICENCIATURA":
+						where +=" AND LOWER(gestionescolar.nombre) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "UNIVERSIDAD":
+						where +=" AND LOWER(campus.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+						
+					case "HORA DE LA ENTREVISTA":
+						if(tipo == 1) {
+							where+=" AND CAST(rd.horario as varchar) "
+						}else {
+							where+=" AND (CAST( concat(p.entrada,' - ',p.salida) as varchar)) "
+						}
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ASISTENCIA":
+						where +=" AND (PL.asistencia ";
+						where+="= [valor] "
+						where = where.replace("[valor]",  (filtro.get("valor").toString().equals("Sí")?"true)":"false OR PL.asistencia is NULL)"))
+						break;
+						
+					}
+					
+					
+					
+					
+				}
+				
+				errorlog+="llego al orderby "
+				switch(object.orderby) {
+					
+					case "IDBANNER":
+					orderby+="idbanner";
+					break;
+					case "NOMBRE":
+					orderby+="apellidopaterno";
+					break;
+					case "EMAIL":
+					orderby+="correoelectronico";
+					break;
+					case "PREPARATORIA":
+					orderby+="preparatoria"
+					break;
+					case "CAMPUS":
+					orderby+="campus"
+					break;
+					case "RESIDENCIA":
+					orderby+="residencia";
+					break;
+					case "CURP":
+					orderby+="curp";
+					break;
+					case "PROCEDENCIA":
+					orderby+="preparatoriaEstado";
+					break;
+					case "INGRESO":
+					orderby+="periodo";
+					break;
+					case "SEXO":
+					orderby+="sexo";
+					break;
+					case "LICENCIATURA":
+					orderby+="licenciatura";
+					break;
+					case "PROMEDIO":
+					orderby+="promediogeneral";
+					break;
+					case "ASISTENCIA":
+					orderby+= "asistencia";
+					break;
+					
+					case "HORARIO":
+					orderby+= "horario";
+					break;
+					
+					default:
+					orderby+="username"
+					break;
+					
+				}
+										
+				
+				orderby+=" "+object.orientation;
+				consulta=consulta.replace("[WHERE]", where);
+				
+				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato"
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
+				
+				consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				consulta=consulta.replace("[HAVING]", HavingGroup)
+				consulta=consulta.replace("[GROUPBY]", Group)
+				consulta=consulta.replace("[COUNT]", "")
+				consulta=consulta.replace("[COUNTFIN]", "")
+				consulta=consulta.replace("[ENTREVISTA]", "")
+				consulta=consulta.replace("[REPORTE]", "")
+				
+				errorlog+=" consulta :"+consulta
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, object.sesion)
+				pstm.setInt(2, object.prueba)
+				pstm.setInt(3, object.sesion)
+				pstm.setInt(4, object.prueba)
+				pstm.setInt(5, object.limit)
+				pstm.setInt(6, object.offset)
+				
+				rs = pstm.executeQuery()
+				
+				
+				
+				errorlog+="otra llamada "
+				aspirante = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						
+						if(metaData.getColumnLabel(i).toLowerCase().equals("responsables")) {
+							User usr;
+							String responsables = rs.getString(i);
+							String nombres= "";
+							if(!responsables.equals("null") && responsables != null) {
+								String[] arrOfStr = responsables.split(",");
+								for (String a: arrOfStr) {
+									if(Long.parseLong(a)>0) {
+										usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(a))
+										nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
+									}
+								}
+							}
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), nombres);
+						}else {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						}
+					}
+					rows.add(columns);
+				}
+				
+				
+						
+				resultado.setError_info(" errorLog = "+errorlog)
+				resultado.setData(rows)
+				resultado.setSuccess(true)
+				
+			} catch (Exception e) {
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
+				resultado.setError_info("errorLog = "+errorlog+" Error = "+e.getMessage())
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result getPaletteColor() {
 		Result resultado = new Result();

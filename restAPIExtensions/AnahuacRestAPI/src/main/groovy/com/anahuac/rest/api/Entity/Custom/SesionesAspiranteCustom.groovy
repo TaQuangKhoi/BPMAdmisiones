@@ -15,8 +15,17 @@ class SesionesAspiranteCustom {
 	private String horario;
 	private String tipoprueba_PID;
 	private Boolean asistencia;
+	private String responsables;
 	
 	
+	
+	
+	public String getResponsables() {
+		return responsables;
+	}
+	public void setResponsables(String responsables) {
+		this.responsables = responsables;
+	}
 	public Boolean getAsistencia() {
 		return asistencia;
 	}
