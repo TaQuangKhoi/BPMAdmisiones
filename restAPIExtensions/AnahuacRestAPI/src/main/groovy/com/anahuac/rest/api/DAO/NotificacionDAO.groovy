@@ -473,6 +473,20 @@ class NotificacionDAO {
 						dt.cancelarSeguroGastosMedicos=rs.getString("cancelarSeguroGastosMedicos");
 						dt.cursoMatematicas1=rs.getString("cursoMatematicas1");
 						dt.cursoMatematicas2=rs.getString("cursoMatematicas2");
+						plantilla=plantilla.replace("[CIUDAD-CARTA]",dt.ciudadCarta);
+						plantilla=plantilla.replace("[ESTADO-CARTA]",dt.estadoCarta);
+						plantilla=plantilla.replace("[DOCUMENTOS-ENTREGAR]",dt.documentosEntregar);
+						plantilla=plantilla.replace("[DOCUMENTOS-EXTRANJEROS]",dt.documentosEntregarExtranjero);
+						plantilla=plantilla.replace("[NOTAS-DOCUMENTOS]",dt.notasDocumentos);
+						plantilla=plantilla.replace("[DIRECTOR-ADMISIONES]",dt.directorAdmisiones);
+						plantilla=plantilla.replace("[TITULO-DIRECTOR-ADMISIONES]",dt.tituloDirectorAdmisiones);
+						plantilla=plantilla.replace("[CORREO-DIRECTOR-ADMISIONES]",dt.correoDirectorAdmisiones);
+						plantilla=plantilla.replace("[TELEFONO-DIRECTOR-ADMISIONES]",dt.telefonoDirectorAdmisiones);
+						plantilla=plantilla.replace("[COSTO-SGM]",dt.costoSGM);
+						plantilla=plantilla.replace("[EDUCACION-GARANTIZADA]",dt.educacionGarantizada);
+						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-BANCO]",dt.instruccionesPagoBanco);
+						plantilla=plantilla.replace("[CANCELAR-SEGURO-GASTOS]",dt.cancelarSeguroGastosMedicos);
+						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-CAJA]",dt.instruccionesPagoCaja);
 						
 					}
 					
@@ -543,31 +557,17 @@ class NotificacionDAO {
 						plantilla=plantilla.replace("[TIPS]",dt.tipsCB);
 						plantilla=plantilla.replace("<!--[PASOS]-->","<table style='width:80%; font-size: initial; font-family:  Arial;'><tr><td style='font-family:  Arial;'>"+dt.noSabes+"</td></tr></table>");
 						plantilla=plantilla.replace("[LIGA-PARA-TEST-VOCACIONAL]",dt.urlTestVocacional);*/
-						plantilla=plantilla.replace("[CIUDAD-CARTA]",dt.ciudadCarta);
-						plantilla=plantilla.replace("[ESTADO-CARTA]",dt.estadoCarta);
-						plantilla=plantilla.replace("[DOCUMENTOS-ENTREGAR]",dt.documentosEntregar);
-						plantilla=plantilla.replace("[DOCUMENTOS-EXTRANJEROS]",dt.documentosEntregarExtranjero);
-						plantilla=plantilla.replace("[NOTAS-DOCUMENTOS]",dt.notasDocumentos);
 						plantilla=plantilla.replace("[MATEMATICAS-1]",(rs.getString("sihaceonomatematicas").equals("1"))?dt.parrafoMatematicas1:"");
 						plantilla=plantilla.replace("[MATEMATICAS-2]",(rs.getString("sihaceonomatematicas").equals("2"))?dt.parrafoMatematicas2:"");
 						plantilla=plantilla.replace("[MATEMATICAS-3]",(rs.getString("sihaceonomatematicas").equals("3"))?dt.parrafoMatematicas3:"");
 						plantilla=plantilla.replace("[ESPANOL-1]",(rs.getString("espanol").equals("1"))?dt.parrafoEspanol1:"");
 						plantilla=plantilla.replace("[ESPANOL-2]",(rs.getString("espanol").equals("2"))?dt.parrafoEspanol2:"");
 						plantilla=plantilla.replace("[ESPANOL-3]",(rs.getString("espanol").equals("3"))?dt.parrafoEspanol3:"");
-						plantilla=plantilla.replace("[DIRECTOR-ADMISIONES]",dt.directorAdmisiones);
-						plantilla=plantilla.replace("[TITULO-DIRECTOR-ADMISIONES]",dt.tituloDirectorAdmisiones);
-						plantilla=plantilla.replace("[CORREO-DIRECTOR-ADMISIONES]",dt.correoDirectorAdmisiones);
-						plantilla=plantilla.replace("[TELEFONO-DIRECTOR-ADMISIONES]",dt.telefonoDirectorAdmisiones);
 						plantilla=plantilla.replace("[ACTIVIDADES-DE-INFRESO-ENERO]",(rs.getString("periodo").substring(4,6).equals("10")|| rs.getString("periodo").substring(4,6).equals("05"))?dt.actividadIngreso1:"");
 						plantilla=plantilla.replace("[ACTIVIDADES-DE-INFRESO-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.actividadIngreso2:"");
-						plantilla=plantilla.replace("[COSTO-SGM]",dt.costoSGM);
-						plantilla=plantilla.replace("[EDUCACION-GARANTIZADA]",dt.educacionGarantizada);
-						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-BANCO]",dt.instruccionesPagoBanco);
-						plantilla=plantilla.replace("[CANCELAR-SEGURO-GASTOS]",dt.cancelarSeguroGastosMedicos);
 						plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(rs.getString("periodo").substring(4,6).equals("10") || rs.getString("periodo").substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
 						plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
-						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-CAJA]",dt.instruccionesPagoCaja);
-						
+												
 					}
 				} catch (Exception e) {
 					errorlog += "| TRANSFERENCIA " + e.getMessage()
