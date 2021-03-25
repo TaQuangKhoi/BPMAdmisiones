@@ -2623,10 +2623,22 @@ public Result insertAzureConfig(AzureConfig ac){
 			objGrupoCampus.put("valor","CAMPUS-QUERETARO");
 			lstGrupoCampus.add(objGrupoCampus);
 			
-			objGrupoCampus = new HashMap<String, String>();
+			/*objGrupoCampus = new HashMap<String, String>();
 			objGrupoCampus.put("descripcion","Juan Pablo II");
 			objGrupoCampus.put("valor","CAMPUS-JP2");
 			lstGrupoCampus.add(objGrupoCampus);
+			*/
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Juan Pablo II México");
+			objGrupoCampus.put("valor","CAMPUS-JP2");
+			lstGrupoCampus.add(objGrupoCampus);
+			
+			
+			objGrupoCampus = new HashMap<String, String>();
+			objGrupoCampus.put("descripcion","Juan Pablo II Guadalajara");
+			objGrupoCampus.put("valor","CAMPUS-JP2G");
+			lstGrupoCampus.add(objGrupoCampus);
+			
 			
 			objGrupoCampus = new HashMap<String, String>();
 			objGrupoCampus.put("descripcion","Anáhuac Cordoba");

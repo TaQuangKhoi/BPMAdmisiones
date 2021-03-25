@@ -785,32 +785,6 @@ class SesionesDAO {
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					
-					List<Long> pruebas = new ArrayList<Long>()
-					pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
-					pstm.setString(1, sesionAspirante.getUsername())
-					rs = pstm.executeQuery()
-					while(rs.next()) {
-						pruebas.add(rs.getLong("prueba_pid"))
-					}
-					
-					for(Long pa:pruebas) {
-						pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
-						pstm.setString(1, sesionAspirante.getUsername())
-						pstm.setLong(2, pa)
-						rs = pstm.executeQuery()
-						if(!rs.next()) {
-							pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
-							pstm.setLong(1, pa);
-							pstm.setString(2, sesionAspirante.getUsername());
-							pstm.setBoolean(3,false);
-							pstm.setString(4,"");
-							
-							pstm.executeUpdate();
-						}
-					}
-					
-					
-					
 					responsabledisponible_pid = rs.getLong("responsabledisponible_pid")
 					if(sesionAspirante.getResponsabledisponible_pid().equals(0L)){
 						sesionAspirante.setResponsabledisponible_pid(responsabledisponible_pid)
@@ -1254,6 +1228,35 @@ class SesionesDAO {
 		}
 		return resultado;
 	}
+	
+	public Result insertFaltas(String username) {
+		List<Long> pruebas = new ArrayList<Long>()
+		pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+		pstm.setString(1,  username)
+		rs = pstm.executeQuery()
+		while(rs.next()) {
+			pruebas.add(rs.getLong("prueba_pid"))
+		}
+		
+		for(Long pa:pruebas) {
+			pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+			pstm.setString(1, username)
+			pstm.setLong(2, pa)
+			rs = pstm.executeQuery()
+			if(!rs.next()) {
+				pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+				pstm.setLong(1, pa);
+				pstm.setString(2, username);
+				pstm.setBoolean(3,false);
+				pstm.setString(4,"");
+				
+				pstm.executeUpdate();
+			}
+		}
+		
+	}
+	
+	
 	public Result getSesionAspirante(Long persistenceId, RestAPIContext context) {
 		
 		
@@ -2487,7 +2490,7 @@ class SesionesDAO {
 						rows.add(Pruebas)
 					}
 					
-				resultado.setError_info(" errorLog = "+errorlog)
+				resultado.setError_info(consulta+" errorLog = "+errorlog)
 				resultado.setData(rows)
 				resultado.setSuccess(true)
 			} catch (Exception e) {
@@ -2881,9 +2884,9 @@ class SesionesDAO {
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
 				String Group = "GROUP BY p.persistenceid,sa.username, sa.presistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
-				if(tipo == 1 && object.type == null) {
+				if(tipo == 1 ) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
-					if(object.reporte) {
+					if(object.reporte && object.type == null) {
 						consulta=consulta.replace("[REPORTE]", "AND rd.responsableid = "+object.usuario)
 					}else {
 						consulta=consulta.replace("[REPORTE]", "")

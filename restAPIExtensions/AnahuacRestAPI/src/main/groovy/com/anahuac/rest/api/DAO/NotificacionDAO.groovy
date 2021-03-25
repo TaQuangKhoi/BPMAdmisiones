@@ -1838,7 +1838,7 @@ class NotificacionDAO {
 			rs = pstm.executeQuery()
 				if(rs.next()) {
 					pstm = con.prepareStatement(CatNotificacionesCampus.UPDATE_CATNOTIFICACIONESCAMPUS)
-					pstm.setLong(1, row.getCatnotificacionesfirma_pid())
+					(row.getCatnotificacionesfirma_pid()==null)?pstm.setNull(1, java.sql.Types.NULL):pstm.setLong(1, row.getCatnotificacionesfirma_pid())
 					pstm.setString(2, row.getCopia())
 					pstm.setString(3, row.getFooter())
 					pstm.setString(4, row.getHeader())
@@ -1847,7 +1847,7 @@ class NotificacionDAO {
 					
 				}else {
 					pstm = con.prepareStatement(CatNotificacionesCampus.INSERT_CATNOTIFICACIONESCAMPUS)
-					pstm.setLong(1, row.getCatnotificacionesfirma_pid())
+					(row.getCatnotificacionesfirma_pid()==null)?pstm.setNull(1, java.sql.Types.NULL):pstm.setLong(1, row.getCatnotificacionesfirma_pid())
 					pstm.setString(2, row.getCodigo())
 					pstm.setString(3, row.getCopia())
 					pstm.setString(4, row.getFooter())

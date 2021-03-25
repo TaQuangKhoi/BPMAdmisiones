@@ -4841,10 +4841,10 @@ class ListadoDAO {
 				
 				
 				Cell header6 = headersRow.createCell(7);
-				header6.setCellValue("PROCEDENCIA");
+				header6.setCellValue("PREPARATORIA");
 				header6.setCellStyle(style);
 				Cell header5= headersRow.createCell(8);
-				header5.setCellValue("PREPARATORIA");
+				header5.setCellValue("PROCEDENCIA");
 				header5.setCellStyle(style);
 				Cell header7 = headersRow.createCell(9);
 				header7.setCellValue("PROMEDIO");
@@ -4870,10 +4870,10 @@ class ListadoDAO {
 					cell1.setCellValue(lstParams[i].caseid);
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(
-						lstParams[i].primernombre + " " + 
-						lstParams[i].segundonombre + " " +
 						lstParams[i].apellidopaterno + " " +
-						lstParams[i].apellidomaterno
+						lstParams[i].apellidomaterno + " " +
+                        lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre
 					);
 					Cell cell3 = row.createCell(2);
 					cell3.setCellValue(lstParams[i].correoelectronico);
@@ -4891,7 +4891,7 @@ class ListadoDAO {
 					Cell cell5= row.createCell(7);
 					cell5.setCellValue(lstParams[i].preparatoria);
 					Cell cell6 = row.createCell(8);
-					cell6.setCellValue(lstParams[i].estado);
+					cell6.setCellValue(lstParams[i].procedencia);
 					Cell cell7 = row.createCell(9);
 					cell7.setCellValue(lstParams[i].promediogeneral);
 					
@@ -5000,10 +5000,10 @@ class ListadoDAO {
 					
                     Cell cell1 = row.createCell(1);
 					cell1.setCellValue(
-                        lstParams[i].primernombre+" "+
-                        lstParams[i].segundonombre+" "+
-                        lstParams[i].apellidopaterno+" "+
-                        lstParams[i].apellidomaterno
+                        lstParams[i].apellidopaterno + " " +
+						lstParams[i].apellidomaterno + " " +
+                        lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre
                     );
 					
 					Cell cell2 = row.createCell(2);
@@ -5017,7 +5017,7 @@ class ListadoDAO {
                     Cell cell6= row.createCell(6);
                     cell6.setCellValue( lstParams[i].campus);
 					Cell cell7 = row.createCell(7);
-                    cell7.setCellValue( lstParams[i].estado);
+                    cell7.setCellValue( lstParams[i].procedencia);
 					Cell cell8 = row.createCell(8);
                     cell8.setCellValue( lstParams[i].preparatoria);
                     Cell cell9 = row.createCell(9);
@@ -5151,10 +5151,10 @@ class ListadoDAO {
                     //Nombre
                     Cell cell1 = row.createCell(1);
 					cell1.setCellValue(
-						lstParams[i].primernombre+" "+
-                        lstParams[i].segundonombre+" "+
-                        lstParams[i].apellidopaterno+" "+
-                        lstParams[i].apellidomaterno
+						lstParams[i].apellidopaterno + " " +
+						lstParams[i].apellidomaterno + " " +
+                        lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre
 					);
                     //Correo Electronico
 					Cell cell2 = row.createCell(2);
@@ -5173,7 +5173,7 @@ class ListadoDAO {
 					cell6.setCellValue(lstParams[i].ingreso);
                     //Estado
 					Cell cell7 = row.createCell(7);
-					cell7.setCellValue(lstParams[i].estado);
+					cell7.setCellValue(lstParams[i].procedencia);
                     //PREPARATORIA
 					Cell cell8 = row.createCell(8);
 					cell8.setCellValue(lstParams[i].preparatoria);
@@ -5271,7 +5271,7 @@ class ListadoDAO {
 				header6.setCellValue("INGRESO");
 				header6.setCellStyle(style);
 				Cell header7 = headersRow.createCell(6);
-				header7.setCellValue("ESTADO");
+				header7.setCellValue("PROCEDENCIA");
 				header7.setCellStyle(style);
 				Cell header8 = headersRow.createCell(7);
 				header8.setCellValue("PREPARATORIA");
@@ -5307,10 +5307,10 @@ class ListadoDAO {
                     //Nombre
                     Cell cell1 = row.createCell(0);
 					cell1.setCellValue(
-                        lstParams[i].primernombre+" "+
-                        lstParams[i].segundonombre+" "+
-                        lstParams[i].apellidopaterno+" "+
-                        lstParams[i].apellidomaterno
+                        lstParams[i].apellidopaterno + " " +
+						lstParams[i].apellidomaterno + " " +
+                        lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre
 						// solicitud.getPrimerNombre() + " " +
 						// solicitud.getSegundoNombre() + " " +
 						// solicitud.getApellidoPaterno() + " " +
@@ -5338,7 +5338,7 @@ class ListadoDAO {
                     //cell6.setCellValue(solicitud.getCatPeriodo().getDescripcion());
                     //Estado
 					Cell cell7 = row.createCell(6);
-                    cell7.setCellValue( lstParams[i].estado);
+                    cell7.setCellValue( lstParams[i].procedencia);
                     //cell7.setCellValue(solicitud.getCatEstado().getDescripcion());
                     //PREPARATORIA
 					Cell cell8 = row.createCell(7);
@@ -5519,7 +5519,13 @@ class ListadoDAO {
 							cell1.setCellValue(lstParams[i].idbanner);
 							//Correo Electronico
 							Cell cell2 = row.createCell(1);
-							cell2.setCellValue(lstParams[i].primernombre+" "+lstParams[i].segundonombre+" "+lstParams[i].apellidopaterno+" "+lstParams[i].apellidomaterno);
+							cell2.setCellValue(
+								lstParams[i].apellidopaterno + " " +
+								lstParams[i].apellidomaterno + " " +
+								lstParams[i].primernombre + " " +
+								lstParams[i].segundonombre
+								//lstParams[i].primernombre+" "+lstParams[i].segundonombre+" "+lstParams[i].apellidopaterno+" "+lstParams[i].apellidomaterno
+								);
 							//cell2.setCellValue(solicitud.getCorreoElectronico());
 							//CURP
 							Cell cell3 = row.createCell(2);
@@ -5543,7 +5549,7 @@ class ListadoDAO {
 							//cell7.setCellValue(solicitud.getCatEstado().getDescripcion());
 							//PREPARATORIA
 							Cell cell8 = row.createCell(7);
-							cell8.setCellValue(lstParams[i].estado );
+							cell8.setCellValue(lstParams[i].procedencia );
 							//cell8.setCellValue(solicitud.getCatBachilleratos().getDescripcion());
 							//PROMEDIO
 							Cell cell9 = row.createCell(8);
@@ -5617,7 +5623,112 @@ class ListadoDAO {
 						}
 					}
 					//-----------------------------------------------------------------------
-			
+					else if (type.equals("usuarios_registrado")) {
+						dataResult = getUsuariosRegistrados(parameterP, parameterC, jsonData, context);
+						
+						if (dataResult.success) {
+							lstParams = dataResult.getData();
+						} else {
+							throw new Exception("No encontro datos");
+						}
+						Row titleRow = sheet.createRow(++rowCount);
+						Cell cellReporte = titleRow.createCell(1);
+						cellReporte.setCellValue("Reporte:");
+						cellReporte.setCellStyle(style);
+						Cell cellTitle = titleRow.createCell(2);
+						cellTitle.setCellValue("USUARIOS REGISTRADOS");
+						Cell cellFecha = titleRow.createCell(4);
+						cellFecha.setCellValue("Fecha:");
+						cellFecha.setCellStyle(style);
+						Calendar cal = Calendar.getInstance();
+						cal.add(Calendar.HOUR_OF_DAY, -7);
+						Date date = cal.getTime();
+						SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+						String sDate = formatter.format(date);
+						Cell cellFechaData = titleRow.createCell(5);
+						cellFechaData.setCellValue(sDate);
+						Row blank = sheet.createRow(++rowCount);
+						Cell cellusuario = blank.createCell(4);
+						cellusuario.setCellValue("Usuario:");
+						cellusuario.setCellStyle(style);
+						Cell cellusuarioData = blank.createCell(5);
+						cellusuarioData.setCellValue(object.usuario);
+						Row espacio = sheet.createRow(++rowCount);
+						Row headersRow = sheet.createRow(++rowCount);
+						Cell header0 = headersRow.createCell(0);
+						header0.setCellValue("ID BANNER");
+						header0.setCellStyle(style);
+						Cell header1 = headersRow.createCell(1);
+						header1.setCellValue("NOMBRE");
+						header1.setCellStyle(style);
+						Cell header2 = headersRow.createCell(2);
+						header2.setCellValue("EMAIL");
+						header2.setCellStyle(style);
+						Cell header3 = headersRow.createCell(3);
+						header3.setCellValue("CURP");
+						header3.setCellStyle(style);
+						Cell header4 = headersRow.createCell(4);
+						header4.setCellValue("PROGRAMA");
+						header4.setCellStyle(style);
+						Cell header5= headersRow.createCell(5);
+						header5.setCellValue("PERÍODO");
+						header5.setCellStyle(style);
+						Cell header6 = headersRow.createCell(6);
+						header6.setCellValue("CAMPUS");
+						header6.setCellStyle(style);
+						Cell header7 = headersRow.createCell(7);
+						header7.setCellValue("PROCEDENCIA");
+						header7.setCellStyle(style);
+						Cell header8 = headersRow.createCell(8);
+						header8.setCellValue("PREPARATORIA");
+						header8.setCellStyle(style);
+						Cell header9 = headersRow.createCell(9);
+						header9.setCellValue("PROMEDIO");
+						header9.setCellStyle(style);
+						Cell header10 = headersRow.createCell(10);
+						header10.setCellValue("ESTATUS");
+						header10.setCellStyle(style);
+						Cell header11 = headersRow.createCell(11);
+						header11.setCellValue("TIPO");
+						header11.setCellStyle(style);
+						for (int i = 0; i < lstParams.size(); ++i){
+							//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
+							Row row = sheet.createRow(++rowCount);
+							Cell cell0 = row.createCell(0);
+							cell0.setCellValue(lstParams[i].idbanner);
+							
+							Cell cell1 = row.createCell(1);
+							cell1.setCellValue(
+								lstParams[i].apellidopaterno + " " +
+								lstParams[i].apellidomaterno + " " +
+								lstParams[i].primernombre + " " +
+								lstParams[i].segundonombre
+							);
+							
+							Cell cell2 = row.createCell(2);
+							cell2.setCellValue(lstParams[i].correoelectronico);
+							Cell cell3 = row.createCell(3);
+							cell3.setCellValue(lstParams[i].curp);
+							Cell cell4 = row.createCell(4);
+							cell4.setCellValue(lstParams[i].licenciatura);
+							Cell cell5= row.createCell(5);
+							cell5.setCellValue(lstParams[i].ingreso);
+							Cell cell6= row.createCell(6);
+							cell6.setCellValue( lstParams[i].campus);
+							Cell cell7 = row.createCell(7);
+							cell7.setCellValue( lstParams[i].procedencia);
+							Cell cell8 = row.createCell(8);
+							cell8.setCellValue( lstParams[i].preparatoria);
+							Cell cell9 = row.createCell(9);
+							cell9.setCellValue( lstParams[i].promediogeneral);
+							Cell cell10 = row.createCell(10);
+							cell10.setCellValue( lstParams[i].estatussolicitud);
+							Cell cell11 = row.createCell(11);
+							cell11.setCellValue(lstParams[i].tipoalumno);
+							
+						}
+					}
+					//-----------------------------------------------------------------------
 			
 			else if (type.equals("lista_roja") || type.equals("aspirantes_rechazados")) {
 				//dataResult = getAspirantesByStatus(parameterP, parameterC, jsonData, context);
@@ -5711,10 +5822,10 @@ class ListadoDAO {
 					cell1.setCellValue(lstParams[i].caseid);
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(
-						lstParams[i].primernombre+" "+
-                        lstParams[i].segundonombre+" "+
-                        lstParams[i].apellidopaterno+" "+
-                        lstParams[i].apellidomaterno
+						lstParams[i].apellidopaterno + " " +
+						lstParams[i].apellidomaterno + " " +
+                        lstParams[i].primernombre + " " + 
+						lstParams[i].segundonombre
 					);
 					Cell cell3 = row.createCell(2);
 					cell3.setCellValue(lstParams[i].correoelectronico);
@@ -5806,10 +5917,11 @@ class ListadoDAO {
 					cell1.setCellValue(solicitud.getPersistenceId().toString());
 					Cell cell2 = row.createCell(1);
 					cell2.setCellValue(
-						solicitud.getPrimerNombre() + " " + 
-						solicitud.getSegundoNombre() + " " +
+						
 						solicitud.getApellidoPaterno() + " " +
-						solicitud.getApellidoMaterno()
+						solicitud.getApellidoMaterno() + " " +
+						solicitud.getPrimerNombre() + " " +
+						solicitud.getSegundoNombre()
 					);
 					Cell cell3 = row.createCell(2);
 					cell3.setCellValue(solicitud.getCorreoElectronico());
