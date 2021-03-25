@@ -90,4 +90,8 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
             });
     }
+    
+    $scope.$watch("properties.dataToSend", function (newValue, oldValue) {
+       doRequestGet();
+    });
 }
