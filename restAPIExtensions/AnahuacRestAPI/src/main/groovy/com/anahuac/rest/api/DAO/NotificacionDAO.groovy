@@ -433,7 +433,6 @@ class NotificacionDAO {
 					
 				}
 			}else if(object.codigo.equals("carta-aceptar") || object.codigo.equals("carta-rechazo") || object.codigo.equals("carta-pdu")|| object.codigo.equals("carta-informacion")) {
-				String variablessus ="";
 				try {
 					def dt = null;
 					def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
@@ -470,7 +469,7 @@ class NotificacionDAO {
 						dt.costoSGM=rs.getString("costoSGM");
 						dt.educacionGarantizada=rs.getString("educacionGarantizada");
 						dt.instruccionesPagoBanco=rs.getString("instruccionesPagoBanco");
-						dt.instruccionesPagoCaja=rs.getString("instruccionesPagoCaja");
+						dt.instruccionesPagoCaja=rs.getString("instruccionesCaja");
 						dt.cancelarSeguroGastosMedicos=rs.getString("cancelarSeguroGastosMedicos");
 						dt.cursoMatematicas1=rs.getString("cursoMatematicas1");
 						dt.cursoMatematicas2=rs.getString("cursoMatematicas2");
