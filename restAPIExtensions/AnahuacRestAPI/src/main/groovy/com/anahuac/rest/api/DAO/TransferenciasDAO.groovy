@@ -137,7 +137,7 @@ class TransferenciasDAO {
 					}else {
 						where+= " WHERE "
 					}
-					where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+					where +=" ( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					/*
 					where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";

@@ -127,17 +127,20 @@ class ReactivacionDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 				
 				break;
-				case "PREPARATORIA,ESTADO,PROMEDIO":
+				case "PREPARATORIA,PROCEDENCIA,PROMEDIO":
 					errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
 					if(where.contains("WHERE")) {
 						where+= " AND "
 					}else {
 						where+= " WHERE "
 					}
-					where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+					where +=" ( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					
-					where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+					/*where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))*/
+					
+					where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 					
 					where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
@@ -365,9 +368,9 @@ class ReactivacionDAO {
 				case "INGRESO":
 					orderby += "periodo.DESCRIPCION"
 					break;
-				case "ESTADO":
-					orderby += "estado.DESCRIPCION";
-					break;
+				case "PROCEDENCIA":
+                    orderby += "procedencia";
+                    break;
 				case "PROMEDIO":
 					orderby += "sda.PROMEDIOGENERAL";
 					break;
