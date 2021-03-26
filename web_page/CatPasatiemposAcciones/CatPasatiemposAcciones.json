@@ -2,8 +2,98 @@
   "designerVersion" : "1.11.52",
   "id" : "CatPasatiemposAcciones",
   "name" : "CatPasatiemposAcciones",
-  "lastUpdate" : 1609703437975,
+  "lastUpdate" : 1616526408598,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "<i class=\"glyphicon glyphicon-arrow-left\"></i> Regresar a catálogos AD"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Submit task"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          }
+        },
+        "reference" : "21d47589-10a9-4cca-a71d-2373d4568401",
+        "hasValidationError" : false,
+        "id" : "customButtonRegresarCatalogosAD"
+      }
+    ],
     [
       {
         "type" : "component",
@@ -24,7 +114,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catálogo de pasatiempos"
+            "value" : "¿Qué haces en tu tiempo libre?"
           },
           "level" : {
             "type" : "constant",
@@ -143,7 +233,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -151,7 +241,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -335,11 +425,11 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "Clave",
+                    "Orden",
                     "Descripción",
-                    "Usuario Banner",
-                    "Fecha Importación",
-                    "Fecha Creación"
+                    "Usuario banner",
+                    "Fecha importación",
+                    "Fecha creación"
                   ]
                 },
                 "content" : {
@@ -352,7 +442,7 @@
                     "clave",
                     "descripcion",
                     "usuarioBanner",
-                    "fechaImplementacion",
+                    "fechaImplementacion | date:'dd-MM-yyyy HH:mm:ss'",
                     "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'"
                   ]
                 },
@@ -519,7 +609,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -531,7 +621,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -563,9 +653,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "0f67e8af-80c7-4a9b-9183-d7ebe46df686",
+              "reference" : "0ed7b03d-744c-4492-bd1f-eb767b52438f",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -648,9 +738,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -671,11 +761,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -713,9 +803,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -740,7 +830,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -882,7 +972,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 5
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -894,7 +984,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Clave"
+                  "value" : "Orden"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -926,9 +1016,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "e9a20ac0-02fc-41f0-bb50-ae3dda8cdac9",
+              "reference" : "1230baf0-6b9f-437b-890e-97ea5c3a22ef",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumerico"
             },
             {
               "type" : "component",
@@ -1011,9 +1101,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 10,
-                "lg" : 10
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1034,11 +1124,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1068,9 +1158,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1095,7 +1185,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1185,6 +1275,13 @@
   ],
   "assets" : [
     {
+      "id" : "926a9ec4-b609-4426-bd44-4a6f7f873f38",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "0fb5c478-1504-4544-b3cf-4d28f1fd628f",
       "name" : "localization.json",
       "type" : "json",
@@ -1204,13 +1301,6 @@
       "type" : "js",
       "order" : 2,
       "external" : false
-    },
-    {
-      "id" : "1fa3370e-cbde-4658-9b4c-6e46b399fb7e",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
@@ -1218,7 +1308,7 @@
     "catPasatiempos" : {
       "type" : "json",
       "value" : [
-        "{}"
+        "[]"
       ],
       "exposed" : false
     },
@@ -1402,7 +1492,7 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"type\": \"solicitudes_progreso\",\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "   \"orderby\":\"descripcion\",\r",
+        "   \"orderby\":\"CLAVE\",\r",
         "    \"orientation\":\"ASC\",\r",
         "    \"limit\":100,\r",
         "    \"offset\":0,\r",

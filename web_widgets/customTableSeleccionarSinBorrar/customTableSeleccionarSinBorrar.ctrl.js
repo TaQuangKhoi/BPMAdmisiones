@@ -11,7 +11,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     };
 
     this.selectRowDelete = function(row) {
-        swal("Esta seguro que desea eliminar?", {
+        swal("¿Esta seguro que desea eliminar?", {
                 buttons: {
                     cancel: "No",
                     catch: {
@@ -71,10 +71,15 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
     
     function doRequestGet() {
-        var req = {
+        debugger;
+        /*var req = {
             method: "GET",
             url: $scope.properties.urlGet,
             data: angular.copy($scope.properties.dataToSend)
+        };*/
+        var req = {
+            method: "GET",
+            url: $scope.properties.urlGet
         };
 
         return $http(req)

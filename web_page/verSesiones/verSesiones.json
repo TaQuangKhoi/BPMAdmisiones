@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "verSesiones",
   "name" : "verSesiones",
-  "lastUpdate" : 1610491349437,
+  "lastUpdate" : 1616527414758,
   "rows" : [
     [
       {
@@ -140,6 +140,10 @@
                 "isCorrectTask" : {
                   "type" : "variable",
                   "value" : "isCorrectTask"
+                },
+                "isMedicina" : {
+                  "type" : "variable",
+                  "value" : "solicitudAdmicion[0].catGestionEscolar.isMedicina"
                 }
               },
               "reference" : "3d44c8fe-5870-45b9-a955-fcb042ec8215",
@@ -330,6 +334,13 @@
       "type" : "url",
       "value" : [
         "../API/bpm/userTask/{{currentTask[0].id}}/context"
+      ],
+      "exposed" : false
+    },
+    "solicitudAdmicion" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"findByCorreoElectronico [com.anahuac.model.SolicitudDeAdmision]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCorreoElectronico\",\"displayName\":\"findByCorreoElectronico\"},\"id\":\"com.anahuac.model.SolicitudDeAdmision\",\"filters\":[{\"name\":\"correoElectronico\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{userData.user_name}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     }

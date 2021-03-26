@@ -147,15 +147,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     return $http(req)
       .success(function(data, status) {
-        $scope.properties.dataFromSuccess = data;
-        $scope.properties.responseStatusCode = status;
-        $scope.properties.dataFromError = undefined;
-        notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
-        blockUI.stop();
-        if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
-          redirectIfNeeded();
-        }
-        closeModal($scope.properties.closeOnSuccess);
+        setTimeout(function(){
+            $scope.properties.dataFromSuccess = data;
+            $scope.properties.responseStatusCode = status;
+            $scope.properties.dataFromError = undefined;
+            notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    blockUI.stop();
+                    redirectIfNeeded();
+            }
+            closeModal($scope.properties.closeOnSuccess);
+            blockUI.stop();
+        },5000)
       })
       .error(function(data, status) {
           blockUI.stop();

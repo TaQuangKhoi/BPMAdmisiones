@@ -50,12 +50,30 @@ class CatCampusCustomFiltro {
 	@XmlElement
 	private String municipio;
 	@XmlElement
+	private String urlImagen;
+	@XmlElement
+	private String email;
+	@XmlElement
 	private CatPais pais;
 	@XmlElement
-	private CatEstados estado;
+	private CatEstadoCustomFiltro estado;
+	
 	private String pais_pid;
 	@XmlElement
 	private String estado_pid;
+	
+	private CatEstadosCustom estados;
+	
+	
+	
+	
+	public CatEstadosCustom getEstados() {
+		return estados;
+	}
+
+	public void setEstados(CatEstadosCustom estados) {
+		this.estados = estados;
+	}
 
 	public Long getPersistenceId() {
 		return persistenceId;
@@ -317,13 +335,13 @@ class CatCampusCustomFiltro {
 
 
 
-	public CatEstados getEstado() {
+	public CatEstadoCustomFiltro getEstado() {
 		return estado;
 	}
 
 
 
-	public void setEstado(CatEstados estado) {
+	public void setEstado(CatEstadoCustomFiltro estado) {
 		this.estado = estado;
 	}
 
@@ -350,6 +368,24 @@ class CatCampusCustomFiltro {
 	public void setEstado_pid(String estado_pid) {
 		this.estado_pid = estado_pid;
 	}
+	
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 
 
 

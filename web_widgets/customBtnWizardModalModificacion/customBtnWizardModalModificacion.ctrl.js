@@ -57,6 +57,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
                     }
+                   /* if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                $scope.properties.selectedIndex--;
+                            } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                //$scope.properties.selectedIndex++;
+                                $scope.assignTask();
+                            }*/
                 }
             } else if ($scope.properties.catSolicitudDeAdmision.catPeriodo === null) {
                 swal("¡Periodo!", "Debes seleccionar un periodo donde cursarás tus estudios", "warning");
@@ -82,8 +88,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                            /*closeModal($scope.properties.modalid);
-                            $scope.properties.selectedIndex++;*/
                             $scope.assignTask();
                         }
                     }
@@ -93,8 +97,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                        /*closeModal($scope.properties.modalid);
-                        $scope.properties.selectedIndex++;*/
                         $scope.assignTask();
                     }
                 }
@@ -102,7 +104,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
             }
-
+        /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                            $scope.properties.selectedIndex--;
+                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                            $scope.assignTask();
+                        }*/
 
         } else if ($scope.properties.selectedIndex === 2) {
             

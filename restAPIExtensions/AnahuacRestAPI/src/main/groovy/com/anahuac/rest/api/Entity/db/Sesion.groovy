@@ -14,7 +14,21 @@ class Sesion {
 	private String tipo;
 	private Long campus_pid;
 	private Long ciudad_pid;
+	private String ultimo_dia_inscripcion;
+	private Boolean isEliminado;
 	
+	public Boolean getIsEliminado() {
+		return isEliminado;
+	}
+	public void setIsEliminado(Boolean isEliminado) {
+		this.isEliminado = isEliminado;
+	}
+	public String getUltimo_dia_inscripcion() {
+		return ultimo_dia_inscripcion;
+	}
+	public void setUltimo_dia_inscripcion(String ultimo_dia_inscripcion) {
+		this.ultimo_dia_inscripcion = ultimo_dia_inscripcion;
+	}
 	public Long getCiudad_pid() {
 		return ciudad_pid;
 	}

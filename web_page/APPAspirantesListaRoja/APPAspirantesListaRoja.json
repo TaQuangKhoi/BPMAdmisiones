@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPAspirantesListaRoja",
   "name" : "APPAspirantesListaRoja",
-  "lastUpdate" : 1610491953310,
+  "lastUpdate" : 1616522516157,
   "rows" : [
     [
       {
@@ -118,7 +118,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Aspirantes en lista roja"
+                  "value" : "Solicitudes en lista roja"
                 },
                 "level" : {
                   "type" : "constant",
@@ -188,12 +188,226 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 4,
-                "lg" : 4
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "6d9498c4-31f9-4c05-8318-d4ea604915fc",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Imprimir"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "cf21809e-4626-4913-883d-ff7fce827ae8",
+                    "hasValidationError" : false,
+                    "id" : "customButtonPrint"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "PDF"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/extension/AnahuacRest?url=getPdfFile&p=0&c=10"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "dataToSend"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "fileExtension" : {
+                        "type" : "constant",
+                        "value" : "pdf"
+                      }
+                    },
+                    "reference" : "818c4fdb-0727-42ea-bd2a-b7380d88295e",
+                    "hasValidationError" : false,
+                    "id" : "customCustomBtnDownloadExcel"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -249,97 +463,9 @@
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Imprimir"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                }
-              },
-              "reference" : "cf21809e-4626-4913-883d-ff7fce827ae8",
-              "hasValidationError" : false,
-              "id" : "customButtonPrint"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -360,7 +486,7 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "left"
+                  "value" : "right"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
@@ -426,100 +552,6 @@
               "reference" : "95a7d08f-40a3-46e1-b355-56bb0937fda7",
               "hasValidationError" : false,
               "id" : "customCustomBtnDownloadExcel"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "PDF"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "primary"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "POST"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/extension/AnahuacRest?url=getPdfFile&p=0&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "dataToSend"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "fileExtension" : {
-                  "type" : "constant",
-                  "value" : "pdf"
-                }
-              },
-              "reference" : "818c4fdb-0727-42ea-bd2a-b7380d88295e",
-              "hasValidationError" : false,
-              "id" : "customCustomBtnDownloadExcel"
             }
           ],
           [
@@ -545,9 +577,9 @@
                   "value" : "lstFiltros"
                 }
               },
-              "reference" : "1cea52d1-4795-451f-8ea5-e27776b33a68",
+              "reference" : "ae6a9842-eb47-4119-a835-428ae30fbcd4",
               "hasValidationError" : false,
-              "id" : "customListFiltros"
+              "id" : "customListFiltrosBloqueoCampus"
             }
           ],
           [
@@ -618,11 +650,19 @@
                 "userId" : {
                   "type" : "variable",
                   "value" : "userData.user_id"
+                },
+                "campusSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "getCampus"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
                 }
               },
-              "reference" : "a9d05445-288f-4257-b116-a7ad21ddfd0b",
+              "reference" : "4b03dc84-57a4-4be5-908d-e4f4b4d796bc",
               "hasValidationError" : false,
-              "id" : "customTablePostListaRoja"
+              "id" : "customTablePostListaRojaFiltrado"
             }
           ]
         ]
@@ -702,7 +742,7 @@
                         "xs" : 12,
                         "sm" : 12,
                         "md" : 12,
-                        "lg" : 6
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -767,8 +807,8 @@
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
-                        "md" : 10,
-                        "lg" : 6
+                        "md" : 12,
+                        "lg" : 12
                       },
                       "propertyValues" : {
                         "cssClasses" : {
@@ -794,8 +834,8 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 3,
+                              "lg" : 3
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -820,7 +860,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Columna"
+                                "value" : "Campo"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -858,8 +898,8 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 3,
+                              "lg" : 3
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -884,7 +924,7 @@
                               },
                               "label" : {
                                 "type" : "interpolation",
-                                "value" : "Operador"
+                                "value" : "Regla"
                               },
                               "labelPosition" : {
                                 "type" : "constant",
@@ -922,8 +962,8 @@
                             "dimension" : {
                               "xs" : 12,
                               "sm" : 12,
-                              "md" : 4,
-                              "lg" : 4
+                              "md" : 3,
+                              "lg" : 3
                             },
                             "propertyValues" : {
                               "cssClasses" : {
@@ -931,8 +971,8 @@
                                 "value" : ""
                               },
                               "hidden" : {
-                                "type" : "constant",
-                                "value" : false
+                                "type" : "expression",
+                                "value" : "objFiltro.columna === \"PAA (COLLEGE BOARD)\" || objFiltro.columna === \"DESCUENTO EN EXAMEN\" || objFiltro.columna === \"CAMPUS INGRESO\" || objFiltro.columna === \"ADMISIÓN ANÁHUAC\""
                               },
                               "required" : {
                                 "type" : "constant",
@@ -991,103 +1031,235 @@
                             "reference" : "2d8a8844-7475-4100-af04-e84ce189e246",
                             "hasValidationError" : false,
                             "id" : "pbInput"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 3,
+                              "lg" : 3
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "expression",
+                                "value" : "objFiltro.columna !== \"PAA (COLLEGE BOARD)\" && objFiltro.columna !== \"DESCUENTO EN EXAMEN\" && objFiltro.columna !== \"ADMISIÓN ANÁHUAC\""
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Valores"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation",
+                                "value" : "Select an option"
+                              },
+                              "availableValues" : {
+                                "type" : "expression",
+                                "value" : "lstSiNo"
+                              },
+                              "displayedKey" : {
+                                "type" : "constant",
+                                "value" : "descripcion"
+                              },
+                              "returnedKey" : {
+                                "type" : "constant",
+                                "value" : "valor"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "objFiltro.valor"
+                              }
+                            },
+                            "reference" : "f71e648b-ce27-43a0-b0cb-32241c0ecb04",
+                            "hasValidationError" : false,
+                            "id" : "pbSelect"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 3,
+                              "lg" : 3
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "expression",
+                                "value" : "objFiltro.columna !== \"CAMPUS INGRESO\""
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Valores"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation",
+                                "value" : "Select an option"
+                              },
+                              "availableValues" : {
+                                "type" : "expression",
+                                "value" : "lstCatCampus"
+                              },
+                              "displayedKey" : {
+                                "type" : "constant",
+                                "value" : "descripcion"
+                              },
+                              "returnedKey" : {
+                                "type" : "constant",
+                                "value" : "descripcion"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "objFiltro.valor"
+                              }
+                            },
+                            "reference" : "f69d0677-c446-4eb7-9dd3-90c509e43e0c",
+                            "hasValidationError" : false,
+                            "id" : "pbSelect"
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 3,
+                              "lg" : 3
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : "btn-bottom-align"
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Agregar"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Add to collection"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "constant"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable",
+                                "value" : "lstFiltrosPre"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "expression",
+                                "value" : "objFiltro"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "variableRestart" : {
+                                "type" : "variable",
+                                "value" : "objFiltro"
+                              }
+                            },
+                            "reference" : "1affbd96-5e6e-44b1-abfe-1dc6c4c7bd5b",
+                            "hasValidationError" : false,
+                            "id" : "customButtonAddClean"
                           }
                         ]
                       ]
-                    },
-                    {
-                      "type" : "component",
-                      "dimension" : {
-                        "xs" : 12,
-                        "sm" : 12,
-                        "md" : 2,
-                        "lg" : 6
-                      },
-                      "propertyValues" : {
-                        "cssClasses" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "hidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "disabled" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Agregar"
-                        },
-                        "alignment" : {
-                          "type" : "constant",
-                          "value" : "left"
-                        },
-                        "buttonStyle" : {
-                          "type" : "constant",
-                          "value" : "default"
-                        },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "Add to collection"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "url" : {
-                          "type" : "interpolation"
-                        },
-                        "responseStatusCode" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "dataToSend" : {
-                          "type" : "constant"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable",
-                          "value" : "lstFiltrosPre"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "expression",
-                          "value" : "objFiltro"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
-                        },
-                        "variableRestart" : {
-                          "type" : "variable",
-                          "value" : "objFiltro"
-                        }
-                      },
-                      "reference" : "1affbd96-5e6e-44b1-abfe-1dc6c4c7bd5b",
-                      "hasValidationError" : false,
-                      "id" : "customButtonAddClean"
                     }
                   ],
                   [
@@ -1115,8 +1287,8 @@
                         "headers" : {
                           "type" : "constant",
                           "value" : [
-                            "Columna",
-                            "Operador",
+                            "Campo",
+                            "Regla",
                             "Valor"
                           ]
                         },
@@ -1216,7 +1388,7 @@
                         },
                         "buttonStyle" : {
                           "type" : "constant",
-                          "value" : "default"
+                          "value" : "primary"
                         },
                         "action" : {
                           "type" : "constant",
@@ -1471,16 +1643,15 @@
       "type" : "json",
       "value" : [
         "[\r",
-        "\t\"NOMBRE\",\r",
-        "\t\"ID BANNER\",\r",
-        "\t\"TELÉFONO\",\r",
-        "\t\"EMAIL\",\r",
-        "\t\"CURP\",\r",
-        "\t\"CAMPUS\",\r",
-        "\t\"PROGRAMA\",\r",
-        "\t\"INGRESO\",\r",
-        "\t\"PROMEDIO\",\r",
-        "\t\"MOTIVO LISTA ROJA\"\r",
+        "    \"CIUDAD\",\r",
+        "    \"PROCEDENCIA\",\r",
+        "    \"PAÍS\",\r",
+        "    \"CAMPUS INGRESO\",\r",
+        "    \"INGRESO\",\r",
+        "    \"FECHA DE ENVIO\",\r",
+        "    \"ADMISIÓN ANÁHUAC\",\r",
+        "    \"PAA (COLLEGE BOARD)\",\r",
+        "    \"DESCUENTO EN EXAMEN\"\r",
         "]"
       ],
       "exposed" : false
@@ -1538,7 +1709,8 @@
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
-        "    \"offset\":0\r",
+        "    \"offset\":0,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "};"
       ],
       "exposed" : false
@@ -1547,6 +1719,32 @@
       "type" : "url",
       "value" : [
         "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstSiNo" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "{\r",
+        "    \"descripcion\": \"Sí\",\r",
+        "    \"valor\": \"true\"\r",
+        "},\r",
+        "{\r",
+        "    \"descripcion\": \"No\",\r",
+        "    \"valor\": \"false\"\r",
+        "}]"
+      ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     }

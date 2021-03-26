@@ -17,7 +17,70 @@ class CatGestionEscolar {
 	private Date fechaCreacion;
 	private String campus;
 	private String caseId;
+	private String TipoLicenciatura;
+	private String clave;
+	private String tipoCentroEstudio;
+	private String inscripcionMayo;
+	private String inscripcionSeptiembre;
+	private String urlImgLicenciatura;
+	private Boolean isMedicina;
+	private String idioma;
 	
+	
+	
+	
+	
+	
+	public String getIdioma() {
+		return idioma;
+	}
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+	
+	public Boolean getIsMedicina() {
+		return isMedicina;
+	}
+	public void setIsMedicina(Boolean isMedicina) {
+		this.isMedicina = isMedicina;
+	}
+	public String getUrlImgLicenciatura() {
+		return urlImgLicenciatura;
+	}
+	public void setUrlImgLicenciatura(String urlImgLicenciatura) {
+		this.urlImgLicenciatura = urlImgLicenciatura;
+	}
+	public String getTipoCentroEstudio() {
+		return tipoCentroEstudio;
+	}
+	public void setTipoCentroEstudio(String tipoCentroEstudio) {
+		this.tipoCentroEstudio = tipoCentroEstudio;
+	}
+	public String getInscripcionMayo() {
+		return inscripcionMayo;
+	}
+	public void setInscripcionMayo(String inscripcionMayo) {
+		this.inscripcionMayo = inscripcionMayo;
+	}
+	public String getInscripcionSeptiembre() {
+		return inscripcionSeptiembre;
+	}
+	public void setInscripcionSeptiembre(String inscripcionSeptiembre) {
+		this.inscripcionSeptiembre = inscripcionSeptiembre;
+	}
+	
+	public String getClave() {
+		return clave;
+	}
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	public String getTipoLicenciatura() {
+		return TipoLicenciatura;
+	}
+	public void setTipoLicenciatura(String tipoLicenciatura) {
+		TipoLicenciatura = tipoLicenciatura;
+	}
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -108,6 +171,8 @@ class CatGestionEscolar {
 	public void setCaseId(String caseId) {
 		this.caseId = caseId;
 	}
+	
+	
 	
 	@Override
 	public String toString() {

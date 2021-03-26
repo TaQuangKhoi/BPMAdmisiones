@@ -6,6 +6,10 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
     this.selectRow = function(row) {
         $scope.properties.selectedRow = row;
+        if(row.catBachilleratos !== undefined && row.catBachilleratos !== null){
+            $scope.properties.selectedRow.bachillerato = row.catBachilleratos.descripcion;
+        }
+        
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
     };
@@ -237,6 +241,10 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         for (var i = 0; i < $scope.lstCampus.length; i++) {
             if (campus == $scope.lstCampus[i].valor) {
                 retorno = $scope.lstCampus[i].descripcion
+                if($scope.properties.lstCampus.length == 1){
+                    $scope.properties.filtroCampus = $scope.lstCampus[i].descripcion;
+                    $scope.addFilter();
+                }
             }
 
         }
@@ -258,7 +266,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
-                url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
+                url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
 
             return $http(req)

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatCiudadAcciones",
   "name" : "CatCiudadAcciones",
-  "lastUpdate" : 1608759791973,
+  "lastUpdate" : 1616525561035,
   "rows" : [
     [
       {
@@ -51,7 +51,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Catálago de ciudades"
+                  "value" : "Catálago de territorio"
                 },
                 "level" : {
                   "type" : "constant",
@@ -99,12 +99,41 @@
         "rows" : [
           [
             {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "6c6040ec-55af-4a90-9400-661ea3072522",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            },
+            {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 4,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -121,7 +150,101 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Agregar"
+                  "value" : "<i class=\"glyphicon glyphicon-download-alt\"></i> Excel"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacRest?url=getCatCiudadExcel&p=0&c=100"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "Files"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xlsx"
+                }
+              },
+              "reference" : "cc3053cd-1f81-47c1-93f8-4b089322e372",
+              "hasValidationError" : false,
+              "id" : "customCustomBtnDownloadExcelXLSX"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -129,7 +252,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -182,27 +305,26 @@
                   "type" : "constant",
                   "value" : [
                     "Orden",
-                    "Clave",
                     "Descripción",
                     "País",
                     "Estado",
+                    "Campus",
                     "Fecha creación",
                     "Usuario creación"
                   ]
                 },
                 "content" : {
-                  "type" : "expression",
-                  "value" : "catCiudad"
+                  "type" : "constant"
                 },
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
                     "orden",
-                    "clave",
                     "descripcion",
                     "pais",
                     "estado",
-                    "fechaCreacion | date:'dd-MM-yyyy HH:mm:ss'",
+                    "campus.descripcion",
+                    "fechaCreacion | date:'yyyy-MM-dd hh:mm:ss'",
                     "usuarioCreacion"
                   ]
                 },
@@ -240,56 +362,32 @@
                 },
                 "contenido" : {
                   "type" : "variable",
-                  "value" : "catCiudad"
+                  "value" : "lstContenido"
                 },
                 "urlGet" : {
                   "type" : "expression",
                   "value" : "urlRefreshPaginado"
-                }
-              },
-              "reference" : "7b6ff1cc-2289-421a-8dcd-76801e562eff",
-              "hasValidationError" : false,
-              "id" : "customTableSeleccionarIsEliminado"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
                 },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                "dataToFilter" : {
+                  "type" : "variable",
+                  "value" : "dataToFilter"
                 },
-                "value" : {
+                "urlPost" : {
                   "type" : "expression",
-                  "value" : "countCatCiudad[0]"
+                  "value" : "urlGetCatCiudad"
                 },
-                "inicio" : {
-                  "type" : "variable",
-                  "value" : "inicio"
+                "keyPressFilter" : {
+                  "type" : "constant",
+                  "value" : true
                 },
-                "fin" : {
+                "urlPostData" : {
                   "type" : "variable",
-                  "value" : "final"
-                },
-                "valorSeleccionado" : {
-                  "type" : "variable",
-                  "value" : ""
+                  "value" : "urlGetCatCiudad"
                 }
               },
-              "reference" : "6812704d-722b-49ad-9681-27204a7ac55b",
+              "reference" : "7ea3cd56-9f79-4b2d-b94a-c829a5d8663b",
               "hasValidationError" : false,
-              "id" : "customPaginado"
+              "id" : "customTableSeleccionarFiltradoCiudad"
             }
           ]
         ]
@@ -684,8 +782,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -726,7 +824,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "lstPais"
+                  "value" : "lstPaisEditar"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -750,8 +848,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -807,7 +905,7 @@
                   "value" : "catCiudad_selected.estado"
                 }
               },
-              "reference" : "6093c5d5-bfa1-412c-bf02-7d30bed7295f",
+              "reference" : "3ac64688-fdcd-4515-965e-400f49ee91ef",
               "hasValidationError" : false,
               "id" : "pbSelect"
             },
@@ -816,8 +914,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -871,19 +969,25 @@
                 "value" : {
                   "type" : "variable",
                   "value" : "catCiudad_selected.campus"
+                },
+                "descripcionData" : {
+                  "type" : "expression",
+                  "value" : "catCiudad_selected.campus.descripcion"
                 }
               },
-              "reference" : "4583d615-a101-4dd7-97cf-b22172122897",
+              "reference" : "94e575a8-aeb4-4400-9f0e-e8129fe11709",
               "hasValidationError" : false,
-              "id" : "pbSelect"
-            },
+              "id" : "customSelectCampus"
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -892,7 +996,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "required" : {
                   "type" : "constant",
@@ -959,8 +1063,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 10,
+                "lg" : 10
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -981,11 +1085,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1034,6 +1138,122 @@
                 },
                 "hidden" : {
                   "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "."
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutput"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "catCiudad"
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"pais\": null, \t\"clave\": \"\", \t\"isEnabled\": true, \t\"orden\": null, \t\"caseId\": null, \t\"campus\":\"\", \t\"estado\":null, \t\"region\":\"\", \t\"isEstado\":\"\" }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "catCiudad_selected"
+                }
+              },
+              "reference" : "c6205d6e-e2e3-4f6f-844f-1ac013f4a4d3",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatCiudadEditar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
                   "value" : true
                 },
                 "disabled" : {
@@ -1050,7 +1270,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1132,120 +1352,6 @@
               "reference" : "932643dc-067a-41db-91b1-0516a23d65d7",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByOrden&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutput"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catCiudad"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processEditData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"pais\": null, \t\"clave\": \"\", \t\"isEnabled\": true, \t\"orden\": null, \t\"caseId\": null, \t\"campus\":\"\", \t\"estado\":null, \t\"region\":\"\", \t\"isEstado\":\"\" }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "catCiudad_selected"
-                }
-              },
-              "reference" : "a8366322-2b81-49ea-afca-7b4a1dd07e85",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatCiudad"
             }
           ]
         ]
@@ -1670,8 +1776,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1736,8 +1842,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 2,
-                "lg" : 2
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1802,8 +1908,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 6,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1862,14 +1968,16 @@
               "reference" : "c8ad3f2b-b471-4754-987b-75f72d9d49be",
               "hasValidationError" : false,
               "id" : "pbSelect"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1878,7 +1986,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "required" : {
                   "type" : "constant",
@@ -1945,8 +2053,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 10,
+                "lg" : 10
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1967,11 +2075,11 @@
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "right"
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
+                  "value" : "info"
                 },
                 "action" : {
                   "type" : "constant",
@@ -1991,12 +2099,136 @@
                 },
                 "modalId" : {
                   "type" : "constant"
+                },
+                "variableDestino2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatCiudadInput[0]"
+                },
+                "variableAcopiar2" : {
+                  "type" : "variable",
+                  "value" : "{\"descripcion\": \"\", \"isEliminado\": false, \"usuarioCreacion\": \"\", \"clave\": \"\", \"isEnabled\": false, \"orden\": null, \"caseId\": null, \"fechaCreacion\": null, \"region\":\"\", \"estado\":null, \"campus\":\"\", \"pais\": null, \"isEstado\":\"Pais\"}"
                 }
               },
-              "reference" : "1580ec7e-979b-4839-876b-906d4a3abd65",
+              "reference" : "d939f7b4-40cc-4e4d-a5e3-830bdc170140",
               "hasValidationError" : false,
-              "id" : "customButtonSetValor"
+              "id" : "customButtonSetValorDoble"
             },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 2
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Start process"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processAgregarData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSet" : {
+                  "type" : "variable",
+                  "value" : "\"tabla\""
+                },
+                "dataToChange" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "dataToSet2" : {
+                  "type" : "variable",
+                  "value" : "{     \"lstCatCiudadInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"isEnabled\": false,              \"orden\": 0,              \"caseId\": null,              \"fechaCreacion\": null,              \"region\":\"\",             \"estado\":null,             \"campus\":\"\",             \"pais\": null,             \"isEstado\":\"Pais\"         }     ] }"
+                },
+                "dataToChange2" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar"
+                }
+              },
+              "reference" : "aa2fb8fc-43aa-42ad-8173-03e745d36551",
+              "hasValidationError" : false,
+              "id" : "customButtonInstanciarCatCiudad"
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
@@ -2028,7 +2260,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "info"
+                  "value" : "primary"
                 },
                 "action" : {
                   "type" : "constant",
@@ -2110,120 +2342,6 @@
               "reference" : "b431fb63-5751-4d64-9564-d9489ecc6de7",
               "hasValidationError" : false,
               "id" : "customButtonInstanciar"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 2,
-                "lg" : 2
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Guardar"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "info"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Start process"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByOrden&p={{inicio}}&c=10"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "formOutputAgregar"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "catCiudad"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "processId" : {
-                  "type" : "variable",
-                  "value" : "processAgregarData[0].id"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "dataToSet" : {
-                  "type" : "variable",
-                  "value" : "\"tabla\""
-                },
-                "dataToChange" : {
-                  "type" : "variable",
-                  "value" : "editable"
-                },
-                "dataToSet2" : {
-                  "type" : "variable",
-                  "value" : "{     \"lstCatCiudadInput\": [         {             \"descripcion\": \"\",              \"isEliminado\": false,              \"usuarioCreacion\": \"\",              \"clave\": \"\",              \"isEnabled\": false,              \"orden\": 0,              \"caseId\": null,              \"fechaCreacion\": null,              \"region\":\"\",             \"estado\":null,             \"campus\":\"\",             \"pais\": null,             \"isEstado\":\"Pais\"         }     ] }"
-                },
-                "dataToChange2" : {
-                  "type" : "variable",
-                  "value" : "formOutputAgregar"
-                }
-              },
-              "reference" : "aa2fb8fc-43aa-42ad-8173-03e745d36551",
-              "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatCiudad"
             }
           ]
         ]
@@ -2260,6 +2378,38 @@
         "hasValidationError" : false,
         "id" : "customCopyData"
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "objEntrada" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "objSalida" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "eceb6b71-d8ba-471e-804f-af1f6712b525",
+        "hasValidationError" : false,
+        "id" : "customCopyData"
+      }
     ]
   ],
   "assets" : [
@@ -2287,13 +2437,6 @@
   ],
   "inactiveAssets" : [ ],
   "variables" : {
-    "catCiudad" : {
-      "type" : "url",
-      "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByOrden&p={{inicio}}&c=10"
-      ],
-      "exposed" : false
-    },
     "catCiudad_selected" : {
       "type" : "json",
       "value" : [
@@ -2428,7 +2571,7 @@
         "            \"usuarioCreacion\": \"\", \r",
         "            \"clave\": \"\", \r",
         "            \"isEnabled\": false, \r",
-        "            \"orden\": 0, \r",
+        "            \"orden\": null, \r",
         "            \"caseId\": null, \r",
         "            \"fechaCreacion\": null, \r",
         "            \"region\":\"\",\r",
@@ -2457,9 +2600,9 @@
       "exposed" : false
     },
     "catCampus" : {
-      "type" : "url",
+      "type" : "businessdata",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=9999"
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"1000\"}}"
       ],
       "exposed" : false
     },
@@ -2488,7 +2631,7 @@
         "        if(element.isEstado === \"Pais\"){",
         "            element.estado = null",
         "        }else if(element.isEstado === \"Estado\"){",
-        "              element.pais = null",
+        "              element.pais = \"México\"",
         "        }else if(element.orden ===\"\"){",
         "            validado = false;",
         "        }else if(element.descripcion ===\"\"){",
@@ -2524,7 +2667,7 @@
         "        if(element.isEstado === \"Pais\"){",
         "            element.estado = null",
         "        }else if(element.isEstado === \"Estado\"){",
-        "              element.pais = null",
+        "              element.pais = \"México\"",
         "        }else if(element.orden ===\"\"){",
         "            validado = false;",
         "        }else if(element.descripcion ===\"\"){",
@@ -2554,226 +2697,22 @@
       "exposed" : false
     },
     "lstPais" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "[{\"descripcion\":\"Afganistán\"},\r",
-        "{\"descripcion\":\"Albania\"},\r",
-        "{\"descripcion\":\"Alemania\"},\r",
-        "{\"descripcion\":\"Andorra\"},\r",
-        "{\"descripcion\":\"Angola\"},\r",
-        "{\"descripcion\":\"Anguila\"},\r",
-        "{\"descripcion\":\"Antigua y Barbuda\"},\r",
-        "{\"descripcion\":\"Antillas Holandesas\"},\r",
-        "{\"descripcion\":\"Arabia Saudí\"},\r",
-        "{\"descripcion\":\"Argelia\"},\r",
-        "{\"descripcion\":\"Argentina\"},\r",
-        "{\"descripcion\":\"Armenia\"},\r",
-        "{\"descripcion\":\"Aruba\"},\r",
-        "{\"descripcion\":\"Australia\"},\r",
-        "{\"descripcion\":\"Austria\"},\r",
-        "{\"descripcion\":\"Azerbaiyán\"},\r",
-        "{\"descripcion\":\"Bahamas\"},\r",
-        "{\"descripcion\":\"Bahrein\"},\r",
-        "{\"descripcion\":\"Bangladesh\"},\r",
-        "{\"descripcion\":\"Barbados\"},\r",
-        "{\"descripcion\":\"Bélgica\"},\r",
-        "{\"descripcion\":\"Belice\"},\r",
-        "{\"descripcion\":\"Benin\"},\r",
-        "{\"descripcion\":\"Bermudas\"},\r",
-        "{\"descripcion\":\"Bielorrusia\"},\r",
-        "{\"descripcion\":\"Bolivia\"},\r",
-        "{\"descripcion\":\"Bosnia y Herzegovina\"},\r",
-        "{\"descripcion\":\"Botswana\"},\r",
-        "{\"descripcion\":\"Brasil\"},\r",
-        "{\"descripcion\":\"Brunei\"},\r",
-        "{\"descripcion\":\"Bulgaria\"},\r",
-        "{\"descripcion\":\"Burkina Faso\"},\r",
-        "{\"descripcion\":\"Burma (Myanmar)\"},\r",
-        "{\"descripcion\":\"Burundi\"},\r",
-        "{\"descripcion\":\"Bután\"},\r",
-        "{\"descripcion\":\"Cabo Verde\"},\r",
-        "{\"descripcion\":\"Camboya\"},\r",
-        "{\"descripcion\":\"Camerún\"},\r",
-        "{\"descripcion\":\"Chad\"},\r",
-        "{\"descripcion\":\"China\"},\r",
-        "{\"descripcion\":\"Chipre\"},\r",
-        "{\"descripcion\":\"Comores\"},\r",
-        "{\"descripcion\":\"Corea del Norte\"},\r",
-        "{\"descripcion\":\"Corea del Sur\"},\r",
-        "{\"descripcion\":\"Costa de marfil\"},\r",
-        "{\"descripcion\":\"Costa Rica\"},\r",
-        "{\"descripcion\":\"Croacia (Hrvatska)\"},\r",
-        "{\"descripcion\":\"Cuba\"},\r",
-        "{\"descripcion\":\"Dinamarca\"},\r",
-        "{\"descripcion\":\"República de Yibuti\"},\r",
-        "{\"descripcion\":\"Dominica\"},\r",
-        "{\"descripcion\":\"Ecuador\"},\r",
-        "{\"descripcion\":\"Egipto\"},\r",
-        "{\"descripcion\":\"El Salvador\"},\r",
-        "{\"descripcion\":\"Emiratos Unidos\"},\r",
-        "{\"descripcion\":\"Eritrea\"},\r",
-        "{\"descripcion\":\"Eslovenia\"},\r",
-        "{\"descripcion\":\"Estonia\"},\r",
-        "{\"descripcion\":\"Etiopía\"},\r",
-        "{\"descripcion\":\"Fiji\"},\r",
-        "{\"descripcion\":\"Filipinas\"},\r",
-        "{\"descripcion\":\"Finlandia\"},\r",
-        "{\"descripcion\":\"Gabón\"},\r",
-        "{\"descripcion\":\"Gambia\"},\r",
-        "{\"descripcion\":\"Georgia\"},\r",
-        "{\"descripcion\":\"Ghana\"},\r",
-        "{\"descripcion\":\"Granada\"},\r",
-        "{\"descripcion\":\"Grecia\"},\r",
-        "{\"descripcion\":\"Groenlandia\"},\r",
-        "{\"descripcion\":\"Guam\"},\r",
-        "{\"descripcion\":\"Guatemala\"},\r",
-        "{\"descripcion\":\"Guayana\"},\r",
-        "{\"descripcion\":\"Guinea\"},\r",
-        "{\"descripcion\":\"Guinea Ecuatorial\"},\r",
-        "{\"descripcion\":\"Guinea-Bissau\"},\r",
-        "{\"descripcion\":\"Haití\"},\r",
-        "{\"descripcion\":\"Holanda\"},\r",
-        "{\"descripcion\":\"Honduras\"},\r",
-        "{\"descripcion\":\"Hong Kong\"},\r",
-        "{\"descripcion\":\"Hungría\"},\r",
-        "{\"descripcion\":\"India\"},\r",
-        "{\"descripcion\":\"Indonesia\"},\r",
-        "{\"descripcion\":\"Irak\"},\r",
-        "{\"descripcion\":\"Irán\"},\r",
-        "{\"descripcion\":\"Irlanda\"},\r",
-        "{\"descripcion\":\"Islandia\"},\r",
-        "{\"descripcion\":\"Islas Caimán\"},\r",
-        "{\"descripcion\":\"Islas Cook\"},\r",
-        "{\"descripcion\":\"Islas de Cocos o Keeling\"},\r",
-        "{\"descripcion\":\"Islas Faroe\"},\r",
-        "{\"descripcion\":\"Islas Malvinas\"},\r",
-        "{\"descripcion\":\"Islas Marianas del Norte\"},\r",
-        "{\"descripcion\":\"Islas Marshall\"},\r",
-        "{\"descripcion\":\"Islas Navidad\"},\r",
-        "{\"descripcion\":\"Islas Palau\"},\r",
-        "{\"descripcion\":\"Islas Salomón\"},\r",
-        "{\"descripcion\":\"Islas Tokelau\"},\r",
-        "{\"descripcion\":\"Islas Turks y Caicos\"},\r",
-        "{\"descripcion\":\"Islas Víergenes (US)\"},\r",
-        "{\"descripcion\":\"Islas Vírgenes Británicas\"},\r",
-        "{\"descripcion\":\"Islas Wallis y Futuna\"},\r",
-        "{\"descripcion\":\"Israel\"},\r",
-        "{\"descripcion\":\"Jamaica\"},\r",
-        "{\"descripcion\":\"Japón\"},\r",
-        "{\"descripcion\":\"Jordania\"},\r",
-        "{\"descripcion\":\"Kazajistán\"},\r",
-        "{\"descripcion\":\"Kenia\"},\r",
-        "{\"descripcion\":\"Kirguizistán\"},\r",
-        "{\"descripcion\":\"Kiribati\"},\r",
-        "{\"descripcion\":\"Kosovo\"},\r",
-        "{\"descripcion\":\"Kuwait\"},\r",
-        "{\"descripcion\":\"Laos\"},\r",
-        "{\"descripcion\":\"Lesotho\"},\r",
-        "{\"descripcion\":\"Letonia\"},\r",
-        "{\"descripcion\":\"Líbano\"},\r",
-        "{\"descripcion\":\"Liberia\"},\r",
-        "{\"descripcion\":\"Libia\"},\r",
-        "{\"descripcion\":\"Liechtenstein\"},\r",
-        "{\"descripcion\":\"Lituania\"},\r",
-        "{\"descripcion\":\"Luxemburgo\"},\r",
-        "{\"descripcion\":\"Macao\"},\r",
-        "{\"descripcion\":\"Macedonia\"},\r",
-        "{\"descripcion\":\"Madagascar\"},\r",
-        "{\"descripcion\":\"Malaysia\"},\r",
-        "{\"descripcion\":\"Malawi\"},\r",
-        "{\"descripcion\":\"Maldivas\"},\r",
-        "{\"descripcion\":\"Malí\"},\r",
-        "{\"descripcion\":\"Malta\"},\r",
-        "{\"descripcion\":\"Marruecos\"},\r",
-        "{\"descripcion\":\"Martinica\"},\r",
-        "{\"descripcion\":\"Mauritania\"},\r",
-        "{\"descripcion\":\"Mayotte\"},\r",
-        "{\"descripcion\":\"Micronesia\"},\r",
-        "{\"descripcion\":\"Moldavia\"},\r",
-        "{\"descripcion\":\"Mónaco\"},\r",
-        "{\"descripcion\":\"Mongolia\"},\r",
-        "{\"descripcion\":\"Montenegro\"},\r",
-        "{\"descripcion\":\"Montserrat\"},\r",
-        "{\"descripcion\":\"Mozambique\"},\r",
-        "{\"descripcion\":\"Namibia\"},\r",
-        "{\"descripcion\":\"Nauru\"},\r",
-        "{\"descripcion\":\"Nepal\"},\r",
-        "{\"descripcion\":\"Nicaragua\"},\r",
-        "{\"descripcion\":\"Níger\"},\r",
-        "{\"descripcion\":\"Nigeria\"},\r",
-        "{\"descripcion\":\"Niue\"},\r",
-        "{\"descripcion\":\"Norfolk\"},\r",
-        "{\"descripcion\":\"Noruega\"},\r",
-        "{\"descripcion\":\"Nueva Caledonia\"},\r",
-        "{\"descripcion\":\"Nueva Zelanda\"},\r",
-        "{\"descripcion\":\"Omán\"},\r",
-        "{\"descripcion\":\"Panamá\"},\r",
-        "{\"descripcion\":\"Papúa Nueva Guinea\"},\r",
-        "{\"descripcion\":\"Paquistán\"},\r",
-        "{\"descripcion\":\"Paraguay\"},\r",
-        "{\"descripcion\":\"Perú\"},\r",
-        "{\"descripcion\":\"Pitcairn\"},\r",
-        "{\"descripcion\":\"Polinesia Francesa\"},\r",
-        "{\"descripcion\":\"Polonia\"},\r",
-        "{\"descripcion\":\"Portugal\"},\r",
-        "{\"descripcion\":\"Puerto Rico\"},\r",
-        "{\"descripcion\":\"Qatar\"},\r",
-        "{\"descripcion\":\"Reino Unido\"},\r",
-        "{\"descripcion\":\"República Centroafricana\"},\r",
-        "{\"descripcion\":\"República Checa\"},\r",
-        "{\"descripcion\":\"República de Sudáfrica\"},\r",
-        "{\"descripcion\":\"República del Congo\"},\r",
-        "{\"descripcion\":\"República Dominicana\"},\r",
-        "{\"descripcion\":\"Eslovaquia\"},\r",
-        "{\"descripcion\":\"Repúbllica democrática del Congo\"},\r",
-        "{\"descripcion\":\"Ruanda\"},\r",
-        "{\"descripcion\":\"Rumania\"},\r",
-        "{\"descripcion\":\"Rusia\"},\r",
-        "{\"descripcion\":\"Saint Kitts y Nevis\"},\r",
-        "{\"descripcion\":\"Samoa\"},\r",
-        "{\"descripcion\":\"Samoa Americana\"},\r",
-        "{\"descripcion\":\"San Marino\"},\r",
-        "{\"descripcion\":\"San Martin\"},\r",
-        "{\"descripcion\":\"San Vicente y Granadinas\"},\r",
-        "{\"descripcion\":\"Santa Helena\"},\r",
-        "{\"descripcion\":\"Santa Lucía\"},\r",
-        "{\"descripcion\":\"Santo Tomé y Príncipe\"},\r",
-        "{\"descripcion\":\"Senegal\"},\r",
-        "{\"descripcion\":\"Serbia\"},\r",
-        "{\"descripcion\":\"Seychelles\"},\r",
-        "{\"descripcion\":\"Sierra Leona\"},\r",
-        "{\"descripcion\":\"Singapur\"},\r",
-        "{\"descripcion\":\"Siria\"},\r",
-        "{\"descripcion\":\"Somalia\"},\r",
-        "{\"descripcion\":\"Sri Lanka\"},\r",
-        "{\"descripcion\":\"St. Pierre y Miquelon\"},\r",
-        "{\"descripcion\":\"Suazilandia\"},\r",
-        "{\"descripcion\":\"Sudán\"},\r",
-        "{\"descripcion\":\"Suecia\"},\r",
-        "{\"descripcion\":\"Suiza\"},\r",
-        "{\"descripcion\":\"Surinam\"},\r",
-        "{\"descripcion\":\"Tailandia\"},\r",
-        "{\"descripcion\":\"Taiwán\"},\r",
-        "{\"descripcion\":\"Tanzania\"},\r",
-        "{\"descripcion\":\"Tayikistán\"},\r",
-        "{\"descripcion\":\"Timor-Leste\"},\r",
-        "{\"descripcion\":\"Togo\"},\r",
-        "{\"descripcion\":\"Tonga\"},\r",
-        "{\"descripcion\":\"Trinidad y Tobago\"},\r",
-        "{\"descripcion\":\"Túnez\"},\r",
-        "{\"descripcion\":\"Turkmenistán\"},\r",
-        "{\"descripcion\":\"Turquía\"},\r",
-        "{\"descripcion\":\"Tuvalu\"},\r",
-        "{\"descripcion\":\"Ucrania\"},\r",
-        "{\"descripcion\":\"Uganda\"},\r",
-        "{\"descripcion\":\"Uruguay\"},\r",
-        "{\"descripcion\":\"Uzbekistán\"},\r",
-        "{\"descripcion\":\"Vanuatu\"},\r",
-        "{\"descripcion\":\"Vaticano\"},\r",
-        "{\"descripcion\":\"Vietnam\"},\r",
-        "{\"descripcion\":\"Yemen\"},\r",
-        "{\"descripcion\":\"Zambia\"},\r",
-        "{\"descripcion\":\"Zimbabue\"}]"
+        "var resultado = [];",
+        "for(var iData in $data.getCatPais){",
+        "    if($data.formOutputAgregar.lstCatCiudadInput[0].isEstado == 'Pais'){",
+        "        if($data.getCatPais[iData].descripcion != 'México'){",
+        "            resultado.push({\"descripcion\":$data.getCatPais[iData].descripcion})",
+        "        }",
+        "    }",
+        "    else{",
+        "        resultado.push({\"descripcion\":$data.getCatPais[iData].descripcion});",
+        "    }",
+        "    ",
+        "}",
+        "",
+        "return resultado;"
       ],
       "exposed" : false
     },
@@ -2785,138 +2724,99 @@
       "exposed" : false
     },
     "lstEstados" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "for(var iData in $data.getCatEstados){",
+        "    resultado.push({\"nombre\":$data.getCatEstados[iData].descripcion})",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "getCatPais" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatPais [com.anahuac.catalogos.CatPais]\",\"businessObjectName\":\"CatPais\",\"query\":{\"name\":\"getCatPais\",\"displayName\":\"getCatPais\"},\"id\":\"com.anahuac.catalogos.CatPais\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "getCatEstados" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatEstados [com.anahuac.catalogos.CatEstados]\",\"businessObjectName\":\"CatEstados\",\"query\":{\"name\":\"getCatEstados\",\"displayName\":\"getCatEstados\"},\"id\":\"com.anahuac.catalogos.CatEstados\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"9999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToFilter" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
       "type" : "json",
       "value" : [
-        "[\r",
-        "  {\r",
-        "    \"id\": 1,\r",
-        "    \"nombre\": \"AGUASCALIENTES\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 2,\r",
-        "    \"nombre\": \"BAJA CALIFORNIA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 3,\r",
-        "    \"nombre\": \"BAJA CALIFORNIA SUR\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 4,\r",
-        "    \"nombre\": \"CHIHUAHUA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 5,\r",
-        "    \"nombre\": \"CHIAPAS\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 6,\r",
-        "    \"nombre\": \"CAMPECHE\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 7,\r",
-        "    \"nombre\": \"CIUDAD DE MEXICO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 8,\r",
-        "    \"nombre\": \"COAHUILA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 9,\r",
-        "    \"nombre\": \"COLIMA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 10,\r",
-        "    \"nombre\": \"DURANGO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 11,\r",
-        "    \"nombre\": \"GUERRERO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 12,\r",
-        "    \"nombre\": \"GUANAJUATO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 13,\r",
-        "    \"nombre\": \"HIDALGO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 14,\r",
-        "    \"nombre\": \"JALISCO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 15,\r",
-        "    \"nombre\": \"MICHOACAN\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 16,\r",
-        "    \"nombre\": \"ESTADO DE MEXICO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 17,\r",
-        "    \"nombre\": \"MORELOS\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 18,\r",
-        "    \"nombre\": \"NAYARIT\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 19,\r",
-        "    \"nombre\": \"NUEVO LEON\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 20,\r",
-        "    \"nombre\": \"OAXACA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 21,\r",
-        "    \"nombre\": \"PUEBLA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 22,\r",
-        "    \"nombre\": \"QUINTANA ROO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 23,\r",
-        "    \"nombre\": \"QUERETARO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 24,\r",
-        "    \"nombre\": \"SINALOA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 25,\r",
-        "    \"nombre\": \"SAN LUIS POTOSI\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 26,\r",
-        "    \"nombre\": \"SONORA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 27,\r",
-        "    \"nombre\": \"TABASCO\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 28,\r",
-        "    \"nombre\": \"TLAXCALA\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 29,\r",
-        "    \"nombre\": \"TAMAULIPAS\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 30,\r",
-        "    \"nombre\": \"VERACRUZ\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 31,\r",
-        "    \"nombre\": \"YUCATAN\"\r",
-        "  },\r",
-        "  {\r",
-        "    \"id\": 32,\r",
-        "    \"nombre\": \"ZACATECAS\"\r",
-        "  }\r",
-        "]"
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "urlGetCatCiudad" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacRest?url=getCatCiudad&p=0&c=100"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "Files" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "  \"lstFiltro\": $data.dataToFilter.lstFiltro,\r",
+        "  \"orderby\": $data.dataToFilter.orderby,\r",
+        "  \"orientation\": $data.dataToFilter.orientation,\r",
+        "  \"limit\": \"2000\",\r",
+        "  \"isOrden\":true,\r",
+        "  \"usuarioNombre\":$data.userData.user_name,\r",
+        "  \"offset\": \"0\",\r",
+        "  \"type\":\"TERRITORIOS\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstPaisEditar" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "for(var iData in $data.getCatPais){",
+        "    if($data.catCiudad_selected.isEstado == 'Pais'){",
+        "        if($data.getCatPais[iData].descripcion != 'México'){",
+        "            resultado.push({\"descripcion\":$data.getCatPais[iData].descripcion})",
+        "        }",
+        "    }",
+        "    else{",
+        "        resultado.push({\"descripcion\":$data.getCatPais[iData].descripcion});",
+        "    }",
+        "    ",
+        "}",
+        "",
+        "return resultado;"
       ],
       "exposed" : false
     }

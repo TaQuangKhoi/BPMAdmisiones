@@ -22,7 +22,8 @@
                     <input class="form-control col-xs-12" ng-model="row.otraTerapia" ng-show="row.catTipoTerapia.descripcion === 'Otro'" placeholder="Otro" maxlength="50">
                 </td>
                 <td>
-                    <select ng-model="row.recibidoTerapiaString" class="form-control col-xs-12" ng-change="setValue(row.recibidoTerapiaString, $index)">
+                    <select ng-model="row.recibidoTerapiaString" placeholder="Selecciona..." class="form-control col-xs-12" ng-change="setValue(row.recibidoTerapiaString, $index)">
+                        <option style="display:none" value="Selecciona...">Selecciona...</option>
                         <option ng-repeat="opcion in properties.catRecibidoTerapia" ng-value="opcion.descripcion">{{opcion.descripcion}}</option>
                     </select>
                 </td>

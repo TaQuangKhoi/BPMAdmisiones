@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "SesionesAdministrador",
   "name" : "SesionesAdministrador",
-  "lastUpdate" : 1610491339950,
+  "lastUpdate" : 1616527389694,
   "rows" : [
     [
       {
@@ -73,7 +73,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Calendarización de sesiones"
+                        "value" : "Agendar sesiones"
                       },
                       "level" : {
                         "type" : "constant",
@@ -235,6 +235,34 @@
               "hasValidationError" : false,
               "id" : "pbContainer",
               "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "rows" : {
+                        "type" : "expression",
+                        "value" : "paletteColors"
+                      }
+                    },
+                    "reference" : "cc6d450b-b8e7-4e50-b1ad-91243766e247",
+                    "hasValidationError" : false,
+                    "id" : "customPaletteColor"
+                  }
+                ],
                 [
                   {
                     "type" : "component",
@@ -523,23 +551,26 @@
     "lstCatCampus" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"find [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     },
     "lstCampus" : {
       "type" : "expression",
       "value" : [
-        "var resultado = [];",
-        "",
-        "for(var x in $data.lstCampusUsuario){",
-        "    for(var index in $data.lstCatCampus){",
-        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
-        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;",
-        "            resultado.push($data.lstCatCampus[index]);",
-        "        }",
-        "    }",
-        "}",
+        "var resultado = [];\r",
+        "\r",
+        "for(var x in $data.lstCampusUsuario){\r",
+        "    for(var index in $data.lstCatCampus){\r",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
+        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
+        "            resultado.push($data.lstCatCampus[index]);\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "if($data.lstCampusUsuario.length == 1){\r",
+        "$data.campus_selected = resultado[0];\r",
+        "}\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -547,22 +578,21 @@
     "lstMembership" : {
       "type" : "url",
       "value" : [
-        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id"
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
       ],
       "exposed" : false
     },
     "lstCampusByUser" : {
       "type" : "expression",
       "value" : [
-        "",
-        "var resultado=[];",
-        "",
-        "for(var x in $data.lstMembership){",
-        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){",
-        "        resultado.push($data.lstMembership[x].group_id.name);",
-        "    }",
-        "}",
-        "",
+        "var resultado=[];\r",
+        "\r",
+        "for(var x in $data.lstMembership){\r",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
+        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "    }\r",
+        "}\r",
+        "\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -621,18 +651,20 @@
       "exposed" : false
     },
     "lstCampusRole" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "[{\"descripcion\":\"Anáhuac México Norte\", \"valor\":\"CAMPUS-MNORTE\"},\r",
-        "{\"descripcion\":\"Anáhuac México Sur\", \"valor\":\"CAMPUS-MSUR\"},\r",
-        "{\"descripcion\":\"Anáhuac Mérida\", \"valor\":\"CAMPUS-MAYAB\"},\r",
-        "{\"descripcion\":\"Anáhuac Xalapa\", \"valor\":\"CAMPUS-XALAPA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cordoba\", \"valor\":\"CAMPUS-CORDOBA\"},\r",
-        "{\"descripcion\":\"Anáhuac Cancún\", \"valor\":\"CAMPUS-CANCUN\"},\r",
-        "{\"descripcion\":\"Anáhuac Oaxaca\", \"valor\":\"CAMPUS-OAXACA\"},\r",
-        "{\"descripcion\":\"Anáhuac Puebla\", \"valor\":\"CAMPUS-PUEBLA\"},\r",
-        "{\"descripcion\":\"Anáhuac Querétaro\", \"valor\":\"CAMPUS-QUERETARO\"},\r",
-        "{\"descripcion\":\"Juan Pablo II\", \"valor\":\"CAMPUS-JP2\"}]"
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
       ],
       "exposed" : false
     },
@@ -652,16 +684,27 @@
     "lstCampusUsuario" : {
       "type" : "expression",
       "value" : [
-        "var resultado = [];",
-        "",
-        "for(var x in $data.lstCampusByUser){",
-        "    for(var index in $data.lstCampusRole){",
-        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
-        "            resultado.push($data.lstCampusRole[index]);",
-        "        }",
-        "    }",
-        "}",
-        "",
+        "var resultado = [];\r",
+        "\r",
+        "for(var x in $data.lstCampusByUser){\r",
+        "    for(var index in $data.lstCampusRole){\r",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
+        "            //resultado.push($data.lstCampusRole[index]);\r",
+        "            let r2 = [];\r",
+        "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "            if(value.valor == r2[0].valor ){\r",
+        "            i++;\r",
+        "            }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "            resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -684,6 +727,13 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "paletteColors" : {
+      "type" : "url",
+      "value" : [
+        "/bonita/API/extension/AnahuacRestGet?url=getPaletteColor&p=0&c=10"
       ],
       "exposed" : false
     }

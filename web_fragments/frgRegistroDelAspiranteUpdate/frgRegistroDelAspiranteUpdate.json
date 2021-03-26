@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgRegistroDelAspiranteUpdate",
   "name" : "frgRegistroDelAspiranteUpdate",
-  "lastUpdate" : 1610470015545,
+  "lastUpdate" : 1616525089751,
   "rows" : [
     [
       {
@@ -60,7 +60,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Registro del Aspirante</label>"
+            "value" : "<label class=\"color-orange\">Registro del aspirante</label>"
           },
           "level" : {
             "type" : "constant",
@@ -225,6 +225,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : "txtNombre"
                 }
               },
               "reference" : "dab20bb2-ecd5-4de1-8f73-430c7e1470bd",
@@ -302,6 +306,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "1204339b-7e72-4b18-976b-aaeccc5f4a91",
@@ -379,6 +387,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "ebcb9c83-02e8-459d-9c3a-6db46181a203",
@@ -426,7 +438,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Apellido materno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Apellido materno:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -456,6 +468,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "07d09559-7fb8-4a07-aa49-8db32f7ff9e3",
@@ -718,6 +734,73 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Período de ingreso: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona una opción"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catPeriodo"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catSolicitudDeAdmision.catPeriodo"
+                }
+              },
+              "reference" : "fa3548fb-c206-42b6-8d57-efbdb3c8d770",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
                   "type" : "expression",
                   "value" : "!catSolicitudDeAdmision.catGestionEscolar.propedeutico"
                 },
@@ -763,78 +846,14 @@
                 "value" : {
                   "type" : "variable",
                   "value" : "catSolicitudDeAdmision.catPropedeutico"
-                }
-              },
-              "reference" : "3ba9da08-c5a8-4174-8e65-be455750275d",
-              "hasValidationError" : false,
-              "id" : "pbSelect"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
                 },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Período de ingreso: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation",
-                  "value" : "Selecciona una opción"
-                },
-                "availableValues" : {
-                  "type" : "expression",
-                  "value" : "catSolicitudDeAdmision.catGestionEscolar.periodoDisponible"
-                },
-                "displayedKey" : {
-                  "type" : "constant",
-                  "value" : "descripcion"
-                },
-                "returnedKey" : {
+                "descripcionData" : {
                   "type" : "constant"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "catSolicitudDeAdmision.catPeriodo"
                 }
               },
-              "reference" : "fa3548fb-c206-42b6-8d57-efbdb3c8d770",
+              "reference" : "9e27eb4d-f8f7-4872-abba-fc87ac4d9e50",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "customSelectCampus"
             }
           ],
           [
@@ -892,7 +911,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "catSolicitudDeAdmision.catLugarExamen.descripcion"
+                  "value" : "catSolicitudDeAdmision.catCampus.descripcion"
                 },
                 "type" : {
                   "type" : "constant",

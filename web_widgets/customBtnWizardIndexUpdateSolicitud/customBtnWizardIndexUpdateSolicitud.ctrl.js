@@ -28,6 +28,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                 $scope.properties.selectedIndex--;
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                                 ////$scope.assignTask();
                             }
@@ -40,16 +41,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                     ////$scope.assignTask();
                                 }
                             }
                         } else {
-                            $scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                            $scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
+                            //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
+                            //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
                             if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                 $scope.properties.selectedIndex--;
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                                 ////$scope.assignTask();
                             }
@@ -73,6 +76,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                            topFunction()
                             $scope.properties.selectedIndex++;
                             ////$scope.assignTask();
                         }
@@ -86,16 +90,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                            topFunction()
                             $scope.properties.selectedIndex++;
                             ////$scope.assignTask();
                         }
                     }
                 } else {
-                    $scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                    $scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
+                    //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
+                    //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                        topFunction()
                         $scope.properties.selectedIndex++;
                         ////$scope.assignTask();
                     }
@@ -110,6 +116,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                topFunction()
                 $scope.properties.selectedIndex++;
             }*/
             if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -118,9 +125,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Nombre!", "Debes ingresar tu primer nombre", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.apellidoPaterno === "") {
                 swal("¡Apellido paterno!", "Debes ingresar tu apellido paterno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
+            }/* else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
                 swal("¡Apellido materno!", "Debes ingresar tu apellido materno", "warning");
-            } else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
+            }*/ else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
                 swal("¡Correo electrónico!", "Debes ingresar tu correo electrónico", "warning");
             } else if (!re.test(String($scope.properties.catSolicitudDeAdmision.correoElectronico.trim()).toLowerCase())) {
                 swal("¡Correo electrónico!", "Tu correo electrónico no es válido", "warning");
@@ -142,6 +149,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                 }*/
 
@@ -155,6 +163,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                 }*/
 
@@ -162,11 +171,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 openModal($scope.properties.modalid);
                             }
                         } else {
-                            $scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                            $scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
+                            //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
+                            //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
                             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                 $scope.properties.selectedIndex--;
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                             }*/
 
@@ -187,6 +197,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                            topFunction()
                             $scope.properties.selectedIndex++;
                         }*/
 
@@ -200,6 +211,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                            topFunction()
                             $scope.properties.selectedIndex++;
                         }*/
 
@@ -207,11 +219,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         openModal($scope.properties.modalid);
                     }
                 } else {
-                    $scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
-                    $scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
+                    //$scope.properties.catSolicitudDeAdmision.catPaisExamen = null;
+                    //$scope.properties.catSolicitudDeAdmision.catEstadoExamen = null;
                     /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                        topFunction()
                         $scope.properties.selectedIndex++;
                     }*/
 
@@ -293,7 +306,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono === "") {
                     swal("¡Teléfono!", "Debes el agregar el teléfono", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
-                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria en caso de no encontrar la suya seleccionar la opción otro", "warning");
+                    swal("¡Preparatoria!", "Debes seleccionar una preparatoria, en caso de no encontrar la tuya selecciona la opción otro", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.descripcion === "Otro") {
                     if ($scope.properties.datosPreparatoria.nombreBachillerato === "") {
                         swal("¡Preparatoria!", "Debes agregar el nombre de tu preparatoria", "warning");
@@ -461,6 +474,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
                                             }
                                             $scope.properties.pasoInformacionPersonal = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                             $scope.fallo = true;
@@ -481,6 +495,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                         $scope.fallo = true;
@@ -498,6 +513,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
                                         //$scope.assignTask();
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                     } else {
                                         if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
@@ -509,6 +525,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             }
                                             $scope.properties.pasoInformacionPersonal = true;
                                             //$scope.assignTask();
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                         } else {
                                             $scope.fallo = true;
@@ -522,6 +539,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
                                     //$scope.assignTask();
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                 }
                             }
@@ -694,6 +712,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                     $scope.fallo = true;
@@ -711,6 +730,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                     }
                                     $scope.properties.pasoInformacionPersonal = true;
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                 } else {
                                     if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
@@ -721,6 +741,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                         }
                                         $scope.properties.pasoInformacionPersonal = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     } else {
@@ -734,6 +755,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                 }
                                 $scope.properties.pasoInformacionPersonal = true;
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
                             }
@@ -760,6 +782,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                             $scope.properties.pasoInformacionFamiliar = true;
+                            topFunction()
                             $scope.properties.selectedIndex++;
                             //$scope.assignTask();
                         }
@@ -820,6 +843,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -860,6 +884,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -910,6 +935,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -950,6 +976,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -964,6 +991,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                         $scope.properties.pasoInformacionFamiliar = true;
+                        topFunction()
                         $scope.properties.selectedIndex++;
                         //$scope.assignTask();
                     }
@@ -1030,6 +1058,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -1090,6 +1119,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                             $scope.properties.pasoInformacionFamiliar = true;
+                                                            topFunction()
                                                             $scope.properties.selectedIndex++;
                                                             //$scope.assignTask();
                                                         }
@@ -1130,6 +1160,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                             $scope.properties.pasoInformacionFamiliar = true;
+                                                            topFunction()
                                                             $scope.properties.selectedIndex++;
                                                             //$scope.assignTask();
                                                         }
@@ -1180,6 +1211,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                         $scope.properties.pasoInformacionFamiliar = true;
+                                                        topFunction()
                                                         $scope.properties.selectedIndex++;
                                                         //$scope.assignTask();
                                                     }
@@ -1220,6 +1252,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                         $scope.properties.pasoInformacionFamiliar = true;
+                                                        topFunction()
                                                         $scope.properties.selectedIndex++;
                                                         //$scope.assignTask();
                                                     }
@@ -1234,6 +1267,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -1276,6 +1310,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -1336,6 +1371,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                             $scope.properties.pasoInformacionFamiliar = true;
+                                                            topFunction()
                                                             $scope.properties.selectedIndex++;
                                                             //$scope.assignTask();
                                                         }
@@ -1376,6 +1412,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                             $scope.properties.pasoInformacionFamiliar = true;
+                                                            topFunction()
                                                             $scope.properties.selectedIndex++;
                                                             //$scope.assignTask();
                                                         }
@@ -1426,6 +1463,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                         $scope.properties.pasoInformacionFamiliar = true;
+                                                        topFunction()
                                                         $scope.properties.selectedIndex++;
                                                         //$scope.assignTask();
                                                     }
@@ -1466,6 +1504,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                         $scope.properties.pasoInformacionFamiliar = true;
+                                                        topFunction()
                                                         $scope.properties.selectedIndex++;
                                                         //$scope.assignTask();
                                                     }
@@ -1480,6 +1519,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -1530,6 +1570,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                     $scope.properties.pasoInformacionFamiliar = true;
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -1590,6 +1631,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                     $scope.properties.pasoInformacionFamiliar = true;
+                                                    topFunction()
                                                     $scope.properties.selectedIndex++;
                                                     //$scope.assignTask();
                                                 }
@@ -1630,6 +1672,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                     $scope.properties.pasoInformacionFamiliar = true;
+                                                    topFunction()
                                                     $scope.properties.selectedIndex++;
                                                     //$scope.assignTask();
                                                 }
@@ -1680,6 +1723,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                 $scope.properties.pasoInformacionFamiliar = true;
+                                                topFunction()
                                                 $scope.properties.selectedIndex++;
                                                 //$scope.assignTask();
                                             }
@@ -1720,6 +1764,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                 $scope.properties.pasoInformacionFamiliar = true;
+                                                topFunction()
                                                 $scope.properties.selectedIndex++;
                                                 //$scope.assignTask();
                                             }
@@ -1734,6 +1779,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                 $scope.properties.pasoInformacionFamiliar = true;
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
                             }
@@ -1776,6 +1822,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                     $scope.properties.pasoInformacionFamiliar = true;
+                                    topFunction()
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
                                 }
@@ -1836,6 +1883,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                     $scope.properties.pasoInformacionFamiliar = true;
+                                                    topFunction()
                                                     $scope.properties.selectedIndex++;
                                                     //$scope.assignTask();
                                                 }
@@ -1876,6 +1924,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                     $scope.properties.pasoInformacionFamiliar = true;
+                                                    topFunction()
                                                     $scope.properties.selectedIndex++;
                                                     //$scope.assignTask();
                                                 }
@@ -1926,6 +1975,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                 $scope.properties.pasoInformacionFamiliar = true;
+                                                topFunction()
                                                 $scope.properties.selectedIndex++;
                                                 //$scope.assignTask();
                                             }
@@ -1966,6 +2016,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                                 $scope.properties.pasoInformacionFamiliar = true;
+                                                topFunction()
                                                 $scope.properties.selectedIndex++;
                                                 //$scope.assignTask();
                                             }
@@ -1980,6 +2031,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                 $scope.properties.pasoInformacionFamiliar = true;
+                                topFunction()
                                 $scope.properties.selectedIndex++;
                                 //$scope.assignTask();
                             }
@@ -2043,6 +2095,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -2081,6 +2134,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                             $scope.properties.pasoInformacionFamiliar = true;
+                                            topFunction()
                                             $scope.properties.selectedIndex++;
                                             //$scope.assignTask();
                                         }
@@ -2129,6 +2183,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -2167,6 +2222,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                                         $scope.properties.pasoInformacionFamiliar = true;
+                                        topFunction()
                                         $scope.properties.selectedIndex++;
                                         //$scope.assignTask();
                                     }
@@ -2184,6 +2240,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
                             $scope.properties.pasoInformacionFamiliar = true;
+                            topFunction()
                             $scope.properties.selectedIndex++;
                             //$scope.assignTask();
                         }
@@ -2193,6 +2250,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                topFunction()
                 $scope.properties.selectedIndex++;
             }*/
 
@@ -2204,6 +2262,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
 
+                topFunction()
                 $scope.properties.selectedIndex++;
                 //$scope.assignTask();
             }
@@ -2213,6 +2272,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
 
+                topFunction()
                 $scope.properties.selectedIndex++;
                 //$scope.assignTask();
             }
@@ -2254,8 +2314,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             });
     }
-	
-	function submitTask() {
+    
+    function submitTask() {
         var id;
         //id = getUrlParam('id');
         id = $scope.properties.taskId;
@@ -2269,7 +2329,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-	
+    
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
@@ -2279,7 +2339,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return {};
     }
-	
+    
     function getUrlParam(param) {
         var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
         if (paramValue) {
@@ -2287,8 +2347,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return '';
     }
-	
-	function doRequest(method, url, params) {
+    
+    function doRequest(method, url, params) {
         //vm.busy = true;
         $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex+1;
         if($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== undefined){
@@ -2321,6 +2381,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 closeModal($scope.properties.closeOnSuccess);*/
                 getTask();
                 topFunction();
+                topFunction()
                 $scope.properties.selectedIndex++;
             })
             .error(function(data, status) {

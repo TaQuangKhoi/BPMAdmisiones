@@ -72,62 +72,124 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
 
-function startProcess() {
-    debugger
+    function startProcess() {
+        debugger;
+        let claveValida = false;
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-            if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) {
-                if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                        });
-                        localStorageService.delete($window.location.href);
-                    });
-
-                } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
-                }
-            } else {
-                /*if (!$scope.properties.dataToChange2.orden) {
-                    swal("¡Aviso!", "Faltó capturar información en: Orden");
+            if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.id) {
+                //claveValida = validarClaveEditar($scope.properties.dataToChange2);
+                //if(claveValida){
+                    checkidbanner('editar');
+                    /*if ($scope.properties.processId) {
+                        var req = {
+                                method: 'GET',
+                                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATESTADOCIVIL&clave=${$scope.properties.dataToChange2.clave}&id=${$scope.properties.dataToChange2.persistenceId}`,
+                            };
+                            return $http(req).success(function(data, status) {
+                                if(data.data[0] === true){
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                                        doRequest("GET", $scope.properties.url).then(function () {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                }else{
+                                    swal("¡Aviso!", "La Clave se encuantra duplicada", "warning");
+                                }
+                               
+                            }).error(function(data, status) {})
+                            
+                        
+                        
+    
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }*/
+                /*} else {
+                     swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                 }*/
-                if (!$scope.properties.dataToChange2.descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripcion" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.clave) {
+            } else {
+                if (!$scope.properties.dataToChange2.id) {
+                    swal("¡Aviso!", "Faltó capturar información en: Id banner" , "warning");
+                } else if (!$scope.properties.dataToChange2.clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave" , "warning");
+                } else if (!$scope.properties.dataToChange2.descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción" , "warning");
                 }
             }
-
         } else {
-            if ($scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave && $scope.properties.dataToChange2.lstCatEstadoCivilInput[0].descripcion) {
-                if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                        });
-                        localStorageService.delete($window.location.href);
-                    });
+            if ($scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave && $scope.properties.dataToChange2.lstCatEstadoCivilInput[0].descripcion && $scope.properties.dataToChange2.lstCatEstadoCivilInput[0].id) {
+                //claveValida = validarNuevaClave($scope.properties.dataToChange2);
 
-                } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
-                }
-            } else {
-               /* if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].orden) {
-                    swal("¡Aviso!", "Faltó capturar información en: Orden");
+                //if(claveValida){
+                    checkidbanner('agregar');
+                    /*if ($scope.properties.processId) {
+                        
+                        var req = {
+                                method: 'GET',
+                                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATESTADOCIVIL&clave=${$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave}&id=`,
+                            };
+                            return $http(req).success(function(data, status) {
+                                if(data.data[0] === true){
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                                        doRequest("GET", $scope.properties.url).then(function () {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                }else{
+                                    swal("¡Aviso!", "La Clave se encuantra duplicada", "warning");
+                                }
+                               
+                            }).error(function(data, status) {})
+
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }*/
+                /*}  else {
+                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                 }*/
-                if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripcion" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave) {
+            } else {
+                if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].id) {
+                    swal("¡Aviso!", "Faltó capturar información en: Id banner" , "warning");
+                } else if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave" , "warning");
+                } else if (!$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción" , "warning");
                 }
-               
             }
         }
-}
+    }
+    function validarNuevaClave(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.lstCatEstadoCivilInput[0].clave.toLowerCase()){
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
+    }
+
+    function validarClaveEditar(_value){
+        let data = angular.copy($scope.properties.dataFromSuccess);
+        let isValid = true;
+        let pidString = _value.persistenceId + "";
+        
+        for(let i = 0; i< data.length; i++){
+            if(data[i].clave.toLowerCase() === _value.clave.toLowerCase() && pidString !== (data[i].persistenceId + "")){
+                isValid = false;
+                break;
+            }
+        }
+
+        return isValid;
+    }
 
     /**
      * Execute a get/post request to an URL
@@ -216,6 +278,71 @@ function startProcess() {
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
+    }
+
+    function checkclave(funcion){
+        if(funcion === 'agregar'){
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATESTADOCIVIL&clave=${$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].clave}&id=`
+            };
+        }else{
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATESTADOCIVIL&clave=${$scope.properties.dataToChange2.clave}&id=${$scope.properties.dataToChange2.persistenceId}`,
+            };
+        }
+        
+        return $http(req)
+            .success(function(data, status) {
+                if (data.data[0]) {
+                    if ($scope.properties.processId) {
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                            doRequest("GET", $scope.properties.url).then(function() {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
+                        });
+
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
+                } else {
+                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                }
+            })
+            .error(function(data, status) {
+                console.log(data);
+                console.log(status);
+            })
+    }
+
+    function checkidbanner(funcion){
+        if(funcion === 'agregar'){
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CATESTADOCIVIL&idBanner=${$scope.properties.dataToChange2.lstCatEstadoCivilInput[0].id}&id=`
+            };
+        }else{
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CATESTADOCIVIL&idBanner=${$scope.properties.dataToChange2.id}&id=${$scope.properties.dataToChange2.persistenceId}`,
+            };
+        }
+        
+        return $http(req)
+            .success(function(data, status) {
+                if (data.data[0]) {
+                    checkclave(funcion)
+                } else {
+                    swal("¡Aviso!", "El id banner capturado ya existe, por favor ingrese uno diferente.", "warning");
+                }
+            })
+            .error(function(data, status) {
+                console.log(data);
+                console.log(status);
+            })
     }
 
 }

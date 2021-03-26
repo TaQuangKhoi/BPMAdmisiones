@@ -163,6 +163,25 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         }
         doRequest("POST", $scope.properties.urlPost);
     }
+    
+    $scope.filterKeyPress= function(columna,press){
+        var aplicado = true;
+        for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+            const element = $scope.properties.dataToSend.lstFiltro[index];
+            if(element.columna==columna){
+                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
+                aplicado=false;
+            }
+            
+        }
+        if(aplicado){
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            $scope.properties.dataToSend.lstFiltro.push(obj);
+        }
+        
+        doRequest("POST", $scope.properties.urlPost);
+    }
 
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
@@ -307,8 +326,27 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
      $scope.doRequestRedirect = function(row) {
-        $scope.properties.datosUsuario = row;
-        $scope.properties.cambioPantalla = 'lista'
+        var info = angular.copy($scope.properties.dataToSend);
+        info.limit= 1; 
+        info.lstFiltro =  [{"columna": "ID BANNER","operador": "Igual a","valor": row.idbanner}];
+        var reqInfo = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantes&p=0&c=10",
+            data: info
+        };
+
+        return $http(reqInfo)
+            .success(function (data, status) {
+                //data.data[0]
+                $scope.properties.datosUsuario = data.data[0];
+                $scope.properties.cambioPantalla = 'lista'
+            })
+            .error(function (data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+            });
     }
     
     $scope.redirectComentario = function(row){
@@ -317,7 +355,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         window.scrollTo(0,0);
     }
     
-    $scope.blockPaseLista = function(row){
+   /* $scope.blockPaseLista = function(row){
         
         var d = new Date();
         
@@ -350,6 +388,92 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 $scope.properties.habilitado = false;
             }
         }
+    }*/
+    
+    $scope.habilitado = false;
+    $scope.asistencia = false;
+    $scope.pasarAsistencia = function(row){
+        $scope.blockPaseLista(row.aplicacion).then(function() {
+            //|| $scope.properties.datosUsuario.aplicacion != $scope.properties.getFechas
+            if(!$scope.habilitado  ){
+                swal(`¡No es el día (${row.aplicacion}) para pasar lista!`,"","warning")
+            }else{
+                $scope.asistencia = row.asistencia;
+                //$scope.properties.dataToSend.asistencia = $scope.properties.seleccion;
+                let dataToSend = angular.copy($scope.properties.strAsistencia);
+                dataToSend.asistencia = row.asistencia === null? true:(row.asistencia == "t"?false:true);
+                dataToSend.username = row.username;
+                var req = {
+                    method: "POST",
+                    url: $scope.asistencia === null?"/bonita/API/extension/AnahuacRest?url=insertPaseLista&p=0&c=10":"/bonita/API/extension/AnahuacRest?url=updatePaseLista&p=0&c=10",
+                    data: dataToSend
+                };
+                return $http(req)
+                    .success(function (data, status) {
+                        if(dataToSend.asistencia === true){
+                            swal("¡Asistencia capturada correctamente!","","success")
+                        }else{
+                            swal("¡Asistencia cancelada correctamente!","","success")    
+                        }
+                        doRequestCaseValue(dataToSend.asistencia,row.caseid,row.tipo_prueba);
+                        //$scope.properties.regresarTabla = "tabla";
+                    })
+                    .error(function (data, status) {
+                        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                    });
+                }
+        }).catch(err => {
+            swal("¡Se ha producido un error!", `Al momento de obtener la fecha del servidor`,"warning", {
+                closeOnClickOutside: false,
+                buttons: {
+                    catch: {
+                        text: "OK",
+                        value: "OK",
+                    }
+                },
+            });
+        });
     }
+    
+    function doRequestCaseValue (asistencia,caseid,tipoprueba){
+        var caseId = caseid;
+        var variableNombre = "asistencia"+( tipoprueba == "Entrevista"?"Entrevista": tipoprueba == "Examen Psicométrico" ? "Psicometrico" : "CollegeBoard") 
+        var req = {
+            method: "PUT",
+            url: `/API/bpm/caseVariable/${caseId}/${variableNombre}`,
+            data: `{ "type": "java.lang.Boolean","value": "${asistencia}"}`
+        };
+        return $http(req)
+            .success(function (data, status) {
+                doRequest("POST", $scope.properties.urlPost);
+        })
+            .error(function (data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+        });
+    }
+    
+    
+    $scope.blockPaseLista = function(aplicacion){
+        var req = {
+            method: "GET",
+            url: `/bonita/API/extension/AnahuacRestGet?url=getFechaServidor&p=0&c=100`,
+        };
+        return $http(req)
+            .success(function (data, status) {
+                for(let i = 0;i<5;i++){
+                    let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
+                    if(fecha.isSame(aplicacion)  ){
+                        $scope.habilitado = true;
+                        break;
+                    }else{
+                        $scope.habilitado = false;
+                    }
+                }
+            })
+            .error(function (data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            });
+    }
+    
     
 }

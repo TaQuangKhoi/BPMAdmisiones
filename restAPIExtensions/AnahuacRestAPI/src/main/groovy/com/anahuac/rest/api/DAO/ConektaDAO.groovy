@@ -53,6 +53,7 @@ class ConektaDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 
     public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
@@ -522,6 +523,7 @@ class ConektaDAO {
 			Charge charge = (Charge) order.charges.get(0);
 			PaymentMethod payment_method = (PaymentMethod) charge.payment_method;
 			double amount = order.amount / 100;
+			String status = order.payment_status;
 			DecimalFormat twoPlaces = new DecimalFormat("0.00");
 			Map<String, String> mapResultado = new HashMap<String, String>();
 			Date createdAt = new Date((long)1000 * order.created_at);
@@ -541,7 +543,8 @@ class ConektaDAO {
 				mapResultado.put("createdAtDate", dateString);
 				mapResultado.put("createdAtTime", timeString);
 				mapResultado.put("type", payment_method.type);
-				
+				mapResultado.put("authorizationCode", speiPayment.clabe);
+				mapResultado.put("status", status);
 			} else if(payment_method.type.equals("oxxo")) {
 				OxxoPayment oxxoPayment = (OxxoPayment) charge.payment_method;
 				
@@ -551,6 +554,8 @@ class ConektaDAO {
 				mapResultado.put("createdAtDate", dateString);
 				mapResultado.put("createdAtTime", timeString);
 				mapResultado.put("type", payment_method.type);
+				mapResultado.put("authorizationCode", oxxoPayment.reference);
+				mapResultado.put("status", status);
 			} else {
 				mapResultado.put("cardNumber", payment_method.getVal("last4"));
 				mapResultado.put("amount", "\$" + twoPlaces.format(amount).toString() + " " + order.currency);
@@ -560,7 +565,8 @@ class ConektaDAO {
 				mapResultado.put("createdAtTime", timeString);
 				mapResultado.put("name", order.customer_info.name);
 				mapResultado.put("type", payment_method.type);
-				
+				mapResultado.put("cardBrand", payment_method.getVal("brand"));
+				mapResultado.put("status", status);
 //				lstResultado.add(mapResultado);
 			}
 			

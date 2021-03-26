@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="__beV8C9IEeuRQaY-GsxD1g" name="lstCatPais" multiple="true" dataType="_j8TrQy9IEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatPais">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_A3oK4C9JEeuRQaY-GsxD1g" name="initLstCatPais()" content="import java.time.LocalDateTime&#xD;&#xA;def catPaisList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatPaisInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPais instance&#xD;&#xA;&#x9;catPaisList.add({ currentCatPaisInput ->&#xD;&#xA;&#x9;&#x9;def catPaisVar = new com.anahuac.catalogos.CatPais()&#xD;&#xA;&#x9;&#x9;catPaisVar.clave = currentCatPaisInput.clave&#xD;&#xA;&#x9;&#x9;catPaisVar.descripcion = currentCatPaisInput.descripcion&#xD;&#xA;&#x9;&#x9;catPaisVar.fechaCreacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPaisVar.usuarioCreacion = currentCatPaisInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catPaisVar.isEliminado = currentCatPaisInput.isEliminado&#xD;&#xA;&#x9;&#x9;catPaisVar.orden = currentCatPaisInput.orden&#xD;&#xA;&#x9;&#x9;catPaisVar.caseId = currentCatPaisInput.caseId&#xD;&#xA;&#x9;&#x9;return catPaisVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catPaisList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_QKDzIC9JEeuRQaY-GsxD1g" name="lstCatPaisInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_A3oK4C9JEeuRQaY-GsxD1g" name="initLstCatPais()" content="import java.time.LocalDateTime&#xD;&#xA;def catPaisList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatPaisInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPais instance&#xD;&#xA;&#x9;catPaisList.add({ currentCatPaisInput ->&#xD;&#xA;&#x9;&#x9;def catPaisVar = new com.anahuac.catalogos.CatPais()&#xD;&#xA;&#x9;&#x9;catPaisVar.clave = currentCatPaisInput.clave&#xD;&#xA;&#x9;&#x9;catPaisVar.descripcion = currentCatPaisInput.descripcion&#xD;&#xA;&#x9;&#x9;catPaisVar.fechaCreacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPaisVar.usuarioCreacion = currentCatPaisInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catPaisVar.isEliminado = currentCatPaisInput.isEliminado&#xD;&#xA;&#x9;&#x9;catPaisVar.orden = currentCatPaisInput.orden&#xD;&#xA;&#x9;&#x9;//catPaisVar.caseId = currentCatPaisInput.caseId&#xD;&#xA;&#x9;&#x9;return catPaisVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catPaisList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_yD2HwFX7EeuJGag_E3EgXQ" name="lstCatPaisInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_j8TrIy9IEeuRQaY-GsxD1g" type="NONE">
@@ -57,6 +57,34 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="__0aPxU1XEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="__0aPxk1XEeuiD5640oS5Sw" id="OTHER"/>
       </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_yCy9QIwREeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_yCy9R4wREeu2N77SW-Ko6A">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_yCy9SIwREeu2N77SW-Ko6A" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_yCy9SYwREeu2N77SW-Ko6A">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_yCy9SowREeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_yCy9S4wREeu2N77SW-Ko6A"/>
+            <users xmi:type="actormapping:Users" xmi:id="_yCy9TIwREeu2N77SW-Ko6A"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9QYwREeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9QowREeu2N77SW-Ko6A" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9Q4wREeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9RIwREeu2N77SW-Ko6A" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9RYwREeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_yCy9RowREeu2N77SW-Ko6A" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_j8TrKy9IEeuRQaY-GsxD1g">
         <inputs xmi:type="process:ContractInput" xmi:id="_A3m8wC9JEeuRQaY-GsxD1g" name="lstCatPaisInput" type="COMPLEX" multiple="true" dataReference="lstCatPais">
           <inputs xmi:type="process:ContractInput" xmi:id="_A3m8wS9JEeuRQaY-GsxD1g" name="clave"/>
@@ -65,7 +93,6 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_A3m8xC9JEeuRQaY-GsxD1g" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_A3m8xS9JEeuRQaY-GsxD1g" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_A3m8xi9JEeuRQaY-GsxD1g" name="orden" type="INTEGER"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_A3m8xy9JEeuRQaY-GsxD1g" name="caseId"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_j8TrLC9IEeuRQaY-GsxD1g">
@@ -118,9 +145,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_08E-4y9IEeuRQaY-GsxD1g" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_7vcWAC99EeuRQaY-GsxD1g" name="lstCatPais" multiple="true" dataType="_j8TrQy9IEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatPais">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_83kbuC99EeuRQaY-GsxD1g" name="initLstCatPais()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatPais&#xD;&#xA;def catPaisList = []&#xD;&#xA;&#xD;&#xA;   for (Map objCatPaisInput: lstCatPaisInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatPaisInput.todelete))&#xD;&#xA;     continue;&#xD;&#xA;&#xD;&#xA;   CatPais objCatPais = catPaisDAO.findByPersistenceId(objCatPaisInput.persistenceId);&#xD;&#xA;   if (objCatPais != null) {&#xD;&#xA;      objCatPais.clave = objCatPaisInput.clave&#xD;&#xA;      objCatPais.descripcion = objCatPaisInput.descripcion&#xD;&#xA;      objCatPais.fechaCreacion = LocalDateTime.now()&#xD;&#xA;      objCatPais.usuarioCreacion = objCatPaisInput.usuarioCreacion&#xD;&#xA;      objCatPais.isEliminado = objCatPaisInput.isEliminado&#xD;&#xA;      objCatPais.orden = objCatPaisInput.orden&#xD;&#xA;      objCatPais.caseId = objCatPaisInput.caseId&#xD;&#xA;     catPaisList.add(objCatPais)&#xD;&#xA;   }&#xD;&#xA;}&#xD;&#xA;return catPaisList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="expression:Expression" xmi:id="_2BvsAC-AEeuRQaY-GsxD1g" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_2BvsAS-AEeuRQaY-GsxD1g" name="lstCatPaisInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_83kbuC99EeuRQaY-GsxD1g" name="initLstCatPais()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatPais&#xD;&#xA;def catPaisList = []&#xD;&#xA;&#xD;&#xA;   for (Map objCatPaisInput: lstCatPaisInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatPaisInput.todelete))&#xD;&#xA;&#x9; continue;&#xD;&#xA;&#xD;&#xA;   CatPais objCatPais = catPaisDAO.findByPersistenceId(objCatPaisInput.persistenceId);&#xD;&#xA;   if (objCatPais != null) {&#xD;&#xA;&#x9;  objCatPais.clave = objCatPaisInput.clave&#xD;&#xA;&#x9;  objCatPais.descripcion = objCatPaisInput.descripcion&#xD;&#xA;&#x9;  objCatPais.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;  objCatPais.usuarioCreacion = objCatPaisInput.usuarioCreacion&#xD;&#xA;&#x9;  objCatPais.isEliminado = objCatPaisInput.isEliminado&#xD;&#xA;&#x9;  objCatPais.orden = objCatPaisInput.orden&#xD;&#xA;&#x9;  //objCatPais.caseId = objCatPaisInput.caseId&#xD;&#xA;&#x9; catPaisList.add(objCatPais)&#xD;&#xA;   }&#xD;&#xA;}&#xD;&#xA;return catPaisList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_14OYUFX7EeuJGag_E3EgXQ" name="lstCatPaisInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_14OYUVX7EeuJGag_E3EgXQ" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_CXoK8C9-EeuRQaY-GsxD1g" name="lstCatPaisToDelete" multiple="true" dataType="_j8TrQy9IEeuRQaY-GsxD1g" className="com.anahuac.catalogos.CatPais">
@@ -159,7 +186,6 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_83kbtC99EeuRQaY-GsxD1g" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_83kbtS99EeuRQaY-GsxD1g" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_83kbti99EeuRQaY-GsxD1g" name="orden" type="INTEGER"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_83kbty99EeuRQaY-GsxD1g" name="caseId"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_9bdL4C99EeuRQaY-GsxD1g" name="todelete">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_9bdL4S99EeuRQaY-GsxD1g"/>
           </inputs>

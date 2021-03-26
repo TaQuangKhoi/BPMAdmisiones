@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgNewTestRequestRegistro",
   "name" : "frgNewTestRequestRegistro",
-  "lastUpdate" : 1610037662546,
+  "lastUpdate" : 1616525147206,
   "rows" : [
     [
       {
@@ -316,7 +316,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.periodoDisponible"
+                        "value" : "catPeriodo"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -436,7 +436,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.propedeuticos"
+                        "value" : "catPropedeutico"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -470,8 +470,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados  || deshabilitar"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -574,8 +574,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados || deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -670,8 +670,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados || deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -697,12 +697,12 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : ""
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "pagosDeshabilitados || deshabilitar"
                             },
                             "required" : {
                               "type" : "constant",
@@ -967,8 +967,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados ||deshabilitar"
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -998,8 +998,8 @@
                               "value" : false
                             },
                             "disabled" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "pagosDeshabilitados || deshabilitar"
                             },
                             "required" : {
                               "type" : "constant",
@@ -1268,6 +1268,86 @@
                       "hidden" : {
                         "type" : "constant",
                         "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : ""
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "prepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "clavePrepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "bachilleratos" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "completeObject" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "campusseleccionado" : {
+                        "type" : "variable",
+                        "value" : "campusseleccionado"
+                      },
+                      "valorRadio" : {
+                        "type" : "variable",
+                        "value" : "testOptionsRadio"
+                      },
+                      "deshabilitar" : {
+                        "type" : "variable",
+                        "value" : "deshabilitar"
+                      }
+                    },
+                    "reference" : "f0a5f218-0468-43d2-b4f2-3adc1578b3ab",
+                    "hasValidationError" : false,
+                    "id" : "customWatcherCampusSelected"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "pagosDeshabilitados  || deshabilitar"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -1609,6 +1689,7 @@
       "type" : "expression",
       "value" : [
         "for(var x=0; x<$data.CatLugarExamen.length;x++){",
+        "    debugger;",
         "    if($data.testOptionsRadio === 1){",
         "        if($data.CatLugarExamen[x].descripcion === \"En el mismo campus en donde realizaré mi licenciatura\"){",
         "            $data.formInput.catSolicitudDeAdmisionInput.catLugarExamen = $data.CatLugarExamen[x];",
@@ -1687,6 +1768,38 @@
         "    if($data.getPaisesNoMexico[x].descripcion.trim() === $data.paisSeleccionado.trim()){",
         "        $data.formInput.catSolicitudDeAdmisionInput.catPaisExamen = $data.getPaisesNoMexico[x];",
         "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "pagosDeshabilitados" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "todosPagosDeshabilitados" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.pagosDeshabilitados){",
+        "    $data.testOptionsRadio = $data.radioOptionsTestPlace[0][0].value;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "deshabilitar" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "JPII" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.deshabilitar){",
+        "    $data.testOptionsRadio = $data.radioOptionsTestPlace[0][0].value;",
         "}"
       ],
       "exposed" : false

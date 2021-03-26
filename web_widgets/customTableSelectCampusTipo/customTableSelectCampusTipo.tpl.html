@@ -1,0 +1,31 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center"></th>
+                <th class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-center">Campus</th>
+                <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center">Tipo de periodo</th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <input type="checkbox" name="" ng-model="row.selected" ng-click="seleccionarInformacion(row)">
+                </td>
+                <td class="text-center col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    {{row.descripcion}}
+                </td>
+                <td class="text-center col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <select class="form-control" ng-options="tipoPeriodo.descripcion as tipoPeriodo.valor for tipoPeriodo in lstTipoPeriodo" ng-model="row.tipoPeriodoSelected" ng-disabled="row.selected == undefined ? true : !row.selected" ng-change="seleccionarInformacion(row)">
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td ng-if="!properties.allowHTML"> {{ row | uiTranslate }}</td>
+                <td ng-if="properties.allowHTML" ng-bind-html="row | uiTranslate"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

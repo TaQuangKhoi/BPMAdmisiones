@@ -6,7 +6,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     
     
     $scope.redirect = function(){
-        var url = "/apps/administrativo/"+$scope.properties.Direccion;
-        window.top.location.href = url;
+        var url = "/portal/resource/app/administrativo/"+$scope.properties.Direccion+"/content/";
+        window.location.replace(url);
+        
+        //var url = "/apps/administrativo/"+$scope.properties.Direccion;
+        //window.top.location.href = url;
     }
 }

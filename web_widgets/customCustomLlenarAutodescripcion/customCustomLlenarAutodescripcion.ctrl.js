@@ -26,7 +26,7 @@ function ($scope, blockUI, $http) {
     $scope.$watch("properties.objetoAutodescripcion",function(){
         if($scope.properties.objetoAutodescripcion !== undefined){
             $scope.properties.formInput = $scope.properties.objetoAutodescripcion;
-            $scope.properties.selectedIndex = $scope.properties.formInput.pageIndex === undefined ? 0 : $scope.properties.formInput.pageIndex;
+            $scope.properties.selectedIndex = $scope.properties.formInput.pageIndex === undefined ? -1 : $scope.properties.formInput.pageIndex;
             $scope.properties.formInput.hermanos = [];
             $scope.properties.formInput.gruposSociales = [];
             $scope.properties.formInput.terapias = [];
@@ -52,6 +52,7 @@ function ($scope, blockUI, $http) {
              $scope.$watch("properties.objetoHermanos",function(){
                 if($scope.properties.objetoHermanos !== undefined){
                     $scope.properties.formInput.hermanos = $scope.properties.objetoHermanos;
+                    $scope.properties.formInput.tienesHermanos = true;   
                 }
             });
             
@@ -85,6 +86,7 @@ function ($scope, blockUI, $http) {
             $scope.$watch("properties.objetoIdiomas",function(){
                 if($scope.properties.objetoIdiomas !== undefined){
                     $scope.properties.formInput.idiomas = $scope.properties.objetoIdiomas;
+                    $scope.properties.idiomasHablas = true;
                 }
             });
             
@@ -98,6 +100,8 @@ function ($scope, blockUI, $http) {
                 getBdmObject($scope.properties.objetoAutodescripcion.links[i]);
             }
 
+            blockUI.stop();
+        } else {
             blockUI.stop();
         }
     });

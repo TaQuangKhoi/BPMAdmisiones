@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergenciaUpdate",
   "name" : "frgAgregarContactoEmergenciaUpdate",
-  "lastUpdate" : 1610470015523,
+  "lastUpdate" : 1616525089731,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Agregar Contacto de Emergencia</label>"
+            "value" : "<label class=\"color-orange\">Agregar contacto de emergencia</label>"
           },
           "level" : {
             "type" : "constant",
@@ -366,8 +366,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 10
+            "type" : "expression",
+            "value" : "telefonoMaxLength"
           },
           "readOnly" : {
             "type" : "expression",
@@ -443,8 +443,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant",
-            "value" : 10
+            "type" : "expression",
+            "value" : "telefonoMaxLength"
           },
           "readOnly" : {
             "type" : "constant",
@@ -1047,6 +1047,7 @@
         "                }\r",
         "                $data.isOtroContacto = true;\r",
         "            }else{\r",
+        "                $data.bloqueoDatos = false;\r",
         "               /* $data.casoEmergenciaJSON.nombre = \"\";\r",
         "                $data.casoEmergenciaJSON.telefono = \"\";\r",
         "                $data.casoEmergenciaJSON.telefonoCelular = \"\";\r",
@@ -1170,6 +1171,25 @@
     },
     "bloqueoDatos" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "isExtranjero" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "telefonoMaxLength" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;",
+        "if($data.isExtranjero || $data.casoEmergenciaJSON.catCasoDeEmergencia.descripcion === \"Otro\"){",
+        "    return 14",
+        "} else {",
+        "    return 10;",
+        "}"
+      ],
       "exposed" : false
     }
   },

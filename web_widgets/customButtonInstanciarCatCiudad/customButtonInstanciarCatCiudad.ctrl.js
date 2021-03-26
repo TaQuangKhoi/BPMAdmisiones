@@ -71,162 +71,248 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
- 
-var validarTipo = false;
-function startProcess() {
-	debugger
-	if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-		if ($scope.properties.dataToChange2.isEstado == "Pais") {
-			validarTipo = true;
-			if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.campus && $scope.properties.dataToChange2.region) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.region) {
-					swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
-				}
-				if (!$scope.properties.dataToChange2.campus) {
-					swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
-				}
-				if (!$scope.properties.dataToChange2.pais) {
-					swal("¡Aviso!", "Faltó capturar información en: País", "warning");
-				}
-				if (!$scope.properties.dataToChange2.descripcion) {
-					swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.clave) {
-					swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-				}
-				if (!$scope.properties.dataToChange2.orden) {
-					swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
-				}
-			}
-		}
-		if ($scope.properties.dataToChange2.isEstado == "Estado") {
-			validarTipo = true;
-			if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.estado && $scope.properties.dataToChange2.campus && $scope.properties.dataToChange2.region) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+    var validarTipo = false;
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.region) {
-					swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
-				}
-				if (!$scope.properties.dataToChange2.campus) {
-					swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
-				}
-				if (!$scope.properties.dataToChange2.estado) {
-					swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
-				}
-				if (!$scope.properties.dataToChange2.descripcion) {
-					swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.clave) {
-					swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-				}
-				if (!$scope.properties.dataToChange2.orden) {
-					swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
-				}
-			}
-		}
+    function startProcess() {
+        if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
+            if ($scope.properties.dataToChange2.isEstado == "Pais") {
+                validarTipo = true;
+                //$scope.properties.dataToChange2.region = 1;
+                if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.campus) {
 
-	} else {
-		if ($scope.properties.dataToChange2.lstCatCiudadInput[0].isEstado == "Pais") {
-			validarTipo = true;
-			if ($scope.properties.dataToChange2.lstCatCiudadInput[0].orden && $scope.properties.dataToChange2.lstCatCiudadInput[0].clave && $scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion && $scope.properties.dataToChange2.lstCatCiudadInput[0].pais && $scope.properties.dataToChange2.lstCatCiudadInput[0].campus && $scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+                    if ($scope.properties.processId) {
+                        var orden = $scope.properties.dataToSend.lstCatCiudadInput[0].orden;
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
-					swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
-					swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].pais) {
-					swal("¡Aviso!", "Faltó capturar información en: País", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion) {
-					swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].clave) {
-					swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].orden) {
-					swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
-				}
-			}
-		}
-		if ($scope.properties.dataToChange2.lstCatCiudadInput[0].isEstado == "Estado") {
-			validarTipo = true;
-			if ($scope.properties.dataToChange2.lstCatCiudadInput[0].orden && $scope.properties.dataToChange2.lstCatCiudadInput[0].clave && $scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion && $scope.properties.dataToChange2.lstCatCiudadInput[0].estado && $scope.properties.dataToChange2.lstCatCiudadInput[0].campus && $scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+                        /*----------------------------*/
+                        var clave = $scope.properties.dataToSend.lstCatCiudadInput[0].clave;
+                        vm.busy = true;
+                        var req = {
+                            method: "GET",
+                            url: "../API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatCiudad&clave=" + clave + "&id="
+                        };
+                        return $http(req)
+                            .success(function(data, status) {
+                                if (data.data[0]) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                } else {
+                                    swal("¡Aviso!", "La clave " + clave + " ya se encuentra registrada", "warning");
+                                }
+                            })
+                            .error(function(data, status) {
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
-			} else {
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
-					swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
-					swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].estado) {
-					swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion) {
-					swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].clave) {
-					swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].orden) {
-					swal("¡Aviso!", "Faltó capturar información en:Orden", "warning");
-				}
-			}
-		}
-		if (validarTipo == false) {
-			swal("¡Atencion!", "Por favor seleccione un tipo País o Estado", "warning");
-		}
-	}
-}
+                            }).finally(function() {
+                                vm.busy = false;
+                            });
+                        /*----------------------------*/
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
+                } else {
+                    // if (!$scope.properties.dataToChange2.region) {
+                    //     swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
+                    // }
+                    if (!$scope.properties.dataToChange2.campus) {
+                        swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.pais) {
+                        swal("¡Aviso!", "Faltó capturar información en: País", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.descripcion) {
+                        swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.clave) {
+                        swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.orden) {
+                        swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+                    }
+                }
+            }
+            if ($scope.properties.dataToChange2.isEstado == "Estado") {
+                validarTipo = true;
+
+                if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.estado && $scope.properties.dataToChange2.campus) {
+                    if ($scope.properties.processId) {
+                        var orden = $scope.properties.dataToSend.lstCatCiudadInput[0].orden;
+                        /*----------------------------*/
+                        var clave = $scope.properties.dataToSend.lstCatCiudadInput[0].clave;
+                        vm.busy = true;
+                        var req = {
+                            method: "GET",
+                            url: "../API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatCiudad&clave=" + clave + "&id="
+                        };
+                        return $http(req)
+                            .success(function(data, status) {
+                                if (data.data[0]) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                } else {
+                                    swal("¡Aviso!", "La clave " + clave + " ya se encuentra registrada", "warning");
+                                }
+                            })
+                            .error(function(data, status) {
+
+                            }).finally(function() {
+                                vm.busy = false;
+                            });
+                        /*----------------------------*/
+
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
+                } else {
+                    // if (!$scope.properties.dataToChange2.region) {
+                    //     swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
+                    // }
+                    if (!$scope.properties.dataToChange2.campus) {
+                        swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.estado) {
+                        swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.descripcion) {
+                        swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.clave) {
+                        swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.orden) {
+                        swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+                    }
+                }
+            }
+
+        } else {
+            if ($scope.properties.dataToChange2.lstCatCiudadInput[0].isEstado == "Pais") {
+                validarTipo = true;
+                if ($scope.properties.dataToChange2.lstCatCiudadInput[0].orden && $scope.properties.dataToChange2.lstCatCiudadInput[0].clave && $scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion && $scope.properties.dataToChange2.lstCatCiudadInput[0].pais && $scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
+                    if ($scope.properties.processId) {
+
+
+                        /*----------------------------*/
+                        var clave = $scope.properties.dataToSend.lstCatCiudadInput[0].clave;
+                        vm.busy = true;
+                        var req = {
+                            method: "GET",
+                            url: "../API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatCiudad&clave=" + clave + "&id="
+                        };
+                        return $http(req)
+                            .success(function(data, status) {
+                                if (data.data[0]) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                } else {
+                                    swal("¡Aviso!", "La clave " + clave + " ya se encuentra registrada", "warning");
+                                }
+                            })
+                            .error(function(data, status) {
+
+                            }).finally(function() {
+                                vm.busy = false;
+                            });
+                        /*----------------------------*/
+
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
+                } else {
+                    // if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
+                    //     swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
+                    // }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
+                        swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].pais) {
+                        swal("¡Aviso!", "Faltó capturar información en: País", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion) {
+                        swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].clave) {
+                        swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].orden) {
+                        swal("¡Aviso!", "Faltó capturar información en: Orden", "warning");
+                    }
+                }
+            }
+            if ($scope.properties.dataToChange2.lstCatCiudadInput[0].isEstado == "Estado") {
+                validarTipo = true;
+                if ($scope.properties.dataToChange2.lstCatCiudadInput[0].orden && $scope.properties.dataToChange2.lstCatCiudadInput[0].clave && $scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion && $scope.properties.dataToChange2.lstCatCiudadInput[0].estado && $scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
+                    if ($scope.properties.processId) {
+                        /*----------------------------*/
+                        var clave = $scope.properties.dataToSend.lstCatCiudadInput[0].clave;
+                        vm.busy = true;
+                        var req = {
+                            method: "GET",
+                            url: "../API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatCiudad&clave=" + clave + "&id="
+                        };
+                        return $http(req)
+                            .success(function(data, status) {
+                                if (data.data[0]) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                } else {
+                                    swal("¡Aviso!", "La clave " + clave + " ya se encuentra registrada", "warning");
+                                }
+                            })
+                            .error(function(data, status) {
+
+                            }).finally(function() {
+                                vm.busy = false;
+                            });
+                        /*----------------------------*/
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }
+                } else {
+                    // if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].region) {
+                    //     swal("¡Aviso!", "Faltó capturar información en: Región", "warning");
+                    // }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].campus) {
+                        swal("¡Aviso!", "Faltó capturar información en: Campus", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].estado) {
+                        swal("¡Aviso!", "Faltó capturar información en: Estado", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].descripcion) {
+                        swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].clave) {
+                        swal("¡Aviso!", "Faltó capturar información en: Clave", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatCiudadInput[0].orden) {
+                        swal("¡Aviso!", "Faltó capturar información en:Orden", "warning");
+                    }
+                }
+            }
+            if (validarTipo == false) {
+                swal("¡Atencion!", "Por favor seleccione un tipo País o Estado", "warning");
+            }
+        }
+    }
 
 
 

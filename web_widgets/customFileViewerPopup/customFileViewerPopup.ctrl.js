@@ -27,7 +27,7 @@ function WidgetController($scope, $log, $window, $sce) {
   };
 
   controller.isImage = function() {
-    return ['png', 'jpg', 'jpeg', 'gif'].indexOf(controller.extractFileExtension(controller.fileName)) > -1;
+    return ['png', 'jpg', 'jpeg', 'gif','jfif'].indexOf(controller.extractFileExtension(controller.fileName)) > -1;
   };
 
   controller.getDocumentViewUrl = function() {

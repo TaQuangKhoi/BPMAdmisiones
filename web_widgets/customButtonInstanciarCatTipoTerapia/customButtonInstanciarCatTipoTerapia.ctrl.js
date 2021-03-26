@@ -72,22 +72,71 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger
+
         	if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
 			if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.orden) {
-				if ($scope.properties.processId) {
-				      $scope.properties.dataToChange2["todelete"] = false;
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
+
+
+
+                $scope.properties.dataToChange2["todelete"] = false;
+                var req = {
+                    method: 'GET',
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CatTipoTerapia&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
+                    
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        if (data.data[0]) {
+                            
+                            var req2 = {
+                                method: 'GET',
+                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatTipoTerapia&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
+                            };
+                        return $http(req2).success(function(datos, status) {
+                            
+                            if(datos.data[0] === true){
+                                if ($scope.properties.processId) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+
+                                } else {
+                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                }
+                            }else {
+                                 swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                            }
+                            
+                            
+                        })
+                            
+                        } else {
+                            
+                            swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.log(data);
+                        console.log(status);
+                    })
+				// if ($scope.properties.processId) {
+				//       $scope.properties.dataToChange2["todelete"] = false;
+				// 	var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+				// 		doRequest("GET", $scope.properties.url).then(function () {
+				// 			$scope.properties.dataToChange = $scope.properties.dataToSet;
+				// 			$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+				// 		});
+				// 		localStorageService.delete($window.location.href);
+				// 	});
+
+				// } else {
+				// 	$log.log('Impossible to retrieve the process definition id value from the URL');
+				// }
 			} else {
 				if (!$scope.properties.dataToChange2.descripcion) {
 					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
@@ -102,28 +151,80 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 	} else {
 			if ($scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].clave && $scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].descripcion && $scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].orden) {
-				if ($scope.properties.processId) {
-					var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-						doRequest("GET", $scope.properties.url).then(function () {
-							$scope.properties.dataToChange = $scope.properties.dataToSet;
-							$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-						});
-						localStorageService.delete($window.location.href);
-					});
+                
+                
+                
+                var req = {
+                    method: 'GET',
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CatTipoTerapia&orden=" + $scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].orden + "&id="
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        if (data.data[0]) {
+                            
+                            var req2 = {
+                                method: 'GET',
+                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatTipoTerapia&clave=" + $scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].clave + "&id="
+                            };
+                        return $http(req2).success(function(datos, status) {
+                            
+                            if(datos.data[0] === true){
+                                if ($scope.properties.processId) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
 
-				} else {
-					$log.log('Impossible to retrieve the process definition id value from the URL');
-				}
+                                } else {
+                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                }
+                            }else {
+                                 swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                            }
+                            
+                            
+                        })
+                            
+                        } else {
+                            
+                            swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.log(data);
+                        console.log(status);
+                    })
+                
+                
+                
+                
+                // if ($scope.properties.processId) {
+				// 	var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+				// 		doRequest("GET", $scope.properties.url).then(function () {
+				// 			$scope.properties.dataToChange = $scope.properties.dataToSet;
+				// 			$scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+				// 		});
+				// 		localStorageService.delete($window.location.href);
+				// 	});
+
+				// } else {
+				// 	$log.log('Impossible to retrieve the process definition id value from the URL');
+				// }
 			} else {
-				if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].descripcion) {
-					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].orden) {
+                if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].orden) {
 					swal("¡Aviso!","Falto capurar informacion en: Orden", "warning");
-				}
-				if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].clave) {
+                }
+                else if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].clave) {
 					swal("¡Aviso!","Falto capurar informacion en: Clave", "warning");
 				}
+				else if (!$scope.properties.dataToChange2.lstCatTipoTerapiaInput[0].descripcion) {
+					swal("¡Aviso!","Falto capurar informacion en: Descripción", "warning");
+				}
+				
+				
 			}
 	}
     }

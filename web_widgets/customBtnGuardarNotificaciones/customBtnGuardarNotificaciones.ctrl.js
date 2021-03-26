@@ -6,12 +6,12 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
     $scope.loading = false;
     $scope.lstContenidoRespaldo = [];
 
-    $scope.generateObjContrato = function () {
+    $scope.generateObjContrato = function() {
         console.log($scope.properties.informacionEnviar)
         $scope.asignarTarea();
     }
 
-    $scope.sendData = function () {
+    $scope.sendData = function() {
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;
@@ -28,7 +28,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                 $scope.properties.nuevosValores = [];
             }
             if ($scope.properties.taskId == undefined) {
-                doRequest("GET", `../API/bpm/task?p=0&c=10&f=caseId=${caseId}&f=isFailed%3dfalse`, null, null, function (value) {
+                doRequest("GET", `../API/bpm/task?p=0&c=10&f=caseId=${caseId}&f=isFailed%3dfalse`, null, null, function(value) {
                     vm.busy = false;
                     $scope.taskId = value[0].id;
                     $scope.properties.taskId = value[0].id;
@@ -51,7 +51,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         modalService.close();
     }
 
-    $scope.asignarTarea = function () {
+    $scope.asignarTarea = function() {
         var req = {
             method: "PUT",
             url: "/bonita/API/bpm/humanTask/" + $scope.properties.taskId,
@@ -59,15 +59,15 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
                 redireccionarTarea();
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () { });
+            .finally(function() {});
     }
 
     function redireccionarTarea() {
@@ -78,71 +78,93 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
                 $scope.submitTask();
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () { });
+            .finally(function() {});
     }
-
-    $scope.submitTask = function () {
-        if ($scope.properties.informacionEnviar == null || $scope.properties.informacionEnviar == {} || $scope.properties.informacionEnviar == undefined) {
-            $scope.getDataForSubmit();
-        } else {
-            var req = {
-                method: "POST",
-                url: "/bonita/API/bpm/userTask/" + $scope.properties.taskId + "/execution?assign=false",
-                data: angular.copy($scope.properties.informacionEnviar)
-            };
-
-            return $http(req)
-                .success(function (data, status) {
-                    //console.log("$scope.properties.informacionEnviar");
-                    //console.log($scope.properties.informacionEnviar);
-                    $scope.getConsulta();
-                })
-                .error(function (data, status) {
-                    $("#loading").modal("hide");
-                    $scope.loading = false;
-                    // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                })
-                .finally(function () { });
+    $scope.validar = function() {
+        var error = false;
+        var texto = "";
+        var info = "";
+         if ($scope.properties.selectedData.asunto == "") {
+            error = true;
+            texto = "Faltó capturar información: Asunto";
+            info = "¡Aviso!"
         }
+        else if ($scope.properties.selectedData.contenidoCorreo == "" || $scope.properties.selectedData.contenidoCorreo == "<p></p>") {
+            error = true;
+            texto = "Faltó capturar información: Contenido de correo";
+            info = "¡Aviso!"
+        } 
+        if (error) {
+            swal(info, texto, "warning");
+        }
+        
+        return error;
+    }
+    $scope.submitTask = function() {
+        if (!$scope.validar()) {
+            if ($scope.properties.informacionEnviar == null || $scope.properties.informacionEnviar == {} || $scope.properties.informacionEnviar == undefined) {
+                $scope.getDataForSubmit();
+            } else {
+                var req = {
+                    method: "POST",
+                    url: "/bonita/API/bpm/userTask/" + $scope.properties.taskId + "/execution?assign=false",
+                    data: angular.copy($scope.properties.informacionEnviar)
+                };
+
+                return $http(req)
+                    .success(function(data, status) {
+                        //console.log("$scope.properties.informacionEnviar");
+                        //console.log($scope.properties.informacionEnviar);
+                        $scope.getConsulta();
+                    })
+                    .error(function(data, status) {
+                        $("#loading").modal("hide");
+                        $scope.loading = false;
+                        // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                    })
+                    .finally(function() {});
+            }
+        }
+
     }
 
-    $scope.getConsulta = function () {
+    $scope.getConsulta = function() {
         var req = {
             method: "GET",
             url: $scope.properties.urlConsulta + "&f=codigo=" + $scope.properties.selectedData.codigo
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
                 //console.log("data");
                 //console.log(data);
                 $scope.properties.contenido = data;
                 $scope.getObjTaskInformation();
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () { });
+            .finally(function() {});
     }
 
-    $scope.getObjTaskInformation = function () {
+    $scope.getObjTaskInformation = function() {
         var req = {
             method: "GET",
             url: $scope.properties.urlTaskInformation
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
                 $scope.properties.objTaskInformation = data;
                 $scope.loading = false;
                 closeModal();
@@ -152,26 +174,26 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                 $scope.properties.ocultarTable = false;
                 $scope.properties.isModificacion = false;
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () { });
+            .finally(function() {});
     }
 
     function uuidv4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0,
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
     }
     /**
- * Execute a get/post request to an URL
- * It also bind custom data from success|error to a data
- * @return {void}
- */
+     * Execute a get/post request to an URL
+     * It also bind custom data from success|error to a data
+     * @return {void}
+     */
     function doRequest(method, url, params, dataToSend, value) {
         vm.busy = true;
         var req = {
@@ -182,7 +204,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         };
 
         return $http(req)
-            .then(function (data, status) {
+            .then(function(data, status) {
                 value(data.data, null)
                 vm.busy = false;
                 //$scope.lstUsuarios=data.data;
@@ -192,7 +214,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
             });
 
     }
-    $scope.getDataForSubmit = function () {
+    $scope.getDataForSubmit = function() {
         //../API/bdm/businessData/com.anahuac.model.ProcesoCaso?q=getCaseId&f=campus={{campusSelected}}&f=proceso={{proceso}}&p=0&c=1
         var caseId = 0;
         var lstCatNotificacionesInput = [];
@@ -204,10 +226,10 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         var lstCatComentariosFirmaInput = [];
         var taskId = 0;
         var context = {};
-        doRequest("GET", `../API/bdm/businessData/com.anahuac.model.ProcesoCaso?q=getCaseId&f=campus=${$scope.properties.campusSelected}&f=proceso=${$scope.properties.proceso}&p=0&c=1`, null, null, function (value) {
+        doRequest("GET", `../API/bdm/businessData/com.anahuac.model.ProcesoCaso?q=getCaseId&f=campus=${$scope.properties.campusSelected}&f=proceso=${$scope.properties.proceso}&p=0&c=1`, null, null, function(value) {
             vm.busy = false;
             caseId = value[0].caseId;
-            doRequest("GET", `../API/bdm/businessData/com.anahuac.catalogos.CatNotificaciones?q=findByCaseId&p=0&c=9999&f=caseId=${caseId}`, null, null, function (value) {
+            doRequest("GET", `../API/bdm/businessData/com.anahuac.catalogos.CatNotificaciones?q=findByCaseId&p=0&c=9999&f=caseId=${caseId}`, null, null, function(value) {
                 vm.busy = false;
                 lstCatNotificacionesInput = value;
                 if ($scope.properties.selectedData.persistenceId_string == "") {
@@ -222,10 +244,10 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                         }
                     }
                 }
-                doRequest("GET", `../API/bpm/task?p=0&c=10&f=caseId=${caseId}&f=isFailed%3dfalse`, null, null, function (value) {
+                doRequest("GET", `../API/bpm/task?p=0&c=10&f=caseId=${caseId}&f=isFailed%3dfalse`, null, null, function(value) {
                     vm.busy = false;
                     taskId = value[0].id;
-                    doRequest("GET", `../API/bpm/userTask/${taskId}/context`, null, null, function (value) {
+                    doRequest("GET", `../API/bpm/userTask/${taskId}/context`, null, null, function(value) {
                         vm.busy = false;
                         context = value;
                         imageHeaderDocumentInput = context.imageHeader_ref.map(doc => ({
@@ -255,7 +277,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                         lstCatComentariosFirmaInput = $scope.properties.strPersonaFirma.lstCatComentariosFirmaInput;
                         debugger;
                         if (context.lstCatImageNotificacion_ref.storageIds.length > 0 && ($scope.properties.lstCatImageNotificacion == null || $scope.properties.lstCatImageNotificacion == undefined)) {
-                            doRequest("GET", `../${context.lstCatImageNotificacion_ref.link}`, null, null, function (value) {
+                            doRequest("GET", `../${context.lstCatImageNotificacion_ref.link}`, null, null, function(value) {
                                 vm.busy = false;
                                 lstCatImageNotificacion = value;
                                 var generated = {
@@ -269,18 +291,18 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                                     "lstCatComentariosFirmaInput": lstCatComentariosFirmaInput
 
                                 }
-                                var hasDocument=false;
+                                var hasDocument = false;
                                 for (let index = 0; index < generated.docGuiaEstudioDocumentInput.length; index++) {
-                                    if (generated.docGuiaEstudioDocumentInput[index].id!=null || generated.docGuiaEstudioDocumentInput[index].filename!=null) {
-                                    hasDocument=true; 
+                                    if (generated.docGuiaEstudioDocumentInput[index].id != null || generated.docGuiaEstudioDocumentInput[index].filename != null) {
+                                        hasDocument = true;
                                     }
-                                    
+
                                 }
-                                if(!hasDocument){
-                                    generated.docGuiaEstudioDocumentInput=[];
+                                if (!hasDocument) {
+                                    generated.docGuiaEstudioDocumentInput = [];
                                 }
                                 console.log(generated);
-                                doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function (value) {
+                                doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function(value) {
                                     vm.busy = false;
                                     $scope.getConsulta();
                                 })
@@ -321,20 +343,20 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                                 if (generated.lstCatNotificacionesInput[index].codigo == $scope.properties.selectedData.codigo) {
                                     //generated.lstCatNotificacionesInput[index].docGuiaEstudio = $scope.properties.docGuiaEstudio.filename;
                                     generated.lstCatNotificacionesInput[index].docGuiaEstudio = $scope.properties.selectedData.docGuiaEstudio;
-                                }                            
-                            }
-                            var hasDocument=false;
-                            for (let index = 0; index < generated.docGuiaEstudioDocumentInput.length; index++) {
-                                if (generated.docGuiaEstudioDocumentInput[index].id!=null || generated.docGuiaEstudioDocumentInput[index].filename!=null) {
-                                   hasDocument=true; 
                                 }
-                                
                             }
-                            if(!hasDocument){
-                                generated.docGuiaEstudioDocumentInput=[];
+                            var hasDocument = false;
+                            for (let index = 0; index < generated.docGuiaEstudioDocumentInput.length; index++) {
+                                if (generated.docGuiaEstudioDocumentInput[index].id != null || generated.docGuiaEstudioDocumentInput[index].filename != null) {
+                                    hasDocument = true;
+                                }
+
+                            }
+                            if (!hasDocument) {
+                                generated.docGuiaEstudioDocumentInput = [];
                             }
                             console.log(generated);
-                            doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function (value) {
+                            doRequest("POST", `/bonita/API/bpm/userTask/${$scope.properties.taskId}/execution?assign=false`, null, generated, function(value) {
                                 vm.busy = false;
                                 //$scope.getConsulta();
                                 $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");

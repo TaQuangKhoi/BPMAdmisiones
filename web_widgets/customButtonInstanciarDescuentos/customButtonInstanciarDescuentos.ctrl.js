@@ -74,12 +74,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var tipo = false;
 
     function startProcess() {
-        debugger
         if ($scope.properties.dataToChange2.campus) {
             if ($scope.properties.dataToChange2.tipo == "Preparatoria") {
                 tipo = true;
+                $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId = parseInt($scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceid_string"]);
                 $scope.properties.dataToSend.lstCatDescuentosInput[0]["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].persistenceId;
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId;
+
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
                 if ($scope.properties.dataToChange2.catBachilleratos && $scope.properties.dataToChange2.convenioDescuento && $scope.properties.dataToChange2.descuento && $scope.properties.dataToChange2.inicioVigencia && $scope.properties.dataToChange2.finVigencia) {
                     if ($scope.properties.processId) {
@@ -184,10 +185,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else {
             if ($scope.properties.dataToChange2.lstCatDescuentosInput[0].tipo == "Preparatoria") {
                 tipo = true;
-
-
                 $scope.properties.dataToSend.lstCatDescuentosInput[0]["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].persistenceId;
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId;
+                $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId = parseInt($scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId);
 
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
 

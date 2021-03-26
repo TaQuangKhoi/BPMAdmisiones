@@ -17,6 +17,17 @@ class CatGenericoFiltro {
 	
 	private Boolean isEliminado;
 	
+	private String orden;
+	
+	private String fechaImportacion;
+	
+	
+	public String getOrden() {
+		return orden;
+	}
+	public void setOrden(String orden) {
+		this.orden = orden;
+	}
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -60,4 +71,14 @@ class CatGenericoFiltro {
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
 	}
+	public String getFechaImportacion() {
+		return fechaImportacion;
+	}
+	public void setFechaImportacion(String fechaImportacion) {
+		this.fechaImportacion = fechaImportacion;
+	}
+	
+	
+	
+	
 }

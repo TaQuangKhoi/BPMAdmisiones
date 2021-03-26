@@ -158,7 +158,30 @@ function($scope, $http, blockUI) {
         }, function(datos) {
             $scope.YaSeImprimioSuCredencial = datos.totalRegistros;
         });
-
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "tarea": "Lista roja",
+            "estatusSolicitud" : "Solicitud lista roja",
+            "lstFiltro": [],
+            "type": "lista_roja",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.listaRoja = datos.totalRegistros;
+        })
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", {}, {
+            "tarea": "Solicitud rechazada",
+            "estatusSolicitud" : "Solicitud rechazada",
+            "lstFiltro": [],
+            "type": "aspirantes_rechazados",
+            "orderby": "",
+            "orientation": "DESC",
+            "limit": 10,
+            "offset": 0
+        }, function(datos) {
+            $scope.rechazados = datos.totalRegistros;
+        })
     }
     $scope.initializeDatosProceso();
 }

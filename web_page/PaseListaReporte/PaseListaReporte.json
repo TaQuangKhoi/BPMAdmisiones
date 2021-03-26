@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "PaseListaReporte",
   "name" : "PaseListaReporte",
-  "lastUpdate" : 1610486082830,
+  "lastUpdate" : 1616527235776,
   "rows" : [
     [
       {
@@ -114,7 +114,7 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 5,
+                      "xs" : 3,
                       "sm" : 2,
                       "md" : 2,
                       "lg" : 2
@@ -200,7 +200,7 @@
                       },
                       "Direccion" : {
                         "type" : "constant",
-                        "value" : "ListaSesionesCalendarizadas"
+                        "value" : "ReporteSesionCalendarizadas"
                       }
                     },
                     "reference" : "1988ab8f-fdde-4033-87b7-7ba0fa3a1bb0",
@@ -210,7 +210,7 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 8,
+                      "xs" : 7,
                       "sm" : 8,
                       "md" : 8,
                       "lg" : 8
@@ -226,7 +226,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "{{lstContenido[0].fecha}} {{lstContenido[0].tipoprueba_PID!= \"1\"? lstContenido[0].horario:\"\"}}"
+                        "value" : "{{datosPrueba[0].tipo.descripcion}}<br/>{{datosPrueba[0].nombre}}<br/>{{datosPrueba[0].aplicacion| date:'dd-MM-yyyy'}} {{datosPrueba[0].entrada }} - {{datosPrueba[0].salida}}"
                       },
                       "level" : {
                         "type" : "constant",
@@ -244,7 +244,7 @@
                   {
                     "type" : "component",
                     "dimension" : {
-                      "xs" : 4,
+                      "xs" : 2,
                       "sm" : 2,
                       "md" : 2,
                       "lg" : 2
@@ -252,7 +252,7 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : "downbutton rigthbutton"
                       },
                       "hidden" : {
                         "type" : "constant",
@@ -345,6 +345,58 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Submit"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "default"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "datosPrueba"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "getInfoPrueba"
+                },
+                "urlInfo" : {
+                  "type" : "expression",
+                  "value" : "idP"
+                }
+              },
+              "reference" : "ff379231-8572-4854-858b-ad2eb2508b89",
+              "hasValidationError" : false,
+              "id" : "customBtnGetInfo"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -413,7 +465,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -491,8 +543,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
+                            "md" : 12,
+                            "lg" : 12
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -579,14 +631,16 @@
                           "reference" : "44d7a137-1e56-44fc-b5bb-33eff661776c",
                           "hasValidationError" : false,
                           "id" : "customCustomBtnDownloadExcel"
-                        },
+                        }
+                      ],
+                      [
                         {
                           "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
+                            "md" : 12,
+                            "lg" : 12
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -595,7 +649,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "expression",
@@ -701,9 +755,9 @@
                         "value" : "lstFiltros"
                       }
                     },
-                    "reference" : "64c3962c-7c95-4066-a88f-e315e4d7628b",
+                    "reference" : "e49dac0e-fdc0-4fed-bce1-76bba40f0875",
                     "hasValidationError" : false,
-                    "id" : "customListFiltros"
+                    "id" : "customListFiltrosNormal"
                   }
                 ]
               ]
@@ -1608,7 +1662,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "primary"
+                  "value" : "info"
                 },
                 "value" : {
                   "type" : "variable",
@@ -1927,6 +1981,14 @@
                             "lstContenido" : {
                               "type" : "expression",
                               "value" : "lstContenido"
+                            },
+                            "fecha" : {
+                              "type" : "variable",
+                              "value" : "getFechas"
+                            },
+                            "pruebaSesion" : {
+                              "type" : "expression",
+                              "value" : "infoPruebaSesion"
                             }
                           },
                           "reference" : "ff364468-dbe4-4e7a-94ba-5d74756ec069",
@@ -2156,7 +2218,7 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "primary"
+                  "value" : "info"
                 },
                 "value" : {
                   "type" : "variable",
@@ -2298,7 +2360,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<h4>{{strUsuario.aspirantes[0].primernombre}} {{strUsuario.aspirantes[0].segundonombre}} {{strUsuario.aspirantes[0].apellidopaterno}} {{strUsuario.aspirantes[0].apellidomaterno}}</h4>"
+                  "value" : "<h3>{{strUsuario.primernombre}} {{strUsuario.segundonombre}} {{strUsuario.apellidopaterno}} {{strUsuario.apellidomaterno}}</h3>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -2498,7 +2560,7 @@
                             },
                             "url" : {
                               "type" : "expression",
-                              "value" : "strUsuario.aspirantes[0].fotografiab64"
+                              "value" : "strUsuario.fotografiab64"
                             },
                             "assetName" : {
                               "type" : "constant",
@@ -2686,7 +2748,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].licenciatura"
+                              "value" : "strUsuario.licenciatura"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2763,7 +2825,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].campus"
+                              "value" : "strUsuario.campus"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2840,7 +2902,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].periodo"
+                              "value" : "strUsuario.periodo"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2917,7 +2979,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].lugarexamen"
+                              "value" : "strUsuario.lugarexamen"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2994,7 +3056,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].correoelectronico"
+                              "value" : "strUsuario.correoelectronico"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3071,7 +3133,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.aspirantes[0].telefonocelular"
+                              "value" : "strUsuario.telefonocelular"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3148,7 +3210,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strUsuario.asistencia == null ? \"No\" : strUsuario.asistencia == true ? \"Sí\": \"No\""
+                              "value" : "strUsuario.asistencia == null ? \"No\" : strUsuario.asistencia == \"t\" ? \"Sí\": \"No\""
                             },
                             "type" : {
                               "type" : "constant",
@@ -3238,7 +3300,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Nombre cita:</strong> {{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Fecha:</strong> {{strUsuario.fecha}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Hora:</strong> {{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Lugar:</strong> {{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
+                              "value" : "<ul class=\"list-group col-lg-12 col-md-12\">\n            <li class=\"list-group-item btn-primary\" style=\"text-align: left;\"><strong>{{strUsuario.tipo_prueba}}</strong></li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Nombre cita:</strong> {{strUsuario.nombre_prueba}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Fecha:</strong> {{strUsuario.aplicacion}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Hora:</strong> {{strUsuario.horario}}</li>\n            <li class=\"list-group-item list-group-item-default\" style=\"text-align: left;\"><strong>Lugar:</strong> {{strUsuario.lugar_prueba}}</li>\n\n        </ul>"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -3397,7 +3459,7 @@
                       },
                       "buttonStyle" : {
                         "type" : "constant",
-                        "value" : "primary"
+                        "value" : "info"
                       },
                       "value" : {
                         "type" : "variable",
@@ -4102,7 +4164,8 @@
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
-        "    \"offset\":0\r",
+        "    \"offset\":0,\r",
+        "    \"reporte\":true\r",
         "};"
       ],
       "exposed" : false
@@ -4138,7 +4201,7 @@
     "urlPost" : {
       "type" : "constant",
       "value" : [
-        "/bonita/API/extension/AnahuacRest?url=getCatDescuentos&p=0&c=100"
+        "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantesPasados&p=0&c=10"
       ],
       "exposed" : false
     },
@@ -4181,7 +4244,7 @@
         "    \"modulo\":$data.modulo,\r",
         "    \"fechaCreacion\":$data.getFecha,\r",
         "    \"isEliminado\":false,\r",
-        "    \"usuarioComentario\":$data.strUsuario.aspirantes[0].correoelectronico\r",
+        "    \"usuarioComentario\":$data.strUsuario.correoelectronico\r",
         "    }"
       ],
       "exposed" : false
@@ -4222,7 +4285,7 @@
         "            \"lstFiltro\": [{\r",
         "                \"columna\": \"CAMPUS\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.aspirantes[0].grupobonita\r",
+        "                \"valor\": $data.strUsuario.grupobonita\r",
         "            },\r",
         "            {\r",
         "                \"columna\": \"MODULO\",\r",
@@ -4232,7 +4295,7 @@
         "            {\r",
         "                \"columna\": \"USUARIOCOMENTARIO\",\r",
         "                \"operador\": \"Igual a\",\r",
-        "                \"valor\": $data.strUsuario.aspirantes[0].correoelectronico\r",
+        "                \"valor\": $data.strUsuario.correoelectronico\r",
         "            }],\r",
         "            \"type\": \"solicitudes_progreso\",\r",
         "            \"usuario\": 0,\r",
@@ -4288,7 +4351,7 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"lstFiltro\": [],\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
         "    \"fecha\": $data.getFechas+\"\",\r",
         "    \"sesion\": parseInt($data.idSesion),\r",
@@ -4301,6 +4364,27 @@
         "    \"nombrePrueba\":$data.lstContenido[0].nombre_prueba,\r",
         "    \"type\": \"paselistareporte\",\r",
         "};"
+      ],
+      "exposed" : false
+    },
+    "datosPrueba" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "idP" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&id=\"+$data.idPrueba;"
+      ],
+      "exposed" : false
+    },
+    "infoPruebaSesion" : {
+      "type" : "expression",
+      "value" : [
+        "return {\"prueba\":$data.idPrueba, \"sesion\":$data.idSesion};"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgInformacionSolicitudUpadate",
   "name" : "frgInformacionSolicitudUpadate",
-  "lastUpdate" : 1610470015540,
+  "lastUpdate" : 1616525089751,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Información de la Solicitud</label>"
+            "value" : "<label class=\"color-orange\">Información de la solicitud</label>"
           },
           "level" : {
             "type" : "constant",
@@ -92,11 +92,47 @@
           },
           "modalId" : {
             "type" : "constant"
+          },
+          "variableDestino2" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "variableAcopiar2" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "catSolicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "formOutput"
+          },
+          "actanacimiento" : {
+            "type" : "variable",
+            "value" : "archivoLocalActa"
+          },
+          "fotopasaporte" : {
+            "type" : "variable",
+            "value" : "archivoLocalFoto"
+          },
+          "kardex" : {
+            "type" : "variable",
+            "value" : "archivoLocalKardex"
+          },
+          "cartaAA" : {
+            "type" : "variable",
+            "value" : "archivoLocalCartaAA"
+          },
+          "descuento" : {
+            "type" : "variable",
+            "value" : "archivoLocalDescuento"
+          },
+          "collageBoard" : {
+            "type" : "variable",
+            "value" : "archivoLocalCollegeBoard"
           }
         },
-        "reference" : "bbefe092-73ec-4d6b-a393-3efd853c7983",
+        "reference" : "3c49385e-3b05-41e9-850e-8ba75385ce35",
         "hasValidationError" : false,
-        "id" : "customButtonSetValor"
+        "id" : "customButtonSetValorModificacion"
       }
     ],
     [
@@ -106,7 +142,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -171,7 +207,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -236,7 +272,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -294,16 +330,89 @@
         "reference" : "fba74b82-8e01-441e-b6e1-2ed5795ee278",
         "hasValidationError" : false,
         "id" : "pbSelect"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "!catSolicitudDeAdmision.catGestionEscolar.propedeutico"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Propedéutico"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.catPropedeutico.descripcion"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "29520458-7eef-4a1b-abfe-a0febd160c53",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 4,
+          "md" : 4,
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -368,7 +477,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -429,7 +538,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -504,7 +613,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -579,7 +688,7 @@
           "xs" : 12,
           "sm" : 4,
           "md" : 4,
-          "lg" : 4
+          "lg" : 6
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -724,6 +833,62 @@
       "exposed" : true
     },
     "catSolicitudDeAdmision" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "catPropedeutico" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "formOutput" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalFoto" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalActa" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalKardex" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalCartaAA" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalDescuento" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "archivoLocalCollegeBoard" : {
       "type" : "constant",
       "value" : [
         ""

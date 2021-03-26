@@ -35,23 +35,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if($scope.properties.infoIdioma.catIdioma === null){
             isValid = false;
             titleMessage = "¡Idioma!";
-            errorMessage = "Debes seleccionar una opción.";
+            errorMessage = "Selecciona un valor.";
         } else if($scope.properties.infoIdioma.catEscritura === null){
             isValid = false;
-            titleMessage = "Nivel escritura";
-            errorMessage = "Debes seleccionar una opción.";
+            titleMessage = "¡Nivel escritura!";
+            errorMessage = "Selecciona un valor.";
         } else if($scope.properties.infoIdioma.catConversacion === null){
             isValid = false;
-            titleMessage = "Nivel conversación";
-            errorMessage = "Debes seleccionar una opción.";
+            titleMessage = "¡Nivel conversación!";
+            errorMessage = "Selecciona un valor.";
         } else if($scope.properties.infoIdioma.catTraduccion === null){
             isValid = false;
-            titleMessage = "Nivel traducción";
-            errorMessage = "Debes seleccionar una opción.";
+            titleMessage = "¡Nivel traducción!";
+            errorMessage = "Selecciona un valor.";
         } else if($scope.properties.infoIdioma.catLectura === null){
             isValid = false;
-            titleMessage = "Nivel lectura";
-            errorMessage = "Debes seleccionar una opción.";
+            titleMessage = "¡Nivel lectura!";
+            errorMessage = "Selecciona un valor.";
         }
     
         if(!isValid){

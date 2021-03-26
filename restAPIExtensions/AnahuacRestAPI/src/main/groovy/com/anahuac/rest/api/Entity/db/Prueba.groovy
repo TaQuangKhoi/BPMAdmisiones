@@ -25,7 +25,14 @@ class Prueba {
 	private Long cattipoprueba_pid;
 	private String duracion;
 	private String descripcion;
+	private Boolean online;
 	
+	public Boolean getOnline() {
+		return online;
+	}
+	public void setOnline(Boolean online) {
+		this.online = online;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}

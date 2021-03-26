@@ -58,6 +58,8 @@ class CatalogoBachilleratoDAO {
 		}
 		return resultado
 	}
+	
+	
 	public Result insertCatBitacoraComentario(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -97,7 +99,6 @@ class CatalogoBachilleratoDAO {
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				pstm = con.prepareStatement(StatementsBachillerato.GET)
-				
 				
 				rs = pstm.executeQuery()
 				rows = new ArrayList<Map<String, Object>>();
@@ -478,6 +479,38 @@ class CatalogoBachilleratoDAO {
 		}
 		return resultado
 	}
+	public Result updatePerteneceRed(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			CatBachilleratos catBachillerado = new CatBachilleratos();
+			List<CatBachilleratos> data =  new ArrayList<CatBachilleratos>();
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof Map;
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(StatementsBachillerato.UPDATE_PERTENCERED)
+				pstm.setBoolean(1, object.perteneceRed)
+				pstm.setLong(2, object.persistenceId)
+				
+				pstm.execute()
+				resultado.setSuccess(true)
+				data.add(catBachillerado)
+				resultado.setData(data)
+			
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	public Result update(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -522,5 +555,6 @@ class CatalogoBachilleratoDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 }

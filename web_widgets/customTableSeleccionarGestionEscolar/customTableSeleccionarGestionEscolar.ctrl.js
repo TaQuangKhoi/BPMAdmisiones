@@ -26,7 +26,8 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
                     case "Si":
                         $scope.properties.selectedRow = row;
                          row.isEliminado = true;
-                        $scope.properties.selectedRow["todelete"] = true;
+                        $scope.properties.selectedRow["todelete"] = false;
+                        $scope.properties.selectedRow["isEliminado"] = true;
                         $scope.$apply();
                         startProcess();
                         break;

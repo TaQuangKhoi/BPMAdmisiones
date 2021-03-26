@@ -9,6 +9,21 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         $scope.properties.selectedRow = row;
         $scope.properties.isSelected = 'editar';
     };
+    $scope.displayed=function(header){
+       var retorno = "";
+       
+       if(header=='PERSISTENCEID'){
+           retorno='Clave';
+       }
+       else if(header=='FECHACREACION'){
+          retorno = 'Fecha creación'; 
+       }
+       else{
+           retorno=header;
+       }
+       
+       return retorno;
+    }
 
     this.selectRowDelete = function(row) {
         swal("¿Está seguro que desea eliminar?", {
@@ -78,10 +93,30 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     $scope.content = [];
 
     function doRequestGet() {
+
+        var notfound = true;
+        $scope.filtro = {
+            "columna": "CAMPUS",
+            "operador": "Igual a",
+            "valor": $scope.properties.campusSelected.grupoBonita
+        }
+        var dataToSend=angular.copy($scope.properties.filtroToSend);
+        for (let index = 0; index < dataToSend.lstFiltro.length; index++) {
+            const element = dataToSend.lstFiltro[index];
+            if (element.columna == "CAMPUS") {
+                dataToSend.lstFiltro[index].valor = value.grupoBonita
+                notfound = false;
+            }
+
+        }
+        if (notfound) {
+            dataToSend.lstFiltro.push($scope.filtro);
+        }
+
         blockUI.start();
         var req = {
             method: "GET",
-            url: `${$scope.properties.urlGet}&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}`
+            url: `${$scope.properties.urlGet}&jsonData=${encodeURIComponent(JSON.stringify(dataToSend))}`
         };
 
         return $http(req)
@@ -98,7 +133,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
     $scope.$watch("properties.filtroToSend", function(newValue, oldValue) {
         if (newValue !== undefined) {
-            doRequestGet();
+            //doRequestGet();
         }
         console.log($scope.properties.filtroToSend);
     });
@@ -244,6 +279,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             "campus": data.campus,
             "correo": data.para,
             "codigo": data.codigo,
+            "mensaje": data.mensaje,
             "isEnviar": false
         }
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10", {}, dataToSend, function(data) {
@@ -255,6 +291,30 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         })
 
     }
+    $scope.$watch('properties.campusSelected', function(value) {
+        if (angular.isDefined(value) && value !== null && angular.isDefined($scope.properties.filtroToSend)) {
+            /*var notfound = true;
+            $scope.filtro = {
+                "columna": "CAMPUS",
+                "operador": "Igual a",
+                "valor": value.grupoBonita
+            }
+            for (let index = 0; index < $scope.properties.filtroToSend.lstFiltro.length; index++) {
+                const element = $scope.properties.filtroToSend.lstFiltro[index];
+                if (element.columna == "CAMPUS") {
+                    $scope.properties.filtroToSend.lstFiltro[index].valor = value.grupoBonita
+                    notfound = false;
+                }
+
+            }
+            if (notfound) {
+                $scope.properties.filtroToSend.lstFiltro.push($scope.filtro);
+            }*/
+
+
+            doRequestGet();
+        }
+    });
     $scope.sendMail = function(data) {
         Swal.fire({
             title: `¿Está seguro que desea reenviar email?`,

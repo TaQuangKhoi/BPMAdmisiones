@@ -191,7 +191,7 @@ function PbTableCtrl($scope, $http, modalService, blockUI) {
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
                                   "campus": $scope.properties.campusSelected,
-                                  "correo": "eventosgiley@gmail.com",
+                                  "correo": "nreingera_u445n@deypo.com",
                                   "codigo": codigo,
                                   "isEnviar": false
                                 })

@@ -10,6 +10,10 @@ class CatEstadoCustomFiltro {
 	@XmlElement
 	private Long persistenceVersion;
 	@XmlElement
+	private String persistenceId_string;
+	@XmlElement
+	private String persistenceVersion_string;
+	@XmlElement
 	private String clave;
 	@XmlElement
 	private Long orden;
@@ -25,6 +29,26 @@ class CatEstadoCustomFiltro {
 	private Boolean isEliminado;
 	@XmlElement
 	private String caseId;
+	
+	
+	
+
+	
+
+	
+	public String getPersistenceId_string() {
+		return persistenceId_string;
+	}
+	public void setPersistenceId_string(String persistenceId_string) {
+		this.persistenceId_string = persistenceId_string;
+	}
+	public String getPersistenceVersion_string() {
+		return persistenceVersion_string;
+	}
+	public void setPersistenceVersion_string(String persistenceVersion_string) {
+		this.persistenceVersion_string = persistenceVersion_string;
+	}
+	
 	public String getFechaImportacion() {
 		return fechaImportacion;
 	}

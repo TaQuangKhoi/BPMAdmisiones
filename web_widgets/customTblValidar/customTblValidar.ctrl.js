@@ -4,7 +4,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     var vm = this;
 
     this.action = function action() {
-        debugger;
+        
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
             closeModal($scope.properties.closeOnSuccess);
@@ -21,12 +21,40 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         } else if ($scope.properties.action === 'Close modal') {
             closeModal(true);
         } else if ($scope.properties.url) {
-            debugger;
+            
             doRequest($scope.properties.action, $scope.properties.url);
         }
     };
+    
 
+     this.mostrarModalMensaje = function mostrarModalMensaje() {
+     
+      $scope.properties.action2=true;
+      actionMensaje();
+    };
+
+    //   this.actionMensaje = function actionMensaje() {
+    //   debugger;
+    //     if ($scope.properties.action2) {
+    //         closeModal($scope.properties.closeOnSuccess);
+    //         openModal($scope.properties.modalIdMensaje);
+    //     } else if (!$scope.properties.action2) {
+    //         closeModal(true);
+    //     }
+    // };
+    function actionMensaje() {
+       
+        if ($scope.properties.action2) {
+            
+            closeModal($scope.properties.closeOnSuccess);
+            openModal($scope.properties.modalIdMensaje);
+        } else if (!$scope.properties.action2) {
+            closeModal(true);
+        }
+    }
+    
     function openModal(modalId) {
+        
         modalService.open(modalId);
     }
 
@@ -34,7 +62,22 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         if (shouldClose)
             modalService.close();
     }
+    
+        $scope.setValMensaje = function() {
+        $scope.openCloseModalMensaje()
 
+    };
+
+    $scope.openCloseModalMensaje = function() {
+        
+        
+        if ($scope.properties.OpenModal) {
+            modalService.open($scope.properties.modalIdMensaje);
+        } else {
+            modalService.close();
+        }
+    }
+    
     function removeFromCollection() {
         if ($scope.properties.collectionToModify) {
             if (!Array.isArray($scope.properties.collectionToModify)) {
@@ -179,13 +222,15 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         if (src.toLowerCase().includes(".jpg") || src.toLowerCase().includes(".png") || src.toLowerCase().includes(".jpeg") || src.toLowerCase().includes(".gif") || src.toLowerCase().includes(".tif") || src.toLowerCase().includes(".bmp") || src.toLowerCase().includes(".tiff")) {
             Swal.fire({
                 title: "<i>Previsualización</i>",
-                html: "<img style='width:50%' src='" + src + "'><br><a style='font-size: 20px; color: #ff5900;' href='" + src + "' target='_blank' class='btn btn-link'>Descargar</a>",
+                width: 800,
+                html: "<img style='width:100%' src='" + src + "'><br><a style='font-size: 20px; color: #ff5900;' href='" + src + "' target='_blank' class='btn btn-link'>Descargar</a>",
                 confirmButtonText: "Cerrar",
             });
         } else {
             Swal.fire({
                 title: "<i>Previsualización</i>",
-                html: "<iframe style='width:50%' src='" + src + "'></iframe>",
+                width: 800,
+                html: "<iframe style='width:100%' src='" + src + "'></iframe>",
                 confirmButtonText: "Cerrar",
             });
         }

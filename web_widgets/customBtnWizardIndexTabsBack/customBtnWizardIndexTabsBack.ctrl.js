@@ -14,6 +14,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction()
                     $scope.properties.selectedIndexPersonal--;
             }
         }else if($scope.properties.selectedIndex === 3){
@@ -23,6 +25,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction()
                     $scope.properties.selectedIndexFamiliar--;
             }
             //selectedIndexFamiliar
@@ -33,6 +37,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction()
                     $scope.properties.selectedIndexRevision--;
             }
             //selectedIndexRevision
@@ -49,6 +55,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 }
                 if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catPais === null) {
@@ -77,11 +85,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }
                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -91,6 +102,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.faltacampo = false;
                 console.log("validar 1");
                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -101,6 +113,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.fechaNacimiento === undefined) {
                     swal("Fecha de nacimiento!", "Debe agergar su fecha de nacimiento!", "warning");
@@ -155,7 +169,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
-                        $scope.properties.selectedIndex--;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();    
+                    $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.formInput.fotoPasaporteDocumentInput.push($scope.properties.fotopasaporte);
                         $scope.properties.formInput.actaNacimientoDocumentInput.push($scope.properties.actanacimiento);
@@ -177,6 +193,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 }
                 if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catBachilleratos === null) {
@@ -201,7 +219,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
-                            $scope.properties.selectedIndex--;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();        
+                    $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                             $scope.properties.formInput.catSolicitudDeAdmisionInput.promedioGeneral = $scope.properties.formInput.catSolicitudDeAdmisionInput.promedioGeneral + "";
                             $scope.properties.formInput.fotoPasaporteDocumentInput.push($scope.properties.fotopasaporte);
@@ -247,7 +267,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
-                        $scope.properties.selectedIndex--;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();    
+                    $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.formInput.constanciaDocumentInput.push($scope.properties.kardex);
                         if ($scope.properties.tieneDescuento === true) {
@@ -276,6 +298,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -291,6 +314,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -305,6 +330,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -318,6 +345,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -332,6 +361,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -346,6 +377,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -360,6 +393,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.kardex = undefined;
                     $scope.properties.descuento = undefined;
                     $scope.properties.collageBoard = undefined;
+                    $scope.properties.cartaAA = undefined;
+                    topFunction();
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
@@ -378,4 +413,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (shouldClose)
             modalService.close();
     }
+
+    function topFunction() {
+        debugger;
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
 }

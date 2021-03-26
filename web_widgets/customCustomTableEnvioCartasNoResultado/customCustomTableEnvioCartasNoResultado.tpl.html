@@ -1,0 +1,128 @@
+<div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstMembership.length>1">
+    <!--<select class="form-control" ng-model="filtroCampus"-->
+    <!--    ng-options="getCampusByGrupo(member.group_id.name) as getCampusByGrupo(member.group_id.name) for member in lstMembership"-->
+    <!--    ng-change="addFilter()">-->
+    <!--    <option style="display:none" value="">-->
+    <!--        Seleccionar campus-->
+    <!--    </option>-->
+    <!--</select>-->
+    
+    <select class="form-control" ng-model="filtroCampus" ng-options="getCampusByGrupo(member) as getCampusByGrupo(member) for member in lstCampusByUser" ng-change="addFilter()">
+        <!--<option style="display:none" value="">-->
+        <!--    Seleccionar campus-->
+        <!--</option>-->
+    </select>
+</div>
+<div style="margin-bottom:15px;" class="col-xs-offset-9 col-xs-3">
+    <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit">
+        <option ng-value="20">20</option>
+        <option ng-value="40">40</option>
+        <option ng-value="100">100</option>
+    </select>
+</div>
+<div class="table-responsive col-xs-12">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th>
+                    Estatus Carta 
+                </th>
+                <!--<th>-->
+                <!--    <span style="cursor:pointer" ng-click="setOrderBy('ID')">ID<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ID'"></i></span>-->
+                <!--</th>-->
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('IDBANNER')">Id banner<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='IDBANNER'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Email<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> 
+                </th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('LICENCIATURA')">Licenciatura<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='LICENCIATURA'"></i></span>
+                </th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('PDU')">PDU<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PDU'"></i></span>
+                 </th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('MATE')">MATE<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='MATE'"></i></span>
+                </th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('ESP')">ESP<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESP'"></i></span>
+                </th>
+                <th>Descuentos</th>
+                <th>Fechas límite</th>
+                <th>
+                    <span style="cursor:pointer" ng-click="setOrderBy('RESPUESTA')">Respuesta<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='RESPUESTA'"></i></span> / Estatus
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <!-- <td><input ng-model="dynamicInput['ID']" class="form-control" ng-enter="filterKeyPress('ID',dynamicInput['ID'])"></td> -->
+                <td><input ng-model="dynamicInput['IDBANNER,NOMBRE,EMAIL']" class="form-control" ng-enter="filterKeyPress('IDBANNER,NOMBRE,EMAIL',dynamicInput['IDBANNER,NOMBRE,EMAIL'])"></td>
+                <td><input ng-model="dynamicInput['CAMPUS,LICENCIATURA']" class="form-control" ng-enter="filterKeyPress('CAMPUS,LICENCIATURA',dynamicInput['CAMPUS,LICENCIATURA'])"></td>
+                <td><input ng-model="dynamicInput['PDU']" class="form-control" ng-enter="filterKeyPress('PDU',dynamicInput['PDU'])"></td>
+                <td><input ng-model="dynamicInput['MATE']" class="form-control" ng-enter="filterKeyPress('MATE',dynamicInput['MATE'])"></td>
+                <td><input ng-model="dynamicInput['ESP']" class="form-control" ng-enter="filterKeyPress('ESP',dynamicInput['ESP'])"></td>
+                <td><input ng-model="dynamicInput['DESCUENTOS']" class="form-control" ng-enter="filterKeyPress('DESCUENTOS',dynamicInput['DESCUENTOS'])"></td>
+                <td><input ng-model="dynamicInput['FECHASLIMITE']" class="form-control" ng-enter="filterKeyPress('solicitud',dynamicInput['FECHASLIMITE'])"></td>
+                <td></td>
+            </tr>
+            
+            <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>
+                    <label class="error-message-carta" ng-if="row.estatusincorrecto">El aspirante se encuentra en otra etapa del proceso. ({{row.estatussolicitud}})</label>
+                    <label class="error-message-carta" ng-if="row.idnocoincide">El ID del aspirante no coincide con ningún caso activo de solicitud de admisión</label>
+                </td>
+                <td>
+                    <label>{{row.numerodematricula}}</label>  <br>
+                    {{row.nombre}} <br>
+                    {{row.email}}
+                </td>
+                <td>
+                    <label>{{row.universidad}}</label> <br>
+                    {{row.carrera}}
+                </td>
+                <td>
+                    <label>{{row.pdu}}</label>
+                </td>
+                <td>
+                    <label>{{row.sihaceonomatematicas}}</label>
+                </td>
+                <td>
+                    <label>{{row.espanol}}</label>
+                </td>
+                <td>
+                    {{row.descuentoprontopagomes1 > 0 ? row.descuentoprontopagomes1 : 0}}% - {{row.descuentoprontopagomes1fecha | date:'yyyy-MMM-dd'}} <br>
+                    {{row.descuentoprontopagomes1 > 0 ? row.descuentoprontopagomes1 : 0}}% - {{row.descuentoprontopagomes2fecha | date:'yyyy-MMM-dd'}}
+                </td>
+                <td>
+                    Docs: {{row.fechalimitedepago |date:'yyyy-MMM-dd'}} <br>
+                    Pago: {{row.fechalimiteentregadocumentacion | date:'yyyy-MMM-dd'}}
+                </td>
+                <td>
+                    <label>
+                        <p ng-class="{'color-success': (row.carta === 'Aceptado'), 'color-error': (row.carta === 'Rechazado'), 'color-black': (row.carta === 'Enviado a revisión')}">{{row.carta}}</p>
+                    </label> <br>
+                    Sin enviar
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="col-xs-5">
+        <div class="dataTables_info">Mostrando {{properties.dataToSend.offset+1}} a {{((properties.dataToSend.limit*valorSeleccionado)>value)?value:properties.dataToSend.limit*valorSeleccionado}} de {{value}} registros</div>
+    </div>
+    <div class="col-xs-7 text-center">
+        <div role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group" role="group" aria-label="First group">
+                <button type="button" class="btn btn-default" ng-click="anterior()">Anterior
+                </button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Second group">
+                <button ng-repeat="row in lstPaginado" ng-class="row.seleccionado?'btn-primary':'btn-default'" type="button" class="btn" ng-click="seleccionarPagina(row.numero)">{{row.numero}}
+                </button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-default" ng-click="siguiente()">Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

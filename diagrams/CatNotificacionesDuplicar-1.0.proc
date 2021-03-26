@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_VIEs4HMDEeuIZ8fjllM-zg" name="CatNotificacionesDuplicar" author="jasz1" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574002B4361744E6F74696669636163696F6E65734475706C69636172372E31312E312D303031372E31312E327370">
+    <elements xmi:type="process:Pool" xmi:id="_VIFT8HMDEeuIZ8fjllM-zg" name="CatNotificacionesDuplicar">
+      <elements xmi:type="process:Lane" xmi:id="_VIFT8XMDEeuIZ8fjllM-zg" name="ADMINISTRADOR" actor="_VIFUZ3MDEeuIZ8fjllM-zg">
+        <elements xmi:type="process:StartEvent" xmi:id="_VIFT8nMDEeuIZ8fjllM-zg" name="Inicio1" outgoing="_VIFUYXMDEeuIZ8fjllM-zg">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_VIFT83MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_VIFT9HMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_VIFT9XMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:Task" xmi:id="_VIFT9nMDEeuIZ8fjllM-zg" name="ACCIONES" outgoing="_VIFUZHMDEeuIZ8fjllM-zg" incoming="_VIFUYXMDEeuIZ8fjllM-zg _VIFUZHMDEeuIZ8fjllM-zg" overrideActorsOfTheLane="false">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_VIFT93MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_VIFT-HMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_VIFT-XMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFT-nMDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFT-3MDEeuIZ8fjllM-zg" name="lstCatImageNotificacion" content="lstCatImageNotificacion" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_VIFT_HMDEeuIZ8fjllM-zg" name="lstCatImageNotificacion" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatImageNotificacion"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFT_XMDEeuIZ8fjllM-zg" name="lstCatImageNotificacionInput" content="def catImageNotificacionList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatImageNotificacionInput.each{&#xD;&#xA;&#x9;//Add CatImageNotificacion instance&#xD;&#xA;&#x9;catImageNotificacionList.add({ currentCatImageNotificacionInput ->&#xD;&#xA;&#x9;&#x9;def catImageNotificacionVar = lstCatImageNotificacion.find { it.persistenceId.toString() == currentCatImageNotificacionInput.persistenceId_string} ?: new com.anahuac.catalogos.CatImageNotificacion()&#xD;&#xA;&#x9;&#x9;catImageNotificacionVar.descripcion = currentCatImageNotificacionInput.descripcion&#xD;&#xA;&#x9;&#x9;catImageNotificacionVar.texto = currentCatImageNotificacionInput.texto&#xD;&#xA;&#x9;&#x9;catImageNotificacionVar.caseId = currentCatImageNotificacionInput.caseId?.trim() ? currentCatImageNotificacionInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;catImageNotificacionVar.titulo = currentCatImageNotificacionInput.titulo&#xD;&#xA;&#x9;&#x9;catImageNotificacionVar.codigo = currentCatImageNotificacionInput.codigo&#xD;&#xA;&#x9;&#x9;return catImageNotificacionVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catImageNotificacionList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_VIFT_nMDEeuIZ8fjllM-zg" name="lstCatImageNotificacion" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatImageNotificacion"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFT_3MDEeuIZ8fjllM-zg" name="lstCatImageNotificacionInput" type="COMPLEX" multiple="true" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUAHMDEeuIZ8fjllM-zg" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFUAXMDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFUAnMDEeuIZ8fjllM-zg" name="imageHeader" content="imageHeader" type="DOCUMENT_REF_TYPE" returnType="java.util.List">
+              <referencedElements xmi:type="process:Document" xmi:id="_VIFUA3MDEeuIZ8fjllM-zg" name="imageHeader" multiple="true"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFUBHMDEeuIZ8fjllM-zg" name="imageHeaderDocumentInput" content="imageHeaderDocumentInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFUBXMDEeuIZ8fjllM-zg" name="imageHeaderDocumentInput" type="FILE" multiple="true" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUBnMDEeuIZ8fjllM-zg" type="DOCUMENT_LIST_SET"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFUB3MDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFUCHMDEeuIZ8fjllM-zg" name="imageFooter" content="imageFooter" type="DOCUMENT_REF_TYPE" returnType="java.util.List">
+              <referencedElements xmi:type="process:Document" xmi:id="_VIFUCXMDEeuIZ8fjllM-zg" name="imageFooter" multiple="true"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFUCnMDEeuIZ8fjllM-zg" name="imageFooterDocumentInput" content="imageFooterDocumentInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFUC3MDEeuIZ8fjllM-zg" name="imageFooterDocumentInput" type="FILE" multiple="true" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUDHMDEeuIZ8fjllM-zg" type="DOCUMENT_LIST_SET"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFUDXMDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFUDnMDEeuIZ8fjllM-zg" name="docGuiaEstudio" content="docGuiaEstudio" type="DOCUMENT_REF_TYPE" returnType="java.util.List">
+              <referencedElements xmi:type="process:Document" xmi:id="_VIFUD3MDEeuIZ8fjllM-zg" name="docGuiaEstudio" multiple="true"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFUEHMDEeuIZ8fjllM-zg" name="docGuiaEstudioDocumentInput" content="docGuiaEstudioDocumentInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFUEXMDEeuIZ8fjllM-zg" name="docGuiaEstudioDocumentInput" type="FILE" multiple="true" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUEnMDEeuIZ8fjllM-zg" type="DOCUMENT_LIST_SET"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFUE3MDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFUFHMDEeuIZ8fjllM-zg" name="docEtapaProceso" content="docEtapaProceso" type="DOCUMENT_REF_TYPE" returnType="java.util.List">
+              <referencedElements xmi:type="process:Document" xmi:id="_VIFUFXMDEeuIZ8fjllM-zg" name="docEtapaProceso" multiple="true"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFUFnMDEeuIZ8fjllM-zg" name="docEtapaProcesoDocumentInput" content="docEtapaProcesoDocumentInput" type="TYPE_CONTRACT_INPUT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFUF3MDEeuIZ8fjllM-zg" name="docEtapaProcesoDocumentInput" type="FILE" multiple="true" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUGHMDEeuIZ8fjllM-zg" type="DOCUMENT_LIST_SET"/>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_VIFUGXMDEeuIZ8fjllM-zg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_VIFUGnMDEeuIZ8fjllM-zg" name="lstCatNotificaciones" content="lstCatNotificaciones" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_VIFUG3MDEeuIZ8fjllM-zg" name="lstCatNotificaciones" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatNotificaciones"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_VIFUHHMDEeuIZ8fjllM-zg" name="lstCatNotificacionesInput" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatNotificacionesInput.each{&#xD;&#xA;&#x9;//Add CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = lstCatNotificaciones.find { it.persistenceId.toString() == currentCatNotificacionesInput.persistenceId_string} ?: new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.isEliminado = currentCatNotificacionesInput.isEliminado&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.asunto = currentCatNotificacionesInput.asunto&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.titulo = currentCatNotificacionesInput.titulo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.bloqueAspirante = currentCatNotificacionesInput.bloqueAspirante&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.comentarioLeon = currentCatNotificacionesInput.comentarioLeon&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceFacebook = currentCatNotificacionesInput.enlaceFacebook&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceTwitter = currentCatNotificacionesInput.enlaceTwitter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceContacto = currentCatNotificacionesInput.enlaceContacto&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceInstagram = currentCatNotificacionesInput.enlaceInstagram&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.textoFooter = currentCatNotificacionesInput.textoFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceFooter = currentCatNotificacionesInput.enlaceFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.lstCorreoCopia = currentCatNotificacionesInput.lstCorreoCopia&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.lstVariableNotificacion = currentCatNotificacionesInput.lstVariableNotificacion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.informacionLic = currentCatNotificacionesInput.informacionLic&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceBanner = currentCatNotificacionesInput.enlaceBanner&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenido = currentCatNotificacionesInput.contenido&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenidoCorreo = currentCatNotificacionesInput.contenidoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenidoLeonel = currentCatNotificacionesInput.contenidoLeonel&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.docGuiaEstudio = currentCatNotificacionesInput.docGuiaEstudio&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.caseId = processInstanceId&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_VIFUHXMDEeuIZ8fjllM-zg" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true" createMode="false"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_VIFUHnMDEeuIZ8fjllM-zg" name="lstCatNotificaciones" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatNotificaciones"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_VIFUH3MDEeuIZ8fjllM-zg" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_VIFUIHMDEeuIZ8fjllM-zg" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <loopCondition xmi:type="expression:Expression" xmi:id="_VIFUIXMDEeuIZ8fjllM-zg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <loopMaximum xmi:type="expression:Expression" xmi:id="_VIFUInMDEeuIZ8fjllM-zg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <cardinalityExpression xmi:type="expression:Expression" xmi:id="_VIFUI3MDEeuIZ8fjllM-zg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
+          <iteratorExpression xmi:type="expression:Expression" xmi:id="_VIFUJHMDEeuIZ8fjllM-zg" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
+          <completionCondition xmi:type="expression:Expression" xmi:id="_VIFUJXMDEeuIZ8fjllM-zg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_VIFUJnMDEeuIZ8fjllM-zg">
+            <targetForm xmi:type="expression:Expression" xmi:id="_VIFUJ3MDEeuIZ8fjllM-zg" name="Notificaciones" content="46e89ea6-416f-458f-879b-72726c0b913c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          </formMapping>
+          <contract xmi:type="process:Contract" xmi:id="_VIFUKHMDEeuIZ8fjllM-zg">
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUKXMDEeuIZ8fjllM-zg" name="lstCatImageNotificacionInput" type="COMPLEX" multiple="true" dataReference="lstCatImageNotificacion" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUKnMDEeuIZ8fjllM-zg" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUK3MDEeuIZ8fjllM-zg" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFULHMDEeuIZ8fjllM-zg" name="texto" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFULXMDEeuIZ8fjllM-zg" name="caseId" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFULnMDEeuIZ8fjllM-zg" name="titulo" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUL3MDEeuIZ8fjllM-zg" name="imageHeaderDocumentInput" type="FILE" multiple="true" dataReference="imageHeader" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUMHMDEeuIZ8fjllM-zg" name="imageFooterDocumentInput" type="FILE" multiple="true" dataReference="imageFooter" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUMXMDEeuIZ8fjllM-zg" name="docGuiaEstudioDocumentInput" type="FILE" multiple="true" dataReference="docGuiaEstudio" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUMnMDEeuIZ8fjllM-zg" name="docEtapaProcesoDocumentInput" type="FILE" multiple="true" dataReference="docEtapaProceso" createMode="false"/>
+            <inputs xmi:type="process:ContractInput" xmi:id="_VIFUM3MDEeuIZ8fjllM-zg" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true" dataReference="lstCatNotificaciones" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUNHMDEeuIZ8fjllM-zg" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUNXMDEeuIZ8fjllM-zg" name="tipoCorreo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUNnMDEeuIZ8fjllM-zg" name="codigo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUN3MDEeuIZ8fjllM-zg" name="descripcion" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUOHMDEeuIZ8fjllM-zg" name="nombreImagenHeader" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUOXMDEeuIZ8fjllM-zg" name="anguloImagenHeader" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUOnMDEeuIZ8fjllM-zg" name="nombreImagenFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUO3MDEeuIZ8fjllM-zg" name="anguloImagenFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUPHMDEeuIZ8fjllM-zg" name="isEliminado" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUPXMDEeuIZ8fjllM-zg" name="asunto" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUPnMDEeuIZ8fjllM-zg" name="titulo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUP3MDEeuIZ8fjllM-zg" name="bloqueAspirante" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUQHMDEeuIZ8fjllM-zg" name="comentarioLeon" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUQXMDEeuIZ8fjllM-zg" name="enlaceFacebook" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUQnMDEeuIZ8fjllM-zg" name="enlaceTwitter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUQ3MDEeuIZ8fjllM-zg" name="enlaceContacto" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFURHMDEeuIZ8fjllM-zg" name="enlaceInstagram" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFURXMDEeuIZ8fjllM-zg" name="textoFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFURnMDEeuIZ8fjllM-zg" name="enlaceFooter" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUR3MDEeuIZ8fjllM-zg" name="lstCorreoCopia" multiple="true" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUSHMDEeuIZ8fjllM-zg" name="lstVariableNotificacion" multiple="true" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUSXMDEeuIZ8fjllM-zg" name="informacionLic" type="BOOLEAN" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUSnMDEeuIZ8fjllM-zg" name="enlaceBanner" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUS3MDEeuIZ8fjllM-zg" name="contenido" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUTHMDEeuIZ8fjllM-zg" name="contenidoCorreo" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_VIFUTXMDEeuIZ8fjllM-zg" name="contenidoLeonel" createMode="false"/>
+            </inputs>
+          </contract>
+          <expectedDuration xmi:type="expression:Expression" xmi:id="_VIFUTnMDEeuIZ8fjllM-zg" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
+        </elements>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_VIFUT3MDEeuIZ8fjllM-zg" name="lstCatImageNotificacion" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatImageNotificacion">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VIFUUHMDEeuIZ8fjllM-zg" name="" content="" interpreter="GROOVY"/>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_VIFUU3MDEeuIZ8fjllM-zg" name="objProcesoCaso" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.model.ProcesoCaso">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VIFUVHMDEeuIZ8fjllM-zg" name="init_objProcesoCaso()" content="import com.anahuac.model.ProcesoCaso&#xD;&#xA;&#xD;&#xA;ProcesoCaso objProcesoCaso = new ProcesoCaso();&#xD;&#xA;objProcesoCaso.campus = grupoBonitaDestino;&#xD;&#xA;objProcesoCaso.caseId = processInstanceId;&#xD;&#xA;objProcesoCaso.proceso = &quot;CatNotificaciones&quot;;&#xD;&#xA;return objProcesoCaso; " interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.ProcesoCaso">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_l-1tUHMREeuIZ8fjllM-zg" name="grupoBonitaDestino">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_l-1tUXMREeuIZ8fjllM-zg"/>
+          </referencedElements>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_l-1tUnMREeuIZ8fjllM-zg" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+        </defaultValue>
+      </data>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_VIFUV3MDEeuIZ8fjllM-zg" name="lstCatNotificaciones" multiple="true" dataType="_VIFUrHMDEeuIZ8fjllM-zg" className="com.anahuac.catalogos.CatNotificaciones">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VIFUWHMDEeuIZ8fjllM-zg" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;import com.anahuac.model.ProcesoCaso&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> lstCatNotificaciones = new ArrayList();&#xD;&#xA;CatNotificaciones objCatNotificaciones = new CatNotificaciones();&#xD;&#xA;List&lt;ProcesoCaso> lstProcesoCaso = procesoCasoDAO.findByProceso(&quot;CatNotificaciones&quot;, 0, 999);&#xD;&#xA;Long caseId=0L;&#xD;&#xA;for(ProcesoCaso objProcesoCaso: lstProcesoCaso){&#xD;&#xA;&#x9;if(objProcesoCaso.getCampus().equals(grupoBonitaOrigen)){&#xD;&#xA;&#x9;&#x9;if(Long.valueOf(objProcesoCaso.getCaseId() == null ? &quot;0&quot; : objProcesoCaso.getCaseId())>caseId){&#xD;&#xA;            caseId =Long.valueOf(objProcesoCaso.getCaseId() == null ? &quot;0&quot; : objProcesoCaso.getCaseId());&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;//ProcesoCaso objProcesoCaso = procesoCasoDAO.getCaseId(grupoBonitaOrigen, &quot;CatNotificaciones&quot;)&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> lstCatNotificacionesTotal = catNotificacionesDAO.findByCaseId(String.valueOf(caseId), 0, 999)&#xD;&#xA;for(CatNotificaciones row: lstCatNotificacionesTotal){&#xD;&#xA;&#x9;objCatNotificaciones = new CatNotificaciones();&#xD;&#xA;&#x9;objCatNotificaciones.tipoCorreo = row.getTipoCorreo();&#xD;&#xA;&#x9;objCatNotificaciones.codigo = row.getCodigo();&#xD;&#xA;&#x9;objCatNotificaciones.descripcion = row.getDescripcion();&#xD;&#xA;&#x9;objCatNotificaciones.nombreImagenHeader = row.getNombreImagenHeader();&#xD;&#xA;&#x9;objCatNotificaciones.anguloImagenHeader = row.getAnguloImagenHeader();&#xD;&#xA;&#x9;objCatNotificaciones.nombreImagenFooter = row.getNombreImagenFooter();&#xD;&#xA;&#x9;objCatNotificaciones.anguloImagenFooter = row.getAnguloImagenFooter();&#xD;&#xA;&#x9;objCatNotificaciones.caseId = processInstanceId;&#xD;&#xA;&#x9;objCatNotificaciones.asunto = row.getAsunto();&#xD;&#xA;&#x9;objCatNotificaciones.titulo = row.getTitulo();&#xD;&#xA;&#x9;objCatNotificaciones.comentarioLeon = row.getComentarioLeon();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceFacebook = row.getEnlaceFacebook();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceTwitter = row.getEnlaceTwitter();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceContacto = row.getEnlaceContacto();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceInstagram = row.getEnlaceInstagram();&#xD;&#xA;&#x9;objCatNotificaciones.textoFooter = row.getTextoFooter();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceFooter = row.getEnlaceFooter();&#xD;&#xA;&#x9;objCatNotificaciones.enlaceBanner = row.getEnlaceBanner();&#xD;&#xA;&#x9;objCatNotificaciones.contenido = row.getContenido();&#xD;&#xA;&#x9;objCatNotificaciones.contenidoCorreo = row.getContenidoCorreo();&#xD;&#xA;&#x9;objCatNotificaciones.contenidoLeonel = row.getContenidoLeonel();&#xD;&#xA;&#x9;objCatNotificaciones.docGuiaEstudio = row.getDocGuiaEstudio();&#xD;&#xA;&#x9;objCatNotificaciones.urlImgFooter = row.getUrlImgFooter();&#xD;&#xA;&#x9;objCatNotificaciones.urlImgHeader = row.getUrlImgHeader();&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;objCatNotificaciones.isEliminado = false;&#xD;&#xA;&#x9;objCatNotificaciones.bloqueAspirante = row.isBloqueAspirante();&#xD;&#xA;&#x9;objCatNotificaciones.informacionLic = row.isInformacionLic();&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;lstCatNotificaciones.add(objCatNotificaciones);&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return lstCatNotificaciones;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_aH4JkHMVEeuIZ8fjllM-zg" name="grupoBonitaOrigen">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_aH4JkXMVEeuIZ8fjllM-zg"/>
+          </referencedElements>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_aH4JknMVEeuIZ8fjllM-zg" name="procesoCasoDAO" content="procesoCasoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.model.ProcesoCasoDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_aH4Jk3MVEeuIZ8fjllM-zg" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_aH4JlHMVEeuIZ8fjllM-zg" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_VIFUXXMDEeuIZ8fjllM-zg">
+        <targetForm xmi:type="expression:Expression" xmi:id="_ZbB5YHMPEeuIZ8fjllM-zg" name="InstanciarCatNotificacionDuplicar" content="9a51089d-d325-45b6-9e5b-22660b610c9b" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_VIFUX3MDEeuIZ8fjllM-zg" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_VIFUYHMDEeuIZ8fjllM-zg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_VIFUYXMDEeuIZ8fjllM-zg" target="_VIFT9nMDEeuIZ8fjllM-zg" source="_VIFT8nMDEeuIZ8fjllM-zg">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_VIFUYnMDEeuIZ8fjllM-zg"/>
+        <condition xmi:type="expression:Expression" xmi:id="_VIFUY3MDEeuIZ8fjllM-zg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_VIFUZHMDEeuIZ8fjllM-zg" target="_VIFT9nMDEeuIZ8fjllM-zg" source="_VIFT9nMDEeuIZ8fjllM-zg">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_VIFUZXMDEeuIZ8fjllM-zg"/>
+        <condition xmi:type="expression:Expression" xmi:id="_VIFUZnMDEeuIZ8fjllM-zg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <actors xmi:type="process:Actor" xmi:id="_VIFUZ3MDEeuIZ8fjllM-zg" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_VIFUaHMDEeuIZ8fjllM-zg" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_VIFUaXMDEeuIZ8fjllM-zg">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_VIFUanMDEeuIZ8fjllM-zg" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_VIFUa3MDEeuIZ8fjllM-zg">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_VIFUbHMDEeuIZ8fjllM-zg"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_VIFUbXMDEeuIZ8fjllM-zg"/>
+            <users xmi:type="actormapping:Users" xmi:id="_VIFUbnMDEeuIZ8fjllM-zg"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUb3MDEeuIZ8fjllM-zg" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUcHMDEeuIZ8fjllM-zg" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUcXMDEeuIZ8fjllM-zg" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUcnMDEeuIZ8fjllM-zg" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUc3MDEeuIZ8fjllM-zg" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_VIFUdHMDEeuIZ8fjllM-zg" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_HZt-4IwPEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_HZul8IwPEeu2N77SW-Ko6A">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_HZul8YwPEeu2N77SW-Ko6A" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_HZul8owPEeu2N77SW-Ko6A">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_HZul84wPEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_HZul9IwPEeu2N77SW-Ko6A"/>
+            <users xmi:type="actormapping:Users" xmi:id="_HZul9YwPEeu2N77SW-Ko6A"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-4YwPEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-4owPEeu2N77SW-Ko6A" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-44wPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-5IwPEeu2N77SW-Ko6A" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-5YwPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_HZt-5owPEeu2N77SW-Ko6A" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_Xks5cI20EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_XktggI20EeuHuIm_wpFQCQ">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_XktggY20EeuHuIm_wpFQCQ" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_Xktggo20EeuHuIm_wpFQCQ">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_Xktgg420EeuHuIm_wpFQCQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_XktghI20EeuHuIm_wpFQCQ"/>
+            <users xmi:type="actormapping:Users" xmi:id="_XktghY20EeuHuIm_wpFQCQ"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5cY20EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5co20EeuHuIm_wpFQCQ" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5c420EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5dI20EeuHuIm_wpFQCQ" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5dY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Xks5do20EeuHuIm_wpFQCQ" id="OTHER"/>
+      </configurations>
+      <contract xmi:type="process:Contract" xmi:id="_VIFUdXMDEeuIZ8fjllM-zg">
+        <inputs xmi:type="process:ContractInput" xmi:id="_rjctwHMDEeuIZ8fjllM-zg" name="grupoBonitaOrigen">
+          <mapping xmi:type="process:ContractInputMapping" xmi:id="_rjctwXMDEeuIZ8fjllM-zg"/>
+        </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_uzFSgHMDEeuIZ8fjllM-zg" name="grupoBonitaDestino">
+          <mapping xmi:type="process:ContractInputMapping" xmi:id="_uzFSgXMDEeuIZ8fjllM-zg"/>
+        </inputs>
+      </contract>
+      <documents xmi:type="process:Document" xmi:id="_VIFUhXMDEeuIZ8fjllM-zg" name="imageHeader" multiple="true">
+        <mimeType xmi:type="expression:Expression" xmi:id="_VIFUhnMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <url xmi:type="expression:Expression" xmi:id="_VIFUh3MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <initialMultipleContent xmi:type="expression:Expression" xmi:id="_VIFUiHMDEeuIZ8fjllM-zg" name="" content="" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List" returnTypeFixed="true"/>
+      </documents>
+      <documents xmi:type="process:Document" xmi:id="_VIFUiXMDEeuIZ8fjllM-zg" name="imageFooter" multiple="true">
+        <mimeType xmi:type="expression:Expression" xmi:id="_VIFUinMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <url xmi:type="expression:Expression" xmi:id="_VIFUi3MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <initialMultipleContent xmi:type="expression:Expression" xmi:id="_VIFUjHMDEeuIZ8fjllM-zg" name="" content="" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List" returnTypeFixed="true"/>
+      </documents>
+      <documents xmi:type="process:Document" xmi:id="_VIFUjXMDEeuIZ8fjllM-zg" name="docGuiaEstudio" multiple="true">
+        <mimeType xmi:type="expression:Expression" xmi:id="_VIFUjnMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <url xmi:type="expression:Expression" xmi:id="_VIFUj3MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <initialMultipleContent xmi:type="expression:Expression" xmi:id="_VIFUkHMDEeuIZ8fjllM-zg" name="" content="" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List" returnTypeFixed="true"/>
+      </documents>
+      <documents xmi:type="process:Document" xmi:id="_VIFUkXMDEeuIZ8fjllM-zg" name="docEtapaProceso" multiple="true">
+        <mimeType xmi:type="expression:Expression" xmi:id="_VIFUknMDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <url xmi:type="expression:Expression" xmi:id="_VIFUk3MDEeuIZ8fjllM-zg" name="" content="" returnTypeFixed="true"/>
+        <initialMultipleContent xmi:type="expression:Expression" xmi:id="_VIFUlHMDEeuIZ8fjllM-zg" name="" content="" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List" returnTypeFixed="true"/>
+      </documents>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_VIFUlXMDEeuIZ8fjllM-zg">
+        <name xmi:type="expression:Expression" xmi:id="_VIFUlnMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_VIFUl3MDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_VIFUmHMDEeuIZ8fjllM-zg">
+        <name xmi:type="expression:Expression" xmi:id="_VIFUmXMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_VIFUmnMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_VIFUm3MDEeuIZ8fjllM-zg">
+        <name xmi:type="expression:Expression" xmi:id="_VIFUnHMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_VIFUnXMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_VIFUnnMDEeuIZ8fjllM-zg">
+        <name xmi:type="expression:Expression" xmi:id="_VIFUn3MDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_VIFUoHMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_VIFUoXMDEeuIZ8fjllM-zg">
+        <name xmi:type="expression:Expression" xmi:id="_VIFUonMDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_VIFUo3MDEeuIZ8fjllM-zg" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <datatypes xmi:type="process:BooleanType" xmi:id="_VIFUpHMDEeuIZ8fjllM-zg" name="Boolean"/>
+    <datatypes xmi:type="process:DateType" xmi:id="_VIFUpXMDEeuIZ8fjllM-zg" name="Date"/>
+    <datatypes xmi:type="process:IntegerType" xmi:id="_VIFUpnMDEeuIZ8fjllM-zg" name="Integer"/>
+    <datatypes xmi:type="process:LongType" xmi:id="_VIFUp3MDEeuIZ8fjllM-zg" name="Long"/>
+    <datatypes xmi:type="process:DoubleType" xmi:id="_VIFUqHMDEeuIZ8fjllM-zg" name="Double"/>
+    <datatypes xmi:type="process:StringType" xmi:id="_VIFUqXMDEeuIZ8fjllM-zg" name="Text"/>
+    <datatypes xmi:type="process:JavaType" xmi:id="_VIFUqnMDEeuIZ8fjllM-zg" name="Java_object"/>
+    <datatypes xmi:type="process:XMLType" xmi:id="_VIFUq3MDEeuIZ8fjllM-zg" name="XML"/>
+    <datatypes xmi:type="process:BusinessObjectType" xmi:id="_VIFUrHMDEeuIZ8fjllM-zg" name="Business_Object"/>
+  </process:MainProcess>
+  <notation:Diagram xmi:id="_VIFUrXMDEeuIZ8fjllM-zg" type="Process" element="_VIEs4HMDEeuIZ8fjllM-zg" name="MiDiagrama1" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_VIFUrnMDEeuIZ8fjllM-zg" type="2007" element="_VIFT8HMDEeuIZ8fjllM-zg">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VIFUr3MDEeuIZ8fjllM-zg" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VIFUsHMDEeuIZ8fjllM-zg" type="7001">
+        <children xmi:type="notation:Node" xmi:id="_VIFUsXMDEeuIZ8fjllM-zg" type="3007" element="_VIFT8XMDEeuIZ8fjllM-zg">
+          <children xmi:type="notation:DecorationNode" xmi:id="_VIFUsnMDEeuIZ8fjllM-zg" type="5007"/>
+          <children xmi:type="notation:DecorationNode" xmi:id="_VIFUs3MDEeuIZ8fjllM-zg" type="7002">
+            <children xmi:type="notation:Shape" xmi:id="_VIFUtHMDEeuIZ8fjllM-zg" type="3005" element="_VIFT9nMDEeuIZ8fjllM-zg" fontName="Segoe UI" fillColor="14334392" lineColor="10710316">
+              <children xmi:type="notation:DecorationNode" xmi:id="_VIFUtXMDEeuIZ8fjllM-zg" type="5005"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VIFUtnMDEeuIZ8fjllM-zg" x="160" y="60"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_VIFUt3MDEeuIZ8fjllM-zg" type="3002" element="_VIFT8nMDEeuIZ8fjllM-zg" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_VIFUuHMDEeuIZ8fjllM-zg" type="5024">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_VIFUuXMDEeuIZ8fjllM-zg" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VIFUunMDEeuIZ8fjllM-zg" x="60" y="68"/>
+            </children>
+          </children>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_VIFUu3MDEeuIZ8fjllM-zg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_VIFUvHMDEeuIZ8fjllM-zg" fontName="Segoe UI"/>
+          <styles xmi:type="notation:LineStyle" xmi:id="_VIFUvXMDEeuIZ8fjllM-zg"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_VIFUvnMDEeuIZ8fjllM-zg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VIFUv3MDEeuIZ8fjllM-zg"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_VIFUwHMDEeuIZ8fjllM-zg"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VIFUwXMDEeuIZ8fjllM-zg" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_VIFUwnMDEeuIZ8fjllM-zg"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_VIFUw3MDEeuIZ8fjllM-zg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VIFUxHMDEeuIZ8fjllM-zg" width="1320" height="250"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_VIFUxXMDEeuIZ8fjllM-zg"/>
+    <edges xmi:type="notation:Connector" xmi:id="_VIFUxnMDEeuIZ8fjllM-zg" type="4001" element="_VIFUYXMDEeuIZ8fjllM-zg" source="_VIFUt3MDEeuIZ8fjllM-zg" target="_VIFUtHMDEeuIZ8fjllM-zg" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VIFUx3MDEeuIZ8fjllM-zg" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VIFUyHMDEeuIZ8fjllM-zg" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VIFUyXMDEeuIZ8fjllM-zg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VIFUynMDEeuIZ8fjllM-zg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VIFUy3MDEeuIZ8fjllM-zg" type="4001" element="_VIFUZHMDEeuIZ8fjllM-zg" source="_VIFUtHMDEeuIZ8fjllM-zg" target="_VIFUtHMDEeuIZ8fjllM-zg" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VIFUzHMDEeuIZ8fjllM-zg" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VIFUzXMDEeuIZ8fjllM-zg" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VIFUznMDEeuIZ8fjllM-zg" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VIFUz3MDEeuIZ8fjllM-zg" points="[0, -6, 62, 12]$[62, -6, 124, 12]$[62, 82, 124, 100]$[-47, 82, 15, 100]$[-47, 20, 15, 38]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VIFU0HMDEeuIZ8fjllM-zg" id="(1.0,0.6)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VIFU0XMDEeuIZ8fjllM-zg" id="(0.38,0.24)"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ConfirmacionGeneracionDeCredencial",
   "name" : "ConfirmacionGeneracionDeCredencial",
-  "lastUpdate" : 1610492074053,
+  "lastUpdate" : 1616526979487,
   "rows" : [
     [
       {
@@ -10,13 +10,13 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 12,
-          "lg" : 12
+          "md" : 10,
+          "lg" : 8
         },
         "propertyValues" : {
           "cssClasses" : {
             "type" : "constant",
-            "value" : ""
+            "value" : "col-lg-offset-2 col-md-offset-1"
           },
           "hidden" : {
             "type" : "expression",
@@ -33,48 +33,12 @@
         "rows" : [
           [
             {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : "color-orange"
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "GENERACION DE CREDENCIAL"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 3"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "3d27365e-80ba-4e25-ba81-72f99a57000d",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 8,
-                "lg" : 6
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -85,68 +49,205 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "headers" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Nombre",
-                    "Expediente",
-                    "UniversidadDeIngreso",
-                    "Carrera"
-                  ]
-                },
-                "content" : {
-                  "type" : "expression",
-                  "value" : "usuario[0]"
-                },
-                "columnsKey" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Nombre",
-                    "Expediente",
-                    "UniversidadDeIngreso",
-                    "Carrera"
-                  ]
-                },
-                "selectedRow" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "striped" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "condensed" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "bordered" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "Datoss" : {
-                  "type" : "variable",
-                  "value" : "usuario[0]"
-                },
-                "datosUsuarioId" : {
-                  "type" : "variable",
-                  "value" : "datosUsuarioId[0]"
                 }
               },
-              "reference" : "9bf0fd23-f326-4575-9137-2aa60d3162c2",
+              "reference" : "99c64ebf-c7f5-45ca-9d12-09d1fe54983a",
               "hasValidationError" : false,
-              "id" : "customTableVerticalCredencial"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "color-orange"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Generación de credencial"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 3"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "3d27365e-80ba-4e25-ba81-72f99a57000d",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Nombre",
+                          "Expediente",
+                          "UniversidadDeIngreso",
+                          "Carrera"
+                        ]
+                      },
+                      "content" : {
+                        "type" : "expression",
+                        "value" : "usuario[0]"
+                      },
+                      "columnsKey" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Nombre",
+                          "Expediente",
+                          "UniversidadDeIngreso",
+                          "Carrera"
+                        ]
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "Datoss" : {
+                        "type" : "variable",
+                        "value" : "usuario[0]"
+                      },
+                      "datosUsuarioId" : {
+                        "type" : "variable",
+                        "value" : "datosUsuarioId[0]"
+                      }
+                    },
+                    "reference" : "9bf0fd23-f326-4575-9137-2aa60d3162c2",
+                    "hasValidationError" : false,
+                    "id" : "customTableVerticalCredencial"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Id",
+                          "Name",
+                          "Description",
+                          "Date"
+                        ]
+                      },
+                      "content" : {
+                        "type" : "constant"
+                      },
+                      "columnsKey" : {
+                        "type" : "constant"
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "datosUsuarioId" : {
+                        "type" : "variable",
+                        "value" : "datosUsuarioId[0]"
+                      },
+                      "fechasExamenes" : {
+                        "type" : "variable",
+                        "value" : "fechasExamenes"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "caseId"
+                      }
+                    },
+                    "reference" : "ee0f6a3c-1cd8-46e1-a35a-f292caf6d789",
+                    "hasValidationError" : false,
+                    "id" : "customTableVerticalCredencialFechas"
+                  }
+                ]
+              ]
             },
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 6
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -157,32 +258,144 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "srcType" : {
-                  "type" : "constant",
-                  "value" : "URL"
-                },
-                "url" : {
-                  "type" : "expression",
-                  "value" : "rutaFotoUsuario"
-                },
-                "assetName" : {
-                  "type" : "constant"
-                },
-                "alt" : {
-                  "type" : "interpolation"
-                },
-                "userData" : {
+                "repeatedCollection" : {
                   "type" : "variable",
-                  "value" : "userData"
-                },
-                "correoUsuario" : {
-                  "type" : "variable",
-                  "value" : "userDataEmail[0]"
+                  "value" : ""
                 }
               },
-              "reference" : "f14d6150-147e-40ac-a050-f43b53786665",
+              "reference" : "7c87c737-85ed-4937-8c0c-b2336c0dc241",
               "hasValidationError" : false,
-              "id" : "customImageGenerarCredenencialFotoUsuario"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "0ed10a73-5059-44ec-a8e4-7c94439d6e87",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<br>\n<br>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "5fa82d21-7ab9-40a4-bb6a-e3bd2cf54f3c",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "srcType" : {
+                        "type" : "constant",
+                        "value" : "URL"
+                      },
+                      "url" : {
+                        "type" : "expression",
+                        "value" : "rutaFotoUsuario"
+                      },
+                      "assetName" : {
+                        "type" : "constant"
+                      },
+                      "alt" : {
+                        "type" : "interpolation"
+                      },
+                      "userData" : {
+                        "type" : "variable",
+                        "value" : "userData"
+                      },
+                      "correoUsuario" : {
+                        "type" : "variable",
+                        "value" : "userDataEmail[0]"
+                      }
+                    },
+                    "reference" : "f14d6150-147e-40ac-a050-f43b53786665",
+                    "hasValidationError" : false,
+                    "id" : "customImageGenerarCredenencialFotoUsuario"
+                  }
+                ]
+              ]
             }
           ],
           [
@@ -191,7 +404,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 4,
+                "md" : 2,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -238,11 +451,103 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "GENERAR CREDENCIAL"
+                  "value" : "Cambiar citas"
                 },
                 "alignment" : {
                   "type" : "constant",
-                  "value" : "center"
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "constant"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                }
+              },
+              "reference" : "22446e1d-ab99-4750-a42b-d5ce220aa4d8",
+              "hasValidationError" : false,
+              "id" : "customButtonGenerarCredencialPdf2"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Generar credencial"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
                 },
                 "buttonStyle" : {
                   "type" : "constant",
@@ -308,7 +613,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 4,
+                "md" : 2,
                 "lg" : 3
               },
               "propertyValues" : {
@@ -453,14 +758,19 @@
     "currentTaskName" : {
       "type" : "expression",
       "value" : [
-        "let value = \"\";",
+        "let output = \"\";",
         "if($data.currentTask !== undefined){",
-        "    if($data.currentTask.length > 0){",
-        "        value = $data.currentTask[0].name;    ",
-        "    }",
+        "    output = $data.currentTask[0].name;",
         "}",
         "",
-        "return value;"
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "fechasExamenes" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getDatosSesionUsername&p=0&c=10&username={{userDataEmail[0].userName}}"
       ],
       "exposed" : false
     }

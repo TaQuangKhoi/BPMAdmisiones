@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcion",
   "name" : "appVerAutodescripcion",
-  "lastUpdate" : 1609805017161,
+  "lastUpdate" : 1616525297678,
   "rows" : [
     [
       {
@@ -435,7 +435,10 @@
                     "hasValidationError" : false,
                     "id" : "customFrgVerAutodescripcion",
                     "binding" : {
-                      "formInput" : "formInput"
+                      "formInput" : "formInput",
+                      "selectedIndex" : "",
+                      "objectSolicitud" : "objectSolicitud",
+                      "idBanner" : "objDetalleSolicitud.idBanner"
                     }
                   }
                 ]
@@ -736,7 +739,7 @@
     "caseList" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{session.user_name}}&p=0&c=500"
+        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{urlEmail}}&p=0&c=500"
       ],
       "exposed" : false
     },
@@ -988,6 +991,27 @@
       "type" : "constant",
       "value" : [
         "main"
+      ],
+      "exposed" : false
+    },
+    "urlEmail" : {
+      "type" : "urlparameter",
+      "value" : [
+        "email"
+      ],
+      "exposed" : false
+    },
+    "caseListOld" : {
+      "type" : "constant",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{session.user_name}}&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "objetoDetalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.detalleSolicitud_ref.link}}"
       ],
       "exposed" : false
     }

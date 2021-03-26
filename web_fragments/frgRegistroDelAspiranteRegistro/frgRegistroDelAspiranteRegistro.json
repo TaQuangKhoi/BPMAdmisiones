@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgRegistroDelAspiranteRegistro",
   "name" : "frgRegistroDelAspiranteRegistro",
-  "lastUpdate" : 1610037662708,
+  "lastUpdate" : 1616525147206,
   "rows" : [
     [
       {
@@ -189,6 +189,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "27b9c1bb-2a14-4dfa-8518-7bde54e2a0d3",
@@ -390,7 +394,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Apellido materno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                  "value" : "Apellido materno:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -420,6 +424,10 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "c8dd3106-4357-40d8-be8f-a828a0e726a4",
@@ -467,7 +475,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Correo electrónico:"
+                  "value" : "Correo electrónico: <br> Te sugerimos utilizar tu correo personal y <label class=\"color-orange\">no</label> el de tu colegio."
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -767,7 +775,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strRegistro.Ayuda"
+                  "value" : "formInput.catSolicitudDeAdmisionInput.necesitoAyuda"
                 }
               },
               "reference" : "f64609cd-5144-4e58-8d45-d2cf76fc5eaa",
@@ -986,7 +994,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.propedeuticos"
+                  "value" : "catPropedeutico"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -1053,7 +1061,7 @@
                 },
                 "availableValues" : {
                   "type" : "expression",
-                  "value" : "formInput.catSolicitudDeAdmisionInput.catGestionEscolar.periodoDisponible"
+                  "value" : "catPeriodo"
                 },
                 "displayedKey" : {
                   "type" : "constant",
@@ -1089,6 +1097,83 @@
                 "hidden" : {
                   "type" : "expression",
                   "value" : "lugarexamen !== \"En el mismo campus en donde realizaré mi licenciatura\""
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Lugar de examen: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formInput.catSolicitudDeAdmisionInput.catCampus.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "9bea6ac4-6515-42c1-a819-35c96f36edd7",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "required" : {
                   "type" : "constant",

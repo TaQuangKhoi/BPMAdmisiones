@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgDomicilioPermanenteUpdate",
   "name" : "frgDomicilioPermanenteUpdate",
-  "lastUpdate" : 1610470015528,
+  "lastUpdate" : 1616525089736,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "<label class=\"color-orange\">Domicilio Permanente</label>"
+            "value" : "<label class=\"color-orange\">Domicilio permanente</label>"
           },
           "level" : {
             "type" : "constant",
@@ -216,11 +216,11 @@
           },
           "minLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 0
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "constant",
@@ -232,7 +232,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Código postal:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+            "value" : "Código postal:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -264,9 +264,9 @@
             "value" : 1
           }
         },
-        "reference" : "160d2d38-7031-4297-985b-80cea2c1ee58",
+        "reference" : "4fdc451c-a1ef-49e3-b7cf-ae5f0d983286",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputLimit"
       }
     ],
     [
@@ -293,7 +293,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Verificar código postal"
+            "value" : "Buscar código postal"
           },
           "alignment" : {
             "type" : "constant",
@@ -301,7 +301,7 @@
           },
           "buttonStyle" : {
             "type" : "constant",
-            "value" : "default"
+            "value" : "primary"
           },
           "action" : {
             "type" : "constant",
@@ -481,7 +481,7 @@
           },
           "maxLength" : {
             "type" : "constant",
-            "value" : ""
+            "value" : 50
           },
           "readOnly" : {
             "type" : "constant",
@@ -525,9 +525,9 @@
             "value" : 1
           }
         },
-        "reference" : "0369be13-d69e-4b74-a5df-c5338dec6eb6",
+        "reference" : "58f98583-a58a-4c48-b818-fb8fe2155241",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputMinMay"
       },
       {
         "type" : "component",
@@ -645,7 +645,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Delegación/Municipio"
+            "value" : "Ciudad/Municipio/Delegación/Poblado:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -675,6 +675,10 @@
           "step" : {
             "type" : "constant",
             "value" : 1
+          },
+          "idInput" : {
+            "type" : "variable",
+            "value" : ""
           }
         },
         "reference" : "47ccdb13-49a0-4755-9f48-991fbb82c9b3",
@@ -783,7 +787,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : 255
           },
           "readOnly" : {
             "type" : "constant",
@@ -827,9 +832,9 @@
             "value" : 1
           }
         },
-        "reference" : "b6eb17c6-c3c9-4e80-9881-2aa8d6e2cfa4",
+        "reference" : "641ce116-c820-4c42-8acc-52fb21f1af6d",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputLimit"
       },
       {
         "type" : "component",
@@ -857,7 +862,8 @@
             "value" : ""
           },
           "maxLength" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : 255
           },
           "readOnly" : {
             "type" : "constant",
@@ -901,9 +907,9 @@
             "value" : 1
           }
         },
-        "reference" : "d63f39b4-b121-4089-9248-9d33dd11371b",
+        "reference" : "d3b8c1fc-54c0-45fa-8edc-4db43371d1f2",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "customInputLimit"
       }
     ],
     [
@@ -1222,8 +1228,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
           },
           "required" : {
             "type" : "constant",
@@ -1280,6 +1286,81 @@
           }
         },
         "reference" : "2f43ca7d-36e1-49fb-8ade-336e954100e5",
+        "hasValidationError" : false,
+        "id" : "customInputNumerico"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 14
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Otro teléfono de contacto:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.otroTelefonoContacto"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "18694086-c7ad-45cd-8a92-a909a27fd77c",
         "hasValidationError" : false,
         "id" : "customInputNumerico"
       }

@@ -68,9 +68,9 @@ function($scope, $http, blockUI) {
         },
         "codigo_postal": null,
         "sesion_pid": null,
-        "ultimo_dia_inscripcion": null,
+        "ultimo_dia_inscripcion": "",
         "psicologos": [],
-        "lugar": null,
+        "lugar": "",
         "cupo": null,
         "estado_pid": null,
         "estado": {
@@ -118,8 +118,8 @@ function($scope, $http, blockUI) {
         "pais_pid": null,
         "numero_ext": null,
         "duracion": null,
-        "cambioDuracion": false
-
+        "cambioDuracion": false,
+        "online": false
     }
 
     $scope.show_minical = function() {
@@ -196,7 +196,7 @@ function($scope, $http, blockUI) {
     $scope.modal = function(id, e) {
         $scope.pantallaAgregar = !$scope.pantallaAgregar;
     }
-    $scope.tipos = ['Locales', 'Foráneos', 'Extranjeros'];
+    $scope.tipos = [];
     $scope.preparatorias = [];
     $scope.estados = [];
     $scope.paises = [];
@@ -221,7 +221,7 @@ function($scope, $http, blockUI) {
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById("fecha_inicio").setAttribute("min", today);
         document.getElementById("aplicacion").setAttribute("min", today);
-        document.getElementById("ultimo").setAttribute("min", today);
+        document.getElementById("fecha_ultimo").setAttribute("min", today);
         document.getElementById("inicio").setAttribute("min", today);
         document.getElementById("fin").setAttribute("min", today);
 
@@ -238,7 +238,7 @@ function($scope, $http, blockUI) {
             $scope.loadCatalogs();
             $scope.getCampus();
             $("#aplicacion").val("");
-            $("#ultimo").val("");
+            //$("#ultimo").val("");
             $("#inicio").val("");
             $("#fin").val("");
             $("#fecha_inicio").val("");
@@ -255,10 +255,10 @@ function($scope, $http, blockUI) {
                             $scope.tipoPrueba.splice(i, 1);
                         }
                     }
-                } else if (element.tipo.descripcion == "College Board") {
+                } else if (element.tipo.descripcion == "Examen de aptitudes y conocimientos") {
                     for (let i = 0; i < $scope.tipoPrueba.length; i++) {
                         const ele = $scope.tipoPrueba[i];
-                        if (ele.descripcion == "College Board" && $scope.prueba.tipo.descripcion != "College Board") {
+                        if (ele.descripcion == "Examen de aptitudes y conocimientos" && $scope.prueba.tipo.descripcion != "Examen de aptitudes y conocimientos") {
                             $scope.tipoPrueba.splice(i, 1);
                         }
                     }
@@ -279,79 +279,105 @@ function($scope, $http, blockUI) {
         }
     }
     $scope.agregarPruebaNueva = function(pantalla) {
-        $scope.prueba = {
-            "campus": {
-                "fechaImplementacion": null,
-                "persistenceId": null,
-                "orden": null,
-                "isEliminado": null,
-                "isEnabled": null,
-                "urlAutorDatos": null,
-                "descripcion": null,
-                "id": null,
-                "urlDatosVeridicos": null,
-                "urlAvisoPrivacidad": null,
-                "usuarioBanner": null,
-                "fechaCreacion": null,
-                "clave": null,
+        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatTipoPrueba&p=0&c=9999&jsonData=%7B"estatusSolicitud"%3A"Solicitud%20en%20progreso"%2C"tarea"%3A"Llenar%20solicitud"%2C"lstFiltro"%3A%5B%5D%2C"type"%3A"solicitudes_progreso"%2C"usuario"%3A0%2C"orderby"%3A""%2C"orientation"%3A"DESC"%2C"limit"%3A999%2C"offset"%3A0%7D`, null, null, null, function(datos, extra) {
+            $scope.tipoPrueba = datos.data;
+            $scope.prueba = {
+                "campus": {
+                    "fechaImplementacion": null,
+                    "persistenceId": null,
+                    "orden": null,
+                    "isEliminado": null,
+                    "isEnabled": null,
+                    "urlAutorDatos": null,
+                    "descripcion": null,
+                    "id": null,
+                    "urlDatosVeridicos": null,
+                    "urlAvisoPrivacidad": null,
+                    "usuarioBanner": null,
+                    "fechaCreacion": null,
+                    "clave": null,
+                    "persistenceVersion": null,
+                    "grupoBonita": null
+                },
+                "codigo_postal": null,
+                "sesion_pid": null,
+                "ultimo_dia_inscripcion": "",
+                "psicologos": [],
+                "lugar": "",
+                "cupo": null,
+                "estado_pid": null,
+                "estado": {
+                    "persistenceId": null,
+                    "orden": null,
+                    "isEliminado": null,
+                    "descripcion": null,
+                    "fechaCreacion": null,
+                    "caseId": null,
+                    "clave": null,
+                    "persistenceVersion": null,
+                    "usuarioCreacion": null,
+                    "pais": null
+                },
+                "pais": {
+                    "persistenceId": null,
+                    "orden": null,
+                    "isEliminado": null,
+                    "descripcion": null,
+                    "fechaCreacion": null,
+                    "caseId": null,
+                    "clave": null,
+                    "persistenceVersion": null,
+                    "usuarioCreacion": null
+                },
+                "tipo": {
+                    "iseliminado": null,
+                    "persistenceId": null,
+                    "descripcion": null,
+                    "persistenceVersion": null
+                },
+                "calle": null,
+                "campus_pid": null,
+                "aplicacion": null,
+                "iseliminado": false,
+                "registrados": 0,
+                "salida": null,
+                "colonia": null,
+                "entrada": null,
+                "presistenceId": null,
+                "nombre": null,
+                "numero_int": null,
                 "persistenceVersion": null,
-                "grupoBonita": null
-            },
-            "codigo_postal": null,
-            "sesion_pid": null,
-            "ultimo_dia_inscripcion": null,
-            "psicologos": [],
-            "lugar": null,
-            "cupo": null,
-            "estado_pid": null,
-            "estado": {
-                "persistenceId": null,
-                "orden": null,
-                "isEliminado": null,
-                "descripcion": null,
-                "fechaCreacion": null,
-                "caseId": null,
-                "clave": null,
-                "persistenceVersion": null,
-                "usuarioCreacion": null,
-                "pais": null
-            },
-            "pais": {
-                "persistenceId": null,
-                "orden": null,
-                "isEliminado": null,
-                "descripcion": null,
-                "fechaCreacion": null,
-                "caseId": null,
-                "clave": null,
-                "persistenceVersion": null,
-                "usuarioCreacion": null
-            },
-            "tipo": {
-                "iseliminado": null,
-                "persistenceId": null,
-                "descripcion": null,
-                "persistenceVersion": null
-            },
-            "calle": null,
-            "campus_pid": null,
-            "aplicacion": null,
-            "iseliminado": false,
-            "registrados": 0,
-            "salida": null,
-            "colonia": null,
-            "entrada": null,
-            "presistenceId": null,
-            "nombre": null,
-            "numero_int": null,
-            "persistenceVersion": null,
-            "municipio": null,
-            "pais_pid": null,
-            "numero_ext": null,
-            "duracion": null,
-            "cambioDuracion": false
+                "municipio": null,
+                "pais_pid": null,
+                "numero_ext": null,
+                "duracion": null,
+                "cambioDuracion": false,
+                "online": false
 
-        }
+            }
+            $scope.displayEstado = "";
+            $scope.displayPais = "";
+            $scope.dblCP = false;
+            $scope.dblCalle = false;
+            $scope.dblCiudad = false;
+            $scope.dblNext = false;
+            $scope.dblNint = false;
+            $scope.dblColonia = false;
+            $("#aplicacion").val("");
+            //$("#ultimo").val("");
+            $("#inicio").val("");
+            $("#fin").val("");
+            $scope.tipoPruebaSelected = {};
+            if (!$scope.validarSesion()) {
+                $scope.pantallaCambiar(pantalla);
+            }
+
+        });
+    }
+    $scope.getLabel = function(desc) {
+        return (desc == "Anáhuac Mayab") ? "Anáhuac Mérida" : (desc == "Anáhuac Xalapa") ? "Anáhuac Veracruz" : desc;
+    }
+    $scope.limpiarDireccion = function() {
         $scope.displayEstado = "";
         $scope.displayPais = "";
         $scope.dblCP = false;
@@ -360,22 +386,23 @@ function($scope, $http, blockUI) {
         $scope.dblNext = false;
         $scope.dblNint = false;
         $scope.dblColonia = false;
-        $("#aplicacion").val("");
-        $("#ultimo").val("");
-        $("#inicio").val("");
-        $("#fin").val("");
-        $scope.tipoPruebaSelected = {};
-        $scope.pantallaCambiar(pantalla);
-    }
-    $scope.getLabel = function(desc) {
-        return (desc == "Anáhuac Mayab") ? "Anáhuac Mérida" : (desc == "Anáhuac Xalapa") ? "Anáhuac Veracruz" : desc;
+        $scope.prueba.estado_pid = null
+        $scope.prueba.codigo_postal = "";
+        $scope.prueba.pais_pid = null;
+        $scope.prueba.municipio = "";
+        $scope.prueba.colonia = "";
+        $scope.prueba.calle = "";
+        $scope.prueba.numero_ext = "";
+        $scope.prueba.numero_int = "";
+        $scope.campusDirSelected = {};
+
     }
 
     $scope.getResponsables = function() {
-        $scope.setTipoPrueba();
-        //&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}
 
-        var filtro = ($scope.prueba.cattipoprueba_pid == 1) ? [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }] : [{ "columna": "ROL", "operador": "Igual a", "valor": "ADMISIONES" }, { "columna": "ROL", "operador": "Igual a", "valor": "PASE DE LISTA" }]
+        //&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}
+        ///PSICOLOGO SUPERVISOR
+        var filtro = ($scope.prueba.cattipoprueba_pid == 1) ? [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" }] : [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" },{ "columna": "ROL", "operador": "Igual a", "valor": "ADMISIONES" }, { "columna": "ROL", "operador": "Igual a", "valor": "PASE DE LISTA" }]
         filtro.push({
             "columna": "GRUPO",
             "operador": "Igual a",
@@ -383,12 +410,41 @@ function($scope, $http, blockUI) {
         })
         doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getUserBonita&p=0&c=9999&jsonData=${encodeURIComponent(JSON.stringify({ "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": filtro, "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }))}`, null, null, null, function(datos, extra) {
             $scope.lstResponsables = datos.data;
+            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                const element = $scope.prueba.psicologos[index];
+                for (let index2 = 0; index2 < $scope.lstResponsables.length; index2++) {
+                    const element2 = $scope.lstResponsables[index2];
+                    if (element.id == element2.id) {
+                        $scope.lstResponsables.splice(index2, 1);
+                    }
+
+                }
+
+
+            }
         });
     }
     $scope.agregarResponsable = function() {
+        if ($scope.prueba.cattipoprueba_pid == 1) {
+            $scope.setEntrevistas();
+        }
+
         if ($scope.psicologo != null) {
-            $scope.psicologo.lstFechasDisponibles = $scope.lstFechasDisponibles;
-            $scope.prueba.psicologos.push(angular.copy({...$scope.psicologo, licenciaturas: "" }));
+            $scope.psicologo.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles);
+            var push = true;
+
+            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                const element = $scope.prueba.psicologos[index];
+                if (element.id == $scope.psicologo.id) {
+                    push = false;
+                    $scope.prueba.psicologos[index] = angular.copy({...$scope.psicologo, licenciaturas: "" });
+                }
+
+            }
+            if (push) {
+                $scope.prueba.psicologos.push(angular.copy({...$scope.psicologo, licenciaturas: "" }));
+            }
+
 
             for (let index = 0; index < $scope.lstResponsables.length; index++) {
                 const element = $scope.lstResponsables[index];
@@ -398,7 +454,10 @@ function($scope, $http, blockUI) {
 
             }
             $scope.psicologo = null;
-            $scope.setCupoValue();
+            if ($scope.prueba.cattipoprueba_pid == 1) {
+                $scope.setCupoValue();
+            }
+
         }
 
     }
@@ -413,7 +472,7 @@ function($scope, $http, blockUI) {
             const element = $scope.prueba.psicologos[index];
             for (let j = 0; j < element.lstFechasDisponibles.length; j++) {
                 const el2 = element.lstFechasDisponibles[j];
-                if (el2.disponible) {
+                if (el2.disponible && !element.iseliminado) {
                     $scope.prueba.cupo++;
                 }
             }
@@ -433,9 +492,19 @@ function($scope, $http, blockUI) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     responsable.iseliminado = true;
+
                     var a = angular.copy(responsable)
                     a.iseliminado = false;
-                    $scope.lstResponsables.push(a)
+                    a.lstFechasDisponibles = [];
+                    $scope.lstResponsables.push(a);
+                    if ($scope.prueba.cattipoprueba_pid == 1) {
+                        for (let index = 0; index < responsable.lstFechasDisponibles.length; index++) {
+                            responsable.lstFechasDisponibles[index].iseliminado = true;
+
+                        }
+                        $scope.setCupoValue();
+                    }
+
                     $scope.$apply();
                     Swal.fire({
                         icon: 'success',
@@ -466,6 +535,20 @@ function($scope, $http, blockUI) {
             })
             .error(function(data, status) {
                 console.error(data);
+                if (data.error.includes("Un responsable seleccionado para la prueba")) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Responsable no disponible',
+                        text: data.error,
+                    })
+                }
+                if (data.error.includes("No es posible guardar")) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '',
+                        text: data.error,
+                    })
+                }
             })
             .finally(function() {
                 vm.busy = false;
@@ -480,7 +563,7 @@ function($scope, $http, blockUI) {
     $scope.confirmarEliminarPruebas = function(prueba) {
         $scope.prueba = prueba;
         Swal.fire({
-            title: `¿Está seguro que desea eliminar prueba ${prueba.nombre}?`,
+            title: `¿Está seguro que desea eliminar prueba ${prueba.nombre}? Una vez realizado da clic en Guardar para conservar el cambio.`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -504,40 +587,168 @@ function($scope, $http, blockUI) {
         console.log("tipopruebaselected");
         $scope.prueba.cattipoprueba_pid = $scope.tipoPruebaSelected.persistenceId;
         $scope.prueba.tipo = angular.copy($scope.tipoPruebaSelected);
+        $scope.getResponsables();
     }
     $scope.agregarPrueba = function() {
-        if (!$scope.validarPrueba()) {
-            if ($scope.prueba.persistenceId > 0) {
-                for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
-                    const element = $scope.sesion.pruebas[index];
-                    if (element.persistenceId == $scope.prueba.persistenceId) {
-                        $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
-                    }
-
+        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+            if ($scope.sesion.pruebas[index].cattipoprueba_pid != 1 && $scope.prueba.cattipoprueba_pid != 1) {
+                $scope.sesion.pruebas[index].cupo = $scope.prueba.cupo;
+                $scope.sesion.pruebas[index].ultimo_dia_inscripcion = $scope.sesion.ultimo_dia_inscripcion;
+            }
+        }
+        if ($scope.prueba.persistenceId > 0) {
+            for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                const element = $scope.sesion.pruebas[index];
+                if ($scope.sesion.pruebas[index].cattipoprueba_pid != 1 && $scope.prueba.cattipoprueba_pid != 1) {
+                    $scope.sesion.pruebas[index].cupo = $scope.prueba.cupo;
+                    $scope.sesion.pruebas[index].ultimo_dia_inscripcion = $scope.sesion.ultimo_dia_inscripcion;
                 }
-            } else {
-                var push = true;
-                for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
-                    const element = $scope.sesion.pruebas[index];
-                    if (element.persistenceId == $scope.prueba.persistenceId) {
-                        $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
-                        push = false
-                    }
-
-                }
-                if (push) {
-                    $scope.sesion.pruebas.push(angular.copy($scope.prueba));
+                if (element.persistenceId == $scope.prueba.persistenceId && element.cattipoprueba_pid == $scope.prueba.cattipoprueba_pid) {
+                    $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
                 }
 
             }
-            //$scope.pantalla = 'sesion';
-            
-            console.log(JSON.stringify($scope.sesion));
-            $scope.insertSesion($scope.sesion.borrador);
+        } else {
+            var push = true;
+            for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                const element = $scope.sesion.pruebas[index];
+                if ($scope.sesion.pruebas[index].cattipoprueba_pid != 1 && $scope.prueba.cattipoprueba_pid != 1) {
+                    $scope.sesion.pruebas[index].cupo = $scope.prueba.cupo;
+                    $scope.sesion.pruebas[index].ultimo_dia_inscripcion = $scope.sesion.ultimo_dia_inscripcion;
+                }
+                if (element.persistenceId == $scope.prueba.persistenceId && element.cattipoprueba_pid == $scope.prueba.cattipoprueba_pid) {
+                    $scope.sesion.pruebas[index] = angular.copy($scope.prueba);
+                    push = false
+                }
+            }
+            if (push) {
+
+                if ($scope.prueba.cattipoprueba_pid == 1 && $scope.prueba.persistenceId==null) {
+                    $scope.prueba.persistenceId=0;
+                    for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                        const element = $scope.sesion.pruebas[index];
+                        if (element.persistenceId==$scope.prueba.persistenceId && $scope.prueba.cattipoprueba_pid == 1) {
+                            $scope.prueba.persistenceId--;
+                        }
+                        
+                    }
+                }
+                $scope.sesion.pruebas.push(angular.copy($scope.prueba));
+            }
+
+
         }
+        //$scope.pantalla = 'sesion';
+
+        /*console.log(JSON.stringify($scope.sesion));
+        $scope.insertSesion($scope.sesion.borrador);*/
+        $scope.pantallaCambiar('sesion');
 
     }
+    $scope.validarRegistrados = function() {
+        var registrado = true;
+        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+            const element = $scope.sesion.pruebas[index];
+            if (element.registrados > 0) {
+                registrado = false
+            }
+
+        }
+        return registrado;
+    }
+    $scope.eliminarSesion = function() {
+
+        Swal.fire({
+            title: `¿Está seguro que desea eliminar la sesión ${$scope.sesion.nombre}?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            var eliminado = false;
+            if (result.isConfirmed) {
+                $scope.sesion.borrador = true;
+                $scope.sesion.isEliminado = true;
+                for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                    $scope.sesion.pruebas[index].iseliminado = true;
+                    for (let index2 = 0; index2 < $scope.sesion.pruebas[index].psicologos.length; index2++) {
+                        $scope.sesion.pruebas[index].psicologos[index2].iseliminado = true;
+                    }
+                }
+                $scope.campusDirSelected = {};
+                doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesion&p=0&c=10", null, $scope.sesion, null, function(datos, extra) {
+                    window.location.href = "/portal/resource/app/administrativo/sesiones/content/?app=administrativo";
+                })
+
+            } else {
+
+            }
+        })
+    }
+    $scope.copiarSesion = function() {
+
+        Swal.fire({
+            title: `¿Está seguro que desea copiar la sesión ${$scope.sesion.nombre}?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            var eliminado = false;
+            if (result.isConfirmed) {
+
+                var sesion = angular.copy($scope.sesion)
+                sesion.borrador = true;
+                sesion.persistenceId = 0;
+                sesion.nombre += "(1)";
+                for (let index = 0; index < sesion.pruebas.length; index++) {
+                    if (eliminado) {
+                        eliminado = false;
+                        index = 0;
+                    }
+                    sesion.pruebas[index].persistenceId = 0;
+                    sesion.pruebas[index].registrados = 0;
+                    if (sesion.pruebas[index].cattipoprueba_pid == 1) {
+                        sesion.pruebas.splice(index, 1);
+                        eliminado = true;
+                    } else {
+                        for (let index2 = 0; index2 < sesion.pruebas[index].psicologos.length; index2++) {
+                            sesion.pruebas[index].psicologos[index2].persistenceId = 0;
+                            for (let index3 = 0; index3 < sesion.pruebas[index].psicologos[index2].lstFechasDisponibles.length; index3++) {
+                                sesion.pruebas[index].psicologos[index2].lstFechasDisponibles[index3].persistenceId = 0;
+
+                            }
+
+                        }
+                    }
+
+                }
+                $scope.campusDirSelected = {};
+                doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesion&p=0&c=10", null, sesion, null, function(datos, extra) {
+                    $scope.sesion = angular.copy(datos.data[0]);
+
+                    $scope.getSesion($scope.sesion.persistenceId);
+                    $scope.loadCatalogs();
+                    $scope.pantalla = "sesion"
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Correcto',
+                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
+                    })
+                })
+
+            } else {
+
+            }
+        })
+    }
+
     $scope.setHora = function(entrada) {
+        debugger;
         if (entrada) {
             $scope.prueba.entrada = $("#inicio").val();
             $("#fin").val("");
@@ -566,21 +777,51 @@ function($scope, $http, blockUI) {
     $scope.setFecha = function() {
 
         $scope.prueba.aplicacion = $("#aplicacion").val();
-        var now = new Date(new Date($scope.prueba.aplicacion).setDate(new Date($scope.prueba.aplicacion).getDate() - 4))
+        /*var now = new Date(new Date($scope.prueba.aplicacion).setDate(new Date($scope.prueba.aplicacion).getDate() - 4))
 
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
         var today = now.getFullYear() + "-" + (month) + "-" + (day);
         $("#ultimo").val(today);
-        $scope.prueba.ultimo_dia_inscripcion = $("#ultimo").val()
+        $scope.prueba.ultimo_dia_inscripcion = $("#ultimo").val()*/
     }
     $scope.setFechaUltimo = function() {
-        $scope.prueba.ultimo_dia_inscripcion = $("#ultimo").val();
+        $scope.sesion.ultimo_dia_inscripcion = $("#fecha_ultimo").val();
+        if ($scope.sesion.ultimo_dia_inscripcion.split("-")[0].length > 4) {
+            $("#fecha_ultimo").val("");
+            $scope.sesion.ultimo_dia_inscripcion = $("#fecha_ultimo").val();
+
+            Swal.fire(
+                "Fecha no válida",
+                "Solo fecha de 4 digitos",
+                'info'
+            )
+        }
     }
     $scope.setFechaInicio = function() {
         $scope.sesion.fecha_inicio = $("#fecha_inicio").val();
+        var now = new Date(new Date($scope.sesion.fecha_inicio).setDate(new Date($scope.sesion.fecha_inicio).getDate() - 4))
+
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        $("#fecha_ultimo").val(today);
+        $scope.sesion.ultimo_dia_inscripcion = $("#fecha_ultimo").val();
+        if ($scope.sesion.fecha_inicio.split("-")[0].length > 4) {
+            $("#fecha_inicio").val("");
+            $("#fecha_ultimo").val("");
+            $scope.sesion.fecha_inicio = $("#fecha_inicio").val();
+            $scope.sesion.ultimo_dia_inscripcion = $("#fecha_ultimo").val();
+            Swal.fire(
+                "Fecha no válida",
+                "Solo fecha de 4 digitos",
+                'info'
+            )
+        }
     }
+
     $scope.cantidadEntrevistas = 0;
     $scope.lstFechasDisponibles = [];
     $scope.lstGestionEscolar = [];
@@ -602,14 +843,17 @@ function($scope, $http, blockUI) {
             var today = (hour) + ":" + (m);
 
             var horario = ((index == 0) ? $scope.prueba.entrada : $scope.lstFechasDisponibles[index - 1].horario.split(" - ")[1]) + " - " + (($scope.lstFechasDisponibles.length == (index + 1)) ? prueba.salida : today)
-            var objFecha = { "horario": `${horario}`, "disponible": true }
+            var objFecha = { "horario": `${horario}`, "disponible": true, "ocupado": false }
             $scope.lstFechasDisponibles.push(objFecha);
         }
-        for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
-            const element = $scope.prueba.psicologos[index];
-            element.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles)
+        if ($scope.prueba.registrados == 0) {
+            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                const element = $scope.prueba.psicologos[index];
+                element.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles)
 
+            }
         }
+
         $scope.setCupoValue();
         console.log($scope.lstFechasDisponibles);
     }
@@ -622,41 +866,117 @@ function($scope, $http, blockUI) {
     $scope.getCatGestionEscolar = function(campus) {
         //&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}
         var filtro = [{ "columna": "CAMPUS", "operador": "Igual a", "valor": campus }];
-        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatGestionEscolar&p=0&c=9999&jsonData=${encodeURIComponent(JSON.stringify({ "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": filtro, "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }))}`, null, null, null, function(datos, extra) {
+        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatGestionEscolar&p=0&c=9999&jsonData=${encodeURIComponent(JSON.stringify({ "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": filtro, "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "campus":campus }))}`, null, null, null, function(datos, extra) {
             $scope.lstGestionEscolar = datos.data;
         });
     }
     $scope.insertSesion = function(borrador) {
+        var valido = false;
         if (!$scope.validarSesion()) {
-            $scope.sesion.borrador = borrador;
-            Swal.fire({
-                title: `¿Está seguro que desea gurardar la sesión ${$scope.sesion.nombre}?`,
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesion&p=0&c=10", null, $scope.sesion, null, function(datos, extra) {
-                        $scope.sesion = datos.data[0];
+            if ($scope.sesion.pruebas.length == 0) {
 
-                        $scope.getSesion($scope.sesion.persistenceId);
-                        $scope.loadCatalogs();
-                        $scope.pantalla = "sesion"
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Correcto',
-                            text: `Sesion ${$scope.sesion.nombre} guardada correctamente`,
+                valido = true;
+            } else if (!$scope.validarPrueba()) {
+                valido = true;
+            }
+
+            if (valido) {
+                $scope.sesion.borrador = borrador;
+                Swal.fire({
+                    title: `¿Está seguro que desea guardar la sesión ${$scope.sesion.nombre}?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Continuar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesion&p=0&c=10", null, $scope.sesion, null, function(datos, extra) {
+                            $scope.sesion = datos.data[0];
+
+                            $scope.getSesion($scope.sesion.persistenceId);
+                            $scope.loadCatalogs();
+                            if ($scope.pantalla == "sesion") {
+                                window.location.href = "/portal/resource/app/administrativo/sesiones/content/?app=administrativo";
+                            } else {
+                                $scope.pantalla = "sesion";
+                            }
+
+
                         })
-                    })
 
-                } else {
+                    } else {
 
-                }
-            })
+                    }
+                })
+            }
+
         }
+
+    }
+    $scope.updateTerritorios = function() {
+
+        var filtro = {
+            "columna": "CAMPUS",
+            "operador": "Igual a",
+            "valor": $scope.properties.campusSelected.persistenceId
+        }
+        $scope.dataToSend = {
+            "lstFiltro": []
+        }
+        $scope.dataToSend.lstFiltro.push(filtro);
+        $scope.sesion.campus_pid = $scope.properties.campusSelected.persistenceId;
+        $scope.getCampus();
+        doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCampus&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "GRUPOBONITA", "operador": "Igual a", "valor": $scope.properties.campusSelected.grupoBonita }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+            $scope.catcampus = datos.data;
+            doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCiudad&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "Campus", "operador": "Igual a", "valor": $scope.properties.campusSelected.descripcion }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                var aux = []
+                for (let index = 0; index < $scope.paises.length; index++) {
+                    const element = $scope.paises[index];
+                    for (let j = 0; j < datos.data.length; j++) {
+                        const element2 = datos.data[j];
+                        if (element.descripcion == element2.pais) {
+                            var contains = true;
+                            for (let k = 0; k < aux.length; k++) {
+                                const element3 = aux[k];
+                                if (element3.descripcion == element.descripcion) {
+                                    contains = false
+                                }
+
+                            }
+                            if (contains) {
+                                aux.push(element);
+                            }
+                        }
+                    }
+                }
+                $scope.paises = aux;
+                var aux2 = []
+                for (let index = 0; index < $scope.estados.length; index++) {
+                    const element = $scope.estados[index];
+                    for (let j = 0; j < datos.data.length; j++) {
+                        const element2 = datos.data[j];
+                        if (element.descripcion == element2.estado) {
+                            var contains = true;
+                            for (let k = 0; k < aux2.length; k++) {
+                                const element3 = aux2[k];
+                                if (element3.descripcion == element.descripcion) {
+                                    contains = false
+                                }
+
+                            }
+                            if (contains) {
+                                aux2.push(element);
+                            }
+
+                        }
+                    }
+                }
+                $scope.estados = aux2;
+            });
+
+        })
 
     }
     $scope.$watch('properties.campusSelected', function(value) {
@@ -671,7 +991,56 @@ function($scope, $http, blockUI) {
             }
             $scope.dataToSend.lstFiltro.push(filtro);
             $scope.sesion.campus_pid = value.persistenceId;
-            $scope.getCampus()
+            $scope.getCampus();
+            doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCampus&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "GRUPOBONITA", "operador": "Igual a", "valor": $scope.properties.campusSelected.grupoBonita }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                $scope.catcampus = datos.data;
+                doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCiudad&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "Campus", "operador": "Igual a", "valor": $scope.properties.campusSelected.descripcion }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                    var aux = []
+                    for (let index = 0; index < $scope.paises.length; index++) {
+                        const element = $scope.paises[index];
+                        for (let j = 0; j < datos.data.length; j++) {
+                            const element2 = datos.data[j];
+                            if (element.descripcion == element2.pais) {
+                                var contains = true;
+                                for (let k = 0; k < aux.length; k++) {
+                                    const element3 = aux[k];
+                                    if (element3.descripcion == element.descripcion) {
+                                        contains = false
+                                    }
+
+                                }
+                                if (contains) {
+                                    aux.push(element);
+                                }
+                            }
+                        }
+                    }
+                    $scope.paises = aux;
+                    var aux2 = []
+                    for (let index = 0; index < $scope.estados.length; index++) {
+                        const element = $scope.estados[index];
+                        for (let j = 0; j < datos.data.length; j++) {
+                            const element2 = datos.data[j];
+                            if (element.descripcion == element2.estado) {
+                                var contains = true;
+                                for (let k = 0; k < aux2.length; k++) {
+                                    const element3 = aux2[k];
+                                    if (element3.descripcion == element.descripcion) {
+                                        contains = false
+                                    }
+
+                                }
+                                if (contains) {
+                                    aux2.push(element);
+                                }
+
+                            }
+                        }
+                    }
+                    $scope.estados = aux2;
+                });
+
+            })
         }
     });
     $scope.getCampus = function() {
@@ -684,55 +1053,85 @@ function($scope, $http, blockUI) {
         doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getSesion&p=0&c=10&sessionid=" + sesionid, null, $scope.dataToSend, null, function(datos, extra) {
             $scope.sesion = datos.data[0]
             $("#fecha_inicio").val($scope.sesion.fecha_inicio);
+            try {
+                $("#fecha_ultimo").val($scope.sesion.ultimo_dia_inscripcion.split(" ")[0]);
+            } catch (error) {
+                $("#fecha_ultimo").val("")
+            }
+
             $scope.pantallaCambiar('sesion');
 
         })
     }
     $scope.editarPrueba = function(pruebaSelected) {
-        $scope.prueba = angular.copy(pruebaSelected);
-        $("#aplicacion").val($scope.prueba.aplicacion);
-        $("#ultimo").val($scope.prueba.ultimo_dia_inscripcion);
-        $("#inicio").val($scope.prueba.entrada);
-        $("#fin").val($scope.prueba.salida);
-        for (var i = 0; i < $scope.tipoPrueba.length; i++) {
-            var tipos = $scope.tipoPrueba[i];
-            if (tipos.persistenceId == $scope.prueba.cattipoprueba_pid) {
-                $scope.tipoPruebaSelected = tipos
+        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatTipoPrueba&p=0&c=9999&jsonData=%7B"estatusSolicitud"%3A"Solicitud%20en%20progreso"%2C"tarea"%3A"Llenar%20solicitud"%2C"lstFiltro"%3A%5B%5D%2C"type"%3A"solicitudes_progreso"%2C"usuario"%3A0%2C"orderby"%3A""%2C"orientation"%3A"DESC"%2C"limit"%3A999%2C"offset"%3A0%7D`, null, null, null, function(datos, extra) {
+            $scope.tipoPrueba = datos.data;
+            $scope.prueba = angular.copy(pruebaSelected);
+            $("#aplicacion").val($scope.prueba.aplicacion);
+            //$("#ultimo").val($scope.prueba.ultimo_dia_inscripcion);
+            $("#inicio").val($scope.prueba.entrada);
+            $("#fin").val($scope.prueba.salida);
+            for (var i = 0; i < $scope.tipoPrueba.length; i++) {
+                var tipos = $scope.tipoPrueba[i];
+                if (tipos.persistenceId == $scope.prueba.cattipoprueba_pid) {
+                    $scope.tipoPruebaSelected = tipos
+                }
             }
-        }
-        for (let index = 0; index < $scope.catcampus.length; index++) {
-            const element = $scope.catcampus[index];
-            if (element.persistenceId == $scope.prueba.campus_pid) {
-                $scope.campusDirSelected = element;
-                $scope.setDirCampus()
+            for (let index = 0; index < $scope.catcampus.length; index++) {
+                const element = $scope.catcampus[index];
+                if (element.persistenceId == $scope.prueba.campus_pid) {
+                    $scope.campusDirSelected = element;
+                    $scope.setDirCampus()
+                }
             }
-        }
-        $scope.getResponsables();
-        $scope.pantallaCambiar('prueba');
+            $scope.getResponsables();
+            $scope.pantallaCambiar('prueba');
+        });
     }
     $scope.loadCatalogs = function() {
-        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getCatBachilleratos&p=0&c=9999", null, null, null, function(datos, extra) {
-            $scope.preparatorias = datos;
-            doRequest("GET", "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=find&p=0&c=999", null, null, null, function(datos, extra) {
-                $scope.estados = datos;
-                doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatPais&p=0&c=100`, null, { "estatusSolicitud": "Solicitud en progreso", "tarea": "Llenar solicitud", "lstFiltro": [], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "CLAVE", "orientation": "ASC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
-                    $scope.paises = datos.data;
-                    doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatTipoPrueba&p=0&c=9999&jsonData=%7B"estatusSolicitud"%3A"Solicitud%20en%20progreso"%2C"tarea"%3A"Llenar%20solicitud"%2C"lstFiltro"%3A%5B%5D%2C"type"%3A"solicitudes_progreso"%2C"usuario"%3A0%2C"orderby"%3A""%2C"orientation"%3A"DESC"%2C"limit"%3A999%2C"offset"%3A0%7D`, null, null, null, function(datos, extra) {
-                        $scope.tipoPrueba = datos.data;
-                        doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCampus&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
-                            $scope.catcampus = datos.data;
-                            doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatPsicologo&p=0&c=9999&jsonData=%7B"estatusSolicitud"%3A"Solicitud%20en%20progreso"%2C"tarea"%3A"Llenar%20solicitud"%2C"lstFiltro"%3A%5B%5D%2C"type"%3A"solicitudes_progreso"%2C"usuario"%3A0%2C"orderby"%3A""%2C"orientation"%3A"DESC"%2C"limit"%3A999%2C"offset"%3A0%7D`, null, null, null, function(datos, extra) {
-                                $scope.psicologos = datos.data;
-                                doRequest("GET", `/bonita/API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&`, null, null, null, function(datos, extra) {
-                                    caseid = datos[0].id;
-                                    ///API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}
-                                    doRequest("GET", `/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos, extra) {
+        doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100", null, { "lstFiltro": [], "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "catalogo": "CATResidencia" }, null, function(residencias, extra) {
+            $scope.tipos = residencias.data
+            doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getCatBachilleratos&p=0&c=9999", null, null, null, function(datos, extra) {
+                $scope.preparatorias = datos;
+                doRequest("GET", "/bonita/API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=find&p=0&c=999", null, null, null, function(datos, extra) {
+                    $scope.estados = datos;
+                    doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatPais&p=0&c=100`, null, { "estatusSolicitud": "Solicitud en progreso", "tarea": "Llenar solicitud", "lstFiltro": [], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "CLAVE", "orientation": "ASC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                        $scope.paises = datos.data;
+
+                        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatPsicologo&p=0&c=9999&jsonData=%7B"estatusSolicitud"%3A"Solicitud%20en%20progreso"%2C"tarea"%3A"Llenar%20solicitud"%2C"lstFiltro"%3A%5B%5D%2C"type"%3A"solicitudes_progreso"%2C"usuario"%3A0%2C"orderby"%3A""%2C"orientation"%3A"DESC"%2C"limit"%3A999%2C"offset"%3A0%7D`, null, null, null, function(datos, extra) {
+                            $scope.psicologos = datos.data;
+                            doRequest("GET", `/bonita/API/bpm/case?c=25&d=processDefinitionId&d=started_by&d=startedBySubstitute&f=name=CatCiudad&n=activeFlowNodes&n=failedFlowNodes&o=id+DESC&p=0&`, null, null, null, function(datos, extra) {
+                                caseid = datos[0].id;
+                                ///API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId={{getCaseIdCatCiudad[0].id}}
+                                /*doRequest("GET", `/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadPaisByCaso&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos, extra) {
+                                    var aux = []
+                                    for (let index = 0; index < $scope.paises.length; index++) {
+                                        const element = $scope.paises[index];
+                                        for (let j = 0; j < datos.length; j++) {
+                                            const element2 = datos[j];
+                                            if (element.descripcion == element2.pais) {
+                                                var contains = true;
+                                                for (let k = 0; k < aux.length; k++) {
+                                                    const element3 = aux[k];
+                                                    if (element3.descripcion == element.descripcion) {
+                                                        contains = false
+                                                    }
+
+                                                }
+                                                if (contains) {
+                                                    aux.push(element);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    $scope.paises = aux;
+                                    doRequest("GET", `/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadEstadoByCaso&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos, extra) {
                                         var aux = []
-                                        for (let index = 0; index < $scope.paises.length; index++) {
-                                            const element = $scope.paises[index];
+                                        for (let index = 0; index < $scope.estados.length; index++) {
+                                            const element = $scope.estados[index];
                                             for (let j = 0; j < datos.length; j++) {
                                                 const element2 = datos[j];
-                                                if (element.descripcion == element2.pais) {
+                                                if (element.descripcion == element2.estado) {
                                                     var contains = true;
                                                     for (let k = 0; k < aux.length; k++) {
                                                         const element3 = aux[k];
@@ -744,50 +1143,30 @@ function($scope, $http, blockUI) {
                                                     if (contains) {
                                                         aux.push(element);
                                                     }
+
                                                 }
                                             }
                                         }
-                                        $scope.paises = aux;
-                                        doRequest("GET", `/bonita/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadEstadoByCaso&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos, extra) {
-                                            var aux = []
-                                            for (let index = 0; index < $scope.estados.length; index++) {
-                                                const element = $scope.estados[index];
-                                                for (let j = 0; j < datos.length; j++) {
-                                                    const element2 = datos[j];
-                                                    if (element.descripcion == element2.estado) {
-                                                        var contains = true;
-                                                        for (let k = 0; k < aux.length; k++) {
-                                                            const element3 = aux[k];
-                                                            if (element3.descripcion == element.descripcion) {
-                                                                contains = false
-                                                            }
-
-                                                        }
-                                                        if (contains) {
-                                                            aux.push(element);
-                                                        }
-
-                                                    }
-                                                }
-                                            }
-                                            $scope.estados = aux;
-                                        });
+                                        $scope.estados = aux;
                                     });
-                                });
+                                });*/
                             });
                         });
+
                     });
                 });
             });
 
         });
+
+
     }
     $scope.agregarNuevaSesion = function(pantalla) {
         $scope.sesion = {
             "bachillerato_pid": null,
             "ciudad_pid": null,
             "persistenceId": null,
-            "ismedicina": null,
+            "ismedicina": false,
             "fecha_inicio": null,
             "tipo": null,
             "preparatoria": {
@@ -835,7 +1214,9 @@ function($scope, $http, blockUI) {
                 "persistenceVersion": null,
                 "usuarioCreacion": null
             },
-            "campus_pid": $scope.sesion.campus_pid
+            "campus_pid": $scope.sesion.campus_pid,
+            "ultimo_dia_inscripcion": null,
+            "isEliminado": false
         }
         $scope.pantallaCambiar(pantalla);
     }
@@ -849,8 +1230,11 @@ function($scope, $http, blockUI) {
                 }
 
             }
-            doRequest("GET", `/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCiudadesByPais&f=pais=${pais}&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos) {
+            /*doRequest("GET", `/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCiudadesByPais&f=pais=${pais}&p=0&c=1000&f=caseId=${caseid}&f=grupoBonita=${$scope.properties.campusSelected.grupoBonita}`, null, null, null, function(datos) {
                 $scope.ciudades = datos;
+            })*/
+            doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCiudad&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "Campus", "operador": "Igual a", "valor": $scope.properties.campusSelected.descripcion }, { "columna": "País", "operador": "Igual a", "valor": pais }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                $scope.ciudades = datos.data;
             })
         } else {
             $scope.sesion.ciudad_pid = 0;
@@ -868,9 +1252,12 @@ function($scope, $http, blockUI) {
                 }
 
             }
-            doRequest("GET", `/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByEstado&f=estado=${estado}&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos) {
+            /*doRequest("GET", `/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByEstado&f=estado=${estado}&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos) {
 
                 $scope.ciudades = datos;
+            })*/
+            doRequest("POST", `/bonita/API/extension/AnahuacRest?url=getCatCiudad&p=0&c=100`, null, { "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": [{ "columna": "Campus", "operador": "Igual a", "valor": $scope.properties.campusSelected.descripcion }, { "columna": "Estado", "operador": "Igual a", "valor": estado }], "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0 }, null, function(datos, extra) {
+                $scope.ciudades = datos.data;
             })
         } else {
             $scope.sesion.ciudad_pid = null;
@@ -911,6 +1298,7 @@ function($scope, $http, blockUI) {
                 }
 
             }
+            $scope.displayPais = "México";
             doRequest("GET", `/API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=getCatCiudadByEstado&f=estado=${estado}&p=0&c=1000&f=caseId=${caseid}`, null, null, null, function(datos) {
 
                 $scope.ciudades = datos;
@@ -970,63 +1358,89 @@ function($scope, $http, blockUI) {
     $scope.validarPrueba = function() {
         var error = false
         var sweet = { "titulo": "", "texto": "" }
-        if ($scope.prueba == undefined) {
-            error = true;
-            sweet.titulo = "Incorrecto";
-            sweet.texto = 'No es posible agregar prueba sin capturar en el formulario'
-        } else if ($scope.prueba.nombre == null || $scope.prueba.nombre == undefined || $scope.prueba.nombre.trim() == "") {
-            error = true;
-            sweet.titulo = "Título de la prueba";
-            sweet.texto = 'Favor de capturar "Título de la prueba"'
-        } else if ($scope.prueba.cattipoprueba_pid == null || $scope.prueba.cattipoprueba_pid == undefined || $scope.prueba.cattipoprueba_pid == 0) {
-            error = true;
-            sweet.titulo = "Tipo de prueba";
-            sweet.texto = 'Favor de capturar "Tipo de prueba"'
-        } else if ($scope.prueba.descripcion == null || $scope.prueba.descripcion == undefined || $scope.prueba.descripcion.trim() == "") {
-            error = true;
-            sweet.titulo = "Descripción de la prueba";
-            sweet.texto = 'Favor de capturar "Descripción de la prueba"'
-        } else if ($scope.prueba.aplicacion == null || $scope.prueba.aplicacion == undefined || $scope.prueba.aplicacion.trim() == "") {
-            error = true;
-            sweet.titulo = "Fecha de aplicación";
-            sweet.texto = 'Favor de capturar "Fecha de aplicación"'
-        } else if ($scope.prueba.entrada == null || $scope.prueba.entrada == undefined || $scope.prueba.entrada.trim() == "") {
-            error = true;
-            sweet.titulo = "Hora de inicio";
-            sweet.texto = 'Favor de capturar "Hora de inicio"'
-        } else if ($scope.prueba.salida == null || $scope.prueba.salida == undefined || $scope.prueba.salida.trim() == "") {
-            error = true;
-            sweet.titulo = "Hora de finalización";
-            sweet.texto = 'Favor de capturar "Hora de finalización"'
-        } else if ($scope.prueba.ultimo_dia_inscripcion == null || $scope.prueba.ultimo_dia_inscripcion == undefined || $scope.prueba.ultimo_dia_inscripcion.trim() == "") {
-            error = true;
-            sweet.titulo = "Último día para inscripción";
-            sweet.texto = 'Favor de capturar "Último día para inscripción"'
-        } else if ($scope.prueba.lugar == null || $scope.prueba.lugar == undefined || $scope.prueba.lugar.trim() == "") {
-            error = true;
-            sweet.titulo = "Lugar";
-            sweet.texto = 'Favor de capturar "Lugar"'
-        } else if ($scope.prueba.cupo == null || $scope.prueba.cupo == undefined || $scope.prueba.cupo == 0) {
-            error = true;
-            sweet.titulo = "Cupo";
-            sweet.texto = 'Cupo debe de ser mayor a 0'
-        } else if ($scope.prueba.colonia == null || $scope.prueba.colonia == undefined || $scope.prueba.colonia.trim() == "") {
-            error = true;
-            sweet.titulo = "Colonia";
-            sweet.texto = 'Favor de capturar "Colonia"'
-        } else if ($scope.prueba.cattipoprueba_pid == 1) {
-            if ($scope.prueba.duracion == null || $scope.prueba.duracion == undefined || $scope.prueba.duracion == "") {
+        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+            const prueba = $scope.sesion.pruebas[index];
+            $scope.sesion.pruebas[index].ultimo_dia_inscripcion = $scope.sesion.ultimo_dia_inscripcion;
+
+            if (prueba == undefined) {
                 error = true;
-                sweet.titulo = "Duración de las entrevistas(min)";
-                sweet.texto = 'Favor de capturar "Duración de las entrevistas(min)"'
+                sweet.titulo = "Incorrecto";
+                sweet.texto = 'No es posible agregar prueba sin capturar en el formulario'
+            } else if (prueba.nombre == null || prueba.nombre == undefined || prueba.nombre.trim() == "") {
+                error = true;
+                sweet.titulo = "Título de la prueba";
+                sweet.texto = 'Favor de capturar "Título de la prueba"'
+            } else if (prueba.cattipoprueba_pid == null || prueba.cattipoprueba_pid == undefined || prueba.cattipoprueba_pid == 0) {
+                error = true;
+                sweet.titulo = "Tipo de prueba";
+                sweet.texto = 'Favor de capturar "Tipo de prueba"'
+            }
+            /*else if (prueba.descripcion == null || prueba.descripcion == undefined || prueba.descripcion.trim() == "") {
+                       error = true;
+                       sweet.titulo = "Descripción de la prueba";
+                       sweet.texto = 'Favor de capturar "Descripción de la prueba"'
+                   }*/
+            else if (prueba.aplicacion == null || prueba.aplicacion == undefined || prueba.aplicacion.trim() == "") {
+                error = true;
+                sweet.titulo = "Fecha de aplicación";
+                sweet.texto = 'Favor de capturar "Fecha de aplicación"'
+            } else if (prueba.entrada == null || prueba.entrada == undefined || prueba.entrada.trim() == "") {
+                error = true;
+                sweet.titulo = "Hora de inicio";
+                sweet.texto = 'Favor de capturar "Hora de inicio"'
+            } else if (prueba.salida == null || prueba.salida == undefined || prueba.salida.trim() == "") {
+                error = true;
+                sweet.titulo = "Hora de finalización";
+                sweet.texto = 'Favor de capturar "Hora de finalización"'
+            } else if (prueba.ultimo_dia_inscripcion == null || prueba.ultimo_dia_inscripcion == undefined || prueba.ultimo_dia_inscripcion.trim() == "") {
+                error = true;
+                sweet.titulo = "Último día para inscripción";
+                sweet.texto = 'Favor de capturar "Último día para inscripción"'
+            } else if (prueba.lugar == null && !prueba.online || prueba.lugar == undefined && !prueba.online || prueba.lugar.trim() == "" && !prueba.online) {
+                error = true;
+                sweet.titulo = "Lugar";
+                sweet.texto = 'Favor de capturar "Lugar"'
+            } else if (prueba.cupo == null || prueba.cupo == undefined || prueba.cupo == 0) {
+                error = true;
+                sweet.titulo = "Cupo";
+                sweet.texto = 'Cupo debe de ser mayor a 0'
+            } else if ((prueba.colonia == null && !prueba.online) || (prueba.colonia == undefined && !prueba.online) || (prueba.colonia == "" && !prueba.online)) {
+                error = true;
+                sweet.titulo = "Colonia";
+                sweet.texto = 'Favor de capturar "Colonia"'
+            } else if (prueba.cattipoprueba_pid == 1) {
+                if (prueba.duracion == null || prueba.duracion == undefined || prueba.duracion == "") {
+                    error = true;
+                    sweet.titulo = "Duración de las entrevistas(min)";
+                    sweet.texto = 'Favor de capturar "Duración de las entrevistas(min)"'
+                }
+
+
+            } else if (prueba.psicologos.length == 0) {
+                error = true;
+                sweet.titulo = "Responsables";
+                sweet.texto = 'Favor de agregar por lo menos un responsable'
             }
 
-        } else if($scope.prueba.psicologos.length==0){
-            error = true;
-            sweet.titulo = "Responsables";
-            sweet.texto = 'Favor de agregar por lo menos un responsable'
+
+        }
+        var validcupo = 0;
+        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+            const element = $scope.sesion.pruebas[index];
+
+            if (element.cattipoprueba_pid == 1 && !element.iseliminado) {
+                validcupo += element.cupo;
+            }
         }
 
+        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+            const element = $scope.sesion.pruebas[index];
+            if ((validcupo < element.cupo) && element.cattipoprueba_pid != 1 && validcupo != 0) {
+                error = true;
+                sweet.titulo = "Cupo";
+                sweet.texto = 'El cupo de las entrevistas debe ser igual o mayor al cupo de los exámenes'
+            }
+        }
         if (error) {
             Swal.fire(
                 sweet.titulo,
@@ -1056,6 +1470,10 @@ function($scope, $http, blockUI) {
             error = true;
             sweet.titulo = "Residencia";
             sweet.texto = 'Favor de capturar "Residencia"'
+        } else if ($scope.sesion.ultimo_dia_inscripcion == undefined || $scope.sesion.ultimo_dia_inscripcion == null || $scope.sesion.ultimo_dia_inscripcion.trim() == "") {
+            error = true;
+            sweet.titulo = "Fecha de Último día para inscripción";
+            sweet.texto = 'Favor de capturar "Fecha de Último día para inscripción"'
         }
 
 
@@ -1075,13 +1493,13 @@ function($scope, $http, blockUI) {
         try {
             for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                 const element = $scope.sesion.pruebas[index];
-                if (element.tipo.descripcion == "Examen Psicométrico") {
+                if (element.tipo.descripcion == "Examen Psicométrico" && !element.iseliminado) {
                     psicometrico = true;
                 }
-                if (element.tipo.descripcion == "College Board") {
+                if (element.tipo.descripcion == "Examen de aptitudes y conocimientos" && !element.iseliminado) {
                     college = true;
                 }
-                if (element.tipo.descripcion == "Entrevista") {
+                if (element.tipo.descripcion == "Entrevista" && !element.iseliminado) {
                     entrevista = true;
                 }
 
@@ -1097,7 +1515,7 @@ function($scope, $http, blockUI) {
     $scope.setDisponibleOcupado = function(disponibles) {
         if (!disponibles.ocupado) {
             disponibles.disponible = !disponibles.disponible;
-            setCupoValue();
+            $scope.setCupoValue();
         } else {
             Swal.fire(
                 "Imposible",
@@ -1136,27 +1554,28 @@ function($scope, $http, blockUI) {
                 $scope.dblNext = true;
                 $scope.dblNint = true;
                 $scope.dblColonia = true;
-
                 $scope.prueba.campus_pid = $scope.campusDirSelected.persistenceId
                 $scope.prueba.calle = $scope.campusDirSelected.calle
                 $scope.prueba.colonia = $scope.campusDirSelected.colonia
                 $scope.prueba.numero_ext = $scope.campusDirSelected.numeroExterior
-                $scope.prueba.numero_int = $scope.campusDirSelected.numeroInterior
+                $scope.prueba.numero_int = ($scope.campusDirSelected.numeroInterior == 0) ? "" : $scope.campusDirSelected.numeroInterior;
                 $scope.prueba.codigo_postal = $scope.campusDirSelected.codigoPostal
 
                 $scope.prueba.municipio = $scope.campusDirSelected.municipio
-                for (let index = 0; index < $scope.estados.length; index++) {
-                    const element = $scope.estados[index];
-                    if (element.persistenceId == $scope.campusDirSelected.estado_pid) {
-                        $scope.displayEstado = element.descripcion;
+                $scope.displayEstado = $scope.campusDirSelected.estado.descripcion;
+                $scope.displayPais = $scope.campusDirSelected.pais.descripcion
+                    /*for (let index = 0; index < $scope.estados.length; index++) {
+                        const element = $scope.estados[index];
+                        if (element.persistenceId == $scope.campusDirSelected.estado_pid) {
+                            $scope.displayEstado = element.descripcion;
+                        }
                     }
-                }
-                for (let index = 0; index < $scope.paises.length; index++) {
-                    const element = $scope.paises[index];
-                    if (element.persistenceId == $scope.campusDirSelected.pais_pid) {
-                        $scope.displayPais = element.descripcion;
-                    }
-                }
+                    for (let index = 0; index < $scope.paises.length; index++) {
+                        const element = $scope.paises[index];
+                        if (element.persistenceId == $scope.campusDirSelected.pais_pid) {
+                            $scope.displayPais = element.descripcion;
+                        }
+                    }*/
             } else {
                 $scope.displayEstado = "";
                 $scope.displayPais = "";
@@ -1166,6 +1585,10 @@ function($scope, $http, blockUI) {
                 $scope.dblNext = false;
                 $scope.dblNint = false;
                 $scope.dblColonia = false;
+                $scope.codigoPostalBtn = false;
+                $scope.prueba.pais_pid = null;
+                $scope.prueba.estado_pid = null;
+                $scope.prueba.campus_pid = null;
             }
         } catch (error) {
             $scope.displayEstado = "";
@@ -1176,11 +1599,30 @@ function($scope, $http, blockUI) {
             $scope.dblNext = false;
             $scope.dblNint = false;
             $scope.dblColonia = false;
+            $scope.codigoPostalBtn = false;
+            $scope.prueba.pais_pid = null;
+            $scope.prueba.estado_pid = null;
+            $scope.prueba.campus_pid = null;
         }
 
 
 
 
+    }
+    $scope.checkMinimo = function() {
+        if (!angular.isDefined($scope.prueba.cupo)) {
+            $scope.prueba.cupo = $scope.prueba.registrados;
+        }
+    }
+    $scope.countPsicologos = function() {
+        var cont = 0;
+        for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+            const element = $scope.prueba.psicologos[index];
+            if (element.iseliminado == null || element.iseliminado == false) {
+                cont++
+            }
+        }
+        return cont;
     }
     $scope.loadCatalogs();
     var hidden = document.getElementsByClassName("oculto");

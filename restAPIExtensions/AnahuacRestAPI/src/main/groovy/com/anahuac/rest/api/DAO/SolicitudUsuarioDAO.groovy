@@ -22,6 +22,7 @@ class SolicitudUsuarioDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno
 	}
 	public Result getIdbanner(Integer parameterP, Integer parameterC, String idbanner, RestAPIContext context) {
 		Result resultado = new Result();

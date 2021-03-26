@@ -1,4 +1,4 @@
-<div style="margin-bottom:15px;" class="col-xs-offset-8 col-xs-4">
+<div style=" margin-bottom:15px; display: none"  class="col-xs-offset-8 col-xs-4">
     <label>Cantidad de registros a mostrar</label>
     <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit">
     <option ng-value="20">20</option>
@@ -11,7 +11,6 @@
 <thead>
             <tr>
                 <th>Acciones</th>
-                 <th></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('CLAVE')"> Clave<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CLAVE'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('ORDEN')"> Orden<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ORDEN'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('DESCRIPCION')">Descripción<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='DESCRIPCION'"></i></span></th>
@@ -19,11 +18,13 @@
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('COLONIA')">Colonia<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='COLONIA'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('NUMEROEXTERIOR')">Número exterior<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='NUMEROEXTERIOR'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('NUMEROINTERIOR')">Número interior<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='NUMEROINTERIOR'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('CODIGOPOSTAL')">Codigo postal<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CODIGOPOSTAL'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('CODIGOPOSTAL')">Código postal<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='CODIGOPOSTAL'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('MUNICIPIO')">Municipio<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='MUNICIPIO'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('PAIS')">País<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='PAIS'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTADO')">Estado<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='ESTADO'"></i></span></th>
-                <th> <span style="cursor:pointer" ng-click="setOrderBy('USUARIOBANNER')">Usuario banner<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='USUARIOBANNER'"></i></span></th>
+               <!-- <th> <span style="cursor:pointer" ng-click="setOrderBy('URLIMAGEN')">URL<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='URLIMAGEN'"></i></span></th>-->
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Correo electrónico<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span></th>
+                <th> <span style="cursor:pointer" ng-click="setOrderBy('USUARIOBANNER')">Usuario creación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='USUARIOBANNER'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAIMPORTACION')">Fecha importación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHAIMPORTACION'"></i></span></th>
                 <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHACREACION')">Fecha creación<i class="glyphicon" ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.dataToSend.orderby=='FECHACREACION'"></i></span></th>
             </tr>
@@ -34,8 +35,6 @@
                     <button class="btn btn-primary" ng-click="ctrl.selectRowEditar(row)">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </button>
-                </td>
-                <td>
                     <button class="btn btn-warning" ng-click="ctrl.selectRowDelete(row)">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
@@ -71,16 +70,22 @@
                     {{row.pais.descripcion}}<br>
                 </td>
                 <td>
-                    {{row.estado.descripcion}}<br>
+                    {{row.estados.descripcion}}<br>
+                </td>
+                <!--<td>
+                    {{row.urlImagen}}<br>
+                </td>-->
+                <td>
+                    {{row.email}}<br>
                 </td>
                 <td>
                     {{row.usuarioBanner}}<br>
                 </td>
                 <td>
-                    {{row.fechaImplementacion}}<br>
+                    {{row.fechaImplementacion| date:'dd-MM-yyyy HH:mm:ss'}}<br>
                 </td>
                  <td>
-                    {{row.fechaCreacion}}<br>
+                    {{row.fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'}}<br>
                 </td>
                
                 <!--<td>

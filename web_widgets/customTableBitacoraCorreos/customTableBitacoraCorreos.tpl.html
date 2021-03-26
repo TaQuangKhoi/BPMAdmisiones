@@ -13,7 +13,7 @@
                     Acciones
                 </th>
                 <th ng-repeat="header in properties.headers"  class="middle-td text-center">
-                    <span style="cursor:pointer" ng-click="setOrderBy(header)">{{ header | uiTranslate }}<i class="glyphicon" ng-class="(properties.filtroToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.filtroToSend.orderby==header"></i></span>
+                    <span style="cursor:pointer" ng-click="setOrderBy(header)">{{ displayed(header) | capitalize }}<i class="glyphicon" ng-class="(properties.filtroToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'" ng-show="properties.filtroToSend.orderby==header"></i></span>
                 </th>
             </tr>
             <tr ng-show="properties.keyPressFilter">
@@ -49,9 +49,9 @@
                 <td>{{row.de}}</td>
                 <td>{{row.estatus}}</td>
                 <td>{{row.fechacreacion.substring(0,16)}}</td>
-                <td>{{row.mensaje}}</td>
+                 <!--<td>{{row.mensaje}}</td> -->
+                <td ng-bind-html="row.mensaje"></td>
                 <td>{{row.para}}</td>
-                <td>{{row.campus}}</td>
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(content) && !ctrl.isArray(properties.columnsKey)">
@@ -87,7 +87,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Firma preview</h4>
+                <h4 class="modal-title">Correo vista previa</h4>
             </div>
             <div class="modal-body">
                 <div class="row">

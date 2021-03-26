@@ -1,23 +1,10 @@
 function PbTableCtrl($scope, $http, $window,blockUI) {
 
     this.isArray = Array.isArray;
-    this.orden = false;
-    
-    
-    $scope.cambioOrden = function(orden){
-        if(orden){
-            $scope.properties.orden = ">=";
-        }else{
-            $scope.properties.orden = "<";
-        }
-        $scope.$apply();
-        doRequest("POST", $scope.properties.urlPost);
-        
-    }
-    
+
     $scope.redirecc = function(row){
-        var url = "/apps/administrativo/PaseListaReporte?idsesion="+row.sesion.persistenceId+"&idprueba="+row.prueba.persistenceId;
-        window.top.location.href = url;
+        var url = "/portal/resource/app/administrativo/PaseListaReporte/content/?idsesion="+row.sesion.persistenceId+"&idprueba="+row.prueba.persistenceId;
+        window.location.replace(url);
     }
     
     this.isClickable = function () {
@@ -36,12 +23,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
     function doRequest(method, url, params) {
         blockUI.start();
-        var datos = angular.copy($scope.properties.dataToSend);
-
         var req = {
             method: method,
             url: url,
-            data: datos,
+            data: angular.copy($scope.properties.dataToSend),
             params: params
         };
 
@@ -126,7 +111,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         "valor": "CAMPUS-CANCUN"
     },
     {
-        "descripcion": "Anáhuac Mérida",
+        "descripcion": "Anáhuac Mayab",
         "valor": "CAMPUS-MAYAB"
     },
     {
@@ -180,6 +165,25 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             $scope.properties.dataToSend.orderby = order;
             $scope.properties.dataToSend.orientation = "ASC";
         }
+        doRequest("POST", $scope.properties.urlPost);
+    }
+    
+    $scope.filterKeyPress= function(columna,press){
+        var aplicado = true;
+        for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+            const element = $scope.properties.dataToSend.lstFiltro[index];
+            if(element.columna==columna){
+                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
+                aplicado=false;
+            }
+            
+        }
+        if(aplicado){
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            $scope.properties.dataToSend.lstFiltro.push(obj);
+        }
+        
         doRequest("POST", $scope.properties.urlPost);
     }
 

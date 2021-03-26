@@ -16,6 +16,7 @@ import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatEstados
 import com.anahuac.catalogos.CatPais
+import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
@@ -131,7 +132,33 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
-				
+				case "getDatosUsername":
+					String username =request.getParameter "username"
+					result = new UsuariosDAO().getDatosUsername(username)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				case "getBusinessAppMenu":
+				result = new UsuariosDAO().getBusinessAppMenu()
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				case "getMenuAdministrativo":
+				result = new UsuariosDAO().getMenuAdministrativo(context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 				case "getCatTipoPrueba":
 				String jsonData =request.getParameter "jsonData"
 				result = new SesionesDAO().getCatTipoPrueba(jsonData)
@@ -154,6 +181,15 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "generarFirma":
+				String persistenceId =request.getParameter "persistenceId"
+				String resultado = new NotificacionDAO().generarFirma(persistenceId)
+				responseBuilder.withMediaType("text/html; charset=utf-8")
+				
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
+				
+				break;
+				
 				case "getCatBitacoraComentario":
 				String jsonData =request.getParameter "jsonData"
 				result = new CatalogoBachilleratoDAO().getCatBitacoraComentario(jsonData, context)
@@ -174,6 +210,31 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				case "getCatPropedeuticoByPeriodo":
+					String id = request.getParameter "id";
+					String grupobonita = request.getParameter "grupobonita";
+					String tipoperiodo = request.getParameter "tipoperiodo";
+					String idioma = request.getParameter "idioma";
+					
+					result = new CatalogosDAO().getCatPropedeuticoByPeriodo(id, grupobonita, tipoperiodo,idioma, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getCatPeriodoActivo":
+					String tipo = request.getParameter "tipo";
+										
+					result = new CatalogosDAO().getCatPeriodoActivo(tipo, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
 				break;
 				case "getEstadoCivil":
 				String jsonData =request.getParameter "jsonData"
@@ -222,9 +283,57 @@ class IndexGet implements RestApiController {
 				
 				break;
 				
+				case "getPruebasFechas":
+				String persistenceId =request.getParameter "sessionid"
+				String aspirante =request.getParameter "aspirante"
+				result = new SesionesDAO().getPruebasFechas(Long.parseLong(persistenceId),aspirante)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getHorarios":
+				String persistenceId =request.getParameter "sessionid"
+				String prueba_pid =request.getParameter "prueba_pid"
+				String correoAspirante =request.getParameter "correoAspirante"
+				result = new SesionesDAO().getHorarios(Long.parseLong(persistenceId), Long.parseLong(prueba_pid), correoAspirante, context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getAzureConfig":
+				result = new CatalogosDAO().getAzureConfig();
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData().get(0)).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
 				case "getSesionAspirante":
 				String persistenceId =request.getParameter "sessionid"
 				result = new SesionesDAO().getSesionAspirante(Long.parseLong(persistenceId),context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				case "getCatNotificacionesCampus":
+				String grupoBonita =request.getParameter "grupoBonita"
+				result = new NotificacionDAO().getCatNotificacionesCampus(grupoBonita)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -240,6 +349,17 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getPaletteColor":
+				result = new SesionesDAO().getPaletteColor()
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
@@ -275,7 +395,6 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
-				
 				case "getCatBitacoraCorreo":
 				String jsonData =request.getParameter "jsonData"
 				result = new NotificacionDAO().getCatBitacoraCorreo(jsonData)
@@ -285,6 +404,134 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				
+				case "getUsuarios":
+				String jsonData =request.getParameter "jsonData"
+				result = new UsuariosDAO().getUsuarios(jsonData,context)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getValidarClave":
+					String tabla = request.getParameter "tabla";
+					String clave = request.getParameter "clave";
+					String id = request.getParameter "id";
+					result = new CatalogosDAO().getValidarClave(0, 9999, tabla, clave, id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getValidarOrden":
+					String tabla = request.getParameter "tabla";
+					String ordenString = request.getParameter "orden";
+					LOGGER.error "ORDEN STRING : : " + ordenString ;
+					Integer orden = Integer.parseInt(ordenString);
+					LOGGER.error "ORDEN : : " + orden.toString();
+					String id = request.getParameter "id";
+					result = new CatalogosDAO().getValidarOrden(0,9999, tabla, orden, id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getValidarIdBanner":
+					String tabla = request.getParameter "tabla";
+					String idBanner = request.getParameter "idBanner";
+					String id = request.getParameter "id";
+					result = new CatalogosDAO().getValidarIdBanner(0,9999, tabla, idBanner, id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getPeriodosActivos":
+				String tipo = request.getParameter "tipo";
+				String id = request.getParameter "id";
+				result = new CatalogosDAO().getPeriodosActivos(0,9999, tipo, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				case "buscarCambiosBannerPreparatoria":
+					String operacion = request.getParameter "operacion";
+					result = new BannerDAO().buscarCambiosBannerPreparatoria(context, operacion);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getPeriodosSiguientes":
+				String tipo = request.getParameter "tipo";
+				String fecha = request.getParameter "fecha";
+				String id = request.getParameter "id";
+				result = new CatalogosDAO().getPeriodosSiguientes(0,9999, tipo, fecha, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				case "getValidarClavePeriodo":
+				String clave = request.getParameter "clave";
+				String tipo = request.getParameter "tipo";
+				String id = request.getParameter "id";
+				result = new CatalogosDAO().getValidarClavePeriodo(0,9999, clave,tipo, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
+				case "getInfoPrueba":
+				String id = request.getParameter "id";
+				result = new SesionesDAO().getInfoPrueba(0, 9999, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
+				case "getFechaServidor":
+				result = new SesionesDAO().getFechaServidor(0, 9999);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
+				case "getEstados":
+				String pais = request.getParameter "pais";
+				result = new CatalogosDAO().getCatEstados(pais)
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
 				
 				case "getSesions":
 				List<SesionCustom> sesions = new ArrayList()
@@ -312,6 +559,15 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getPropedeuticosNoFecha":									
+				result = new CatalogosDAO().getPropedeuticosNoFecha(context);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
 				break;
 			}

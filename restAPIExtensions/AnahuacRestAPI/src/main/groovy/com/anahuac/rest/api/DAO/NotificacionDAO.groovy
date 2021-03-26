@@ -17,6 +17,7 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
+import com.anahuac.rest.api.Entity.db.CatNotificacionesCampus
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
@@ -69,90 +70,125 @@ class NotificacionDAO {
 			
 			userLogged = context.getApiSession().getUserId();
 			errorlog += "| Se obtuvo el usuario " + userLogged;
-			def procesoCasoDAO = context.getApiClient().getDAO(ProcesoCasoDAO.class);
-			ProcesoCaso procesoCaso = procesoCasoDAO.getCaseId(object.campus, "CatNotificaciones");
-			errorlog += "| Despues con el campus " + object.campus + " se obtuvo el caseid " + procesoCaso.getCaseId()
-			def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
-			CatNotificaciones catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+			CatNotificaciones catNotificaciones= null;
+			ProcesoCaso procesoCaso = new ProcesoCaso()
+			CatNotificaciones cn = new CatNotificaciones()
+			try {
+				def procesoCasoDAO = context.getApiClient().getDAO(ProcesoCasoDAO.class);
+				procesoCaso = procesoCasoDAO.getCaseId(object.campus, "CatNotificaciones");
+				errorlog += "| Despues con el campus " + object.campus + " se obtuvo el caseid " + procesoCaso.getCaseId()
+				def catNotificacionesDAO = context.getApiClient().getDAO(CatNotificacionesDAO.class);
+				catNotificaciones = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+				cn=catNotificaciones
+			} catch (Exception e) {
+				Boolean closeCon2=false;
+				try {
+					closeCon2 = validarConexion();
+					String ordenpago = ""
+					String campus_id =""
+					pstm = con.prepareStatement(Statements.GET_CAT_NOTIFICACIONES_CAMPUS_PROCESO_CODIGO)
+					pstm.setString(1, object.campus)
+					pstm.setString(2, object.codigo)
+					rs = pstm.executeQuery()
+					if (rs.next()) {
+						catNotificaciones = new CatNotificaciones()
+						catNotificaciones.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
+						catNotificaciones.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
+						catNotificaciones.setAsunto(rs.getString("asunto"))
+						catNotificaciones.setBloqueAspirante(rs.getBoolean("bloqueAspirante"))
+						catNotificaciones.setCaseId(rs.getString("caseId"))
+						catNotificaciones.setCodigo(rs.getString("codigo"))
+						catNotificaciones.setComentarioLeon(rs.getString("comentarioLeon"))
+						catNotificaciones.setContenido(rs.getString("contenido"))
+						catNotificaciones.setContenidoCorreo(rs.getString("contenidoCorreo"))
+						catNotificaciones.setContenidoLeonel(rs.getString("contenidoLeonel"))
+						catNotificaciones.setDescripcion(rs.getString("descripcion"))
+						catNotificaciones.setDocGuiaEstudio(rs.getString("docGuiaEstudio"))
+						catNotificaciones.setEnlaceBanner(rs.getString("enlaceBanner"))
+						catNotificaciones.setEnlaceContacto(rs.getString("enlaceContacto"))
+						catNotificaciones.setEnlaceFacebook(rs.getString("enlaceFacebook"))
+						catNotificaciones.setEnlaceFooter(rs.getString("enlaceFooter"))
+						catNotificaciones.setEnlaceInstagram(rs.getString("enlaceInstagram"))
+						catNotificaciones.setEnlaceTwitter(rs.getString("enlaceTwitter"))
+						catNotificaciones.setInformacionLic(rs.getBoolean("informacionLic"))
+						catNotificaciones.setIsEliminado(rs.getBoolean("isEliminado"))
+						catNotificaciones.setNombreImagenFooter(rs.getString("nombreImagenFooter"))
+						catNotificaciones.setNombreImagenHeader(rs.getString("nombreImagenHeader"))
+						catNotificaciones.setPersistenceId(rs.getLong("persistenceId"))
+						catNotificaciones.setPersistenceVersion(rs.getLong("persistenceVersion"))
+						catNotificaciones.setTextoFooter(rs.getString("textoFooter"))
+						catNotificaciones.setTipoCorreo(rs.getString("tipoCorreo"))
+						catNotificaciones.setTitulo(rs.getString("titulo"))
+						catNotificaciones.setLstCorreoCopia(new ArrayList<String>())
+						catNotificaciones.setLstVariableNotificacion(new ArrayList<String>())
+						procesoCaso.setCaseId(rs.getString("caseId"))
+						cn.setAnguloImagenFooter(rs.getString("anguloImagenFooter"))
+						cn.setAnguloImagenHeader(rs.getString("anguloImagenHeader"))
+						cn.setAsunto(rs.getString("asunto"))
+						cn.setBloqueAspirante(rs.getBoolean("bloqueAspirante"))
+						cn.setCaseId(rs.getString("caseId"))
+						cn.setCodigo(rs.getString("codigo"))
+						cn.setComentarioLeon(rs.getString("comentarioLeon"))
+						cn.setContenido(rs.getString("contenido"))
+						cn.setContenidoCorreo(rs.getString("contenidoCorreo"))
+						cn.setContenidoLeonel(rs.getString("contenidoLeonel"))
+						cn.setDescripcion(rs.getString("descripcion"))
+						cn.setDocGuiaEstudio(rs.getString("docGuiaEstudio"))
+						cn.setEnlaceBanner(rs.getString("enlaceBanner"))
+						cn.setEnlaceContacto(rs.getString("enlaceContacto"))
+						cn.setEnlaceFacebook(rs.getString("enlaceFacebook"))
+						cn.setEnlaceFooter(rs.getString("enlaceFooter"))
+						cn.setEnlaceInstagram(rs.getString("enlaceInstagram"))
+						cn.setEnlaceTwitter(rs.getString("enlaceTwitter"))
+						cn.setInformacionLic(rs.getBoolean("informacionLic"))
+						cn.setIsEliminado(rs.getBoolean("isEliminado"))
+						cn.setNombreImagenFooter(rs.getString("nombreImagenFooter"))
+						cn.setNombreImagenHeader(rs.getString("nombreImagenHeader"))
+						cn.setPersistenceId(rs.getLong("persistenceId"))
+						cn.setPersistenceVersion(rs.getLong("persistenceVersion"))
+						cn.setTextoFooter(rs.getString("textoFooter"))
+						cn.setTipoCorreo(rs.getString("tipoCorreo"))
+						cn.setTitulo(rs.getString("titulo"))
+						
+					}
+				}catch(Exception ex) {
+					errorlog +=", consulta custom " + ex.getMessage();
+				}finally {
+				if(closeCon2) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
+					
+				}
+			}
+			
+			
+			//SELECT * from catnotificaciones where caseid=(SELECT caseid FROM procesocaso where campus = 'CAMPUS-MNORTE' and proceso='CatNotificaciones') and codigo='registrar'
+			
+			
 			
 			errorlog += "| se obtiene el catNotificaciones para generar el b64 del documento "
 
 			errorlog += "|  catNotificacionDAO"
 
 			errorlog += "|  lcn"
-			List<Document> lstDoc = new ArrayList()
-			try {
-				lstDoc =context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "imageHeader", 0, 10)
-			} catch (Exception e) {
-				errorlog += "| No hay imageHeader en " + object.campus +" con codigo " + object.codigo
-			}
-			errorlog += "| se genera el b64 banner"
-			List<Document> docEtapaProceso = new ArrayList();
-			try {
-				docEtapaProceso = context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "docEtapaProceso", 0, 100)
-			} catch (Exception e) {
-				errorlog += "| No hay docEtapaProceso en " + object.campus +" con codigo " + object.codigo
-			}
-			List<Document> docGuiaEstudio = new ArrayList();
-			try {
-				docGuiaEstudio = context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "docGuiaEstudio", 0, 100)
-			} catch (Exception e) {
-				e.printStackTrace()
-			}
 			// 1 variable plantilla [banner-href]
 			errorlog += "| Variable1"
 			errorlog += "| | procesoCaso.getCaseId() = "+procesoCaso.getCaseId()
 			
-			CatNotificaciones cn = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
+			//cn = catNotificacionesDAO.getCatNotificaciones(procesoCaso.getCaseId(),object.codigo)
 			errorlog += "|  lstDoc"
-			/*if(lstDoc.size()>0) {
-				errorlog += "|  lstDoc.size="+lstDoc.size()
-				for(Document doc : lstDoc) {
-					if(doc.getContentFileName().equals(cn.getNombreImagenHeader())) {
-						encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
-						errorlog += "| Variable2"
-						plantilla=plantilla.replace("[banner]", encoded)
-					}
-				 }
-			}*/
 			errorlog+="| seteando mensaje"
 			
 			plantilla=plantilla.replace("[banner-href]", cn.getEnlaceBanner())
 			
 			//3 variable plantilla [contacto]
 			errorlog += "| Variable3"
-			/*
-			if(!cn.getEnlaceContacto().equals("")) {
-				plantilla = plantilla.replace("<!--CONTACTO-->", prop.getProperty("plantilla_contacto"))
-				plantilla=plantilla.replace("[contacto]", cn.getEnlaceContacto())
-			}
-			
-			//4 variable plantilla [facebook-href]
-			errorlog += "| Variable4"
-			if(!cn.getEnlaceFacebook().equals("")) {
-				plantilla = plantilla.replace("<!--FACEBOOK-->", "<td> <a href=\"[facebook-href]\"> <img style=\"width: 20px;\"src=\"https://i.ibb.co/vJmN84t/facebook.png\"> </a> </td>")
-				plantilla=plantilla.replace("[facebook-href]",cn.getEnlaceFacebook())
-			}
-			
-			//5 variable plantilla [instagram-href]
-			errorlog += "| Variable5"
-			if(!cn.getEnlaceInstagram().equals("")) {
-				plantilla = plantilla.replace("<!--INSTAGRAM-->", "<td><a href=\"[instagram-href]\"> <img style=\"width: 25px;\"src=\"https://i.ibb.co/BHhs2y9/instagram.png\"> </a> </td>")
-				plantilla=plantilla.replace("[instagram-href]", cn.getEnlaceInstagram())
-			}
-			//6 variable plantilla [twitter-href]
-			errorlog += "| Variable6"
-			if(!cn.getEnlaceTwitter().equals("")) {
-				plantilla = plantilla.replace("<!--twitter-->", "<td><a href=\"[twitter-href]\"> <img style=\"width: 20px;\"src=\"https://i.ibb.co/X2hsqx4/twitter.png\"> </a> </td>")
-				plantilla=plantilla.replace("[twitter-href]",cn.getEnlaceTwitter())
-			}
-			*/
 			//7 variable plantilla [titulo]
 			errorlog += "| Variable7"
 			plantilla=plantilla.replace("[titulo]",cn.getTitulo())
 			
 			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.HOUR_OF_DAY, -6)
+			//cal.add(Calendar.HOUR_OF_DAY, -6)
 			int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
 			
 			String dayOfMonthStr = String.valueOf(dayOfMonth);
@@ -172,11 +208,6 @@ class NotificacionDAO {
 			if(!cn.getContenidoCorreo().equals("")) {
 				plantilla=plantilla.replace("<!--[CONTENIDO]-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr> <td class=\"col-12\"style=\"font-size: initial; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> [contenido]</td> </tr> </tbody> </table>")
 				plantilla=plantilla.replace("[contenido]", cn.getContenidoCorreo())
-				try {
-					plantilla=plantilla.replace("[firma]", generarFirma(cn.getContenido()))
-				} catch (Exception e) {
-					plantilla=plantilla.replace("[firma]", "")
-				}
 				
 				plantilla=plantilla.replace("[HOST]", prop.getProperty("HOST"))
 				if(object.mensaje != null) {
@@ -216,11 +247,13 @@ class NotificacionDAO {
 					errorlog += "| Variable15.1"
 					plantilla=plantilla.replace("[IDBANNER]",rs.getString("IdBanner")==null?"":rs.getString("IdBanner"))
 					errorlog += "| Variable15.2"
-					plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",rs.getString("ObservacionesRechazo")==null?"[RECHAZO-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesRechazo"):"[RECHAZO-COMENTARIOS]")
-					errorlog += "| Variable15.3"
-					plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",rs.getString("ObservacionesListaRoja")==null?"[LISTAROJA-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesListaRoja"):"[LISTAROJA-COMENTARIOS]")
-					errorlog += "| Variable15.3"
-					plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("ObservacionesCambio")==null?"[COMENTARIOS-CAMBIO]": (object.isEnviar)?rs.getString("ObservacionesCambio"):"[COMENTARIOS-CAMBIO]")
+					if(object.isEnviar) {
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",rs.getString("ObservacionesRechazo")==null?"[RECHAZO-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesRechazo"):"[RECHAZO-COMENTARIOS]")
+						errorlog += "| Variable15.3"
+						plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",rs.getString("ObservacionesListaRoja")==null?"[LISTAROJA-COMENTARIOS]":(object.isEnviar)?rs.getString("ObservacionesListaRoja"):"[LISTAROJA-COMENTARIOS]")
+						errorlog += "| Variable15.3"
+						plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("ObservacionesCambio")==null?"[COMENTARIOS-CAMBIO]": (object.isEnviar)?rs.getString("ObservacionesCambio"):"[COMENTARIOS-CAMBIO]")
+					}
 					ordenpago = rs.getString("ordenpago")==null?"": rs.getString("ordenpago")
 					
 					if(!ordenpago.equals("")) {
@@ -238,7 +271,7 @@ class NotificacionDAO {
 							errorlog += "| casteo exitoso"
 							plantilla=plantilla.replace("[MONTO]", conektaData.get("amount")==null?"": conektaData.get("amount"))
 							plantilla=plantilla.replace("[TRANSACCION]", conektaData.get("authorizationCode")==null?"": conektaData.get("authorizationCode"))
-							plantilla=plantilla.replace("[METODO]", conektaData.get("type")==null?"": conektaData.get("type"))
+							plantilla=plantilla.replace("[METODO]", conektaData.get("type")==null?"": (conektaData.get("type").equals("credit"))?"Tarjeta":(conektaData.get("type").equals("oxxo"))?"OXXO Pay":"SPEI")
 						}
 						
 					}
@@ -253,75 +286,57 @@ class NotificacionDAO {
 				
 			}
 			errorlog += "| Variable8.5 DataUsuarioAdmision"
-			plantilla = DataUsuarioAdmision(plantilla, context, correo, cn, errorlog);
+			plantilla = DataUsuarioAdmision(plantilla, context, correo, cn, errorlog,object.isEnviar);
 			errorlog += "| Variable8.6 DataUsuarioRegistro"
 			plantilla = DataUsuarioRegistro(plantilla, context, correo, cn, errorlog);
 
 			String tablaPasos=""
 			String plantillaPasos="<tr> <td class= \"col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center aling-middle backgroundOrange color-index number-table \"> [numero]</td> <td class= \"col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center aling-middle backgroundDGray \"> <div class= \"row \"> <div class= \"col-12 form-group color-titulo \"> <img src= \"[imagen] \"> </div> <div class= \"col-12 color-index sub-img \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [titulo] </div> </div> </td> <td class= \"col-xs-7 col-sm-7 col-md-7 col-lg-7 col-7 text-justify aling-middle backgroundLGray \"style= \"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; \"> [descripcion] </td> </tr>"
-			
-			def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
-			errorlog += "| Variable9.1 catImageNotificacion.findByCaseId"
-			List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
-			Integer numero= 0;
-			errorlog += "| Variable9.2 lci.size()=" + lci.size()
-			if(lci.size()>0) {
-				plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
-				for(CatImageNotificacion ci: lci) {
-					if(ci.getCodigo().equals(cn.getCodigo())) {
-					numero++
-					errorlog += "| Variable10."+numero
-					String imagen= "";
-					//Descripcion es el nombre del documento
-					errorlog += "| Variable10.1 doc=" + ci.getDescripcion()
-					if(docEtapaProceso.size()>0) {
-						for(Document doc:docEtapaProceso) {
-								errorlog += "| Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
-								if(doc.getContentFileName().equals(ci.getDescripcion())) {
-									imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+			try {
+				def catImageNotificacion = context.apiClient.getDAO(CatImageNotificacionDAO.class);
+				errorlog += "| Variable9.1 catImageNotificacion.findByCaseId"
+				List<CatImageNotificacion> lci = catImageNotificacion.findByCaseId(Long.valueOf(procesoCaso.getCaseId()), 0, 999)
+				Integer numero= 0;
+				errorlog += "| Variable9.2 lci.size()=" + lci.size()
+				if(lci.size()>0) {
+					plantilla= plantilla.replace("<!--[PASOS]-->", "<table class=\"table table-bordered\"> <tbody> [pasos] </tbody> </table>")
+					for(CatImageNotificacion ci: lci) {
+						if(ci.getCodigo().equals(cn.getCodigo())) {
+						numero++
+						errorlog += "| Variable10."+numero
+						String imagen= "";
+						//Descripcion es el nombre del documento
+						errorlog += "| Variable10.1 doc=" + ci.getDescripcion()
+						if(docEtapaProceso.size()>0) {
+							for(Document doc:docEtapaProceso) {
+									errorlog += "| Variable10.1 doc=" + ci.getDescripcion()+"= doc.getName()="+ doc.getContentFileName()
+									if(doc.getContentFileName().equals(ci.getDescripcion())) {
+										imagen ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
+									}
 								}
+								tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
 							}
-							tablaPasos += plantillaPasos.replace("[imagen]", imagen).replace("[numero]", numero+"").replace("[titulo]", ci.getTitulo()).replace("[descripcion]", ci.getTexto())
 						}
 					}
 				}
+			} catch (Exception e) {
+				errorlog += "| Fallo al momento de obtener los pasos"
 			}
+			
 			errorlog += "| Variable11"
 			plantilla=plantilla.replace("[pasos]", tablaPasos)
-			errorlog += "| Variable12"
-			String guia=cn.getDocGuiaEstudio()==null?"":cn.getDocGuiaEstudio();
-			/*for(Document doc:docGuiaEstudio) {
-				errorlog += "| Variable10.1 doc.getName()="+ doc.getContentFileName()
-				if(cn.getDocGuiaEstudio().equals(doc.getContentFileName())) {
-					guia ="src=\"data:application/octet-stream;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId)) +"\" download=\""+doc.getContentFileName() +"\""
-				}
-				
-				
-			}*/
-			if(!guia.equals("")) {
-				plantilla=plantilla.replace("<!-- GUIA DE ESTUDIO-->", "<table width=\"80%\" style=\"padding-bottom: 0; margin-bottom: 0; \"> <tbody> <tr style=\"text-align: center; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <td> <div class=\"row\"> <div class=\"col-12\"> <label style=\"color:#ff5900; font-size:23em;\"> Guía de estudio </label> <hr style=\"border-top: 1px solid #ff5900; width: 40%;\"> </div> <div class=\"col-12\"> <p style=\"font-size:15em; color:black;\"> Hemos preparado para ti esta guía y algunos tips que te ayudarán a prepararte para tu examen de admisión. </p> </div> </div> </td> </tr> </tbody> </table> <table width=\"80%\"> <thead></thead> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-12\" style=\"background: #fbcf80; font-size: initial; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; padding-left: 43%; padding-bottom: 0;\"> <div class=\"row\" style=\"background-color: #ff5900; width: 40%;\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"https://i.ibb.co/JHDk1zt/guia.png\"> </div> <div class=\"col-12 color-index sub-img\" style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a href=\"[guia-src]\" target=\"_blank\" style=\"text-decoration: underline; cursor: pointer;\">Guia para el examén</a> </div> </div> </td> </tr> </tbody> </table> <hr>")
-				plantilla=plantilla.replace("[guia-src]", guia)
-			}
+			
+			
 			
 			errorlog += "| Variable13"
 			if(!cn.getContenidoLeonel().equals("") ) {
-				plantilla=plantilla.replace("<!--Leonel-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr> <td width=\"25%\" style=\"text-align: right;\"> <img style=\"width: 57%;\" src=\"https://i.ibb.co/g4NJKJz/leonel-1.png\"> </td> <td class=\"col-6\"> <div class=\"arrow_box\" style=\"position: relative; background: #ff5900; border: 4px solid #ff5900;\"> <h6 class=\"logo\" style=\"font-size: 12px; padding: 10px; color: white; font-weight: 500;font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> [leonel]</h6> </div> </td> </tr> </tbody> </table>")
+				plantilla=plantilla.replace("<!--Leonel-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr> <td width=\"25%\" style=\"text-align: right;\"> <img style=\"width: 145px;\" src=\"https://bpmpreprod.blob.core.windows.net/publico/Leoneldmnisiones_Mesa%20de%20trabajo%201.png\"> </td> <td class=\"col-6\"> <div class=\"arrow_box\" style=\"position: relative; background: #ff5900; border: 4px solid #ff5900;border-radius: 50px;\"> <h6 class=\"logo\" style=\"font-size: 12px; padding: 10px; color: white; font-weight: 500;font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> [leonel]</h6> </div> </td> </tr> </tbody> </table>"+"<hr>")
 				plantilla=plantilla.replace("[leonel]", cn.getContenidoLeonel())
 			}
 			
 			errorlog += "| Variable15"
 			
 			encoded=""
-			try {
-				for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.valueOf(procesoCaso.getCaseId()), "imageFooter", 0, 10)) {
-					if(doc.getContentFileName().equals(cn.getNombreImagenFooter())) {
-						encoded ="data:image/png;base64, "+ Base64.getEncoder().encodeToString(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId))
-						plantilla=plantilla.replace("[imgFooter]", encoded)
-					}
-				}
-			} catch (Exception e) {
-				errorlog += "| No se encuentra la imageFooter de campus " + object.campus + " con codigo " + object.codigo 
-			}
 			if(object.codigo.equals("examenentrevista")) {
 				SesionesDAO sd = new SesionesDAO()
 				resultado = sd.getDatosSesionUsername(object.correo)
@@ -330,39 +345,266 @@ class NotificacionDAO {
 					def element = resultado.getData().get(index);
 					plantilla=plantilla.replace("[SNOMBRE]",  element.snombre)
 					plantilla=plantilla.replace("[SDESCRIPCION]",  element.sdescripcion)
-					if(element.descripcion == "College Board"){
+					if(element.descripcion == "Examen de aptitudes y conocimientos"){
 						plantilla=plantilla.replace("[NOMBRE-COLLAGE]",  element.pnombre)
 						plantilla=plantilla.replace("[DESCRIPCION-COLLAGE]",   element.pdescripcion)
-						plantilla=plantilla.replace("[FECHA-COLLAGE]",   element.aplicacion)
+						plantilla=plantilla.replace("[FECHA-COLLAGE]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-COLLAGE]",   element.horario)
+						plantilla=plantilla.replace("[Lugar-EAC]",   element.online=='t'?"URL":"Lugar")
 						plantilla=plantilla.replace("[LUGAR-COLLAGE]",   element.lugar)
-						plantilla=plantilla.replace("[DIRECCION-COLLAGE]",   element.municipio+" - "+element.colonia +" C.P."+ element.codigo_postal)
+						if(element.calle==null && element.numero_int==null && element.colonia==null) {
+							plantilla=plantilla.replace("<tr> <td style=\"color: rgb(255, 89, 0);\">Dirección</td> <td>[DIRECCION-COLLAGE]</td> </tr>","")
+						}
+						plantilla=plantilla.replace("[DIRECCION-COLLAGE]",   (element.calle==null?"":element.calle+" - ")+((element.numero_int==null)?"":"#"+element.numero_int )+"  "+ (element.colonia==null?"":element.colonia))
 					}
 					if(element.descripcion == "Examen Psicométrico"){
 						plantilla=plantilla.replace("[NOMBRE-PSICOMETRICO]",  element.pnombre)
 						plantilla=plantilla.replace("[DESCRIPCION-PSICOMETRICO]",   element.pdescripcion)
-						plantilla=plantilla.replace("[FECHA-PSICOMETRICO]",   element.aplicacion)
+						plantilla=plantilla.replace("[FECHA-PSICOMETRICO]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-PSICOMETRICO]",   element.horario)
+						plantilla=plantilla.replace("[Lugar-EP]",   element.online=='t'?"URL":"Lugar")
 						plantilla=plantilla.replace("[LUGAR-PSICOMETRICO]",   element.lugar)
-						plantilla=plantilla.replace("[DIRECCION-PSICOMETRICO]",   element.municipio+" - "+element.colonia +" C.P."+ element.codigo_postal)
+						if(element.calle==null && element.numero_int==null && element.colonia==null) {
+							plantilla=plantilla.replace("<tr> <td style=\"color: rgb(255, 89, 0);\">Dirección</td> <td>[DIRECCION-PSICOMETRICO]</td> </tr>","")
+						}
+						plantilla=plantilla.replace("[DIRECCION-PSICOMETRICO]",   (element.calle==null?"":element.calle+" - ")+((element.numero_int==null)?"":"#"+element.numero_int )+"  "+ (element.colonia==null?"":element.colonia))
 					}
 					if(element.descripcion == "Entrevista"){
 						plantilla=plantilla.replace("[NOMBRE-ENTREVISTA]",  element.pnombre)
 						plantilla=plantilla.replace("[DESCRIPCION-ENTREVISTA]",   element.pdescripcion)
-						plantilla=plantilla.replace("[FECHA-ENTREVISTA]",   element.aplicacion)
+						plantilla=plantilla.replace("[FECHA-ENTREVISTA]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-ENTREVISTA]",   element.horario)
+						plantilla=plantilla.replace("[Lugar-E]",   element.online=='t'?"URL":"Lugar")
 						plantilla=plantilla.replace("[LUGAR-ENTREVISTA]",   element.lugar)
-						plantilla=plantilla.replace("[DIRECCION-ENTREVISTA]",   element.municipio+" - "+element.colonia +" C.P."+ element.codigo_postal)
+						if(element.calle==null && element.numero_int==null && element.colonia==null) {
+							plantilla=plantilla.replace("<tr> <td style=\"color: rgb(255, 89, 0);\">Dirección</td> <td>[DIRECCION-ENTREVISTA]</td> </tr>","")
+						}
+						plantilla=plantilla.replace("[DIRECCION-ENTREVISTA]",   (element.calle==null?"":element.calle+" - ")+((element.numero_int==null)?"":"#"+element.numero_int )+"  "+ (element.colonia==null?"":element.colonia))
 	
 					}
 				}
 			}else if(object.codigo.equals("registrar") && object.isEnviar) {
-				plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + object.correo + "");
+				plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
+			}else if (object.codigo.equals("transferencia")) {
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_ASPIRANTE_TRANSFERENCIA)
+					pstm.setString(1, object.correo)
+					rs = pstm.executeQuery()
+					if(rs.next()) {
+						plantilla=plantilla.replace("[UNIVERSIDAD-DESTINO]", rs.getString("campusnuevo"))
+						plantilla=plantilla.replace("[UNIVERSIDAD-PROCEDENTE]", rs.getString("campusanterior"))
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				}finally {
+				if(closeCon) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
+					
+				}
+			}else if (object.codigo.equals("reagendar")) {
+				try {
+					closeCon = validarConexion();
+					pstm = con.prepareStatement(Statements.GET_ASPIRANTE_ASISTENCIA)
+					pstm.setString(1, object.correo)
+					rs = pstm.executeQuery()
+					while(rs.next()) {
+						if(rs.getString("descripcion").equals("Examen de aptitudes y conocimientos")) {
+							plantilla=plantilla.replace("[FALTA-ASISTENCIA-PCA]", "asistencia")
+						} else if(rs.getString("descripcion").equals("Examen Psicométrico")) {
+							plantilla=plantilla.replace("[FALTA-ASISTENCIA-P]", "asistencia")
+						} else {
+							plantilla=plantilla.replace("[FALTA-ASISTENCIA-E", "asistencia")
+						}
+						
+						
+						
+					}
+					plantilla=plantilla.replace("[FALTA-ASISTENCIA-PCA]", "falta")
+					plantilla=plantilla.replace("[FALTA-ASISTENCIA-P]", "falta")
+					plantilla=plantilla.replace("[FALTA-ASISTENCIA-E", "falta")
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				}finally {
+				if(closeCon) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
+					
+				}
+			}else if(object.codigo.equals("carta-aceptar") || object.codigo.equals("carta-rechazo") || object.codigo.equals("carta-pdu")|| object.codigo.equals("carta-informacion")) {
+				try {
+					def dt = null;
+					def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
+					List<SolicitudDeAdmision> objSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.correo, 0, 999)
+					if(objSolicitudDeAdmision.size()>0) {
+						Result documentosTextos = new DocumentosTextosDAO().getDocumentosTextos(objSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId());
+						if(documentosTextos.data.size()>0) {
+							dt = documentosTextos.data.get(0);
+						}
+					}
+					closeCon = validarConexion();
+					
+					pstm = con.prepareStatement(Statements.GET_DOCUMENTOSTEXTOS_BY_CAMPUSPID)
+					pstm.setString(1, object.campus)
+					rs = pstm.executeQuery()
+					if(rs.next()) {
+						dt.ciudadCarta=rs.getString("ciudadCarta");
+						dt.estadoCarta=rs.getString("estadoCarta");
+						dt.documentosEntregar=rs.getString("documentosEntregar");
+						dt.documentosEntregarExtranjero=rs.getString("documentosEntregarExtranjero");
+						dt.notasDocumentos=rs.getString("notasDocumentos");
+						dt.parrafoMatematicas1=rs.getString("parrafoMatematicas1");
+						dt.parrafoMatematicas2=rs.getString("parrafoMatematicas2");
+						dt.parrafoMatematicas3=rs.getString("parrafoMatematicas3");
+						dt.parrafoEspanol1=rs.getString("parrafoEspanol1");
+						dt.parrafoEspanol2=rs.getString("parrafoEspanol2");
+						dt.parrafoEspanol3=rs.getString("parrafoEspanol3");
+						dt.directorAdmisiones=rs.getString("directorAdmisiones");
+						dt.tituloDirectorAdmisiones=rs.getString("tituloDirectorAdmisiones");
+						dt.correoDirectorAdmisiones=rs.getString("correoDirectorAdmisiones");
+						dt.telefonoDirectorAdmisiones=rs.getString("telefonoDirectorAdmisiones");
+						dt.actividadIngreso1=rs.getString("actividadIngreso1");
+						dt.actividadIngreso2=rs.getString("actividadIngreso2");
+						dt.costoSGM=rs.getString("costoSGM");
+						dt.educacionGarantizada=rs.getString("educacionGarantizada");
+						dt.instruccionesPagoBanco=rs.getString("instruccionesPagoBanco");
+						dt.instruccionesPagoCaja=rs.getString("instruccionesCaja");
+						dt.cancelarSeguroGastosMedicos=rs.getString("cancelarSeguroGastosMedicos");
+						dt.cursoMatematicas1=rs.getString("cursoMatematicas1");
+						dt.cursoMatematicas2=rs.getString("cursoMatematicas2");
+						plantilla=plantilla.replace("[CIUDAD-CARTA]",dt.ciudadCarta);
+						plantilla=plantilla.replace("[ESTADO-CARTA]",dt.estadoCarta);
+						plantilla=plantilla.replace("[DOCUMENTOS-ENTREGAR]",dt.documentosEntregar);
+						plantilla=plantilla.replace("[DOCUMENTOS-EXTRANJEROS]",dt.documentosEntregarExtranjero);
+						plantilla=plantilla.replace("[NOTAS-DOCUMENTOS]",dt.notasDocumentos);
+						plantilla=plantilla.replace("[DIRECTOR-ADMISIONES]",dt.directorAdmisiones);
+						plantilla=plantilla.replace("[TITULO-DIRECTOR-ADMISIONES]",dt.tituloDirectorAdmisiones);
+						plantilla=plantilla.replace("[CORREO-DIRECTOR-ADMISIONES]",dt.correoDirectorAdmisiones);
+						plantilla=plantilla.replace("[TELEFONO-DIRECTOR-ADMISIONES]",dt.telefonoDirectorAdmisiones);
+						plantilla=plantilla.replace("[COSTO-SGM]",dt.costoSGM);
+						plantilla=plantilla.replace("[EDUCACION-GARANTIZADA]",dt.educacionGarantizada);
+						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-BANCO]",dt.instruccionesPagoBanco);
+						plantilla=plantilla.replace("[CANCELAR-SEGURO-GASTOS]",dt.cancelarSeguroGastosMedicos);
+						plantilla=plantilla.replace("[INSTRUCCIONES-PAGO-CAJA]",dt.instruccionesPagoCaja);
+						
+					}
+					
+					pstm = con.prepareStatement(Statements.GET_INFOCARTATEMPORAL_PLANTILLA)
+					pstm.setString(1, object.correo)
+					rs = pstm.executeQuery()
+					while(rs.next()) {	
+						plantilla=plantilla.replace("[|persistenceid|]",rs.getString("persistenceid"));
+						plantilla=plantilla.replace("[|admitido|]",rs.getString("admitido"));
+						plantilla=plantilla.replace("[|campusadmision|]",rs.getString("campusadmision"));
+						plantilla=plantilla.replace("[|carrera|]",rs.getString("carrera"));
+						plantilla=plantilla.replace("[|carta|]",rs.getString("carta"));
+						plantilla=plantilla.replace("[|curp|]",rs.getString("curp"));
+						plantilla=plantilla.replace("[|decisiondeadmision|]",rs.getString("decisiondeadmision"));
+						plantilla=plantilla.replace("[|descuentoprontopagomes1|]",rs.getString("descuentoprontopagomes1"));
+						plantilla=plantilla.replace("[|descuentoprontopagomes1fecha|]",rs.getString("descuentoprontopagomes1fecha"));
+						plantilla=plantilla.replace("[|descuentoprontopagomes2|]",rs.getString("descuentoprontopagomes2"));
+						plantilla=plantilla.replace("[|descuentoprontopagomes2fecha|]",rs.getString("descuentoprontopagomes2fecha"));
+						plantilla=plantilla.replace("[|eema|]",rs.getString("eema"));
+						plantilla=plantilla.replace("[|eemi|]",rs.getString("eemi"));
+						plantilla=plantilla.replace("[|eemn|]",rs.getString("eemn"));
+						plantilla=plantilla.replace("[|eemq|]",rs.getString("eemq"));
+						plantilla=plantilla.replace("[|eems|]",rs.getString("eems"));
+						plantilla=plantilla.replace("[|eemt|]",rs.getString("eemt"));
+						plantilla=plantilla.replace("[|escm|]",rs.getString("escm"));
+						plantilla=plantilla.replace("[|escp|]",rs.getString("escp"));
+						plantilla=plantilla.replace("[|espanol|]",rs.getString("espanol"));
+						plantilla=plantilla.replace("[|examinado|]",rs.getString("examinado"));
+						plantilla=plantilla.replace("[|fechalimitedepago|]",rs.getString("fechalimitedepago"));
+						plantilla=plantilla.replace("[|fechalimiteentregadocumentacion|]",rs.getString("fechalimiteentregadocumentacion"));
+						plantilla=plantilla.replace("[|filaexcel|]",rs.getString("filaexcel"));
+						plantilla=plantilla.replace("[|inscrito|]",rs.getString("inscrito"));
+						plantilla=plantilla.replace("[|mmpi|]",rs.getString("mmpi"));
+						plantilla=plantilla.replace("[|nivel|]",rs.getString("nivel"));
+						plantilla=plantilla.replace("[|nombre|]",rs.getString("nombre"));
+						plantilla=plantilla.replace("[|notastransferencia|]",rs.getString("notastransferencia"));
+						plantilla=plantilla.replace("[|numerodematricula|]",rs.getString("numerodematricula"));
+						plantilla=plantilla.replace("[|paa|]",rs.getString("paa"));
+						plantilla=plantilla.replace("[|paanumerica|]",rs.getString("paanumerica"));
+						plantilla=plantilla.replace("[|paaverbal|]",rs.getString("paaverbal"));
+						plantilla=plantilla.replace("[|pagoinscripcion|]",rs.getString("pagoinscripcion"));
+						plantilla=plantilla.replace("[|para|]",rs.getString("para"));
+						plantilla=plantilla.replace("[|pca|]",rs.getString("pca"));
+						plantilla=plantilla.replace("[|pcda|]",rs.getString("pcda"));
+						plantilla=plantilla.replace("[|pdp|]",rs.getString("pdp"));
+						plantilla=plantilla.replace("[|pdu|]",rs.getString("pdu"));
+						plantilla=plantilla.replace("[|periodo|]",rs.getString("periodo"));
+						plantilla=plantilla.replace("[|persistenceversion|]",rs.getString("persistenceversion"));
+						plantilla=plantilla.replace("[|pia|]",rs.getString("pia"));
+						plantilla=plantilla.replace("[|preparatoriade|]",rs.getString("preparatoriade"));
+						plantilla=plantilla.replace("[|promedio|]",rs.getString("promedio"));
+						plantilla=plantilla.replace("[|religion|]",rs.getString("religion"));
+						plantilla=plantilla.replace("[|selecciondecursosprevia|]",rs.getString("selecciondecursosprevia"));
+						plantilla=plantilla.replace("[|sesion|]",rs.getString("sesion"));
+						plantilla=plantilla.replace("[|sexo|]",rs.getString("sexo"));
+						plantilla=plantilla.replace("[|sihaceonomatematicas|]",rs.getString("sihaceonomatematicas"));
+						plantilla=plantilla.replace("[|solicitante|]",rs.getString("solicitante"));
+						plantilla=plantilla.replace("[|sse|]",rs.getString("sse"));
+						plantilla=plantilla.replace("[|statuspdu|]",rs.getString("statuspdu"));
+						plantilla=plantilla.replace("[|tipodeadmision|]",rs.getString("tipodeadmision"));
+						plantilla=plantilla.replace("[|tipodeestudiante|]",rs.getString("tipodeestudiante"));
+						plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
+						plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
+						plantilla=plantilla.replace("[|seleccionado|]",rs.getString("seleccionado"));
+						
+						/*plantilla=plantilla.replace("<!-- GUIA DE ESTUDIO-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-12\"> <div class=\"row\" > <div class=\"col-12 form-group color-titulo\"> <a href=\"[guia-src]\" target=\"_blank\" style=\"text-decoration: underline; cursor: pointer;\"><img style=\"\" src=\"https://bpmpreprod.blob.core.windows.net/publico/Gu%C3%ADa%20de%20estudios.png\" alt=\"no disponible\"></a> </div> </div> </td> </tr> </tbody> </table> <hr>")
+						plantilla=plantilla.replace("[guia-src]", dt.urlGuiaExamenCB)
+						plantilla=plantilla.replace("[TIPS]",dt.tipsCB);
+						plantilla=plantilla.replace("<!--[PASOS]-->","<table style='width:80%; font-size: initial; font-family:  Arial;'><tr><td style='font-family:  Arial;'>"+dt.noSabes+"</td></tr></table>");
+						plantilla=plantilla.replace("[LIGA-PARA-TEST-VOCACIONAL]",dt.urlTestVocacional);*/
+						plantilla=plantilla.replace("[MATEMATICAS-1]",(rs.getString("sihaceonomatematicas").equals("1"))?dt.parrafoMatematicas1:"");
+						plantilla=plantilla.replace("[MATEMATICAS-2]",(rs.getString("sihaceonomatematicas").equals("2"))?dt.parrafoMatematicas2:"");
+						plantilla=plantilla.replace("[MATEMATICAS-3]",(rs.getString("sihaceonomatematicas").equals("3"))?dt.parrafoMatematicas3:"");
+						plantilla=plantilla.replace("[ESPANOL-1]",(rs.getString("espanol").equals("1"))?dt.parrafoEspanol1:"");
+						plantilla=plantilla.replace("[ESPANOL-2]",(rs.getString("espanol").equals("2"))?dt.parrafoEspanol2:"");
+						plantilla=plantilla.replace("[ESPANOL-3]",(rs.getString("espanol").equals("3"))?dt.parrafoEspanol3:"");
+						plantilla=plantilla.replace("[ACTIVIDADES-DE-INFRESO-ENERO]",(rs.getString("periodo").substring(4,6).equals("10")|| rs.getString("periodo").substring(4,6).equals("05"))?dt.actividadIngreso1:"");
+						plantilla=plantilla.replace("[ACTIVIDADES-DE-INFRESO-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.actividadIngreso2:"");
+						plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(rs.getString("periodo").substring(4,6).equals("10") || rs.getString("periodo").substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
+						plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
+												
+					}
+				} catch (Exception e) {
+					errorlog += "| TRANSFERENCIA " + e.getMessage()
+				}finally {
+				if(closeCon) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
+					
+				}
+			}
+			
+			try {
+				Result hffc = new Result()
+				hffc = getCatNotificacionesCampusCodigoCampus(object.codigo, object.campus)
+				if(hffc.getData().size()>0) {
+					CatNotificacionesCampus catHffc = (CatNotificacionesCampus) hffc.getData().get(0)
+					plantilla=plantilla.replace("[HEADER-IMG]", catHffc.getHeader())
+					plantilla=plantilla.replace("[TEXTO-FOOTER]", catHffc.getFooter())
+					cc=catHffc.getCopia();
+					try {
+						plantilla=plantilla.replace("[firma]", generarFirma(catHffc.getCatnotificacionesfirma_pid().toString()))
+						Result rfirma = getFirma("{\"estatusSolicitud\":\"Solicitud en progreso\",\"tarea\":\"Llenar solicitud\",\"lstFiltro\":[{\"columna\":\"PERSISTENCEID\",\"operador\":\"Igual a\",\"valor\":\""+catHffc.getCatnotificacionesfirma_pid().toString()+"\"}],\"type\":\"solicitudes_progreso\",\"usuario\":0,\"orderby\":\"NOMBRECOMPLETO\",\"orientation\":\"ASC\",\"limit\":20,\"offset\":0}")
+						
+						plantilla=plantilla.replace("(CONTACTO DE CAMPUS DESTINO)", rfirma.data.get(0).nombreCompleto + " " +rfirma.data.get(0).apellido)
+					} catch (Exception e) {
+						plantilla=plantilla.replace("[firma]", "")
+					}
+					
+				}
+			} catch (Exception e) {
+				plantilla=plantilla.replace("[HEADER-IMG]", cn.getAnguloImagenHeader())
+				plantilla=plantilla.replace("[TEXTO-FOOTER]", cn.getTextoFooter())
+				plantilla=plantilla.replace("[firma]", "")
 			}
 			   
-			 
-			plantilla=plantilla.replace("[TEXTO-FOOTER]", cn.getTextoFooter())
-			plantilla=plantilla.replace("[footer-href]", cn.getEnlaceFooter())
+			plantilla=plantilla.replace("[header-href]", cn.getEnlaceBanner())
+		    plantilla=plantilla.replace("[footer-href]", cn.getEnlaceFooter())
 			List<String> lstData = new ArrayList();
 			List<String> lstAdditionalData = new ArrayList();
 			lstData.add(plantilla);
@@ -401,7 +643,7 @@ class NotificacionDAO {
 		return resultado;
 	}
 
-			private String DataUsuarioAdmision(String plantilla, RestAPIContext context, String correo, CatNotificaciones cn, String errorlog) {
+			private String DataUsuarioAdmision(String plantilla, RestAPIContext context, String correo, CatNotificaciones cn, String errorlog,Boolean isEnviar) {
 			//8 Seccion table atributos usuario
 		    errorlog += ", Variable8"
 			String tablaUsuario= ""
@@ -410,51 +652,36 @@ class NotificacionDAO {
 			def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(SolicitudDeAdmisionDAO.class);
 			List<SolicitudDeAdmision> objSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(correo, 0, 999)
 			if(objSolicitudDeAdmision.size()>0) {
-				for(String variables:cn.getLstVariableNotificacion()) {
-					if(variables.equals("Nombre")) {
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
+				Result documentosTextos = new DocumentosTextosDAO().getDocumentosTextos(objSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId());
+				if(documentosTextos.data.size()>0) {
+					def dt = documentosTextos.data.get(0);
+					if(objSolicitudDeAdmision.get(0).necesitoAyuda && cn.getCodigo().equals("registrar")) {
+						plantilla=plantilla.replace("<!--[PASOS]-->", "<table style='width:80%; font-size: initial; font-family:  Arial;'><tr><td style='font-family:  Arial;'>"+dt.noSabes+"</td></tr></table>")
+						plantilla=plantilla.replace("[LIGA-PARA-TEST-VOCACIONAL]", dt.urlTestVocacional)
 					}
-					if(variables.equals("Universidad")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
+					if(!cn.docGuiaEstudio.equals("")) {
+						plantilla=plantilla.replace("<!-- GUIA DE ESTUDIO-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-12\"> <div class=\"row\" > <div class=\"col-12 form-group color-titulo\"> <a href=\"[guia-src]\" target=\"_blank\" style=\"text-decoration: underline; cursor: pointer;\"><img style=\"\" src=\"https://bpmpreprod.blob.core.windows.net/publico/Gu%C3%ADa%20de%20estudios.png\" alt=\"no disponible\"></a> </div> </div> </td> </tr> </tbody> </table> <hr>")
+						plantilla=plantilla.replace("[guia-src]", dt.urlGuiaExamenCB)
 					}
-					if(variables.equals("Licenciatura")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
+					if(!dt.tipsCB.equals("")) {
+						plantilla=plantilla.replace("[TIPS]", dt.tipsCB)
+					}else {
+						plantilla=plantilla.replace("[TIPS]", "")
 					}
-					if(variables.equals("Campus de examen")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
-					}
-					if(variables.equals("Correo")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getCorreoElectronico())
-					}
-					if(variables.equals("Periodo")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getCatPeriodo().getDescripcion())
-					}
-					if(variables.equals("Preparatoria")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", (objSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion().equals("Otro"))?objSolicitudDeAdmision.get(0).getBachillerato():objSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion())
-					}
-					if(variables.equals("Promedio")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getPromedioGeneral())
-					}
-					if(variables.equals("Estatus de tu solicitud")){
-						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getEstatusSolicitud())
-					}
-					if(variables.equals("ID Banner")){
-						try {
-						def objDetalleSolicitudDAO = context.getApiClient().getDAO(DetalleSolicitudDAO.class)
-						List<DetalleSolicitud> detalleSolicitud = objDetalleSolicitudDAO.findByCaseId(objSolicitudDeAdmision.get(0).getCaseId()+"", 0, 999)
-						if(detalleSolicitud.size()>0) {
-							tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", detalleSolicitud.get(0).getIdBanner())
-						}
-						}catch(Exception e) {
-							errorlog+= " e" + e.getMessage()
-						}
-					}
-					
 				}
-				plantilla=plantilla.replace("Estimado(a)", objSolicitudDeAdmision.get(0).getCatSexo().getDescripcion().equals("Masculino")?"Estimado":"Estimada")
-				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
-				plantilla=plantilla.replace("[UNIVERSIDAD]", objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
-				plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
+				if(objSolicitudDeAdmision.get(0).getCatSexo()!=null) {
+					plantilla=plantilla.replace("Estimado(a)", objSolicitudDeAdmision.get(0).getCatSexo().getDescripcion().equals("Masculino")?"Estimado":"Estimada")
+				}else {
+					plantilla=plantilla.replace("Estimado(a)", "Estimado")
+				}
+				plantilla=plantilla.replace("[NOMBRE-COMPLETO]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
+				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre())
+				plantilla=plantilla.replace("[UNIVERSIDAD]", objSolicitudDeAdmision.get(0).getCatCampusEstudio().getDescripcion())
+				plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getNombre())
+				if(objSolicitudDeAdmision.get(0).getCatGestionEscolar().isPropedeutico()) {
+					plantilla=plantilla.replace("<!--PROPEDEUTICO-->", "<tr> <td valign=\"top\" style=\"text-align: justify;text-align: left;\"> <font face=\"'Source Sans Pro', sans-serif\" color=\"#4F4E4D\"> <span style=\"color: #4F4E4D;\"> Propedéutico: </span> </font> </td> <td valign=\"top\" style=\"text-align: justify;text-align: left;\"> <font face=\"'Source Sans Pro', sans-serif\" color=\"#4F4E4D\"> <span style=\"color: #FF5900;\"> [PROPEDEUTICO] </span> </font> </td> </tr>")
+					plantilla=plantilla.replace("[PROPEDEUTICO]", objSolicitudDeAdmision.get(0).getCatPropedeutico().getDescripcion())
+				}
 				plantilla=plantilla.replace("[CAMPUSEXAMEN]",objSolicitudDeAdmision.get(0).getCatCampus().getDescripcion())
 				try {
 					plantilla=plantilla.replace("[CAMPUS]",objSolicitudDeAdmision.get(0).getCatCampusEstudio().getDescripcion())
@@ -472,11 +699,24 @@ class NotificacionDAO {
 				
 				if(cn.isInformacionLic()) {
 					errorlog += ", Variable14.1"
-					plantilla=plantilla.replace("<!--isInformacionLic-->", "<table width=\"80%\"> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-4\" style=\"width:33.33%;margin: 0; padding:0; vertical-align: middle;\"> <img src=\"https://i.ibb.co/RbptTkY/licenciatura.jpg\"> </td> <td class=\"col-4\" style=\"width:33.33%; background: #BA6205; vertical-align: middle; padding: 0; margin: 0;\"> <div class=\"row\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"https://i.ibb.co/C8yv3pD/sello.png\"> </div> <div class=\"col-12 color-index sub-img\" style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a style=\"font-size: 15px;color: white;text-decoration:none;\">[LICENCIATURA]</a> </div> </div> </td> <td class=\"col-4\" style=\"width:33.33%; text-decoration: underline; font-size: 9px; background: #ff5900; color: white; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; margin: 0; padding:0; vertical-align: middle;\"> <p>[descripcion-licenciatura] </p> </td> </tr> </tbody> </table>")
+					plantilla=plantilla.replace("<!--isInformacionLic-->", "<table width=\"80%\"> <tbody> <tr style=\"text-align: center;\"> <td class=\"col-4\" style=\"width:33.33%;margin: 0; padding:0; vertical-align: middle;\"> <img style=\"width:193px\" src=\"[URL-IMG-LICENCIATURA]\"> </td> <td class=\"col-4\" style=\"width:33.33%; background: #4F4E4D; vertical-align: middle; padding: 0; margin: 0;\"> <div class=\"row\"> <div class=\"col-12 form-group color-titulo\"> <img src=\"https://i.ibb.co/C8yv3pD/sello.png\"> </div> <div class=\"col-12 color-index sub-img\" style=\"font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> <a  style=\"font-size: 15px;color: white;\" href=\"[LICENCIATURA-URL]\"  target=\"_blank\">[LICENCIATURA]</a> </div> </div> </td> <td class=\"col-4\" style=\"width:33.33%; text-decoration: underline; font-size: 9px; background: #ff5900; color: white; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif; margin: 0; padding:0; vertical-align: middle;\"> <p>[descripcion-licenciatura] </p> </td> </tr> </tbody> </table>"+"<hr>")
 					errorlog += ", Variable14.2"
 					plantilla=plantilla.replace("[LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getNombre())
 					errorlog += ", Variable14.3"
 					plantilla=plantilla.replace("[descripcion-licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
+					
+					plantilla=plantilla.replace("[LICENCIATURA-URL]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getEnlace())
+					try {
+						if(objSolicitudDeAdmision.get(0).getCatGestionEscolar().getUrlImgLicenciatura().equals("")) {
+							plantilla=plantilla.replace("[URL-IMG-LICENCIATURA]", "https://bpmpreprod.blob.core.windows.net/publico/Afirma_Mesa%20de%20trabajo%201.png")
+						}else {
+							plantilla=plantilla.replace("[URL-IMG-LICENCIATURA]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getUrlImgLicenciatura())
+						}
+					} catch (Exception e) {
+						plantilla=plantilla.replace("[URL-IMG-LICENCIATURA]", "https://bpmpreprod.blob.core.windows.net/publico/Afirma_Mesa%20de%20trabajo%201.png")
+					}
+					
+					
 				}
 				errorlog += ", Variable15"
 				try {
@@ -487,11 +727,18 @@ class NotificacionDAO {
 					errorlog += ", Variable15.1"
 					plantilla=plantilla.replace("[IDBANNER]",detalleSolicitud.get(0).getIdBanner())
 					errorlog += ", Variable15.2"
-					plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",detalleSolicitud.get(0).getObservacionesRechazo())
-					errorlog += ", Variable15.3"
-					plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",detalleSolicitud.get(0).getObservacionesListaRoja())
-					errorlog += ", Variable15.3"
-					plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", detalleSolicitud.get(0).getObservacionesCambio())
+					if(isEnviar) {
+						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",detalleSolicitud.get(0).getObservacionesRechazo())
+						errorlog += ", Variable15.3"
+						plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",detalleSolicitud.get(0).getObservacionesListaRoja())
+						errorlog += ", Variable15.3"
+						plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", detalleSolicitud.get(0).getObservacionesCambio())
+					}
+					if(detalleSolicitud.get(0).isCbCoincide()) {
+						plantilla=plantilla.replace("<table class=\"cbCoincide\"", "<!--table class='cbCoincide'")
+						plantilla=plantilla.replace("<br class=\"cbCoincide\">", "<br class='cbCoincide'-->")
+						plantilla=plantilla.replace("<li>Entrevista <font color=\"#FF5900\">([FALTA-ASISTENCIA-E)</font> </li>", "<!--li>Entrevista <font color=\"#FF5900\">([FALTA-ASISTENCIA-E)</font> </li-->")
+					}
 				}}catch(Exception e) {
 				errorlog+=" e2" + e.getMessage()
 				Boolean closeCon=false;
@@ -504,11 +751,13 @@ class NotificacionDAO {
 						errorlog += ", Variable15.1"
 						plantilla=plantilla.replace("[IDBANNER]",rs.getString("IdBanner"))
 						errorlog += ", Variable15.2"
-						plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",rs.getString("ObservacionesRechazo"))
-						errorlog += ", Variable15.3"
-						plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",rs.getString("ObservacionesListaRoja"))
-						errorlog += ", Variable15.3"
-						plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("ObservacionesCambio"))
+						if(isEnviar) {
+							plantilla=plantilla.replace("[RECHAZO-COMENTARIOS]",rs.getString("ObservacionesRechazo"))
+							errorlog += ", Variable15.3"
+							plantilla=plantilla.replace("[LISTAROJA-COMENTARIOS]",rs.getString("ObservacionesListaRoja"))
+							errorlog += ", Variable15.3"
+							plantilla=plantilla.replace("[COMENTARIOS-CAMBIO]", rs.getString("ObservacionesCambio"))
+						}
 					}
 				}catch(Exception ex) {
 					
@@ -555,7 +804,7 @@ class NotificacionDAO {
 			def objSolicitudDeAdmisionDAO = context.apiClient.getDAO(CatRegistroDAO.class);
 			List<CatRegistro> objSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoelectronico(correo, 0, 99)
 			if(objSolicitudDeAdmision.size()>0) {
-				for(String variables:cn.getLstVariableNotificacion()) {
+				/*for(String variables:cn.getLstVariableNotificacion()) {
 					if(variables.equals("Nombre")) {
 						tablaUsuario += plantillaTabla.replace("[clave]", variables).replace("[valor]", objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidopaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
 					}
@@ -565,8 +814,9 @@ class NotificacionDAO {
 					}
 					
 					
-				}
-				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidopaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
+				}*/
+				plantilla=plantilla.replace("[NOMBRE-COMPLETO]",objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre()+" "+objSolicitudDeAdmision.get(0).getApellidopaterno()+" "+objSolicitudDeAdmision.get(0).getApellidomaterno())
+				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimernombre()+" "+objSolicitudDeAdmision.get(0).getSegundonombre())
 				plantilla=plantilla.replace("[CORREO]",objSolicitudDeAdmision.get(0).getCorreoelectronico())
 				errorlog += ", Variable14"
 			}
@@ -723,18 +973,24 @@ class NotificacionDAO {
 							where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						case "CAMPUS":
-						if(where.contains("WHERE")) {
-							where+= " AND "
+						
+						if(filtro.get("valor")== null || filtro.get("valor")== "null") {
+							
 						}else {
-							where+= " WHERE "
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(CAMPUS) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
 						}
-						where +=" LOWER(CAMPUS) ";
-						if(filtro.get("operador").equals("Igual a")) {
-							where+="=LOWER('[valor]')"
-						}else {
-							where+="LIKE LOWER('%[valor]%')"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
+
 						break;
 					}
 				}
@@ -1001,7 +1257,7 @@ class NotificacionDAO {
 	public Result getFirma(String jsonData) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where ="", orderby="ORDER BY ", errorlog=""
+		String where =" WHERE isEliminar=false ", orderby="ORDER BY ", errorlog=""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1110,6 +1366,62 @@ class NotificacionDAO {
 						}
 						where = where.replace("[valor]", filtro.get("valor"))
 					break;
+					case "FACEBOOK":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" LOWER(FACEBOOK) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+				break;
+							case "TWITTER":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" LOWER(TWITTER) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						case "BANNER":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(BANNER) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						case "APELLIDO":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(APELLIDO) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					case "CAMPUS":
 						if(where.contains("WHERE")) {
 							where+= " AND "
@@ -1151,6 +1463,18 @@ class NotificacionDAO {
 				case "CAMPUS":
 				orderby+="CAMPUS";
 									break;
+				case "APELLIDO":
+				orderby+="APELLIDO";
+				break;
+				case "FACEBOOK":
+				orderby+="FACEBOOK";
+				break;
+				case "TWITTER":
+				orderby+="TWITTER";
+									break;
+				case "BANNER":
+				orderby+="BANNER";
+							break;
 				default:
 				orderby+="PERSISTENCEID";
 				break;
@@ -1159,8 +1483,8 @@ class NotificacionDAO {
 			String consulta = Statements.GET_CAT_NOTIFICACION_FIRMA;
 			consulta=consulta.replace("[WHERE]", where);
 			errorlog+="consulta:"
-			errorlog+=consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
-				pstm = con.prepareStatement(consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			errorlog+=consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
+				pstm = con.prepareStatement(consulta.replace("PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 				rs = pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -1189,12 +1513,16 @@ class NotificacionDAO {
 					firma.setTelefono(rs.getString("telefono"))
 					firma.setTitulo(rs.getString("titulo"))
 					firma.setCampus(rs.getString("campus"))
+					firma.setFacebook(rs.getString("facebook"))
+					firma.setTwitter(rs.getString("twitter"))
+					firma.setApellido(rs.getString("apellido"))
+					firma.setBanner(rs.getString("banner"))
 					rows.add(firma)
 				}
 				resultado.setSuccess(true)
 				
 				resultado.setData(rows)
-				
+				resultado.setError_info(errorlog)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -1227,6 +1555,10 @@ class NotificacionDAO {
 				pstm.setString(10,firma.getTelefono())
 				pstm.setString(11,firma.getTitulo())
 				pstm.setString(12,firma.getCampus())
+				pstm.setString(13,firma.getFacebook())
+				pstm.setString(14,firma.getTwitter())
+				pstm.setString(15,firma.getApellido())
+				pstm.setString(16,firma.getBanner())
 				
 				rs = pstm.executeQuery()
 				if(rs.next()) {
@@ -1268,7 +1600,37 @@ class NotificacionDAO {
 				pstm.setString(10,firma.getTelefono())
 				pstm.setString(11,firma.getTitulo())
 				pstm.setString(12,firma.getCampus())
-				pstm.setLong(13,firma.getPersistenceId())
+				pstm.setString(13,firma.getFacebook())
+				pstm.setString(14,firma.getTwitter())
+				pstm.setString(15,firma.getApellido())
+				pstm.setString(16,firma.getBanner())
+				pstm.setLong(17,firma.getPersistenceId())
+				
+				pstm.execute()
+				
+				resultado.setSuccess(true)
+				rows.add(firma)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	public Result deleteFirma(CatNotificacionesFirma firma) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+				List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.DELETE_CAT_NOTIFICACIONES_FIRMA)
+				
+				pstm.setLong(1,firma.getPersistenceId())
 				
 				pstm.execute()
 				
@@ -1293,6 +1655,7 @@ class NotificacionDAO {
 			con = new DBConnect().getConnection();
 			retorno=true
 		}
+		return retorno;
 	}
 	
 	public Boolean validarConexionBonita() {
@@ -1301,6 +1664,7 @@ class NotificacionDAO {
 			con = new DBConnect().getConnectionBonita();
 			retorno=true
 		}
+		return retorno;
 	}
 	BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
 		BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
@@ -1327,6 +1691,9 @@ class NotificacionDAO {
 		String telefono = "";
 		String pagina = "";
 		String correo = "";
+		String facebook ="";
+		String twitter = "";
+		String banner = "";
 		if(!persistenceId.equals("")) {
 		try {
 		closeCon = validarConexion();
@@ -1350,11 +1717,21 @@ class NotificacionDAO {
 				firma.setTelefono(rs.getString("telefono"))
 				firma.setTitulo(rs.getString("titulo"))
 				firma.setCampus(rs.getString("campus"))
-				 nombretitulo = "<br><br><br><p><b>"+firma.titulo + " " +firma.nombreCompleto+"</b> <br>";
-				 cargo = firma.cargo+"</p>";
-				 telefono = "<p><img style='width: 10px;'src='https://i.ibb.co/hd0n9K1/Telephone-icon-orange-300x300.png'>&nbsp;"+firma.telefono+"<br>";
-				 pagina = "<img style='width: 10px;'src='https://e7.pngegg.com/pngimages/102/938/png-clipart-universidad-anahuac-mexico-sur-universidad-anahuac-queretaro-anahuac-university-network-lions-angle-text.png'>&nbsp;"+firma.grupo+"<br>";
-				 correo = "<img style='width: 10px;'src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz4uRldQmURlsu0KPNiQ0FcXNM0G8No6IOcg&usqp=CAU'>&nbsp;"+firma.correo+"<br> </p>";
+				firma.setFacebook(rs.getString("facebook"))
+				firma.setTwitter(rs.getString("twitter"))
+				firma.setApellido(rs.getString("apellido"))
+				firma.setBanner(rs.getString("banner"))
+				
+				nombretitulo = "<p style='line-height: 15px; margin-left: 10px; margin-right: 10px;'><b>" + firma.titulo + " " + firma.nombreCompleto + " <span style='color: #FF5900;'>"+firma.apellido+" </span></b> <br>";
+				cargo = (firma.cargo == null || firma.cargo.equals(""))?"":firma.cargo + "</p>";
+				telefono = (firma.telefono == null || firma.telefono.equals(""))?"<p style='line-height: 15px;margin-left: 10px; margin-right: 10px;'>":"<p style='line-height: 15px;'><img style='width: 10px;'src='https://i.ibb.co/vsCB2MF/icono-UA-04.png'>&nbsp;" + firma.telefono + "<br> ";
+				pagina = (firma.grupo == null || firma.grupo.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/172hPYQ/icono-UA-Mesa-de-trabajo-1.png'>&nbsp;" + firma.grupo + "<br>";
+				facebook = (firma.facebook == null || firma.facebook.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/B49GzyB/icono-UA-03.png'>&nbsp;"+firma.facebook+"<br>";
+				twitter = (firma.twitter == null || firma.twitter.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/7Wd817H/icono-UA-02.png'>&nbsp;"+firma.twitter+"<br>";
+				correo = (firma.correo == null || firma.correo.equals(""))?"":"<img style='width: 10px;'src='https://i.ibb.co/Yc0TXX9/Iconos-UA-05.png'>&nbsp;" + firma.correo + "<br> "
+				banner = (firma.banner == null || firma.banner.equals(""))?"</p>":"<img src='"+firma.banner+"'><br> </p>"
+				
+
 				
 			}
 		}catch(Exception ex) {
@@ -1366,9 +1743,129 @@ class NotificacionDAO {
 			
 		}
 		
-			return nombretitulo + cargo + telefono + pagina + correo;
+			return nombretitulo + cargo + telefono + pagina + facebook + twitter + correo + banner;
 		}else {
 			return ""
 		}
+	}
+	public Result getCatNotificacionesCampus(String grupoBonita) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+
+			CatNotificacionesCampus row = new CatNotificacionesCampus()
+			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
+			closeCon = validarConexion();
+			String consulta = CatNotificacionesCampus.GET_CATNOTIFICACIONESCAMPUS
+			pstm = con.prepareStatement(consulta)
+			pstm.setString(1, grupoBonita)
+			rs = pstm.executeQuery()
+				while(rs.next()) {
+					row = new CatNotificacionesCampus()
+					row.setCatcampus_pid(rs.getLong("catcampus_pid"))
+					row.setCatnotificacionesfirma_pid(rs.getLong("catnotificacionesfirma_pid"))
+					row.setCodigo(rs.getString("codigo"))
+					row.setDescripcion(rs.getString("descripcion"))
+					row.setFooter(rs.getString("footer"))
+					row.setHeader(rs.getString("header"))
+					row.setCopia(rs.getString("copia"))
+					row.setTipoCorreo(rs.getString("tipoCorreo"))
+					rows.add(row)
+				}
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getCatNotificacionesCampusCodigoCampus(String codigo,String campus) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+
+			CatNotificacionesCampus row = new CatNotificacionesCampus()
+			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
+			closeCon = validarConexion();
+			String consulta = CatNotificacionesCampus.GET_CATNOTIFICACIONESCAMPUSCC
+			pstm = con.prepareStatement(consulta)
+			pstm.setString(1, codigo)
+			pstm.setString(2, campus)
+			rs = pstm.executeQuery()
+				while(rs.next()) {
+					row = new CatNotificacionesCampus()
+					row.setCatcampus_pid(rs.getLong("catcampus_pid"))
+					row.setCatnotificacionesfirma_pid(rs.getLong("catnotificacionesfirma_pid"))
+					row.setCodigo(rs.getString("codigo"))
+					row.setDescripcion(rs.getString("descripcion"))
+					row.setFooter(rs.getString("footer"))
+					row.setHeader(rs.getString("header"))
+					row.setCopia(rs.getString("copia"))
+					row.setTipoCorreo(rs.getString("tipoCorreo"))
+					rows.add(row)
+				}
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result insertCatNotificacionesCampus(CatNotificacionesCampus row) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+
+			
+			List<CatNotificacionesCampus> rows = new ArrayList<CatNotificacionesCampus>();
+			closeCon = validarConexion();
+			String consulta = CatNotificacionesCampus.GET_CATNOTIFICACIONESCAMPUS_CODIGO_CAMPUS
+			pstm = con.prepareStatement(consulta)
+			pstm.setString(1, row.getCodigo())
+			pstm.setLong(2, row.getCatcampus_pid())
+			rs = pstm.executeQuery()
+				if(rs.next()) {
+					pstm = con.prepareStatement(CatNotificacionesCampus.UPDATE_CATNOTIFICACIONESCAMPUS)
+					(row.getCatnotificacionesfirma_pid()==null)?pstm.setNull(1, java.sql.Types.NULL):pstm.setLong(1, row.getCatnotificacionesfirma_pid())
+					pstm.setString(2, row.getCopia())
+					pstm.setString(3, row.getFooter())
+					pstm.setString(4, row.getHeader())
+					pstm.setString(5, row.getCodigo())
+					pstm.setLong(6, row.getCatcampus_pid())
+					
+				}else {
+					pstm = con.prepareStatement(CatNotificacionesCampus.INSERT_CATNOTIFICACIONESCAMPUS)
+					(row.getCatnotificacionesfirma_pid()==null)?pstm.setNull(1, java.sql.Types.NULL):pstm.setLong(1, row.getCatnotificacionesfirma_pid())
+					pstm.setString(2, row.getCodigo())
+					pstm.setString(3, row.getCopia())
+					pstm.setString(4, row.getFooter())
+					pstm.setString(5, row.getHeader())
+					pstm.setLong(6, row.getCatcampus_pid())
+				}
+				pstm.executeUpdate();
+				rows.add(row)
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 }

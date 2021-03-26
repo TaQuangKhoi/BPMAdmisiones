@@ -8,6 +8,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if ($scope.properties.selectedIndex === 0) {
             console.log("validar 0");
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                topFunction();
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                 $scope.properties.selectedIndex++;
@@ -38,6 +39,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.collageBoard = undefined;
                                 $scope.properties.cartaAA = undefined;
                                 
+                                topFunction();
                                 $scope.properties.selectedIndex--;
                                 console.log(1)
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -59,6 +61,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.descuento = undefined;
                                     $scope.properties.collageBoard = undefined;
                                     $scope.properties.cartaAA = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex--;
                                     console.log(2)
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -77,6 +80,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.descuento = undefined;
                                 $scope.properties.collageBoard = undefined;
                                 $scope.properties.cartaAA = undefined;
+                                topFunction();
                                 $scope.properties.selectedIndex--;
                                 console.log(3)
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -109,6 +113,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.descuento = undefined;
                             $scope.properties.collageBoard = undefined;
                             $scope.properties.cartaAA = undefined;
+                            topFunction();
                             $scope.properties.selectedIndex--;
                             console.log(4)
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -131,6 +136,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.descuento = undefined;
                             $scope.properties.collageBoard = undefined;
                             $scope.properties.cartaAA = undefined;
+                            topFunction();
                             $scope.properties.selectedIndex--;
                             console.log(5)
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -150,6 +156,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.descuento = undefined;
                         $scope.properties.collageBoard = undefined;
                         $scope.properties.cartaAA = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex--;
                         console.log(6)
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -166,6 +173,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             console.log("validar 1");
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                topFunction();
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                 $scope.properties.selectedIndex++;
@@ -177,6 +185,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.descuento = undefined;
                 $scope.properties.collageBoard = undefined;
                 $scope.properties.cartaAA = undefined;
+                topFunction();
                 $scope.properties.selectedIndex--;
                 console.log(7)
             } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.primerNombre === "") {
@@ -205,6 +214,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Lugar de examen!", "Debes seleccionar un estado y una ciudad donde realizarás el examen", "warning");
                             } else {
                                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                    topFunction();
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.selectedIndex++;
@@ -218,6 +228,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Lugar de examen!", "Debes seleccionar un país y una ciudad donde realizarás el examen", "warning");
                             } else {
                                 /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                    topFunction();
                                     $scope.properties.selectedIndex--;
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                     $scope.properties.selectedIndex++;
@@ -230,6 +241,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.formInput.catSolicitudDeAdmisionInput.catPaisExamen = null;
                             $scope.properties.formInput.catSolicitudDeAdmisionInput.catEstadoExamen = null;
                             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                topFunction();
                                 $scope.properties.selectedIndex--;
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                                 $scope.properties.selectedIndex++;
@@ -250,6 +262,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Lugar de examen!", "Debes seleccionar un estado y una ciudad donde realizarás el examen", "warning");
                     } else {
                         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                            topFunction();
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                             $scope.properties.selectedIndex++;
@@ -263,6 +276,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Lugar de examen!", "Debes seleccionar un país y una ciudad donde realizarás el examen", "warning");
                     } else {
                         /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                            topFunction();
                             $scope.properties.selectedIndex--;
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                             $scope.properties.selectedIndex++;
@@ -275,6 +289,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.formInput.catSolicitudDeAdmisionInput.catPaisExamen = null;
                     $scope.properties.formInput.catSolicitudDeAdmisionInput.catEstadoExamen = null;
                     /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                        topFunction();
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.selectedIndex++;
@@ -294,6 +309,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.descuento = undefined;
                 $scope.properties.collageBoard = undefined;
                 $scope.properties.cartaAA = undefined;
+                topFunction();
                 $scope.properties.selectedIndex--;
                 console.log(8)
                 $scope.faltacampo = true;
@@ -391,6 +407,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.descuento = undefined;
                             $scope.properties.collageBoard = undefined;
                             $scope.properties.cartaAA = undefined;
+                            topFunction();
                             $scope.properties.selectedIndex--;
                             console.log(9)
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -509,6 +526,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.descuento = undefined;
                         $scope.properties.collageBoard = undefined;
                         $scope.properties.cartaAA = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex--;
                         console.log(10)
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -648,6 +666,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
             }
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                topFunction();
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                 $scope.properties.selectedIndex++;
@@ -656,7 +675,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //$scope.properties.formInput.actaNacimientoDocumentInput.push($scope.properties.actanacimiento);
                 $scope.properties.formInput.constanciaDocumentInput.push($scope.properties.kardex);*/
             /* if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                 $scope.properties.selectedIndex--;
+                topFunction(); 
+                $scope.properties.selectedIndex--;
              } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                   //$scope.properties.formInput.fotoPasaporteDocumentInput.push($scope.properties.fotopasaporte);
                      //$scope.properties.formInput.actaNacimientoDocumentInput.push($scope.properties.actanacimiento);
@@ -672,6 +692,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.descuento = undefined;
                 $scope.properties.collageBoard = undefined;
                 $scope.properties.cartaAA = undefined;
+                topFunction();
                 $scope.properties.selectedIndex--;
                 console.log(11)
             } else if ($scope.properties.formInput.tutorInput.length === 0) {
@@ -689,6 +710,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.descuento = undefined;
                             $scope.properties.collageBoard = undefined;
                             $scope.properties.cartaAA = undefined;
+                            topFunction();
                             $scope.properties.selectedIndex--;
                             console.log(12)
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -755,6 +777,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(13)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -801,6 +824,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(14)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -857,6 +881,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(15)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -903,6 +928,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(16)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -923,6 +949,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.descuento = undefined;
                         $scope.properties.collageBoard = undefined;
                         $scope.properties.cartaAA = undefined;
+                        topFunction();
                         $scope.properties.selectedIndex--;
                         console.log(17)
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -995,6 +1022,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(18)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1061,6 +1089,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                             $scope.properties.descuento = undefined;
                                                             $scope.properties.collageBoard = undefined;
                                                             $scope.properties.cartaAA = undefined;
+                                                            topFunction();
                                                             $scope.properties.selectedIndex--;
                                                             console.log(19)
                                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1107,6 +1136,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                             $scope.properties.descuento = undefined;
                                                             $scope.properties.collageBoard = undefined;
                                                             $scope.properties.cartaAA = undefined;
+                                                            topFunction();
                                                             $scope.properties.selectedIndex--;
                                                             console.log(20)
                                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1163,6 +1193,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         $scope.properties.descuento = undefined;
                                                         $scope.properties.collageBoard = undefined;
                                                         $scope.properties.cartaAA = undefined;
+                                                        topFunction();
                                                         $scope.properties.selectedIndex--;
                                                         console.log(21)
                                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1209,6 +1240,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         $scope.properties.descuento = undefined;
                                                         $scope.properties.collageBoard = undefined;
                                                         $scope.properties.cartaAA = undefined;
+                                                        topFunction();
                                                         $scope.properties.selectedIndex--;
                                                         console.log(22)
                                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1229,6 +1261,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(22)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1277,6 +1310,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(22)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1343,6 +1377,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                             $scope.properties.descuento = undefined;
                                                             $scope.properties.collageBoard = undefined;
                                                             $scope.properties.cartaAA = undefined;
+                                                            topFunction();
                                                             $scope.properties.selectedIndex--;
                                                             console.log(23)
                                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1389,6 +1424,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                             $scope.properties.descuento = undefined;
                                                             $scope.properties.collageBoard = undefined;
                                                             $scope.properties.cartaAA = undefined;
+                                                            topFunction();
                                                             $scope.properties.selectedIndex--;
                                                             console.log(24)
                                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1445,6 +1481,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         $scope.properties.descuento = undefined;
                                                         $scope.properties.collageBoard = undefined;
                                                         $scope.properties.cartaAA = undefined;
+                                                        topFunction();
                                                         $scope.properties.selectedIndex--;
                                                         console.log(25)
                                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1491,6 +1528,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         $scope.properties.descuento = undefined;
                                                         $scope.properties.collageBoard = undefined;
                                                         $scope.properties.cartaAA = undefined;
+                                                        topFunction();
                                                         $scope.properties.selectedIndex--;
                                                         console.log(27)
                                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1511,6 +1549,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(28)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1567,6 +1606,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.descuento = undefined;
                                     $scope.properties.collageBoard = undefined;
                                     $scope.properties.cartaAA = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex--;
                                     console.log(29)
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1633,6 +1673,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                     $scope.properties.descuento = undefined;
                                                     $scope.properties.collageBoard = undefined;
                                                     $scope.properties.cartaAA = undefined;
+                                                    topFunction();
                                                     $scope.properties.selectedIndex--;
                                                     console.log(30)
                                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1679,6 +1720,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                     $scope.properties.descuento = undefined;
                                                     $scope.properties.collageBoard = undefined;
                                                     $scope.properties.cartaAA = undefined;
+                                                    topFunction();
                                                     $scope.properties.selectedIndex--;
                                                     console.log(31)
                                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1735,6 +1777,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.descuento = undefined;
                                                 $scope.properties.collageBoard = undefined;
                                                 $scope.properties.cartaAA = undefined;
+                                                topFunction();
                                                 $scope.properties.selectedIndex--;
                                                 console.log(32)
                                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1781,6 +1824,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.descuento = undefined;
                                                 $scope.properties.collageBoard = undefined;
                                                 $scope.properties.cartaAA = undefined;
+                                                topFunction();
                                                 $scope.properties.selectedIndex--;
                                                 console.log(33)
                                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1801,6 +1845,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.descuento = undefined;
                                 $scope.properties.collageBoard = undefined;
                                 $scope.properties.cartaAA = undefined;
+                                topFunction();
                                 $scope.properties.selectedIndex--;
                                 console.log(34)
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1849,6 +1894,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.descuento = undefined;
                                     $scope.properties.collageBoard = undefined;
                                     $scope.properties.cartaAA = undefined;
+                                    topFunction();
                                     $scope.properties.selectedIndex--;
                                     console.log(35)
                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1915,6 +1961,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                     $scope.properties.descuento = undefined;
                                                     $scope.properties.collageBoard = undefined;
                                                     $scope.properties.cartaAA = undefined;
+                                                    topFunction();
                                                     $scope.properties.selectedIndex--;
                                                     console.log(37)
                                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -1961,6 +2008,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                     $scope.properties.descuento = undefined;
                                                     $scope.properties.collageBoard = undefined;
                                                     $scope.properties.cartaAA = undefined;
+                                                    topFunction();
                                                     $scope.properties.selectedIndex--;
                                                     console.log(38)
                                                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2017,6 +2065,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.descuento = undefined;
                                                 $scope.properties.collageBoard = undefined;
                                                 $scope.properties.cartaAA = undefined;
+                                                topFunction();
                                                 $scope.properties.selectedIndex--;
                                                 console.log(39)
                                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2063,6 +2112,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.descuento = undefined;
                                                 $scope.properties.collageBoard = undefined;
                                                 $scope.properties.cartaAA = undefined;
+                                                topFunction();
                                                 $scope.properties.selectedIndex--;
                                                 console.log(40)
                                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2083,6 +2133,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.descuento = undefined;
                                 $scope.properties.collageBoard = undefined;
                                 $scope.properties.cartaAA = undefined;
+                                topFunction();
                                 $scope.properties.selectedIndex--;
                                 console.log(41)
                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2152,6 +2203,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(42)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2196,6 +2248,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.descuento = undefined;
                                             $scope.properties.collageBoard = undefined;
                                             $scope.properties.cartaAA = undefined;
+                                            topFunction();
                                             $scope.properties.selectedIndex--;
                                             console.log(43)
                                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2250,6 +2303,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(44)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2294,6 +2348,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.descuento = undefined;
                                         $scope.properties.collageBoard = undefined;
                                         $scope.properties.cartaAA = undefined;
+                                        topFunction();
                                         $scope.properties.selectedIndex--;
                                         console.log(45)
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2317,6 +2372,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.descuento = undefined;
                             $scope.properties.collageBoard = undefined;
                             $scope.properties.cartaAA = undefined;
+                            topFunction();
                             $scope.properties.selectedIndex--;
                             console.log(46)
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2329,6 +2385,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
             }
             /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                topFunction();
                 $scope.properties.selectedIndex--;
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                 $scope.properties.selectedIndex++;
@@ -2345,6 +2402,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.descuento = undefined;
                 $scope.properties.collageBoard = undefined;
                 $scope.properties.cartaAA = undefined;
+                topFunction();
                 $scope.properties.selectedIndex--;
                 console.log(47)
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2360,6 +2418,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.descuento = undefined;
                 $scope.properties.collageBoard = undefined;
                 $scope.properties.cartaAA = undefined;
+                topFunction();
                 $scope.properties.selectedIndex--;
                 console.log(48)
             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2379,4 +2438,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (shouldClose)
             modalService.close();
     }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
 }

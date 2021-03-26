@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_vz4H6zZMEeu1NNS-4RN-ww" name="lstCatEstadoCivil" multiple="true" dataType="_vz4IVTZMEeu1NNS-4RN-ww" className="com.anahuac.catalogos.CatEstadoCivil">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4H7DZMEeu1NNS-4RN-ww" name="initLstCatEstadoCivil()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatEstadoCivilInput.each{&#xD;&#xA;&#x9;//Add a new composed CatEstadoCivil instance&#xD;&#xA;&#x9;catEstadoCivilList.add({ currentCatEstadoCivilInput ->&#xD;&#xA;&#x9;&#x9;def catEstadoCivilVar = new com.anahuac.catalogos.CatEstadoCivil()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.clave = currentCatEstadoCivilInput.clave&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.descripcion = currentCatEstadoCivilInput.descripcion&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.usuarioBanner = currentCatEstadoCivilInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.isEliminado = currentCatEstadoCivilInput.isEliminado&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.isEnabled = currentCatEstadoCivilInput.isEnabled&#xD;&#xA;&#x9;&#x9;return catEstadoCivilVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catEstadoCivilList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_vz4H7TZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4H7DZMEeu1NNS-4RN-ww" name="initLstCatEstadoCivil()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatEstadoCivilInput.each{&#xD;&#xA;&#x9;//Add a new composed CatEstadoCivil instance&#xD;&#xA;&#x9;catEstadoCivilList.add({ currentCatEstadoCivilInput ->&#xD;&#xA;&#x9;&#x9;def catEstadoCivilVar = new com.anahuac.catalogos.CatEstadoCivil()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.clave = currentCatEstadoCivilInput.clave&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.descripcion = currentCatEstadoCivilInput.descripcion&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.usuarioBanner = currentCatEstadoCivilInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.isEliminado = currentCatEstadoCivilInput.isEliminado&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.isEnabled = currentCatEstadoCivilInput.isEnabled&#xD;&#xA;&#x9;&#x9;catEstadoCivilVar.id = currentCatEstadoCivilInput.id&#xD;&#xA;&#x9;&#x9;return catEstadoCivilVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catEstadoCivilList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_oarWAFtJEeuNSoIwmqW2gw" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_vz4H7jZMEeu1NNS-4RN-ww" type="NONE">
@@ -57,6 +57,34 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_fTZjBU1UEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_fTZjBk1UEeuiD5640oS5Sw" id="OTHER"/>
       </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_5Q2U0IwQEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_5Q274IwQEeu2N77SW-Ko6A">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_5Q274YwQEeu2N77SW-Ko6A" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_5Q274owQEeu2N77SW-Ko6A">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_5Q2744wQEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_5Q275IwQEeu2N77SW-Ko6A"/>
+            <users xmi:type="actormapping:Users" xmi:id="_5Q275YwQEeu2N77SW-Ko6A"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U0YwQEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U0owQEeu2N77SW-Ko6A" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U04wQEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U1IwQEeu2N77SW-Ko6A" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U1YwQEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5Q2U1owQEeu2N77SW-Ko6A" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_vz4H9jZMEeu1NNS-4RN-ww">
         <inputs xmi:type="process:ContractInput" xmi:id="_vz4H9zZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true" dataReference="lstCatEstadoCivil">
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4H-DZMEeu1NNS-4RN-ww" name="clave"/>
@@ -64,6 +92,9 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4H-jZMEeu1NNS-4RN-ww" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4H-zZMEeu1NNS-4RN-ww" name="usuarioBanner"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4H_DZMEeu1NNS-4RN-ww" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_YRSjwFqdEeurh6lUcQkubQ" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_YRSjwVqdEeurh6lUcQkubQ"/>
+          </inputs>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_vz4H_TZMEeu1NNS-4RN-ww">
@@ -97,13 +128,6 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_vz4IEjZMEeu1NNS-4RN-ww" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_vz4IEzZMEeu1NNS-4RN-ww" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_vz4IFDZMEeu1NNS-4RN-ww" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_vz4IFTZMEeu1NNS-4RN-ww">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_vz4IFjZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilToDelete" content="lstCatEstadoCivilToDelete" type="TYPE_VARIABLE" returnType="java.util.List">
-            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_vz4IFzZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilToDelete" multiple="true" dataType="_vz4IVTZMEeu1NNS-4RN-ww" className="com.anahuac.catalogos.CatEstadoCivil"/>
-          </leftOperand>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_vz4IGDZMEeu1NNS-4RN-ww" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_vz4IGTZMEeu1NNS-4RN-ww" type="DELETION"/>
-        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_vz4IGjZMEeu1NNS-4RN-ww" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_vz4IGzZMEeu1NNS-4RN-ww" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="_vz4IHDZMEeu1NNS-4RN-ww" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -116,15 +140,15 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_vz4IIjZMEeu1NNS-4RN-ww" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_vz4IIzZMEeu1NNS-4RN-ww" name="lstCatEstadoCivil" multiple="true" dataType="_vz4IVTZMEeu1NNS-4RN-ww" className="com.anahuac.catalogos.CatEstadoCivil">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4IJDZMEeu1NNS-4RN-ww" name="initLstCatEstadoCivil()" content="import com.anahuac.catalogos.CatEstadoCivil;&#xD;&#xA;import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatEstadoCivilInput: lstCatEstadoCivilInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatEstadoCivilInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatEstadoCivil objCatEstadoCivil = catEstadoCivilDAO.findByPersistenceId(objCatEstadoCivilInput.persistenceId);&#xD;&#xA;&#x9;if(objCatEstadoCivil != null){&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.clave = objCatEstadoCivilInput.clave;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.descripcion = objCatEstadoCivilInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.isEliminado = objCatEstadoCivilInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.isEnabled = objCatEstadoCivilInput.isEnabled;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.usuarioBanner = objCatEstadoCivil.usuarioBanner;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catEstadoCivilList.add(objCatEstadoCivil);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catEstadoCivilList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_vz4IJTZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_vz4IJjZMEeu1NNS-4RN-ww" name="catEstadoCivilDAO" content="catEstadoCivilDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadoCivilDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4IJDZMEeu1NNS-4RN-ww" name="initLstCatEstadoCivil()" content="import com.anahuac.catalogos.CatEstadoCivil;&#xD;&#xA;import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatEstadoCivilInput: lstCatEstadoCivilInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatEstadoCivilInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatEstadoCivil objCatEstadoCivil = catEstadoCivilDAO.findByPersistenceId(objCatEstadoCivilInput.persistenceId);&#xD;&#xA;&#x9;if(objCatEstadoCivil != null){&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.clave = objCatEstadoCivilInput.clave;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.descripcion = objCatEstadoCivilInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.isEliminado = objCatEstadoCivilInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.isEnabled = objCatEstadoCivilInput.isEnabled;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.usuarioBanner = objCatEstadoCivil.usuarioBanner;&#xD;&#xA;&#x9;&#x9;objCatEstadoCivil.id = objCatEstadoCivilInput.id;&#xD;&#xA;&#x9;&#x9;catEstadoCivilList.add(objCatEstadoCivil);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catEstadoCivilList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_qftSYFtVEeuMV5ZICJankQ" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_qftSYVtVEeuMV5ZICJankQ" name="catEstadoCivilDAO" content="catEstadoCivilDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadoCivilDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_vz4IJzZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilToDelete" multiple="true" dataType="_vz4IVTZMEeu1NNS-4RN-ww" className="com.anahuac.catalogos.CatEstadoCivil">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4IKDZMEeu1NNS-4RN-ww" name="init_lstCatEstadoCivilToDelete()" content="import com.anahuac.catalogos.CatEstadoCivil&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = [];&#xD;&#xA;for(Map objCatEstadoCivilInput: lstCatEstadoCivilInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatEstadoCivilInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatEstadoCivil objCatEstadoCivil = catEstadoCivilDAO.findByPersistenceId(objCatEstadoCivilInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatEstadoCivil != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catEstadoCivilList.add(objCatEstadoCivil);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#x9;&#xD;&#xA;}&#xD;&#xA;return catEstadoCivilList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_vz4IKTZMEeu1NNS-4RN-ww" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_vz4IKjZMEeu1NNS-4RN-ww" name="catEstadoCivilDAO" content="catEstadoCivilDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadoCivilDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_vz4IKDZMEeu1NNS-4RN-ww" name="init_lstCatEstadoCivilToDelete()" content="import com.anahuac.catalogos.CatEstadoCivil&#xD;&#xA;&#xD;&#xA;def catEstadoCivilList = [];&#xD;&#xA;for(Map objCatEstadoCivilInput: lstCatEstadoCivilInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatEstadoCivilInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatEstadoCivil objCatEstadoCivil = catEstadoCivilDAO.findByPersistenceId(objCatEstadoCivilInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatEstadoCivil != null) {&#xD;&#xA;&#x9;&#x9;&#x9;objCatEstadoCivil.setIsEliminado(true);&#xD;&#xA;&#x9;&#x9;&#x9;catEstadoCivilList.add(objCatEstadoCivil);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catEstadoCivilList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_raAN8F9nEeuGOeN6_GuGiQ" name="lstCatEstadoCivilInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_raAN8V9nEeuGOeN6_GuGiQ" name="catEstadoCivilDAO" content="catEstadoCivilDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadoCivilDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_vz4IKzZMEeu1NNS-4RN-ww" type="NONE">
@@ -158,6 +182,9 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4IOzZMEeu1NNS-4RN-ww" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_vz4IPDZMEeu1NNS-4RN-ww" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_vz4IPTZMEeu1NNS-4RN-ww"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_dLoMQFqcEeurh6lUcQkubQ" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_dLoMQVqcEeurh6lUcQkubQ"/>
           </inputs>
         </inputs>
       </contract>

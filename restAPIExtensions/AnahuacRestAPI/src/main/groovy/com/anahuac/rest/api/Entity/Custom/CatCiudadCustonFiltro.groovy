@@ -34,15 +34,9 @@ class CatCiudadCustonFiltro {
 	@XmlElement
 	private String isEstado;
 	@XmlElement
-	private CatCampus campus;
-	//private CatCampus = catCampus;
-	
-	public String getFechaImportacion() {
-		return fechaImportacion;
-	}
-	public void setFechaImportacion(String fechaImportacion) {
-		this.fechaImportacion = fechaImportacion;
-	}
+	private String persistenceId_string;
+	@XmlElement
+	private CatCampusCustom campus;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -60,6 +54,18 @@ class CatCiudadCustonFiltro {
 	}
 	public void setClave(String clave) {
 		this.clave = clave;
+	}
+	public Long getOrden() {
+		return orden;
+	}
+	public void setOrden(Long orden) {
+		this.orden = orden;
+	}
+	public String getPais() {
+		return pais;
+	}
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -85,18 +91,6 @@ class CatCiudadCustonFiltro {
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
 	}
-	public Long getOrden() {
-		return orden;
-	}
-	public void setOrden(Long orden) {
-		this.orden = orden;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
 	public String getCaseId() {
 		return caseId;
 	}
@@ -121,20 +115,26 @@ class CatCiudadCustonFiltro {
 	public void setIsEstado(String isEstado) {
 		this.isEstado = isEstado;
 	}
+	public String getPersistenceId_string() {
+		return persistenceId_string;
+	}
+	public void setPersistenceId_string(String persistenceId_string) {
+		this.persistenceId_string = persistenceId_string;
+	}
+	public CatCampusCustom getCampus() {
+		return campus;
+	}
+	public void setCampus(CatCampusCustom campus) {
+		this.campus = campus;
+	}
 	
-	public CatCampus getCatCampus() {
-		return catCampus;
-	}
-	public void setCatCampus(CatCampus catCampus) {
-		this.catCampus = catCampus;
-	}
 	@Override
 	public String toString() {
-		return "CatLicenciaturaCustom [persistenceId=" + persistenceId + ", persistenceVersion=" + persistenceVersion
-				+ ", clave=" + clave + ", descripcion=" + descripcion + ", fechaCreacion=" + fechaCreacion
-				+ ", usuarioCreacion=" + usuarioCreacion + ", isEliminado=" + isEliminado + " , orden="
-				+ orden + " , pais=" + pais + " , caseId=" + caseId + " , region=" + region + " , estado="
-				+ estado + " , isEstado=" + isEstado + " , catCampus=" + catCampus + "]";
+		return "CatCiudadCustonFiltro [persistenceId=" + persistenceId + ", persistenceVersion=" + persistenceVersion
+				+ ", clave=" + clave + ", orden=" + orden + ", pais=" + pais + ", descripcion=" + descripcion
+				+ ", fechaCreacion=" + fechaCreacion + ", usuarioCreacion=" + usuarioCreacion + ", isEliminado="
+				+ isEliminado + ", caseId=" + caseId + ", estado=" + estado + ", region=" + region + ", isEstado="
+				+ isEstado + ", persistenceId_string=" + persistenceId_string + ", campus=" + campus + "]";
 	}
 	
 }

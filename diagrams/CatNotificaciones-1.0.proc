@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_wcjfYCB9EeutYKHMa0KIkQ" name="CatNotificaciones" author="EMUI" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400234361744E6F74696669636163696F6E6573372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_wckGcCB9EeutYKHMa0KIkQ" name="CatNotificaciones">
       <elements xmi:type="process:Lane" xmi:id="_wckGcSB9EeutYKHMa0KIkQ" name="ADMINISTRADOR" actor="_wckGiiB9EeutYKHMa0KIkQ">
@@ -138,13 +138,16 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_xXuU0CO3Eeuus_kbSTzppw" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="initLstCatNotificaciones()" content="def catNotificacionesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatNotificacionesInput.each{&#xD;&#xA;&#x9;//Add a new composed CatNotificaciones instance&#xD;&#xA;&#x9;catNotificacionesList.add({ currentCatNotificacionesInput ->&#xD;&#xA;&#x9;&#x9;def catNotificacionesVar = new com.anahuac.catalogos.CatNotificaciones()&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.tipoCorreo = currentCatNotificacionesInput.tipoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.codigo = currentCatNotificacionesInput.codigo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.descripcion = currentCatNotificacionesInput.descripcion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenHeader = currentCatNotificacionesInput.nombreImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenHeader = currentCatNotificacionesInput.anguloImagenHeader&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.nombreImagenFooter = currentCatNotificacionesInput.nombreImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.anguloImagenFooter = currentCatNotificacionesInput.anguloImagenFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.isEliminado = currentCatNotificacionesInput.isEliminado&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.asunto = currentCatNotificacionesInput.asunto&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.titulo = currentCatNotificacionesInput.titulo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.bloqueAspirante = currentCatNotificacionesInput.bloqueAspirante&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.comentarioLeon = currentCatNotificacionesInput.comentarioLeon&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceFacebook = currentCatNotificacionesInput.enlaceFacebook&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceTwitter = currentCatNotificacionesInput.enlaceTwitter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceContacto = currentCatNotificacionesInput.enlaceContacto&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceInstagram = currentCatNotificacionesInput.enlaceInstagram&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.textoFooter = currentCatNotificacionesInput.textoFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceFooter = currentCatNotificacionesInput.enlaceFooter&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.lstCorreoCopia = currentCatNotificacionesInput.lstCorreoCopia&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.lstVariableNotificacion = currentCatNotificacionesInput.lstVariableNotificacion&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.informacionLic = currentCatNotificacionesInput.informacionLic&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.enlaceBanner = currentCatNotificacionesInput.enlaceBanner&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenido = currentCatNotificacionesInput.contenido&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenidoCorreo = currentCatNotificacionesInput.contenidoCorreo&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.contenidoLeonel = currentCatNotificacionesInput.contenidoLeonel&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.docGuiaEstudio = currentCatNotificacionesInput.docGuiaEstudio&#xD;&#xA;&#x9;&#x9;catNotificacionesVar.caseId = processInstanceId&#xD;&#xA;&#x9;&#x9;return catNotificacionesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catNotificacionesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_gqa5cCnrEeuiq-cz7kwWdg" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_gqa5cSnrEeuiq-cz7kwWdg" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> catNotificacionesList = new ArrayList&lt;CatNotificaciones>();&#xD;&#xA;&#xD;&#xA;for(Long persistenceId : lstCatNotificacionesInput){&#xD;&#xA;&#x9;if(persistenceId != null){&#xD;&#xA;&#x9;&#x9;CatNotificaciones objCatNotificaciones = catNotificacionesDAO.findByPersistenceId(persistenceId);&#xD;&#xA;&#x9;&#x9;objCatNotificaciones.caseId = processInstanceId;&#xD;&#xA;&#x9;&#x9;catNotificacionesList.add(objCatNotificaciones);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catNotificacionesList;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_QAljsHFYEeuFn-MBT6psmw" name="lstCatNotificacionesInput" type="LONG" multiple="true">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_QAljsXFYEeuFn-MBT6psmw"/>
+          </referencedElements>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljsnFYEeuFn-MBT6psmw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljs3FYEeuFn-MBT6psmw" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_wckGgyB9EeutYKHMa0KIkQ">
-        <targetForm xmi:type="expression:Expression" xmi:id="_Ili0YCO6Eeuus_kbSTzppw" name="instanciacionCatNotificacion" content="ba15b1a6-6eba-4613-84a4-4cd81b95f9df" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_wckGgyB9EeutYKHMa0KIkQ" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_pHEf8HFYEeuFn-MBT6psmw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_wckGhSB9EeutYKHMa0KIkQ" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_wckGhiB9EeutYKHMa0KIkQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -158,6 +161,89 @@
         <condition xmi:type="expression:Expression" xmi:id="_k4xl8SH4Eeu3velHmCJ-Pw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_wckGiiB9EeutYKHMa0KIkQ" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_Q0K8wHFYEeuFn-MBT6psmw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_Q0K8x3FYEeuFn-MBT6psmw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_Q0K8yHFYEeuFn-MBT6psmw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_Q0K8yXFYEeuFn-MBT6psmw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_Q0K8ynFYEeuFn-MBT6psmw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_Q0K8y3FYEeuFn-MBT6psmw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_Q0K8zHFYEeuFn-MBT6psmw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8wXFYEeuFn-MBT6psmw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8wnFYEeuFn-MBT6psmw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8w3FYEeuFn-MBT6psmw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8xHFYEeuFn-MBT6psmw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8xXFYEeuFn-MBT6psmw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Q0K8xnFYEeuFn-MBT6psmw" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_CP4XQIwPEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_CP4XR4wPEeu2N77SW-Ko6A">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_CP4XSIwPEeu2N77SW-Ko6A" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_CP4XSYwPEeu2N77SW-Ko6A">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_CP4XSowPEeu2N77SW-Ko6A"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_CP4XS4wPEeu2N77SW-Ko6A"/>
+            <users xmi:type="actormapping:Users" xmi:id="_CP4XTIwPEeu2N77SW-Ko6A"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XQYwPEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XQowPEeu2N77SW-Ko6A" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XQ4wPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XRIwPEeu2N77SW-Ko6A" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XRYwPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_CP4XRowPEeu2N77SW-Ko6A" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_R2cWII20EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_R2c9MI20EeuHuIm_wpFQCQ">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_R2dkQI20EeuHuIm_wpFQCQ" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_R2dkQY20EeuHuIm_wpFQCQ">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_R2dkQo20EeuHuIm_wpFQCQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_R2dkQ420EeuHuIm_wpFQCQ"/>
+            <users xmi:type="actormapping:Users" xmi:id="_R2dkRI20EeuHuIm_wpFQCQ"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWIY20EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWIo20EeuHuIm_wpFQCQ" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWI420EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJI20EeuHuIm_wpFQCQ" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJo20EeuHuIm_wpFQCQ" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_wckGiyB9EeutYKHMa0KIkQ">
         <inputs xmi:type="process:ContractInput" xmi:id="_mycFICLbEeuFGp2BUVc6QA" name="imageHeaderDocumentInput" type="FILE" multiple="true" dataReference="imageHeader"/>
         <inputs xmi:type="process:ContractInput" xmi:id="_nkmh4CLbEeuFGp2BUVc6QA" name="imageFooterDocumentInput" type="FILE" multiple="true" dataReference="imageFooter"/>
@@ -175,35 +261,8 @@
         </inputs>
         <inputs xmi:type="process:ContractInput" xmi:id="_nWkr8CLmEeuFGp2BUVc6QA" name="docGuiaEstudioDocumentInput" type="FILE" multiple="true" dataReference="docGuiaEstudio"/>
         <inputs xmi:type="process:ContractInput" xmi:id="_cMNvcCOuEeuus_kbSTzppw" name="docEtapaProcesoDocumentInput" type="FILE" multiple="true" dataReference="docEtapaProceso"/>
-        <inputs xmi:type="process:ContractInput" xmi:id="_VynSkCbvEeuqIoyirEDk3w" name="lstCatNotificacionesInput" type="COMPLEX" multiple="true" dataReference="lstCatNotificaciones">
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSkSbvEeuqIoyirEDk3w" name="tipoCorreo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSkibvEeuqIoyirEDk3w" name="codigo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSkybvEeuqIoyirEDk3w" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSlCbvEeuqIoyirEDk3w" name="nombreImagenHeader"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSlSbvEeuqIoyirEDk3w" name="anguloImagenHeader"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSlibvEeuqIoyirEDk3w" name="nombreImagenFooter"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSlybvEeuqIoyirEDk3w" name="anguloImagenFooter"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSmCbvEeuqIoyirEDk3w" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSmSbvEeuqIoyirEDk3w" name="asunto"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSmibvEeuqIoyirEDk3w" name="titulo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSmybvEeuqIoyirEDk3w" name="bloqueAspirante" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSnCbvEeuqIoyirEDk3w" name="comentarioLeon"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSnSbvEeuqIoyirEDk3w" name="enlaceFacebook"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSnibvEeuqIoyirEDk3w" name="enlaceTwitter"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSnybvEeuqIoyirEDk3w" name="enlaceContacto"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSoCbvEeuqIoyirEDk3w" name="enlaceInstagram"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSoSbvEeuqIoyirEDk3w" name="textoFooter"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSoibvEeuqIoyirEDk3w" name="enlaceFooter"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSoybvEeuqIoyirEDk3w" name="lstCorreoCopia" multiple="true"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSpCbvEeuqIoyirEDk3w" name="lstVariableNotificacion" multiple="true"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSpSbvEeuqIoyirEDk3w" name="informacionLic" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSpibvEeuqIoyirEDk3w" name="enlaceBanner"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSpybvEeuqIoyirEDk3w" name="contenido"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSqCbvEeuqIoyirEDk3w" name="contenidoCorreo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VynSqSbvEeuqIoyirEDk3w" name="contenidoLeonel"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_hurLwCnrEeuiq-cz7kwWdg" name="docGuiaEstudio">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_hurLwSnrEeuiq-cz7kwWdg"/>
-          </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_rbJtUHFWEeuFn-MBT6psmw" name="lstCatNotificacionesInput" type="LONG" multiple="true">
+          <mapping xmi:type="process:ContractInputMapping" xmi:id="_rbJtUXFWEeuFn-MBT6psmw"/>
         </inputs>
       </contract>
       <documents xmi:type="process:Document" xmi:id="_fzvNoCLbEeuFGp2BUVc6QA" name="imageHeader" documentType="CONTRACT" multiple="true" contractInput="_mycFICLbEeuFGp2BUVc6QA">

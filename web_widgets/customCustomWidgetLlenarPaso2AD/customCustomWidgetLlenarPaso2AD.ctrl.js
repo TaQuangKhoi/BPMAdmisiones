@@ -18,7 +18,6 @@ function ($scope){
                 }
             }
         } else {
-            //informacionEscolar.length === 0
             if($scope.properties.formInput.informacionEscolar === null || $scope.properties.formInput.informacionEscolar === undefined){
                 $scope.properties.formInput.informacionEscolar = ordenarGradoEscolar($scope.properties.catGradoEscolar);
             } else if ($scope.properties.formInput.informacionEscolar.length == 0){
@@ -51,7 +50,7 @@ function ($scope){
                     "isDefault": true
                 }
                 
-                output.push(infoEscolar);
+                output.push(angular.copy(infoEscolar));
             }   
         }
 
@@ -74,32 +73,59 @@ function ($scope){
                     "isDefault": true
                 }
 
-                output.push(infoEscolar);
+                output.push(angular.copy(infoEscolar));
             }   
         }
 
         for(let i = 0; i < _gradosEscolares.length; i++){
             if(_gradosEscolares[i].descripcion === "Preparatoria/Bachillerato"){
+                debugger;
                 let infoEscolar = {
                     "grado": _gradosEscolares[i],
                     "tipo": null,
                     "escuela": $scope.properties.bdmSolicitud.catBachilleratos,
-                    "escuelaString" : $scope.properties.bdmSolicitud.catBachilleratos.descripcion,
-                    "pais": null,
-                    "estado": null, 
-                    "ciudad": "",
+                    "escuelaString": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? "" : $scope.properties.bdmSolicitud.bachillerato,
+                    // "pais": null,
+                    "pais": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? getPais($scope.properties.bdmSolicitud.catBachilleratos.pais) : getPais($scope.properties.bdmSolicitud.paisBachillerato),
+                    "estado": $scope.properties.bdmSolicitud.catBachilleratos.pais === "México" ? getEstado($scope.properties.bdmSolicitud.catBachilleratos.estado) : null, 
+                    "ciudad": $scope.properties.bdmSolicitud.catBachilleratos.descripcion !== "Otro" ? $scope.properties.bdmSolicitud.catBachilleratos.ciudad : $scope.properties.bdmSolicitud.ciudadBachillerato,
                     "anoInicio": "",
                     "anoFin": "",
-                    "promedio": "",
+                    "promedio": $scope.properties.bdmSolicitud.promedioGeneral,
                     "catBachillerato": null,
-                    "otraEscuela":"",
-                    "estadoString":"",
+                    "otraEscuela": "",
+                    // "estadoString": $scope.properties.bdmSolicitud.estadoBachillerato,
+                    "estadoString": $scope.properties.bdmSolicitud.catBachilleratos.estado,
                     "persistenceId_string": null,
                     "isDefault": true
                 }
                 
-                output.push(infoEscolar);
+                output.push(angular.copy(infoEscolar));
             }   
+        }
+
+        return output;
+    }
+
+    function getPais(_descripcion){
+        let output = null;
+        for(let i = 0; i < $scope.properties.catPais.length; i++){
+            if($scope.properties.catPais[i].descripcion === _descripcion){
+                output = $scope.properties.catPais[i];
+                break;
+            }
+        }
+
+        return output;
+    }
+
+    function getEstado(_descripcion){
+        let output = null;
+        for(let i = 0; i < $scope.properties.catEstado.length; i++){
+            if($scope.properties.catEstado[i].descripcion === _descripcion){
+                output = $scope.properties.catEstado[i];
+                break;
+            }
         }
 
         return output;
