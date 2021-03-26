@@ -1,0 +1,321 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "AppMigracion",
+  "name" : "AppMigracion",
+  "lastUpdate" : 1614106429461,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<pre>{{formOutput | json}}</pre>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "ed534e6f-e1dc-47c0-8fe6-e08f659c05c7",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Submit task"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          },
+          "formOutput" : {
+            "type" : "variable",
+            "value" : "formOutput"
+          },
+          "catCampus" : {
+            "type" : "variable",
+            "value" : "catCampusData"
+          }
+        },
+        "reference" : "598054aa-5c92-49db-a12f-fd517f35dade",
+        "hasValidationError" : false,
+        "id" : "customBtnFileCSV"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "2f4958be-12c5-469d-97c7-740f82864a1d",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "05622e35-eca8-4b57-9944-3d5d9f8219ae",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "catBachilleratos_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatBachilleratos?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catCampus_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"catRegistroInput\" :[],\r",
+        "  \"solicitudDeAdmisionInput\" : []\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "submit_errors_list" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutput && $data.formOutput._submitError && $data.formOutput._submitError.explanations){",
+        "\tconst liElements = $data.formOutput._submitError.explanations",
+        "\t\t.filter(cause => cause !== null)",
+        "\t\t.map(cause => \"<li>\" + cause + \"</li>\")",
+        "\t\t.join('');",
+        "\tif(liElements){",
+        "\t\treturn \"<ul>\" + liElements + \"</ul>\";",
+        "\t}",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "catReligion_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catEstadoCivil_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstadoCivil?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catGestionEscolar_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPeriodo?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catPais_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPais?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catPropedeutico_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPropedeutico?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catPresentasteEnOtroCampus_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatPresentasteEnOtroCampus?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catNacionalidad_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatNacionalidad?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catCiudad_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catEstados_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "\tcatRegistroInput: $data.formInput.catRegistroInput,",
+        "\tsolicitudDeAdmisionInput: $data.formInput.solicitudDeAdmisionInput",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "catLugarExamen_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatLugarExamen?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catSexo_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatSexo?q=find&p=0&c=99"
+      ],
+      "exposed" : false
+    },
+    "catCampusData" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"find [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "d73db6f1-a5db-4a89-bdc0-299dd1b02dfa",
+  "type" : "form",
+  "description" : "Page generated with Bonita UI designer"
+}

@@ -1,0 +1,5070 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "CatDescuentoAcciones",
+  "name" : "CatDescuentoAcciones",
+  "lastUpdate" : 1616525704808,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "color-orange"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Catálogo Descuentos"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "1d03c07e-335f-474f-bcc8-9121c3c3948a",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<hr>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "c057fe31-6a22-4837-bdcc-1a1433aaeef0",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'tabla'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "093a9399-bd20-41d7-9cf7-e1770a34872c",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campus:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona un Campus"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstCampus"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "campus_selected"
+                }
+              },
+              "reference" : "592d40c5-6640-4f96-8058-6e6498004e87",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Filtro específico"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "lstFiltrosPre"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : "modalFiltroEspecifico"
+                }
+              },
+              "reference" : "4c689085-9ba9-4a64-8ea0-b4ce6b86228b",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "filtroCampus.filtroCampus.length <=0"
+                },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "filtroCampus.filtroCampus.length <=0"
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "'agregar'"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant"
+                }
+              },
+              "reference" : "274e0240-1498-4d84-a23c-9c912d6102f5",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "content" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                }
+              },
+              "reference" : "ab6f1d75-e220-488d-a827-4bd0e82cc56a",
+              "hasValidationError" : false,
+              "id" : "customListFiltrosBloqueoCampus"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [ ]
+                },
+                "content" : {
+                  "type" : "constant"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "tipo",
+                    "descuento",
+                    "usuarioCreacion",
+                    "inicioVigencia| date:'dd-MM-yyyy'",
+                    "finVigencia| date:'dd-MM-yyyy'"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selectedNR"
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : "editable"
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : "processEditData[0].id"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "formOutputBorrar"
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "urlGet" : {
+                  "type" : "expression",
+                  "value" : "urlRefreshPaginado"
+                },
+                "dataToFilter" : {
+                  "type" : "variable",
+                  "value" : "dataToFilter"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=getCatDescuentos&p=0&c=100"
+                },
+                "campus" : {
+                  "type" : "interpolation",
+                  "value" : "campus"
+                },
+                "lstCampusRole" : {
+                  "type" : "variable",
+                  "value" : "lstCampusRole"
+                },
+                "filtroCampus" : {
+                  "type" : "variable",
+                  "value" : "filtroCampus.filtroCampus"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCampus"
+                }
+              },
+              "reference" : "9e0d69f9-c82f-4004-b08c-4e2346e17938",
+              "hasValidationError" : false,
+              "id" : "customTableSeleccionarFiltradoDescuentos"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "value" : {
+                  "type" : "expression",
+                  "value" : "countCatDescuentos[0]"
+                },
+                "inicio" : {
+                  "type" : "variable",
+                  "value" : "inicio"
+                },
+                "fin" : {
+                  "type" : "variable",
+                  "value" : "final"
+                },
+                "valorSeleccionado" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "342daed2-d42e-4baf-a960-e163a373ab9c",
+              "hasValidationError" : false,
+              "id" : "customPaginado"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "8d4d0bd6-aa4b-4bc5-98e7-cecff95f8f6b",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "7b9f88f1-3a10-4fed-8b02-6ae475e8bf92",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [ ]
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'editar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "789f2fbf-2bc2-4668-a7f2-c89185fecbd6",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "inline" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstTipoDescuento"
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "selectedValue" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.tipo"
+                }
+              },
+              "reference" : "06ae06a6-a4ec-4430-a380-527127a4c3fd",
+              "hasValidationError" : false,
+              "id" : "pbRadioButtons"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                },
+                "claveBachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
+                }
+              },
+              "reference" : "c39e13a2-48bb-4bce-9beb-c2f2f9fae907",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 8
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                },
+                "bachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                }
+              },
+              "reference" : "96f74b79-b474-403e-b3f7-c6353c4744dd",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentosClave"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Campaña\""
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campaña:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.campana"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "ff49c8a3-20bd-443a-aaeb-afdea9343db9",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Ciudad\""
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Ciudad:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.ciudad"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "3b9c16a7-1570-4719-8551-d5061f149fb6",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccione un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                }
+              },
+              "reference" : "b1f25dab-4f89-41e4-a5d7-9254328b13d8",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "editar.cargar"
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "6446f242-2f94-4b09-91f9-e2d794e3a9ce",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [ ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Ciudad:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "editar.ciudad_selected"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "9a19cd2e-607a-4955-afed-d003ad4411f3",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "catDescuentos_selected.tipo != \"Ciudad\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cambiar ciudad"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "editar.cargar"
+                }
+              },
+              "reference" : "d5ef6d30-8f15-4536-ad4f-aa62d796ed72",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "prepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.bachillerato"
+                },
+                "clavePrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave"
+                },
+                "bachilleratos" : {
+                  "type" : "variable",
+                  "value" : "CatBachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.catBachilleratos"
+                }
+              },
+              "reference" : "93eed523-a514-4376-bbbe-b133257daeee",
+              "hasValidationError" : false,
+              "id" : "customWatcherCancelar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "CheckCambiarPrepa" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "catTipoAdmision" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "CheckAA" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "CancelarMensajeCollege" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "PrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "pais_selected"
+                },
+                "listaCiudades" : {
+                  "type" : "variable",
+                  "value" : "lstcatCiudades"
+                },
+                "EstadoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "estado_selected"
+                }
+              },
+              "reference" : "d35bff2c-5782-45f6-a413-6211c535b6e1",
+              "hasValidationError" : false,
+              "id" : "customWatcherPaisSelected"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!editar.cargar"
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "c9eb4172-955f-4371-9a1c-a9746b7bf8fb",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "catDescuentos_selected.tipo != \"Ciudad\""
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "País:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation",
+                        "value" : "Seleccionar..."
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "lstCatPais"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "pais_selected"
+                      }
+                    },
+                    "reference" : "00f5df05-611f-4f58-9f75-25058b89453b",
+                    "hasValidationError" : false,
+                    "id" : "pbSelect"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "catDescuentos_selected.tipo != \"Ciudad\" || pais_selected !== \"México\""
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Estado:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation",
+                        "value" : "Seleccionar..."
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "lstCatEstados"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "estado_selected"
+                      }
+                    },
+                    "reference" : "ec0c334d-dcca-43ed-bdfa-058c532b6c5e",
+                    "hasValidationError" : false,
+                    "id" : "pbSelect"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "catDescuentos_selected.tipo != \"Ciudad\""
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Ciudad:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation",
+                        "value" : "Seleccionar..."
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "lstcatCiudades"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos_selected.ciudad"
+                      }
+                    },
+                    "reference" : "9e7bfdcd-c05c-4131-aff7-16204c11b3da",
+                    "hasValidationError" : false,
+                    "id" : "pbSelect"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Convenio o Descuento:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccione..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Convenio",
+                    "Descuento"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.convenioDescuento"
+                }
+              },
+              "reference" : "a82d9c7a-b046-4b8f-b02d-955467f9a3c9",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Evidencia documental:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "../API/formFileUpload"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.fileSelected"
+                },
+                "errorContent" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "7a347c64-395e-4243-b171-1a23b2e10882",
+              "hasValidationError" : false,
+              "id" : "pbUpload"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descuento:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.descuento"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "number"
+                },
+                "min" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "max" : {
+                  "type" : "constant",
+                  "value" : 100
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "9f30991c-ea31-4793-8c6b-4282fe39e246",
+              "hasValidationError" : false,
+              "id" : "customInputNumericoCustom"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 1,
+                "lg" : 1
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "px-left"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br/>\n<h4>%</4>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "0c5439a4-8ea6-4582-89eb-d10101590f6d",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Inicio Vigencia:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.inicioVigencia"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "dd/MM/yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Captura una fecha (dd/MM/yyyy)"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Hoy"
+                }
+              },
+              "reference" : "467825b3-c350-41fe-822b-05316deb7c0d",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Fin Vigencia:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.finVigencia"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "dd/MM/yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Captura una fecha (dd/MM/yyyy)"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Hoy"
+                }
+              },
+              "reference" : "1517f7f6-5368-4b95-bef4-5f7423a9e6c8",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 2,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 3
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descuento:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected.descuento"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "number"
+                },
+                "min" : {
+                  "type" : "constant",
+                  "value" : 0
+                },
+                "max" : {
+                  "type" : "constant",
+                  "value" : 100
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "e830c075-1d78-449b-963a-e2b9bba484eb",
+              "hasValidationError" : false,
+              "id" : "customInputNumerico"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "a67f55c0-6fab-4670-99c9-cc7ae3703876",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      },
+                      "variableDestino2" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos_selected"
+                      },
+                      "variableAcopiar2" : {
+                        "type" : "variable",
+                        "value" : "{ \t\"persistenceId\": 0, \t\"persistenceId_string\": \"0\", \t\"persistenceVersion\": 0, \t\"persistenceVersion_string\": \"0\", \t\"descripcion\": \"\", \t\"fechaCreacion\": \"\", \t\"isEliminado\": false, \t\"usuarioCreacion\": \"\", \t\"clave\": \"\" }"
+                      }
+                    },
+                    "reference" : "ff5734aa-a871-4a85-8688-0331c57d9da3",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValorDoble"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "5092c157-7016-47af-b1d7-1b3176fa3151",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processEditData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"persistenceId\": 0,     \"persistenceId_string\": \"0\",     \"persistenceVersion\": 0,     \"persistenceVersion_string\": \"0\",     \"catBachilleratos\": null,     \"ciudad\": \"\",     \"campana\": \"\",     \"documento\": \"\",     \"convenioDescuento\": \"\",     \"inicioVigencia\": \"\",     \"finVigencia\": \"\",     \"tipo\": \"\",     \"descuento\": 0,     \"usuarioCreacion\": \"\",     \"isEliminado\": false,     \"campus\": \"\",     \"bachillerato\": \"\", \t\"todelete\": false }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos_selected"
+                      },
+                      "campus" : {
+                        "type" : "interpolation",
+                        "value" : "{{campus}}"
+                      }
+                    },
+                    "reference" : "c8afdbf2-b14c-4e61-9b76-618eff80ff89",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarDescuentos"
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "editable != 'agregar'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "dee6c6ad-972c-48c0-9294-30ae100c30df",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "inline" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstTipoDescuento"
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "selectedValue" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo"
+                }
+              },
+              "reference" : "d335dfa8-438d-4870-8fb1-15f121466bfe",
+              "hasValidationError" : false,
+              "id" : "pbRadioButtons"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "PrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "pais_selected"
+                },
+                "listaCiudades" : {
+                  "type" : "variable",
+                  "value" : "lstcatCiudades"
+                },
+                "EstadoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "estado_selected"
+                }
+              },
+              "reference" : "df10425c-e334-4642-839f-4e4dd924975a",
+              "hasValidationError" : false,
+              "id" : "customWatcherPaisSelected"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "prepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
+                },
+                "clavePrepaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                },
+                "bachilleratos" : {
+                  "type" : "variable",
+                  "value" : "CatBachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                }
+              },
+              "reference" : "cd7a7309-f6e8-457d-b05d-df479b472c27",
+              "hasValidationError" : false,
+              "id" : "customWatcherCancelar"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                },
+                "claveBachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                }
+              },
+              "reference" : "ccf764b0-7f01-484b-bb89-ea2bfa046550",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Preparatoria\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave bachillerato:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar un Bachillerato"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "CatBachillerato"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catDescuentos_selected_clave_Agregar"
+                },
+                "completeObject" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos"
+                },
+                "bachilleratoSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].bachillerato"
+                }
+              },
+              "reference" : "ac4a2f90-c980-4991-be49-af2f501b83a1",
+              "hasValidationError" : false,
+              "id" : "customCustomAutocompleteDescuentosClave"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campaña:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].campana"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "1ba2297b-8915-4073-8cbb-ea2896f8f69a",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Campaña\""
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campaña:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].campana"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "9e768a70-bcbc-4ca9-beab-608f5a9ac625",
+              "hasValidationError" : false,
+              "id" : "customInputMinMayCustom"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Ciudad\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "País"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar.."
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstCatPais"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "pais_selected"
+                }
+              },
+              "reference" : "d24fa40c-6998-486d-abc0-c95c2e510c36",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Ciudad\" || pais_selected !== \"México\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Estado"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstCatEstados"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "estado_selected"
+                }
+              },
+              "reference" : "90e0bd4e-2d3a-436f-8a24-0e238f3e1894",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].tipo != \"Ciudad\""
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Ciudad:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstcatCiudades"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].ciudad"
+                }
+              },
+              "reference" : "b81597a6-0159-4224-9931-2376514ee568",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Convenio o Descuento"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Selecciona..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Convenio",
+                    "Descuento"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].convenioDescuento"
+                }
+              },
+              "reference" : "2d18d880-a4e3-4555-8f71-fda04f4d44d3",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Evidencia documental:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "url" : {
+                  "type" : "constant",
+                  "value" : "../API/formFileUpload"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].fileSelected"
+                },
+                "errorContent" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "dd96e0ba-fae1-4cdf-9251-9e7bce3dfc1e",
+              "hasValidationError" : false,
+              "id" : "pbUpload"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descuento:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].descuento"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "number"
+                },
+                "min" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "max" : {
+                  "type" : "constant",
+                  "value" : 100
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "e6111734-d37e-411b-ba17-ba9923887a58",
+              "hasValidationError" : false,
+              "id" : "customInputNumericoCustom"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 1,
+                "lg" : 1
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "px-left"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br/>\n<h4>%</4>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "9ad2e421-3fd9-453c-b211-4c649debcb5c",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Inicio Vigencia:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].inicioVigencia"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "MM/dd/yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Enter a date (mm/dd/yyyy)"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Hoy"
+                }
+              },
+              "reference" : "20412d78-3f19-4d15-9fbb-30e308abd912",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Fin Vigencia:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].finVigencia"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "MM/dd/yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Enter a date (mm/dd/yyyy)"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Hoy"
+                }
+              },
+              "reference" : "6f8a306b-da11-49bf-88d8-43e700d6f239",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 3
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descuento:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatDescuentosInput[0].descuento"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "number"
+                },
+                "min" : {
+                  "type" : "constant",
+                  "value" : 0
+                },
+                "max" : {
+                  "type" : "constant",
+                  "value" : 100
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "2380f227-8da6-4e99-86ed-ca393c76fff1",
+              "hasValidationError" : false,
+              "id" : "customInputNumerico"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "ff3eddbd-23bb-4b16-a703-13e39cdd1058",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Cancelar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "variableDestino" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "variableAcopiar" : {
+                        "type" : "variable",
+                        "value" : "'tabla'"
+                      },
+                      "OpenModal" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalId" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "6ee75455-5f9c-495d-8071-1014f51fde88",
+                    "hasValidationError" : false,
+                    "id" : "customButtonSetValor"
+                  }
+                ]
+              ]
+            },
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "61c5daca-d489-400b-ae79-a500ce6ed525",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "validar != true"
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      }
+                    },
+                    "reference" : "be561d60-4984-4011-8ac2-c6476e2d6c83",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciar"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Guardar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Start process"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutputAgregar"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "catDescuentos"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "processId" : {
+                        "type" : "variable",
+                        "value" : "processAgregarData[0].id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "dataToSet" : {
+                        "type" : "variable",
+                        "value" : "\"tabla\""
+                      },
+                      "dataToChange" : {
+                        "type" : "variable",
+                        "value" : "editable"
+                      },
+                      "dataToSet2" : {
+                        "type" : "variable",
+                        "value" : "{     \"lstCatDescuentosInput\": [         {             \"persistenceId\": 0,             \"persistenceId_string\": \"0\",             \"persistenceVersion\": 0,             \"persistenceVersion_string\": \"0\",             \"catBachilleratos\": null,             \"ciudad\": \"\",             \"campana\": \"\",             \"documento\": \"\",             \"convenioDescuento\": \"\",             \"inicioVigencia\": \"\",             \"finVigencia\": \"\",             \"tipo\": \"\",             \"descuento\": 0,             \"usuarioCreacion\": \"\",             \"isEliminado\": false,             \"campus\": \"\",             \"bachillerato\": \"\"         }     ] }"
+                      },
+                      "dataToChange2" : {
+                        "type" : "variable",
+                        "value" : "formOutputAgregar"
+                      },
+                      "campus" : {
+                        "type" : "interpolation",
+                        "value" : "{{campus}}"
+                      }
+                    },
+                    "reference" : "c72623b2-d86a-41b5-8f54-44a6a737ce7b",
+                    "hasValidationError" : false,
+                    "id" : "customButtonInstanciarDescuentos"
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modalFiltroEspecifico"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : "lg"
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "29b96a2e-34fd-4835-8b38-fc9e0a8eca5b",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "c46e20eb-38d9-4a5e-9a91-0c40af6e43c5",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "container",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "repeatedCollection" : {
+                    "type" : "variable",
+                    "value" : ""
+                  }
+                },
+                "reference" : "f5cc1491-455f-4e15-8d73-4ec967d0af1a",
+                "hasValidationError" : false,
+                "id" : "pbContainer",
+                "rows" : [
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "text" : {
+                          "type" : "interpolation",
+                          "value" : "Descripción del filtro"
+                        },
+                        "level" : {
+                          "type" : "constant",
+                          "value" : "Level 4"
+                        },
+                        "alignment" : {
+                          "type" : "constant",
+                          "value" : "left"
+                        }
+                      },
+                      "reference" : "301eae73-c6cf-4fba-94ba-b440dc71281a",
+                      "hasValidationError" : false,
+                      "id" : "pbTitle"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "0a6ff2bd-60f9-4061-a7cd-817da8f2b8e4",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "container",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 10,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "repeatedCollection" : {
+                                "type" : "variable",
+                                "value" : ""
+                              }
+                            },
+                            "reference" : "a1a68512-3117-453e-898a-ada6682efc62",
+                            "hasValidationError" : false,
+                            "id" : "pbContainer",
+                            "rows" : [
+                              [
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 4,
+                                    "lg" : 4
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "disabled" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Columna"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation",
+                                      "value" : "Seleccionar..."
+                                    },
+                                    "availableValues" : {
+                                      "type" : "expression",
+                                      "value" : "lstColumnasFiltro"
+                                    },
+                                    "displayedKey" : {
+                                      "type" : "constant"
+                                    },
+                                    "returnedKey" : {
+                                      "type" : "constant"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "objFiltro.columna"
+                                    }
+                                  },
+                                  "reference" : "02808289-d111-4326-bd8b-d7710cb976a9",
+                                  "hasValidationError" : false,
+                                  "id" : "pbSelect"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 4,
+                                    "lg" : 4
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "disabled" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Operador"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation",
+                                      "value" : "Seleccionar..."
+                                    },
+                                    "availableValues" : {
+                                      "type" : "expression",
+                                      "value" : "lstOperador"
+                                    },
+                                    "displayedKey" : {
+                                      "type" : "constant"
+                                    },
+                                    "returnedKey" : {
+                                      "type" : "constant"
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "objFiltro.operador"
+                                    }
+                                  },
+                                  "reference" : "ffeb002c-c2bf-4bae-923e-d2c57add2e03",
+                                  "hasValidationError" : false,
+                                  "id" : "pbSelect"
+                                },
+                                {
+                                  "type" : "component",
+                                  "dimension" : {
+                                    "xs" : 12,
+                                    "sm" : 12,
+                                    "md" : 4,
+                                    "lg" : 4
+                                  },
+                                  "propertyValues" : {
+                                    "cssClasses" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "hidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "required" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "minLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "maxLength" : {
+                                      "type" : "constant",
+                                      "value" : ""
+                                    },
+                                    "readOnly" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "labelHidden" : {
+                                      "type" : "constant",
+                                      "value" : false
+                                    },
+                                    "label" : {
+                                      "type" : "interpolation",
+                                      "value" : "Valores"
+                                    },
+                                    "labelPosition" : {
+                                      "type" : "constant",
+                                      "value" : "top"
+                                    },
+                                    "labelWidth" : {
+                                      "type" : "constant",
+                                      "value" : 4
+                                    },
+                                    "placeholder" : {
+                                      "type" : "interpolation",
+                                      "value" : "Seleccionar..."
+                                    },
+                                    "value" : {
+                                      "type" : "variable",
+                                      "value" : "objFiltro.valor"
+                                    },
+                                    "type" : {
+                                      "type" : "constant",
+                                      "value" : "text"
+                                    },
+                                    "min" : {
+                                      "type" : "constant"
+                                    },
+                                    "max" : {
+                                      "type" : "constant"
+                                    },
+                                    "step" : {
+                                      "type" : "constant",
+                                      "value" : 1
+                                    }
+                                  },
+                                  "reference" : "381ee773-315c-44e6-a314-3fb3db17ecac",
+                                  "hasValidationError" : false,
+                                  "id" : "pbInput"
+                                }
+                              ]
+                            ]
+                          },
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 2,
+                              "lg" : 6
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Agregar"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "left"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Add to collection"
+                              },
+                              "assign" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "url" : {
+                                "type" : "interpolation"
+                              },
+                              "responseStatusCode" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "dataToSend" : {
+                                "type" : "constant"
+                              },
+                              "dataFromSuccess" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "closeOnSuccess" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "dataFromError" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "targetUrlOnSuccess" : {
+                                "type" : "interpolation"
+                              },
+                              "collectionToModify" : {
+                                "type" : "variable",
+                                "value" : "lstFiltrosPre"
+                              },
+                              "modalId" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "collectionPosition" : {
+                                "type" : "constant",
+                                "value" : "Last"
+                              },
+                              "valueToAdd" : {
+                                "type" : "expression",
+                                "value" : "objFiltro"
+                              },
+                              "removeItem" : {
+                                "type" : "variable"
+                              },
+                              "variableRestart" : {
+                                "type" : "variable",
+                                "value" : "objFiltro"
+                              }
+                            },
+                            "reference" : "51f0520d-cadd-4925-b265-417b6e38bf2e",
+                            "hasValidationError" : false,
+                            "id" : "customButtonAddClean"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "allowHTML" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "headers" : {
+                                "type" : "constant",
+                                "value" : [
+                                  "Columna",
+                                  "Operador",
+                                  "Valor"
+                                ]
+                              },
+                              "columnsKey" : {
+                                "type" : "constant",
+                                "value" : [
+                                  "columna",
+                                  "operador",
+                                  "valor"
+                                ]
+                              },
+                              "selectedRow" : {
+                                "type" : "variable",
+                                "value" : ""
+                              },
+                              "striped" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "condensed" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "bordered" : {
+                                "type" : "constant",
+                                "value" : true
+                              },
+                              "content" : {
+                                "type" : "variable",
+                                "value" : "lstFiltrosPre"
+                              }
+                            },
+                            "reference" : "3ccc270b-bcbe-4e8e-a89f-bea30835f5e2",
+                            "hasValidationError" : false,
+                            "id" : "customTableDelete"
+                          }
+                        ]
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "container",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "repeatedCollection" : {
+                          "type" : "variable",
+                          "value" : ""
+                        }
+                      },
+                      "reference" : "5dc76c85-4235-47e8-b07d-b0c4a9d65a56",
+                      "hasValidationError" : false,
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "disabled" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Aceptar"
+                              },
+                              "alignment" : {
+                                "type" : "constant",
+                                "value" : "right"
+                              },
+                              "buttonStyle" : {
+                                "type" : "constant",
+                                "value" : "primary"
+                              },
+                              "action" : {
+                                "type" : "constant",
+                                "value" : "Add to collection"
+                              },
+                              "variableDestino" : {
+                                "type" : "variable",
+                                "value" : "lstFiltros"
+                              },
+                              "variableAcopiar" : {
+                                "type" : "variable",
+                                "value" : "lstFiltrosPre"
+                              },
+                              "OpenModal" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "modalId" : {
+                                "type" : "constant"
+                              }
+                            },
+                            "reference" : "8044708f-5cbd-42d4-bcd9-4ebcf80e6ad2",
+                            "hasValidationError" : false,
+                            "id" : "customButtonSetValor"
+                          }
+                        ]
+                      ]
+                    }
+                  ]
+                ]
+              }
+            ]
+          ]
+        }
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "0fb5c478-1504-4544-b3cf-4d28f1fd628f",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "73cbaa28-3608-4d65-94e2-4abd7389a0d8",
+      "name" : "bootstrap.min (1).js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "5fc97838-a587-48fd-ad0a-6b8724b83ca9",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "55958b00-0312-4314-a6cf-20d775bd6f96",
+      "name" : "jquery.min (1).js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "1fa3370e-cbde-4658-9b4c-6e46b399fb7e",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "catDescuentos" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentos&p={{inicio}}&c=10&f=campus={{campus_selected.clave}}"
+      ],
+      "exposed" : false
+    },
+    "catDescuentos_selected" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"persistenceId\": 0,\r",
+        "    \"persistenceId_string\": \"0\",\r",
+        "    \"persistenceVersion\": 0,\r",
+        "    \"persistenceVersion_string\": \"0\",\r",
+        "    \"catBachilleratos\": null,\r",
+        "    \"ciudad\": \"\",\r",
+        "    \"campana\": \"\",\r",
+        "    \"documento\": \"\",\r",
+        "    \"convenioDescuento\": \"\",\r",
+        "    \"inicioVigencia\": \"\",\r",
+        "    \"finVigencia\": \"\",\r",
+        "    \"tipo\": \"\",\r",
+        "    \"descuento\": 0,\r",
+        "    \"usuarioCreacion\": \"\",\r",
+        "    \"isEliminado\": false,\r",
+        "    \"campus\": \"\",\r",
+        "    \"bachillerato\": \"\",\r",
+        "\t\"todelete\": false\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "catDescuentos_selectedNR" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "countCatDescuentos" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=countForFindByCampus&p=0&c=10&f=campus={{campus_selected.clave}}"
+      ],
+      "exposed" : false
+    },
+    "editable" : {
+      "type" : "constant",
+      "value" : [
+        "tabla"
+      ],
+      "exposed" : false
+    },
+    "final" : {
+      "type" : "constant",
+      "value" : [
+        "10"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    lstCatDescuentosInput:$data.lstCatDescuentos",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutputBorrar" : {
+      "type" : "expression",
+      "value" : [
+        "return {\"lstCatDescuentosInput\":$data.lstCatDescuentosBorrar}"
+      ],
+      "exposed" : false
+    },
+    "inicio" : {
+      "type" : "constant",
+      "value" : [
+        "0"
+      ],
+      "exposed" : false
+    },
+    "lstCatDescuentos" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catDescuentos_selected);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCatDescuentosBorrar" : {
+      "type" : "expression",
+      "value" : [
+        "var lstResultado = [];",
+        "",
+        "lstResultado.push($data.catDescuentos_selectedNR);",
+        "",
+        "return lstResultado;"
+      ],
+      "exposed" : false
+    },
+    "processAgregarData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=10&p=0&f=name=Agregar%20Descuentos"
+      ],
+      "exposed" : false
+    },
+    "processEditData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/process?c=1000&p=0&f=name=Editar%20Descuentos"
+      ],
+      "exposed" : false
+    },
+    "urlRefreshPaginado" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/bdm/businessData/com.anahuac.catalogos.CatDescuentos?q=getCatDescuentosByInicioVigencia&p=\"+$data.inicio+\"&c=10&f=campus=\"+$data.campus_selected.clave;"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "formOutputAgregar" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"lstCatDescuentosInput\": [\r",
+        "        {\r",
+        "            \"persistenceId\": 0,\r",
+        "            \"persistenceId_string\": \"0\",\r",
+        "            \"persistenceVersion\": 0,\r",
+        "            \"persistenceVersion_string\": \"0\",\r",
+        "            \"catBachilleratos\": null,\r",
+        "            \"ciudad\": \"\",\r",
+        "            \"campana\": \"\",\r",
+        "            \"documento\": \"\",\r",
+        "            \"convenioDescuento\": \"\",\r",
+        "            \"inicioVigencia\": \"\",\r",
+        "            \"finVigencia\": \"\",\r",
+        "            \"tipo\": \"\",\r",
+        "            \"descuento\": 0,\r",
+        "            \"usuarioCreacion\": \"\",\r",
+        "            \"isEliminado\": false,\r",
+        "            \"campus\": \"\",\r",
+        "            \"bachillerato\": \"\"\r",
+        "        }\r",
+        "    ]\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "cargar_datos" : {
+      "type" : "expression",
+      "value" : [
+        "    if($data.editable === \"editar\"){",
+        "        $data.catDescuentos_selected = $data.catDescuentos_selectedNR;",
+        "    }"
+      ],
+      "exposed" : false
+    },
+    "validar" : {
+      "type" : "expression",
+      "value" : [
+        "var validar = true;\r",
+        "\r",
+        "if($data.editable === \"editar\"){\r",
+        "    if($data.catDescuentos_selected.ciudad !== null && $data.editar.ciudad_selected != undefined &&$data.editar.ciudad_selected.trim() === \"\"){\r",
+        "        \r",
+        "        $data.editar.ciudad_selected = $data.catDescuentos_selected.ciudad;\r",
+        "        if( $data.editar.ciudad_selected.trim() === \"\"){\r",
+        "            $data.editar.cargar = true;\r",
+        "        }\r",
+        "    }\r",
+        "    if($data.editar.cargar === true && $data.catDescuentos_selected.ciudad === null){\r",
+        "        validar = false;\r",
+        "    }else \r",
+        "    if($data.catDescuentos_selected.tipo.trim() === \"\"){\r",
+        "        validar = false;\r",
+        "    }else if($data.catDescuentos_selected.tipo === \"Preparatoria\" && $data.catDescuentos_selected.catBachilleratos === null){\r",
+        "        $data.catDescuentos_selected.catDescuentos_selectedciudad=\"\";\r",
+        "        $data.catDescuentos_selected.campana =\"\";\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.catDescuentos_selected.tipo === \"Ciudad\"&& $data.catDescuentos_selected.ciudad.trim()=== \"\"){\r",
+        "        $data.catDescuentos_selected.campana =\"\";\r",
+        "        $data.catDescuentos_selected.catBachilleratos =null;\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.catDescuentos_selected.tipo === \"Campaña\" && $data.catDescuentos_selected.campana.trim()=== \"\"){\r",
+        "        $data.catDescuentos_selected.ciudad=\"\";\r",
+        "        $data.catDescuentos_selected.catBachilleratos = null;\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.catDescuentos_selected.usuarioCreacion.trim()=== \"\"){\r",
+        "       $data.catDescuentos_selected.usuarioCreacion = $data.userData.user_name;\r",
+        "       validar = false;\r",
+        "    }else if($data.catDescuentos_selected.campus.trim() === \"\"){\r",
+        "        $data.catDescuentos_selected.campus = $data.campus_selected.clave;\r",
+        "        validar = false;\r",
+        "    }else if($data.catDescuentos_selected.convenioDescuento.trim() === \"\"){\r",
+        "        validar = false;\r",
+        "    }else if($data.catDescuentos_selected.descuento>100){\r",
+        "        validar = false;\r",
+        "    }else if($data.catDescuentos_selected.inicioVigencia.length <8){\r",
+        "        validar = false;\r",
+        "    }else if($data.catDescuentos_selected.finVigencia.length <8){\r",
+        "        validar = false;\r",
+        "    }else{\r",
+        "        var date2 = new Date($data.catDescuentos_selected.finVigencia);\r",
+        "        var date1 = new Date($data.catDescuentos_selected.inicioVigencia);\r",
+        "        console.log(date1.getDate())\r",
+        "        var date = new Date();\r",
+        "        var yesterday = new Date(date.getTime());\r",
+        "        yesterday.setDate(date.getDate() - 1);\r",
+        "        yesterday.setHours(0,0,0,0);\r",
+        "        if(date1<yesterday){\r",
+        "            $data.catDescuentos_selected.inicioVigencia = \"\";\r",
+        "            swal(\"!Atención!\", \"la fecha Inicio Vigencia no puede ser menor a la de hoy\", \"warning\");\r",
+        "             validar = false\r",
+        "        }else if(date2<=date1){\r",
+        "            $data.catDescuentos_selected.finVigencia = \"\";\r",
+        "            swal(\"!Atención!\", \"la fecha Fin Vigencia no puede ser menor o igual a la de Inicio Vigencia\", \"warning\");\r",
+        "            validar = false\r",
+        "        }\r",
+        "    }\r",
+        "}else if($data.editable === \"agregar\"){\r",
+        "    if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo.trim() === \"\"){\r",
+        "        validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo === \"Preparatoria\" && $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos === null){\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].ciudad=\"\";\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].campana =\"\";\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo === \"Ciudad\"&& $data.formOutputAgregar.lstCatDescuentosInput[0].ciudad.trim()=== \"\"){\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].campana =\"\";\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos =null;\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.formOutputAgregar.lstCatDescuentosInput[0].tipo === \"Campaña\" && $data.formOutputAgregar.lstCatDescuentosInput[0].campana.trim()=== \"\"){\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].ciudad=\"\";\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos = null;\r",
+        "            validar = false;\r",
+        "    }\r",
+        "    else if($data.formOutputAgregar.lstCatDescuentosInput[0].usuarioCreacion.trim()=== \"\"){\r",
+        "       $data.formOutputAgregar.lstCatDescuentosInput[0].usuarioCreacion = $data.userData.user_name;\r",
+        "       validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].campus.trim() === \"\"){\r",
+        "        $data.formOutputAgregar.lstCatDescuentosInput[0].campus = $data.campus_selected.clave;\r",
+        "        validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].convenioDescuento.trim() === \"\"){\r",
+        "        validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].descuento>100 || $data.formOutputAgregar.lstCatDescuentosInput[0].descuento <=0){\r",
+        "        validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].inicioVigencia.length <8){\r",
+        "        validar = false;\r",
+        "    }else if($data.formOutputAgregar.lstCatDescuentosInput[0].finVigencia.length <8){\r",
+        "        validar = false;\r",
+        "    }else{\r",
+        "        var date2 = new Date($data.formOutputAgregar.lstCatDescuentosInput[0].finVigencia);\r",
+        "        var date1 = new Date($data.formOutputAgregar.lstCatDescuentosInput[0].inicioVigencia);\r",
+        "        console.log(date1.getDate())\r",
+        "        var date = new Date();\r",
+        "        var yesterday = new Date(date.getTime());\r",
+        "        yesterday.setDate(date.getDate() - 1);\r",
+        "        yesterday.setHours(0,0,0,0);\r",
+        "        if(date1<yesterday){\r",
+        "            $data.formOutputAgregar.lstCatDescuentosInput[0].inicioVigencia = \"\";\r",
+        "            swal(\"!Atención!\", \"la fecha Inicio Vigencia no puede ser menor a la de hoy\", \"warning\");\r",
+        "             validar = false\r",
+        "        }else if(date2<=date1){\r",
+        "            $data.formOutputAgregar.lstCatDescuentosInput[0].finVigencia = \"\";\r",
+        "            swal(\"!Atención!\", \"la fecha Fin Vigencia no puede ser menor o igual a la de Inicio Vigencia\", \"warning\");\r",
+        "            validar = false\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return validar;"
+      ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "",
+        "for(var x in $data.lstCampusUsuario){",
+        "    for(var index in $data.lstCatCampus){",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){",
+        "            $data.lstCatCampus[index].clave = $data.lstCampusUsuario[x].valor;",
+        "            resultado.push($data.lstCatCampus[index]);",
+        "            if($data.lstCampusUsuario.length == 1){",
+        "                $data.filtroCampus.filtroCampus = resultado[0].descripcion;",
+        "            }",
+        "            ",
+        "        }",
+        "    }",
+        "}",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "var resultado=[];",
+        "",
+        "for(var x in $data.lstMembership){",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){",
+        "        resultado.push($data.lstMembership[x].group_id.name);",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "campus_selected" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "\"clave\": \"\",",
+        "\"descripcion\": \"\",",
+        "\"fechaCreacion\": \"\",",
+        "\"fechaImplementacion\": \"\",",
+        "\"id\": \"\",",
+        "\"isEliminado\": null,",
+        "\"isEnabled\": null,",
+        "\"nombreDocumento\": \"\",",
+        "\"persistenceId\": 0,",
+        "\"persistenceId_string\": \"\",",
+        "\"persistenceVersion\": 0,",
+        "\"persistenceVersion_string\": \"\",",
+        "\"urlAutorDatos\": \"\",",
+        "\"urlAvisoPrivacidad\": \"\",",
+        "\"urlDatosVeridicos\": \"\",",
+        "\"usuarioBanner\": \"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "agregar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.campus_selected.clave === undefined||$data.campus_selected.clave === null||$data.campus_selected.clave.trim()===\"\"){",
+        "     return true;",
+        " }else{",
+        "     return false;",
+        " }"
+      ],
+      "exposed" : false
+    },
+    "lstTipoDescuento" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    \"Preparatoria\",",
+        "    \"Campaña\",",
+        "    \"Ciudad\"",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "CatBachillerato" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatBachilleratos&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "lstCampusUsuario" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];",
+        "",
+        "for(var x in $data.lstCampusByUser){",
+        "    for(var index in $data.lstCampusRole){",
+        "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){",
+        "            //resultado.push($data.lstCampusRole[index]);",
+        "            let i = 0;",
+        "            resultado.forEach(value =>{",
+        "                if(value == $data.lstCampusRole[index]){",
+        "                   i++;",
+        "                }",
+        "            });",
+        "            if(i === 0){",
+        "               resultado.push($data.lstCampusRole[index]);  ",
+        "            }",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "lstCatPais" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatPaisByEliminado [com.anahuac.catalogos.CatPais]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatPaisByEliminado\",\"displayName\":\"getCatPaisByEliminado\"},\"id\":\"com.anahuac.catalogos.CatPais\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "lstCatEstados" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatEstados?q=getCatEstadosByPaisDescripcion&p=0&c=999&f=pais={{pais_selected}}"
+      ],
+      "exposed" : false
+    },
+    "pais_selected" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "estado_selected" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "editar" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"cargar\": false,",
+        "    \"actualizar\": false,",
+        "    \"ciudad_selected\":\"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "cargar_Ciudad" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatCiudad?q=findByDescripcion&p=0&c=999&f=descripcion={{catDescuentos_selected.ciudad}}"
+      ],
+      "exposed" : false
+    },
+    "limpar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable == 'tabla'){",
+        "    $data.pais_selected = \"\";",
+        "    $data.estado_selected = \"\";",
+        "    $data.editar.cargar = false;",
+        "    $data.editar.ciudad_selected = \"\";",
+        "}",
+        "if($data.catDescuentos_selected.tipo !== \"Ciudad\"){",
+        "    $data.editar.cargar === false;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "dataToFilter" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstColumnasFiltro" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    \"CLAVE\",\r",
+        "    \"DESCRIPCION\",\r",
+        "    \"USUARIOCREACION\",\r",
+        "    \"FECHACREACION\"\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "objFiltro" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "\t\"columna\":\"\",\r",
+        "\t\"operador\":\"\",\r",
+        "\t\"valor\":\"\"\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstOperador" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "    \"Igual a\",\r",
+        "    \"Que contenga\"\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltrosPre" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "campus" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : false
+    },
+    "campusSelected" : {
+      "type" : "expression",
+      "value" : [
+        "var retorno = false;",
+        "for (let index = 0; index < $data.lstFiltros.length; index++) {",
+        "\t\tconst element = $data.lstFiltros[index];",
+        "\t\tif(element.columna==\"CAMPUS\"){",
+        "\t\t    retorno=true",
+        "\t\t}",
+        "\t\t",
+        "\t}",
+        "return retorno;"
+      ],
+      "exposed" : false
+    },
+    "filtroCampus" : {
+      "type" : "json",
+      "value" : [
+        "{\"filtroCampus\":\"\"}"
+      ],
+      "exposed" : false
+    },
+    "bachilletatoString" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "getCatBachilleratos" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatBachilleratos?q=getCatBachilleratos&p=0&c=9999"
+      ],
+      "exposed" : false
+    },
+    "lstcatCiudades" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "catDescuentos_selected_clave" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catDescuentos_selected_clave_Agregar" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "limpiarAgregar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable != 'agregar'){",
+        "    $data.formOutputAgregar.lstCatDescuentosInput[0].bachillerato=\"\";",
+        "    $data.catDescuentos_selected_clave_Agregar=\"\";",
+        "    $data.formOutputAgregar.lstCatDescuentosInput[0].catBachilleratos=null;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "limpiarEditar" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.editable != 'editar'){",
+        "    ",
+        "}"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "1dab7516-53f7-43d5-a8d6-53e4079f9863",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

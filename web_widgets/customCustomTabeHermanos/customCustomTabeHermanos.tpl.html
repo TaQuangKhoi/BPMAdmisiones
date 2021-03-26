@@ -1,0 +1,32 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row, $index)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>
+                    {{row.nombres}}
+                </td>
+                <td>
+                    {{row.apellidos}}
+                </td>
+                <td>
+                    <button class="btn btn-link" ng-click="ctrl.showModalEditar(false)">
+                       <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
+                    <button class="btn btn-link" ng-click="ctrl.showModalEditar(true)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                     </button>
+                    <button class="btn btn-link" ng-click="ctrl.showModalEliminar()">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

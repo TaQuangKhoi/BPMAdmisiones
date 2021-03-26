@@ -1,0 +1,181 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="box">
+    <div class="container">
+        <div class="row text-lg-center">
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12 col-lg-offset-1">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Solicitudes en proceso</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('progreso', '')">
+                                <label style="margin-top: 20px;">{{solicitudProgreso}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Nuevas solicitudes</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('nuevas','')">
+                                <label style="margin-top: 20px;">{{nuevasSolicitudes}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Esperando el pago</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Solicitud en espera de pago')">
+                                <label style="margin-top: 20px;">{{esperandoPago}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Aspirantes en proceso</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', '')">
+                                <label style="margin-top: 20px;">{{enProceso}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Autodescripción</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Solicitud con pago aceptado')">
+                                <label style="margin-top: 20px;">{{autodescripcion}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Esperando resultados</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', '')">
+                                <label style="margin-top: 20px;">0</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Aceptado</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect()">
+                                <label style="margin-top: 20px;">3</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Autodescripción en proceso</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Autodescripción en proceso')"> <label style="margin-top: 20px;">{{AutodescripcionEnProceso}}</label> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Elección de pruebas no calendarizado</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Elección de pruebas no calendarizado')"> <label style="margin-top: 20px;">{{EleccionPruebasNoCalendarizado}}</label> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>No se ha impreso credencial</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'No se ha impreso credencial')"> <label style="margin-top: 20px;">{{NoImpresoCredencial}}</label> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Ya se imprimió su credencial</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Ya se imprimió su credencial')"> <label style="margin-top: 20px;">{{YaSeImprimioSuCredencial}}</label> </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!--div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Lista roja</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Solicitud con pago aceptado')">
+                                <label style="margin-top: 20px;">{{listaRoja}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+            <!--div class="col-lg-2 col-md-4 col-sm-4 col-xs-12">
+                <div class="box-part-1 text-center">
+                    <div class="title">
+                        <h4>Rechazados</h4>
+                    </div><br class="hidden-xs hidden-md hidden-sm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12  col-sm-12 text-center">
+                            <div class="avatar" ng-click="redirect('aspirantesProceso', 'Solicitud con pago aceptado')">
+                                <label style="margin-top: 20px;">{{rechazados}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+        </div>
+    </div>
+</div>

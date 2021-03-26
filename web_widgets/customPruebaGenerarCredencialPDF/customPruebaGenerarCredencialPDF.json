@@ -1,0 +1,203 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "customPruebaGenerarCredencialPDF",
+  "name" : "PruebaGenerarCredencialPDF",
+  "lastUpdate" : 1616527037953,
+  "template" : "@customPruebaGenerarCredencialPDF.tpl.html",
+  "icon" : "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><g><path fill='#fff' d='M8.2,20h15v-1h-15V20z M8.2,17h31v-1h-31V17z M8.2,4h32V3h-32V4z M8.2,14h34v-1h-34V14z M8.2,7h30V6h-30V7z M8.2,1h35V0h-35V1z'/></g></svg>",
+  "controller" : "@customPruebaGenerarCredencialPDF.ctrl.js",
+  "description" : "Short string or paragraph of text to be displayed. Can include HTML tags",
+  "custom" : true,
+  "order" : 19,
+  "properties" : [
+    {
+      "label" : "Label hidden",
+      "name" : "labelHidden",
+      "type" : "boolean",
+      "defaultValue" : true,
+      "bond" : "constant"
+    },
+    {
+      "label" : "Label",
+      "name" : "label",
+      "showFor" : "properties.labelHidden.value === false",
+      "type" : "text",
+      "defaultValue" : "Default label",
+      "bond" : "interpolation"
+    },
+    {
+      "label" : "Label position",
+      "name" : "labelPosition",
+      "showFor" : "properties.labelHidden.value === false",
+      "type" : "choice",
+      "defaultValue" : "top",
+      "choiceValues" : [
+        "left",
+        "top"
+      ],
+      "bond" : "constant"
+    },
+    {
+      "label" : "Label width",
+      "name" : "labelWidth",
+      "showFor" : "properties.labelHidden.value === false",
+      "type" : "integer",
+      "defaultValue" : 4,
+      "bond" : "constant",
+      "constraints" : {
+        "min" : "1",
+        "max" : "12"
+      }
+    },
+    {
+      "label" : "Interpret HTML",
+      "name" : "allowHTML",
+      "help" : "If you choose 'no', HTML code will be escaped instead of being interpreted",
+      "type" : "boolean",
+      "defaultValue" : true,
+      "bond" : "constant"
+    },
+    {
+      "label" : "Text",
+      "name" : "text",
+      "caption" : "Use basic html tags (if allowed), <span ng-non-bindable>{{dataVariable}}</span> to access data, and <a href=\"javascript:void(0);\" open-help=\"filters\" editor-mode=\"page\">filters</a> to format it (e.g. <span ng-non-bindable>{{dateVariable|uiDate}}</span>)",
+      "type" : "html",
+      "defaultValue" : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,<br/>consectetur,<br/>adipisci velit...",
+      "bond" : "interpolation"
+    },
+    {
+      "label" : "Alignment",
+      "name" : "alignment",
+      "showFor" : "properties.labelHidden.value === true",
+      "type" : "choice",
+      "defaultValue" : "left",
+      "choiceValues" : [
+        "left",
+        "center",
+        "right"
+      ],
+      "bond" : "constant"
+    },
+    {
+      "label" : "datosUsuarioId",
+      "name" : "datosUsuarioId",
+      "type" : "text",
+      "bond" : "variable"
+    },
+    {
+      "label" : "usuario",
+      "name" : "usuario",
+      "type" : "text",
+      "bond" : "variable"
+    },
+    {
+      "label" : "fechasExamenes",
+      "name" : "fechasExamenes",
+      "type" : "text",
+      "bond" : "variable"
+    },
+    {
+      "label" : "correoUsuario",
+      "name" : "correoUsuario",
+      "type" : "text",
+      "bond" : "variable"
+    },
+    {
+      "label" : "caseid",
+      "name" : "caseId",
+      "type" : "text",
+      "bond" : "variable"
+    }
+  ],
+  "assets" : [
+    {
+      "id" : "c148f715-b8ab-48a0-94cc-900c58871e01",
+      "name" : "optima-bold-webfont.ttf",
+      "type" : "css",
+      "order" : 11,
+      "external" : false
+    },
+    {
+      "id" : "036c0967-035b-41e5-95da-b2eefd49354b",
+      "name" : "optima-webfont.woff2",
+      "type" : "css",
+      "order" : 16,
+      "external" : false
+    },
+    {
+      "id" : "6b374ed7-90b1-45c6-a52d-71d3bde509f3",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 24,
+      "external" : false
+    },
+    {
+      "id" : "594a4ed7-db7a-4666-9c91-765c5a810c41",
+      "name" : "angular-block-ui.min (1).css",
+      "type" : "css",
+      "order" : 21,
+      "external" : false
+    },
+    {
+      "id" : "f3bb34ab-9072-42a2-b6c3-e2a83a61617c",
+      "name" : "Style.css",
+      "type" : "css",
+      "order" : 19,
+      "external" : false
+    },
+    {
+      "id" : "d40b4d80-072b-4f4c-b8b6-2f665c9e6d09",
+      "name" : "optima-webfont.woff",
+      "type" : "css",
+      "order" : 15,
+      "external" : false
+    },
+    {
+      "id" : "90102b89-83c0-4d74-b085-f4cd46142bc1",
+      "name" : "qrcode.js",
+      "type" : "js",
+      "order" : 26,
+      "external" : false
+    },
+    {
+      "id" : "1902dfd7-688c-4715-aebe-11338b4cb760",
+      "name" : "optima-bold-webfont.woff",
+      "type" : "css",
+      "order" : 12,
+      "external" : false
+    },
+    {
+      "id" : "7ec99c11-8d99-4202-b316-dfa2efe2fa59",
+      "name" : "optima-webfont.ttf",
+      "type" : "css",
+      "order" : 14,
+      "external" : false
+    },
+    {
+      "id" : "f57e5767-d53a-48f3-bd3c-25b7e68e1f11",
+      "name" : "optima-bold-webfont.woff2",
+      "type" : "css",
+      "order" : 13,
+      "external" : false
+    },
+    {
+      "id" : "8d877e3c-8b82-4214-9790-db0504835c1b",
+      "name" : "html2pdf.bundle.js",
+      "type" : "js",
+      "order" : 25,
+      "external" : false
+    },
+    {
+      "id" : "b59b248d-9485-4a22-a30a-4e74d2bcfa6d",
+      "name" : "angular-block-ui.min (1).js",
+      "type" : "js",
+      "order" : 22,
+      "external" : false
+    }
+  ],
+  "requiredModules" : [
+    "blockUI"
+  ],
+  "type" : "widget",
+  "hasHelp" : false
+}
