@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1614108858589,
+  "lastUpdate" : 1617042616110,
   "rows" : [
     [
       {
@@ -89,29 +89,30 @@
                         "type" : "constant",
                         "value" : "/apps/login/login/"
                       },
-                      "properties" : {
-                        "type" : "constant"
-                      },
-                      "cerrarSesion" : {
-                        "type" : "expression",
-                        "value" : "cerrarSesion"
-                      },
                       "idModalConfirmacionAD" : {
                         "type" : "constant",
                         "value" : "modalConfirmarCerrarSesion"
                       },
-                      "currentTaskName" : {
+                      "cambiarPagina" : {
+                        "type" : "variable",
+                        "value" : "cambiarPagina"
+                      },
+                      "cerrarSesion" : {
+                        "type" : "variable",
+                        "value" : "cerrarSesion"
+                      },
+                      "pageToken" : {
                         "type" : "expression",
-                        "value" : "currentTaskName"
+                        "value" : "currentToken"
                       },
                       "accionModal" : {
                         "type" : "variable",
                         "value" : "accionModal"
                       }
                     },
-                    "reference" : "49bb538c-14a2-43dc-8f76-e052a5bc4afb",
+                    "reference" : "28ea5ba0-f529-4b92-89c8-8802da014c2a",
                     "hasValidationError" : false,
-                    "id" : "customCustomBannerBack"
+                    "id" : "customCustomBannerFront"
                   }
                 ]
               ]
@@ -617,6 +618,10 @@
                                   "accionModal" : {
                                     "type" : "variable",
                                     "value" : "accionModal"
+                                  },
+                                  "currentToken" : {
+                                    "type" : "variable",
+                                    "value" : "currentToken"
                                   }
                                 },
                                 "reference" : "1d8200b5-076f-4d63-9374-dfa34479c0d3",
@@ -2134,7 +2139,7 @@
                     {
                       "type" : "component",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 12,
                         "md" : 6,
                         "lg" : 6
@@ -2222,7 +2227,7 @@
                     {
                       "type" : "container",
                       "dimension" : {
-                        "xs" : 12,
+                        "xs" : 6,
                         "sm" : 12,
                         "md" : 6,
                         "lg" : 6
@@ -2411,6 +2416,13 @@
       "external" : false
     },
     {
+      "id" : "acf07d42-c2e1-4f20-8640-75422497d84a",
+      "name" : "Icono_A blanco.png",
+      "type" : "img",
+      "order" : 17,
+      "external" : false
+    },
+    {
       "id" : "3c2b8e1c-5de4-4eb4-8495-da7fa250c117",
       "name" : "localization.json",
       "type" : "json",
@@ -2422,13 +2434,6 @@
       "name" : "Ilustraciones 3.png",
       "type" : "img",
       "order" : 16,
-      "external" : false
-    },
-    {
-      "id" : "acf07d42-c2e1-4f20-8640-75422497d84a",
-      "name" : "Icono_A blanco.png",
-      "type" : "img",
-      "order" : 17,
       "external" : false
     },
     {
@@ -3075,6 +3080,10 @@
       "exposed" : false
     },
     "cerrarSesion" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "currentToken" : {
       "type" : "constant",
       "exposed" : false
     }

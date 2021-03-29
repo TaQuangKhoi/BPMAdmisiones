@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "BackLayout",
   "name" : "BackLayout",
-  "lastUpdate" : 1614108841763,
+  "lastUpdate" : 1617042600001,
   "rows" : [
     [
       {
@@ -417,7 +417,7 @@
                                   ],
                                   [
                                     {
-                                      "type" : "component",
+                                      "type" : "container",
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
@@ -427,96 +427,74 @@
                                       "propertyValues" : {
                                         "cssClasses" : {
                                           "type" : "constant",
-                                          "value" : "text-light campus-show"
+                                          "value" : ""
                                         },
                                         "hidden" : {
-                                          "type" : "expression",
-                                          "value" : "isSerua"
-                                        },
-                                        "labelHidden" : {
                                           "type" : "constant",
                                           "value" : true
                                         },
-                                        "label" : {
-                                          "type" : "interpolation",
-                                          "value" : "Default label"
-                                        },
-                                        "labelPosition" : {
-                                          "type" : "constant",
-                                          "value" : "top"
-                                        },
-                                        "labelWidth" : {
-                                          "type" : "constant",
-                                          "value" : 4
-                                        },
-                                        "allowHTML" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "text" : {
-                                          "type" : "interpolation",
-                                          "value" : "{{(memberships.length>1)?\"SERUA\":getRole + \" de \" + getCampus}}"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "center"
+                                        "repeatedCollection" : {
+                                          "type" : "variable",
+                                          "value" : "memberships"
                                         }
                                       },
-                                      "reference" : "f0354590-fddc-4570-aee4-d93b3c9ee6d5",
+                                      "reference" : "fc55e846-b054-4294-9b2c-2bfce9e2dc88",
                                       "hasValidationError" : false,
-                                      "id" : "pbText"
-                                    }
-                                  ],
-                                  [
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 12,
-                                        "lg" : 12
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : "text-light campus-show"
-                                        },
-                                        "hidden" : {
-                                          "type" : "expression",
-                                          "value" : "!isSerua"
-                                        },
-                                        "labelHidden" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "label" : {
-                                          "type" : "interpolation",
-                                          "value" : "Default label"
-                                        },
-                                        "labelPosition" : {
-                                          "type" : "constant",
-                                          "value" : "top"
-                                        },
-                                        "labelWidth" : {
-                                          "type" : "constant",
-                                          "value" : 4
-                                        },
-                                        "allowHTML" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "text" : {
-                                          "type" : "interpolation",
-                                          "value" : "{{getRole}}"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "center"
-                                        }
-                                      },
-                                      "reference" : "b83141d3-c86b-41f5-95e2-5f30f057c5f6",
-                                      "hasValidationError" : false,
-                                      "id" : "pbText"
+                                      "id" : "pbContainer",
+                                      "rows" : [
+                                        [
+                                          {
+                                            "type" : "component",
+                                            "dimension" : {
+                                              "xs" : 12,
+                                              "sm" : 12,
+                                              "md" : 12,
+                                              "lg" : 12
+                                            },
+                                            "propertyValues" : {
+                                              "cssClasses" : {
+                                                "type" : "constant",
+                                                "value" : "text-light campus-show"
+                                              },
+                                              "hidden" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "labelHidden" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "label" : {
+                                                "type" : "interpolation",
+                                                "value" : "Default label"
+                                              },
+                                              "labelPosition" : {
+                                                "type" : "constant",
+                                                "value" : "top"
+                                              },
+                                              "labelWidth" : {
+                                                "type" : "constant",
+                                                "value" : 4
+                                              },
+                                              "allowHTML" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "text" : {
+                                                "type" : "interpolation",
+                                                "value" : "{{$item.role_id.name}} de {{getCampus}}"
+                                              },
+                                              "alignment" : {
+                                                "type" : "constant",
+                                                "value" : "center"
+                                              }
+                                            },
+                                            "reference" : "2db1bf5a-b684-4cf1-a825-275f7bcb8eba",
+                                            "hasValidationError" : false,
+                                            "id" : "pbText"
+                                          }
+                                        ]
+                                      ]
                                     }
                                   ],
                                   [
@@ -680,9 +658,9 @@
                                     "value" : "menuClosed"
                                   }
                                 },
-                                "reference" : "c85fc412-3209-4bcf-bf03-968b56baa3ff",
+                                "reference" : "2f7fbc10-4275-4ad6-9d86-0deb4101ca3e",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBonitaLayoutMenuV3"
+                                "id" : "customCustomBonitaLayoutMenuV4"
                               }
                             ]
                           ]
@@ -895,7 +873,7 @@
                             "propertyValues" : {
                               "cssClasses" : {
                                 "type" : "constant",
-                                "value" : "user-details--break-all"
+                                "value" : "user-details--break-all color-orange"
                               },
                               "hidden" : {
                                 "type" : "constant",
@@ -961,7 +939,7 @@
                             "propertyValues" : {
                               "cssClasses" : {
                                 "type" : "constant",
-                                "value" : "hidden-xs userIcon--large image-circle image-circle--large"
+                                "value" : "hidden-xs userIcon--large image-circle image-circle--large color-orange"
                               },
                               "hidden" : {
                                 "type" : "constant",
@@ -1038,7 +1016,7 @@
                                   "propertyValues" : {
                                     "cssClasses" : {
                                       "type" : "constant",
-                                      "value" : ""
+                                      "value" : "color-orange"
                                     },
                                     "hidden" : {
                                       "type" : "constant",
@@ -1086,7 +1064,7 @@
                                     },
                                     "text" : {
                                       "type" : "interpolation",
-                                      "value" : "{{loggedUser.userName}}"
+                                      "value" : "<label>Correo electrónico:&nbsp;</label>{{loggedUser.userName}}"
                                     },
                                     "alignment" : {
                                       "type" : "constant",
@@ -1094,11 +1072,11 @@
                                     },
                                     "labelHidden" : {
                                       "type" : "constant",
-                                      "value" : false
+                                      "value" : true
                                     },
                                     "label" : {
                                       "type" : "interpolation",
-                                      "value" : "Correo electrónico"
+                                      "value" : ""
                                     },
                                     "labelPosition" : {
                                       "type" : "constant",
@@ -1902,9 +1880,6 @@
                                 "type" : "constant",
                                 "value" : "primary"
                               },
-                              "dataToSend" : {
-                                "type" : "constant"
-                              },
                               "user" : {
                                 "type" : "variable",
                                 "value" : "loggedUser"
@@ -1912,11 +1887,19 @@
                               "data" : {
                                 "type" : "constant",
                                 "value" : "passwordObject"
+                              },
+                              "objectPassword" : {
+                                "type" : "variable",
+                                "value" : "passwordObject"
+                              },
+                              "passwordObject" : {
+                                "type" : "variable",
+                                "value" : "passwordObject"
                               }
                             },
-                            "reference" : "7f56cb1e-9401-416a-8e0b-6592645e5474",
+                            "reference" : "f67c3153-009a-4308-8b5f-9b812b221e1e",
                             "hasValidationError" : false,
-                            "id" : "customCustomBtnChangePassword"
+                            "id" : "customCustomBtnChangePasswordBAck"
                           }
                         ]
                       ]
