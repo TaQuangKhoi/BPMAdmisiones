@@ -156,6 +156,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             alert("Browser does not support HTML5.");
         }
 
+        $scope.properties.currentToken = token;
+
         //make sure the user is still logged in before refreshing the iframe
         verifySession().then(setTargetedUrl, refreshPage);
             
@@ -259,6 +261,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = $scope.properties.pageToken;
         }
         
+        $scope.properties.currentToken = ctrl.pageToken;
+
         ctrl.applicationName = $scope.properties.application.displayName;
         setApplicationMenuList(application);
         setTargetedUrl();
