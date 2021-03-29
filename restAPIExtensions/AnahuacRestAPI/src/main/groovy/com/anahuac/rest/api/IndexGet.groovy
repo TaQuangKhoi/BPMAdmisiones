@@ -20,6 +20,7 @@ import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.ProcessFileDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
@@ -135,6 +136,16 @@ class IndexGet implements RestApiController {
 				case "getDatosUsername":
 					String username =request.getParameter "username"
 					result = new UsuariosDAO().getDatosUsername(username)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+				case "obtenerDocumentos":
+					String caseId = request.getParameter "caseId"
+					result = new ProcessFileDAO().obtenerDocumentos(Long.valueOf(caseId), context);
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
