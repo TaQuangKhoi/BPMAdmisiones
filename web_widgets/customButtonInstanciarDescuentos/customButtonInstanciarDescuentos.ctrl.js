@@ -5,6 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
+        
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
             closeModal($scope.properties.closeOnSuccess);
@@ -74,6 +75,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var tipo = false;
 
     function startProcess() {
+        
         if ($scope.properties.dataToChange2.campus) {
             if ($scope.properties.dataToChange2.tipo == "Preparatoria") {
                 tipo = true;
@@ -81,7 +83,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataToSend.lstCatDescuentosInput[0]["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].persistenceId;
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId;
 
-                $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+                //$scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+                if( $scope.properties.lstCampusUsuario.length > 1){
+                    $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+                }else{
+                    $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = $scope.properties.lstCampusUsuario[0].valor;
+                }
                 if ($scope.properties.dataToChange2.catBachilleratos && $scope.properties.dataToChange2.convenioDescuento && $scope.properties.dataToChange2.descuento && $scope.properties.dataToChange2.inicioVigencia && $scope.properties.dataToChange2.finVigencia) {
                     if ($scope.properties.processId) {
                         var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
@@ -188,8 +195,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.dataToSend.lstCatDescuentosInput[0]["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].persistenceId;
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceId_string"] = $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId;
                 $scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId = parseInt($scope.properties.dataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceId);
-
-                $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+                
+                if( $scope.properties.lstCampusUsuario.length > 1){
+                    $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+                }else{
+                    $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = $scope.properties.lstCampusUsuario[0].valor;
+                }
+                
 
                 if ($scope.properties.dataToChange2.lstCatDescuentosInput[0].catBachilleratos && $scope.properties.dataToChange2.lstCatDescuentosInput[0].convenioDescuento && $scope.properties.dataToChange2.lstCatDescuentosInput[0].descuento && $scope.properties.dataToChange2.lstCatDescuentosInput[0].inicioVigencia && $scope.properties.dataToChange2.lstCatDescuentosInput[0].finVigencia) {
                     if ($scope.properties.processId) {
@@ -308,10 +320,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
+        
         vm.busy = true;
-        $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        if( $scope.properties.lstCampusUsuario.length > 1){
+            $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        }else{
+            $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = $scope.properties.lstCampusUsuario[0].valor;
+        }
+       
+        // $scope.properties.dataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        //AQUI
         var objDataToSend = angular.copy($scope.properties.dataToSend);
-        objDataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        //objDataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        if( $scope.properties.lstCampusUsuario.length > 1){
+            objDataToSend.lstCatDescuentosInput[0].campus = localStorage.getItem("campus");
+        }else{
+            objDataToSend.lstCatDescuentosInput[0].campus = $scope.properties.lstCampusUsuario[0].valor;
+        }
+
+
         if(objDataToSend.lstCatDescuentosInput[0].tipo === "Preparatoria"){
             if(objDataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceid_string != null && objDataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceid_string != undefined){
                 objDataToSend.lstCatDescuentosInput[0].catBachilleratos["persistenceId_string"] = objDataToSend.lstCatDescuentosInput[0].catBachilleratos.persistenceid_string;

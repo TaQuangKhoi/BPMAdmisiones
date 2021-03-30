@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1616525130882,
+  "lastUpdate" : 1617148331460,
   "rows" : [
     [
       {
@@ -5948,7 +5948,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "isAdmisionAnahuac === true || currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" ||currentTaskName === \"\"  || currentTaskName === undefined || orderOutput.authorizationCode"
+            "value" : "isAdmisionAnahuac === true || currentTaskName === \"Pago de examen\" || currentTaskName === \"Esperar pago\" ||currentTaskName === \"\"  || currentTaskName === undefined || (orderOutput.authorizationCode !== \"\" && orderOutput.authorizationCode !== null && orderOutput.authorizationCode !== undefined)"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -6336,6 +6336,58 @@
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "{{ validaciones | json }}<br>\n{{orderOutput}}<br>\n{{authorizationCode}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "24a49d78-5cc3-4b77-8068-f22683e4ebb7",
+        "hasValidationError" : false,
+        "id" : "pbText"
       }
     ]
   ],
@@ -6749,6 +6801,11 @@
         "\r",
         "function getTotal(montoParcial, descuento){\r",
         "    let output = (parseFloat(montoParcial).toFixed(2) - parseFloat(descuento).toFixed(2)).toFixed(2);\r",
+        "    \r",
+        "    if(output < 3){\r",
+        "        output = 3.00;    \r",
+        "    }\r",
+        "    \r",
         "    return output;\r",
         "}\r",
         "\r",
@@ -6762,13 +6819,23 @@
         "\r",
         "function getMontoByTipoEstudiante(){\r",
         "    let output = \"\";\r",
-        "    if($data.objectDetalleSolicitud.tipoAlumno === \"Local\"){\r",
+        "    debugger;\r",
+        "    \r",
+        "    if($data.catTipoResidencia.descripcion === \"Local\"){\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
-        "    } else if($data.objectDetalleSolicitud.tipoAlumno === \"Foraneo\"){\r",
+        "    } else if($data.catTipoResidencia.descripcion === \"Foraneo\"){\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
         "    } else {\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
         "    }\r",
+        "    \r",
+        "    // if($data.objectDetalleSolicitud.tipoAlumno === \"Local\"){\r",
+        "    //     output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",
+        "    // } else if($data.objectDetalleSolicitud.tipoAlumno === \"Foraneo\"){\r",
+        "    //     output = parseFloat($data.objectPagoExamen.montoAspitanteForaneo).toFixed(2);\r",
+        "    // } else {\r",
+        "    //     output = parseFloat($data.objectPagoExamen.montoAspiranteLocalDolares).toFixed(2);\r",
+        "    // }\r",
         "    \r",
         "    return output;\r",
         "}\r",
@@ -6892,7 +6959,7 @@
     "caseVariables" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/caseVariable?p=0&c=10&f=case_id={{getCatRegistro[0].caseId}}&f=name=isAdmisionAnahuac"
+        "../API/bpm/caseVariable?p=0&c=100&f=case_id={{getCatRegistro[0].caseId}}&f=name=isAdmisionAnahuac"
       ],
       "exposed" : false
     },
@@ -7030,6 +7097,66 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "getCatTipoAlumnoUrl" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "if($data.objectDetalleSolicitud !== undefined){",
+        "    for(let i = 0; i < $data.objectDetalleSolicitud.links.length; i++){",
+        "        if($data.objectDetalleSolicitud.links[i].rel === \"catTipoAlumno\"){",
+        "           output = $data.objectDetalleSolicitud.links[i].href;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "catTipoAlumno" : {
+      "type" : "url",
+      "value" : [
+        "..{{getCatTipoAlumnoUrl}}"
+      ],
+      "exposed" : false
+    },
+    "getCatTipoResidencia" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "if($data.objectDetalleSolicitud !== undefined){",
+        "    for(let i = 0; i < $data.objectDetalleSolicitud.links.length; i++){",
+        "        if($data.objectDetalleSolicitud.links[i].rel === \"catResidencia\"){",
+        "           output = $data.objectDetalleSolicitud.links[i].href;",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "catTipoResidencia" : {
+      "type" : "url",
+      "value" : [
+        "..{{getCatTipoResidencia}}"
+      ],
+      "exposed" : false
+    },
+    "validaciones" : {
+      "type" : "expression",
+      "value" : [
+        " return {\r",
+        "    \"isAdmisionAnahuac === true =\" :$data.isAdmisionAnahuac === true ,\r",
+        "    'currentTaskName === \"Pago de examen\" =' : $data.currentTaskName === \"Pago de examen\" ,\r",
+        "    'currentTaskName === \"Esperar pago\" = ' : $data.currentTaskName === \"Esperar pago\",\r",
+        "    'currentTaskName === \"\" =' : $data.currentTaskName === \"\" ,\r",
+        "    'currentTaskName === undefined =' : $data.currentTaskName === undefined ,\r",
+        "    'orderOutput.authorizationCode !== \"\"' : ($data.orderOutput.authorizationCode !== \"\" && $data.orderOutput.authorizationCode !== null && $data.orderOutput.authorizationCode !== undefined)\r",
+        "}"
       ],
       "exposed" : false
     }

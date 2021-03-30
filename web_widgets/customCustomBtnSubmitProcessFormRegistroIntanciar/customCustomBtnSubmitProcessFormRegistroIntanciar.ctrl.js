@@ -14,6 +14,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             blockUI.start();
             console.log("Alerta");
+            debugger;
             $scope.properties.dataToSend.catRegistroInput.nombreusuario = $scope.properties.strRegistro.CorreoElectronico;
             $scope.properties.dataToSend.catRegistroInput.primernombre = $scope.properties.strRegistro.PrimerNombre;
             $scope.properties.dataToSend.catRegistroInput.segundonombre = $scope.properties.strRegistro.SegundoNombre;

@@ -56,9 +56,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
     $scope.getCarrera = function() {
+        debugger
+            const regex = / /g;
           let carreraString= $scope.properties.usuario.catGestionEscolar.nombre;
           let nuevoNombreCarrera= " ";
-          nuevoNombreCarrera=carreraString.replace(' ', '-');
+          nuevoNombreCarrera=carreraString.replace(regex, '-');
           $scope.properties.NombreCarrera= nuevoNombreCarrera;
           console.log(" ");
      
@@ -81,25 +83,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
 
     $scope.loadAsistenciaCollegeBoard = function() {
-        debugger
+        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
-            debugger
+            
             $scope.asistenciaCollegeBoard = (datos.value === "true");
 
         })
     }
     $scope.loadAsistenciaPsicometrico = function() {
-        debugger
+        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
-            debugger
+            
             $scope.asistenciaPsicometrico = (datos.value === "true");
 
         })
     }
     $scope.loadAsistenciaEntrevista = function() {
-        debugger
+        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
-        debugger
+        
         $scope.asistenciaEntrevista = (datos.value === "true");
         })
     }
@@ -131,7 +133,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         
      
    $scope.$watchCollection('asistenciaCollegeBoard', function() {
-       debugger
+       
         if ($scope.asistenciaCollegeBoard != undefined && $scope.asistenciaCollegeBoard=== true) {
             //$scope.fecha1;
                 $scope.fecha11= "Realizado";
@@ -141,7 +143,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     });
        $scope.$watchCollection('asistenciaPsicometrico', function() {
-       debugger
+       
         if ($scope.asistenciaPsicometrico != undefined && $scope.asistenciaPsicometrico=== true) {
             $scope.fecha21= "Realizado";
             $scope.fecha22= " ";
@@ -150,7 +152,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     });
        $scope.$watchCollection('asistenciaEntrevista', function() {
-       debugger
+       
         if ($scope.asistenciaEntrevista != undefined && $scope.asistenciaEntrevista=== true) {
                 $scope.fecha31= "Realizado";
                 $scope.fecha32= " ";
@@ -181,6 +183,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.getFechas = function(op, dato) {
         let resultado = "";
         if ($scope.properties.datosUsuarioId != undefined && $scope.properties.fechasExamenes != undefined) {
+            
+            $scope.NoCollegeBoard = 0;
+            $scope.NoPsicometrico = 0;
+            $scope.NoEntrevista = 0;
+            for(var x = 0; x < $scope.properties.fechasExamenes.data.length; x++){
+                if($scope.properties.fechasExamenes.data[x].descripcion==="Examen de aptitudes y conocimientos"){
+                    $scope.NoCollegeBoard = x;
+                    
+                }else if($scope.properties.fechasExamenes.data[x].descripcion==="Examen Psicométrico"){
+
+                    $scope.NoPsicometrico = x;
+
+                }else{
+                    $scope.NoEntrevista = x;
+                }
+
+            }
             if (op === 1) {
                 //ES COLLEGGE BOARD
                 if ($scope.properties.datosUsuarioId.cbCoincide) { //obtener si tiene college board(si esta excento)
@@ -203,14 +222,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.datosUsuarioId.cbCoincide === false || $scope.properties.datosUsuarioId.cbCoincide === "" || $scope.properties.datosUsuarioId.cbCoincide === " " || $scope.properties.datosUsuarioId.cbCoincide === null || $scope.properties.datosUsuarioId.cbCoincide === "null") { //Si no esta excento (tiene fecha asignada)
                     if (dato === 1) {
                         //ES APLICACION
-                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[0].aplicacion;
+                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].aplicacion;
                         resultado = $scope.FechasAcomodado(fechaAuxiliar);
                     } else if (dato === 2) {
                         //ES LUGAR
-                        resultado = $scope.properties.fechasExamenes.data[0].lugar
+                        if($scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].online==="t"){
+                            resultado = "Online"
+                        }else{
+                            resultado = $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].lugar
+                        }
+                        //resultado = $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].lugar
                     } else if (dato === 3) {
                         //ES HORARIO
-                        resultado = $scope.properties.fechasExamenes.data[0].horario
+                        resultado = $scope.properties.fechasExamenes.data[$scope.NoCollegeBoard].horario
                     }
                 }
 
@@ -225,14 +249,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                     if (dato === 1) {
                         //ES APLICACION
-                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[1].aplicacion;
+                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].aplicacion;
                         resultado = $scope.FechasAcomodado(fechaAuxiliar);
                     } else if (dato === 2) {
+                       
                         //ES LUGAR
-                        resultado = $scope.properties.fechasExamenes.data[1].lugar
+                        if($scope.properties.fechasExamenes.data[$scope.NoPsicometrico].online==="t"){
+                            resultado = "Online"
+                        }else{
+                            resultado = $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].lugar
+                        }
+                        //ES LUGAR
+                        // resultado = $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].lugar
                     } else if (dato === 3) {
                         //ES HORARIO
-                        resultado = $scope.properties.fechasExamenes.data[1].horario
+                        resultado = $scope.properties.fechasExamenes.data[$scope.NoPsicometrico].horario
                     }
                 }
 
@@ -247,14 +278,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     //ES ENTREVISTA 
                     if (dato === 1) {
                         //ES APLICACION
-                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[2].aplicacion;
+                        let fechaAuxiliar = $scope.properties.fechasExamenes.data[$scope.NoEntrevista].aplicacion;
                         resultado = $scope.FechasAcomodado(fechaAuxiliar);
                     } else if (dato === 2) {
+                        if($scope.properties.fechasExamenes.data[$scope.NoEntrevista].online==="t"){
+                            resultado = "Online"
+                        }else{
                         //ES LUGAR
-                        resultado = $scope.properties.fechasExamenes.data[2].lugar
+                            resultado = $scope.properties.fechasExamenes.data[$scope.NoEntrevista].lugar
+                        }//ES LUGAR
+                        // resultado = $scope.properties.fechasExamenes.data[$scope.NoEntrevista].lugar
                     } else if (dato === 3) {
                         //ES HORARIO
-                        resultado = $scope.properties.fechasExamenes.data[2].horario
+                        resultado = $scope.properties.fechasExamenes.data[$scope.NoEntrevista].horario
                     }
 
                 }

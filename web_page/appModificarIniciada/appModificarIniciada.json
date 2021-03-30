@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appModificarIniciada",
   "name" : "appModificarIniciada",
-  "lastUpdate" : 1616525048965,
+  "lastUpdate" : 1617148264778,
   "rows" : [
     [
       {
@@ -115,6 +115,169 @@
                 }
               },
               "reference" : "c0958005-a56b-4f1c-8228-e4cc31dcb254",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "da2d4c0a-ad17-42f7-b63c-c41ce73d74cc",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 1,
+                      "sm" : 2,
+                      "md" : 2,
+                      "lg" : 2
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "95a1f244-856c-4c7b-8224-569cfa742800",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 10,
+                      "sm" : 8,
+                      "md" : 8,
+                      "lg" : 8
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<h4 class=\"color-orange\">Observaciones:</h4>{{objectDetalleSolicitud.observacionesCambio}}"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4ba67b9a-f467-4a23-a9e9-851aebd8f5de",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "0884f324-d107-430c-b70b-f99d4f9e2a39",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -235,6 +398,34 @@
       "type" : "url",
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{session.user_name}}&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "currentTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.currentTask[0].id;"
+      ],
+      "exposed" : false
+    },
+    "taskContext" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "objectDetalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.detalleSolicitud_ref.link}}"
       ],
       "exposed" : false
     }

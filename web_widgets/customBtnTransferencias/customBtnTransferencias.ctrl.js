@@ -107,7 +107,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.JSONTransferencia.valorcambio = JSON.stringify(jsonNuevo);
                     $scope.properties.JSONTransferencia.usuario = $scope.properties.usuario.user_name;
                     var nombreaspirante = "";
-                    if($scope.properties.valoresSolicitante.segundonombre === ""){
+                      if($scope.properties.valoresSolicitante.segundonombre === ""){
                         nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre ;
                     }else{
                         nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.segundonombre ;
