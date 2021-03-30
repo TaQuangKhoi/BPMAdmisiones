@@ -20,13 +20,14 @@
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
     
     <!-- Si va en la columna 3 entonces imprimira los botones-->
-                    <button ng-if="$index ==2" class="btn btn-default"  ng-click="redirecc(row.Clave, 2)" >
+                    <button ng-if="$index ==2" class="btn btn-default"  ng-click="redirecc(row, 2)" >
                         <span class=" glyphicon glyphicon-eye-open" aria-hidden="false"></span>
-                    </button> 
-                    <button ng-if="$index ==2" class="btn btn-primary"  ng-click="redirecc(row.Clave, 1)" >
+                    </button>
+                    <!--
+                    <button ng-if="$index ==2" class="btn btn-primary"  ng-click="redirecc(row, 1)" >
                         <span class="glyphicon glyphicon-time" aria-hidden="false" ></span>
                     </button>
-                    
+                    -->
                     <!--
         Aqui esta el switch 
                     <div ng-if="$index ==2" class="material-switch pull-left" id="divRow{{row.persistenceId_string}}" ng-click="sendDataEnabled(row, $index)" >
@@ -37,17 +38,18 @@
             
              
                     -->
-                    <!-- SWITCH PERSONALIZADO 
+                     <!--  SWITCH PERSONALIZADO  
+                      Si se quiere que al habilitar haga redireccion o haga algo instantaneo
+                       <label ng-if="$index ==2" class="switch" ng-click="sendDataEnabled(row.Clave,properties.content[row.Clave-1].Seleccionado)">
+                     
                     <label ng-if="$index ==2" class="switch">
                        
-                       Si se quiere que al habilitar haga redireccion o haga algo instantaneo
-                       <label ng-if="$index ==2" class="switch" ng-click="sendDataEnabled(row.Clave,properties.content[row.Clave-1].Seleccionado)">
                         
                         <input type="checkbox"  ng-click="seleccion(row.Clave)">
                         <span class="slider round"></span>
                     </label>
-            -->
-
+                     -->
+          
     <!-- Si va en la columna 3 entonces imprimira los botones-->
       
                 </td>
