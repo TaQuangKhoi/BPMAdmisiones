@@ -230,7 +230,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         debugger;
         vm.busy = true;
         let datos = angular.copy($scope.properties.dataToSend)
-        datos.lstCatTituloInput[0].orden = parseInt(datos.lstCatTituloInput[0].orden)
+        datos[$scope.properties.nombreTabla][0].orden = parseInt(datos[$scope.properties.nombreTabla][0].orden)
         var req = {
             method: method,
             url: url,

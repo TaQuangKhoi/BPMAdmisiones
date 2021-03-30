@@ -12,7 +12,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             addToCollection();
             closeModal($scope.properties.closeOnSuccess);
         } else if ($scope.properties.action === 'Start process') {
-            startProcess();
+            if($scope.properties.dataToChange2.lstCatReligionInput !== undefined){
+                validarNuevaReligion($scope.properties.dataToChange2);
+            } else {
+                validarEditarReligion($scope.properties.dataToChange2);
+            }
         } else if ($scope.properties.action === 'Submit task') {
             submitTask();
         } else if ($scope.properties.action === 'Open modal') {
@@ -72,9 +76,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
+       
         if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                doRequest("GET", $scope.properties.url).then(function() {
+                doRequest("GET","../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p=0&c=999").then(function() {
                     $scope.properties.dataToChange = $scope.properties.dataToSet;
                     $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
                 });
@@ -86,6 +91,104 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
+    function validarEditarReligion(_valor){
+        let isValid = true;
+        let errorMessage = "";
+
+        if(_valor.clave === "" || _valor.clave === null || _valor.clave === undefined){
+           isValid = false;
+           errorMessage = "El campo Clave no debe ir vacío";
+        } else if(_valor.descripcion === "" || _valor.descripcion === null || _valor.descripcion === undefined){
+           isValid = false;
+           errorMessage = "El campo Descripción no debe ir vacío";
+        } else if(_valor.id === "" || _valor.id === null || _valor.id === undefined){
+           isValid = false;
+           errorMessage = "El campo ID banner no debe ir vacío";
+        }
+
+       if(!isValid){
+           swal("¡Aviso!", errorMessage, "warn");
+       } else {
+           checkclave("editar");
+       }
+    }
+
+    function validarNuevaReligion(_valor){
+        let isValid = true;
+        let errorMessage = "";
+
+        if(_valor.lstCatReligionInput[0].clave === "" || _valor.lstCatReligionInput[0].clave === null || _valor.lstCatReligionInput[0].clave === undefined){
+            isValid = false;
+            errorMessage = "El campo Clave no debe ir vacío";
+        } else if(_valor.lstCatReligionInput[0].descripcion === "" || _valor.lstCatReligionInput[0].descripcion === null || _valor.lstCatReligionInput[0].descripcion === undefined){
+            isValid = false;
+            errorMessage = "El campo Descripción no debe ir vacío";
+        } else if(_valor.lstCatReligionInput[0].id === "" || _valor.lstCatReligionInput[0].id === null || _valor.lstCatReligionInput[0].id === undefined){
+            isValid = false;
+            errorMessage = "El campo ID banner no debe ir vacío";
+        } 
+
+        if(!isValid){
+            swal("¡Aviso!", errorMessage, "warning");
+        } else {
+            checkclave("agregar");
+        }
+    }
+
+    function checkclave(funcion){
+        if(funcion === 'agregar'){
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatReligion&clave=${$scope.properties.dataToChange2.lstCatReligionInput[0].clave}&id=`
+            };
+        }else{
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CatReligion&clave=${$scope.properties.dataToChange2.clave}&id=${$scope.properties.dataToChange2.persistenceId}`,
+            };
+        }
+        
+        return $http(req).success(function(data, status) {
+            if (data.data[0]) {
+                ckeckIdBanner(funcion);
+            } else {
+                swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+            }
+        })
+        .error(function(data, status) {
+            console.log(data);
+            console.log(status);
+            swal("¡Error!", "Error al realizar la validación de los datos. Por favor intente de nuevo mas tarde.", "error");
+        })
+    }
+
+
+    function ckeckIdBanner(funcion){
+        if(funcion === 'agregar'){
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CatReligion&idBanner=${$scope.properties.dataToChange2.lstCatReligionInput[0].id}&id=`
+            };
+        }else{
+            var req = {
+                method: 'GET',
+                url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CatReligion&idBanner=${$scope.properties.dataToChange2.id}&id=${$scope.properties.dataToChange2.persistenceId}`,
+            };
+        }
+        
+        return $http(req).success(function(data, status) {
+            if (data.data[0]) {
+                startProcess();
+            } else {
+                swal("¡Aviso!", "El ID banner capturado ya existe, por favor ingrese una diferente.", "warning");
+            }
+        })
+        .error(function(data, status) {
+            console.log(data);
+            console.log(status);
+            swal("¡Error!", "Error al realizar la validación de los datos. Por favor intente de nuevo mas tarde.", "error");
+        })
+    }
     /**
      * Execute a get/post request to an URL
      * It also bind custom data from success|error to a data
