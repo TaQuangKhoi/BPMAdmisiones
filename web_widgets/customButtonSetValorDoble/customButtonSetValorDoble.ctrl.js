@@ -5,7 +5,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     $scope.setVal = function() {
-        debugger
         $scope.properties.variableDestino = angular.copy($scope.properties.variableAcopiar);
         $scope.properties.variableDestino2 = angular.copy($scope.properties.variableAcopiar2);
        $scope.openCloseModal()
