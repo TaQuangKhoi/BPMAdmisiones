@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_znuOoDBGEeu116szV7RzEQ" name="Manejar Descuentos" author="SOA Software Factory" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400244D616E656A6172204465736375656E746F73372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_znuOoTBGEeu116szV7RzEQ" name="Agregar Descuentos">
       <elements xmi:type="process:Lane" xmi:id="_znuOojBGEeu116szV7RzEQ" name="Employee lane" actor="_znuOuzBGEeu116szV7RzEQ">
@@ -20,7 +20,7 @@
           <referencedElements xmi:type="expression:Expression" xmi:id="_YZ3gwTBHEeu116szV7RzEQ" name="catBachilleratosDAO" content="catBachilleratosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatBachilleratosDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_znuOtDBGEeu116szV7RzEQ" type="NONE">
+      <formMapping xmi:type="process:FormMapping" xmi:id="_znuOtDBGEeu116szV7RzEQ">
         <targetForm xmi:type="expression:Expression" xmi:id="_znuOtTBGEeu116szV7RzEQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_znuOtjBGEeu116szV7RzEQ">
@@ -31,89 +31,6 @@
         <condition xmi:type="expression:Expression" xmi:id="_5jBvcTBGEeu116szV7RzEQ" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_znuOuzBGEeu116szV7RzEQ" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_5NWLQE1OEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_5NXZYE1OEeuiD5640oS5Sw">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_5NXZYU1OEeuiD5640oS5Sw" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_5NXZYk1OEeuiD5640oS5Sw">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_5NXZY01OEeuiD5640oS5Sw"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_5NXZZE1OEeuiD5640oS5Sw"/>
-            <users xmi:type="actormapping:Users" xmi:id="_5NXZZU1OEeuiD5640oS5Sw"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWLQU1OEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWLQk1OEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWyUE1OEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWyUU1OEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWyUk1OEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5NWyU01OEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_OZsBsIwPEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_OZsBt4wPEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_OZsBuIwPEeu2N77SW-Ko6A" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_OZsBuYwPEeu2N77SW-Ko6A">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_OZsBuowPEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_OZsBu4wPEeu2N77SW-Ko6A"/>
-            <users xmi:type="actormapping:Users" xmi:id="_OZsBvIwPEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBsYwPEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBsowPEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBs4wPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBtIwPEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBtYwPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_OZsBtowPEeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_d23bEI20EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_d24CII20EeuHuIm_wpFQCQ">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_d24CIY20EeuHuIm_wpFQCQ" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_d24CIo20EeuHuIm_wpFQCQ">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_d24CI420EeuHuIm_wpFQCQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_d24CJI20EeuHuIm_wpFQCQ"/>
-            <users xmi:type="actormapping:Users" xmi:id="_d24CJY20EeuHuIm_wpFQCQ"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bEY20EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bEo20EeuHuIm_wpFQCQ" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bE420EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bFI20EeuHuIm_wpFQCQ" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bFY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_d23bFo20EeuHuIm_wpFQCQ" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_znuOvDBGEeu116szV7RzEQ">
         <inputs xmi:type="process:ContractInput" xmi:id="_YZuW0DBHEeu116szV7RzEQ" name="lstCatDescuentosInput" type="COMPLEX" multiple="true" dataReference="lstCatDescuentos">
           <inputs xmi:type="process:ContractInput" xmi:id="_YZuW0TBHEeu116szV7RzEQ" name="catBachilleratos" type="COMPLEX">
@@ -198,7 +115,7 @@
           <referencedElements xmi:type="expression:Expression" xmi:id="_IjlSoTBJEeu116szV7RzEQ" name="catDescuentosDAO" content="catDescuentosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatDescuentosDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
-      <formMapping xmi:type="process:FormMapping" xmi:id="_Yz047zBHEeu116szV7RzEQ" type="NONE">
+      <formMapping xmi:type="process:FormMapping" xmi:id="_Yz047zBHEeu116szV7RzEQ">
         <targetForm xmi:type="expression:Expression" xmi:id="_Yz048DBHEeu116szV7RzEQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_Yz048TBHEeu116szV7RzEQ">
@@ -212,22 +129,6 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_2lACoTBHEeu116szV7RzEQ"/>
         <condition xmi:type="expression:Expression" xmi:id="_2lACojBHEeu116szV7RzEQ" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_5RcBEE1OEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBEU1OEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBEk1OEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBE01OEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBFE1OEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBFU1OEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_5RcBFk1OEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_ju4-YI20EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-YY20EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-Yo20EeuHuIm_wpFQCQ" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-Y420EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-ZI20EeuHuIm_wpFQCQ" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-ZY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ju4-Zo20EeuHuIm_wpFQCQ" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_Yz048zBHEeu116szV7RzEQ">
         <inputs xmi:type="process:ContractInput" xmi:id="_8sflUDBHEeu116szV7RzEQ" name="lstCatDescuentosInput" type="COMPLEX" multiple="true" dataReference="lstCatDescuentos">
           <inputs xmi:type="process:ContractInput" xmi:id="_8sflUTBHEeu116szV7RzEQ" name="catBachilleratos" type="COMPLEX">

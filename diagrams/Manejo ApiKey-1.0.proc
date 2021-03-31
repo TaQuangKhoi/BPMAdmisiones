@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_RAKE4C2tEeuRo5RvClqyGg" name="Manejo ApiKey" author="jasz1" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED000574001F4D616E656A6F204170694B6579372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_RAKE4S2tEeuRo5RvClqyGg" name="Agregar ApiKey">
       <elements xmi:type="process:Lane" xmi:id="_RAKE4i2tEeuRo5RvClqyGg" name="Empleado (lane) " actor="_RAKE-y2tEeuRo5RvClqyGg">
@@ -15,13 +15,13 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_9maPsC2xEeuRo5RvClqyGg" name="lstCatApiKey" multiple="true" dataType="_RAKFFC2tEeuRo5RvClqyGg" className="com.anahuac.catalogos.CatApiKey">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_B9s90UlCEeuK45Hgpgd79w" name="initLstCatApiKey()" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add a new composed CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunDominio = currentCatApiKeyInput.mailgunDominio&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunCorreo = currentCatApiKeyInput.mailgunCorreo&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conektaPublicKey = currentCatApiKeyInput.conektaPublicKey&#xD;&#xA;&#x9;&#x9;catApiKeyVar.hubspotKey = currentCatApiKeyInput.hubspotKey&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_B9s90klCEeuK45Hgpgd79w" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_B9s900lCEeuK45Hgpgd79w" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_CFu6sS2yEeuRo5RvClqyGg" name="initLstCatApiKey()" content="def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatApiKeyInput.each{&#xD;&#xA;&#x9;//Add a new composed CatApiKey instance&#xD;&#xA;&#x9;catApiKeyList.add({ currentCatApiKeyInput ->&#xD;&#xA;&#x9;&#x9;def catApiKeyVar = new com.anahuac.catalogos.CatApiKey()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatApiKeyInput.campus?.persistenceId_string?.trim() ? currentCatApiKeyInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conekta = currentCatApiKeyInput.conekta&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgun = currentCatApiKeyInput.mailgun&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunDominio = currentCatApiKeyInput.mailgunDominio&#xD;&#xA;&#x9;&#x9;catApiKeyVar.mailgunCorreo = currentCatApiKeyInput.mailgunCorreo&#xD;&#xA;&#x9;&#x9;catApiKeyVar.crispChat = currentCatApiKeyInput.crispChat&#xD;&#xA;&#x9;&#x9;catApiKeyVar.isEliminado = currentCatApiKeyInput.isEliminado&#xD;&#xA;&#x9;&#x9;catApiKeyVar.conektaPublicKey = currentCatApiKeyInput.conektaPublicKey&#xD;&#xA;&#x9;&#x9;return catApiKeyVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_CFu6si2yEeuRo5RvClqyGg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_CFu6sy2yEeuRo5RvClqyGg" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_RAKE9C2tEeuRo5RvClqyGg" type="NONE">
-        <targetForm xmi:type="expression:Expression" xmi:id="_jh-A8C2yEeuRo5RvClqyGg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_jh-A8C2yEeuRo5RvClqyGg" name="newForm" content="e24500e1-4c40-4a63-96b6-75c0e30720e4" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_RAKE9i2tEeuRo5RvClqyGg">
         <targetForm xmi:type="expression:Expression" xmi:id="_RAKE9y2tEeuRo5RvClqyGg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -31,86 +31,20 @@
         <condition xmi:type="expression:Expression" xmi:id="_mnCGsS2tEeuRo5RvClqyGg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_RAKE-y2tEeuRo5RvClqyGg" documentation="Este es un ejemplo de actor que está mapeado a cualquier usuario de la organización ACME" name="SERUA" initiator="true"/>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_dSi30E1PEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_dSje4E1PEeuiD5640oS5Sw">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_dSje4U1PEeuiD5640oS5Sw" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_dSje4k1PEeuiD5640oS5Sw">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_dSje401PEeuiD5640oS5Sw"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_dSje5E1PEeuiD5640oS5Sw"/>
-            <users xmi:type="actormapping:Users" xmi:id="_dSje5U1PEeuiD5640oS5Sw"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi30U1PEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi30k1PEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi3001PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi31E1PEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi31U1PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_dSi31k1PEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_WJe-8IwPEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_WJfmAIwPEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_WJfmAYwPEeu2N77SW-Ko6A" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_WJfmAowPEeu2N77SW-Ko6A"/>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_WJfmA4wPEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_WJfmBIwPEeu2N77SW-Ko6A">
-              <role>SERUA</role>
-              <role>TI SERUA</role>
-            </roles>
-            <users xmi:type="actormapping:Users" xmi:id="_WJfmBYwPEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-8YwPEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-8owPEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-84wPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-9IwPEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-9YwPEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_WJe-9owPEeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_siuykI20EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_siuyl420EeuHuIm_wpFQCQ">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_siuymI20EeuHuIm_wpFQCQ" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_siuymY20EeuHuIm_wpFQCQ"/>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_siuymo20EeuHuIm_wpFQCQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_siuym420EeuHuIm_wpFQCQ">
-              <role>SERUA</role>
-              <role>TI SERUA</role>
-            </roles>
-            <users xmi:type="actormapping:Users" xmi:id="_siuynI20EeuHuIm_wpFQCQ"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuykY20EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuyko20EeuHuIm_wpFQCQ" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuyk420EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuylI20EeuHuIm_wpFQCQ" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuylY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_siuylo20EeuHuIm_wpFQCQ" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_RAKE_C2tEeuRo5RvClqyGg">
-        <inputs xmi:type="process:ContractInput" xmi:id="_B9sWwElCEeuK45Hgpgd79w" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey">
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWwUlCEeuK45Hgpgd79w" name="campus" type="COMPLEX">
-            <inputs xmi:type="process:ContractInput" xmi:id="_B9sWwklCEeuK45Hgpgd79w" name="persistenceId_string"/>
+        <inputs xmi:type="process:ContractInput" xmi:id="_CFuToC2yEeuRo5RvClqyGg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey">
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuToS2yEeuRo5RvClqyGg" name="campus" type="COMPLEX">
+            <inputs xmi:type="process:ContractInput" xmi:id="_CFuToi2yEeuRo5RvClqyGg" name="persistenceId_string"/>
           </inputs>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWw0lCEeuK45Hgpgd79w" name="conekta"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWxElCEeuK45Hgpgd79w" name="mailgun"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWxUlCEeuK45Hgpgd79w" name="mailgunDominio"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWxklCEeuK45Hgpgd79w" name="mailgunCorreo"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWx0lCEeuK45Hgpgd79w" name="crispChat"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWyElCEeuK45Hgpgd79w" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWyUlCEeuK45Hgpgd79w" name="conektaPublicKey"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_B9sWyklCEeuK45Hgpgd79w" name="hubspotKey"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuToy2yEeuRo5RvClqyGg" name="conekta"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTpC2yEeuRo5RvClqyGg" name="mailgun"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTpS2yEeuRo5RvClqyGg" name="mailgunDominio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTpi2yEeuRo5RvClqyGg" name="mailgunCorreo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTpy2yEeuRo5RvClqyGg" name="crispChat"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTqC2yEeuRo5RvClqyGg" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_CFuTqS2yEeuRo5RvClqyGg" name="conektaPublicKey"/>
         </inputs>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_B9s90ElCEeuK45Hgpgd79w" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
+        <constraints xmi:type="process:ContractConstraint" xmi:id="_CFu6sC2yEeuRo5RvClqyGg" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
           <inputNames>lstCatApiKeyInput</inputNames>
         </constraints>
       </contract>
@@ -164,10 +98,10 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_Hm1Iki2uEeuRo5RvClqyGg" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_nkKrEC2yEeuRo5RvClqyGg" name="lstCatApiKey" multiple="true" dataType="_RAKFFC2tEeuRo5RvClqyGg" className="com.anahuac.catalogos.CatApiKey">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_1lzZ2y2yEeuRo5RvClqyGg" name="initLstCatApiKey()" content="import com.anahuac.catalogos.CatApiKey&#xD;&#xA;&#xD;&#xA;def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatApiKeyInput: lstCatApiKeyInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatApiKeyInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatApiKey objCatApiKey = catApiKeyDAO.findByPersistenceId(objCatApiKeyInput.persistenceId);&#xD;&#xA;&#x9;if (objCatApiKey != null) {&#xD;&#xA;&#x9;&#x9;if(objCatApiKeyInput.campus!=null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatApiKey.campus = catCampusDAO.findByPersistenceId(objCatApiKeyInput.campus.persistenceId);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatApiKey.campus = null;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;objCatApiKey.conekta = objCatApiKeyInput.conekta;&#xD;&#xA;&#x9;&#x9;objCatApiKey.conektaPublicKey = objCatApiKeyInput.conektaPublicKey;&#xD;&#xA;&#x9;&#x9;objCatApiKey.crispChat = objCatApiKeyInput.crispChat;&#xD;&#xA;&#x9;&#x9;objCatApiKey.isEliminado = objCatApiKeyInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgun = objCatApiKeyInput.mailgun;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgunCorreo = objCatApiKeyInput.mailgunCorreo;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgunDominio = objCatApiKeyInput.mailgunDominio;&#xD;&#xA;&#x9;&#x9;objCatApiKey.hubspotKey = objCatApiKeyInput.hubspotKey;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catApiKeyList.add(objCatApiKey);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_e-JOMElCEeuK45Hgpgd79w" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_e-JOMUlCEeuK45Hgpgd79w" name="catApiKeyDAO" content="catApiKeyDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatApiKeyDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_e-JOMklCEeuK45Hgpgd79w" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_1lzZ2y2yEeuRo5RvClqyGg" name="initLstCatApiKey()" content="import com.anahuac.catalogos.CatApiKey&#xD;&#xA;&#xD;&#xA;def catApiKeyList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatApiKeyInput: lstCatApiKeyInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatApiKeyInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatApiKey objCatApiKey = catApiKeyDAO.findByPersistenceId(objCatApiKeyInput.persistenceId);&#xD;&#xA;&#x9;if (objCatApiKey != null) {&#xD;&#xA;&#x9;&#x9;if(objCatApiKeyInput.campus!=null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatApiKey.campus = catCampusDAO.findByPersistenceId(objCatApiKeyInput.campus.persistenceId);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatApiKey.campus = null;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;objCatApiKey.conekta = objCatApiKeyInput.conekta;&#xD;&#xA;&#x9;&#x9;objCatApiKey.conektaPublicKey = objCatApiKeyInput.conektaPublicKey;&#xD;&#xA;&#x9;&#x9;objCatApiKey.crispChat = objCatApiKeyInput.crispChat;&#xD;&#xA;&#x9;&#x9;objCatApiKey.isEliminado = objCatApiKeyInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgun = objCatApiKeyInput.mailgun;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgunCorreo = objCatApiKeyInput.mailgunCorreo;&#xD;&#xA;&#x9;&#x9;objCatApiKey.mailgunDominio = objCatApiKeyInput.mailgunDominio;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catApiKeyList.add(objCatApiKey);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catApiKeyList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_qEa0wC3HEeuZicxA6F132Q" name="lstCatApiKeyInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_qEa0wS3HEeuZicxA6F132Q" name="catApiKeyDAO" content="catApiKeyDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatApiKeyDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_qEa0wi3HEeuZicxA6F132Q" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_o1vAoC2yEeuRo5RvClqyGg" name="lstCatApiKeyToDelete" multiple="true" dataType="_RAKFFC2tEeuRo5RvClqyGg" className="com.anahuac.catalogos.CatApiKey">
@@ -177,7 +111,7 @@
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="__EHgry2tEeuRo5RvClqyGg" type="NONE">
-        <targetForm xmi:type="expression:Expression" xmi:id="_SqN5UC21EeuRo5RvClqyGg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_SqN5UC21EeuRo5RvClqyGg" name="newForm1" content="4ca5d86e-56ec-463b-a7c4-39d5e19c7260" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="__EHgsS2tEeuRo5RvClqyGg">
         <targetForm xmi:type="expression:Expression" xmi:id="__EHgsi2tEeuRo5RvClqyGg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -191,71 +125,6 @@
         <condition xmi:type="expression:Expression" xmi:id="_HnAuwi2uEeuRo5RvClqyGg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_ZxoLcC22EeuRo5RvClqyGg" name="SERUA" initiator="true"/>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_jDN18E1PEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_jDN1901PEeuiD5640oS5Sw">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_jDN1-E1PEeuiD5640oS5Sw" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_jDN1-U1PEeuiD5640oS5Sw">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_jDN1-k1PEeuiD5640oS5Sw"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_jDN1-01PEeuiD5640oS5Sw"/>
-            <users xmi:type="actormapping:Users" xmi:id="_jDN1_E1PEeuiD5640oS5Sw"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN18U1PEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN18k1PEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN1801PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN19E1PEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN19U1PEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_jDN19k1PEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_J3BMAI21EeuHuIm_wpFQCQ" name="Produccion" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_J3BMB421EeuHuIm_wpFQCQ">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_J3BMCI21EeuHuIm_wpFQCQ" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_J3BMCY21EeuHuIm_wpFQCQ"/>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_J3BMCo21EeuHuIm_wpFQCQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_J3BMC421EeuHuIm_wpFQCQ">
-              <role>SERUA</role>
-              <role>TI SERUA</role>
-            </roles>
-            <users xmi:type="actormapping:Users" xmi:id="_J3BMDI21EeuHuIm_wpFQCQ"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMAY21EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMAo21EeuHuIm_wpFQCQ" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMA421EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMBI21EeuHuIm_wpFQCQ" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMBY21EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_J3BMBo21EeuHuIm_wpFQCQ" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_RJxA4I21EeuHuIm_wpFQCQ" name="Production" version="7.11.1-001" username="Administrador" password="LcTkpvvquKf4KO+prsfXrQ==">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_RJxA5421EeuHuIm_wpFQCQ">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_RJxA6I21EeuHuIm_wpFQCQ" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_RJxA6Y21EeuHuIm_wpFQCQ"/>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_RJxA6o21EeuHuIm_wpFQCQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_RJxA6421EeuHuIm_wpFQCQ">
-              <role>SERUA</role>
-              <role>TI SERUA</role>
-            </roles>
-            <users xmi:type="actormapping:Users" xmi:id="_RJxA7I21EeuHuIm_wpFQCQ"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA4Y21EeuHuIm_wpFQCQ" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA4o21EeuHuIm_wpFQCQ" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA4421EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA5I21EeuHuIm_wpFQCQ" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA5Y21EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_RJxA5o21EeuHuIm_wpFQCQ" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="__EHgsy2tEeuRo5RvClqyGg">
         <inputs xmi:type="process:ContractInput" xmi:id="_1lzZ0C2yEeuRo5RvClqyGg" name="lstCatApiKeyInput" type="COMPLEX" multiple="true" dataReference="lstCatApiKey">
           <inputs xmi:type="process:ContractInput" xmi:id="_1lzZ0S2yEeuRo5RvClqyGg" name="campus" type="COMPLEX">
@@ -270,9 +139,6 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_1lzZ2S2yEeuRo5RvClqyGg" name="conektaPublicKey"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_3K7kkC2yEeuRo5RvClqyGg" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_3K7kkS2yEeuRo5RvClqyGg"/>
-          </inputs>
-          <inputs xmi:type="process:ContractInput" xmi:id="_VTqs8ElCEeuK45Hgpgd79w" name="hubspotKey">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_VTqs8UlCEeuK45Hgpgd79w"/>
           </inputs>
         </inputs>
         <constraints xmi:type="process:ContractConstraint" xmi:id="_1lzZ2i2yEeuRo5RvClqyGg" expression="lstCatApiKeyInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatApiKey" name="aggregation_lstCatApiKeyInput_campus">
