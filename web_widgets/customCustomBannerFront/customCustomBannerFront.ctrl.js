@@ -9,7 +9,6 @@ function ($scope, modalService, $http) {
     }
     
     $scope.action = function(){
-        debugger;
         if($scope.properties.pageToken === "autodescripcion"){
             $scope.properties.accionModal = "logout";
             modalService.open($scope.properties.idModalConfirmacionAD);
@@ -36,8 +35,8 @@ function ($scope, modalService, $http) {
         title: "Tu sesión ha expirado",
         message: "Su sesión está apunto de cerrarse.",
         keepAliveUrl: "/bonita/API/system/session/unusedid",
-        redirUrl: (window.location.href.includes("aspirante"))?"/bonita/apps/login/login/":"/bonita/apps/adminLogin/login/",
-        logoutUrl: (window.location.href.includes("aspirante"))?"/bonita/apps/login/login/":"/bonita/apps/adminLogin/login/",
+        redirUrl: (window.location.href.includes("aspirante"))?"/bonita/apps/login/admisiones/":"/bonita/apps/login/administrativo/",
+        logoutUrl: (window.location.href.includes("aspirante"))?"/bonita/apps/login/admisiones/":"/bonita/apps/login/administrativo/",
         warnAfter: 7.08e+6,
         redirAfter: 7.14e+6,
         ignoreUserActivity: !0,

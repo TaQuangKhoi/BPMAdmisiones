@@ -8,7 +8,7 @@ $scope.$watch('properties.text', function(value) {
             
         }else{
         element.innerHTML = value
-            if(sigleTime && $scope.properties.goBottom){
+            if(sigleTime){
             
             setTimeout(function(){ window.scrollTo(0,document.body.scrollHeight); 
                 window.onscroll = function(ev) {
@@ -26,9 +26,7 @@ $scope.$watch('properties.text', function(value) {
     }
   });
     var hidden = document.getElementsByClassName("oculto");
-    for(var i=0; i<hidden.length; i++){
-        hidden[i].classList.add("invisible")
-    }
+    hidden[0].classList.add("invisible")
 
 
   
