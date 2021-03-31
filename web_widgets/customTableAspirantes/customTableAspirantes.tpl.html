@@ -1,5 +1,5 @@
 <div ng-show="!isenvelope">
-    <div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstCampusByUser.length>2">
+    <div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstMembership.length>1">
         <select class="form-control" ng-model="filtroCampus" ng-options="getCampusByGrupo(member) as getCampusByGrupo(member) for member in lstCampusByUser" ng-change="addFilter()">
         <option style="display:none" value="">
             Seleccionar campus
@@ -32,9 +32,9 @@
                             ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">Período<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='INGRESO'"></i></span></th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('PROCEDENCIA')">Procedencia<i class="glyphicon"
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTADO')">Estado<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='PROCEDENCIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='ESTADO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"

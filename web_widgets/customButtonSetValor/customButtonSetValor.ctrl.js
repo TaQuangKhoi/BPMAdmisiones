@@ -15,14 +15,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             modalService.open($scope.properties.modalId);
         }
         else {
-             $scope.properties.modalId[0] = {
-                "descripcion": "", 
-                "isEliminado": false, 
-                "usuarioCreacion": "", 
-                "clave": "", 
-                "fechaCreacion": null,
-                "orden":null
-            }
             modalService.close();
         }
         

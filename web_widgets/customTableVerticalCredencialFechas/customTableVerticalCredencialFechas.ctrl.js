@@ -76,10 +76,51 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
             $scope.loadAsistenciaPsicometrico();
             $scope.loadAsistenciaEntrevista();
         if ($scope.properties.fechasExamenes != undefined && $scope.watcherCont === 0) {
+            $scope.ValidarFechaReagendacion();
             $scope.EjecutarFechas();
             $scope.watcherCont = 1;
+            
         }
     });
+   
+
+    $scope.ValidarFechaReagendacion = function() {
+        //Acomodo de fechas
+        debugger
+        //Fecha actual
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = mm + '/' + dd + '/' + yyyy;
+
+
+        //Fecha menor
+        let FechaMenorStr=$scope.properties.fechasExamenes.data[0].aplicacion;
+        let FechaMenorDt =new Date(FechaMenorStr);
+
+        //se busca la fecha menor 
+        for(var x = 0; x < $scope.properties.fechasExamenes.data.length; x++){
+            let FechaCicloStr=$scope.properties.fechasExamenes.data[x].aplicacion;
+            
+            var arrayDeCadenas = FechaCicloStr.split("-");
+            resultado = arrayDeCadenas[1] + "/" + arrayDeCadenas[2] + "/" + arrayDeCadenas[0];
+
+            let FechaCicloDt =new Date(resultado);
+            if(FechaMenorDt>FechaCicloDt){
+                FechaMenorDt=FechaCicloDt;
+            }
+        }
+      //Se parsea la fecha actual String  a date
+      var fechaActualD = new Date(today);
+      if(fechaActualD >=FechaMenorDt){
+          $scope.properties.PuedeReagendar=true;
+      }
+
+
+    }
+
+
     $scope.$watchCollection('properties.datosUsuarioId', function() {
         if ($scope.properties.datosUsuarioId != undefined && $scope.watcherCont2 === 0) {
             $scope.EjecutarFechas();
@@ -201,7 +242,6 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
         resultado = arrayDeCadenas[2] + "-" + arrayDeCadenas[1] + "-" + arrayDeCadenas[0];
         console.log(resultado)
         return resultado;
-
 
     }
 }
