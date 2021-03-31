@@ -21,7 +21,7 @@
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_i8cbczAKEeu4i9c95VpMkA">
-        <targetForm xmi:type="expression:Expression" xmi:id="_vMTssDAZEeuK-_nbyKU3Vw" name="instanciarPropedeutico" content="78fd6d2f-bdc1-454e-96e4-355aa36c91ae" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+        <targetForm xmi:type="expression:Expression" xmi:id="_vMTssDAZEeuK-_nbyKU3Vw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
       </formMapping>
       <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_i8cbdTAKEeu4i9c95VpMkA">
         <targetForm xmi:type="expression:Expression" xmi:id="_i8cbdjAKEeu4i9c95VpMkA" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -57,25 +57,6 @@
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_KYxJ5E1ZEeuiD5640oS5Sw" id="OTHER"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_KYxJ5U1ZEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_KYxJ5k1ZEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_SfOMUIwSEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_SfOMV4wSEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_SfOMWIwSEeu2N77SW-Ko6A" name="SERUA">
-            <groups xmi:type="actormapping:Groups" xmi:id="_SfOMWYwSEeu2N77SW-Ko6A"/>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_SfOMWowSEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_SfOzYIwSEeu2N77SW-Ko6A">
-              <role>SERUA</role>
-              <role>TI SERUA</role>
-            </roles>
-            <users xmi:type="actormapping:Users" xmi:id="_SfOzYYwSEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMUYwSEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMUowSEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMU4wSEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMVIwSEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMVYwSEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_SfOMVowSEeu2N77SW-Ko6A" id="OTHER"/>
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_i8cbezAKEeu4i9c95VpMkA">
         <inputs xmi:type="process:ContractInput" xmi:id="_1tfXMDAYEeuK-_nbyKU3Vw" name="lstCatPropedeuticoInput" type="COMPLEX" multiple="true" dataReference="lstCatPropedeutico">
@@ -145,10 +126,10 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_ylEWEzAKEeu4i9c95VpMkA" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_n_XxoDApEeuK-_nbyKU3Vw" name="lstCatPropedeutico" multiple="true" dataType="_i8cbkzAKEeu4i9c95VpMkA" className="com.anahuac.catalogos.CatPropedeutico">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_wOiygDApEeuK-_nbyKU3Vw" name="initLstCatPropedeutico()" content="import com.anahuac.catalogos.CatPropedeutico&#xD;&#xA;&#xD;&#xA;def catPropedeuticoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatPropedeuticoInput: lstCatPropedeuticoInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatPropedeuticoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatPropedeutico objCatPropedeutico = catPropedeuticoDAO.findByPersistenceId(objCatPropedeuticoInput.persistenceId);&#xD;&#xA;&#x9;if (objCatPropedeutico != null) {&#xD;&#xA;&#x9;&#x9;if(objCatPropedeuticoInput.campus!=null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatPropedeutico.campus = catCampusDAO.findByPersistenceId(objCatPropedeuticoInput.campus.persistenceId);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatPropedeutico.campus = null;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.clave = objCatPropedeuticoInput.clave&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.descripcion = objCatPropedeuticoInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.usuarioCreacion = objCatPropedeuticoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.isEliminado = objCatPropedeuticoInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaEjecucion = objCatPropedeuticoInput.fechaEjecucion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaInicio = objCatPropedeuticoInput.fechaInicio&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaFinal = objCatPropedeuticoInput.fechaFinal&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.nombreCampus = objCatPropedeutico.campus == null ? &quot;&quot; : objCatPropedeutico.campus.getDescripcion()&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;catPropedeuticoList.add(objCatPropedeutico);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPropedeuticoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_uTsdIDAuEeuK-_nbyKU3Vw" name="lstCatPropedeuticoInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_uTsdITAuEeuK-_nbyKU3Vw" name="catPropedeuticoDAO" content="catPropedeuticoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPropedeuticoDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_uTsdIjAuEeuK-_nbyKU3Vw" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_wOiygDApEeuK-_nbyKU3Vw" name="initLstCatPropedeutico()" content="import com.anahuac.catalogos.CatPropedeutico&#xD;&#xA;&#xD;&#xA;def catPropedeuticoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for (Map objCatPropedeuticoInput: lstCatPropedeuticoInput) {&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatPropedeuticoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatPropedeutico objCatPropedeutico = catPropedeuticoDAO.findByPersistenceId(objCatPropedeuticoInput.persistenceId);&#xD;&#xA;&#x9;if (objCatPropedeutico != null) {&#xD;&#xA;&#x9;&#x9;if(objCatPropedeuticoInput.campus!=null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatPropedeutico.campus = catCampusDAO.findByPersistenceId(objCatPropedeuticoInput.campus.persistenceId);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatPropedeutico.campus = null;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.clave = objCatPropedeuticoInput.clave&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.descripcion = objCatPropedeuticoInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.usuarioCreacion = objCatPropedeuticoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.isEliminado = objCatPropedeuticoInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaEjecucion = objCatPropedeuticoInput.fechaEjecucion&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaInicio = objCatPropedeuticoInput.fechaInicio&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.fechaFinal = objCatPropedeuticoInput.fechaFinal&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.idioma = objCatPropedeuticoInput.idioma&#xD;&#xA;&#x9;&#x9;objCatPropedeutico.nombreCampus = objCatPropedeutico.campus == null ? &quot;&quot; : objCatPropedeutico.campus.getDescripcion()&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;catPropedeuticoList.add(objCatPropedeutico);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPropedeuticoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_vBRSAIN2Eeu0eZc5aMlc3Q" name="lstCatPropedeuticoInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_vBRSAYN2Eeu0eZc5aMlc3Q" name="catPropedeuticoDAO" content="catPropedeuticoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPropedeuticoDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_vBRSAoN2Eeu0eZc5aMlc3Q" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_rqsM0DApEeuK-_nbyKU3Vw" name="lstCatPropedeuticoToDelete" multiple="true" dataType="_i8cbkzAKEeu4i9c95VpMkA" className="com.anahuac.catalogos.CatPropedeutico">
@@ -194,6 +175,9 @@
           </inputs>
           <inputs xmi:type="process:ContractInput" xmi:id="_xNd44DApEeuK-_nbyKU3Vw" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_xNd44TApEeuK-_nbyKU3Vw"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_pHHAsIN2Eeu0eZc5aMlc3Q" name="idioma">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_pHHAsYN2Eeu0eZc5aMlc3Q"/>
           </inputs>
         </inputs>
         <constraints xmi:type="process:ContractConstraint" xmi:id="_wOiLcDApEeuK-_nbyKU3Vw" expression="lstCatPropedeuticoInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatPropedeutico" name="aggregation_lstCatPropedeuticoInput_campus">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_KxRK4GyREeuB8ed1WI05sw" name="Manejo TipoAsistencia" author="SOA Software Factory" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400274D616E656A6F205469706F4173697374656E636961372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_KxRK4WyREeuB8ed1WI05sw" name="Agregar TipoAsistencia">
       <elements xmi:type="process:Lane" xmi:id="_KxRK4myREeuB8ed1WI05sw" name="Employee lane" actor="_KxRK9WyREeuB8ed1WI05sw">
@@ -30,34 +30,6 @@
         <condition xmi:type="expression:Expression" xmi:id="_KxRK9GyREeuB8ed1WI05sw" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_KxRK9WyREeuB8ed1WI05sw" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_o0wNcIweEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_o0w0gIweEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_o0w0gYweEeu2N77SW-Ko6A" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_o0w0goweEeu2N77SW-Ko6A">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_o0w0g4weEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_o0w0hIweEeu2N77SW-Ko6A"/>
-            <users xmi:type="actormapping:Users" xmi:id="_o0w0hYweEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNcYweEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNcoweEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNc4weEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNdIweEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNdYweEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_o0wNdoweEeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_KxRK9myREeuB8ed1WI05sw">
         <inputs xmi:type="process:ContractInput" xmi:id="_KxRK92yREeuB8ed1WI05sw" name="lstCatTipoAsistenciaInput" type="COMPLEX" multiple="true" dataReference="lstCatTipoAsistencia">
           <inputs xmi:type="process:ContractInput" xmi:id="_KxRK-GyREeuB8ed1WI05sw" name="clave"/>
@@ -98,13 +70,6 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_KxRLEmyREeuB8ed1WI05sw" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_KxRLE2yREeuB8ed1WI05sw" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_KxRLFGyREeuB8ed1WI05sw" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_KxRLFWyREeuB8ed1WI05sw">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_KxRLFmyREeuB8ed1WI05sw" name="lstCatTipoAsistenciaToDelete" content="lstCatTipoAsistenciaToDelete" type="TYPE_VARIABLE" returnType="java.util.List">
-            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_KxRLF2yREeuB8ed1WI05sw" name="lstCatTipoAsistenciaToDelete" multiple="true" dataType="_KxRLVWyREeuB8ed1WI05sw" className="com.anahuac.catalogos.CatTipoAsistencia"/>
-          </leftOperand>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_KxRLGGyREeuB8ed1WI05sw" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_KxRLGWyREeuB8ed1WI05sw" type="DELETION"/>
-        </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_KxRLGmyREeuB8ed1WI05sw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_KxRLG2yREeuB8ed1WI05sw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
         <cardinalityExpression xmi:type="expression:Expression" xmi:id="_KxRLHGyREeuB8ed1WI05sw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -123,9 +88,9 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_KxRLJ2yREeuB8ed1WI05sw" name="lstCatTipoAsistenciaToDelete" multiple="true" dataType="_KxRLVWyREeuB8ed1WI05sw" className="com.anahuac.catalogos.CatTipoAsistencia">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_KxRLKGyREeuB8ed1WI05sw" name="init_lstCatTipoAsistenciaToDelete()" content="import com.anahuac.catalogos.CatTipoAsistencia&#xD;&#xA;&#xD;&#xA;def catTipoAsistenciaList = [];&#xD;&#xA;for(Map objCatTipoAsistenciaInput: lstCatTipoAsistenciaInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatTipoAsistenciaInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatTipoAsistencia objCatTipoAsistencia = catTipoAsistenciaDAO.findByPersistenceId(objCatTipoAsistenciaInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatTipoAsistencia != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catTipoAsistenciaList.add(objCatTipoAsistencia);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#x9;&#xD;&#xA;}&#xD;&#xA;return catTipoAsistenciaList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_KxRLKWyREeuB8ed1WI05sw" name="lstCatTipoAsistenciaInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_KxRLKmyREeuB8ed1WI05sw" name="catTipoAsistenciaDAO" content="catTipoAsistenciaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTipoAsistenciaDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_KxRLKGyREeuB8ed1WI05sw" name="init_lstCatTipoAsistenciaToDelete()" content="import com.anahuac.catalogos.CatTipoAsistencia&#xD;&#xA;&#xD;&#xA;def catTipoAsistenciaList = [];&#xD;&#xA;for(Map objCatTipoAsistenciaInput: lstCatTipoAsistenciaInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatTipoAsistenciaInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatTipoAsistencia objCatTipoAsistencia = catTipoAsistenciaDAO.findByPersistenceId(objCatTipoAsistenciaInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatTipoAsistencia != null) {&#xD;&#xA;&#x9;&#x9;&#x9;objCatTipoAsistencia.isEliminado = true;&#xD;&#xA;&#x9;&#x9;&#x9;catTipoAsistenciaList.add(objCatTipoAsistencia);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catTipoAsistenciaList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_BQdEgGyoEeuB8ed1WI05sw" name="lstCatTipoAsistenciaInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_BQdEgWyoEeuB8ed1WI05sw" name="catTipoAsistenciaDAO" content="catTipoAsistenciaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTipoAsistenciaDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_KxRLK2yREeuB8ed1WI05sw" type="NONE">
