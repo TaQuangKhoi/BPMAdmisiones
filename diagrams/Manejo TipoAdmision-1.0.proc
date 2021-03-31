@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_PygS8EodEeu-QJKN1m416Q" name="Manejo TipoAdmision" author="SOA Software Factory" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400254D616E656A6F205469706F41646D6973696F6E372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_PygS8UodEeu-QJKN1m416Q" name="Agregar TipoAdmision">
       <elements xmi:type="process:Lane" xmi:id="_PygS8kodEeu-QJKN1m416Q" name="Employee lane">
@@ -30,6 +30,34 @@
         <condition xmi:type="expression:Expression" xmi:id="_PygTBEodEeu-QJKN1m416Q" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_k16sQEomEeu-QJKN1m416Q" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_4l_0IJJqEeuKzstQj2lN2Q" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_4l_0J5JqEeuKzstQj2lN2Q">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_4l_0KJJqEeuKzstQj2lN2Q" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_4l_0KZJqEeuKzstQj2lN2Q">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_4l_0KpJqEeuKzstQj2lN2Q"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_4l_0K5JqEeuKzstQj2lN2Q"/>
+            <users xmi:type="actormapping:Users" xmi:id="_4l_0LJJqEeuKzstQj2lN2Q"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0IZJqEeuKzstQj2lN2Q" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0IpJqEeuKzstQj2lN2Q" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0I5JqEeuKzstQj2lN2Q" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0JJJqEeuKzstQj2lN2Q" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0JZJqEeuKzstQj2lN2Q" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4l_0JpJqEeuKzstQj2lN2Q" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_PygTBkodEeu-QJKN1m416Q">
         <inputs xmi:type="process:ContractInput" xmi:id="_PygTB0odEeu-QJKN1m416Q" name="lstCatTipoAdmisionInput" type="COMPLEX" multiple="true" dataReference="lstCatTipoAdmision">
           <inputs xmi:type="process:ContractInput" xmi:id="_PygTCEodEeu-QJKN1m416Q" name="clave"/>
@@ -114,6 +142,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_PygTQ0odEeu-QJKN1m416Q"/>
         <condition xmi:type="expression:Expression" xmi:id="_PygTREodEeu-QJKN1m416Q" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_7ABmkJJqEeuKzstQj2lN2Q" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmkZJqEeuKzstQj2lN2Q" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmkpJqEeuKzstQj2lN2Q" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmk5JqEeuKzstQj2lN2Q" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmlJJqEeuKzstQj2lN2Q" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmlZJqEeuKzstQj2lN2Q" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7ABmlpJqEeuKzstQj2lN2Q" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_PygTRUodEeu-QJKN1m416Q">
         <inputs xmi:type="process:ContractInput" xmi:id="_PygTRkodEeu-QJKN1m416Q" name="lstCatTipoAdmisionInput" type="COMPLEX" multiple="true" dataReference="lstCatTipoAdmision">
           <inputs xmi:type="process:ContractInput" xmi:id="_PygTR0odEeu-QJKN1m416Q" name="clave"/>
