@@ -424,6 +424,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.ciudad === "") {
                                 swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                            } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
@@ -559,7 +561,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.ciudad === "") {
                             swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
-                        } else if ($scope.properties.tutor.colonia === "") {
+                        } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                            swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
+                        }  else if ($scope.properties.tutor.colonia === "") {
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {
                             swal("¡Teléfono!", "Debes agregar el teléfono del tutor", "warning");
@@ -703,6 +707,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.ciudad === "") {
                             swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                        } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                            swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {
@@ -838,6 +844,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                     } else if ($scope.properties.tutor.ciudad === "") {
                         swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                    } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                        swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                     } else if ($scope.properties.tutor.telefono === "") {
@@ -997,6 +1005,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                                 } else if ($scope.properties.tutor.ciudad === "") {
                                     swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                                } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                                 } else if ($scope.properties.tutor.colonia === "") {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                                 } else if ($scope.properties.tutor.telefono === "") {
@@ -1132,6 +1142,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.ciudad === "") {
                                 swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                            } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
@@ -1276,6 +1288,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.ciudad === "") {
                                 swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                            } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                             } else if ($scope.properties.tutor.telefono === "") {
@@ -1411,6 +1425,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Estado!", "Debes agregar el estado del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.ciudad === "") {
                             swal("¡Ciudad!", "Debes agregar la calle del domicilio del tutor", "warning");
+                        } else if ($scope.properties.tutor.delegacionMunicipio === "") {
+                            swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu tutor", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("¡Colonia!", "Debes agregar la colonia del domicilio del tutor", "warning");
                         } else if ($scope.properties.tutor.telefono === "") {

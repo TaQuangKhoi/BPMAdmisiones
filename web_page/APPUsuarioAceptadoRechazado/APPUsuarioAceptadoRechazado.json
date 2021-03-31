@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1616525264760,
+  "lastUpdate" : 1617148371457,
   "rows" : [
     [
       {
@@ -55,7 +55,7 @@
                 },
                 "level" : {
                   "type" : "constant",
-                  "value" : "Level 2"
+                  "value" : "Level 3"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -376,6 +376,140 @@
         "hasValidationError" : false,
         "id" : "customWidgetChatUser"
       }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "10f52570-6c1a-498b-850b-6bd59988eb69",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : ""
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "default"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "../API/extension/AnahuacRest?url=generateHtml&p=0&c=10"
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "dataToSend"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : "carta"
+                }
+              },
+              "reference" : "8a21c74f-e107-455f-a2dc-e013eb27f4c7",
+              "hasValidationError" : false,
+              "id" : "customCustomGetCarta"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{carta}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "58941244-e673-4ab1-a035-3175bdd1df1f",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ]
+        ]
+      }
     ]
   ],
   "assets" : [
@@ -457,6 +591,72 @@
       "value" : [
         "[]"
       ],
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    'campus': $data.objectSolicitud.catCampusEstudio.grupoBonita,",
+        "    // 'campus': \"CAMPUS-CANCUN\",",
+        "    'codigo': $data.objetoInfoCarta.carta === \"Aceptado\" ? \"carta-aceptar\": \"carta-rechazo\",",
+        "    'correo': $data.userData.user_name,",
+        "    'isEnviar': false",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "caseList" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{userData.user_name}}&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "currentTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.currentTask[0].id;"
+      ],
+      "exposed" : false
+    },
+    "taskContext" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "objectDetalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "objectSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.catSolicitudDeAdmision_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "objetoInfoCarta" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.infoCarta_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "carta" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ConfirmacionGeneracionDeCredencial",
   "name" : "ConfirmacionGeneracionDeCredencial",
-  "lastUpdate" : 1616526979487,
+  "lastUpdate" : 1617148455391,
   "rows" : [
     [
       {
@@ -232,11 +232,67 @@
                       "caseId" : {
                         "type" : "variable",
                         "value" : "caseId"
+                      },
+                      "PuedeReagendar" : {
+                        "type" : "variable",
+                        "value" : "PuedeReagendar"
                       }
                     },
                     "reference" : "ee0f6a3c-1cd8-46e1-a35a-f292caf6d789",
                     "hasValidationError" : false,
                     "id" : "customTableVerticalCredencialFechas"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : ""
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "4a0a350c-13ae-4392-9ca4-9fd07e0f7c1b",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ]
               ]
@@ -442,8 +498,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "PuedeReagendar"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -771,6 +827,13 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getDatosSesionUsername&p=0&c=10&username={{userDataEmail[0].userName}}"
+      ],
+      "exposed" : false
+    },
+    "PuedeReagendar" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
       ],
       "exposed" : false
     }

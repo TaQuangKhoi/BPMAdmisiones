@@ -1502,18 +1502,8 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			if(e.getMessage().contains("\"app_menu_role\" does not exist")) {
-				try {
-					pstm = con.prepareStatement(AppMenuRole.CREATE)
-					pstm.execute()
-					resultado.setError("La tabla app_menu_role no existía, y ya fue creada, favor de ejecutar la consulta de nuevo.")
-				} catch (Exception e2) {
-					resultado.setError(e2.getMessage());
-				}
-				
-			}else {
-				resultado.setError(e.getMessage());
-			}
+			resultado.setError("No entró al crear tabla "+e.getMessage());
+			
 			
 		}finally {
 			if(closeCon) {
@@ -1581,7 +1571,18 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
+			if(e.getMessage().contains("\"app_menu_role\" does not exist")) {
+				try {
+					pstm = con.prepareStatement(AppMenuRole.CREATE)
+					pstm.execute()
+					resultado.setError("La tabla app_menu_role no existía, y ya fue creada, favor de ejecutar la consulta de nuevo.")
+				} catch (Exception e2) {
+					resultado.setError("falló al crear tabla "+e2.getMessage());
+				}
+				
+			}else {
+				resultado.setError("No entró al crear tabla "+e.getMessage());
+			}
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

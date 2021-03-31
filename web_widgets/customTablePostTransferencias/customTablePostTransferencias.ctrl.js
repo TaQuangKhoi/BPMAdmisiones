@@ -278,9 +278,9 @@ $scope.getCampusByGrupo = function (campus) {
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                /*if($scope.lstCampusByUser.length == 2){
+                if($scope.lstMembership.length == 1){
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
-                }*/
+                }
             }else if(campus == "Todos los campus"){
                 retorno = campus
             }   
@@ -314,16 +314,7 @@ $scope.getCampusByGrupo = function (campus) {
         resultado.push("Todos los campus")
         for(var x in $scope.lstMembership){
             if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-                //resultado.push($scope.lstMembership[x].group_id.name);
-                let i = 0;
-                resultado.forEach(value =>{
-                    if(value == $scope.lstMembership[x].group_id.name){
-                       i++;
-                    }
-                });
-                if(i === 0){
-                   resultado.push($scope.lstMembership[x].group_id.name);  
-                }
+                resultado.push($scope.lstMembership[x].group_id.name);
             }
         }
         $scope.lstCampusByUser = resultado;
@@ -437,6 +428,7 @@ $scope.getCampusByGrupo = function (campus) {
     
     
      $scope.openModal =function(row) {
+         debugger;
         $scope.properties.datosAspirante = angular.copy(row);
         $scope.properties.jsonOriginal = angular.copy(row);
         modalService.open($scope.properties.modalid);

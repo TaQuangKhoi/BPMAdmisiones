@@ -19,6 +19,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Estado!", "Debes agregar el estado", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.ciudad === "" || $scope.properties.catSolicitudDeAdmision.ciudad === null) {
                     swal("¡Ciudad!", "Debes agregar una ciudad", "warning");
+                } else if ($scope.properties.catSolicitudDeAdmision.delegacionMunicipio === "" || $scope.properties.catSolicitudDeAdmision.delegacionMunicipio === null) {
+                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.colonia === "" || $scope.properties.catSolicitudDeAdmision.colonia === null) {
                     swal("¡Colonia!", "Debes agregar la colonia", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.calle === "" || $scope.properties.catSolicitudDeAdmision.calle === null) {
@@ -397,6 +399,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
                                     swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
+                                } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
+                                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -431,6 +435,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
                                     swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
+                                } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
+                                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                                 } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
@@ -477,7 +483,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
-                            } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
+                            } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
+                            }  else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu padre", "warning");
@@ -511,7 +519,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.ciudad === "" || $scope.properties.padre.ciudad === undefined) {
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
-                            } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
+                            } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
+                            }  else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu padre", "warning");
@@ -590,7 +600,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
                                     swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
-                                } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                                } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
+                                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
+                                }  else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
@@ -624,6 +636,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
                                     swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
+                                } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
+                                    swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
@@ -670,7 +684,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
-                            } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                            } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
+                            }   else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
@@ -704,7 +720,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.ciudad === "" || $scope.properties.madre.ciudad === undefined) {
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
-                            } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                            } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
+                                swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
+                            }   else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
