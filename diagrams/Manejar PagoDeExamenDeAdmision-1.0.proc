@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_bAdHYC9pEeu1IdgvlyKxPg" name="Manejar PagoDeExamenDeAdmision" author="pc" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400304D616E656A6172205061676F44654578616D656E446541646D6973696F6E372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_bAducC9pEeu1IdgvlyKxPg" name="Agregar PagoDeExamenDeAdmision">
       <elements xmi:type="process:Lane" xmi:id="_bAducS9pEeu1IdgvlyKxPg" name="Employee lane" actor="_bAduii9pEeu1IdgvlyKxPg">
@@ -30,6 +30,34 @@
         <condition xmi:type="expression:Expression" xmi:id="_dcHRgi9pEeu1IdgvlyKxPg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_bAduii9pEeu1IdgvlyKxPg" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_7LR5gJJYEeu4GuuI6zf7Ng" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_7LSgkJJYEeu4GuuI6zf7Ng">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_7LSgkZJYEeu4GuuI6zf7Ng" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_7LSgkpJYEeu4GuuI6zf7Ng">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_7LSgk5JYEeu4GuuI6zf7Ng"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_7LSglJJYEeu4GuuI6zf7Ng"/>
+            <users xmi:type="actormapping:Users" xmi:id="_7LSglZJYEeu4GuuI6zf7Ng"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5gZJYEeu4GuuI6zf7Ng" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5gpJYEeu4GuuI6zf7Ng" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5g5JYEeu4GuuI6zf7Ng" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5hJJYEeu4GuuI6zf7Ng" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5hZJYEeu4GuuI6zf7Ng" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7LR5hpJYEeu4GuuI6zf7Ng" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_bAduiy9pEeu1IdgvlyKxPg">
         <inputs xmi:type="process:ContractInput" xmi:id="_y9LmQC9pEeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionInput" type="COMPLEX" multiple="true" dataReference="lstCatPagoDeExamenDeAdmision">
           <inputs xmi:type="process:ContractInput" xmi:id="_y9LmQS9pEeu1IdgvlyKxPg" name="montoAspiranteLocal"/>
@@ -122,6 +150,14 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_Lw-QAS9qEeu1IdgvlyKxPg"/>
         <condition xmi:type="expression:Expression" xmi:id="_Lw-QAi9qEeu1IdgvlyKxPg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_-wTfcJJYEeu4GuuI6zf7Ng" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfcZJYEeu4GuuI6zf7Ng" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfcpJYEeu4GuuI6zf7Ng" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfc5JYEeu4GuuI6zf7Ng" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfdJJYEeu4GuuI6zf7Ng" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfdZJYEeu4GuuI6zf7Ng" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-wTfdpJYEeu4GuuI6zf7Ng" id="OTHER"/>
+      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_1b9V1C9pEeu1IdgvlyKxPg">
         <inputs xmi:type="process:ContractInput" xmi:id="_9RHUMC9pEeu1IdgvlyKxPg" name="lstCatPagoDeExamenDeAdmisionInput" type="COMPLEX" multiple="true" dataReference="lstCatPagoDeExamenDeAdmision">
           <inputs xmi:type="process:ContractInput" xmi:id="_9RHUMS9pEeu1IdgvlyKxPg" name="montoAspiranteLocal"/>
