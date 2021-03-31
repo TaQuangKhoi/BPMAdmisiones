@@ -58,34 +58,6 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_AQFvVVtzEeuMV5ZICJankQ" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_AQFvVltzEeuMV5ZICJankQ" id="OTHER"/>
       </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_M_Rx0IwSEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_M_Rx14wSEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_M_Rx2IwSEeu2N77SW-Ko6A" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_M_Rx2YwSEeu2N77SW-Ko6A">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_M_Rx2owSEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_M_Rx24wSEeu2N77SW-Ko6A"/>
-            <users xmi:type="actormapping:Users" xmi:id="_M_Rx3IwSEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx0YwSEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx0owSEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx04wSEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx1IwSEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx1YwSEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_M_Rx1owSEeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_si4abFtxEeuMV5ZICJankQ">
         <inputs xmi:type="process:ContractInput" xmi:id="_4mPpEFtyEeuMV5ZICJankQ" name="catPropedeuticoGralInput" type="COMPLEX" dataReference="catPropedeuticoGral">
           <inputs xmi:type="process:ContractInput" xmi:id="_4mPpEVtyEeuMV5ZICJankQ" name="id"/>
@@ -225,9 +197,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_oqsF0lznEeunD6AkeEu2nw" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_GWVUsFz7EeunD6AkeEu2nw" name="catPropedeutico" dataType="_si4ahFtxEeuMV5ZICJankQ" className="com.anahuac.catalogos.CatPropedeutico">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Yei3QFz7EeunD6AkeEu2nw" name="initCatPropedeutico()" content="import com.anahuac.catalogos.CatPropedeutico&#xD;&#xA;&#xD;&#xA;CatPropedeutico catPropedeuticoVar = null;&#xD;&#xA;if(catPropedeuticoInput?.persistenceId == null){&#xD;&#xA;&#x9;catPropedeuticoVar = new com.anahuac.catalogos.CatPropedeutico();&#xD;&#xA;}&#xD;&#xA;else {&#xD;&#xA;&#x9;catPropedeuticoVar = catPropedeuticoDAO.findByPersistenceId(catPropedeuticoInput?.persistenceId);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;catPropedeuticoVar.clave = catPropedeuticoInput?.clave&#xD;&#xA;catPropedeuticoVar.descripcion = catPropedeuticoInput?.descripcion&#xD;&#xA;catPropedeuticoVar.usuarioCreacion = catPropedeuticoInput?.usuarioCreacion&#xD;&#xA;catPropedeuticoVar.fechaInicio = catPropedeuticoInput?.fechaInicio&#xD;&#xA;catPropedeuticoVar.fechaFinal = catPropedeuticoInput?.fechaFinal&#xD;&#xA;catPropedeuticoVar.persistenceIdCatRecibirAtencionEspiritual = catPropedeuticoInput?.persistenceIdCatRecibirAtencionEspiritual?.trim() ? catPropedeuticoInput.persistenceIdCatRecibirAtencionEspiritual.toLong() : null&#xD;&#xA;return catPropedeuticoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.catalogos.CatPropedeutico">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_AMIm0Fz8EeunD6AkeEu2nw" name="catPropedeuticoInput" type="COMPLEX"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_AMIm0Vz8EeunD6AkeEu2nw" name="catPropedeuticoDAO" content="catPropedeuticoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPropedeuticoDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Yei3QFz7EeunD6AkeEu2nw" name="initCatPropedeutico()" content="import com.anahuac.catalogos.CatPropedeutico&#xD;&#xA;&#xD;&#xA;CatPropedeutico catPropedeuticoVar = null;&#xD;&#xA;if(catPropedeuticoInput?.persistenceId == null){&#xD;&#xA;&#x9;catPropedeuticoVar = new com.anahuac.catalogos.CatPropedeutico();&#xD;&#xA;}&#xD;&#xA;else {&#xD;&#xA;&#x9;catPropedeuticoVar = catPropedeuticoDAO.findByPersistenceId(catPropedeuticoInput?.persistenceId);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;catPropedeuticoVar.clave = catPropedeuticoInput?.clave&#xD;&#xA;catPropedeuticoVar.descripcion = catPropedeuticoInput?.descripcion&#xD;&#xA;catPropedeuticoVar.usuarioCreacion = catPropedeuticoInput?.usuarioCreacion&#xD;&#xA;catPropedeuticoVar.fechaInicio = catPropedeuticoInput?.fechaInicio&#xD;&#xA;catPropedeuticoVar.fechaFinal = catPropedeuticoInput?.fechaFinal&#xD;&#xA;catPropedeuticoVar.idioma = catPropedeuticoInput?.idioma&#xD;&#xA;catPropedeuticoVar.persistenceIdCatRecibirAtencionEspiritual = catPropedeuticoInput?.persistenceIdCatRecibirAtencionEspiritual?.trim() ? catPropedeuticoInput.persistenceIdCatRecibirAtencionEspiritual.toLong() : null&#xD;&#xA;return catPropedeuticoVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.catalogos.CatPropedeutico">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_eOTOoIN3Eeu0eZc5aMlc3Q" name="catPropedeuticoInput" type="COMPLEX"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_eOTOoYN3Eeu0eZc5aMlc3Q" name="catPropedeuticoDAO" content="catPropedeuticoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPropedeuticoDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_xwOq0FzjEeunD6AkeEu2nw" type="NONE">
@@ -258,6 +230,9 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_YeiQNlz7EeunD6AkeEu2nw" name="persistenceIdCatRecibirAtencionEspiritual"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_ZJzawFz7EeunD6AkeEu2nw" name="persistenceId" type="LONG">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_ZJzawVz7EeunD6AkeEu2nw"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Y-jzUIN3Eeu0eZc5aMlc3Q" name="idioma">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Y-jzUYN3Eeu0eZc5aMlc3Q"/>
           </inputs>
         </inputs>
         <constraints xmi:type="process:ContractConstraint" xmi:id="_YeiQN1z7EeunD6AkeEu2nw" expression="!catPropedeuticoInput?.persistenceIdCatRecibirAtencionEspiritual || catPropedeuticoInput?.persistenceIdCatRecibirAtencionEspiritual.isLong()" errorMessage="A Long value is expected for CatPropedeutico.persistenceIdCatRecibirAtencionEspiritual" name="type_long_catPropedeuticoInput_persistenceIdCatRecibirAtencionEspiritual">

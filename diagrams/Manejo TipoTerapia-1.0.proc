@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
   <process:MainProcess xmi:id="_clUB4C6kEeuM5sRfBP7pBw" name="Manejo TipoTerapia" author="pc" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400244D616E656A6F205469706F54657261706961372E31312E312D303031372E31312E327370">
     <elements xmi:type="process:Pool" xmi:id="_clUB4S6kEeuM5sRfBP7pBw" name="Agregar TipoTerapia">
       <elements xmi:type="process:Lane" xmi:id="_clUB4i6kEeuM5sRfBP7pBw" name="Employee lane" actor="_clUB-y6kEeuM5sRfBP7pBw">
@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_8CLRYC6kEeuM5sRfBP7pBw" name="lstCatTipoTerapia" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatTipoTerapia">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_-Ul_8C6kEeuM5sRfBP7pBw" name="initLstCatTipoTerapia()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catTipoTerapiaList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatTipoTerapiaInput.each{&#xD;&#xA;&#x9;//Add a new composed CatTipoTerapia instance&#xD;&#xA;&#x9;catTipoTerapiaList.add({ currentCatTipoTerapiaInput ->&#xD;&#xA;&#x9;&#x9;def catTipoTerapiaVar = new com.anahuac.catalogos.CatTipoTerapia()&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.clave = currentCatTipoTerapiaInput.clave&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.descripcion = currentCatTipoTerapiaInput.descripcion&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.usuarioCreacion = currentCatTipoTerapiaInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.isEliminado = currentCatTipoTerapiaInput.isEliminado&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.orden = currentCatTipoTerapiaInput.orden&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;return catTipoTerapiaVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catTipoTerapiaList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_SHAHYESGEeuXcJ0_y3pmTw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_-Ul_8C6kEeuM5sRfBP7pBw" name="initLstCatTipoTerapia()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catTipoTerapiaList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatTipoTerapiaInput.each{&#xD;&#xA;&#x9;//Add a new composed CatTipoTerapia instance&#xD;&#xA;&#x9;catTipoTerapiaList.add({ currentCatTipoTerapiaInput ->&#xD;&#xA;&#x9;&#x9;def catTipoTerapiaVar = new com.anahuac.catalogos.CatTipoTerapia()&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.clave = currentCatTipoTerapiaInput.clave&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.descripcion = currentCatTipoTerapiaInput.descripcion&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.usuarioCreacion = currentCatTipoTerapiaInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catTipoTerapiaVar.isEliminado = currentCatTipoTerapiaInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catTipoTerapiaVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catTipoTerapiaList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_1rDTEC6rEeu6bI2V3Pqrhw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_clUB9C6kEeuM5sRfBP7pBw" type="NONE">
@@ -30,61 +30,6 @@
         <condition xmi:type="expression:Expression" xmi:id="_lpG9oi6kEeuM5sRfBP7pBw" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_clUB-y6kEeuM5sRfBP7pBw" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_Wd7KkE1pEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_Wd7Kl01pEeuiD5640oS5Sw">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_Wd7KmE1pEeuiD5640oS5Sw" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_Wd7KmU1pEeuiD5640oS5Sw">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_Wd7Kmk1pEeuiD5640oS5Sw"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_Wd7Km01pEeuiD5640oS5Sw"/>
-            <users xmi:type="actormapping:Users" xmi:id="_Wd7KnE1pEeuiD5640oS5Sw"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7KkU1pEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7Kkk1pEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7Kk01pEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7KlE1pEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7KlU1pEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Wd7Klk1pEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_tOzW4IweEeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_tOzW54weEeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_tOzW6IweEeu2N77SW-Ko6A" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_tOzW6YweEeu2N77SW-Ko6A">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_tOzW6oweEeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_tOzW64weEeu2N77SW-Ko6A"/>
-            <users xmi:type="actormapping:Users" xmi:id="_tOzW7IweEeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW4YweEeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW4oweEeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW44weEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW5IweEeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW5YweEeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_tOzW5oweEeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_clUB_C6kEeuM5sRfBP7pBw">
         <inputs xmi:type="process:ContractInput" xmi:id="_-UlY4C6kEeuM5sRfBP7pBw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true" dataReference="lstCatTipoTerapia">
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY4S6kEeuM5sRfBP7pBw" name="clave"/>
@@ -92,9 +37,6 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY4y6kEeuM5sRfBP7pBw" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY5C6kEeuM5sRfBP7pBw" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY5S6kEeuM5sRfBP7pBw" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_M7SQcESGEeuXcJ0_y3pmTw" name="orden" type="INTEGER">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_M7SQcUSGEeuXcJ0_y3pmTw"/>
-          </inputs>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_clUB_S6kEeuM5sRfBP7pBw">
@@ -147,9 +89,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_N6f90y6lEeuM5sRfBP7pBw" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_XY5K4C6lEeuM5sRfBP7pBw" name="lstCatTipoTerapia" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatTipoTerapia">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Yfb8Ni6lEeuM5sRfBP7pBw" name="initLstCatTipoTerapia()" content="import com.anahuac.catalogos.CatTipoTerapia;&#xD;&#xA;&#xD;&#xA;def catTipoTerapiaList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatTipoTerapiaInput: lstCatTipoTerapiaInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatTipoTerapiaInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatTipoTerapia objCatTipoTerapia = catTipoTerapiaDAO.findByPersistenceId(objCatTipoTerapiaInput.persistenceId);&#xD;&#xA;&#x9;if(objCatTipoTerapia != null){&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.clave = objCatTipoTerapiaInput.clave;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.descripcion = objCatTipoTerapiaInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.isEliminado = objCatTipoTerapiaInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.usuarioCreacion = objCatTipoTerapia.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.orden = objCatTipoTerapiaInput.orden;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catTipoTerapiaList.add(objCatTipoTerapia);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catTipoTerapiaList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_XywJQESGEeuXcJ0_y3pmTw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_XywJQUSGEeuXcJ0_y3pmTw" name="catTipoTerapiaDAO" content="catTipoTerapiaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTipoTerapiaDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Yfb8Ni6lEeuM5sRfBP7pBw" name="initLstCatTipoTerapia()" content="import com.anahuac.catalogos.CatTipoTerapia;&#xD;&#xA;&#xD;&#xA;def catTipoTerapiaList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatTipoTerapiaInput: lstCatTipoTerapiaInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatTipoTerapiaInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatTipoTerapia objCatTipoTerapia = catTipoTerapiaDAO.findByPersistenceId(objCatTipoTerapiaInput.persistenceId);&#xD;&#xA;&#x9;if(objCatTipoTerapia != null){&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.clave = objCatTipoTerapiaInput.clave;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.descripcion = objCatTipoTerapiaInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.isEliminado = objCatTipoTerapiaInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatTipoTerapia.usuarioCreacion = objCatTipoTerapia.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catTipoTerapiaList.add(objCatTipoTerapia);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catTipoTerapiaList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_oZA1QC6rEeu6bI2V3Pqrhw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_oZA1QS6rEeu6bI2V3Pqrhw" name="catTipoTerapiaDAO" content="catTipoTerapiaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTipoTerapiaDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_az7R4C6mEeu9W7AdnjsGyg" name="lstCatTipoTerapiaToDelete" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatTipoTerapia">
@@ -172,14 +114,6 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_PwP-gS6lEeuM5sRfBP7pBw"/>
         <condition xmi:type="expression:Expression" xmi:id="_PwP-gi6lEeuM5sRfBP7pBw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_Yf8FoE1pEeuiD5640oS5Sw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8FoU1pEeuiD5640oS5Sw" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8Fok1pEeuiD5640oS5Sw" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8Fo01pEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8FpE1pEeuiD5640oS5Sw" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8FpU1pEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_Yf8Fpk1pEeuiD5640oS5Sw" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_DY2kFC6lEeuM5sRfBP7pBw">
         <inputs xmi:type="process:ContractInput" xmi:id="_Yfb8MC6lEeuM5sRfBP7pBw" name="lstCatTipoTerapiaInput" type="COMPLEX" multiple="true" dataReference="lstCatTipoTerapia">
           <inputs xmi:type="process:ContractInput" xmi:id="_Yfb8MS6lEeuM5sRfBP7pBw" name="clave"/>
@@ -189,9 +123,6 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_Yfb8NS6lEeuM5sRfBP7pBw" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_ZMX6sC6lEeuM5sRfBP7pBw" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_ZMX6sS6lEeuM5sRfBP7pBw"/>
-          </inputs>
-          <inputs xmi:type="process:ContractInput" xmi:id="_TXpP4ESGEeuXcJ0_y3pmTw" name="orden" type="INTEGER">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_TXpP4USGEeuXcJ0_y3pmTw"/>
           </inputs>
         </inputs>
       </contract>

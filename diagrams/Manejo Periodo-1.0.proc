@@ -15,9 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_c1ZCQC7FEeumVvVSoJp-bA" name="lstCatPeriodo" multiple="true" dataType="_3dKAtC7EEeumVvVSoJp-bA" className="com.anahuac.catalogos.CatPeriodo">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Ces6nC9CEeu1IdgvlyKxPg" name="initLstCatPeriodo()" content="import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catPeriodoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatPeriodoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPeriodo instance&#xD;&#xA;&#x9;catPeriodoList.add({ currentCatPeriodoInput ->&#xD;&#xA;&#x9;&#x9;def catPeriodoVar = new com.anahuac.catalogos.CatPeriodo()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.descripcion = currentCatPeriodoInput.descripcion&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isEliminado = currentCatPeriodoInput.isEliminado&#xD;&#xA;&#x9;&#x9;catPeriodoVar.usuarioBanner = currentCatPeriodoInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.clave = currentCatPeriodoInput.clave&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isEnabled = currentCatPeriodoInput.isEnabled&#xD;&#xA;&#x9;&#x9;catPeriodoVar.nombreCampus = currentCatPeriodoInput.nombreCampus&#xD;&#xA;&#x9;&#x9;catPeriodoVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()&#xD;&#xA;&#x9;&#x9;return catPeriodoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catPeriodoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="expression:Expression" xmi:id="_KWAw4C9JEeu1IdgvlyKxPg" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_KWAw4S9JEeu1IdgvlyKxPg" name="lstCatPeriodoInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Ces6nC9CEeu1IdgvlyKxPg" name="initLstCatPeriodo()" content="import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catPeriodoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatPeriodoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatPeriodo instance&#xD;&#xA;&#x9;catPeriodoList.add({ currentCatPeriodoInput ->&#xD;&#xA;&#x9;&#x9;def catPeriodoVar = new com.anahuac.catalogos.CatPeriodo()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.descripcion = currentCatPeriodoInput.descripcion&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isEliminado = currentCatPeriodoInput.isEliminado&#xD;&#xA;&#x9;&#x9;catPeriodoVar.usuarioBanner = currentCatPeriodoInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catPeriodoVar.clave = currentCatPeriodoInput.clave&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isEnabled = currentCatPeriodoInput.isEnabled&#xD;&#xA;&#x9;&#x9;catPeriodoVar.nombreCampus = currentCatPeriodoInput.nombreCampus&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaInicio = currentCatPeriodoInput.fechaInicio&#xD;&#xA;&#x9;&#x9;catPeriodoVar.fechaFin = currentCatPeriodoInput.fechaFin&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isCuatrimestral = currentCatPeriodoInput.isCuatrimestral&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isAnual = currentCatPeriodoInput.isAnual&#xD;&#xA;&#x9;&#x9;catPeriodoVar.isSemestral = currentCatPeriodoInput.isSemestral&#xD;&#xA;&#x9;&#x9;catPeriodoVar.id = currentCatPeriodoInput.id&#xD;&#xA;&#x9;&#x9;catPeriodoVar.activo = currentCatPeriodoInput.activo&#xD;&#xA;&#x9;&#x9;/*catPeriodoVar.campus = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatCampus using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catCampusVar = catCampusDAO.findByPersistenceId(currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catCampusVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatCampus` with the persistence id &quot; + currentCatPeriodoInput.campus?.persistenceId_string?.trim() ? currentCatPeriodoInput.campus.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catCampusVar}()*/&#xD;&#xA;&#x9;&#x9;return catPeriodoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catPeriodoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_BN7UcFzPEeuf98v4nDsf6w" name="lstCatPeriodoInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_3dKAlC7EEeumVvVSoJp-bA" type="NONE">
@@ -58,34 +57,6 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_pz37VU1YEeuiD5640oS5Sw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_pz37Vk1YEeuiD5640oS5Sw" id="OTHER"/>
       </configurations>
-      <configurations xmi:type="configuration:Configuration" xmi:id="_7JrCMIwREeu2N77SW-Ko6A" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
-        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_7JrCN4wREeu2N77SW-Ko6A">
-          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_7JrCOIwREeu2N77SW-Ko6A" name="Employee actor">
-            <groups xmi:type="actormapping:Groups" xmi:id="_7JrCOYwREeu2N77SW-Ko6A">
-              <group>/CAMPUS-CANCUN</group>
-              <group>/CAMPUS-CORDOBA</group>
-              <group>/CAMPUS-JP2</group>
-              <group>/CAMPUS-JP2G</group>
-              <group>/CAMPUS-MAYAB</group>
-              <group>/CAMPUS-MNORTE</group>
-              <group>/CAMPUS-MSUR</group>
-              <group>/CAMPUS-OAXACA</group>
-              <group>/CAMPUS-PUEBLA</group>
-              <group>/CAMPUS-QUERETARO</group>
-              <group>/CAMPUS-XALAPA</group>
-            </groups>
-            <memberships xmi:type="actormapping:Membership" xmi:id="_7JrCOowREeu2N77SW-Ko6A"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_7JrCO4wREeu2N77SW-Ko6A"/>
-            <users xmi:type="actormapping:Users" xmi:id="_7JrCPIwREeu2N77SW-Ko6A"/>
-          </actorMapping>
-        </actorMappings>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCMYwREeu2N77SW-Ko6A" id="ACTOR_FILTER"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCMowREeu2N77SW-Ko6A" id="CONNECTOR"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCM4wREeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCNIwREeu2N77SW-Ko6A" id="OTHER"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCNYwREeu2N77SW-Ko6A" id="GROOVY_SCRIPT"/>
-        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_7JrCNowREeu2N77SW-Ko6A" id="OTHER"/>
-      </configurations>
       <contract xmi:type="process:Contract" xmi:id="_3dKAnC7EEeumVvVSoJp-bA">
         <inputs xmi:type="process:ContractInput" xmi:id="_Ces6kC9CEeu1IdgvlyKxPg" name="lstCatPeriodoInput" type="COMPLEX" multiple="true" dataReference="lstCatPeriodo">
           <inputs xmi:type="process:ContractInput" xmi:id="_Ces6kS9CEeu1IdgvlyKxPg" name="descripcion"/>
@@ -95,14 +66,29 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_Ces6lS9CEeu1IdgvlyKxPg" name="fechaImportacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Ces6li9CEeu1IdgvlyKxPg" name="clave"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_Ces6ly9CEeu1IdgvlyKxPg" name="isEnabled" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_Ces6mC9CEeu1IdgvlyKxPg" name="campus" type="COMPLEX">
-            <inputs xmi:type="process:ContractInput" xmi:id="_Ces6mS9CEeu1IdgvlyKxPg" name="persistenceId_string"/>
-          </inputs>
           <inputs xmi:type="process:ContractInput" xmi:id="_Ces6mi9CEeu1IdgvlyKxPg" name="nombreCampus"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_RrinkFdXEeu54oDGbSacxg" name="fechaInicio" type="LOCALDATETIME">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_RrinkVdXEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_SiO_AFdXEeu54oDGbSacxg" name="fechaFin" type="LOCALDATETIME">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_SiO_AVdXEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_TFrqUFdXEeu54oDGbSacxg" name="isSemestral" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_TFrqUVdXEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_ULHBUFdXEeu54oDGbSacxg" name="isCuatrimestral" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_ULHBUVdXEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_VqphcFdXEeu54oDGbSacxg" name="isAnual" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_VqphcVdXEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_6RixIFzOEeuf98v4nDsf6w" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_6RixIVzOEeuf98v4nDsf6w"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_6_jtsFzOEeuf98v4nDsf6w" name="activo" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_6_jtsVzOEeuf98v4nDsf6w"/>
+          </inputs>
         </inputs>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_Ces6my9CEeu1IdgvlyKxPg" expression="lstCatPeriodoInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatPeriodo" name="aggregation_lstCatPeriodoInput_campus">
-          <inputNames>lstCatPeriodoInput</inputNames>
-        </constraints>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_3dKAnS7EEeumVvVSoJp-bA">
         <name xmi:type="expression:Expression" xmi:id="_3dKAni7EEeumVvVSoJp-bA" content="" returnTypeFixed="true"/>
@@ -154,10 +140,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_QPG3My7FEeumVvVSoJp-bA" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_iKamMC7FEeumVvVSoJp-bA" name="lstCatPeriodo" multiple="true" dataType="_3dKAtC7EEeumVvVSoJp-bA" className="com.anahuac.catalogos.CatPeriodo">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_PsDssS9CEeu1IdgvlyKxPg" name="initLstCatPeriodo()" content="import com.anahuac.catalogos.CatPeriodo;&#xD;&#xA;import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catPeriodoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatPeridoInput: lstCatPeriodoInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatPeridoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue&#xD;&#xA;&#x9;CatPeriodo objCatPeriodo = catPeriodoDAO.findByPersistenceId(objCatPeridoInput.persistenceId);&#xD;&#xA;&#x9;if(objCatPeriodo != null){&#xD;&#xA;&#x9;&#x9;if(objCatPeridoInput.campus != null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatPeriodo.campus = catCampusDAO.findByPersistenceId(objCatPeridoInput.campus.persistenceId);&#xD;&#xA;&#x9;&#x9;}else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatPeriodo.campus = null;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;objCatPeriodo.descripcion = objCatPeridoInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatPeriodo.fechaCreacion = objCatPeridoInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isEliminado = objCatPeridoInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatPeriodo.usuarioBanner = objCatPeridoInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatPeriodo.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatPeriodo.clave = objCatPeridoInput.clave&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isEnabled = objCatPeridoInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatPeriodo.nombreCampus = objCatPeridoInput.nombreCampus&#xD;&#xA;&#x9;&#x9;catPeriodoList.add(objCatPeriodo)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPeriodoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_UXD0gC9IEeu1IdgvlyKxPg" name="lstCatPeriodoInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_UXD0gS9IEeu1IdgvlyKxPg" name="catCampusDAO" content="catCampusDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatCampusDAO" returnTypeFixed="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_UXD0gi9IEeu1IdgvlyKxPg" name="catPeriodoDAO" content="catPeriodoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPeriodoDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_PsDssS9CEeu1IdgvlyKxPg" name="initLstCatPeriodo()" content="import com.anahuac.catalogos.CatPeriodo;&#xD;&#xA;import java.time.LocalDateTime;&#xD;&#xA;&#xD;&#xA;def catPeriodoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatPeridoInput: lstCatPeriodoInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatPeridoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue&#xD;&#xA;&#x9;CatPeriodo objCatPeriodo = catPeriodoDAO.findByPersistenceId(objCatPeridoInput.persistenceId);&#xD;&#xA;&#x9;if(objCatPeriodo != null){&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;objCatPeriodo.descripcion = objCatPeridoInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isEliminado = objCatPeridoInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatPeriodo.usuarioBanner = objCatPeridoInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatPeriodo.fechaImportacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;objCatPeriodo.clave = objCatPeridoInput.clave&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isEnabled = objCatPeridoInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatPeriodo.nombreCampus = objCatPeridoInput.nombreCampus&#xD;&#xA;&#x9;&#x9;objCatPeriodo.fechaInicio = objCatPeridoInput.fechaInicio&#xD;&#xA;&#x9;&#x9;objCatPeriodo.fechaFin = objCatPeridoInput.fechaFin&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isCuatrimestral = objCatPeridoInput.isCuatrimestral&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isAnual = objCatPeridoInput.isAnual&#xD;&#xA;&#x9;&#x9;objCatPeriodo.isSemestral = objCatPeridoInput.isSemestral&#xD;&#xA;&#x9;&#x9;objCatPeriodo.id = objCatPeridoInput.id&#xD;&#xA;&#x9;&#x9;objCatPeriodo.activo = objCatPeridoInput.activo&#xD;&#xA;&#x9;&#x9;/*if(objCatPeridoInput.campus != null){&#xD;&#xA;&#x9;&#x9;&#x9;objCatPeriodo.campus = catCampusDAO.findByPersistenceId (objCatPeridoInput.campus.persistenceId_string);&#xD;&#xA;&#x9;&#x9;}else {&#xD;&#xA;&#x9;&#x9;&#x9;objCatPeriodo.campus = null;&#xD;&#xA;&#x9;&#x9;}*/&#xD;&#xA;&#x9;&#x9;catPeriodoList.add(objCatPeriodo)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catPeriodoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="expression:Expression" xmi:id="_GePXgFzPEeuf98v4nDsf6w" name="catPeriodoDAO" content="catPeriodoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPeriodoDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_GePXgVzPEeuf98v4nDsf6w" name="lstCatPeriodoInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_wwKuoC7FEeumVvVSoJp-bA" name="lstCatPeriodoToDelete" multiple="true" dataType="_3dKAtC7EEeumVvVSoJp-bA" className="com.anahuac.catalogos.CatPeriodo">
@@ -183,23 +168,36 @@
       <contract xmi:type="process:Contract" xmi:id="_NHBr9y7FEeumVvVSoJp-bA">
         <inputs xmi:type="process:ContractInput" xmi:id="_PsDFoC9CEeu1IdgvlyKxPg" name="lstCatPeriodoInput" type="COMPLEX" multiple="true" dataReference="lstCatPeriodo">
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFoS9CEeu1IdgvlyKxPg" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PsDFoi9CEeu1IdgvlyKxPg" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFoy9CEeu1IdgvlyKxPg" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFpC9CEeu1IdgvlyKxPg" name="usuarioBanner"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PsDFpS9CEeu1IdgvlyKxPg" name="fechaImportacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFpi9CEeu1IdgvlyKxPg" name="clave"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFpy9CEeu1IdgvlyKxPg" name="isEnabled" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_PsDFqC9CEeu1IdgvlyKxPg" name="campus" type="COMPLEX">
-            <inputs xmi:type="process:ContractInput" xmi:id="_PsDFqS9CEeu1IdgvlyKxPg" name="persistenceId_string"/>
-          </inputs>
           <inputs xmi:type="process:ContractInput" xmi:id="_PsDFqi9CEeu1IdgvlyKxPg" name="nombreCampus"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_QU5OUC9CEeu1IdgvlyKxPg" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_QU5OUS9CEeu1IdgvlyKxPg"/>
           </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_5pBCsFdWEeu54oDGbSacxg" name="isCuatrimestral" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_5pBCsVdWEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_6ugrIFdWEeu54oDGbSacxg" name="isSemestral" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_6ugrIVdWEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_7d0BIFdWEeu54oDGbSacxg" name="isAnual" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_7d0BIVdWEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_9jbp0FdWEeu54oDGbSacxg" name="fechaFin" type="LOCALDATETIME">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_9jbp0VdWEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_-VsNMFdWEeu54oDGbSacxg" name="fechaInicio" type="LOCALDATETIME">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_-VsNMVdWEeu54oDGbSacxg"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_HtVA0FzPEeuf98v4nDsf6w" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_HtVn4FzPEeuf98v4nDsf6w"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_IUWkkFzPEeuf98v4nDsf6w" name="activo" type="BOOLEAN">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_IUXLoFzPEeuf98v4nDsf6w"/>
+          </inputs>
         </inputs>
-        <constraints xmi:type="process:ContractConstraint" xmi:id="_PsDssC9CEeu1IdgvlyKxPg" expression="lstCatPeriodoInput?.campus.flatten().every{!it || it.persistenceId_string}" errorMessage="CatCampus must reference an existing instance with a persistenceId for CatPeriodo" name="aggregation_lstCatPeriodoInput_campus">
-          <inputNames>lstCatPeriodoInput</inputNames>
-        </constraints>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_NHBE4C7FEeumVvVSoJp-bA">
         <name xmi:type="expression:Expression" xmi:id="_NHBE4S7FEeumVvVSoJp-bA" content="" returnTypeFixed="true"/>
