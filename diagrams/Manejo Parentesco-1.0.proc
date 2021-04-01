@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_8CLRYC6kEeuM5sRfBP7pBw" name="lstCatParentesco" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatParentesco">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_-Ul_8C6kEeuM5sRfBP7pBw" name="initLstCatParentesco()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_1rDTEC6rEeu6bI2V3Pqrhw" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_-Ul_8C6kEeuM5sRfBP7pBw" name="initLstCatParentesco()" content="import java.time.LocalDateTime&#xD;&#xA;&#xD;&#xA;def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatParentescoInput.each{&#xD;&#xA;&#x9;//Add a new composed CatParentesco instance&#xD;&#xA;&#x9;catParentescoList.add({ currentCatParentescoInput ->&#xD;&#xA;&#x9;&#x9;def catParentescoVar = new com.anahuac.catalogos.CatParentesco()&#xD;&#xA;&#x9;&#x9;catParentescoVar.clave = currentCatParentescoInput.clave&#xD;&#xA;&#x9;&#x9;catParentescoVar.descripcion = currentCatParentescoInput.descripcion&#xD;&#xA;&#x9;&#x9;catParentescoVar.fechaCreacion = LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catParentescoVar.usuarioCreacion = currentCatParentescoInput.usuarioCreacion&#xD;&#xA;&#x9;&#x9;catParentescoVar.isEliminado = currentCatParentescoInput.isEliminado&#xD;&#xA;&#x9;&#x9;catParentescoVar.id = currentCatParentescoInput.id;&#xD;&#xA;&#x9;&#x9;return catParentescoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_JV4GQJJ1EeuKzstQj2lN2Q" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_clUB9C6kEeuM5sRfBP7pBw" type="NONE">
@@ -65,6 +65,9 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY4y6kEeuM5sRfBP7pBw" name="fechaCreacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY5C6kEeuM5sRfBP7pBw" name="usuarioCreacion"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_-UlY5S6kEeuM5sRfBP7pBw" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="__3uw0JJ0EeuKzstQj2lN2Q" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="__3uw0ZJ0EeuKzstQj2lN2Q"/>
+          </inputs>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_clUB_S6kEeuM5sRfBP7pBw">
@@ -117,9 +120,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_N6f90y6lEeuM5sRfBP7pBw" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_XY5K4C6lEeuM5sRfBP7pBw" name="lstCatParentesco" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatParentesco">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_Yfb8Ni6lEeuM5sRfBP7pBw" name="initLstCatParentesco()" content="import com.anahuac.catalogos.CatParentesco;&#xD;&#xA;&#xD;&#xA;def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatParentescoInput: lstCatParentescoInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatParentescoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatParentesco objCatParentesco = catParentescoDAO.findByPersistenceId(objCatParentescoInput.persistenceId);&#xD;&#xA;&#x9;if(objCatParentesco != null){&#xD;&#xA;&#x9;&#x9;objCatParentesco.clave = objCatParentescoInput.clave;&#xD;&#xA;&#x9;&#x9;objCatParentesco.descripcion = objCatParentescoInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatParentesco.isEliminado = objCatParentescoInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatParentesco.usuarioCreacion = objCatParentesco.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catParentescoList.add(objCatParentesco);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_oZA1QC6rEeu6bI2V3Pqrhw" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_oZA1QS6rEeu6bI2V3Pqrhw" name="catParentescoDAO" content="catParentescoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatParentescoDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Yfb8Ni6lEeuM5sRfBP7pBw" name="initLstCatParentesco()" content="import com.anahuac.catalogos.CatParentesco;&#xD;&#xA;&#xD;&#xA;def catParentescoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;for(Map objCatParentescoInput: lstCatParentescoInput){&#xD;&#xA;&#x9;if (Boolean.TRUE.equals(objCatParentescoInput.todelete))&#xD;&#xA;&#x9;&#x9;continue;&#xD;&#xA;&#x9;CatParentesco objCatParentesco = catParentescoDAO.findByPersistenceId(objCatParentescoInput.persistenceId);&#xD;&#xA;&#x9;if(objCatParentesco != null){&#xD;&#xA;&#x9;&#x9;objCatParentesco.clave = objCatParentescoInput.clave;&#xD;&#xA;&#x9;&#x9;objCatParentesco.descripcion = objCatParentescoInput.descripcion;&#xD;&#xA;&#x9;&#x9;objCatParentesco.isEliminado = objCatParentescoInput.isEliminado;&#xD;&#xA;&#x9;&#x9;objCatParentesco.usuarioCreacion = objCatParentesco.usuarioCreacion;&#xD;&#xA;&#x9;&#x9;objCatParentesco.id = objCatParentescoInput.id;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;catParentescoList.add(objCatParentesco);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catParentescoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_upYU0JJ8EeuKzstQj2lN2Q" name="lstCatParentescoInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_upYU0ZJ8EeuKzstQj2lN2Q" name="catParentescoDAO" content="catParentescoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatParentescoDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_az7R4C6mEeu9W7AdnjsGyg" name="lstCatParentescoToDelete" multiple="true" dataType="_clUCFC6kEeuM5sRfBP7pBw" className="com.anahuac.catalogos.CatParentesco">
@@ -159,6 +162,9 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_Yfb8NS6lEeuM5sRfBP7pBw" name="isEliminado" type="BOOLEAN"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_ZMX6sC6lEeuM5sRfBP7pBw" name="todelete" type="BOOLEAN">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_ZMX6sS6lEeuM5sRfBP7pBw"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Lqcw8JJ1EeuKzstQj2lN2Q" name="id">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_Lqcw8ZJ1EeuKzstQj2lN2Q"/>
           </inputs>
         </inputs>
       </contract>

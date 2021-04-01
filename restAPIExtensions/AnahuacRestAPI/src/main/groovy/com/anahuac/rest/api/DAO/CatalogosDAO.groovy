@@ -3000,7 +3000,7 @@ public Result insertAzureConfig(AzureConfig ac){
 				List<CatDescuentosCustom> rows = new ArrayList<CatDescuentosCustom>();
 				closeCon = validarConexion();
 				
-				where = "WHERE GE.isEliminado = false and GE.campus = '"+object.campus+"'"
+				where = "WHERE GE.isEliminado = false and campus.isEliminado = false and GE.campus = '"+object.campus+"'"
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					def booleanos = filtro.get("valor");
 					switch(filtro.get("columna")) {

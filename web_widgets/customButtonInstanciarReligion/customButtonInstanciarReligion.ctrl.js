@@ -79,7 +79,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
        debugger;
         if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                doRequest("GET","../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=getCatReligion&p=0&c=999").then(function() {
+                doRequest("GET","../API/bdm/businessData/com.anahuac.catalogos.CatReligion?q=findByIsEliminado&f=isEliminado=false&p=0&c=999").then(function() {
                     $scope.properties.dataToChange = $scope.properties.dataToSet;
                     $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
                 });
