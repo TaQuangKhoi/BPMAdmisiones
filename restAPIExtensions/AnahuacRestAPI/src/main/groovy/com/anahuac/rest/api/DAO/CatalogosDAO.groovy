@@ -5936,7 +5936,7 @@ public Result insertAzureConfig(AzureConfig ac){
 			Result resultado = new Result();
 			Boolean closeCon = false;
 
-			String consulta = Statements.GET_CATPERIODO_BY_ID;
+			String consulta = Statements.GET_CATPERIODO_BY_ID_NO_CAMPUS;
 			String errorLog = "";
 			String strFechaInicio = "";
 			String strFechaFinal = "";
