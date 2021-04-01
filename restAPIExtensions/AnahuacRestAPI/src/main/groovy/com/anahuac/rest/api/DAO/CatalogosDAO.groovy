@@ -6084,7 +6084,7 @@ public Result insertAzureConfig(AzureConfig ac){
 					objCatPeriodoFinal.setFechaImportacion(rs.getString("fechaImportacion"));
 					objCatPeriodoFinal.setClave(rs.getString("clave"));
 					objCatPeriodoFinal.setIsEnabled(rs.getBoolean("isEnabled"));
-					objCatPeriodoFinal.setNombreCampus(rs.getString("nombreCampus"));
+					//objCatPeriodoFinal.setNombreCampus(rs.getString("nombreCampus"));
 					objCatPeriodoFinal.setIsCuatrimestral(rs.getBoolean("isCuatrimestral"));
 					objCatPeriodoFinal.setFechaInicio(rs.getString("fechaInicio"));
 					objCatPeriodoFinal.setFechaFin(rs.getString("fechaFin"));
