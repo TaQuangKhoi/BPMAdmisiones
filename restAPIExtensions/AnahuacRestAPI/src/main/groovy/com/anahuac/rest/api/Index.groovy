@@ -1119,6 +1119,7 @@ class Index implements RestApiController {
 					
 					assert object instanceof Map;
 					AppMenuRole row = new AppMenuRole()
+					row.setDisplayname(object.displayname)
 					row.setId(object.id)
 					row.setRoles(new ArrayList<Role>())
 					for(def i=0; i<object.roles.size(); i++) {

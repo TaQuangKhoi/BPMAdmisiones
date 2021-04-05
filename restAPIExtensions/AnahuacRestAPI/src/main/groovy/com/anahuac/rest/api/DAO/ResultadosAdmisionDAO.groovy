@@ -715,7 +715,7 @@ class ResultadosAdmisionDAO {
 			//where+=" WHERE INFTEMP.persistenceid IS NOT null";
 			if(object.campus != null){
 				if(!object.campus.equals("Todos los campus")) {
-					where+=" AND LOWER(campusEstudio.descripcion) = LOWER('" + object.campus + "') ";
+					where+=" AND LOWER(campus.descripcion) = LOWER('" + object.campus + "') ";
 				}
 
 			}
@@ -727,7 +727,7 @@ class ResultadosAdmisionDAO {
 			for(Integer i=0; i<lstGrupo.size(); i++) {
 				String campusMiembro=lstGrupo.get(i);
 				//campus += "universidad='" + campusMiembro + "'"
-				campus += "campusEstudio.descripcion='" + campusMiembro + "'"
+				campus += "campus.descripcion='" + campusMiembro + "'"
 				if(i == (lstGrupo.size() - 1)) {
 					campus += ") "
 				} else {

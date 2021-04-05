@@ -1502,7 +1502,7 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				
 			} catch (Exception e) {
 			resultado.setSuccess(false);
-			resultado.setError("No entró al crear tabla "+e.getMessage());
+			resultado.setError(" "+e.getMessage());
 			
 			
 		}finally {
@@ -1600,12 +1600,12 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				for(Role rol : row.roles) {
 					if(rol.nuevo && !rol.eliminado) {
 						pstm = con.prepareStatement(AppMenuRole.INSERT)
-						pstm.setLong(1, row.getId())
+						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
 						pstm.execute()
 					}else if(!rol.nuevo && rol.eliminado) {
 						pstm = con.prepareStatement(AppMenuRole.DELETE)
-						pstm.setLong(1, row.getId())
+						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
 						pstm.execute()
 					}
