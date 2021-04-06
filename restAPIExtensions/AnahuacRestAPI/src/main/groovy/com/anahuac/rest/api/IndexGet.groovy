@@ -17,6 +17,7 @@ import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatEstados
 import com.anahuac.catalogos.CatPais
 import com.anahuac.rest.api.DAO.BannerDAO
+import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
@@ -520,6 +521,17 @@ class IndexGet implements RestApiController {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
 				break;
+				
+				case "getExcelPlantillaHermanos":
+				result = new BecasDAO().excelPlantillaHermanos();
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
 				
 				case "getEstados":
 				String pais = request.getParameter "pais";
