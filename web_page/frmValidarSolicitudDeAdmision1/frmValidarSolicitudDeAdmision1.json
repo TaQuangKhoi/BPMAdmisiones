@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1615049415682,
+  "lastUpdate" : 1617750039479,
   "rows" : [
     [
       {
@@ -5219,7 +5219,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Si contratas el servicio de educación garantizada se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio, en caso de ser requerido. Puedes agregar más de un tutor. NOTA: El primer tutor de la lista será considerado como el tutor principal."
+                                    "value" : "El tutor hace referencia a la(s) personas encargadas de pagar tus estudios.<br>\nSi contratas el servicio de educación garantizada se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio, en caso de ser requerido. Puedes agregar más de un tutor.  NOTA: El primer tutor de la lista será considerado como el tutor principal."
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -13755,7 +13755,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "text" : {
                   "type" : "interpolation",
@@ -13771,6 +13771,42 @@
                 }
               },
               "reference" : "e599f003-8f0d-4ced-80f0-90cd4774a868",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<stron><b>{{NombreAspirante}}</b></strong>"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 4"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "32135b29-b3e9-477e-aa1a-4519048b09e2",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -14829,6 +14865,10 @@
                       "mensaje" : {
                         "type" : "variable",
                         "value" : "mensaje"
+                      },
+                      "context" : {
+                        "type" : "variable",
+                        "value" : "context"
                       }
                     },
                     "reference" : "afad5c25-20b7-4ffc-9d26-80de351997c4",
@@ -15213,6 +15253,22 @@
                       "CancelarMensajeCollege" : {
                         "type" : "variable",
                         "value" : ""
+                      },
+                      "NombreAspirante" : {
+                        "type" : "variable",
+                        "value" : "NombreAspirante"
+                      },
+                      "objSolicitudDeAdmision" : {
+                        "type" : "variable",
+                        "value" : "objSolicitudDeAdmision"
+                      },
+                      "findByCorreoElectronico" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "solicituddeadmision" : {
+                        "type" : "variable",
+                        "value" : "objSolicitudDeAdmision"
                       }
                     },
                     "reference" : "9ee0bd39-839e-4556-88d0-0db89f68f37d",
@@ -15226,8 +15282,8 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
+                      "md" : 6,
+                      "lg" : 4
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -15258,6 +15314,56 @@
                     "reference" : "526ea374-013a-418d-b2cb-327a146a79e3",
                     "hasValidationError" : false,
                     "id" : "pbCheckbox"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "!perteneceRed"
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<strong>La preparatoria es parte de la red</strong>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "c6f0d5f8-8db1-4952-a74a-6a074b0c4e7d",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
                   }
                 ],
                 [
@@ -15344,6 +15450,14 @@
                       "modificarPreparatoria" : {
                         "type" : "variable",
                         "value" : "modificarPreparatoria"
+                      },
+                      "clavePrepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : "clavePreparatoriaSeleccionada"
+                      },
+                      "filtrarPorClave" : {
+                        "type" : "variable",
+                        "value" : "filtrarPorClave"
                       }
                     },
                     "reference" : "965caf31-b54a-4201-86d8-05398b84aa81",
@@ -15439,16 +15553,24 @@
                         "value" : ""
                       },
                       "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "readOnly" : {
                         "type" : "expression",
-                        "value" : "!perteneceRed"
+                        "value" : "!CheckCambiarPrepa || (!CheckCambiarPrepa && modificarPreparatoria)"
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
                       },
                       "labelHidden" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Default label"
+                        "value" : "Clave preparatoria:"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -15458,22 +15580,61 @@
                         "type" : "constant",
                         "value" : 4
                       },
-                      "allowHTML" : {
-                        "type" : "constant",
-                        "value" : true
+                      "placeholder" : {
+                        "type" : "interpolation"
                       },
-                      "text" : {
-                        "type" : "interpolation",
-                        "value" : "<strong>La preparatoria es parte de la red</strong>"
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "catBachillerato2"
                       },
-                      "alignment" : {
+                      "displayedKey" : {
                         "type" : "constant",
-                        "value" : "left"
+                        "value" : "clave"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "clavePreparatoriaSeleccionada"
+                      },
+                      "datosPreparatoria" : {
+                        "type" : "variable",
+                        "value" : "datosPreparatoria"
+                      },
+                      "urlCollageBoard" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isPDFCollageBoard" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isImagenCollage" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "collageBoard" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "catSolicitudDeAdmision" : {
+                        "type" : "variable",
+                        "value" : "objSolicitudDeAdmision"
+                      },
+                      "modificarPreparatoria" : {
+                        "type" : "variable",
+                        "value" : "modificarPreparatoria"
+                      },
+                      "clavePrepaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : "preparatoriaSeleccionada"
+                      },
+                      "filtrarPorClave" : {
+                        "type" : "variable",
+                        "value" : "filtrarPorClave"
                       }
                     },
-                    "reference" : "c6f0d5f8-8db1-4952-a74a-6a074b0c4e7d",
+                    "reference" : "7082f66b-5126-44af-875d-697de0259351",
                     "hasValidationError" : false,
-                    "id" : "pbText"
+                    "id" : "customAutocompletePreparatoriasValidarInfoClave"
                   }
                 ],
                 [
@@ -15908,6 +16069,14 @@
                       "CheckCambiarPrepa" : {
                         "type" : "variable",
                         "value" : "CheckCambiarPrepa"
+                      },
+                      "clavePrepa" : {
+                        "type" : "variable",
+                        "value" : "clavePreparatoriaSeleccionada"
+                      },
+                      "DatosPreparatoria" : {
+                        "type" : "variable",
+                        "value" : "datosPreparatoria"
                       }
                     },
                     "reference" : "ba0247f1-570f-4ab0-867c-8a3aa8a8ba7d",
@@ -18537,6 +18706,10 @@
                 "RechazoDocumentos" : {
                   "type" : "variable",
                   "value" : "RechazoDocumentos"
+                },
+                "ValorDescuento" : {
+                  "type" : "variable",
+                  "value" : "objDescuentoMax.descuento"
                 }
               },
               "reference" : "14c3f9bc-9f21-4018-92f4-75325bd284a7",
@@ -18579,6 +18752,10 @@
                 "buttonStyle" : {
                   "type" : "constant",
                   "value" : "danger"
+                },
+                "mensaje" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "39785ca9-9049-4fc5-989e-b65c9c05a189",
@@ -22681,7 +22858,7 @@
                       "Periodo",
                       "Campus ingreso",
                       "VPD",
-                      "Avance",
+                      "Estatus",
                       "Fecha Nacimiento",
                       "Curp",
                       "Acciones"
@@ -23937,7 +24114,7 @@
                         },
                         "hidden" : {
                           "type" : "constant",
-                          "value" : false
+                          "value" : true
                         },
                         "readOnly" : {
                           "type" : "constant",
@@ -23979,6 +24156,49 @@
                       "reference" : "7bf24319-3e51-4d58-9950-8d1306868a6e",
                       "hasValidationError" : false,
                       "id" : "pbTextarea"
+                    }
+                  ],
+                  [
+                    {
+                      "type" : "component",
+                      "dimension" : {
+                        "xs" : 12,
+                        "sm" : 12,
+                        "md" : 12,
+                        "lg" : 12
+                      },
+                      "propertyValues" : {
+                        "cssClasses" : {
+                          "type" : "constant",
+                          "value" : ""
+                        },
+                        "hidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "valor2" : {
+                          "type" : "variable",
+                          "value" : "mensaje"
+                        },
+                        "id" : {
+                          "type" : "constant",
+                          "value" : "321654"
+                        },
+                        "ocultarPrevisualizar" : {
+                          "type" : "constant",
+                          "value" : true
+                        },
+                        "datosPrevisualizar" : {
+                          "type" : "variable",
+                          "value" : ""
+                        },
+                        "replace" : {
+                          "type" : "constant"
+                        }
+                      },
+                      "reference" : "23119623-de7f-4f7f-8f55-74fb887c03e9",
+                      "hasValidationError" : false,
+                      "id" : "customTextEditorAJS"
                     }
                   ]
                 ]
@@ -25158,36 +25378,16 @@
     "otroBachillerato" : {
       "type" : "expression",
       "value" : [
-        "// var mostrar = true;\r",
-        "// if($data.objSolicitudDeAdmision.catBachilleratos.descripcion === \"Otro\"){\r",
-        "//     \r",
-        "//     mostrar = false;\r",
-        "//     $data.datosPreparatoria.nombreBachillerato = $data.objSolicitudDeAdmision.bachillerato;\r",
-        "//     $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.paisBachillerato;\r",
-        "//     $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.estadoBachillerato;\r",
-        "//     $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.ciudadBachillerato;\r",
-        "// }else{\r",
-        "//     \r",
-        "//     mostrar = true;\r",
-        "//     $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.pais;\r",
-        "//     $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.estado;\r",
-        "//     $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad;\r",
-        "//     $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceId;\r",
-        "\r",
-        "    \r",
-        "// }\r",
-        "\r",
-        "// return mostrar\r",
-        "\r",
-        "\r",
         "\r",
         "var mostrar = true;\r",
+        "\r",
         "if($data.objSolicitudDeAdmision.catBachilleratos.descripcion!==$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion ||  $data.preparatoriaSeleccionada !==$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion){\r",
         "    if(!$data.CheckCambiarPrepa && !$data.isPrepaModificada){\r",
         "        if($data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion === \"Otro\"){\r",
         "            \r",
         "            mostrar = false;\r",
         "            $data.preparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion\r",
+        "            $data.clavePreparatoriaSeleccionada=\"\"\r",
         "            $data.datosPreparatoria.nombreBachillerato = $data.objSolicitudDeAdmisionAuxiliar.bachillerato;\r",
         "            $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmisionAuxiliar.paisBachillerato;\r",
         "            $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmisionAuxiliar.estadoBachillerato;\r",
@@ -25196,11 +25396,12 @@
         "            \r",
         "            mostrar = true;\r",
         "            $data.preparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion\r",
+        "            $data.clavePreparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave\r",
         "            $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.pais;\r",
         "            $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.estado;\r",
         "            $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.ciudad;\r",
         "            $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.persistenceid;\r",
-        "            \r",
+        "            $data.datosPreparatoria.clave = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave;\r",
         "        }\r",
         "    }\r",
         "\r",
@@ -25218,7 +25419,7 @@
         "        $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.pais;\r",
         "        $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.estado;\r",
         "        $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad;\r",
-        "        $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceId;\r",
+        "        $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceid;\r",
         "    \r",
         "        \r",
         "    }\r",
@@ -25235,7 +25436,8 @@
         "    \"paisBachillerato\":\"\",",
         "    \"estadoBachillerato\":\"\",",
         "    \"ciudadBachillerato\":\"\",",
-        "    \"persistenceId\":\"\"",
+        "    \"persistenceId\":\"\",",
+        "    \"clave\":\"\"",
         "}"
       ],
       "exposed" : false
@@ -25647,7 +25849,7 @@
     "findByCorreoElectronico" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByDuplicados&f=correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&f=fechaNacimiento={{objSolicitudDeAdmision.fechaNacimiento.toString()}}&f=curp={{objSolicitudDeAdmision.curp}}&f=nombre={{objSolicitudDeAdmision.primerNombre+' '+objSolicitudDeAdmision.segundoNombre+' '+objSolicitudDeAdmision.apellidoPaterno+' '+objSolicitudDeAdmision.apellidoMaterno}}&p=0&c=9999"
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByDuplicados&f=correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&f=fechaNacimiento={{objSolicitudDeAdmision.fechaNacimiento.toString()}}&f=curp={{objSolicitudDeAdmision.curp}}&f=nombre={{NombreAspirante}}&p=0&c=9999"
       ],
       "exposed" : false
     },
@@ -26196,6 +26398,7 @@
       "value" : [
         "\r",
         "var mostrar = true;\r",
+        "\r",
         "if($data.preparatoriaSeleccionada === \"Otro\"){\r",
         "    for (var x = 0; x < $data.catBachillerato2.length; x++) {\r",
         "        if($data.catBachillerato2[x].descripcion === $data.preparatoriaSeleccionada){\r",
@@ -26205,13 +26408,15 @@
         "    mostrar = false;\r",
         "}else{\r",
         "    for (var x = 0; x < $data.catBachillerato2.length; x++) {\r",
-        "        if($data.catBachillerato2[x].descripcion === $data.preparatoriaSeleccionada){\r",
+        "        if($data.catBachillerato2[x].descripcion === $data.preparatoriaSeleccionada || $data.catBachillerato2[x].clave === $data.clavePreparatoriaSeleccionada){\r",
+        "            \r",
         "            mostrar = true;\r",
         "            $data.objSolicitudDeAdmision.catBachilleratos = $data.catBachillerato2[x];\r",
         "            $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.pais;\r",
         "            $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.estado;\r",
         "            $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad; \r",
-        "            $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceId;\r",
+        "            $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceid;\r",
+        "            $data.datosPreparatoria.clave = $data.objSolicitudDeAdmision.catBachilleratos.clave;\r",
         "        }\r",
         "    }\r",
         "    \r",
@@ -26227,19 +26432,23 @@
         "\r",
         "if(!$data.CheckCambiarPrepa && !$data.isPrepaModificada){\r",
         "    if($data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion === \"Otro\"){\r",
+        "       \r",
         "        mostrar = false;\r",
         "        $data.preparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.descripcion\r",
+        "        $data.clavePreparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave\r",
         "        $data.datosPreparatoria.nombreBachillerato = $data.objSolicitudDeAdmisionAuxiliar.bachillerato;\r",
         "        $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmisionAuxiliar.paisBachillerato;\r",
         "        $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmisionAuxiliar.estadoBachillerato;\r",
         "        $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmisionAuxiliar.ciudadBachillerato;\r",
         "    }else{\r",
+        "        \r",
         "        mostrar = true;\r",
+        "        $data.clavePreparatoriaSeleccionada=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave;\r",
         "        $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.pais;\r",
         "        $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.estado;\r",
         "        $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.ciudad;\r",
         "        $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.persistenceid;\r",
-        "        \r",
+        "        $data.datosPreparatoria.clave = $data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave;\r",
         "    }\r",
         "}\r",
         "\r",
@@ -26432,6 +26641,108 @@
       "exposed" : false
     },
     "CheckBoxDescuento" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "NombreAspirante" : {
+      "type" : "expression",
+      "value" : [
+        "// let resultado;",
+        "// if($data.objSolicitudDeAdmision!==null && $data.objSolicitudDeAdmision!== undefined){",
+        "//   if($data.objSolicitudDeAdmision.segundoNombre===\"\"|| $data.objSolicitudDeAdmision.segundoNombre==null){",
+        "//     resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "//     } ",
+        "//     else{",
+        "//     resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "//     }    ",
+        "// }",
+        "// return resultado;",
+        "let resultado;",
+        "if($data.objSolicitudDeAdmision!==null && $data.objSolicitudDeAdmision!== undefined){",
+        "    let Nombre2=($data.objSolicitudDeAdmision.segundoNombre!==null || $data.objSolicitudDeAdmision.segundoNombre!==\"\") ? true : false;",
+        "    let Apellido2=($data.objSolicitudDeAdmision.apellidoMaterno!==null || $data.objSolicitudDeAdmision.apellidoMaterno!==\"\") ? true : false;",
+        "    ",
+        "    if(!Nombre2 && Apellido2){",
+        "    resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "    } ",
+        "    else if(Nombre2 && Apellido2){",
+        "    resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "    }  ",
+        "    else if(Nombre2 && !Apellido2){",
+        "        resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
+        "    } else if(!Nombre2 && !Apellido2){",
+        "        resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
+        "    } ",
+        "       ",
+        "}",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "clavePrepa" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"nombreBachillerato\":\"\",",
+        "    \"paisBachillerato\":\"\",",
+        "    \"estadoBachillerato\":\"\",",
+        "    \"ciudadBachillerato\":\"\",",
+        "    \"persistenceId\":\"\",",
+        "    \"clave\":\"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "clavePreparatoriaSeleccionada" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "datosPrepaAux" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"nombreBachillerato\":\"\",",
+        "    \"paisBachillerato\":\"\",",
+        "    \"estadoBachillerato\":\"\",",
+        "    \"ciudadBachillerato\":\"\",",
+        "    \"persistenceId\":\"\",",
+        "    \"clave\":\"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "OtroBachillerato4" : {
+      "type" : "expression",
+      "value" : [
+        "var mostrar = true;\r",
+        "debugger\r",
+        "\r",
+        "  if($data.clavePreparatoriaSeleccionada!=$data.objSolicitudDeAdmisionAuxiliar.catBachilleratos.clave){\r",
+        "    for (var x = 0; x < $data.catBachillerato2.length; x++) {\r",
+        "        if($data.catBachillerato2[x].clave === $data.clavePreparatoriaSeleccionada){\r",
+        "            \r",
+        "            mostrar = true;\r",
+        "            $data.objSolicitudDeAdmision.catBachilleratos = $data.catBachillerato2[x];\r",
+        "            $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.pais;\r",
+        "            $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.estado;\r",
+        "            $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad; \r",
+        "            $data.datosPreparatoria.persistenceId = $data.objSolicitudDeAdmision.catBachilleratos.persistenceid;\r",
+        "            $data.datosPreparatoria.clave = $data.objSolicitudDeAdmision.catBachilleratos.clave;\r",
+        "        }\r",
+        "    }\r",
+        "\r",
+        " }  \r",
+        "\r",
+        "\r",
+        "\r",
+        "return mostrar"
+      ],
+      "exposed" : false
+    },
+    "filtrarPorClave" : {
       "type" : "expression",
       "value" : [
         "return false;"

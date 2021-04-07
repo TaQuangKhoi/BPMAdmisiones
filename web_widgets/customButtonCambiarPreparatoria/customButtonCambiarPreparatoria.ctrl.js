@@ -2,23 +2,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
   $scope.myFunc = function() {
 
-           
+           debugger
             
             let nombrePrepa= $scope.properties.NombrePrepaNueva;
+            let clave = $scope.properties.clavePrepa;
             let nuevaPrepa="";
             let encontro=false;
+            let Novalido=false;
             
              if(nombrePrepa==="Otro"){
-                     Swal.fire("¡Aviso!","No debes modificar la preparatoria a 'Otro'","warning");
-              }else{
-                for (var i=0 ; i < $scope.properties.catBachillerato2.length ; i++){
+                    Swal.fire("¡Aviso!","No debes modificar la preparatoria a 'Otro'","warning");
+                    Novalido=true
+              }else if(clave==="" || clave===" " || clave===undefined ||clave===null){
+                    Swal.fire("¡Aviso!","No debes dejar el campo 'Clave preparatoria' vacío","warning");
+                    Novalido=true
+              }else if(clave!== $scope.properties.DatosPreparatoria.clave){
+                    Swal.fire("¡Aviso!","la clave proporcionada no existe","warning");
+                    Novalido=true
+              }else {
+                   for (var i=0 ; i < $scope.properties.catBachillerato2.length ; i++){
                     if($scope.properties.catBachillerato2[i].descripcion ===nombrePrepa){
                         nuevaPrepa=$scope.properties.catBachillerato2[i].persistenceid;
                         encontro=true
                     break;
                     }
                 }
-                
             }
             if(encontro){
                 
@@ -48,7 +56,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 
                  
             }else{
-                Swal.fire("¡Preparatoria no encontrada!","Debe ingresar una preparatoria existente en el catálogo.","warning")
+                if(!Novalido){
+                  Swal.fire("¡Preparatoria no encontrada!","Debe ingresar una preparatoria existente en el catálogo.","warning")
+                  
+                }
+                //Swal.fire("¡Preparatoria no encontrada!","Debe ingresar una preparatoria existente en el catálogo.","warning")
                 
             }
             

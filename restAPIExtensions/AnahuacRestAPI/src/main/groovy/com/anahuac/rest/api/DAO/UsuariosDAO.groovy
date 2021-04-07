@@ -191,9 +191,12 @@ class UsuariosDAO {
 		Result resultadoN = new Result();
 		Usuarios objUsuario= new Usuarios();
 		Result resultado = new Result();
+		
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
 		try {
+			Result dataResult = new Result();
+			List<Object> lstParams;
 			String username = "";
 			String password = "";
 			Properties prop = new Properties();
@@ -218,7 +221,13 @@ class UsuariosDAO {
 			
 			IdentityAPI identityAPI = apiClient.getIdentityAPI()
 			final User user = identityAPI.getUserByUserName(object.nombreusuario);
+			dataResult = getUsuarioRegistrado(object.nombreusuario);
 			
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("No encontro campus");
+			}
 			//generacion del ramdon
 			String asciiUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			String asciiLowerCase = asciiUpperCase.toLowerCase();
@@ -231,21 +240,27 @@ class UsuariosDAO {
 			update_user.setPassword(randomString);
 			final User user_update= identityAPI.updateUser(user.getId(), update_user);
 			object.password = randomString;
-			def str = jsonSlurper.parseText('{"campus": "CAMPUS-PUEBLA","correo":"'+object.nombreusuario+'", "codigo": "recuperar","isEnviar":false}');
+			def str = jsonSlurper.parseText('{"campus": "'+lstParams[0].grupobonita+'","correo":"'+object.nombreusuario+'", "codigo": "recuperar","isEnviar":false}');
 			
 			
 			NotificacionDAO nDAO = new NotificacionDAO();
 			 
-			resultadoN = nDAO.generateHtml(parameterP, parameterC, "{\"campus\": \"CAMPUS-PUEBLA\", \"correo\":\""+object.nombreusuario+"\", \"codigo\": \"recuperar\", \"isEnviar\":false }", context);
+			resultadoN = nDAO.generateHtml(parameterP, parameterC, "{\"campus\": \""+lstParams[0].grupobonita+"\", \"correo\":\""+object.nombreusuario+"\", \"codigo\": \"recuperar\", \"isEnviar\":false }", context);
 			String plantilla = resultadoN.getData().get(0);
 			plantilla = plantilla.replace("[password]", object.password );
 			MailGunDAO dao = new MailGunDAO();
-			resultado = dao.sendEmailPlantilla(object.nombreusuario,"Nueva contraseña",plantilla.replace("\\", ""),"","CAMPUS-PUEBLA", context);
+			resultado = dao.sendEmailPlantilla(object.nombreusuario,"Nueva contraseña",plantilla.replace("\\", ""),"",lstParams[0].grupobonita+"", context);
 			
-			
+			dataResult = updatePassword(object.password,object.nombreusuario);
+			/*if (dataResult.success) {
+				
+			} else {
+				throw new Exception("no pudo guardar la contraseña, se cambio ");
+			}*/
 			lstResultado.add(plantilla);
 			resultado.setData(lstResultado);
 			resultado.setSuccess(true);
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -2496,6 +2511,74 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 			resultado.setError(e.getMessage());
 		} finally {
 			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getUsuarioRegistrado(String Correo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			String consulta = "select campus.grupoBonita from solicituddeadmision sda left join catcampus as campus on campus.persistenceid = sda.catcampusestudio_pid where sda.correoelectronico ='"+Correo+"'";
+			List<String> rows = new ArrayList<String>();
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(consulta);
+			rs = pstm.executeQuery()
+			
+			rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+					rows.add(columns);
+			}
+			resultado.setError_info(" errorLog = "+errorLog)
+			resultado.setData(rows)
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
+		}
+		finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result updatePassword(String password,String correo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			String consulta = "Update catregistro set password = '"+ password +"' where correoelectronico = '"+correo+"'";
+			List<String> rows = new ArrayList<String>();
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(consulta);
+			pstm.executeUpdate();
+				
+			con.commit();	
+			//resultado.setError_info(" errorLog = "+errorLog)
+			resultado.setData(rows)
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
+			con.rollback();
+		}
+		finally{
+			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}

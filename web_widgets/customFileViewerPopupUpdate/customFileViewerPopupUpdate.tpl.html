@@ -8,14 +8,16 @@
 </div>
 
 <div ng-if="!environment && ctrl.fileName" class="text-center">
-  <a class="FileViewer-fileName"
+  <a ng-click="ctrl.openInNewTab()" 
+     class="FileViewer-fileName"
      title="{{'View' | uiTranslate}} {{ ctrl.fileName || ctrl.getDocumentViewUrl() }}"
      ng-if="ctrl.isImage() || ctrl.isPDF()"
      ng-href="{{ctrl.getTrustedDocumentViewUrl()}}"
      box-viewer>
       {{ ctrl.fileName || ctrl.getDocumentViewUrl() }}
   </a>
-  <a class="FileViewer-fileName"
+  <a ng-click="ctrl.openInNewTab()"
+     class="FileViewer-fileName"
      title="{{'Download' | uiTranslate}} {{ ctrl.fileName || ctrl.getDocumentDownloadUrl() }}"
      ng-if="!ctrl.isImage() && !ctrl.isPDF()"
      ng-href="{{ctrl.getDocumentDownloadUrl()}}">

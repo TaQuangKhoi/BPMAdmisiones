@@ -114,7 +114,8 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         //Check whether the file is valid Image.
         //var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif)$");
         //var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg|.jfif)$");
-        var regex = new RegExp("([a-zA-Z0-9!@#$&()\\-`.+,/\"]*)+(.jpg|.png|.jpeg|.jfif)$")
+        //var regex = new RegExp("([a-zA-Z0-9!@#$&()-\\-`.+,/\"]*)+(.jpg|.png|.jpeg|.jfif)$")
+        var regex = new RegExp("(.jpg|.png|.jpeg|.jfif)$")
         // if (regex.test($scope.properties.value.filename.toLowerCase())) {
         if (regex.test(response.filename.toLowerCase())) {
             //Check whether HTML5 is supported.

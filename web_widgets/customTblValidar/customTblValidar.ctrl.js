@@ -218,14 +218,36 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-    $scope.viewfile = function (src) {
-        if (src.toLowerCase().includes(".jpg") || src.toLowerCase().includes(".png") || src.toLowerCase().includes(".jpeg") || src.toLowerCase().includes(".gif") || src.toLowerCase().includes(".tif") || src.toLowerCase().includes(".bmp") || src.toLowerCase().includes(".tiff")) {
-            Swal.fire({
+    $scope.viewfile = function (src, tipo) {
+		debugger
+        if (src.toLowerCase().includes(".jpg") || src.toLowerCase().includes(".png") || src.toLowerCase().includes(".jpeg") || src.toLowerCase().includes(".gif") || src.toLowerCase().includes(".tif") || src.toLowerCase().includes(".bmp") || src.toLowerCase().includes(".tiff")|| src.toLowerCase().includes(".pdf")) {
+           if( src.toLowerCase().includes(".pdf")){
+			let linkprevpdf= " ";   
+			if(tipo==="constancia"){
+				linkprevpdf= "../API/formsDocumentImage?document="+ $scope.properties.context.constancia_ref[0].id;
+				console.log(linkprevpdf)  
+			   }else if(tipo==="examenAyC"){
+				linkprevpdf= "../API/formsDocumentImage?document="+ $scope.properties.context.resultadoCB_ref[0].id;
+				console.log(linkprevpdf)  
+			   }else if(tipo==="cartaAA"){
+				linkprevpdf= "../API/formsDocumentImage?document="+ $scope.properties.context.cartaAA_ref[0].id;
+				console.log(linkprevpdf)  
+			   }
+			   
+			Swal.fire({
+                title: "<i>Previsualización</i>",
+                width: 800,
+                html: "<iframe style='width:100%; height: 467px;' src='" + linkprevpdf + "'></iframe>",
+                confirmButtonText: "Cerrar",
+            });
+		   }else{
+			Swal.fire({
                 title: "<i>Previsualización</i>",
                 width: 800,
                 html: "<img style='width:100%' src='" + src + "'><br><a style='font-size: 20px; color: #ff5900;' href='" + src + "' target='_blank' class='btn btn-link'>Descargar</a>",
                 confirmButtonText: "Cerrar",
             });
+			}
         } else {
             Swal.fire({
                 title: "<i>Previsualización</i>",

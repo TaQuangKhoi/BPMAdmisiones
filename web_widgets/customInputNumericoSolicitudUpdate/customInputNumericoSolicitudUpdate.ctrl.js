@@ -67,7 +67,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                         $scope.properties.value = $scope.properties.max;
                     }
                     if (parseFloat($scope.properties.value) % 1 != 0) {
-                        $scope.properties.value = parseFloat($scope.properties.value).toFixed(2);
+                        $scope.properties.value = parseFloat($scope.properties.value).toFixed(1);
                         $scope.properties.value = parseFloat($scope.properties.value);
                     } else {
                         $scope.properties.value = parseFloat($scope.properties.value);
@@ -80,7 +80,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 //$scope.properties.value = $scope.properties.max;
             }
             if (parseFloat($scope.properties.value) % 1 != 0) {
-                $scope.properties.value = parseFloat($scope.properties.value).toFixed(2);
+                $scope.properties.value = parseFloat($scope.properties.value).toFixed(1);
                 $scope.properties.value = parseFloat($scope.properties.value);
             } else {
                 $scope.properties.value = parseFloat($scope.properties.value);

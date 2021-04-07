@@ -151,7 +151,7 @@ class BecasDAO {
 			int countColumns = 0;
 			if (dataResult.success) {
 				lstParams = dataResult.getData();
-				countColumns = dataResult.getTotalRegistros();
+				
 			} else {
 				throw new Exception("No encontro datos");
 			}
@@ -185,7 +185,7 @@ class BecasDAO {
 				}
 			}
 			
-			for(int i=0; i<=15; ++i) {
+			for(int i=0; i<=115; ++i) {
 				sheet.autoSizeColumn(i);
 			}
 			
