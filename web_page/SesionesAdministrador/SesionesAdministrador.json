@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.5.7",
   "id" : "SesionesAdministrador",
   "name" : "SesionesAdministrador",
-  "lastUpdate" : 1616527389694,
+  "lastUpdate" : 1617919491209,
   "rows" : [
     [
       {
@@ -223,8 +223,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "psicologosHorarios!='principal'"
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -345,8 +345,132 @@
                 ]
               ]
             }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "campus_selected ==null || psicologosHorarios!='horarios'"
+                },
+                "campusSelected" : {
+                  "type" : "variable",
+                  "value" : "campus_selected"
+                }
+              },
+              "reference" : "22089c57-4f8a-45f2-8e0b-37f78fad08b1",
+              "hasValidationError" : false,
+              "id" : "customPsicologosOcupados"
+            }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "psicologosHorarios!='principal'"
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Psicólogos horarios"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "psicologosHorarios"
+          },
+          "valor" : {
+            "type" : "constant",
+            "value" : "horarios"
+          }
+        },
+        "reference" : "dcbf51f9-1024-48c3-9351-0cdf2c9fe8ab",
+        "hasValidationError" : false,
+        "id" : "customBtnValorString"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "psicologosHorarios!='horarios'"
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Regresar"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "info"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "psicologosHorarios"
+          },
+          "valor" : {
+            "type" : "constant",
+            "value" : "principal"
+          }
+        },
+        "reference" : "24c725fa-8e4d-48a9-bea1-ade245b9caed",
+        "hasValidationError" : false,
+        "id" : "customBtnValorString"
       }
     ]
   ],
@@ -734,6 +858,13 @@
       "type" : "url",
       "value" : [
         "/bonita/API/extension/AnahuacRestGet?url=getPaletteColor&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "psicologosHorarios" : {
+      "type" : "constant",
+      "value" : [
+        "principal"
       ],
       "exposed" : false
     }
