@@ -79,6 +79,7 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
+		String idbanner = "";
 		
         try {
 			def jsonSlurper = new JsonSlurper();
@@ -91,6 +92,7 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -103,7 +105,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Admisión',"
+						+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -113,7 +115,7 @@ class ConektaDAO {
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+					 +"'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
 						  + "'payment_method': {"
 						  + "'type': 'oxxo_cash',"
@@ -194,6 +196,7 @@ class ConektaDAO {
 		Long caseId = 0L;
 		String campus = "";
 		String nombrePago = "";
+		String idbanner = "";
 		
 		try{
 			def jsonSlurper = new JsonSlurper();
@@ -210,6 +213,7 @@ class ConektaDAO {
 			caseId = Long.valueOf(object.caseId);
 			nombrePago = object.nombrePago;
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -223,7 +227,7 @@ class ConektaDAO {
 				+ "'name': '" + name + "',"
 				+ "'email': '" + email + "',"
 				+ "'phone': '" + phone + "',"
-				+ "'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+				+ "'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 				+ "'payment_sources':[{"
 					+ "'type': 'card',"
 					+ "'token_id': '" + token + "'"
@@ -237,7 +241,7 @@ class ConektaDAO {
 					+ "'customer_id': '" + customer.getId() + "'"
 				+ "},"
 				+ "'line_items': [{"
-					+ "'name': 'Admisión',"
+					+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 					+ "'unit_price': " + unit_price + ","
 					+ "'quantity': 1"
 				+ "}],"
@@ -326,7 +330,7 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
-		
+		String idbanner = "idbanner";
 		try{
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -337,6 +341,7 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -349,7 +354,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Admisión',"
+						+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -359,7 +364,7 @@ class ConektaDAO {
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+					 +"'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
 					  	+ "'payment_method': {"
 						  + "'type': 'spei',"

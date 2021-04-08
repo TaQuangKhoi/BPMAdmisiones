@@ -1095,11 +1095,14 @@ class ResultadosAdmisionDAO {
 			while(rs.next()) {
 				String correo = rs.getString("email");
 				String carta = rs.getString("carta");
-				String campusCorreo = "CAMPUS-CANCUN";
+				String campusCorreo = rs.getString("grupobonita");
+				Boolean isMedicina = rs.getBoolean("ismedicina");
 				String codigo = "";
 				
-				if(carta.equals("Aceptado")) {
+				if(carta.equals("Aceptado") && !isMedicina) {
 					codigo = "carta-aceptar";
+				} else if(carta.equals("Aceptado") && isMedicina) {
+					codigo = "carta-propedeutico";
 				} else if (carta.equals("Rechazado")) {
 					codigo = "carta-rechazo";
 				} else {
@@ -1113,6 +1116,8 @@ class ResultadosAdmisionDAO {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					} else if (metaData.getColumnLabel(i).toLowerCase().equals("seleccionado")) {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getBoolean(i));
+					} else if (metaData.getColumnLabel(i).toLowerCase().equals("ismedicina")) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getBoolean(i));
 					} else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					}
@@ -1125,28 +1130,14 @@ class ResultadosAdmisionDAO {
 				Map<String, Object> contract = new LinkedHashMap<String, Object>();
 				contract.put("isTransferencia", false);
 				contract.put("infoCartaInput", columns);
-				errorlog = columns.get("numerodematricula") +  "||" + contract.toString() +  "||" + context.toString();
 				
 				String correoLog = "";
 				Boolean isError = false;
 				String errorInfo = "";
+				
 				if(resultadoEnvioCarta.isSuccess()) {
 					correoLog += "Se envió la carta.";
-//					Result resultadoEjecucionTarea = ejecutarCargaResultado(columns.get("numerodematricula"), columns, context);
-//					if(resultadoEjecucionTarea.isSuccess()) {
-//						Map<String, Object> correoEnviado = new LinkedHashMap<String, Object>();
-//						correoLog += "Se envió la carta";
-//						correoEnviado.put("correo", correo);
-//						correoEnviado.put("correoLog", correoLog);
-//						correoEnviado.put("error", false);
-//						lstEnviados.add(correoEnviado);
-//					} else {
-//						Map<String, Object> correoError = new LinkedHashMap<String, Object>();
-//						correoError.put("correo", correo);
-//						correoError.put("error", resultadoEjecucionTarea.getError());
-//						correoError.put("errorInfo", "IDBANNER: " + columns.get("numerodematricula"));
-//						lstNoEnviados.add(correo);
-//					}
+					
 					if(!columns.get("pdu").equals("No")) {
 						String codigoPDU = "carta-pdu";
 						String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
@@ -1200,8 +1191,7 @@ class ResultadosAdmisionDAO {
 			resultado.setSuccess(true);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
-			//resultado.setError_info(consulta)
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1240,7 +1230,6 @@ class ResultadosAdmisionDAO {
 			String caseId = detalleSolicitud.get(0).caseId;
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			Long taskID = apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Carga y consulta de resultados", 0, 1).get(0).getId();
-//			apiClient.processAPI.executeUserTask(startedBy, taskID, contract);
 			apiClient.processAPI.assignAndExecuteUserTask(startedBy, taskID, contract);
 			resultado.setSuccess(true);
 		}catch(Exception ex) {
