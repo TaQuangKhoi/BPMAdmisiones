@@ -5,7 +5,10 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 
+import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.identity.User
+import org.codehaus.jackson.map.ObjectMapper
+import org.codehaus.jackson.map.ObjectWriter
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -13,6 +16,8 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.EntitySesionAspirante
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.db.Sesion_Aspirante
+import com.bonitasoft.engine.api.ProcessAPI
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 import groovy.json.JsonSlurper
@@ -37,19 +42,28 @@ class MigracionDAO {
 	
 	public Result callSesiones(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
-		
+		Result resultInsertSesionAspirante = new Result();
 		String errorInfo="";
 		String sesion_pid="";
-				
+
 		Boolean closeCon = false;
 		
 		List<EntitySesionAspirante> lstEntitySesionAspirante = new ArrayList<EntitySesionAspirante>();
+		List<HumanTaskInstance> lstHumanTaskInstance = new ArrayList<HumanTaskInstance>();
 		
 		EntitySesionAspirante objEntitySesionAspirante = new EntitySesionAspirante();
 		
 		User objUser = null;
+		
+		Sesion_Aspirante sesionAspirante = new Sesion_Aspirante();
+		
+		Long idResponsable = 0L;
+		Integer responsabledisponible_pid = 0L;
+		
+		Map < String, Serializable > inputs = new HashMap < String, Serializable > ();
+		
+		
 		try {
-			
 			closeCon = validarConexion();
 			
 			LOGGER.error "1=====================================================================";
@@ -63,25 +77,6 @@ class MigracionDAO {
 			if(object != null) {
 				LOGGER.error "3=====================================================================";
 				for(def row: object) {
-					/*
-					errorInfo +=" | idAspirante="+row.idAspirante;
-					errorInfo +=" | sesion="+row.sesion;
-					errorInfo +=" | horario="+row.horario;
-					errorInfo +=" | asistenciaCollegeBoard="+row.asistenciaCollegeBoard;
-					errorInfo +=" | asistenciaPsicometrico="+row.asistenciaPsicometrico;
-					errorInfo +=" | asistenciaEntrevista="+row.asistenciaEntrevista;
-					errorInfo +=" | responsable="+row.responsable;
-					errorInfo +=" | sesionPadre="+row.sesionPadre;
-					errorInfo +=" | fechaInicioPadre="+row.fechaInicioPadre;
-					errorInfo +=" | fechaFinPadre="+row.fechaFinPadre;
-					errorInfo +=" | fechaInicioHijo="+row.fechaInicioHijo;
-					errorInfo +=" | fechaFinHijo="+row.fechaFinHijo;
-					errorInfo +=" | campus_pid="+row.campus_pid;
-					if(row.username != null) {
-						errorInfo +=" | username="+row.username;
-					}
-					errorInfo +=" | --------------------------------------------------------------";
-					*/
 					if(row.campus_pid != null && row.fechaInicioPadre != null && row.sesionPadre != null && !row.fechaInicioPadre.equals("") && !row.sesionPadre.equals("")) {
 						
 						errorInfo +=" | GET_SESION_MIGRACION="+Statements.GET_SESION_MIGRACION;
@@ -115,6 +110,7 @@ class MigracionDAO {
 							errorInfo +=" | fechaInicioPadre="+row.fechaInicioPadre;
 							errorInfo +=" | campus_pid="+row.campus_pid;
 							errorInfo +=" | --------------------------------------------------------------";
+							throw new Exception("[EXCEPTION] - NO ENCONTRO RESULTADOS");
 						}
 					}
 					else {
@@ -124,26 +120,93 @@ class MigracionDAO {
 						errorInfo +=" | fechaInicioPadre="+row.fechaInicioPadre;
 						errorInfo +=" | campus_pid="+row.campus_pid;
 						errorInfo +=" | --------------------------------------------------------------";
+						throw new Exception("[EXCEPTION] - INFORMACION FALTANTE EN ARCHIVO JSON");
 					}
 					
 				}
 				
 				if(lstEntitySesionAspirante.size()>0) {
-					pstm = con.prepareStatement(Statements.GET_RESPONSABLE_MIGRACION);
 					for(EntitySesionAspirante rowData : lstEntitySesionAspirante) {
+						
+						errorInfo +=" | --------------------------------------------------------------";
+						errorInfo +=" | getUsername="+ rowData.getUsername();
+						errorInfo +=" | getResponsable="+ rowData.getResponsable();
+						errorInfo +=" | getHorario="+ rowData.getHorario();
+						errorInfo +=" | getSesiones_pid="+ rowData.getSesiones_pid().toString();
+						errorInfo +=" | getResponsabledisponible_pid="+ rowData.getResponsabledisponible_pid().toString();
+						errorInfo +=" | --------------------------------------------------------------";
+						errorInfo +=" | GET_RESPONSABLE_MIGRACION="+ Statements.GET_RESPONSABLE_MIGRACION
+						errorInfo +=" | getSesiones_pid="+ rowData.getSesiones_pid().toString();
+						errorInfo +=" | getHorario="+ rowData.getHorario();
+						errorInfo +=" | --------------------------------------------------------------";
+						
+						pstm = con.prepareStatement(Statements.GET_RESPONSABLE_MIGRACION);
 						pstm.setInt(1, rowData.getSesiones_pid());
 						pstm.setString(2, rowData.getHorario());
 						rs = pstm.executeQuery();
 						while(rs.next()) {
-							objUser = context.getApiClient().getIdentityAPI().getUser(rs.getLong("responsableid"));
+							idResponsable = rs.getLong("responsableid");
+							responsabledisponible_pid = rs.getInt("persistenceid");
+							objUser = context.getApiClient().getIdentityAPI().getUser(idResponsable);
 							errorInfo +=" | RESPONSABLES DE SESIONES--------------------------------------";
 							errorInfo +=" | Consulta="+objUser.firstName+" "+objUser.lastName;
 							errorInfo +=" | Responsable="+rowData.getResponsable();
+							errorInfo +=" | --------------------------------------------------------------";
+							errorInfo +=" | CONDICION="+String.valueOf( (objUser.firstName+" "+objUser.lastName).replace("  ", " ").toLowerCase().equals(rowData.getResponsable().replace("  ", " ").toLowerCase()) );
+							errorInfo +=" | objUser="+ (objUser.firstName+" "+objUser.lastName).replace("  ", " ").toLowerCase().trim();
+							errorInfo +=" | rowData="+ rowData.getResponsable().replace("  ", " ").toLowerCase().trim();
+							
+							if((objUser.firstName+" "+objUser.lastName).replace("  ", " ").toLowerCase().trim().equals(rowData.getResponsable().replace("  ", " ").toLowerCase().trim())) {
+								errorInfo +=" | MATCH EN USUARIOS---------------------------------------------";
+								errorInfo +=" | responsabledisponible_pid="+responsabledisponible_pid;
+								rowData.setResponsabledisponible_pid(responsabledisponible_pid)
+								errorInfo +=" | rowData="+rowData.toString();
+							}
+						}
+						if(rowData.getUsername() != null && rowData.getSesiones_pid() != null && rowData.getResponsabledisponible_pid() != null) {
+							errorInfo +=" | --------------------------------------------------------------";
+							errorInfo +=" | insertSesionAspirante=";
+							
+							sesionAspirante = new Sesion_Aspirante();
+							sesionAspirante.setResponsabledisponible_pid(Long.valueOf(rowData.getResponsabledisponible_pid()));
+							sesionAspirante.setSesiones_pid(Long.valueOf(rowData.getSesiones_pid()));
+							sesionAspirante.setUsername(rowData.getUsername());
+							resultInsertSesionAspirante = new SesionesDAO().insertSesionAspirante(sesionAspirante)
+							if(!resultInsertSesionAspirante.isSuccess()) {
+								throw new Exception("[EXCEPTION] - insertSesionAspirante - "+resultInsertSesionAspirante.getError());
+							}
+							else {
+								pstm = con.prepareStatement(Statements.GET_CASEID_BY_CORREO);
+								pstm.setString(1, rowData.getUsername());
+								rs = pstm.executeQuery();
+								if(rs.next()) {
+									lstHumanTaskInstance = context.getApiClient().getProcessAPI().getHumanTaskInstances(rs.getLong("caseid"), "Seleccionar cita", 0, 1);
+									if(lstHumanTaskInstance.size()>0) {
+										errorInfo +=" | SI SE ENCONTRO UNA TAREA";
+										context.getApiClient().getProcessAPI().assignUserTaskIfNotAssigned(lstHumanTaskInstance.get(0).id, context.getApiSession().getUserId());
+										context.getApiClient().getProcessAPI().executeUserTask(lstHumanTaskInstance.get(0).id, inputs);
+									}
+									else {
+										throw new Exception("[EXCEPTION] - NO SE ENCONTRO NINGUNA TAREA PARA EL CASO: "+rs.getLong("caseid"));
+									}
+								}
+								else {
+									throw new Exception("[EXCEPTION] - NO SE ENCONTRO EL CASO PARA EL USUARIO: "+rowData.getUsername());
+								}
+							}
+						}
+						else {
+							errorInfo +=" | FALTA INFORMACION---------------------------------------------";
+							errorInfo +=" | getUsername="+ rowData.getUsername();
+							errorInfo +=" | getSesiones_pid="+ rowData.getSesiones_pid().toString();
+							errorInfo +=" | getResponsabledisponible_pid="+ rowData.getResponsabledisponible_pid().toString();
+							throw new Exception("[EXCEPTION] - INFORMACION FALTANTE");
 						}
 					}
 				} else {
 					errorInfo +=" | NO COINCIDE NINGUN USUARIO------------------------------------";
 					errorInfo +=" | username="+lstEntitySesionAspirante.size();
+					throw new Exception("[EXCEPTION] - NO COINCIDE NINGUN USUARIO");
 				}
 				LOGGER.error "4=====================================================================";
 			}
@@ -154,8 +217,8 @@ class MigracionDAO {
 		} catch (Exception e) {
 			LOGGER.error "6=====================================================================";
 			errorInfo +=" | "+e.getMessage();
+			resultado.setError(e.getMessage());
 			resultado.setError_info(errorInfo);
-			
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

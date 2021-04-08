@@ -865,8 +865,8 @@ function($scope, $http, blockUI) {
     }
     $scope.getCatGestionEscolar = function(campus) {
         //&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}
-        var filtro = [{ "columna": "CAMPUS", "operador": "Igual a", "valor": campus }];
-        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatGestionEscolar&p=0&c=9999&jsonData=${encodeURIComponent(JSON.stringify({ "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": filtro, "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "campus":campus }))}`, null, null, null, function(datos, extra) {
+        var filtro = [{ "columna": "CAMPUS", "operador": "Igual a", "valor": $scope.properties.campusSelected.grupoBonita }];
+        doRequest("GET", `/bonita/API/extension/AnahuacRestGet?url=getCatGestionEscolar&p=0&c=9999&jsonData=${encodeURIComponent(JSON.stringify({ "estatusSolicitud": "Cat campus", "tarea": "Cat Campus", "lstFiltro": filtro, "type": "solicitudes_progreso", "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "campus":$scope.properties.campusSelected.grupoBonita }))}`, null, null, null, function(datos, extra) {
             $scope.lstGestionEscolar = datos.data;
         });
     }

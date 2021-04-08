@@ -992,7 +992,7 @@ class TransferenciasDAO {
         String errorLog = "";
         Boolean closeCon = false;
         try {
-            ProcessAPI processAPI = context.getApiClient().getProcessAPI()
+            ProcessAPI processAPI = context.getApiClient().getProcessAPI();
             Boolean avanzartarea = false;
             String username = "";
             String password = "";

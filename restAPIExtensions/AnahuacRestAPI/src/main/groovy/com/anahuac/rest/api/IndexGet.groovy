@@ -260,6 +260,19 @@ class IndexGet implements RestApiController {
 				
 				break;
 				
+				case "getPsicologoSesiones":
+				String jsonData =request.getParameter "jsonData"
+				Long id = Long.parseLong(jsonData)
+				result = new SesionesDAO().getPsicologoSesiones(id)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
 				case "getCatGestionEscolar":
 				String jsonData =request.getParameter "jsonData"
 				result = new CatalogosDAO().getCatGestionEscolar(jsonData, context)

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1617148331460,
+  "lastUpdate" : 1617890964122,
   "rows" : [
     [
       {
@@ -1863,7 +1863,7 @@
                             },
                             "type" : {
                               "type" : "constant",
-                              "value" : "text"
+                              "value" : "password"
                             },
                             "min" : {
                               "type" : "constant"
@@ -6337,58 +6337,6 @@
           ]
         ]
       }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 12,
-          "lg" : 12
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "Default label"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "allowHTML" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "text" : {
-            "type" : "interpolation",
-            "value" : "{{ validaciones | json }}<br>\n{{orderOutput}}<br>\n{{authorizationCode}}"
-          },
-          "alignment" : {
-            "type" : "constant",
-            "value" : "left"
-          }
-        },
-        "reference" : "24a49d78-5cc3-4b77-8068-f22683e4ebb7",
-        "hasValidationError" : false,
-        "id" : "pbText"
-      }
     ]
   ],
   "assets" : [
@@ -6525,7 +6473,8 @@
         "    \"phone\": $data.objectSolicitud.telefono,",
         "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
         "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
-        "    \"campus\": $data.objectSolicitud.catCampus.descripcion",
+        "    \"campus\": $data.objectSolicitud.catCampus.descripcion,",
+        "    \"idbanner\": $data.objectDetalleSolicitud.idBanner",
         "}"
       ],
       "exposed" : false
@@ -6562,7 +6511,8 @@
         "    \"phone\": $data.objectSolicitud.telefono,",
         "    \"unit_price\": (100 * ($data.montoParcial.montoTotal)) + \"\",",
         "    \"caseId\" : $data.objectSolicitud.caseId + \"\",",
-        "    \"campus\": $data.objectSolicitud.catCampus.descripcion",
+        "    \"campus\": $data.objectSolicitud.catCampus.descripcion,",
+        "    \"idbanner\": $data.objectDetalleSolicitud.idBanner",
         "}"
       ],
       "exposed" : false
@@ -6819,7 +6769,6 @@
         "\r",
         "function getMontoByTipoEstudiante(){\r",
         "    let output = \"\";\r",
-        "    debugger;\r",
         "    \r",
         "    if($data.catTipoResidencia.descripcion === \"Local\"){\r",
         "        output = parseFloat($data.objectPagoExamen.montoAspiranteLocal).toFixed(2);\r",

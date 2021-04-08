@@ -37,12 +37,12 @@ function($scope, $http, blockUI) {
             }
         } else if (_param === "importacionResultados") {
             if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua) {
-                window.top.location.href = "/bonita/apps/administrativo/home/";
+                window.top.location.href = "/bonita/apps/administrativo/subir_resultados/";
             }
             //window.top.location.href = "/bonita/apps/administrativo/home/";
         } else if (_param === "generacionCartas") {
             if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua) {
-                window.top.location.href = "/bonita/apps/administrativo/home/";
+                window.top.location.href = "/bonita/apps/administrativo/envio_cartas/";
             }
         } else if (_param === "usuariosRegistrados") {
             if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua) {

@@ -2543,6 +2543,44 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result getPsicologoSesiones(Long id) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+		
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.GET_PSICOLOGOS_SESIONES)
+				pstm.setLong(1, id)
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	
 	public Result insertPaseLista( String jsonData, RestAPIContext context) {
