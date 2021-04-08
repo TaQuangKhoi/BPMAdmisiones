@@ -590,7 +590,12 @@ class SesionesDAO {
 						pstm = con.prepareStatement(Statements.INSERT_PRUEBA, Statement.RETURN_GENERATED_KEYS)
 					}
 					pstm.setString(1, prueba.getNombre())
-					pstm.setDate(2, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
+					try {
+						pstm.setDate(2, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
+					}catch(Exception e) {
+						pstm.setNull(2, java.sql.Types.NULL)
+					}
+					
 					pstm.setString(3, prueba.getEntrada())
 					pstm.setString(4, prueba.getSalida())
 					pstm.setInt(5, prueba.getRegistrados())
@@ -673,7 +678,11 @@ class SesionesDAO {
 							}
 							if(!prueba.iseliminado && !responsable.getIseliminado()) {
 								pstm = con.prepareStatement(Statements.REVISAR_DISPONIBLE_RESPONSABLE)
-								pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
+								try {
+									pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
+								}catch(Exception e) {
+									pstm.setNull(1,java.sql.Types.NULL)
+								}
 								pstm.setLong(2, responsable.getId())
 								pstm.setLong(3, prueba.getPersistenceId())
 								pstm.setString(4, prueba.getAplicacion() + " " + prueba.getEntrada());

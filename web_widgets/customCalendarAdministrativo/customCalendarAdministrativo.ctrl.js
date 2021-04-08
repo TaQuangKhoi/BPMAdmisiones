@@ -402,7 +402,7 @@ function($scope, $http, blockUI) {
 
         //&jsonData=${encodeURIComponent(JSON.stringify($scope.properties.filtroToSend))}
         ///PSICOLOGO SUPERVISOR
-        var filtro = ($scope.prueba.cattipoprueba_pid == 1) ? [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" }] : [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" },{ "columna": "ROL", "operador": "Igual a", "valor": "ADMISIONES" }, { "columna": "ROL", "operador": "Igual a", "valor": "PASE DE LISTA" }]
+        var filtro = ($scope.prueba.cattipoprueba_pid == 1) ? [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" }] : [{ "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO" }, { "columna": "ROL", "operador": "Igual a", "valor": "PSICOLOGO SUPERVISOR" }, { "columna": "ROL", "operador": "Igual a", "valor": "ADMISIONES" }, { "columna": "ROL", "operador": "Igual a", "valor": "PASE DE LISTA" }]
         filtro.push({
             "columna": "GRUPO",
             "operador": "Igual a",
@@ -623,14 +623,14 @@ function($scope, $http, blockUI) {
             }
             if (push) {
 
-                if ($scope.prueba.cattipoprueba_pid == 1 && $scope.prueba.persistenceId==null) {
-                    $scope.prueba.persistenceId=0;
+                if ($scope.prueba.cattipoprueba_pid == 1 && $scope.prueba.persistenceId == null) {
+                    $scope.prueba.persistenceId = 0;
                     for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
                         const element = $scope.sesion.pruebas[index];
-                        if (element.persistenceId==$scope.prueba.persistenceId && $scope.prueba.cattipoprueba_pid == 1) {
+                        if (element.persistenceId == $scope.prueba.persistenceId && $scope.prueba.cattipoprueba_pid == 1) {
                             $scope.prueba.persistenceId--;
                         }
-                        
+
                     }
                 }
                 $scope.sesion.pruebas.push(angular.copy($scope.prueba));
@@ -872,6 +872,7 @@ function($scope, $http, blockUI) {
     }
     $scope.insertSesion = function(borrador) {
         var valido = false;
+        $scope.sesion.borrador = borrador;
         if (!$scope.validarSesion()) {
             if ($scope.sesion.pruebas.length == 0) {
 
@@ -1424,23 +1425,26 @@ function($scope, $http, blockUI) {
 
 
         }
-        var validcupo = 0;
-        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
-            const element = $scope.sesion.pruebas[index];
+        if (!$scope.sesion.borrador) {
+            var validcupo = 0;
+            for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                const element = $scope.sesion.pruebas[index];
 
-            if (element.cattipoprueba_pid == 1 && !element.iseliminado) {
-                validcupo += element.cupo;
+                if (element.cattipoprueba_pid == 1 && !element.iseliminado) {
+                    validcupo += element.cupo;
+                }
+            }
+
+            for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
+                const element = $scope.sesion.pruebas[index];
+                if ((validcupo < element.cupo) && element.cattipoprueba_pid != 1 && validcupo != 0) {
+                    error = true;
+                    sweet.titulo = "Cupo";
+                    sweet.texto = 'El cupo de las entrevistas debe ser igual o mayor al cupo de los exámenes'
+                }
             }
         }
 
-        for (let index = 0; index < $scope.sesion.pruebas.length; index++) {
-            const element = $scope.sesion.pruebas[index];
-            if ((validcupo < element.cupo) && element.cattipoprueba_pid != 1 && validcupo != 0) {
-                error = true;
-                sweet.titulo = "Cupo";
-                sweet.texto = 'El cupo de las entrevistas debe ser igual o mayor al cupo de los exámenes'
-            }
-        }
         if (error) {
             Swal.fire(
                 sweet.titulo,
