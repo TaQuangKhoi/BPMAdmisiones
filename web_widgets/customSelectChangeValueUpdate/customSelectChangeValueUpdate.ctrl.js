@@ -75,6 +75,12 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.catSolicitudDeAdmision.codigoPostal = "";
             $scope.properties.haveCiudad = false;
             $scope.properties.datosCP = undefined;
+            $scope.properties.catSolicitudDeAdmision.calle = "";
+            $scope.properties.catSolicitudDeAdmision.calle2 = "";
+            $scope.properties.catSolicitudDeAdmision.numExterior = "";
+            $scope.properties.catSolicitudDeAdmision.numInterior = "";
+            $scope.properties.catSolicitudDeAdmision.telefono = "";
+            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
       }else{
           $scope.properties.catSolicitudDeAdmision.ciudad = "";
             $scope.properties.catSolicitudDeAdmision.delegacionMunicipio = "";
@@ -82,6 +88,12 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
             $scope.properties.catSolicitudDeAdmision.codigoPostal = "";
             $scope.properties.haveCiudad = false;
             $scope.properties.datosCP = undefined;
+            $scope.properties.catSolicitudDeAdmision.calle = "";
+            $scope.properties.catSolicitudDeAdmision.calle2 = "";
+            $scope.properties.catSolicitudDeAdmision.numExterior = "";
+            $scope.properties.catSolicitudDeAdmision.numInterior = "";
+            $scope.properties.catSolicitudDeAdmision.telefono = "";
+            $scope.properties.catSolicitudDeAdmision.otroTelefonoContacto = "";
       }
         
   } 
