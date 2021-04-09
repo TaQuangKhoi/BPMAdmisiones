@@ -17,13 +17,8 @@ function PbTableCtrl($scope) {
         var index = $scope.properties.content.indexOf(objContent);
         console.log(index);
         if(index != -1){
-            var eliminado=$scope.properties.content.length;
             $scope.properties.content.splice(index, 1);
-            if(eliminado==$scope.properties.content.length){
-              $scope.properties.content.splice(index, 1);  
-            }
         }
-        $scope.properties.asString=$scope.properties.content.join().replace(",",";");
     }
 
     this.isSelected = function(row) {

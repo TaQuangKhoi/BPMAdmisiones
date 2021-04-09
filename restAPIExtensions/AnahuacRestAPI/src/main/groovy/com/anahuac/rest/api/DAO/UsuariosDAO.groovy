@@ -1128,15 +1128,15 @@ class UsuariosDAO {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 							String encoded = "";
 							try {
-								
-								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
-								if(doc1.size() > 0) {
-									for(Document doc : doc1) {
-										encoded = "../API/formsDocumentImage?document="+doc.getId();
-										columns.put("fotografiab64", encoded);
-									}
-								}else {
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
 									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+										for(Document doc : doc1) {
+											encoded = "../API/formsDocumentImage?document="+doc.getId();
+											columns.put("fotografiab64", encoded);
+										}
 								}
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");

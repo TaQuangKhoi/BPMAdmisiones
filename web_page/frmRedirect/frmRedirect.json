@@ -1,0 +1,105 @@
+{
+  "designerVersion" : "1.11.52",
+  "id" : "frmRedirect",
+  "name" : "frmRedirect",
+  "lastUpdate" : 1617994704479,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "{{redirect}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "d18480e9-4dc7-4e89-ad08-e7135422e5a5",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "ccb487f1-e74a-4761-ba6f-dfc28ebca53e",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "b0bc8a64-7d59-48de-af1e-0660f642a64d",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "taskId" : {
+      "type" : "urlparameter",
+      "value" : [
+        "id"
+      ],
+      "exposed" : false
+    },
+    "redirect" : {
+      "type" : "expression",
+      "value" : [
+        "window.location.href = \"/portal/resource/app/frmProceso/frmValidarSolicitudDeAdmision/content/?app=frmProceso&id=\" + $data.taskId + \"&displayConfirmation=\" + $data.displayConfirmation;",
+        "return \"\";"
+      ],
+      "exposed" : false
+    },
+    "displayConfirmation" : {
+      "type" : "urlparameter",
+      "value" : [
+        "displayConfirmation"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "460d1e74-a8e1-4d61-89ed-f37efbd1310c",
+  "type" : "form",
+  "description" : "Page generated with Bonita UI designer"
+}

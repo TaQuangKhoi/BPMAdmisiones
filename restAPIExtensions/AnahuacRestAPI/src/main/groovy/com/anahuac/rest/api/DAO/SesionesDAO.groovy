@@ -656,7 +656,18 @@ class SesionesDAO {
 									singleTime=false
 								}
 								
-								pstm = con.prepareStatement(Statements.INSERT_RESPONSABLEDISPONIBLE, Statement.RETURN_GENERATED_KEYS)
+								
+								pstm = con.prepareStatement("SELECT persistenceid FROM responsabledisponible where prueba_pid=? and responsableid=?  and horario=? and iseliminado=false")
+								pstm.setLong(1, prueba.getPersistenceId())
+								pstm.setLong(2, responsable.getId())
+								pstm.setString(3, disponible.getHorario())
+								rs = pstm.executeQuery()
+								if(rs.next()) {
+									disponible.setPersistenceId(rs.getLong("persistenceid"))
+									pstm = con.prepareStatement(Statements.UPDATE_RESPONSABLEDISPONIBLE)
+								}else {
+									pstm = con.prepareStatement(Statements.INSERT_RESPONSABLEDISPONIBLE, Statement.RETURN_GENERATED_KEYS)
+								}
 							}
 							
 							pstm.setString(1, disponible.getHorario())

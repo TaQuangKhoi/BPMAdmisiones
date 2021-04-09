@@ -232,10 +232,19 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
     $scope.lstCampusByUser = [];
 	$scope.campusByUser = function(){
 		var resultado=[];
-		
+		debugger;
 		for(var x in $scope.lstMembership){
 			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				resultado.push($scope.lstMembership[x].group_id.name);
+				//resultado.push($scope.lstMembership[x].group_id.name);
+				let i = 0;
+                resultado.forEach(value =>{
+                    if(value == $scope.lstMembership[x].group_id.name){
+                       i++;
+                    }
+                });
+                if(i === 0){
+                   resultado.push($scope.lstMembership[x].group_id.name);  
+                }
 			}
 		}
 		$scope.lstCampusByUser = resultado;

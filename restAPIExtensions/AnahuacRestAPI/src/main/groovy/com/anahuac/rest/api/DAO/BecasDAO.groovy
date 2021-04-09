@@ -27,6 +27,7 @@ import org.apache.commons.codec.binary.Hex;
 
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.DB.Statements
 
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
@@ -56,6 +57,13 @@ class BecasDAO {
 			String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
 			pstm = con.prepareStatement(consulta);
 			rs = pstm.executeQuery()
 			
@@ -66,7 +74,12 @@ class BecasDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 
 					for (int i = 1; i <= columnCount; i++) {
+						if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)+SSA);
+						}else {
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						}
+							
 					}
 					rows.add(columns);
 			}
@@ -95,6 +108,14 @@ class BecasDAO {
 			String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			
 			pstm = con.prepareStatement(consulta);
 			rs = pstm.executeQuery()
 			
@@ -105,8 +126,11 @@ class BecasDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 
 					for (int i = 1; i <= columnCount; i++) {
-
+						if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)+SSA);
+						}else {
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						}
 					}
 					rows.add(columns);
 			}

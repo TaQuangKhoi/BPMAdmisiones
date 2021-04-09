@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Notificaciones",
   "name" : "Notificaciones",
-  "lastUpdate" : 1617753056620,
+  "lastUpdate" : 1617994802712,
   "rows" : [
     [
       {
@@ -9457,10 +9457,24 @@
   ],
   "assets" : [
     {
-      "id" : "4e7ec6db-dbd4-488c-9400-dfb2f7e0cc00",
-      "name" : "twitter.png",
-      "type" : "img",
-      "order" : 6,
+      "id" : "7125392e-78af-40ee-9b9f-b805a84ec148",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "86959921-6410-430f-b591-2f7f6f7ef5f2",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "a795bd7a-3f29-43dd-aaf6-bddf987c4378",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -9485,10 +9499,10 @@
       "external" : false
     },
     {
-      "id" : "86959921-6410-430f-b591-2f7f6f7ef5f2",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
+      "id" : "3b4f65e6-2547-4a2a-9fd9-6c3eb7b28188",
+      "name" : "bootstrap.min.css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     },
     {
@@ -9499,24 +9513,10 @@
       "external" : false
     },
     {
-      "id" : "7125392e-78af-40ee-9b9f-b805a84ec148",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "a795bd7a-3f29-43dd-aaf6-bddf987c4378",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "3b4f65e6-2547-4a2a-9fd9-6c3eb7b28188",
-      "name" : "bootstrap.min.css",
-      "type" : "css",
-      "order" : 1,
+      "id" : "4e7ec6db-dbd4-488c-9400-dfb2f7e0cc00",
+      "name" : "twitter.png",
+      "type" : "img",
+      "order" : 6,
       "external" : false
     }
   ],
@@ -10000,7 +10000,16 @@
         "\r",
         "for(var x in $data.lstMembership){\r",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
-        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        //resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        let i = 0;\r",
+        "        resultado.forEach(value =>{\r",
+        "        if(value == $data.lstMembership[x].group_id.name){\r",
+        "            i++;\r",
+        "            }\r",
+        "        });\r",
+        "        if(i === 0){\r",
+        "            resultado.push($data.lstMembership[x].group_id.name);  \r",
+        "        }\r",
         "    }\r",
         "}\r",
         "\r",

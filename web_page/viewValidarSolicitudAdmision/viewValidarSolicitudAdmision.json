@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudAdmision",
   "name" : "viewValidarSolicitudAdmision",
-  "lastUpdate" : 1617148543784,
+  "lastUpdate" : 1617994845956,
   "rows" : [
     [
       {
@@ -14559,35 +14559,15 @@
   ],
   "variables" : {
     "wizardContent" : {
-      "type" : "json",
+      "type" : "expression",
       "value" : [
-        "[\r",
-        "    {\r",
-        "        \"title\" : \"Inicia tu solicitud de admisión\",\r",
-        "        \"value\" : \"startRequest\",\r",
-        "        \"isValid\": true\r",
-        "    },\r",
-        "    {\r",
-        "        \"title\" : \"Confirmación de los datos del aspirante\",\r",
-        "        \"value\" : \"requesterInfo\",\r",
-        "        \"isValid\": true\r",
-        "    },\r",
-        "    {\r",
-        "        \"title\" : \"Información personal\",\r",
-        "        \"value\" : \"personalInfo\",\r",
-        "        \"isValid\": true\r",
-        "    },\r",
-        "    {\r",
-        "        \"title\" : \"Información familiar\",\r",
-        "        \"value\" : \"familyInfo\",\r",
-        "        \"isValid\": true\r",
-        "    },\r",
-        "    {\r",
-        "        \"title\" : \"Pago\",\r",
-        "        \"value\" : \"checkRequest\",\r",
-        "        \"isValid\": true\r",
-        "    }\r",
-        "]"
+        "var estatus = $data.objSolicitudDeAdmision.estatusSolicitud;",
+        "var wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }];",
+        "if(estatus === \"Solicitud con pago aceptado\" || estatus===\"Validación admisión Anáhuac\" || estatus == \"Validación descuento 100%\" || estatus == \"Validación pago condonado\"){",
+        "    wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }, { \"title\" : \"Pago\", \"value\" : \"checkRequest\", \"isValid\": true } ];",
+        "}",
+        "",
+        "return wizar;"
       ],
       "exposed" : false
     },
