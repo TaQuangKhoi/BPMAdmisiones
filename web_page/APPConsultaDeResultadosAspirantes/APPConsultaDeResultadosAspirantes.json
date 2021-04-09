@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPConsultaDeResultadosAspirantes",
   "name" : "APPConsultaDeResultadosAspirantes",
-  "lastUpdate" : 1617148248895,
+  "lastUpdate" : 1617995447166,
   "rows" : [
     [
       {
@@ -2951,7 +2951,16 @@
         " resultado.push(\"Todos los campus\")\r",
         "for(var x in $data.lstMembership){\r",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
-        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        //resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        let i = 0;\r",
+        "        resultado.forEach(value =>{\r",
+        "            if(value == $data.lstMembership[x].group_id.name){\r",
+        "                i++;\r",
+        "            }\r",
+        "        });\r",
+        "        if(i === 0){\r",
+        "            resultado.push($data.lstMembership[x].group_id.name);  \r",
+        "        }\r",
         "    }\r",
         "}\r",
         "\r",
