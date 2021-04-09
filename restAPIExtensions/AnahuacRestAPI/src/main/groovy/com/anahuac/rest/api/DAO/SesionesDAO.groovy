@@ -595,7 +595,7 @@ class SesionesDAO {
 					}catch(Exception e) {
 						pstm.setNull(2, java.sql.Types.NULL)
 					}
-					
+
 					pstm.setString(3, prueba.getEntrada())
 					pstm.setString(4, prueba.getSalida())
 					pstm.setInt(5, prueba.getRegistrados())
@@ -678,11 +678,7 @@ class SesionesDAO {
 							}
 							if(!prueba.iseliminado && !responsable.getIseliminado()) {
 								pstm = con.prepareStatement(Statements.REVISAR_DISPONIBLE_RESPONSABLE)
-								try {
-									pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
-								}catch(Exception e) {
-									pstm.setNull(1,java.sql.Types.NULL)
-								}
+								pstm.setDate(1, convert(new SimpleDateFormat("yyyy-MM-dd").parse(prueba.getAplicacion())))
 								pstm.setLong(2, responsable.getId())
 								pstm.setLong(3, prueba.getPersistenceId())
 								pstm.setString(4, prueba.getAplicacion() + " " + prueba.getEntrada());
@@ -2054,6 +2050,7 @@ class SesionesDAO {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 							String encoded = "";
 							try {
+								
 								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 									encoded = "../API/formsDocumentImage?document="+doc.getId();
 									columns.put("fotografiab64", encoded);
