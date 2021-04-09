@@ -33,8 +33,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Teléfono!", "Debes el agregar el teléfono", "warning");
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono.length !== 10 && $scope.properties.catSolicitudDeAdmision.catPais.descripcion === "México") {
                     swal("¡Teléfono!", "Tu teléfono debe ser de 10 dígitos", "warning");
+                    $scope.properties.catSolicitudDeAdmision.telefono = "";
                 } else if ($scope.properties.catSolicitudDeAdmision.telefono.length < 10 && $scope.properties.catSolicitudDeAdmision.catPais.descripcion !== "México") {
                     swal("¡Teléfono!", "Tu teléfono debe ser mínimo de 10 dígitos a un máximo de 14 dígitos", "warning");
+                    $scope.properties.catSolicitudDeAdmision.telefono = "";
+                } else if ($scope.properties.catSolicitudDeAdmision.telefono.length > 14 && $scope.properties.catSolicitudDeAdmision.catPais.descripcion !== "México") {
+                    swal("¡Teléfono!", "Tu teléfono debe ser mínimo de 10 dígitos a un máximo de 14 dígitos", "warning");
+                    $scope.properties.catSolicitudDeAdmision.telefono = "";
                 } else if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -117,6 +122,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Teléfono celular!", "Debes agregar tu número celular", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.telefonoCelular.length < 10 && $scope.properties.catSolicitudDeAdmision.catNacionalidad.descripcion !== "Mexicana") {
+                    swal("¡Teléfono celular!", "Tu teléfono celular debe ser mínimo de 10 dígitos a un máximo de 14 dígitos", "warning");
+                    $scope.faltacampo = true;
+                } else if ($scope.properties.catSolicitudDeAdmision.telefonoCelular.length > 14 && $scope.properties.catSolicitudDeAdmision.catPais.descripcion !== "Mexicana") {
                     swal("¡Teléfono celular!", "Tu teléfono celular debe ser mínimo de 10 dígitos a un máximo de 14 dígitos", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.catSolicitudDeAdmision.catEstadoCivil === null) {
