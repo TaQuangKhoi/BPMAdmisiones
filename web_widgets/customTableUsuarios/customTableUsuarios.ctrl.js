@@ -52,6 +52,11 @@ function PbTableCtrl($scope, blockUI, $http) {
             })
             .error(function(data, status) {
                 console.error(data);
+                
+                if(data.message.includes("No se puede crear el usuario")){
+                    Swal.fire("¡Error!",data.message,"error");
+                }
+                
             })
             .finally(function() {
                 vm.busy = false;
@@ -131,7 +136,7 @@ function PbTableCtrl($scope, blockUI, $http) {
     $scope.filtro = {};
     $scope.group_id = 0;
     $scope.$watch('properties.campusSelected', function(value) {
-        if (angular.isDefined(value) && value !== null) {
+        if (angular.isDefined(value) && value !== null && angular.isDefined(value.group_id)) {
             ///bonita/API/identity/group/18?n=number_of_users
             $scope.pagina = 0;
             $scope.group_id = value.group_id;
@@ -271,7 +276,8 @@ function PbTableCtrl($scope, blockUI, $http) {
     $scope.membership = [];
     /*****PAGINADO */
     $scope.agregarUsuario = function() {
-        Swal.fire({
+        if($scope.membership.length > 0){
+           Swal.fire({
             title: `¿Estás seguro que desea crear usuario?`,
             icon: "warning",
             showCancelButton: true,
@@ -288,7 +294,11 @@ function PbTableCtrl($scope, blockUI, $http) {
 
                 })
             }
-        })
+        }) 
+        }else{
+            Swal.fire("",'Agregar por lo menos un rol',"info")
+        }
+        
 
     }
     $scope.agregarMembreciaUsuario = function() {

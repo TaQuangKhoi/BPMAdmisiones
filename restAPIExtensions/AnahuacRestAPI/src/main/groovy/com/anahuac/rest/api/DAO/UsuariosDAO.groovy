@@ -450,7 +450,7 @@ class UsuariosDAO {
 	public Result getUsuarios(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where ="", orderby="ORDER BY ", errorlog="",campus="";
+		String where ="WHERE role.name not in ('ADMINISTRADOR','TI SERUA') AND user_.userName!='Administrador'", orderby="ORDER BY ", errorlog="",campus="";
 		Long userLogged = 0L;
 		Long caseId = 0L;
 		Long total = 0L;
