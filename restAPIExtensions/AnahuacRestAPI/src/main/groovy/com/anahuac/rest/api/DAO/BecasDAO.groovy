@@ -1,5 +1,7 @@
 package com.anahuac.rest.api.DAO
 
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -28,6 +30,15 @@ import org.apache.commons.codec.binary.Hex;
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+
+import com.microsoft.azure.storage.CloudStorageAccount
+import com.microsoft.azure.storage.StorageException
+import com.microsoft.azure.storage.blob.BlobProperties
+import com.microsoft.azure.storage.blob.BlobType
+import com.microsoft.azure.storage.blob.CloudBlobClient
+import com.microsoft.azure.storage.blob.CloudBlobContainer
+import com.microsoft.azure.storage.blob.CloudBlockBlob
+
 
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
@@ -74,12 +85,9 @@ class BecasDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 
 					for (int i = 1; i <= columnCount; i++) {
-						if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
-							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)+SSA);
-						}else {
-							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-						}
-							
+
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						
 					}
 					rows.add(columns);
 			}
@@ -115,7 +123,6 @@ class BecasDAO {
 				SSA = rs.getString("valor")
 			}
 			
-			
 			pstm = con.prepareStatement(consulta);
 			rs = pstm.executeQuery()
 			
@@ -127,7 +134,8 @@ class BecasDAO {
 
 					for (int i = 1; i <= columnCount; i++) {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
-							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)+SSA);
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), (metaData.getColumnLabel(i).toLowerCase().equals("foto")?"regAvatarName":"kardexPr")+rs.getString("nregistro"));
+							columns.put("url"+metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 						}else {
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 						}
@@ -137,7 +145,6 @@ class BecasDAO {
 			resultado.setError_info(" errorLog = "+errorLog)
 			resultado.setData(rows)
 			resultado.setSuccess(true)
-			resultado.setTotalRegistros(columnCount)
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -174,7 +181,6 @@ class BecasDAO {
 			style.setFillForegroundColor(color)
 			
 			dataResult = getPlantillaRegistro();
-			int countColumns = 0;
 			if (dataResult.success) {
 				lstParams = dataResult.getData();
 				
@@ -209,6 +215,7 @@ class BecasDAO {
 					body[j].setCellStyle(bodyStyle);
 					
 				}
+				
 			}
 			if(lstParams.size()>0) {
 				for(int i=0; i<=115; ++i) {
@@ -221,11 +228,27 @@ class BecasDAO {
 				outputStream.close();
 				
 				dataResult = ftpUpload(nameFile,fecha);
-				errorLog+=""+dataResult
-				if (dataResult.success) {
+				errorLog+="ftpUpload:"+dataResult
+				if (dataResult.success) {					
+					File file = new File(nameFile);
+					file.delete();
+					String url = "";
+					Result dataResult2 = new Result();
+					for (int i = 0; i < lstParams.size(); ++i){
+						url = lstParams[i]["urlfoto"].toString()+"";
+						dataResult2 = DownloadAzure(url,1,fecha+"/documentos")
+						errorLog+=" foto:"+dataResult2
+						
+						url = lstParams[i]["urlkardex"].toString()+"";
+						dataResult2 = DownloadAzure(url,2,fecha+"/documentos")
+						errorLog+=" kardex:"+dataResult2
+					}
+					
+					
 				} else {
-					throw new Exception("No encontro datos:"+dataResult.getError());
+					throw new Exception("No encontro datos:"+errorLog+dataResult.getError());
 				}
+				
 			}
 			
 			
@@ -320,7 +343,7 @@ class BecasDAO {
 				errorLog+=""+dataResult
 				if (dataResult.success) {
 				} else {
-					throw new Exception("No encontro datos:"+dataResult.getError());
+					throw new Exception("No encontro datos:"+errorLog+dataResult.getError());
 				}
 			}
 			
@@ -379,8 +402,8 @@ class BecasDAO {
 			
 			if(creado) {
 				InputStream inputStream = new FileInputStream(nameFile);
-				
-				errorLog+=("Start uploading first file "+nameFile);
+				Path path = Paths.get(nameFile);
+				errorLog+=("Start uploading first file "+nameFile+" path: "+path);
 				boolean done = ftpClient.storeFile(dirPath+"/"+nameFile, inputStream);
 				inputStream.close();
 				if (done) {
@@ -489,7 +512,7 @@ class BecasDAO {
 			//resultado.setError_info(" errorLog = "+errorLog)
 			resultado.setData(rows)
 			resultado.setSuccess(true)
-			resultado.setTotalRegistros(columnCount)
+			//resultado.setTotalRegistros(columnCount)
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -501,6 +524,175 @@ class BecasDAO {
 			}
 		}
 		return resultado
+	}
+	
+	
+	public Result DownloadAzure(String URL,int tipo,String carpeta) {
+		File downloadedFile = null;
+
+		CloudStorageAccount storageAccount;
+		CloudBlobClient blobClient = null;
+		CloudBlobContainer container=null;
+		
+		Result result = new Result();
+		Result dataResult = new Result();
+		String defaultEndpointsProtocol=""
+		String accountName=""
+		String accountKey=""
+		Boolean closeCon=false;
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.CONFIGURACIONES)
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				switch(rs.getString("clave")) {
+					case "AzureAccountName":
+						accountName=rs.getString("valor")
+					break;
+					case "AzureAccountKey":
+						accountKey=rs.getString("valor")
+					break;
+					case "AzureDefaultEndpointsProtocol":
+						defaultEndpointsProtocol=rs.getString("valor")
+					break;
+				}
+			}
+			
+			String STORAGE_CONNECTION_STRING ="DefaultEndpointsProtocol="+defaultEndpointsProtocol+";" + "AccountName="+accountName+";" + "AccountKey="+accountKey;
+			CloudStorageAccount account = CloudStorageAccount.parse(STORAGE_CONNECTION_STRING);
+			// Parse the connection string and create a blob client to interact with Blob storage
+			storageAccount = CloudStorageAccount.parse(STORAGE_CONNECTION_STRING);
+			blobClient = storageAccount.createCloudBlobClient();
+			container = blobClient.getContainerReference("privado");
+
+
+			String urlBlob = URL;
+			
+			String [] info = urlBlob.split("/");
+			String blobUrlFinal = info[4]+"/"+info[5];
+			
+			blobUrlFinal = blobUrlFinal.replace("%20", " ");
+			//Getting a blob reference
+			CloudBlockBlob blob = container.getBlockBlobReference(blobUrlFinal);
+
+			String[] tipoDato = info[5].split("\\.");
+			String nombreFile= (tipo == 1?"regAvatarName":"kardexPr")+info[4]+"."+tipoDato[1];
+			
+			//downloadedFile = new File(nombreFile);
+			errorLog+="se creo el archivo"
+			blob.download( new FileOutputStream(nombreFile))
+	
+	
+			dataResult = ftpUpload2(nombreFile,carpeta);
+			errorLog+=""+dataResult
+			if (dataResult.success) {
+			} else {
+				throw new Exception("No encontro datos:"+dataResult.getError());
+			}
+			result.setSuccess(true)
+			
+		}
+		catch (StorageException ex)
+		{
+			errorLog += (String.format("Error returned from the service. Http code: %d and error code: %s", ex.getHttpStatusCode(), ex.getErrorCode()));
+			result.setSuccess(false);
+			//resultado.setError(e.getMessage());
+			result.setError_info(errorLog)
+		}
+		catch (Exception ex)
+		{
+			errorLog += (ex.getMessage());
+			result.setSuccess(false);
+			//resultado.setError(e.getMessage());
+			result.setError_info(errorLog)
+		}
+		finally
+		{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+			
+			/*if (downloadedFile.exists()){
+				downloadedFile.delete();
+			 }*/
+		}
+		
+		return result;
+	}
+	
+	
+	public Result ftpUpload2(String nameFile,String carpeta) {
+		Result resultado = new Result();
+		String errorLog = "";
+		
+		String server = "";
+		int port = 21;
+		String user = "";
+		String pass = "";
+		
+		FTPClient ftpClient = new FTPClient();
+		try {
+			Result dataResult = new Result();
+			List<Object> lstParams;
+			
+			dataResult = infoFTP();
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+			} else {
+				throw new Exception("Fallo al obtener la configuracion del ftp");
+			}
+			
+			server = lstParams[0].dominio;
+			port = Integer.parseInt(lstParams[0].puerto);
+			user = lstParams[0].usuario;
+			pass = lstParams[0].password;
+			
+			ftpClient.connect(server, port);
+			ftpClient.login(user, pass);
+			ftpClient.enterLocalPassiveMode();
+			
+			ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+			
+			String dirPath = "/exportacion excel/"+carpeta;
+			boolean creado = makeDirectories(ftpClient, dirPath);
+			
+			if(creado) {
+				InputStream inputStream = new FileInputStream(nameFile);
+				
+				errorLog+=("Start uploading first file "+nameFile);
+				boolean done = ftpClient.storeFile(dirPath+"/"+nameFile, inputStream);
+				inputStream.close();
+				if (done) {
+					errorLog+=("The file is uploaded successfully.");
+				}
+			}else {
+				throw new Exception("Fallo al crear la carpeta");
+			}
+			
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+			resultado.setError_info(errorLog);
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (ftpClient.isConnected()) {
+					ftpClient.logout();
+					ftpClient.disconnect();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return resultado;
 	}
 	
 	

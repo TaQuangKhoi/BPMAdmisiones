@@ -2,6 +2,8 @@ package com.anahuac.rest.api.DB
 
 class Statements {
 	
+	public static final String CONFIGURACIONES="SELECT * FROM CATCONFIGURACION";
+	
 	public static final String CONFIGURACIONESSSA="SELECT * FROM CATCONFIGURACION WHERE CLAVE = 'SASAzure'";
 	
 	public static final String DELETE_CATGESTIONESCOLAR="UPDATE CATGESTIONESCOLAR SET ISELIMINADO=true WHERE persistenceid=?";

@@ -561,6 +561,7 @@ class ConektaDAO {
 				mapResultado.put("type", payment_method.type);
 				mapResultado.put("authorizationCode", oxxoPayment.reference);
 				mapResultado.put("status", status);
+				mapResultado.put("barcodeUrl", oxxoPayment.barcode_url);
 			} else {
 				mapResultado.put("cardNumber", payment_method.getVal("last4"));
 				mapResultado.put("amount", "\$" + twoPlaces.format(amount).toString() + " " + order.currency);
