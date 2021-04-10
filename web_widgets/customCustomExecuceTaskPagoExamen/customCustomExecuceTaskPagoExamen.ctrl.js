@@ -5,7 +5,8 @@ function ($scope, $http, modalService) {
         "isPagoTarjeta" : false ,
         "detalleSolicitudInput" : {
             "ordenPago":""
-        }
+        },
+        "isPagoCondonado": false
     }
     
     $scope.showModal = function(){
@@ -121,10 +122,11 @@ function ($scope, $http, modalService) {
     
     $scope.getOrderInformation = function(){
         let url = "/bonita/API/extension/AnahuacRest?url=getOrderDetails&p=0&c=10";
-        
         $http.post(url, $scope.properties.orderObject).success(function(success){
+            $scope.properties.loadedOrder = true;
             $scope.properties.orderOutput = success.data[0];
         }).error(function(error){
+            $scope.properties.loadedOrder = true;
             swal("Error", JSOM.stringify(error), "error");
         }).finally(function(){
           
@@ -132,7 +134,6 @@ function ($scope, $http, modalService) {
     };
     
     $scope.$watch("properties.orderObject", function(){
-        debugger;
         if($scope.properties.orderObject !== undefined && $scope.properties.orderObject !== null){
             $scope.getOrderInformation();
         }
