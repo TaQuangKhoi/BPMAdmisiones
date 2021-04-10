@@ -770,14 +770,24 @@ class NotificacionDAO {
 				}
 				String encoded = "";
 				try {
-					for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(objSolicitudDeAdmision.get(0).getCaseId(), "fotoPasaporte", 0, 10)) {
-						// convert byte[] back to a BufferedImage
-						InputStream is = new ByteArrayInputStream(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId));
-						BufferedImage newBi = ImageIO.read(is);
-						
-						encoded = "data:image/png;base64, "+ Base64.getEncoder().encodeToString(toByteArray(resizeImage(newBi, 135, 180), "png"))
-						plantilla=plantilla.replace("[USR-B64]", encoded)
-					}
+					if (objSolicitudDeAdmision.get(0).urlFoto!= null ) {
+						String SSA = "";
+						pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+						rs= pstm.executeQuery();
+						if(rs.next()) {
+							SSA = rs.getString("valor")
+						}
+						plantilla=plantilla.replace("[USR-B64]", objSolicitudDeAdmision.get(0).urlFoto+SSA)
+					}else {
+						for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(objSolicitudDeAdmision.get(0).getCaseId(), "fotoPasaporte", 0, 10)) {
+							// convert byte[] back to a BufferedImage
+							InputStream is = new ByteArrayInputStream(context.getApiClient().getProcessAPI().getDocumentContent(doc.contentStorageId));
+							BufferedImage newBi = ImageIO.read(is);
+							
+							encoded = "data:image/png;base64, "+ Base64.getEncoder().encodeToString(toByteArray(resizeImage(newBi, 135, 180), "png"))
+							plantilla=plantilla.replace("[USR-B64]", encoded)
+						}
+				}
 				}catch(Exception e) {
 					plantilla=plantilla.replace("[USR-B64]", "https://i.ibb.co/WyCsXQy/usuariofoto.jpg")
 					errorlog+= ""+e.getMessage();
