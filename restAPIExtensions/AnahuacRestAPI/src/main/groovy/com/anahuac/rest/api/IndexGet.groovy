@@ -565,7 +565,16 @@ class IndexGet implements RestApiController {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
 				break;
-				
+				case "getTempKeyAzure":
+					String pais = request.getParameter "pais";
+					result = new SolicitudUsuarioDAO().getTempKeyAzure();
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
 				
 				case "getSesions":
 				List<SesionCustom> sesions = new ArrayList()

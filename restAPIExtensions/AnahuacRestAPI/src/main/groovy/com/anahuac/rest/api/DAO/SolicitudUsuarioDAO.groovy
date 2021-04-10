@@ -314,4 +314,34 @@ class SolicitudUsuarioDAO {
 		}
 		return resultado
 	}
+	
+	public Result getTempKeyAzure() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			List<String> rows = new ArrayList<String>();
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA);
+			rs= pstm.executeQuery();
+			
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			rows.add(SSA);
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }
