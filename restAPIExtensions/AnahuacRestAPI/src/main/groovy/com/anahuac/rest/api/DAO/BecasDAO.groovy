@@ -123,6 +123,7 @@ class BecasDAO {
 				SSA = rs.getString("valor")
 			}
 			
+			
 			pstm = con.prepareStatement(consulta);
 			rs = pstm.executeQuery()
 			
@@ -231,7 +232,10 @@ class BecasDAO {
 				errorLog+="ftpUpload:"+dataResult
 				if (dataResult.success) {					
 					File file = new File(nameFile);
-					file.delete();
+					if (file.exists()){
+						errorLog+="Eliminado = "+file.delete();
+					 }
+					//file.delete();
 					String url = "";
 					Result dataResult2 = new Result();
 					for (int i = 0; i < lstParams.size(); ++i){
@@ -342,6 +346,11 @@ class BecasDAO {
 				dataResult = ftpUpload(nameFile,fecha);
 				errorLog+=""+dataResult
 				if (dataResult.success) {
+					File file = new File(nameFile);
+					if (file.exists()){
+						errorLog+="Eliminado = "+file.delete();
+					 }
+					//file.delete();
 				} else {
 					throw new Exception("No encontro datos:"+errorLog+dataResult.getError());
 				}

@@ -1793,6 +1793,13 @@ class SesionesDAO {
 					tipo = (rs.getInt("tipoprueba_pid"))
 				}
 				
+				String SSA = "";
+				pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					SSA = rs.getString("valor")
+				}
+				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
 						
@@ -2008,7 +2015,7 @@ class SesionesDAO {
 				consulta=consulta.replace("[WHERE]", where);
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 				//String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.persistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
-				String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato, sda.urlfoto";
 				if(tipo == 1) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 				}else {
@@ -2061,11 +2068,21 @@ class SesionesDAO {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 							String encoded = "";
 							try {
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
+								}
 								
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 									encoded = "../API/formsDocumentImage?document="+doc.getId();
 									columns.put("fotografiab64", encoded);
-								}
+								}*/
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
 								errorlog+= ""+e.getMessage();
@@ -2720,6 +2737,13 @@ class SesionesDAO {
 				if(rs.next()) {
 					tipo = (rs.getInt("tipoprueba_pid"))
 				}
+				
+				String SSA = "";
+				pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					SSA = rs.getString("valor")
+				}
 				errorlog+="tipo "+tipo
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
 					switch(filtro.get("columna")) {
@@ -2937,8 +2961,8 @@ class SesionesDAO {
 				errorlog+="order by = "+orderby
 				consulta=consulta.replace("[WHERE]", where);
 				//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
-				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
-				String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato";
+				String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION ,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion, R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato, sda.urlfoto HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
+				String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato, sda.urlfoto";
 				if(tipo == 1 ) {
 					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
 					if(object.reporte && object.type == null) {
@@ -2998,10 +3022,20 @@ class SesionesDAO {
 						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 							String encoded = "";
 							try {
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
+								}
+								/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 									encoded = "../API/formsDocumentImage?document="+doc.getId();
 									columns.put("fotografiab64", encoded);
-								}
+								}*/
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
 								errorlog+= "esto = "+e.getMessage();

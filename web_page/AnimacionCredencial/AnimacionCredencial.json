@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "AnimacionCredencial",
   "name" : "AnimacionCredencial",
-  "lastUpdate" : 1617148124539,
+  "lastUpdate" : 1618097139529,
   "rows" : [
     [
       {
@@ -112,6 +112,10 @@
                 "caseId" : {
                   "type" : "variable",
                   "value" : "caseId"
+                },
+                "azureTempKeyRes" : {
+                  "type" : "expression",
+                  "value" : "azureTempKeyRes.data[0]"
                 }
               },
               "reference" : "49a44b71-b7c7-4399-96de-d7eb30b2521c",
@@ -981,6 +985,13 @@
         "}",
         "",
         "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "azureTempKeyRes" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
       ],
       "exposed" : false
     }

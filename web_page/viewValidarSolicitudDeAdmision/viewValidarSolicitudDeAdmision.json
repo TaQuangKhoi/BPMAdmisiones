@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmision",
   "name" : "viewValidarSolicitudDeAdmision",
-  "lastUpdate" : 1617148556122,
+  "lastUpdate" : 1618099027088,
   "rows" : [
     [
       {
@@ -3060,8 +3060,8 @@
                                                 "value" : ""
                                               },
                                               "hidden" : {
-                                                "type" : "constant",
-                                                "value" : false
+                                                "type" : "expression",
+                                                "value" : "context.fotoPasaporte_ref.length==0"
                                               },
                                               "type" : {
                                                 "type" : "constant",
@@ -3082,9 +3082,57 @@
                                               "idmodal" : {
                                                 "type" : "constant",
                                                 "value" : "idmodal1"
+                                              },
+                                              "getTempKeyAzure" : {
+                                                "type" : "variable",
+                                                "value" : ""
                                               }
                                             },
                                             "reference" : "8e435c23-2eb9-43eb-81f3-6fd3ea5d61ab",
+                                            "hasValidationError" : false,
+                                            "id" : "customFileViewerPopup"
+                                          }
+                                        ],
+                                        [
+                                          {
+                                            "type" : "component",
+                                            "dimension" : {
+                                              "xs" : 12,
+                                              "sm" : 12,
+                                              "md" : 12,
+                                              "lg" : 12
+                                            },
+                                            "propertyValues" : {
+                                              "cssClasses" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "hidden" : {
+                                                "type" : "expression",
+                                                "value" : "context.fotoPasaporte_ref.length>0"
+                                              },
+                                              "type" : {
+                                                "type" : "constant",
+                                                "value" : "URL"
+                                              },
+                                              "url" : {
+                                                "type" : "expression",
+                                                "value" : "objSolicitudDeAdmision.urlFoto+getTempKeyAzure.data[0]"
+                                              },
+                                              "document" : {
+                                                "type" : "variable",
+                                                "value" : "objSolicitudDeAdmision.urlFoto+getTempKeyAzure.data[0]"
+                                              },
+                                              "showPreview" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "idmodal" : {
+                                                "type" : "constant",
+                                                "value" : "idmodal1"
+                                              }
+                                            },
+                                            "reference" : "5facc585-0598-48e8-a2aa-539b56d09265",
                                             "hasValidationError" : false,
                                             "id" : "customFileViewerPopup"
                                           }
@@ -3172,8 +3220,8 @@
                                                 "value" : ""
                                               },
                                               "hidden" : {
-                                                "type" : "constant",
-                                                "value" : false
+                                                "type" : "expression",
+                                                "value" : "context.actaNacimiento_ref.length==0"
                                               },
                                               "type" : {
                                                 "type" : "constant",
@@ -3197,6 +3245,50 @@
                                               }
                                             },
                                             "reference" : "56b385c9-3938-46dc-ab0f-2ac410e42835",
+                                            "hasValidationError" : false,
+                                            "id" : "customFileViewerPopup"
+                                          }
+                                        ],
+                                        [
+                                          {
+                                            "type" : "component",
+                                            "dimension" : {
+                                              "xs" : 12,
+                                              "sm" : 12,
+                                              "md" : 12,
+                                              "lg" : 12
+                                            },
+                                            "propertyValues" : {
+                                              "cssClasses" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "hidden" : {
+                                                "type" : "expression",
+                                                "value" : "context.actaNacimiento_ref.length>0"
+                                              },
+                                              "type" : {
+                                                "type" : "constant",
+                                                "value" : "URL"
+                                              },
+                                              "url" : {
+                                                "type" : "expression",
+                                                "value" : "objSolicitudDeAdmision.urlActaNacimiento+getTempKeyAzure.data[0]"
+                                              },
+                                              "document" : {
+                                                "type" : "variable",
+                                                "value" : "objSolicitudDeAdmision.urlActaNacimiento+getTempKeyAzure.data[0]"
+                                              },
+                                              "showPreview" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "idmodal" : {
+                                                "type" : "constant",
+                                                "value" : "idmodal2"
+                                              }
+                                            },
+                                            "reference" : "cdc8a38b-2c10-4fa9-8035-588eb7ff5e44",
                                             "hasValidationError" : false,
                                             "id" : "customFileViewerPopup"
                                           }
@@ -4259,8 +4351,8 @@
                                           "value" : "object-fit"
                                         },
                                         "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
+                                          "type" : "expression",
+                                          "value" : "context.resultadoCB_ref.length==0"
                                         },
                                         "type" : {
                                           "type" : "constant",
@@ -4284,6 +4376,50 @@
                                         }
                                       },
                                       "reference" : "5bb6a340-5085-4f3d-9cf2-f046ae5ca587",
+                                      "hasValidationError" : false,
+                                      "id" : "customFileViewerPopup"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "object-fit"
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "context.resultadoCB_ref.length>0"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.urlResultadoPAA+getTempKeyAzure.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : "objSolicitudDeAdmision.urlResultadoPAA+getTempKeyAzure.data[0]"
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "idmodal" : {
+                                          "type" : "constant",
+                                          "value" : "idmodal11"
+                                        }
+                                      },
+                                      "reference" : "79681410-bb5f-4a9b-a92d-7d0ed13c172a",
                                       "hasValidationError" : false,
                                       "id" : "customFileViewerPopup"
                                     }
@@ -4368,7 +4504,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "expression",
-                                          "value" : "!tieneDescuento"
+                                          "value" : "!tieneDescuento || context.descuento_ref.length==0"
                                         },
                                         "type" : {
                                           "type" : "constant",
@@ -4392,6 +4528,50 @@
                                         }
                                       },
                                       "reference" : "bae9d3ee-063e-40ab-8b88-f0706854cf12",
+                                      "hasValidationError" : false,
+                                      "id" : "customFileViewerPopup"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "object-fit"
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "context.descuento_ref.length>0 || !tieneDescuento"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.urlDescuentos+getTempKeyAzure.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "idmodal" : {
+                                          "type" : "constant",
+                                          "value" : "idmodal12"
+                                        }
+                                      },
+                                      "reference" : "907bae15-5515-4177-b06e-085a03895d47",
                                       "hasValidationError" : false,
                                       "id" : "customFileViewerPopup"
                                     }
@@ -4472,11 +4652,11 @@
                                       "propertyValues" : {
                                         "cssClasses" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : "object-fit"
                                         },
                                         "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
+                                          "type" : "expression",
+                                          "value" : "context.cartaAA_ref.length==0"
                                         },
                                         "type" : {
                                           "type" : "constant",
@@ -4500,6 +4680,50 @@
                                         }
                                       },
                                       "reference" : "1d9406fa-3bc2-4bf9-80bb-7febc801d4a8",
+                                      "hasValidationError" : false,
+                                      "id" : "customFileViewerPopup"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "object-fit"
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "context.cartaAA_ref.length>0"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.urlCartaAA+getTempKeyAzure.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "idmodal" : {
+                                          "type" : "constant",
+                                          "value" : "idmodal13"
+                                        }
+                                      },
+                                      "reference" : "0239656e-f543-415c-b6b7-5ab9cedcfaa8",
                                       "hasValidationError" : false,
                                       "id" : "customFileViewerPopup"
                                     }
@@ -4583,8 +4807,8 @@
                                           "value" : "object-fit"
                                         },
                                         "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
+                                          "type" : "expression",
+                                          "value" : "context.constancia_ref.length==0"
                                         },
                                         "type" : {
                                           "type" : "constant",
@@ -4608,6 +4832,50 @@
                                         }
                                       },
                                       "reference" : "19c221f7-b270-4ad8-bbe6-d54d72520985",
+                                      "hasValidationError" : false,
+                                      "id" : "customFileViewerPopup"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : "object-fit"
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "context.constancia_ref.length>0"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "URL"
+                                        },
+                                        "url" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.urlConstancia+getTempKeyAzure.data[0]"
+                                        },
+                                        "document" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        },
+                                        "showPreview" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "idmodal" : {
+                                          "type" : "constant",
+                                          "value" : "idmodal4"
+                                        }
+                                      },
+                                      "reference" : "4a1acf59-fa69-4eb8-8abd-3869e0bb3fb5",
                                       "hasValidationError" : false,
                                       "id" : "customFileViewerPopup"
                                     }
@@ -25712,10 +25980,10 @@
   ],
   "assets" : [
     {
-      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 7,
+      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -25723,6 +25991,20 @@
       "name" : "jquery.min.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 8,
+      "external" : false
+    },
+    {
+      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 7,
       "external" : false
     },
     {
@@ -25737,20 +26019,6 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 8,
       "external" : false
     }
   ],
@@ -27983,6 +28251,13 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "getTempKeyAzure" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
       ],
       "exposed" : false
     }

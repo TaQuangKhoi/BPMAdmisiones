@@ -87,10 +87,18 @@ class TransferenciasDAO {
                     campus += " OR "
                 }
             }
-
+			
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
             errorlog += "object.lstFiltro" + object.lstFiltro
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-            closeCon = validarConexion();
+            //closeCon = validarConexion();
             String consulta = Statements.GET_SOLICITUDES_TRANSFERENCIA
             for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
                 errorlog += ", columna " + filtro.get("columna")
@@ -443,10 +451,17 @@ class TransferenciasDAO {
                     if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
                         String encoded = "";
                         try {
-                            for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-                                encoded = "../API/formsDocumentImage?document=" + doc.getId();
-                                columns.put("fotografiab64", encoded);
-                            }
+                            String urlFoto = rs.getString("urlfoto");
+							if(urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+							}else {
+								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for(Document doc : doc1) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}
+
                         } catch (Exception e) {
                             columns.put("fotografiab64", "");
                             errorlog += "" + e.getMessage();
@@ -683,7 +698,7 @@ class TransferenciasDAO {
 
 			if (object.orden == ">=") {
 				if (lstGrupo.size() > 0) {
-					where += " WHERE (campusAnterior IN ("
+					where += " WHERE (BT.campusAnterior IN ("
 				}
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
@@ -696,7 +711,7 @@ class TransferenciasDAO {
 				}
 			} else {
 				if (lstGrupo.size() > 0) {
-					where += " WHERE (campusNuevo IN ("
+					where += " WHERE (BT.campusNuevo IN ("
 				}
 				for (Integer i = 0; i < lstGrupo.size(); i++) {
 					String campusMiembro = lstGrupo.get(i);
@@ -711,7 +726,13 @@ class TransferenciasDAO {
 			
 			
             closeCon = validarConexion();
-
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
             for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
                 switch (filtro.get("columna")) {
 					case "ID ASPIRANTE,NOMBRE":
@@ -721,10 +742,11 @@ class TransferenciasDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(aspirante) like lower('%[valor]%') ";
+						where +=" ( LOWER(BT.aspirante) like lower('%[valor]%') ";
+						
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(idbanner) like lower('%[valor]%')) ";
+						where +=" OR LOWER(BT.idbanner) like lower('%[valor]%')) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						errorlog+=" EL WHERE ES " + where;
 					break;
@@ -735,10 +757,12 @@ class TransferenciasDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(licenciatura) like lower('%[valor]%') ";
+						where +=" ( LOWER(BT.licenciatura) like lower('%[valor]%') ";
+						
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(periodo) like lower('%[valor]%') )";
+						where +=" OR LOWER(BT.periodo) like lower('%[valor]%') )";
+						
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 					break;
@@ -749,7 +773,7 @@ class TransferenciasDAO {
 						} else {
 							where += " WHERE ";
 						}
-						where += " LOWER(estatus) ";
+						where += " LOWER(BT.estatus) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')";
 						} else {
@@ -764,7 +788,8 @@ class TransferenciasDAO {
 						} else {
 							where += " WHERE ";
 						}
-						where += " LOWER(CAMPUSANTERIOR) ";
+						where += " LOWER(BT.CAMPUSANTERIOR) ";
+						
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')";
 						} else {
@@ -779,7 +804,7 @@ class TransferenciasDAO {
 						} else {
 							where += " WHERE ";
 						}
-						where += " LOWER(CAMPUSNUEVO) ";
+						where += " LOWER(BT.CAMPUSNUEVO) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')";
 						} else {
@@ -794,10 +819,10 @@ class TransferenciasDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" ( LOWER(USUARIOCREACION) like lower('%[valor]%') ";
+						where +=" ( LOWER(BT.USUARIOCREACION) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 
-						where +=" OR to_char(TO_TIMESTAMP(FECHACREACION, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') like lower('%[valor]%')) ";
+						where +=" OR to_char(TO_TIMESTAMP(BT.FECHACREACION, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') like lower('%[valor]%')) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 					break;
@@ -809,7 +834,7 @@ class TransferenciasDAO {
 						} else {
 							campus += " WHERE ";
 						}
-						campus += " LOWER(campusnuevo) ";
+						campus += " LOWER(BT.campusnuevo) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							campus += "=LOWER('[valor]')"
 						} else {
@@ -822,7 +847,7 @@ class TransferenciasDAO {
 						} else {
 							campus += " WHERE ";
 						}
-						campus += "LOWER(campusanterior) ";
+						campus += "LOWER(BT.campusanterior) ";
 						if (filtro.get("operador").equals("Igual a")) {
 							campus += "=LOWER('[valor]')"
 						} else {
@@ -835,7 +860,7 @@ class TransferenciasDAO {
 					errorlog += " Default and orden " + object.orden;
                         if (object.orden == ">=") {
                             if (lstGrupo.size() > 0) {
-                                where += " WHERE (campusAnterior IN ("
+                                where += " WHERE (BT.campusAnterior IN ("
                             }
                             for (Integer i = 0; i < lstGrupo.size(); i++) {
                                 String campusMiembro = lstGrupo.get(i);
@@ -848,7 +873,7 @@ class TransferenciasDAO {
                             }
                         } else {
                             if (lstGrupo.size() > 0) {
-                                where += " WHERE (campusNuevo IN ("
+                                where += " WHERE (BT.campusNuevo IN ("
                             }
                             for (Integer i = 0; i < lstGrupo.size(); i++) {
                                 String campusMiembro = lstGrupo.get(i);
@@ -866,42 +891,40 @@ class TransferenciasDAO {
 
             switch (object.orderby) {
 				case "IDASPIRANTE":
-					orderby += "idbanner";
+					orderby += "BT.idbanner";
 				break;
 				case "NOMBRE":
-					orderby += "aspirante";
+					orderby += "BT.aspirante";
 				break;
 				case "CARRERA":
-					orderby += "licenciatura";
+					orderby += "BT.licenciatura";
 				break;
 				case "PERIODO":
-					orderby += "periodo";
+					orderby += "BT.periodo";
 				break;
 				case "ESTATUS":
-					orderby += "estatus";
+					orderby += "BT.estatus";
 				break;
 				case "VPDORIGEN":
-					orderby += "campusanterior";
+					orderby += "BT.campusanterior";
 				break;
 				case "VPDDESTINO":
-					orderby += "campusnuevo";
+					orderby += "BT.campusnuevo";
 				break;
 				case "USUARIO":
-					orderby += "usuariocreacion";
+					orderby += "BT.usuariocreacion";
 				break;
 				case "FECHA":
-					orderby += "fechacreacion";
+					orderby += "BT.fechacreacion";
 				break;
             }
 
             if (orderby.equals("ORDER BY ")) {
-                orderby += "PERSISTENCEID";
+                orderby += "BT.PERSISTENCEID";
             }
 
             orderby += " " + object.orientation;
-
-
-
+			
             String consulta = Statements.GET_BITACORA_TRANSFERENCIA;
 			errorlog += " WHERE " + where
 			errorlog += " campus " + campus
@@ -954,7 +977,21 @@ class TransferenciasDAO {
 				row.setEstatus(rs.getString("estatus"))
 				row.setIdbanner(rs.getString("idbanner"));
 				
-						String encoded = "";
+				String urlFoto = rs.getString("urlfoto");
+				String encoded = "";
+				if(urlFoto != null && !urlFoto.isEmpty()) {
+					encoded = rs.getString("urlfoto") +SSA;
+					row.setImg(encoded);
+				}else {
+					List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)
+					for(Document doc : doc1) {
+						encoded = "../API/formsDocumentImage?document="+doc.getId();
+						row.setImg(encoded);
+					}
+				}
+
+					
+						/*
 						try {
 							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)) {
 								encoded = "../API/formsDocumentImage?document=" + doc.getId();
@@ -963,7 +1000,7 @@ class TransferenciasDAO {
 						} catch (Exception e) {
 							row.setImg("");
 							errorlog += "" + e.getMessage();
-						}
+						}*/
 
 				
 				

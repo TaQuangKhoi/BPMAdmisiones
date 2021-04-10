@@ -88,6 +88,12 @@ class ReactivacionDAO {
 			errorlog += "object.lstFiltro" + object.lstFiltro
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			String consulta = Statements.GET_USUARIOS_RECHAZADOS_COMITE
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog += ", columna " + filtro.get("columna")
@@ -441,10 +447,20 @@ class ReactivacionDAO {
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
 						try {
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+							String urlFoto = rs.getString("urlfoto");
+							if(urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+							}else {
+								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for(Document doc : doc1) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}
+							/*for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 								encoded = "../API/formsDocumentImage?document=" + doc.getId();
 								columns.put("fotografiab64", encoded);
-							}
+							}*/
 						} catch (Exception e) {
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();

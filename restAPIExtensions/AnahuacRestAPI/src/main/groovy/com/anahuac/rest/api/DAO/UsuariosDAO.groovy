@@ -742,7 +742,7 @@ class UsuariosDAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false "
+			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
 			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
 			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND 
 //				if(object.estatusSolicitud !=null) {
@@ -1710,10 +1710,19 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					campus += " OR "
 				}
 			}
+			
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
 
 			errorlog += "object.lstFiltro" + object.lstFiltro
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion();
+			
 			String consulta = Statements.GET_USUARIOS_SOLICITUD_ABANDONADA
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog += ", columna " + filtro.get("columna")
@@ -2066,10 +2075,16 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
 						try {
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiab64", encoded);
-							}
+							String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+										for(Document doc : doc1) {
+											encoded = "../API/formsDocumentImage?document="+doc.getId();
+											columns.put("fotografiab64", encoded);
+										}
+								}
 						} catch (Exception e) {
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
@@ -2143,10 +2158,16 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					campus += " OR "
 				}
 			}
-
+			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			errorlog += "object.lstFiltro" + object.lstFiltro
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion();
+			//closeCon = validarConexion();
 			String consulta = Statements.GET_USUARIOS_SOLICITUD_VENCIDA
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog += ", columna " + filtro.get("columna")
@@ -2499,9 +2520,15 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
 						try {
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiab64", encoded);
+							String urlFoto = rs.getString("urlfoto");
+							if(urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+							}else {
+								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
 							}
 						} catch (Exception e) {
 							columns.put("fotografiab64", "");
