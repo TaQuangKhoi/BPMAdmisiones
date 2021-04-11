@@ -1072,7 +1072,8 @@ class TransferenciasDAO {
                 }
             }
 			
-			/*con.setAutoCommit(false)
+			closeCon = validarConexion()
+			con.setAutoCommit(false)
 			List<Long> pruebas = new ArrayList<Long>()
 			pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
 			pstm.setString(1,  username)
@@ -1097,7 +1098,7 @@ class TransferenciasDAO {
 				}
 			}
 			
-			con.commit();*/
+			con.commit();
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);
         } catch (Exception ex) {

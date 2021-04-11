@@ -1124,35 +1124,30 @@ class UsuariosDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 	
 					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
-							String encoded = "";
-							try {
-								String urlFoto = rs.getString("urlfoto");
-								if(urlFoto != null && !urlFoto.isEmpty()) {
-									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
-								}else {
-									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+						
+						String label = metaData.getColumnLabel(i).toLowerCase();
+						if(label.equals("urlfoto") || label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA);
+						} else {
+							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+							if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+								String encoded = "";
+								try {
+									String urlFoto = rs.getString("urlfoto");
+									if(urlFoto != null && !urlFoto.isEmpty()) {
+										columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+									}else {
+										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {
 											encoded = "../API/formsDocumentImage?document="+doc.getId();
 											columns.put("fotografiab64", encoded);
 										}
+									}
+								}catch(Exception e) {
+									columns.put("fotografiab64", "");
+									errorlog+= ""+e.getMessage();
 								}
-							}catch(Exception e) {
-								columns.put("fotografiab64", "");
-								errorlog+= ""+e.getMessage();
 							}
-							
-							/*try {
-								
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "actaNacimiento", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64AN", encoded);
-								}
-							}catch(Exception e) {
-								columns.put("fotografiab64AN", "");
-								errorlog+= ""+e.getMessage();
-							}*/
 						}
 					}
 					
