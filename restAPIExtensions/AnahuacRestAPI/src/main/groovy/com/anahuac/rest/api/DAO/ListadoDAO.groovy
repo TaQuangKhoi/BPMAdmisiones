@@ -8123,6 +8123,7 @@ class ListadoDAO {
 					lstParams = dataResult.getData();
 					errorLog +=dataResult.getError_info();
 				} else {
+					errorLog +=dataResult.getError_info();
 					throw new Exception("No encontro datos de pase de lista");
 				}
 				dataResult2 = new SesionesDAO().getResponsables(jsonData,context)

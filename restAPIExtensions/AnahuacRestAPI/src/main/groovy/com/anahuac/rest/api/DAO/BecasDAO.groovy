@@ -65,7 +65,8 @@ class BecasDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
-			String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			//String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE))"
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
 			String SSA = "";
@@ -113,7 +114,8 @@ class BecasDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
-			String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			//String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE))"
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
 			String SSA = "";
@@ -233,7 +235,9 @@ class BecasDAO {
 				if (dataResult.success) {					
 					File file = new File(nameFile);
 					if (file.exists()){
-						errorLog+="Eliminado = "+file.delete();
+						if(file.delete()) {
+							errorLog+="Sea eliminado Registros"
+						}
 					 }
 					//file.delete();
 					String url = "";
@@ -348,7 +352,9 @@ class BecasDAO {
 				if (dataResult.success) {
 					File file = new File(nameFile);
 					if (file.exists()){
-						errorLog+="Eliminado = "+file.delete();
+						if(file.delete()) {
+							errorLog+="Sea eliminado Hermanos"
+						}
 					 }
 					//file.delete();
 				} else {
@@ -597,11 +603,18 @@ class BecasDAO {
 			dataResult = ftpUpload2(nombreFile,carpeta);
 			errorLog+=""+dataResult
 			if (dataResult.success) {
+				File file = new File(nombreFile);
+				if (file.exists()){
+					if(file.delete()) {
+						errorLog+="Sea eliminado "+nombreFile;
+					}
+				 }
+				
 			} else {
 				throw new Exception("No encontro datos:"+dataResult.getError());
 			}
 			result.setSuccess(true)
-			
+			result.setError_info(errorLog)
 		}
 		catch (StorageException ex)
 		{
@@ -674,6 +687,7 @@ class BecasDAO {
 				boolean done = ftpClient.storeFile(dirPath+"/"+nameFile, inputStream);
 				inputStream.close();
 				if (done) {
+					
 					errorLog+=("The file is uploaded successfully.");
 				}
 			}else {
