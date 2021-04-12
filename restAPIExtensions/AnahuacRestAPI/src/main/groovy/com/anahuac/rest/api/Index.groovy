@@ -1204,7 +1204,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateRegistro":
-					result = hDAO.createOrUpdateRegistro(parameterP, parameterC, jsonData, context);
+					//result = hDAO.createOrUpdateRegistro(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1212,7 +1214,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateEnviada":
-					result = hDAO.createOrUpdateEnviada(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateEnviada(parameterP, parameterC, jsonData, context)
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1220,15 +1224,19 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateModificar":
-					result = hDAO.createOrUpdateModificar(parameterP, parameterC, jsonData, context)
-					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-					}
-					break;
+						//result = hDAO.createOrUpdateModificar(parameterP, parameterC, jsonData, context)
+						result = new Result();
+						result.setSuccess(true);
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+						break;
 				case "createOrUpdateValidar":
-					result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1236,7 +1244,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateRechazoLRoja":
-					result = hDAO.createOrUpdateRechazoLRoja(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateRechazoLRoja(parameterP, parameterC, jsonData, context)
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1244,7 +1254,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateRestaurarRechazoLRoja":
-					result = hDAO.createOrUpdateRestaurarRechazoLRoja(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateRestaurarRechazoLRoja(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1252,7 +1264,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdatePago":
-					result = hDAO.createOrUpdatePago(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdatePago(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1260,7 +1274,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateAutodescripcion":
-					result = hDAO.createOrUpdateAutodescripcion(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateAutodescripcion(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1268,7 +1284,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateSeleccionoFechaExamen":
-					result = hDAO.createOrUpdateSeleccionoFechaExamen(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateSeleccionoFechaExamen(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1276,7 +1294,9 @@ class Index implements RestApiController {
 					}
 				break;
 				case "createOrUpdateGenerarCredencial":
-					result = hDAO.createOrUpdateGenerarCredencial(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateGenerarCredencial(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1284,7 +1304,9 @@ class Index implements RestApiController {
 					}
 				break
 				case "createOrUpdateEsperaResultado":
-					result = hDAO.createOrUpdateEsperaResultado(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateEsperaResultado(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1292,13 +1314,15 @@ class Index implements RestApiController {
 					}
 				break
 				case "createOrUpdateNoAsistioPruebas":
-					result = hDAO.createOrUpdateNoAsistioPruebas(parameterP, parameterC, jsonData, context)
+					//result = hDAO.createOrUpdateNoAsistioPruebas(parameterP, parameterC, jsonData, context);
+					result = new Result();
+					result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
-				break
+				break;
 				case "reagendarExamen":
 					result = tDAO.reagendarExamen(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
