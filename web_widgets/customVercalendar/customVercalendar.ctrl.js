@@ -456,7 +456,7 @@ function($scope, $http, blockUI, $window) {
                                 Swal.fire({
                                         icon: 'success',
                                         title: 'Correcto',
-                                        text: `Sesión ${$scope.sesion.nombre} guardada correctamente`,
+                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
                                     })
                                     ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
                                     //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
