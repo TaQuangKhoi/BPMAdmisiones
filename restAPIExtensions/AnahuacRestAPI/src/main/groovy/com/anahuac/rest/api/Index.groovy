@@ -774,9 +774,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "generateHtml":
-					//result = nDAO.generateHtml(parameterP, parameterC, jsonData, context);
-					result = new Result();
-					result.setSuccess(true);
+					result = nDAO.generateHtml(parameterP, parameterC, jsonData, context);
+					//result = new Result();
+					//result.setSuccess(true);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
