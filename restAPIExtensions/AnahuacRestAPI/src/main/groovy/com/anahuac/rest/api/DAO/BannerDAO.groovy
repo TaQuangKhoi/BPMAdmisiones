@@ -2,6 +2,10 @@ package com.anahuac.rest.api.DAO
 
 import groovy.json.JsonSlurper
 
+import java.sql.Connection
+import java.sql.PreparedStatement
+import java.sql.ResultSet
+import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalTime
@@ -18,13 +22,26 @@ import org.json.simple.parser.JSONParser
 
 import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
+import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.CatBachillerato
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Entity.Custom.AzureConfig
 import com.bonitasoft.engine.api.ProcessAPI
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 class BannerDAO {
-	
+	Connection con;
+	Statement stm;
+	ResultSet rs;
+	PreparedStatement pstm;
+	public Boolean validarConexion() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnection();
+			retorno=true
+		}
+		return retorno
+	}
 	public Result buscarCambiosBannerPreparatoria(RestAPIContext context, String operacion) {
 		Result resultado = new Result();
 		Result resultadoGetConsumeJSON = new Result();
@@ -58,9 +75,18 @@ class BannerDAO {
 	
 	private String getBarreToken() {
 		String urlParaVisitar = "https://integrate.elluciancloud.com/auth";
-		String barrerKey = "Bearer 00b3-.-.-990b-5c1b-4-.-.-a4d-840c-69-.-.-a47eab34f0";
+		String barrerKey = "Bearer ";
 		StringBuilder resultado = new StringBuilder();
 		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "BannerToken")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				barrerKey+=rs.getString("valor")
+			}
+			
 			URL url = new URL(urlParaVisitar);
 			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
 			conexion.setRequestProperty("Authorization",barrerKey.replace("-.-.-", ""));
@@ -311,7 +337,7 @@ class BannerDAO {
 					errorLog = errorLog + " | " + row.getOperation();
 					
 					def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
-					lstCatBachilleratos = catBachilleratosDAO.findByDescripcion(row.getDescripcion(), 0, 100);
+					lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 					if(lstCatBachilleratos != null) {
 						for(CatBachilleratos objRow : lstCatBachilleratos) {
 							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();

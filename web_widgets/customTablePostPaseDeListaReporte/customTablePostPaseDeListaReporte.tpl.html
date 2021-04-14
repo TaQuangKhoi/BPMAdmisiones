@@ -50,7 +50,7 @@
                             
                     
                     
-                    <th ng-if="properties.lstContenido[0].tipoprueba_PID=='1'"> 
+                    <th ng-if="properties.lstContenido[0].tipoprueba_pid=='1'"> 
                     <span style="cursor:pointer" ng-click="setOrderBy('HORARIO')">Hora de la entrevista<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='HORARIO'"></i></span>
@@ -70,7 +70,7 @@
                     <td><input ng-model="dynamicInput['residencia']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA, PREPARATORIA, PROMEDIO',dynamicInput['residencia'])"></td>
                     <td><input ng-model="dynamicInput['alumnosa']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['alumnosa'])"></td>
                     <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('SEXO',dynamicInput['tipo'])"></td>
-                    <td ng-if="properties.lstContenido[0].tipoprueba_PID=='1'"><input ng-model="dynamicInput['horario']" class="form-control" ng-enter="filterKeyPress('HORA DE LA ENTREVISTA',dynamicInput['horario'])"></td>
+                    <td ng-if="properties.lstContenido[0].tipoprueba_pid=='1'"><input ng-model="dynamicInput['horario']" class="form-control" ng-enter="filterKeyPress('HORA DE LA ENTREVISTA',dynamicInput['horario'])"></td>
                     <td>
                         <select ng-model="dynamicInput['asistencia']" class="form-control" ng-change="filterKeyPress('ASISTENCIA',dynamicInput['asistencia'])">
                             <option disabled selected value> Selecciona una opción </option>
@@ -108,14 +108,14 @@
                         {{row.sexo}}
                     </td>
                     
-                    <td ng-if="properties.lstContenido[0].tipoprueba_PID=='1'">
+                    <td ng-if="properties.lstContenido[0].tipoprueba_pid=='1'">
                         {{row.horario}}
                     </td>
-                   <td ng-show="row.tipoprueba_PID =='4' && row.cbcoincide == 't'">
+                   <td ng-show="row.tipoprueba_pid =='4' && row.cbcoincide == 't'">
                        <br>
                         Aspirante exento
                     </td>
-                    <td ng-hide="row.tipoprueba_PID =='4' && row.cbcoincide == 't'">
+                    <td ng-hide="row.tipoprueba_pid =='4' && row.cbcoincide == 't'">
                         <div class=" middle-td text-center" >
                             <span ng-class="row.asistencia === 't'?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true"></span>
                             <!--<i class="glyphicon glyphicon-user iconograndetabla"></i>-->

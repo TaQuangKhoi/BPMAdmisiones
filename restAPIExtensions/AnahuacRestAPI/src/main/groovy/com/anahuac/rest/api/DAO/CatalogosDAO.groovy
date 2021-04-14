@@ -1658,6 +1658,9 @@ public Result getAzureConfig(){
 				case "AzureDefaultEndpointsProtocol":
 					ac.setAzureDefaultEndpointsProtocol(rs.getString("valor"))
 				break;
+				case "BannerToken":
+				ac.setBannerToken(rs.getString("valor"))
+				break;
 			}
 		}
 		data.add(ac)
@@ -1730,6 +1733,22 @@ public Result insertAzureConfig(AzureConfig ac){
 			pstm.setString(1, "AzureDefaultEndpointsProtocol")
 			pstm.setString(2, ac.getAzureDefaultEndpointsProtocol())
 			pstm.setString(3, "Azure Storage admite HTTP y HTTPS en una cadena de conexión, se recomienda encarecidamente HTTPS")
+			pstm.executeUpdate()
+		}
+		
+		pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+		pstm.setString(1, "BannerToken")
+		rs = pstm.executeQuery()
+		if(rs.next()) {
+			pstm = con.prepareStatement(AzureConfig.UPDATE_CONFIGURACIONES)
+			pstm.setString(1, ac.getBannerToken())
+			pstm.setString(2, "BannerToken")
+			pstm.executeUpdate()
+		}else {
+			pstm = con.prepareStatement(AzureConfig.INSERT_CONFIGURACIONES)
+			pstm.setString(1, "BannerToken")
+			pstm.setString(2,  ac.getBannerToken())
+			pstm.setString(3, "Token para hacer peticiones a banner")
 			pstm.executeUpdate()
 		}
 
