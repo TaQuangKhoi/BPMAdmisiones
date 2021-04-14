@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuariosRegistrados",
   "name" : "APPUsuariosRegistrados",
-  "lastUpdate" : 1618335652290,
+  "lastUpdate" : 1618350834270,
   "rows" : [
     [
       {
@@ -5493,6 +5493,105 @@
                 ],
                 [
                   {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "89feedc0-8960-45e9-827c-048552eda422",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "description" : "Widget que estaba para la seleccion de las constancias",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "context.constancia_ref.length <=1"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "constacias"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Select an option"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "context.constancia_ref"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "contentFileName"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant",
+                              "value" : "index"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "selectedConstancia.index"
+                            }
+                          },
+                          "reference" : "a6ab9cb8-19bb-470c-afa1-4b9a8f3b87c1",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
@@ -5506,8 +5605,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "context.constancia_ref.length <=1"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5523,7 +5622,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "constacias"
+                        "value" : "Constancias"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -5539,7 +5638,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "context.constancia_ref"
+                        "value" : "listaDocumentoBdm"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -5551,10 +5650,10 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "selectedConstancia.index"
+                        "value" : "indexCustom"
                       }
                     },
-                    "reference" : "a6ab9cb8-19bb-470c-afa1-4b9a8f3b87c1",
+                    "reference" : "6c4f0703-0d7c-415f-8a18-93d264fdd1ed",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
                   }
@@ -5574,8 +5673,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "(catUsuarios_selectedNR.urlconstancia === \"\" ) || (Archivos[2].url !== undefined && Archivos[2].url !== \"\" && Archivos[2].url !== null)"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5628,11 +5727,24 @@
                       "azureTempKeyRes" : {
                         "type" : "variable",
                         "value" : "azureTempKeyRes"
+                      },
+                      "index" : {
+                        "type" : "variable",
+                        "value" : "indexCustom"
+                      },
+                      "context" : {
+                        "type" : "variable",
+                        "value" : "context"
+                      },
+                      "listaDocumentoBdm" : {
+                        "type" : "variable",
+                        "value" : "listaDocumentoBdm"
                       }
                     },
                     "reference" : "51459fb3-1af9-479e-88eb-fb5f3125d9bf",
                     "hasValidationError" : false,
-                    "id" : "customCustomSelectHistoricoConstancia"
+                    "id" : "customCustomSelectHistoricoConstancia",
+                    "description" : "Custom widget creado para la seleccion de constancias de azure, tambien funciona para arreglar el index y que se muestre el ultimo documento en el caso de cuando se usan en el BPM"
                   }
                 ],
                 [
@@ -5663,7 +5775,7 @@
                       },
                       "document" : {
                         "type" : "variable",
-                        "value" : "selectConstancia"
+                        "value" : "context.constancia_ref[indexCustom]"
                       },
                       "showPreview" : {
                         "type" : "constant",
@@ -8348,7 +8460,7 @@
     "getPaisesRUA" : {
       "type" : "expression",
       "value" : [
-        "debugger;\r",
+        "\r",
         "var lstPaises = [];\r",
         "var registrado = false;\r",
         "for(var x=0;x<$data.getCiudadPais.length;x++){\r",
@@ -8671,7 +8783,7 @@
     "selectConstancia" : {
       "type" : "expression",
       "value" : [
-        "",
+        "debugger;",
         "let selected = $data.selectedConstancia.index;",
         "return $data.context.constancia_ref[selected]"
       ],
@@ -8747,6 +8859,20 @@
     },
     "getConstanciaHistoricoOPfff" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "indexCustom" : {
+      "type" : "constant",
+      "value" : [
+        "0"
+      ],
+      "exposed" : false
+    },
+    "listaDocumentoBdm" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
       "exposed" : false
     }
   },

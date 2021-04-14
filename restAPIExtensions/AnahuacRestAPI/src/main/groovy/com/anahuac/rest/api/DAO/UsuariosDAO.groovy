@@ -1127,7 +1127,12 @@ class UsuariosDAO {
 						
 						String label = metaData.getColumnLabel(i).toLowerCase();
 						if(label.equals("urlfoto") || label.equals("urlconstancia") || label.equals("urlcartaaa") || label.equals("urlresultadopaa") || label.equals("urlactanacimiento") || label.equals("urldescuentos")) {
-							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA);
+							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
+							} else {
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA);
+							}
+							
 						} else {
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 							if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
@@ -1340,56 +1345,75 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				errorLog+=" Imagen"
 				b = Base64.decodeBase64(object.Documentos[0].b64);
 				
-				if(object.Documentos[0].documentId != null) {
-					dv = new DocumentValue(object.Documentos[0].documentId, b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
-					dv.setIndex(0);
-					processAPI.updateDocument(object.Documentos[0].documentId,dv)
-				}else {
-					dv = new DocumentValue( b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
-					processAPI.addDocument(Long.valueOf(object.caseid),"fotoPasaporte","",dv)
-				}
+//				if(object.Documentos[0].documentId != null) {
+//					dv = new DocumentValue(object.Documentos[0].documentId, b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
+//					dv.setIndex(0);
+//					processAPI.updateDocument(object.Documentos[0].documentId,dv)
+//				}else {
+//					dv = new DocumentValue( b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
+//					processAPI.addDocument(Long.valueOf(object.caseid),"fotoPasaporte","",dv)
+//				}
+				dv = new DocumentValue( b, object.Documentos[0].valor.contentType, object.Documentos[0].valor.filename);
+//				processAPI.addDocument(Long.valueOf(object.caseid),"fotoPasaporte","",dv)
+				List<DocumentValue> lstDV = new ArrayList<DocumentValue>();
+				lstDV.add(dv);
+				processAPI.setDocumentList(Long.valueOf(object.caseid), "fotoPasaporte", lstDV);
 			}
 			if(object.Documentos[1].url.length() > 1) {
 				errorLog+=" acta"
 				b = Base64.decodeBase64(object.Documentos[1].b64);
+//				if(object.Documentos[1].documentId != null) {
+//					dv = new DocumentValue(object.Documentos[1].documentId, b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
+//					//dv.setIndex(0);
+//					processAPI.updateDocument(object.Documentos[1].documentId,dv)
+//				}else {
+//					dv = new DocumentValue(b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
+//					processAPI.addDocument(Long.valueOf(object.caseid), "actaNacimiento", "", dv)
+//				}
 				
-				
-				if(object.Documentos[1].documentId != null) {
-					dv = new DocumentValue(object.Documentos[1].documentId, b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
-					//dv.setIndex(0);
-					processAPI.updateDocument(object.Documentos[1].documentId,dv)
-				}else {
-					dv = new DocumentValue(b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
-					processAPI.addDocument(Long.valueOf(object.caseid),"actaNacimiento","",dv)
-				}
+				dv = new DocumentValue(b, object.Documentos[1].valor.contentType, object.Documentos[1].valor.filename);
+				List<DocumentValue> lstDV = new ArrayList<DocumentValue>();
+				lstDV.add(dv);
+				processAPI.setDocumentList(Long.valueOf(object.caseid), "actaNacimiento", lstDV);
 			}
 			if(object.Documentos[2].url.length() > 1) {
 				errorLog+=" constancia"
 				b = Base64.decodeBase64(object.Documentos[2].b64);
 				
-				if(object.Documentos[3].documentId != null) {
-					dv =new DocumentValue(object.Documentos[2].documentId, b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
-				}else {
-					dv =new DocumentValue(b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
-				}
-				dv.setIndex(0);
+//				if(object.Documentos[3].documentId != null) {
+//					dv =new DocumentValue(object.Documentos[2].documentId, b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
+//				}else {
+//					dv =new DocumentValue(b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
+//				}
+//				dv.setIndex(0);
+				dv = new DocumentValue( b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
 				processAPI.addDocument(Long.valueOf(object.caseid),"constancia","",dv)
+
+//				dv = new DocumentValue(b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
 				
-				
+//				dv = new DocumentValue( b, object.Documentos[2].valor.contentType, object.Documentos[2].valor.filename);
+//				List<DocumentValue> lstDV = new ArrayList<DocumentValue>();
+//				lstDV.add(dv);
+//				processAPI.setDocumentList(Long.valueOf(object.caseid), "constancia", lstDV);
 			}
 			if(object.Documentos[3].url.length() > 1) {
 				
 				errorLog+=" cartaAA"
 				b = Base64.decodeBase64(object.Documentos[3].b64);
 				
-				if(object.Documentos[3].documentId != null) {
-					dv = new DocumentValue(object.Documentos[3].documentId, b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
-					//dv.setIndex(0);
-					processAPI.updateDocument(object.Documentos[3].documentId,dv)
-				}else {
-					dv = new DocumentValue(b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
-					processAPI.addDocument(Long.valueOf(object.caseid),"cartaAA","",dv)
-				}
+//				if(object.Documentos[3].documentId != null) {
+//					dv = new DocumentValue(object.Documentos[3].documentId, b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
+//					//dv.setIndex(0);
+//					processAPI.updateDocument(object.Documentos[3].documentId,dv)
+//				}else {
+//					dv = new DocumentValue(b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
+//					processAPI.addDocument(Long.valueOf(object.caseid),"cartaAA","",dv)
+//				}
+				dv = new DocumentValue(b, object.Documentos[3].valor.contentType, object.Documentos[3].valor.filename);
+//				processAPI.addDocument(Long.valueOf(object.caseid),"cartaAA","",dv)
+				List<DocumentValue> lstDV = new ArrayList<DocumentValue>();
+				lstDV.add(dv);
+				processAPI.setDocumentList(Long.valueOf(object.caseid), "cartaAA", lstDV);
 			}
 			
 			if(object.Documentos[4].url.length() > 1) {
@@ -1397,20 +1421,21 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				errorLog+=" resultadoCB"
 				b = Base64.decodeBase64(object.Documentos[4].b64);
 				
-				if(object.Documentos[4].documentId != null) {					
-					dv = new DocumentValue(object.Documentos[4].documentId, b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
-					//dv.setIndex(0);
-					processAPI.updateDocument(object.Documentos[4].documentId,dv)
-				}else {
-					dv = new DocumentValue(b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
-					processAPI.addDocument(Long.valueOf(object.caseid),"resultadoCB","",dv)
-				}
-				
+//				if(object.Documentos[4].documentId != null) {					
+//					dv = new DocumentValue(object.Documentos[4].documentId, b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
+//					//dv.setIndex(0);
+//					processAPI.updateDocument(object.Documentos[4].documentId,dv)
+//				}else {
+//					dv = new DocumentValue(b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
+//					processAPI.addDocument(Long.valueOf(object.caseid),"resultadoCB","",dv)
+//				}
+				dv = new DocumentValue(b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
+//				processAPI.addDocument(Long.valueOf(object.caseid),"resultadoCB","",dv)
+				List<DocumentValue> lstDV = new ArrayList<DocumentValue>();
+				lstDV.add(dv);
+				processAPI.setDocumentList(Long.valueOf(object.caseid), "resultadoCB", lstDV);
 				
 			}
-			
-			//processAPI.deleteContentOfArchivedDocument(1847)
-			//new Document 1847
 			
 			con.commit();
 			resultado.setSuccess(true)
@@ -1427,6 +1452,57 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 		}
 		
 		return resultado;
+	}
+	
+	public Result getConstanciasHistorico(Long caseId) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+			closeCon = validarConexionBonita();
+			
+			String SSA = "";
+			
+//			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+//			rs= pstm.executeQuery();
+//			if(rs.next()) {
+//				SSA = rs.getString("valor") 
+//			}
+			
+			pstm = con.prepareStatement(Statements.GET_CONSTANCIAS_HISTORICO);
+			pstm.setLong(1, caseId);
+			
+			rs = pstm.executeQuery()
+			rows = new ArrayList<Map<String, Object>>();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if(metaData.getColumnLabel(i).toLowerCase().equals("urlconstancia")) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA);
+					}
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+			
+			resultado.setData(rows)
+			
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 	
 	

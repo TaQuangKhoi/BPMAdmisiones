@@ -115,7 +115,7 @@ class BecasDAO {
 		String errorLog = "";
 		try {
 			//String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
-			String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE))"
+			String consulta = "select * from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE))"
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
 			String SSA = "";
@@ -136,7 +136,15 @@ class BecasDAO {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 
 					for (int i = 1; i <= columnCount; i++) {
-						if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
+						if(metaData.getColumnLabel(i).toLowerCase().equals("fechanacimiento")) {
+							String fecha = rs.getString(i);
+							if(fecha != null && !fecha.equals("null") ) {
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), fecha[0..9]);
+							}else {
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+							}
+						}else 
+							if(metaData.getColumnLabel(i).toLowerCase().equals("foto") || metaData.getColumnLabel(i).toLowerCase().equals("kardex")) {
 							columns.put(metaData.getColumnLabel(i).toLowerCase(), (metaData.getColumnLabel(i).toLowerCase().equals("foto")?"regAvatarName":"kardexPr")+rs.getString("nregistro"));
 							columns.put("url"+metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 						}else {

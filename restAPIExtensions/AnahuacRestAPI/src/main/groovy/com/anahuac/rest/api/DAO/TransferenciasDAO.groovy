@@ -1074,9 +1074,17 @@ class TransferenciasDAO {
 			
 			closeCon = validarConexion()
 			con.setAutoCommit(false)
+			String usuarioReagendar = "";
+			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
+			pstm.setLong(1,  Long.parseLong(object.caseid.toString()))
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				usuarioReagendar = (rs.getString("correoelectronico"))
+			}
+			
 			List<Long> pruebas = new ArrayList<Long>()
 			pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
-			pstm.setString(1,  username)
+			pstm.setString(1,  usuarioReagendar)
 			rs = pstm.executeQuery()
 			while(rs.next()) {
 				pruebas.add(rs.getLong("prueba_pid"))

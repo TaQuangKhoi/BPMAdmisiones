@@ -555,6 +555,16 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getPlantillaRegistro":
+				result = new BecasDAO().getPlantillaRegistro();
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
 				case "getEstados":
 				String pais = request.getParameter "pais";
 				result = new CatalogosDAO().getCatEstados(pais)
@@ -575,7 +585,17 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				
+				case "getConstanciasHistorico":
+					String caseId = request.getParameter "caseId";
+					
+					result = new UsuariosDAO().getConstanciasHistorico(Long.valueOf(caseId));
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
 				case "getSesions":
 				List<SesionCustom> sesions = new ArrayList()
 				SesionCustom sesion = new SesionCustom();
