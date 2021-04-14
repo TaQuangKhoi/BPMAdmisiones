@@ -1072,41 +1072,43 @@ class TransferenciasDAO {
                 }
             }
 			
-			closeCon = validarConexion()
-			con.setAutoCommit(false)
-			String usuarioReagendar = "";
-			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
-			pstm.setLong(1,  Long.parseLong(object.caseid.toString()))
-			rs = pstm.executeQuery()
-			while(rs.next()) {
-				usuarioReagendar = (rs.getString("correoelectronico"))
-			}
-			
-			List<Long> pruebas = new ArrayList<Long>()
-			pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
-			pstm.setString(1,  usuarioReagendar)
-			rs = pstm.executeQuery()
-			while(rs.next()) {
-				pruebas.add(rs.getLong("prueba_pid"))
-			}
-			
-			for(Long pa:pruebas) {
-				pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
-				pstm.setString(1, username)
-				pstm.setLong(2, pa)
+			if(object.esProceso == null) {
+				closeCon = validarConexion()
+				con.setAutoCommit(false)
+				String usuarioReagendar = "";
+				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
+				pstm.setLong(1, Long.valueOf(object.caseid.toString()))
 				rs = pstm.executeQuery()
-				if(!rs.next()) {
-					pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
-					pstm.setLong(1, pa);
-					pstm.setString(2, username);
-					pstm.setBoolean(3,false);
-					pstm.setString(4,"");
-					
-					pstm.executeUpdate();
+				while(rs.next()) {
+					usuarioReagendar = (rs.getString("correoelectronico"))
 				}
+				
+				List<Long> pruebas = new ArrayList<Long>()
+				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+				pstm.setString(1,  usuarioReagendar)
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					pruebas.add(rs.getLong("prueba_pid"))
+				}
+				
+				for(Long pa:pruebas) {
+					pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+					pstm.setString(1, username)
+					pstm.setLong(2, pa)
+					rs = pstm.executeQuery()
+					if(!rs.next()) {
+						pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+						pstm.setLong(1, pa);
+						pstm.setString(2, username);
+						pstm.setBoolean(3,false);
+						pstm.setString(4,"");
+						
+						pstm.executeUpdate();
+					}
+				}
+				
+				con.commit();
 			}
-			
-			con.commit();
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);
         } catch (Exception ex) {

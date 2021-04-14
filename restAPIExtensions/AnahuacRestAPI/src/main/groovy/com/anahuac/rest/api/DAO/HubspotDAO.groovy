@@ -148,7 +148,7 @@ class HubspotDAO {
 					objHubSpotData.put("firstname", lstCatRegistro.get(0).getPrimernombre()+" "+(lstCatRegistro.get(0).getSegundonombre() == null ? "" : lstCatRegistro.get(0).getSegundonombre()));
 					objHubSpotData.put("lastname", lstCatRegistro.get(0).getApellidopaterno()+" "+lstCatRegistro.get(0).getApellidomaterno());
 					objHubSpotData.put("email", object.email);
-					objHubSpotData.put("estatus_admision_bpm", "Solicitud");
+					objHubSpotData.put("estatus_admision_bpm", "Registro");
 					objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 					objHubSpotData.put("apoyo_ov_bpm", lstSolicitudDeAdmision.get(0).isNecesitoAyuda());
 					//
@@ -287,10 +287,10 @@ class HubspotDAO {
 					objHubSpotData.put("fecha_nacimiento_bpm", dfSalida.format(fechaNacimiento));
 					//objHubSpotData.put("gender", lstSolicitudDeAdmision.get(0).getCatSexo().getClave() == null ? "" : lstSolicitudDeAdmision.get(0).getCatSexo().getClave());
 					objHubSpotData.put("promedio_bpm", lstSolicitudDeAdmision.get(0).getPromedioGeneral() == null ? "" : lstSolicitudDeAdmision.get(0).getPromedioGeneral());
-					objHubSpotData.put("estatus_admision_bpm", "Envío de Solicitud");
+					objHubSpotData.put("estatus_admision_bpm", "Envío de solicitud");
 					
 					objHubSpotData.put("fecha_actualizacion_bpm", dfSalidaSC.format(fechaSC));
-					objHubSpotData.put("app_estatus_de_contacto", "Standby");
+					//objHubSpotData.put("app_estatus_de_contacto", "Standby");
 					
 					if(lstSolicitudDeAdmision.get(0).getCatBachilleratos().getClave().equals("otro")) {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getBachillerato());
@@ -382,7 +382,7 @@ class HubspotDAO {
 						if(!lstDetalleSolicitud.empty) {
 							objHubSpotData.put("mensaje_bpm", lstDetalleSolicitud.get(0).getObservacionesCambio());
 							objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
-							objHubSpotData.put("estatus_admision_bpm", "Solicitud Cambios");
+							objHubSpotData.put("estatus_admision_bpm", "Solicitud cambios");
 							resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 							strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
 						}
@@ -451,7 +451,7 @@ class HubspotDAO {
 							resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 							apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 							strError = strError + " | apikeyHubspot: "+apikeyHubspot;
-							residencia = lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("F") ? "R" : (lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("R") ? "L" : "E");
+							residencia = lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("F") ? "F" : (lstDetalleSolicitud.get(0).getCatResidencia().getClave().equals("R") ? "R" : "E");
 							tipoAdmision = lstDetalleSolicitud.get(0).getCatTipoAdmision().getClave();
 							
 							strError = strError + " | residencia: "+residencia;
@@ -548,13 +548,13 @@ class HubspotDAO {
 						if(!lstDetalleSolicitud.empty) {
 							if(isRechazo) {
 								mensaje = lstDetalleSolicitud.get(0).getObservacionesRechazo() == null ? "" : lstDetalleSolicitud.get(0).getObservacionesRechazo();
-								estatus = "Rechazado";
+								estatus = "Solicitud rechazada";
 							}
 							else {
 								mensaje = lstDetalleSolicitud.get(0).getObservacionesListaRoja() == null ? "" : lstDetalleSolicitud.get(0).getObservacionesListaRoja();
-								estatus = "Lista roja";
+								estatus = "Lista Roja";
 							}
-							objHubSpotData.put("mensaje", mensaje);
+							objHubSpotData.put("mensaje_bpm", mensaje);
 							objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 							objHubSpotData.put("estatus_admision_bpm", estatus);
 							resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
@@ -603,7 +603,7 @@ class HubspotDAO {
 			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			
 			objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
-			objHubSpotData.put("estatus_admision_bpm", "Envío de Solicitud");
+			objHubSpotData.put("estatus_admision_bpm", "Envío de solicitud");
 			resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 			strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
 			
@@ -702,7 +702,7 @@ class HubspotDAO {
 								strError = strError + " | name: " +lstOrderDetails.get(0).get("name");
 								
 								strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
-								estatus = "Pago";
+								estatus = "Pagó examen de admisión";
 								if(lstOrderDetails.get(0).get("createdAtDate") != null) {
 									fechaConekta = dfEntradaConekta.parse(lstOrderDetails.get(0).get("createdAtDate"));
 									objHubSpotData.put("pago_inscripcion", dfSalida.format(fechaConekta));
@@ -848,7 +848,7 @@ class HubspotDAO {
 					if(lstDetalleSolicitud != null) {
 						if(!lstDetalleSolicitud.empty) {
 							objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
-							objHubSpotData.put("estatus_admision_bpm", "Credencial generada");
+							objHubSpotData.put("estatus_admision_bpm", "Credencial Generada");
 							resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 							strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
 						}
