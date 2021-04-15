@@ -1029,6 +1029,7 @@ class TransferenciasDAO {
         String errorLog = "";
         Boolean closeCon = false;
         try {
+			
             ProcessAPI processAPI = context.getApiClient().getProcessAPI();
             Boolean avanzartarea = false;
             String username = "";
@@ -1072,7 +1073,8 @@ class TransferenciasDAO {
                 }
             }
 			
-			if(object.esProceso == null) {
+			if(object.noProceso == null) {
+				//errorLog = errorLog + " | Entro en el select"
 				closeCon = validarConexion()
 				con.setAutoCommit(false)
 				String usuarioReagendar = "";
@@ -1082,7 +1084,7 @@ class TransferenciasDAO {
 				while(rs.next()) {
 					usuarioReagendar = (rs.getString("correoelectronico"))
 				}
-				
+				//errorLog = errorLog + " | usuario"+usuarioReagendar
 				List<Long> pruebas = new ArrayList<Long>()
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
 				pstm.setString(1,  usuarioReagendar)
@@ -1090,16 +1092,18 @@ class TransferenciasDAO {
 				while(rs.next()) {
 					pruebas.add(rs.getLong("prueba_pid"))
 				}
-				
+				//errorLog = errorLog + " | Pruebas "+ pruebas
 				for(Long pa:pruebas) {
 					pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
-					pstm.setString(1, username)
+					pstm.setString(1, usuarioReagendar)
 					pstm.setLong(2, pa)
 					rs = pstm.executeQuery()
+					//errorLog = errorLog + " | rs "+rs
 					if(!rs.next()) {
+						//errorLog = errorLog + " | insert de pruebas "
 						pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
 						pstm.setLong(1, pa);
-						pstm.setString(2, username);
+						pstm.setString(2, usuarioReagendar);
 						pstm.setBoolean(3,false);
 						pstm.setString(4,"");
 						

@@ -682,44 +682,51 @@ class HubspotDAO {
 							descuento = ""+lstDetalleSolicitud.get(0).getDescuento();
 							catDescuento = ""+(lstDetalleSolicitud.get(0).getCatDescuentos()== null ? "" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento());
 							
-							strError = strError + " | descuento: "+descuento;
-							strError = strError + " | getOrdenPago: "+lstDetalleSolicitud.get(0).getOrdenPago();
+							strError = strError + " | descuento: "+"descuento.toString()";
+							strError = strError + " | getOrdenPago: "+lstDetalleSolicitud.get(0).getOrdenPago()//lstDetalleSolicitud.size()>0 ? (lstDetalleSolicitud.get(0).getOrdenPago() == null ? "NULO OP" : "lstDetalleSolicitud.get(0).getOrdenPago()") : "NULL";
 							strError = strError + " | getCatCampus().getPersistenceId: " + lstSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId()
 							strError = strError + " | jsonPago: " +jsonPago.replace("[ORDERID]", String.valueOf(lstDetalleSolicitud.get(0).getOrdenPago())).replace("[CAMPUSID]", String.valueOf(lstSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId()));
-							resultadoCDAO = cDAO.getOrderDetails(parameterP, parameterC, jsonPago.replace("[ORDERID]", String.valueOf(lstDetalleSolicitud.get(0).getOrdenPago())).replace("[CAMPUSID]", String.valueOf(lstSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId())), context);
-							if(resultadoCDAO.isSuccess()) {
-								lstOrderDetails = (List<Map<String, String>>) resultadoCDAO.getData();
-								strError = strError + " | speiBank: " +lstOrderDetails.get(0).get("speiBank");
-								strError = strError + " | CLABE: " +lstOrderDetails.get(0).get("CLABE");
-								strError = strError + " | amount: " +lstOrderDetails.get(0).get("amount");
-								strError = strError + " | id: " +lstOrderDetails.get(0).get("id");
-								strError = strError + " | createdAtDate: " +lstOrderDetails.get(0).get("createdAtDate");
-								strError = strError + " | createdAtTime: " +lstOrderDetails.get(0).get("createdAtTime");
-								strError = strError + " | type: " +lstOrderDetails.get(0).get("type");
-								strError = strError + " | referencia: " +lstOrderDetails.get(0).get("referencia");
-								strError = strError + " | cardNumber: " +lstOrderDetails.get(0).get("cardNumber");
-								strError = strError + " | authorizationCode: " +lstOrderDetails.get(0).get("authorizationCode");
-								strError = strError + " | name: " +lstOrderDetails.get(0).get("name");
-								
-								strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
-								estatus = "Pagó examen de admisión";
-								if(lstOrderDetails.get(0).get("createdAtDate") != null) {
-									fechaConekta = dfEntradaConekta.parse(lstOrderDetails.get(0).get("createdAtDate"));
-									objHubSpotData.put("pago_inscripcion", dfSalida.format(fechaConekta));
-								}
-								if(lstOrderDetails.get(0).get("amount") != null) {
-									Float monto=Float.parseFloat(lstOrderDetails.get(0).get("amount").toString().replace(pesoSigno, "").replace(" MXN", "").replace("MXN", ""));
-									
-									objHubSpotData.put("monto_pago_bpm", df.format(monto));
-								}
-								objHubSpotData.put("porcentaje_de_descuento_bpm", lstDetalleSolicitud.get(0).getDescuento()==null ? (lstDetalleSolicitud.get(0).getCatDescuentos() == null ? "0" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento()):lstDetalleSolicitud.get(0).getDescuento());
+							if(lstDetalleSolicitud.get(0).getOrdenPago() == null || lstDetalleSolicitud.get(0).getOrdenPago() == "") {
 								objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 								objHubSpotData.put("estatus_admision_bpm", estatus);
 								resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 								strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
-							}
-							else {
-								throw new Exception(resultadoCDAO.getError());
+							}else {
+								resultadoCDAO = cDAO.getOrderDetails(parameterP, parameterC, jsonPago.replace("[ORDERID]", String.valueOf(lstDetalleSolicitud.get(0).getOrdenPago())).replace("[CAMPUSID]", String.valueOf(lstSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId())), context);
+								if(resultadoCDAO.isSuccess()) {
+									lstOrderDetails = (List<Map<String, String>>) resultadoCDAO.getData();
+									strError = strError + " | speiBank: " +lstOrderDetails.get(0).get("speiBank");
+									strError = strError + " | CLABE: " +lstOrderDetails.get(0).get("CLABE");
+									strError = strError + " | amount: " +lstOrderDetails.get(0).get("amount");
+									strError = strError + " | id: " +lstOrderDetails.get(0).get("id");
+									strError = strError + " | createdAtDate: " +lstOrderDetails.get(0).get("createdAtDate");
+									strError = strError + " | createdAtTime: " +lstOrderDetails.get(0).get("createdAtTime");
+									strError = strError + " | type: " +lstOrderDetails.get(0).get("type");
+									strError = strError + " | referencia: " +lstOrderDetails.get(0).get("referencia");
+									strError = strError + " | cardNumber: " +lstOrderDetails.get(0).get("cardNumber");
+									strError = strError + " | authorizationCode: " +lstOrderDetails.get(0).get("authorizationCode");
+									strError = strError + " | name: " +lstOrderDetails.get(0).get("name");
+									
+									strError = strError + " | lstDetalleSolicitud.size: "+lstDetalleSolicitud.size();
+									estatus = "Pagó examen de admisión";
+									if(lstOrderDetails.get(0).get("createdAtDate") != null) {
+										fechaConekta = dfEntradaConekta.parse(lstOrderDetails.get(0).get("createdAtDate"));
+										objHubSpotData.put("pago_inscripcion", dfSalida.format(fechaConekta));
+									}
+									if(lstOrderDetails.get(0).get("amount") != null) {
+										Float monto=Float.parseFloat(lstOrderDetails.get(0).get("amount").toString().replace(pesoSigno, "").replace(" MXN", "").replace("MXN", ""));
+										
+										objHubSpotData.put("monto_pago_bpm", df.format(monto));
+									}
+									objHubSpotData.put("porcentaje_de_descuento_bpm", lstDetalleSolicitud.get(0).getDescuento()==null ? (lstDetalleSolicitud.get(0).getCatDescuentos() == null ? "0" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento()):lstDetalleSolicitud.get(0).getDescuento());
+									objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
+									objHubSpotData.put("estatus_admision_bpm", estatus);
+									resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
+									strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
+								}
+								else {
+									throw new Exception(resultadoCDAO.getError());
+								}
 							}
 						}
 					}
@@ -728,7 +735,7 @@ class HubspotDAO {
 			}
 
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
-			//resultado.setSuccess(true);
+			resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
@@ -1042,44 +1049,28 @@ class HubspotDAO {
 			if(lstCatRegistro != null) {
 				if(!lstCatRegistro.empty) {
 					
-					//resultadoFirstFecha = getFirstFechaExamenByUsername(object.email);
 					resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 					apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 					
-					//lstResultadoFF = (List<Map<String, Object>>)resultadoFirstFecha.getData();
-					
-					strError = strError + " | resultadoFirstFecha.getError_info: "+resultadoFirstFecha.getError_info();
-					
-					/*if(lstResultadoFF.size()>0) {
-						objResultadoFF = lstResultadoFF.get(0);
-						fechaFF = (Date) objResultadoFF.get("tiempo");
-						strError = strError + " | dfSalidaFF.format: "+dfSalidaFF.format(fechaFF)+" 00:00";
-						fechaFF = dfSalida.parse(dfSalidaFF.format(fechaFF)+" 00:00")
-						
-					}
-					*/
-					//result = new SesionesDAO().getDatosSesionUsername(username)
 					resultadoFechasSesiones = new SesionesDAO().getDatosSesionUsername(object.email);
+					strError = strError + " | resultadoFechasSesiones.getError_info: "+resultadoFechasSesiones.getError_info();
 					lstResultadoFS = (List<Map<String, Object>>)resultadoFechasSesiones.getData();
 					if(lstResultadoFS.size()>0) {
 						for(Map<String, Object> fechassesiones : lstResultadoFS) {
+							strError = strError + " " + fechassesiones.get("descripcion");
+							strError = strError + " " + fechassesiones.get("aplicacion");
+							String fechaobj = String.valueOf(fechassesiones.get("aplicacion"));
+							strError = strError + " " + fechaobj;
 							if(fechassesiones.get("descripcion").equals("Entrevista")) {
-								fechaE = (Date) fechassesiones.get("aplicacion");
-								fechaE = dfSalida.parse(dfSalidaFF.format(fechaE)+" 00:00");
+								fechaE = dfSalida.parse(fechaobj + " 00:00");
 							}else if(fechassesiones.get("descripcion").equals("Examen de aptitudes y conocimientos")) {
-								fechaAA = (Date) fechassesiones.get("aplicacion");
-								fechaAA = dfSalida.parse(dfSalidaFF.format(fechaAA)+" 00:00");
+								fechaAA = dfSalida.parse(fechaobj+ " 00:00");
 							}else if(fechassesiones.get("descripcion").equals("Examen Psicométrico")) {
-								fechaPS = (Date) fechassesiones.get("aplicacion");
-								fechaPS = dfSalida.parse(dfSalidaFF.format(fechaPS)+" 00:00");
+								fechaPS  = dfSalida.parse(fechaobj + " 00:00");
 							}
 						}
 						
-						/*objResultadoFF = lstResultadoFF.get(0);
-						fechaFF = (Date) objResultadoFF.get("tiempo");
-						strError = strError + " | dfSalidaFF.format: "+dfSalidaFF.format(fechaFF)+" 00:00";
-						fechaFF = dfSalida.parse(dfSalidaFF.format(fechaFF)+" 00:00")*/
-						
+						strError = strError + " | fechaE " + fechaE + " | fechaAA " + fechaAA + " | fechaPSString " + fechaPS;			
 					}
 					
 					
