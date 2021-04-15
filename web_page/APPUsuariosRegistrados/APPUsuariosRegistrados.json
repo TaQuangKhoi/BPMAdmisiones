@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuariosRegistrados",
   "name" : "APPUsuariosRegistrados",
-  "lastUpdate" : 1618350834270,
+  "lastUpdate" : 1618528940747,
   "rows" : [
     [
       {
@@ -4502,9 +4502,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "d97112ad-30db-4562-9032-c9c2cf832a58",
+                          "reference" : "f8caa6dd-5594-429c-a4c6-2da8519e90fa",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom"
+                          "id" : "customInputNumericoCustom2"
                         },
                         {
                           "type" : "component",
@@ -4935,7 +4935,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "(catUsuarios_selectedNR.urlFoto === \"\" || catUsuarios_selectedNR.urlFoto === null) || (Archivos[0].url!== undefined && Archivos[0].url!== \"\" && Archivos[0].url!== null)"
+                        "value" : "(catUsuarios_selectedNR.urlFoto === \"\" || catUsuarios_selectedNR.urlFoto === null) ||  (context.fotoPasaporte_ref.length > 0)"
                       },
                       "type" : {
                         "type" : "constant",
@@ -5514,7 +5514,7 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "89feedc0-8960-45e9-827c-048552eda422",
+                    "reference" : "0771d4cf-38b9-4487-b475-991d81d1ccbc",
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "description" : "Widget que estaba para la seleccion de las constancias",
@@ -5605,8 +5605,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "(Archivos[2].isPDF != true || Archivos[2].isImagen != true) ? true : (!((Archivos[2].url !== undefined && Archivos[2].url !== \"\" && Archivos[2].url !== null) ? true : ((context.constancia_ref.length > 0) ? true : false)))"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5653,7 +5653,7 @@
                         "value" : "indexCustom"
                       }
                     },
-                    "reference" : "6c4f0703-0d7c-415f-8a18-93d264fdd1ed",
+                    "reference" : "2de3a632-d2df-4b28-bc0b-58e795a388eb",
                     "hasValidationError" : false,
                     "id" : "pbSelect"
                   }
@@ -8783,7 +8783,6 @@
     "selectConstancia" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
         "let selected = $data.selectedConstancia.index;",
         "return $data.context.constancia_ref[selected]"
       ],
