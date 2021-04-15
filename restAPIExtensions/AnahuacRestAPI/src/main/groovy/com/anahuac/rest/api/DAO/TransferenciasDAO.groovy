@@ -1073,7 +1073,7 @@ class TransferenciasDAO {
                 }
             }
 			
-			if(object.noProceso == null) {
+			if(object.isProceso == null) {
 				//errorLog = errorLog + " | Entro en el select"
 				closeCon = validarConexion()
 				con.setAutoCommit(false)

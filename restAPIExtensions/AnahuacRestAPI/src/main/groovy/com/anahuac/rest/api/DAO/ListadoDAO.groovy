@@ -1391,6 +1391,12 @@ class ListadoDAO {
 										columns.put("fotografiab64", encoded);
 									}	
 								}
+								
+								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiabpm", encoded);
+								}
+								
 								/*for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 									encoded = "../API/formsDocumentImage?document="+doc.getId();
 									columns.put("fotografiab64", encoded);
@@ -2235,6 +2241,58 @@ class ListadoDAO {
 							}
 							tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
 							break;
+						case "NOMBRE,EMAIL,CURP":
+							errorlog+="NOMBRE,EMAIL,CURP"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							break;
+						case "CAMPUS,PROGRAMA,PERIODO":
+							errorlog+="PROGRAMA, PERÍODO DE INGRESO, CAMPUS INGRESO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							break;
+						case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+							errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							/*
+							where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							*/
+							where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+						break;
 						default:
 						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
 						//consulta=consulta.replace("[WHERE]", where);

@@ -688,7 +688,7 @@ class HubspotDAO {
 							strError = strError + " | jsonPago: " +jsonPago.replace("[ORDERID]", String.valueOf(lstDetalleSolicitud.get(0).getOrdenPago())).replace("[CAMPUSID]", String.valueOf(lstSolicitudDeAdmision.get(0).getCatCampus().getPersistenceId()));
 							if(lstDetalleSolicitud.get(0).getOrdenPago() == null || lstDetalleSolicitud.get(0).getOrdenPago() == "") {
 								objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
-								objHubSpotData.put("estatus_admision_bpm", estatus);
+								objHubSpotData.put("estatus_admision_bpm", "Pagó examen de admisión");
 								resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 								strError = strError + (resultado.getError_info() == null ? "NULL INFO" : "|" + resultado.getError_info() + "|");
 							}else {
@@ -711,7 +711,7 @@ class HubspotDAO {
 									estatus = "Pagó examen de admisión";
 									if(lstOrderDetails.get(0).get("createdAtDate") != null) {
 										fechaConekta = dfEntradaConekta.parse(lstOrderDetails.get(0).get("createdAtDate"));
-										objHubSpotData.put("pago_inscripcion", dfSalida.format(fechaConekta));
+										objHubSpotData.put("monto_pago_bpm", dfSalida.format(fechaConekta));
 									}
 									if(lstOrderDetails.get(0).get("amount") != null) {
 										Float monto=Float.parseFloat(lstOrderDetails.get(0).get("amount").toString().replace(pesoSigno, "").replace(" MXN", "").replace("MXN", ""));
@@ -719,6 +719,7 @@ class HubspotDAO {
 										objHubSpotData.put("monto_pago_bpm", df.format(monto));
 									}
 									objHubSpotData.put("porcentaje_de_descuento_bpm", lstDetalleSolicitud.get(0).getDescuento()==null ? (lstDetalleSolicitud.get(0).getCatDescuentos() == null ? "0" : lstDetalleSolicitud.get(0).getCatDescuentos().getDescuento()):lstDetalleSolicitud.get(0).getDescuento());
+									objHubSpotData.put("pago_examen_bpm", dfSalida.format(fecha));
 									objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 									objHubSpotData.put("estatus_admision_bpm", estatus);
 									resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
