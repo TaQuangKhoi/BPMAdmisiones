@@ -440,6 +440,7 @@ function($scope, $http, blockUI, $window) {
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $scope.sesion_aspirante.username = $scope.properties.usuario[0].correoElectronico
                     doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesionAspirante&p=0&c=10", null, $scope.sesion_aspirante, null, function(datos, extra) {
                         doRequest("GET", `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
                             var taskId = 0;
