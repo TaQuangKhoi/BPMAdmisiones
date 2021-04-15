@@ -17,55 +17,66 @@
         <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
             <thead>
                 <tr>
-                    <th>FOTO</th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">NOMBRE<i class="glyphicon"
+                    <th>Foto</th>
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">EMAIL<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Email<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('CURP')">CURP<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('CURP')">Curp<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='CURP'"></i></span></th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">CAMPUS<i class="glyphicon"
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROGRAMA')">PROGRAMA<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROGRAMA')">Programa<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">INGRESO<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='PROGRAMA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('INGRESO')">Período<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='INGRESO'"></i></span></th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTADO')">ESTADO<i class="glyphicon"
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTADO')">Procedencia<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='ESTADO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">PREPARATORIA<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='ESTADO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">PROMEDIO<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">ESTATUS<i class="glyphicon"
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('TIPO')">TIPO<i class="glyphicon"
-                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPO'"></i></span></th>
-                    <th> ACCIONES</th>
+                            ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span></th>
+                    <th> Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody>                
+            <tr>
+                <td></td>
+                <!-- <td><input ng-model="dynamicInput['banner']" class="form-control" ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td> -->
+                <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
+                <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,PERIODO',dynamicInput['programa'])"></td>
+                <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
+                <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
+                <td></td>
+            </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td>
-                        <img ng-src="{{row.fotografiab64}}" style="width: 64px;">
+                        <img src="{{row.urlfoto}}{{properties.apiKeyPrepro}}" style="width: 64px;">
                     </td>
                     <td>
-                        {{row.primernombre}} {{row.segundonombre}} {{row.apellidopaterno}} {{row.apellidomaterno}}<br> {{row.correoelectronico}}
+                        <b>{{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}} {{row.segundonombre}}</b><br> 
+                        {{row.correoelectronico}}
                         <br> {{row.curp}}
                     </td>
                     <td>
-                        {{row.campus}}<br> {{row.licenciatura}}
-                        <br> {{row.periodo}}
+                        <b>{{row.campus}}</b><br> 
+                        {{row.licenciatura}}
+                        <br> {{row.ingreso}}
                     </td>
                     <td>
-                        {{row.estado}}<br> {{row.preparatoria}}
+                        <b>{{row.estado}}</b><br> 
+                        {{row.preparatoria==null?'OTRA':row.preparatoria}}
                         <br> {{row.promediogeneral}}
                     </td>
                     <td>
-                        {{row.estatussolicitud}}<br> {{row.tipoalumno}}
+                        <b>{{row.estatussolicitud}}</b><br> 
+                        {{row.tipoalumno}}
                         <br>
                     </td>
                     <td>
@@ -127,15 +138,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div ng-show="isenvelope">
-    <label>Mensaje de recordatorio para usuario</label>
-    <textarea row="5" class="form-control" style="resize:none" ng-model="mensaje"></textarea>
-    <br>
-    <div class="col-md-12">
-        <div class="col-md-6"><button class="btn btn-danger" ng-click="envelopeCancel()">Cancelar</button></div>
-        <div class="col-md-6"><button class="btn btn-info" ng-click="sendMail(selectedrow,mensaje)">Enviar
-                recordatorio</button></div>
     </div>
 </div>

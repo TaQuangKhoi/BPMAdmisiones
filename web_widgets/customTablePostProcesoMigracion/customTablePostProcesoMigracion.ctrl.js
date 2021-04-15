@@ -43,10 +43,11 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
     $scope.asignarTarea = function (rowData) {
         debugger
-        var url = "/bonita/apps/administrativo/verSolicitudAspiranteMigrado/?caseId=[CASEID]&displayConfirmation=false";
+        //var url = "/bonita/apps/administrativo/verSolicitudAspiranteMigrado/?caseId=[CASEID]&displayConfirmation=false";
+        var url = "/bonita/portal/resource/app/administrativo/verSolicitudAspiranteMigrado/content/?caseId=[CASEID]&displayConfirmation=false";
         url = url.replace("[CASEID]", rowData.caseid);
-        window.top.location.href = url;
-
+        //window.top.location.href = url;
+        window.open(url,'_blank');
         /*var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -165,6 +166,26 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             $scope.properties.dataToSend.orderby = order;
             $scope.properties.dataToSend.orientation = "ASC";
         }
+        doRequest("POST", $scope.properties.urlPost);
+    }
+
+    $scope.filterKeyPress= function(columna,press){
+        debugger
+        var aplicado = true;
+        for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+            const element = $scope.properties.dataToSend.lstFiltro[index];
+            if(element.columna==columna){
+                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
+                aplicado=false;
+            }
+            
+        }
+        if(aplicado){
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            $scope.properties.dataToSend.lstFiltro.push(obj);
+        }
+        
         doRequest("POST", $scope.properties.urlPost);
     }
 
@@ -307,4 +328,4 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         
         doRequest("POST", $scope.properties.urlPost);
     }
-}
+}   
