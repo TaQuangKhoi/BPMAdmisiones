@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPAspirantesMigrados",
   "name" : "APPAspirantesMigrados",
-  "lastUpdate" : 1618528367477,
+  "lastUpdate" : 1618616780151,
   "rows" : [
     [
       {
@@ -653,6 +653,18 @@
                 "apiKeyPrepro" : {
                   "type" : "variable",
                   "value" : "apiKeyPrepro"
+                },
+                "lstCatCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
+                },
+                "campusSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "getCampus"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
                 }
               },
               "reference" : "80e4eec4-92b1-4208-bf17-946fc4a36417",
@@ -1575,7 +1587,8 @@
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
-        "    \"usuario\":$data.userData.user_name\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "}"
       ],
       "exposed" : false
@@ -1592,6 +1605,17 @@
       "value" : [
         "?sv=2019-10-10&st=2021-04-11T19%3A02%3A22Z&se=2035-02-01T20%3A02%3A00Z&sr=c&sp=r&sig=eo2di3hmTsfZqNRmmhD2AuDPdKLUXk%2FmLczKWS%2Fzjr0%3D"
       ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "getCampus" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
