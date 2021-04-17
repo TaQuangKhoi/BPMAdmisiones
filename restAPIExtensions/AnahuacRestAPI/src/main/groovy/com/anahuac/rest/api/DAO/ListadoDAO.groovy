@@ -2281,7 +2281,7 @@ class ListadoDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END) like lower('%[valor]%') ";
+							where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							/*
 							where +="  OR LOWER(sda.estadoextranjero) like lower('%[valor]%') ";
@@ -2293,6 +2293,21 @@ class ListadoDAO {
 							where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
 							where = where.replace("[valor]", filtro.get("valor"))
 						break;
+						case "RESIDENCIA,TIPOADMISION,TIPOALUMNO":
+							if(where.contains("WHERE")) {
+								where+= " AND "
+							}else {
+								where+= " WHERE "
+							}
+							where +=" ( LOWER(R.descripcion) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(TA.descripcion) like lower('%[valor]%') ";
+							where = where.replace("[valor]", filtro.get("valor"))
+							
+							where +=" OR LOWER(TAL.descripcion) like lower('%[valor]%') )";
+							where = where.replace("[valor]", filtro.get("valor"))
+						break;
 						default:
 						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
 						//consulta=consulta.replace("[WHERE]", where);
@@ -2301,6 +2316,9 @@ class ListadoDAO {
 					}
 				}
 				switch(object.orderby) {
+					case "RESIDENCIA":
+					orderby+="R.descripcion";
+					break;
 					case "NOMBRE":
 					orderby+="sda.primernombre";
 					break;
@@ -2323,7 +2341,7 @@ class ListadoDAO {
 					orderby+="periodo.DESCRIPCION"
 					break;
 					case "ESTADO":
-					orderby +="estado.DESCRIPCION";
+					orderby +="CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
 					break;
 					case "PROMEDIO":
 					orderby+="sda.PROMEDIOGENERAL";
@@ -2364,7 +2382,8 @@ class ListadoDAO {
 				//where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno+" "+tiporecidencia+" "+tipodeadmision+" "+sededelexamen
 				consulta=consulta.replace("[WHERE]", where);
 				
-				pstm = con.prepareStatement(consulta.replace("sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE as licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, sda.urlFoto, sda.urlConstancia,sda.urlActaNacimiento,sda.urlCartaAA, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("LEFT JOIN catRegistro Registro on Registro.caseId= sda.caseId LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=Registro.catgestionescolar_pid"," LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.catgestionescolar_pid ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				pstm = con.prepareStatement(consulta.replace("sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE as licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, sda.urlFoto, sda.urlConstancia,sda.urlActaNacimiento,sda.urlCartaAA, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("LEFT JOIN catRegistro Registro on Registro.caseId= sda.caseId LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=Registro.catgestionescolar_pid"," LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.catgestionescolar_pid ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+				//pstm = con.prepareStatement(consulta.replace("sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE as licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, sda.urlFoto, sda.urlConstancia,sda.urlActaNacimiento,sda.urlCartaAA, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("LEFT JOIN catRegistro Registro on Registro.caseId= sda.caseId LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=Registro.catgestionescolar_pid"," LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.catgestionescolar_pid ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			//Aqui pegas abajo pegas
 				//pstm = con.prepareStatement(consulta.replace("sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE as licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, sda.urlFoto, sda.urlConstancia,sda.urlActaNacimiento, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia", "COUNT(sda.persistenceid) as registros").replace("LEFT JOIN catRegistro Registro on Registro.caseId= sda.caseId LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=Registro.catgestionescolar_pid"," LEFT JOIN CATGESTIONESCOLAR gestionescolar ON gestionescolar.persistenceid=sda.catgestionescolar_pid ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
 			//Esta de abajo comentas
