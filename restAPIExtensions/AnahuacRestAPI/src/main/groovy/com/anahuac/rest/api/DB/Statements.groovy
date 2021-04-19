@@ -24,6 +24,8 @@ class Statements {
 	
 	public static final String DELETE_CAT_NOTIFICACIONES_FIRMA="UPDATE CATNOTIFICACIONESFIRMA SET  ISELIMINAR = true WHERE PERSISTENCEID = ?;"
 	
+	public static final String UPDATE_CAT_NOTIFICACIONES ="update catnotificaciones set anguloImagenFooter = ?, anguloImagenHeader = ?, asunto = ?, comentarioLeon = ?, contenido  = ?, contenidoCorreo = ?, contenidoLeonel = ?, descripcion = ?, docGuiaEstudio = ?, enlaceBanner = ?, enlaceContacto = ?, enlaceFacebook = ?, enlaceFooter = ?, enlaceInstagram = ?, enlaceTwitter = ?, nombreImagenFooter = ?, textoFooter  = ?, tipoCorreo = ?, titulo = ?, urlImgFooter = ?, urlImgHeader = ? WHERE codigo = ? AND caseid= ?"
+	
 	public static final String GET_CAT_NOTIFICACION_FIRMA="SELECT PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER FROM CATNOTIFICACIONESFIRMA [WHERE] [ORDERBY] [LIMITOFFSET];"
 	
 	public static final String GET_CAMPUS_ID_FROM_CLAVE="SELECT persistenceid as campus_id FROM CATCAMPUS where grupoBonita=? limit 1 "

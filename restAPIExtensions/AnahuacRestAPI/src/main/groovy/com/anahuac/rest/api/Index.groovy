@@ -9,6 +9,7 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatDocumentosTextos
+import com.anahuac.catalogos.CatNotificaciones
 import com.anahuac.catalogos.CatNotificacionesFirma
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
@@ -1328,6 +1329,42 @@ class Index implements RestApiController {
 				break;
 				case "reagendarExamen":
 					result = tDAO.reagendarExamen(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					case "updateCatNotificaciones":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					assert object instanceof Map;
+					CatNotificaciones catNotificaciones = new CatNotificaciones()
+					catNotificaciones.anguloImagenFooter = object.anguloImagenFooter
+					catNotificaciones.anguloImagenHeader = object.anguloImagenHeader
+					catNotificaciones.asunto = object.asunto
+					catNotificaciones.caseId = object.caseId
+					catNotificaciones.codigo = object.codigo
+					catNotificaciones.comentarioLeon = object.comentarioLeon
+					catNotificaciones.contenido  = object.contenido
+					catNotificaciones.contenidoCorreo = object.contenidoCorreo
+					catNotificaciones.contenidoLeonel = object.contenidoLeonel
+					catNotificaciones.descripcion = object.descripcion
+					catNotificaciones.docGuiaEstudio = object.docGuiaEstudio
+					catNotificaciones.enlaceBanner = object.enlaceBanner
+					catNotificaciones.enlaceContacto = object.enlaceContacto
+					catNotificaciones.enlaceFacebook = object.enlaceFacebook
+					catNotificaciones.enlaceFooter = object.enlaceFooter
+					catNotificaciones.enlaceInstagram = object.enlaceInstagram
+					catNotificaciones.enlaceTwitter = object.enlaceTwitter
+					catNotificaciones.nombreImagenFooter = object.nombreImagenFooter
+					catNotificaciones.textoFooter  = object.textoFooter
+					catNotificaciones.tipoCorreo = object.tipoCorreo
+					catNotificaciones.titulo = object.titulo
+					catNotificaciones.urlImgFooter = object.urlImgFooter
+					catNotificaciones.urlImgHeader = object.urlImgHeader
+					result = new NotificacionDAO().updateCatNotificaciones(catNotificaciones)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

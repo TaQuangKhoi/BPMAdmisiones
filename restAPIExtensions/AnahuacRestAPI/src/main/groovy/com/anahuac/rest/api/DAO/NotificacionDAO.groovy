@@ -1755,6 +1755,54 @@ class NotificacionDAO {
 		}
 		return resultado
 	}
+	public Result updateCatNotificaciones(CatNotificaciones catNotificaciones) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+				List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.UPDATE_CAT_NOTIFICACIONES)
+				pstm.setString(1, catNotificaciones.anguloImagenFooter);
+				pstm.setString(2, catNotificaciones.anguloImagenHeader);
+				pstm.setString(3, catNotificaciones.asunto);
+				pstm.setString(4, catNotificaciones.comentarioLeon);
+				pstm.setString(5, catNotificaciones.contenido);
+				pstm.setString(6, catNotificaciones.contenidoCorreo);
+				pstm.setString(7, catNotificaciones.contenidoLeonel);
+				pstm.setString(8, catNotificaciones.descripcion);
+				pstm.setString(9, catNotificaciones.docGuiaEstudio);
+				pstm.setString(10, catNotificaciones.enlaceBanner);
+				pstm.setString( 11,catNotificaciones.enlaceContacto);
+				pstm.setString( 12,catNotificaciones.enlaceFacebook);
+				pstm.setString( 13,catNotificaciones.enlaceFooter);
+				pstm.setString( 14,catNotificaciones.enlaceInstagram);
+				pstm.setString( 15,catNotificaciones.enlaceTwitter);
+				pstm.setString( 16,catNotificaciones.nombreImagenFooter);
+				pstm.setString( 17,catNotificaciones.textoFooter);
+				pstm.setString( 18,catNotificaciones.tipoCorreo);
+				pstm.setString( 19,catNotificaciones.titulo);
+				pstm.setString( 20,catNotificaciones.urlImgFooter);
+				pstm.setString( 21,catNotificaciones.urlImgHeader);
+				pstm.setString( 22,catNotificaciones.codigo);
+				pstm.setString( 23,catNotificaciones.caseId);
+				
+				
+				pstm.execute()
+				
+				resultado.setSuccess(true)
+				rows.add(catNotificaciones)
+				resultado.setData(rows)
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Boolean validarConexion() {
 		Boolean retorno=false
