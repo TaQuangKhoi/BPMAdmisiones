@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1618429139744,
+  "lastUpdate" : 1618947374567,
   "rows" : [
     [
       {
@@ -2768,8 +2768,26 @@
     "userName" : {
       "type" : "expression",
       "value" : [
-        "if ($data.loggedUser && $data.loggedUser.firstname && $data.loggedUser.lastname) {",
-        "    return $data.loggedUser.firstname + \" \" + $data.loggedUser.lastname;",
+        "// if ($data.loggedUser && $data.loggedUser.firstname && $data.loggedUser.lastname) {",
+        "//     return $data.loggedUser.firstname + \" \" + $data.loggedUser.lastname;",
+        "// } else {",
+        "//     return $data.session.user_name;",
+        "// }",
+        "",
+        "if($data.objectSolicitud !== undefined){",
+        "    let nombre = \"\";",
+        "    nombre += ($data.objectSolicitud.primerNombre + \" \");",
+        "    if($data.objectSolicitud.segundoNombre !== \"\" && $data.objectSolicitud.segundoNombre !== null && $data.objectSolicitud.segundoNombre !== undefined){",
+        "        nombre += ($data.objectSolicitud.segundoNombre + \" \");",
+        "    } ",
+        "    ",
+        "    nombre += $data.objectSolicitud.apellidoPaterno;",
+        "    ",
+        "    if($data.objectSolicitud.apellidoMaterno !== \"\" && $data.objectSolicitud.apellidoMaterno !== null && $data.objectSolicitud.apellidoMaterno !== undefined){",
+        "        nombre += (\" \" + $data.objectSolicitud.apellidoMaterno);",
+        "    }",
+        "    ",
+        "    return nombre;",
         "} else {",
         "    return $data.session.user_name;",
         "}"
@@ -3085,6 +3103,27 @@
     },
     "currentToken" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "taskContext" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.currentTask[0].id;"
+      ],
+      "exposed" : false
+    },
+    "objectSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{taskContext.catSolicitudDeAdmision_ref.link}}"
+      ],
       "exposed" : false
     }
   },
