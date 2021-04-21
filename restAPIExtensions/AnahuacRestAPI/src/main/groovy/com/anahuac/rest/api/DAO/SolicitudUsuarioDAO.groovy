@@ -665,4 +665,56 @@ class SolicitudUsuarioDAO {
 		}
 		return resultado
 	}
+	
+	
+	public Result getDuplicados(String curp, String nombre, String correoElectronico, String fechaNacimiento,String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
+			pstm.setLong(1,  Long.valueOf(caseid))
+			pstm.setString(2, nombre)
+			pstm.setString(3, correoElectronico)
+			pstm.setString(4, fechaNacimiento)
+			pstm.setString(5, curp)
+			//pstm.setString(5, idbanner)
+			/*if(!curp.equals(null) && !curp.equals(" ") && !curp.equals("")) {
+				
+			}*/
+			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }

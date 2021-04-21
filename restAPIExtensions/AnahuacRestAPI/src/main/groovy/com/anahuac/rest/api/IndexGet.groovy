@@ -585,6 +585,32 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				
+				case "getDuplicado":
+					//String idbanner = request.getParameter "idbanner";
+					String correo = request.getParameter "correoElectronico";
+					String curp = request.getParameter "curp";
+					String nombre = request.getParameter "nombre";
+					String fecha = request.getParameter "fechaNacimiento";
+					String caseid = request.getParameter "caseid";
+					if(curp.equals(null)) {
+						curp = "";
+					}
+					/*if(idbanner.equals(null)) {
+						idbanner = "";
+					}*/
+					
+					nombre = nombre.replace("%20", " ")
+					
+					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, correo, fecha, caseid);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				case "getConstanciasHistorico":
 					String caseId = request.getParameter "caseId";
 					

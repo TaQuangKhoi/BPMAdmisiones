@@ -218,6 +218,9 @@ class Statements {
 	
 	public static final String GET_COUNT_ASISTENCIA = "select count(CASE WHEN PL.asistencia THEN 1 END) as asistencias, ds.cbcoincide from paseLista as PL LEFT JOIN solicituddeadmision sda on PL.username = sda.correoelectronico LEFT JOIN detallesolicitud ds on sda.caseid = ds.caseid::Integer    where PL.username = ? GROUP BY ds.cbcoincide"
 	
+	
+	//obtener los duplicados en validar la solicitud
+	public static final String GET_DUPLICADOS = "SELECT sda.caseid,sda.primernombre,sda.segundonombre,sda.apellidopaterno,sda.apellidomaterno,sda.correoelectronico, sda.fechanacimiento, sda.estatusSolicitud, sda.curp, CP.descripcion as periodo, CGE.nombre as licenciatura, CCE.descripcion as campusEstudio,CCE2.descripcion as VPD, DS.idbanner from  solicituddeadmision as sda LEFT JOIN catperiodo CP on CP.persistenceid = sda.catperiodo_pid LEFT JOIN catGestionEscolar CGE ON CGE.persistenceid = sda.catgestionescolar_pid LEFT JOIN catCampus CCE ON CCE.persistenceid = sda.catcampusestudio_pid LEFT JOIN catCampus CCE2 ON CCE2.persistenceid = sda.catcampus_pid LEFT JOIN detallesolicitud DS on DS.caseid::Integer = sda.caseid  where sda.caseid != ? and (CONCAT(sda.primerNombre, ' ',sda.segundoNombre ,' ', sda.apellidoPaterno,' ',sda.apellidoMaterno  ) like CONCAT( '%', ? ,'%') OR sda.correoElectronico like  CONCAT('%', ? , '%') OR  sda.fechaNacimiento  like CONCAT( '%', ? , '%') OR sda.curp = CONCAT('%',?,'%') ) ORDER BY sda.persistenceId ASC"
 	/***********************JESUS OSUNA FIN********************************/
 	/*************JOSÉ GARCÍA***********************/
 	public static final String GET_CATPROPEDEUTICO ="SELECT p.*, c.descripcion AS campus FROM CATPROPEDEUTICO p INNER JOIN CATCAMPUS c ON p.CAMPUS_PID = c.PERSISTENCEID  [WHERE] [ORDERBY] [LIMITOFFSET]";
