@@ -128,6 +128,18 @@ class HubspotDAO {
 						}
 					}
 					
+					if(lstSolicitudDeAdmision.get(0).getCatPropedeutico() != null) {
+						strError = strError + " | tiene propedeutico";
+						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
+							strError = strError + " | tiene clave";
+							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
+								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}
+						}
+					}
 					
 					
 					catLugarExamenDescripcion = lstSolicitudDeAdmision.get(0).getCatLugarExamen().descripcion;
@@ -236,6 +248,18 @@ class HubspotDAO {
 						}
 					}
 					
+					if(lstSolicitudDeAdmision.get(0).getCatPropedeutico() != null) {
+						strError = strError + " | tiene propedeutico";
+						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
+							strError = strError + " | tiene clave";
+							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
+								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}
+						}
+					}
 					
 					objHubSpotData = new HashMap<String, String>();
 					lstPadresTutor = objPadresTutorDAO.findByCaseId(lstSolicitudDeAdmision.get(0).getCaseId(), 0, 999);
