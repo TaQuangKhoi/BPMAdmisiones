@@ -31,7 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            
+            debugger;
             var numeros = "0123456789";
             try {
                 if ($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined || Object.keys($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos).length === 0) {
@@ -102,8 +102,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.confirmacion();
                 }
             } else if ($scope.properties.accion === "Validar candidato") {
-    //INICIO VALIDAR CANDIDATO
-                
+                //INICIO VALIDAR CANDIDATO
+
                 doRequestCallBack("GET", "/bonita/API/extension/AnahuacRestGet?url=getIdbanner&idbanner=" + $scope.properties.dataToSend.detalleSolicitudInput.idBanner, {}, {}, function(datos) {
                     if ($scope.properties.dataToSend.detalleSolicitudInput.isCurpValidado === false && $scope.properties.isMexicano) {
                         swal.fire("¡Validar CURP!", "Debe validar la CURP del aspirante", "warning");
@@ -120,6 +120,73 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal.fire("¡Residencia!", "Debe seleccionar la residencia del alumno", "warning");
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.catTipoAdmision === null) {
                         swal.fire("¡Tipo de admisión!", "Debe seleccionar el tipo de admisión del alumno", "warning");
+                    } else if ($scope.properties.objDetalleSolicitud !== undefined) {
+                        if ($scope.properties.objDetalleSolicitud.idBanner !== "") {
+                            if ($scope.properties.dataToSend.detalleSolicitudInput.catTipoAdmision.clave === "AA") {
+                                if ($scope.properties.dataToSend.detalleSolicitudInput.admisionAnahuac) {
+                                    $scope.properties.dataToSend.conIsInformacionValidada = true;
+                                    $scope.properties.dataToSend.conIsListaRoja = false;
+                                    $scope.properties.dataToSend.conIs100Descuento = false;
+                                    $scope.properties.dataToSend.conIsAdmisionAnahuac = true;
+                                    $scope.properties.dataToSend.conIsRechazada = false;
+                                    $scope.confirmacion();
+                                } else {
+                                    swal.fire("¡Tipo de admisión!", "Debe validar la carta de la Admisión Anáhuac", "warning");
+                                }
+
+                            } else {
+
+                                var letras = false;
+                                for (var x = 0; x < $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length; x++) {
+                                    if (!numeros.indexOf($scope.properties.dataToSend.detalleSolicitudInput.idBanner.charAt(x), 0) != -1) {
+                                        letras = true;
+                                        break;
+                                    }
+                                }
+                                if (isNaN($scope.properties.dataToSend.detalleSolicitudInput.idBanner)) {
+                                    $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
+                                    swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
+                                } else {
+
+                                    if (!$scope.properties.RechazoDocumentos) {
+
+                                        Swal.fire({
+                                            title: `Asegurate de haber enviado el correo de notificación al aspirante sobre su documento rechazado.`,
+                                            text: "La tarea avanzará",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#5cb85c',
+                                            cancelButtonColor: '#d33',
+                                            confirmButtonText: 'Continuar',
+                                            cancelButtonText: 'Cancelar'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                $scope.properties.dataToSend.conIsInformacionValidada = true;
+                                                $scope.properties.dataToSend.conIsListaRoja = false;
+
+                                                $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false;
+
+                                                $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                                                $scope.properties.dataToSend.conIsRechazada = false;
+                                                $scope.confirmacion();
+                                            }
+                                        })
+                                    } else {
+                                        $scope.properties.dataToSend.conIsInformacionValidada = true;
+                                        $scope.properties.dataToSend.conIsListaRoja = false;
+                                        $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false;
+
+                                        $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                                        $scope.properties.dataToSend.conIsRechazada = false;
+                                        $scope.confirmacion();
+                                    }
+
+
+
+
+                                }
+                            }
+                        }
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.idBanner === null || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length < 8 || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length > 8) {
                         swal.fire("¡Id Banner!", ($scope.properties.dataToSend.detalleSolicitudInput.idBanner.length < 8 || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length > 8) ? "Favor de capturar 8 dígitos para Id Banner" : "Debe agregar el Id Banner!", "warning");
                     } else if (datos.length > 0) {
@@ -137,7 +204,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
 
                     } else {
-                        
+
                         var letras = false;
                         for (var x = 0; x < $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length; x++) {
                             if (!numeros.indexOf($scope.properties.dataToSend.detalleSolicitudInput.idBanner.charAt(x), 0) != -1) {
@@ -149,40 +216,40 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                             swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                         } else {
-                            
-                            if(!$scope.properties.RechazoDocumentos){
-                                
+
+                            if (!$scope.properties.RechazoDocumentos) {
+
                                 Swal.fire({
-                                title: `Asegurate de haber enviado el correo de notificación al aspirante sobre su documento rechazado.`,
-                                text: "La tarea avanzará",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: '#5cb85c',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Continuar',
-                                cancelButtonText: 'Cancelar'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $scope.properties.dataToSend.conIsInformacionValidada = true;
-                                    $scope.properties.dataToSend.conIsListaRoja = false;
+                                    title: `Asegurate de haber enviado el correo de notificación al aspirante sobre su documento rechazado.`,
+                                    text: "La tarea avanzará",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#5cb85c',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Continuar',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $scope.properties.dataToSend.conIsInformacionValidada = true;
+                                        $scope.properties.dataToSend.conIsListaRoja = false;
 
-                                    $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false; 
-                                   
-                                    $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
-                                    $scope.properties.dataToSend.conIsRechazada = false;
-                                    $scope.confirmacion();
-                                }
-                            })
-                            }else{
-                                    $scope.properties.dataToSend.conIsInformacionValidada = true;
-                                    $scope.properties.dataToSend.conIsListaRoja = false;
-                                    $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false; 
+                                        $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false;
 
-                                    $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
-                                    $scope.properties.dataToSend.conIsRechazada = false;
-                                    $scope.confirmacion();
+                                        $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                                        $scope.properties.dataToSend.conIsRechazada = false;
+                                        $scope.confirmacion();
+                                    }
+                                })
+                            } else {
+                                $scope.properties.dataToSend.conIsInformacionValidada = true;
+                                $scope.properties.dataToSend.conIsListaRoja = false;
+                                $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false;
+
+                                $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                                $scope.properties.dataToSend.conIsRechazada = false;
+                                $scope.confirmacion();
                             }
-                            
+
 
 
 

@@ -54,7 +54,6 @@ function PbButtonCtrl($scope, $http, $window,blockUI) {
                     $scope.jsonCollage.codigo_postal = element.codigo_postal;
                     $scope.jsonCollage.calle = element.calle;
                     $scope.jsonCollage.numero_int = element.numero_int;
-                    $scope.jsonCollage.online = element.online;
                 }
                 if (element.descripcion == "Examen Psicométrico") {
                     $scope.jsonPsicometrico.nombre = element.pnombre;
@@ -67,7 +66,6 @@ function PbButtonCtrl($scope, $http, $window,blockUI) {
                     $scope.jsonPsicometrico.codigo_postal = element.codigo_postal;
                     $scope.jsonPsicometrico.calle = element.calle;
                     $scope.jsonPsicometrico.numero_int = element.numero_int;
-                    $scope.jsonPsicometrico.online = element.online;
                 }
                 if (element.descripcion == "Entrevista") {
                     $scope.jsonEntrevista.nombre = element.pnombre;
@@ -80,7 +78,6 @@ function PbButtonCtrl($scope, $http, $window,blockUI) {
                     $scope.jsonEntrevista.codigo_postal = element.codigo_postal;
                     $scope.jsonEntrevista.calle = element.calle;
                     $scope.jsonEntrevista.numero_int = element.numero_int;
-                    $scope.jsonEntrevista.online = element.online;
 
                 }
             }
