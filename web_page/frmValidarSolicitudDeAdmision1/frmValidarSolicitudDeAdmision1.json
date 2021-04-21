@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1619024147006,
+  "lastUpdate" : 1619026580847,
   "rows" : [
     [
       {
@@ -18353,8 +18353,8 @@
                   "value" : 8
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "objDetalleSolicitud !== undefined && objDetalleSolicitud.idBanner !== \"\""
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18710,6 +18710,10 @@
                 "ValorDescuento" : {
                   "type" : "variable",
                   "value" : "objDescuentoMax.descuento"
+                },
+                "objDetalleSolicitud" : {
+                  "type" : "variable",
+                  "value" : "objDetalleSolicitud"
                 }
               },
               "reference" : "14c3f9bc-9f21-4018-92f4-75325bd284a7",
@@ -24487,6 +24491,58 @@
           ]
         }
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "objDetalleSolicitud" : {
+            "type" : "variable",
+            "value" : "objDetalleSolicitud"
+          },
+          "formOutput" : {
+            "type" : "variable",
+            "value" : "formOutput"
+          },
+          "urlResidencia" : {
+            "type" : "variable",
+            "value" : "urlResidencia"
+          },
+          "urlTipoAdmision" : {
+            "type" : "variable",
+            "value" : "urlTipoAdmision"
+          },
+          "urlTipoAlumno" : {
+            "type" : "variable",
+            "value" : "urlTipoAlumno"
+          },
+          "tieneDatos" : {
+            "type" : "variable",
+            "value" : "tieneDatos"
+          },
+          "descuento" : {
+            "type" : "variable",
+            "value" : "objDescuentoMax.descuento"
+          }
+        },
+        "reference" : "11026ec4-9f8d-42ad-a626-55f763ebd6a3",
+        "hasValidationError" : false,
+        "id" : "customCustomSetValueDetallesSolicitud"
+      }
     ]
   ],
   "assets" : [
@@ -26763,6 +26819,62 @@
         "",
         "return res;"
       ],
+      "exposed" : false
+    },
+    "getUrls" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "for(var x=0; x< $data.objDetalleSolicitud.links.length;x++){",
+        "    if($data.objDetalleSolicitud.links[x].rel === \"catPagoDeExamenDeAdmision\"){",
+        "        if($data.urlPagoExamen === \"\" || $data.urlPagoExamen === undefined){",
+        "            $data.urlPagoExamen = $data.objDetalleSolicitud.links[x].href;",
+        "        }",
+        "    }",
+        "    ",
+        "    if($data.objDetalleSolicitud.links[x].rel === \"catTipoAlumno\"){",
+        "        if($data.urlTipoAlumno === \"\" || $data.urlTipoAlumno === undefined){",
+        "            $data.urlTipoAlumno = $data.objDetalleSolicitud.links[x].href;   ",
+        "        }",
+        "        ",
+        "    }",
+        "    ",
+        "    if($data.objDetalleSolicitud.links[x].rel === \"catResidencia\"){",
+        "        if($data.urlResidencia === \"\" || $data.urlResidencia === undefined){",
+        "            $data.urlResidencia = $data.objDetalleSolicitud.links[x].href;    ",
+        "        }",
+        "    }",
+        "    ",
+        "    if($data.objDetalleSolicitud.links[x].rel === \"catTipoAdmision\"){",
+        "        if($data.urlTipoAdmision === \"\" || $data.urlTipoAdmision === undefined){",
+        "            $data.urlTipoAdmision = $data.objDetalleSolicitud.links[x].href;    ",
+        "        }",
+        "    }",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "objDetalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "urlResidencia" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "urlTipoAdmision" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "urlTipoAlumno" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "tieneDatos" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
