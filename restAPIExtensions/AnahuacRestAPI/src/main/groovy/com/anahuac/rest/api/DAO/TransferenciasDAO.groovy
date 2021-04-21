@@ -582,7 +582,14 @@ class TransferenciasDAO {
                 errorLog += " NO inserte en la bitacora "
                 resultadoinsert.isSuccess().toString();
             }
-
+			
+			Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(object.correoaspirante, context)
+			errorLog += " el error en el eliminar es : " + resultadoSesion.getError();
+			if (resultadoSesion.isSuccess()) {
+				errorLog += " se elimino al aspirante de la sesion" + resultadoinsert.isSuccess().toString();
+			} else {
+				errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
+			}
 
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);

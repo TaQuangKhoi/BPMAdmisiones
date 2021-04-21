@@ -2102,6 +2102,14 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					orderby += "sda.persistenceid"
 					break;
 			}
+			
+			if (where.contains("WHERE")) {
+				where += " AND "
+			} else {
+				where += " WHERE "
+			}
+			where += " sda.correoelectronico like '%(ABANDONADO)%' ";
+			
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[CAMPUS]", campus)
 			consulta = consulta.replace("[PROGRAMA]", programa)
@@ -2547,6 +2555,14 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 					orderby += "sda.persistenceid"
 					break;
 			}
+			
+			if (where.contains("WHERE")) {
+				where += " AND "
+			} else {
+				where += " WHERE "
+			}
+			where += " sda.correoelectronico like '%(VENCIDO)%' ";
+			
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[CAMPUS]", campus)
 			consulta = consulta.replace("[PROGRAMA]", programa)

@@ -4392,6 +4392,69 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result eliminarSesionAspirante(String username, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		int count = 0;
+		Boolean cbcoincide = false;
+		try {
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.GET_COUNT_ASISTENCIA)
+				pstm.setString(1,username);
+				rs = pstm.executeQuery()
+				while(rs.next()) {
+					count = rs.getInt("asistencias");
+					cbcoincide = rs.getBoolean("cbcoincide")
+				}
+				
+				if(!count == 3 || !(count >= 2 && cbcoincide == true)) {
+					
+					pstm = con.prepareStatement(Statements.GET_SESIONASPIRANTE)
+					pstm.setString(1, username)
+					rs = pstm.executeQuery()
+					if(rs.next()) {
+						pstm = con.prepareStatement(Statements.UPDATE_REGISTRADOS_INV)
+						pstm.setLong(1, rs.getLong("sesiones_pid"))
+						pstm.setLong(2, rs.getLong("sesiones_pid"))
+						pstm.executeUpdate();
+						
+						pstm = con.prepareStatement(Statements.UPDATE_OCUPADO_RESPONSABLE_DISPONIBLE_INV)
+						pstm.setLong(1, rs.getLong("responsabledisponible_pid"))
+						pstm.executeUpdate();
+						
+						pstm = con.prepareStatement(Statements.UPDATE_REGISTRADOS_PRUEBAS_INV)
+						pstm.setLong(1, rs.getLong("responsabledisponible_pid"))
+						pstm.setLong(2, rs.getLong("responsabledisponible_pid"))
+						pstm.executeUpdate();
+						
+						pstm = con.prepareStatement(Statements.DELETE_SESIONASPIRANTE)
+						pstm.setString(1,username);
+						pstm.executeUpdate();
+					}
+					
+				}
+				
+				
+				
+				pstm.executeUpdate();
+				
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	private static java.sql.Date convert(java.util.Date uDate) {
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());

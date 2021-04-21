@@ -103,6 +103,8 @@ class HubspotDAO {
 				strError = strError + " | lstSolicitudDeAdmision.empty: "+lstSolicitudDeAdmision.empty;
 				strError = strError + " | lstCatRegistro.size: "+lstCatRegistro.size();
 				strError = strError + " | lstCatRegistro.empty: "+lstCatRegistro.empty;
+				resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
+				apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 				
 				if(!lstCatRegistro.empty && !lstSolicitudDeAdmision.empty) {
 					
@@ -116,7 +118,8 @@ class HubspotDAO {
 						strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 						if(!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
 							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
-							lstValueProperties = getLstValueProperties("carrera");
+//							lstValueProperties = getLstValueProperties("carrera");
+							lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
 							strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
@@ -125,6 +128,18 @@ class HubspotDAO {
 						}
 					}
 					
+					if(lstSolicitudDeAdmision.get(0).getCatPropedeutico() != null) {
+						strError = strError + " | tiene propedeutico";
+						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
+							strError = strError + " | tiene clave";
+							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
+								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}
+						}
+					}
 					
 					
 					catLugarExamenDescripcion = lstSolicitudDeAdmision.get(0).getCatLugarExamen().descripcion;
@@ -204,7 +219,11 @@ class HubspotDAO {
 			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
 			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.email, 0, 1);
 
-			List<HubspotProperties> lstHubspotProperties = getLstHubspotProperties("importacion_estados");
+//			List<HubspotProperties> lstHubspotProperties = getLstHubspotProperties("importacion_estados");
+			resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
+			apikeyHubspot = (String) resultadoApiKey.getData().get(0);
+			
+			List<HubspotProperties> lstHubspotProperties = getLstHubspotProperties("importacion_estados", apikeyHubspot);
 			
 			//Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
 			Date fechaNacimiento = new Date();
@@ -221,7 +240,7 @@ class HubspotDAO {
 					strError = strError + " | apikeyHubspot: "+apikeyHubspot;
 					if(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave() != null) {
 						if(!lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave().equals("")) {
-							lstValueProperties = getLstValueProperties("carrera");
+							lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
 							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave())) {
 								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave(): "+lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave();
 								objHubSpotData.put("carrera", lstSolicitudDeAdmision.get(0).getCatGestionEscolar().getClave());
@@ -229,6 +248,18 @@ class HubspotDAO {
 						}
 					}
 					
+					if(lstSolicitudDeAdmision.get(0).getCatPropedeutico() != null) {
+						strError = strError + " | tiene propedeutico";
+						if(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave() != null) {
+							strError = strError + " | tiene clave";
+							strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+							lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+							if(lstValueProperties.contains(lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave())) {
+								strError = strError + " | lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave(): "+lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave();
+								objHubSpotData.put("periodo_propedeutico_bpm", lstSolicitudDeAdmision.get(0).getCatPropedeutico().getClave());
+							}
+						}
+					}
 					
 					objHubSpotData = new HashMap<String, String>();
 					lstPadresTutor = objPadresTutorDAO.findByCaseId(lstSolicitudDeAdmision.get(0).getCaseId(), 0, 999);
@@ -1168,11 +1199,13 @@ class HubspotDAO {
 		return resultado
 	}
 	
-	public List<String> getLstValueProperties(String campo) throws Exception {
+	public List<String> getLstValueProperties(String campo, String apikeyHubspot) throws Exception {
 		List<String> lstResultado = new ArrayList<String>();
 		String jsonData = "";
-		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
-		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+//		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99";
+//		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+
 		StringBuilder resultado = new StringBuilder();
 		
 		URL url = new URL(urlParaVisitar);
@@ -1205,12 +1238,15 @@ class HubspotDAO {
 		return lstResultado;
 	}
 	
-	public List<HubspotProperties> getLstHubspotProperties(String campo) throws Exception {
+	public List<HubspotProperties> getLstHubspotProperties(String campo, String apikeyHubspot) throws Exception {
 		List<HubspotProperties> lstResultado = new ArrayList<HubspotProperties>();
 		HubspotProperties objHubspotProperties =  new HubspotProperties();
 		String jsonData = "";
-		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
-		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+
+//		String data="8b-.-.-.b0-.-.-.a-.-.-.1ac-df-.-.-.54-40-.-.-.bf-b5-.-.-.69-40-.-.-.e8-.-.-.7f-.-.-.90-.-.-.c0-.-.-.99"
+//		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/"+campo+"?hapikey="+data.replace("-.-.-.", "");
+		String urlParaVisitar = "https://api.hubapi.com/properties/v1/contacts/properties/named/" + campo + "?hapikey=" + apikeyHubspot.replace("-.-.-.", "");
+
 		StringBuilder resultado = new StringBuilder();
 		
 		URL url = new URL(urlParaVisitar);
