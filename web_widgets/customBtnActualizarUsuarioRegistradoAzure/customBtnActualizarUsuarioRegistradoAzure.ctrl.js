@@ -41,7 +41,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe seleccionar una licenciatura", "warning");
             /*}else if($scope.properties.dataToSend.catPeriodo === null){
                 swal("¡Aviso!", "Debe seleccionar un periodo", "warning");*/
-            }else if($scope.properties.dataToSend.catGestionEscolar.propedeutico === null && $scope.properties.dataToSend.catPropedeutico === null){
+            }else if($scope.properties.dataToSend.catGestionEscolar.propedeutico === true && $scope.properties.dataToSend.catPropedeutico === null ){
                 swal("¡Aviso!", "Debe seleccionar un curso propedéutico", "warning");
             }else if($scope.properties.dataToSend.catCampus === null){
                 swal("¡Aviso!", "Debe seleccionar el campus de examen", "warning");
