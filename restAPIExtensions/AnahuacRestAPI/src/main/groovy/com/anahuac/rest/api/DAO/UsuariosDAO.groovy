@@ -2137,6 +2137,7 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 			}
 			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			errorlog += " ///////*/*/*/*/*/ la consultaCount es: " + consultaCount
 			errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit)
@@ -2590,6 +2591,7 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 			}
 			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			errorlog += " ///////*/*/*/*/*/ la consultaCount es: " + consultaCount
 			errorlog += " ///////*/*/*/*/*/ la consulta es: " + consulta
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit)

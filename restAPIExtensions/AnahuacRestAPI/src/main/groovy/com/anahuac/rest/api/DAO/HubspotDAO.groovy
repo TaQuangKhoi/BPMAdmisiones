@@ -267,7 +267,7 @@ class HubspotDAO {
 						if(!lstPadresTutor.empty) {
 							for(PadresTutor objPadresTutor : lstPadresTutor) {
 								if(objPadresTutor.isIsTutor()) {
-									strError = strError + ", ENTRO A TUTOR"
+									strError = strError + "| ENTRO A TUTOR"
 									objHubSpotData.put("correo_tutor", objPadresTutor.getCorreoElectronico() == null ? "" : objPadresTutor.getCorreoElectronico());
 									objHubSpotData.put("nombre_de_tutor", (objPadresTutor.getNombre() == null ? "" : objPadresTutor.getNombre())+(objPadresTutor.getApellidos() == null ? "" : " " + objPadresTutor.getApellidos()) );
 									objHubSpotData.put("telefono_tutor", objPadresTutor.getTelefono());
@@ -329,14 +329,15 @@ class HubspotDAO {
 					else {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
 					}
-					
-					strError = strError + " | getCatEstado().getDescripcion(): "+lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion();
-					
-					for(HubspotProperties objHubspotProperties : lstHubspotProperties) {
-						strError = strError + " | getCatEstado().getDescripcion(): " + objHubspotProperties.getDescription();
-						if(objHubspotProperties.getDescription().equals(lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion())) {
-							objHubSpotData.put("importacion_estados", lstSolicitudDeAdmision.get(0).getCatEstado().getClave());
-							break;
+										
+					if(lstSolicitudDeAdmision.get(0).getCatEstado() != null) {
+						strError = strError + " | getCatEstado().getDescripcion(): "+lstSolicitudDeAdmision.get(0).getCatEstado() == null ? "" : lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion();
+						for(HubspotProperties objHubspotProperties : lstHubspotProperties) {
+							strError = strError + " | getCatEstado().getDescripcion(): " + objHubspotProperties.getDescription();
+							if(objHubspotProperties.getDescription().equals(lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion())) {
+								objHubSpotData.put("importacion_estados", lstSolicitudDeAdmision.get(0).getCatEstado().getClave());
+								break;
+							}
 						}
 					}
 					

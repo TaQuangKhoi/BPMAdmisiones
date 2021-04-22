@@ -1,14 +1,11 @@
 package com.anahuac.rest.api.DAO
 
-import groovy.json.JsonSlurper
-
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalTime
 
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
@@ -16,9 +13,11 @@ import org.bonitasoft.engine.bpm.process.ProcessInstance
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
-import org.json.JSONArray
-import org.json.JSONObject
+import org.json.simple.JSONArray
+import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
@@ -30,6 +29,8 @@ import com.bonitasoft.engine.api.ProcessAPI
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 class BannerDAO {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(BannerDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;
@@ -57,16 +58,19 @@ class BannerDAO {
 			errorLog += " | "+("================================================");
 			jsonResultado = getConsumePrepa(barrerToken);
 			errorLog += " | "+jsonResultado;
+			//jsonResultado = "[{\"id\":\"24\",\"published\":\"2021-04-21 22:36:38.602364+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"a76e4fd2-d938-4dde-b225-56681a9ae47e\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"a76e4fd2-d938-4dde-b225-56681a9ae47e\",\"title\":\"Nueva Escuela JABB\",\"type\":\"secondarySchool\",\"code\":\"JABB\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"25\",\"published\":\"2021-04-21 22:43:54.645787+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"DEU\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Alemania\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//jsonResultado = "[{\"id\":\"29\",\"published\":\"2021-04-22 18:22:21.321824+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"AZE\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Azerbaiyan\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//jsonResultado = "[{\"id\":\"31\",\"published\":\"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"2da De Circunvalaci\u00f3n no 49\",\"Centro\"],\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Macuspana\",\"postalCode\":\"86700\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Morelos\"},\"subRegion\":{\"title\":\"ALDAMA\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"32\",\"published\":\"2021-04-22 18:31:03.538532+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle 143, tablaje catastral 18631 no 314\",\"entre perif\u00e9rico\",\"Emiliano Zapata\"],\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"place\":{\"country\":{\"code\":\"AGO\",\"locality\":\"Cd Obreg\u00f3n\",\"postalCode\":\"97139\",\"region\":{\"title\":\"Yucat\u00e1n\"},\"subRegion\":{\"title\":\"M\u00e9rida\"},\"title\":\"Angola\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			errorLog += " | "+jsonResultado;
 			errorLog += " | "+("END JSON========================================");
-			//jsonResultado = "[{\"id\": \"9\",\"published\": \"2021-02-25 20:24:49.790915+00\",\"resource\": {\"name\": \"educational-institutions\",\"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\": {\"addresses\": [{\"address\": {\"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\"},\"type\": {\"addressType\": \"school\"}}],\"homeInstitution\": \"external\",\"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\",\"title\": \"BACH GRUPO EDUCATIVO IMEI JABB\",\"type\": \"secondarySchool\"},\"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\"}}, {\"id\": \"10\",\"published\": \"2021-02-25 20:25:28.786177+00\",\"resource\": {\"name\": \"addresses\",\"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\": {\"addressLines\": [\"Miguel Domínguez 63\",\"Mz 37 Lt 23\",\"Nueva Aragón JABB\"],\"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\",\"place\": {\"country\": {\"code\": \"MEX\",\"locality\": \"Ecatepec de Morelos\",\"postalCode\": \"55260\",\"postalTitle\": \"MEXICO\",\"region\": {\"title\": \"Estado de México\"},\"subRegion\": {\"title\": \"Ecatepec de Morelos\"},\"title\": \"México\"}}},\"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\"}}]";
-			//jsonResultado = "[{\"id\": \"13\", \"published\": \"2021-03-10 18:05:34.167213+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"14b58e15-66d4-4dfa-9e7e-c0993e0d8f41\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"14b58e15-66d4-4dfa-9e7e-c0993e0d8f41\", \"title\": \"Preparatoria Oficial 34\", \"type\": \"secondarySchool\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\"} }, {\"id\": \"14\", \"published\": \"2021-03-10 18:07:07.846474+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"e19a7cee-46b8-48e8-bdb7-1a9625b77d64\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Calle Lilas 87\", \"Col. San Rafael\"], \"id\": \"e19a7cee-46b8-48e8-bdb7-1a9625b77d64\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Ciudad de México\", \"postalCode\": \"06470\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Ciudad de México\"}, \"subRegion\": {\"title\": \"Cuauhtémoc\"}, \"title\": \"México\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\"} } ]";
 			resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 			errorLog += " | "+strGetConsumeJSON;
-			resultado.setSuccess(true);
-			resultado.setError_info(errorLog);
+			//resultadoGetConsumeJSON.setSuccess(true);
+			resultadoGetConsumeJSON.setError_info(errorLog+" | "+resultadoGetConsumeJSON.getError_info());
 		} catch (Exception e) {
 			errorLog += " | "+e.getMessage();
-			resultado.setError_info(errorLog);
+			resultadoGetConsumeJSON.setError_info(errorLog);
 			e.printStackTrace()
 		}
 		
@@ -77,13 +81,14 @@ class BannerDAO {
 		String urlParaVisitar = "https://integrate.elluciancloud.com/auth";
 		String barrerKey = "Bearer ";
 		StringBuilder resultado = new StringBuilder();
+		Boolean closeCon = false;
 		try {
 			closeCon = validarConexion();
-			
 			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
 			pstm.setString(1, "BannerToken")
 			rs = pstm.executeQuery()
 			if (rs.next()) {
+				
 				barrerKey+=rs.getString("valor")
 			}
 			
@@ -101,6 +106,12 @@ class BannerDAO {
 			//System.out.println(resultado.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
+			LOGGER.error "[ERROR]"+e.getMessage();
+		}
+		finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado.toString();
 	}
@@ -124,6 +135,7 @@ class BannerDAO {
 			//System.out.println(urlParaVisitar);
 			//System.out.println(resultado.toString());
 		} catch (Exception e) {
+			LOGGER.error "[ERROR]"+e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado.toString();
@@ -180,47 +192,50 @@ class BannerDAO {
 		List<ProcessDeploymentInfo> lstProcessDeploymentInfo = new ArrayList<ProcessDeploymentInfo>();
 		SearchOptions searchOptionsProccess = null;
 		try {
-			lstJson = (JSONArray) parser.parse(jsonResultado);
+			
+			errorLog = errorLog + " | jsonResultado: "+ jsonResultado;
+			lstJson = (org.json.simple.JSONArray) parser.parse(jsonResultado);
 			
 			Iterator<JSONObject> iterator = lstJson.iterator();
 			
-			System.out.println("--------------------------------------------------------");
-            while (iterator.hasNext()) {
-            	
-            	objJson = iterator.next();
-            	objJsonResource = (JSONObject) objJson.get("resource");
-            	objJsonContent = (JSONObject) objJson.get("content");
-            	objJsonPublisher = (JSONObject) objJson.get("publisher");
-            	
-            	
-            	objEducationalInstitutions= new CatBachillerato();
-            	objAddresses = new CatBachillerato();
-            	
-            	switch(objJsonResource.get("name").toString()) {
-            		case "educational-institutions":
+			errorLog = errorLog + " | "+ "--------------------------------------------------------";
+			while (iterator.hasNext()) {
+				
+				objJson = iterator.next();
+				objJsonResource = (JSONObject) objJson.get("resource");
+				objJsonContent = (JSONObject) objJson.get("content");
+				objJsonPublisher = (JSONObject) objJson.get("publisher");
+
+				objEducationalInstitutions= new CatBachillerato();
+				objAddresses = new CatBachillerato();
+				
+				switch(objJsonResource.get("name").toString()) {
+					case "educational-institutions":
 						errorLog = errorLog + " | educational-institutions";
 						errorLog = errorLog + " | " + ("idBachillerato: "+objJsonContent.get("id").toString());
+						errorLog = errorLog + " | " + ("code: "+objJsonContent.get("code").toString());
 						errorLog = errorLog + " | " + ("descripcion: "+objJsonContent.get("title").toString());
 						errorLog = errorLog + " | " + ("usuarioBanner: "+objJsonPublisher.get("applicationName").toString());
 						errorLog = errorLog + " | " + ("fechaImportacion: "+objJson.get("published").toString());
 						errorLog = errorLog + " | " + ("fechaCreacion: "+objJson.get("published").toString());
-            			
-            			objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
-            			objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
-            			objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
-            			objEducationalInstitutions.setFechaImportacion(objJson.get("published").toString());
-            			objEducationalInstitutions.setFechaCreacion(objJson.get("published").toString());
-            			objEducationalInstitutions.setOperation(objJson.get("operation").toString());
-            			
+						
+						
+						objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
+						objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
+						objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
+						objEducationalInstitutions.setFechaImportacion(objJson.get("published").toString());
+						objEducationalInstitutions.setFechaCreacion(objJson.get("published").toString());
+						objEducationalInstitutions.setOperation(objJson.get("operation").toString());
+						objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
 						/*
-            			Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
-            			while (iteratorAddresses.hasNext()) {
+						Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
+						while (iteratorAddresses.hasNext()) {
 							
-            				objJsonAddressesData = iteratorAddresses.next();
-            				objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-            				errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-            				objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
-            			}*/
+							objJsonAddressesData = iteratorAddresses.next();
+							objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
+							errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
+							objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+						}*/
 						
 						if(!objJson.get("operation").toString().equals("created")) {
 							objJsonAddresses =(JSONArray) objJsonContent.get("addresses");
@@ -233,6 +248,13 @@ class BannerDAO {
 							}
 						}
 						else {
+							errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): "+(objEducationalInstitutions.getIdBachillerato());
+							errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): "+(objEducationalInstitutions.getDescripcion());
+							errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): "+(objEducationalInstitutions.getUsuarioBanner());
+							errorLog = errorLog + " | objEducationalInstitutions.getFechaImportacion(): "+(objEducationalInstitutions.getFechaImportacion());
+							errorLog = errorLog + " | objEducationalInstitutions.getFechaCreacion(): "+(objEducationalInstitutions.getFechaCreacion());
+							errorLog = errorLog + " | objEducationalInstitutions.getOperation(): "+(objEducationalInstitutions.getOperation());
+							
 							resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
 							errorLog = errorLog + " | " + ("====================================");
 							errorLog = errorLog + " | " + (resultEducationalInstitutions);
@@ -245,61 +267,68 @@ class BannerDAO {
 								errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
 								objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
 							}
-							
 						}
-            			lstEducationalInstitutions.add(objEducationalInstitutions);
-            			
-            			break;
-            		case "addresses":
+						lstEducationalInstitutions.add(objEducationalInstitutions);
+						break;
+					case "addresses":
 						errorLog = errorLog + " | addresses";
-            			objJsonPlace = (JSONObject) objJsonContent.get("place");
-            			objJsonCountry = (JSONObject) objJsonPlace.get("country");
-            			objJsonRegion = (JSONObject) objJsonCountry.get("region");
+						objJsonPlace = (JSONObject) objJsonContent.get("place");
+						objJsonCountry = (JSONObject) objJsonPlace.get("country");
+						objJsonRegion = (JSONObject) objJsonCountry.get("region");
 						
 						errorLog = errorLog + " | " + ("idDireccion: "+objJsonContent.get("id").toString());
 						errorLog = errorLog + " | " + ("pais: "+objJsonCountry.get("title").toString());
 						errorLog = errorLog + " | " + ("Estado: "+objJsonRegion.get("title").toString());
 						errorLog = errorLog + " | " + ("ciudad: "+objJsonCountry.get("locality").toString());
-            			
-            			objAddresses.setIdDireccion(objJsonContent.get("id").toString());
-            			objAddresses.setPais(objJsonCountry.get("title").toString());
-            			objAddresses.setEstado(objJsonRegion.get("title").toString());
-            			objAddresses.setCiudad(objJsonCountry.get("locality").toString());
-            			
-            			lstAddresses.add(objAddresses);
-            			break;
-            		default:
-            			errorLog = errorLog + " | " + (objJsonResource.get("name").toString());
-            			break;
-            	}
-            	
-            }
-            errorLog = errorLog + " | " + ("--------------------------------------------------------");
-            
-            for(CatBachillerato row : lstEducationalInstitutions) {
-            	objCatBachillerato= new CatBachillerato();
+						
+						objAddresses.setIdDireccion(objJsonContent.get("id").toString());
+						objAddresses.setPais(objJsonCountry.get("title").toString());
+						objAddresses.setEstado(objJsonRegion.get("title").toString());
+						objAddresses.setCiudad(objJsonCountry.get("locality").toString());
+						
+						lstAddresses.add(objAddresses);
+						break;
+					default:
+						errorLog = errorLog + " | " + (objJsonResource.get("name").toString());
+						break;
+				}
+				
+			}
+			errorLog = errorLog + " | " + ("--------------------------------------------------------");
+			
+			for(CatBachillerato row : lstEducationalInstitutions) {
+				objCatBachillerato= new CatBachillerato();
 				objCatBachillerato.setIdBachillerato(row.getIdBachillerato());
-            	objCatBachillerato.setDescripcion(row.getDescripcion());
-            	objCatBachillerato.setUsuarioBanner(row.getUsuarioBanner());
-            	objCatBachillerato.setFechaImportacion(row.getFechaImportacion());
-            	objCatBachillerato.setFechaCreacion(row.getFechaCreacion());
-            	objCatBachillerato.setOperation(row.getOperation());
-            	objCatBachillerato.setIsEliminado(false);
-            	objCatBachillerato.setIsEnabled(true);
-            	objCatBachillerato.setPerteneceRed(false);
-            	
-            	if(lstAddresses.contains(row)) {
-            		indexAddress = lstAddresses.indexOf(row);
-            		if(indexAddress!= -1) {
-            			objCatBachillerato.setIdDireccion(lstAddresses.get(indexAddress).getIdDireccion());
-            			objCatBachillerato.setPais(lstAddresses.get(indexAddress).getPais());
-            			objCatBachillerato.setEstado(lstAddresses.get(indexAddress).getEstado());
-            			objCatBachillerato.setCiudad(lstAddresses.get(indexAddress).getCiudad());
-            		}
-            	}
-            	
-            	lstCatBachillerato.add(objCatBachillerato);
-            }
+				objCatBachillerato.setDescripcion(row.getDescripcion());
+				objCatBachillerato.setUsuarioBanner(row.getUsuarioBanner());
+				objCatBachillerato.setFechaImportacion(row.getFechaImportacion());
+				objCatBachillerato.setFechaCreacion(row.getFechaCreacion());
+				objCatBachillerato.setOperation(row.getOperation());
+				objCatBachillerato.setClave(row.getClave());
+				objCatBachillerato.setIsEliminado(false);
+				objCatBachillerato.setIsEnabled(true);
+				objCatBachillerato.setPerteneceRed(false);
+				
+				errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
+				errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
+				errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
+				errorLog = errorLog + " | row.getFechaImportacion(): "+(row.getFechaImportacion());
+				errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
+				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
+				errorLog = errorLog + " | row.getClave(): "+(row.getClave());
+
+				if(lstAddresses.contains(row)) {
+					indexAddress = lstAddresses.indexOf(row);
+					if(indexAddress!= -1) {
+						objCatBachillerato.setIdDireccion(lstAddresses.get(indexAddress).getIdDireccion());
+						objCatBachillerato.setPais(lstAddresses.get(indexAddress).getPais());
+						objCatBachillerato.setEstado(lstAddresses.get(indexAddress).getEstado());
+						objCatBachillerato.setCiudad(lstAddresses.get(indexAddress).getCiudad());
+					}
+				}
+				
+				lstCatBachillerato.add(objCatBachillerato);
+			}
 			
 			processInstance = null;
 			processAPI = context.getApiClient().getProcessAPI();
@@ -332,8 +361,18 @@ class BannerDAO {
 			
 			/*--------------------------------------------------------------------------------------------------------------*/
 			for(CatBachillerato row : lstCatBachillerato) {
+				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
+				errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
+				errorLog = errorLog + " | row.getEstado(): "+(row.getEstado());
+				errorLog = errorLog + " | row.getCiudad(): "+(row.getCiudad());
+				errorLog = errorLog + " | row.getPais(): "+(row.getPais());
+				errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
+				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
+				errorLog = errorLog + " | row.getClave(): "+(row.getClave());
+				errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
+				
 				if(row.getOperation().equals("replaced")) {
-				//if(operacion.equals("replaced")) {					
+				//if(operacion.equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
 					
 					def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
@@ -439,16 +478,16 @@ class BannerDAO {
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 									processInstance = processAPI.startProcessWithInputs(processId, contracto);
 								}
-							}					
+							}
 						}
 					}
 				}
 			}
-            
-            resultado.setData(lstCatBachillerato);
+			
+			resultado.setData(lstCatBachillerato);
 			resultado.setSuccess(true);
 			resultado.setError_info(errorLog);
-            
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError_info(errorLog);

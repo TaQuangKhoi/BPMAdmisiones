@@ -635,7 +635,6 @@ class CatalogosDAO {
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			
 				
 				CatPaisCustomFiltro row = new CatPaisCustomFiltro();
 				List<CatPaisCustomFiltro> rows = new ArrayList<CatPaisCustomFiltro>();
@@ -1380,6 +1379,7 @@ class CatalogosDAO {
 			row.setPersistenceId(rs.getLong("persistenceId"));
 			row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 			row.setPerteneceRed(rs.getBoolean("perteneceRed"));
+			row.setId(rs.getString("id"));
 			rows.add(row)
 		}
 		resultado.setSuccess(true)
@@ -6517,7 +6517,8 @@ public Result insertAzureConfig(AzureConfig ac){
 			
 				if(!type.equals("")) {
 					
-					dataResult = getCatPais(jsonData, context);
+//					dataResult = getCatPais(jsonData, context);
+					dataResult = getCatGenerico(jsonData, context);
 					
 					if (dataResult.success) {
 						lstParams = dataResult.getData();
