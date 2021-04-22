@@ -6517,7 +6517,8 @@ public Result insertAzureConfig(AzureConfig ac){
 			
 				if(!type.equals("")) {
 					
-					dataResult = getCatPais(jsonData, context);
+//					dataResult = getCatPais(jsonData, context);
+					dataResult = getCatGenerico(jsonData, context);
 					
 					if (dataResult.success) {
 						lstParams = dataResult.getData();
