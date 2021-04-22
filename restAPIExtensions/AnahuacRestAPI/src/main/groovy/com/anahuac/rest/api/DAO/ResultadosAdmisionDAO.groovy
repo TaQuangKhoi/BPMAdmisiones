@@ -876,10 +876,7 @@ class ResultadosAdmisionDAO {
 
 
 			}
-			   
 			
-			
-	
 			switch(object.orderby) {
 				case "IDBANNER":
 					orderby += "DETSOL.IDBANNER";
@@ -954,20 +951,20 @@ class ResultadosAdmisionDAO {
 			//String countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT;
 			String countQuery = "";
 			
-			  if(object.tipoResultado.equals("Sin resultado")){
-				 countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
-			 }else{
-				 countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT; 
-			 }
+			if(object.tipoResultado.equals("Sin resultado")){
+				countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
+			}else{
+				countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT; 
+			}
 			 
-
-			
 			countQuery = countQuery.replace("[WHERE]", where); 
 			pstm = con.prepareStatement(countQuery); 
-			rs= pstm.executeQuery()
+			rs= pstm.executeQuery();
+			
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"));
 			}
+			
 			consulta = consulta.replace("[ORDERBY]", orderby);
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?"); 
 			pstm = con.prepareStatement(consulta)
@@ -1022,8 +1019,6 @@ class ResultadosAdmisionDAO {
 		}
 		return resultado
 	}
-	
-	
 	
 	public Result seleccionarCarta(Integer parameterP, Integer parameterC, String jsonData) {
 		Result resultado = new Result();
@@ -1138,7 +1133,7 @@ class ResultadosAdmisionDAO {
 				if(resultadoEnvioCarta.isSuccess()) {
 					correoLog += "Se envió la carta.";
 					
-					if(!columns.get("pdu").equals("No")) {
+					if(!columns.get("pdu").equals("No") && carta.equals("Aceptado")) {
 						String codigoPDU = "carta-pdu";
 						String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
 						Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);

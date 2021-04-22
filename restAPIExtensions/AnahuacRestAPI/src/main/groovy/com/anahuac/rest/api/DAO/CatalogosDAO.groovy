@@ -635,7 +635,6 @@ class CatalogosDAO {
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
-			
 				
 				CatPaisCustomFiltro row = new CatPaisCustomFiltro();
 				List<CatPaisCustomFiltro> rows = new ArrayList<CatPaisCustomFiltro>();
@@ -1380,6 +1379,7 @@ class CatalogosDAO {
 			row.setPersistenceId(rs.getLong("persistenceId"));
 			row.setPersistenceVersion(rs.getLong("persistenceVersion"));
 			row.setPerteneceRed(rs.getBoolean("perteneceRed"));
+			row.setId(rs.getString("id"));
 			rows.add(row)
 		}
 		resultado.setSuccess(true)
@@ -6522,7 +6522,7 @@ public Result insertAzureConfig(AzureConfig ac){
 					if (dataResult.success) {
 						lstParams = dataResult.getData();
 					} else {
-						throw new Exception("No encontro datos en "+type);
+						throw new Exception("No encontro datos en " + type);
 					}
 					
 					Row titleRow = sheet.createRow(++rowCount);

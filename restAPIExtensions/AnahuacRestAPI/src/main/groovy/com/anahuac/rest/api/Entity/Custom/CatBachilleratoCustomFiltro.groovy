@@ -38,13 +38,8 @@ class CatBachilleratoCustomFiltro {
 	private Boolean perteneceRed;
 	@XmlElement
 	private String usuarioBanner;
-	
-	public String getFechaImportacion() {
-		return fechaImportacion;
-	}
-	public void setFechaImportacion(String fechaImportacion) {
-		this.fechaImportacion = fechaImportacion;
-	}
+	@XmlElement
+	private String id;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -63,6 +58,12 @@ class CatBachilleratoCustomFiltro {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+	public String getPais() {
+		return pais;
+	}
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -75,29 +76,23 @@ class CatBachilleratoCustomFiltro {
 	public void setFechaCreacion(String fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	public String getUsuarioCreacion() {
-		return usuarioBanner;
+	public String getFechaImportacion() {
+		return fechaImportacion;
 	}
-	public void setUsuarioBanner(String usuarioBanner) {
-		this.usuarioBanner = usuarioBanner;
+	public void setFechaImportacion(String fechaImportacion) {
+		this.fechaImportacion = fechaImportacion;
+	}
+	public String getUsuarioCreacion() {
+		return usuarioCreacion;
+	}
+	public void setUsuarioCreacion(String usuarioCreacion) {
+		this.usuarioCreacion = usuarioCreacion;
 	}
 	public Boolean getIsEliminado() {
 		return isEliminado;
 	}
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
-	}
-	public Boolean getPerteneceRed() {
-		return perteneceRed;
-	}
-	public void setPerteneceRed(Boolean perteneceRed) {
-		this.perteneceRed = perteneceRed;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
 	}
 	public String getCaseId() {
 		return caseId;
@@ -117,7 +112,6 @@ class CatBachilleratoCustomFiltro {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -130,14 +124,34 @@ class CatBachilleratoCustomFiltro {
 	public void setIsEnabled(Boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
-	
+	public Boolean getPerteneceRed() {
+		return perteneceRed;
+	}
+	public void setPerteneceRed(Boolean perteneceRed) {
+		this.perteneceRed = perteneceRed;
+	}
+	public String getUsuarioBanner() {
+		return usuarioBanner;
+	}
+	public void setUsuarioBanner(String usuarioBanner) {
+		this.usuarioBanner = usuarioBanner;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return "CatLicenciaturaCustom [persistenceId=" + persistenceId + ", persistenceVersion=" + persistenceVersion
-				+ ", clave=" + clave + ", descripcion=" + descripcion + ", fechaCreacion=" + fechaCreacion
-				+ ", usuarioBanner=" + usuarioBanner + ", isEliminado=" + isEliminado + " , pais="
-				+ pais + " , caseId=" + caseId + " , region=" + region + " , estado="
-				+ estado + " , ciudad=" + ciudad + " , isEnabled=" + isEnabled + " , perteneceRed=" + perteneceRed + "]";
+		return "CatBachilleratoCustomFiltro [persistenceId=" + persistenceId + ", persistenceVersion="
+				+ persistenceVersion + ", clave=" + clave + ", pais=" + pais + ", descripcion=" + descripcion
+				+ ", fechaCreacion=" + fechaCreacion + ", fechaImportacion=" + fechaImportacion + ", usuarioCreacion="
+				+ usuarioCreacion + ", isEliminado=" + isEliminado + ", caseId=" + caseId + ", estado=" + estado
+				+ ", region=" + region + ", ciudad=" + ciudad + ", isEnabled=" + isEnabled + ", perteneceRed="
+				+ perteneceRed + ", usuarioBanner=" + usuarioBanner + ", id=" + id + "]";
 	}
+	
+	
 	
 }
