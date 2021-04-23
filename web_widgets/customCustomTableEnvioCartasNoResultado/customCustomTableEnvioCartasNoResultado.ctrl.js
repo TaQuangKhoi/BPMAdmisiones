@@ -375,4 +375,15 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 
     $scope.getCatCampus();
+    
+    $scope.estatusEnviado = function(estatussolicitud){
+        let output = "Sin enviar";
+        if(estatussolicitud === "Resultado final del comité"){
+            output = "Enviado";
+        } else if (estatussolicitud === "Rechazado por comité"){
+            output = "Enviado";
+        }
+
+        return output;
+    }
 }

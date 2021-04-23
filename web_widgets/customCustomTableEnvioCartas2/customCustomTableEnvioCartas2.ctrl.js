@@ -279,7 +279,6 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     // }
 
     $scope.addFilter = function () {
-        debugger;
         if($scope.filtroCampus != "Todos los campus"){
             var filter = {
                 "columna": "CAMPUS",
@@ -375,4 +374,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 
     $scope.getCatCampus();
+    
+    $scope.$watch("properties.relacionCartasEnviadas", function(){
+        if($scope.properties.relacionCartasEnviadas !== undefined){
+            doRequest("POST", $scope.properties.urlPost);
+        } 
+    });
 }
