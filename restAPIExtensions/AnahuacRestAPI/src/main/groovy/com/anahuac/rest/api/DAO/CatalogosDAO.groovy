@@ -6523,7 +6523,7 @@ public Result insertAzureConfig(AzureConfig ac){
 					if (dataResult.success) {
 						lstParams = dataResult.getData();
 					} else {
-						throw new Exception("No encontro datos en "+type);
+						throw new Exception("No encontro datos en " + type);
 					}
 					
 					Row titleRow = sheet.createRow(++rowCount);
