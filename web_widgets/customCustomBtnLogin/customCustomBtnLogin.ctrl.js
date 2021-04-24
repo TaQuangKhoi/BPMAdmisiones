@@ -59,7 +59,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               // doRequest($scope.properties.action, $scope.properties.url);
               $scope.validateForm();
           } else {
-              swal("¡Atención!", "Captcha inválido.", "warning");
+              Swal.fire("¡Atención!", "Captcha inválido.", "warning");
               $scope.resetCaptcha();
           }
       } else {
@@ -76,15 +76,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
       
       if(username  === ""){
-          swal("¡Atención!", "El Correo electrónico no debe ir vacío.", "warning");
+          Swal.fire("¡Atención!", "El Correo electrónico no debe ir vacío.", "warning");
       } else if (!re.test(String(username))){
-          swal("¡Atención!", "El formato de correo electrónico es inválido.", "warning");
+          Swal.fire("¡Atención!", "El formato de correo electrónico es inválido.", "warning");
       } else if (password === ""){
-          swal("¡Atención!", "La Contraseña no debe ir vacía.", "warning");
+          Swal.fire("¡Atención!", "La Contraseña no debe ir vacía.", "warning");
       } 
       
       // else if (password.length > 8){
-      //     swal("Error", "Tu contraseña es muy corta", "warning");
+      //     Swal.fire("Error", "Tu contraseña es muy corta", "warning");
       // } 
       
       else {
@@ -122,7 +122,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           redirectIfNeeded();
       })
       .error(function(data, status) {
-          swal("Error","Correo electrónico o Contraseña incorrecta." ,"error");
+          Swal.fire({
+  title: '<strong>Atención</strong>',
+  icon: 'error',
+  html:
+    'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si tu registro lo realizaste <stron>antes</stron> del 1 mayo del 2021 <br> da clic aquí </p>' +
+    '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ',
+  showCloseButton: false});
           $scope.errorLoginCount ++;
           if($scope.errorLoginCount === 2){
               $scope.renderCaptcha();

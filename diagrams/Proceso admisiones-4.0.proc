@@ -1015,15 +1015,16 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_ULQB3J8MEeu56YDDiS_Vhg" name="pr" content="pr" type="TYPE_VARIABLE" returnType="com.anahuac.model.PlantillaRegistro">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB3Z8MEeu56YDDiS_Vhg" name="pr" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PlantillaRegistro"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_ULQB3p8MEeu56YDDiS_Vhg" name="newScript()" content="import java.time.LocalDate&#xD;&#xA;def plantillaRegistro = new com.anahuac.model.PlantillaRegistro();&#xD;&#xA;&#xD;&#xA;if(catSolicitudDeAdmision?.getCatCampusEstudio()?.getClave().equals(&quot;UAQ&quot;)){&#xD;&#xA;&#x9;plantillaRegistro.setNRegistro(catSolicitudDeAdmision?.getCaseId())&#xD;&#xA;&#x9;plantillaRegistro.setExpediente(detalleSolicitud?.getIdBanner())&#xD;&#xA;&#x9;plantillaRegistro.setPrimerNombre(catSolicitudDeAdmision?.getPrimerNombre())&#xD;&#xA;&#x9;plantillaRegistro.setSegundoNombre(catSolicitudDeAdmision?.getSegundoNombre())&#xD;&#xA;&#x9;plantillaRegistro.setApellidoPaterno(catSolicitudDeAdmision?.getApellidoPaterno())&#xD;&#xA;&#x9;plantillaRegistro.setApellidoMaterno(catSolicitudDeAdmision?.getApellidoMaterno())&#xD;&#xA;&#x9;plantillaRegistro.setCampus(catSolicitudDeAdmision?.getCatCampusEstudio()?.getClave())&#xD;&#xA;&#x9;if(catSolicitudDeAdmision?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)){&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEstado(catSolicitudDeAdmision?.getCatEstado()?.getDescripcion())&#xD;&#xA;&#x9;}else{&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEstado(catSolicitudDeAdmision?.getEstadoExtranjero())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setMunicipio(catSolicitudDeAdmision?.getCiudad())&#xD;&#xA;&#x9;plantillaRegistro.setPais(catSolicitudDeAdmision?.getCatPais()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setCorreo(catSolicitudDeAdmision?.getCorreoElectronico())&#xD;&#xA;&#x9;plantillaRegistro.setContrasena(catRegistro?.getPassword())&#xD;&#xA;&#x9;plantillaRegistro.setSexo(catSolicitudDeAdmision?.getCatSexo()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setFechaNacimiento(catSolicitudDeAdmision?.getFechaNacimiento().toString())&#xD;&#xA;&#x9;plantillaRegistro.setNacionalidad(catSolicitudDeAdmision?.getCatNacionalidad()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setReligion(catSolicitudDeAdmision?.getCatReligion()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setCurp(catSolicitudDeAdmision?.getCurp() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setCelular(catSolicitudDeAdmision?.getTelefonoCelular())&#xD;&#xA;&#x9;plantillaRegistro.setFoto(catSolicitudDeAdmision?.getUrlFoto() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setKardex(catSolicitudDeAdmision?.getUrlConstancia()?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setEstadoCivil(catSolicitudDeAdmision?.getCatEstadoCivil()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setCasaCalle(catSolicitudDeAdmision?.getCalle())&#xD;&#xA;&#x9;plantillaRegistro.setNumExt(catSolicitudDeAdmision?.getNumExterior())&#xD;&#xA;&#x9;plantillaRegistro.setNumInt(catSolicitudDeAdmision?.getNumInterior() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setColonia(catSolicitudDeAdmision?.getColonia())&#xD;&#xA;&#x9;plantillaRegistro.setCp(catSolicitudDeAdmision?.getCodigoPostal() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setOtroTelefono(catSolicitudDeAdmision?.getOtroTelefonoContacto() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setUniversidad(catSolicitudDeAdmision?.getCatCampus()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setPuntajePaa((catSolicitudDeAdmision?.tienePAA?catSolicitudDeAdmision?.getResultadoPAA().toString():&quot;0&quot;))&#xD;&#xA;&#x9;plantillaRegistro.setLicenciatura(catSolicitudDeAdmision?.getCatGestionEscolar()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setPeriodoIngreso(catSolicitudDeAdmision?.getCatPeriodo()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setOtraUniversidad(autodescripcion?.getCatInscritoOtraUniversidad()?.getClave())&#xD;&#xA;&#x9;if(catSolicitudDeAdmision?.getCatBachilleratos()?.getDescripcion().equals(&quot;Otro&quot;) || catSolicitudDeAdmision?.getCatBachilleratos()?.getClave().equals(&quot;Otro&quot;)){&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPreparatoria(catSolicitudDeAdmision?.getBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaPais(catSolicitudDeAdmision?.getPaisBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaEstado(catSolicitudDeAdmision?.getEstadoBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaCiudad(catSolicitudDeAdmision?.getCiudadBachillerato())&#xD;&#xA;&#x9;}else{&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPreparatoria(catSolicitudDeAdmision?.getCatBachilleratos()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaPais(catSolicitudDeAdmision?.getCatBachilleratos()?.getPais())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaEstado(catSolicitudDeAdmision?.getCatBachilleratos()?.getEstado())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaCiudad(catSolicitudDeAdmision?.getCatBachilleratos()?.getCiudad())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setPrepaPromedio(catSolicitudDeAdmision?.getPromedioGeneral())&#xD;&#xA;&#x9;if(tutor?.size()>0){&#xD;&#xA;&#x9;&#x9;def strTutor = new com.anahuac.model.PadresTutor();&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;strTutor =  (com.anahuac.model.PadresTutor)tutor?.get(0);&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorTitulo(strTutor?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNombre(strTutor?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorApellido(strTutor?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEgresado(strTutor?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorUniEgresado(strTutor?.getCatCampusEgreso()?.getClave()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEscolaridad(strTutor?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorParentesco(strTutor?.getCatParentezco()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorTrabaja(strTutor?.getCatTrabaja()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEmpresa(strTutor?.getEmpresaTrabaja()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorGiroEmpresa(strTutor?.getGiroEmpresa()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorPuesto(strTutor?.getPuesto()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;//plantillaRegistro.setTutorDireccion(strTutor?.isViveContigo())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCalle(strTutor?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNumExt(strTutor?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNumInt(strTutor?.getNumeroInterior()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorColonia(strTutor?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCP(strTutor?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorMunicipio(strTutor?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorPais(strTutor?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEstado( (strTutor?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)?strTutor?.getCatEstado()?.getClave(): strTutor?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCelular(strTutor?.getTelefono())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if(!padre?.isDesconozcoDatosPadres()){&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTitulo(padre?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNombre(padre?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreApellido(padre?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreVivo(padre?.getVive()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEgresado(padre?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreUniEgresado(padre?.getCatCampusEgreso()?.getClave()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEscolaridad(padre?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTutor(padre?.isIsTutor()?&quot;Sí&quot;:&quot;No&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCorreo(padre?.getCorreoElectronico())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTrabaja(padre?.getCatTrabaja()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEmpresa(padre?.getEmpresaTrabaja()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreGiroEmpresa(padre?.getGiroEmpresa() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadrePuesto(padre?.getPuesto() ?: &quot;&quot;)&#xD;&#xA;&#x9;&#x9;//plantillaRegistro.setPadreDireccion(padre?.isViveContigo())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCalle(padre?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNumExt(padre?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNumInt(padre?.getNumeroInterior() ?: &quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreColonia(padre?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCP(padre?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreMunicipio(padre?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadrePais(padre?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEstado( (padre?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)? padre?.getCatEstado()?.getClave(): padre?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCel(padre?.getTelefono())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if(!madre?.isDesconozcoDatosPadres()){&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreTitulo(madre?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNombre(madre?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreApellido(madre?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreVive(madre?.getVive()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEgresada(madre?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreUniEgresada(madre?.getCatCampusEgreso()?.getClave() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCorreo(madre?.getCorreoElectronico())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEscolaridad(madre?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCalle(madre?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNumExt(madre?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNumInt(madre?.getNumeroInterior() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreColonia(madre?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCP(madre?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreMunicipio(madre?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadrePais(madre?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEstado( (madre?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)?madre?.getCatEstado()?.getClave(): madre?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCel(madre?.getTelefono())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;if(contactoEmergencia?.size()>0){&#xD;&#xA;&#x9;&#x9;def strCE = new com.anahuac.model.ContactoEmergencias();&#xD;&#xA;&#x9;&#x9;strCE = (com.anahuac.model.ContactoEmergencias)contactoEmergencia?.get(0);&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergencia(strCE?.getCatParentesco()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaNombre(strCE?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaTelefono(strCE?.getTelefono())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaCelular(strCE?.getTelefonoCelular())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setConQuienVives(autodescripcion?.getCatConQuienVives()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setEstadoPadres(autodescripcion?.getCatEstadoCivilPadres()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setFechaRegistro(LocalDate.now())&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;return plantillaRegistro;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return null;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.PlantillaRegistro">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB358MEeu56YDDiS_Vhg" name="detalleSolicitud" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.DetalleSolicitud"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB4J8MEeu56YDDiS_Vhg" name="padre" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB4Z8MEeu56YDDiS_Vhg" name="catRegistro" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.catalogos.CatRegistro"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB4p8MEeu56YDDiS_Vhg" name="contactoEmergencia" multiple="true" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.ContactoEmergencias"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB458MEeu56YDDiS_Vhg" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB5J8MEeu56YDDiS_Vhg" name="autodescripcion" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.Autodescripcion"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB5Z8MEeu56YDDiS_Vhg" name="madre" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ULQB5p8MEeu56YDDiS_Vhg" name="tutor" multiple="true" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_ULQB3p8MEeu56YDDiS_Vhg" name="newScript()" content="import java.time.LocalDate&#xD;&#xA;def plantillaRegistro = new com.anahuac.model.PlantillaRegistro();&#xD;&#xA;&#xD;&#xA;if(catSolicitudDeAdmision?.getCatCampusEstudio()?.getClave().equals(&quot;UAQ&quot;)){&#xD;&#xA;&#x9;plantillaRegistro.setNRegistro(catSolicitudDeAdmision?.getCaseId())&#xD;&#xA;&#x9;plantillaRegistro.setExpediente(detalleSolicitud?.getIdBanner())&#xD;&#xA;&#x9;plantillaRegistro.setPrimerNombre(catSolicitudDeAdmision?.getPrimerNombre())&#xD;&#xA;&#x9;plantillaRegistro.setSegundoNombre(catSolicitudDeAdmision?.getSegundoNombre())&#xD;&#xA;&#x9;plantillaRegistro.setApellidoPaterno(catSolicitudDeAdmision?.getApellidoPaterno())&#xD;&#xA;&#x9;plantillaRegistro.setApellidoMaterno(catSolicitudDeAdmision?.getApellidoMaterno())&#xD;&#xA;&#x9;plantillaRegistro.setCampus(catSolicitudDeAdmision?.getCatCampusEstudio()?.getClave())&#xD;&#xA;&#x9;if(catSolicitudDeAdmision?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)){&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEstado(catSolicitudDeAdmision?.getCatEstado()?.getDescripcion())&#xD;&#xA;&#x9;}else{&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEstado(catSolicitudDeAdmision?.getEstadoExtranjero())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setMunicipio(catSolicitudDeAdmision?.getCiudad())&#xD;&#xA;&#x9;plantillaRegistro.setPais(catSolicitudDeAdmision?.getCatPais()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setCorreo(catSolicitudDeAdmision?.getCorreoElectronico())&#xD;&#xA;&#x9;plantillaRegistro.setContrasena(catRegistro?.getPassword())&#xD;&#xA;&#x9;plantillaRegistro.setSexo(catSolicitudDeAdmision?.getCatSexo()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setFechaNacimiento(catSolicitudDeAdmision?.getFechaNacimiento().toString())&#xD;&#xA;&#x9;plantillaRegistro.setNacionalidad(catSolicitudDeAdmision?.getCatNacionalidad()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setReligion(catSolicitudDeAdmision?.getCatReligion()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setTieneReligion((catSolicitudDeAdmision?.getCatReligion()?.getDescripcion().toLowerCase().equals(&quot;ninguna&quot;)?&quot;No&quot;:&quot;Sí&quot;))&#xD;&#xA;&#x9;plantillaRegistro.setCurp(catSolicitudDeAdmision?.getCurp() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setCelular(catSolicitudDeAdmision?.getTelefonoCelular())&#xD;&#xA;&#x9;plantillaRegistro.setFoto(catSolicitudDeAdmision?.getUrlFoto() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setKardex(catSolicitudDeAdmision?.getUrlConstancia()?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setEstadoCivil(catSolicitudDeAdmision?.getCatEstadoCivil()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setCasaCalle(catSolicitudDeAdmision?.getCalle())&#xD;&#xA;&#x9;plantillaRegistro.setNumExt(catSolicitudDeAdmision?.getNumExterior())&#xD;&#xA;&#x9;plantillaRegistro.setNumInt(catSolicitudDeAdmision?.getNumInterior() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setColonia(catSolicitudDeAdmision?.getColonia())&#xD;&#xA;&#x9;plantillaRegistro.setCp(catSolicitudDeAdmision?.getCodigoPostal() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setOtroTelefono(catSolicitudDeAdmision?.getOtroTelefonoContacto() ?: &quot;&quot;)&#xD;&#xA;&#x9;plantillaRegistro.setUniversidad(catSolicitudDeAdmision?.getCatCampus()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setPuntajePaa((catSolicitudDeAdmision?.tienePAA?catSolicitudDeAdmision?.getResultadoPAA().toString():&quot;0&quot;))&#xD;&#xA;&#x9;plantillaRegistro.setLicenciatura(catSolicitudDeAdmision?.getCatGestionEscolar()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setPeriodoIngreso(catSolicitudDeAdmision?.getCatPeriodo()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setOtraUniversidad(autodescripcion?.getCatInscritoOtraUniversidad()?.getClave())&#xD;&#xA;&#x9;if(catSolicitudDeAdmision?.getCatBachilleratos()?.getDescripcion().equals(&quot;Otro&quot;) || catSolicitudDeAdmision?.getCatBachilleratos()?.getClave().equals(&quot;Otro&quot;)){&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPreparatoria(catSolicitudDeAdmision?.getBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaPais(catSolicitudDeAdmision?.getPaisBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaEstado(catSolicitudDeAdmision?.getEstadoBachillerato())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaCiudad(catSolicitudDeAdmision?.getCiudadBachillerato())&#xD;&#xA;&#x9;}else{&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPreparatoria(catSolicitudDeAdmision?.getCatBachilleratos()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaPais(catSolicitudDeAdmision?.getCatBachilleratos()?.getPais())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaEstado(catSolicitudDeAdmision?.getCatBachilleratos()?.getEstado())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPrepaCiudad(catSolicitudDeAdmision?.getCatBachilleratos()?.getCiudad())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setPrepaPromedio(catSolicitudDeAdmision?.getPromedioGeneral())&#xD;&#xA;&#x9;if(tutor?.size()>0){&#xD;&#xA;&#x9;&#x9;def strTutor = new com.anahuac.model.PadresTutor();&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;strTutor =  (com.anahuac.model.PadresTutor)tutor?.get(0);&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorTitulo(strTutor?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNombre(strTutor?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorApellido(strTutor?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEgresado(strTutor?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorUniEgresado(strTutor?.getCatCampusEgreso()?.getClave()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEscolaridad(strTutor?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorParentesco(strTutor?.getCatParentezco()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorTrabaja(strTutor?.getCatTrabaja()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEmpresa(strTutor?.getEmpresaTrabaja()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorGiroEmpresa(strTutor?.getGiroEmpresa()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorPuesto(strTutor?.getPuesto()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;//plantillaRegistro.setTutorDireccion(strTutor?.isViveContigo())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCalle(strTutor?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNumExt(strTutor?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorNumInt(strTutor?.getNumeroInterior()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorColonia(strTutor?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCP(strTutor?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorMunicipio(strTutor?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorPais(strTutor?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorEstado( (strTutor?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)?strTutor?.getCatEstado()?.getClave(): strTutor?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTutorCelular(strTutor?.getTelefono())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if(!padre?.isDesconozcoDatosPadres()){&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTitulo(padre?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNombre(padre?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreApellido(padre?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreVivo(padre?.getVive()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEgresado(padre?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreUniEgresado(padre?.getCatCampusEgreso()?.getClave()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEscolaridad(padre?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTutor(padre?.isIsTutor()?&quot;Sí&quot;:&quot;No&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCorreo(padre?.getCorreoElectronico())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreTrabaja(padre?.getCatTrabaja()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEmpresa(padre?.getEmpresaTrabaja()?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreGiroEmpresa(padre?.getGiroEmpresa() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadrePuesto(padre?.getPuesto() ?: &quot;&quot;)&#xD;&#xA;&#x9;&#x9;//plantillaRegistro.setPadreDireccion(padre?.isViveContigo())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCalle(padre?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNumExt(padre?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreNumInt(padre?.getNumeroInterior() ?: &quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreColonia(padre?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCP(padre?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreMunicipio(padre?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadrePais(padre?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreEstado( (padre?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)? padre?.getCatEstado()?.getClave(): padre?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setPadreCel(padre?.getTelefono())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;if(!madre?.isDesconozcoDatosPadres()){&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreTitulo(madre?.getCatTitulo()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNombre(madre?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreApellido(madre?.getApellidos())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreVive(madre?.getVive()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEgresada(madre?.getCatEgresoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreUniEgresada(madre?.getCatCampusEgreso()?.getClave() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCorreo(madre?.getCorreoElectronico())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEscolaridad(madre?.getCatEscolaridad()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCalle(madre?.getCalle())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNumExt(madre?.getNumeroExterior())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreNumInt(madre?.getNumeroInterior() ?:&quot;&quot;)&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreColonia(madre?.getColonia())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCP(madre?.getCodigoPostal())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreMunicipio(madre?.getDelegacionMunicipio())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadrePais(madre?.getCatPais()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreEstado( (madre?.getCatPais()?.getDescripcion().equals(&quot;México&quot;)?madre?.getCatEstado()?.getClave(): madre?.getEstadoExtranjero() ))&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setMadreCel(madre?.getTelefono())&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;if(contactoEmergencia?.size()>0){&#xD;&#xA;&#x9;&#x9;def strCE = new com.anahuac.model.ContactoEmergencias();&#xD;&#xA;&#x9;&#x9;strCE = (com.anahuac.model.ContactoEmergencias)contactoEmergencia?.get(0);&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergencia(strCE?.getCatParentesco()?.getClave())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaNombre(strCE?.getNombre())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaTelefono(strCE?.getTelefono())&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setEmergenciaCelular(strCE?.getTelefonoCelular())&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;plantillaRegistro.setConQuienVives(autodescripcion?.getCatConQuienVives()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setEstadoPadres(autodescripcion?.getCatEstadoCivilPadres()?.getClave())&#xD;&#xA;&#x9;plantillaRegistro.setDiscapacidad(autodescripcion?.getCatVivesEstadoDiscapacidad()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setAtencionMedica(autodescripcion?.getCatProblemaSaludAtencionContinua()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setPersonaSaludable(autodescripcion?.getCatPersonaSaludable()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setAlgunDeporte(autodescripcion?.getCatPracticasDeporte()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setAyudaSocial(autodescripcion?.getCatParticipasGrupoSocial()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setTeGustaLeer(autodescripcion?.getCatTeGustaLeer()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setJefeAsociacion(autodescripcion?.getCatJefeOrganizacionSocial()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setFamiliarEnAnahuac(autodescripcion?.getCatFamiliarEgresadoAnahuac()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setAtencionEspiritual(autodescripcion?.getCatRecibirAtencionEspiritual()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setConoceRegnum(autodescripcion?.getCatRegnumChris()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setPracticasReligion(autodescripcion?.getCatPracticasReligion()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setAspectoReligionNoGustar(autodescripcion?.getCatAspectoDesagradaReligion()?.getDescripcion())&#xD;&#xA;&#x9;plantillaRegistro.setCualAsociacion(autodescripcion?.getOrganizacionHasSidoJefe())&#xD;&#xA;&#x9;plantillaRegistro.setValorReligion(autodescripcion?.getValoresApordatoReligion())&#xD;&#xA;&#x9;//carga los grupos sociales&#xD;&#xA;&#x9;if(lstGruposSociales?.size() > 0){&#xD;&#xA;&#x9;&#x9;def strGS = new com.anahuac.model.GrupoSocial();&#xD;&#xA;&#x9;&#x9;//strGS = (com.anahuac.model.GrupoSocial)lstGruposSociales?.get(0);&#xD;&#xA;&#x9;&#x9;lstGruposSociales.each{ datos ->&#xD;&#xA;&#x9;&#x9;&#x9;strGS = (com.anahuac.model.GrupoSocial)datos;&#xD;&#xA;&#x9;&#x9;&#x9;switch(strGS?.getCatTipoOrganizacion()?.getDescripcion()){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;case &quot;Club o asociación deportiva&quot;:&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;plantillaRegistro.setAsociacionDeportiva(strGS?.getCatPertenecesOrganizacion()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;case &quot;Club o asociación social&quot;:&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;plantillaRegistro.setAsociacionSocial(strGS?.getCatPertenecesOrganizacion()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;case &quot;Club o asociación religiosa&quot;:&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;plantillaRegistro.setAsociacionReligiosa(strGS?.getCatPertenecesOrganizacion()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;case &quot;Club o asociación política&quot;:&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;plantillaRegistro.setAsociacionPolitica(strGS?.getCatPertenecesOrganizacion()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;case &quot;Club o asociación estudiantil&quot;:&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;plantillaRegistro.setAsociacionEscolar(strGS?.getCatPertenecesOrganizacion()?.getDescripcion())&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;// tiempo libre&#xD;&#xA;&#x9;if(autodescripcion?.getPasatiempos()?.size() > 0){&#xD;&#xA;&#x9;&#x9;def strPT = new com.anahuac.catalogos.CatPasatiempos();&#xD;&#xA;&#x9;&#x9;String pasatiempos = &quot;&quot;;&#xD;&#xA;&#x9;&#x9;//strGS = (com.anahuac.model.GrupoSocial)lstGruposSociales?.get(0);&#xD;&#xA;&#x9;&#x9;autodescripcion?.getPasatiempos()?.each{ datos ->&#xD;&#xA;&#x9;&#x9;&#x9;strPT = (com.anahuac.catalogos.CatPasatiempos)datos;&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;pasatiempos+= (pasatiempos.length()>0 ?&quot;,&quot;:&quot;&quot;)+strPT.getDescripcion()&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTiempoLibre(pasatiempos)&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;//tipo lectura&#xD;&#xA;&#x9;if(autodescripcion?.getLecturas()?.size() > 0){&#xD;&#xA;&#x9;&#x9;def strL = new com.anahuac.catalogos.CatTipoLectura();&#xD;&#xA;&#x9;&#x9;String Lectura = &quot;&quot;;&#xD;&#xA;&#x9;&#x9;//strGS = (com.anahuac.model.GrupoSocial)lstGruposSociales?.get(0);&#xD;&#xA;&#x9;&#x9;autodescripcion?.getLecturas()?.each{ datos ->&#xD;&#xA;&#x9;&#x9;&#x9;strL = (com.anahuac.catalogos.CatTipoLectura)datos;&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;Lectura+= (Lectura.length()>0 ?&quot;,&quot;:&quot;&quot;)+strL.getDescripcion()&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;plantillaRegistro.setTipoLectura(Lectura)&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;plantillaRegistro.setFechaRegistro(LocalDate.now())&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;return plantillaRegistro;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return null;&#xD;&#xA;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.model.PlantillaRegistro">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOeoKSNEeucs6gI5iDjUw" name="detalleSolicitud" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.DetalleSolicitud"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOeoaSNEeucs6gI5iDjUw" name="padre" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOeoqSNEeucs6gI5iDjUw" name="catRegistro" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.catalogos.CatRegistro"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOeo6SNEeucs6gI5iDjUw" name="contactoEmergencia" multiple="true" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.ContactoEmergencias"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOepKSNEeucs6gI5iDjUw" name="lstGruposSociales" multiple="true" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.GrupoSocial"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOepaSNEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOepqSNEeucs6gI5iDjUw" name="autodescripcion" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.Autodescripcion"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOep6SNEeucs6gI5iDjUw" name="madre" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_DVOeqKSNEeucs6gI5iDjUw" name="tutor" multiple="true" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.PadresTutor"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_ULQB558MEeu56YDDiS_Vhg" type="ASSIGNMENT"/>
           </operations>
@@ -2421,6 +2422,72 @@
               <inputTypes>java.lang.Boolean</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_uQP8sKRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_uQP8saRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0y4jQKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_uQP8sqRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlActaNacimiento" content="catSolicitudDeAdmisionInput?.urlActaNacimiento" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_cAVaMKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_uQP8s6RPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlActaNacimiento">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_uxNUsKRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_uxNUsaRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1PauQKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_uxNUsqRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlCartaAA" content="catSolicitudDeAdmisionInput?.urlCartaAA" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_dtHsIKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_uxNUs6RPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlCartaAA">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_vitDEKRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_vitDEaRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1t1IkKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_vitDEqRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlConstancia" content="catSolicitudDeAdmisionInput?.urlConstancia" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_fb7-YKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_vitDE6RPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlConstancia">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_wKW48KRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_wKXgAKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_2S6LkKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_wKXgAaRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlDescuentos" content="catSolicitudDeAdmisionInput?.urlDescuentos" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_g8KbAKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_wKXgAqRPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlDescuentos">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_wuPCEKRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_wuPCEaRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_22A4oKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_wuPCEqRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlFoto" content="catSolicitudDeAdmisionInput?.urlFoto" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_ilbe4KRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_wuPCE6RPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlFoto">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_x2mYUKRPEeucs6gI5iDjUw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_x2mYUaRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_3XuekKRPEeucs6gI5iDjUw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_x2mYUqRPEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput.urlResultadoPAA" content="catSolicitudDeAdmisionInput?.urlResultadoPAA" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_kK0IUKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_x2mYU6RPEeucs6gI5iDjUw" type="JAVA_METHOD" expression="setUrlResultadoPAA">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ULRQQJ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ULRQQZ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ULRQQp8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -2432,7 +2499,7 @@
             </condition>
           </BoundaryIntermediateEvents>
           <formMapping xmi:type="process:FormMapping" xmi:id="_ULRQSJ8MEeu56YDDiS_Vhg" type="NONE">
-            <targetForm xmi:type="expression:Expression" xmi:id="_ULRQSZ8MEeu56YDDiS_Vhg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+            <targetForm xmi:type="expression:Expression" xmi:id="_qBjSMKRQEeucs6gI5iDjUw" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_ULRQSp8MEeu56YDDiS_Vhg">
             <inputs xmi:type="process:ContractInput" xmi:id="_ULRQS58MEeu56YDDiS_Vhg" name="fotoPasaporteDocumentInput" type="FILE" multiple="true" dataReference="fotoPasaporte" createMode="false"/>
@@ -2687,6 +2754,24 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_ULR2pJ8MEeu56YDDiS_Vhg" name="admisionAnahuac" type="BOOLEAN">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_ULR2pZ8MEeu56YDDiS_Vhg"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_bBrPAKRPEeucs6gI5iDjUw" name="urlFoto">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_bBrPAaRPEeucs6gI5iDjUw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_bSD0YKRPEeucs6gI5iDjUw" name="urlConstancia">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_bSD0YaRPEeucs6gI5iDjUw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_bb8wMKRPEeucs6gI5iDjUw" name="urlCartaAA">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_bb8wMaRPEeucs6gI5iDjUw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_bjDdwKRPEeucs6gI5iDjUw" name="urlResultadoPAA">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_bjDdwaRPEeucs6gI5iDjUw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_bpfc8KRPEeucs6gI5iDjUw" name="urlActaNacimiento">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_bpfc8aRPEeucs6gI5iDjUw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_gSYToKRPEeucs6gI5iDjUw" name="urlDescuentos">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_gSYToaRPEeucs6gI5iDjUw"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_ULR2pp8MEeu56YDDiS_Vhg" name="cartaAADocumentInput" type="FILE" multiple="true" dataReference="cartaAA" createMode="false"/>
@@ -8951,6 +9036,72 @@
               <inputTypes>java.time.LocalDateTime</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_rSkp4KO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_rSkp4aO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_xP484KO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_rSkp4qO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlActaNacimiento" content="catSolicitudDeAdmisionInput?.urlActaNacimiento" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_F_62QKO8EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_rSkp46O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlActaNacimiento">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_rwxBwKO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_rwxBwaO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ygaJkKO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_rwxBwqO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlCartaAA" content="catSolicitudDeAdmisionInput?.urlCartaAA" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_KjknoKO8EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_rwxBw6O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlCartaAA">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_sMwaMKO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_sMwaMaO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_zTgacKO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_sMwaMqO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlConstancia" content="catSolicitudDeAdmisionInput?.urlConstancia" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_NfY4gKO8EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_sMwaM6O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlConstancia">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_soyO4KO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_soyO4aO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0HfcIKO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_soyO4qO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlDescuentos" content="catSolicitudDeAdmisionInput?.urlDescuentos" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_OdQPsKRQEeucs6gI5iDjUw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_soyO46O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlDescuentos">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_tGNxwKO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_tGNxwaO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_0ys8UKO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_tGNxwqO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlFoto" content="catSolicitudDeAdmisionInput?.urlFoto" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_SpEvIKO8EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_tGNxw6O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlFoto">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_tjaEEKO7EeuARbWtah0hLw">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_tjaEEaO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_1XZk0KO7EeuARbWtah0hLw" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_tjaEEqO7EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput.urlResultadoPAA" content="catSolicitudDeAdmisionInput?.urlResultadoPAA" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Ur7XsKO8EeuARbWtah0hLw" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_tjaEE6O7EeuARbWtah0hLw" type="JAVA_METHOD" expression="setUrlResultadoPAA">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ULXWPJ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ULXWPZ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ULXWPp8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -9224,6 +9375,24 @@
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_ULXXFJ8MEeu56YDDiS_Vhg" name="admisionAnahuac" type="BOOLEAN">
                 <mapping xmi:type="process:ContractInputMapping" xmi:id="_ULXXFZ8MEeu56YDDiS_Vhg"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_d_22oKO7EeuARbWtah0hLw" name="urlFoto">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_d_22oaO7EeuARbWtah0hLw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_e8Kt4KO7EeuARbWtah0hLw" name="urlConstancia">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_e8Kt4aO7EeuARbWtah0hLw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_fDuHYKO7EeuARbWtah0hLw" name="urlCartaAA">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_fDuHYaO7EeuARbWtah0hLw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_fKxKkKO7EeuARbWtah0hLw" name="urlResultadoPAA">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_fKxKkaO7EeuARbWtah0hLw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_fRuHIKO7EeuARbWtah0hLw" name="urlActaNacimiento">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_fRuHIaO7EeuARbWtah0hLw"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_fXRVgKO7EeuARbWtah0hLw" name="urlDescuentos">
+                <mapping xmi:type="process:ContractInputMapping" xmi:id="_fXRVgaO7EeuARbWtah0hLw"/>
               </inputs>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_ULXXFp8MEeu56YDDiS_Vhg" name="cartaAADocumentInput" type="FILE" multiple="true" dataReference="cartaAA" createMode="false"/>
@@ -9892,7 +10061,7 @@
             <referencedElements xmi:type="process:Data" xmi:id="_ULYj4Z8MEeu56YDDiS_Vhg" name="fechavencimientoperiodo" dataType="_ULeGYJ8MEeu56YDDiS_Vhg"/>
           </condition>
         </elements>
-        <elements xmi:type="process:IntermediateCatchTimerEvent" xmi:id="_ULYj4p8MEeu56YDDiS_Vhg" name="Abandono solicitud" outgoing="_ULeEcJ8MEeu56YDDiS_Vhg" incoming="_ULeEbZ8MEeu56YDDiS_Vhg _ULeFBZ8MEeu56YDDiS_Vhg">
+        <elements xmi:type="process:IntermediateCatchTimerEvent" xmi:id="_ULYj4p8MEeu56YDDiS_Vhg" name="Abandono solicitud" outgoing="_ULeEcJ8MEeu56YDDiS_Vhg" incoming="_ULeEbZ8MEeu56YDDiS_Vhg">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_ULYj458MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_ULYj5J8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_ULYj5Z8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
@@ -13087,7 +13256,7 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_ULZ0NZ8MEeu56YDDiS_Vhg" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_ULZ0Np8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:ServiceTask" xmi:id="_ULZ0N58MEeu56YDDiS_Vhg" name="Reinciar vencimiento abandono" outgoing="_ULeFAp8MEeu56YDDiS_Vhg" incoming="_ULeE_58MEeu56YDDiS_Vhg">
+        <elements xmi:type="process:ServiceTask" xmi:id="_ULZ0N58MEeu56YDDiS_Vhg" name="Reinciar vencimiento abandono" outgoing="_FEUYQKLNEeuIJZQh4K18pw" incoming="_ULeE_58MEeu56YDDiS_Vhg">
           <dynamicLabel xmi:type="expression:Expression" xmi:id="_ULZ0OJ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
           <dynamicDescription xmi:type="expression:Expression" xmi:id="_ULZ0OZ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
           <stepSummary xmi:type="expression:Expression" xmi:id="_ULZ0Op8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
@@ -13453,15 +13622,10 @@
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_ULaZRJ8MEeu56YDDiS_Vhg" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_ULaZRZ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         </elements>
-        <elements xmi:type="process:ThrowLinkEvent" xmi:id="_ULaZRp8MEeu56YDDiS_Vhg" name="Enlace10" incoming="_ULeFAp8MEeu56YDDiS_Vhg" to="_ULaZSp8MEeu56YDDiS_Vhg">
-          <dynamicLabel xmi:type="expression:Expression" xmi:id="_ULaZR58MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
-          <dynamicDescription xmi:type="expression:Expression" xmi:id="_ULaZSJ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
-          <stepSummary xmi:type="expression:Expression" xmi:id="_ULaZSZ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
-        </elements>
-        <elements xmi:type="process:CatchLinkEvent" xmi:id="_ULaZSp8MEeu56YDDiS_Vhg" name="Reinicio fecha abandono" outgoing="_ULeFBZ8MEeu56YDDiS_Vhg" from="_ULaZRp8MEeu56YDDiS_Vhg">
-          <dynamicLabel xmi:type="expression:Expression" xmi:id="_ULaZS58MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
-          <dynamicDescription xmi:type="expression:Expression" xmi:id="_ULaZTJ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
-          <stepSummary xmi:type="expression:Expression" xmi:id="_ULaZTZ8MEeu56YDDiS_Vhg" name="" content="" returnTypeFixed="true"/>
+        <elements xmi:type="process:EndEvent" xmi:id="_FDwXkKLNEeuIJZQh4K18pw" name="Fin16" incoming="_FEUYQKLNEeuIJZQh4K18pw">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_FD6voaLNEeuIJZQh4K18pw" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_FD6voKLNEeuIJZQh4K18pw" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_FD6voqLNEeuIJZQh4K18pw" name="" content="" returnTypeFixed="true"/>
         </elements>
       </elements>
       <elements xmi:type="process:Lane" xmi:id="_ULaZTp8MEeu56YDDiS_Vhg" name="Admisiones" actor="_ULeFCp8MEeu56YDDiS_Vhg">
@@ -16829,7 +16993,7 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ULbqAJ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_ULbqAZ8MEeu56YDDiS_Vhg" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_ULbqAp8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <BoundaryIntermediateEvents xmi:type="process:BoundaryTimerEvent" xmi:id="_ULbqA58MEeu56YDDiS_Vhg" name="Boundary Temporizador3" outgoing="_ULeEOZ8MEeu56YDDiS_Vhg">
+          <BoundaryIntermediateEvents xmi:type="process:BoundaryTimerEvent" xmi:id="_ULbqA58MEeu56YDDiS_Vhg" name="Timmer pase de lista" outgoing="_ULeEOZ8MEeu56YDDiS_Vhg">
             <condition xmi:type="expression:Expression" xmi:id="_ULbqBJ8MEeu56YDDiS_Vhg" name="fechaFinalExamenFunction()" content="return fechaPrueba3;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
               <referencedElements xmi:type="process:Data" xmi:id="_ULbqBZ8MEeu56YDDiS_Vhg" name="fechaPrueba3" dataType="_ULeGYJ8MEeu56YDDiS_Vhg"/>
             </condition>
@@ -19097,6 +19261,28 @@
               <inputTypes>java.time.LocalDate</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_smMrcKLrEeuTGtK3Fy8B_Q">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_smMrcaLrEeuTGtK3Fy8B_Q" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_t7dOMKLrEeuTGtK3Fy8B_Q" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_smNSgKLrEeuTGtK3Fy8B_Q" name="newScript()" content="String estatus = &quot;&quot;;&#xD;&#xA;&#xD;&#xA;if(infoCartaInput?.carta == &quot;Aceptado&quot;){&#xD;&#xA;  estatus = &quot;Resultado final del comité&quot;;&#xD;&#xA;} else {&#xD;&#xA;  estatus = &quot;Rechazado por comité&quot;;&#xD;&#xA;}&#xD;&#xA;return estatus;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_ynccMKLrEeuTGtK3Fy8B_Q" name="infoCartaInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_smNSgaLrEeuTGtK3Fy8B_Q" type="JAVA_METHOD" expression="setEstatusSolicitud">
+              <inputTypes>java.lang.String</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_syh3QKLrEeuTGtK3Fy8B_Q">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_syieUKLrEeuTGtK3Fy8B_Q" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_uwwegKLrEeuTGtK3Fy8B_Q" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_syieUaLrEeuTGtK3Fy8B_Q" name="newScript()" content="return infoCartaInput?.carta == &quot;Aceptado&quot;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_6SZVsKLrEeuTGtK3Fy8B_Q" name="infoCartaInput" type="COMPLEX" createMode="false"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_syieUqLrEeuTGtK3Fy8B_Q" type="JAVA_METHOD" expression="setAceptado">
+              <inputTypes>java.lang.Boolean</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ULc3S58MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ULc3TJ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ULc3TZ8MEeu56YDDiS_Vhg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -20179,14 +20365,6 @@
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_ULeFAJ8MEeu56YDDiS_Vhg"/>
         <condition xmi:type="expression:Expression" xmi:id="_ULeFAZ8MEeu56YDDiS_Vhg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_ULeFAp8MEeu56YDDiS_Vhg" target="_ULaZRp8MEeu56YDDiS_Vhg" source="_ULZ0N58MEeu56YDDiS_Vhg">
-        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_ULeFA58MEeu56YDDiS_Vhg"/>
-        <condition xmi:type="expression:Expression" xmi:id="_ULeFBJ8MEeu56YDDiS_Vhg" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-      </connections>
-      <connections xmi:type="process:SequenceFlow" xmi:id="_ULeFBZ8MEeu56YDDiS_Vhg" target="_ULYj4p8MEeu56YDDiS_Vhg" source="_ULaZSp8MEeu56YDDiS_Vhg">
-        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_ULeFBp8MEeu56YDDiS_Vhg"/>
-        <condition xmi:type="expression:Expression" xmi:id="_ULeFB58MEeu56YDDiS_Vhg" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-      </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_NHjWUKIGEeuz1sdYuzU7ug" target="_OJNnoKIGEeuz1sdYuzU7ug" source="_ULc2IZ8MEeu56YDDiS_Vhg">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_NHj9YKIGEeuz1sdYuzU7ug"/>
         <condition xmi:type="expression:Expression" xmi:id="_NHj9YaIGEeuz1sdYuzU7ug" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
@@ -20197,13 +20375,17 @@
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_TWSwgKIGEeuz1sdYuzU7ug" target="_TWHKUKIGEeuz1sdYuzU7ug" source="_OJNnoKIGEeuz1sdYuzU7ug">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_TWSwgaIGEeuz1sdYuzU7ug"/>
-        <condition xmi:type="expression:Expression" xmi:id="_TWSwgqIGEeuz1sdYuzU7ug" name="newScript()" content="return catSolicitudDeAdmision.getCatGestionEscolar().isIsMedicina()" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
-          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_fxbbgKIGEeuz1sdYuzU7ug" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
+        <condition xmi:type="expression:Expression" xmi:id="_TWSwgqIGEeuz1sdYuzU7ug" name="newScript()" content="return (!catSolicitudDeAdmision.getCatGestionEscolar().isIsMedicina() &amp;&amp; catSolicitudDeAdmision.isAceptado())" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Boolean" returnTypeFixed="true">
+          <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_r6B6QKLxEeuTGtK3Fy8B_Q" name="catSolicitudDeAdmision" dataType="_ULeGZ58MEeu56YDDiS_Vhg" className="com.anahuac.model.SolicitudDeAdmision"/>
         </condition>
       </connections>
       <connections xmi:type="process:SequenceFlow" xmi:id="_VvFz4KIGEeuz1sdYuzU7ug" target="_ULbBdp8MEeu56YDDiS_Vhg" source="_TWHKUKIGEeuz1sdYuzU7ug">
         <decisionTable xmi:type="decision:DecisionTable" xmi:id="_VvFz4aIGEeuz1sdYuzU7ug"/>
         <condition xmi:type="expression:Expression" xmi:id="_VvFz4qIGEeuz1sdYuzU7ug" name="" content="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_FEUYQKLNEeuIJZQh4K18pw" target="_FDwXkKLNEeuIJZQh4K18pw" source="_ULZ0N58MEeu56YDDiS_Vhg">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_FEU_UKLNEeuIJZQh4K18pw"/>
+        <condition xmi:type="expression:Expression" xmi:id="_FEU_UaLNEeuIJZQh4K18pw" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
       </connections>
       <actors xmi:type="process:Actor" xmi:id="_ULeFCJ8MEeu56YDDiS_Vhg" name="Aspirante" initiator="true"/>
       <actors xmi:type="process:Actor" xmi:id="_ULeFCZ8MEeu56YDDiS_Vhg" name="Admisiones/Orientación vocacional"/>
@@ -20288,7 +20470,7 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeFO58MEeu56YDDiS_Vhg" name="urlCreateOrUpdateEsperaResultado" value="https://procesos.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateEsperaResultado&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_lj5usJ8MEeu56YDDiS_Vhg" name="urlEventTimmers" value="https://procesos.bpm.anahuac.mx/API/bpm/timerEventTrigger?caseId=[CASEID]&amp;p=0&amp;c=100&amp;" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_lj5usZ8MEeu56YDDiS_Vhg" name="urlUpdateTimmers" value="https://procesos.bpm.anahuac.mx/API/bpm/timerEventTrigger/[timmerid]" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_lj6VwJ8MEeu56YDDiS_Vhg" name="urlObtenerArchivosAzure" value="https://procesos.bpm.anahuac.mx/bonita/API/extension/AnahuacAzureRest?url=obtenerDocumentos&amp;p=0&amp;c=10&amp;caseId=[CASEID]" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_lj6VwJ8MEeu56YDDiS_Vhg" name="urlObtenerArchivosAzure" value="https://procesos.bpm.anahuac.mx/bonita/API/extension/AnahuacAzureRest?url=obtenerDocumentos&amp;p=0&amp;c=10&amp;caseId=" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_ULeFPJ8MEeu56YDDiS_Vhg" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
         <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_ULeFPZ8MEeu56YDDiS_Vhg">
@@ -20401,8 +20583,8 @@
         </actorMappings>
         <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ULeFjZ8MEeu56YDDiS_Vhg" type="ACTOR_FILTER" definitionId="initiator" definitionVersion="1.0.0" implementationId="initiator-impl" implementationVersion="1.0.0"/>
         <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ULeFjp8MEeu56YDDiS_Vhg" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_EMbgQKLIEeuzAbkcAG-m_w" type="CONNECTOR" definitionId="rest-put" definitionVersion="1.1.0" implementationId="rest-put-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_ENBWIKLIEeuzAbkcAG-m_w" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_YQEncKS6EeuP1KhJToWdFw" type="CONNECTOR" definitionId="rest-put" definitionVersion="1.1.0" implementationId="rest-put-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_YQpPNKS6EeuP1KhJToWdFw" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ULeFj58MEeu56YDDiS_Vhg" id="ACTOR_FILTER">
           <children xmi:type="configuration:FragmentContainer" xmi:id="_ULeFkJ8MEeu56YDDiS_Vhg" id="initiator-impl-1.0.0">
             <fragments xmi:type="configuration:Fragment" xmi:id="_ULeFkZ8MEeu56YDDiS_Vhg" key="initiator-impl -- 1.0.0" value="bonita-userfilter-initiator-impl-1.0.0-SNAPSHOT.jar" type="ACTOR_FILTER"/>
@@ -20415,17 +20597,17 @@
             <fragments xmi:type="configuration:Fragment" xmi:id="_ULeFlp8MEeu56YDDiS_Vhg" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
             <fragments xmi:type="configuration:Fragment" xmi:id="_ULeFl58MEeu56YDDiS_Vhg" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_EMubMKLIEeuzAbkcAG-m_w" id="rest-put-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENAvEKLIEeuzAbkcAG-m_w" key="rest-put-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENAvEaLIEeuzAbkcAG-m_w" key="rest-put-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENAvEqLIEeuzAbkcAG-m_w" key="rest-put-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENAvE6LIEeuzAbkcAG-m_w" key="rest-put-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_YQW7UKS6EeuP1KhJToWdFw" id="rest-put-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YQpPMKS6EeuP1KhJToWdFw" key="rest-put-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YQpPMaS6EeuP1KhJToWdFw" key="rest-put-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YQpPMqS6EeuP1KhJToWdFw" key="rest-put-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YQpPM6S6EeuP1KhJToWdFw" key="rest-put-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_ENZJkKLIEeuzAbkcAG-m_w" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENmk8KLIEeuzAbkcAG-m_w" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENmk8aLIEeuzAbkcAG-m_w" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENmk8qLIEeuzAbkcAG-m_w" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_ENmk86LIEeuzAbkcAG-m_w" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_YQ68AKS6EeuP1KhJToWdFw" id="rest-get-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YRHJQKS6EeuP1KhJToWdFw" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YRHJQaS6EeuP1KhJToWdFw" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YRHJQqS6EeuP1KhJToWdFw" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_YRHJQ6S6EeuP1KhJToWdFw" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_ULeFmJ8MEeu56YDDiS_Vhg" id="GROOVY_SCRIPT"/>
@@ -20449,9 +20631,9 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeFqp8MEeu56YDDiS_Vhg" name="urlCreateOrUpdateGenerarCredencial" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeFq58MEeu56YDDiS_Vhg" name="urlCreateOrUpdateNoAsistioPruebas" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeFrJ8MEeu56YDDiS_Vhg" name="urlCreateOrUpdateEsperaResultado" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_ENrdcKLIEeuzAbkcAG-m_w" name="urlEventTimmers" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_ENrdcaLIEeuzAbkcAG-m_w" name="urlUpdateTimmers" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_ENrdcqLIEeuzAbkcAG-m_w" name="urlObtenerArchivosAzure" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_YRIXYKS6EeuP1KhJToWdFw" name="urlEventTimmers" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_YRIXYaS6EeuP1KhJToWdFw" name="urlUpdateTimmers" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_YRIXYqS6EeuP1KhJToWdFw" name="urlObtenerArchivosAzure" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_ULeFrZ8MEeu56YDDiS_Vhg" name="Integration" version="7.11.1-001" username="acuna.karol@correo.com" password="bpm">
         <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_ULeFrp8MEeu56YDDiS_Vhg">
@@ -20532,7 +20714,7 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeF6Z8MEeu56YDDiS_Vhg" name="urlCreateOrUpdateEsperaResultado" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateEsperaResultado&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeF6p8MEeu56YDDiS_Vhg" name="urlEventTimmers" value="https://dev.bpm.anahuac.mx/API/bpm/timerEventTrigger?caseId=[CASEID]&amp;p=0&amp;c=100&amp;" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_ULeF658MEeu56YDDiS_Vhg" name="urlUpdateTimmers" value="https://dev.bpm.anahuac.mx/API/bpm/timerEventTrigger/[timmerid]" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_ET2W4KLIEeuzAbkcAG-m_w" name="urlObtenerArchivosAzure" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_R1ah0KLxEeuTGtK3Fy8B_Q" name="urlObtenerArchivosAzure" value="https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacAzureRest?url=obtenerDocumentos&amp;p=0&amp;c=10&amp;caseId=" typeClassname="java.lang.String"/>
       </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_ULeF7J8MEeu56YDDiS_Vhg" name="urlLogin" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_ULeF7Z8MEeu56YDDiS_Vhg" name="usuario" typeClassname="java.lang.String"/>
@@ -21122,17 +21304,11 @@
               <children xmi:type="notation:DecorationNode" xmi:id="_ULercp8MEeu56YDDiS_Vhg" type="5017"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ULerc58MEeu56YDDiS_Vhg" x="593" y="595" width="120" height="60"/>
             </children>
-            <children xmi:type="notation:Shape" xmi:id="_ULerdJ8MEeu56YDDiS_Vhg" type="3018" element="_ULaZRp8MEeu56YDDiS_Vhg" fontName="Segoe UI">
-              <children xmi:type="notation:DecorationNode" xmi:id="_ULerdZ8MEeu56YDDiS_Vhg" type="5033">
-                <layoutConstraint xmi:type="notation:Location" xmi:id="_ULerdp8MEeu56YDDiS_Vhg" y="5"/>
+            <children xmi:type="notation:Shape" xmi:id="_FEDSgKLNEeuIJZQh4K18pw" type="3003" element="_FDwXkKLNEeuIJZQh4K18pw" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_FED5kKLNEeuIJZQh4K18pw" type="5025">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_FED5kaLNEeuIJZQh4K18pw" y="5"/>
               </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ULerd58MEeu56YDDiS_Vhg" x="636" y="692"/>
-            </children>
-            <children xmi:type="notation:Shape" xmi:id="_ULereJ8MEeu56YDDiS_Vhg" type="3019" element="_ULaZSp8MEeu56YDDiS_Vhg" fontName="Segoe UI">
-              <children xmi:type="notation:DecorationNode" xmi:id="_ULereZ8MEeu56YDDiS_Vhg" type="5034">
-                <layoutConstraint xmi:type="notation:Location" xmi:id="_ULerep8MEeu56YDDiS_Vhg" y="5"/>
-              </children>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ULere58MEeu56YDDiS_Vhg" x="48" y="110"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FEDSgaLNEeuIJZQh4K18pw" x="633" y="680"/>
             </children>
           </children>
           <styles xmi:type="notation:DescriptionStyle" xmi:id="_ULerfJ8MEeu56YDDiS_Vhg"/>
@@ -22299,21 +22475,6 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_ULfSMJ8MEeu56YDDiS_Vhg" fontName="Segoe UI"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ULfSMZ8MEeu56YDDiS_Vhg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_ULfSMp8MEeu56YDDiS_Vhg" type="4001" element="_ULeFAp8MEeu56YDDiS_Vhg" source="_ULercZ8MEeu56YDDiS_Vhg" target="_ULerdJ8MEeu56YDDiS_Vhg" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_ULfSM58MEeu56YDDiS_Vhg" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_ULfSNJ8MEeu56YDDiS_Vhg" y="-10"/>
-      </children>
-      <styles xmi:type="notation:FontStyle" xmi:id="_ULfSNZ8MEeu56YDDiS_Vhg" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ULfSNp8MEeu56YDDiS_Vhg" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-    </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_ULfSN58MEeu56YDDiS_Vhg" type="4001" element="_ULeFBZ8MEeu56YDDiS_Vhg" source="_ULereJ8MEeu56YDDiS_Vhg" target="_ULerDZ8MEeu56YDDiS_Vhg" roundedBendpointsRadius="10" routing="Rectilinear">
-      <children xmi:type="notation:DecorationNode" xmi:id="_ULfSOJ8MEeu56YDDiS_Vhg" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_ULfSOZ8MEeu56YDDiS_Vhg" y="-10"/>
-      </children>
-      <styles xmi:type="notation:FontStyle" xmi:id="_ULfSOp8MEeu56YDDiS_Vhg" fontName="Segoe UI"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ULfSO58MEeu56YDDiS_Vhg" points="[-17, -30, -219, -10]$[-17, -59, -219, -39]$[202, -59, 0, -39]$[202, -35, 0, -15]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ULfSPJ8MEeu56YDDiS_Vhg" id="(1.0,0.8823529411764706)"/>
-    </edges>
     <edges xmi:type="notation:Connector" xmi:id="_NHlLgKIGEeuz1sdYuzU7ug" type="4001" element="_NHjWUKIGEeuz1sdYuzU7ug" source="_ULesHp8MEeu56YDDiS_Vhg" target="_OJRSAaIGEeuz1sdYuzU7ug" roundedBendpointsRadius="10" routing="Rectilinear">
       <children xmi:type="notation:DecorationNode" xmi:id="_NHmZoKIGEeuz1sdYuzU7ug" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_NHnAsKIGEeuz1sdYuzU7ug" y="-10"/>
@@ -22344,6 +22505,13 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VvGa8qIGEeuz1sdYuzU7ug" points="[-54, -36, 277, 187]$[-54, -122, 277, 101]$[-300, -122, 31, 101]$[-300, -207, 31, 16]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VvIQIKIGEeuz1sdYuzU7ug" id="(1.0,0.6)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VvI3MKIGEeuz1sdYuzU7ug" id="(0.23333333333333334,0.7333333333333333)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_FEWNcKLNEeuIJZQh4K18pw" type="4001" element="_FEUYQKLNEeuIJZQh4K18pw" source="_ULercZ8MEeu56YDDiS_Vhg" target="_FEDSgKLNEeuIJZQh4K18pw" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_FEW0gKLNEeuIJZQh4K18pw" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_FEW0gaLNEeuIJZQh4K18pw" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_FEWNcaLNEeuIJZQh4K18pw" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_FEWNcqLNEeuIJZQh4K18pw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
     </edges>
   </notation:Diagram>
 </xmi:XMI>
