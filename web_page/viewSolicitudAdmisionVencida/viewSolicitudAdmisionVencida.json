@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewSolicitudAdmisionVencida",
   "name" : "viewSolicitudAdmisionVencida",
-  "lastUpdate" : 1619023625980,
+  "lastUpdate" : 1619134083345,
   "rows" : [
     [
       {
@@ -4228,7 +4228,7 @@
                                         },
                                         "text" : {
                                           "type" : "interpolation",
-                                          "value" : "Constancia PAA:"
+                                          "value" : "Collage Board:"
                                         },
                                         "level" : {
                                           "type" : "constant",
@@ -25919,7 +25919,7 @@
       "value" : [
         "//$data.formInput.solicitudDeAdmisionInput.idCatCampus = $data.campusSelected;\r",
         "//$data.formInput.catSolicitudDeAdmisionInput.correoElectronico = $data.users.user_name;\r",
-        "//debugger;\r",
+        "\r",
         "$data.formOutput.detalleSolicitudInput.isCurpValidado = $data.isCurpValidado;\r",
         "if ($data.descuentoManual) {\r",
         "console.log(1)\r",
@@ -27277,11 +27277,11 @@
       "type" : "expression",
       "value" : [
         "let output;",
-        "",
-        "if($data.objectDetalleSolicitud.ordenPago && $data.objSolicitudDeAdmision.catCampus.persistenceId){",
+        "debugger;",
+        "if($data.detalleSolicitud.ordenPago && $data.solicituDeAdmision.catCampus.persistenceId){",
         "    output = {",
-        "        \"order_id\": $data.objectDetalleSolicitud.ordenPago,",
-        "        \"campus_id\":$data.objSolicitudDeAdmision.catCampus.persistenceId + \"\"",
+        "        \"order_id\": $data.detalleSolicitud.ordenPago,",
+        "        \"campus_id\":$data.solicituDeAdmision.catCampus.persistenceId + \"\"",
         "    }",
         "}",
         "",
@@ -27299,7 +27299,7 @@
     "objectDetalleSolicitud" : {
       "type" : "url",
       "value" : [
-        "../{{context.detalleSolicitud_ref.link}}"
+        "../API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&f=caseId={{caseId}}&p=0&c=1000"
       ],
       "exposed" : false
     },
@@ -27820,7 +27820,7 @@
     "wizardContent" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
+        "",
         "var estatus = $data.objSolicitudDeAdmision[0].estatusSolicitud;",
         "var wizar = [ { \"title\" : \"Inicia tu solicitud de admisión\", \"value\" : \"startRequest\", \"isValid\": true }, { \"title\" : \"Confirmación de los datos del aspirante\", \"value\" : \"requesterInfo\", \"isValid\": true }, { \"title\" : \"Información personal\", \"value\" : \"personalInfo\", \"isValid\": true }, { \"title\" : \"Información familiar\", \"value\" : \"familyInfo\", \"isValid\": true }];",
         "if(estatus === \"Solicitud con pago aceptado\"){",
@@ -27893,7 +27893,7 @@
     "getAutodescripcionVencida" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
+        "",
         "console.log($data.autodescripcion)"
       ],
       "exposed" : false
@@ -27937,6 +27937,40 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "detalleSolicitud" : {
+      "type" : "expression",
+      "value" : [
+        "let output = null;",
+        "if($data.objectDetalleSolicitud !== undefined){",
+        "    debugger;",
+        "    for(let i = 0; i < $data.objectDetalleSolicitud.length; i++){",
+        "        if($data.objectDetalleSolicitud[i].vencido === true){",
+        "            output = $data.objectDetalleSolicitud[i];   ",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
+      ],
+      "exposed" : false
+    },
+    "solicituDeAdmision" : {
+      "type" : "expression",
+      "value" : [
+        "let output = null;",
+        "if($data.objSolicitudDeAdmision !== undefined){",
+        "    for(let i = 0; i < $data.objSolicitudDeAdmision.length; i++){",
+        "        let isVencido = $data.objSolicitudDeAdmision[i].correoElectronico.toLowerCase().includes(\"vencido\")",
+        "        if(isVencido){",
+        "            output = $data.objSolicitudDeAdmision[i];   ",
+        "        }",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }

@@ -40,12 +40,14 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
          $scope.properties.isImagen = false;
          $scope.properties.tipoArchivo = angular.copy(event.target.files[0].type);
          $scope.procesar = true;
-     }else if(event.target.files[0].type === "image/jfif"){
+     }
+     /*else if(event.target.files[0].type === "image/jfif"){
          $scope.properties.isImagen = true;
          $scope.properties.isPDF = false;
          $scope.properties.tipoArchivo = angular.copy(event.target.files[0].type);
          $scope.procesar = true;
-     }else{
+     }*/
+     else{
         swal("!Formato no valido!", "Solo puede agregar archivos PDF o imagenes JPG y PNG", "warning");
         $scope.properties.isPDF = true;
         $scope.properties.isImagen =true;

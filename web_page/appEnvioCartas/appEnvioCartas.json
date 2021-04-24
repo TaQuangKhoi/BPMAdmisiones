@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appEnvioCartas",
   "name" : "appEnvioCartas",
-  "lastUpdate" : 1616525021892,
+  "lastUpdate" : 1619136858648,
   "rows" : [
     [
       {
@@ -117,6 +117,75 @@
               "reference" : "23eeb067-a54c-436d-bcb4-edc34eec4716",
               "hasValidationError" : false,
               "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Cargar resultados"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "targetUrl" : {
+                  "type" : "expression",
+                  "value" : "domain + \"/apps/administrativo/subir_resultados/\""
+                },
+                "pageToken" : {
+                  "type" : "constant"
+                },
+                "processName" : {
+                  "type" : "constant"
+                },
+                "processVersion" : {
+                  "type" : "constant"
+                },
+                "taskId" : {
+                  "type" : "constant"
+                },
+                "caseId" : {
+                  "type" : "constant"
+                },
+                "target" : {
+                  "type" : "constant",
+                  "value" : "_top"
+                },
+                "appToken" : {
+                  "type" : "constant"
+                },
+                "urlParams" : {
+                  "type" : "constant"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                }
+              },
+              "reference" : "2dc564c0-48c6-4cd3-b168-7649f203b73a",
+              "hasValidationError" : false,
+              "id" : "pbLink"
             }
           ],
           [
@@ -292,6 +361,10 @@
                             "campusSeleccionado" : {
                               "type" : "variable",
                               "value" : "dataToSend.campus"
+                            },
+                            "relacionCartasEnviadas" : {
+                              "type" : "variable",
+                              "value" : "relacionCartasEnviadas"
                             }
                           },
                           "reference" : "60584a63-d0f5-4808-8088-9bf477763dd3",
@@ -1178,6 +1251,13 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "domain" : {
+      "type" : "expression",
+      "value" : [
+        "return window.location.protocol + \"//\" + window.location.host;"
       ],
       "exposed" : false
     }
