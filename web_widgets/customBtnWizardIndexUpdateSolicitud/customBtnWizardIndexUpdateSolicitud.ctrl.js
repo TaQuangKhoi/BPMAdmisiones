@@ -125,9 +125,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Nombre!", "Debes ingresar tu primer nombre", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.apellidoPaterno === "") {
                 swal("¡Apellido paterno!", "Debes ingresar tu apellido paterno", "warning");
-            }/* else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
-                swal("¡Apellido materno!", "Debes ingresar tu apellido materno", "warning");
-            }*/ else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
+            }
+            /* else if ($scope.properties.catSolicitudDeAdmision.apellidoMaterno === "") {
+                            swal("¡Apellido materno!", "Debes ingresar tu apellido materno", "warning");
+                        }*/
+            else if ($scope.properties.catSolicitudDeAdmision.correoElectronico === "") {
                 swal("¡Correo electrónico!", "Debes ingresar tu correo electrónico", "warning");
             } else if (!re.test(String($scope.properties.catSolicitudDeAdmision.correoElectronico.trim()).toLowerCase())) {
                 swal("¡Correo electrónico!", "Tu correo electrónico no es válido", "warning");
@@ -234,7 +236,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         } else if ($scope.properties.selectedIndex === 2) {
             $scope.faltacampo = false;
-            console.log("validar 2");
+            console.log("validar 2 con validacion de ulrs");
             if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                 $scope.properties.selectedIndex--;
                 $scope.faltacampo = true;
@@ -328,38 +330,94 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.catSolicitudDeAdmision.paisBachillerato = $scope.properties.datosPreparatoria.paisBachillerato;
                             $scope.properties.catSolicitudDeAdmision.estadoBachillerato = $scope.properties.datosPreparatoria.estadoBachillerato;
                             $scope.properties.catSolicitudDeAdmision.ciudadBachillerato = $scope.properties.datosPreparatoria.ciudadBachillerato;
-                            
+
 
                             $scope.fallo = false;
                             $scope.properties.catSolicitudDeAdmision.promedioGeneral = $scope.properties.catSolicitudDeAdmision.promedioGeneral + "";
-                            if ($scope.properties.kardexarchivo.length > 0) {
-                                if(JSON.stringify($scope.properties.kardex) === "{}"){
-                                    $scope.fallo = true;
-                                    swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
-                                }else{
+                            if ($scope.properties.catSolicitudDeAdmision.urlConstancia === null || $scope.properties.catSolicitudDeAdmision.urlConstancia === "") {
+                                if ($scope.properties.kardexarchivo.length > 0) {
+                                    if (JSON.stringify($scope.properties.kardex) === "{}") {
+                                        $scope.fallo = true;
+                                        swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
+                                    } else {
+                                        if ($scope.properties.kardex !== undefined) {
+                                            $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                        }
+                                    }
+                                } else {
                                     if ($scope.properties.kardex !== undefined) {
-                                        $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                        $scope.properties.kardexarchivo = [];
+                                        $scope.properties.kardexarchivo.push({
+                                            "newValue": angular.copy($scope.properties.kardex)
+                                        });
+                                    } else {
+                                        $scope.fallo = true;
+                                        swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
                                     }
                                 }
                             } else {
-                                if ($scope.properties.kardex !== undefined) {
-                                    $scope.properties.kardexarchivo = [];
-                                    $scope.properties.kardexarchivo.push({
-                                        "newValue": angular.copy($scope.properties.kardex)
-                                    });
+                                if ($scope.properties.kardexarchivo.length > 0) {
+                                    if ($scope.properties.kardex !== undefined) {
+                                        $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                    }
+                                    $scope.properties.catSolicitudDeAdmision.urlConstancia = "";
                                 } else {
-                                    $scope.fallo = true;
-                                    swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
+                                    if ($scope.properties.kardex !== undefined) {
+                                        $scope.properties.kardexarchivo = [];
+                                        $scope.properties.kardexarchivo.push({
+                                            "newValue": angular.copy($scope.properties.kardex)
+                                        });
+                                        $scope.properties.catSolicitudDeAdmision.urlConstancia = "";
+                                    } else {
+                                        $scope.properties.kardexarchivo = [];
+                                    }
                                 }
                             }
 
                             if (!$scope.fallo) {
-                                if($scope.properties.catSolicitudDeAdmision.admisionAnahuac){
-                                    if(JSON.stringify($scope.properties.cartaAA) === "{}"){
-                                        $scope.fallo = true;
-                                        swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
-                                    }else{
-                                        if($scope.properties.cartaAAarchivo.length > 0){
+                                if ($scope.properties.catSolicitudDeAdmision.admisionAnahuac) {
+                                    if ($scope.properties.catSolicitudDeAdmision.urlCartaAA === null || $scope.properties.catSolicitudDeAdmision.urlCartaAA === "") {
+                                        if (JSON.stringify($scope.properties.cartaAA) === "{}") {
+                                            $scope.fallo = true;
+                                            swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                        } else {
+                                            if ($scope.properties.cartaAAarchivo.length > 0) {
+                                                var auxData = null;
+                                                if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
+                                                    auxData = $scope.properties.cartaAAarchivo[0];
+                                                } else {
+                                                    auxData = angular.copy($scope.properties.cartaAAarchivo[0].newValue);
+                                                }
+                                                auxData.filename = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.filename === '' ? null : $scope.properties.cartaAA.filename);
+                                                auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
+                                                auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
+                                                if (auxData.id !== undefined) {
+                                                    $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);
+                                                    /* = ({
+                                                                                                                "id": angular.copy(auxData.id),
+                                                                                                                "newValue": angular.copy(auxData)
+                                                                                                            });*/
+                                                } else {
+                                                    if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
+                                                        $scope.properties.cartaAAarchivo[0] = ({
+                                                            "newValue": angular.copy(auxData)
+                                                        });
+                                                    }
+                                                }
+                                            } else {
+                                                if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
+                                                    $scope.properties.cartaAAarchivo = [];
+                                                    $scope.properties.cartaAAarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.cartaAA)
+                                                    });
+                                                } else {
+                                                    $scope.fallo = true;
+                                                    swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        if ($scope.properties.cartaAAarchivo.length > 0) {
                                             var auxData = null;
                                             if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
                                                 auxData = $scope.properties.cartaAAarchivo[0];
@@ -370,10 +428,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
                                             auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
                                             if (auxData.id !== undefined) {
-                                                $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                        "id": angular.copy(auxData.id),
-                                                        "newValue": angular.copy(auxData)
-                                                    });*/
+                                                $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);
+                                                /* = ({
+                                                                                                            "id": angular.copy(auxData.id),
+                                                                                                            "newValue": angular.copy(auxData)
+                                                                                                        });*/
                                             } else {
                                                 if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
                                                     $scope.properties.cartaAAarchivo[0] = ({
@@ -381,20 +440,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                     });
                                                 }
                                             }
-                                        }else{
+                                            $scope.properties.catSolicitudDeAdmision.urlCartaAA = "";
+                                        } else {
                                             if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
                                                 $scope.properties.cartaAAarchivo = [];
                                                 $scope.properties.cartaAAarchivo.push({
                                                     "newValue": angular.copy($scope.properties.cartaAA)
                                                 });
+                                                $scope.properties.catSolicitudDeAdmision.urlCartaAA = "";
                                             } else {
-                                                $scope.fallo = true;
-                                                swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                                $scope.properties.cartaAAarchivo = [];
                                             }
                                         }
-                                    }  
+                                    }
                                 }
-                            } 
+                            }
 
                             if (!$scope.fallo) {
                                 if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
@@ -402,11 +462,50 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.fallo = true;
                                         swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero", "warning");
                                     } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
-                                        if ($scope.properties.collageBoardarchivo.length > 0) {
-                                            if(JSON.stringify($scope.properties.collageBoard) === "{}"){
-                                                $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
-                                            }else{
+                                        if ($scope.properties.catSolicitudDeAdmision.urlResultadoPAA === null || $scope.properties.catSolicitudDeAdmision.urlResultadoPAA === "") {
+                                            if ($scope.properties.collageBoardarchivo.length > 0) {
+                                                if (JSON.stringify($scope.properties.collageBoard) === "{}") {
+                                                    $scope.fallo = true;
+                                                    swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
+                                                } else {
+                                                    var auxData = null;
+                                                    if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
+                                                        auxData = $scope.properties.collageBoardarchivo[0];
+                                                    } else {
+                                                        auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
+                                                    }
+                                                    auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
+                                                    auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
+                                                    auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
+                                                    if (auxData.id !== undefined) {
+                                                        $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);
+                                                        /*= ({
+                                                            "id": angular.copy(auxData.id),
+                                                            "newValue": angular.copy(auxData)
+                                                        });*/
+                                                    } else {
+                                                        if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
+                                                            $scope.properties.collageBoardarchivo[0] = ({
+                                                                "newValue": angular.copy(auxData)
+                                                            });
+                                                        }
+                                                    }
+                                                }
+
+                                            } else {
+                                                if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                    $scope.properties.collageBoardarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.collageBoard)
+                                                    });
+                                                } else {
+                                                    $scope.fallo = true;
+                                                    swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
+                                                }
+
+                                            }
+                                        } else {
+                                            if ($scope.properties.collageBoardarchivo.length > 0) {
                                                 var auxData = null;
                                                 if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
                                                     auxData = $scope.properties.collageBoardarchivo[0];
@@ -418,10 +517,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
                                                 if (auxData.id !== undefined) {
                                                     $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);
-                                                     /*= ({
-                                                        "id": angular.copy(auxData.id),
-                                                        "newValue": angular.copy(auxData)
-                                                    });*/
+                                                    /*= ({
+                                                            "id": angular.copy(auxData.id),
+                                                            "newValue": angular.copy(auxData)
+                                                        });*/
                                                 } else {
                                                     if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
                                                         $scope.properties.collageBoardarchivo[0] = ({
@@ -429,21 +528,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         });
                                                     }
                                                 }
-                                            }
-                                            
-                                        } else {
-                                            if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
-                                                $scope.properties.collageBoardarchivo = [];
-                                                $scope.properties.collageBoardarchivo.push({
-                                                    "newValue": angular.copy($scope.properties.collageBoard)
-                                                });
-                                            } else {
-                                                $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. En caso de no haber realizado esta prueba marcarlo con el número 1", "warning");
-                                            }
+                                                $scope.properties.catSolicitudDeAdmision.urlResultadoPAA = "";
 
+                                            } else {
+                                                if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                    $scope.properties.collageBoardarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.collageBoard)
+                                                    });
+                                                    $scope.properties.catSolicitudDeAdmision.urlResultadoPAA = "";
+                                                } else {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                }
+
+                                            }
                                         }
-                                    }
+                                    } // Aqui termina el else mayor a 1
                                     /*if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
                                         swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero", "warning");
@@ -469,24 +569,57 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else {
                                     $scope.properties.collageBoardarchivo = [];
                                     if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
-                                        if ($scope.properties.descuentoarchivo.length > 0) {
-                                            if ($scope.properties.descuento !== undefined) {
-                                                $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
-                                            }
-                                            $scope.properties.pasoInformacionPersonal = true;
-                                            topFunction()
-                                            $scope.properties.selectedIndex++;
-                                            //$scope.assignTask();
-                                            $scope.fallo = true;
-                                        } else {
-                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
-                                                $scope.properties.descuentoarchivo = [];
-                                                $scope.properties.descuentoarchivo.push({
-                                                    "newValue": angular.copy($scope.properties.descuento)
-                                                });
-                                            } else {
+                                        if ($scope.properties.catSolicitudDeAdmision.urlDescuentos === null || $scope.properties.catSolicitudDeAdmision.urlDescuentos === "") {
+                                            if ($scope.properties.descuentoarchivo.length > 0) {
+                                                if ($scope.properties.descuento !== undefined) {
+                                                    $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                                //$scope.assignTask();
                                                 $scope.fallo = true;
-                                                swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                            } else {
+                                                if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                    $scope.properties.descuentoarchivo = [];
+                                                    $scope.properties.descuentoarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.descuento)
+                                                    });
+                                                } else {
+                                                    $scope.fallo = true;
+                                                    swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                                }
+                                            }
+                                        } else {
+                                            if ($scope.properties.descuentoarchivo.length > 0) {
+                                                if ($scope.properties.descuento !== undefined) {
+                                                    $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                                //$scope.assignTask();
+                                                $scope.fallo = true;
+                                                $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                            } else {
+                                                if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                    $scope.properties.descuentoarchivo = [];
+                                                    $scope.properties.descuentoarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.descuento)
+                                                    });
+                                                    $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+
+                                                } else {
+                                                    $scope.properties.descuentoarchivo = [];
+                                                    if ($scope.properties.idExtranjero !== undefined) {
+                                                        $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                    }
+                                                    $scope.properties.pasoInformacionPersonal = true;
+                                                    topFunction()
+                                                    $scope.properties.selectedIndex++;
+                                                    //$scope.assignTask();
+                                                    $scope.fallo = true;
+                                                }
                                             }
                                         }
                                     } else {
@@ -504,22 +637,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
                             if (!$scope.fallo) {
                                 if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
-                                    if ($scope.properties.descuentoarchivo.length > 0) {
-                                        if ($scope.properties.descuento !== undefined) {
-                                            $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
-                                        }
-                                        if ($scope.properties.idExtranjero !== undefined) {
-                                            $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                        }
-                                        $scope.properties.pasoInformacionPersonal = true;
-                                        //$scope.assignTask();
-                                        topFunction()
-                                        $scope.properties.selectedIndex++;
-                                    } else {
-                                        if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
-                                            $scope.properties.descuentoarchivo.push({
-                                                "newValue": angular.copy($scope.properties.descuento)
-                                            });
+                                    if ($scope.properties.catSolicitudDeAdmision.urlDescuentos === null || $scope.properties.catSolicitudDeAdmision.urlDescuentos === "") {
+                                        if ($scope.properties.descuentoarchivo.length > 0) {
+                                            if ($scope.properties.descuento !== undefined) {
+                                                $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                            }
                                             if ($scope.properties.idExtranjero !== undefined) {
                                                 $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
                                             }
@@ -528,8 +650,58 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             topFunction()
                                             $scope.properties.selectedIndex++;
                                         } else {
-                                            $scope.fallo = true;
-                                            swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                $scope.properties.descuentoarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.descuento)
+                                                });
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                //$scope.assignTask();
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                            } else {
+                                                $scope.fallo = true;
+                                                swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                            }
+                                        }
+                                    } else {
+                                        if ($scope.properties.descuentoarchivo.length > 0) {
+                                            if ($scope.properties.descuento !== undefined) {
+                                                $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                            }
+                                            if ($scope.properties.idExtranjero !== undefined) {
+                                                $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                            }
+                                            $scope.properties.pasoInformacionPersonal = true;
+                                            $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                            //$scope.assignTask();
+                                            topFunction()
+                                            $scope.properties.selectedIndex++;
+                                        } else {
+                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                $scope.properties.descuentoarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.descuento)
+                                                });
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                                //$scope.assignTask();
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                            } else {
+                                                $scope.properties.descuentoarchivo = [];
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                //$scope.assignTask();
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                            }
                                         }
                                     }
                                 } else {
@@ -548,7 +720,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
-                }  else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
+                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                 } else {
                     debugger;
@@ -556,33 +728,95 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.fallo = false;
-                        if ($scope.properties.kardexarchivo.length > 0) {
-                            if(JSON.stringify($scope.properties.kardex) === "{}"){
-                                $scope.fallo = true;
-                                swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
-                            }else{
+                        if ($scope.properties.catSolicitudDeAdmision.urlConstancia === null || $scope.properties.catSolicitudDeAdmision.urlConstancia === "") {
+                            if ($scope.properties.kardexarchivo.length > 0) {
+                                if (JSON.stringify($scope.properties.kardex) === "{}") {
+                                    $scope.fallo = true;
+                                    swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
+                                } else {
+                                    if ($scope.properties.kardex !== undefined) {
+                                        $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                    }
+                                }
+                            } else {
                                 if ($scope.properties.kardex !== undefined) {
-                                    $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                    $scope.properties.kardexarchivo = [];
+                                    $scope.properties.kardexarchivo.push({
+                                        "newValue": angular.copy($scope.properties.kardex)
+                                    });
+                                } else {
+                                    $scope.fallo = true;
+                                    swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
                                 }
                             }
                         } else {
-                            if ($scope.properties.kardex !== undefined) {
-                                $scope.properties.kardexarchivo = [];
-                                $scope.properties.kardexarchivo.push({
-                                    "newValue": angular.copy($scope.properties.kardex)
-                                });
+                            if ($scope.properties.kardexarchivo.length > 0) {
+                                if (JSON.stringify($scope.properties.kardex) === "{}") {
+                                    $scope.fallo = true;
+                                    swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
+                                } else {
+                                    if ($scope.properties.kardex !== undefined) {
+                                        $scope.properties.kardexarchivo[0]["newValue"] = $scope.properties.kardex;
+                                    }
+                                }
+                                $scope.properties.catSolicitudDeAdmision.urlConstancia = "";
                             } else {
-                                $scope.fallo = true;
-                                swal("¡Constancia de estudios!", "Debes agregar tu constancia de calificaciones con promedio", "warning");
+                                if ($scope.properties.kardex !== undefined) {
+                                    $scope.properties.kardexarchivo = [];
+                                    $scope.properties.kardexarchivo.push({
+                                        "newValue": angular.copy($scope.properties.kardex)
+                                    });
+                                    $scope.properties.catSolicitudDeAdmision.urlConstancia = "";
+                                } else {
+                                    $scope.properties.kardexarchivo = [];
+                                }
                             }
                         }
+
                         if (!$scope.fallo) {
-                            if($scope.properties.catSolicitudDeAdmision.admisionAnahuac){
-                                if(JSON.stringify($scope.properties.cartaAA) === "{}"){
-                                    $scope.fallo = true;
-                                    swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
-                                }else{
-                                    if($scope.properties.cartaAAarchivo.length > 0){
+                            if ($scope.properties.catSolicitudDeAdmision.admisionAnahuac) {
+                                if ($scope.properties.catSolicitudDeAdmision.urlCartaAA === null || $scope.properties.catSolicitudDeAdmision.urlCartaAA === "") {
+                                    if (JSON.stringify($scope.properties.cartaAA) === "{}") {
+                                        $scope.fallo = true;
+                                        swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                    } else {
+                                        if ($scope.properties.cartaAAarchivo.length > 0) {
+                                            var auxData = null;
+                                            if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
+                                                auxData = $scope.properties.cartaAAarchivo[0];
+                                            } else {
+                                                auxData = angular.copy($scope.properties.cartaAAarchivo[0].newValue);
+                                            }
+                                            auxData.filename = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.filename === '' ? null : $scope.properties.cartaAA.filename);
+                                            auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
+                                            auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
+                                            if (auxData.id !== undefined) {
+                                                $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);
+                                                /* = ({
+                                                                                                        "id": angular.copy(auxData.id),
+                                                                                                        "newValue": angular.copy(auxData)
+                                                                                                    });*/
+                                            } else {
+                                                if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
+                                                    $scope.properties.cartaAAarchivo[0] = ({
+                                                        "newValue": angular.copy(auxData)
+                                                    });
+                                                }
+                                            }
+                                        } else {
+                                            if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
+                                                $scope.properties.cartaAAarchivo = [];
+                                                $scope.properties.cartaAAarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.cartaAA)
+                                                });
+                                            } else {
+                                                $scope.fallo = true;
+                                                swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($scope.properties.cartaAAarchivo.length > 0) {
                                         var auxData = null;
                                         if ($scope.properties.cartaAAarchivo[0].newValue === undefined) {
                                             auxData = $scope.properties.cartaAAarchivo[0];
@@ -593,10 +827,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         auxData.tempPath = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.tempPath === '' ? null : $scope.properties.cartaAA.tempPath);
                                         auxData.contentType = $scope.properties.cartaAA === undefined ? null : ($scope.properties.cartaAA.contentType === '' ? null : $scope.properties.cartaAA.contentType);
                                         if (auxData.id !== undefined) {
-                                            $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                    "id": angular.copy(auxData.id),
-                                                    "newValue": angular.copy(auxData)
-                                                });*/
+                                            $scope.properties.cartaAAarchivo[0]["newValue"] = angular.copy(auxData);
+                                            /* = ({
+                                                                                                    "id": angular.copy(auxData.id),
+                                                                                                    "newValue": angular.copy(auxData)
+                                                                                                });*/
                                         } else {
                                             if ($scope.properties.cartaAAarchivo[0].newValue.filename !== $scope.properties.cartaAA.filename) {
                                                 $scope.properties.cartaAAarchivo[0] = ({
@@ -604,20 +839,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 });
                                             }
                                         }
-                                    }else{
+                                        $scope.properties.catSolicitudDeAdmision.urlCartaAA = "";
+                                    } else {
                                         if ($scope.properties.cartaAA !== undefined && $scope.properties.cartaAA !== "") {
                                             $scope.properties.cartaAAarchivo = [];
                                             $scope.properties.cartaAAarchivo.push({
                                                 "newValue": angular.copy($scope.properties.cartaAA)
                                             });
+                                            $scope.properties.catSolicitudDeAdmision.urlCartaAA = "";
                                         } else {
-                                            $scope.fallo = true;
-                                            swal("¡Carta Admisión Anáhuac!", "Agrega tu carta que valida tu Admisión Anáhuac. ", "warning");
+                                            $scope.properties.cartaAAarchivo = [];
                                         }
                                     }
-                                }  
+                                }
                             }
-                        } 
+                        }
 
                         if (!$scope.fallo) {
                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
@@ -625,85 +861,243 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.fallo = true;
                                     swal("¡Resultado (PAA) del Examen Collage Board!", "Tu puntuacion debe ser mayor a cero ", "warning");
                                 } else if ($scope.properties.catSolicitudDeAdmision.resultadoPAA > 1) {
-                                    if(JSON.stringify($scope.properties.collageBoard) === "{}"){
+                                    if (JSON.stringify($scope.properties.collageBoard) === "{}") {
                                         $scope.fallo = true;
                                         swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
-                                    }else{
-                                        if ($scope.properties.collageBoardarchivo.length > 0) {
-                                            var auxData = null;
-                                            if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
-                                                auxData = $scope.properties.collageBoardarchivo[0];
+                                    } else {
+                                        if ($scope.properties.catSolicitudDeAdmision.urlResultadoPAA === null || $scope.properties.catSolicitudDeAdmision.urlResultadoPAA === "") {
+                                            if ($scope.properties.collageBoardarchivo.length > 0) {
+                                                var auxData = null;
+                                                if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
+                                                    auxData = $scope.properties.collageBoardarchivo[0];
+                                                } else {
+                                                    auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
+                                                }
+                                                auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
+                                                auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
+                                                auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
+                                                if (auxData.id !== undefined) {
+                                                    $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);
+                                                    /* = ({
+                                                                                                            "id": angular.copy(auxData.id),
+                                                                                                            "newValue": angular.copy(auxData)
+                                                                                                        });*/
+                                                } else {
+                                                    if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
+                                                        $scope.properties.collageBoardarchivo[0] = ({
+                                                            "newValue": angular.copy(auxData)
+                                                        });
+                                                    }
+                                                }
                                             } else {
-                                                auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
-                                            }
-                                            auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
-                                            auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
-                                            auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
-                                            if (auxData.id !== undefined) {
-                                                $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                    "id": angular.copy(auxData.id),
-                                                    "newValue": angular.copy(auxData)
-                                                });*/
-                                            } else {
-                                                if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
-                                                    $scope.properties.collageBoardarchivo[0] = ({
-                                                        "newValue": angular.copy(auxData)
+                                                if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                    $scope.properties.collageBoardarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.collageBoard)
                                                     });
+                                                } else {
+                                                    $scope.fallo = true;
+                                                    swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
+                                                }
+
+                                            }
+                                        } else {
+                                            if ($scope.properties.collageBoardarchivo.length > 0) {
+                                                var auxData = null;
+                                                if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
+                                                    auxData = $scope.properties.collageBoardarchivo[0];
+                                                } else {
+                                                    auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
+                                                }
+                                                auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
+                                                auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
+                                                auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
+                                                if (auxData.id !== undefined) {
+                                                    $scope.properties.collageBoardarchivo[0]["newValue"] = angular.copy(auxData);
+                                                    /* = ({
+                                                                                                            "id": angular.copy(auxData.id),
+                                                                                                            "newValue": angular.copy(auxData)
+                                                                                                        });*/
+                                                } else {
+                                                    if ($scope.properties.collageBoardarchivo[0].newValue.filename !== $scope.properties.collageBoard.filename) {
+                                                        $scope.properties.collageBoardarchivo[0] = ({
+                                                            "newValue": angular.copy(auxData)
+                                                        });
+                                                    }
+                                                }
+                                                scope.properties.catSolicitudDeAdmision.urlResultadoPAA = "";
+                                            } else {
+                                                if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                    $scope.properties.collageBoardarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.collageBoard)
+                                                    });
+                                                    scope.properties.catSolicitudDeAdmision.urlResultadoPAA = "";
+                                                } else {
+                                                    $scope.properties.collageBoardarchivo = [];
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $scope.properties.collageBoardarchivo = [];
+                                    if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
+                                        if ($scope.properties.catSolicitudDeAdmision.urlDescuentos === null || $scope.properties.catSolicitudDeAdmision.urlDescuentos === "") {
+                                            if ($scope.properties.descuentoarchivo.length > 0) {
+                                                if (JSON.stringify($scope.properties.descuento) === "{}") {
+                                                    $scope.fallo = true;
+                                                    swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                                } else {
+                                                    var auxData = null;
+                                                    if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
+                                                        auxData = $scope.properties.descuentoarchivo[0];
+                                                    } else {
+                                                        auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
+                                                    }
+                                                    auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
+                                                    auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
+                                                    auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
+                                                    if (auxData.id !== undefined) {
+                                                        $scope.properties.descuentoarchivo[0]["newValue"] = angular.copy(auxData);
+                                                        /* = ({
+                                                                                                                "id": angular.copy(auxData.id),
+                                                                                                                "newValue": angular.copy(auxData)
+                                                                                                            });*/
+                                                    } else {
+                                                        if ($scope.properties.descuentoarchivo[0].newValue.filename !== $scope.properties.descuento.filename) {
+                                                            $scope.properties.descuentoarchivo[0] = ({
+                                                                "newValue": angular.copy(auxData)
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                    $scope.properties.descuentoarchivo = [];
+                                                    $scope.properties.descuentoarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.descuento)
+                                                    });
+                                                } else {
+                                                    $scope.fallo = true;
+                                                    swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                                 }
                                             }
                                         } else {
-                                            if ($scope.properties.collageBoard !== undefined && $scope.properties.collageBoard !== "") {
-                                                $scope.properties.collageBoardarchivo = [];
-                                                $scope.properties.collageBoardarchivo.push({
-                                                    "newValue": angular.copy($scope.properties.collageBoard)
-                                                });
+                                            if ($scope.properties.descuentoarchivo.length > 0) {
+                                                var auxData = null;
+                                                if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
+                                                    auxData = $scope.properties.descuentoarchivo[0];
+                                                } else {
+                                                    auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
+                                                }
+                                                auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
+                                                auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
+                                                auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
+                                                if (auxData.id !== undefined) {
+                                                    $scope.properties.descuentoarchivo[0]["newValue"] = angular.copy(auxData);
+                                                    /* = ({
+                                                                                                            "id": angular.copy(auxData.id),
+                                                                                                            "newValue": angular.copy(auxData)
+                                                                                                        });*/
+                                                } else {
+                                                    if ($scope.properties.descuentoarchivo[0].newValue.filename !== $scope.properties.descuento.filename) {
+                                                        $scope.properties.descuentoarchivo[0] = ({
+                                                            "newValue": angular.copy(auxData)
+                                                        });
+                                                    }
+                                                }
+                                                $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
                                             } else {
-                                                $scope.fallo = true;
-                                                swal("¡Constancia Collage Board!", "Debes agregar la constancia del resultado PAA como viene emitida por el Collage Board. ", "warning");
-                                            }
-
-                                        }
-                                    }
-                                }
-                            } else {
-                                $scope.properties.collageBoardarchivo = [];
-                                if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
-                                    if ($scope.properties.descuentoarchivo.length > 0) {
-                                        if(JSON.stringify($scope.properties.descuento) === "{}"){
-                                            $scope.fallo = true;
-                                            swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
-                                        }else{
-                                            var auxData = null;
-                                            if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
-                                                auxData = $scope.properties.descuentoarchivo[0];
-                                            } else {
-                                                auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
-                                            }
-                                            auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
-                                            auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
-                                            auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
-                                            if (auxData.id !== undefined) {
-                                                $scope.properties.descuentoarchivo[0]["newValue"] = angular.copy(auxData);/* = ({
-                                                    "id": angular.copy(auxData.id),
-                                                    "newValue": angular.copy(auxData)
-                                                });*/
-                                            } else {
-                                                if ($scope.properties.descuentoarchivo[0].newValue.filename !== $scope.properties.descuento.filename) {
-                                                    $scope.properties.descuentoarchivo[0] = ({
-                                                        "newValue": angular.copy(auxData)
+                                                if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                    $scope.properties.descuentoarchivo = [];
+                                                    $scope.properties.descuentoarchivo.push({
+                                                        "newValue": angular.copy($scope.properties.descuento)
                                                     });
+                                                    $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                                } else {
+                                                    $scope.properties.descuentoarchivo = [];
                                                 }
                                             }
                                         }
                                     } else {
-                                        if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
-                                            $scope.properties.descuentoarchivo = [];
-                                            $scope.properties.descuentoarchivo.push({
-                                                "newValue": angular.copy($scope.properties.descuento)
-                                            });
+                                        $scope.properties.descuentoarchivo = [];
+                                        if ($scope.properties.idExtranjero !== undefined) {
+                                            $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                        }
+                                        $scope.properties.pasoInformacionPersonal = true;
+                                        topFunction()
+                                        $scope.properties.selectedIndex++;
+                                        //$scope.assignTask();
+                                        $scope.fallo = true;
+                                    }
+                                } // ELSE TIENE PAA
+                            } // CIERRE IF FALLO
+
+                            if (!$scope.fallo) {
+                                if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
+                                    if ($scope.properties.catSolicitudDeAdmision.urlDescuentos === null || $scope.properties.catSolicitudDeAdmision.urlDescuentos === "") {
+                                        if ($scope.properties.descuentoarchivo.length > 0) {
+                                            if ($scope.properties.descuento !== undefined) {
+                                                $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                            }
+                                            if ($scope.properties.idExtranjero !== undefined) {
+                                                $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                            }
+                                            $scope.properties.pasoInformacionPersonal = true;
+                                            topFunction()
+                                            $scope.properties.selectedIndex++;
                                         } else {
-                                            $scope.fallo = true;
-                                            swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                $scope.properties.descuentoarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.descuento)
+                                                });
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                                //$scope.assignTask();
+                                            } else {
+                                                $scope.fallo = true;
+                                                swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
+                                            }
+                                        }
+                                    } else {
+                                        if ($scope.properties.descuentoarchivo.length > 0) {
+                                            if ($scope.properties.descuento !== undefined) {
+                                                $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
+                                            }
+                                            if ($scope.properties.idExtranjero !== undefined) {
+                                                $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                            }
+                                            $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                            $scope.properties.pasoInformacionPersonal = true;
+                                            topFunction()
+                                            $scope.properties.selectedIndex++;
+                                        } else {
+                                            if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
+                                                $scope.properties.descuentoarchivo.push({
+                                                    "newValue": angular.copy($scope.properties.descuento)
+                                                });
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                $scope.properties.catSolicitudDeAdmision.urlDescuentos = "";
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                                //$scope.assignTask();
+                                            } else {
+                                                $scope.properties.descuentoarchivo = [];
+                                                if ($scope.properties.idExtranjero !== undefined) {
+                                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
+                                                }
+                                                $scope.properties.pasoInformacionPersonal = true;
+                                                topFunction()
+                                                $scope.properties.selectedIndex++;
+                                            }
                                         }
                                     }
                                 } else {
@@ -715,55 +1109,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     topFunction()
                                     $scope.properties.selectedIndex++;
                                     //$scope.assignTask();
-                                    $scope.fallo = true;
                                 }
-                            }
-                        }
-
-                        if (!$scope.fallo) {
-                            if ($scope.properties.catSolicitudDeAdmision.tieneDescuento === true) {
-                                if ($scope.properties.descuentoarchivo.length > 0) {
-                                    if ($scope.properties.descuento !== undefined) {
-                                        $scope.properties.descuentoarchivo[0]["newValue"] = $scope.properties.descuento;
-                                    }
-                                    if ($scope.properties.idExtranjero !== undefined) {
-                                        $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                    }
-                                    $scope.properties.pasoInformacionPersonal = true;
-                                    topFunction()
-                                    $scope.properties.selectedIndex++;
-                                } else {
-                                    if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "") {
-                                        $scope.properties.descuentoarchivo.push({
-                                            "newValue": angular.copy($scope.properties.descuento)
-                                        });
-                                        if ($scope.properties.idExtranjero !== undefined) {
-                                            $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                        }
-                                        $scope.properties.pasoInformacionPersonal = true;
-                                        topFunction()
-                                        $scope.properties.selectedIndex++;
-                                        //$scope.assignTask();
-                                    } else {
-                                        $scope.fallo = true;
-                                        swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
-                                    }
-                                }
-                            } else {
-                                $scope.properties.descuentoarchivo = [];
-                                if ($scope.properties.idExtranjero !== undefined) {
-                                    $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
-                                }
-                                $scope.properties.pasoInformacionPersonal = true;
-                                topFunction()
-                                $scope.properties.selectedIndex++;
-                                //$scope.assignTask();
                             }
                         }
                     }
                 }
-            }
 
+            }
         } else if ($scope.properties.selectedIndex === 3) {
             console.log("validar 3");
             if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -823,7 +1175,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                } */
                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -864,7 +1216,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                 }*/
                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -915,7 +1267,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                        } */
                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -956,7 +1308,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         } */
                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1036,7 +1388,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         } */
                             else if ($scope.properties.padreInput.calle === "" || $scope.properties.padreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio del padre", "warning");
-                            } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                             } else if ($scope.properties.padreInput.numeroExterior === "" || $scope.properties.padreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio del padre", "warning");
@@ -1099,7 +1451,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                                 } */
                                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1140,7 +1492,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                                 }*/
                                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1191,7 +1543,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                         }*/
                                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1232,7 +1584,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                         } */
                                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1288,7 +1640,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         }*/
                             else if ($scope.properties.padreInput.calle === "" || $scope.properties.padreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio del padre", "warning");
-                            } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                             } else if ($scope.properties.padreInput.numeroExterior === "" || $scope.properties.padreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio del padre", "warning");
@@ -1351,7 +1703,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                                 } */
                                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1392,7 +1744,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                                 } */
                                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1443,7 +1795,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                         }*/
                                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1484,7 +1836,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                         }*/
                                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1548,7 +1900,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }*/
                     else if ($scope.properties.padreInput.calle === "" || $scope.properties.padreInput.calle === undefined) {
                         swal("¡Calle!", "Debes agregar la calle del domicilio del padre", "warning");
-                    } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México" ) {
+                    } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                     } else if ($scope.properties.padreInput.numeroExterior === "" || $scope.properties.padreInput.numeroExterior === undefined) {
                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio del padre", "warning");
@@ -1611,7 +1963,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                 } */
                                         else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                             swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                         } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                             swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1652,7 +2004,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                 }*/
                                         else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                             swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                         } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                             swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1703,7 +2055,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                         }*/
                                     else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                         swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                     } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1744,7 +2096,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                         }*/
                                     else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                         swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                     } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1800,7 +2152,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }*/
                     else if ($scope.properties.padreInput.calle === "" || $scope.properties.padreInput.calle === undefined) {
                         swal("¡Calle!", "Debes agregar la calle del domicilio del padre", "warning");
-                    } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México" ) {
+                    } else if (($scope.properties.padreInput.codigoPostal === "" || $scope.properties.padreInput.codigoPostal === undefined) && $scope.properties.padreInput.catPais.descripcion === "México") {
                         swal("¡Código postal!", "Debes agregar el código postal del domicilio del padre", "warning");
                     } else if ($scope.properties.padreInput.numeroExterior === "" || $scope.properties.padreInput.numeroExterior === undefined) {
                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio del padre", "warning");
@@ -1863,7 +2215,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                } */
                                         else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                             swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                         } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                             swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1904,7 +2256,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                                 }*/
                                         else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                             swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                        } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                             swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                         } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                             swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1955,7 +2307,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                         }*/
                                     else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                         swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                     } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -1996,7 +2348,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                         }*/
                                     else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                         swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                    } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                         swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                     } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                         swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -2075,7 +2427,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                 }*/
                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -2114,7 +2466,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                                 }*/
                                 else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                                 } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                     swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -2163,7 +2515,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         }*/
                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -2202,7 +2554,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                         }*/
                             else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de la madre", "warning");
-                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) && $scope.properties.madreInput.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de la madre", "warning");
                             } else if ($scope.properties.madreInput.numeroExterior === "" || $scope.properties.madreInput.numeroExterior === undefined) {
                                 swal("¡Número exterior!", "Debes agregar el número exterior del domicilio de la madre", "warning");
@@ -2314,7 +2666,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             });
     }
-    
+
     function submitTask() {
         var id;
         //id = getUrlParam('id');
@@ -2329,7 +2681,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-    
+
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
@@ -2339,7 +2691,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return {};
     }
-    
+
     function getUrlParam(param) {
         var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
         if (paramValue) {
@@ -2347,11 +2699,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return '';
     }
-    
+
     function doRequest(method, url, params) {
         //vm.busy = true;
-        $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex+1;
-        if($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== undefined){
+        $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex + 1;
+        if ($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string !== undefined) {
             $scope.properties.Bachilleratopersistenceid = angular.copy($scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string);
             $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catBachilleratos.persistenceId_string = $scope.properties.catSolicitudDeAdmision.catBachilleratos.persistenceid_string;
         }
@@ -2365,16 +2717,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-               /* $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({
-                    message: 'success',
-                    status: status,
-                    dataFromSuccess: data,
-                    dataFromError: undefined,
-                    responseStatusCode: status
-                });*/
+                /* $scope.properties.dataFromSuccess = data;
+                 $scope.properties.responseStatusCode = status;
+                 $scope.properties.dataFromError = undefined;
+                 notifyParentFrame({
+                     message: 'success',
+                     status: status,
+                     dataFromSuccess: data,
+                     dataFromError: undefined,
+                     responseStatusCode: status
+                 });*/
                 /*if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                     redirectIfNeeded();
                 }
@@ -2404,34 +2756,34 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
-    function getTask(){
-        setTimeout(function(){ 
+    function getTask() {
+        setTimeout(function() {
             var req = {
-            method: 'GET',
-            url: $scope.properties.urlCurrentTask
-        };
+                method: 'GET',
+                url: $scope.properties.urlCurrentTask
+            };
 
-        return $http(req)
-            .success(function(data, status) {
-                console.log("TuCCSES")
-                console.log(data);
-                $scope.properties.currentTask = data;
-            })
-            .error(function(data, status) {
-                console.log("Error al avanzar tarea")
-                console.log(data);
-                console.log(status);
-            })
-            .finally(function() {
-                //vm.busy = false;
-            });
-            
+            return $http(req)
+                .success(function(data, status) {
+                    console.log("TuCCSES")
+                    console.log(data);
+                    $scope.properties.currentTask = data;
+                })
+                .error(function(data, status) {
+                    console.log("Error al avanzar tarea")
+                    console.log(data);
+                    console.log(status);
+                })
+                .finally(function() {
+                    //vm.busy = false;
+                });
+
         }, 1000);
-        
+
     }
 
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
-      }
+    }
 }

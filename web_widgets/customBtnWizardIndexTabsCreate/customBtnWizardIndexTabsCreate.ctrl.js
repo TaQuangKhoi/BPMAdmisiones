@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
     var cont = 0;
     $scope.action = function() {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -44,49 +44,78 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     //$scope.properties.selectedIndex++;
-                    if($scope.properties.tutor.length > 0 ){
+                    if ($scope.properties.tutor.length > 0) {
                         for (var i = 0; i < $scope.properties.tutor.length; i++) {
-                            if($scope.properties.tutor[i].viveContigo){}
-                                $scope.properties.tutor[i].calle = $scope.properties.catSolicitudDeAdmision.calle;
-                                $scope.properties.tutor[i].codigoPostal = $scope.properties.catSolicitudDeAdmision.codigoPostal;
-                                $scope.properties.tutor[i].catPais = $scope.properties.catSolicitudDeAdmision.catPais;
-                                $scope.properties.tutor[i].catEstado = $scope.properties.catSolicitudDeAdmision.catEstado;
-                                $scope.properties.tutor[i].ciudad = $scope.properties.catSolicitudDeAdmision.ciudad;
-                                $scope.properties.tutor[i].numeroExterior = $scope.properties.catSolicitudDeAdmision.numExterior;
-                                $scope.properties.tutor[i].numeroInterior = $scope.properties.catSolicitudDeAdmision.numInterior;
-                                $scope.properties.tutor[i].colonia = $scope.properties.catSolicitudDeAdmision.colonia;
-                                $scope.properties.tutor[i].telefono = $scope.properties.catSolicitudDeAdmision.telefono;
-                                $scope.properties.tutor[i].delegacionMunicipio = $scope.properties.catSolicitudDeAdmision.delegacionMunicipio;
-                                $scope.properties.tutor[i].estadoExtranjero = $scope.properties.catSolicitudDeAdmision.estadoExtranjero;
+                            if ($scope.properties.tutor[i].viveContigo) {}
+                            $scope.properties.tutor[i].calle = $scope.properties.catSolicitudDeAdmision.calle;
+                            $scope.properties.tutor[i].codigoPostal = $scope.properties.catSolicitudDeAdmision.codigoPostal;
+                            $scope.properties.tutor[i].catPais = $scope.properties.catSolicitudDeAdmision.catPais;
+                            $scope.properties.tutor[i].catEstado = $scope.properties.catSolicitudDeAdmision.catEstado;
+                            $scope.properties.tutor[i].ciudad = $scope.properties.catSolicitudDeAdmision.ciudad;
+                            $scope.properties.tutor[i].numeroExterior = $scope.properties.catSolicitudDeAdmision.numExterior;
+                            $scope.properties.tutor[i].numeroInterior = $scope.properties.catSolicitudDeAdmision.numInterior;
+                            $scope.properties.tutor[i].colonia = $scope.properties.catSolicitudDeAdmision.colonia;
+                            $scope.properties.tutor[i].telefono = $scope.properties.catSolicitudDeAdmision.telefono;
+                            $scope.properties.tutor[i].delegacionMunicipio = $scope.properties.catSolicitudDeAdmision.delegacionMunicipio;
+                            $scope.properties.tutor[i].estadoExtranjero = $scope.properties.catSolicitudDeAdmision.estadoExtranjero;
                         }
+                        if ($scope.properties.padre.viveContigo) {
+                            $scope.properties.padre.calle = $scope.properties.tutor[0].calle;
+                            $scope.properties.padre.catPais = $scope.properties.tutor[0].catPais;
+                            $scope.properties.padre.numeroExterior = $scope.properties.tutor[0].numeroExterior;
+                            $scope.properties.padre.numeroInterior = $scope.properties.tutor[0].numeroInterior;
+                            $scope.properties.padre.catEstado = $scope.properties.tutor[0].catEstado;
+                            $scope.properties.padre.ciudad = $scope.properties.tutor[0].ciudad;
+                            $scope.properties.padre.colonia = $scope.properties.tutor[0].colonia;
+                            $scope.properties.padre.telefono = $scope.properties.tutor[0].telefono;
+                            $scope.properties.padre.codigoPostal = $scope.properties.tutor[0].codigoPostal;
+                            $scope.properties.padre.delegacionMunicipio = $scope.properties.tutor[0].delegacionMunicipio;
+                            $scope.properties.padre.estadoExtranjero = $scope.properties.tutor[0].estadoExtranjero;
+                        }
+                        if ($scope.properties.madre.viveContigo) {
+                            $scope.properties.madre.calle = $scope.properties.tutor[0].calle;
+                            $scope.properties.madre.catPais = $scope.properties.tutor[0].catPais;
+                            $scope.properties.madre.numeroExterior = $scope.properties.tutor[0].numeroExterior;
+                            $scope.properties.madre.numeroInterior = $scope.properties.tutor[0].numeroInterior;
+                            $scope.properties.madre.catEstado = $scope.properties.tutor[0].catEstado;
+                            $scope.properties.madre.ciudad = $scope.properties.tutor[0].ciudad;
+                            $scope.properties.madre.colonia = $scope.properties.tutor[0].colonia;
+                            $scope.properties.madre.telefono = $scope.properties.tutor[0].telefono;
+                            $scope.properties.madre.codigoPostal = $scope.properties.tutor[0].codigoPostal;
+                            $scope.properties.madre.delegacionMunicipio = $scope.properties.tutor[0].delegacionMunicipio;
+                            $scope.properties.madre.estadoExtranjero = $scope.properties.tutor[0].estadoExtranjero;
+                        }
+                        $scope.assignTask();
+                    }else{
+                        if ($scope.properties.padre.viveContigo) {
+                            $scope.properties.padre.calle = $scope.properties.tutor.calle;
+                            $scope.properties.padre.catPais = $scope.properties.tutor.catPais;
+                            $scope.properties.padre.numeroExterior = $scope.properties.tutor.numeroExterior;
+                            $scope.properties.padre.numeroInterior = $scope.properties.tutor.numeroInterior;
+                            $scope.properties.padre.catEstado = $scope.properties.tutor.catEstado;
+                            $scope.properties.padre.ciudad = $scope.properties.tutor.ciudad;
+                            $scope.properties.padre.colonia = $scope.properties.tutor.colonia;
+                            $scope.properties.padre.telefono = $scope.properties.tutor.telefono;
+                            $scope.properties.padre.codigoPostal = $scope.properties.tutor.codigoPostal;
+                            $scope.properties.padre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.padre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                        }
+                        if ($scope.properties.madre.viveContigo) {
+                            $scope.properties.madre.calle = $scope.properties.tutor.calle;
+                            $scope.properties.madre.catPais = $scope.properties.tutor.catPais;
+                            $scope.properties.madre.numeroExterior = $scope.properties.tutor.numeroExterior;
+                            $scope.properties.madre.numeroInterior = $scope.properties.tutor.numeroInterior;
+                            $scope.properties.madre.catEstado = $scope.properties.tutor.catEstado;
+                            $scope.properties.madre.ciudad = $scope.properties.tutor.ciudad;
+                            $scope.properties.madre.colonia = $scope.properties.tutor.colonia;
+                            $scope.properties.madre.telefono = $scope.properties.tutor.telefono;
+                            $scope.properties.madre.codigoPostal = $scope.properties.tutor.codigoPostal;
+                            $scope.properties.madre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                            $scope.properties.madre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                        }
+                        $scope.assignTask();
                     }
-                    if($scope.properties.padre.viveContigo){
-                        $scope.properties.padre.calle = $scope.properties.tutor.calle;
-                        $scope.properties.padre.catPais = $scope.properties.tutor.catPais;
-                        $scope.properties.padre.numeroExterior = $scope.properties.tutor.numeroExterior;
-                        $scope.properties.padre.numeroInterior = $scope.properties.tutor.numeroInterior;
-                        $scope.properties.padre.catEstado = $scope.properties.tutor.catEstado;
-                        $scope.properties.padre.ciudad = $scope.properties.tutor.ciudad;
-                        $scope.properties.padre.colonia = $scope.properties.tutor.colonia;
-                        $scope.properties.padre.telefono = $scope.properties.tutor.telefono;
-                        $scope.properties.padre.codigoPostal = $scope.properties.tutor.codigoPostal;
-                        $scope.properties.padre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
-                        $scope.properties.padre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
-                    }
-                    if($scope.properties.madre.viveContigo){
-                        $scope.properties.madre.calle = $scope.properties.tutor.calle;
-                        $scope.properties.madre.catPais = $scope.properties.tutor.catPais;
-                        $scope.properties.madre.numeroExterior = $scope.properties.tutor.numeroExterior;
-                        $scope.properties.madre.numeroInterior = $scope.properties.tutor.numeroInterior;
-                        $scope.properties.madre.catEstado = $scope.properties.tutor.catEstado;
-                        $scope.properties.madre.ciudad = $scope.properties.tutor.ciudad;
-                        $scope.properties.madre.colonia = $scope.properties.tutor.colonia;
-                        $scope.properties.madre.telefono = $scope.properties.tutor.telefono;
-                        $scope.properties.madre.codigoPostal = $scope.properties.tutor.codigoPostal;
-                        $scope.properties.madre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
-                        $scope.properties.madre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
-                    }
-                    $scope.assignTask();
+                    
                 }
 
             } else if ($scope.properties.selectedIndex === 0) {
@@ -143,88 +172,166 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
                 if (!$scope.faltacampo) {
+                    debugger;
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.fallo = false;
-                        if ($scope.properties.fotopasaportearchivo.length > 0) {
-                            if (JSON.stringify($scope.properties.fotopasaporte) === "{}") {
-                                $scope.fallo = true;
-                                swal("¡Fotografía!", "Debes agregar una fotografía", "warning");
-                            } else {
-                                var auxData = null;
-                                if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
-                                    auxData = $scope.properties.fotopasaportearchivo[0];
-                                } else {
-                                    auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
-                                }
-                                auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
-                                auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
-                                auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
-                                if (auxData.id !== undefined) {
-                                    $scope.properties.fotopasaportearchivo[0] = {
-                                        "id": angular.copy(auxData.id),
-                                        "newValue": angular.copy(auxData)
-                                    };
-                                } else {
-                                    if ($scope.properties.fotopasaportearchivo[0].newValue.filename !== $scope.properties.fotopasaporte.filename) {
-                                        $scope.properties.fotopasaportearchivo[0] = {
-                                            "newValue": angular.copy(auxData)
-                                        };
-                                    }
-                                }
-                            }
-                        } else {
-                            if ($scope.properties.fotopasaporte === undefined || JSON.stringify($scope.properties.fotopasaporte) == '{}') {
-                                $scope.fallo = true;
-                                swal("¡Fotografía!", "Debes agregar una fotografía", "warning");
-                            } else {
-                                $scope.properties.fotopasaportearchivo = [];
-                                $scope.properties.fotopasaportearchivo.push({
-                                    "newValue": angular.copy($scope.properties.fotopasaporte)
-                                });
-                            }
-                        }
-
-                        if (!$scope.fallo) {
-                            if ($scope.properties.actanacimientoarchivo.length > 0) {
-                                if (JSON.stringify($scope.properties.actanacimiento) === "{}") {
+                        if ($scope.properties.catSolicitudDeAdmision.urlFoto === null || $scope.properties.catSolicitudDeAdmision.urlFoto === "") {
+                            if ($scope.properties.fotopasaportearchivo.length > 0) {
+                                if (JSON.stringify($scope.properties.fotopasaporte) === "{}") {
                                     $scope.fallo = true;
-                                    swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
+                                    swal("¡Fotografía!", "Debes agregar una fotografía", "warning");
                                 } else {
                                     var auxData = null;
-                                    if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
-                                        auxData = $scope.properties.actanacimientoarchivo[0];
+                                    if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
+                                        auxData = $scope.properties.fotopasaportearchivo[0];
                                     } else {
-                                        auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
+                                        auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
                                     }
-                                    auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
-                                    auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
-                                    auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
+                                    auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
+                                    auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
+                                    auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
                                     if (auxData.id !== undefined) {
-                                        $scope.properties.actanacimientoarchivo[0] = {
+                                        $scope.properties.fotopasaportearchivo[0] = {
                                             "id": angular.copy(auxData.id),
                                             "newValue": angular.copy(auxData)
                                         };
                                     } else {
-                                        if ($scope.properties.actanacimientoarchivo[0].newValue.filename !== $scope.properties.actanacimientoarchivo.filename) {
-                                            $scope.properties.actanacimientoarchivo[0] = {
+                                        if ($scope.properties.fotopasaportearchivo[0].newValue.filename !== $scope.properties.fotopasaporte.filename) {
+                                            $scope.properties.fotopasaportearchivo[0] = {
                                                 "newValue": angular.copy(auxData)
                                             };
                                         }
                                     }
                                 }
                             } else {
-                                if ($scope.properties.actanacimiento === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
+                                if ($scope.properties.fotopasaporte === undefined || JSON.stringify($scope.properties.fotopasaporte) == '{}') {
                                     $scope.fallo = true;
-                                    swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
+                                    swal("¡Fotografía!", "Debes agregar una fotografía", "warning");
                                 } else {
-                                    $scope.properties.actanacimientoarchivo = [];
-                                    $scope.properties.actanacimientoarchivo.push({
-                                        "newValue": angular.copy($scope.properties.actanacimiento)
+                                    $scope.properties.fotopasaportearchivo = [];
+                                    $scope.properties.fotopasaportearchivo.push({
+                                        "newValue": angular.copy($scope.properties.fotopasaporte)
                                     });
                                 }
                             }
+                        } else {
+                            if ($scope.properties.fotopasaportearchivo.length > 0) {
+                                    var auxData = null;
+                                    if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
+                                        auxData = $scope.properties.fotopasaportearchivo[0];
+                                    } else {
+                                        auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
+                                    }
+                                    auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
+                                    auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
+                                    auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
+                                    if (auxData.id !== undefined) {
+                                        $scope.properties.fotopasaportearchivo[0] = {
+                                            "id": angular.copy(auxData.id),
+                                            "newValue": angular.copy(auxData)
+                                        };
+                                    } else {
+                                        if ($scope.properties.fotopasaportearchivo[0].newValue.filename !== $scope.properties.fotopasaporte.filename) {
+                                            $scope.properties.fotopasaportearchivo[0] = {
+                                                "newValue": angular.copy(auxData)
+                                            };
+                                        }
+                                    }
+                                $scope.properties.catSolicitudDeAdmision.urlFoto = "";
+                            } else {
+                                if ($scope.properties.fotopasaporte !== undefined) {
+                                 $scope.properties.fotopasaportearchivo = [];
+                                    $scope.properties.fotopasaportearchivo.push({
+                                        "newValue": angular.copy($scope.properties.fotopasaporte)
+                                    });
+                                    $scope.properties.catSolicitudDeAdmision.urlFoto = "";
+                                 }
+                                 else{
+                                    $scope.properties.fotopasaportearchivo = [];    
+                                 }
+                            }
+                        }
+
+
+                        if (!$scope.fallo) {
+                            if ($scope.properties.catSolicitudDeAdmision.urlActaNacimiento === null || $scope.properties.catSolicitudDeAdmision.urlActaNacimiento === "") {
+                                if ($scope.properties.actanacimientoarchivo.length > 0) {
+                                    if (JSON.stringify($scope.properties.actanacimiento) === "{}") {
+                                        $scope.fallo = true;
+                                        swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
+                                    } else {
+                                        var auxData = null;
+                                        if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
+                                            auxData = $scope.properties.actanacimientoarchivo[0];
+                                        } else {
+                                            auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
+                                        }
+                                        auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
+                                        auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
+                                        auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
+                                        if (auxData.id !== undefined) {
+                                            $scope.properties.actanacimientoarchivo[0] = {
+                                                "id": angular.copy(auxData.id),
+                                                "newValue": angular.copy(auxData)
+                                            };
+                                        } else {
+                                            if ($scope.properties.actanacimientoarchivo[0].newValue.filename !== $scope.properties.actanacimientoarchivo.filename) {
+                                                $scope.properties.actanacimientoarchivo[0] = {
+                                                    "newValue": angular.copy(auxData)
+                                                };
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if ($scope.properties.actanacimiento === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
+                                        $scope.fallo = true;
+                                        swal("¡Acta de nacimiento!", "Debes agregar tu acta de nacimiento", "warning");
+                                    } else {
+                                        $scope.properties.actanacimientoarchivo = [];
+                                        $scope.properties.actanacimientoarchivo.push({
+                                            "newValue": angular.copy($scope.properties.actanacimiento)
+                                        });
+                                    }
+                                }
+                            } else {
+                                if ($scope.properties.actanacimientoarchivo.length > 0) {
+                                        var auxData = null;
+                                        if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
+                                            auxData = $scope.properties.actanacimientoarchivo[0];
+                                        } else {
+                                            auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
+                                        }
+                                        auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
+                                        auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
+                                        auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
+                                        if (auxData.id !== undefined) {
+                                            $scope.properties.actanacimientoarchivo[0] = {
+                                                "id": angular.copy(auxData.id),
+                                                "newValue": angular.copy(auxData)
+                                            };
+                                        } else {
+                                            if ($scope.properties.actanacimientoarchivo[0].newValue.filename !== $scope.properties.actanacimientoarchivo.filename) {
+                                                $scope.properties.actanacimientoarchivo[0] = {
+                                                    "newValue": angular.copy(auxData)
+                                                };
+                                            }
+                                        }
+                                    $scope.properties.catSolicitudDeAdmision.urlActaNacimiento = "";
+                                } else {
+                                    if ($scope.properties.actanacimiento !== undefined) {
+                                        $scope.properties.actanacimientoarchivo = [];
+                                        $scope.properties.actanacimientoarchivo.push({
+                                            "newValue": angular.copy($scope.properties.actanacimiento)
+                                        });
+                                    $scope.properties.catSolicitudDeAdmision.urlActaNacimiento = "";
+                                    }else{
+                                        $scope.properties.actanacimientoarchivo = [];
+                                    }
+                                }
+                            }
+
                             if (!$scope.fallo) {
                                 // if ($scope.properties.idExtranjero !== undefined) {
                                 //     $scope.properties.catSolicitudDeAdmision.curp = $scope.properties.idExtranjero;
@@ -404,7 +511,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Escolaridad!", "Debes seleccionar la escolaridad de tu padre", "warning");
                                 } else if ($scope.properties.padre.catPais === 0 || $scope.properties.padre.catPais === null) {
                                     swal("¡País!", "Debes agregar el país del domicilio de tu padre", "warning");
-                                } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu padre", "warning");
                                 } else if (($scope.properties.padre.catEstado === 0 || $scope.properties.padre.catEstado === null) && $scope.properties.padre.catPais.descripcion === "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
@@ -440,7 +547,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Escolaridad!", "Debes seleccionar la escolaridad de tu padre", "warning");
                                 } else if ($scope.properties.padre.catPais === 0 || $scope.properties.padre.catPais === null) {
                                     swal("¡País!", "Debes agregar el país del domicilio de tu padre", "warning");
-                                } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México" ) {
+                                } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México") {
                                     swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu padre", "warning");
                                 } else if (($scope.properties.padre.catEstado === 0 || $scope.properties.padre.catEstado === null) && $scope.properties.padre.catPais.descripcion === "México") {
                                     swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
@@ -488,7 +595,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Escolaridad!", "Debes seleccionar la escolaridad de tu padre", "warning");
                             } else if ($scope.properties.padre.catPais === 0 || $scope.properties.padre.catPais === null) {
                                 swal("¡País!", "Debes agregar el país del domicilio de tu padre", "warning");
-                            } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu padre", "warning");
                             } else if (($scope.properties.padre.catEstado === 0 || $scope.properties.padre.catEstado === null) && $scope.properties.padre.catPais.descripcion === "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
@@ -498,7 +605,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
                                 swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
-                            }  else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
+                            } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu padre", "warning");
@@ -524,7 +631,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Escolaridad!", "Debes seleccionar la escolaridad de tu padre", "warning");
                             } else if ($scope.properties.padre.catPais === 0 || $scope.properties.padre.catPais === null) {
                                 swal("¡País!", "Debes agregar el país del domicilio de tu padre", "warning");
-                            } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México" ) {
+                            } else if (($scope.properties.padre.codigoPostal === "" || $scope.properties.padre.codigoPostal === undefined) && $scope.properties.padre.catPais.descripcion === "México") {
                                 swal("¡Código postal!", "Debes agregar el código postal del domicilio de tu padre", "warning");
                             } else if (($scope.properties.padre.catEstado === 0 || $scope.properties.padre.catEstado === null) && $scope.properties.padre.catPais.descripcion === "México") {
                                 swal("¡Estado!", "Debes agregar el estado del domicilio de tu padre", "warning");
@@ -534,7 +641,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.delegacionMunicipio === "" || $scope.properties.padre.delegacionMunicipio === null) {
                                 swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu padre", "warning");
-                            }  else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
+                            } else if ($scope.properties.padre.colonia === "" || $scope.properties.padre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu padre", "warning");
                             } else if ($scope.properties.padre.calle === "" || $scope.properties.padre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu padre", "warning");
@@ -615,7 +722,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
                                     swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
-                                }  else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                                } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                     swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                                 } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                     swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
@@ -699,7 +806,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
                                 swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
-                            }   else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                            } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
@@ -735,7 +842,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 swal("¡Ciudad!", "Debes agregar la ciudad del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.delegacionMunicipio === "" || $scope.properties.madre.delegacionMunicipio === null) {
                                 swal("¡Municipio/Delegación/Poblado!", "Debes agregar la Ciudad/Municipio/Delegación/Poblado del domicilio de tu madre", "warning");
-                            }   else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
+                            } else if ($scope.properties.madre.colonia === "" || $scope.properties.madre.colonia === undefined) {
                                 swal("¡Colonia!", "Debes agregar la colonia del domicilio de tu madre", "warning");
                             } else if ($scope.properties.madre.calle === "" || $scope.properties.madre.calle === undefined) {
                                 swal("¡Calle!", "Debes agregar la calle del domicilio de tu madre", "warning");
@@ -946,27 +1053,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             method: 'GET',
             url: $scope.properties.urlCurrentTask
         };
-    
+
         return $http(req)
             .success(function(data, status) {
                 console.log("SUCCSES")
                 console.log(data);
-                if(data.length > 0){
-                    if(data[0].id === $scope.properties.taskId){
+                if (data.length > 0) {
+                    if (data[0].id === $scope.properties.taskId) {
                         if (cont === 100) {
                             location.reload();
                         } else {
                             getTask();
                             cont++;
                         }
-                    }else{
+                    } else {
                         $scope.properties.currentTask = data;
                         topFunction();
                         $scope.properties.disabled = false;
                         blockUI.stop();
                         $scope.properties.selectedIndex++;
                     }
-                }else{
+                } else {
                     if (cont === 100) {
                         location.reload();
                     } else {
@@ -974,8 +1081,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         cont++;
                     }
                 }
-                
-                
+
+
             })
             .error(function(data, status) {
                 console.log("Error al avanzar tarea")
