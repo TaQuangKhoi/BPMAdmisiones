@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1617148371457,
+  "lastUpdate" : 1619394860551,
   "rows" : [
     [
       {
@@ -472,7 +472,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -496,7 +496,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "{{carta}}"
+                  "value" : "<pre>{{objetoInfoCarta|json}}</pre>\n<pre>{{objectSolicitud.catGestionEscolar.isMedicina|json}}</pre>"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -596,12 +596,12 @@
     "dataToSend" : {
       "type" : "expression",
       "value" : [
-        "return {",
-        "    'campus': $data.objectSolicitud.catCampusEstudio.grupoBonita,",
-        "    // 'campus': \"CAMPUS-CANCUN\",",
-        "    'codigo': $data.objetoInfoCarta.carta === \"Aceptado\" ? \"carta-aceptar\": \"carta-rechazo\",",
-        "    'correo': $data.userData.user_name,",
-        "    'isEnviar': false",
+        "return {\r",
+        "    'campus': $data.objectSolicitud.catCampusEstudio.grupoBonita,\r",
+        "    // 'campus': \"CAMPUS-CANCUN\",\r",
+        "    'codigo': $data.objetoInfoCarta.carta === \"Aceptado\" ? ($data.objectSolicitud.catGestionEscolar.isMedicina ? \"carta-propedeutico\":\"carta-aceptar\"): \"carta-rechazo\",\r",
+        "    'correo': $data.userData.user_name,\r",
+        "    'isEnviar': false\r",
         "}"
       ],
       "exposed" : false
