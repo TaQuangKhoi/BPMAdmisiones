@@ -1121,6 +1121,7 @@ class ResultadosAdmisionDAO {
 				LocalDate local = LocalDate.now(); 
 				columns.put("fechaEnvio", local);
 				String jsonCorreo = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigo + '","isEnviar":true}"';
+				//se envia al principio
 				Result resultadoEnvioCarta = nDAO.generateHtml(parameterP, parameterC, jsonCorreo, context);
 				Map<String, Object> contract = new LinkedHashMap<String, Object>();
 				contract.put("isTransferencia", false);
@@ -1132,20 +1133,22 @@ class ResultadosAdmisionDAO {
 				
 				if(resultadoEnvioCarta.isSuccess()) {
 					correoLog += "Se envió la carta.";
-					
-					if(!columns.get("pdu").equals("No") && carta.equals("Aceptado")) {
-						String codigoPDU = "carta-pdu";
-						String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
-						Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);
-						
-						if(resultadoEnvioPDU.isSuccess()) {
-							correoLog += " Se envió el correo del PDU.";
+					if(!codigo.equals("carta-propedeutico") && !codigo.equals("carta-rechazo")) {
+						if(!columns.get("pdu").equals("No") && carta.equals("Aceptado")) {
+							String codigoPDU = "carta-pdu";
+							String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
+							Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);
+							
+							if(resultadoEnvioPDU.isSuccess()) {
+								correoLog += " Se envió el correo del PDU.";
+							} else {
+								isError = true;
+								errorInfo = resultadoEnvioPDU.getError();
+							}
+							
 						} else {
-							isError = true;
-							errorInfo = resultadoEnvioPDU.getError();
+							correoLog += " No requiere PDU.";
 						}
-					} else {
-						correoLog += " No requiere PDU.";
 					}
 				} else {
 					correoLog += "No se pudo enviar la carta";
