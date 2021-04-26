@@ -348,7 +348,7 @@ class NotificacionDAO {
 					plantilla=plantilla.replace("[SDESCRIPCION]",  element.sdescripcion)
 					if(element.descripcion == "Examen de aptitudes y conocimientos"){
 						plantilla=plantilla.replace("[NOMBRE-COLLAGE]",  element.pnombre)
-						plantilla=plantilla.replace("[DESCRIPCION-COLLAGE]",   element.pdescripcion)
+						plantilla=plantilla.replace("[DESCRIPCION-COLLAGE]",   element.pdescripcion==null?"":element.pdescripcion)
 						plantilla=plantilla.replace("[FECHA-COLLAGE]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-COLLAGE]",   element.horario)
 						plantilla=plantilla.replace("[Lugar-EAC]",   element.online=='t'?"URL":"Lugar")
@@ -360,7 +360,7 @@ class NotificacionDAO {
 					}
 					if(element.descripcion == "Examen Psicométrico"){
 						plantilla=plantilla.replace("[NOMBRE-PSICOMETRICO]",  element.pnombre)
-						plantilla=plantilla.replace("[DESCRIPCION-PSICOMETRICO]",   element.pdescripcion)
+						plantilla=plantilla.replace("[DESCRIPCION-PSICOMETRICO]",   element.pdescripcion==null?"":element.pdescripcion)
 						plantilla=plantilla.replace("[FECHA-PSICOMETRICO]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-PSICOMETRICO]",   element.horario)
 						plantilla=plantilla.replace("[Lugar-EP]",   element.online=='t'?"URL":"Lugar")
@@ -372,7 +372,7 @@ class NotificacionDAO {
 					}
 					if(element.descripcion == "Entrevista"){
 						plantilla=plantilla.replace("[NOMBRE-ENTREVISTA]",  element.pnombre)
-						plantilla=plantilla.replace("[DESCRIPCION-ENTREVISTA]",   element.pdescripcion)
+						plantilla=plantilla.replace("[DESCRIPCION-ENTREVISTA]",   element.pdescripcion==null?"":element.pdescripcion)
 						plantilla=plantilla.replace("[FECHA-ENTREVISTA]",   element.aplicacion.split("-")[2]+"-"+element.aplicacion.split("-")[1]+"-"+element.aplicacion.split("-")[0])
 						plantilla=plantilla.replace("[HORA-ENTREVISTA]",   element.horario)
 						plantilla=plantilla.replace("[Lugar-E]",   element.online=='t'?"URL":"Lugar")
@@ -866,7 +866,9 @@ class NotificacionDAO {
 					}
 				}
 				String encoded = "";
+				Boolean closeCon=false;
 				try {
+				closeCon = validarConexion();
 					if (objSolicitudDeAdmision.get(0).urlFoto!= null ) {
 						String SSA = "";
 						pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
@@ -888,6 +890,10 @@ class NotificacionDAO {
 				}catch(Exception e) {
 					plantilla=plantilla.replace("[USR-B64]", "https://i.ibb.co/WyCsXQy/usuariofoto.jpg")
 					errorlog+= ""+e.getMessage();
+				}finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm);
+					}
 				}
 			}
 			errorlog += ", Variable10 tablaUsuario"
