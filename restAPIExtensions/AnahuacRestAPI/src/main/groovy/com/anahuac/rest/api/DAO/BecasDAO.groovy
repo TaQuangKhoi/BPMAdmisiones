@@ -253,11 +253,11 @@ class BecasDAO {
 					for (int i = 0; i < lstParams.size(); ++i){
 						url = lstParams[i]["urlfoto"].toString()+"";
 						dataResult2 = DownloadAzure(url,1,fecha+"/documentos")
-						errorLog+=" foto:"+dataResult2
+						errorLog+=" foto Info:"+dataResult2.getError_info()+" error:"+dataResult2.getError()
 						
 						url = lstParams[i]["urlkardex"].toString()+"";
 						dataResult2 = DownloadAzure(url,2,fecha+"/documentos")
-						errorLog+=" kardex:"+dataResult2
+						errorLog+=" kardex: Info:"+dataResult2.getError_info()+" error:"+dataResult2.getError()
 					}
 					
 					
@@ -356,7 +356,7 @@ class BecasDAO {
 				
 				
 				dataResult = ftpUpload(nameFile,fecha);
-				errorLog+=""+dataResult
+				errorLog+=" Hermanos :"+dataResult
 				if (dataResult.success) {
 					File file = new File(nameFile);
 					if (file.exists()){
