@@ -126,7 +126,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   title: '<strong>Atención</strong>',
   icon: 'error',
   html:
-    'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si tu registro lo realizaste <stron>antes</stron> del 1 mayo del 2021 <br> da clic aquí </p>' +
+    'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si tu registro lo realisaste <stron>antes</stron> del 1 mayo del 2021 <br> da clic aquí </p>' +
     '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ',
   showCloseButton: false});
           $scope.errorLoginCount ++;
