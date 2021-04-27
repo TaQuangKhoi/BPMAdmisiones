@@ -15,14 +15,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 confirmButtonColor:"#ff5900" 
             })
             .then(name => {
+                if(!/^([01][0-9]|2[0-3]):([0-5][0-9])$/g.test(name)) throw null;
                 if (!name) throw null;
-                alert(name);
+                doRequest("GET","/API/bpm/process?p=0&c=10&o=displayName%20DESC&f=activationState%3dENABLED&f=name=SincronizarBachillerato",null,null, function(respuesta){
+                    var processid=respuesta[0].id;
+                    var arr=name.split(":")
+                    var datosAEnviar={"description":"","value":"0 "+arr[1]+" "+arr[0]+" 1/1 * ? *","type":"java.lang.String"}
+                    doRequest("PUT","/API/bpm/processParameter/"+processid+"/horaInicio",null,datosAEnviar, function(respuesta){
+                        window.top.location.href="/apps/administrativo/bachillerato/";
+                    })
+                })
                 swal.stopLoading();
-                    swal.close();
+                swal.close();
 
             }).catch(err => {
                 if (err) {
-                    swal("Oh noes!", "The AJAX request failed!", "error");
+                    swal("Error", "¡Favor de asignar hora correcta!", "error");
                 } else {
                     swal.stopLoading();
                     swal.close();
@@ -93,31 +101,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * It also bind custom data from success|error to a data
      * @return {void}
      */
-    function doRequest(method, url, params) {
+    function doRequest(method, url, params,dataToSend,value) {
         vm.busy = true;
         var req = {
             method: method,
             url: url,
-            data: angular.copy($scope.properties.dataToSend),
+            data: angular.copy(dataToSend),
             params: params
         };
 
         return $http(req)
             .success(function(data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess || $scope.properties.targetUrlOnSuccess) {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
+                value(data);
             })
             .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                console.error(data)
             })
             .finally(function() {
                 vm.busy = false;
