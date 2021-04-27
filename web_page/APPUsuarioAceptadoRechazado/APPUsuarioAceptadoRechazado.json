@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1619394860551,
+  "lastUpdate" : 1619478460373,
   "rows" : [
     [
       {
@@ -282,7 +282,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Estimad{{infouser[0].catSexo.descripcion == \"Masculino\"?\"o\":\"a\"}} {{datosUsuario[0].segundonombre.length >=1 ? \"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].segundonombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno:\"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno}}, nos complace decirle que ha sido aceptado en la carrera de  <b>{{datosUsuario[0].licenciatura | lowercase}}</b>, y esperamos verlo en <b>{{datosUsuario[0].ingreso | lowercase}}</b>"
+                  "value" : "Estimad{{infouser[0].catSexo.descripcion == \"Masculino\"?\"o\":\"a\"}} {{datosUsuario[0].segundonombre.length >=1 ? \"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].segundonombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno:\"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno}}, nos complace decirle que ha sido {{objectSolicitud.catGestionEscolar.isMedicina ?'has sido admitido al propedéutico de la Licenciatura de ':'aceptado en la carrera de '}}<b>{{datosUsuario[0].licenciatura | lowercase}}</b>"
                 },
                 "level" : {
                   "type" : "constant",
@@ -514,17 +514,17 @@
   ],
   "assets" : [
     {
-      "id" : "757243bf-079a-48f3-97bf-9d869a6a188c",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "ee2ef0e3-d761-487a-9270-0e42caad529d",
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "757243bf-079a-48f3-97bf-9d869a6a188c",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
       "external" : false
     },
     {
@@ -657,6 +657,13 @@
     },
     "carta" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "propedeutico" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
       "exposed" : false
     }
   },

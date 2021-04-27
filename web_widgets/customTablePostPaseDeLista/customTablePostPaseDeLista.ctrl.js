@@ -460,7 +460,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         return $http(req)
             .success(function (data, status) {
-                for(let i = 0;i<5;i++){
+                for(let i = 0;i<3;i++){
                     let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
                     if(fecha.isSame(aplicacion)  ){
                         $scope.habilitado = true;
