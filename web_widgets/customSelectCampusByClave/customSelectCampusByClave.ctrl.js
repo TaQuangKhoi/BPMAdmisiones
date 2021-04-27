@@ -6,7 +6,12 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   }
 
   function comparatorDescripcion(initialValue, item) {
-    return angular.equals(initialValue.clave, ctrl.getValue(item).clave);
+      if(initialValue === undefined){
+        return false;
+      }else{
+        return angular.equals(initialValue.clave, ctrl.getValue(item).clave);      
+      }
+    
   }
 
   function createGetter(accessor) {
@@ -53,12 +58,13 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     }
   });
 
-  $scope.$watch('properties.value', function(value) {
+ var ejecutar = $scope.$watch('properties.value', function(value) {
     if (angular.isDefined(value) && value !== null) {
       var items = $scope.properties.availableValues;
       if (Array.isArray(items)) {
         var foundItem = ctrl.findSelectedItem(items);
         ctrl.setSelectedValue(foundItem);
+        ejecutar();
       }
     }
   });
