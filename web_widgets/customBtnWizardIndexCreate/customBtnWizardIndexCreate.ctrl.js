@@ -2564,7 +2564,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             } else {
                 console.log("esta validando el la linea 373")
-                if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
+                if ($scope.properties.madreInput.desconozcoDatosPadres) {
+                    if ($scope.properties.contactoEmergenciaInput.length === 0) {
+                        swal("¡Contacto de emergencia!", "Debes agregar al menos un contacto de emergencia", "warning");
+                    } else {
+                        if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                            $scope.properties.selectedIndex--;
+                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+
+
+                            $scope.properties.pasoInformacionFamiliar = true;
+                            //$scope.properties.selectedIndex++;
+                            $scope.assignTask();
+                        }
+                    }
+                }
+                else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
                     swal("¡Título!", "Debes seleccionar el título para identificar a la madre", "warning");
                 } else if ($scope.properties.madreInput.nombre === "" || $scope.properties.madreInput.nombre === undefined) {
                     swal("¡Nombre de la madre!", "Debes agregar nombre de la madre", "warning");
@@ -4947,7 +4962,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                             } else {
                                 console.log("esta validando el la linea 373")
-                                if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
+                                if ($scope.properties.madreInput.desconozcoDatosPadres) {
+                                    if ($scope.properties.contactoEmergenciaInput.length === 0) {
+                                        swal("¡Contacto de emergencia!", "Debes agregar al menos un contacto de emergencia", "warning");
+                                    } else {
+                                        if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                            $scope.properties.selectedIndex--;
+                                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+
+
+                                            $scope.properties.pasoInformacionFamiliar = true;
+                                            //$scope.properties.selectedIndex++;
+                                            $scope.assignTask();
+                                        }
+                                    }
+                                }
+                                else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
                                     swal("¡Título!", "Debes seleccionar el título para identificar a la madre", "warning");
                                 } else if ($scope.properties.madreInput.nombre === "" || $scope.properties.madreInput.nombre === undefined) {
                                     swal("¡Nombre de la madre!", "Debes agregar nombre de la madre", "warning");

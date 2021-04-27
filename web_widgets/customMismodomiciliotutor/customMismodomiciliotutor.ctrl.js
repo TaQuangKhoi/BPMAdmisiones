@@ -1,6 +1,6 @@
 function getUserAbandono($scope, $http, $window) {
     $scope.$watch("properties.datosTutor.viveContigo", function() {
-       
+       debugger;
         if ($scope.properties.datosTutor.viveContigo) {
             $scope.properties.datosTutor.calle = $scope.properties.SolicitudDeAdmision.calle;
             $scope.properties.datosTutor.codigoPostal = $scope.properties.SolicitudDeAdmision.codigoPostal;
@@ -34,7 +34,7 @@ function getUserAbandono($scope, $http, $window) {
     });
 
     $scope.$watch("properties.jsonModificarTutor.viveContigo", function() {
-        
+        debugger;
         if ($scope.properties.jsonModificarTutor.viveContigo) {
             $scope.properties.jsonModificarTutor.calle = $scope.properties.SolicitudDeAdmision.calle;
             $scope.properties.jsonModificarTutor.codigoPostal = $scope.properties.SolicitudDeAdmision.codigoPostal;
@@ -67,9 +67,8 @@ function getUserAbandono($scope, $http, $window) {
 
     });
 
-    $scope.$watch("properties.padre", function() {
-
-        
+    $scope.$watch("properties.padre.viveContigo", function() {
+        debugger;
         if ($scope.properties.padre.viveContigo) {
             $scope.properties.padre.calle = $scope.properties.SolicitudDeAdmision.calle;
             $scope.properties.padre.codigoPostal = $scope.properties.SolicitudDeAdmision.codigoPostal;
@@ -102,8 +101,8 @@ function getUserAbandono($scope, $http, $window) {
         }
     });
 
-    $scope.$watch("properties.madre", function() {
-        
+    $scope.$watch("properties.madre.viveContigo", function() {
+        debugger;
         if ($scope.properties.madre.viveContigo) {
             $scope.properties.madre.calle = $scope.properties.SolicitudDeAdmision.calle;
             $scope.properties.madre.codigoPostal = $scope.properties.SolicitudDeAdmision.codigoPostal;
