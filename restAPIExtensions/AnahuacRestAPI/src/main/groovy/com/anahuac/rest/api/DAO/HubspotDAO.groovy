@@ -1430,5 +1430,38 @@ class HubspotDAO {
 		}
 		return resultado
   }
+  
+  public Result getApiCrispChat() {
+	  Result resultado = new Result();
+	  Boolean closeCon = false;
+
+	  String errorlog="";
+	  String apikey = "";
+	  List<String> lstResultado = new ArrayList<String>();
+
+	  try {
+		  closeCon = validarConexion();
+
+		  errorlog+="| consulta: "+Statements.GET_APIKEY_CRISP;
+		  pstm = con.prepareStatement(Statements.GET_APIKEY_CRISP);
+		  rs = pstm.executeQuery();
+		  while(rs.next()) {
+			  apikey = rs.getString("crispchat");
+		  }
+		  lstResultado.add(apikey);
+		  resultado.setError_info(errorlog);
+		  resultado.setSuccess(true);
+		  resultado.setData(lstResultado);
+	  } catch (Exception e) {
+		  resultado.setSuccess(false);
+		  resultado.setError(e.getMessage());
+		  resultado.setError_info(errorlog)
+	  }finally {
+		  if(closeCon) {
+			  new DBConnect().closeObj(con, stm, rs, pstm)
+		  }
+	  }
+	  return resultado
+  }
 }
 
