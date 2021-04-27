@@ -1289,10 +1289,10 @@ class CatalogosDAO {
 					} else {
 						where += " WHERE "
 					}
-					if(filtro.get("valor").equals("Si") || filtro.get("valor").equals("SI") || filtro.get("valor").equals("si")) {
-						where += " LOWER(PERTENECERED) = true "
-					}else if(filtro.get("valor").equals("No") || filtro.get("valor").equals("NO") || filtro.get("valor").equals("no")) {
-						where += " LOWER(PERTENECERED) = false "
+					if(filtro.get("valor").equals("Si") || filtro.get("valor").equals("SI") || filtro.get("valor").equals("si")|| filtro.get("valor").toString().toLowerCase().equals("sí")|| filtro.get("valor").toString().toLowerCase().equals("true")) {
+						where += " PERTENECERED = true "
+					}else if(filtro.get("valor").equals("No") || filtro.get("valor").equals("NO") || filtro.get("valor").equals("no") || filtro.get("valor").toString().toLowerCase().equals("false")) {
+						where += " PERTENECERED = false "
 					}
 					/*where += " LOWER(PERTENECERED) ";
 					if (filtro.get("operador").equals("Igual a")) {
