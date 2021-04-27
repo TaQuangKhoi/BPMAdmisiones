@@ -323,6 +323,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      */
     function doRequest(method, url, params) {
         vm.busy = true;
+        blockUI.start();
         var req = {
             method: method,
             url: url,
@@ -363,6 +364,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
         }).finally(function() {
             vm.busy = false;
+            blockUI.stop();
         });
     }
   
@@ -382,7 +384,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
     
         return $http(req).success(function(data, status) {
-           
+           console.log(data)
         }).error(function(data, status) {
             $scope.properties.dataFromError = data;
             $scope.properties.responseStatusCode = status;
