@@ -1,5 +1,6 @@
 function($scope, $http) {
     $(function() {
+        console.log("ready...")
         var req = {
             method: "POST",
             url: '../API/extension/AnahuacRest?url=getApiCrispChat&p=0&c=100',
@@ -8,6 +9,8 @@ function($scope, $http) {
 
         return $http(req)
             .success(function(data, status) {
+                console.log("success")
+                console.log(data)
                 window.$crisp = [];
                 window.CRISP_WEBSITE_ID = data.data[0];
                 (
@@ -21,8 +24,10 @@ function($scope, $http) {
                 )();
             })
             .error(function(data, status) {
+                console.log("error")
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             }).finally(function() {
+                console.log("finally")
                 blockUI.stop();
             });
 
