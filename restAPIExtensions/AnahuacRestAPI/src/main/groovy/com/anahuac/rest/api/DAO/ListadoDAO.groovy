@@ -2986,7 +2986,7 @@ class ListadoDAO {
 						}else {
 							where+= " WHERE "
 						}
-						where +=" LOWER(fechasolicitudenviada) ";
+						where +=" LOWER(to_char(sda.fechasolicitudenviada::timestamp, 'DD-MM-YYYY HH24:MI:SS') ) ";
 						if(filtro.get("operador").equals("Igual a")) {
 							where+="=LOWER('[valor]')"
 						}else {
@@ -8343,7 +8343,7 @@ class ListadoDAO {
 					cell14.setCellValue(lstParams[i].telefonocelular);
 					
 					Cell cell10 = row.createCell(13);
-					cell10.setCellValue( (lstParams[i].asistencia != null ? (lstParams[i].asistencia == "t" ?"Sí":"No") : "No"));
+					cell10.setCellValue( (lstParams[i].asistencia != null ? (lstParams[i].asistencia == "t" ?"Sí":(lstParams[i].cbcoincide== "t" ?"Aspirante exento":"No")) : (lstParams[i].cbcoincide== "t" ?"Aspirante exento":"No")));
 					
 					if(type.equals("paselistareportelistado") && lstParams[i].tipoprueba_pid == "1"){
 						Cell cell15 = row.createCell(14);
