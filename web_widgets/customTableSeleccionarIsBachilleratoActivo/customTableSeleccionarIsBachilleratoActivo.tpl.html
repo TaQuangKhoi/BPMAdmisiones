@@ -25,12 +25,21 @@
                 <td class="middle-td" ng-if="!properties.allowHTML && column!='perteneceRed'" ng-repeat="column in properties.columnsKey track by $index">
                     {{ $eval(column, row) | uiTranslate }}
                 </td>
-                <td class="middle-td" ng-if="properties.allowHTML && column!='perteneceRed'" ng-repeat="column in properties.columnsKey track by $index">
+                <td class="middle-td" ng-if="properties.allowHTML && column!='perteneceRed' && column!='isEnabled'" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
                 </td>
                 <td ng-repeat="column in properties.columnsKey track by $index" ng-if="column=='perteneceRed'">
                     <div class="onoffswitch" ng-click="onOff(row)">
                         <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="row.perteneceRed" tabindex="0" checked>
+                        <label class="onoffswitch-label" for="myonoffswitch">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </td>
+                <td ng-repeat="column in properties.columnsKey track by $index" ng-if="column=='isEnabled'">
+                    <div class="onoffswitch" ng-click="onOffActivo(row)">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" ng-model="row.isEnabled" tabindex="0" checked>
                         <label class="onoffswitch-label" for="myonoffswitch">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
