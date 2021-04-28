@@ -6,14 +6,14 @@
         </option>
     </select>
     </div>
-    <div style="margin-bottom:15px;" class="col-xs-offset-9 col-xs-3" ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null ReporteCitasPsicologo">
+    <div style="margin-bottom:15px;" class="col-xs-offset-9 col-xs-3" ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null || filtroCampus =='Todos los campus'">
         <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit">
         <option ng-value="20">20</option>
         <option ng-value="40">40</option>
         <option ng-value="100">100</option>
     </select>
     </div>
-    <div class="table-responsive col-xs-12" ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null ReporteCitasPsicologo">
+    <div class="table-responsive col-xs-12" ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null || filtroCampus =='Todos los campus'">
         <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
             <thead>
                 <tr>
