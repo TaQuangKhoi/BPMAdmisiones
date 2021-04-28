@@ -63,8 +63,9 @@ $scope.functionFechaExmenes = function (row, op) {
                 }
             }
             if(op==1){
-                if($scope.functionAsistenciaExmenes(row, op)){
-                    fechas=" Examen de aptitudes y conocimientos"
+                if($scope.functionAsistenciaExmenes(row, op) || row.cbcoincide === "t"){
+                    fechas= (row.cbcoincide == "t" ? " Examen de aptitudes y conocimientos (exento)":" Examen de aptitudes y conocimientos")
+                   
                     //fechas="Asistió Examen de aptitudes y conocimientos"
                 }else{
                     fechas=" "+arrayDeCadenas[NoCollegeBoard]
@@ -112,7 +113,7 @@ $scope.functionFechaExmenes = function (row, op) {
 
         if(row.asistencia !==null || row.asistencia !== "" || row.asistencia !==" "){
             if(op===1){
-                if (arrayDeCadenas[NoCollegeBoard].includes("1")) {
+                if (arrayDeCadenas[NoCollegeBoard].includes("1") || row.cbcoincide === "t") {
                     resultado=true;
                 } else{
                     resultado=false

@@ -342,8 +342,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.archivos= angular.copy($scope.properties.strArchivos)
             getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
             let caseId = angular.copy($scope.properties.dataToSend.caseid);
+            
             if(
                 $scope.properties.dataToSend.estatussolicitud === "Solicitud con pago aceptado" 
+                || $scope.properties.dataToSend.estatussolicitud === "Validación admisión Anáhuac" 
                 || $scope.properties.dataToSend.estatussolicitud === "Autodescripción en proceso" 
                 || $scope.properties.dataToSend.estatussolicitud === "Autodescripción concluida" 
                 || $scope.properties.dataToSend.estatussolicitud === "Ya se imprimió su credencial"
