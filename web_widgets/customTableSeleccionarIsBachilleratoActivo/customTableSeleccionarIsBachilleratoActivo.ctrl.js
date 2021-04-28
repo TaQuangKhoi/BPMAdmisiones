@@ -280,4 +280,44 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         });
         
     }
+
+    $scope.onOffActivo = function(row){
+        console.log("row----------------------------------------------");
+        console.log(row);
+        console.log("row----------------------------------------------");
+        swal("¿Está seguro que desea cambiar registro?", {
+                buttons: {
+                confirm : {text:'Si',className:'sweet-warning'},
+                cancel : 'No'
+            },
+        })
+        .then((value) => {
+            if (value) {
+                var dataSend=angular.copy(row)
+                    dataSend.isEnabled = !dataSend.isEnabled;
+                    //bonita/API/extension/AnahuacRest?url=simpleSelect&p=0&c=10
+                    
+        blockUI.start();
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=updatePerteneceRed&p=0&c=10",
+            data: dataSend
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                doRequestGet();
+                swal("Registro cambiado correctamente.", "", "success");
+            })
+            .error(function(data, status) {
+
+            }).finally(function () {
+                blockUI.stop();
+                $scope.$apply();
+            });
+                    
+            }
+        });
+        
+    }
 }
