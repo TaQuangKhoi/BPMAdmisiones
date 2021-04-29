@@ -641,6 +641,21 @@ class NotificacionDAO {
 							plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.actividadIngreso2:"");
 							plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(rs.getString("periodo").substring(4,6).equals("10") || rs.getString("periodo").substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
 							plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
+							try {
+								Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes1"))*Float.parseFloat(dt.costoSGM))
+								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",descuento.toString());
+							} catch (Exception e) {
+								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",dt.costoSGM);
+							}
+							try {
+								Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes2"))*Float.parseFloat(dt.costoSGM))
+								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",descuento.toString());
+							} catch (Exception e) {
+								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",dt.costoSGM);
+							}
+							
+							
+							
 							
 						} catch (Exception e) {
 							plantilla=plantilla.replace("[MATEMATICAS-1]","");

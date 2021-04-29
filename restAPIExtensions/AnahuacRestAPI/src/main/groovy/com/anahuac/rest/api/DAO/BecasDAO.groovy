@@ -601,7 +601,16 @@ class BecasDAO {
 			CloudBlockBlob blob = container.getBlockBlobReference(blobUrlFinal);
 
 			String[] tipoDato = info[5].split("\\.");
-			String nombreFile= (tipo == 1?"regAvatarName":"kardexPr")+info[4]+"."+tipoDato[1];
+			String extencion = tipoDato[1]?.toString();
+			if(tipoDato.length > 2) {
+				for(int i = 0; i < tipoDato; i++) {
+					if(tipoDato[i]?.toLowerCase() == "png" || tipoDato[i]?.toLowerCase() == "jpg" || tipoDato[i]?.toLowerCase() == "jfif" || tipoDato[i]?.toLowerCase() == "pdf"  ) {
+						extencion = tipoDato[i];
+					}
+				}
+			}
+			
+			String nombreFile= (tipo == 1?"regAvatarName":"kardexPr")+info[4]+"."+extencion;
 			
 			//downloadedFile = new File(nombreFile);
 			errorLog+="se creo el archivo"

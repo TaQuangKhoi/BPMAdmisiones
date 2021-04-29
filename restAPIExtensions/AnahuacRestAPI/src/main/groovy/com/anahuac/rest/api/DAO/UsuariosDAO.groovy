@@ -1120,6 +1120,7 @@ class UsuariosDAO {
 				rows = new ArrayList<Map<String, Object>>();
 				ResultSetMetaData metaData = rs.getMetaData();
 				int columnCount = metaData.getColumnCount();
+				def num = Math.random();
 				while(rs.next()) {
 					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 	
@@ -1130,7 +1131,7 @@ class UsuariosDAO {
 							if(rs.getString(i).equals("null") || rs.getString(i) == null) {
 								columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
 							} else {
-								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA);
+								columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i) + SSA+"&v="+num);
 							}
 							
 						} else {
@@ -1140,7 +1141,7 @@ class UsuariosDAO {
 								try {
 									String urlFoto = rs.getString("urlfoto");
 									if(urlFoto != null && !urlFoto.isEmpty()) {
-										columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+										columns.put("fotografiab64", rs.getString("urlfoto") +SSA+"&v="+num);
 									}else {
 										List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 										for(Document doc : doc1) {
