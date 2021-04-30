@@ -21,6 +21,4 @@ class Statements {
 	public static final String GET_COUNT_CONSTANCIAS = "SELECT COUNT(caseId) AS countConstancias FROM LISTACONSTANCIAFILE WHERE caseId = ?";
 	
 	public static final String INSERT_CONSTANCIA = "INSERT INTO LISTACONSTANCIAFILE (persistenceid, caseId, urlConstancia) VALUES (case when (SELECT max(persistenceId) + 1 from LISTACONSTANCIAFILE ) is null then 1 else (SELECT max(persistenceId) + 1 from LISTACONSTANCIAFILE) end, ?, ?)";
-	
-	public static final String GET_IDBANNER="SELECT * from detallesolicitud where caseid=? limit 1"
 }

@@ -1,0 +1,37 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>username</th>
+                <th>Membresía</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr ng-repeat="row in properties.contenido" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>
+                    {{row.id}}
+                </td>
+                <td>
+                    {{row.userName}}
+                </td>
+                <td>
+                    <table class="table table-bordered table-condensed">
+                        <tr>
+                            <th>ROL</th>
+                            <th>GRUPO</th>
+                        </tr>
+                        <tr ng-repeat="rowMembership in row.lstMembership">
+                            <td>{{rowMembership.role_id.name}}</td>
+                            <td>{{rowMembership.group_id.name}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-click="borrarUsuario(row)">Borrar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

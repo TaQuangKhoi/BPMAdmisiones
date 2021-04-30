@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuarioAceptadoRechazado",
   "name" : "APPUsuarioAceptadoRechazado",
-  "lastUpdate" : 1619478460373,
+  "lastUpdate" : 1619743160022,
   "rows" : [
     [
       {
@@ -282,7 +282,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Estimad{{infouser[0].catSexo.descripcion == \"Masculino\"?\"o\":\"a\"}} {{datosUsuario[0].segundonombre.length >=1 ? \"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].segundonombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno:\"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno}}, nos complace decirle que ha sido {{objectSolicitud.catGestionEscolar.isMedicina ?'has sido admitido al propedéutico de la Licenciatura de ':'aceptado en la carrera de '}}<b>{{datosUsuario[0].licenciatura | lowercase}}</b>"
+                  "value" : "Estimad{{infouser[0].catSexo.descripcion == \"Masculino\"?\"o\":\"a\"}} {{datosUsuario[0].segundonombre.length >=1 ? \"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].segundonombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno:\"\"+datosUsuario[0].primernombre+\" \"+datosUsuario[0].apellidopaterno+\" \"+datosUsuario[0].apellidomaterno}}, nos complace decirle que ha sido aceptado en la carrera de  <b>{{datosUsuario[0].licenciatura | lowercase}}</b>, y esperamos verlo en <b>{{datosUsuario[0].ingreso | lowercase}}</b>"
                 },
                 "level" : {
                   "type" : "constant",
@@ -392,8 +392,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "ocultarCarta"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -472,7 +472,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : true
+                  "value" : false
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -496,7 +496,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "<pre>{{objetoInfoCarta|json}}</pre>\n<pre>{{objectSolicitud.catGestionEscolar.isMedicina|json}}</pre>"
+                  "value" : "{{carta}}"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -514,17 +514,17 @@
   ],
   "assets" : [
     {
-      "id" : "ee2ef0e3-d761-487a-9270-0e42caad529d",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 1,
-      "external" : false
-    },
-    {
       "id" : "757243bf-079a-48f3-97bf-9d869a6a188c",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "ee2ef0e3-d761-487a-9270-0e42caad529d",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     },
     {
@@ -596,12 +596,12 @@
     "dataToSend" : {
       "type" : "expression",
       "value" : [
-        "return {\r",
-        "    'campus': $data.objectSolicitud.catCampusEstudio.grupoBonita,\r",
-        "    // 'campus': \"CAMPUS-CANCUN\",\r",
-        "    'codigo': $data.objetoInfoCarta.carta === \"Aceptado\" ? ($data.objectSolicitud.catGestionEscolar.isMedicina ? \"carta-propedeutico\":\"carta-aceptar\"): \"carta-rechazo\",\r",
-        "    'correo': $data.userData.user_name,\r",
-        "    'isEnviar': false\r",
+        "return {",
+        "    'campus': $data.objectSolicitud.catCampusEstudio.grupoBonita,",
+        "    // 'campus': \"CAMPUS-CANCUN\",",
+        "    'codigo': $data.objetoInfoCarta.carta === \"Aceptado\" ? \"carta-aceptar\": \"carta-rechazo\",",
+        "    'correo': $data.userData.user_name,",
+        "    'isEnviar': false",
         "}"
       ],
       "exposed" : false
@@ -659,10 +659,17 @@
       "type" : "constant",
       "exposed" : false
     },
-    "propedeutico" : {
-      "type" : "json",
+    "ocultarCarta" : {
+      "type" : "expression",
       "value" : [
-        "[]"
+        "debugger;\r",
+        "if($data.objetoInfoCarta.numerodematricula === null && $data.objetoInfoCarta.nombre === null && $data.objetoInfoCarta.sse  === null && \r",
+        "    $data.objetoInfoCarta.pdu  === null && $data.objetoInfoCarta.pdp  === null && $data.objetoInfoCarta.pia  === null && $data.objetoInfoCarta.pcda  === null\r",
+        "    && $data.objetoInfoCarta.pca  === null && $data.objetoInfoCarta.curp  === null && $data.objetoInfoCarta.statuspdu  === null && $data.objetoInfoCarta.fechaEnvio  === null){\r",
+        "    return true;\r",
+        "}else{\r",
+        "    return false\r",
+        "}"
       ],
       "exposed" : false
     }
