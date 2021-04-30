@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPConsultaDeResultadosAspirantes",
   "name" : "APPConsultaDeResultadosAspirantes",
-  "lastUpdate" : 1617995447166,
+  "lastUpdate" : 1619743036254,
   "rows" : [
     [
       {
@@ -658,7 +658,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "lstMembership === 1"
+                  "value" : "lstCampusByUser.length <= 1"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1381,18 +1381,18 @@
                               "type" : "variable",
                               "value" : "userData.user_id"
                             },
-                            "cartasSeleccionadas" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
                             "campusSeleccionado" : {
                               "type" : "variable",
                               "value" : "campus_selected"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
                             }
                           },
-                          "reference" : "e087c723-4fe8-4600-8024-b131564b0991",
+                          "reference" : "b7d61502-ed48-4dd5-a937-5569baed6048",
                           "hasValidationError" : false,
-                          "id" : "customCustomTableResultados"
+                          "id" : "customCustomTableSinResultados"
                         }
                       ],
                       [
@@ -2921,6 +2921,9 @@
         "        }        \r",
         "    }\r",
         "}\r",
+        "if($data.lstCampusByUser.length == 1){\r",
+        "    $data.campus_selected = resultado[1];\r",
+        "}\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -2931,7 +2934,7 @@
         "var resultado = [];\r",
         "var isSerua = false;\r",
         "var obj= {descripcion: \"Todos los campus\", valor: null}\r",
-        " resultado.push(obj);\r",
+        "resultado.push(obj);\r",
         "for(var x in $data.lstCampusByUser){\r",
         "    for(var index in $data.lstCampusRole){\r",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
@@ -2948,7 +2951,7 @@
       "type" : "expression",
       "value" : [
         "var resultado=[];\r",
-        " resultado.push(\"Todos los campus\")\r",
+        "// resultado.push(\"Todos los campus\")\r",
         "for(var x in $data.lstMembership){\r",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
         "        //resultado.push($data.lstMembership[x].group_id.name);\r",
@@ -3062,6 +3065,39 @@
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
         "    \"tipoResultado\":\"Sin resultado\"\r",
         "};"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "        \"infoCartaInput\": {\r",
+        "            \"numerodematricula\":  null,\r",
+        "            \"nombre\":  null,\r",
+        "            \"sse\": null,\r",
+        "            \"pdu\": null,\r",
+        "            \"pdp\": null,\r",
+        "            \"pia\": null,\r",
+        "            \"pcda\": null,\r",
+        "            \"pca\": null,\r",
+        "            \"curp\": null,\r",
+        "            \"carta\": null,\r",
+        "            \"notaslistaroja\": null,\r",
+        "            \"notastransferencia\": null,\r",
+        "            \"statuspdu\": null,\r",
+        "            \"descuentoprontopagomes1\": null,\r",
+        "            \"descuentoprontopagomes1fecha\": null,\r",
+        "            \"descuentoprontopagomes2\": null,\r",
+        "            \"descuentoprontopagomes2fecha\": null,\r",
+        "            \"sihaceonomatematicas\": null,\r",
+        "            \"espanol\": null,\r",
+        "            \"fechalimiteentregadocumentacion\":  null,\r",
+        "            \"fechalimitedepago\": null,\r",
+        "            \"universidad\": null,\r",
+        "            \"fechaEnvio\": null\r",
+        "        }\r",
+        "    }"
       ],
       "exposed" : false
     }

@@ -63,8 +63,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
             if (op == 1) {
-                if($scope.functionAsistenciaExmenes(row, op) || row.cbcoincide === "t"){
-                    fechas= (row.cbcoincide == "t" ? " Examen de aptitudes y conocimientos (exento)":" Examen de aptitudes y conocimientos")
+                if ($scope.functionAsistenciaExmenes(row, op) || row.cbcoincide === "t") {
+                    fechas = (row.cbcoincide == "t" ? " Examen de aptitudes y conocimientos (validado)" : " Examen de aptitudes y conocimientos")
                     //fechas="Asistió Examen de aptitudes y conocimientos"
                 } else {
                     fechas = " " + arrayDeCadenas[NoCollegeBoard]
@@ -112,7 +112,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         if (row.asistencia !== null || row.asistencia !== "" || row.asistencia !== " ") {
             if (op === 1) {
-                if (arrayDeCadenas[NoCollegeBoard].includes("1") || row.cbcoincide === "t" ) {
+                if (arrayDeCadenas[NoCollegeBoard].includes("1") || row.cbcoincide === "t") {
                     resultado = true;
                 } else {
                     resultado = false
@@ -156,6 +156,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
     }
+
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
@@ -239,7 +240,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
-
 
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
@@ -366,43 +366,42 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 }
             }
         }
-        // if(isSerua){
-        //     resultado.push("Todos los campus")
-        // }
         $scope.lstCampusByUser = resultado;
     }
     $scope.filtroCampus = ""
+    $scope.caseId = null;
+    $scope.recursiveCount = 0;
 
     $scope.sendExamen = function(row) {
-        console.log("row");
-        console.log(row);
-        console.log("../API/bpm/timerEventTrigger?caseId={{casoSelected.caseId}}&p=0&c=9999&");
-
-        var req = {
-            method: "GET",
-            url: "../API/bpm/timerEventTrigger?caseId=" + row.caseid + "&p=0&c=9999&"
-        };
-        return $http(req)
-            .success(function(data, status) {
-                $scope.readDataTimmer(data);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            });
+        Swal.fire({
+            title: "¿Está seguro que desea terminar el pase de lista?",
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $scope.caseId = row.caseid;
+                var req = {
+                    method: "GET",
+                    url: "../API/bpm/timerEventTrigger?caseId=" + row.caseid + "&p=0&c=9999&"
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        $scope.readDataTimmer(data);
+                    })
+                    .error(function(data, status) {
+                        console.error(data);
+                    });
+            }
+        })
     }
 
     $scope.readDataTimmer = function(data) {
-        console.log("---------------------------------------");
-        console.log(data);
         var idTimer = null;
         for (var indexD in data) {
             if (data[indexD].eventInstanceName === "Timmer pase de lista") {
-                console.log("eventInstanceName:      " + data[indexD].eventInstanceName);
-                console.log("executionDate:          " + data[indexD].executionDate);
-                console.log("id:                     " + data[indexD].id);
-                console.log("id_string:              " + data[indexD].id_string);
-                console.log("eventInstanceId:        " + data[indexD].eventInstanceId);
-                console.log("eventInstanceId_string: " + data[indexD].eventInstanceId_string);
                 idTimer = data[indexD].id;
             }
         }
@@ -411,12 +410,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         } else {
             var req = {
                 method: "PUT",
-                url: "../API/bpm/timerEventTrigger/"+idTimer,
+                url: "../API/bpm/timerEventTrigger/" + idTimer,
                 data: { "executionDate": 1 }
             };
             return $http(req)
                 .success(function(dataResponse, status) {
-                    Swal.fire("", "Aspirante enviado exitosamente", "success");
+                    blockUI.start();
+                    $scope.recursiveGet();
                 })
                 .error(function(dataResponse, status) {
                     console.error(dataResponse);
@@ -424,6 +424,38 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
     }
 
+    $scope.recursiveGet = function() {
+        var req = {
+            method: "GET",
+            url: "../API/bpm/task?p=0&c=10&f=caseId%3d[CASEID]&f=isFailed%3dfalse&f=name=Seleccionar%20cita".replace("[CASEID]", $scope.caseId)
+        };
+        return $http(req)
+            .success(function(data, status) {
+                if (data.length > 0) {
+                    $scope.recursiveCount = 0;
+                    doRequest("POST", $scope.properties.urlPost);
+                    blockUI.stop();
+                    Swal.fire("", "Aspirante enviado exitosamente", "success");
+                } else {
+                    if ($scope.recursiveCount <= 50) {
+                        setTimeout(function() {
+                            $scope.recursiveCount++;
+                            $scope.$apply();
+                            $scope.recursiveGet();
+                        }, 1000);
+                    } else {
+                        blockUI.stop();
+                        $scope.recursiveCount = 0;
+                        doRequest("POST", $scope.properties.urlPost);
+                    }
+                }
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+
+
+    }
 
     $scope.addFilter = function() {
         if ($scope.filtroCampus != "Todos los campus") {

@@ -6353,7 +6353,7 @@ class ListadoDAO {
 					}
 					//-----------------------------------------------------------------------
 					else if (type.equals("usuarios_registrado")) {
-						dataResult = getUsuariosRegistrados(parameterP, parameterC, jsonData, context);
+						dataResult = new UsuariosDAO().getUsuariosRegistrados(parameterP, parameterC, jsonData, context);
 						
 						if (dataResult.success) {
 							lstParams = dataResult.getData();
