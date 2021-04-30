@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatNotificacionesCampus",
   "name" : "CatNotificacionesCampus",
-  "lastUpdate" : 1617747964274,
+  "lastUpdate" : 1619826365727,
   "rows" : [
     [
       {
@@ -1571,6 +1571,10 @@
                       "asString" : {
                         "type" : "variable",
                         "value" : "dataSelected.copia"
+                      },
+                      "retorno" : {
+                        "type" : "variable",
+                        "value" : "dataSelected.copia"
                       }
                     },
                     "reference" : "f7a9ab52-3d01-44df-b885-2af1ef59658b",
@@ -2213,7 +2217,7 @@
         "if($data.dataSelected.copia==null){",
         "    return [];    ",
         "}else{",
-        "    return $data.dataSelected.copia.split(\";\");",
+        "    return $data.dataSelected.copia.split(\";\").splice(-1,1);",
         "}"
       ],
       "exposed" : false

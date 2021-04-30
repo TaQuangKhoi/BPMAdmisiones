@@ -122,13 +122,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             redirectIfNeeded();
         })
         .error(function(data, status) {
+        	console.error(data);
             Swal.fire({
     title: '<strong>Atención</strong>',
     icon: 'error',
-    html:
-      'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' +
-      '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ',
-    showCloseButton: false});
+    html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false});
             $scope.errorLoginCount ++;
             if($scope.errorLoginCount === 2){
                 $scope.renderCaptcha();
