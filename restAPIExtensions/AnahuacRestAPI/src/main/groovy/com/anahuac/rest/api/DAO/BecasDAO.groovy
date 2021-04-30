@@ -604,7 +604,11 @@ class BecasDAO {
 			String extencion = tipoDato[1]?.toString();
 			if(tipoDato.length > 2) {
 				for(int i = 0; i < tipoDato; i++) {
+<<<<<<< HEAD
 					if(tipoDato[i]?.toLowerCase() == "png" || tipoDato[i]?.toLowerCase() == "jpeg" || tipoDato[i]?.toLowerCase() == "jpg" || tipoDato[i]?.toLowerCase() == "jfif" || tipoDato[i]?.toLowerCase() == "pdf"  ) {
+=======
+					if(tipoDato[i]?.toLowerCase() == "png" || tipoDato[i]?.toLowerCase() == "jpg" || tipoDato[i]?.toLowerCase() == "jfif" || tipoDato[i]?.toLowerCase() == "pdf"  ) {
+>>>>>>> 398f64757fbdada48464ba3ef90122913ba22ac4
 						extencion = tipoDato[i];
 					}
 				}
