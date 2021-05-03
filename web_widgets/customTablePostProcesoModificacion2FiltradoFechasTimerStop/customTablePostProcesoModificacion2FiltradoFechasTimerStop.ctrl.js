@@ -42,9 +42,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     $scope.functionFechaExmenes = function(row, op) {
         let fechas;
-        let NoCollegeBoard;
-        let NoPsicometrico;
-        let NoEntrevista;
+        let NoCollegeBoard = -1;
+        let NoPsicometrico = -1;
+        let NoEntrevista = -1;
 
 
         if (row.fechasexamenes == null || row.fechasexamenes == "" || row.fechasexamenes == " ") {
@@ -95,9 +95,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     $scope.functionAsistenciaExmenes = function(row, op) {
         let resultado;
-        let NoCollegeBoard;
-        let NoPsicometrico;
-        let NoEntrevista;
+        let NoCollegeBoard = -1;
+        let NoPsicometrico = -1;
+        let NoEntrevista = -1;
 
         var arrayDeCadenas = row.asistencia.split(",");
         for (var i = 0; i < arrayDeCadenas.length; i++) {
@@ -112,19 +112,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         if (row.asistencia !== null || row.asistencia !== "" || row.asistencia !== " ") {
             if (op === 1) {
-                if (arrayDeCadenas[NoCollegeBoard].includes("1") || row.cbcoincide === "t") {
+                if ((NoCollegeBoard == -1 ? false : arrayDeCadenas[NoCollegeBoard].includes("1")) || row.cbcoincide === "t") {
                     resultado = true;
                 } else {
                     resultado = false
                 }
             } else if (op === 2) {
-                if (arrayDeCadenas[NoEntrevista].includes("1")) {
+                if (NoEntrevista == -1 ? false : arrayDeCadenas[NoEntrevista].includes("1")) {
                     resultado = true;
                 } else {
                     resultado = false
                 }
             } else if (op === 3) {
-                if (arrayDeCadenas[NoPsicometrico].includes("1")) {
+                if (NoPsicometrico == -1 ? false : arrayDeCadenas[NoPsicometrico].includes("1")) {
                     resultado = true;
                 } else {
                     resultado = false
@@ -416,7 +416,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             return $http(req)
                 .success(function(dataResponse, status) {
                     blockUI.start();
-                    $scope.recursiveGet();
+                    $scope.findGenerarCredencial();
                 })
                 .error(function(dataResponse, status) {
                     console.error(dataResponse);
@@ -424,14 +424,92 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
     }
 
-    $scope.recursiveGet = function() {
+    $scope.findGenerarCredencial = function() {
+        console.log("findGenerarCredencial")
         var req = {
             method: "GET",
-            url: "../API/bpm/task?p=0&c=10&f=caseId%3d[CASEID]&f=isFailed%3dfalse&f=name=Seleccionar%20cita".replace("[CASEID]", $scope.caseId)
+            url: "../API/bpm/task?p=0&c=10&f=caseId%3d[CASEID]&f=isFailed%3dfalse&f=name=Generar%20credencial".replace("[CASEID]", $scope.caseId)
         };
         return $http(req)
             .success(function(data, status) {
-                if (data.length > 0) {
+                $scope.lstTarea = data;
+                if ($scope.lstTarea.length > 0) {
+                    $scope.desasignarTarea($scope.lstTarea[0].id);
+                } else {
+                    $scope.recursiveGet();
+                }
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
+    $scope.desasignarTarea = function(taskId) {
+        console.log("desasignarTarea")
+        var req = {
+            method: "GET",
+            url: "../API/bpm/humanTask/[TASKID]".replace("[TASKID]", taskId),
+            data: {"assigned_id":""}
+        };
+        return $http(req)
+            .success(function(data, status) {
+                $scope.asignarTareaCorreo(taskId);
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+        //https://procesos.bpm.anahuac.mx/API/bpm/humanTask/580535
+        //{"assigned_id":""}
+    }
+
+    $scope.asignarTareaCorreo = function(taskId) {
+        console.log("asignarTareaCorreo")
+        var req = {
+            method: "GET",
+            url: "../API/bpm/humanTask/[TASKID]".replace("[TASKID]", taskId),
+            data: {"assigned_id":$scope.properties.userId}
+        };
+        return $http(req)
+            .success(function(data, status) {
+                $scope.ejecutarTareaPL(taskId);
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
+    $scope.ejecutarTareaPL = function(taskId) {
+        console.log("ejecutarTareaPL");
+        var req = {
+            method: "POST",
+            url: "../API/bpm/userTask/[TASKID]/execution?assign=false".replace("[TASKID]", taskId),
+            data: {}
+        };
+        return $http(req)
+            .success(function(data, status) {
+                $scope.recursiveGet();
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
+    $scope.recursiveGet = function() {
+        console.log("recursiveGet")
+        $scope.foundTask=false;
+        var req = {
+            method: "GET",
+            url: "../API/bpm/task?p=0&c=10&f=caseId=[CASEID]&f=isFailed=false".replace("[CASEID]", $scope.caseId)
+        };
+        return $http(req)
+            .success(function(data, status) {
+                for(var indexData in data){
+                    if(data[indexData].name=="Seleccionar cita" || data[indexData].name=="Carga y consulta de resultados"){
+                        $scope.foundTask=true;
+                    }
+                }
+
+                if ($scope.foundTask) {
                     $scope.recursiveCount = 0;
                     doRequest("POST", $scope.properties.urlPost);
                     blockUI.stop();
