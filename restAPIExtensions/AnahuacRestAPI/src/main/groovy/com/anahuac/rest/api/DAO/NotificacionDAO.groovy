@@ -1782,7 +1782,12 @@ class NotificacionDAO {
 		try {
 				List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(Statements.UPDATE_CAT_NOTIFICACIONES)
+				if(catNotificaciones.persistenceId>0) {
+					pstm = con.prepareStatement(Statements.UPDATE_CAT_NOTIFICACIONES)
+				}else {
+					pstm = con.prepareStatement(Statements.INSERT_CAT_NOTIFICACIONES)
+				}
+				
 				pstm.setString(1, catNotificaciones.anguloImagenFooter);
 				pstm.setString(2, catNotificaciones.anguloImagenHeader);
 				pstm.setString(3, catNotificaciones.asunto);

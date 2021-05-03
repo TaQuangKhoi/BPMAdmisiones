@@ -26,6 +26,8 @@ class Statements {
 	
 	public static final String UPDATE_CAT_NOTIFICACIONES ="update catnotificaciones set anguloImagenFooter = ?, anguloImagenHeader = ?, asunto = ?, comentarioLeon = ?, contenido  = ?, contenidoCorreo = ?, contenidoLeonel = ?, descripcion = ?, docGuiaEstudio = ?, enlaceBanner = ?, enlaceContacto = ?, enlaceFacebook = ?, enlaceFooter = ?, enlaceInstagram = ?, enlaceTwitter = ?, nombreImagenFooter = ?, textoFooter  = ?, tipoCorreo = ?, titulo = ?, urlImgFooter = ?, urlImgHeader = ? WHERE codigo = ? AND caseid= ?"
 	
+	public static final String INSERT_CAT_NOTIFICACIONES ="INSERT INTO catnotificaciones  (anguloImagenFooter , anguloImagenHeader , asunto , comentarioLeon , contenido  , contenidoCorreo , contenidoLeonel , descripcion , docGuiaEstudio , enlaceBanner , enlaceContacto , enlaceFacebook , enlaceFooter , enlaceInstagram , enlaceTwitter , nombreImagenFooter , textoFooter  , tipoCorreo , titulo , urlImgFooter , urlImgHeader   codigo   caseid) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+	
 	public static final String GET_CARTAS_NOTIFICACIONES="SELECT c.* FROM catnotificaciones c INNER JOIN procesocaso pc on pc.caseid=c.caseid and pc.campus=? WHERE c.codigo like '%carta%'"
 	
 	public static final String GET_CAT_NOTIFICACION_FIRMA="SELECT PERSISTENCEID, CARGO, CORREO, GRUPO, NOMBRECOMPLETO, PERSISTENCEVERSION, SHOWCARGO, SHOWCORREO, SHOWGRUPO, SHOWTELEFONO, SHOWTITULO, TELEFONO, TITULO, CAMPUS, FACEBOOK, TWITTER, APELLIDO, BANNER FROM CATNOTIFICACIONESFIRMA [WHERE] [ORDERBY] [LIMITOFFSET];"
