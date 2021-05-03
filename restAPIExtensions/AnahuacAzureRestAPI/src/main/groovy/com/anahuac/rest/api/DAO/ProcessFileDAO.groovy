@@ -188,6 +188,8 @@ class ProcessFileDAO {
 	
 	public Map<String, String> getFileBase64(org.bonitasoft.engine.api.APIClient apiClient, Long caseId, String fileName) {
 		String fileBase64 = "";
+		Boolean closeCon=false;
+		String idbanner=caseId;
 		Map<String, String> mapEnviarAzure = new LinkedHashMap<String, String>();
 		try {
 			List<DocumentImpl> lstDocument = apiClient.getProcessAPI().getDocumentList(caseId, fileName, 0, 1);
@@ -196,12 +198,23 @@ class ProcessFileDAO {
 				Document archivoDoc = apiClient.getProcessAPI().getDocument(archivo.id);
 				DocumentValue archivoDocValue = new DocumentValue(apiClient.getProcessAPI().getDocumentContent(archivoDoc.getContentStorageId()), archivoDoc.getContentMimeType(), archivoDoc.getContentFileName());
 				fileBase64 = Base64.getEncoder().encodeToString(archivoDocValue.content);
+				closeCon = validarConexion();
+				pstm = con.prepareStatement(Statements.GET_IDBANNER);
+				pstm.setString(1, caseId.toString());
+				rs =pstm.executeQuery()
+				if(rs.next()) {
+					idbanner=rs.getString("idbanner")
+				}
 				
 				mapEnviarAzure.put("b64", archivoDoc.getContentMimeType() + "," + fileBase64);
-				mapEnviarAzure.put("filename", caseId + "/" + archivoDoc.getContentFileName());
+				mapEnviarAzure.put("filename", idbanner + "/" + archivoDoc.getContentFileName());
 				mapEnviarAzure.put("filetype", archivoDoc.getContentMimeType());
 				mapEnviarAzure.put("contenedor", "privado");
-				apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
+				//esto estaba comentado y las otras dos funciones descomentadas
+				if(!fileName.equals("fotoPasaporte")) {
+					Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+				}
+				//apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
 				
 				if(fileName.equals("constancia")) {
 					Integer countConstancias = 0;
@@ -216,19 +229,21 @@ class ProcessFileDAO {
 						countConstancias = rs.getInt("countConstancias");
 					}
 					
-					mapEnviarAzure.put("filename", caseId + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
+					mapEnviarAzure.put("filename", idbanner + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
 				}
 				
-//				if(!fileName.equals("fotoPasaporte")) {
-//					Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
-//				}
-				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+				
+//				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 			} else {
 				throw new Exception("Documento no encontrado");
 			}
 		} catch(Exception e) {
 			fileBase64 = e.getMessage();
 			
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		
 		return mapEnviarAzure;
