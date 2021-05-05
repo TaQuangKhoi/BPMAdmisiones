@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatDocumentosTextos
 import com.anahuac.catalogos.CatNotificaciones
 import com.anahuac.catalogos.CatNotificacionesFirma
+import com.anahuac.rest.api.DAO.BitacorasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.DocumentosTextosDAO
@@ -622,6 +623,26 @@ class Index implements RestApiController {
 					
 					case "activarDesactivarLugarExamen":
 					result = new CatalogosDAO().activarDesactivarLugarExamen(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getBitacorasComentarios":
+					result = new BitacorasDAO().getBitacorasComentarios(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getComentariosValidacion":
+					result = new BitacorasDAO().getComentariosValidacion(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
