@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatDocumentosTextos
 import com.anahuac.catalogos.CatNotificaciones
 import com.anahuac.catalogos.CatNotificacionesFirma
+import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.BitacorasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
@@ -643,6 +644,27 @@ class Index implements RestApiController {
 					
 					case "getComentariosValidacion":
 					result = new BitacorasDAO().getComentariosValidacion(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getComentariosValidacion":
+					result = new BitacorasDAO().getComentariosValidacion(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					
+					case "getRegistrosBecas":
+					result = new BecasDAO().getListadoRegistroBecas(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -1444,6 +1466,14 @@ class Index implements RestApiController {
 					break;
 				case "updateUsuarioRegistrado":
 					result = uDAO.updateUsuarioRegistrado(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					case "updateCorreoElectronico":
+					result = uDAO.updateCorreoElectronico(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

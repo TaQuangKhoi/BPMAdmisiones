@@ -18,6 +18,7 @@ import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ProcessDefinition
 import org.bonitasoft.engine.identity.ContactDataCreator
+import org.bonitasoft.engine.identity.ContactDataUpdater
 import org.bonitasoft.engine.identity.User
 import org.bonitasoft.engine.identity.UserCreator
 import org.bonitasoft.engine.identity.UserMembership
@@ -28,6 +29,7 @@ import org.bonitasoft.engine.profile.ProfileMemberCreator
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
+import org.bouncycastle.asn1.x509.sigi.PersonalData
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.bonitasoft.engine.bpm.contract.FileInputValue
@@ -1177,8 +1179,7 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
-	
-public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
+	public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
 		Boolean closeCon = false;
@@ -1228,7 +1229,7 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 			}
 			
 			if(object.tienePAA != null && object.tienePAA) {
-				consulta += " , resultadoPAA  = "+object.resultadoPAA +(object.resultadoPAA ==0?", tienePAA = 'false'":"");
+				consulta += " , resultadoPAA  = "+object.resultadoPAA +(object.resultadoPAA ==0?", tienePAA = 'false'":", tienePAA = 'true'");
 			} else if(!object.tienePAA && object.resultadoPAA > 0){
 				consulta += " , resultadoPAA  = "+object.resultadoPAA +", tienePAA = 'true'";
 			}else if(!object.tienePAA && object.resultadoPAA == 0) {
@@ -1422,7 +1423,7 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				errorLog+=" resultadoCB"
 				b = Base64.decodeBase64(object.Documentos[4].b64);
 				
-//				if(object.Documentos[4].documentId != null) {					
+//				if(object.Documentos[4].documentId != null) {
 //					dv = new DocumentValue(object.Documentos[4].documentId, b, object.Documentos[4].valor.contentType, object.Documentos[4].valor.filename);
 //					//dv.setIndex(0);
 //					processAPI.updateDocument(object.Documentos[4].documentId,dv)
@@ -1437,6 +1438,72 @@ public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, Str
 				processAPI.setDocumentList(Long.valueOf(object.caseid), "resultadoCB", lstDV);
 				
 			}
+			
+			con.commit();
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog);
+		}catch(Exception ex){
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(ex.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado;
+	}
+	
+public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			errorLog += " Preparando contexto "
+
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			assert object instanceof Map;
+			errorLog += " Antes del update "
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			errorLog += " closeCon " + closeCon
+			UserUpdater updater  = new UserUpdater();
+			ContactDataUpdater persoContactUpdater = new ContactDataUpdater();
+			persoContactUpdater.setEmail(object.correoNuevo)
+			ContactDataUpdater proContactUpdater = new ContactDataUpdater();
+			proContactUpdater.setEmail(object.correoNuevo)
+			updater.setUserName(object.correoNuevo)
+			updater.setPersonalContactData(persoContactUpdater)
+			updater.setProfessionalContactData(proContactUpdater)
+			errorLog += "  " + object.correoAnterior
+			Long userId= context.getApiClient().identityAPI.getUserByUserName(object.correoAnterior).id
+			context.getApiClient().identityAPI.updateUser(userId, updater)
+			String consulta = "";
+			
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_CAT_REGISTRO)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_SOLICITUDDEADMISION)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_SESIONASPIRANTE)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_PASELISTA)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_PLANTILLAREGISTRO)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+
 			
 			con.commit();
 			resultado.setSuccess(true)

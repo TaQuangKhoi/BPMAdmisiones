@@ -79,6 +79,7 @@ function PbLinkCtrl($scope, $location, $window, httpParamSerializer) {
     }
   }
   $scope.viewfile = function (src) {
+      debugger;
         if (src.toLowerCase().includes(".jpg") || src.toLowerCase().includes(".png") || src.toLowerCase().includes(".jpeg") || src.toLowerCase().includes(".gif") || src.toLowerCase().includes(".tif") || src.toLowerCase().includes(".bmp") || src.toLowerCase().includes(".tiff")) {
             Swal.fire({
                 title: "<i>Previsualización</i>",

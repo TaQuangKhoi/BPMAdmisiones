@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1619650172952,
+  "lastUpdate" : 1620262933112,
   "rows" : [
     [
       {
@@ -2310,6 +2310,138 @@
                           "reference" : "3b8ef031-4ee5-454c-834d-d9ead3a2d711",
                           "hasValidationError" : false,
                           "id" : "pbChecklist"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "mostrarcampus"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Concluiste el proceso de admisión? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "CatConcluisteProceso"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision.catConcluisteProceso"
+                            }
+                          },
+                          "reference" : "8578d93b-07a7-4348-b1d1-9ed8ea779e18",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "mostrarcampus || (catSolicitudDeAdmision.catConcluisteProceso.descripcion === \"No\" || catSolicitudDeAdmision.catConcluisteProceso.descripcion === undefined)"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Cuál fue el resultado de admisiones? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catResultadoAdmision"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision.catResultadoAdmision"
+                            }
+                          },
+                          "reference" : "4103cbec-8924-4c3c-a0f4-63c6d579364e",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
                         }
                       ],
                       [
@@ -10750,7 +10882,9 @@
                       "archivoLocalKardex" : "kardex",
                       "archivoLocalCartaAA" : "cartaAA",
                       "archivoLocalDescuento" : "descuento",
-                      "archivoLocalCollegeBoard" : "collageBoard"
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "CatConcluisteProceso" : "CatConcluisteProceso",
+                      "catResultadoAdmision" : "catResultadoAdmision"
                     }
                   }
                 ],
@@ -18809,7 +18943,13 @@
         "\t\t\turlCartaAA: $data.catSolicitudDeAdmision.urlCartaAA !== undefined ? $data.catSolicitudDeAdmision.urlCartaAA : null,\r",
         "\t\t\turlResultadoPAA: $data.catSolicitudDeAdmision.urlResultadoPAA !== undefined ? $data.catSolicitudDeAdmision.urlResultadoPAA : null,\r",
         "\t\t\turlActaNacimiento: $data.catSolicitudDeAdmision.urlActaNacimiento !== undefined ? $data.catSolicitudDeAdmision.urlActaNacimiento : null,\r",
-        "\t\t\turlDescuentos: $data.catSolicitudDeAdmision.urlDescuentos !== undefined ? $data.catSolicitudDeAdmision.urlDescuentos : null\r",
+        "\t\t\turlDescuentos: $data.catSolicitudDeAdmision.urlDescuentos !== undefined ? $data.catSolicitudDeAdmision.urlDescuentos : null,\r",
+        "\t\t\tcatConcluisteProceso: $data.catSolicitudDeAdmision.catConcluisteProceso ? {\r",
+        "\t\t\t\tpersistenceId_string: $data.catSolicitudDeAdmision.catConcluisteProceso.persistenceId_string !== undefined ? $data.catSolicitudDeAdmision.catConcluisteProceso.persistenceId_string : null\r",
+        "\t\t\t} : null,\r",
+        "\t\t\tcatResultadoAdmision: $data.catSolicitudDeAdmision.catResultadoAdmision ? {\r",
+        "\t\t\t\tpersistenceId_string: $data.catSolicitudDeAdmision.catResultadoAdmision.persistenceId_string !== undefined ? $data.catSolicitudDeAdmision.catResultadoAdmision.persistenceId_string : null\r",
+        "\t\t\t} : null\r",
         "\t\t},\r",
         "\t\t//map contactoEmergencia variable to expected task contract input\r",
         "\t\tcontactoEmergenciaInput: $data.contactoEmergencia.map( it => ({\r",
@@ -23245,6 +23385,20 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "CatConcluisteProceso" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatConcluisteProceso?q=find&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "catResultadoAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatResultadoAdmision?q=find&p=0&c=500"
       ],
       "exposed" : false
     }

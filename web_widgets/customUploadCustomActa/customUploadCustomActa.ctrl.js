@@ -79,13 +79,16 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   //bond, thus, in case the value is updated, it is not reflected
   //to the filename (example with the BS-14498)
   //we watch the value to update the filename and the upload widget state
-  $scope.$watch(function(){return $scope.properties.value;}, function(newValue){
+  $scope.$watch(function(){
+      console.log("ACTA")
+      return $scope.properties.value;
+  }, function(newValue){
     if (newValue && newValue.filename) {
         var nombrearchivo = newValue.filename;
             var extension = nombrearchivo.split(".");
             
             for (var i = 0; i< extension.length; i++) {
-                if(extension[i]==="jpg" || extension[i]==="png" || extension[i]==="jpeg" || extension[i]==="jfif" || extension[i]==="pdf" ){
+                if(extension[i]==="jpg" || extension[i]==="png" || extension[i]==="jpeg" || extension[i]==="jfif" || extension[i]==="pdf" || extension[i]==="JPG" || extension[i]==="PNG" || extension[i]==="JPEG" || extension[i]==="JFIF" || extension[i] === "PDF"){
                 	newValue.filename = "Act_Nac_"+$scope.properties.caseId+"."+extension[i]
                 }             
             }

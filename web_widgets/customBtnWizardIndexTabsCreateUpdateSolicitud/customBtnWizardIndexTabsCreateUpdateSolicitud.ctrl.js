@@ -172,6 +172,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
                         swal("¡Campus presentado!", "Debes seleccionar el/los campus donde has presentado tu solicitud", "warning");
                         $scope.faltacampo = true;
+                    } else if($scope.properties.catSolicitudDeAdmision.catConcluisteProceso === null){
+                    	swal("¡Concluiste proceso!", "Debes seleccionar si concluiste el proceso en el campus donde presentaste tu solicitud", "warning");
+                        $scope.faltacampo = true;
+                    } else if($scope.properties.catSolicitudDeAdmision.catResultadoAdmision === null && $scope.properties.catSolicitudDeAdmision.catConcluisteProceso.descripcion === "Sí"){
+                    	swal("¡Resultado de admisión!", "Debes seleccionar el resultado de tu admisión en el campus donde presentaste tu solicitud", "warning");
+                        $scope.faltacampo = true;
                     }
                 }
                 if (!$scope.faltacampo) {

@@ -62,7 +62,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
             var extension = nombrearchivo.split(".");
             
             for (var i = 0; i< extension.length; i++) {
-                if(extension[i]==="jpg" || extension[i]==="png" || extension[i]==="jpeg" || extension[i]==="jfif" ){
+                if(extension[i]==="jpg" || extension[i]==="png" || extension[i]==="jpeg" || extension[i]==="jfif" || extension[i]==="JPG" || extension[i]==="PNG" || extension[i]==="JPEG" || extension[i]==="JFIF" ){
                 	newValue.filename = "Fot_"+$scope.properties.caseId+"."+extension[i]
                 }             
             }

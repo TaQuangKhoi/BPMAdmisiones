@@ -31,6 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
+            debugger;
             var numeros = "0123456789";
             try {
                 if ($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined || Object.keys($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos).length === 0) {
