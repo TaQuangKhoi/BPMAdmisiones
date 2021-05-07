@@ -101,13 +101,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         $scope.showLoading();
         vm.busy = true;
       
-        let data = {
-            "username" : $scope.properties.dataToSend.username,
-            "password" : $scope.properties.dataToSend.password
-        }
+        // let data = {
+        //     "username" : $scope.properties.dataToSend.username,
+        //     "password" : $scope.properties.dataToSend.password
+        // }
+
+        let data = "redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
+
+        // let url2 = "/bonita/loginservice?&redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
       
-        let url2 = "/bonita/loginservice?&redirect=false&username=" + $scope.properties.dataToSend.username + "&password=" + $scope.properties.dataToSend.password;
-      
+        let url2 = "/bonita/loginservice";
+
         var req = {
             method: method,
             url: url2,
@@ -124,9 +128,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         .error(function(data, status) {
         	console.error(data);
             Swal.fire({
-    title: '<strong>Atención</strong>',
-    icon: 'error',
-    html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false});
+                title: '<strong>Atención</strong>',
+                icon: 'error',
+                html:($scope.properties.targetUrlOnSuccess.includes('administrativo'))?'Correo electronico o Contraseña incorrecta.':'Correo electronico o Contraseña incorrecta. <br><br><br><br><p class="swal2-title">Recuerda</p> <p>Si iniciaste tu registro <strong>hasta</strong> el jueves 29 de abril del 2021 <br>da clic aquí </p>' + '<a class="btn btn-primary" href="https://servicios.redanahuac.mx/admisiones.php">Iniciar sesión</a> ', showCloseButton: false
+            });
             $scope.errorLoginCount ++;
             if($scope.errorLoginCount === 2){
                 $scope.renderCaptcha();

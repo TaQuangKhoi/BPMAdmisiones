@@ -107,6 +107,14 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
   //we watch the value to update the filename and the upload widget state
   $scope.$watch(function(){return $scope.properties.value;}, function(newValue){
     if (newValue && newValue.filename) {
+        var nombrearchivo = newValue.filename;
+        var extension = nombrearchivo.split(".");
+        for (var i = 0; i< extension.length; i++) {
+            if(extension[i].toString().toLowerCase() ==="jpg" || extension[i].toString().toLowerCase() ==="png" || extension[i].toString().toLowerCase() ==="jpeg" || extension[i].toString().toLowerCase() ==="jfif" || extension[i].toString().toLowerCase() ==="pdf"){
+            	newValue.filename = $scope.properties.rename+$scope.properties.caseId+"."+extension[i]
+            }             
+        }
+        console.log(newValue)
       ctrl.filemodel = true;
       ctrl.filename = newValue.filename;
     } else if (!angular.isDefined(newValue)) {

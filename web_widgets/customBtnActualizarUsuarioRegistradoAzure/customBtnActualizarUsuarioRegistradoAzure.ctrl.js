@@ -321,9 +321,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * It also bind custom data from success|error to a data
      * @return {void}
      */
-    function doRequest(method, url, params) {
+     function doRequest(method, url, params) {
         vm.busy = true;
         blockUI.start();
+        var updateFile = false;
         var req = {
             method: method,
             url: url,
@@ -343,7 +344,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
             let caseId = angular.copy($scope.properties.dataToSend.caseid);
             
-            if(
+            /*if(
                 $scope.properties.dataToSend.estatussolicitud === "Solicitud con pago aceptado" 
                 || $scope.properties.dataToSend.estatussolicitud === "Validación admisión Anáhuac" 
                 || $scope.properties.dataToSend.estatussolicitud === "Autodescripción en proceso" 
@@ -353,11 +354,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 || $scope.properties.dataToSend.estatussolicitud === "Carga y consulta de resultados"
                 || $scope.properties.dataToSend.estatussolicitud === "Resultado final del comité"
                 || $scope.properties.dataToSend.estatussolicitud === "Rechazado por comité"
-            ){
+            )*/
+            if( $scope.properties.dataToSend.estatussolicitud !== "Solicitud en proceso" 
+            || $scope.properties.dataToSend.estatussolicitud !== "Aspirantes registrados sin validación de cuenta"
+            || $scope.properties.dataToSend.estatussolicitud !== "Aspirantes registrados con validación de cuenta"){
+                updateFile = true;
                 obtenerDocumentos(caseId);
             }
-
             $scope.properties.dataToSend.caseid=0;
+            //getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
+            if(!updateFile){
+                window.location.href = window.location.href
+            }
+            
+            
             //closeModal($scope.properties.closeOnSuccess);
         }).error(function(data, status) {
             $scope.properties.dataFromError = data;
@@ -365,6 +375,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataFromSuccess = undefined;
             notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status});
         }).finally(function() {
+            
             vm.busy = false;
             blockUI.stop();
         });
@@ -387,6 +398,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     
         return $http(req).success(function(data, status) {
            console.log(data)
+            window.location.href = window.location.href
         }).error(function(data, status) {
             $scope.properties.dataFromError = data;
             $scope.properties.responseStatusCode = status;

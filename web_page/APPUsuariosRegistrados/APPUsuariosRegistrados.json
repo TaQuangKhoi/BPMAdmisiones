@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuariosRegistrados",
   "name" : "APPUsuariosRegistrados",
-  "lastUpdate" : 1620262608569,
+  "lastUpdate" : 1620428957609,
   "rows" : [
     [
       {
@@ -4416,8 +4416,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "expression",
-                        "value" : "catUsuarios_selectedNR.descuento === \"100\""
+                        "type" : "constant",
+                        "value" : false
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4456,7 +4456,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -4495,7 +4495,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 99
+                              "value" : 100
                             },
                             "step" : {
                               "type" : "constant",
@@ -5047,11 +5047,19 @@
                       "originalDocumentId" : {
                         "type" : "variable",
                         "value" : "context.fotoPasaporte_ref[0].id"
+                      },
+                      "rename" : {
+                        "type" : "constant",
+                        "value" : "Fot_"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "catUsuarios_selectedNR.caseid"
                       }
                     },
-                    "reference" : "2eb032f6-913f-467c-ac16-bd2ad43fade8",
+                    "reference" : "094912fc-4e7d-4b44-9a15-791a60369795",
                     "hasValidationError" : false,
-                    "id" : "customUplImagesB64"
+                    "id" : "customUplImagesB64UsuariosRegistrado"
                   }
                 ]
               ]
@@ -5418,6 +5426,14 @@
                       "originalDocumentId" : {
                         "type" : "variable",
                         "value" : "context.actaNacimiento_ref[0].id"
+                      },
+                      "rename" : {
+                        "type" : "constant",
+                        "value" : "Act_Nac_"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "catUsuarios_selectedNR.caseid"
                       }
                     },
                     "reference" : "4a512be4-b4a8-455f-9157-399f614d7f6a",
@@ -6047,6 +6063,14 @@
                       "originalDocumentId" : {
                         "type" : "variable",
                         "value" : "context.constancia_ref[0].id"
+                      },
+                      "rename" : {
+                        "type" : "constant",
+                        "value" : "Kar_"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "catUsuarios_selectedNR.caseid"
                       }
                     },
                     "reference" : "b1c1f5b7-eb6d-429e-9462-fa54f3bb0ab9",
@@ -6418,6 +6442,14 @@
                       "originalDocumentId" : {
                         "type" : "variable",
                         "value" : "context.cartaAA_ref[0].id"
+                      },
+                      "rename" : {
+                        "type" : "constant",
+                        "value" : "Car_AA_"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "catUsuarios_selectedNR.caseid"
                       }
                     },
                     "reference" : "75ee2cf8-a1c6-4ec1-a2e2-0267708023d5",
@@ -6791,6 +6823,14 @@
                       "originalDocumentId" : {
                         "type" : "variable",
                         "value" : "context.resultadoCB_ref[0].id"
+                      },
+                      "rename" : {
+                        "type" : "constant",
+                        "value" : "Pun_Exa_Apt_Con_"
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : "catUsuarios_selectedNR.caseid"
                       }
                     },
                     "reference" : "23c241a4-a689-443e-aaca-e9fcb1eebc34",
@@ -8213,6 +8253,13 @@
   ],
   "assets" : [
     {
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "28a2d306-1efd-4d35-9723-f24139bc17ae",
       "name" : "pdf.png",
       "type" : "img",
@@ -8234,6 +8281,13 @@
       "external" : false
     },
     {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
+      "external" : false
+    },
+    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -8245,20 +8299,6 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
       "external" : false
     }
   ],
