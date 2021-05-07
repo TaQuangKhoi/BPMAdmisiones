@@ -21,6 +21,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         })
         $scope.$apply();
     }
+
     $scope.action = function() {
         if ($scope.properties.action === 'Remove from collection') {
             removeFromCollection();
@@ -31,7 +32,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            debugger;
             var numeros = "0123456789";
             try {
                 if ($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined || Object.keys($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos).length === 0) {
@@ -122,14 +122,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //INICIO VALIDAR CANDIDATO
                 //$scope.properties.descuentoManual
                 doRequestCallBack("GET", "/bonita/API/extension/AnahuacRestGet?url=getIdbanner&idbanner=" + $scope.properties.dataToSend.detalleSolicitudInput.idBanner, {}, {}, function(datos) {
+                    debugger;
                     if ($scope.properties.dataToSend.detalleSolicitudInput.isCurpValidado === false && $scope.properties.isMexicano) {
                         swal.fire("¡Validar CURP!", "Debe validar la CURP del aspirante", "warning");
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
                         swal.fire("¡Validar promedio!", "Debe validar que el promedio del aspirante coincida", "warning");
                     } //VALIDACION DE "OTRO" EN PREPARATORIA
-                    else if ($scope.properties.preparatoriaSeleccionada == "Otro") {
-                        swal.fire("¡Preparatoria!", `La preparatoria proporcionada por el aspirante, no se encuentra en el catálogo, es necesario actualizar este dato para poder continuar.`, "warning");
-                    } else if ($scope.properties.dataToSend.detalleSolicitudInput.revisado === undefined) {
+                    // else if ($scope.properties.preparatoriaSeleccionada == "Otro") {
+                    //     swal.fire("¡Preparatoria!", `La preparatoria proporcionada por el aspirante, no se encuentra en el catálogo, es necesario actualizar este dato para poder continuar.`, "warning");
+                    // } 
+                    else if ($scope.properties.dataToSend.detalleSolicitudInput.revisado === undefined) {
                         swal.fire("¡Validar duplicados!", "Debe seleccionar si reviso los duplicados", "warning");
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.catTipoAlumno === null) {
                         swal.fire("¡Tipo de alumno!", "Debe seleccionar el tipo de alumno", "warning");
@@ -197,10 +199,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.dataToSend.conIsRechazada = false;
                                         $scope.confirmacion();
                                     }
-
-
-
-
                                 }
                             }
                         } else {
@@ -269,13 +267,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.properties.dataToSend.conIsRechazada = false;
                                             $scope.confirmacion();
                                         }
-
                                     }
-
-
                                 }
                             }
-
                         }
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.idBanner === null || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length < 8 || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length > 8) {
                         swal.fire("¡Id Banner!", ($scope.properties.dataToSend.detalleSolicitudInput.idBanner.length < 8 || $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length > 8) ? "Favor de capturar 8 dígitos para Id Banner" : "Debe agregar el Id Banner!", "warning");
@@ -292,9 +286,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         } else {
                             swal.fire("¡Tipo de admisión!", "Debe validar la carta de la Admisión Anáhuac", "warning");
                         }
-
                     } else {
-
                         var letras = false;
                         for (var x = 0; x < $scope.properties.dataToSend.detalleSolicitudInput.idBanner.length; x++) {
                             if (!numeros.indexOf($scope.properties.dataToSend.detalleSolicitudInput.idBanner.charAt(x), 0) != -1) {
@@ -333,7 +325,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }
                                     })
                                 } else {
-
                                     $scope.properties.dataToSend.conIsInformacionValidada = true;
                                     $scope.properties.dataToSend.conIsListaRoja = false;
                                     $scope.properties.dataToSend.conIs100Descuento = ($scope.properties.ValorDescuento === 100) ? true : false;
@@ -549,7 +540,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             var params = getUserParam();
             params.assign = $scope.properties.assign;
             doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
-
                 localStorageService.delete($window.location.href);
                 $scope.$apply();
             });
@@ -557,5 +547,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-
 }
