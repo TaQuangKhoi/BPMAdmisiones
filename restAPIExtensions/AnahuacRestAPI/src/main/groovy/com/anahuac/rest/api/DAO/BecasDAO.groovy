@@ -66,13 +66,21 @@ class BecasDAO {
 	}
 	
 	
-	public Result getPlantillaHermanos() {
+	public Result getPlantillaHermanos(String fecha) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
 			//String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
-			String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			//String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			String consulta = "select * from plantillaHermanos where CAST(fechaRegistro as DATE) = (CAST([FECHA] as DATE) [MENOS] )"	
+			if(!fecha.equals(null) && !fecha.equals(" ") && !fecha.equals("")) {
+				consulta = consulta.replace("[FECHA]", "'"+fecha+"'")
+				consulta = consulta.replace("[MENOS]", " ")
+			}else {
+				consulta = consulta.replace("[FECHA]", "TO_CHAR(NOW(),'YYYY-MM-DD')")
+				consulta = consulta.replace("[MENOS]", "- integer '1'")
+			}
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
 			String SSA = "";
@@ -115,13 +123,21 @@ class BecasDAO {
 		return resultado
 	}
 	
-	public Result getPlantillaRegistro() {
+	public Result getPlantillaRegistro(String fechaCarga) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
 			//String consulta = "select *,TO_CHAR(CAST(fechanacimiento as DATE),'YYYY-MM-DD') as fechanacimiento from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
-			String consulta = "select * from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			//String consulta = "select * from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) - integer '1')"
+			String consulta = "select * from plantillaRegistro where CAST(fecharegistro as DATE) = (CAST([FECHA] as DATE) [MENOS] )"
+			if(!fechaCarga.equals(null) && !fechaCarga.equals(" ") && !fechaCarga.equals("")) {
+				consulta = consulta.replace("[FECHA]", "'"+fechaCarga+"'")
+				consulta = consulta.replace("[MENOS]", " ")
+			}else {
+				consulta = consulta.replace("[FECHA]", "TO_CHAR(NOW(),'YYYY-MM-DD')")
+				consulta = consulta.replace("[MENOS]", "- integer '1'")
+			}
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
 			String SSA = "";
@@ -175,7 +191,7 @@ class BecasDAO {
 		return resultado
 	}
 	
-	public Result excelPlantillaRegistro() {
+	public Result excelPlantillaRegistro(String fechaCarga) {
 		Result resultado = new Result();
 		String errorLog = "";
 		
@@ -197,7 +213,7 @@ class BecasDAO {
 			
 			style.setFillForegroundColor(color)
 			
-			dataResult = getPlantillaRegistro();
+			dataResult = getPlantillaRegistro(fechaCarga);
 			if (dataResult.success) {
 				lstParams = dataResult.getData();
 				
@@ -291,7 +307,7 @@ class BecasDAO {
 		return resultado;
 	}
 	
-	public Result excelPlantillaHermanos() {
+	public Result excelPlantillaHermanos(String fechaCarga) {
 		Result resultado = new Result();
 		String errorLog = "";
 		
@@ -313,7 +329,7 @@ class BecasDAO {
 			
 			style.setFillForegroundColor(color)
 			
-			dataResult = getPlantillaHermanos();
+			dataResult = getPlantillaHermanos(fechaCarga);
 			int countColumns = 0;
 			if (dataResult.success) {
 				lstParams = dataResult.getData();
@@ -966,6 +982,20 @@ class BecasDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
+					case "FECHA REGISTRO":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" to_char(pr.fecharegistro::date, 'DD-MM-YYYY') ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 						
 					default:
 					
@@ -1032,8 +1062,11 @@ class BecasDAO {
 					case "FECHASOLICITUD":
 					orderby+="sda.fechasolicitudenviada";
 					break;
+					case "FECHAREGISTRO":
+					orderby+="CAST(pr.fecharegistro as DATE)";
+					break;
 					default:
-					orderby+="sda.persistenceid"
+					orderby+="CAST(pr.fecharegistro as DATE)"
 					break;
 				}
 				errorlog=consulta+" 3";
@@ -1051,7 +1084,7 @@ class BecasDAO {
 				
 				consulta=consulta.replace("[WHERE]", where);
 				errorlog=consulta+" 5";
-				pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid",""))
+				pstm = con.prepareStatement(consulta.replace(" CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PR.fecharegistro", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY pr.fecharegistro,prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid",""))
 				
 				errorlog=consulta+" 6";
 				rs= pstm.executeQuery()
@@ -1121,6 +1154,42 @@ class BecasDAO {
 		return resultado
 	}
 	
+	
+	
+	
+	public Result excelOnDeman(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				Result dataResult = new Result();
+				dataResult = excelPlantillaRegistro(object.fecha)
+				errorLog +=" Registro:"+dataResult.getError_info();
+				if(!dataResult.isSuccess()) {
+					throw new Exception("Fallo en Registros:"+dataResult.getError());
+				}
+				
+				dataResult = excelPlantillaHermanos(object.fecha);
+				errorLog +=" Hermanos:"+dataResult.getError_info();
+				if(!dataResult.isSuccess()) {
+					throw new Exception("Fallo en Hermanos:"+dataResult.getError());
+				}
+				resultado.setSuccess(true);
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 	
 	
 	private String encodeFileToBase64Binary(String fileName)

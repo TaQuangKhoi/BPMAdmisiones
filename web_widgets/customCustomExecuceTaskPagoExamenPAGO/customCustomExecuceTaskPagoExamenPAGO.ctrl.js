@@ -6,7 +6,9 @@ function ($scope, $http, modalService) {
         "detalleSolicitudInput" : {
             "ordenPago":""
         },
-        "isPagoCondonado": false
+        "isPagoCondonado": false,
+        "isDescuento100":false
+        
     }
     
     $scope.showModal = function(){

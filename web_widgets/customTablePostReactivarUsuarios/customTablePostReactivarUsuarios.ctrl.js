@@ -78,7 +78,8 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
             })
             .finally(function() {});
     }
-    $scope.asignarTarea=function(rowData) {
+    
+    /*$scope.asignarTarea=function(rowData) {
         var req = {
             method: "PUT",
             url: "/bonita/API/bpm/humanTask/"+rowData.taskId,
@@ -93,6 +94,25 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
+    }*/
+    
+     $scope.asignarTarea = function (rowData) {
+
+        var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+        };
+
+        return $http(req)
+            .success(function (data, status) {
+                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
+                url = url.replace("[TASKID]", data[0].id);
+                window.open(url,'_blank');
+            })
+            .error(function (data, status) {
+                console.error(data);
+            })
+            .finally(function () { });
     }
 
     function redireccionarTarea(rowData) {

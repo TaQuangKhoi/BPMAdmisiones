@@ -547,7 +547,8 @@ class IndexGet implements RestApiController {
 				break;
 				
 				case "getExcelPlantillaHermanos":
-				result = new BecasDAO().excelPlantillaHermanos();
+				String fecha = null;
+				result = new BecasDAO().excelPlantillaHermanos(fecha);
 				responseBuilder.withMediaType("application/json");
 				if (result.isSuccess()) {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
@@ -557,7 +558,8 @@ class IndexGet implements RestApiController {
 				break;
 				
 				case "getExcelPlantillaRegistro":
-				result = new BecasDAO().excelPlantillaRegistro();
+				String fecha = null;
+				result = new BecasDAO().excelPlantillaRegistro(fecha);
 				responseBuilder.withMediaType("application/json");
 				if (result.isSuccess()) {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

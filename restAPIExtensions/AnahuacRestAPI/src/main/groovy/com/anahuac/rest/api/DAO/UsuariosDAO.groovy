@@ -1439,6 +1439,30 @@ class UsuariosDAO {
 				
 			}
 			
+			if(object.descuento.equals("100")) {
+				SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+				searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
+				searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
+				final SearchOptions searchOptions = searchBuilder.done();
+				SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
+				List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+	
+				for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
+					if (objHumanTaskInstance.getName().equals("Pago de examen")) {
+						Map < String, Serializable > inputs = new HashMap < String, Serializable > ();
+						inputs.put("conIsPagoValidado", false);
+						inputs.put("isPagoTarjeta", false);
+						inputs.put("detalleSolicitudInput", null);
+						inputs.put("isPagoCondonado", false);
+						inputs.put("isDescuento100", true);
+	
+						processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+						processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
+					}
+				}
+				
+			}
+			
 			con.commit();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);

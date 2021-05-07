@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistroBecas",
   "name" : "APPRegistroBecas",
-  "lastUpdate" : 1620259672807,
+  "lastUpdate" : 1620408807627,
   "rows" : [
     [
       {
@@ -359,7 +359,12 @@
                   "value" : ""
                 },
                 "urlConsulta" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=postExcelBecas&p=0&c=100"
+                },
+                "getDate" : {
+                  "type" : "variable",
+                  "value" : "getFecha"
                 }
               },
               "reference" : "554157e8-e9cd-4c2e-bc15-9b2dc5c80a3f",
@@ -1600,6 +1605,19 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "getFecha" : {
+      "type" : "expression",
+      "value" : [
+        "const date = new Date();\r",
+        "const offsetMs = date.getTimezoneOffset() * 60 * 1000;\r",
+        "const msLocal =  date.getTime() - offsetMs;\r",
+        "const dateLocal = new Date(msLocal);\r",
+        "const iso = dateLocal.toISOString();\r",
+        "const isoLocal = iso.slice(0, 10);\r",
+        "return isoLocal;"
       ],
       "exposed" : false
     }
