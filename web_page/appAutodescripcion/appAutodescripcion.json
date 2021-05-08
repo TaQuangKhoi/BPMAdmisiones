@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1620410518868,
+  "lastUpdate" : 1620433108162,
   "rows" : [
     [
       {
@@ -24627,7 +24627,11 @@
         "let output = false;",
         "",
         "if($data.objectSolicitud !== undefined){",
-        "    if($data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString && $data.objectSolicitud.catBachilleratos.descripcion !== \"Otro\"){",
+        "    if(",
+        "        $data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString ",
+        "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"Otro\" ",
+        "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"OTRO\"",
+        "    ){",
         "        output = true;",
         "    }",
         "}",
