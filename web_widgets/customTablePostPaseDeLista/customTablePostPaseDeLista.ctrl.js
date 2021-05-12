@@ -331,7 +331,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         info.lstFiltro =  [{"columna": "ID BANNER","operador": "Igual a","valor": row.idbanner}];
         var reqInfo = {
             method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantes&p=0&c=10",
+            url: "/bonita/API/extension/AnahuacRest?url=getSesionesPsicologoAdministradorAspirantes&p=0&c=10",
             data: info
         };
 

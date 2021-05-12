@@ -26,6 +26,7 @@ import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.identity.UserUpdater
 import org.bonitasoft.engine.profile.Profile
 import org.bonitasoft.engine.profile.ProfileMemberCreator
+import org.bonitasoft.engine.search.Order
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
@@ -1438,15 +1439,16 @@ class UsuariosDAO {
 				processAPI.setDocumentList(Long.valueOf(object.caseid), "resultadoCB", lstDV);
 				
 			}
-			
-			if(object.descuento.equals("100")) {
+			errorLog += " descuento = "+object.descuento
+			if(object.descuento.toString().equals("100")) {
+				errorLog += " en el if con el caseid " + object.caseid
 				SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 				searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
 				searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
 				final SearchOptions searchOptions = searchBuilder.done();
 				SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 				List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
-	
+				errorLog += " en el if "
 				for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 					if (objHumanTaskInstance.getName().equals("Pago de examen")) {
 						Map < String, Serializable > inputs = new HashMap < String, Serializable > ();

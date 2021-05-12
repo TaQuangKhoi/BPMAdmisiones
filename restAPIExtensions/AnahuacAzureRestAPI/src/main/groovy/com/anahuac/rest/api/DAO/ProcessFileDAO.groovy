@@ -199,15 +199,15 @@ class ProcessFileDAO {
 				DocumentValue archivoDocValue = new DocumentValue(apiClient.getProcessAPI().getDocumentContent(archivoDoc.getContentStorageId()), archivoDoc.getContentMimeType(), archivoDoc.getContentFileName());
 				fileBase64 = Base64.getEncoder().encodeToString(archivoDocValue.content);
 				closeCon = validarConexion();
-				pstm = con.prepareStatement(Statements.GET_IDBANNER);
+				/*pstm = con.prepareStatement(Statements.GET_IDBANNER);
 				pstm.setString(1, caseId.toString());
 				rs =pstm.executeQuery()
 				if(rs.next()) {
 					idbanner=rs.getString("idbanner")
-				}
+				}*/
 				
 				mapEnviarAzure.put("b64", archivoDoc.getContentMimeType() + "," + fileBase64);
-				mapEnviarAzure.put("filename", idbanner + "/" + archivoDoc.getContentFileName());
+				mapEnviarAzure.put("filename", caseId + "/" + archivoDoc.getContentFileName());
 				mapEnviarAzure.put("filetype", archivoDoc.getContentMimeType());
 				mapEnviarAzure.put("contenedor", "privado");
 				//esto estaba comentado y las otras dos funciones descomentadas
@@ -229,7 +229,7 @@ class ProcessFileDAO {
 						countConstancias = rs.getInt("countConstancias");
 					}
 					
-					mapEnviarAzure.put("filename", idbanner + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
+					mapEnviarAzure.put("filename", caseId + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
 				}
 				
 				
