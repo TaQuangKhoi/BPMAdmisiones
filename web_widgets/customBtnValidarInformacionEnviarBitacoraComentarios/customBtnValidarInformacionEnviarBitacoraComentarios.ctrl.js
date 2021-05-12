@@ -76,10 +76,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.accion === "Solicitar cambios") {
                 console.log($scope.properties.objDetalleSolicitud)
                 if($scope.properties.objDetalleSolicitud !== undefined){
-                    $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = $scope.properties.objDetalleSolicitud.catDescuentos;
+                    /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = $scope.properties.objDetalleSolicitud.catDescuentos;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = $scope.properties.objDetalleSolicitud.descuento;
+                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = $scope.properties.objDetalleSolicitud.promedioCoincide;*/
                     $scope.properties.dataToSend.conIsInformacionValidada = false;
-                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = $scope.properties.objDetalleSolicitud.promedioCoincide;
                     $scope.properties.dataToSend.conIs100Descuento = false;
                     $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
                     $scope.properties.dataToSend.conIsListaRoja = false;
@@ -90,10 +90,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.confirmacion();
                     }
                 }else{
-                    $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                    /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
+                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
+                    if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                        $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
+                    }
                     $scope.properties.dataToSend.conIsInformacionValidada = false;
-                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
                     $scope.properties.dataToSend.conIs100Descuento = false;
                     $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
                     $scope.properties.dataToSend.conIsListaRoja = false;
@@ -105,9 +108,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.accion === "Rechazar solicitud") {
-                $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+               /* $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
-                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
+                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
+                if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
+                }
                 $scope.properties.dataToSend.conIsInformacionValidada = true;
                 $scope.properties.dataToSend.conIsListaRoja = false;
                 $scope.properties.dataToSend.conIs100Descuento = false;
@@ -347,13 +353,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                 //FIN VALIDAR CANDIDATO
             } else if ($scope.properties.accion === "Lista roja") {
-                $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
-                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
+                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
+                if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
+                }
                 $scope.properties.dataToSend.conIsInformacionValidada = true;
-                $scope.properties.dataToSend.conIsListaRoja = true;
                 $scope.properties.dataToSend.conIs100Descuento = false;
                 $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                $scope.properties.dataToSend.conIsListaRoja = true;
                 $scope.properties.dataToSend.conIsRechazada = false;
                 if ($scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja.trim().replace("<br>", "") == "" || $scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja == null || $scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja == undefined) {
                     swal.fire("¡Validar mensaje!", "Debe agregar mensaje para aspirante", "warning");
