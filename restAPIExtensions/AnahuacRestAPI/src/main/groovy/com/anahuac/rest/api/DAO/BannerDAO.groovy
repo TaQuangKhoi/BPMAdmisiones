@@ -58,10 +58,14 @@ class BannerDAO {
 			errorLog += " | "+("================================================");
 			jsonResultado = getConsumePrepa(barrerToken);
 			errorLog += " | "+jsonResultado;
+			//CREAR-------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"24\",\"published\":\"2021-04-21 22:36:38.602364+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"a76e4fd2-d938-4dde-b225-56681a9ae47e\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"a76e4fd2-d938-4dde-b225-56681a9ae47e\",\"title\":\"Nueva Escuela JABB\",\"type\":\"secondarySchool\",\"code\":\"JABB\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"25\",\"published\":\"2021-04-21 22:43:54.645787+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"DEU\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Alemania\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			
+			//EDITAR------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			//jsonResultado = "[{\"id\":\"29\",\"published\":\"2021-04-22 18:22:21.321824+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"AZE\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Azerbaiyan\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//jsonResultado = "[{\"id\":\"29\",\"published\":\"2021-04-22 18:22:21.321824+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"AZE\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Azerbaiyan\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";/
 			//jsonResultado = "[{\"id\":\"31\",\"published\":\"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"2da De Circunvalaci\u00f3n no 49\",\"Centro\"],\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Macuspana\",\"postalCode\":\"86700\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Morelos\"},\"subRegion\":{\"title\":\"ALDAMA\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"32\",\"published\":\"2021-04-22 18:31:03.538532+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle 143, tablaje catastral 18631 no 314\",\"entre perif\u00e9rico\",\"Emiliano Zapata\"],\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"place\":{\"country\":{\"code\":\"AGO\",\"locality\":\"Cd Obreg\u00f3n\",\"postalCode\":\"97139\",\"region\":{\"title\":\"Yucat\u00e1n\"},\"subRegion\":{\"title\":\"M\u00e9rida\"},\"title\":\"Angola\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//jsonResultado = "[{\"id\": \"24\", \"published\": \"2021-04-21 22:36:38.602364+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"f043dd11-fb4f-4b2a-919a-72ae83397b19\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"f043dd11-fb4f-4b2a-919a-72ae83397b19\", \"title\": \"Nueva Escuela JABB direccion creada\", \"type\": \"secondarySchool\", \"code\": \"JABB\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"25\", \"published\": \"2021-04-21 22:43:54.645787+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"ad0a7315-6faa-482e-bcb1-cc0132f0b378\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Avenida siempre viva 123\", \"Springfield\", \"USA\"], \"id\": \"ad0a7315-6faa-482e-bcb1-cc0132f0b378\", \"place\": {\"country\": {\"code\": \"DEU\", \"locality\": \"Springfield\", \"postalCode\": \"123\", \"region\": {\"title\": \"Delaware\"}, \"subRegion\": {\"title\": \"AMECA\"}, \"title\": \"Alemania\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"9\", \"published\": \"2021-02-25 20:24:49.790915+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addresses\": [{\"address\": {\"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\"}, \"type\": {\"addressType\": \"school\"} }], \"homeInstitution\": \"external\", \"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\", \"title\": \"BACH GRUPO EDUCATIVO IMEI JABB\", \"type\": \"secondarySchool\", \"code\": \"JABB\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\"} }, {\"id\": \"10\", \"published\": \"2021-02-25 20:25:28.786177+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Miguel Domínguez 63\", \"Mz 37 Lt 23\", \"Nueva Aragón JABB\"], \"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Ecatepec de Morelos\", \"postalCode\": \"55260\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Estado de México\"}, \"subRegion\": {\"title\": \"Ecatepec de Morelos\"}, \"title\": \"México\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\"} }, {\"id\": \"31\", \"published\": \"2021-04-22 18:29:39.352476+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"23bc3dbf-f3fa-4c4b-aeac-111111111111\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"2da De Circunvalación no 49\", \"Centro\"], \"id\": \"23bc3dbf-f3fa-4c4b-aeac-111111111111\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Macuspana\", \"postalCode\": \"86700\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Morelos\"}, \"subRegion\": {\"title\": \"ALDAMA\"}, \"title\": \"México\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } } ]";
 			errorLog += " | "+jsonResultado;
 			errorLog += " | "+("END JSON========================================");
 			resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
@@ -219,7 +223,6 @@ class BannerDAO {
 						errorLog = errorLog + " | " + ("fechaImportacion: "+objJson.get("published").toString());
 						errorLog = errorLog + " | " + ("fechaCreacion: "+objJson.get("published").toString());
 						
-						
 						objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
 						objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
 						objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
@@ -245,6 +248,7 @@ class BannerDAO {
 								objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
 								errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
 								objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+								
 							}
 						}
 						else {
@@ -254,10 +258,12 @@ class BannerDAO {
 							errorLog = errorLog + " | objEducationalInstitutions.getFechaImportacion(): "+(objEducationalInstitutions.getFechaImportacion());
 							errorLog = errorLog + " | objEducationalInstitutions.getFechaCreacion(): "+(objEducationalInstitutions.getFechaCreacion());
 							errorLog = errorLog + " | objEducationalInstitutions.getOperation(): "+(objEducationalInstitutions.getOperation());
+							errorLog = errorLog + " | barrerToken: "+(barrerToken);
+							errorLog = errorLog + " | objJsonContent.get(id).toString(): "+(objJsonContent.get("id").toString());
 							
 							resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
-							errorLog = errorLog + " | " + ("====================================");
-							errorLog = errorLog + " | " + (resultEducationalInstitutions);
+							errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
+							errorLog = errorLog + " | " + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions);
 							objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
 							objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
 							Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
@@ -285,6 +291,7 @@ class BannerDAO {
 						objAddresses.setPais(objJsonCountry.get("title").toString());
 						objAddresses.setEstado(objJsonRegion.get("title").toString());
 						objAddresses.setCiudad(objJsonCountry.get("locality").toString());
+						objAddresses.setOperation(objJson.get("operation").toString());
 						
 						lstAddresses.add(objAddresses);
 						break;
@@ -324,6 +331,7 @@ class BannerDAO {
 						objCatBachillerato.setPais(lstAddresses.get(indexAddress).getPais());
 						objCatBachillerato.setEstado(lstAddresses.get(indexAddress).getEstado());
 						objCatBachillerato.setCiudad(lstAddresses.get(indexAddress).getCiudad());
+						lstAddresses.remove(indexAddress);
 					}
 				}
 				
@@ -360,6 +368,10 @@ class BannerDAO {
 			}
 			
 			/*--------------------------------------------------------------------------------------------------------------*/
+			
+			errorLog = errorLog + " | " + ("====================================");
+			errorLog = errorLog + " | lstCatBachillerato.size():" + (lstCatBachillerato.size());
+			def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
 			for(CatBachillerato row : lstCatBachillerato) {
 				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
 				errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
@@ -375,7 +387,7 @@ class BannerDAO {
 				//if(operacion.equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
 					
-					def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
+					
 					lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 					if(lstCatBachilleratos != null) {
 						for(CatBachilleratos objRow : lstCatBachilleratos) {
@@ -435,6 +447,7 @@ class BannerDAO {
 						objCatBachilleratosInput.put("ciudad", row.getCiudad());
 						objCatBachilleratosInput.put("pais", row.getPais());
 						objCatBachilleratosInput.put("id", row.getIdBachillerato());
+						objCatBachilleratosInput.put("idDireccion", row.getIdDireccion());
 						lstCatBachilleratosInput.add(objCatBachilleratosInput);
 						contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 						processInstance = processAPI.startProcessWithInputs(processIdCrear, contracto);
@@ -445,8 +458,7 @@ class BannerDAO {
 						//if(operacion.equals("deleted")) {
 							errorLog = errorLog + " | " + row.getOperation();
 							
-							def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
-							lstCatBachilleratos = catBachilleratosDAO.findByDescripcion(row.getDescripcion(), 0, 100);
+							lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 							if(lstCatBachilleratos != null) {
 								for(CatBachilleratos objRow : lstCatBachilleratos) {
 									errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
@@ -481,6 +493,59 @@ class BannerDAO {
 							}
 						}
 					}
+				}
+			}
+			
+			
+			errorLog = errorLog + " | " + ("====================================");
+			errorLog = errorLog + " | lstAddresses.size():" + (lstAddresses.size());
+			for(CatBachillerato objLstAddresses : lstAddresses) {
+				if(objLstAddresses.getOperation().equals("replaced")) {
+					errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
+					errorLog = errorLog + " | objLstAddresses.getIdDireccion():" + (objLstAddresses.getIdDireccion());
+					lstCatBachilleratos = catBachilleratosDAO.findByIdDireccion(objLstAddresses.getIdDireccion(), 0, 100);
+					for(CatBachilleratos objRow : lstCatBachilleratos) {
+						if(!objRow.isIsEliminado()) {
+							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
+							errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
+							errorLog = errorLog + " | ================================================================== | ";
+							lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
+							objCatBachilleratosInput = new HashMap<String, Serializable>();
+							contracto = new HashMap<String, Serializable>();
+							/*CONSTRUCCION DE CONTRATO=====================================================================*/
+							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
+							objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
+							objCatBachilleratosInput.put("isEliminado", false);
+							objCatBachilleratosInput.put("isEnabled", objRow.isIsEnabled());
+							objCatBachilleratosInput.put("todelete", "false");
+							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
+							objCatBachilleratosInput.put("region", null);
+							objCatBachilleratosInput.put("caseId", null);
+							objCatBachilleratosInput.put("clave", objRow.getClave());
+							objCatBachilleratosInput.put("fechaImportacion", null);
+							objCatBachilleratosInput.put("fechaCreacion", null);
+							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
+							objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
+							objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
+							objCatBachilleratosInput.put("estado", objLstAddresses.getEstado());
+							objCatBachilleratosInput.put("ciudad", objLstAddresses.getCiudad());
+							objCatBachilleratosInput.put("pais", objLstAddresses.getPais());
+							objCatBachilleratosInput.put("id", objRow.getId());
+							lstCatBachilleratosInput.add(objCatBachilleratosInput);
+							contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
+							processInstance = processAPI.startProcessWithInputs(processId, contracto);
+						}
+						else {
+							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
+							errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
+							errorLog = errorLog + " | is eliminado";
+							errorLog = errorLog + " | ================================================================== | ";
+						}
+					}
+				}
+				else {
+					errorLog = errorLog + " | ELSE ADDRESSES";
+					errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
 				}
 			}
 			
