@@ -5,9 +5,12 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 
+import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
+import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
 import org.bonitasoft.engine.bpm.process.ActivationState
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfoSearchDescriptor
+import org.bonitasoft.engine.search.Order
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.search.SearchResult
@@ -60,6 +63,37 @@ class CustomUserRequestDAO {
 			result.setData(data);
 			result.setSuccess(true);
 		} catch(Exception e) {
+			LOGGER.error e.getMessage();
+			LOGGER.error e.getCause();
+			LOGGER.error e.getLocalizedMessage();
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+		}
+		return result;
+	}
+	
+	public Result getCurrentTaskId(String caseId, RestAPIContext context) {
+		Result result = new Result();
+		List<HumanTaskInstance> data = new ArrayList<HumanTaskInstance>();
+		Integer inicioContador = 0;
+		Integer finContador = 0;
+		String taskid = "";
+		try {
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, caseId);
+			
+			final SearchOptions searchOptions = searchBuilder.done();
+			SearchResult<HumanTaskInstance>  SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
+			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				taskid = objHumanTaskInstance.getId().toString();
+				data.add(objHumanTaskInstance);
+			}
+			
+			result.setData(data);
+			result.setSuccess(true);
+		} catch (Exception e) {
 			LOGGER.error e.getMessage();
 			LOGGER.error e.getCause();
 			LOGGER.error e.getLocalizedMessage();

@@ -24,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair
 import org.apache.http.util.EntityUtils
 import org.json.JSONArray
 import org.json.JSONObject
+import org.json.simple.parser.JSONParser
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.text.NumberFormat
@@ -1348,7 +1349,7 @@ class HubspotDAO {
 	public Result createOrUpdateUsuariosRegistrados(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Result resultadoApiKey = new Result();
-		
+		Result resultadoReplicarProperties = new Result();
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		List<SolicitudDeAdmision> lstSolicitudDeAdmision = new ArrayList<SolicitudDeAdmision>();
 		List<String> lstValueProperties = new ArrayList<String>();
@@ -1364,11 +1365,14 @@ class HubspotDAO {
 		String apikeyHubspot ="";
 		String tipoAdmision = "";
 		String residencia = "";
+		String nombreUsuario = "";
+		String correoElectronico = "";
 		
 		Date fecha = new Date();
 		Date fechaNacimiento = new Date();
 		
 		DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1379,12 +1383,17 @@ class HubspotDAO {
 			def objDetalleSolicitudDAO = context.apiClient.getDAO(DetalleSolicitudDAO.class);
 			
 			lstCatRegistro = objCatRegistroDAO.findByCorreoelectronico(object.email, 0, 1);
-			lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(object.email, 0, 1);
-			
-			
+			if(lstCatRegistro.size() <= 0) {
+				lstCatRegistro = objCatRegistroDAO.findByNombreusuario(object.email, 0, 1);
+			}
+						
 			strError = strError + " | try"
 			
 			if(lstCatRegistro != null) {
+				lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCaseId(lstCatRegistro.get(0).getCaseId(), 0, 1);
+				
+				nombreUsuario = lstCatRegistro.get(0).getNombreusuario();
+				correoElectronico = lstCatRegistro.get(0).getCorreoelectronico();
 				
 				strError = strError + " | object.email: "+object.email;
 				strError = strError + " | lstSolicitudDeAdmision.size: "+lstSolicitudDeAdmision.size();
@@ -1393,6 +1402,17 @@ class HubspotDAO {
 				strError = strError + " | lstCatRegistro.empty: "+lstCatRegistro.empty;
 				resultadoApiKey = getApikeyHubspot(lstSolicitudDeAdmision.get(0).getCatCampus().getClave());
 				apikeyHubspot = (String) resultadoApiKey.getData().get(0);
+				
+				strError = strError + " | nombreUsuario: " + nombreUsuario;
+				strError = strError + " | correoElectronico: " + correoElectronico;
+				
+				if(!nombreUsuario.equals(correoElectronico)) {
+					resultadoReplicarProperties = replicarProperties(nombreUsuario, correoElectronico, apikeyHubspot);
+					strError = strError + " | replicar Data" + resultadoReplicarProperties.getError_info();
+				} else {
+					resultadoReplicarProperties = replicarProperties(object.email, nombreUsuario, apikeyHubspot);
+					strError = strError + " | replicar Data else" + resultadoReplicarProperties.getError_info();
+				}
 
 				if(!lstCatRegistro.empty && !lstSolicitudDeAdmision.empty) {
 
@@ -1471,7 +1491,7 @@ class HubspotDAO {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
 					}
 
-					resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
+					resultado = createOrUpdateHubspot(correoElectronico, apikeyHubspot, objHubSpotData);
 				}
 				else {
 					strError = strError + " | ------------------------------------------";
@@ -1612,5 +1632,98 @@ class HubspotDAO {
 	  }
 	  return resultado
   }
+  
+  public Result replicarProperties(String nombreUsuario, String correoElectronico, String apikeyHubspot) {
+	  Result resultado = new Result();
+	  List<String> lstNoHubspot = new ArrayList<String>();
+	  
+	  String jsonData = "";
+	  String urlParaVisitar = "https://api.hubapi.com/contacts/v1/contact/email/[EMAIL]/profile?hapikey=[APIKEY]";
+	  StringBuilder strResultado = new StringBuilder();
+	  String linea = "";
+	  String errorlog = "";
+	  
+	  def jsonSlurper = new JsonSlurper();
+	  def propiedades = null;
+	  
+	  JSONParser parser = new JSONParser();
+	  
+	  org.json.simple.JSONObject objContacto = null;
+	  org.json.simple.JSONObject objPropiedades = null;
+	  org.json.simple.JSONObject objColumna = null;
+	  
+	  Map<String, String> objHubSpotData = new HashMap<String, String>();
+	  
+	  try {
+		  errorlog = errorlog + " | --------------------------------------------------------------------------";
+		  lstNoHubspot.add("hs_analytics_revenue");
+		  lstNoHubspot.add("createdate");
+		  lstNoHubspot.add("hs_analytics_num_page_views");
+		  lstNoHubspot.add("hs_lifecyclestage_subscriber_date");
+		  lstNoHubspot.add("hs_analytics_average_page_views");
+		  lstNoHubspot.add("hs_analytics_num_event_completions");
+		  lstNoHubspot.add("hs_is_unworked");
+		  lstNoHubspot.add("hs_social_num_broadcast_clicks");
+		  lstNoHubspot.add("hs_analytics_num_visits");
+		  lstNoHubspot.add("hs_social_linkedin_clicks");
+		  lstNoHubspot.add("hs_marketable_until_renewal");
+		  lstNoHubspot.add("hs_marketable_status");
+		  lstNoHubspot.add("lastmodifieddate");
+		  lstNoHubspot.add("hs_analytics_first_timestamp");
+		  lstNoHubspot.add("hs_social_google_plus_clicks");
+		  lstNoHubspot.add("hs_social_facebook_clicks");
+		  lstNoHubspot.add("hs_social_twitter_clicks");
+		  lstNoHubspot.add("hs_analytics_source_data_1");
+		  lstNoHubspot.add("num_unique_conversion_events");
+		  lstNoHubspot.add("hs_all_contact_vids");
+		  lstNoHubspot.add("hs_is_contact");
+		  lstNoHubspot.add("num_conversion_events");
+		  lstNoHubspot.add("hs_object_id");
+		  lstNoHubspot.add("hs_searchable_calculated_phone_number");
+		  lstNoHubspot.add("hs_email_domain");
+		  
+		  errorlog = errorlog + " | list load";
+		  
+		  //READ JSON
+		  URL url = new URL(urlParaVisitar.replace("[EMAIL]", nombreUsuario).replace("[APIKEY]", apikeyHubspot));
+		  HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+		  conexion.setRequestMethod("GET");
+		  BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+		  
+		  while ((linea = rd.readLine()) != null) {
+			  strResultado.append(linea);
+		  }
+		  rd.close();
+		  jsonData = strResultado.toString()
+		  
+		  //PARSE JSON
+		  objContacto    = (org.json.simple.JSONObject) parser.parse(jsonData);
+		  objPropiedades = (org.json.simple.JSONObject) objContacto.get("properties");
+		  
+		  errorlog = errorlog + " | --------------------------------------------------------------------------";
+		  
+		  objHubSpotData = new HashMap<String, String>();
+		  for(Object key: objPropiedades.keySet()){
+			  objColumna = (org.json.simple.JSONObject) objPropiedades.get(key.toString());
+			  
+			  if(!lstNoHubspot.contains(key)) {
+				  errorlog = errorlog + " | key: " + key.toString()+" ----------- Valor: "+objColumna.get("value");
+				  objHubSpotData.put(key.toString(), objColumna.get("value"));
+			  }
+		  }
+		  
+		  errorlog = errorlog + " | --------------------------------------------------------------------------"
+		  resultado = createOrUpdateHubspot(correoElectronico, apikeyHubspot, objHubSpotData);
+		  resultado.setError_info(errorlog +" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+	  }
+	  catch(Exception e) {
+		  resultado.setSuccess(false);
+		  resultado.setError(e.getMessage());
+		  resultado.setError_info(errorlog)
+	  }
+	  
+	  return resultado;
+  }
+  
 }
 

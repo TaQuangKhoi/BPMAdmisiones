@@ -462,7 +462,7 @@ class SesionesDAO {
 				}
 				switch(object.orderby) {
 					case "NOMBRE":
-					orderby+="firstname";
+					orderby+="u.firstname";
 					break;
 					case "APELLIDO":
 					orderby+="lastname";
@@ -474,7 +474,8 @@ class SesionesDAO {
 					orderby+="r.name";
 					break;
 					default:
-					orderby+="u.id"
+					//orderby+="u.id"
+					orderby+="u.firstname,u.lastname";
 					break;
 				}
 				orderby+=" "+object.orientation;
