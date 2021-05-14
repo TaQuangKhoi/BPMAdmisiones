@@ -21,6 +21,7 @@ import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
+import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
@@ -501,6 +502,19 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				case "replicarProperties":
+					String nombreUsuario = request.getParameter "nombreUsuario";
+					String correoElectronico = request.getParameter "correoElectronico";
+					String apikeyHubspot = request.getParameter "apikeyHubspot";
+					
+					result = new HubspotDAO().replicarProperties(nombreUsuario, correoElectronico, apikeyHubspot);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
 				case "getPeriodosSiguientes":
 				String tipo = request.getParameter "tipo";
 				String fecha = request.getParameter "fecha";
@@ -675,6 +689,17 @@ class IndexGet implements RestApiController {
 				break;
 				case "getActiveProcess":
 					result = new CustomUserRequestDAO().getActiveProcess(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getCurrentTaskId":
+					String caseId = request.getParameter "caseId";
+					
+					result = new CustomUserRequestDAO().getCurrentTaskId(caseId, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
