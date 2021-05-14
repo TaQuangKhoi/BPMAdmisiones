@@ -52,7 +52,13 @@
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td ng-repeat="column in properties.columnsKey track by $index">
-                        <div  ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
+                        <div ng-switch="column">
+                            <div ng-switch-when="comentario" >
+                                <label ng-repeat="info in sliceTexto(row.comentario)" ng-bind-html="info">
+                                </label>
+                            </div>
+                            <div ng-switch-default ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
+                            </div>
                         </div>
                         
                     </td>
