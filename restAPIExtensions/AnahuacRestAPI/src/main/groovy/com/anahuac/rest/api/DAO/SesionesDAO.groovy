@@ -4503,21 +4503,6 @@ class SesionesDAO {
 					}
 				}
 				
-				/*
-				if(object?.campus?.size() > 0) {
-					campus+=" AND ("
-				}
-				for(Integer i=0; i<object?.campus?.size(); i++) {
-					String campusMiembro=object?.campus?.get(i);
-					campus+="campus.grupobonita='"+campusMiembro+"'"
-					if(i==(object?.campus?.size()-1)) {
-						campus+=") "
-					}
-					else {
-						campus+=" OR "
-				 	}
-				}*/
-				
 				
 				//errorlog+="campus = "+campus
 				String consulta = Statements.GET_SESIONESPSICOLOGO
