@@ -986,15 +986,23 @@ class TransferenciasDAO {
 				
 				String urlFoto = rs.getString("urlfoto");
 				String encoded = "";
+				errorlog += " Antes de la foto "
 				if(urlFoto != null && !urlFoto.isEmpty()) {
+					errorlog += " foto azure "
 					encoded = rs.getString("urlfoto") +SSA;
 					row.setImg(encoded);
 				}else {
-					List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)
-					for(Document doc : doc1) {
-						encoded = "../API/formsDocumentImage?document="+doc.getId();
-						row.setImg(encoded);
-					}
+					errorlog += " foto bdm "
+					try {
+						List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString("caseid")), "fotoPasaporte", 0, 10)
+						for(Document doc : doc1) {
+							encoded = "../API/formsDocumentImage?document="+doc.getId();
+							row.setImg(encoded);
+						}
+					} catch (Exception e) {
+							row.setImg("");
+							errorlog += "" + e.getMessage();
+						}
 				}
 
 					

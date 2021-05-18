@@ -6011,22 +6011,31 @@ class ListadoDAO {
                 Cell header10 = headersRow.createCell(9);
 				header10.setCellValue("EXAMEN DE APTITUDES Y CONOCIMIENTOS");
                 header10.setCellStyle(style);
-                Cell header11 = headersRow.createCell(10);
+				Cell header17 = headersRow.createCell(10);
+				header17.setCellValue("ASISTENCIA");
+				header17.setCellStyle(style);
+                Cell header11 = headersRow.createCell(11);
 				header11.setCellValue("ENTREVISTA");
                 header11.setCellStyle(style);
-                Cell header12 = headersRow.createCell(11);
+				Cell header18 = headersRow.createCell(12);
+				header18.setCellValue("ASISTENCIA");
+				header18.setCellStyle(style);
+                Cell header12 = headersRow.createCell(13);
 				header12.setCellValue("EXAMEN PSICOMÉTRICO");
                 header12.setCellStyle(style);
-				Cell header13 = headersRow.createCell(12);
+				Cell header19 = headersRow.createCell(14);
+				header19.setCellValue("ASISTENCIA");
+				header19.setCellStyle(style);
+				Cell header13 = headersRow.createCell(15);
 				header13.setCellValue("ESTATUS");
 				header13.setCellStyle(style);
-				Cell header14 = headersRow.createCell(13);
+				Cell header14 = headersRow.createCell(16);
 				header14.setCellValue("FECHA SOLICITUD");
 				header14.setCellStyle(style);
-				Cell header15 = headersRow.createCell(14);
+				Cell header15 = headersRow.createCell(17);
 				header15.setCellValue("ÚLTIMA MODIFICACIÓN");
 				header15.setCellStyle(style);
-				Cell header16 = headersRow.createCell(15);
+				Cell header16 = headersRow.createCell(18);
 				header16.setCellValue("TIEMPO ÚLTIMA MODIFICACIÓN");
 				header16.setCellStyle(style);
 				for (int i = 0; i < lstParams.size(); ++i){
@@ -6080,17 +6089,25 @@ class ListadoDAO {
                     //FECHAS
                     if(lstParams[i].fechasexamenes==null || lstParams[i].fechasexamenes =="" || lstParams[i].fechasexamenes ==" "){
                         Cell cell10 = row.createCell(9);
-                        cell10.setCellValue("SIN PROGRAMAR");  
-                        Cell cell11 = row.createCell(10);
-                        cell11.setCellValue("SIN PROGRAMAR"); 
-                        Cell cell12 = row.createCell(11);
-                        cell12.setCellValue("SIN PROGRAMAR");      
+                        cell10.setCellValue("SIN PROGRAMAR");
+						Cell cell17 = row.createCell(10);
+						cell17.setCellValue( (lstParams[i].cbcoincide == "t" ?"Exento" : "No") );
+                        Cell cell11 = row.createCell(11);
+                        cell11.setCellValue("SIN PROGRAMAR");
+						Cell cell18 = row.createCell(12);
+						cell18.setCellValue( "No" );
+                        Cell cell12 = row.createCell(13);
+                        cell12.setCellValue("SIN PROGRAMAR");
+						Cell cell19 = row.createCell(14);
+						cell19.setCellValue( "No" );
                     }else{
                         String[] fechas =lstParams[i].fechasexamenes.split(",");
 						
 						String fechas1 = "";
 						String fechas2 = "";
 						String fechas3 = "";
+						
+						String[] asistencias = lstParams[i].asistencia.split(",");
 						
 						if(fechas.size()== 3) {
 							 fechas1 = fechas[0];
@@ -6110,15 +6127,40 @@ class ListadoDAO {
 							}
 						}
 						
+						String asistencia1 = "";
+						String asistencia2 = "";
+						String asistencia3 = "";
+						for(int j = 0; j<asistencias.size(); ++j) {
+							
+							String[] asistencia = asistencias[j].split("-")
+							if(asistencia?.size() >= 2) {
+								if( asistencia[1].contains("Examen de aptitudes y conocimientos")) {
+									asistencia1 = asistencia[0];
+								}else if(asistencia[1].contains("Entrevista")){
+									asistencia2 = asistencia[0];
+								}else {
+									asistencia3 = asistencia[0];
+								}
+							}
+							 
+
+						}
+						
                         Cell cell10 = row.createCell(9);
-                        cell10.setCellValue(fechas2);  
-                        Cell cell11 = row.createCell(10);
-                        cell11.setCellValue(fechas1); 
-                        Cell cell12 = row.createCell(11);
-                        cell12.setCellValue(fechas3);      
+                        cell10.setCellValue(fechas2);
+						Cell cell17 = row.createCell(10);
+						cell17.setCellValue( lstParams[i].cbcoincide == "t" ?"Exento":(asistencia1.equals("0")? "No":"Sí") );
+                        Cell cell11 = row.createCell(11);
+                        cell11.setCellValue(fechas1);
+						Cell cell18 = row.createCell(12);
+						cell18.setCellValue( (asistencia2.equals("0")? "No":"Sí") );
+                        Cell cell12 = row.createCell(13);
+                        cell12.setCellValue(fechas3);
+						Cell cell19 = row.createCell(14);
+						cell19.setCellValue( (asistencia3.equals("0")? "No":"Sí") );
 					}
 					errorlog+= " | "+i+" estatussolicitud: "+lstParams[i].estatussolicitud+" | ";
-					Cell cell13 = row.createCell(12);
+					Cell cell13 = row.createCell(15);
                     cell13.setCellValue( lstParams[i].estatussolicitud); 
 					
 					SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -6128,19 +6170,19 @@ class ListadoDAO {
 						
 						String sDate1=lstParams[i].fechasolicitudenviada;
 						Date date1=formatter1.parse(sDate1);
-						Cell cell14 = row.createCell(13);
+						Cell cell14 = row.createCell(16);
 						cell14.setCellValue(f.format(date1));
 					}
 					errorlog+= " | "+i+" fechaultimamodificacion: "+lstParams[i].fechaultimamodificacion+" | ";
 					if(lstParams[i].fechaultimamodificacion !="null" && lstParams[i].fechaultimamodificacion !=null && lstParams[i].fechaultimamodificacion != "" && lstParams[i].fechaultimamodificacion != " ") {
 						String sDate2=lstParams[i].fechaultimamodificacion;
 						Date date2=formatter1.parse(sDate2);
-						Cell cell15 = row.createCell(14);
+						Cell cell15 = row.createCell(17);
 						cell15.setCellValue(f.format(date2));
 					}
 					errorlog+= " | "+i+" tiempoultimamodificacion: "+lstParams[i].tiempoultimamodificacion+" | ";
 					if(lstParams[i].tiempoultimamodificacion !="null" && lstParams[i].tiempoultimamodificacion !=null && lstParams[i].tiempoultimamodificacion != "" && lstParams[i].tiempoultimamodificacion != " ") {
-						Cell cell16 = row.createCell(15);
+						Cell cell16 = row.createCell(18);
 						cell16.setCellValue(lstParams[i].tiempoultimamodificacion);
 					}
 				    
@@ -6660,7 +6702,7 @@ class ListadoDAO {
 			}
 			
 			
-			for(int i=0; i<=(rowCount+10); ++i) {
+			for(int i=0; i<=(20); ++i) {
 				sheet.autoSizeColumn(i);
 			}
 			FileOutputStream outputStream = new FileOutputStream("Report.xls");
@@ -8185,13 +8227,16 @@ class ListadoDAO {
 			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
 			font.setBold(true);
 			style.setFont(font);
-			if(type.equals("paselista") || type.equals("paselistareporte") || type.equals("paselistareportelistado")) {
+			if(type.equals("paselista") || type.equals("paselistareporte") || type.equals("paselistareportelistado")||type.equals("paselistapsicologoadministrador")) {
 				
 				if(type.equals("paselista")) {
 					dataResult = new SesionesDAO().getSesionesAspirantes(jsonData, context)
 				}else if(type.equals("paselistareportelistado")){
 				
 					dataResult = new SesionesDAO().getAspirantesPasadosExcel(jsonData, context)
+				} else if(type.equals("paselistapsicologoadministrador"))
+				{
+					dataResult = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
 				}else{
 					dataResult = new SesionesDAO().getSesionesAspirantesPasados(jsonData, context)
 				}
@@ -8527,13 +8572,15 @@ class ListadoDAO {
 			font.setBold(true);
 			style.setFont(font);
 		
-			if(type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")) {
+			if(type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas"||type.equals("listasesioncalendarizadaspsicologo"))) {
 				
 				if(type.equals("sesioncalendarizadas")) {
 					dataResult = new SesionesDAO().getSesionesCalendarizadas(jsonData, context)
 				}else if(type.equals("listasesioncalendarizadas")){
 					orden = object.orden;
 					dataResult = new SesionesDAO().getSesionesCalendarizadasPasadas(jsonData, context)
+				}else if(type.equals("listasesioncalendarizadaspsicologo")) {
+					dataResult = new SesionesDAO().getSesionesCalendarizadasPsicologoSupervisor(jsonData, context)
 				}else{
 					dataResult = new SesionesDAO().getSesionesCalendarizadasReporte(jsonData, context)
 				}

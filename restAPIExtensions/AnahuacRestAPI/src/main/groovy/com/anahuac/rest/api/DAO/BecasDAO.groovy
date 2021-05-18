@@ -337,7 +337,7 @@ class BecasDAO {
 				throw new Exception("No encontro datos");
 			}
 			
-			def titulos = ["#","NOMBRE","SEGUNDO NOMBRE","APELL PATERNO","APELL MATERNO","CAMPUS","EXPEDIENTE","ID REG","NOMBRE HERMANO","APELLIDO HERMANO","FECHA NAC HERMANO","ESTUDIO HERMANO","INSTITUCIÓN HERMANO","TRABAJO HERMANO","EMPRESA HERMANO"]
+			def titulos = ["#","NUMEROHERMANO","NOMBRE","SEGUNDO NOMBRE","APELL PATERNO","APELL MATERNO","CAMPUS","EXPEDIENTE","ID REG","NOMBRE HERMANO","APELLIDO HERMANO","FECHA NAC HERMANO","ESTUDIO HERMANO","INSTITUCIÓN HERMANO","TRABAJO HERMANO","EMPRESA HERMANO"]
 			Row headersRow = sheet.createRow(rowCount);
 			++rowCount;
 			List<Cell> header = new ArrayList<Cell>();
@@ -351,7 +351,7 @@ class BecasDAO {
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.CENTER);
 			
-			def info = ["idreg","primernombre","segundonombre","apellidopaterno","apellidomaterno","campus","expediente","idreg","nombrehermano","apellidohermano","fechanacimientohermano","estudiohermano","institucionhermano","trabajohermano","empresahermano"]
+			def info = ["idreg","persistenceid","primernombre","segundonombre","apellidopaterno","apellidomaterno","campus","expediente","idreg","nombrehermano","apellidohermano","fechanacimientohermano","estudiohermano","institucionhermano","trabajohermano","empresahermano"]
 			List<Cell> body;
 			for (int i = 0; i < lstParams.size(); ++i){
 				Row row = sheet.createRow(rowCount);

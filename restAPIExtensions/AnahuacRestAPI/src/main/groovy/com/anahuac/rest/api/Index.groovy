@@ -15,6 +15,7 @@ import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.BitacorasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
+import com.anahuac.rest.api.DAO.CustomUserRequestDAO
 import com.anahuac.rest.api.DAO.DocumentosTextosDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ListadoDAO
@@ -83,6 +84,7 @@ class Index implements RestApiController {
 		ReactivacionDAO reDAO = new ReactivacionDAO();
 		ResultadosAdmisionDAO rDAO = new ResultadosAdmisionDAO();
 		SolicitudUsuarioDAO suDAO = new SolicitudUsuarioDAO();
+		CustomUserRequestDAO cuDAO = new CustomUserRequestDAO();
 		//MAPEO DE SERVICIOS==================================================
 		try {
 			switch(url) {
@@ -692,7 +694,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
-					
+					//getSesionesPsicologoAdministradorAspirantes
+					case "getSesionesPsicologoAdministradorAspirantes":
+					result = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/
 					case "getCatNacionalidadNew":
@@ -1310,6 +1321,14 @@ class Index implements RestApiController {
 							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 						}
 						break;
+				case "createOrUpdateUsuariosRegistrados":
+						result = hDAO.createOrUpdateUsuariosRegistrados(parameterP, parameterC, jsonData, context)
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+						break;
 				case "createOrUpdateValidar":
 					result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context);
 					/*result = new Result();
@@ -1629,7 +1648,35 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "selectConsultaDeResultadosManual":
+					result = rDAO.selectConsultaDeResultadosManual(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				/*******************MARIO ICEDO FIN**********************/
+				case "getActiveProcess":
+					result = cuDAO.getActiveProcess(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "reAssignTask":
+					String task_id = request.getParameter "task_id"
+					String fecha = request.getParameter "user_id"
+					result = cuDAO.reAssignTask(task_id, user_id, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
