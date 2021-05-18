@@ -21,6 +21,7 @@ class CatBachillerato {
 	private String nationCode;
 	private String stateCode;
 	private String countyCode;
+
 	private String typeInd;
 	
 	public String getTypeInd() {

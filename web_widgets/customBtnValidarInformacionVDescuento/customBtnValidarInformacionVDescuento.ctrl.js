@@ -90,12 +90,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.confirmacion();
                     }
                 } else {
-                    $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
-                    $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
-                    $scope.properties.dataToSend.conIsInformacionValidada = false;
-                    $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
-                    $scope.properties.dataToSend.conIs100Descuento = false;
-                    $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                    //$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                    //$scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
+                    //$scope.properties.dataToSend.conIsInformacionValidada = false;
+                    //$scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
+                    //$scope.properties.dataToSend.conIs100Descuento = false;
+                    //$scope.properties.dataToSend.conIsAdmisionAnahuac = false;
                     $scope.properties.dataToSend.conIsListaRoja = false;
                     $scope.properties.dataToSend.conIsRechazada = false;
                     if ($scope.properties.dataToSend.detalleSolicitudInput.observacionesCambio.trim().replace("<br>", "") == "" || $scope.properties.dataToSend.detalleSolicitudInput.observacionesCambio == null || $scope.properties.dataToSend.detalleSolicitudInput.observacionesCambio == undefined) {
@@ -105,13 +105,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.accion === "Rechazar solicitud") {
-                $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
-                $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
-                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
-                $scope.properties.dataToSend.conIsInformacionValidada = true;
-                $scope.properties.dataToSend.conIsListaRoja = false;
-                $scope.properties.dataToSend.conIs100Descuento = false;
-                $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                //$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                //$scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
+                //$scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
+                //$scope.properties.dataToSend.conIsInformacionValidada = true;
+                //$scope.properties.dataToSend.conIsListaRoja = false;
+                //$scope.properties.dataToSend.conIs100Descuento = false;
+                //$scope.properties.dataToSend.conIsAdmisionAnahuac = false;
                 $scope.properties.dataToSend.conIsRechazada = true;
                 if ($scope.properties.dataToSend.detalleSolicitudInput.observacionesRechazo.trim().replace("<br>", "") == "" || $scope.properties.dataToSend.detalleSolicitudInput.observacionesRechazo == null || $scope.properties.dataToSend.detalleSolicitudInput.observacionesRechazo == undefined) {
                     swal.fire("¡Validar mensaje!", "Debe agregar mensaje para aspirante", "warning");
@@ -340,14 +340,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                 //FIN VALIDAR CANDIDATO
             } else if ($scope.properties.accion === "Lista roja") {
-                $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
                 $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;
                 $scope.properties.dataToSend.conIsInformacionValidada = true;
-                $scope.properties.dataToSend.conIsListaRoja = true;
                 $scope.properties.dataToSend.conIs100Descuento = false;
-                $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
+                $scope.properties.dataToSend.conIsAdmisionAnahuac = false;*/
                 $scope.properties.dataToSend.conIsRechazada = false;
+                $scope.properties.dataToSend.conIsListaRoja = true;
                 if ($scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja.trim().replace("<br>", "") == "" || $scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja == null || $scope.properties.dataToSend.detalleSolicitudInput.observacionesListaRoja == undefined) {
                     swal.fire("¡Validar mensaje!", "Debe agregar mensaje para aspirante", "warning");
                 } else {

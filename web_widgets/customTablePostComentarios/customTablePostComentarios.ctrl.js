@@ -296,4 +296,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         $scope.properties.bitacoraSelected = $scope.bitacora;
     }
     
+    $scope.sliceTexto = function(texto){
+        let array = texto.match(/.{1,40}/g);
+        return array;
+    }
+    
 }
