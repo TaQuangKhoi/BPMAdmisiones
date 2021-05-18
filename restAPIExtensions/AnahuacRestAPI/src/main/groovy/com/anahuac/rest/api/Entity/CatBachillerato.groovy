@@ -21,7 +21,10 @@ class CatBachillerato {
 	private String nationCode;
 	private String stateCode;
 	private String countyCode;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22c35be9 (actualizacion de pantallas)
 	private String typeInd;
 	
 	public String getTypeInd() {
