@@ -667,7 +667,12 @@ class SolicitudUsuarioDAO {
 	}
 	
 	
-	public Result getDuplicados(String curp, String nombre, String correoElectronico, String fechaNacimiento,String caseid) {
+//	public Result getDuplicados(String curp, String nombre, String correoElectronico, String fechaNacimiento,String caseid) {
+	public Result getDuplicados(String curp, String nombre, 
+		String primerNombre, String segundoNombre, 
+		String apellidoPaterno, String apellidoMaterno, 
+		String correoElectronico, String fechaNacimiento,String caseid
+	) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorlog="";
@@ -675,24 +680,63 @@ class SolicitudUsuarioDAO {
 			
 			closeCon = validarConexion();
 			
+			//MODO ORIGINAL DE LA CONSULTA
+//			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
+//			pstm.setLong(1,  Long.valueOf(caseid))
+//			pstm.setString(2, nombre)
+//			pstm.setString(3, correoElectronico)
+//			pstm.setString(4, fechaNacimiento)
+//			pstm.setString(5, curp)
 			
+			//MODO NUEVO D ELA CONSULTA AGREGANDO FILTROS 
 			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
-			pstm.setLong(1,  Long.valueOf(caseid))
-			pstm.setString(2, nombre)
-			pstm.setString(3, correoElectronico)
-			pstm.setString(4, fechaNacimiento)
-			pstm.setString(5, curp)
+			pstm.setLong(1,  Long.valueOf(caseid));
+			pstm.setString(2, nombre);
+			pstm.setString(3, correoElectronico);
+			pstm.setString(4, fechaNacimiento);
+			
+			//Primer nombre y primer apellido
+			pstm.setString(5, primerNombre);
+			pstm.setString(6, apellidoPaterno);
+			
+			//Segundo nombre y primer apellido
+			pstm.setString(7, segundoNombre);
+			pstm.setString(8, apellidoPaterno);
+			
+			//Para  el primer nombre y el segundo apellido
+			pstm.setString(9, primerNombre);
+			pstm.setString(10, apellidoMaterno);
+			
+			//Para  el segundo nombre  y el segundo apellido
+			pstm.setString(11, segundoNombre);
+			pstm.setString(12, apellidoMaterno);
+			
+			//Para  los dos nombres y el primer apellido
+			pstm.setString(13, (primerNombre + " " + segundoNombre));
+			pstm.setString(14, apellidoPaterno);
+			
+			//Para  los dos nombres y el segundo apellido
+			pstm.setString(15, (primerNombre + " " + segundoNombre));
+			pstm.setString(16, apellidoMaterno);
+			
+			//Para  los dos nombres y los dos apellido
+			pstm.setString(17, (primerNombre + " " + segundoNombre));
+			pstm.setString(18, (apellidoPaterno + " " + apellidoMaterno));
+			
+			pstm.setString(19, curp);
+			
 			//pstm.setString(5, idbanner)
 			/*if(!curp.equals(null) && !curp.equals(" ") && !curp.equals("")) {
 				
 			}*/
-			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento
+			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento;
 			rs= pstm.executeQuery();
 			
 			
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			errorlog = Statements.GET_DUPLICADOS;
 			
 			while(rs.next()) {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
@@ -700,7 +744,7 @@ class SolicitudUsuarioDAO {
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 				}
-				info.add(columns)
+				info.add(columns);
 			}
 			
 			resultado.setSuccess(true);
@@ -773,6 +817,50 @@ class SolicitudUsuarioDAO {
 			
 			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID);
 			pstm.setLong(1, Long.valueOf(caseId))
+			
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getUserIdBanner(String idBanner) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			pstm = con.prepareStatement(Statements.GET_USERNAME_BY_IDBANNER);
+			pstm.setString(1, idBanner)
 			
 			rs= pstm.executeQuery();
 			

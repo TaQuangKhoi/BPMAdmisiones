@@ -402,6 +402,17 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				
+				case "getUserIdBanner":
+				String idbanner=request.getParameter "idbanner"
+				result = new SolicitudUsuarioDAO().getUserIdBanner(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
 				break;
 				case "getCatBachilleratos":
 				result = new CatalogoBachilleratoDAO().get(0, 9999, "", context)
@@ -621,16 +632,22 @@ class IndexGet implements RestApiController {
 					String nombre = request.getParameter "nombre";
 					String fecha = request.getParameter "fechaNacimiento";
 					String caseid = request.getParameter "caseid";
+					String primerNombre = request.getParameter "primerNombre";
+					String segundoNombre = request.getParameter "segundoNombre";
+					String apellidoPaterno = request.getParameter "apellidoPaterno";
+					String apellidoMaterno = request.getParameter "apellidoMaterno";
+					
 					if(curp.equals(null)) {
 						curp = "";
 					}
+					
 					/*if(idbanner.equals(null)) {
 						idbanner = "";
 					}*/
 					
-					nombre = nombre.replace("%20", " ")
+					nombre = nombre.replace("%20", " ");
 					
-					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, correo, fecha, caseid);
+					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, correo, fecha, caseid);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

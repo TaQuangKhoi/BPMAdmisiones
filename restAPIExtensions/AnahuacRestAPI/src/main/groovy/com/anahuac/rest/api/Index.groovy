@@ -18,6 +18,7 @@ import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
 import com.anahuac.rest.api.DAO.DocumentosTextosDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
+import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.MailGunDAO
 import com.anahuac.rest.api.DAO.MigracionDAO
@@ -697,6 +698,26 @@ class Index implements RestApiController {
 					//getSesionesPsicologoAdministradorAspirantes
 					case "getSesionesPsicologoAdministradorAspirantes":
 					result = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postGuardarUsuario":
+					result = new ImportacionPAADAO().postGuardarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getAspirantesSinPAA":
+					result = new ImportacionPAADAO().getAspirantesSinPAA(jsonData, context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
