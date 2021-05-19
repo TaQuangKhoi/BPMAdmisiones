@@ -15,7 +15,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                submitTask();
+                // submitTask();
+                getUser();
                 $scope.$apply();
             }
         })
@@ -542,9 +543,95 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
                 localStorageService.delete($window.location.href);
                 $scope.$apply();
+                window.close();
             });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
+    }
+
+    function unassignTask() {
+        var id;
+        id = getUrlParam('id');
+        if (id) {
+            var params = getUserParam();
+            vm.busy = true;
+            let url = "../API/bpm/humanTask/" + id;
+            var req = {
+                method: "PUT",
+                url: url,
+                data: {
+                    assigned_id : ""
+                },
+                params: params
+            };
+
+            return $http(req).success(function(data, status) {
+                assignTask();
+            })
+            .error(function(data, status) {
+                Swal.fire({
+                    title: 'No se puede validar.',
+                    text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
+                    icon: "warning",
+                    confirmButtonColor: '#5cb85c',
+                    confirmButtonText: 'Cerrar',
+                }).then((result) => {
+                    window.close();
+                    $scope.$apply();
+                });
+
+                $scope.$apply();
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function assignTask() {
+        var id;
+        id = getUrlParam('id');
+        if (id) {
+            var params = getUserParam();
+            vm.busy = true;
+            let url = "../API/bpm/humanTask/" + id;
+            var req = {
+                method: "PUT",
+                url: url,
+                data: {
+                    assigned_id : $scope.userid
+                },
+                params: params
+            };
+
+            return $http(req).success(function(data, status) {
+                submitTask();
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function getUser(){
+        let url = "../API/system/session/1";
+        return $http.get(url).success(function(data, status) {
+            $scope.userid = data.user_id;
+            unassignTask();
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
     }
 }

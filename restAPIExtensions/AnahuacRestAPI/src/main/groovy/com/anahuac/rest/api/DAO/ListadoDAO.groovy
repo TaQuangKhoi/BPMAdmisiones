@@ -8227,13 +8227,16 @@ class ListadoDAO {
 			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
 			font.setBold(true);
 			style.setFont(font);
-			if(type.equals("paselista") || type.equals("paselistareporte") || type.equals("paselistareportelistado")) {
+			if(type.equals("paselista") || type.equals("paselistareporte") || type.equals("paselistareportelistado")||type.equals("paselistapsicologoadministrador")) {
 				
 				if(type.equals("paselista")) {
 					dataResult = new SesionesDAO().getSesionesAspirantes(jsonData, context)
 				}else if(type.equals("paselistareportelistado")){
 				
 					dataResult = new SesionesDAO().getAspirantesPasadosExcel(jsonData, context)
+				} else if(type.equals("paselistapsicologoadministrador"))
+				{
+					dataResult = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
 				}else{
 					dataResult = new SesionesDAO().getSesionesAspirantesPasados(jsonData, context)
 				}
@@ -8569,13 +8572,15 @@ class ListadoDAO {
 			font.setBold(true);
 			style.setFont(font);
 		
-			if(type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas")) {
+			if(type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas"||type.equals("listasesioncalendarizadaspsicologo"))) {
 				
 				if(type.equals("sesioncalendarizadas")) {
 					dataResult = new SesionesDAO().getSesionesCalendarizadas(jsonData, context)
 				}else if(type.equals("listasesioncalendarizadas")){
 					orden = object.orden;
 					dataResult = new SesionesDAO().getSesionesCalendarizadasPasadas(jsonData, context)
+				}else if(type.equals("listasesioncalendarizadaspsicologo")) {
+					dataResult = new SesionesDAO().getSesionesCalendarizadasPsicologoSupervisor(jsonData, context)
 				}else{
 					dataResult = new SesionesDAO().getSesionesCalendarizadasReporte(jsonData, context)
 				}
