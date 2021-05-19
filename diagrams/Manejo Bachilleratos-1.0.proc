@@ -15,8 +15,8 @@
         </elements>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_xHd6UDD0Eeupp93G9myzBA" name="lstCatBachilleratos" multiple="true" dataType="_EwvoxC7oEeuP4u9L93tjFQ" className="com.anahuac.catalogos.CatBachilleratos">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_yIWvmzD0Eeupp93G9myzBA" name="initLstCatBachilleratos()" content="import java.time.LocalDateTime&#xD;&#xA;def catBachilleratosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatBachilleratosInput.each{&#xD;&#xA;&#x9;//Add a new composed CatBachilleratos instance&#xD;&#xA;&#x9;catBachilleratosList.add({ currentCatBachilleratosInput ->&#xD;&#xA;&#x9;&#x9;def catBachilleratosVar = new com.anahuac.catalogos.CatBachilleratos()&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.clave = currentCatBachilleratosInput.clave&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.descripcion = currentCatBachilleratosInput.descripcion&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.pais = currentCatBachilleratosInput.pais&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.estado = currentCatBachilleratosInput.estado&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.ciudad = currentCatBachilleratosInput.ciudad&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.isEliminado = currentCatBachilleratosInput.isEliminado&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.fechaCreacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.usuarioBanner = currentCatBachilleratosInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.isEnabled = currentCatBachilleratosInput.isEnabled&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.perteneceRed = currentCatBachilleratosInput.perteneceRed&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.fechaImportacion =  LocalDateTime.now()&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.id = currentCatBachilleratosInput.id&#xD;&#xA;&#x9;&#x9;return catBachilleratosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catBachilleratosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_gItBgJ1wEeubTLilh6I6iw" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_iYGkILQgEeuIaum7Lj0HpA" name="initLstCatBachilleratos()" content="def catBachilleratosList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstCatBachilleratosInput.each{&#xD;&#xA;&#x9;//Add a new composed CatBachilleratos instance&#xD;&#xA;&#x9;catBachilleratosList.add({ currentCatBachilleratosInput ->&#xD;&#xA;&#x9;&#x9;def catBachilleratosVar = new com.anahuac.catalogos.CatBachilleratos()&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.clave = currentCatBachilleratosInput.clave&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.descripcion = currentCatBachilleratosInput.descripcion&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.pais = currentCatBachilleratosInput.pais&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.estado = currentCatBachilleratosInput.estado&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.ciudad = currentCatBachilleratosInput.ciudad&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.isEliminado = currentCatBachilleratosInput.isEliminado&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.fechaCreacion = currentCatBachilleratosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.usuarioBanner = currentCatBachilleratosInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.isEnabled = currentCatBachilleratosInput.isEnabled&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.perteneceRed = currentCatBachilleratosInput.perteneceRed&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.fechaImportacion = currentCatBachilleratosInput.fechaImportacion&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.id = currentCatBachilleratosInput.id&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.idDireccion = currentCatBachilleratosInput.idDireccion&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.streetLine1 = currentCatBachilleratosInput.streetLine1&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.streetLine2 = currentCatBachilleratosInput.streetLine2&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.streetLine3 = currentCatBachilleratosInput.streetLine3&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.nationCode = currentCatBachilleratosInput.nationCode&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.stateCode = currentCatBachilleratosInput.stateCode&#xD;&#xA;&#x9;&#x9;catBachilleratosVar.countyCode = currentCatBachilleratosInput.countyCode&#xD;&#xA;&#x9;&#x9;return catBachilleratosVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return catBachilleratosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_iYGkIbQgEeuIaum7Lj0HpA" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_EwvopC7oEeuP4u9L93tjFQ" type="NONE">
@@ -85,21 +85,26 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QvBhxZ1wEeubTLilh6I6iw" id="OTHER"/>
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_EwvorC7oEeuP4u9L93tjFQ">
-        <inputs xmi:type="process:ContractInput" xmi:id="_yIWIgDD0Eeupp93G9myzBA" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true" dataReference="lstCatBachilleratos">
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvkDD0Eeupp93G9myzBA" name="clave"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvkTD0Eeupp93G9myzBA" name="descripcion"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvkjD0Eeupp93G9myzBA" name="pais"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvkzD0Eeupp93G9myzBA" name="estado"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvlDD0Eeupp93G9myzBA" name="ciudad"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvlTD0Eeupp93G9myzBA" name="isEliminado" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvljD0Eeupp93G9myzBA" name="fechaCreacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvlzD0Eeupp93G9myzBA" name="usuarioBanner"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvmDD0Eeupp93G9myzBA" name="isEnabled" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvmTD0Eeupp93G9myzBA" name="perteneceRed" type="BOOLEAN"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_yIWvmjD0Eeupp93G9myzBA" name="fechaImportacion" type="LOCALDATETIME"/>
-          <inputs xmi:type="process:ContractInput" xmi:id="_h76rkJ1wEeubTLilh6I6iw" name="id">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_h76rkZ1wEeubTLilh6I6iw"/>
-          </inputs>
+        <inputs xmi:type="process:ContractInput" xmi:id="_iYF9ELQgEeuIaum7Lj0HpA" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true" dataReference="lstCatBachilleratos">
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9EbQgEeuIaum7Lj0HpA" name="clave"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9ErQgEeuIaum7Lj0HpA" name="descripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9E7QgEeuIaum7Lj0HpA" name="pais"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9FLQgEeuIaum7Lj0HpA" name="estado"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9FbQgEeuIaum7Lj0HpA" name="ciudad"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9FrQgEeuIaum7Lj0HpA" name="isEliminado" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9F7QgEeuIaum7Lj0HpA" name="fechaCreacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9GLQgEeuIaum7Lj0HpA" name="usuarioBanner"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9GbQgEeuIaum7Lj0HpA" name="isEnabled" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9GrQgEeuIaum7Lj0HpA" name="perteneceRed" type="BOOLEAN"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9G7QgEeuIaum7Lj0HpA" name="fechaImportacion" type="LOCALDATETIME"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9HLQgEeuIaum7Lj0HpA" name="id"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9HbQgEeuIaum7Lj0HpA" name="idDireccion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9HrQgEeuIaum7Lj0HpA" name="streetLine1"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9H7QgEeuIaum7Lj0HpA" name="streetLine2"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9ILQgEeuIaum7Lj0HpA" name="streetLine3"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9IbQgEeuIaum7Lj0HpA" name="nationCode"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9IrQgEeuIaum7Lj0HpA" name="stateCode"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_iYF9I7QgEeuIaum7Lj0HpA" name="countyCode"/>
         </inputs>
       </contract>
       <searchIndexes xmi:type="process:SearchIndex" xmi:id="_EwvorS7oEeuP4u9L93tjFQ">
@@ -152,9 +157,9 @@
         <stepSummary xmi:type="expression:Expression" xmi:id="_XR9hAy7oEeuP4u9L93tjFQ" name="" content="" returnTypeFixed="true"/>
       </elements>
       <data xmi:type="process:BusinessObjectData" xmi:id="_ZEa7kDD1Eeupp93G9myzBA" name="lstCatBachilleratos" multiple="true" dataType="_EwvoxC7oEeuP4u9L93tjFQ" className="com.anahuac.catalogos.CatBachilleratos">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_cTfqPDD2Eeupp93G9myzBA" name="initLstCatBachilleratos()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatBachilleratos&#xD;&#xA;def catBachilleratosList = []&#xD;&#xA;&#xD;&#xA;   for (Map objCatBachilleratosInput: lstCatBachilleratosInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatBachilleratosInput.todelete))&#xD;&#xA;    continue;&#xD;&#xA;&#xD;&#xA;   CatBachilleratos objCatBachillerasto = catBachilleratosDAO.findByPersistenceId(objCatBachilleratosInput.persistenceId);&#xD;&#xA;     if (objCatBachillerasto != null) {&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.clave = objCatBachilleratosInput.clave&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.descripcion = objCatBachilleratosInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.pais = objCatBachilleratosInput.pais&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.estado = objCatBachilleratosInput.estado&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.ciudad = objCatBachilleratosInput.ciudad&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.isEliminado = objCatBachilleratosInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.fechaCreacion = objCatBachilleratosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.usuarioBanner = objCatBachilleratosInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.isEnabled = objCatBachilleratosInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.perteneceRed = objCatBachilleratosInput.perteneceRed&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.fechaImportacion = objCatBachilleratosInput.fechaImportacion&#xD;&#xA;&#x9;&#x9;catBachilleratosList.add(objCatBachillerasto)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catBachilleratosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_oP4DADD-Eeupp93G9myzBA" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_oP4DATD-Eeupp93G9myzBA" name="catBachilleratosDAO" content="catBachilleratosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatBachilleratosDAO" returnTypeFixed="true"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_cTfqPDD2Eeupp93G9myzBA" name="initLstCatBachilleratos()" content="import java.time.LocalDateTime&#xD;&#xA;import com.anahuac.catalogos.CatBachilleratos&#xD;&#xA;def catBachilleratosList = []&#xD;&#xA;&#xD;&#xA;   for (Map objCatBachilleratosInput: lstCatBachilleratosInput) {&#xD;&#xA;   if (Boolean.TRUE.equals(objCatBachilleratosInput.todelete))&#xD;&#xA;&#x9;continue;&#xD;&#xA;&#xD;&#xA;   CatBachilleratos objCatBachillerasto = catBachilleratosDAO.findByPersistenceId(objCatBachilleratosInput.persistenceId);&#xD;&#xA;&#x9; if (objCatBachillerasto != null) {&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.clave = objCatBachilleratosInput.clave&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.descripcion = objCatBachilleratosInput.descripcion&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.pais = objCatBachilleratosInput.pais&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.estado = objCatBachilleratosInput.estado&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.ciudad = objCatBachilleratosInput.ciudad&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.isEliminado = objCatBachilleratosInput.isEliminado&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.fechaCreacion = objCatBachilleratosInput.fechaCreacion&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.usuarioBanner = objCatBachilleratosInput.usuarioBanner&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.isEnabled = objCatBachilleratosInput.isEnabled&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.perteneceRed = objCatBachilleratosInput.perteneceRed&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.fechaImportacion = objCatBachilleratosInput.fechaImportacion&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.streetLine1 = objCatBachilleratosInput.streetLine1&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.streetLine2 = objCatBachilleratosInput.streetLine2&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.streetLine3 = objCatBachilleratosInput.streetLine3&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.nationCode = objCatBachilleratosInput.nationCode&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.stateCode = objCatBachilleratosInput.stateCode&#xD;&#xA;&#x9;&#x9;objCatBachillerasto.countyCode = objCatBachilleratosInput.countyCode&#xD;&#xA;&#x9;&#x9;catBachilleratosList.add(objCatBachillerasto)&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catBachilleratosList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_TXsyILRDEeuIaum7Lj0HpA" name="lstCatBachilleratosInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_TXsyIbRDEeuIaum7Lj0HpA" name="catBachilleratosDAO" content="catBachilleratosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatBachilleratosDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_6XwgUDD8Eeupp93G9myzBA" name="lstCatBachilleratosToDelete" multiple="true" dataType="_EwvoxC7oEeuP4u9L93tjFQ" className="com.anahuac.bitacora.CatBitacoraComentarios">
@@ -208,6 +213,24 @@
           <inputs xmi:type="process:ContractInput" xmi:id="_cTfqOzD2Eeupp93G9myzBA" name="fechaImportacion" type="LOCALDATETIME"/>
           <inputs xmi:type="process:ContractInput" xmi:id="_dpfMwDD2Eeupp93G9myzBA" name="todelete">
             <mapping xmi:type="process:ContractInputMapping" xmi:id="_dpfMwTD2Eeupp93G9myzBA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_zpO1QLRCEeuIaum7Lj0HpA" name="streetLine1">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_zpO1QbRCEeuIaum7Lj0HpA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_0SlUQLRCEeuIaum7Lj0HpA" name="streetLine2">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_0SlUQbRCEeuIaum7Lj0HpA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_0iNrsLRCEeuIaum7Lj0HpA" name="streetLine3">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_0iNrsbRCEeuIaum7Lj0HpA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_01_jULRCEeuIaum7Lj0HpA" name="nationCode">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_01_jUbRCEeuIaum7Lj0HpA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_1Jj_kLRCEeuIaum7Lj0HpA" name="stateCode">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_1Jj_kbRCEeuIaum7Lj0HpA"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_1rgPALRCEeuIaum7Lj0HpA" name="countyCode">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_1rgPAbRCEeuIaum7Lj0HpA"/>
           </inputs>
         </inputs>
       </contract>
@@ -515,21 +538,21 @@
         <parameters xmi:type="parameter:Parameter" xmi:id="_gdK4MKeNEeuBWqWDZRHnrw" name="urlSincronizar" value="https://procesos.bpm.anahuac.mx/API/extension/AnahuacRestGet?url=buscarCambiosBannerPreparatoria&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_2_ncUKeLEeuBWqWDZRHnrw" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0L9NILKoEeuCc_eny6b53Q" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0OEtBLKoEeuCc_eny6b53Q" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_M5y6YLGtEeuaUtRG9PYM5A" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_M8UC4LGtEeuaUtRG9PYM5A" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_2_ncUaeLEeuBWqWDZRHnrw" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_2_ncUqeLEeuBWqWDZRHnrw" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_0NgFQLKoEeuCc_eny6b53Q" id="rest-post-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0OEtALKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0OEtAbKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0OEtArKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0OEtA7KoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_M8Ag4LGtEeuaUtRG9PYM5A" id="rest-post-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M8Tb0LGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M8Tb0bGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M8Tb0rGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M8Tb07GtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_0P-xgLKoEeuCc_eny6b53Q" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0RP80LKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0RP80bKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0RP80rKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0RP807KoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_M9DCsLGtEeuaUtRG9PYM5A" id="rest-get-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M9bdMLGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M9bdMbGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M9bdMrGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M9bdM7GtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_2_ncU6eLEeuBWqWDZRHnrw" id="GROOVY_SCRIPT"/>
@@ -537,27 +560,27 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_2_ncVaeLEeuBWqWDZRHnrw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_2_ncVqeLEeuBWqWDZRHnrw" id="OTHER"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_2_ncV6eLEeuBWqWDZRHnrw" name="horaInicio" value="0 59 11 1/1 * ? *" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0RU1ULKoEeuCc_eny6b53Q" name="usuario" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0RU1UbKoEeuCc_eny6b53Q" name="password" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0RU1UrKoEeuCc_eny6b53Q" name="urlLogin" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0RU1U7KoEeuCc_eny6b53Q" name="urlSincronizar" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M9crULGtEeuaUtRG9PYM5A" name="usuario" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M9crUbGtEeuaUtRG9PYM5A" name="password" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M9crUrGtEeuaUtRG9PYM5A" name="urlLogin" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M9crU7GtEeuaUtRG9PYM5A" name="urlSincronizar" typeClassname="java.lang.String"/>
       </configurations>
       <configurations xmi:type="configuration:Configuration" xmi:id="_4N-F0KeLEeuBWqWDZRHnrw" name="integration" version="7.11.1-001" username="Administrador" password="bpm">
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0RU1VLKoEeuCc_eny6b53Q" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
-        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_0TdjVLKoEeuCc_eny6b53Q" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_M9d5cLGtEeuaUtRG9PYM5A" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_M-a7sLGtEeuaUtRG9PYM5A" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4N-F0aeLEeuBWqWDZRHnrw" id="ACTOR_FILTER"/>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4N-F0qeLEeuBWqWDZRHnrw" id="CONNECTOR">
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_0Ser4LKoEeuCc_eny6b53Q" id="rest-post-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0TdjULKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0TdjUbKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0TdjUrKoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0TdjU7KoEeuCc_eny6b53Q" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_M-DIQLGtEeuaUtRG9PYM5A" id="rest-post-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M-aUoLGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M-aUobGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M-aUorGtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M-aUo7GtEeuaUtRG9PYM5A" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
-          <children xmi:type="configuration:FragmentContainer" xmi:id="_0U6U0LKoEeuCc_eny6b53Q" id="rest-get-impl-1.0.7">
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0VrJ0LKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0VrJ0bKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0VrJ0rKoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
-            <fragments xmi:type="configuration:Fragment" xmi:id="_0VrJ07KoEeuCc_eny6b53Q" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_M-_jcLGtEeuaUtRG9PYM5A" id="rest-get-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M_pqwLGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M_pqwbGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M_pqwrGtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_M_pqw7GtEeuaUtRG9PYM5A" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
           </children>
         </processDependencies>
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4N-F06eLEeuBWqWDZRHnrw" id="GROOVY_SCRIPT"/>
@@ -565,10 +588,10 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4N-F1aeLEeuBWqWDZRHnrw" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_4N-F1qeLEeuBWqWDZRHnrw" id="OTHER"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_4N-F16eLEeuBWqWDZRHnrw" name="horaInicio" value="0 59 11 1/1 * ? *" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0VwCULKoEeuCc_eny6b53Q" name="usuario" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0VwCUbKoEeuCc_eny6b53Q" name="password" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0VwCUrKoEeuCc_eny6b53Q" name="urlLogin" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_0VwCU7KoEeuCc_eny6b53Q" name="urlSincronizar" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M_qR0LGtEeuaUtRG9PYM5A" name="usuario" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M_qR0bGtEeuaUtRG9PYM5A" name="password" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M_qR0rGtEeuaUtRG9PYM5A" name="urlLogin" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_M_qR07GtEeuaUtRG9PYM5A" name="urlSincronizar" typeClassname="java.lang.String"/>
       </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_xR4dcKeLEeuBWqWDZRHnrw" name="horaInicio" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_sNpSEKeMEeuBWqWDZRHnrw" name="usuario" typeClassname="java.lang.String"/>
