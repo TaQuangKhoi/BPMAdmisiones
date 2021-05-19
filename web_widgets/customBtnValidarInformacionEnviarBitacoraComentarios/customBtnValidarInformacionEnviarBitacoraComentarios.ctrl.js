@@ -15,7 +15,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                submitTask();
+                // submitTask();
+                getUser();
                 $scope.$apply();
             }
         })
@@ -73,6 +74,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToSend.detalleSolicitudInput.admisionAnahuac === undefined) {
                 $scope.properties.dataToSend.detalleSolicitudInput.admisionAnahuac = null
             }
+            if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
+            }
+
             if ($scope.properties.accion === "Solicitar cambios") {
                 console.log($scope.properties.objDetalleSolicitud)
                 if($scope.properties.objDetalleSolicitud !== undefined){
@@ -96,6 +101,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
                         $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
                     }
+
                     $scope.properties.dataToSend.conIsInformacionValidada = false;
                     $scope.properties.dataToSend.conIs100Descuento = false;
                     $scope.properties.dataToSend.conIsAdmisionAnahuac = false;
@@ -152,6 +158,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.dataToSend.conIs100Descuento = false;
                                     $scope.properties.dataToSend.conIsAdmisionAnahuac = true;
                                     $scope.properties.dataToSend.conIsRechazada = false;
+                                    
                                     $scope.confirmacion();
                                 } else {
                                     swal.fire("¡Tipo de admisión!", "Debe validar la carta de la Admisión Anáhuac", "warning");
@@ -352,7 +359,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 })
 
                 //FIN VALIDAR CANDIDATO
-            } else if ($scope.properties.accion === "Lista roja") {
+            } 
+            
+            else if ($scope.properties.accion === "Lista roja") {
                 /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
                 $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
@@ -599,5 +608,89 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
+    function unassignTask() {
+        var id;
+        id = getUrlParam('id');
+        if (id) {
+            var params = getUserParam();
+            vm.busy = true;
+            let url = "../API/bpm/humanTask/" + id;
+            var req = {
+                method: "PUT",
+                url: url,
+                data: {
+                    assigned_id : ""
+                },
+                params: params
+            };
+
+            return $http(req).success(function(data, status) {
+                assignTask();
+            })
+            .error(function(data, status) {
+                console.error(data);
+                Swal.fire({
+                    title: 'No se puede ' + $scope.properties.accion +  ".",
+                    text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
+                    icon: "warning",
+                    confirmButtonColor: '#5cb85c',
+                    confirmButtonText: 'Cerrar',
+                }).then((result) => {
+                    $scope.$apply();
+                });
+
+                $scope.$apply();
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function assignTask() {
+        var id;
+        id = getUrlParam('id');
+        if (id) {
+            var params = getUserParam();
+            vm.busy = true;
+            let url = "../API/bpm/humanTask/" + id;
+            var req = {
+                method: "PUT",
+                url: url,
+                data: {
+                    assigned_id : $scope.userid
+                },
+                params: params
+            };
+
+            return $http(req).success(function(data, status) {
+                submitTask();
+            })
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function getUser(){
+        let url = "../API/system/session/1";
+        return $http.get(url).success(function(data, status) {
+            $scope.userid = data.user_id;
+            unassignTask();
+        })
+        .error(function(data, status) {
+            console.error(data);
+        })
+        .finally(function() {
+            vm.busy = false;
+        });
+    }
 
 }

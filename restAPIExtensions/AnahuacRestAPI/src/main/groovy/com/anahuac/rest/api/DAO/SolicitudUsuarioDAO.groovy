@@ -675,7 +675,8 @@ class SolicitudUsuarioDAO {
 	) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String  errorlog="";
+		String  errorlog = "";
+		
 		try {
 			
 			closeCon = validarConexion();

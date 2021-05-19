@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1620750721125,
+  "lastUpdate" : 1621298022455,
   "rows" : [
     [
       {
@@ -26682,7 +26682,7 @@
     "findByCorreoElectronico" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getDuplicado&correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&fechaNacimiento={{objSolicitudDeAdmision.fechaNacimiento.toString()}}&curp={{curp}}&nombre={{NombreAspirante}}&caseid={{objSolicitudDeAdmision.caseId}}&p=0&c=9999"
+        "../API/extension/AnahuacRestGet?url=getDuplicado&correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&fechaNacimiento={{objSolicitudDeAdmision.fechaNacimiento.toString()}}&curp={{curp}}&nombre={{NombreAspirante}}&caseid={{objSolicitudDeAdmision.caseId}}&p=0&c=9999{{nombreParametros}}"
       ],
       "exposed" : false
     },
@@ -27655,22 +27655,34 @@
         "//     }    ",
         "// }",
         "// return resultado;",
-        "let resultado;",
+        "let resultado = \"\";",
         "if($data.objSolicitudDeAdmision!==null && $data.objSolicitudDeAdmision!== undefined){",
-        "    let Nombre2=($data.objSolicitudDeAdmision.segundoNombre!==null || $data.objSolicitudDeAdmision.segundoNombre!==\"\") ? true : false;",
-        "    let Apellido2=($data.objSolicitudDeAdmision.apellidoMaterno!==null || $data.objSolicitudDeAdmision.apellidoMaterno!==\"\") ? true : false;",
+        "    // let Nombre2=($data.objSolicitudDeAdmision.segundoNombre!==null || $data.objSolicitudDeAdmision.segundoNombre!==\"\") ? true : false;",
+        "    // let Apellido2=($data.objSolicitudDeAdmision.apellidoMaterno!==null || $data.objSolicitudDeAdmision.apellidoMaterno!==\"\") ? true : false;",
         "    ",
-        "    if(!Nombre2 && Apellido2){",
-        "    resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
-        "    } ",
-        "    else if(Nombre2 && Apellido2){",
-        "    resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
-        "    }  ",
-        "    else if(Nombre2 && !Apellido2){",
-        "        resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
-        "    } else if(!Nombre2 && !Apellido2){",
-        "        resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
-        "    } ",
+        "    // if(!Nombre2 && Apellido2){",
+        "    // resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "    // } ",
+        "    // else if(Nombre2 && Apellido2){",
+        "    // resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno+\" \"+$data.objSolicitudDeAdmision.apellidoMaterno;",
+        "    // }  ",
+        "    // else if(Nombre2 && !Apellido2){",
+        "    //     resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.segundoNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
+        "    // } else if(!Nombre2 && !Apellido2){",
+        "    //     resultado=$data.objSolicitudDeAdmision.primerNombre+\" \"+$data.objSolicitudDeAdmision.apellidoPaterno;",
+        "    // } ",
+        "    ",
+        "    resultado += $data.objSolicitudDeAdmision.primerNombre;",
+        "    ",
+        "    if($data.objSolicitudDeAdmision.segundoNombre !== null && $data.objSolicitudDeAdmision.segundoNombre !== \"\"){",
+        "        resultado += (\" \" + $data.objSolicitudDeAdmision.segundoNombre);",
+        "    }",
+        "    ",
+        "    resultado += (\" \" + $data.objSolicitudDeAdmision.apellidoPaterno);",
+        "    ",
+        "    if($data.objSolicitudDeAdmision.apellidoMaterno !==null && $data.objSolicitudDeAdmision.apellidoMaterno !== \"\"){",
+        "        resultado += (\" \" + $data.objSolicitudDeAdmision.apellidoMaterno);",
+        "    }",
         "       ",
         "}",
         "return resultado;"
@@ -27818,6 +27830,33 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "nombreParametros" : {
+      "type" : "expression",
+      "value" : [
+        "let output = \"\";",
+        "",
+        "if($data.objSolicitudDeAdmision !== null){",
+        "     output += (\"&primerNombre=\" + $data.objSolicitudDeAdmision.primerNombre);",
+        "    ",
+        "    if($data.objSolicitudDeAdmision.segundoNombre !== null && $data.objSolicitudDeAdmision.segundoNombre !== \"\"){",
+        "        output += (\"&segundoNombre=\" + $data.objSolicitudDeAdmision.segundoNombre);",
+        "    } else {",
+        "        output += (\"&segundoNombre=\");",
+        "    }",
+        "    ",
+        "    output += (\"&apellidoPaterno=\" + $data.objSolicitudDeAdmision.apellidoPaterno);",
+        "    ",
+        "    if($data.objSolicitudDeAdmision.apellidoMaterno !==null && $data.objSolicitudDeAdmision.apellidoMaterno !== \"\"){",
+        "        output += (\"&apellidoMaterno=\" + $data.objSolicitudDeAdmision.apellidoMaterno);",
+        "    } else {",
+        "        output += (\"&apellidoMaterno=\");",
+        "    }",
+        "}",
+        "",
+        "return output;"
       ],
       "exposed" : false
     }
