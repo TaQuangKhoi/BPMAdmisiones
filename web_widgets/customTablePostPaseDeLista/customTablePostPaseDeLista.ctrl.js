@@ -460,15 +460,14 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         return $http(req)
             .success(function (data, status) {
-                for(let i = 0;i<3;i++){
-                    let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
-                    if(fecha.isSame(aplicacion)  ){
+                //for(let i = 0;i<3;i++){
+                    let fecha =moment(angular.copy(data.data[0].fecha));
+                    if(fecha.isSameOrAfter(aplicacion)  ){
                         $scope.habilitado = true;
-                        break;
                     }else{
                         $scope.habilitado = false;
                     }
-                }
+                //}
             })
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

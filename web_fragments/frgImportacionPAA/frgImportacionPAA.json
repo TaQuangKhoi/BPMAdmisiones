@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgImportacionPAA",
   "name" : "frgImportacionPAA",
-  "lastUpdate" : 1621299063503,
+  "lastUpdate" : 1621458683749,
   "rows" : [
     [
       {
@@ -249,8 +249,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "md" : 6,
+                "lg" : 6
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -318,6 +318,71 @@
               "reference" : "f8210a4a-c669-4c53-894b-5bc330367498",
               "hasValidationError" : false,
               "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "view"
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Fecha del examen"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strResultado.fechaExamen"
+                },
+                "dateFormat" : {
+                  "type" : "constant",
+                  "value" : "dd-MM-yyyy"
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "showToday" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "todayLabel" : {
+                  "type" : "interpolation",
+                  "value" : "Today"
+                }
+              },
+              "reference" : "79b02740-cb4c-4e69-acd1-b6ff15b33e13",
+              "hasValidationError" : false,
+              "id" : "pbDatePicker"
             }
           ],
           [
@@ -392,9 +457,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "be9d8f54-6839-4ad7-a8e5-338cf8199bf3",
+              "reference" : "950cc592-cc03-47f2-b844-6eada7d0132a",
               "hasValidationError" : false,
-              "id" : "customInputLimit"
+              "id" : "pbInput"
             },
             {
               "type" : "component",
@@ -2315,7 +2380,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strResultado.LOE4"
+                        "value" : "strResultado.LEO4"
                       },
                       "type" : {
                         "type" : "constant",
@@ -3340,6 +3405,14 @@
                 },
                 "texto" : {
                   "type" : "constant"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuario&p=0&c=100"
+                },
+                "tabla" : {
+                  "type" : "variable",
+                  "value" : "tabla"
                 }
               },
               "reference" : "89a4f7b4-d8bb-402d-8f94-db872ebfafe6",

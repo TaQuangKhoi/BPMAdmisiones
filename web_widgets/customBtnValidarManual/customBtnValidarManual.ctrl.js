@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
 
   'use strict';
 
@@ -8,16 +8,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       //$scope.properties.value = $scope.properties.texto;
       let paso = validacion();
       if(paso){
-          
+          doRequest("POST",$scope.properties.urlPost,$scope.properties.value)
       }
-      
     };
     
         
     
     function validacion(){
         if( isNullOrUndefined($scope.properties.value.IDBANNER) || $scope.properties.value.IDBANNER.length < 8){
-            swal(`¡Debe agregar el idBanner!`,"","warning")
+            swal(`¡debe agregar el id banner!`,"","warning")
             return false;
         }
         if( isNullOrUndefined($scope.properties.value.Nombre) ){
@@ -26,6 +25,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         if(isNullOrUndefined($scope.properties.value.Total) ){
             swal(`¡debe ingresar el valor de Puntuación Total!`,"","warning")
+            return false;
+        }
+        if(isNullOrUndefined($scope.properties.value.fechaExamen) ){
+            swal(`¡debe ingresar el valor de la fecha de examen!`,"","warning")
             return false;
         }
         if(isNullOrUndefined($scope.properties.value.PAAN)){
@@ -112,20 +115,107 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
            swal('¡debe ingresar el valor de PE4!',"","warning")
             return false; 
         }
-
-        //default
-        /*if(isNullOrUndefined($scope.properties.value)){
-           swal('¡debe ingresar el valor de !',"","warning")
+        
+        if(isNullOrUndefined($scope.properties.value.LEO1)){
+           swal('¡debe ingresar el valor de LEO1!',"","warning")
             return false; 
-        }*/
+        }
         
+        if(isNullOrUndefined($scope.properties.value.LEO2)){
+           swal('¡debe ingresar el valor de LEO2!',"","warning")
+            return false; 
+        }
         
+        if(isNullOrUndefined($scope.properties.value.LEO3)){
+           swal('¡debe ingresar el valor de LEO3!',"","warning")
+            return false; 
+        }
+        
+        if(isNullOrUndefined($scope.properties.value.LEO4)){
+           swal('¡debe ingresar el valor de LEO4!',"","warning")
+            return false; 
+        }
+        
+        if(isNullOrUndefined($scope.properties.value.LEO5)){
+           swal('¡debe ingresar el valor de LEO5!',"","warning")
+            return false; 
+        }
+        
+        if(isNullOrUndefined($scope.properties.value.CIT1)){
+           swal('¡debe ingresar el valor de CIT1!',"","warning")
+            return false; 
+        }
+        
+        if(isNullOrUndefined($scope.properties.value.CIT2)){
+           swal('¡debe ingresar el valor de CIT2!',"","warning")
+            return false; 
+        }
+        
+        if(isNullOrUndefined($scope.properties.value.HI1)){
+           swal('¡debe ingresar el valor de HI1!',"","warning")
+            return false; 
+        }
+        if(isNullOrUndefined($scope.properties.value.HI2)){
+           swal('¡debe ingresar el valor de HI2!',"","warning")
+            return false; 
+        }
+        if(isNullOrUndefined($scope.properties.value.HI3)){
+           swal('¡debe ingresar el valor de HI3!',"","warning")
+            return false; 
+        }
+        if(isNullOrUndefined($scope.properties.value.HI4)){
+           swal('¡debe ingresar el valor de HI4!',"","warning")
+            return false; 
+        }
+        if(isNullOrUndefined($scope.properties.value.HI5)){
+           swal('¡debe ingresar el valor de HI5!',"","warning")
+            return false; 
+        }
+        if(isNullOrUndefined($scope.properties.value.HI6)){
+           swal('¡debe ingresar el valor de HI6!',"","warning")
+            return false; 
+        }
+        return true;
     }
     
     function isNullOrUndefined(dato){
         if(dato === undefined || dato === null || dato.length <= 0 ){
             return true;
         }
+        return false
+    }
+    
+    
+    function doRequest(method, url,datos) {
+        blockUI.start();
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(datos)
+        };
+        return $http(req)
+            .success(function (data, status) {
+                if(!data.data[0].noRegistrado){
+                    $scope.properties.lstErrores.push({idBanner:datos['IDBANNER'],nombre:datos['Nombre'],Error:"el aspirante ya tiene puntuacion"})
+                }
+                else if(data.data[0].noEstaEnCarga){
+                    $scope.properties.lstErrores.push({idBanner:datos['IDBANNER'],nombre:datos['Nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados"})
+                }
+                else if(data.data[0].noExiste){
+                    $scope.properties.lstErrores.push({idBanner:datos['IDBANNER'],nombre:datos['Nombre'],Error:"no hay aspirante con ese idBanner"})
+                }
+                else {
+                    swal('¡Se han guardado los datos correctamente!',"","success")
+                    $scope.properties.tabla = "tabla";
+                }
+            })
+            .error(function (data, status) {
+                
+            })
+            .finally(function () {
+                
+                blockUI.stop();
+            });
     }
     
     
