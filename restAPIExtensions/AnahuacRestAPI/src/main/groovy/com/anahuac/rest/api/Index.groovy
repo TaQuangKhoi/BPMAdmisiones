@@ -717,11 +717,7 @@ class Index implements RestApiController {
 					break;
 					
 					case "getAspirantesSinPAA":
-<<<<<<< HEAD
-					result = new ImportacionPAADAO().getAspirantesSinPAA(jsonData, context)
-=======
 					result = new ImportacionPAADAO().getAspirantesSinPAA(0,9999,jsonData, context)
->>>>>>> 27dc61cf (actualizacion de pantallas)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

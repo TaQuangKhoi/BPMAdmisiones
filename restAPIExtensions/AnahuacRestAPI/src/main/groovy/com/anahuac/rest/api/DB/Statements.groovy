@@ -255,15 +255,13 @@ class Statements {
 	//insert importacion PAA
 	public static final String GET_IMPORTACIONPAA = "INSERT INTO IMPORTACIONPAA (idBanner,paan,la1,la2,la3,pg1,pg2,pg3,pg4,pv1,pv2,pv3,pe1,pe2,pe3,pe4,paav,leo1,leo2,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,persistenceid) VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,case when (SELECT max(persistenceId)+1 from importacionpaa ) is null then 1 else (SELECT max(persistenceId)+1 from importacionpaa) end ) "
 	
-<<<<<<< HEAD
-	public static final String GET_TIENEPUNTUACION = "SELECT count(*) as registros from IMPORTACIONPAA where idbanner = ?"
-=======
+
 	public static final String GET_TIENEPUNTUACION = "SELECT count(*) as registros from IMPORTACIONPAA  where idbanner = ? "
 	
 	public static final String GET_EXITE_Y_DATOS_DUPLICADOS = "SELECT paa.idbanner, sda.primernombre,ds.idbanner as dsbanner from DETALLESOLICITUD ds  LEFT JOIN  IMPORTACIONPAA paa on ds.idBanner = paa.idbanner  LEFT JOIN  solicituddeadmision sda on sda.caseid::varchar = ds.caseid AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados')  where ds.idbanner = ?"
 	
 	public static final String GET_PAA_BY_IDBANNER = "SELECT * FROM IMPORTACIONPAA WHERE IDBANNER = ?"
->>>>>>> 27dc61cf (actualizacion de pantallas)
+
 	/***********************JESUS OSUNA FIN********************************/
 	/*************JOSÉ GARCÍA***********************/
 	public static final String GET_CATPROPEDEUTICO ="SELECT p.*, c.descripcion AS campus FROM CATPROPEDEUTICO p INNER JOIN CATCAMPUS c ON p.CAMPUS_PID = c.PERSISTENCEID  [WHERE] [ORDERBY] [LIMITOFFSET]";

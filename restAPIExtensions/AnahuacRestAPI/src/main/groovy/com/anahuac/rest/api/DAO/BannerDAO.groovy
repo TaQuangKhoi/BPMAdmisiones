@@ -72,21 +72,13 @@ class BannerDAO {
 	  //jsonResultado = "[{\"id\":\"31\",\"published\":\"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"2da De Circunvalaci\u00f3n no 49\",\"Centro\"],\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Macuspana\",\"postalCode\":\"86700\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Morelos\"},\"subRegion\":{\"title\":\"ALDAMA\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"32\",\"published\":\"2021-04-22 18:31:03.538532+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle 143, tablaje catastral 18631 no 314\",\"entre perif\u00e9rico\",\"Emiliano Zapata\"],\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"place\":{\"country\":{\"code\":\"AGO\",\"locality\":\"Cd Obreg\u00f3n\",\"postalCode\":\"97139\",\"region\":{\"title\":\"Yucat\u00e1n\"},\"subRegion\":{\"title\":\"M\u00e9rida\"},\"title\":\"Angola\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 	  //jsonResultado = "[{\"id\": \"24\", \"published\": \"2021-04-21 22:36:38.602364+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"f043dd11-fb4f-4b2a-919a-72ae83397b19\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"f043dd11-fb4f-4b2a-919a-72ae83397b19\", \"title\": \"Nueva Escuela JABB direccion creada\", \"type\": \"secondarySchool\", \"code\": \"JABB\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"25\", \"published\": \"2021-04-21 22:43:54.645787+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"ad0a7315-6faa-482e-bcb1-cc0132f0b378\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Avenida siempre viva 123\", \"Springfield\", \"USA\"], \"id\": \"ad0a7315-6faa-482e-bcb1-cc0132f0b378\", \"place\": {\"country\": {\"code\": \"DEU\", \"locality\": \"Springfield\", \"postalCode\": \"123\", \"region\": {\"title\": \"Delaware\"}, \"subRegion\": {\"title\": \"AMECA\"}, \"title\": \"Alemania\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"9\", \"published\": \"2021-02-25 20:24:49.790915+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addresses\": [{\"address\": {\"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\"}, \"type\": {\"addressType\": \"school\"} }], \"homeInstitution\": \"external\", \"id\": \"a6693f89-8c92-47cd-9b13-5a50c21f019a\", \"title\": \"BACH GRUPO EDUCATIVO IMEI JABB\", \"type\": \"secondarySchool\", \"code\": \"JABB\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\"} }, {\"id\": \"10\", \"published\": \"2021-02-25 20:25:28.786177+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Miguel Domínguez 63\", \"Mz 37 Lt 23\", \"Nueva Aragón JABB\"], \"id\": \"b7cb1570-f8b9-4452-bb8b-a873a52f4a5a\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Ecatepec de Morelos\", \"postalCode\": \"55260\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Estado de México\"}, \"subRegion\": {\"title\": \"Ecatepec de Morelos\"}, \"title\": \"México\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\"} }, {\"id\": \"31\", \"published\": \"2021-04-22 18:29:39.352476+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"23bc3dbf-f3fa-4c4b-aeac-111111111111\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"2da De Circunvalación no 49\", \"Centro\"], \"id\": \"23bc3dbf-f3fa-4c4b-aeac-111111111111\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Macuspana\", \"postalCode\": \"86700\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Morelos\"}, \"subRegion\": {\"title\": \"ALDAMA\"}, \"title\": \"México\"} } }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } } ]";
 
-<<<<<<< HEAD
-	  //errorLog += " | jsonResultado: "+jsonResultado;
-=======
 	  errorLog += " | jsonResultado: "+jsonResultado;
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	  errorLog += " | "+("END JSON========================================");
 
 	  resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
 	  errorLog += " | "+strGetConsumeJSON;
 	  //resultadoGetConsumeJSON.setSuccess(true);
-<<<<<<< HEAD
-	  resultadoGetConsumeJSON.setError_info(errorLog);
-=======
 	  resultadoGetConsumeJSON.setError_info(errorLog + resultadoGetConsumeJSON.getError_info());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	} catch (Exception e) {
 	  errorLog += " | "+e.getMessage();
 	  resultadoGetConsumeJSON.setError_info(errorLog);
@@ -194,22 +186,14 @@ class BannerDAO {
 	
 	DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 	
-<<<<<<< HEAD
-	//String errorLog = "";
-	String strCountyCode = "";
-=======
 	String errorLog = "";
 	String strCountyCode = "";
 	String strStateCode = "";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	String strNationCode = "";
 	String resultEducationalInstitutions = "";
 	
 	Boolean isCountyCodeOk = false;
-<<<<<<< HEAD
-=======
 	Boolean isStateCodeOk = false;
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	Boolean isNationCodeOk = false;
 	Boolean isNationCodeLetterOk = false;
 	Boolean isMexicoOk = false;
@@ -237,20 +221,12 @@ class BannerDAO {
 	
 	try {
 	  
-<<<<<<< HEAD
-	  //errorLog = errorLog + " | jsonResultado: "+ jsonResultado;
-=======
 	  errorLog = errorLog + " | jsonResultado: "+ jsonResultado;
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	  lstJson = (org.json.simple.JSONArray) parser.parse(jsonResultado);
 	  
 	  Iterator<JSONObject> iterator = lstJson.iterator();
 	  
-<<<<<<< HEAD
-	  //errorLog = errorLog + " | "+ "--------------------------------------------------------";
-=======
 	  errorLog = errorLog + " | "+ "--------------------------------------------------------";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	  while (iterator.hasNext()) {
 		
 		objJson = iterator.next();
@@ -264,15 +240,6 @@ class BannerDAO {
 		switch(objJsonResource.get("name").toString()) {
 		  case "educational-institutions":
 
-<<<<<<< HEAD
-			//errorLog = errorLog + " | educational-institutions";
-			//errorLog = errorLog + " | " + ("idBachillerato: "+objJsonContent.get("id").toString());
-			//errorLog = errorLog + " | " + ("code: "+objJsonContent.get("code").toString());
-			//errorLog = errorLog + " | " + ("descripcion: "+objJsonContent.get("title").toString());
-			//errorLog = errorLog + " | " + ("usuarioBanner: "+objJsonPublisher.get("applicationName").toString());
-			//errorLog = errorLog + " | " + ("fechaImportacion: "+objJson.get("published").toString());
-			//errorLog = errorLog + " | " + ("fechaCreacion: "+objJson.get("published").toString());
-=======
 			errorLog = errorLog + " | educational-institutions";
 			errorLog = errorLog + " | " + ("idBachillerato: "+objJsonContent.get("id").toString());
 			errorLog = errorLog + " | " + ("code: "+objJsonContent.get("code").toString());
@@ -280,7 +247,6 @@ class BannerDAO {
 			errorLog = errorLog + " | " + ("usuarioBanner: "+objJsonPublisher.get("applicationName").toString());
 			errorLog = errorLog + " | " + ("fechaImportacion: "+objJson.get("published").toString());
 			errorLog = errorLog + " | " + ("fechaCreacion: "+objJson.get("published").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			
 			objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
@@ -291,11 +257,7 @@ class BannerDAO {
 			objEducationalInstitutions.setOperation(objJson.get("operation").toString());
 			objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
 			
-<<<<<<< HEAD
-			//errorLog = errorLog + " | "+ "objEducationalInstitutions.setStreetLine1";
-=======
 			errorLog = errorLog + " | "+ "objEducationalInstitutions.setStreetLine1";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			objEducationalInstitutions.setStreetLine1("");
 			objEducationalInstitutions.setStreetLine2("");
@@ -303,11 +265,7 @@ class BannerDAO {
 			objEducationalInstitutions.setNationCode("");
 			objEducationalInstitutions.setStateCode("");
 			objEducationalInstitutions.setCountyCode("");
-<<<<<<< HEAD
-			//errorLog = errorLog + " | "+ "objEducationalInstitutions.setCountyCode";
-=======
 			errorLog = errorLog + " | "+ "objEducationalInstitutions.setCountyCode";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			objEducationalInstitutions.setIsEliminado(false);
 			objEducationalInstitutions.setIsEnabled(true);
 			objEducationalInstitutions.setPerteneceRed(false);
@@ -321,11 +279,7 @@ class BannerDAO {
 			  
 			  objJsonAddressesData = iteratorAddresses.next();
 			  objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-=======
 			  errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
 			}*/
 			
@@ -335,31 +289,13 @@ class BannerDAO {
 			  while (iteratorAddresses.hasNext()) {
 				objJsonAddressesData = iteratorAddresses.next();
 				objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-<<<<<<< HEAD
-				//errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-=======
 				errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
 				
 			  }
 			}
 			else {
 
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): "+(objEducationalInstitutions.getIdBachillerato());
-			  //errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): "+(objEducationalInstitutions.getDescripcion());
-			  //errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): "+(objEducationalInstitutions.getUsuarioBanner());
-			  //errorLog = errorLog + " | objEducationalInstitutions.getFechaImportacion(): "+(objEducationalInstitutions.getFechaImportacion());
-			  //errorLog = errorLog + " | objEducationalInstitutions.getFechaCreacion(): "+(objEducationalInstitutions.getFechaCreacion());
-			  //errorLog = errorLog + " | objEducationalInstitutions.getOperation(): "+(objEducationalInstitutions.getOperation());
-			  //errorLog = errorLog + " | barrerToken: "+(barrerToken);
-			  //errorLog = errorLog + " | objJsonContent.get(id).toString(): "+(objJsonContent.get("id").toString());
-			  
-			  resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
-			  //errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
-			  //errorLog = errorLog + " | " + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions);
-=======
 			  errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): "+(objEducationalInstitutions.getIdBachillerato());
 			  errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): "+(objEducationalInstitutions.getDescripcion());
 			  errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): "+(objEducationalInstitutions.getUsuarioBanner());
@@ -372,7 +308,6 @@ class BannerDAO {
 			  resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
 			  errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
 			  errorLog = errorLog + " | " + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			  objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
 			  objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
@@ -380,11 +315,7 @@ class BannerDAO {
 			  while (iteratorAddresses.hasNext()) {
 				objJsonAddressesData = iteratorAddresses.next();
 				objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-<<<<<<< HEAD
-				//errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-=======
 				errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
 			  }
 			}
@@ -393,27 +324,16 @@ class BannerDAO {
 			
 			break;
 		  case "addresses":
-<<<<<<< HEAD
-			//errorLog = errorLog + " | addresses";
-=======
 			errorLog = errorLog + " | addresses";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			objJsonPlace = (JSONObject) objJsonContent.get("place");
 			lstAddressExtended = (JSONArray) objJsonContent.get("addressExtended");
 			objJsonCountry = (JSONObject) objJsonPlace.get("country");
 			objJsonRegion = (JSONObject) objJsonCountry.get("region");
 			
-<<<<<<< HEAD
-			//errorLog = errorLog + " | " + ("idDireccion: "+objJsonContent.get("id").toString());
-			//errorLog = errorLog + " | " + ("pais: "+objJsonCountry.get("title").toString());
-			//errorLog = errorLog + " | " + ("Estado: "+objJsonRegion.get("title").toString());
-			//errorLog = errorLog + " | " + ("ciudad: "+objJsonCountry.get("locality").toString());
-=======
 			errorLog = errorLog + " | " + ("idDireccion: "+objJsonContent.get("id").toString());
 			errorLog = errorLog + " | " + ("pais: "+objJsonCountry.get("title").toString());
 			errorLog = errorLog + " | " + ("Estado: "+objJsonRegion.get("title").toString());
 			errorLog = errorLog + " | " + ("ciudad: "+objJsonCountry.get("locality").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			objAddresses.setIdDireccion(objJsonContent.get("id").toString());
 
 			objAddresses.setOperation(objJson.get("operation").toString());
@@ -444,20 +364,12 @@ class BannerDAO {
 			lstAddresses.add(objAddresses);
 			break;
 		  default:
-<<<<<<< HEAD
-			//errorLog = errorLog + " | " + (objJsonResource.get("name").toString());
-=======
 			errorLog = errorLog + " | " + (objJsonResource.get("name").toString());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			break;
 		}
 		
 	  }
-<<<<<<< HEAD
-	  //errorLog = errorLog + " | " + ("--------------------------------------------------------");
-=======
 	  errorLog = errorLog + " | " + ("--------------------------------------------------------");
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	  
 	  /*for(CatBachillerato row : lstEducationalInstitutions) {
 		objCatBachillerato= new CatBachillerato();
@@ -481,15 +393,6 @@ class BannerDAO {
 		objCatBachillerato.setCountyCode(row.getCountyCode())
 		objCatBachillerato.setIdDireccion(row.getIdDireccion());
 
-<<<<<<< HEAD
-		//errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
-		//errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
-		//errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
-		//errorLog = errorLog + " | row.getFechaImportacion(): "+(row.getFechaImportacion());
-		//errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
-		//errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
-		//errorLog = errorLog + " | row.getClave(): "+(row.getClave());
-=======
 		errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
 		errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
 		errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
@@ -497,7 +400,6 @@ class BannerDAO {
 		errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
 		errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
 		errorLog = errorLog + " | row.getClave(): "+(row.getClave());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 		objCatBachillerato.setPais("");
 		objCatBachillerato.setEstado("");
 		objCatBachillerato.setCiudad("");
@@ -537,25 +439,6 @@ class BannerDAO {
 	  
 	  /*--------------------------------------------------------------------------------------------------------------*/
 
-<<<<<<< HEAD
-	  //errorLog = errorLog + " | " + ("====================================");
-	  //errorLog = errorLog + " | lstEducationalInstitutions.size():" + (lstEducationalInstitutions.size());
-	  def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
-	  for(CatBachillerato row : lstEducationalInstitutions) {
-		//errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
-		//errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
-		//errorLog = errorLog + " | row.getEstado(): "+(row.getEstado());
-		//errorLog = errorLog + " | row.getCiudad(): "+(row.getCiudad());
-		//errorLog = errorLog + " | row.getPais(): "+(row.getPais());
-		//errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
-		//errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
-		//errorLog = errorLog + " | row.getClave(): "+(row.getClave());
-		//errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
-
-		if(row.getOperation().equals("replaced")) {
-		//if(operacion.equals("replaced")) {
-		  //errorLog = errorLog + " | " + row.getOperation();
-=======
 	  errorLog = errorLog + " | " + ("====================================");
 	  errorLog = errorLog + " | lstEducationalInstitutions.size():" + (lstEducationalInstitutions.size());
 	  def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
@@ -573,22 +456,15 @@ class BannerDAO {
 		if(row.getOperation().equals("replaced")) {
 		//if(operacion.equals("replaced")) {
 		  errorLog = errorLog + " | " + row.getOperation();
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 		  lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 		  if(lstCatBachilleratos != null) {
 			for(CatBachilleratos objRow : lstCatBachilleratos) {
 			  if(!objRow.isIsEliminado()) {
 				if(row.getTypeInd().equals("H")) {
-<<<<<<< HEAD
-				  //errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-				  //errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-				  //errorLog = errorLog + " | ================================================================== | ";
-=======
 				  errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 				  errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 				  errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				  lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 				  objCatBachilleratosInput = new HashMap<String, Serializable>();
 				  contracto = new HashMap<String, Serializable>();
@@ -624,19 +500,11 @@ class BannerDAO {
 				  processInstance = processAPI.startProcessWithInputs(processId, contracto);
 				}
 				else {
-<<<<<<< HEAD
-				  //errorLog = errorLog + " | REPLACED DELETE";
-
-				  //errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-				  //errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-				  //errorLog = errorLog + " | ================================================================== | ";
-=======
 				  errorLog = errorLog + " | REPLACED DELETE";
 
 				  errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 				  errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 				  errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				  lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 				  objCatBachilleratosInput = new HashMap<String, Serializable>();
 				  contracto = new HashMap<String, Serializable>();
@@ -678,20 +546,6 @@ class BannerDAO {
 		}
 		else {
 		  if(row.getOperation().equals("created")) {
-<<<<<<< HEAD
-			//errorLog = errorLog + " | created===================================================================================================";
-			lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
-			
-			if(lstCatBachilleratos != null && lstCatBachilleratos.size()>0) {
-			  //errorLog = errorLog + " | IF BACHILLERATO NULL======================================================================================";
-			  for(CatBachilleratos objRow : lstCatBachilleratos) {
-				if(!objRow.isIsEliminado()) {
-				  if(row.getTypeInd().equals("H")) {
-					//errorLog = errorLog + " | IF IS ELIMANDO ===========================================================================================";
-					//errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-					//errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-					//errorLog = errorLog + " | ================================================================== | ";
-=======
 			errorLog = errorLog + " | created===================================================================================================";
 			lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 			
@@ -704,7 +558,6 @@ class BannerDAO {
 					errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 					errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 					errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 					lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 					objCatBachilleratosInput = new HashMap<String, Serializable>();
 					contracto = new HashMap<String, Serializable>();
@@ -741,19 +594,11 @@ class BannerDAO {
 					processInstance = processAPI.startProcessWithInputs(processId, contracto);
 				  }
 				  else {
-<<<<<<< HEAD
-					//errorLog = errorLog + " | CREATED DELETE";
-
-					//errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-					//errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-					//errorLog = errorLog + " | ================================================================== | ";
-=======
 					errorLog = errorLog + " | CREATED DELETE";
 
 					errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 					errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 					errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 					lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 					objCatBachilleratosInput = new HashMap<String, Serializable>();
 					contracto = new HashMap<String, Serializable>();
@@ -794,15 +639,9 @@ class BannerDAO {
 			}
 			else {
 			  if(row.getTypeInd().equals("H")) {
-<<<<<<< HEAD
-				//errorLog = errorLog + " | ELSE CREAR DATA ==========================================================================================";
-				//errorLog = errorLog + " | " + row.getOperation();
-				//errorLog = errorLog + " | processIdCrear: " + processIdCrear;
-=======
 				errorLog = errorLog + " | ELSE CREAR DATA ==========================================================================================";
 				errorLog = errorLog + " | " + row.getOperation();
 				errorLog = errorLog + " | processIdCrear: " + processIdCrear;
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 				objCatBachilleratosInput = new HashMap<String, Serializable>();
 				contracto = new HashMap<String, Serializable>();
@@ -837,35 +676,21 @@ class BannerDAO {
 				lstCatBachilleratosInput.add(objCatBachilleratosInput);
 				contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 				processInstance = processAPI.startProcessWithInputs(processIdCrear, contracto);
-<<<<<<< HEAD
-				//errorLog = errorLog + " | processInstance: " + processInstance;
-=======
 				errorLog = errorLog + " | processInstance: " + processInstance;
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  }
 			}
 		  }
 		  else {
 			if(row.getOperation().equals("deleted")) {
 			//if(operacion.equals("deleted")) {
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | " + row.getOperation();
-=======
 			  errorLog = errorLog + " | " + row.getOperation();
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  
 			  lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 			  if(lstCatBachilleratos != null) {
 				for(CatBachilleratos objRow : lstCatBachilleratos) {
-<<<<<<< HEAD
-				  //errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-				  //errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-				  //errorLog = errorLog + " | ================================================================== | ";
-=======
 				  errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 				  errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 				  errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 				  lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 				  objCatBachilleratosInput = new HashMap<String, Serializable>();
 				  contracto = new HashMap<String, Serializable>();
@@ -906,21 +731,12 @@ class BannerDAO {
 		}
 	  }
 
-<<<<<<< HEAD
-	  //errorLog = errorLog + " | " + ("====================================");
-	  //errorLog = errorLog + " | lstAddresses.size():" + (lstAddresses.size());
-	  for(CatBachillerato objLstAddresses : lstAddresses) {
-		//if(objLstAddresses.getOperation().equals("replaced")) {
-		  //errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
-		  //errorLog = errorLog + " | objLstAddresses.getIdDireccion():" + (objLstAddresses.getIdDireccion());
-=======
 	  errorLog = errorLog + " | " + ("====================================");
 	  errorLog = errorLog + " | lstAddresses.size():" + (lstAddresses.size());
 	  for(CatBachillerato objLstAddresses : lstAddresses) {
 		//if(objLstAddresses.getOperation().equals("replaced")) {
 		  errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
 		  errorLog = errorLog + " | objLstAddresses.getIdDireccion():" + (objLstAddresses.getIdDireccion());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 		  
 		  isMexicoOk = false;
 		  isUsaOk = false;
@@ -928,21 +744,6 @@ class BannerDAO {
 		  isNationCodeOk = false;
 		  isCountyCodeOk = false;
 		  
-<<<<<<< HEAD
-		  //errorLog = errorLog + " | " + ("====================================");
-		  //errorLog = errorLog + " | " + ("Validar Pais y estado");
-		  if(objLstAddresses.getPais().equals("México")) {
-			//errorLog = errorLog + " | " + (objLstAddresses.getPais());
-  
-			strCountyCode = objLstAddresses.getCountyCode() == null ? "" : objLstAddresses.getCountyCode();
-			//errorLog = errorLog + " | strCountyCode: " + (strCountyCode);
-			if(!strCountyCode.equals("")) {
-			  isCountyCodeOk = strCountyCode.substring(0, 1).toLowerCase().equals("m")
-			}
-  
-			strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
-			//errorLog = errorLog + " | strNationCode: " + (strNationCode);
-=======
 		  errorLog = errorLog + " | " + ("====================================");
 		  errorLog = errorLog + " | " + ("Validar Pais y estado");
 		  if(objLstAddresses.getPais().equals("México")) {
@@ -956,20 +757,10 @@ class BannerDAO {
   
 			strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
 			errorLog = errorLog + " | strNationCode: " + (strNationCode);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			if(!strNationCode.equals("")) {
 			  isNationCodeOk = strNationCode.equals("99")
 			}
 			
-<<<<<<< HEAD
-			isMexicoOk = (isNationCodeOk && isCountyCodeOk);
-		  }
-		  else {
-			if(objLstAddresses.getPais().equals("Estados Unidos de América")) {
-			  //errorLog = errorLog + " | " + (objLstAddresses.getPais());
-			  strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
-			  //errorLog = errorLog + " | strNationCode: " + (strNationCode);
-=======
 			isMexicoOk = (isNationCodeOk && isStateCodeOk);
 		  }
 		  else {
@@ -977,7 +768,6 @@ class BannerDAO {
 			  errorLog = errorLog + " | " + (objLstAddresses.getPais());
 			  strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
 			  errorLog = errorLog + " | strNationCode: " + (strNationCode);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  if(!strNationCode.equals("")) {
 				isNationCodeOk = strNationCode.equals("157")
 				matcher = pattern.matcher(strNationCode)
@@ -985,36 +775,22 @@ class BannerDAO {
 			  }
 			  
 			  strCountyCode = objLstAddresses.getCountyCode() == null ? "" : objLstAddresses.getCountyCode();
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | strCountyCode: " + (strCountyCode);
-=======
 			  errorLog = errorLog + " | strCountyCode: " + (strCountyCode);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  if(!strCountyCode.equals("")) {
 				isCountyCodeOk = strCountyCode.equals("20000")
 			  }
 			  isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
 			} else {
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | " + (objLstAddresses.getPais());
-			  strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
-			  //errorLog = errorLog + " | strNationCode: " + (strNationCode);
-=======
 			  errorLog = errorLog + " | " + (objLstAddresses.getPais());
 			  strNationCode = objLstAddresses.getNationCode() == null ? "" : objLstAddresses.getNationCode();
 			  errorLog = errorLog + " | strNationCode: " + (strNationCode);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  if(!strNationCode.equals("")) {
 				isNationCodeOk = !strNationCode.equals("157") && !strNationCode.equals("99");
 				matcher = pattern.matcher(strNationCode)
 				isNationCodeLetterOk = !matcher.find();
 			  }
 			  strCountyCode = objLstAddresses.getCountyCode() == null ? "" : objLstAddresses.getCountyCode();
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | strCountyCode: " + (strCountyCode);
-=======
 			  errorLog = errorLog + " | strCountyCode: " + (strCountyCode);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 			  if(!strCountyCode.equals("")) {
 				isCountyCodeOk = strCountyCode.equals("20000")
 			  }
@@ -1026,15 +802,9 @@ class BannerDAO {
 		  for(CatBachilleratos objRow : lstCatBachilleratos) {
 			if(!objRow.isIsEliminado()) {
 			  
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-			  //errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-			  //errorLog = errorLog + " | ================================================================== | ";
-=======
 			  errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 			  errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 			  errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			  lstCatBachilleratosInput = new ArrayList<Map<String, Serializable>>();
 			  objCatBachilleratosInput = new HashMap<String, Serializable>();
@@ -1068,32 +838,6 @@ class BannerDAO {
 			  objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
 			  objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
 
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | " + ("persistenceId - "+objRow.getPersistenceId());
-			  //errorLog = errorLog + " | " + ("persistenceVersion - "+objRow.getPersistenceVersion());
-			  //errorLog = errorLog + " | " + ("isEliminado - "+!(isMexicoOk || isUsaOk || isOtroPaisOk));
-			  //errorLog = errorLog + " | " + ("isEnabled - "+objRow.isIsEnabled());
-			  //errorLog = errorLog + " | " + ("todelete - "+((isMexicoOk || isUsaOk || isOtroPaisOk) ? "false" : "true"));
-			  //errorLog = errorLog + " | " + ("perteneceRed - "+objRow.isPerteneceRed());
-			  //errorLog = errorLog + " | " + ("region - "+null);
-			  //errorLog = errorLog + " | " + ("caseId - "+null);
-			  //errorLog = errorLog + " | " + ("clave - "+objRow.getClave());
-			  //errorLog = errorLog + " | " + ("fechaImportacion - "+null);
-			  //errorLog = errorLog + " | " + ("fechaCreacion - "+null);
-			  //errorLog = errorLog + " | " + ("usuarioCreacion - "+"Administrador");
-			  //errorLog = errorLog + " | " + ("descripcion - "+objRow.getDescripcion());
-			  //errorLog = errorLog + " | " + ("usuarioBanner - "+objRow.getUsuarioBanner());
-			  //errorLog = errorLog + " | " + ("estado - "+objLstAddresses.getEstado());
-			  //errorLog = errorLog + " | " + ("ciudad - "+objLstAddresses.getCiudad());
-			  //errorLog = errorLog + " | " + ("pais - "+objLstAddresses.getPais());
-			  //errorLog = errorLog + " | " + ("id - "+objRow.getId());
-			  //errorLog = errorLog + " | " + ("streetLine1 - "+objLstAddresses.getStreetLine1());
-			  //errorLog = errorLog + " | " + ("streetLine2 - "+objLstAddresses.getStreetLine2());
-			  //errorLog = errorLog + " | " + ("streetLine3 - "+objLstAddresses.getStreetLine3());
-			  //errorLog = errorLog + " | " + ("nationCode - "+objLstAddresses.getNationCode());
-			  //errorLog = errorLog + " | " + ("stateCode - "+objLstAddresses.getStateCode());
-			  //errorLog = errorLog + " | " + ("countyCode - "+objLstAddresses.getCountyCode());
-=======
 			  errorLog = errorLog + " | " + ("persistenceId - "+objRow.getPersistenceId());
 			  errorLog = errorLog + " | " + ("persistenceVersion - "+objRow.getPersistenceVersion());
 			  errorLog = errorLog + " | " + ("isEliminado - "+!(isMexicoOk || isUsaOk || isOtroPaisOk));
@@ -1118,7 +862,6 @@ class BannerDAO {
 			  errorLog = errorLog + " | " + ("nationCode - "+objLstAddresses.getNationCode());
 			  errorLog = errorLog + " | " + ("stateCode - "+objLstAddresses.getStateCode());
 			  errorLog = errorLog + " | " + ("countyCode - "+objLstAddresses.getCountyCode());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			  
 			  lstCatBachilleratosInput.add(objCatBachilleratosInput);
@@ -1127,48 +870,28 @@ class BannerDAO {
 			}
 			else {
 
-<<<<<<< HEAD
-			  //errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-			  //errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-			  //errorLog = errorLog + " | is eliminado";
-			  //errorLog = errorLog + " | ================================================================== | ";
-=======
 			  errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 			  errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 			  errorLog = errorLog + " | is eliminado";
 			  errorLog = errorLog + " | ================================================================== | ";
->>>>>>> 27dc61cf (actualizacion de pantallas)
 
 			}
 		  }
 		/*}
 		else {
-<<<<<<< HEAD
-		  //errorLog = errorLog + " | ELSE ADDRESSES";
-		  //errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
-=======
 		  errorLog = errorLog + " | ELSE ADDRESSES";
 		  errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
->>>>>>> 27dc61cf (actualizacion de pantallas)
 		}*/
 	  }
 	  
 	  resultado.setData(lstEducationalInstitutions);
 
 	  resultado.setSuccess(true);
-<<<<<<< HEAD
-	  //resultado.setError_info(errorLog);
-	  
-	} catch (Exception e) {
-	  resultado.setSuccess(false);
-	  //resultado.setError_info(errorLog);
-=======
 	  resultado.setError_info(errorLog);
 	  
 	} catch (Exception e) {
 	  resultado.setSuccess(false);
 	  resultado.setError_info(errorLog);
->>>>>>> 27dc61cf (actualizacion de pantallas)
 	  resultado.setError(e.getMessage());
 	  e.printStackTrace();
 	}
