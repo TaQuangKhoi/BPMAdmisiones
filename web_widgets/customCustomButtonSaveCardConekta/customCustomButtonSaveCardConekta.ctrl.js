@@ -32,6 +32,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
     
     $scope.execute = function () {
+        modalService.close();
         $scope.showModal();
         $scope.tokenParams = {
             "card": {
