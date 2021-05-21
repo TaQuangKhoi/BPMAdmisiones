@@ -3,7 +3,7 @@ function PbTableCtrl($scope, $window) {
   this.isArray = Array.isArray;
   'use strict';
 
-  this.isClickable = function () {
+  /*this.isClickable = function () {
     return $scope.properties.isBound('selectedRow');
   };
 
@@ -15,15 +15,8 @@ function PbTableCtrl($scope, $window) {
 
   this.isSelected = function(row) {
     return angular.equals(row, $scope.properties.selectedRow);
-  }
+  }*/
   
-   $scope.visualizarInfo = function(data){
-      $scope.$apply();
-      data.fechaExamen = data['Fecha de examen']
-      $scope.properties.selectedRow = data;
-      $scope.properties.table = "fragmento";
-      //$scope.$apply();
-  }
   
   
 }

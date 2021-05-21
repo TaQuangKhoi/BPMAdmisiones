@@ -8,7 +8,7 @@ function PbInputCtrl($scope,$http, $log, widgetNameFactory,blockUI) {
     $log.error('the pbInput property named "value" need to be bound to a variable');
   }
   
-  $scope.$watch("properties.value", function (newValue, oldValue) {
+    $scope.$watch("properties.value", function (newValue, oldValue) {
         if (newValue !== undefined) {
             if(newValue.length === 8  ){
                 doRequest("GET", $scope.properties.urlGet);

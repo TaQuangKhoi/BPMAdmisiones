@@ -24,6 +24,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             data: angular.copy($scope.properties.dataToSend),
             params: params
         };
+
         return $http(req)
             .success(function (data, status) {
                 $scope.properties.lstContenido = data.data;
@@ -49,9 +50,12 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
+                debugger
+                //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
+                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
-                window.top.location.href = url;
+                //window.top.location.href = url;
+                window.open(url,'_blank');
             })
             .error(function (data, status) {
                 console.error(data);
@@ -71,7 +75,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         $scope.selectedrow = {};
     }
     $scope.sendMail = function (row, mensaje) {
-        if (row.grupobonita === undefined) {
+        if (row.grupobonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
                 if ($scope.lstCampus[i].descripcion == row.campus) {
                     row.grupobonita = $scope.lstCampus[i].valor;
@@ -100,59 +104,18 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             })
             .finally(function () { });
     }
-    $scope.lstCampus = [{
-        "descripcion": "Anáhuac Cancún",
-        "valor": "CAMPUS-CANCUN"
-    },
-    {
-        "descripcion": "Anáhuac Mérida",
-        "valor": "CAMPUS-MAYAB"
-    },
-    {
-        "descripcion": "Anáhuac México Norte",
-        "valor": "CAMPUS-MNORTE"
-    },
-    {
-        "descripcion": "Anáhuac México Sur",
-        "valor": "CAMPUS-MSUR"
-    },
-    {
-        "descripcion": "Anáhuac Oaxaca",
-        "valor": "CAMPUS-OAXACA"
-    },
-    {
-        "descripcion": "Anáhuac Puebla",
-        "valor": "CAMPUS-PUEBLA"
-    },
-    {
-        "descripcion": "Anáhuac Querétaro",
-        "valor": "CAMPUS-QUERETARO"
-    },
-    {
-        "descripcion": "Anáhuac Xalapa",
-        "valor": "CAMPUS-XALAPA"
-    },
-    {
-        "descripcion": "Juan Pablo II",
-        "valor": "CAMPUS-JP2"
-    },
-    {
-        "descripcion": "Anáhuac Cordoba",
-        "valor": "CAMPUS-CORDOBA"
-    }
-    ];
+    $scope.lstCampus = [];
     $(function () {
-        //if($scope.properties.lstContenido.length >1){return }
         doRequest("POST", $scope.properties.urlPost);
     })
 
 
     $scope.$watch("properties.dataToSend", function (newValue, oldValue) {
         if (newValue !== undefined) {
-            //if($scope.properties.lstContenido.length >1){return }
             doRequest("POST", $scope.properties.urlPost);
         }
         console.log($scope.properties.dataToSend);
+
     });
     $scope.setOrderBy = function (order) {
         if ($scope.properties.dataToSend.orderby == order) {
@@ -182,6 +145,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         
         doRequest("POST", $scope.properties.urlPost);
     }
+    
 
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
@@ -257,25 +221,31 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
-        for (var i = 0; i < $scope.lstCampus.length; i++) {
-            if (campus == $scope.lstCampus[i].valor) {
-                retorno = $scope.lstCampus[i].descripcion
-            }
-            
-        }
+        for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
+            if (campus == $scope.properties.lstCampus[i].grupoBonita) {
+                retorno = $scope.properties.lstCampus[i].descripcion
+                if($scope.lstCampusByUser.length == 2){
+                    $scope.properties.campusSeleccionado = $scope.properties.lstCampus[i].grupoBonita    
+                }
+            }else if(campus == "Todos los campus"){
+                retorno = campus
+            }   
+        } 
         return retorno;
     }
+    
     $scope.lstMembership = [];
     $scope.$watch("properties.userId", function (newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
-                url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
+                url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-
+    
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
+                    $scope.campusByUser();
                 })
                 .error(function (data, status) {
                     console.error(data);
@@ -283,31 +253,86 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .finally(function () { });
         }
     });
+    
+    $scope.lstCampusByUser = [];
+    $scope.campusByUser = function(){
+        var resultado=[];
+       // var isSerua = true;
+        resultado.push("Todos los campus")
+        for(var x in $scope.lstMembership){
+            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
+                let i = 0;
+                resultado.forEach(value =>{
+                    if(value == $scope.lstMembership[x].group_id.name){
+                       i++;
+                    }
+                });
+                if(i === 0){
+                   resultado.push($scope.lstMembership[x].group_id.name);  
+                }
+            }
+        }
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
+        $scope.lstCampusByUser = resultado;
+    }
     $scope.filtroCampus = ""
     $scope.addFilter = function () {
-        var filter = {
-            "columna": "CAMPUS",
-            "operador": "Igual a",
-            "valor": $scope.filtroCampus
-        }
-        if ($scope.properties.dataToSend.lstFiltro.length > 0) {
-            var encontrado = false;
-            for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
-                const element = $scope.properties.dataToSend.lstFiltro[index];
-                if (element.columna == "CAMPUS") {
-                    $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
-                    $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
-                    $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
-                    encontrado = true
-                }
-                if (!encontrado) {
-                    $scope.properties.dataToSend.lstFiltro.push(filter);
-                }
-
+        if($scope.filtroCampus != "Todos los campus"){
+            var filter = {
+                "columna": "CAMPUS",
+                "operador": "Igual a",
+                "valor": $scope.filtroCampus
             }
-        } else {
-            $scope.properties.dataToSend.lstFiltro.push(filter);
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro[index].columna = filter.columna;
+                        $scope.properties.dataToSend.lstFiltro[index].operador = filter.operador;
+                        $scope.properties.dataToSend.lstFiltro[index].valor = $scope.filtroCampus;
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                        encontrado = true
+                    }
+                }
+                
+                if (!encontrado) {
+                        $scope.properties.dataToSend.lstFiltro.push(filter);
+                        for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                            if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                            $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                            }
+                        }
+                }
+            } else {
+                $scope.properties.dataToSend.lstFiltro.push(filter);
+                for(let index2 = 0; index2 < $scope.lstCampus.length; index2++){
+                    if($scope.lstCampus[index2].descripcion === $scope.filtroCampus){ 
+                    $scope.properties.campusSeleccionado = $scope.lstCampus[index2].valor;    
+                    }
+                }
+            }
+        }else{
+            
+            if ($scope.properties.dataToSend.lstFiltro.length > 0) {
+                var encontrado = false;
+                for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
+                    const element = $scope.properties.dataToSend.lstFiltro[index];
+                    if (element.columna == "CAMPUS") {
+                        $scope.properties.dataToSend.lstFiltro.splice(index,1);
+                        $scope.properties.campusSeleccionado = null;
+                    }
+                }
+            }
+            
         }
+       
     }
     $scope.sizing=function(){
         $scope.lstPaginado = [];
@@ -322,157 +347,129 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         
         doRequest("POST", $scope.properties.urlPost);
     }
-    
-    
-    
-     $scope.doRequestRedirect = function(row) {
-        var info = angular.copy($scope.properties.dataToSend);
-        info.limit= 1; 
-        info.lstFiltro =  [{"columna": "ID BANNER","operador": "Igual a","valor": row.idbanner}];
-        var reqInfo = {
-            method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=getSesionesPsicologoAdministradorAspirantes&p=0&c=10",
-            data: info
-        };
 
-        return $http(reqInfo)
-            .success(function (data, status) {
-                //data.data[0]
-                $scope.properties.datosUsuario = data.data[0];
-                $scope.properties.cambioPantalla = 'lista'
-            })
-            .error(function (data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                
-            });
-    }
-    
-    $scope.redirectComentario = function(row){
-        $scope.properties.datosUsuario = row;
-        $scope.properties.cambioPantalla = 'comentarios'
-        window.scrollTo(0,0);
-    }
-    
-   /* $scope.blockPaseLista = function(row){
-        
-        var d = new Date();
-        
-        var n = moment( (d.getHours() < 10? "0"+d.getHours() : d.getHours()) +":"+ (d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes() ) , 'HH:mm'  );
-        var fecha = moment(d.getFullYear()+"-"+((d.getMonth()+1) < 10 ?"0"+(d.getMonth()+1):(d.getMonth()+1) )+"-"+(d.getDate() < 10 ? "0"+d.getDate() : d.getDate() ))
-        
-        //var n = moment("09:00", 'HH:mm');
-        //var fecha = moment("2021-01-31", 'YYYY-MM-DD ')
-        //console.log( moment(fecha).isSame(row.fecha));
-        // && moment("2021-01-31").isSame(row.fecha)
-        
-        var ini = angular.copy(row.horario.slice(0,5));
-        var last =angular.copy(row.horario.slice(8,13));
-        
-        var inicio = moment(ini, 'HH:mm');
-        var fin = moment(last, 'HH:mm');
-        if(row.tipoprueba_PID == "1"){
-        
-            if(  n.isSameOrAfter(inicio) && n.isSameOrBefore(fin) && fecha.isSame(row.fecha)){
-                $scope.properties.habilitado = true;
-            }else{
-                $scope.properties.habilitado = false;
-            }
-            
-        }else{
-            
-            if( n.isSameOrBefore(fin) && n.isSameOrAfter(inicio) && fecha.isSame(row.fecha) ){
-                $scope.properties.habilitado = true;
-            }else{
-                $scope.properties.habilitado = false;
-            }
-        }
-    }*/
-    
-    $scope.habilitado = false;
-    $scope.asistencia = false;
-    $scope.pasarAsistencia = function(row){
-        $scope.blockPaseLista(row.aplicacion).then(function() {
-            //|| $scope.properties.datosUsuario.aplicacion != $scope.properties.getFechas
-            if(!$scope.habilitado  ){
-                swal(`¡No es el día (${row.aplicacion}) para pasar lista!`,"","warning")
-            }else{
-                $scope.asistencia = row.asistencia;
-                //$scope.properties.dataToSend.asistencia = $scope.properties.seleccion;
-                let dataToSend = angular.copy($scope.properties.strAsistencia);
-                dataToSend.asistencia = row.asistencia === null? true:(row.asistencia == "t"?false:true);
-                dataToSend.username = row.username;
-                var req = {
-                    method: "POST",
-                    url: $scope.asistencia === null?"/bonita/API/extension/AnahuacRest?url=insertPaseLista&p=0&c=10":"/bonita/API/extension/AnahuacRest?url=updatePaseLista&p=0&c=10",
-                    data: dataToSend
-                };
-                return $http(req)
-                    .success(function (data, status) {
-                        if(dataToSend.asistencia === true){
-                            swal("¡Asistencia capturada correctamente!","","success")
-                        }else{
-                            swal("¡Asistencia cancelada correctamente!","","success")    
-                        }
-                        doRequestCaseValue(dataToSend.asistencia,row.caseid,row.tipo_prueba);
-                        //$scope.properties.regresarTabla = "tabla";
-                    })
-                    .error(function (data, status) {
-                        notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-                    });
-                }
-        }).catch(err => {
-            swal("¡Se ha producido un error!", `Al momento de obtener la fecha del servidor`,"warning", {
-                closeOnClickOutside: false,
-                buttons: {
-                    catch: {
-                        text: "OK",
-                        value: "OK",
-                    }
-                },
-            });
-        });
-    }
-    
-    function doRequestCaseValue (asistencia,caseid,tipoprueba){
-        var caseId = caseid;
-        var variableNombre = "asistencia"+( tipoprueba == "Entrevista"?"Entrevista": tipoprueba == "Examen Psicométrico" ? "Psicometrico" : "CollegeBoard") 
-        var req = {
-            method: "PUT",
-            url: `/API/bpm/caseVariable/${caseId}/${variableNombre}`,
-            data: `{ "type": "java.lang.Boolean","value": "${asistencia}"}`
-        };
-        return $http(req)
-            .success(function (data, status) {
-                doRequest("POST", $scope.properties.urlPost);
-        })
-            .error(function (data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-        });
-    }
-    
-    
-    $scope.blockPaseLista = function(aplicacion){
+    $scope.getCatCampus = function() {
         var req = {
             method: "GET",
-            url: `/bonita/API/extension/AnahuacRestGet?url=getFechaServidor&p=0&c=100`,
+            url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.lstCampus = [];
+                for(var index in data){
+                    $scope.lstCampus.push({
+                        "descripcion": data[index].descripcion,
+                        "valor": data[index].grupoBonita
+                    })                    
+                }
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
+$scope.Transferencia = function (row) {
+        let sedeExamen;
+        if(row.transferencia == row.campus){
+            sedeExamen="MISMO CAMPUS"
+        }else{
+            sedeExamen="TRANSFERENCIA"
+        }
+        return sedeExamen;
+    }
+
+
+    $scope.getCatCampus();
+    
+    $scope.viewDownloadSolicitud = function (rowData) {
+
+        var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+        };
+
+        return $http(req)
+            .success(function (data, status) {
+                debugger
+                var url = "/apps/administrativo/descargarSolicitud/?id=[TASKID]&displayConfirmation=false";
+                url = url.replace("[TASKID]", data[0].id);
+                //window.top.location.href = url;
+                window.open(url,'_blank');
+            })
+            .error(function (data, status) {
+                console.error(data);
+            })
+            .finally(function () { });
+    }
+    
+    
+    
+    $scope.cargaManual = function(row){
+        $scope.properties.datosAspirante = {
+            "CIT1": "",
+            "CIT2": "",
+            "FECHAEXAMEN": "",
+            "HI1": "",
+            "HI2": "",
+            "HI3": "",
+            "HI4": "",
+            "HI5": "",
+            "HI6": "",
+            "IDBANNER": "",
+            "LA1": "",
+            "LA2": "",
+            "LA3": "",
+            "LEO1": "",
+            "LEO2": "",
+            "LEO3": "",
+            "LEO4": "",
+            "LEO5": "",
+            "PAAN": "",
+            "PAAV": "",
+            "PARA": "",
+            "PE1": "",
+            "PE2": "",
+            "PE3": "",
+            "PE4": "",
+            "PG1": "",
+            "PG2": "",
+            "PG3": "",
+            "PG4": "",
+            "PV1": "",
+            "PV2": "",
+            "PV3": "",
+            "TOTAL": ""
+        };
+        $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+        $scope.properties.tabla = "fragmento";
+        var req = {
+            method: "GET",
+            url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
         };
         return $http(req)
             .success(function (data, status) {
-                //for(let i = 0;i<3;i++){
-                    let fecha =moment(angular.copy(data.data[0].fecha));
-                    if(fecha.isSameOrAfter(aplicacion)  ){
-                        $scope.habilitado = true;
-                    }else{
-                        $scope.habilitado = false;
-                    }
-                //}
+                cargaDeDatos($scope.properties.datosAspirante,data.data[0])
             })
             .error(function (data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            });
+                console.error(data);
+            })
+            .finally(function () { });
+        
+        
     }
+
+    function cargaDeDatos(json,data){
+        var datos = data;
+        if(datos != null && datos != undefined){
+            let columna = datos;
+            for(var key in columna){
+               json[key.toUpperCase()] = data[key]
+            } 
+        
+        }
+    }
+    
     
     
 }
