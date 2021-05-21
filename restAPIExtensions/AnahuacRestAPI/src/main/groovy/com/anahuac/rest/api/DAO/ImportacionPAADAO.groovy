@@ -47,15 +47,21 @@ class ImportacionPAADAO {
 				closeCon = validarConexion();
 				
 				//revisar si el aspirante ya esta registrado en la importacion PAA
-				
-				pstm = con.prepareStatement(Statements.GET_TIENEPUNTUACION)
+
+				String paa = "", sda = "", ds= ""
+				pstm = con.prepareStatement(Statements.GET_EXITE_Y_DATOS_DUPLICADOS)
 				pstm.setString(1,object.IDBANNER);
 				rs= pstm.executeQuery();
 				if(rs.next()) {
-					resultado.setTotalRegistros(rs.getInt("registros"))
+					
+					paa = (rs.getString("idbanner"));
+					sda = (rs.getString("primernombre"));
+					ds = (rs.getString("dsbanner"));
 				}
 				
-				if(resultado.getTotalRegistros() <= 0) {
+				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
+				
+				if(isNullOrEmpty(paa) && !isNullOrEmpty(sda) && !isNullOrEmpty(ds)) {
 					con.setAutoCommit(false)
 					pstm = con.prepareStatement(Statements.GET_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
 					
@@ -96,9 +102,17 @@ class ImportacionPAADAO {
 					pstm.executeUpdate();
 					
 					con.commit();
+				}else {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+					columns.put("noRegistrado",isNullOrEmpty(paa))
+					columns.put("noExiste",isNullOrEmpty(ds))
+					columns.put("noEstaEnCarga",isNullOrEmpty(sda))
+					
+					estatus.add(columns)
 				}
 				
 				resultado.setSuccess(true)
+				resultado.setData(estatus)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -112,6 +126,17 @@ class ImportacionPAADAO {
 	} 
 	
 	
+
+	public Boolean isNullOrEmpty(String text) {
+		
+		if(text?.equals("null") || text?.equals("") || text?.equals(" ") || text?.length() < 1) {
+			return true
+		}
+		return false
+	}
+	
+	//todos los aspirantes que tengan el status de carga y consulta de resultados
+
 	public Result getAspirantesSinPAA(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -528,6 +553,49 @@ class ImportacionPAADAO {
 		return resultado
 	}
 	
+	
+	public Result getAspirantePAA(String idBanner, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			pstm = con.prepareStatement(Statements.GET_PAA_BY_IDBANNER);
+			pstm.setString(1, idBanner)
+			
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 
 	
 }
