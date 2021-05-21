@@ -1,8 +1,8 @@
 {
   "designerVersion" : "1.11.52",
-  "id" : "DeLorean",
-  "name" : "DeLorean",
-  "lastUpdate" : 1621468892356,
+  "id" : "EnviarTareaPago",
+  "name" : "EnviarTareaPago",
+  "lastUpdate" : 1621554621259,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "DeLorean"
+            "value" : "Tarea pago"
           },
           "level" : {
             "type" : "constant",
@@ -35,45 +35,9 @@
             "value" : "left"
           }
         },
-        "reference" : "1f2b5f5e-11fe-4544-a505-037566cfcc70",
+        "reference" : "4c828674-86c7-4d40-ab21-45aa02cd2a1e",
         "hasValidationError" : false,
         "id" : "pbTitle"
-      },
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 6,
-          "md" : 3,
-          "lg" : 3
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "srcType" : {
-            "type" : "constant",
-            "value" : "Asset"
-          },
-          "url" : {
-            "type" : "constant"
-          },
-          "assetName" : {
-            "type" : "constant",
-            "value" : "deloran.png"
-          },
-          "alt" : {
-            "type" : "interpolation"
-          }
-        },
-        "reference" : "1ef0e735-4886-4524-be32-d3cba3a84209",
-        "hasValidationError" : false,
-        "id" : "pbImage"
       }
     ],
     [
@@ -123,7 +87,7 @@
             "value" : "left"
           }
         },
-        "reference" : "f8d46cee-3353-4057-b080-8691b48240a7",
+        "reference" : "5c5a26b0-1f13-4270-ba20-cf5d898802be",
         "hasValidationError" : false,
         "id" : "pbText"
       }
@@ -200,7 +164,7 @@
             "value" : 1
           }
         },
-        "reference" : "e0b1ade0-f739-4031-a9df-84c3089028fd",
+        "reference" : "6e08cb28-3b51-43ff-b5d0-d829e5ca7fe6",
         "hasValidationError" : false,
         "id" : "pbInput"
       }
@@ -270,7 +234,7 @@
             "value" : true
           }
         },
-        "reference" : "fcbf8264-e196-4416-a0d9-58a43f5ffc20",
+        "reference" : "06edf34b-50bb-4d87-af72-d32d8ecfad78",
         "hasValidationError" : false,
         "id" : "pbTable"
       }
@@ -298,7 +262,7 @@
             "value" : ""
           }
         },
-        "reference" : "a17c3a35-cbdb-45f4-8ba4-322268b3255f",
+        "reference" : "05ad23b5-b5bf-4182-87aa-3e7614c6b752",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -349,7 +313,7 @@
                   "value" : "left"
                 }
               },
-              "reference" : "b10daa66-c1ad-4f7f-82ad-5579519f5fdc",
+              "reference" : "e7c779e8-0362-4314-a846-19ebe54fc4e6",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -374,7 +338,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Timer disponible"
+                  "value" : "Tareas disponibles"
                 },
                 "level" : {
                   "type" : "constant",
@@ -385,7 +349,7 @@
                   "value" : "center"
                 }
               },
-              "reference" : "f836e799-a5f2-4964-8da0-1dc4c7cbb59a",
+              "reference" : "a4073a88-c219-40b3-8fdc-155c94990f7c",
               "hasValidationError" : false,
               "id" : "pbTitle"
             }
@@ -434,7 +398,7 @@
                 },
                 "url" : {
                   "type" : "interpolation",
-                  "value" : "../API/bpm/timerEventTrigger?caseId={{casoSelected.caseId}}&p=0&c=10&"
+                  "value" : "../API/bpm/task?p=0&c=10&f=caseId={{casoSelected.caseId}}&f=isFailed=false"
                 },
                 "responseStatusCode" : {
                   "type" : "variable",
@@ -445,7 +409,7 @@
                 },
                 "dataFromSuccess" : {
                   "type" : "variable",
-                  "value" : "timerEventTrigger"
+                  "value" : "getTask"
                 },
                 "closeOnSuccess" : {
                   "type" : "constant",
@@ -476,7 +440,7 @@
                   "type" : "variable"
                 }
               },
-              "reference" : "dd7a030c-47be-45df-a980-2a29262a9743",
+              "reference" : "b1a343c0-6b36-4a3e-9bf1-f5ecf81f4950",
               "hasValidationError" : false,
               "id" : "pbButton"
             }
@@ -506,32 +470,26 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
-                    "eventInstanceName",
-                    "executionDate",
-                    "id",
-                    "id_string",
-                    "eventInstanceId",
-                    "eventInstanceId_string"
+                    "Tarea",
+                    "Caso",
+                    "Estado"
                   ]
                 },
                 "content" : {
                   "type" : "expression",
-                  "value" : "timerEventTrigger"
+                  "value" : "getTask"
                 },
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
-                    "eventInstanceName",
-                    "executionDate",
-                    "id",
-                    "id_string",
-                    "eventInstanceId",
-                    "eventInstanceId_string"
+                    "name",
+                    "caseId",
+                    "state"
                   ]
                 },
                 "selectedRow" : {
                   "type" : "variable",
-                  "value" : "timerSelected"
+                  "value" : "tareaSelected"
                 },
                 "striped" : {
                   "type" : "constant",
@@ -546,14 +504,14 @@
                   "value" : true
                 }
               },
-              "reference" : "1e58f2e2-0b49-45d3-8ff9-6ed5f1f90c25",
+              "reference" : "59532d35-4bbd-431b-8b16-0af1f66aa2b4",
               "hasValidationError" : false,
               "id" : "pbTable"
             }
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -567,45 +525,59 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "timerSelected.id==0"
+                  "value" : "tareaSelected.name === \"Pago de examen\""
                 },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<hr>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
-              "reference" : "81a40115-cc11-42b6-a8bc-8fb9a15a894a",
+              "reference" : "84362758-c458-4268-8015-1008f70e651a",
               "hasValidationError" : false,
-              "id" : "pbText"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "Favor de seleccionar la tarea tarea \"Pago de examen\""
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "fa00a8ec-b055-405a-808a-529f6c102d81",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ]
+              ]
             }
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -619,395 +591,283 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "timerSelected.id==0"
+                  "value" : "tareaSelected.name !== \"Pago de examen\""
                 },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "Tiempo nuevo(milisegundos)"
-                },
-                "level" : {
-                  "type" : "constant",
-                  "value" : "Level 4"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                }
-              },
-              "reference" : "672154d1-daf6-4535-bf63-00720b1a96ca",
-              "hasValidationError" : false,
-              "id" : "pbTitle"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "timerSelected.id==0"
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "timerSelected.id"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "timerSelected.eventInstanceName"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "801cd250-1a19-4197-94dd-c3fa55957f9e",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 3,
-                "sm" : 12,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "timerSelected.id==0"
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "timerSelected.id"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "a784701d-0a14-4153-9feb-fb4aa5d6b049",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 9,
-                "sm" : 6,
-                "md" : 4,
-                "lg" : 4
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "timerSelected.id==0"
-                },
-                "required" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
-                "value" : {
-                  "type" : "variable",
-                  "value" : "contratoTimer.executionDate"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "number"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
-                }
-              },
-              "reference" : "ae792eea-1ea7-4c8b-a98c-921716b4de42",
-              "hasValidationError" : false,
-              "id" : "pbInput"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "expression",
-                  "value" : "timerSelected.id==0"
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Actualizar Timer"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "center"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "PUT"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation",
-                  "value" : "../API/bpm/timerEventTrigger/{{timerSelected.id}}"
-                },
-                "responseStatusCode" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "dataToSend" : {
-                  "type" : "expression",
-                  "value" : "contratoTimer"
-                },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : "respuestaExitosa"
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
                 }
               },
-              "reference" : "9f4eebbf-e19d-41b8-bba1-136500f40542",
+              "reference" : "892e2039-3bdd-40ee-a369-38fadab37f2d",
               "hasValidationError" : false,
-              "id" : "pbButton"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>{{respuestaExitosa|json}}</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "8a76db3c-b322-46c5-8f29-5f5595b84627",
-              "hasValidationError" : false,
-              "id" : "pbText"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Tipo de pago de examen"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "inline" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "lstTipoPago"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant",
+                        "value" : "valor"
+                      },
+                      "selectedValue" : {
+                        "type" : "variable",
+                        "value" : "formInput.isPagoTarjeta"
+                      }
+                    },
+                    "reference" : "9f09f7f7-f592-45bc-b3b9-05ac3b8e1e5e",
+                    "hasValidationError" : false,
+                    "id" : "pbRadioButtons"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "minLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "maxLength" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "readOnly" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Orden de pago"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "formInput.detalleSolicitudInput.ordenPago"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "text"
+                      },
+                      "min" : {
+                        "type" : "constant"
+                      },
+                      "max" : {
+                        "type" : "constant"
+                      },
+                      "step" : {
+                        "type" : "constant",
+                        "value" : 1
+                      }
+                    },
+                    "reference" : "a2d0a022-dae6-46ae-aacc-1ed07f2d5fb1",
+                    "hasValidationError" : false,
+                    "id" : "pbInput"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Enviar tarea"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "POST"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/bpm/userTask/{{tareaSelected.id}}/execution"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formInput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "tarea" : {
+                        "type" : "variable",
+                        "value" : "tareaSelected.id"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "correoElectronico" : {
+                        "type" : "variable",
+                        "value" : "email"
+                      },
+                      "informacionEnviar" : {
+                        "type" : "variable",
+                        "value" : "formInput"
+                      },
+                      "getTask" : {
+                        "type" : "variable",
+                        "value" : "getTask"
+                      },
+                      "tareaSelected" : {
+                        "type" : "variable",
+                        "value" : "tareaSelected"
+                      },
+                      "casoSelected" : {
+                        "type" : "variable",
+                        "value" : "casoSelected"
+                      }
+                    },
+                    "reference" : "57f88109-1680-4e36-b83d-2addb6f9c267",
+                    "hasValidationError" : false,
+                    "id" : "customButtonEnviarTareaPago"
+                  }
+                ]
+              ]
             }
           ]
         ]
@@ -1091,10 +951,63 @@
         "{}"
       ],
       "exposed" : false
+    },
+    "getTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/task?p=0&c=10&f=caseId={{casoSelected.caseId}}&f=isFailed=false"
+      ],
+      "exposed" : false
+    },
+    "tareaSelected" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"name\":\"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstTipoPago" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "{\r",
+        "    \"descripcion\": \"Tarjeta\",\r",
+        "    \"valor\": true\r",
+        "},\r",
+        "{\r",
+        "    \"descripcion\": \"Oxxo/Spei\",\r",
+        "    \"valor\": false\r",
+        "}]"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"conIsPagoValidado\": true,\r",
+        "    \"isPagoTarjeta\": false,\r",
+        "    \"isPagoCondonado\": false,\r",
+        "    \"isDescuento100\": false,\r",
+        "    \"detalleSolicitudInput\": {\r",
+        "        \"ordenPago\": \"\"\r",
+        "    }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
     }
   },
   "hasValidationError" : false,
-  "uuid" : "c1eed9a1-e51c-4c5c-9be7-001139bc5d4c",
+  "uuid" : "48b2b528-64c1-405b-ac0a-ecd5cd69eef8",
   "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }

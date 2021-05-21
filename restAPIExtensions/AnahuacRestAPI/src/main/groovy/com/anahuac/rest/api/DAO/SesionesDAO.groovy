@@ -164,7 +164,7 @@ class SesionesDAO {
 				if(!fechaFinalStr.equals(" ")) {
 					objResultado = new HashMap<String, Object>();
 					calendario.setTime(dfSalida.parse(fechaFinalStr));
-					calendario.add(Calendar.DAY_OF_YEAR, +5);
+					calendario.add(Calendar.DAY_OF_YEAR, +3);
 					calendario.set(Calendar.HOUR_OF_DAY, 23);
 					calendario.set(Calendar.MINUTE, 59);
 					calendario.set(Calendar.SECOND, 59);
@@ -1525,7 +1525,7 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '3') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )";
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
@@ -1540,7 +1540,7 @@ class SesionesDAO {
 						
 						
 					case "TIPO DE PRUEBA, RESIDENCIA":
-						residencia +=" WHERE ( LOWER(residencia) LIKE LOWER('%[valor]%')";
+						residencia +=" AND ( LOWER(residencia) LIKE LOWER('%[valor]%')";
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
 						
 						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
@@ -1698,7 +1698,12 @@ class SesionesDAO {
 					consulta=consulta.replace("[WHERE]", where);
 					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
 					errorlog+="paso el where"
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR  Sesion.tipo LIKE '%R,E,F%'OR  Sesion.tipo LIKE '%F,R,E%'OR  Sesion.tipo LIKE '%F,E,R%'OR  Sesion.tipo LIKE '%E,F,R%'OR  Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR  Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR  Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					//pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR  Sesion.tipo LIKE '%R,E,F%'OR  Sesion.tipo LIKE '%F,R,E%'OR  Sesion.tipo LIKE '%F,E,R%'OR  Sesion.tipo LIKE '%E,F,R%'OR  Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR  Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR  Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					String conteo = Statements.COUNT_SESIONESCALENDARIZADAS_REGISTRADOS
+					conteo=conteo.replace("[WHERE]", where);
+					conteo=conteo.replace("[RESIDENCIA]", residencia);
+					pstm = con.prepareStatement(conteo)
+					//pstm = con.prepareStatement(Statements.COUNT_SESIONESCALENDARIZADAS_REGISTRADOS)
 					pstm.setInt(1, object.usuario)
 					
 					rs= pstm.executeQuery()
@@ -4463,7 +4468,7 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="",campus="";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '3') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )",campus="";
 		List<String> lstGrupo = new ArrayList<String>();
 		//Map<String, String> objGrupoCampus = new HashMap<String, String>();
 		try {
@@ -4515,7 +4520,7 @@ class SesionesDAO {
 						
 						
 					case "TIPO DE PRUEBA, RESIDENCIA":
-						residencia +=" WHERE ( LOWER(residencia) LIKE LOWER('%[valor]%')";
+						residencia +=" AND ( LOWER(residencia) LIKE LOWER('%[valor]%')";
 						residencia = residencia.replace("[valor]", filtro.get("valor"))
 						
 						residencia +=" OR LOWER(tipo_prueba) LIKE LOWER('%[valor]%') )";
@@ -4675,8 +4680,12 @@ class SesionesDAO {
 					consulta=consulta.replace("[WHERE]", where);
 					consulta=consulta.replace("[CAMPUS]", campus);
 					
-					errorlog+="paso el where"
-					pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR  Sesion.tipo LIKE '%R,E,F%'OR  Sesion.tipo LIKE '%F,R,E%'OR  Sesion.tipo LIKE '%F,E,R%'OR  Sesion.tipo LIKE '%E,F,R%'OR  Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR  Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR  Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
+					errorlog+="paso el where:"
+					String conteo = Statements.COUNT_SESIONESPSICOLOGO
+					conteo=conteo.replace("[WHERE]", where);
+					conteo=conteo.replace("[CAMPUS]", campus);
+					conteo=conteo.replace("[RESIDENCIA]", residencia);
+					pstm = con.prepareStatement(conteo)
 					
 					rs= pstm.executeQuery()
 					if(rs.next()) {
