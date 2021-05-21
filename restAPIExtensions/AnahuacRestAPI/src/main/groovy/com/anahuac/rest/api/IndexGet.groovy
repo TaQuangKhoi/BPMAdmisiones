@@ -20,8 +20,10 @@ import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
+import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
+import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
@@ -625,6 +627,18 @@ class IndexGet implements RestApiController {
 					}
 				break;
 				
+				case "getAspirantePAA":
+					String idbanner = request.getParameter "idbanner";
+					
+					result = new ImportacionPAADAO().getAspirantePAA(idbanner,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
 					String correo = request.getParameter "correoElectronico";
@@ -728,6 +742,17 @@ class IndexGet implements RestApiController {
 					String caseId = request.getParameter "caseId";
 					
 					result = new CustomUserRequestDAO().getCaseVariables(caseId, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "getBitacoraPagosByEmail":
+					String email = request.getParameter "email";
+					
+					result = new ConektaDAO().getBitacoraPagosByEmail(email, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

@@ -257,6 +257,8 @@ class ConektaDAO {
 			Charge charge = (Charge) order.charges.get(0);
 			PaymentMethod payment_method = (PaymentMethod) charge.payment_method;
 			order_id = order.id;
+			amount = order.amount / 100;
+			
 			lstResultado.add(new ConektaPaymentResponse(order.id, "" + (order.amount/100) + order.currency, line_item.quantity + " - "
 				+ line_item.name + " - "
 				+ (line_item.unit_price/100), payment_method.getVal("auth_code")+"", payment_method.getVal("name") + " - "
@@ -935,6 +937,59 @@ class ConektaDAO {
 			pstm = con.prepareStatement(consulta);
 			pstm.setInt(1, object.limit);
 			pstm.setInt(2, object.offset);
+			rs = pstm.executeQuery();
+			
+			while(rs.next()){
+				row = new OrdenBitacora();
+				row.setNoTransaccion(rs.getString("noTransaccion"));
+				row.setUsuarioAspirante(rs.getString("usuarioAspirante"));
+				row.setFechaMovimiento(rs.getString("fechaMovimiento"));
+				row.setMonto(rs.getString("monto"));
+				row.setMedioPago(rs.getString("medioPago"));
+				row.setEstatus(rs.getString("estatus"));
+				row.setObservaciones(rs.getString("observaciones"));
+				row.setCaseId(rs.getLong("caseId"));
+				row.setNombrePago(rs.getString("nombrePago"))
+				
+				rows.add(row);
+			}
+			resultado.setSuccess(true);
+			resultado.setError_info(errorlog);
+			resultado.setData(rows);
+			
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getBitacoraPagosByEmail(String email, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", errorlog = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		
+		try {
+//			def jsonSlurper = new JsonSlurper();
+//			def object = jsonSlurper.parseText(jsonData);
+			OrdenBitacora row = new OrdenBitacora();
+			List<OrdenBitacora> rows = new ArrayList<OrdenBitacora>();
+			closeCon = validarConexion();
+			
+			where = " WHERE usuarioAspirante = '" + email + "'";
+			String consulta = Statements.GET_BITACORA_PAGO;
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[ORDERBY]", "");
+			consulta = consulta.replace("[LIMITOFFSET]", "");
+			
+			pstm = con.prepareStatement(consulta);
+			
 			rs = pstm.executeQuery();
 			
 			while(rs.next()){
