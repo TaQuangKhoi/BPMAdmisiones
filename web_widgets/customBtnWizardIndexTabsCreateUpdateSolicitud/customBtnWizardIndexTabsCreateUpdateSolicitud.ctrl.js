@@ -851,8 +851,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.assignTask = function() {
         //$scope.showModal();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-
-        var req = {
+        var req2 = {
             method: "PUT",
             url: url,
             data: {
@@ -860,7 +859,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         };
 
-        return $http(req).success(function(data, status) {
+        return $http(req2).success(function(data, status) {
                 //$scope.executeTask();
                 submitTask();
             })
@@ -871,6 +870,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
 
             });
+
+        
     }
 
     function submitTask() {

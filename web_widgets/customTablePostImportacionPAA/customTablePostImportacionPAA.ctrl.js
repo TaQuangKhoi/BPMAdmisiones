@@ -464,7 +464,13 @@ $scope.Transferencia = function (row) {
         if(datos != null && datos != undefined){
             let columna = datos;
             for(var key in columna){
-               json[key.toUpperCase()] = data[key]
+                if(key != "total" && key != "fechaexamen"){
+                    json[key.toUpperCase()] = data[key]
+                }else if(key == "total"){
+                    json["Total"] = data[key]
+                }else if(key == "fechaexamen"){
+                    json["fechaExamen"] = data[key]
+                }
             } 
         
         }

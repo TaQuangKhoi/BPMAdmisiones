@@ -10,9 +10,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       if(!isNullOrUndefined($scope.properties.value) ){
           
           $scope.properties.value.forEach(datos =>{
-            let paso = validacion(datos);
+            var info = angular.copy(datos);
+            info.fechaExamen = info['Fecha de examen']
+            let paso = validacion(info);
             if(paso){
-                doRequest("POST",$scope.properties.urlPost,datos)
+                doRequest("POST",$scope.properties.urlPost,info)
             }
           })
           

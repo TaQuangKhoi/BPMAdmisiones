@@ -53,7 +53,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.assignTask();
                             }
                         }
-
+  
                     } else {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
                     }
@@ -100,7 +100,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.assignTask();
                     }
                 }
-
+  
             } else {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
             }
@@ -109,22 +109,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                             $scope.assignTask();
                         }*/
-
+  
         } else if ($scope.properties.selectedIndex === 2) {
             
         } else if ($scope.properties.selectedIndex === 3) {
-
+  
         } else if ($scope.properties.selectedIndex === 4) {
             
         }
-
+  
     }
     
     function openModal(modalid) {
-
+  
         modalService.open(modalid);
     }
-
+  
     function closeModal(shouldClose) {
         if (shouldClose)
             modalService.close();
@@ -134,15 +134,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         //$scope.showModal();
         blockUI.start();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-
         var req = {
             method: "PUT",
             url: url,
             data: {
                 "assigned_id": $scope.properties.userId
             }
-        };
-
+          };
+  
         return $http(req).success(function(data, status) {
                 //$scope.executeTask();
                 submitTask();
@@ -151,8 +150,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Error!", data.message, "error");
             })
             .finally(function() {
-
+  
             });
+        
     }
   
   function submitTask() {
@@ -198,7 +198,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             data: angular.copy($scope.properties.dataToSend),
             params: params
         };
-
+  
         return $http(req)
             .success(function(data, status) {
                 getTask();
@@ -216,14 +216,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //vm.busy = false;
             });
     }
-
+  
     // function getTask(){
     //     setTimeout(function(){ 
     //         var req = {
     //         method: 'GET',
     //         url: $scope.properties.urlCurrentTask
     //     };
-
+  
     //     return $http(req)
     //         .success(function(data, status) {
     //             console.log("SUCCSES")
@@ -242,7 +242,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     //     }, 1000);
         
     // }
-
+  
     function getTask() {
         debugger;
         var req = {
@@ -293,4 +293,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
-}
+  }
