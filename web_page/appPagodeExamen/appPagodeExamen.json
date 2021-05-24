@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1621619971091,
+  "lastUpdate" : 1621885791087,
   "rows" : [
     [
       {
@@ -555,11 +555,19 @@
                                   "newValue" : {
                                     "type" : "constant",
                                     "value" : "pagoTarjeta"
+                                  },
+                                  "catSolicitudDeAdmision" : {
+                                    "type" : "expression",
+                                    "value" : "objectSolicitud"
+                                  },
+                                  "urlDireccion" : {
+                                    "type" : "expression",
+                                    "value" : "urlDireccion"
                                   }
                                 },
-                                "reference" : "b8b85b5b-dbca-4d00-b59a-a27ed09a7b4f",
+                                "reference" : "f73dbb7b-e9d0-494d-a8bc-a84780ae55d9",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnNavigationByVariable"
+                                "id" : "customCustomBtnNavigationByVariable2"
                               }
                             ],
                             [
@@ -726,11 +734,19 @@
                                   "newValue" : {
                                     "type" : "constant",
                                     "value" : "pagoOXXO"
+                                  },
+                                  "catSolicitudDeAdmision" : {
+                                    "type" : "expression",
+                                    "value" : "objectSolicitud"
+                                  },
+                                  "urlDireccion" : {
+                                    "type" : "expression",
+                                    "value" : "urlDireccion"
                                   }
                                 },
-                                "reference" : "31fcc4c7-cd18-4436-b07f-95b5780c4cbb",
+                                "reference" : "3545ab24-6a4d-48e8-99d8-0cf452f196d1",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnNavigationByVariable"
+                                "id" : "customCustomBtnNavigationByVariable2"
                               }
                             ],
                             [
@@ -896,11 +912,19 @@
                                   "newValue" : {
                                     "type" : "constant",
                                     "value" : "pagoSPEI"
+                                  },
+                                  "catSolicitudDeAdmision" : {
+                                    "type" : "expression",
+                                    "value" : "objectSolicitud"
+                                  },
+                                  "urlDireccion" : {
+                                    "type" : "expression",
+                                    "value" : "urlDireccion"
                                   }
                                 },
-                                "reference" : "e04a2ccf-ed29-441b-8fe7-39465ac4dd8e",
+                                "reference" : "5d843779-d59f-4c8c-965f-b757d68ca007",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBtnNavigationByVariable"
+                                "id" : "customCustomBtnNavigationByVariable2"
                               }
                             ],
                             [
@@ -1122,11 +1146,19 @@
                       "userId" : {
                         "type" : "expression",
                         "value" : "user.id"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
+                      },
+                      "catSolicitudDeAdmision" : {
+                        "type" : "expression",
+                        "value" : "objectSolicitud"
                       }
                     },
-                    "reference" : "e30c11d6-dcea-4dec-893b-05df3dd4f340",
+                    "reference" : "668c184a-ddd9-48eb-bb76-9ee9f28a4c7d",
                     "hasValidationError" : false,
-                    "id" : "customCustomButtonExecuteTask"
+                    "id" : "customCustomButtonExecuteTask2"
                   }
                 ]
               ]
@@ -1304,11 +1336,19 @@
                       "userId" : {
                         "type" : "expression",
                         "value" : "user.id"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
+                      },
+                      "catSolicitudDeAdmision" : {
+                        "type" : "expression",
+                        "value" : "objectSolicitud"
                       }
                     },
-                    "reference" : "b13615ae-d7df-418e-ace6-53ed2388c2c2",
+                    "reference" : "edaca1f2-d3de-4c0e-8833-904b04b8b5de",
                     "hasValidationError" : false,
-                    "id" : "customCustomButtonExecuteTask"
+                    "id" : "customCustomButtonExecuteTask2"
                   }
                 ]
               ]
@@ -2631,57 +2671,13 @@
                           "type" : "constant",
                           "value" : "primary"
                         },
-                        "action" : {
-                          "type" : "constant",
-                          "value" : "POST"
-                        },
-                        "assign" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
                         "url" : {
                           "type" : "interpolation",
                           "value" : "../API/extension/AnahuacRest?url=pagoTarjeta&p=0&c=10"
                         },
-                        "responseStatusCode" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
                         "dataToSend" : {
                           "type" : "expression",
                           "value" : "cardInformation"
-                        },
-                        "dataFromSuccess" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "closeOnSuccess" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "dataFromError" : {
-                          "type" : "variable",
-                          "value" : ""
-                        },
-                        "targetUrlOnSuccess" : {
-                          "type" : "interpolation"
-                        },
-                        "collectionToModify" : {
-                          "type" : "variable"
-                        },
-                        "modalId" : {
-                          "type" : "constant",
-                          "value" : ""
-                        },
-                        "collectionPosition" : {
-                          "type" : "constant",
-                          "value" : "Last"
-                        },
-                        "valueToAdd" : {
-                          "type" : "constant"
-                        },
-                        "removeItem" : {
-                          "type" : "variable"
                         },
                         "cardToken" : {
                           "type" : "variable",
@@ -2698,11 +2694,19 @@
                         "validateCardFormat" : {
                           "type" : "variable",
                           "value" : "validateCardFormat"
+                        },
+                        "urlDireccion" : {
+                          "type" : "expression",
+                          "value" : "urlDireccion"
+                        },
+                        "catSolicitudDeAdmision" : {
+                          "type" : "expression",
+                          "value" : "objectSolicitud"
                         }
                       },
-                      "reference" : "fd1e8992-b660-4824-bd31-626d9d059401",
+                      "reference" : "2392d5a8-9f9c-4f90-8de5-d6e61ee895ed",
                       "hasValidationError" : false,
-                      "id" : "customCustomButtonSaveCardConekta"
+                      "id" : "customCustomButtonSaveCardConekta2"
                     }
                   ]
                 ]
@@ -3267,11 +3271,19 @@
                       },
                       "removeItem" : {
                         "type" : "variable"
+                      },
+                      "catSolicitudDeAdmision" : {
+                        "type" : "expression",
+                        "value" : "objectSolicitud"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "5bb62929-3ca1-4368-8c2e-821073b48ae8",
+                    "reference" : "9416ec25-b27f-4bce-80c8-41aecadd490e",
                     "hasValidationError" : false,
-                    "id" : "customCustomButtonWithSwal"
+                    "id" : "customCustomButtonWithSwal2"
                   }
                 ]
               ]
@@ -3835,11 +3847,19 @@
                       },
                       "removeItem" : {
                         "type" : "variable"
+                      },
+                      "catSolicitudDeAdmision" : {
+                        "type" : "expression",
+                        "value" : "objectSolicitud"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "b3315099-0c07-4a26-8b0f-46c3cdd9cc71",
+                    "reference" : "4682ad2b-0947-4fd0-b9c6-7a56fea39914",
                     "hasValidationError" : false,
-                    "id" : "customCustomButtonWithSwal"
+                    "id" : "customCustomButtonWithSwal2"
                   }
                 ]
               ]
@@ -7746,6 +7766,13 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "urlDireccion" : {
+      "type" : "constant",
+      "value" : [
+        "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
       ],
       "exposed" : false
     }
