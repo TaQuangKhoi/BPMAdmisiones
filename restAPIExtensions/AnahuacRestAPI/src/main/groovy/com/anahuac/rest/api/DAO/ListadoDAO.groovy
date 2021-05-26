@@ -8401,7 +8401,7 @@ class ListadoDAO {
 				}
 				
 				//se agregan los responsables, de esta manera no se ve afectado por el auto size y no queda como un renglon muy largo
-				errorLog = " params2: "+lstParams2 ;
+				errorLog += " params2: "+lstParams2 ;
 				Cell cellresponsable = blank.createCell(1);
 				cellresponsable.setCellValue("Responsable (s):");
 				cellresponsable.setCellStyle(style);
