@@ -70,7 +70,6 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
                 var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
                 window.top.location.href = url;
@@ -149,14 +148,14 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
             const element = $scope.properties.dataToSend.lstFiltro[index];
             if(element.columna==columna){
-                $scope.properties.dataToSend.lstFiltro[index].valor=press;
+                $scope.properties.dataToSend.lstFiltro[index].valor=press+"";
                 $scope.properties.dataToSend.lstFiltro[index].operador="Que contengan";
                 aplicado=false;
             }
             
         }
         if(aplicado){
-            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":(press !== undefined ?press:"")+"" }
             $scope.properties.dataToSend.lstFiltro.push(obj);
         }
         

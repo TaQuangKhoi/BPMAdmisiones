@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1621374169156,
+  "lastUpdate" : 1621635811330,
   "rows" : [
     [
       {
@@ -11278,7 +11278,9 @@
                 "formInput" : "",
                 "formOutput" : "formOutput",
                 "userId" : "users.user_id",
-                "Bachilleratopersistenceid" : "Bachilleratopersistenceid"
+                "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
+                "userName" : "users.user_name",
+                "urlRedireccion" : "urlDireccion"
               }
             }
           ]
@@ -11799,11 +11801,19 @@
                       "cartaAAarchivo" : {
                         "type" : "variable",
                         "value" : "context.cartaAA_ref"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "39f9c612-b7af-4df9-9392-b93cb832ff10",
+                    "reference" : "6594fb70-e265-49a5-9674-f135d4a96cbb",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexCreate"
+                    "id" : "customBtnWizardIndexCreate2"
                   }
                 ],
                 [
@@ -11995,11 +12005,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "309983a1-360a-4589-8478-fe5871b0c9f2",
+                    "reference" : "a71c032f-0d1d-4705-895f-e92b00efc8a6",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ],
                 [
@@ -12191,11 +12209,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "4b7167cf-67ff-4fa0-a86b-09b32bc54623",
+                    "reference" : "4ef6d390-6f74-4159-8c22-6601e7691263",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ],
                 [
@@ -12387,11 +12413,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "a354d199-19cc-4f54-96d1-51c2f3a506ac",
+                    "reference" : "28072d6b-3934-4402-a735-30505f05f31b",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ]
               ]
@@ -13319,11 +13353,19 @@
                         "urlCurrentTask" : {
                           "type" : "expression",
                           "value" : "urlCurrentTask"
+                        },
+                        "urlDireccion" : {
+                          "type" : "expression",
+                          "value" : "urlDireccion"
+                        },
+                        "userName" : {
+                          "type" : "variable",
+                          "value" : "users.user_name"
                         }
                       },
-                      "reference" : "0e280c37-e6e5-42ab-9295-963e75804622",
+                      "reference" : "b2fa39c0-dce7-4e64-b33b-88f58fd3f56e",
                       "hasValidationError" : false,
-                      "id" : "customBtnWizardModalModificacion"
+                      "id" : "customBtnWizardModalModificacion2"
                     }
                   ]
                 ]
@@ -23874,6 +23916,13 @@
       "type" : "url",
       "value" : [
         "../API/bdm/businessData/com.anahuac.catalogos.CatResultadoAdmision?q=find&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "urlDireccion" : {
+      "type" : "constant",
+      "value" : [
+        "https://dev.bpm.anahuac.mx/apps/login/admisiones/"
       ],
       "exposed" : false
     }

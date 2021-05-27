@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1621540738000,
+  "lastUpdate" : 1622136732663,
   "rows" : [
     [
       {
@@ -341,6 +341,18 @@
                                   "totalRows" : {
                                     "type" : "variable",
                                     "value" : "paginado.totalRows"
+                                  },
+                                  "urlPost" : {
+                                    "type" : "constant",
+                                    "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
+                                  },
+                                  "lstErrores" : {
+                                    "type" : "variable",
+                                    "value" : "lstErrores"
+                                  },
+                                  "tabla" : {
+                                    "type" : "variable",
+                                    "value" : "tabla"
                                   }
                                 },
                                 "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
@@ -534,7 +546,7 @@
                                         },
                                         "hidden" : {
                                           "type" : "expression",
-                                          "value" : "tabla != \"tabla\" || lstErrores.length > 0"
+                                          "value" : "tabla != \"tabla\""
                                         },
                                         "allowHTML" : {
                                           "type" : "constant",
@@ -1089,6 +1101,13 @@
       "name" : "sweetalert.min.js",
       "type" : "js",
       "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "ef0ec1e5-4f2d-4e3b-994f-d6abce0a9af6",
+      "name" : "tabla-conversion-paa.js",
+      "type" : "js",
+      "order" : 4,
       "external" : false
     },
     {

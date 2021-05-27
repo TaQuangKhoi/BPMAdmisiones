@@ -54,6 +54,7 @@ function ($scope, $http, modalService) {
             $scope.properties.navigationVar = "hideall";
             let title = "";
             let message = "";
+            $scope.properties.isTaskExecuted = true;
 
             if($scope.formInput.isPagoTarjeta){
                 title = "Pago realizado con éxito.";

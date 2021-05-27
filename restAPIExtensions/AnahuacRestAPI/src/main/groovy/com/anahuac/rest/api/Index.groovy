@@ -716,6 +716,17 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "postValidarUsuarioImportacionPAA":
+					result = new ImportacionPAADAO().postValidarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					
 					case "getAspirantesSinPAA":
 					result = new ImportacionPAADAO().getAspirantesSinPAA(0,9999,jsonData, context)
 					responseBuilder.withMediaType("application/json")

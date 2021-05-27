@@ -80,7 +80,6 @@ function PbButtonCtrl($scope, $http, $window) {
         
         var inicio = moment(ini, 'HH:mm');
         var fin = moment(last, 'HH:mm');*/
-        debugger;
         
         var req = {
             method: "GET",

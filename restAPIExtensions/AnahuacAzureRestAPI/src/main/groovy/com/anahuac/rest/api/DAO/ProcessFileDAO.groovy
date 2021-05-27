@@ -213,8 +213,9 @@ class ProcessFileDAO {
 				//esto estaba comentado y las otras dos funciones descomentadas
 				if(!fileName.equals("fotoPasaporte")) {
 					Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+					apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
 				}
-				//apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
+				
 				
 				if(fileName.equals("constancia")) {
 					Integer countConstancias = 0;

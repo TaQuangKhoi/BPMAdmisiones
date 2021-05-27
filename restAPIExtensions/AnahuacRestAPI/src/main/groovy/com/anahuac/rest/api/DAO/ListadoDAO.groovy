@@ -6101,7 +6101,7 @@ class ListadoDAO {
 						Cell cell19 = row.createCell(14);
 						cell19.setCellValue( "No" );
                     }else{
-                        String[] fechas =lstParams[i].fechasexamenes.split(",");
+                        String[] fechas = lstParams[i].fechasexamenes.split(",");
 						
 						String fechas1 = "";
 						String fechas2 = "";
@@ -6109,23 +6109,23 @@ class ListadoDAO {
 						
 						String[] asistencias = lstParams[i].asistencia.split(",");
 						
-						if(fechas.size()== 3) {
+						/*if(fechas.size() == 3) {
 							 fechas1 = fechas[0];
 							 fechas2 = fechas[1];
 							 fechas3 = fechas[2];
 							 
-						}else {
+						}else {*/
 							
 							for(int j = 0; j < fechas.size(); ++j) {
 								if(fechas[j].contains("Examen de aptitudes y conocimientos")) {
 									fechas1 = fechas[j];
-								}else if(fechas[j].contains("Entrevista")){
-									fechas2 = fechas[j];
-								}else {
+								}else if(fechas[j].contains("Examen Psicométrico")){
 									fechas3 = fechas[j];
+								}else {
+									fechas2 = fechas[j];
 								} 
 							}
-						}
+						//}
 						
 						String asistencia1 = "";
 						String asistencia2 = "";
@@ -6136,10 +6136,10 @@ class ListadoDAO {
 							if(asistencia?.size() >= 2) {
 								if( asistencia[1].contains("Examen de aptitudes y conocimientos")) {
 									asistencia1 = asistencia[0];
-								}else if(asistencia[1].contains("Entrevista")){
-									asistencia2 = asistencia[0];
-								}else {
+								}else if(asistencia[1].contains("Examen Psicométrico")){
 									asistencia3 = asistencia[0];
+								}else {
+									asistencia2 = asistencia[0];
 								}
 							}
 							 
@@ -8401,7 +8401,7 @@ class ListadoDAO {
 				}
 				
 				//se agregan los responsables, de esta manera no se ve afectado por el auto size y no queda como un renglon muy largo
-				errorLog = " params2: "+lstParams2 ;
+				errorLog += " params2: "+lstParams2 ;
 				Cell cellresponsable = blank.createCell(1);
 				cellresponsable.setCellValue("Responsable (s):");
 				cellresponsable.setCellStyle(style);
