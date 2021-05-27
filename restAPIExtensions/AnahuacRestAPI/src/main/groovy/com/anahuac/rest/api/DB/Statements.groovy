@@ -258,7 +258,7 @@ class Statements {
 	public static final String GET_TIENEPUNTUACION = "SELECT count(*) as registros from IMPORTACIONPAA  where idbanner = ? "
 	
 	public static final String GET_EXITE_Y_DATOS_DUPLICADOS = "SELECT paa.idbanner, sda.primernombre,ds.idbanner as dsbanner from DETALLESOLICITUD ds  LEFT JOIN  IMPORTACIONPAA paa on ds.idBanner = paa.idbanner  LEFT JOIN  solicituddeadmision sda on sda.caseid::varchar = ds.caseid AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados')  where ds.idbanner = ?"
-	
+
 	public static final String GET_PAA_BY_IDBANNER = "SELECT * FROM IMPORTACIONPAA WHERE IDBANNER = ?"
 
 	/***********************JESUS OSUNA FIN********************************/

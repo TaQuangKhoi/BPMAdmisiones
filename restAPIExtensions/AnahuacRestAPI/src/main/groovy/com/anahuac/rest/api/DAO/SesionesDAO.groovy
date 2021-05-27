@@ -547,14 +547,14 @@ class SesionesDAO {
 				}catch(Exception e) {
 					pstm.setDate(3, convert(new SimpleDateFormat("yyyy-MM-dd").parse(sesion.getFecha_inicio())))
 				}
-				(sesion.getIsmedicina()==null)?pstm.setNull(4, java.sql.Types.NULL):pstm.setBoolean(4, sesion.getIsmedicina())
-				(sesion.getBachillerato_pid()==null)?pstm.setNull(5, java.sql.Types.NULL):pstm.setLong(5, sesion.getBachillerato_pid())
-				(sesion.getEstado_pid()==null)?pstm.setNull(6, java.sql.Types.NULL):pstm.setLong(6, sesion.getEstado_pid())
-				(sesion.getPais_pid()==null)?pstm.setNull(7, java.sql.Types.NULL):pstm.setLong(7, sesion.getPais_pid())
+				(sesion.getIsmedicina()==null)?pstm.setBoolean(4, false):pstm.setBoolean(4, sesion.getIsmedicina())
+				(sesion.getBachillerato_pid()==null)?pstm.setLong(5, 0L):pstm.setLong(5, sesion.getBachillerato_pid())
+				(sesion.getEstado_pid()==null)?pstm.setLong(6,0L):pstm.setLong(6, sesion.getEstado_pid())
+				(sesion.getPais_pid()==null)?pstm.setLong(7, 0L):pstm.setLong(7, sesion.getPais_pid())
 				(sesion.getBorrador()==null)?pstm.setBoolean(8, true):pstm.setBoolean(8, sesion.getBorrador())
 				pstm.setLong(9, sesion.getCampus_pid())
 				pstm.setString(10, sesion.getTipo())
-				(sesion.getCiudad_pid()==null)?pstm.setNull(11, java.sql.Types.NULL):pstm.setLong(11, sesion.getCiudad_pid())
+				(sesion.getCiudad_pid()==null)?pstm.setLong(11, 0L):pstm.setLong(11, sesion.getCiudad_pid())
 				if(sesion.getUltimo_dia_inscripcion().contains(":")) {
 					pstm.setString(12, sesion.getUltimo_dia_inscripcion())
 				}else {
