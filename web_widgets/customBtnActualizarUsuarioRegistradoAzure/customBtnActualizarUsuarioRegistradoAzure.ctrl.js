@@ -126,7 +126,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 
                 $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
                 $scope.properties.JSONUsuarioRegistrado.tienePAA = ($scope.properties.dataToSend.tienepaa == "t" ?true:false );
-                $scope.properties.JSONUsuarioRegistrado.cbCoincide = $scope.properties.dataToSend.cbcoincide2;
+                $scope.properties.JSONUsuarioRegistrado.cbCoincide = $scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false;
                 $scope.properties.JSONUsuarioRegistrado.descuento = $scope.properties.dataToSend.descuento;
                 $scope.properties.JSONUsuarioRegistrado.Documentos = angular.copy($scope.properties.archivos);
                 
