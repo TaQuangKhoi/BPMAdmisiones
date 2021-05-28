@@ -98,10 +98,12 @@
         <dynamicLabel xmi:type="expression:Expression" xmi:id="_pYxtOr9OEeuUNZYi_VoUig" name="" content="" returnTypeFixed="true"/>
         <dynamicDescription xmi:type="expression:Expression" xmi:id="_pYxtO79OEeuUNZYi_VoUig" name="" content="" returnTypeFixed="true"/>
         <stepSummary xmi:type="expression:Expression" xmi:id="_pYxtPL9OEeuUNZYi_VoUig" name="" content="" returnTypeFixed="true"/>
-        <operations xmi:type="expression:Operation" xmi:id="_pYxtPb9OEeuUNZYi_VoUig">
-          <leftOperand xmi:type="expression:Expression" xmi:id="_pYxtPr9OEeuUNZYi_VoUig" name="" content=""/>
-          <rightOperand xmi:type="expression:Expression" xmi:id="_pYxtQL9OEeuUNZYi_VoUig" content=""/>
-          <operator xmi:type="expression:Operator" xmi:id="_pYxtQb9OEeuUNZYi_VoUig" type="DELETION"/>
+        <operations xmi:type="expression:Operation" xmi:id="_fx2rUL_sEeufZJ5wzYNbww">
+          <leftOperand xmi:type="expression:Expression" xmi:id="_fx3SYL_sEeufZJ5wzYNbww" name="lstCatRasgosCalifTpoDelete" content="lstCatRasgosCalifTpoDelete" type="TYPE_VARIABLE" returnType="java.util.List">
+            <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_g_TV4L_sEeufZJ5wzYNbww" name="lstCatRasgosCalifTpoDelete" multiple="true" dataType="_pYxtg79OEeuUNZYi_VoUig" className="com.anahuac.catalogos.CatRasgosCalif"/>
+          </leftOperand>
+          <rightOperand xmi:type="expression:Expression" xmi:id="_fx3SYb_sEeufZJ5wzYNbww" content=""/>
+          <operator xmi:type="expression:Operator" xmi:id="_fx3SYr_sEeufZJ5wzYNbww" type="DELETION"/>
         </operations>
         <loopCondition xmi:type="expression:Expression" xmi:id="_pYxtQr9OEeuUNZYi_VoUig" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
         <loopMaximum xmi:type="expression:Expression" xmi:id="_pYxtQ79OEeuUNZYi_VoUig" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -121,7 +123,10 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_IHL7IL9PEeuUNZYi_VoUig" name="lstCatRasgosCalifTpoDelete" multiple="true" dataType="_pYxtg79OEeuUNZYi_VoUig" className="com.anahuac.catalogos.CatRasgosCalif">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_IHL7Ib9PEeuUNZYi_VoUig" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_IHL7Ib9PEeuUNZYi_VoUig" name="init_lstCatRasgosCalifTpoDelete()" content="//import com.anahuac.catalogos.CatLectura&#xD;&#xA;//&#xD;&#xA;//def catLecturaList = [];&#xD;&#xA;//for(Map objCatLecturaInput: lstCatLecturaInput){&#xD;&#xA;//&#x9;if(Boolean.TRUE.equals(objCatLecturaInput.todelete)){&#xD;&#xA;//&#x9;&#x9;CatLectura objCatLectura = catLecturaDAO.findByPersistenceId(objCatLecturaInput.persistenceId)&#xD;&#xA;//&#x9;&#x9;if(objCatLectura != null) {&#xD;&#xA;//&#x9;&#x9;&#x9;catLecturaList.add(objCatLectura);&#xD;&#xA;//&#x9;&#x9;}&#xD;&#xA;//&#x9;}&#xD;&#xA;//}&#xD;&#xA;//return catLecturaList;&#xD;&#xA;&#xD;&#xA;import com.anahuac.catalogos.CatRasgosCalif&#xD;&#xA;&#xD;&#xA;def catRasgosCalifList = [];&#xD;&#xA;for(Map objCatRasgosCalifInput: lstCatRasgosCalifInput){&#xD;&#xA;&#x9;if(Boolean.TRUE.equals(objCatRasgosCalifInput.todelete)){&#xD;&#xA;&#x9;&#x9;CatRasgosCalif objCatRasgosCalif = catRasgosObservadosDAO.findByPersistenceId(objCatRasgosCalifInput.persistenceId)&#xD;&#xA;&#x9;&#x9;if(objCatRasgosCalif != null) {&#xD;&#xA;&#x9;&#x9;&#x9;catRasgosCalifList.add(objCatRasgosCalif);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;return catRasgosCalifList;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_3E8-YL_sEeufZJ5wzYNbww" name="lstCatRasgosCalifInput" type="COMPLEX" multiple="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3E8-Yb_sEeufZJ5wzYNbww" name="catRasgosObservadosDAO" content="catRasgosObservadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatRasgosObservadosDAO" returnTypeFixed="true"/>
+        </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_pYxtU79OEeuUNZYi_VoUig" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_pYxtVL9OEeuUNZYi_VoUig" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
