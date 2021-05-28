@@ -122,7 +122,7 @@ class ImportacionPAADAO {
 
 				 String[] idBanner = object.IDBANNER.split(",");
 				 for(int j = 0; j < idBanner.size(); ++j) {
-					 //errorLog = Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",object.IDBANNER)
+					 //errorLog += Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",object.IDBANNER)
 					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]))
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();

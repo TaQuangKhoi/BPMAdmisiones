@@ -19,7 +19,8 @@ function PbTableCtrl($scope, $window) {
   
    $scope.visualizarInfo = function(data){
       $scope.$apply();
-      data.fechaExamen = data['Fecha de examen']
+      debugger;
+      //data.fechaExamen = data['Fecha de examen']
       $scope.properties.selectedRow = data;
       $scope.properties.table = "fragmento";
       //$scope.$apply();
