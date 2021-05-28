@@ -67,6 +67,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe agregar el promedio", "warning");
             }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
                 swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");
+            }else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "") || ($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa == undefined)){
+                 swal("¡Aviso!", "Debe agregar la carta AA", "warning");
             }else{
                 $scope.properties.JSONUsuarioRegistrado.caseid = $scope.properties.dataToSend.caseid;
                 $scope.properties.JSONUsuarioRegistrado.primernombre = $scope.properties.dataToSend.primernombre;
@@ -126,7 +128,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 
                 $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
                 $scope.properties.JSONUsuarioRegistrado.tienePAA = ($scope.properties.dataToSend.tienepaa == "t" ?true:false );
-                $scope.properties.JSONUsuarioRegistrado.cbCoincide = $scope.properties.dataToSend.cbcoincide2;
+                $scope.properties.JSONUsuarioRegistrado.cbCoincide = ($scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false);
                 $scope.properties.JSONUsuarioRegistrado.descuento = $scope.properties.dataToSend.descuento;
                 $scope.properties.JSONUsuarioRegistrado.Documentos = angular.copy($scope.properties.archivos);
                 

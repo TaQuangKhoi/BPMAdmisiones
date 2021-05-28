@@ -2822,8 +2822,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.assignTask = function() {
         //$scope.showModal();
-        blockUI.start();
-        blockUI.start();
         var req = {
             method: "GET",
             url: "../API/system/session/unusedid",
@@ -5230,7 +5228,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         
                             $scope.assignTask = function() {
                                 //$scope.showModal();
-                                blockUI.start();
+                                
                                 let url = "../API/bpm/userTask/" + $scope.properties.taskId;
                                 if($scope.properties.catSolicitudDeAdmision.correoElectronico != $scope.properties.userName){
                                     swal("¡Error!", "Su sesion ha expirado", "warning");   
@@ -5249,7 +5247,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             submitTask();
                                         })
                                         .error(function(data, status) {
-                                            blockUI.stop();
+                                            
                                             swal("¡Error!", data.message, "error");
                                         })
                                         .finally(function() {
@@ -5381,7 +5379,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                                 $scope.properties.currentTask = data;
                                                 topFunction();
                                                 $scope.properties.disabled = false;
-                                                blockUI.stop();
+                                                
                                                 $scope.properties.selectedIndex++;
                                             }
                                         } else {
@@ -5549,7 +5547,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.currentTask = data;
                         topFunction();
                         $scope.properties.disabled = false;
-                        blockUI.stop();
+                        
                         $scope.properties.selectedIndex++;
                     }
                 } else {
