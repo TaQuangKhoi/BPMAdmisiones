@@ -87,7 +87,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 let paso = validacion(info);
                 
                 if(paso){
-                    $scope.lstBanner.IDBANNER += `${$scope.lstBanner.length>0?",":""}'${info['IDBANNER']}'`;
+                    $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
 
                     $scope.correctos = [...$scope.correctos,info]
                 }
@@ -276,6 +276,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
     function revisarDatos(data,datos){
         debugger;
         data.data.forEach( (info,index) =>{
+            let lstidBanner = info.idBanner.split(',')
             let indice = findData(info.idBanner.replaceAll("'",""))
             if(!info.Existe){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"no hay aspirante con ese idBanner"}]
@@ -294,6 +295,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 datos[indice]['PAAV'] = convertirDato(datos[indice]['PAAV'])
                 datos[indice]['LEXIUM_PARA'] = datos[indice]['PARA']
                 datos[indice]['PARA'] = convertirDato(datos[indice]['PARA'])
+                datos[indice]['LEXIUM_Total'] = datos[indice]['Total']
+                datos[indice]['Total'] = convertirDato(datos[indice]['Total'])
                 $scope.final = [ ...$scope.final,datos[indice]]
             }
         })

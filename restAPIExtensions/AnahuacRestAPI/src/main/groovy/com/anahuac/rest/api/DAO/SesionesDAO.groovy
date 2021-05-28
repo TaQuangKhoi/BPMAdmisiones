@@ -4684,7 +4684,10 @@ class SesionesDAO {
 					consulta=consulta.replace("[CAMPUS]", campus);
 					
 					errorlog+="paso el where:"
+					String consulta_aspirante =  Statements.EXT_SESIONESPSICOLOGO
+					
 					String conteo = Statements.COUNT_SESIONESPSICOLOGO
+					conteo=conteo.replace("[COUNTASPIRANTES]", consulta_aspirante)
 					conteo=conteo.replace("[WHERE]", where);
 					conteo=conteo.replace("[CAMPUS]", campus);
 					conteo=conteo.replace("[RESIDENCIA]", residencia);
@@ -4696,8 +4699,8 @@ class SesionesDAO {
 					}
 					errorlog+="paso el registro"
 					
-					String consulta_aspirante =  Statements.EXT_SESIONESPSICOLOGO
 					
+					// 
 					consulta=consulta.replace("[ORDERBY]", orderby)
 					consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 					consulta=consulta.replace("[RESIDENCIA]", residencia)
