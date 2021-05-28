@@ -1151,6 +1151,7 @@ class ResultadosAdmisionDAO {
 						}
 					}
 				} else {
+//					throw new Exception(resultadoEnvioCarta.getError());
 					correoLog += "No se pudo enviar la carta";
 					isError = true;
 					errorInfo = resultadoEnvioCarta.getError();

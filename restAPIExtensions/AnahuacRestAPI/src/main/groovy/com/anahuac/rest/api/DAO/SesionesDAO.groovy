@@ -547,14 +547,14 @@ class SesionesDAO {
 				}catch(Exception e) {
 					pstm.setDate(3, convert(new SimpleDateFormat("yyyy-MM-dd").parse(sesion.getFecha_inicio())))
 				}
-				(sesion.getIsmedicina()==null)?pstm.setNull(4, java.sql.Types.NULL):pstm.setBoolean(4, sesion.getIsmedicina())
-				(sesion.getBachillerato_pid()==null)?pstm.setNull(5, java.sql.Types.NULL):pstm.setLong(5, sesion.getBachillerato_pid())
-				(sesion.getEstado_pid()==null)?pstm.setNull(6, java.sql.Types.NULL):pstm.setLong(6, sesion.getEstado_pid())
-				(sesion.getPais_pid()==null)?pstm.setNull(7, java.sql.Types.NULL):pstm.setLong(7, sesion.getPais_pid())
+				(sesion.getIsmedicina()==null)?pstm.setBoolean(4, false):pstm.setBoolean(4, sesion.getIsmedicina())
+				(sesion.getBachillerato_pid()==null)?pstm.setLong(5, 0L):pstm.setLong(5, sesion.getBachillerato_pid())
+				(sesion.getEstado_pid()==null)?pstm.setLong(6,0L):pstm.setLong(6, sesion.getEstado_pid())
+				(sesion.getPais_pid()==null)?pstm.setLong(7, 0L):pstm.setLong(7, sesion.getPais_pid())
 				(sesion.getBorrador()==null)?pstm.setBoolean(8, true):pstm.setBoolean(8, sesion.getBorrador())
 				pstm.setLong(9, sesion.getCampus_pid())
 				pstm.setString(10, sesion.getTipo())
-				(sesion.getCiudad_pid()==null)?pstm.setNull(11, java.sql.Types.NULL):pstm.setLong(11, sesion.getCiudad_pid())
+				(sesion.getCiudad_pid()==null)?pstm.setLong(11, 0L):pstm.setLong(11, sesion.getCiudad_pid())
 				if(sesion.getUltimo_dia_inscripcion().contains(":")) {
 					pstm.setString(12, sesion.getUltimo_dia_inscripcion())
 				}else {
@@ -1696,10 +1696,13 @@ class SesionesDAO {
 					errorlog+="paso el order "
 					orderby+=" "+object.orientation;
 					consulta=consulta.replace("[WHERE]", where);
-					//consulta=consulta.replace("[FECHA]", "'"+object.fecha+"'");
+					
 					errorlog+="paso el where"
+					String consulta_aspirante =  Statements.EXT_SESIONESCALENDARIZADAS_REGISTRADOS
+					
 					//pstm = con.prepareStatement(consulta.replace("* from (SELECT DISTINCT(Pruebas.persistenceid)  as pruebas_id,   Pruebas.nombre, Pruebas.aplicacion, ( CASE WHEN Sesion.tipo LIKE '%R,F,E%'OR  Sesion.tipo LIKE '%R,E,F%'OR  Sesion.tipo LIKE '%F,R,E%'OR  Sesion.tipo LIKE '%F,E,R%'OR  Sesion.tipo LIKE '%E,F,R%'OR  Sesion.tipo LIKE '%E,R,F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false ) ELSE CASE WHEN Sesion.tipo LIKE '%R,F%'OR  Sesion.tipo LIKE '%F,R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='R')) ELSE CASE WHEN Sesion.tipo LIKE '%E,F%'OR  Sesion.tipo LIKE '%F,E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F' OR clave ='E'))ELSE CASE WHEN Sesion.tipo LIKE '%R%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R')) ELSE CASE WHEN Sesion.tipo LIKE '%E%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'E')) ELSE CASE WHEN Sesion.tipo LIKE '%F%'THEN (select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'F')) ELSE(select String_AGG(R.descripcion,',') from catresidencia as R where isEliminado = false and (clave = 'R' OR clave ='E'))END END END END END END ) as residencia, Sesion.persistenceid as sesiones_id, Pruebas.lugar, Pruebas.registrados as alumnos_generales, Sesion.nombre as nombre_sesion, ctipoprueba.descripcion as tipo_prueba, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, [COUNTASPIRANTES]", "COUNT( DISTINCT(Pruebas.persistenceid)) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace(") as datos [RESIDENCIA]", ""))
 					String conteo = Statements.COUNT_SESIONESCALENDARIZADAS_REGISTRADOS
+					conteo=conteo.replace("[COUNTASPIRANTES]", consulta_aspirante)
 					conteo=conteo.replace("[WHERE]", where);
 					conteo=conteo.replace("[RESIDENCIA]", residencia);
 					pstm = con.prepareStatement(conteo)
@@ -1712,7 +1715,7 @@ class SesionesDAO {
 					}
 					errorlog+="paso el registro"
 					
-					String consulta_aspirante =  Statements.EXT_SESIONESCALENDARIZADAS_REGISTRADOS
+					
 					
 					consulta=consulta.replace("[ORDERBY]", orderby)
 					consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
