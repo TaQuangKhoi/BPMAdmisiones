@@ -348,10 +348,12 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             });
     }
     
+    
     $scope.redirectComentario = function(row){
         $scope.properties.datosUsuario = row;
         $scope.properties.cambioPantalla = 'comentarios'
         window.scrollTo(0,0);
     }
+    
     
 }
