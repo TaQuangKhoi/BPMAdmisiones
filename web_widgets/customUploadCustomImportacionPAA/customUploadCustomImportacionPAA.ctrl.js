@@ -88,7 +88,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 
                 if(paso){
                     $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
-
+                    info.tipoExamen = "Lexium"
                     $scope.correctos = [...$scope.correctos,info]
                 }
 

@@ -348,7 +348,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";
-        /*var req = {
+        var req = {
             method: "GET",
             url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
         };
@@ -359,7 +359,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             .error(function (data, status) {
                 console.error(data);
             })
-            .finally(function () { });*/
+            .finally(function () { });
         
         
     }
