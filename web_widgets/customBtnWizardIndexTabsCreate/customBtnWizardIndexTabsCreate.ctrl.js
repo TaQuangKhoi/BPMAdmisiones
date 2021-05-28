@@ -925,7 +925,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.assignTask = function() {
         //$scope.showModal();
-        blockUI.start();
+        //blockUI.start();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
 
         var req = {
