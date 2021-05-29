@@ -67,8 +67,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe agregar el promedio", "warning");
             }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
                 swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");
-            } else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && ($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa))){
+            }
+            else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && ($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa))){
                 swal("¡Aviso!", "Se requere el puntuaje de la prueba de aptitudes y conocimientos", "warning");
+            } else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.resultadopaa === 0){
+                swal("¡Aviso!", "El puntuaje de la prueba de aptitudes y conocimientos tiene que ser mayor a cero", "warning");
             } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlresultadopaa === "" && $scope.properties.archivos[4].valor === "")){
                 swal("¡Aviso!", "Se requere la constacia del examen prueba de aptitudes y conocimientos", "warning");
             } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "" && $scope.properties.archivos[3].valor === "" ) ){
