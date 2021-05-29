@@ -67,8 +67,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe agregar el promedio", "warning");
             }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
                 swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");
-            }else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "") || ($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa == undefined)){
-                 swal("¡Aviso!", "Debe agregar la carta AA", "warning");
+            } else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && ($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa))){
+                swal("¡Aviso!", "Se requere el puntuaje de la prueba de aptitudes y conocimientos", "warning");
+            } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlresultadopaa === "" && $scope.properties.archivos[4].valor === "")){
+                swal("¡Aviso!", "Se requere la constacia del examen prueba de aptitudes y conocimientos", "warning");
+            } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "" && $scope.properties.archivos[3].valor === "" ) ){
+                 swal("¡Aviso!", "Se requiere la carta AA", "warning");
             }else{
                 $scope.properties.JSONUsuarioRegistrado.caseid = $scope.properties.dataToSend.caseid;
                 $scope.properties.JSONUsuarioRegistrado.primernombre = $scope.properties.dataToSend.primernombre;
@@ -253,7 +257,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     jsonNuevo.estadobachillerato = $scope.properties.JSONUsuarioRegistrado.estadobachillerato;
                     jsonNuevo.ciudadbachillerato = $scope.properties.JSONUsuarioRegistrado.ciudadbachillerato;
                     jsonNuevo.promedio = $scope.properties.JSONUsuarioRegistrado.promediogeneral;
-    				doRequestGuardar($scope.properties.action, $scope.properties.url);
+                    doRequestGuardar($scope.properties.action, $scope.properties.url);
                     
                 }
             }
@@ -368,7 +372,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataToSend.caseid=0;
             //getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
             if(!updateFile){
-            	window.location.href = window.location.href
+                window.location.href = window.location.href
             }
             
             
@@ -385,16 +389,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         });
     }
   
-  	$scope.createOrUpdateUsuariosRegistrados = function(correoElectronico, method){
-  		var updateFile = false;
-    	var req = {
+    $scope.createOrUpdateUsuariosRegistrados = function(correoElectronico, method){
+        var updateFile = false;
+        var req = {
             method: "POST",
             url: "../API/extension/AnahuacRest?url=createOrUpdateUsuariosRegistrados&p=0&c=100",
             data: angular.copy({"email":correoElectronico})
         };
   
         $http(req).success(function(data, status) {
-        	if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+            if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
                 redirectIfNeeded();
             }
             $scope.properties.archivos= angular.copy($scope.properties.strArchivos)
@@ -421,10 +425,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.properties.dataToSend.caseid=0;
             //getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
             if(!updateFile){
-            	window.location.href = window.location.href
+                window.location.href = window.location.href
             }
             //closeModal($scope.properties.closeOnSuccess);
-    	}).error(function(data, status) {
+        }).error(function(data, status) {
             $scope.properties.dataFromError = data;
             $scope.properties.responseStatusCode = status;
             $scope.properties.dataFromSuccess = undefined;
@@ -436,7 +440,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         });
     }
 
-  	function doRequestGuardar(method, url, params) {
+    function doRequestGuardar(method, url, params) {
         vm.busy = true;
         blockUI.start();
         var req = {
