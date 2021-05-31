@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.54",
   "id" : "redirectLogin",
   "name" : "redirectLogin",
-  "lastUpdate" : 1621449349735,
+  "lastUpdate" : 1621962206535,
   "rows" : [
     [
       {
@@ -56,6 +56,30 @@
         "hasValidationError" : false,
         "id" : "pbText"
       }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          }
+        },
+        "reference" : "52735ab7-d6c0-4d3c-8931-6d51f14bf1b1",
+        "hasValidationError" : false,
+        "id" : "customBlockUI"
+      }
     ]
   ],
   "assets" : [
@@ -79,8 +103,33 @@
     "redirectLogin" : {
       "type" : "expression",
       "value" : [
-        "window.top.location.href=\"/apps/login/admisiones/\";",
+        "var redireccion = true;",
+        "if(membership.length>0){",
+        "    for (let index = 0; index < membership.length; index++) {",
+        "        const element = membership[index];",
+        "        if(element.name=='ADMINISTRADOR' || element.name=='TI SERUA'){",
+        "            redireccion=false;",
+        "        }",
+        "    }",
+        "    if(redireccion){",
+        "        window.top.location.href=\"/apps/login/admisiones/\";",
+        "    }",
+        "}",
         "return \"\";"
+      ],
+      "exposed" : false
+    },
+    "unusedId" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "membership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?p=0&c=100&f=user_id%3d{{unusedId.user_id}}&d=role_id&d=group_id"
       ],
       "exposed" : false
     }

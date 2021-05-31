@@ -170,7 +170,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         // } else {
         //     $log.log('Impossible to retrieve the task id value from the URL');
         // }
-        $scope.assignTask();    
+        // $scope.assignTask();
+        $scope.unassignTask();    
+    }
+
+
+    $scope.unassignTask = function () {
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": ""
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            $scope.assignTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
     }
 
     $scope.assignTask = function () {

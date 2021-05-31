@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudAdmision",
   "name" : "viewValidarSolicitudAdmision",
-  "lastUpdate" : 1619483423020,
+  "lastUpdate" : 1622249878346,
   "rows" : [
     [
       {
@@ -2935,7 +2935,7 @@
                                         },
                                         "disabled" : {
                                           "type" : "constant",
-                                          "value" : false
+                                          "value" : true
                                         },
                                         "inline" : {
                                           "type" : "constant",
@@ -2976,6 +2976,160 @@
                                       "reference" : "7ad7f998-644f-40f3-855b-1988d56c9b1f",
                                       "hasValidationError" : false,
                                       "id" : "pbChecklist"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === \"No\""
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Concluiste el proceso de admisión?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "objSolicitudDeAdmision.catConcluisteProceso.descripcion"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "text"
+                                        },
+                                        "min" : {
+                                          "type" : "constant"
+                                        },
+                                        "max" : {
+                                          "type" : "constant"
+                                        },
+                                        "step" : {
+                                          "type" : "constant",
+                                          "value" : 1
+                                        }
+                                      },
+                                      "reference" : "7b4f2ac8-854a-46bd-a74d-510a66934b3d",
+                                      "hasValidationError" : false,
+                                      "id" : "pbInput"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "expression",
+                                          "value" : "objSolicitudDeAdmision.catConcluisteProceso.descripcion === \"No\" || objSolicitudDeAdmision.catPresentasteEnOtroCampus.descripcion === \"No\""
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Cuál fue el resultado de admisiones?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "objSolicitudDeAdmision.catResultadoAdmision.descripcion"
+                                        },
+                                        "type" : {
+                                          "type" : "constant",
+                                          "value" : "text"
+                                        },
+                                        "min" : {
+                                          "type" : "constant"
+                                        },
+                                        "max" : {
+                                          "type" : "constant"
+                                        },
+                                        "step" : {
+                                          "type" : "constant",
+                                          "value" : 1
+                                        }
+                                      },
+                                      "reference" : "1a56e25f-2445-4d70-8cf4-baa70516f5fc",
+                                      "hasValidationError" : false,
+                                      "id" : "pbInput"
                                     }
                                   ],
                                   [
@@ -3393,7 +3547,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Preparatoria"
+                      "value" : "Bachillerato"
                     }
                   },
                   "reference" : "9ee73d1f-735c-4a33-92b6-82119731f0f6",
@@ -3704,7 +3858,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Preparatoria:"
+                                    "value" : "Bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -3779,7 +3933,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Nombre de la preparatoria:"
+                                    "value" : "Nombre del bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -3854,7 +4008,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "País de tu preparatoria:"
+                                    "value" : "País de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -3929,7 +4083,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Estado de tu preparatoria:"
+                                    "value" : "Estado de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -4004,7 +4158,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Ciudad de tu preparatoria:"
+                                    "value" : "Ciudad de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -8766,7 +8920,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Preparatoria:"
+                                    "value" : "Bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -8841,7 +8995,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Nombre preparatoria:"
+                                    "value" : "Nombre bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -8916,7 +9070,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "País de tu preparatoria:"
+                                    "value" : "País de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -8991,7 +9145,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Estado de tu preparatoria:"
+                                    "value" : "Estado de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -9066,7 +9220,7 @@
                                   },
                                   "label" : {
                                     "type" : "interpolation",
-                                    "value" : "Ciudad de tu preparatoria:"
+                                    "value" : "Ciudad de tu bachillerato:"
                                   },
                                   "labelPosition" : {
                                     "type" : "constant",
@@ -15160,10 +15314,10 @@
   ],
   "assets" : [
     {
-      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 7,
+      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -15171,6 +15325,20 @@
       "name" : "jquery.min.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 8,
+      "external" : false
+    },
+    {
+      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 7,
       "external" : false
     },
     {
@@ -15185,20 +15353,6 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 8,
       "external" : false
     }
   ],

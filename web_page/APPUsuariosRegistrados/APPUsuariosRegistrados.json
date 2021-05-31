@@ -4229,7 +4229,7 @@
                       },
                       "disabled" : {
                         "type" : "constant",
-                        "value" : true
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -8911,6 +8911,15 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "puntajeAAValidado" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.catUsuarios_selectedNR.catTipoAdmision.clave == \"AA\"){",
+        "    catUsuarios_selectedNR.cbcoincide2  = true",
+        "}"
       ],
       "exposed" : false
     }

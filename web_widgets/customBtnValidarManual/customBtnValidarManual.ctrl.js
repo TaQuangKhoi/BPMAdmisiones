@@ -15,6 +15,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         
     
     function validacion(){
+        if(isNullOrUndefined($scope.properties.value.tipoExamen)){
+           swal('¡debe ingresar el tipo de examen!',"","warning")
+            return false; 
+        }
         if( isNullOrUndefined($scope.properties.value.IDBANNER) || $scope.properties.value.IDBANNER.length < 8){
             swal(`¡debe agregar el id banner!`,"","warning")
             return false;
@@ -43,136 +47,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         
         if(isNullOrUndefined($scope.properties.value.PARA)){
            swal('¡debe ingresar el valor de PARA!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LA1)){
-           swal('¡debe ingresar el valor de LA1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LA2)){
-           swal('¡debe ingresar el valor de LA2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LA3)){
-           swal('¡debe ingresar el valor de LA3!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PG1)){
-           swal('¡debe ingresar el valor de PG1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PG2)){
-           swal('¡debe ingresar el valor de PG2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PG3)){
-           swal('¡debe ingresar el valor de PG3!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PG4)){
-           swal('¡debe ingresar el valor de PG4!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PV1)){
-           swal('¡debe ingresar el valor de PV1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PV2)){
-           swal('¡debe ingresar el valor de PV2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PV3)){
-           swal('¡debe ingresar el valor de PV3!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PE1)){
-           swal('¡debe ingresar el valor de PE1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PE2)){
-           swal('¡debe ingresar el valor de PE2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PE3)){
-           swal('¡debe ingresar el valor de PE3!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.PE4)){
-           swal('¡debe ingresar el valor de PE4!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LEO1)){
-           swal('¡debe ingresar el valor de LEO1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LEO2)){
-           swal('¡debe ingresar el valor de LEO2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LEO3)){
-           swal('¡debe ingresar el valor de LEO3!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LEO4)){
-           swal('¡debe ingresar el valor de LEO4!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.LEO5)){
-           swal('¡debe ingresar el valor de LEO5!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.CIT1)){
-           swal('¡debe ingresar el valor de CIT1!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.CIT2)){
-           swal('¡debe ingresar el valor de CIT2!',"","warning")
-            return false; 
-        }
-        
-        if(isNullOrUndefined($scope.properties.value.HI1)){
-           swal('¡debe ingresar el valor de HI1!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.HI2)){
-           swal('¡debe ingresar el valor de HI2!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.HI3)){
-           swal('¡debe ingresar el valor de HI3!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.HI4)){
-           swal('¡debe ingresar el valor de HI4!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.HI5)){
-           swal('¡debe ingresar el valor de HI5!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.HI6)){
-           swal('¡debe ingresar el valor de HI6!',"","warning")
             return false; 
         }
         return true;

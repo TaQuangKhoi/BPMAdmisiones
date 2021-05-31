@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1621885791087,
+  "lastUpdate" : 1622227216699,
   "rows" : [
     [
       {
@@ -2595,11 +2595,11 @@
                         },
                         "text" : {
                           "type" : "interpolation",
-                          "value" : "Al presionar el botón <strong>Pagar</strong>, la transacción del pago comenzará. Esto puede tardar un poco. <strong>Evita salir de esta página mientras la transacción se está realizando ya que esto puede traer problemas como dobles cobros</strong>. ¿Estás seguro que deseas continuar?"
+                          "value" : "Solicitaremos la autorización del cargo en tu tarjeta a tu banco, esta operación puede tardar máximo 3 minutos.\n\nPor favor <b>no recargues, ni cierres la página</b> hasta obtener la respuesta bancaria."
                         },
                         "alignment" : {
                           "type" : "constant",
-                          "value" : "left"
+                          "value" : "center"
                         }
                       },
                       "reference" : "6a367a71-9185-47b1-9312-b76eb0428ca7",
@@ -7696,15 +7696,16 @@
         "//     return \"You have attempted to leave this page. Are you sure?\";\r",
         "// }\r",
         "\r",
-        "// window.onbeforeunload = confirmExit;\r",
-        "// function confirmExit() {\r",
-        "//     let loaderOrder = ($data.loadedOrder === false || $data.loadedOrder === \"false\" ) ? false: true;\r",
-        "//     let testMensaje =  ($data.testMensaje === false || $data.testMensaje === \"false\" ) ? false: true;\r",
-        "//     // !$data.loadedOrder && !$data.testMensaje\r",
-        "//     if (!loaderOrder && !testMensaje) {\r",
-        "//         return \"You have attempted to leave this page. Are you sure?\";\r",
-        "//     }\r",
-        "// }\r"
+        "window.onbeforeunload = confirmExit;\r",
+        "function confirmExit() {\r",
+        "    debugger;\r",
+        "    let loaderOrder = ($data.loadedOrder === false || $data.loadedOrder === \"false\" || $data.loadedOrder === null || $data.loadedOrder === undefined ) ? false: true;\r",
+        "    let testMensaje =  ($data.testMensaje === false || $data.testMensaje === \"false\" || $data.testMensaje === null || $data.testMensaje === undefined ) ? false: true;\r",
+        "    // !$data.loadedOrder && !$data.testMensaje\r",
+        "    if (!loaderOrder && !testMensaje) {\r",
+        "        return \"You have attempted to leave this page. Are you sure?\";\r",
+        "    }\r",
+        "}"
       ],
       "exposed" : false
     },

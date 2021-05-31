@@ -41,69 +41,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             });
     }
 
-    $scope.asignarTarea = function (rowData) {
-
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-
-        return $http(req)
-            .success(function (data, status) {
-                debugger
-                //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
-                //window.top.location.href = url;
-                window.open(url,'_blank');
-            })
-            .error(function (data, status) {
-                console.error(data);
-            })
-            .finally(function () { });
-    }
-    $scope.isenvelope = false;
-    $scope.selectedrow = {};
-    $scope.mensaje = "";
-    $scope.envelope = function (row) {
-        $scope.isenvelope = true;
-        $scope.mensaje = "";
-        $scope.selectedrow = row;
-    }
-    $scope.envelopeCancel = function () {
-        $scope.isenvelope = false;
-        $scope.selectedrow = {};
-    }
-    $scope.sendMail = function (row, mensaje) {
-        if (row.grupobonita == undefined) {
-            for (var i = 0; i < $scope.lstCampus.length; i++) {
-                if ($scope.lstCampus[i].descripcion == row.campus) {
-                    row.grupobonita = $scope.lstCampus[i].valor;
-                }
-            }
-        }
-        var req = {
-            method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
-            data: angular.copy({
-                "campus": row.grupobonita,
-                "correo": row.correoelectronico,
-                "codigo": "recordatorio",
-                "isEnviar": true,
-                "mensaje": mensaje
-            })
-        };
-
-        return $http(req)
-            .success(function (data, status) {
-
-                $scope.envelopeCancel();
-            })
-            .error(function (data, status) {
-                console.error(data)
-            })
-            .finally(function () { });
-    }
+    
     $scope.lstCampus = [];
     $(function () {
         doRequest("POST", $scope.properties.urlPost);
@@ -369,41 +307,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             });
     }
 
-$scope.Transferencia = function (row) {
-        let sedeExamen;
-        if(row.transferencia == row.campus){
-            sedeExamen="MISMO CAMPUS"
-        }else{
-            sedeExamen="TRANSFERENCIA"
-        }
-        return sedeExamen;
-    }
-
-
     $scope.getCatCampus();
-    
-    $scope.viewDownloadSolicitud = function (rowData) {
-
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-
-        return $http(req)
-            .success(function (data, status) {
-                debugger
-                var url = "/apps/administrativo/descargarSolicitud/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
-                //window.top.location.href = url;
-                window.open(url,'_blank');
-            })
-            .error(function (data, status) {
-                console.error(data);
-            })
-            .finally(function () { });
-    }
-    
-    
     
     $scope.cargaManual = function(row){
         $scope.properties.datosAspirante = {
@@ -439,11 +343,12 @@ $scope.Transferencia = function (row) {
             "PV1": "",
             "PV2": "",
             "PV3": "",
-            "TOTAL": ""
+            "TOTAL": "",
+            "tipoExamen":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";
-        var req = {
+        /*var req = {
             method: "GET",
             url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
         };
@@ -454,22 +359,22 @@ $scope.Transferencia = function (row) {
             .error(function (data, status) {
                 console.error(data);
             })
-            .finally(function () { });
+            .finally(function () { });*/
         
         
     }
 
     function cargaDeDatos(json,data){
         var datos = data;
-        if(datos != null && datos != undefined){
+        if(datos !== null && datos !== undefined){
             let columna = datos;
             for(var key in columna){
                 if(key != "total" && key != "fechaexamen"){
                     json[key.toUpperCase()] = data[key]
-                }else if(key == "total"){
-                    json["Total"] = data[key]
+                }else if(key === "total"){
+                    json.Total = data[key]
                 }else if(key == "fechaexamen"){
-                    json["fechaExamen"] = data[key]
+                    json.fechaExamen = data[key]
                 }
             } 
         

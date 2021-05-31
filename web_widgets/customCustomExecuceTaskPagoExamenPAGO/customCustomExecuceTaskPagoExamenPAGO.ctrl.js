@@ -21,6 +21,30 @@ function ($scope, $http, modalService) {
     
     $scope.newNavValue = "";
     
+    $scope.unassignTask = function () {
+        $scope.showModal();
+        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+        
+        var req = {
+            method: "PUT",
+            url: url,
+            data:{
+                "assigned_id": ""
+            }
+        };
+
+        return $http(req).success(function(data, status) {
+            $scope.assignTask();
+        })
+        .error(function(data, status) {
+            $scope.hideModal();
+            swal("Error", data.message, "error");
+        })
+        .finally(function() {
+            
+        });
+    }
+    
     $scope.assignTask = function () {
         $scope.showModal();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
@@ -88,7 +112,7 @@ function ($scope, $http, modalService) {
                     // $scope.newNavValue = "paymentWaiting";
                     // $scope.isPagoTarjeta = false;
                     $scope.isPagoTarjeta = true;
-                    $scope.assignTask();  
+                    $scope.unassignTask();  
                 }
             }
         }
@@ -103,7 +127,7 @@ function ($scope, $http, modalService) {
                     // $scope.newNavValue = "paymentWaiting";
                     // $scope.isPagoTarjeta = false;
                     $scope.isPagoTarjeta = true;
-                    $scope.assignTask();    
+                    $scope.unassignTask();    
                 }
             }
         }
@@ -117,7 +141,7 @@ function ($scope, $http, modalService) {
                 if($scope.properties.isCorrectTask){
                     // $scope.newNavValue = "cardPaid";
                     $scope.isPagoTarjeta = true;
-                    $scope.assignTask();
+                    $scope.unassignTask();
                 }
             }
         }
