@@ -45,23 +45,8 @@ class ImportacionPAADAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				closeCon = validarConexion();
-				
-				//revisar si el aspirante ya esta registrado en la importacion PAA
-
-				String paa = "", sda = "", ds= ""
-				pstm = con.prepareStatement(Statements.GET_EXITE_Y_DATOS_DUPLICADOS)
-				pstm.setString(1,object.IDBANNER);
-				rs= pstm.executeQuery();
-				if(rs.next()) {
-					
-					paa = (rs.getString("idbanner"));
-					sda = (rs.getString("primernombre"));
-					ds = (rs.getString("dsbanner"));
-				}
-				
-				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
-				
-				if(isNullOrEmpty(paa) && !isNullOrEmpty(sda) && !isNullOrEmpty(ds)) {
+								
+				//List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 					con.setAutoCommit(false)
 					pstm = con.prepareStatement(Statements.GET_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
 					
@@ -102,17 +87,9 @@ class ImportacionPAADAO {
 					pstm.executeUpdate();
 					
 					con.commit();
-				}else {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-					columns.put("noRegistrado",isNullOrEmpty(paa))
-					columns.put("noExiste",isNullOrEmpty(ds))
-					columns.put("noEstaEnCarga",isNullOrEmpty(sda))
-					
-					estatus.add(columns)
-				}
 				
 				resultado.setSuccess(true)
-				resultado.setData(estatus)
+				//resultado.setData(estatus)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -126,13 +103,65 @@ class ImportacionPAADAO {
 	} 
 	
 	
+	public Result postValidarUsuario(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				
+				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				
+
+
+
+				 String[] idBanner = object.IDBANNER.split(",");
+				 for(int j = 0; j < idBanner.size(); ++j) {
+					 //errorLog += Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",object.IDBANNER)
+					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]))
+					 rs= pstm.executeQuery();
+					 columns = new LinkedHashMap<String, Object>();
+					 columns.put("idBanner", idBanner[j] )
+					 columns.put("Registrado",false)
+					 columns.put("Existe",false)
+					 columns.put("EstaEnCarga",false)
+					 if(rs.next()) {
+						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
+						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
+						 columns.put("EstaEnCarga",isNullOrEmpty(rs.getString("primernombre")))
+					 }
+					 estatus.add(columns)
+				 }
+				
+				
+				resultado.setSuccess(true)
+				resultado.setData(estatus)
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 
 	public Boolean isNullOrEmpty(String text) {
 		
 		if(text?.equals("null") || text?.equals("") || text?.equals(" ") || text?.length() < 1) {
-			return true
+			return false
 		}
-		return false
+		return true
 	}
 	
 	//todos los aspirantes que tengan el status de carga y consulta de resultados

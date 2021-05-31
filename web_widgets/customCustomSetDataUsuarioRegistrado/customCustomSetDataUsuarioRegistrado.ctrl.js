@@ -1,6 +1,7 @@
 function customSetDataTransferencia($scope, $http) {
     
     $scope.$watch("properties.valoresSolicitante", function(){
+        debugger;
         if($scope.properties.valoresSolicitante !== undefined){
             for(var x=0;x<$scope.properties.catCampus.length;x++){
                 if($scope.properties.valoresSolicitante.campussede === $scope.properties.catCampus[x].descripcion){
@@ -28,6 +29,7 @@ function customSetDataTransferencia($scope, $http) {
                         
                         
                     }else if($scope.properties.valoresSolicitante.lugarexamen.toUpperCase() === "EN EL EXTRANJERO (SOLO SI VIVES FUERA DE MÉXICO)"){
+                        debugger;
                         for(var ex=0;ex<$scope.properties.paisesRUA.length;ex++){
                             if($scope.properties.valoresSolicitante.paisexamen === $scope.properties.paisesRUA[ex]){
                                 $scope.properties.paisSeleccionado = $scope.properties.paisesRUA[ex];    
@@ -126,6 +128,7 @@ function customSetDataTransferencia($scope, $http) {
     });
     
     $scope.$watch("properties.catLicenciatura", function(){
+        debugger;
         var findLic = false;
         var findperiodo = false;
         var findprope = false;
@@ -146,6 +149,7 @@ function customSetDataTransferencia($scope, $http) {
     });
     
     $scope.$watch("properties.catPeriodo", function(){
+        debugger;
         if($scope.properties.catPeriodo !== undefined){
             for(var x=0;x<$scope.properties.catPeriodo.length;x++){
                 if($scope.properties.valoresSolicitante.ingreso === $scope.properties.catPeriodo[x].descripcion){
@@ -179,6 +183,7 @@ function customSetDataTransferencia($scope, $http) {
 
     
     $scope.$watch("properties.catPropedeutico", function(){
+        debugger;
         if($scope.properties.catPropedeutico !== undefined){
             for(var x=0;x<$scope.properties.catPropedeutico.length;x++){
                 if($scope.properties.valoresSolicitante.propedeutico === $scope.properties.catPropedeutico[x].descripcion){
@@ -190,6 +195,7 @@ function customSetDataTransferencia($scope, $http) {
     });
     
     $scope.$watch("properties.catCiudades", function(){
+        debugger;
         if($scope.properties.valoresSolicitante.ciudadestado !== undefined && $scope.properties.valoresSolicitante.ciudadestado !== null){
             for(var x=0;x<$scope.properties.catCiudades.length;x++){
                 if($scope.properties.valoresSolicitante.ciudadestado === $scope.properties.catCiudades[x].descripcion){

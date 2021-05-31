@@ -59,22 +59,26 @@ class BannerDAO {
 			barrerToken = getBarreToken();
 			errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
-			//jsonResultado = getConsumePrepa(barrerToken);
+			jsonResultado = getConsumePrepa(barrerToken);
 			errorLog += " | " + jsonResultado;
 			//CREAR-------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"24\",\"published\":\"2021-04-21 22:36:38.602364+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"" + operacion + "\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"" + operacion + "\",\"title\":\"Nueva Escuela JABB\",\"type\":\"secondarySchool\",\"code\":\"JABB\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"25\",\"published\":\"2021-04-21 22:43:54.645787+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"DEU\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Alemania\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			//jsonResultado = "[{\"id\": \"55\", \"published\": \"2021-05-13 18:49:18.263057+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\", \"title\": \"Nueva Prepa 3\", \"type\": \"secondarySchool\", \"code\": \"JABB3\", \"typeInd\": \"H\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } },{\"id\": \"56\", \"published\": \"2021-05-13 18:57:23.862561+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Calle 1\", \"Calle 2\", \"Calle 3\"], \"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\", \"place\": {\"country\": {\"code\": \"USA\", \"locality\": \"000000\", \"postalTitle\": \"UNITED STATES OF AMERICA\", \"region\": {\"title\": \"Estado Extranjero\"}, \"subRegion\": {\"title\": \"MUNICIPIO EXTRANJERO\"}, \"title\": \"Estados Unidos de América\"} }, \"addressExtended\": [{\"streetLine1\": \"Calle 1\", \"streetLine2\": \"Calle 2\", \"streetLine3\": \"Calle 3\", \"nationCode\": \"157\", \"stateCode\": \"FR\", \"countyCode\": \"20000\"} ] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } } ]";
 			//jsonResultado = "[{\"id\": \"55\",\"published\": \"2021-05-13 18:49:18.263057+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\",\"title\": \"Nueva Prepa 33\",\"type\": \"secondarySchool\",\"code\": \"JABB3\",\"typeInd\": \"S\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"56\",\"published\": \"2021-05-13 18:57:23.862561+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Calle 1\", \"Calle 2\", \"Calle 3\"],\"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\",\"place\":{\"country\":{\"code\": \"USA\",\"locality\": \"000000\",\"postalTitle\": \"UNITED STATES OF AMERICA\",\"region\":{\"title\": \"Estado Extranjero\"},\"subRegion\":{\"title\": \"MUNICIPIO EXTRANJERO\"},\"title\": \"Estados Unidos de América\"}},\"addressExtended\": [{\"streetLine1\": \"Calle 123\",\"streetLine2\": \"Calle 2\",\"streetLine3\": \"Calle 3\",\"nationCode\": \"157\",\"stateCode\": \"FR\",\"countyCode\": \"20000\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
 			//----jsonResultado = "[{\"id\": \"70\",\"published\": \"2021-05-20 18:51:45.607535+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"title\": \"Preparatoria Oficial 80\",\"type\": \"secondarySchool\",\"code\": \"9327\",\"typeInd\": \"D\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"71\",\"published\": \"2021-05-20 18:53:22.086887+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Cedro 11\", \"Col. Viveros Xalostoc\"],\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"Edo de M\u00e9xico\",\"postalCode\": \"55340\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Estado de M\u00e9xico\"},\"subRegion\":{\"title\": \"Ecatepec de Morelos\"},\"title\": \"M\u00e9xico\"}},\"addressExtended\": [{\"streetLine1\": \"Cedro 11\",\"streetLine2\": null,\"streetLine3\": \"Col. Viveros Xalostoc\",\"nationCode\": \"99\",\"stateCode\": \"M11\",\"countyCode\": \"15033\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
-
-			//EDITAR------------------------------------------------------  
+			//jsonResultado = "[{\"id\": \"60\",\"published\": \"2021-05-20 18:04:02.140895+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\",\"title\": \"Preparatoria Oficial 77\",\"type\": \"secondarySchool\",\"code\": \"9324\",\"typeInd\": \"H\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"61\",\"published\": \"2021-05-20 18:06:41.102315+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Calle Florida 89\", \"Col. Miraflores\"],\"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"M\u00e9rida\",\"postalCode\": \"97000\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Yucat\u00e1n\"},\"subRegion\":{\"title\": \"M\u00e9rida\"},\"title\": \"M\u00e9xico\"}},\"addressExtended\": [{\"streetLine1\": \"Calle Florida 89\",\"streetLine2\": null,\"streetLine3\": \"Col. Miraflores\",\"nationCode\": \"99\",\"stateCode\": \"M31\",\"countyCode\": \"31050\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
+			
+			//EDITAR------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			//jsonResultado = "[{\"id\":\"29\",\"published\":\"2021-04-22 18:22:21.321824+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"AZE\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Azerbaiyan\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";/
 			//jsonResultado = "[{\"id\":\"31\",\"published\":\"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"2da De Circunvalaci\u00f3n no 49\",\"Centro\"],\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Macuspana\",\"postalCode\":\"86700\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Morelos\"},\"subRegion\":{\"title\":\"ALDAMA\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"32\",\"published\":\"2021-04-22 18:31:03.538532+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle 143, tablaje catastral 18631 no 314\",\"entre perif\u00e9rico\",\"Emiliano Zapata\"],\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"place\":{\"country\":{\"code\":\"AGO\",\"locality\":\"Cd Obreg\u00f3n\",\"postalCode\":\"97139\",\"region\":{\"title\":\"Yucat\u00e1n\"},\"subRegion\":{\"title\":\"M\u00e9rida\"},\"title\":\"Angola\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			//----jsonResultado = "[{\"id\": \"72\",\"published\": \"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Cedro 11\", \"Col. Viveros Xalostoc\"],\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"Edo de México\",\"postalCode\": \"55340\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Estado de México\"},\"subRegion\":{\"title\": \"Ecatepec de Morelos\"},\"title\": \"México\"}},\"addressExtended\": [{\"streetLine1\": \"Cedro 11\",\"streetLine2\": null,\"streetLine3\": \"Col. Viveros Xalostoc\",\"nationCode\": \"99\",\"stateCode\": \"M11\",\"countyCode\": \"15033\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
-			jsonResultado = "[{\"id\": \"70\",\"published\": \"2021-05-20 18:51:45.607535+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"title\": \"Preparatoria Oficial 80\",\"type\": \"secondarySchool\",\"code\": \"9327\",\"typeInd\": \"H\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
+			//jsonResultado = "[{\"id\": \"70\",\"published\": \"2021-05-20 18:51:45.607535+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"title\": \"Preparatoria Oficial 80\",\"type\": \"secondarySchool\",\"code\": \"9327\",\"typeInd\": \"H\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
 			
-			errorLog += " | jsonResultado: " + jsonResultado;
+			//jsonResultado = "[{\"id\": \"60\", \"published\": \"2021-05-20 18:04:02.140895+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\", \"title\": \"Preparatoria Oficial 77\", \"type\": \"secondarySchool\", \"code\": \"9324\", \"typeInd\": \"H\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }]";
+			//jsonResultado = "[{\"id\": \"61\", \"published\": \"2021-05-20 18:06:41.102315+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Calle Florida 89\", \"Col. Miraflores\"], \"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"M\u00e9rida\", \"postalCode\": \"97000\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Yucat\u00e1n\"}, \"subRegion\": {\"title\": \"M\u00e9rida\"}, \"title\": \"M\u00e9xico\"} }, \"addressExtended\": [{\"streetLine1\": \"Calle Florida 89\", \"streetLine2\": null, \"streetLine3\": \"Col. Miraflores\", \"nationCode\": \"99\", \"stateCode\": \"M31\", \"countyCode\": \"31050\"}] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
+			
+			//errorLog += " | jsonResultado: " + jsonResultado;
 			errorLog += " | " + ("END JSON========================================");
 
 			resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
@@ -457,20 +461,101 @@ class BannerDAO {
 					lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 					if (lstCatBachilleratos != null) {
 						for (CatBachilleratos objRow: lstCatBachilleratos) {
+							
+							isMexicoOk = false;
+							isUsaOk = false;
+							isOtroPaisOk = false;
+							isStateCodeOk = false;
+							isNationCodeOk = false;
+							isCountyCodeOk = false;
+							isNationCodeLetterOk = false;
+							
+							if (objRow.getPais().equals("México")) {
+								strStateCode = objRow.getStateCode() == null ? "" : objRow.getStateCode();
+								if (!strStateCode.equals("")) {
+									isStateCodeOk = strStateCode.substring(0, 1).toLowerCase().equals("m")
+								}
+								strNationCode = objRow.getNationCode() == null ? "" : objRow.getNationCode();
+								
+								if (!strNationCode.equals("")) {
+									isNationCodeOk = strNationCode.equals("99")
+								}
+							
+								isMexicoOk = (isNationCodeOk && isStateCodeOk);
+							} else {
+								if (objRow.getPais().equals("Estados Unidos de América")) {
+									strNationCode = objRow.getNationCode() == null ? "" : objRow.getNationCode();
+									
+									if (!strNationCode.equals("")) {
+										isNationCodeOk = strNationCode.equals("157")
+										matcher = pattern.matcher(strNationCode)
+										isNationCodeLetterOk = !matcher.find();
+									}
+							
+									strCountyCode = objRow.getCountyCode() == null ? "" : objRow.getCountyCode();
+									
+									if (!strCountyCode.equals("")) {
+										isCountyCodeOk = strCountyCode.equals("20000")
+									}
+									isUsaOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+								} else {
+									strNationCode = objRow.getNationCode() == null ? "" : objRow.getNationCode();
+									
+									if (!strNationCode.equals("")) {
+										isNationCodeOk = !strNationCode.equals("157") && !strNationCode.equals("99");
+										matcher = pattern.matcher(strNationCode)
+										isNationCodeLetterOk = !matcher.find();
+									}
+									strCountyCode = objRow.getCountyCode() == null ? "" : objRow.getCountyCode();
+									
+									if (!strCountyCode.equals("")) {
+										isCountyCodeOk = strCountyCode.equals("20000")
+									}
+									isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+
+								}
+							}
+						
 							//if (!objRow.isIsEliminado()) {
 								if (row.getTypeInd().equals("H")) {
-									errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-									errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-									errorLog = errorLog + " | ================================================================== | ";
 									lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 									objCatBachilleratosInput = new HashMap < String, Serializable > ();
 									contracto = new HashMap < String, Serializable > ();
+									errorLog = errorLog + " | CON H ---------------------------------------------------------";
+									
+									errorLog = errorLog + " | persistenceId: " + objRow.getPersistenceId();
+									errorLog = errorLog + " | persistenceVersion: " + objRow.getPersistenceVersion();
+									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
+									errorLog = errorLog + " | isEnabled: " + true;
+									errorLog = errorLog + " | todelete: " + (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true";
+									errorLog = errorLog + " | perteneceRed: " + false;
+									errorLog = errorLog + " | region: " + null;
+									errorLog = errorLog + " | caseId: " + null;
+									errorLog = errorLog + " | clave: " + objRow.getClave();
+									errorLog = errorLog + " | fechaImportacion: " + null;
+									errorLog = errorLog + " | fechaCreacion: " + null;
+									errorLog = errorLog + " | usuarioCreacion: " + "Administrador";
+									errorLog = errorLog + " | descripcion: " + objRow.getDescripcion();
+									errorLog = errorLog + " | usuarioBanner: " + row.getUsuarioBanner();
+									errorLog = errorLog + " | estado: " + objRow.getEstado();
+									errorLog = errorLog + " | ciudad: " + objRow.getCiudad();
+									errorLog = errorLog + " | pais: " + objRow.getPais();
+									errorLog = errorLog + " | id: " + row.getIdBachillerato();
+									errorLog = errorLog + " | streetLine1: " + objRow.getStreetLine1();
+									errorLog = errorLog + " | streetLine2: " + objRow.getStreetLine2();
+									errorLog = errorLog + " | streetLine3: " + objRow.getStreetLine3();
+									errorLog = errorLog + " | nationCode: " + objRow.getNationCode();
+									errorLog = errorLog + " | stateCode: " + objRow.getStateCode();
+									errorLog = errorLog + " | countyCode: " + objRow.getCountyCode();
+									errorLog = errorLog + " | typeInd: " + row.getTypeInd();
+									errorLog = errorLog + " | CON H ---------------------------------------------------------";
+									
 									/*CONSTRUCCION DE CONTRATO=====================================================================*/
 									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 									objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-									objCatBachilleratosInput.put("isEliminado", false);
+									objCatBachilleratosInput.put("isEliminado", !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ));
 									objCatBachilleratosInput.put("isEnabled", true);
-									objCatBachilleratosInput.put("todelete", "false");
+									objCatBachilleratosInput.put("todelete", (row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
 									objCatBachilleratosInput.put("perteneceRed", false);
 									objCatBachilleratosInput.put("region", null);
 									objCatBachilleratosInput.put("caseId", null);
@@ -480,9 +565,9 @@ class BannerDAO {
 									objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
 									objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
 									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
-									objCatBachilleratosInput.put("estado", row.getEstado());
-									objCatBachilleratosInput.put("ciudad", row.getCiudad());
-									objCatBachilleratosInput.put("pais", row.getPais());
+									objCatBachilleratosInput.put("estado", objRow.getEstado());
+									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
+									objCatBachilleratosInput.put("pais", objRow.getPais());
 									objCatBachilleratosInput.put("id", row.getIdBachillerato());
 
 									objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
@@ -492,21 +577,43 @@ class BannerDAO {
 									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
-									
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 									processInstance = processAPI.startProcessWithInputs(processId, contracto);
 								} else {
-									errorLog = errorLog + " | REPLACED DELETE";
-
-									errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-									errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-									errorLog = errorLog + " | ================================================================== | ";
 									lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 									objCatBachilleratosInput = new HashMap < String, Serializable > ();
 									contracto = new HashMap < String, Serializable > ();
 									/*CONSTRUCCION DE CONTRATO====================================================================*/
+									errorLog = errorLog + " | SIN H ---------------------------------------------------------";
+									errorLog = errorLog + " | persistenceId " + objRow.getPersistenceId();
+									errorLog = errorLog + " | persistenceVersion " + objRow.getPersistenceVersion();
+									errorLog = errorLog + " | isEliminado " + true;
+									errorLog = errorLog + " | isEnabled " + true;
+									errorLog = errorLog + " | todelete " + "true";
+									errorLog = errorLog + " | perteneceRed " + false;
+									errorLog = errorLog + " | region " + null;
+									errorLog = errorLog + " | caseId " + null;
+									errorLog = errorLog + " | clave " + objRow.getClave();
+									errorLog = errorLog + " | fechaImportacion " + null;
+									errorLog = errorLog + " | fechaCreacion " + null;
+									errorLog = errorLog + " | usuarioCreacion " + "Administrador";
+									errorLog = errorLog + " | descripcion " + objRow.getDescripcion();
+									errorLog = errorLog + " | usuarioBanner " + row.getUsuarioBanner();
+									errorLog = errorLog + " | estado " + row.getEstado();
+									errorLog = errorLog + " | ciudad " + row.getCiudad();
+									errorLog = errorLog + " | pais " + row.getPais();
+									errorLog = errorLog + " | id " + row.getIdBachillerato();
+									errorLog = errorLog + " | streetLine1 " + objRow.getStreetLine1();
+									errorLog = errorLog + " | streetLine2 " + objRow.getStreetLine2();
+									errorLog = errorLog + " | streetLine3 " + objRow.getStreetLine3();
+									errorLog = errorLog + " | nationCode " + objRow.getNationCode();
+									errorLog = errorLog + " | stateCode " + objRow.getStateCode();
+									errorLog = errorLog + " | countyCode " + objRow.getCountyCode();
+									errorLog = errorLog + " | typeInd " + row.getTypeInd();
+									errorLog = errorLog + " | SIN H ---------------------------------------------------------";
+									
 									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
 									objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
 									objCatBachilleratosInput.put("isEliminado", true);

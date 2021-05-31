@@ -692,39 +692,70 @@ class SolicitudUsuarioDAO {
 			//MODO NUEVO D ELA CONSULTA AGREGANDO FILTROS 
 			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
 			pstm.setLong(1,  Long.valueOf(caseid));
-			pstm.setString(2, nombre);
-			pstm.setString(3, correoElectronico);
-			pstm.setString(4, fechaNacimiento);
+//			pstm.setString(2, nombre);
+//			pstm.setString(3, correoElectronico);
+//			pstm.setString(4, fechaNacimiento);
 			
 			//Primer nombre y primer apellido
-			pstm.setString(5, primerNombre);
-			pstm.setString(6, apellidoPaterno);
+			pstm.setString(2, primerNombre);
+			pstm.setString(3, apellidoPaterno);
 			
 			//Segundo nombre y primer apellido
-			pstm.setString(7, segundoNombre);
-			pstm.setString(8, apellidoPaterno);
+			pstm.setString(4, segundoNombre);
+			pstm.setString(5, apellidoPaterno);
 			
 			//Para  el primer nombre y el segundo apellido
-			pstm.setString(9, primerNombre);
-			pstm.setString(10, apellidoMaterno);
+			pstm.setString(6, primerNombre);
+			pstm.setString(7, apellidoMaterno);
 			
 			//Para  el segundo nombre  y el segundo apellido
-			pstm.setString(11, segundoNombre);
-			pstm.setString(12, apellidoMaterno);
+			pstm.setString(8, segundoNombre);
+			pstm.setString(9, apellidoMaterno);
 			
 			//Para  los dos nombres y el primer apellido
-			pstm.setString(13, (primerNombre + " " + segundoNombre));
-			pstm.setString(14, apellidoPaterno);
+			pstm.setString(10, (primerNombre + " " + segundoNombre));
+			pstm.setString(11, apellidoPaterno);
 			
 			//Para  los dos nombres y el segundo apellido
-			pstm.setString(15, (primerNombre + " " + segundoNombre));
-			pstm.setString(16, apellidoMaterno);
+			pstm.setString(12, (primerNombre + " " + segundoNombre));
+			pstm.setString(13, apellidoMaterno);
 			
 			//Para  los dos nombres y los dos apellido
-			pstm.setString(17, (primerNombre + " " + segundoNombre));
-			pstm.setString(18, (apellidoPaterno + " " + apellidoMaterno));
+			pstm.setString(14, (primerNombre + " " + segundoNombre));
+			pstm.setString(15, (apellidoPaterno + " " + apellidoMaterno));
 			
-			pstm.setString(19, curp);
+			pstm.setString(16, correoElectronico);
+			pstm.setString(17, fechaNacimiento);
+			
+			//Primer nombre y primer apellido
+			pstm.setString(18, primerNombre);
+			pstm.setString(19, apellidoPaterno);
+			
+			//Segundo nombre y primer apellido
+			pstm.setString(20, segundoNombre);
+			pstm.setString(21, apellidoPaterno);
+			
+			//Para  el primer nombre y el segundo apellido
+			pstm.setString(22, primerNombre);
+			pstm.setString(23, apellidoMaterno);
+			
+			//Para  el segundo nombre  y el segundo apellido
+			pstm.setString(24, segundoNombre);
+			pstm.setString(25, apellidoMaterno);
+			
+			//Para  los dos nombres y el primer apellido
+			pstm.setString(26, (primerNombre + " " + segundoNombre));
+			pstm.setString(27, apellidoPaterno);
+			
+			//Para  los dos nombres y el segundo apellido
+			pstm.setString(28, (primerNombre + " " + segundoNombre));
+			pstm.setString(29, apellidoMaterno);
+			
+			//Para  los dos nombres y los dos apellido
+			pstm.setString(30, (primerNombre + " " + segundoNombre));
+			pstm.setString(31, (apellidoPaterno + " " + apellidoMaterno));
+			
+			pstm.setString(32, curp);
 			
 			//pstm.setString(5, idbanner)
 			/*if(!curp.equals(null) && !curp.equals(" ") && !curp.equals("")) {
