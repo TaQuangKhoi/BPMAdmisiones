@@ -348,19 +348,19 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";
-        $scope.properties.view = false;
-        /*var req = {
+        $scope.properties.view = true;
+        var req = {
             method: "GET",
             url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
         };
         return $http(req)
             .success(function (data, status) {
-                cargaDeDatos($scope.properties.datosAspirante,data.data[0])
+                cargaDeDatos($scope.properties.datosAspirante,data.data[0]);
             })
             .error(function (data, status) {
                 console.error(data);
             })
-            .finally(function () { });*/
+            .finally(function () { });
         
         
     }

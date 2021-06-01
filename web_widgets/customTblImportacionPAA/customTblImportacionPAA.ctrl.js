@@ -21,6 +21,7 @@ function PbTableCtrl($scope, $window) {
       
       $scope.properties.selectedRow = data;
       $scope.properties.table = "fragmento";
+      $scope.properties.view = true;
       //$scope.$apply();
   }
   

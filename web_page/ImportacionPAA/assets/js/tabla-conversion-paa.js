@@ -8,7 +8,7 @@ function convertirDato (dato){
         for(let i = 0; i < cantidad; i++){
             escala =  parseFloat(escala - (calculo) )
         }
-        return Math.round(escala);
+        return Math.round(escala) + "";
 
     }else{
         cantidad = ((dato-249) - 442 )
@@ -17,6 +17,6 @@ function convertirDato (dato){
         for(let i = 0; i <= cantidad; i++){
             escala =  parseFloat(escala + (calculo) )
         }
-        return Math.round(escala);
+        return Math.round(escala) + "";
     }
 }

@@ -24,6 +24,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             var existecambio = false;
             const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
             const regexEmail = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+            const tipoAdmision = ($scope.properties.dataToSend.catTipoAdmision !== null  && $scope.properties.dataToSend.catTipoAdmision !== undefined) ? true : false;
             if($scope.properties.dataToSend.primernombre === ""){
                 swal("¡Aviso!", "Debe agregar el primer nombre", "warning");
             }else if($scope.properties.dataToSend.apellidopaterno === ""){
@@ -39,8 +40,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe seleccionar el campus de estudio", "warning");
             }else if($scope.properties.dataToSend.catGestionEscolar === null){
                 swal("¡Aviso!", "Debe seleccionar una licenciatura", "warning");
-            /*}else if($scope.properties.dataToSend.catPeriodo === null){
-                swal("¡Aviso!", "Debe seleccionar un periodo", "warning");*/
+            }else if($scope.properties.dataToSend.catPeriodo === null){
+                swal("¡Aviso!", "Debe seleccionar un periodo", "warning");
             }else if($scope.properties.dataToSend.catGestionEscolar.propedeutico === true && $scope.properties.dataToSend.catPropedeutico === null ){
                 swal("¡Aviso!", "Debe seleccionar un curso propedéutico", "warning");
             }else if($scope.properties.dataToSend.catCampus === null){
@@ -67,16 +68,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe agregar el promedio", "warning");
             }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
                 swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");
+            }else if(tipoAdmision==true && $scope.properties.dataToSend.catTipoAdmision.clave == "AA" && ($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa))){
+                    swal("¡Aviso!", "Se requere el puntuaje de la prueba de aptitudes y conocimientos", "warning");
+            } else if(tipoAdmision==true && $scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.resultadopaa === 0){
+                    swal("¡Aviso!", "El puntuaje de la prueba de aptitudes y conocimientos tiene que ser mayor a cero", "warning");
+            } else if(tipoAdmision==true && $scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlresultadopaa === "" && $scope.properties.archivos[4].valor === ""){
+                    swal("¡Aviso!", "Se requere la constacia del examen prueba de aptitudes y conocimientos", "warning");
+            } else if( tipoAdmision==true && $scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "" && $scope.properties.archivos[3].valor === ""  ){
+                    swal("¡Aviso!", "Se requiere la carta AA", "warning");
             }
-            else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && ($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa))){
-                swal("¡Aviso!", "Se requere el puntuaje de la prueba de aptitudes y conocimientos", "warning");
-            } else if($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.resultadopaa === 0){
-                swal("¡Aviso!", "El puntuaje de la prueba de aptitudes y conocimientos tiene que ser mayor a cero", "warning");
-            } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlresultadopaa === "" && $scope.properties.archivos[4].valor === "")){
-                swal("¡Aviso!", "Se requere la constacia del examen prueba de aptitudes y conocimientos", "warning");
-            } else if(($scope.properties.dataToSend.catTipoAdmision.clave == "AA" && $scope.properties.dataToSend.urlcartaaa === "" && $scope.properties.archivos[3].valor === "" ) ){
-                 swal("¡Aviso!", "Se requiere la carta AA", "warning");
-            }else{
+            else{
                 $scope.properties.JSONUsuarioRegistrado.caseid = $scope.properties.dataToSend.caseid;
                 $scope.properties.JSONUsuarioRegistrado.primernombre = $scope.properties.dataToSend.primernombre;
                 $scope.properties.JSONUsuarioRegistrado.segundonombre = $scope.properties.dataToSend.segundonombre;
@@ -135,7 +136,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 
                 $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
                 $scope.properties.JSONUsuarioRegistrado.tienePAA = ($scope.properties.dataToSend.tienepaa == "t" ?true:false );
-                $scope.properties.JSONUsuarioRegistrado.cbCoincide = ($scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false);
+                if($scope.properties.dataToSend.catTipoAdmision !== null  && $scope.properties.dataToSend.catTipoAdmision !== undefined){
+                    $scope.properties.JSONUsuarioRegistrado.cbCoincide = ($scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false);
+                }
                 $scope.properties.JSONUsuarioRegistrado.descuento = $scope.properties.dataToSend.descuento;
                 $scope.properties.JSONUsuarioRegistrado.Documentos = angular.copy($scope.properties.archivos);
                 
@@ -260,7 +263,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     jsonNuevo.estadobachillerato = $scope.properties.JSONUsuarioRegistrado.estadobachillerato;
                     jsonNuevo.ciudadbachillerato = $scope.properties.JSONUsuarioRegistrado.ciudadbachillerato;
                     jsonNuevo.promedio = $scope.properties.JSONUsuarioRegistrado.promediogeneral;
-                    doRequestGuardar($scope.properties.action, $scope.properties.url);
+                    doRequest($scope.properties.action, $scope.properties.url);
                     
                 }
             }
