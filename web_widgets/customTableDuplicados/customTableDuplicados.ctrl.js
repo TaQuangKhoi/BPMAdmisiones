@@ -16,9 +16,10 @@ function PbTableCtrl($scope, $http, $window) {
     return angular.equals(row, $scope.properties.selectedRow);
   }
   $scope.asignarTarea = function (rowData) {
+      console.log(rowData)
     var req = {
         method: "GET",
-        url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseId}&f=isFailed%3dfalse`
+        url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
     };
 
     return $http(req)
