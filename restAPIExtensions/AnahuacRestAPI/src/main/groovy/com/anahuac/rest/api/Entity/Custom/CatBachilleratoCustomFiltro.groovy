@@ -40,6 +40,22 @@ class CatBachilleratoCustomFiltro {
 	private String usuarioBanner;
 	@XmlElement
 	private String id;
+	@XmlElement
+	private String idDireccion;
+	@XmlElement
+	private String countyCode;
+	@XmlElement
+	private String nationCode;
+	@XmlElement
+	private String stateCode;
+	@XmlElement
+	private String streetLine1;
+	@XmlElement
+	private String streetLine2;
+	@XmlElement
+	private String streetLine3;
+	@XmlElement
+	private String typeInd;
 	public Long getPersistenceId() {
 		return persistenceId;
 	}
@@ -142,6 +158,55 @@ class CatBachilleratoCustomFiltro {
 	public void setId(String id) {
 		this.id = id;
 	}
+	public String getIdDireccion() {
+		return idDireccion;
+	}
+	public void setIdDireccion(String idDireccion) {
+		this.idDireccion = idDireccion;
+	}
+	public String getCountyCode() {
+		return countyCode;
+	}
+	public void setCountyCode(String countyCode) {
+		this.countyCode = countyCode;
+	}
+	public String getNationCode() {
+		return nationCode;
+	}
+	public void setNationCode(String nationCode) {
+		this.nationCode = nationCode;
+	}
+	public String getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+	public String getStreetLine1() {
+		return streetLine1;
+	}
+	public void setStreetLine1(String streetLine1) {
+		this.streetLine1 = streetLine1;
+	}
+	public String getStreetLine2() {
+		return streetLine2;
+	}
+	public void setStreetLine2(String streetLine2) {
+		this.streetLine2 = streetLine2;
+	}
+	public String getStreetLine3() {
+		return streetLine3;
+	}
+	public void setStreetLine3(String streetLine3) {
+		this.streetLine3 = streetLine3;
+	}
+	public String getTypeInd() {
+		return typeInd;
+	}
+	public void setTypeInd(String typeInd) {
+		this.typeInd = typeInd;
+	}
+	
 	@Override
 	public String toString() {
 		return "CatBachilleratoCustomFiltro [persistenceId=" + persistenceId + ", persistenceVersion="
@@ -149,9 +214,13 @@ class CatBachilleratoCustomFiltro {
 				+ ", fechaCreacion=" + fechaCreacion + ", fechaImportacion=" + fechaImportacion + ", usuarioCreacion="
 				+ usuarioCreacion + ", isEliminado=" + isEliminado + ", caseId=" + caseId + ", estado=" + estado
 				+ ", region=" + region + ", ciudad=" + ciudad + ", isEnabled=" + isEnabled + ", perteneceRed="
-				+ perteneceRed + ", usuarioBanner=" + usuarioBanner + ", id=" + id + "]";
+				+ perteneceRed + ", usuarioBanner=" + usuarioBanner + ", id=" + id + ", idDireccion=" + idDireccion
+				+ ", countyCode=" + countyCode + ", nationCode=" + nationCode + ", stateCode=" + stateCode
+				+ ", streetLine1=" + streetLine1 + ", streetLine2=" + streetLine2 + ", streetLine3=" + streetLine3
+				+ ", typeInd=" + typeInd + "]";
 	}
 	
+
 	
 	
 }
