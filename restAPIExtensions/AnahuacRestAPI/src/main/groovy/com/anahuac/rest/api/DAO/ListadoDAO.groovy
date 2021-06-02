@@ -2516,7 +2516,7 @@ class ListadoDAO {
 						
 					 }*/
 					if (object.sesiones) {
-						where += " AND (sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados' OR sda.ESTATUSSOLICITUD = 'Resultado final del comité' OR sda.ESTATUSSOLICITUD = 'Rechazado por comité'  )"
+						where += " AND (sda.ESTATUSSOLICITUD = 'Autodescripción concluida' OR sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados' OR sda.ESTATUSSOLICITUD = 'Resultado final del comité' OR sda.ESTATUSSOLICITUD = 'Rechazado por comité'  )"
 					}else {
 						where += " AND (sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado'  )"
 					}
@@ -8176,7 +8176,6 @@ class ListadoDAO {
 				if (type.equals("paselista")) {
 					dataResult = new SesionesDAO().getSesionesAspirantes(jsonData, context)
 				} else if (type.equals("paselistareportelistado")) {
-
 					dataResult = new SesionesDAO().getAspirantesPasadosExcel(jsonData, context)
 				} else if (type.equals("paselistapsicologoadministrador")) {
 					dataResult = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)

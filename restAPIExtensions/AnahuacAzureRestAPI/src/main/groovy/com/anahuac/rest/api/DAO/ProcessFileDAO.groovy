@@ -234,7 +234,7 @@ class ProcessFileDAO {
 				}
 				
 				
-//				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 			} else {
 				throw new Exception("Documento no encontrado");
 			}

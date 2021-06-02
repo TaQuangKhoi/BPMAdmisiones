@@ -83,6 +83,12 @@ class ImportacionPAADAO {
 					pstm.setString(31,object.HI6);
 					pstm.setString(32,object.Total);
 					pstm.setString(33,object.fechaExamen);
+					pstm.setString(34,object.LEXIUM_PAAN);
+					pstm.setString(35,object.LEXIUM_PAAV);
+					pstm.setString(36,object.LEXIUM_PARA);
+					pstm.setString(37,object.LEXIUM_Total);
+					pstm.setString(38,object.tipoExamen);
+					
 					
 					pstm.executeUpdate();
 					
@@ -198,7 +204,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
+			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) and PAA.idBanner is NULL "
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
@@ -232,7 +238,7 @@ class ImportacionPAADAO {
 					SSA = rs.getString("valor")
 				}
 				
-				String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+				String consulta = Statements.GET_ASPIRANTES_SIN_PAA
 				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
                     errorlog=consulta+" 1";

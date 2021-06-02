@@ -751,8 +751,9 @@ class IndexGet implements RestApiController {
 				break;
 				case "getBitacoraPagosByEmail":
 					String email = request.getParameter "email";
+					String caseId = request.getParameter "caseId";
 					
-					result = new ConektaDAO().getBitacoraPagosByEmail(email, context);
+					result = new ConektaDAO().getBitacoraPagosByEmail(email, Long.valueOf(caseId), context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
