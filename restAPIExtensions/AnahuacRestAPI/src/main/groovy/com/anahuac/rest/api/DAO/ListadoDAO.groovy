@@ -2515,7 +2515,11 @@ class ListadoDAO {
 					 }else{
 						
 					 }*/
-					where += " AND (sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado'  )"
+					if (object.sesiones) {
+						where += " AND (sda.ESTATUSSOLICITUD = 'Autodescripción concluida' OR sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados' OR sda.ESTATUSSOLICITUD = 'Resultado final del comité' OR sda.ESTATUSSOLICITUD = 'Rechazado por comité'  )"
+					}else {
+						where += " AND (sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado'  )"
+					}
 				}
 			}
 			if (lstGrupo.size() > 0) {
@@ -8172,7 +8176,6 @@ class ListadoDAO {
 				if (type.equals("paselista")) {
 					dataResult = new SesionesDAO().getSesionesAspirantes(jsonData, context)
 				} else if (type.equals("paselistareportelistado")) {
-
 					dataResult = new SesionesDAO().getAspirantesPasadosExcel(jsonData, context)
 				} else if (type.equals("paselistapsicologoadministrador")) {
 					dataResult = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
@@ -8294,11 +8297,8 @@ class ListadoDAO {
 					cell1.setCellValue(lstParams[i].idbanner);
 
 					Cell cell2 = row.createCell(1);
-					cell2.setCellValue(
-						lstParams[i].primernombre + " " +
-						lstParams[i].segundonombre + " " +
-						lstParams[i].apellidopaterno + " " +
-						lstParams[i].apellidomaterno);
+					cell2.setCellValue(lstParams[i].apellidopaterno + " " + lstParams[i].apellidomaterno+ " " + lstParams[i].primernombre + " " + lstParams[i].segundonombre);
+					
 					Cell cell3 = row.createCell(2);
 					cell3.setCellValue(lstParams[i].correoelectronico);
 					Cell cell11 = row.createCell(3);

@@ -60,25 +60,17 @@ class BannerDAO {
 			errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
 			jsonResultado = getConsumePrepa(barrerToken);
-			errorLog += " | " + jsonResultado;
+			//errorLog += " | " + jsonResultado;
 			//CREAR-------------------------------------------------------
-			//jsonResultado = "[{\"id\":\"24\",\"published\":\"2021-04-21 22:36:38.602364+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"" + operacion + "\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"" + operacion + "\",\"title\":\"Nueva Escuela JABB\",\"type\":\"secondarySchool\",\"code\":\"JABB\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"25\",\"published\":\"2021-04-21 22:43:54.645787+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"DEU\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Alemania\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			//jsonResultado = "[{\"id\": \"55\", \"published\": \"2021-05-13 18:49:18.263057+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\", \"title\": \"Nueva Prepa 3\", \"type\": \"secondarySchool\", \"code\": \"JABB3\", \"typeInd\": \"H\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } },{\"id\": \"56\", \"published\": \"2021-05-13 18:57:23.862561+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"created\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Calle 1\", \"Calle 2\", \"Calle 3\"], \"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\", \"place\": {\"country\": {\"code\": \"USA\", \"locality\": \"000000\", \"postalTitle\": \"UNITED STATES OF AMERICA\", \"region\": {\"title\": \"Estado Extranjero\"}, \"subRegion\": {\"title\": \"MUNICIPIO EXTRANJERO\"}, \"title\": \"Estados Unidos de América\"} }, \"addressExtended\": [{\"streetLine1\": \"Calle 1\", \"streetLine2\": \"Calle 2\", \"streetLine3\": \"Calle 3\", \"nationCode\": \"157\", \"stateCode\": \"FR\", \"countyCode\": \"20000\"} ] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } } ]";
-			//jsonResultado = "[{\"id\": \"55\",\"published\": \"2021-05-13 18:49:18.263057+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"31a33fc2-c9e4-4a62-ad56-a2135994acbb\",\"title\": \"Nueva Prepa 33\",\"type\": \"secondarySchool\",\"code\": \"JABB3\",\"typeInd\": \"S\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"56\",\"published\": \"2021-05-13 18:57:23.862561+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Calle 1\", \"Calle 2\", \"Calle 3\"],\"id\": \"aaaa2fc7-99c5-42e3-b15a-cbc114a4faa4\",\"place\":{\"country\":{\"code\": \"USA\",\"locality\": \"000000\",\"postalTitle\": \"UNITED STATES OF AMERICA\",\"region\":{\"title\": \"Estado Extranjero\"},\"subRegion\":{\"title\": \"MUNICIPIO EXTRANJERO\"},\"title\": \"Estados Unidos de América\"}},\"addressExtended\": [{\"streetLine1\": \"Calle 123\",\"streetLine2\": \"Calle 2\",\"streetLine3\": \"Calle 3\",\"nationCode\": \"157\",\"stateCode\": \"FR\",\"countyCode\": \"20000\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
-			//----jsonResultado = "[{\"id\": \"70\",\"published\": \"2021-05-20 18:51:45.607535+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"title\": \"Preparatoria Oficial 80\",\"type\": \"secondarySchool\",\"code\": \"9327\",\"typeInd\": \"D\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"71\",\"published\": \"2021-05-20 18:53:22.086887+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Cedro 11\", \"Col. Viveros Xalostoc\"],\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"Edo de M\u00e9xico\",\"postalCode\": \"55340\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Estado de M\u00e9xico\"},\"subRegion\":{\"title\": \"Ecatepec de Morelos\"},\"title\": \"M\u00e9xico\"}},\"addressExtended\": [{\"streetLine1\": \"Cedro 11\",\"streetLine2\": null,\"streetLine3\": \"Col. Viveros Xalostoc\",\"nationCode\": \"99\",\"stateCode\": \"M11\",\"countyCode\": \"15033\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
-			//jsonResultado = "[{\"id\": \"60\",\"published\": \"2021-05-20 18:04:02.140895+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\",\"title\": \"Preparatoria Oficial 77\",\"type\": \"secondarySchool\",\"code\": \"9324\",\"typeInd\": \"H\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}},{\"id\": \"61\",\"published\": \"2021-05-20 18:06:41.102315+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"created\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Calle Florida 89\", \"Col. Miraflores\"],\"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"M\u00e9rida\",\"postalCode\": \"97000\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Yucat\u00e1n\"},\"subRegion\":{\"title\": \"M\u00e9rida\"},\"title\": \"M\u00e9xico\"}},\"addressExtended\": [{\"streetLine1\": \"Calle Florida 89\",\"streetLine2\": null,\"streetLine3\": \"Col. Miraflores\",\"nationCode\": \"99\",\"stateCode\": \"M31\",\"countyCode\": \"31050\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
+			//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
 			//EDITAR------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"30\",\"published\":\"2021-04-22 18:26:29.274756+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Blvd. La Mirada 3050\",\"Los Angeles\"],\"id\":\"fe9eda15-74e3-4f1c-b249-e413c86bf49f\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Culiac\u00e1n 25006\",\"postalCode\":\"80014\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Sinaloa\"},\"subRegion\":{\"title\":\"Culiac\u00e1n\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			//jsonResultado = "[{\"id\":\"29\",\"published\":\"2021-04-22 18:22:21.321824+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Avenida siempre viva 123\",\"Springfield\",\"USA\"],\"id\":\"23bc3dbf-f3fa-4c4b-aeac-9178e651343d\",\"place\":{\"country\":{\"code\":\"AZE\",\"locality\":\"Springfield\",\"postalCode\":\"123\",\"region\":{\"title\":\"Delaware\"},\"subRegion\":{\"title\":\"AMECA\"},\"title\":\"Azerbaiyan\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";/
-			//jsonResultado = "[{\"id\":\"31\",\"published\":\"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"2da De Circunvalaci\u00f3n no 49\",\"Centro\"],\"id\":\"72b9f043-036f-4f99-a526-ebb0af16a671\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"Macuspana\",\"postalCode\":\"86700\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Morelos\"},\"subRegion\":{\"title\":\"ALDAMA\"},\"title\":\"M\u00e9xico\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"32\",\"published\":\"2021-04-22 18:31:03.538532+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle 143, tablaje catastral 18631 no 314\",\"entre perif\u00e9rico\",\"Emiliano Zapata\"],\"id\":\"845b1b5c-52c6-4f2e-9265-fe358192000c\",\"place\":{\"country\":{\"code\":\"AGO\",\"locality\":\"Cd Obreg\u00f3n\",\"postalCode\":\"97139\",\"region\":{\"title\":\"Yucat\u00e1n\"},\"subRegion\":{\"title\":\"M\u00e9rida\"},\"title\":\"Angola\"}}},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
-			//----jsonResultado = "[{\"id\": \"72\",\"published\": \"2021-04-22 18:29:39.352476+00\",\"resource\":{\"name\": \"addresses\",\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\":{\"addressLines\": [\"Cedro 11\", \"Col. Viveros Xalostoc\"],\"id\": \"e78b3644-0ad9-49c1-9ca7-f5cc63fa83ce\",\"place\":{\"country\":{\"code\": \"MEX\",\"locality\": \"Edo de México\",\"postalCode\": \"55340\",\"postalTitle\": \"MEXICO\",\"region\":{\"title\": \"Estado de México\"},\"subRegion\":{\"title\": \"Ecatepec de Morelos\"},\"title\": \"México\"}},\"addressExtended\": [{\"streetLine1\": \"Cedro 11\",\"streetLine2\": null,\"streetLine3\": \"Col. Viveros Xalostoc\",\"nationCode\": \"99\",\"stateCode\": \"M11\",\"countyCode\": \"15033\"}]},\"publisher\":{\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\": \"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
-			//jsonResultado = "[{\"id\": \"70\",\"published\": \"2021-05-20 18:51:45.607535+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"version\": \"application/vnd.hedtech.integration.v6+json\"},\"operation\": \"replaced\",\"contentType\": \"resource-representation\",\"content\":{\"homeInstitution\": \"external\",\"id\": \"c45bd9a4-7411-4de7-a6f4-7666701be071\",\"title\": \"Preparatoria Oficial 80\",\"type\": \"secondarySchool\",\"code\": \"9327\",\"typeInd\": \"H\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
 			
-			//jsonResultado = "[{\"id\": \"60\", \"published\": \"2021-05-20 18:04:02.140895+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\", \"version\": \"application/vnd.hedtech.integration.v6+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"homeInstitution\": \"external\", \"id\": \"0053d615-6f0e-43c2-9a87-d6db9b1fbfc9\", \"title\": \"Preparatoria Oficial 77\", \"type\": \"secondarySchool\", \"code\": \"9324\", \"typeInd\": \"H\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }]";
-			//jsonResultado = "[{\"id\": \"61\", \"published\": \"2021-05-20 18:06:41.102315+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Calle Florida 89\", \"Col. Miraflores\"], \"id\": \"8fe3c196-524e-4b00-adb1-34a0f6888894\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"M\u00e9rida\", \"postalCode\": \"97000\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Yucat\u00e1n\"}, \"subRegion\": {\"title\": \"M\u00e9rida\"}, \"title\": \"M\u00e9xico\"} }, \"addressExtended\": [{\"streetLine1\": \"Calle Florida 89\", \"streetLine2\": null, \"streetLine3\": \"Col. Miraflores\", \"nationCode\": \"99\", \"stateCode\": \"M31\", \"countyCode\": \"31050\"}] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]";
+			//DELETE------------------------------------------------------
+			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
 			
-			//errorLog += " | jsonResultado: " + jsonResultado;
+			errorLog += " | jsonResultado: " + jsonResultado;
 			errorLog += " | " + ("END JSON========================================");
 
 			resultadoGetConsumeJSON = getConsumeJSON(jsonResultado, context, operacion, barrerToken);
@@ -199,6 +191,7 @@ class BannerDAO {
 
 		Boolean isCountyCodeOk = false;
 		Boolean isStateCodeOk = false;
+		Boolean isStreetLineOk = false;
 		Boolean isNationCodeOk = false;
 		Boolean isNationCodeLetterOk = false;
 		Boolean isMexicoOk = false;
@@ -245,83 +238,99 @@ class BannerDAO {
 				switch (objJsonResource.get("name").toString()) {
 					case "educational-institutions":
 
-						errorLog = errorLog + " | educational-institutions";
-						errorLog = errorLog + " | " + ("idBachillerato: " + objJsonContent.get("id").toString());
-						errorLog = errorLog + " | " + ("code: " + objJsonContent.get("code").toString());
-						errorLog = errorLog + " | " + ("descripcion: " + objJsonContent.get("title").toString());
-						errorLog = errorLog + " | " + ("usuarioBanner: " + objJsonPublisher.get("applicationName").toString());
-						errorLog = errorLog + " | " + ("fechaImportacion: " + objJson.get("published").toString());
-						errorLog = errorLog + " | " + ("fechaCreacion: " + objJson.get("published").toString());
-
-
-						objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
-						objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
-						objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
-						objEducationalInstitutions.setFechaImportacion(objJson.get("published").toString());
-						objEducationalInstitutions.setFechaCreacion(objJson.get("published").toString());
-						objEducationalInstitutions.setOperation(objJson.get("operation").toString());
-						objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
-
-						errorLog = errorLog + " | " + "objEducationalInstitutions.setStreetLine1";
-
-						objEducationalInstitutions.setStreetLine1("");
-						objEducationalInstitutions.setStreetLine2("");
-						objEducationalInstitutions.setStreetLine3("");
-						objEducationalInstitutions.setNationCode("");
-						objEducationalInstitutions.setStateCode("");
-						objEducationalInstitutions.setCountyCode("");
-						errorLog = errorLog + " | " + "objEducationalInstitutions.setCountyCode";
-						objEducationalInstitutions.setIsEliminado(false);
-						objEducationalInstitutions.setIsEnabled(true);
-						objEducationalInstitutions.setPerteneceRed(false);
-						objCatBachillerato.setPais("");
-						objCatBachillerato.setEstado("");
-						objCatBachillerato.setCiudad("");
-
-						/*
-						Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
-						while (iteratorAddresses.hasNext()) {
-						  
-						  objJsonAddressesData = iteratorAddresses.next();
-						  objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-						  errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-						  objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
-						}*/
-
-						if (!objJson.get("operation").toString().equals("created")) {
-							objJsonAddresses = (JSONArray) objJsonContent.get("addresses");
-							Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
-							while (iteratorAddresses.hasNext()) {
-								objJsonAddressesData = iteratorAddresses.next();
-								objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-								errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
-								objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+						if (objJson.get("operation").toString().equals("deleted")) {
+							errorLog = errorLog + " | " + "IF DELETE--------------------------------------------------------";
+							errorLog = errorLog + " | " + objJsonContent.get("id");
+							errorLog = errorLog + " | " + objJsonContent.get("guid");
+							errorLog = errorLog + " | " + objJsonContent.toString();
+							if(objJsonContent.get("id") != null) {
+								objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
 							}
-						} else {
-							errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): " + (objEducationalInstitutions.getIdBachillerato());
-							errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): " + (objEducationalInstitutions.getDescripcion());
-							errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): " + (objEducationalInstitutions.getUsuarioBanner());
-							errorLog = errorLog + " | objEducationalInstitutions.getFechaImportacion(): " + (objEducationalInstitutions.getFechaImportacion());
-							errorLog = errorLog + " | objEducationalInstitutions.getFechaCreacion(): " + (objEducationalInstitutions.getFechaCreacion());
-							errorLog = errorLog + " | objEducationalInstitutions.getOperation(): " + (objEducationalInstitutions.getOperation());
-							errorLog = errorLog + " | barrerToken: " + (barrerToken);
-							errorLog = errorLog + " | objJsonContent.get(id).toString(): " + (objJsonContent.get("id").toString());
-
-							resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
-							errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
-							errorLog = errorLog + " | " + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions);
-
-							objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
-							objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
-							Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
-							while (iteratorAddresses.hasNext()) {
-								objJsonAddressesData = iteratorAddresses.next();
-								objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-								errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
-								objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+							else {
+								objEducationalInstitutions.setIdBachillerato(objJsonContent.get("guid").toString());
 							}
+							objEducationalInstitutions.setOperation(objJson.get("operation").toString());
 						}
-						objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
+						else {
+							errorLog = errorLog + " | educational-institutions";
+							errorLog = errorLog + " | " + ("idBachillerato: " + objJsonContent.get("id").toString());
+							errorLog = errorLog + " | " + ("code: " + objJsonContent.get("code").toString());
+							errorLog = errorLog + " | " + ("descripcion: " + objJsonContent.get("title").toString());
+							errorLog = errorLog + " | " + ("usuarioBanner: " + objJsonPublisher.get("applicationName").toString());
+							errorLog = errorLog + " | " + ("fechaImportacion: " + objJson.get("published").toString());
+							errorLog = errorLog + " | " + ("fechaCreacion: " + objJson.get("published").toString());
+	
+	
+							objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
+							objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
+							objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
+							objEducationalInstitutions.setFechaImportacion(objJson.get("published").toString());
+							objEducationalInstitutions.setFechaCreacion(objJson.get("published").toString());
+							objEducationalInstitutions.setOperation(objJson.get("operation").toString());
+							objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
+	
+							errorLog = errorLog + " | " + "objEducationalInstitutions.setStreetLine1";
+	
+							objEducationalInstitutions.setStreetLine1("");
+							objEducationalInstitutions.setStreetLine2("");
+							objEducationalInstitutions.setStreetLine3("");
+							objEducationalInstitutions.setNationCode("");
+							objEducationalInstitutions.setStateCode("");
+							objEducationalInstitutions.setCountyCode("");
+							errorLog = errorLog + " | " + "objEducationalInstitutions.setCountyCode";
+							objEducationalInstitutions.setIsEliminado(false);
+							objEducationalInstitutions.setIsEnabled(true);
+							objEducationalInstitutions.setPerteneceRed(false);
+							objCatBachillerato.setPais("");
+							objCatBachillerato.setEstado("");
+							objCatBachillerato.setCiudad("");
+	
+							/*
+							Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
+							while (iteratorAddresses.hasNext()) {
+							  
+							  objJsonAddressesData = iteratorAddresses.next();
+							  objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
+							  errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
+							  objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+							}*/
+	
+							if (!objJson.get("operation").toString().equals("created")) {
+								objJsonAddresses = (JSONArray) objJsonContent.get("addresses");
+								Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
+								while (iteratorAddresses.hasNext()) {
+									objJsonAddressesData = iteratorAddresses.next();
+									objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
+									errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
+									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+								}
+							} else {
+								errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): " + (objEducationalInstitutions.getIdBachillerato());
+								errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): " + (objEducationalInstitutions.getDescripcion());
+								errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): " + (objEducationalInstitutions.getUsuarioBanner());
+								errorLog = errorLog + " | objEducationalInstitutions.getFechaImportacion(): " + (objEducationalInstitutions.getFechaImportacion());
+								errorLog = errorLog + " | objEducationalInstitutions.getFechaCreacion(): " + (objEducationalInstitutions.getFechaCreacion());
+								errorLog = errorLog + " | objEducationalInstitutions.getOperation(): " + (objEducationalInstitutions.getOperation());
+								errorLog = errorLog + " | barrerToken: " + (barrerToken);
+								errorLog = errorLog + " | objJsonContent.get(id).toString(): " + (objJsonContent.get("id").toString());
+	
+								resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
+								errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
+								errorLog = errorLog + " |-" + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions)+"-";
+								objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
+								objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
+								Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
+								while (iteratorAddresses.hasNext()) {
+									objJsonAddressesData = iteratorAddresses.next();
+									objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
+									errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
+									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+								}
+								
+							}
+							objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
+						}
+						
 						lstEducationalInstitutions.add(objEducationalInstitutions);
 
 					break;
@@ -352,16 +361,13 @@ class BannerDAO {
 						Iterator < JSONObject > iteratorAddressExtended = lstAddressExtended.iterator();
 						while (iteratorAddressExtended.hasNext()) {
 							objJsonAddressExtended = iteratorAddressExtended.next();
-							objAddresses.setStreetLine1(objJsonAddressExtended.get("streetLine1").toString());
-							objAddresses.setStreetLine2(objJsonAddressExtended.get("streetLine2").toString());
-							objAddresses.setStreetLine3(objJsonAddressExtended.get("streetLine3").toString());
-							objAddresses.setNationCode(objJsonAddressExtended.get("nationCode").toString());
-							objAddresses.setStateCode(objJsonAddressExtended.get("stateCode").toString());
-							objAddresses.setCountyCode(objJsonAddressExtended.get("countyCode").toString());
+							objAddresses.setStreetLine1(objJsonAddressExtended.get("streetLine1").toString().equals("null") ? null : (objJsonAddressExtended.get("streetLine1").toString()));
+							objAddresses.setStreetLine2(objJsonAddressExtended.get("streetLine2").toString().equals("null") ? null : (objJsonAddressExtended.get("streetLine2").toString()));
+							objAddresses.setStreetLine3(objJsonAddressExtended.get("streetLine3").toString().equals("null") ? null : (objJsonAddressExtended.get("streetLine3").toString()));
+							objAddresses.setNationCode(objJsonAddressExtended.get("nationCode").toString().equals("null") ? null : (objJsonAddressExtended.get("nationCode").toString()));
+							objAddresses.setStateCode(objJsonAddressExtended.get("stateCode").toString().equals("null") ? null : (objJsonAddressExtended.get("stateCode").toString()));
+							objAddresses.setCountyCode(objJsonAddressExtended.get("countyCode").toString().equals("null") ? null : (objJsonAddressExtended.get("countyCode").toString()));
 						}
-
-
-
 						lstAddresses.add(objAddresses);
 					break;
 					default:
@@ -480,8 +486,13 @@ class BannerDAO {
 								if (!strNationCode.equals("")) {
 									isNationCodeOk = strNationCode.equals("99")
 								}
-							
-								isMexicoOk = (isNationCodeOk && isStateCodeOk);
+								
+								isStreetLineOk = (objRow.getStreetLine1() != null && objRow.getStreetLine3() != null);
+								errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
+								
+								errorLog = errorLog + " | getStreetLine1: " + objRow.getStreetLine1()
+								errorLog = errorLog + " | getStreetLine3: " + objRow.getStreetLine3()
+								isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
 							} else {
 								if (objRow.getPais().equals("Estados Unidos de América")) {
 									strNationCode = objRow.getNationCode() == null ? "" : objRow.getNationCode();
@@ -689,7 +700,12 @@ class BannerDAO {
 												isNationCodeOk = strNationCode.equals("99")
 											}
 										
-											isMexicoOk = (isNationCodeOk && isStateCodeOk);
+											isStreetLineOk = (objRow.getStreetLine1() != null && objRow.getStreetLine3() != null);
+											errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
+											
+											errorLog = errorLog + " | getStreetLine1: " + objRow.getStreetLine1()
+											errorLog = errorLog + " | getStreetLine3: " + objRow.getStreetLine3()
+											isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
 										} else {
 											if (row.getPais().equals("Estados Unidos de América")) {
 												errorLog = errorLog + " | " + (row.getPais());
@@ -922,6 +938,7 @@ class BannerDAO {
 						if (row.getOperation().equals("deleted")) {
 							//if(operacion.equals("deleted")) {
 							errorLog = errorLog + " | " + row.getOperation();
+							errorLog = errorLog + " | " + row.getIdBachillerato();
 
 							lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
 							if (lstCatBachilleratos != null) {
@@ -946,11 +963,11 @@ class BannerDAO {
 									objCatBachilleratosInput.put("fechaCreacion", null);
 									objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
 									objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
-									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
-									objCatBachilleratosInput.put("estado", row.getEstado());
-									objCatBachilleratosInput.put("ciudad", row.getCiudad());
-									objCatBachilleratosInput.put("pais", row.getPais());
-									objCatBachilleratosInput.put("id", row.getIdBachillerato());
+									objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
+									objCatBachilleratosInput.put("estado", objRow.getEstado());
+									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
+									objCatBachilleratosInput.put("pais", objRow.getPais());
+									objCatBachilleratosInput.put("id", objRow.getId());
 
 									objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
 									objCatBachilleratosInput.put("streetLine2", objRow.getStreetLine2());
@@ -958,12 +975,15 @@ class BannerDAO {
 									objCatBachilleratosInput.put("nationCode", objRow.getNationCode());
 									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
-									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+									objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 									processInstance = processAPI.startProcessWithInputs(processId, contracto);
 								}
+							}
+							else {
+								errorLog = errorLog + " | " + ("ELSE delete");
 							}
 						}
 					}
@@ -983,7 +1003,8 @@ class BannerDAO {
 				isStateCodeOk = false;
 				isNationCodeOk = false;
 				isCountyCodeOk = false;
-
+				isStreetLineOk = false;
+				
 				errorLog = errorLog + " | " + ("====================================");
 				errorLog = errorLog + " | " + ("Validar Pais y estado");
 				if (objLstAddresses.getPais().equals("México")) {
@@ -1001,7 +1022,12 @@ class BannerDAO {
 						isNationCodeOk = strNationCode.equals("99")
 					}
 
-					isMexicoOk = (isNationCodeOk && isStateCodeOk);
+					isStreetLineOk = (objLstAddresses.getStreetLine1() != null && objLstAddresses.getStreetLine3() != null);
+					errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
+					
+					errorLog = errorLog + " | getStreetLine1: " + objLstAddresses.getStreetLine1()
+					errorLog = errorLog + " | getStreetLine3: " + objLstAddresses.getStreetLine3()
+					isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
 				} else {
 					if (objLstAddresses.getPais().equals("Estados Unidos de América")) {
 						errorLog = errorLog + " | " + (objLstAddresses.getPais());
