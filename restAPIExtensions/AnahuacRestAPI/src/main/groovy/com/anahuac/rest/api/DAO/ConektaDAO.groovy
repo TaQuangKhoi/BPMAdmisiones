@@ -38,7 +38,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class ConektaDAO {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConektaDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConektaDAO.class);
 	
 	Connection con;
 	Statement stm;
@@ -56,16 +56,16 @@ class ConektaDAO {
 		return retorno
 	}
 
-    public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
-        Result resultado = new Result();
-        List < ConektaOxxo > lstResultado = new ArrayList < ConektaOxxo > ();
-        Long userLogged = 0L;
-        Long caseId = 0L;
-        Long total = 0L;
-        Integer start = 0;
-        Integer end = 99999;
-        Boolean isFound = true;
-        String nombreCandidato = "";
+	public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < ConektaOxxo > lstResultado = new ArrayList < ConektaOxxo > ();
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		Integer start = 0;
+		Integer end = 99999;
+		Boolean isFound = true;
+		String nombreCandidato = "";
 		Long nowUnixTimestamp = System.currentTimeMillis();
 		Long thirtyDaysFromNowUnixTimestamp = (nowUnixTimestamp + 30L * 24 * 60 * 60 * 1000)/ 1000L;
 		String thirtyDaysFromNow = thirtyDaysFromNowUnixTimestamp.toString();
@@ -81,7 +81,7 @@ class ConektaDAO {
 		String campus = "";
 		String idbanner = "";
 		
-        try {
+		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
@@ -126,18 +126,18 @@ class ConektaDAO {
 			);
 			
 			
-            LineItems line_item = (LineItems) order.line_items.get(0);
-            Charge charge = (Charge) order.charges.get(0);
-            OxxoPayment oxxoPayment = (OxxoPayment) charge.payment_method;
+			LineItems line_item = (LineItems) order.line_items.get(0);
+			Charge charge = (Charge) order.charges.get(0);
+			OxxoPayment oxxoPayment = (OxxoPayment) charge.payment_method;
 
 			double amount = order.amount / 100;
 			DecimalFormat twoPlaces = new DecimalFormat("0.00");
 			
-            lstResultado.add(new ConektaOxxo(
+			lstResultado.add(new ConektaOxxo(
 				order.id,
-                "\$" + twoPlaces.format(amount).toString() + " " + order.currency,
-                line_item.quantity + " - " + line_item.name + " - " + (line_item.unit_price / 100),
-                oxxoPayment.reference)
+				"\$" + twoPlaces.format(amount).toString() + " " + order.currency,
+				line_item.quantity + " - " + line_item.name + " - " + (line_item.unit_price / 100),
+				oxxoPayment.reference)
 			);
 			
 			
@@ -157,23 +157,22 @@ class ConektaDAO {
 			crearRegistroPago(ordenBit);
 			//--------------------FIN PARA LA BITACORA DE PAGOS-----------------------
 								
-            resultado.setData(lstResultado);
-            resultado.setSuccess(true);
-        } catch (io.conekta.ErrorList error) {
+			resultado.setData(lstResultado);
+			resultado.setSuccess(true);
+		} catch (io.conekta.ErrorList error) {
 			LOGGER.error error.details.get(0).message
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
-            resultado.setSuccess(false);
-            resultado.setError(e.getMessage());
-            LOGGER.error "ERROR=================================";
-            LOGGER.error e.getMessage();
-            e.printStackTrace();
-        } 
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
 		
 		
-        return resultado
-    }
+		return resultado
+	}
 	
 	public Result pagoTarjeta(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -305,13 +304,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-		    System.out.println(e.getMessage());
-		} 
+		}
 		
 		return resultado;
 	}
@@ -368,7 +365,7 @@ class ConektaDAO {
 					+ "},"
 					 +"'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
-					  	+ "'payment_method': {"
+						  + "'payment_method': {"
 						  + "'type': 'spei',"
 							+ "'expires_at': " + thirtyDaysFromNow
 						+ "}"
@@ -412,13 +409,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-		} 
+		}
 		return resultado;
 	}
 	
@@ -444,12 +439,10 @@ class ConektaDAO {
 			
 			resultado.toString();
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 
 		return resultado;
@@ -494,12 +487,10 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		return resultado;
 	}
@@ -586,14 +577,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
-		
-		
 		return resultado
 	}
 	
@@ -623,12 +611,10 @@ class ConektaDAO {
 			
 			resultado.toString();
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 
 		return resultado;
@@ -666,8 +652,8 @@ class ConektaDAO {
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			apiClient.processAPI.executeFlowNode(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Esperar pago", 0, 1).get(0).getId());
 			resultado.setSuccess(true);
-		}catch(Exception ex) {
-			LOGGER.error ex.getMessage()
+		}catch (Exception ex) {
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
@@ -696,11 +682,10 @@ class ConektaDAO {
 			}
 			
 			Order order = Order.find();
-			LOGGER.error "ORDER INFO : " +  order.toString();
 			
 			resultado.setSuccess(true);
-		}catch(Exception ex) {
-			LOGGER.error ex.getMessage()
+		}catch (Exception ex) {
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
@@ -733,12 +718,10 @@ class ConektaDAO {
 			con.commit();
 			resultado.setSuccess(true);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
-			LOGGER.error "ERROR EN EL LOGUEO"
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -897,10 +880,10 @@ class ConektaDAO {
 				break;
 				case "FECHAMOVIMIENTO":
 					orderby += "fechaMovimiento";
-				break; 
+				break;
 				case "MONTO":
 					orderby += "monto";
-				break; 
+				break;
 				case "MEDIOPAGO":
 					orderby += "medioPago";
 				break;
@@ -958,6 +941,7 @@ class ConektaDAO {
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog)
@@ -969,7 +953,7 @@ class ConektaDAO {
 		return resultado
 	}
 	
-	public Result getBitacoraPagosByEmail(String email, RestAPIContext context) {
+	public Result getBitacoraPagosByEmail(String email, Long caseId, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "", errorlog = "";
@@ -982,7 +966,7 @@ class ConektaDAO {
 			List<OrdenBitacora> rows = new ArrayList<OrdenBitacora>();
 			closeCon = validarConexion();
 			
-			where = " WHERE usuarioAspirante = '" + email + "'";
+			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
 			String consulta = Statements.GET_BITACORA_PAGO;
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[ORDERBY]", "");
@@ -1011,6 +995,7 @@ class ConektaDAO {
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog)

@@ -370,12 +370,22 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         if(datos !== null && datos !== undefined){
             let columna = datos;
             for(var key in columna){
-                if(key != "total" && key != "fechaexamen"){
+                 if(key != "total" && key != "fechaexamen" && key != "tipoexamen" && key != "lexiumpara" && key != "lexiumpaav" && key != "lexiumpaan" && key != "lexiumtotal"){
                     json[key.toUpperCase()] = data[key]
                 }else if(key === "total"){
                     json.Total = data[key]
                 }else if(key == "fechaexamen"){
                     json.fechaExamen = data[key]
+                }else if(key == "tipoexamen"){
+                    json.tipoExamen = data[key];
+                }else if(key == "lexiumpara"){
+                    json.LEXIUM_PARA = data[key]
+                }else if(key == "lexiumpaav"){
+                    json.LEXIUM_PAAV = data[key]
+                }else if(key == "lexiumpaan"){
+                    json.LEXIUM_PAAN = data[key]
+                }else if(key == "lexiumtotal"){
+                    json.LEXIUM_Total = data[key]
                 }
             } 
         

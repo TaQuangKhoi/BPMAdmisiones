@@ -22,7 +22,7 @@ import groovy.json.JsonSlurper
 
 class BitacorasDAO {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ListadoDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BitacorasDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;

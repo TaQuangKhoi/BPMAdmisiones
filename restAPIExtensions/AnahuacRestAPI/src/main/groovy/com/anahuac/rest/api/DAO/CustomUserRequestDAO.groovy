@@ -32,7 +32,7 @@ import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 
 class CustomUserRequestDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CatalogosDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserRequestDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;

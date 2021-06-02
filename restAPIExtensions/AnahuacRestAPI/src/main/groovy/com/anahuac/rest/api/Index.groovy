@@ -29,6 +29,7 @@ import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.TestDAO
 import com.anahuac.rest.api.DAO.TransferenciasDAO
 import com.anahuac.rest.api.DAO.ReactivacionDAO
+import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
@@ -1720,7 +1721,7 @@ class Index implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				case "getExcelTransferencias":
+				case "generarReporte":
 				result = new ReportesDAO().generarReporte();
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {

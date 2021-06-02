@@ -60,11 +60,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import groovy.json.JsonSlurper
 
 class UsuariosDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ListadoDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsuariosDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
+
 	public Result getTest(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		List<String> lstResultado = new ArrayList<String>();
@@ -164,7 +165,6 @@ class UsuariosDAO {
 			
 			if(resultado.success) {
 				catBitacoraCorreo.setEstatus("Enviado a Mailgun")
-				
 			}else {
 				catBitacoraCorreo.setEstatus("Fallido")
 			}
@@ -177,18 +177,16 @@ class UsuariosDAO {
 			resultado.setSuccess(true);
 			resultado.setError_info(error_log)
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(error_log)
 			resultado.setData(lstResultado);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado;
 	}
-	
-	
+		
 	public Result postRecuperarPassword(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		
 		Result resultadoN = new Result();
@@ -244,8 +242,7 @@ class UsuariosDAO {
 			final User user_update= identityAPI.updateUser(user.getId(), update_user);
 			object.password = randomString;
 			def str = jsonSlurper.parseText('{"campus": "'+lstParams[0].grupobonita+'","correo":"'+object.nombreusuario+'", "codigo": "recuperar","isEnviar":false}');
-			
-			
+
 			NotificacionDAO nDAO = new NotificacionDAO();
 			 
 			resultadoN = nDAO.generateHtml(parameterP, parameterC, "{\"campus\": \""+lstParams[0].grupobonita+"\", \"correo\":\""+object.nombreusuario+"\", \"codigo\": \"recuperar\", \"isEnviar\":false }", context);
@@ -265,18 +262,15 @@ class UsuariosDAO {
 			resultado.setSuccess(true);
 			
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado;
 	}
 	
 	public Result postHabilitarUsaurio(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
-		
-		
 		Usuarios objUsuario= new Usuarios();
 		Result resultado = new Result();
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
@@ -321,10 +315,9 @@ class UsuariosDAO {
 			resultado.setData(lstResultado);
 			resultado.setSuccess(true);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado;
@@ -353,36 +346,24 @@ class UsuariosDAO {
 			password = prop.getProperty("PASSWORD");
 			/*def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);*/
-			LOGGER.error "def object = jsonSlurper.parseText(jsonData);";
+
 			errorLog = errorLog + "";
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
 			apiClient.login(username, password)
-			LOGGER.error "apiClient.login";
+			
 			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Validar Cuenta");
-			LOGGER.error "searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME";
+			
 			final SearchOptions searchOptions = searchBuilder.done();
 			SearchResult<HumanTaskInstance>  SearchHumanTaskInstanceSearch = apiClient.getProcessAPI().searchHumanTaskInstances(searchOptions);
 			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
 			def catRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
 			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
-				LOGGER.error "=================================";
-				LOGGER.error objHumanTaskInstance.getName();
-				LOGGER.error "=================================";
-				LOGGER.error "RootContainer" + objHumanTaskInstance.getRootContainerId()
 				lstCatRegistro = catRegistroDAO.findByCaseId(objHumanTaskInstance.getRootContainerId(), 0, 1)
 				if(lstCatRegistro != null) {
-					LOGGER.error "objCatRegistro=================================";
-					LOGGER.error "lstCatRegistro.size "+ lstCatRegistro.size()
 					if(lstCatRegistro.size() > 0) {
 						objCatRegistro = new CatRegistro();
 						objCatRegistro = lstCatRegistro.get(0);
-						
-						LOGGER.error "objCatRegistro=================================";
-						LOGGER.error objCatRegistro.getCorreoelectronico();
-						LOGGER.error "objCatRegistro=================================";
-						LOGGER.error correo
-						
 						if(objCatRegistro.getCorreoelectronico().equals(correo)) {
 							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId());
@@ -392,10 +373,9 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado;
@@ -408,8 +388,6 @@ class UsuariosDAO {
 		List<String> lstResultado = new ArrayList<String>();
 		NotificacionDAO nDAO = new NotificacionDAO();
 		try {
-
-
 			String username = "";
 			String password = "";
 			Properties prop = new Properties();
@@ -442,14 +420,14 @@ class UsuariosDAO {
 			}
 			resultado.setSuccess(true);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
 		return resultado;
 	}
+
 	public Result getUsuarios(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -674,6 +652,7 @@ class UsuariosDAO {
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
 				resultado.setError_info(errorlog)
@@ -685,7 +664,6 @@ class UsuariosDAO {
 		return resultado
 	}
 	
-	
 	public Boolean validarConexionBonita() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
@@ -694,6 +672,7 @@ class UsuariosDAO {
 		}
 		return retorno;
 	}
+
 	private static String generateRandomString(int length, String seedChars) {
 		StringBuilder sb = new StringBuilder();
 		int i = 0;
@@ -747,7 +726,7 @@ class UsuariosDAO {
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
 			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
-			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND 
+			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
 //				if(object.estatusSolicitud !=null) {
 				
 //					where+="AND (sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta')"
@@ -1153,6 +1132,7 @@ class UsuariosDAO {
 										}
 									}
 								}catch(Exception e) {
+									LOGGER.error "[ERROR] " + e.getMessage();
 									columns.put("fotografiab64", "");
 									errorlog+= ""+e.getMessage();
 								}
@@ -1169,6 +1149,7 @@ class UsuariosDAO {
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(errorlog)
 			//resultado.setError_info(consulta)
 			resultado.setSuccess(false);
@@ -1180,6 +1161,7 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
+
 	public Result updateUsuarioRegistrado(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
@@ -1285,8 +1267,6 @@ class UsuariosDAO {
 			pstm.setString(16, object.estadobachillerato);
 			pstm.setString(17, object.ciudadbachillerato);
 			pstm.setString(18, object.promedio);
-			
-			
 			if(object.catEstadoExamen == null) {
 				pstm.setNull(19, java.sql.Types.BIGINT);
 			}else {
@@ -1308,8 +1288,6 @@ class UsuariosDAO {
 			// el where final
 			pstm.setLong(22, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
-			
-			
 			String detalleSolicitud ="";
 			
 			if(object.catResidencia != null) {
@@ -1469,6 +1447,7 @@ class UsuariosDAO {
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		}catch(Exception ex){
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
@@ -1482,7 +1461,7 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
-public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
+	public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog ="";
 		Boolean closeCon = false;
@@ -1529,12 +1508,11 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			pstm.setString(1,object.correoNuevo);
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
-
-			
 			con.commit();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		}catch(Exception ex){
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
@@ -1561,7 +1539,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 //			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
 //			rs= pstm.executeQuery();
 //			if(rs.next()) {
-//				SSA = rs.getString("valor") 
+//				SSA = rs.getString("valor")
 //			}
 			
 			pstm = con.prepareStatement(Statements.GET_CONSTANCIAS_HISTORICO);
@@ -1589,6 +1567,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			resultado.setData(rows)
 			
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1605,8 +1584,6 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			? new DocumentValue(documentId, fileFromContract.content, fileFromContract.contentType, fileFromContract.fileName)
 			: new DocumentValue(documentId)
 	}
-	
-	
 	
 	public Result getDatosUsername(String username) {
 		Result resultado = new Result();
@@ -1637,6 +1614,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1693,10 +1671,9 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(" "+e.getMessage());
-			
-			
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1704,6 +1681,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 		}
 		return resultado
 	}
+
 	public Result getMenuAdministrativo(RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -1762,6 +1740,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 				resultado.setData(rows)
 				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			if(e.getMessage().contains("\"app_menu_role\" does not exist")) {
 				try {
@@ -1769,6 +1748,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 					pstm.execute()
 					resultado.setError("La tabla app_menu_role no existía, y ya fue creada, favor de ejecutar la consulta de nuevo.")
 				} catch (Exception e2) {
+					LOGGER.error "[ERROR] " + e2.getMessage();
 					resultado.setError("falló al crear tabla "+e2.getMessage());
 				}
 				
@@ -1782,6 +1762,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 		}
 		return resultado
 	}
+
 	public Result updateBusinessAppMenu(AppMenuRole row) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -1804,10 +1785,8 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 				}
 				
 				resultado.setSuccess(true)
-				
-				
-				
 			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1826,7 +1805,6 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 		}
 		return retorno;
 	}
-	
 	
 	public Result getUsuariosConSolicitudAbandonada(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -1883,7 +1861,6 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			if(rs.next()) {
 				SSA = rs.getString("valor")
 			}
-			
 
 			errorlog += "object.lstFiltro" + object.lstFiltro
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
@@ -2260,6 +2237,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 										}
 								}
 						} catch (Exception e) {
+							LOGGER.error "[ERROR] " + e.getMessage();
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
 						}
@@ -2274,6 +2252,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			resultado.setData(rows)
 
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -2714,6 +2693,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 									}
 							}
 						} catch (Exception e) {
+							LOGGER.error "[ERROR] " + e.getMessage();
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
 						}
@@ -2728,6 +2708,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			resultado.setData(rows)
 
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
@@ -2765,6 +2746,7 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			resultado.setData(rows)
 			resultado.setSuccess(true)
 		}catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog+" "+e.getMessage())
@@ -2789,11 +2771,12 @@ public Result updateCorreoElectronico(Integer parameterP,Integer parameterC, Str
 			pstm = con.prepareStatement(consulta);
 			pstm.executeUpdate();
 				
-			con.commit();	
+			con.commit();
 			//resultado.setError_info(" errorLog = "+errorLog)
 			resultado.setData(rows)
 			resultado.setSuccess(true)
 		}catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog+" "+e.getMessage())
