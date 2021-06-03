@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgImportacionPAA",
   "name" : "frgImportacionPAA",
-  "lastUpdate" : 1622590294453,
+  "lastUpdate" : 1622756063444,
   "rows" : [
     [
       {
@@ -70,8 +70,8 @@
                   "value" : "tabla"
                 },
                 "texto" : {
-                  "type" : "constant",
-                  "value" : "tabla"
+                  "type" : "expression",
+                  "value" : "retorno"
                 }
               },
               "reference" : "df4f656c-b3e8-4473-9812-203643fbdbd3",
@@ -126,21 +126,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -159,30 +151,29 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar el tipo de examen"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstTipoExamen"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strResultado.tipoExamen"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "a68f1343-1f18-498c-a7e8-24a53988c8bc",
+              "reference" : "b8e93581-450f-4d5a-a4d4-bd16cfb9d395",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             }
           ],
           [
@@ -4525,6 +4516,20 @@
         "}"
       ],
       "exposed" : false
+    },
+    "lstTipoExamen" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "retorno" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
     }
   },
   "hasValidationError" : false,

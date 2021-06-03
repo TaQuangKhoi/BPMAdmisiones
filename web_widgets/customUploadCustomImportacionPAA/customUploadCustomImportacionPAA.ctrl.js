@@ -76,7 +76,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         $scope.errores = [];
         $scope.correctos = [];
         $scope.final = [];
-        $scope.lstBanner = {'IDBANNER':""};
+        $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
 
         blockUI.start();
         if(!isNullOrUndefined(row) ){
@@ -88,7 +88,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 
                 if(paso){
                     $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
-                    info.tipoExamen = "Lexium"
+                    $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['fechaExamen']}'`;
+                    info.tipoExamen = "KP"
                     $scope.correctos = [...$scope.correctos,info]
                 }
 
@@ -97,7 +98,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                         if(count == row.length){
                             $scope.properties.lstErrores = angular.copy($scope.errores)
                             $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
-                            $scope.properties.tabla = "tabla";
+                            $scope.properties.tabla = "carga";
                             //swal('¡Se han terminado la auditoria de los datos!',"","success")
                         }
                     })
@@ -274,15 +275,14 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
 
 
     function revisarDatos(data,datos){
-        debugger;
         data.data.forEach( (info,index) =>{
-            let lstidBanner = info.idBanner.split(',')
+            //let lstidBanner = info.idBanner.split(',')
             let indice = findData(info.idBanner.replaceAll("'",""))
             if(!info.Existe){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"no hay aspirante con ese idBanner"}]
             }
-            else if(info.Registrado){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"el aspirante ya tiene puntuacion"}]
+            else if(info.mismaFecha){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`el aspirante ya tiene puntuacion en la fecha ${datos[indice]['fechaExamen']}`}]
             }
             else if(!info.EstaEnCarga){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados"}]
