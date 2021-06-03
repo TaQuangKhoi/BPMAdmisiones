@@ -50,7 +50,7 @@ import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 
 class BecasDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ListadoDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(BecasDAO.class);
 	Connection con;
 	Statement stm;
 	ResultSet rs;

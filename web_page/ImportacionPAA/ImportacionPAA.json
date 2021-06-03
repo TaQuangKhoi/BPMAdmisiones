@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1622481790560,
+  "lastUpdate" : 1622588242391,
   "rows" : [
     [
       {
@@ -599,6 +599,10 @@
                                         "table" : {
                                           "type" : "variable",
                                           "value" : "tabla"
+                                        },
+                                        "view" : {
+                                          "type" : "variable",
+                                          "value" : "VariableCarga.view"
                                         }
                                       },
                                       "reference" : "4b809f92-40e0-452b-a638-ef02c58dd8ee",
@@ -697,9 +701,9 @@
                                         "headers" : {
                                           "type" : "constant",
                                           "value" : [
+                                            "Error",
                                             "Id banner",
-                                            "Nombre",
-                                            "Error"
+                                            "Nombre"
                                           ]
                                         },
                                         "content" : {
@@ -709,9 +713,9 @@
                                         "columnsKey" : {
                                           "type" : "constant",
                                           "value" : [
+                                            "Error",
                                             "idBanner",
-                                            "nombre",
-                                            "Error"
+                                            "nombre"
                                           ]
                                         },
                                         "selectedRow" : {
@@ -738,65 +742,6 @@
                                       "reference" : "0775ee8d-c950-4618-ba52-ac46f3349626",
                                       "hasValidationError" : false,
                                       "id" : "customTblErrorImportacionPAA"
-                                    }
-                                  ]
-                                ]
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "container",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "repeatedCollection" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "6e70f1bc-5c34-42ba-b2dc-cb5da1f340ee",
-                                "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [
-                                    {
-                                      "type" : "fragment",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 12,
-                                        "lg" : 12
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "expression",
-                                          "value" : "tabla != \"fragmento\""
-                                        }
-                                      },
-                                      "reference" : "ff6ae29e-c96f-499f-965b-205148acecb4",
-                                      "hasValidationError" : false,
-                                      "id" : "frgImportacionPAA",
-                                      "binding" : {
-                                        "view" : "variablesCargaMasiva.view",
-                                        "strResultado" : "strAlumno",
-                                        "tabla" : "tabla"
-                                      }
                                     }
                                   ]
                                 ]
@@ -919,7 +864,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "variablesCargaManual.tabla != \"tabla\""
+                              "value" : "tabla != \"tabla\""
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -1038,7 +983,11 @@
                                   },
                                   "tabla" : {
                                     "type" : "variable",
-                                    "value" : "variablesCargaManual.tabla"
+                                    "value" : "tabla"
+                                  },
+                                  "view" : {
+                                    "type" : "variable",
+                                    "value" : "VariableCarga.view"
                                   }
                                 },
                                 "reference" : "03f4520b-8e34-4bbf-a5e2-71f2fe23a9f6",
@@ -1047,35 +996,6 @@
                               }
                             ]
                           ]
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "fragment",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "variablesCargaManual.tabla != \"fragmento\""
-                            }
-                          },
-                          "reference" : "af0c9ba9-7f8b-443b-83aa-8bd0457a30cc",
-                          "hasValidationError" : false,
-                          "id" : "frgImportacionPAA",
-                          "binding" : {
-                            "view" : "variablesCargaManual.view",
-                            "strResultado" : "strAlumno",
-                            "tabla" : "variablesCargaManual.tabla"
-                          }
                         }
                       ]
                     ]
@@ -1122,7 +1042,7 @@
                     "rows" : [
                       [
                         {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -1135,81 +1055,203 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "tabla != \"tabla\""
                             },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Id",
-                                "Name",
-                                "Description",
-                                "Date"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "urlPost" : {
-                              "type" : "constant"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "campusSeleccionado" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "datosAspirante" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "tabla" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
                               "value" : ""
                             }
                           },
-                          "reference" : "778b3020-ed2e-41fe-9790-17762441149c",
+                          "reference" : "2e41d211-675f-4dde-94f4-34903fe7093c",
                           "hasValidationError" : false,
-                          "id" : "customTablePostImportacionPAA"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "content" : {
+                                    "type" : "variable",
+                                    "value" : "lstFiltros2"
+                                  }
+                                },
+                                "reference" : "d0527869-1b17-4ce8-abcf-a3224718f74e",
+                                "hasValidationError" : false,
+                                "id" : "customListFiltrosBloqueoCampus"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "headers" : {
+                                    "type" : "constant",
+                                    "value" : [
+                                      "Id",
+                                      "Name",
+                                      "Description",
+                                      "Date"
+                                    ]
+                                  },
+                                  "columnsKey" : {
+                                    "type" : "constant"
+                                  },
+                                  "selectedRow" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "striped" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "condensed" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "bordered" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "urlPost" : {
+                                    "type" : "constant",
+                                    "value" : "/bonita/API/extension/AnahuacRest?url=postListaAspirantePAA&p=0&c=100"
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "variable",
+                                    "value" : "dataToSend2"
+                                  },
+                                  "lstContenido" : {
+                                    "type" : "variable",
+                                    "value" : "lstContenido2"
+                                  },
+                                  "userId" : {
+                                    "type" : "variable",
+                                    "value" : "userData.user_id"
+                                  },
+                                  "campusSeleccionado" : {
+                                    "type" : "variable",
+                                    "value" : "getCampus"
+                                  },
+                                  "lstCampus" : {
+                                    "type" : "variable",
+                                    "value" : "lstCatCampus"
+                                  },
+                                  "datosAspirante" : {
+                                    "type" : "variable",
+                                    "value" : "strAlumno"
+                                  },
+                                  "tabla" : {
+                                    "type" : "variable",
+                                    "value" : "tabla"
+                                  },
+                                  "view" : {
+                                    "type" : "variable",
+                                    "value" : "VariableCarga.view"
+                                  }
+                                },
+                                "reference" : "7d210bb1-9a51-4a4d-9783-56a202238efa",
+                                "hasValidationError" : false,
+                                "id" : "customTablePostImportacionPAA2"
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]
                   }
                 }
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "6e70f1bc-5c34-42ba-b2dc-cb5da1f340ee",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "fragment",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "tabla != \"fragmento\""
+                      }
+                    },
+                    "reference" : "ff6ae29e-c96f-499f-965b-205148acecb4",
+                    "hasValidationError" : false,
+                    "id" : "frgImportacionPAA",
+                    "binding" : {
+                      "view" : "VariableCarga.view",
+                      "strResultado" : "strAlumno",
+                      "tabla" : "tabla"
+                    }
+                  }
+                ]
               ]
             }
           ]
@@ -1218,13 +1260,6 @@
     ]
   ],
   "assets" : [
-    {
-      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
     {
       "id" : "3c41d885-ac4c-4775-bd8b-4c893cbd0f41",
       "name" : "sweetalert.min.js",
@@ -1237,6 +1272,13 @@
       "name" : "tabla-conversion-paa.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
       "external" : false
     },
     {
@@ -1306,25 +1348,6 @@
       ],
       "exposed" : false
     },
-    "variablesCargaMasiva" : {
-      "type" : "json",
-      "value" : [
-        "{",
-        "    \"view\":true",
-        "}"
-      ],
-      "exposed" : false
-    },
-    "variablesCargaManual" : {
-      "type" : "json",
-      "value" : [
-        "{",
-        "    \"view\":false,",
-        "    \"tabla\":\"tabla\"",
-        "}"
-      ],
-      "exposed" : false
-    },
     "dataToSend" : {
       "type" : "expression",
       "value" : [
@@ -1384,6 +1407,51 @@
       "exposed" : false
     },
     "lstErrores" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstContenido2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "VariableCarga" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"view\":false",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "dataToSend2" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros2, \r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltrosPre2" : {
       "type" : "json",
       "value" : [
         "[]"

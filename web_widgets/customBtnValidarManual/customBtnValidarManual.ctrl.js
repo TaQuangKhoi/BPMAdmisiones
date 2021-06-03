@@ -8,10 +8,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       //$scope.properties.value = $scope.properties.texto;
       let paso = validacion();
       if(paso){
+          $scope.properties.value.fechaExamen = formatDate($scope.properties.value.fechaExamen)
           doRequest("POST",$scope.properties.urlPost,$scope.properties.value)
       }
     };
     
+    function formatDate(date) {
+        return date.slice(8,10)+"-"+date.slice(5,7)+"-"+date.slice(0,4);
+    }
         
     
     function validacion(){

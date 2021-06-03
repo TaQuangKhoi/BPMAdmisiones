@@ -1385,6 +1385,18 @@ class CatalogosDAO {
                 row.setPersistenceVersion(rs.getLong("persistenceVersion"));
                 row.setPerteneceRed(rs.getBoolean("perteneceRed"));
                 row.setId(rs.getString("id"));
+				
+				row.setUsuarioCreacion(rs.getString("usuariobanner"));
+				
+				row.setIdDireccion(rs.getString("idDireccion"));
+				row.setCountyCode(rs.getString("countyCode"));
+				row.setNationCode(rs.getString("nationCode"));
+				row.setStateCode(rs.getString("stateCode"));
+				row.setStreetLine1(rs.getString("streetLine1"));
+				row.setStreetLine2(rs.getString("streetLine2"));
+				row.setStreetLine3(rs.getString("streetLine3"));
+				row.setTypeInd(rs.getString("typeInd"));
+				
                 rows.add(row)
             }
             resultado.setSuccess(true)
