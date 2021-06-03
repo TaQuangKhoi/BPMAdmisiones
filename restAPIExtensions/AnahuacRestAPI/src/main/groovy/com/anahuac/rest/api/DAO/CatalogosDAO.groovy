@@ -1387,8 +1387,7 @@ class CatalogosDAO {
                 row.setId(rs.getString("id"));
 				
 				row.setUsuarioCreacion(rs.getString("usuariobanner"));
-				row.setCaseId(rs.getString("caseId"));
-				row.setRegion(rs.getString("region"));
+				
 				row.setIdDireccion(rs.getString("idDireccion"));
 				row.setCountyCode(rs.getString("countyCode"));
 				row.setNationCode(rs.getString("nationCode"));

@@ -1088,18 +1088,18 @@ class TransferenciasDAO {
                 }
             }
 			
+			closeCon = validarConexion()
+			String usuarioReagendar = "";
+			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
+			pstm.setLong(1, Long.valueOf(object.caseid.toString()))
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				usuarioReagendar = (rs.getString("correoelectronico"))
+			}
+			
 			if(object.isProceso == null) {
-				//errorLog = errorLog + " | Entro en el select"
-				closeCon = validarConexion()
 				con.setAutoCommit(false)
-				String usuarioReagendar = "";
-				pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
-				pstm.setLong(1, Long.valueOf(object.caseid.toString()))
-				rs = pstm.executeQuery()
-				while(rs.next()) {
-					usuarioReagendar = (rs.getString("correoelectronico"))
-				}
-				//errorLog = errorLog + " | usuario"+usuarioReagendar
+				
 				List<Long> pruebas = new ArrayList<Long>()
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
 				pstm.setString(1,  usuarioReagendar)
@@ -1127,6 +1127,14 @@ class TransferenciasDAO {
 				}
 				
 				con.commit();
+			}else {
+				Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(usuarioReagendar, context)
+				errorLog += " el error en el eliminar es : " + resultadoSesion.getError();
+				if (resultadoSesion.isSuccess()) {
+					errorLog += " se elimino al aspirante de la sesion" + resultadoSesion.isSuccess().toString();
+				} else {
+					errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
+				}
 			}
             resultado.setSuccess(true)
             resultado.setError_info(errorLog);

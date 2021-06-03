@@ -60,7 +60,7 @@ class BannerDAO {
 			errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
 
-			jsonResultado = getConsumePrepa(barrerToken);
+			//jsonResultado = getConsumePrepa(barrerToken);
 			//errorLog += " | " + jsonResultado;
 			//CREAR-------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
@@ -70,6 +70,9 @@ class BannerDAO {
 			
 			//DELETE------------------------------------------------------
 			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
+			
+			//PROBLEMA
+			jsonResultado = "[{\"id\":\"111\",\"published\":\"2021-06-03 17:13:53.884274+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"a73cbf95-ef3c-4b69-8708-7a5b1b0e25ad\"},\"operation\":\"deleted\",\"contentType\":\"empty\",\"content\":{\"guid\":\"a73cbf95-ef3c-4b69-8708-7a5b1b0e25ad\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"112\",\"published\":\"2021-06-03 17:14:15.453886+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"433a589d-f1a7-4310-8969-9254df21f6e8\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"11a2f3c4-656a-48a0-b2b9-2e1e680042eb\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"433a589d-f1a7-4310-8969-9254df21f6e8\",\"title\":\"High School No. 1\",\"type\":\"secondarySchool\",\"code\":\"AB10\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"113\",\"published\":\"2021-06-03 17:14:57.469929+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"06153176-4b20-40c6-830b-ece6ee6c31ee\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"bab9ca59-5ea8-48f5-922c-98c922e4b90e\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"06153176-4b20-40c6-830b-ece6ee6c31ee\",\"title\":\"Bachillerato 11\",\"type\":\"secondarySchool\",\"code\":\"9431\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"114\",\"published\":\"2021-06-03 17:17:32.850997+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"433a589d-f1a7-4310-8969-9254df21f6e8\"},\"operation\":\"deleted\",\"contentType\":\"empty\",\"content\":{\"guid\":\"433a589d-f1a7-4310-8969-9254df21f6e8\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"115\",\"published\":\"2021-06-03 17:19:04.909572+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"11a2f3c4-656a-48a0-b2b9-2e1e680042eb\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"title\":\"High School No. 1\",\"type\":\"postSecondarySchool\",\"code\":\"AB10\",\"typeInd\":\"C\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"116\",\"published\":\"2021-06-03 17:19:47.077231+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"11a2f3c4-656a-48a0-b2b9-2e1e680042eb\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"title\":\"High School No. 1\",\"type\":\"secondarySchool\",\"code\":\"AB10\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"117\",\"published\":\"2021-06-03 17:20:07.719187+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"11a2f3c4-656a-48a0-b2b9-2e1e680042eb\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"9aebdf4d-25db-40f1-81c5-c2669eb17d85\",\"title\":\"High School No. 1\",\"type\":\"postSecondarySchool\",\"code\":\"AB10\",\"typeInd\":\"C\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
 			errorLog += " | jsonResultado: " + jsonResultado;
 			errorLog += " | " + ("END JSON========================================");
@@ -233,6 +236,9 @@ class BannerDAO {
 				objJsonContent = (JSONObject) objJson.get("content");
 				objJsonPublisher = (JSONObject) objJson.get("publisher");
 
+				errorLog = errorLog + " | " + ("idBachillerato: " + objJsonContent.get("id").toString());
+				errorLog = errorLog + " | " + ("operation: " + objJson.get("operation").toString());
+				
 				objEducationalInstitutions = new CatBachillerato();
 				objAddresses = new CatBachillerato();
 
@@ -285,18 +291,9 @@ class BannerDAO {
 							objCatBachillerato.setPais("");
 							objCatBachillerato.setEstado("");
 							objCatBachillerato.setCiudad("");
-	
-							/*
-							Iterator<JSONObject> iteratorAddresses = objJsonAddresses.iterator();
-							while (iteratorAddresses.hasNext()) {
-							  
-							  objJsonAddressesData = iteratorAddresses.next();
-							  objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-							  errorLog = errorLog + " | " + ("idDireccion: "+objJsonAddressesDataAddress.get("id").toString());
-							  objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
-							}*/
-	
+
 							if (!objJson.get("operation").toString().equals("created")) {
+								errorLog = errorLog + " | " + "IF CREATED--------------------------------------------------------";
 								objJsonAddresses = (JSONArray) objJsonContent.get("addresses");
 								Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
 								while (iteratorAddresses.hasNext()) {
@@ -306,6 +303,7 @@ class BannerDAO {
 									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
 								}
 							} else {
+								errorLog = errorLog + " | " + "ELSE RARO--------------------------------------------------------";
 								errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): " + (objEducationalInstitutions.getIdBachillerato());
 								errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): " + (objEducationalInstitutions.getDescripcion());
 								errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): " + (objEducationalInstitutions.getUsuarioBanner());
@@ -317,17 +315,23 @@ class BannerDAO {
 	
 								resultEducationalInstitutions = getConsumeEducationalInstitutions(barrerToken, objJsonContent.get("id").toString());
 								errorLog = errorLog + " | " + ("getConsumeEducationalInstitutions ====================================");
-								errorLog = errorLog + " |-" + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : resultEducationalInstitutions)+"-";
-								objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
-								objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
-								Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
-								while (iteratorAddresses.hasNext()) {
-									objJsonAddressesData = iteratorAddresses.next();
-									objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
-									errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
-									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
-								}
+								errorLog = errorLog + " |-" + (resultEducationalInstitutions == null ? "resultEducationalInstitutions is null" : (resultEducationalInstitutions.equals("")? "resultEducationalInstitutions is vacio" : resultEducationalInstitutions) )+"-";
 								
+								if(resultEducationalInstitutions == null ? false : (!resultEducationalInstitutions.equals(""))) {
+									objJsonAddressData = (JSONObject) parser.parse(resultEducationalInstitutions);
+									objJsonAddresses = (JSONArray) objJsonAddressData.get("addresses");
+									Iterator < JSONObject > iteratorAddresses = objJsonAddresses.iterator();
+									while (iteratorAddresses.hasNext()) {
+										objJsonAddressesData = iteratorAddresses.next();
+										objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
+										errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
+										objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+									}
+								}
+								else {
+									errorLog = errorLog + " | " + ("ELSE resultEducationalInstitutions ====================================");
+									objEducationalInstitutions.setOperation("deleted");
+								}
 							}
 							objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
 						}
