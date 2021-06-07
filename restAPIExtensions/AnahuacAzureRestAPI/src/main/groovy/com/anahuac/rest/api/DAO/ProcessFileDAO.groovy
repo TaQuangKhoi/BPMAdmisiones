@@ -216,7 +216,6 @@ class ProcessFileDAO {
 					apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
 				}
 				
-				
 				if(fileName.equals("constancia")) {
 					Integer countConstancias = 0;
 					
@@ -234,7 +233,7 @@ class ProcessFileDAO {
 				}
 				
 				
-				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+//				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 			} else {
 				throw new Exception("Documento no encontrado");
 			}

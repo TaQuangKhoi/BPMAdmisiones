@@ -8,7 +8,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       //$scope.properties.value = $scope.properties.texto;
       var count = 0;
       blockUI.start();
-      if(!isNullOrUndefined($scope.properties.value) ){
+      try{
+          if(!isNullOrUndefined($scope.properties.value) ){
           $scope.properties.value.forEach(datos =>{
           count++;
             var info = angular.copy(datos);
@@ -22,9 +23,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           }); 
               
       }
-      
-      blockUI.stop();
-      
+      }
+      catch(error){}
+      finally{
+          blockUI.stop();
+      }
     };
     
     

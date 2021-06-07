@@ -15,6 +15,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
+import java.text.SimpleDateFormat
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.bpm.document.Document
@@ -88,6 +89,7 @@ class ImportacionPAADAO {
 					pstm.setString(36,object.LEXIUM_PARA);
 					pstm.setString(37,object.LEXIUM_Total);
 					pstm.setString(38,object.tipoExamen);
+					pstm.setString(39, object.INVP)
 					
 					
 					pstm.executeUpdate();
@@ -152,6 +154,69 @@ class ImportacionPAADAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorLog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result postGuardarBitacoraErrores(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		Boolean existe = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				
+				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				
+				
+				//Saca la fecha para la consulta
+				Calendar cal = Calendar.getInstance();
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+				String sDate = formatter.format(date);
+				
+				 
+				 object.each{
+					 //revisar si el idBanner esta registrado o no
+					 pstm = con.prepareStatement(Statements.GET_BITACORA_ERRORES_EXISTE)
+					 pstm.setString(1, it.idBanner);
+					 rs= pstm.executeQuery();
+					 if(rs.next()) {
+						 existe = true;
+					 }
+					 
+					 con.setAutoCommit(false)
+					 //segun lo resultado se crea o actualiza el dato del error
+					 pstm = con.prepareStatement((existe?Statements.UPDATE_BITACORA_ERRORES_PAA.replace("[IDBANNER]", it.idBanner):Statements.INSERT_BITACORA_ERRORES_PAA), Statement.RETURN_GENERATED_KEYS)
+					 pstm.setString(1, it.Error);
+					 pstm.setString(2, it.idBanner)
+					 pstm.setString(3, it.fechaExamen)
+					 pstm.setString(4, sDate);
+					 pstm.executeUpdate();
+					 
+					 con.commit();
+					 
+				 }
+				
+				
+				resultado.setSuccess(true)
+				resultado.setData(estatus)
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+			con.rollback();
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -449,6 +514,21 @@ class ImportacionPAADAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
+					case "SESION":
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" LOWER(SESIONES.nombre) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
 					
 					} 
 					
@@ -506,6 +586,10 @@ class ImportacionPAADAO {
 					case "IDBANNER":
 					orderby+="da.idbanner";
 					break;
+					case "SESION":
+					orderby+="SESIONES.nombre";
+					break;
+					
 					default:
 					orderby+="sda.persistenceid"
 					break;
@@ -554,11 +638,6 @@ class ImportacionPAADAO {
 										encoded = "../API/formsDocumentImage?document="+doc.getId();
 										columns.put("fotografiab64", encoded);
 									}	
-								}
-								
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiabpm", encoded);
 								}
 								
 							}catch(Exception e) {
@@ -1056,11 +1135,6 @@ class ImportacionPAADAO {
 										encoded = "../API/formsDocumentImage?document="+doc.getId();
 										columns.put("fotografiab64", encoded);
 									}	
-								}
-								
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiabpm", encoded);
 								}
 								
 							}catch(Exception e) {

@@ -89,8 +89,9 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 if(paso){
                     $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
                     $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['fechaExamen']}'`;
-                    info.tipoExamen = "KP"
-                    $scope.correctos = [...$scope.correctos,info]
+                    info.tipoExamen = "KP";
+                    info.INVP = "";
+                    $scope.correctos = [...$scope.correctos,info];
                 }
 
                 if(count === row.length){
@@ -108,147 +109,34 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
           
              
         }
+        
         blockUI.stop();
         
     }
     
-    function validacion(dato){
-        
+    function validacion(data){
+        var datos = data;
         var error = "";
-        
-        if( isNullOrUndefined(dato['IDBANNER']) || dato['IDBANNER'].length < 8){
-            error+=(error.length>0?",":"")+"falta el dato id banner"
-        }
-        if(isNullOrUndefined(dato['Total']) ){
-            error+=(error.length>0?",":"")+"falta el dato Puntuación Total"
-        }
-        if(isNullOrUndefined(dato['Fecha de examen']) ){
-            error+=(error.length>0?",":"")+"falta el dato de la fecha de examen"
+        if(datos !== null && datos !== undefined){
+            let columna = datos;
+            for(var key in columna){
+                if( key != "fechaExamen" && key != "IDBANNER"){
+                    //json[key.toUpperCase()] = data[key]
+                    if(isNullOrUndefined(data[key])){
+                        error+=(error.length>0?",":"")+"falta el dato "+key
+                    }
+                    
+                }else if(key == "IDBANNER" && isNullOrUndefined(data['IDBANNER']) || data['IDBANNER'].length < 8){
+                    error+=(error.length>0?",":"")+"falta el dato id banner"
+                }
+            }
             
+            if(error.length > 0){
+                $scope.errores = [ ...$scope.errores,{idBanner:data['IDBANNER'],nombre:data['Nombre'],Error:error}]
+                return false;
+              }
+              return true;
         }
-        if(isNullOrUndefined(dato['PAAN']) ){
-            error+=(error.length>0?",":"")+"falta el dato PAAN"
-            
-        }
-        
-        if(isNullOrUndefined(dato['PAAV']) ){
-           error+=(error.length>0?",":"")+"falta el dato PAAV"
-             
-        }
-        
-        if(isNullOrUndefined(dato['PARA']) ){
-           error+=(error.length>0?",":"")+"falta el dato PARA"
-        }
-        
-        if(isNullOrUndefined(dato['LA1']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA1"
-        }
-        
-        if(isNullOrUndefined(dato['LA2']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA2"
-        }
-        
-        if(isNullOrUndefined(dato['LA3']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA3"
-        }
-        
-        if(isNullOrUndefined(dato['PG1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG1"
-             
-        }
-        
-        if(isNullOrUndefined(dato['PG2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG2"
-        }
-        
-        if(isNullOrUndefined(dato['PG3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG3"
-        }
-        
-        if(isNullOrUndefined(dato['PG4']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG4"
-        }
-        
-        if(isNullOrUndefined(dato['PV1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV1"
-        }
-        
-        if(isNullOrUndefined(dato['PV2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV2"
-        }
-        
-        if(isNullOrUndefined(dato['PV3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV3"
-        }
-        
-        if(isNullOrUndefined(dato['PE1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE1"
-        }
-        
-        if(isNullOrUndefined(dato['PE2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE2"
-        }
-        
-        if(isNullOrUndefined(dato['PE3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE3"
-        }
-        
-        if(isNullOrUndefined(dato['PE4']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE4"
-        }
-        
-        if(isNullOrUndefined(dato['LEO1']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO1"
-        }
-        
-        if(isNullOrUndefined(dato['LEO2']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO2"
-        }
-        
-        if(isNullOrUndefined(dato['LEO3']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO3"
-        }
-        
-        if(isNullOrUndefined(dato['LEO4']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO4";
-        }
-        
-        if(isNullOrUndefined(dato['LEO5']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO5"
-        }
-        
-        if(isNullOrUndefined(dato['CIT1']) ){
-           error+=(error.length>0?",":"")+"falta el dato CIT1"
-        }
-        
-        if(isNullOrUndefined(dato['CIT2']) ){
-           error+=(error.length>0?",":"")+"falta el dato CIT2"
-        }
-        
-        if(isNullOrUndefined(dato['HI1']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI1"
-        }
-        if(isNullOrUndefined(dato['HI2']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI2"
-        }
-        
-        if(isNullOrUndefined( dato['HI3']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI3"
-        }
-        if(isNullOrUndefined(dato['HI4']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI4"
-        }
-        if(isNullOrUndefined(dato['HI5']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI5"
-        }
-        if(isNullOrUndefined(dato['HI6']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI6";
-        }
-        if(error.length > 0){
-          $scope.errores = [ ...$scope.errores,{idBanner:dato['IDBANNER'],nombre:dato['Nombre'],Error:error}]
-          return false;
-        }
-        return true;
     }
     
     function isNullOrUndefined(dato){
@@ -310,5 +198,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         });
         return  index
     }
+    
+    
+   
     
 }

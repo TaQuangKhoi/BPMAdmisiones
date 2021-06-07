@@ -1087,6 +1087,132 @@ class SesionesDAO {
 		return resultado;
 	}
 	
+	public Result getSesionesReporte(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		List<Calendario> lstCalendario = new ArrayList();
+		Calendario calendario = new Calendario();
+		String where=" WHERE s.isEliminado!=true AND  s.borrador=false AND s.FECHA_INICIO>=now() ", consulta ="", errorlog=""
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				errorlog+="COLUMNA:" + filtro.get("columna") +", VALOR:"+filtro.get("valor")
+				switch(filtro.get("columna")) {
+					case "CAMPUS":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" s.campus_pid ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor]"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+					case "BACHILLERATO":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" (s.preparatoria_pid";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor] OR s.preparatoria_pid=0)"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+					case "RESIDENCIA":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" s.tipo ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor]"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+					case "ESTADO":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" (s.estado_pid ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor] OR s.estado_pid=0)"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+					case "PAIS":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" (s.pais_pid ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor] OR s.pais_pid=0)"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+					case "CIUDAD":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" (s.ciudad_pid ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor] OR s.ciudad_pid=0)"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
+				}
+			}
+			errorlog+=" WHERE:" + where
+			closeCon = validarConexion();
+			pstm = con.prepareStatement(Statements.GET_SESIONES_CALENDARIOASPIRANTE.replace("[WHERE]", where))
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				calendario = new Calendario();
+				calendario.setColor(rs.getString("color"))
+				calendario.setEnd_date(rs.getString("end_date"))
+				calendario.setId(rs.getLong("id"))
+				calendario.setStart_date(rs.getString("start_date"))
+				calendario.setText(rs.getString("text"))
+				lstCalendario.add(calendario)
+			}
+			resultado.setError_info(consulta)
+			resultado.setData(lstCalendario)
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError_info(errorlog)
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 
 
 	
@@ -2026,7 +2152,7 @@ class SesionesDAO {
 				//String HavingGroup ="GROUP BY p.persistenceid,sa.username, sa.persistenceid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide HAVING ((select count( CASE WHEN paseL.asistencia THEN 1 END) from PaseLista as paseL INNER JOIN PRUEBAS as P2 on paseL.prueba_pid = P2.persistenceid where paseL.prueba_pid != P.persistenceid and paseL.username =  SA.USERNAME AND P.cattipoprueba_pid = P2.cattipoprueba_pid) = 0)"
 				String Group = "GROUP BY p.persistenceid,sa.username, sa.persistenceid,sa.persistenceversion,sa.sesiones_pid,sa.responsabledisponible_pid,rd.responsableid,RD.prueba_pid, P.aplicacion, P.nombre,c.descripcion,c.persistenceid,rd.horario,pl.asistencia,sda.curp,estado.DESCRIPCION,sda.caseId, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.telefonocelular, sda.correoelectronico, campus.descripcion, gestionescolar.nombre,  prepa.DESCRIPCION, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, da.idbanner, campus.grupoBonita, le.descripcion, sx.descripcion, CPO.descripcion , R.descripcion , da.cbCoincide,prepa.estado,sda.bachillerato,sda.estadobachillerato, sda.urlfoto";
 				if(tipo == 1) {
-					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid")
+					consulta=consulta.replace("[ENTREVISTA]", "AND rd.persistenceid = sa.responsabledisponible_pid  ")
 				}else {
 					consulta=consulta.replace("[ENTREVISTA]", "")
 				}
@@ -2038,7 +2164,7 @@ class SesionesDAO {
 				pstm.setInt(3, object.usuario)
 				pstm.setInt(4, object.sesion)
 				pstm.setInt(5, object.prueba)
-				//pstm.setInt(6, object.usuario)
+				pstm.setInt(6, object.usuario)
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
@@ -2059,9 +2185,9 @@ class SesionesDAO {
 				pstm.setInt(3, object.usuario)
 				pstm.setInt(4, object.sesion)
 				pstm.setInt(5, object.prueba)
-				//pstm.setInt(6, object.usuario)
-				pstm.setInt(6, object.limit)
-				pstm.setInt(7, object.offset)
+				pstm.setInt(6, object.usuario)
+				pstm.setInt(7, object.limit)
+				pstm.setInt(8, object.offset)
 				
 				rs = pstm.executeQuery()
 				
@@ -2468,7 +2594,7 @@ class SesionesDAO {
 					resultado.setTotalRegistros(count)
 					errorlog+="conteo exitoso "
 					
-					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADAS;
+					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADASLISTADO;
 					
 					consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT)
 					consulta=consulta.replace("[GROUPBY]", groupBy)
@@ -3365,7 +3491,7 @@ class SesionesDAO {
 					}
 					resultado.setTotalRegistros(count)
 					
-					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADAS;
+					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADASLISTADO;
 					
 					consulta=consulta.replace("[ORDERBY]", orderby)
 					consulta=consulta.replace("[GROUPBY]", groupBy)

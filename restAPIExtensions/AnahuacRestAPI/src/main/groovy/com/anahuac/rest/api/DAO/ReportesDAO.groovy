@@ -3,7 +3,7 @@ package com.anahuac.rest.api.DAO
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
-
+import groovy.json.JsonSlurper
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -29,9 +29,9 @@ class ReportesDAO {
 	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
-	public Result generarReporte() {
+	public Result generarReporte(String jsonData) {
 		Result resultado = new Result();
-		String errorLog = "";
+		String errorLog = "", where = "";
 		Boolean closeCon = false;
 		try {
 			Result dataResult = new Result();
@@ -50,7 +50,17 @@ class ReportesDAO {
 			XSSFColor  color = new XSSFColor(new java.awt.Color(191,220,249),colorMap);
 			
 			style.setFillForegroundColor(color)
-			String consulta= "SELECT case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,'' as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, 'H' as sesion, '22/04/2021' as fecha_examen, cc.clave as campusVPD FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid "
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			where += " WHERE campus.persistenceid="+object.campus
+			object.periodo==null || object.periodo.equals("")?where += " AND sda.catperiodo in ("+object.periodo +")":""
+			object.carrera==null|| object.carrera.equals("")?where += " AND sda.catgestionescolar_pid="+object.carrera:""
+			object.preparatoria==null|| object.preparatoria.equals("")?where += " AND sda.catbachilleratos_pid="+object.preparatoria:""
+			object.sesion==null|| object.sesion.equals("")?where += " AND s.persistenceid="+object.sesion:""
+			
+			
+			String consulta= "SELECT case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,'' as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(consulta)
@@ -82,18 +92,17 @@ class ReportesDAO {
 			   
 				   
 			def titulos = ["nombre","apaterno","amaterno","email","usuario","clave","edad","matrícula","curp","sesión","fecha examen","campus(VPD)"]
-			fw.write((titulos.join(",")+"\r\n").getBytes());
-				
-			
-			Row headersRow = sheet.createRow(rowCount);
-			++rowCount;
-			List<Cell> header = new ArrayList<Cell>();
-			for(int i = 0; i < titulos.size(); ++i) {
-				header.add(headersRow.createCell(i))
-				header[i].setCellValue(titulos.get(i))
-				header[i].setCellStyle(style)
+			if(object.encabezado) {
+				fw.write((titulos.join(",")+"\r\n").getBytes());		
+				Row headersRow = sheet.createRow(rowCount);
+				++rowCount;
+				List<Cell> header = new ArrayList<Cell>();
+				for(int i = 0; i < titulos.size(); ++i) {
+					header.add(headersRow.createCell(i))
+					header[i].setCellValue(titulos.get(i))
+					header[i].setCellStyle(style)
+				}
 			}
-			
 			CellStyle bodyStyle = workbook.createCellStyle();
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.CENTER);

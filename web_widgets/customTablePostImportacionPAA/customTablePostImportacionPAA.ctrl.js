@@ -344,7 +344,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "PV2": "",
             "PV3": "",
             "TOTAL": "",
-            "tipoExamen":""
+            "tipoExamen":"",
+            "INVP":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";

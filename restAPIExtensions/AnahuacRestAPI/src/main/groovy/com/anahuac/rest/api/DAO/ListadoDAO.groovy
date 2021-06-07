@@ -1362,11 +1362,13 @@ class ListadoDAO {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
+						boolean noAzure = false;
 						try {
 							String urlFoto = rs.getString("urlfoto");
 							if (urlFoto != null && !urlFoto.isEmpty()) {
 								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
 							} else {
+								noAzure = true;
 								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 								for (Document doc: doc1) {
 									encoded = "../API/formsDocumentImage?document=" + doc.getId();
@@ -1385,7 +1387,10 @@ class ListadoDAO {
 							} */
 						} catch (Exception e) {
 							LOGGER.error "[ERROR] " + e.getMessage();
-							columns.put("fotografiab64", "");
+							columns.put("fotografiabpm", "");
+							if(noAzure){
+								columns.put("fotografiab64", "");
+							}
 							errorlog += "" + e.getMessage();
 						}
 					}

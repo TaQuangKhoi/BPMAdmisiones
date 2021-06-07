@@ -725,7 +725,7 @@ class UsuariosDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
-			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida')"
 			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
 //				if(object.estatusSolicitud !=null) {
 				

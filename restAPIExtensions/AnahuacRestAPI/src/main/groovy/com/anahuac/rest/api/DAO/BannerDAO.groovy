@@ -841,9 +841,9 @@ class BannerDAO {
 								objCatBachilleratosInput = new HashMap < String, Serializable > ();
 								contracto = new HashMap < String, Serializable > ();
 								/*CONSTRUCCION DE CONTRATO=====================================================================*/
-								objCatBachilleratosInput.put("isEliminado", false);
+								objCatBachilleratosInput.put("isEliminado", true);
 								objCatBachilleratosInput.put("isEnabled", true);
-								objCatBachilleratosInput.put("todelete", "false");
+								objCatBachilleratosInput.put("todelete", "true");
 								objCatBachilleratosInput.put("perteneceRed", false);
 								objCatBachilleratosInput.put("region", null);
 								objCatBachilleratosInput.put("caseId", null);
