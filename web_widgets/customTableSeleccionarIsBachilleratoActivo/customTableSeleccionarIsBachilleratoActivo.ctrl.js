@@ -1,6 +1,7 @@
 function PbTableCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
     this.isArray = Array.isArray;
     $scope.dynamicInput={};
+    $scope.prepaSeleccionada={};
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
@@ -39,6 +40,12 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         
         $scope.properties.isSelected = 'editar';*/
     };
+
+    $scope.viewInformationPrepa=function(row){
+        console.log(row);
+        $scope.prepaSeleccionada = row;
+        $("#mdlVerInformacion").modal("show");
+    }
 
     this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);

@@ -3,7 +3,7 @@
     <businessObjects>
         <businessObject qualifiedName="com.anahuac.bitacora.CatBitacoraComentarios">
             <fields>
-                <field type="STRING" length="255" name="comentario" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="comentario" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuario" nullable="true" collection="false"/>
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="modulo" nullable="true" collection="false"/>
@@ -32,6 +32,17 @@
                 <field type="STRING" length="255" name="codigo" nullable="true" collection="false"/>
                 <field type="STRING" length="512" name="mensaje" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="campus" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.bitacora.CatBitacoraErrorPAA">
+            <fields>
+                <field type="STRING" length="255" name="error" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="fechaExamen" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaRegistro" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -2401,6 +2412,25 @@
             </queries>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.catalogos.CatTipoExamenPAA">
+            <fields>
+                <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="descripcion" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries>
+                <query name="getCatTipoExamenPAA" content="SELECT c &#13;&#10;FROM CatTipoExamenPAA c &#13;&#10;WHERE  c.isEliminado = false&#13;&#10;ORDER BY c.persistenceId ASC" returnType="com.anahuac.catalogos.CatTipoExamenPAA">
+                    <queryParameters/>
+                </query>
+                <query name="getCountByIsEliminado" content="&#13;&#10;SELECT COUNT (c) &#13;&#10;FROM CatTipoExamenPAA c &#13;&#10;WHERE  c.isEliminado = false" returnType="java.lang.Long">
+                    <queryParameters/>
+                </query>
+            </queries>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatTipoLectura">
             <fields>
                 <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
@@ -2833,6 +2863,7 @@
                 <field type="STRING" length="255" name="hi5" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="hi6" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="total" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="invp" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="fechaExamen" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="lexiumPaan" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="lexiumPaav" nullable="true" collection="false"/>

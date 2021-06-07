@@ -5,7 +5,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
     $scope.myFunc = function() {
-        debugger;
         if($scope.properties.tipoVariable === "json"){
           $scope.properties.value =  {};  
         } else if($scope.properties.tipoVariable === "array"){

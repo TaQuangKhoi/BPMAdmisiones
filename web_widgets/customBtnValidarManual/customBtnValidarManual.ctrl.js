@@ -14,8 +14,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
     
     function formatDate(date) {
-        return date.slice(8,10)+"-"+date.slice(5,7)+"-"+date.slice(0,4);
+        //return date.slice(8,10)+"-"+date.slice(5,7)+"-"+date.slice(0,4);
+        let current_datetime = date;
+        let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "-" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" +  current_datetime.getFullYear() + " "
     }
+    
+    function appendLeadingZeroes(n){
+        if(n <= 9){
+            return "0" + n;
+        }
+        return n
+    }
+
+        
+        
         
     
     function validacion(){
@@ -73,7 +85,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
         return $http(req)
             .success(function (data, status) {
-                if(!data.data[0].noRegistrado){
+                /*if(!data.data[0].noRegistrado){
                     $scope.properties.lstErrores.push({idBanner:datos['IDBANNER'],nombre:datos['Nombre'],Error:"el aspirante ya tiene puntuacion"})
                 }
                 else if(data.data[0].noEstaEnCarga){
@@ -82,10 +94,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 else if(data.data[0].noExiste){
                     $scope.properties.lstErrores.push({idBanner:datos['IDBANNER'],nombre:datos['Nombre'],Error:"no hay aspirante con ese idBanner"})
                 }
-                else {
+                else {*/
                     swal('¡Se han guardado los datos correctamente!',"","success")
                     $scope.properties.tabla = "tabla";
-                }
+                //}
             })
             .error(function (data, status) {
                 

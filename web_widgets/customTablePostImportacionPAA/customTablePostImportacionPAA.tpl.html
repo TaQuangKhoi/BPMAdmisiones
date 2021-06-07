@@ -43,14 +43,19 @@
                             ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
-                    <th> 
+                    <!--<th> 
                         <span style="cursor:pointer" ng-click="setOrderBy('RESIDEICA')">Residencia<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='RESIDEICA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('TIPODEADMISION')">Tipo de Admisión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='TIPODEADMISION'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('TIPODEALUMNO')"> Tipo de Alumno<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPODEALUMNO'"></i></span></th>
+                            ng-show="properties.dataToSend.orderby=='TIPODEALUMNO'"></i></span></th> -->
+                            
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Sesion<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='SESION'"></i></span></th>
+                            
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='ESTATUS'"></i></span> <!--/ <span style="cursor:pointer" ng-click="setOrderBy('TIPO')">Tipo<i class="glyphicon"
@@ -66,7 +71,7 @@
                     <td><input ng-model="dynamicInput['nombre']" class="form-control" ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
-                    <td><input ng-model="dynamicInput['indicadores']" class="form-control" ng-enter="filterKeyPress('INDICADORES',dynamicInput['indicadores'])"></td>
+                    <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('SESION',dynamicInput['sesion'])"></td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
                     <td></td>
                 </tr>
@@ -93,10 +98,11 @@
                         {{row.promediogeneral}}
                     </td>
                      <td>
-                        <b>{{row.residensia}}</b><br>
+                         <b>{{row.nombre}}</b>
+                        <!-- <b>{{row.residensia}}</b><br>
                         {{row.tipoadmision}}<br>
                         {{row.tipodealumno}}
-                        <!-- {{ Transferencia(row)}} -->
+                        {{ Transferencia(row)}} -->
                     </td>
                 
                     <td class="max-size">

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1622588242391,
+  "lastUpdate" : 1623084857132,
   "rows" : [
     [
       {
@@ -98,8 +98,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "tabla == \"carga\""
                 },
                 "vertical" : {
                   "type" : "constant",
@@ -114,645 +114,6 @@
               "hasValidationError" : false,
               "id" : "pbTabsContainer",
               "tabList" : [
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "expression",
-                      "value" : "tabla != \"tabla\""
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "Carga masiva"
-                    }
-                  },
-                  "reference" : "d9a2ecf9-f804-4c6c-8729-0c5f590c6a85",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "cdd6d300-04e4-4dfa-b61a-68b008d19ac2",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "<br/>"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "8a80a12b-3d79-490d-8d6e-9955fb5a6478",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "50676fbb-c21e-4a49-85b8-29c208f2f3e0",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "container",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 4,
-                                  "lg" : 4
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "repeatedCollection" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "d22fd03b-5489-49ac-b01e-19769e56ac3f",
-                                "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 4,
-                                  "lg" : 4
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "lstAlumnosResultados.length > 1 || lstErrores.length > 1"
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Importacion de archivo PAA"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "url" : {
-                                    "type" : "constant",
-                                    "value" : "../API/formFileUpload"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "archivoPAA"
-                                  },
-                                  "errorContent" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "urlretorno" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isImagen" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "isPDF" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "filename" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "filetype" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "lstAlumnosResultados" : {
-                                    "type" : "variable",
-                                    "value" : "lstAlumnosResultados"
-                                  },
-                                  "totalRows" : {
-                                    "type" : "variable",
-                                    "value" : "paginado.totalRows"
-                                  },
-                                  "urlPost" : {
-                                    "type" : "constant",
-                                    "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
-                                  },
-                                  "lstErrores" : {
-                                    "type" : "variable",
-                                    "value" : "lstErrores"
-                                  },
-                                  "tabla" : {
-                                    "type" : "variable",
-                                    "value" : "tabla"
-                                  }
-                                },
-                                "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
-                                "hasValidationError" : false,
-                                "id" : "customUploadCustomImportacionPAA"
-                              },
-                              {
-                                "type" : "container",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 4,
-                                  "lg" : 4
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "repeatedCollection" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "f83c9d77-b883-492f-9a0c-d6ba4fd79129",
-                                "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [ ]
-                                ]
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "tabla != \"tabla\" || lstAlumnosResultados.length < 1 && lstErrores.length < 1"
-                                  },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "<i class=\"glyphicon glyphicon-repeat\"></i> volver a cargar archivo"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "left"
-                                  },
-                                  "buttonStyle" : {
-                                    "type" : "constant",
-                                    "value" : "primary"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "lstAlumnosResultados"
-                                  },
-                                  "tipoVariable" : {
-                                    "type" : "constant",
-                                    "value" : "array"
-                                  },
-                                  "value2" : {
-                                    "type" : "variable",
-                                    "value" : "lstErrores"
-                                  },
-                                  "tipoValor2" : {
-                                    "type" : "constant",
-                                    "value" : "array"
-                                  },
-                                  "tipoVariable2" : {
-                                    "type" : "constant",
-                                    "value" : "array"
-                                  }
-                                },
-                                "reference" : "3cbc8f97-5246-4f6c-b927-468b52d94a72",
-                                "hasValidationError" : false,
-                                "id" : "customBtnLimpiarDoble"
-                              },
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 6,
-                                  "lg" : 6
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "tabla != \"tabla\" || lstAlumnosResultados.length < 1"
-                                  },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "Aplicar cambios"
-                                  },
-                                  "alignment" : {
-                                    "type" : "constant",
-                                    "value" : "right"
-                                  },
-                                  "buttonStyle" : {
-                                    "type" : "constant",
-                                    "value" : "primary"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "lstAlumnosResultados"
-                                  },
-                                  "urlPost" : {
-                                    "type" : "constant",
-                                    "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuario&p=0&c=100"
-                                  },
-                                  "tabla" : {
-                                    "type" : "variable",
-                                    "value" : "tabla"
-                                  },
-                                  "lstErrores" : {
-                                    "type" : "variable",
-                                    "value" : "lstErrores"
-                                  }
-                                },
-                                "reference" : "b1be1ec5-cc63-456b-8531-0bfb801792de",
-                                "hasValidationError" : false,
-                                "id" : "customBtnCargaMasiva"
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "container",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "lstAlumnosResultados.length < 1"
-                                  },
-                                  "repeatedCollection" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "809be9b4-ac45-437c-b198-19cfb280764d",
-                                "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 12,
-                                        "lg" : 12
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "expression",
-                                          "value" : "tabla != \"tabla\""
-                                        },
-                                        "allowHTML" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "headers" : {
-                                          "type" : "constant",
-                                          "value" : [
-                                            "Fecha de examen",
-                                            "Id banner",
-                                            "Nombre",
-                                            "PAAN",
-                                            "PAAV",
-                                            "PARA",
-                                            "Puntuación total"
-                                          ]
-                                        },
-                                        "content" : {
-                                          "type" : "expression",
-                                          "value" : "lstAlumnosResultados"
-                                        },
-                                        "columnsKey" : {
-                                          "type" : "constant",
-                                          "value" : [
-                                            "Fecha de examen",
-                                            "IDBANNER",
-                                            "Nombre",
-                                            "PAAN",
-                                            "PAAV",
-                                            "PARA",
-                                            "Total"
-                                          ]
-                                        },
-                                        "selectedRow" : {
-                                          "type" : "variable",
-                                          "value" : "strAlumno"
-                                        },
-                                        "striped" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "condensed" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "bordered" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "table" : {
-                                          "type" : "variable",
-                                          "value" : "tabla"
-                                        },
-                                        "view" : {
-                                          "type" : "variable",
-                                          "value" : "VariableCarga.view"
-                                        }
-                                      },
-                                      "reference" : "4b809f92-40e0-452b-a638-ef02c58dd8ee",
-                                      "hasValidationError" : false,
-                                      "id" : "customTblImportacionPAA"
-                                    }
-                                  ]
-                                ]
-                              }
-                            ],
-                            [
-                              {
-                                "type" : "container",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "tabla != \"tabla\" || lstErrores.length < 1"
-                                  },
-                                  "repeatedCollection" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  }
-                                },
-                                "reference" : "05b7828f-ab65-4718-abde-e94176755b49",
-                                "hasValidationError" : false,
-                                "id" : "pbContainer",
-                                "rows" : [
-                                  [
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 12,
-                                        "lg" : 12
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "text" : {
-                                          "type" : "interpolation",
-                                          "value" : "Lista de errores en la carga masiva"
-                                        },
-                                        "level" : {
-                                          "type" : "constant",
-                                          "value" : "Level 4"
-                                        },
-                                        "alignment" : {
-                                          "type" : "constant",
-                                          "value" : "center"
-                                        }
-                                      },
-                                      "reference" : "52a21e54-a4e6-4a67-bec2-d8b0fa70f25f",
-                                      "hasValidationError" : false,
-                                      "id" : "pbTitle"
-                                    }
-                                  ],
-                                  [
-                                    {
-                                      "type" : "component",
-                                      "dimension" : {
-                                        "xs" : 12,
-                                        "sm" : 12,
-                                        "md" : 12,
-                                        "lg" : 12
-                                      },
-                                      "propertyValues" : {
-                                        "cssClasses" : {
-                                          "type" : "constant",
-                                          "value" : ""
-                                        },
-                                        "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
-                                        },
-                                        "allowHTML" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "headers" : {
-                                          "type" : "constant",
-                                          "value" : [
-                                            "Error",
-                                            "Id banner",
-                                            "Nombre"
-                                          ]
-                                        },
-                                        "content" : {
-                                          "type" : "expression",
-                                          "value" : "lstErrores"
-                                        },
-                                        "columnsKey" : {
-                                          "type" : "constant",
-                                          "value" : [
-                                            "Error",
-                                            "idBanner",
-                                            "nombre"
-                                          ]
-                                        },
-                                        "selectedRow" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        },
-                                        "striped" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "condensed" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "bordered" : {
-                                          "type" : "constant",
-                                          "value" : true
-                                        },
-                                        "table" : {
-                                          "type" : "variable",
-                                          "value" : ""
-                                        }
-                                      },
-                                      "reference" : "0775ee8d-c950-4618-ba52-ac46f3349626",
-                                      "hasValidationError" : false,
-                                      "id" : "customTblErrorImportacionPAA"
-                                    }
-                                  ]
-                                ]
-                              }
-                            ]
-                          ]
-                        }
-                      ]
-                    ]
-                  }
-                },
                 {
                   "type" : "tabContainer",
                   "dimension" : {
@@ -807,8 +168,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : true
+                              "type" : "expression",
+                              "value" : "tabla != \"tabla\""
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -816,7 +177,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Carga manual"
+                              "value" : "Cargar archivo"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -828,24 +189,32 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno"
+                              "value" : "lstAlumnosResultados"
                             },
                             "tipoVariable" : {
                               "type" : "constant",
-                              "value" : "json"
+                              "value" : "array"
                             },
                             "variable" : {
                               "type" : "variable",
-                              "value" : "variablesCargaManual.tabla"
+                              "value" : "tabla"
                             },
                             "variableDato" : {
                               "type" : "constant",
-                              "value" : "fragmento"
+                              "value" : "carga"
+                            },
+                            "value2" : {
+                              "type" : "variable",
+                              "value" : "lstErrores"
+                            },
+                            "tipoVariable2" : {
+                              "type" : "constant",
+                              "value" : "array"
                             }
                           },
-                          "reference" : "0c0fb860-1d3f-4c1a-bc63-ed392337854f",
+                          "reference" : "2c4f2b50-d71c-435a-be21-ede7269f019e",
                           "hasValidationError" : false,
-                          "id" : "customBtnLimpiarCargar"
+                          "id" : "customBtnLimpiarDobleCargar"
                         }
                       ],
                       [
@@ -1211,6 +580,602 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "expression",
+                  "value" : "tabla != \"carga\""
+                },
+                "repeatedCollection" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "50676fbb-c21e-4a49-85b8-29c208f2f3e0",
+              "hasValidationError" : false,
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\" glyphicon glyphicon-arrow-left\" aria-hidden=\"true\"></i> Regresar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "tabla"
+                      },
+                      "texto" : {
+                        "type" : "constant",
+                        "value" : "tabla"
+                      }
+                    },
+                    "reference" : "477d2f6d-c870-4e76-8f31-f927b2c57814",
+                    "hasValidationError" : false,
+                    "id" : "customBtnCambioVariable"
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "d22fd03b-5489-49ac-b01e-19769e56ac3f",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "lstAlumnosResultados.length > 1 || lstErrores.length > 1"
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Importacion de archivo PAA"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation"
+                      },
+                      "url" : {
+                        "type" : "constant",
+                        "value" : "../API/formFileUpload"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "archivoPAA"
+                      },
+                      "errorContent" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "urlretorno" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isImagen" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "isPDF" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "filename" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "filetype" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "lstAlumnosResultados" : {
+                        "type" : "variable",
+                        "value" : "lstAlumnosResultados"
+                      },
+                      "totalRows" : {
+                        "type" : "variable",
+                        "value" : "paginado.totalRows"
+                      },
+                      "urlPost" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
+                      },
+                      "lstErrores" : {
+                        "type" : "variable",
+                        "value" : "lstErrores"
+                      },
+                      "tabla" : {
+                        "type" : "variable",
+                        "value" : "tabla"
+                      }
+                    },
+                    "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
+                    "hasValidationError" : false,
+                    "id" : "customUploadCustomImportacionPAA"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 4,
+                      "lg" : 4
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "f83c9d77-b883-492f-9a0c-d6ba4fd79129",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "tabla != \"carga\" || lstAlumnosResultados.length < 1 && lstErrores.length < 1"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\"glyphicon glyphicon-repeat\"></i> volver a cargar archivo"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "lstAlumnosResultados"
+                      },
+                      "tipoVariable" : {
+                        "type" : "constant",
+                        "value" : "array"
+                      },
+                      "value2" : {
+                        "type" : "variable",
+                        "value" : "lstErrores"
+                      },
+                      "tipoValor2" : {
+                        "type" : "constant",
+                        "value" : "array"
+                      },
+                      "tipoVariable2" : {
+                        "type" : "constant",
+                        "value" : "array"
+                      }
+                    },
+                    "reference" : "3cbc8f97-5246-4f6c-b927-468b52d94a72",
+                    "hasValidationError" : false,
+                    "id" : "customBtnLimpiarDoble"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "tabla != \"carga\" || lstAlumnosResultados.length < 1"
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Aplicar cambios"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "lstAlumnosResultados"
+                      },
+                      "urlPost" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuario&p=0&c=100"
+                      },
+                      "tabla" : {
+                        "type" : "variable",
+                        "value" : "tabla"
+                      },
+                      "lstErrores" : {
+                        "type" : "variable",
+                        "value" : "lstErrores"
+                      },
+                      "urlErrores" : {
+                        "type" : "constant"
+                      }
+                    },
+                    "reference" : "b1be1ec5-cc63-456b-8531-0bfb801792de",
+                    "hasValidationError" : false,
+                    "id" : "customBtnCargaMasiva"
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "lstAlumnosResultados.length < 1"
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "809be9b4-ac45-437c-b198-19cfb280764d",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "tabla != \"carga\""
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Fecha de examen",
+                                "Id banner",
+                                "Nombre",
+                                "PAAN",
+                                "PAAV",
+                                "PARA",
+                                "Puntuación total"
+                              ]
+                            },
+                            "content" : {
+                              "type" : "expression",
+                              "value" : "lstAlumnosResultados"
+                            },
+                            "columnsKey" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Fecha de examen",
+                                "IDBANNER",
+                                "Nombre",
+                                "PAAN",
+                                "PAAV",
+                                "PARA",
+                                "Total"
+                              ]
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : "strAlumno"
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "table" : {
+                              "type" : "variable",
+                              "value" : "tabla"
+                            },
+                            "view" : {
+                              "type" : "variable",
+                              "value" : "VariableCarga.view"
+                            }
+                          },
+                          "reference" : "4b809f92-40e0-452b-a638-ef02c58dd8ee",
+                          "hasValidationError" : false,
+                          "id" : "customTblImportacionPAA"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "tabla != \"carga\" || lstErrores.length < 1"
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "05b7828f-ab65-4718-abde-e94176755b49",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "Lista de errores en la carga masiva"
+                            },
+                            "level" : {
+                              "type" : "constant",
+                              "value" : "Level 4"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
+                            }
+                          },
+                          "reference" : "52a21e54-a4e6-4a67-bec2-d8b0fa70f25f",
+                          "hasValidationError" : false,
+                          "id" : "pbTitle"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Error",
+                                "Id banner",
+                                "Nombre"
+                              ]
+                            },
+                            "content" : {
+                              "type" : "expression",
+                              "value" : "lstErrores"
+                            },
+                            "columnsKey" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Error",
+                                "idBanner",
+                                "nombre"
+                              ]
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "table" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "0775ee8d-c950-4618-ba52-ac46f3349626",
+                          "hasValidationError" : false,
+                          "id" : "customTblErrorImportacionPAA"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
                   "type" : "constant",
                   "value" : false
                 },
@@ -1248,7 +1213,9 @@
                     "binding" : {
                       "view" : "VariableCarga.view",
                       "strResultado" : "strAlumno",
-                      "tabla" : "tabla"
+                      "tabla" : "tabla",
+                      "lstTipoExamen" : "lstTipoExamenPAA",
+                      "retorno" : "retorno"
                     }
                   }
                 ]
@@ -1455,6 +1422,29 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "lstTipoExamenPAA" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatTipoExamenPAA [com.anahuac.catalogos.CatTipoExamenPAA]\",\"businessObjectName\":\"CatTipoExamenPAA\",\"query\":{\"name\":\"getCatTipoExamenPAA\",\"displayName\":\"getCatTipoExamenPAA\"},\"id\":\"com.anahuac.catalogos.CatTipoExamenPAA\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "retorno" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "changeRetorno" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.tabla == \"tabla\"){",
+        "    $data.retorno = \"tabla\";",
+        "}",
+        "if($data.tabla === \"carga\"){",
+        "    $data.retorno = \"carga\";",
+        "}"
       ],
       "exposed" : false
     }
