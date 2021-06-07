@@ -953,7 +953,8 @@ class ConektaDAO {
 		return resultado
 	}
 	
-	public Result getBitacoraPagosByEmail(String email, Long caseId, RestAPIContext context) {
+//	public Result getBitacoraPagosByEmail(String email, Long caseId, RestAPIContext context) {
+	public Result getBitacoraPagosByEmail(String email, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String where = "", errorlog = "";
@@ -966,7 +967,8 @@ class ConektaDAO {
 			List<OrdenBitacora> rows = new ArrayList<OrdenBitacora>();
 			closeCon = validarConexion();
 			
-			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
+//			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
+			where = " WHERE usuarioAspirante = '" + email + " ";
 			String consulta = Statements.GET_BITACORA_PAGO;
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[ORDERBY]", "");

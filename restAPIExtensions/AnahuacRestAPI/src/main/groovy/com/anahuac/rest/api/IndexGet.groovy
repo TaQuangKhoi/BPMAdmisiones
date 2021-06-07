@@ -751,15 +751,25 @@ class IndexGet implements RestApiController {
 				break;
 				case "getBitacoraPagosByEmail":
 					String email = request.getParameter "email";
-					String caseId = request.getParameter "caseId";
+//					String caseId = request.getParameter "caseId";
 					
-					result = new ConektaDAO().getBitacoraPagosByEmail(email, Long.valueOf(caseId), context);
+//					result = new ConektaDAO().getBitacoraPagosByEmail(email, Long.valueOf(caseId), context);
+					result = new ConektaDAO().getBitacoraPagosByEmail(email, context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
 					}else {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
+				break;
+				case "getSesionesReporte":
+				String jsonData =request.getParameter "jsonData"
+				result = new SesionesDAO().getSesionesReporte(jsonData)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
 				break;
 			}
 		}catch (Exception e) {
@@ -776,6 +786,12 @@ class IndexGet implements RestApiController {
 		}
 	}
 
+	public Result notFound(String url) {
+		Result resultado = new Result();
+		resultado.setSuccess(false);
+		resultado.setError("No se reconoce el servicio: "+url);
+		return resultado
+	}
 	/**
 	 * Build an HTTP response.
 	 *
