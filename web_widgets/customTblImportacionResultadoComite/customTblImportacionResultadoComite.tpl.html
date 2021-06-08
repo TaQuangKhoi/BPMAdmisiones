@@ -1,0 +1,57 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                </th>
+                <th>
+                    VER
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
+                    <div ng-switch="column">
+                        <div ng-switch-when="Fecha de examen">
+                            {{(row['Fecha de examen']) | date:'dd-MM-yyyy' }}
+                        </div>
+                        <div ng-switch-default>
+                            {{ $eval(column, row) | uiTranslate }}
+                        </div>
+                    </div>
+                </td>
+                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
+                    <div ng-switch="column">
+                        <div ng-switch-when="Fecha de examen">
+                            {{row['Fecha de examen'] | date:'dd-MM-yyyy'}}
+                        </div>
+                        <div ng-switch-default>
+                           <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
+                        </div>
+                    </div>
+                    
+                </td>
+                <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-default" ng-click="visualizarInfo(row)">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td ng-if="!properties.allowHTML"> {{ row | uiTranslate }}</td>
+                <td ng-if="properties.allowHTML" ng-bind-html="row | uiTranslate"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

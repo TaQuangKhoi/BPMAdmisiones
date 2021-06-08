@@ -679,16 +679,22 @@ class NotificacionDAO {
 						if(rs.next()) {
 							try {
 							plantilla=plantilla.replace("[|persistenceid|]",rs.getString("persistenceid"));
+<<<<<<< HEAD
 							plantilla=plantilla.replace("[|admitido|]",rs.getString("admitido"));
 							plantilla=plantilla.replace("[|campusadmision|]",rs.getString("campusadmision"));
 							plantilla=plantilla.replace("[|carrera|]",rs.getString("carrera"));
 							plantilla=plantilla.replace("[|carta|]",rs.getString("carta"));
 							plantilla=plantilla.replace("[|curp|]",rs.getString("curp"));
 							plantilla=plantilla.replace("[|decisiondeadmision|]",rs.getString("decisiondeadmision"));
+=======
+							plantilla=plantilla.replace("[|carta|]",rs.getString("carta"));
+							plantilla=plantilla.replace("[|curp|]",rs.getString("curp"));
+>>>>>>> cb2303f1 (actualizacion ImportacionPAA,viewValidarSolicitud)
 							plantilla=plantilla.replace("[|descuentoprontopagomes1|]",rs.getString("descuentoprontopagomes1"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes1fecha|]",rs.getString("descuentoprontopagomes1fecha"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes2|]",rs.getString("descuentoprontopagomes2"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes2fecha|]",rs.getString("descuentoprontopagomes2fecha"));
+<<<<<<< HEAD
 							plantilla=plantilla.replace("[|eema|]",rs.getString("eema"));
 							plantilla=plantilla.replace("[|eemi|]",rs.getString("eemi"));
 							plantilla=plantilla.replace("[|eemn|]",rs.getString("eemn"));
@@ -713,10 +719,19 @@ class NotificacionDAO {
 							plantilla=plantilla.replace("[|paaverbal|]",rs.getString("paaverbal"));
 							plantilla=plantilla.replace("[|pagoinscripcion|]",rs.getString("pagoinscripcion"));
 							plantilla=plantilla.replace("[|para|]",rs.getString("para"));
+=======
+							plantilla=plantilla.replace("[|espanol|]",rs.getString("espanol"));
+							plantilla=plantilla.replace("[|fechalimitedepago|]",rs.getString("fechalimitedepago"));
+							plantilla=plantilla.replace("[|fechalimiteentregadocumentacion|]",rs.getString("fechalimiteentregadocumentacion"));
+							plantilla=plantilla.replace("[|nombre|]",rs.getString("nombre"));
+							plantilla=plantilla.replace("[|notastransferencia|]",rs.getString("notastransferencia"));
+							plantilla=plantilla.replace("[|numerodematricula|]",rs.getString("numerodematricula"));
+>>>>>>> cb2303f1 (actualizacion ImportacionPAA,viewValidarSolicitud)
 							plantilla=plantilla.replace("[|pca|]",rs.getString("pca"));
 							plantilla=plantilla.replace("[|pcda|]",rs.getString("pcda"));
 							plantilla=plantilla.replace("[|pdp|]",rs.getString("pdp"));
 							plantilla=plantilla.replace("[|pdu|]",rs.getString("pdu"));
+<<<<<<< HEAD
 							plantilla=plantilla.replace("[|periodo|]",rs.getString("periodo"));
 							plantilla=plantilla.replace("[|persistenceversion|]",rs.getString("persistenceversion"));
 							plantilla=plantilla.replace("[|pia|]",rs.getString("pia"));
@@ -735,6 +750,15 @@ class NotificacionDAO {
 							plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 							plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
 							plantilla=plantilla.replace("[|seleccionado|]",rs.getString("seleccionado"));
+=======
+							plantilla=plantilla.replace("[|persistenceversion|]",rs.getString("persistenceversion"));
+							plantilla=plantilla.replace("[|pia|]",rs.getString("pia"));
+							plantilla=plantilla.replace("[|sihaceonomatematicas|]",rs.getString("sihaceonomatematicas"));
+							plantilla=plantilla.replace("[|sse|]",rs.getString("sse"));
+							plantilla=plantilla.replace("[|statuspdu|]",rs.getString("statuspdu"));
+							plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
+							plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
+>>>>>>> cb2303f1 (actualizacion ImportacionPAA,viewValidarSolicitud)
 							}catch(Exception infex) {
 								
 							}

@@ -37,6 +37,7 @@ import com.anahuac.model.ProcesoCasoDAO
 import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.Entity.CaseVariable
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Transferencias
 import com.anahuac.catalogos.CatBachilleratosDAO
@@ -9197,6 +9198,68 @@ class ListadoDAO {
 
 		return resultado;
 	}
+	
+	public Result archivedCaseVariable(String caseId, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		CaseVariable objCaseVariable = new CaseVariable();
+		
+		List<CaseVariable> lstCaseVariable = new ArrayList<CaseVariable>();
+		List<String> lstIdVariable = new ArrayList<String>();
+		
+		Boolean closeCon = false;
+		
+		String strListVariable = "";
+		
+		try {
+			closeCon = validarConexionBonita();
+			pstm = con.prepareStatement(Statements.GET_ID_CASEVARIABLE)
+			pstm.setLong(1, Long.valueOf(caseId));
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				lstIdVariable.add(rs.getString("idVariable"));
+			}
+			
+			if(lstIdVariable.size()>0) {
+				strListVariable = lstIdVariable.join(",");
+				pstm = con.prepareStatement(Statements.GET_CASEVARIABLE.replace("[LISTIDVARIABLE]", strListVariable));
+				rs = pstm.executeQuery()
+				while (rs.next()) {
+					objCaseVariable = new CaseVariable();
+					objCaseVariable.setCase_id(rs.getString("containerid"));
+					objCaseVariable.setName(rs.getString("name"));
+					objCaseVariable.setDescription("");
+					objCaseVariable.setType(rs.getString("classname"));
+					
+					if(rs.getString("classname").equals("java.lang.Long")){
+					    objCaseVariable.setValue(rs.getString("longvalue") == null ? null : rs.getString("longvalue"));
+					} else if(rs.getString("classname").equals("java.lang.Boolean")){
+					    objCaseVariable.setValue(rs.getBoolean("booleanvalue") == null ? null : rs.getBoolean("booleanvalue").toString());
+					} else if(rs.getString("classname").equals("java.lang.String")){
+					    objCaseVariable.setValue(rs.getString("clobvalue") == null ? null : rs.getString("clobvalue"));
+					} else if(rs.getString("classname").equals("java.util.Date")){
+					    objCaseVariable.setValue(rs.getString("longvalue") == null ? null : rs.getString("longvalue"));
+					} else if(rs.getString("classname").equals("java.util.Map")){
+					    objCaseVariable.setValue(rs.getString("clobvalue") == null ? null : rs.getString("clobvalue"));
+					}
+					
+					lstCaseVariable.add(objCaseVariable);
+				}
+			}
+			resultado.setData(lstCaseVariable);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
 
 	private String encodeFileToBase64Binary(String fileName)
 	throws IOException {
@@ -9236,6 +9299,15 @@ class ListadoDAO {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
 			con = new DBConnect().getConnection();
+			retorno = true
+		}
+		return retorno
+	}
+	
+	public Boolean validarConexionBonita() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
 			retorno = true
 		}
 		return retorno

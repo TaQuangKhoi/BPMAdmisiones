@@ -1,7 +1,15 @@
 function PbTableCtrl($scope, $http, $window,blockUI) {
 
     this.isArray = Array.isArray;
-
+    //this.orden = true;
+    
+    $scope.cambioOrden = function(){
+        //$scope.properties.orden = !$scope.properties.orden;
+        //$scope.$apply();
+        doRequest("POST", $scope.properties.urlPost);
+        
+    }
+    
     this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
     };
@@ -344,7 +352,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "PV2": "",
             "PV3": "",
             "TOTAL": "",
-            "tipoExamen":""
+            "tipoExamen":"",
+            "INVP":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";
@@ -370,6 +379,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         if(datos !== null && datos !== undefined){
             let columna = datos;
             for(var key in columna){
+                debugger;
                  if(key != "total" && key != "fechaexamen" && key != "tipoexamen" && key != "lexiumpara" && key != "lexiumpaav" && key != "lexiumpaan" && key != "lexiumtotal"){
                     json[key.toUpperCase()] = data[key]
                 }else if(key === "total"){

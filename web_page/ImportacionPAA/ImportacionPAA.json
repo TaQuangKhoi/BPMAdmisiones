@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1623084857132,
+  "lastUpdate" : 1623177495055,
   "rows" : [
     [
       {
@@ -393,7 +393,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Carga exitosa"
+                      "value" : "Aspirantes con puntuacion"
                     }
                   },
                   "reference" : "9be3872b-894a-4353-aa3f-9796dc9997e7",
@@ -549,6 +549,10 @@
                                   "view" : {
                                     "type" : "variable",
                                     "value" : "VariableCarga.view"
+                                  },
+                                  "orden" : {
+                                    "type" : "variable",
+                                    "value" : "activos.completos"
                                   }
                                 },
                                 "reference" : "7d210bb1-9a51-4a4d-9783-56a202238efa",
@@ -685,7 +689,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "lstAlumnosResultados.length > 1 || lstErrores.length > 1"
+                        "value" : "lstAlumnosResultados.length >= 1 || lstErrores.length >= 1"
                       },
                       "required" : {
                         "type" : "constant",
@@ -697,7 +701,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Importacion de archivo PAA"
+                        "value" : "Importación de archivo Prueba de Aptitudes y Conocimientos"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -1319,16 +1323,12 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "    \"tarea\":\"Validar Información\",\r",
         "    \"lstFiltro\": $data.lstFiltros, \r",
-        "    \"type\": \"aspirantes_proceso\",\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"estatusSolicitud\": \"Aspirantes en proceso\",\r",
-        "    \"aspirantes\":\"regular\",\r",
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "}"
       ],
@@ -1406,7 +1406,8 @@
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"completos\":$data.activos.completos\r",
         "}"
       ],
       "exposed" : false
@@ -1444,6 +1445,15 @@
         "}",
         "if($data.tabla === \"carga\"){",
         "    $data.retorno = \"carga\";",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "activos" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"completos\":true",
         "}"
       ],
       "exposed" : false

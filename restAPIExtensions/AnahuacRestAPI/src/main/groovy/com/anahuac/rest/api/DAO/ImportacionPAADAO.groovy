@@ -874,7 +874,10 @@ class ImportacionPAADAO {
 						where +="  OR LOWER(PAA.PAAV) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(PAA.PARA) like lower('%[valor]%') )";
+						where +=" OR LOWER(PAA.PARA) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(PAA.INVP) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
@@ -1087,6 +1090,9 @@ class ImportacionPAADAO {
 					break;
 					case "PARA":
 					orderby+="PAA.PARA";
+					break;
+					case "INVP":
+					orderby+="PAA.INVP";
 					break;
 					case "FECHARESULTADO":
 					orderby+="PAA.fechaRegistro";
