@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Cartas",
   "name" : "Cartas",
-  "lastUpdate" : 1619805604757,
+  "lastUpdate" : 1623267161903,
   "rows" : [
     [
       {
@@ -485,8 +485,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "campusSelected==null"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -651,7 +651,8 @@
                           "Acciones",
                           "Clave",
                           "Tipo de correo",
-                          "Descripción"
+                          "Descripción",
+                          "Versión de idioma"
                         ]
                       },
                       "columnsKey" : {
@@ -741,9 +742,9 @@
                         "value" : "campusSelected"
                       }
                     },
-                    "reference" : "ed63e861-1192-4a20-927d-5074180c3a3b",
+                    "reference" : "a66ba260-6758-4a44-a041-b6c127e91513",
                     "hasValidationError" : false,
-                    "id" : "customTablaCatalogoNotificaciones"
+                    "id" : "customTablaCatalogoNotificacionesCartas"
                   }
                 ]
               ]
@@ -1442,7 +1443,7 @@
                             },
                             "targetUrl" : {
                               "type" : "constant",
-                              "value" : "/portal/resource/app/administrativo/notificaciones/content/?app=administrativo"
+                              "value" : "/portal/resource/app/administrativo/cartas/content/?app=administrativo"
                             },
                             "pageToken" : {
                               "type" : "constant"
@@ -3039,7 +3040,7 @@
                       },
                       "targetUrl" : {
                         "type" : "constant",
-                        "value" : "/portal/resource/app/administrativo/notificaciones/content/?app=administrativo"
+                        "value" : "/portal/resource/app/administrativo/cartas/content/?app=administrativo"
                       },
                       "pageToken" : {
                         "type" : "constant"
@@ -4450,7 +4451,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -4729,8 +4730,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "expression",
-                              "value" : "selectedData.contenidoLeonel.length>0"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -4915,7 +4916,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -5034,7 +5035,7 @@
                       },
                       "targetUrl" : {
                         "type" : "constant",
-                        "value" : "/portal/resource/app/administrativo/notificaciones/content/?app=administrativo"
+                        "value" : "/portal/resource/app/administrativo/cartas/content/?app=administrativo"
                       },
                       "pageToken" : {
                         "type" : "constant"
@@ -5836,25 +5837,42 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "value" : {
-                        "type" : "constant",
-                        "value" : "This is the initial value"
-                      },
-                      "color" : {
-                        "type" : "constant",
-                        "value" : "RebeccaPurple"
-                      },
-                      "background" : {
-                        "type" : "constant",
-                        "value" : "Yellow"
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
+                      "text" : {
                         "type" : "interpolation",
                         "value" : "Cancelar"
+                      },
+                      "type" : {
+                        "type" : "constant",
+                        "value" : "URL"
+                      },
+                      "targetUrl" : {
+                        "type" : "constant",
+                        "value" : "/portal/resource/app/administrativo/cartas/content/?app=administrativo"
+                      },
+                      "pageToken" : {
+                        "type" : "constant"
+                      },
+                      "processName" : {
+                        "type" : "constant"
+                      },
+                      "processVersion" : {
+                        "type" : "constant"
+                      },
+                      "taskId" : {
+                        "type" : "constant"
+                      },
+                      "caseId" : {
+                        "type" : "constant"
+                      },
+                      "target" : {
+                        "type" : "constant",
+                        "value" : "_self"
+                      },
+                      "appToken" : {
+                        "type" : "constant"
+                      },
+                      "urlParams" : {
+                        "type" : "constant"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -5863,23 +5881,11 @@
                       "buttonStyle" : {
                         "type" : "constant",
                         "value" : "info"
-                      },
-                      "wizardLength" : {
-                        "type" : "variable",
-                        "value" : "wizardContent.length"
-                      },
-                      "selectedIndex" : {
-                        "type" : "variable",
-                        "value" : "selectedIndex = -1"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Anterior"
                       }
                     },
-                    "reference" : "a0759e14-ce6d-4988-b7aa-66fb3be16a5a",
+                    "reference" : "ed018299-6f04-41d4-ba6e-0ce3604f564a",
                     "hasValidationError" : false,
-                    "id" : "customWitgetBtnWizardNotificaciones"
+                    "id" : "pbLink"
                   },
                   {
                     "type" : "component",
@@ -10218,35 +10224,36 @@
       "type" : "expression",
       "value" : [
         "return {\r",
-        "\"persistenceId_string\":\"\",\r",
-        "\"tipoCorreo\": \"Carta\",\r",
-        "\"codigo\": \"\",\r",
-        "\"descripcion\": \"\",\r",
-        "\"nombreImagenHeader\": \"\",\r",
-        "\"anguloImagenHeader\": \"0\",\r",
-        "\"nombreImagenFooter\": \"\",\r",
-        "\"anguloImagenFooter\": \"0\",\r",
-        "\"isEliminado\": false,\r",
-        "\"caseId\": $data.caseId,\r",
-        "\"asunto\": \"\",\r",
-        "\"titulo\": \"\",\r",
-        "\"bloqueAspirante\": false,\r",
-        "\"comentarioLeon\": \"\",\r",
-        "\"enlaceFacebook\": \"\",\r",
-        "\"enlaceTwitter\": \"\",\r",
-        "\"enlaceContacto\": \"\",\r",
-        "\"enlaceInstagram\": \"\",\r",
-        "\"textoFooter\": \"\",\r",
-        "\"enlaceFooter\": \"\",\r",
-        "\"lstCorreoCopia\": [],\r",
-        "\"lstVariableNotificacion\": [],\r",
-        "\"informacionLic\": false,\r",
-        "\"enlaceBanner\": \"\",\r",
-        "\"contenido\": \"\",\r",
-        "\"contenidoCorreo\": \"\",\r",
-        "\"contenidoLeonel\": \"\",\r",
-        "\"docGuiaEstudio\":\"\"\r",
-        "};"
+        "    \"persistenceId_string\":\"\",\r",
+        "    \"clave\":\"\",\r",
+        "    \"tipoCorreo\": \"Carta\",\r",
+        "    \"codigo\": \"\",\r",
+        "    \"descripcion\": \"\",\r",
+        "    \"nombreImagenHeader\": \"\",\r",
+        "    \"anguloImagenHeader\": \"0\",\r",
+        "    \"nombreImagenFooter\": \"\",\r",
+        "    \"anguloImagenFooter\": \"0\",\r",
+        "    \"isEliminado\": false,\r",
+        "    \"caseId\": $data.caseId,\r",
+        "    \"asunto\": \"\",\r",
+        "    \"titulo\": \"\",\r",
+        "    \"bloqueAspirante\": false,\r",
+        "    \"comentarioLeon\": \"\",\r",
+        "    \"enlaceFacebook\": \"\",\r",
+        "    \"enlaceTwitter\": \"\",\r",
+        "    \"enlaceContacto\": \"\",\r",
+        "    \"enlaceInstagram\": \"\",\r",
+        "    \"textoFooter\": \"\",\r",
+        "    \"enlaceFooter\": \"\",\r",
+        "    \"lstCorreoCopia\": [],\r",
+        "    \"lstVariableNotificacion\": [],\r",
+        "    \"informacionLic\": false,\r",
+        "    \"enlaceBanner\": \"\",\r",
+        "    \"contenido\": \"\",\r",
+        "    \"contenidoCorreo\": \"\",\r",
+        "    \"contenidoLeonel\": \"\",\r",
+        "    \"docGuiaEstudio\":\"\"\r",
+        "    };"
       ],
       "exposed" : false
     },

@@ -41,7 +41,8 @@ class NotificacionDAO {
 	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
-	
+	float costo1=0,costo2=0,costo3=0,costo4=0
+	String periodo =""
 	public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		
@@ -474,6 +475,7 @@ class NotificacionDAO {
 						dt.cancelarSeguroGastosMedicos=rs.getString("cancelarSeguroGastosMedicos");
 						dt.cursoMatematicas1=rs.getString("cursoMatematicas1");
 						dt.cursoMatematicas2=rs.getString("cursoMatematicas2");
+						
 						try{
 							plantilla=plantilla.replace("[CIUDAD-CARTA]",dt.ciudadCarta);
 						}
@@ -631,16 +633,25 @@ class NotificacionDAO {
 						plantilla=plantilla.replace("<!--[PASOS]-->","<table style='width:80%; font-size: initial; font-family:  Arial;'><tr><td style='font-family:  Arial;'>"+dt.noSabes+"</td></tr></table>");
 						plantilla=plantilla.replace("[LIGA-PARA-TEST-VOCACIONAL]",dt.urlTestVocacional);*/
 						try {
+							
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes1"))/100))+Float.parseFloat(dt.costoSGM)+"")
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes2"))/100))+Float.parseFloat(dt.costoSGM)+"")
+						
+						} catch (Exception dex) {
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",dex.getMessage())
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",dex.getMessage())
+						}
+						try {
 							plantilla=plantilla.replace("[MATEMATICAS-1]",(rs.getString("sihaceonomatematicas").equals("1"))?dt.parrafoMatematicas1:"");
 							plantilla=plantilla.replace("[MATEMATICAS-2]",(rs.getString("sihaceonomatematicas").equals("2"))?dt.parrafoMatematicas2:"");
 							plantilla=plantilla.replace("[MATEMATICAS-3]",(rs.getString("sihaceonomatematicas").equals("3"))?dt.parrafoMatematicas3:"");
 							plantilla=plantilla.replace("[ESPANOL-1]",(rs.getString("espanol").equals("1"))?dt.parrafoEspanol1:"");
 							plantilla=plantilla.replace("[ESPANOL-2]",(rs.getString("espanol").equals("2"))?dt.parrafoEspanol2:"");
 							plantilla=plantilla.replace("[ESPANOL-3]",(rs.getString("espanol").equals("3"))?dt.parrafoEspanol3:"");
-							plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-ENERO]",(rs.getString("periodo").substring(4,6).equals("10")|| rs.getString("periodo").substring(4,6).equals("05"))?dt.actividadIngreso1:"");
-							plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.actividadIngreso2:"");
-							plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(rs.getString("periodo").substring(4,6).equals("10") || rs.getString("periodo").substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
-							plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
+							plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-ENERO]",(periodo.substring(4,6).equals("10")|| periodo.substring(4,6).equals("05"))?dt.actividadIngreso1:"");
+							plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-AGOSTO]",(periodo.substring(4,6).equals("60")|| periodo.substring(4,6).equals("35")|| periodo.substring(4,6).equals("75"))?dt.actividadIngreso2:"");
+							plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(periodo.substring(4,6).equals("10") || periodo.substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
+							plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(periodo.substring(4,6).equals("60")|| periodo.substring(4,6).equals("35")|| periodo.substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
 							try {
 								Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes1"))*Float.parseFloat(dt.costoSGM))
 								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",descuento.toString());
@@ -679,62 +690,29 @@ class NotificacionDAO {
 						if(rs.next()) {
 							try {
 							plantilla=plantilla.replace("[|persistenceid|]",rs.getString("persistenceid"));
-							plantilla=plantilla.replace("[|admitido|]",rs.getString("admitido"));
-							plantilla=plantilla.replace("[|campusadmision|]",rs.getString("campusadmision"));
-							plantilla=plantilla.replace("[|carrera|]",rs.getString("carrera"));
 							plantilla=plantilla.replace("[|carta|]",rs.getString("carta"));
 							plantilla=plantilla.replace("[|curp|]",rs.getString("curp"));
-							plantilla=plantilla.replace("[|decisiondeadmision|]",rs.getString("decisiondeadmision"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes1|]",rs.getString("descuentoprontopagomes1"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes1fecha|]",rs.getString("descuentoprontopagomes1fecha"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes2|]",rs.getString("descuentoprontopagomes2"));
 							plantilla=plantilla.replace("[|descuentoprontopagomes2fecha|]",rs.getString("descuentoprontopagomes2fecha"));
-							plantilla=plantilla.replace("[|eema|]",rs.getString("eema"));
-							plantilla=plantilla.replace("[|eemi|]",rs.getString("eemi"));
-							plantilla=plantilla.replace("[|eemn|]",rs.getString("eemn"));
-							plantilla=plantilla.replace("[|eemq|]",rs.getString("eemq"));
-							plantilla=plantilla.replace("[|eems|]",rs.getString("eems"));
-							plantilla=plantilla.replace("[|eemt|]",rs.getString("eemt"));
-							plantilla=plantilla.replace("[|escm|]",rs.getString("escm"));
-							plantilla=plantilla.replace("[|escp|]",rs.getString("escp"));
 							plantilla=plantilla.replace("[|espanol|]",rs.getString("espanol"));
-							plantilla=plantilla.replace("[|examinado|]",rs.getString("examinado"));
 							plantilla=plantilla.replace("[|fechalimitedepago|]",rs.getString("fechalimitedepago"));
 							plantilla=plantilla.replace("[|fechalimiteentregadocumentacion|]",rs.getString("fechalimiteentregadocumentacion"));
-							plantilla=plantilla.replace("[|filaexcel|]",rs.getString("filaexcel"));
-							plantilla=plantilla.replace("[|inscrito|]",rs.getString("inscrito"));
-							plantilla=plantilla.replace("[|mmpi|]",rs.getString("mmpi"));
-							plantilla=plantilla.replace("[|nivel|]",rs.getString("nivel"));
 							plantilla=plantilla.replace("[|nombre|]",rs.getString("nombre"));
 							plantilla=plantilla.replace("[|notastransferencia|]",rs.getString("notastransferencia"));
 							plantilla=plantilla.replace("[|numerodematricula|]",rs.getString("numerodematricula"));
-							plantilla=plantilla.replace("[|paa|]",rs.getString("paa"));
-							plantilla=plantilla.replace("[|paanumerica|]",rs.getString("paanumerica"));
-							plantilla=plantilla.replace("[|paaverbal|]",rs.getString("paaverbal"));
-							plantilla=plantilla.replace("[|pagoinscripcion|]",rs.getString("pagoinscripcion"));
-							plantilla=plantilla.replace("[|para|]",rs.getString("para"));
 							plantilla=plantilla.replace("[|pca|]",rs.getString("pca"));
 							plantilla=plantilla.replace("[|pcda|]",rs.getString("pcda"));
 							plantilla=plantilla.replace("[|pdp|]",rs.getString("pdp"));
 							plantilla=plantilla.replace("[|pdu|]",rs.getString("pdu"));
-							plantilla=plantilla.replace("[|periodo|]",rs.getString("periodo"));
 							plantilla=plantilla.replace("[|persistenceversion|]",rs.getString("persistenceversion"));
 							plantilla=plantilla.replace("[|pia|]",rs.getString("pia"));
-							plantilla=plantilla.replace("[|preparatoriade|]",rs.getString("preparatoriade"));
-							plantilla=plantilla.replace("[|promedio|]",rs.getString("promedio"));
-							plantilla=plantilla.replace("[|religion|]",rs.getString("religion"));
-							plantilla=plantilla.replace("[|selecciondecursosprevia|]",rs.getString("selecciondecursosprevia"));
-							plantilla=plantilla.replace("[|sesion|]",rs.getString("sesion"));
-							plantilla=plantilla.replace("[|sexo|]",rs.getString("sexo"));
 							plantilla=plantilla.replace("[|sihaceonomatematicas|]",rs.getString("sihaceonomatematicas"));
-							plantilla=plantilla.replace("[|solicitante|]",rs.getString("solicitante"));
 							plantilla=plantilla.replace("[|sse|]",rs.getString("sse"));
 							plantilla=plantilla.replace("[|statuspdu|]",rs.getString("statuspdu"));
-							plantilla=plantilla.replace("[|tipodeadmision|]",rs.getString("tipodeadmision"));
-							plantilla=plantilla.replace("[|tipodeestudiante|]",rs.getString("tipodeestudiante"));
 							plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 							plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
-							plantilla=plantilla.replace("[|seleccionado|]",rs.getString("seleccionado"));
 							}catch(Exception infex) {
 								
 							}
@@ -900,6 +878,19 @@ class NotificacionDAO {
 				plantilla=plantilla.replace("[LICENCIATURA-COSTO2]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero)
 				plantilla=plantilla.replace("[LICENCIATURA-COSTO3]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo)
 				plantilla=plantilla.replace("[LICENCIATURA-COSTO4]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre)
+				
+			    periodo = objSolicitudDeAdmision.get(0).getCatPeriodo().getClave()
+				
+				try {
+					costo1=Float.parseFloat( periodo.substring(4,6).equals("10")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero:
+					periodo.substring(4,6).equals("05")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero:
+					periodo.substring(4,6).equals("60")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionagosto:
+					periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
+				    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
+					
+				} catch (Exception e) {
+					e.printStackTrace()
+				}
 				if(objSolicitudDeAdmision.get(0).getCatGestionEscolar().isPropedeutico()) {
 					plantilla=plantilla.replace("<!--PROPEDEUTICO-->", "<tr> <td valign=\"top\" style=\"text-align: justify;text-align: left;\"> <font face=\"'Source Sans Pro', sans-serif\" color=\"#4F4E4D\"> <span style=\"color: #4F4E4D;\"> Propedéutico: </span> </font> </td> <td valign=\"top\" style=\"text-align: justify;text-align: left;\"> <font face=\"'Source Sans Pro', sans-serif\" color=\"#4F4E4D\"> <span style=\"color: #FF5900;\"> [PROPEDEUTICO] </span> </font> </td> </tr>")
 					plantilla=plantilla.replace("[PROPEDEUTICO]", objSolicitudDeAdmision.get(0).getCatPropedeutico().getDescripcion())
@@ -928,6 +919,17 @@ class NotificacionDAO {
 					plantilla=plantilla.replace("[LICENCIATURA-COSTO2]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero)
 					plantilla=plantilla.replace("[LICENCIATURA-COSTO3]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo)
 					plantilla=plantilla.replace("[LICENCIATURA-COSTO4]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre==0?"":objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre)
+					periodo = objSolicitudDeAdmision.get(0).getCatPeriodo().getClave()
+				
+				try {
+						costo1=Float.parseFloat( periodo.substring(4,6).equals("10")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero:
+						periodo.substring(4,6).equals("05")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionenero:
+						periodo.substring(4,6).equals("60")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionagosto:
+						periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
+					    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
+					} catch (Exception e) {
+						e.printStackTrace()
+					}
 					errorlog += ", Variable14.3"
 					plantilla=plantilla.replace("[descripcion-licenciatura]", objSolicitudDeAdmision.get(0).getCatGestionEscolar().getDescripcion())
 					

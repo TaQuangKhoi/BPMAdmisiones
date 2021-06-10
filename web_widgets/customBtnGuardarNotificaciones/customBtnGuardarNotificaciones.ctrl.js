@@ -122,6 +122,18 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
             error = true;
             texto = "Faltó capturar información: Contenido de correo";
             info = "¡Aviso!"
+        } else if ($scope.properties.selectedData.clave == "") {
+            error = true;
+            texto = "Faltó capturar información: Clave";
+            info = "¡Aviso!"
+        }
+        for (let index = 0; index < $scope.properties.contenido.length; index++) {
+            const element = $scope.properties.contenido[index];
+            if ($scope.properties.selectedData.clave==element.clave) {
+                error = true;
+                texto = "No puede haber dos claves iguales";
+                info = "¡Aviso!"
+            }
         }
         if (error) {
             swal(info, texto, "warning");

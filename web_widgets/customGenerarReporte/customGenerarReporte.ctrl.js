@@ -7,6 +7,8 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
         var url="";
         if($scope.properties.reporte=='Lexium'){
             url="/bonita/API/extension/AnahuacRest?url=generarReporte&p=0&c=9999";
+        }else if($scope.properties.reporte=='Admitidos al propedéutico'){
+            url="/bonita/API/extension/AnahuacRest?url=generarReporteAdmitidosPropedeutico&p=0&c=9999"
         }else{
             url="/bonita/API/extension/AnahuacRest?url=generarReporteResultadosExamenes&p=0&c=9999"
         }

@@ -49,7 +49,7 @@ class ImportacionPAADAO {
 								
 				//List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 					con.setAutoCommit(false)
-					pstm = con.prepareStatement(Statements.GET_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
+					pstm = con.prepareStatement(Statements.INSERT_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
 					
 					pstm.setString(1,object.IDBANNER);
 					pstm.setString(2,object.PAAN);
@@ -874,7 +874,10 @@ class ImportacionPAADAO {
 						where +="  OR LOWER(PAA.PAAV) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where +=" OR LOWER(PAA.PARA) like lower('%[valor]%') )";
+						where +=" OR LOWER(PAA.PARA) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(PAA.INVP) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
@@ -1087,6 +1090,9 @@ class ImportacionPAADAO {
 					break;
 					case "PARA":
 					orderby+="PAA.PARA";
+					break;
+					case "INVP":
+					orderby+="PAA.INVP";
 					break;
 					case "FECHARESULTADO":
 					orderby+="PAA.fechaRegistro";

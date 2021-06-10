@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Reportes",
   "name" : "Reportes",
-  "lastUpdate" : 1623094665762,
+  "lastUpdate" : 1623345047837,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Reportes de proceso e Admisión"
+            "value" : "Reportes de proceso de Admisión"
           },
           "level" : {
             "type" : "constant",
@@ -833,7 +833,7 @@
                   },
                   "multiple" : {
                     "type" : "constant",
-                    "value" : false
+                    "value" : true
                   }
                 },
                 "reference" : "9d6d921e-ad58-42a9-9c6e-33e8d909c9ca",
@@ -970,7 +970,7 @@
                   },
                   "multiple" : {
                     "type" : "constant",
-                    "value" : false
+                    "value" : true
                   }
                 },
                 "reference" : "6c49cc35-5c21-4f5f-af89-a35dffea3878",
@@ -1129,8 +1129,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "constant",
-                    "value" : false
+                    "type" : "expression",
+                    "value" : "rptSelected=='Admitidos al propedéutico'"
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1174,11 +1174,11 @@
                   },
                   "value" : {
                     "type" : "variable",
-                    "value" : ""
+                    "value" : "sesion"
                   },
                   "multiple" : {
                     "type" : "constant",
-                    "value" : false
+                    "value" : true
                   }
                 },
                 "reference" : "d45f940e-91be-4f0f-86b5-9d2d61ac06b1",
@@ -1202,7 +1202,7 @@
                   },
                   "hidden" : {
                     "type" : "constant",
-                    "value" : false
+                    "value" : true
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1485,7 +1485,7 @@
                   },
                   "hidden" : {
                     "type" : "expression",
-                    "value" : "rptSelected!='Resultado de examenes'"
+                    "value" : "rptSelected!='Resultado de examenes' && rptSelected!='Admitidos al propedéutico'"
                   },
                   "srcType" : {
                     "type" : "constant",
@@ -1895,7 +1895,7 @@
     "lstReportes" : {
       "type" : "json",
       "value" : [
-        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Resultado de examenes\"}]"
+        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Resultado de examenes\"},{\"reporte\":\"Admitidos al propedéutico\"}]"
       ],
       "exposed" : false
     },
