@@ -9,6 +9,8 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
             url="/bonita/API/extension/AnahuacRest?url=generarReporte&p=0&c=9999";
         }else if($scope.properties.reporte=='Admitidos al propedéutico'){
             url="/bonita/API/extension/AnahuacRest?url=generarReporteAdmitidosPropedeutico&p=0&c=9999"
+        }else if($scope.properties.reporte=="Datos de los familiares"){
+            url="/bonita/API/extension/AnahuacRest?url=generarReporteDatosFamiliares&p=0&c=9999"
         }else{
             url="/bonita/API/extension/AnahuacRest?url=generarReporteResultadosExamenes&p=0&c=9999"
         }

@@ -26,6 +26,7 @@ import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
@@ -641,6 +642,26 @@ class IndexGet implements RestApiController {
 					String idbanner = request.getParameter "idbanner";
 					
 					result = new ImportacionPAADAO().getAspirantePAA(idbanner,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getListaBitacoraRC":
+					result = new ResultadoComiteDAO().getListaBitacoraRC(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getLimpiarBitacoraErrores":
+					result = new ResultadoComiteDAO().getLimpiarBitacoraErrores(context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

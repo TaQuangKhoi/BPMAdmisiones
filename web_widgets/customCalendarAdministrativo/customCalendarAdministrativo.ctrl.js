@@ -428,7 +428,33 @@ function($scope, $http, blockUI) {
         if ($scope.prueba.cattipoprueba_pid == 1) {
             $scope.setEntrevistas();
         }
-
+        if ($scope.prueba.aplicacion == null) {
+            Swal.fire(
+                "Imposible",
+                "No es posible agregar responsable sin capturar fecha de aplicación",
+                'info'
+            )
+        }
+        else if ($scope.prueba.entrada == null) {
+            Swal.fire(
+                "Imposible",
+                "No es posible agregar responsable sin capturar hora de inicio",
+                'info'
+            )
+        }
+       else if ($scope.prueba.salida == null) {
+            Swal.fire(
+                "Imposible",
+                "No es posible agregar responsable sin capturar hora de finalización",
+                'info'
+            )
+        }else  if ($scope.prueba.duracion == null && $scope.prueba.cattipoprueba_pid == 1) {
+            Swal.fire(
+                "Imposible",
+                "No es posible agregar responsable sin capturar duración de las entrevistas",
+                'info'
+            )
+        }else{
         if ($scope.psicologo != null) {
             $scope.psicologo.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles);
             var push = true;
@@ -459,7 +485,7 @@ function($scope, $http, blockUI) {
             }
 
         }
-
+      }
     }
     $scope.eliminarLicenciatura = function(indice) {
         var a = $scope.pselected.licenciaturas.split(',');
@@ -826,36 +852,47 @@ function($scope, $http, blockUI) {
     $scope.lstFechasDisponibles = [];
     $scope.lstGestionEscolar = [];
     $scope.setEntrevistas = function() {
-
-        $scope.prueba.cambioDuracion = true;
-
-        $scope.lstFechasDisponibles = [];
-        var inicio = new Date(`${$scope.prueba.aplicacion+" "+$scope.prueba.entrada}`)
-        var fin = new Date(`${$scope.prueba.aplicacion+" "+$scope.prueba.salida}`)
-        var minutes = Math.floor((fin - inicio) / 60000);
-        $scope.cantidadEntrevistas = (minutes / $scope.prueba.duracion)
-        for (let index = 0; index < $scope.cantidadEntrevistas; index++) {
-            var now = new Date(new Date($scope.prueba.aplicacion + " " + $scope.prueba.entrada + ":00").getTime() + (((index + 1) * parseInt($scope.prueba.duracion)) * 60000))
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-            var m = ("0" + now.getMinutes()).slice(-2);
-            var hour = ("0" + now.getHours()).slice(-2);
-            var today = (hour) + ":" + (m);
-
-            var horario = ((index == 0) ? $scope.prueba.entrada : $scope.lstFechasDisponibles[index - 1].horario.split(" - ")[1]) + " - " + (($scope.lstFechasDisponibles.length == (index + 1)) ? prueba.salida : today)
-            var objFecha = { "horario": `${horario}`, "disponible": true, "ocupado": false }
-            $scope.lstFechasDisponibles.push(objFecha);
+        if ($scope.prueba.aplicacion == null) {
+  
         }
-        if ($scope.prueba.registrados == 0) {
-            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
-                const element = $scope.prueba.psicologos[index];
-                element.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles)
+        else if ($scope.prueba.entrada == null) {
+       
+        }
+       else if ($scope.prueba.salida == null) {
+            
+        }else  if ($scope.prueba.duracion == null) {
+            
+        } else {
+            $scope.prueba.cambioDuracion = true;
 
+            $scope.lstFechasDisponibles = [];
+            var inicio = new Date(`${$scope.prueba.aplicacion+" "+$scope.prueba.entrada}`)
+            var fin = new Date(`${$scope.prueba.aplicacion+" "+$scope.prueba.salida}`)
+            var minutes = Math.floor((fin - inicio) / 60000);
+            $scope.cantidadEntrevistas = (minutes / $scope.prueba.duracion)
+            for (let index = 0; index < $scope.cantidadEntrevistas; index++) {
+                var now = new Date(new Date($scope.prueba.aplicacion + " " + $scope.prueba.entrada + ":00").getTime() + (((index + 1) * parseInt($scope.prueba.duracion)) * 60000))
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var m = ("0" + now.getMinutes()).slice(-2);
+                var hour = ("0" + now.getHours()).slice(-2);
+                var today = (hour) + ":" + (m);
+
+                var horario = ((index == 0) ? $scope.prueba.entrada : $scope.lstFechasDisponibles[index - 1].horario.split(" - ")[1]) + " - " + (($scope.lstFechasDisponibles.length == (index + 1)) ? prueba.salida : today)
+                var objFecha = { "horario": `${horario}`, "disponible": true, "ocupado": false }
+                $scope.lstFechasDisponibles.push(objFecha);
             }
-        }
+            if ($scope.prueba.registrados == 0) {
+                for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                    const element = $scope.prueba.psicologos[index];
+                    element.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles)
 
-        $scope.setCupoValue();
-        console.log($scope.lstFechasDisponibles);
+                }
+            }
+
+            $scope.setCupoValue();
+            console.log($scope.lstFechasDisponibles);
+        }
     }
     $scope.pselected = {};
     $scope.configurarResponsable = function(responsable) {

@@ -634,8 +634,8 @@ class NotificacionDAO {
 						plantilla=plantilla.replace("[LIGA-PARA-TEST-VOCACIONAL]",dt.urlTestVocacional);*/
 						try {
 							
-							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes1"))/100))+Float.parseFloat(dt.costoSGM)+"")
-							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes2"))/100))+Float.parseFloat(dt.costoSGM)+"")
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",(costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes1"))/100)))+Float.parseFloat(dt.costoSGM)+"")
+							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",(costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes2"))/100)))+Float.parseFloat(dt.costoSGM)+"")
 						
 						} catch (Exception dex) {
 							plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",dex.getMessage())
@@ -653,13 +653,13 @@ class NotificacionDAO {
 							plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(periodo.substring(4,6).equals("10") || periodo.substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
 							plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(periodo.substring(4,6).equals("60")|| periodo.substring(4,6).equals("35")|| periodo.substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
 							try {
-								Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes1"))*Float.parseFloat(dt.costoSGM))
+								Float descuento = (costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes1"))/100)))+Float.parseFloat(dt.costoSGM)
 								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",descuento.toString());
 							} catch (Exception e) {
 								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",dt.costoSGM);
 							}
 							try {
-								Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes2"))*Float.parseFloat(dt.costoSGM))
+								Float descuento = (costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes2"))/100)))+Float.parseFloat(dt.costoSGM)
 								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",descuento.toString());
 							} catch (Exception e) {
 								plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",dt.costoSGM);
