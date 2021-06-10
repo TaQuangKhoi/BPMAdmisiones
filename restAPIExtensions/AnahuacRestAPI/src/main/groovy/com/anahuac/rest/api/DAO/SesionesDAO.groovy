@@ -1092,7 +1092,7 @@ class SesionesDAO {
 		Boolean closeCon = false;
 		List<Calendario> lstCalendario = new ArrayList();
 		Calendario calendario = new Calendario();
-		String where=" WHERE s.isEliminado!=true AND  s.borrador=false AND s.FECHA_INICIO>=now() ", consulta ="", errorlog=""
+		String where=" WHERE s.isEliminado!=true AND  s.borrador=false ", consulta ="", errorlog=""
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -1188,7 +1188,7 @@ class SesionesDAO {
 			}
 			errorlog+=" WHERE:" + where
 			closeCon = validarConexion();
-			pstm = con.prepareStatement(Statements.GET_SESIONES_CALENDARIOASPIRANTE.replace("[WHERE]", where))
+			pstm = con.prepareStatement(Statements.GET_SESIONES_CALENDARIOASPIRANTE.replace("[WHERE]", where).replace("and p.registrados<p.cupo", ""))
 			rs = pstm.executeQuery()
 			while(rs.next()) {
 				calendario = new Calendario();

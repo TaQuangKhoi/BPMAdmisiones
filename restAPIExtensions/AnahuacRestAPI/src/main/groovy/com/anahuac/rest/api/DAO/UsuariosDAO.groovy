@@ -2789,4 +2789,55 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
+	
+	public Result updateInformacionAspirante(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		Boolean closeCon = false;
+		
+		String errorLog = "";
+		
+		JsonSlurper jsonSlurper = new JsonSlurper();
+		
+		try {
+			def object = jsonSlurper.parseText(jsonData)
+			assert object instanceof Map;
+			
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(Statements.UPDATE_INFORMACION_ASPIRANTE);
+			pstm.setString(1, object.objSolicitudDeAdmisionPrimerNombre);
+			pstm.setString(2, object.objSolicitudDeAdmisionSegundoNombre);
+			pstm.setString(3, object.objSolicitudDeAdmisionApellidoPaterno);
+			pstm.setString(4, object.objSolicitudDeAdmisionApellidoMaterno);
+			pstm.setString(5, object.objSolicitudDeAdmisionCurp);
+			pstm.setInt(6, Integer.valueOf(object.objSolicitudDeAdmisionPromedioGeneral));
+			pstm.setString(7, object.objSolicitudDeAdmisionFechaNacimiento);
+			pstm.setInt(8, Integer.valueOf(object.objSolicitudDeAdmisionCatSexoPersistenceId));
+			pstm.setInt(9, Integer.valueOf(object.objSolicitudDeAdmisionCatNacionalidadPersistenceId));
+			pstm.setInt(10, Integer.valueOf(object.objSolicitudDeAdmisionPersistenceId));
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement(Statements.UPDATE_INFORMACION_ASPIRANTE_PADRESTUTOR);
+			pstm.setString(1, object.objTutorNombre);
+			pstm.setString(2, object.objTutorApellidos);
+			pstm.setInt(3, Integer.valueOf(object.objTutorPersistenceId));
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
+			con.rollback();
+		}
+		finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 }

@@ -95,14 +95,22 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 }
 
                 if(count === row.length){
-                    doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
-                        if(count == row.length){
+                    if($scope.correctos.length > 0){
+                        doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
+                            if(count == row.length){
+                                $scope.properties.lstErrores = angular.copy($scope.errores)
+                                $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
+                                $scope.properties.tabla = "carga";
+                                //swal('¡Se han terminado la auditoria de los datos!',"","success")
+                            }
+                        })
+                    }else{
                             $scope.properties.lstErrores = angular.copy($scope.errores)
-                            $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
+                            $scope.properties.lstAlumnosResultados = [];
                             $scope.properties.tabla = "carga";
-                            //swal('¡Se han terminado la auditoria de los datos!',"","success")
-                        }
-                    })
+
+                    }
+                    
                         
                 }
             })
@@ -120,7 +128,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         if(datos !== null && datos !== undefined){
             let columna = datos;
             for(var key in columna){
-                if( key != "fechaExamen" && key != "IDBANNER"){
+                if( $scope.properties.revisar.includes(key) && key != "fechaExamen" && key != "IDBANNER"){
                     //json[key.toUpperCase()] = data[key]
                     if(isNullOrUndefined(data[key])){
                         error+=(error.length>0?",":"")+"falta el dato "+key

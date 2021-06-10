@@ -84,16 +84,19 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
                     }
 
                     if(count === row.length){
-                        $scope.properties.lstErrores = angular.copy($scope.errores)
-                        $scope.properties.lstAlumnosResultados = angular.copy($scope.correctos)
-                        $scope.properties.tabla = "carga";
-                        /*doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
-                            if(count == row.length){
-                                $scope.properties.lstErrores = angular.copy($scope.errores)
-                                $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
-                                $scope.properties.tabla = "carga";
-                            }
-                        })*/
+                        if($scope.correctos.length > 0){
+                            doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
+                                if(count == row.length){
+                                    $scope.properties.lstErrores = angular.copy($scope.errores)
+                                    $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
+                                    $scope.properties.tabla = "carga";
+                                }
+                            })
+                        }else{
+                            $scope.properties.lstErrores = angular.copy($scope.errores)
+                            $scope.properties.tabla = "carga";
+                        }
+                        
 
                     }
                 })
@@ -117,7 +120,8 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
         if(datos !== null && datos !== undefined){
             let columna = datos;
             for(var key in columna){
-                if( key.includes("_1") && key != "IDBANNER" || key=="decision"){
+                
+                if( $scope.properties.revisar.includes(key) && key != "IDBANNER" && key != "número de matrícula"){
                     //json[key.toUpperCase()] = data[key]
                     let name = key.split("_1");
                     if(isNullOrUndefined(data[key])){
@@ -131,7 +135,7 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
             }
             
             if(error.length > 0){
-                $scope.errores = [ ...$scope.errores,{idBanner:data['IDBANNER'],nombre:data['nombre'],Error:error}]
+                $scope.errores = [ ...$scope.errores,{idBanner:data['IDBANNER'],nombre:data['nombre'],Error:error,usuario:$scope.properties.usuario}]
                 return false;
               }
               return true;
@@ -174,13 +178,13 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
             //let lstidBanner = info.idBanner.split(',')
             let indice = findData(info.idBanner.replaceAll("'",""))
             if(!info.Existe){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"no hay aspirante con ese idBanner"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['nombre'],Error:"no hay aspirante con ese idBanner",usuario:$scope.properties.usuario}]
             }
             else if(info.mismaFecha){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`el aspirante ya tiene puntuacion en la fecha ${datos[indice]['fechaExamen']}`}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['nombre'],Error:`el aspirante ya tiene decision`,usuario:$scope.properties.usuario}]
             }
             else if(!info.EstaEnCarga){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados",usuario:$scope.properties.usuario}]
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar

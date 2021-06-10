@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1623189211239,
+  "lastUpdate" : 1623344905049,
   "rows" : [
     [
       {
@@ -360,7 +360,7 @@
                                   },
                                   "urlPost" : {
                                     "type" : "constant",
-                                    "value" : "/bonita/API/extension/AnahuacRest?url=getAspirantesSinPAA&p=0&c=100"
+                                    "value" : "/bonita/API/extension/AnahuacRest?url=getAspirantesSinRC&p=0&c=100"
                                   },
                                   "dataToSend" : {
                                     "type" : "variable",
@@ -827,7 +827,7 @@
                       },
                       "urlPost" : {
                         "type" : "constant",
-                        "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionRC&p=0&c=100"
                       },
                       "lstErrores" : {
                         "type" : "variable",
@@ -836,6 +836,14 @@
                       "tabla" : {
                         "type" : "variable",
                         "value" : "tabla"
+                      },
+                      "revisar" : {
+                        "type" : "expression",
+                        "value" : "revisar"
+                      },
+                      "usuario" : {
+                        "type" : "expression",
+                        "value" : "userData.user_name"
                       }
                     },
                     "reference" : "58a03951-847c-4598-9de3-db1c17ad2ef8",
@@ -970,7 +978,7 @@
                       },
                       "urlPost" : {
                         "type" : "constant",
-                        "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuario&p=0&c=100"
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuarioRC&p=0&c=100"
                       },
                       "tabla" : {
                         "type" : "variable",
@@ -981,12 +989,13 @@
                         "value" : "lstErrores"
                       },
                       "urlErrores" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarBitacoraErrores&p=0&c=100"
                       }
                     },
-                    "reference" : "13331d89-ab86-48e5-a026-59ac735c40d6",
+                    "reference" : "2d7977cf-cedb-4cab-a6e5-54c0dd3943cd",
                     "hasValidationError" : false,
-                    "id" : "customBtnCargaMasiva"
+                    "id" : "customBtnCargaMasivaConErrores"
                   }
                 ],
                 [
@@ -1494,21 +1503,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1527,30 +1528,31 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccione un tipo de admisión"
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Aceptado",
+                    "Rechazado",
+                    "Revisión"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.decision"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "5b44485e-72c0-4353-b33e-b55d287b5b6a",
+              "reference" : "b83db550-3396-4413-9e78-5ef88888a010",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             }
           ],
           [
@@ -1600,21 +1602,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1633,30 +1627,30 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Sí",
+                    "No"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.pdp_1"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "62d786ac-6a7d-4b3b-8ef5-e12ac7abebdf",
+              "reference" : "ec50f7fc-f8b5-4c69-bc64-9692b1d8e4dc",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             },
             {
               "type" : "component",
@@ -1675,21 +1669,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1708,30 +1694,30 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Sí",
+                    "No"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.pdu_1"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "ec2f36cb-85a9-4530-9b87-804d5b3ee31a",
+              "reference" : "e388384e-2a12-44b0-9d4d-185828530dcc",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             },
             {
               "type" : "component",
@@ -1750,21 +1736,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1783,30 +1761,30 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Sí",
+                    "No"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.sse_1"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "e9aea1bb-dfbf-4553-8604-e8c9b7ba4bf6",
+              "reference" : "efcd14ee-40b2-477b-adb4-20fd49d13db4",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             },
             {
               "type" : "component",
@@ -1825,21 +1803,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1858,30 +1828,30 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Sí",
+                    "No"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.pcda_1"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "072a0bc9-59ba-433e-82f8-2917e309be67",
+              "reference" : "c96e80a7-b41a-48da-91f9-c7fc40b7fac9",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             },
             {
               "type" : "component",
@@ -1900,21 +1870,13 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "disabled" : {
+                  "type" : "expression",
+                  "value" : "VariableCarga.view"
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
-                },
-                "minLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "maxLength" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "readOnly" : {
-                  "type" : "expression",
-                  "value" : "VariableCarga.view"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -1933,30 +1895,30 @@
                   "value" : 4
                 },
                 "placeholder" : {
-                  "type" : "interpolation"
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Sí",
+                    "No"
+                  ]
+                },
+                "displayedKey" : {
+                  "type" : "constant"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.pca_1"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
                 }
               },
-              "reference" : "860fa55a-3ddf-4515-9f7c-596fd869c5c2",
+              "reference" : "1b6f9221-3cad-4cd4-a410-15e9cb4183ef",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbSelect"
             }
           ],
           [
@@ -2018,19 +1980,64 @@
               "hasValidationError" : false,
               "id" : "pbTextarea"
             }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "view"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strAlumno"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=postGuardarUsuarioRC&p=0&c=100"
+                },
+                "tabla" : {
+                  "type" : "variable",
+                  "value" : "tabla"
+                }
+              },
+              "reference" : "6663aec3-a617-4250-acdc-d02f56b54b71",
+              "hasValidationError" : false,
+              "id" : "customBtnValidarManualRC"
+            }
           ]
         ]
       }
     ]
   ],
   "assets" : [
-    {
-      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
     {
       "id" : "3c41d885-ac4c-4775-bd8b-4c893cbd0f41",
       "name" : "sweetalert.min.js",
@@ -2043,6 +2050,13 @@
       "name" : "tabla-conversion-paa.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
       "external" : false
     },
     {
@@ -2118,7 +2132,7 @@
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"campus\":$data.getCampus !== null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
         "}"
       ],
       "exposed" : false
@@ -2195,7 +2209,7 @@
         "    \"limit\":20,\r",
         "    \"offset\":0,\r",
         "    \"usuario\":$data.userData.user_name,\r",
-        "    \"campus\":$data.getCampus !== null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
         "}"
       ],
       "exposed" : false
@@ -2236,6 +2250,13 @@
         "{",
         "    \"completos\":true",
         "}"
+      ],
+      "exposed" : false
+    },
+    "revisar" : {
+      "type" : "json",
+      "value" : [
+        "[\"decisión de admisión\",\"pdp_1\",\"pdu_1\",\"sse_1\",\"pcda_1\",\"pca_1\",\"número de matrícula\"]"
       ],
       "exposed" : false
     }

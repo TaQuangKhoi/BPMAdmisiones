@@ -49,7 +49,7 @@ class ImportacionPAADAO {
 								
 				//List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 					con.setAutoCommit(false)
-					pstm = con.prepareStatement(Statements.GET_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
+					pstm = con.prepareStatement(Statements.INSERT_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
 					
 					pstm.setString(1,object.IDBANNER);
 					pstm.setString(2,object.PAAN);

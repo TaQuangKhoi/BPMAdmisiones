@@ -48,6 +48,17 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.bitacora.CatBitacoraErrorRC">
+            <fields>
+                <field type="STRING" length="255" name="error" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaRegistro" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuario" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.bitacora.CatBitacoraGeneral">
             <fields>
                 <field type="STRING" length="255" name="eventos" nullable="true" collection="false"/>
@@ -3475,15 +3486,22 @@
                 <field type="TEXT" length="255" name="conclusioneINVP" nullable="true" collection="false"/>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatInformacionDeLaCarrera" fetchType="LAZY" name="fientesInfluyeronDesicion" nullable="true" collection="true"/>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRazonesDeIngreso" fetchType="LAZY" name="razonesIngreso" nullable="true" collection="true"/>
-                <field type="BOOLEAN" length="255" name="recomendadoPDU" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendadoSSE" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendadoPDP" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendadoPIA" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendadoPCDA" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendadoPCA" nullable="true" collection="false"/>
                 <field type="INTEGER" length="255" name="puntuacionINVP" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="resumenSalud" nullable="true" collection="false"/>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCursos" fetchType="LAZY" name="custosRecomendados" nullable="true" collection="true"/>
+                <field type="BOOLEAN" length="255" name="finalizado" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPersonaSaludable" fetchType="LAZY" name="catPersonaSaludable" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatDiscapacidad" fetchType="LAZY" name="catVivesEstadoDiscapacidad" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTipoDiscapacidad" fetchType="LAZY" name="discapacidades" nullable="true" collection="true"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatProblemasSaludAtencion" fetchType="LAZY" name="catProblemaSaludAtencionContinua" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatProblemaSalud" fetchType="LAZY" name="problemasSalud" nullable="true" collection="true"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRequieresAsistencia" fetchType="LAZY" name="catRequieresAsistencia" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTipoAsistencia" fetchType="LAZY" name="tipoAsistencia" nullable="true" collection="true"/>
+                <field type="STRING" length="255" name="otroTipoAsistencia" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="quienRealizoEntrevista" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="quienIntegro" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="hasParticipadoActividadesAyuda" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="participacionActividadesVoluntaria" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3523,10 +3541,10 @@
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoRelativos">
             <fields>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatParentesco" fetchType="LAZY" name="catParentezco" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatParentesco" fetchType="EAGER" name="catParentezco" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="nombre" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="apellidos" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.Catvive" fetchType="LAZY" name="vive" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.Catvive" fetchType="EAGER" name="vive" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="empresaTrabaja" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="jubilado" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="otroParentesco" nullable="true" collection="false"/>

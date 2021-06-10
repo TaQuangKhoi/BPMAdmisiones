@@ -1088,6 +1088,7 @@ class TransferenciasDAO {
                 }
             }
 			
+			
 			closeCon = validarConexion()
 			String usuarioReagendar = "";
 			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
@@ -1151,4 +1152,62 @@ class TransferenciasDAO {
 
         return resultado;
     }
+	
+	
+	public Result GuardarFaltas(String email) {
+		Result resultado = new Result();
+		String errorLog = "";
+		Boolean closeCon = false;
+		try {
+			
+			closeCon = validarConexion()
+			con.setAutoCommit(false)
+			String usuarioReagendar = "";
+			
+			usuarioReagendar = email;
+			
+			List<Long> pruebas = new ArrayList<Long>()
+			pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
+			pstm.setString(1,  usuarioReagendar)
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				pruebas.add(rs.getLong("prueba_pid"))
+			}
+			//errorLog = errorLog + " | Pruebas "+ pruebas
+			for(Long pa:pruebas) {
+				pstm = con.prepareStatement(Statements.GET_ASISTENCIA_PRUEBA_FALTA)
+				pstm.setString(1, usuarioReagendar)
+				pstm.setLong(2, pa)
+				rs = pstm.executeQuery()
+				//errorLog = errorLog + " | rs "+rs
+				if(!rs.next()) {
+					//errorLog = errorLog + " | insert de pruebas "
+					pstm = con.prepareStatement(Statements.INSERT_PASEDELISTA, Statement.RETURN_GENERATED_KEYS)
+					pstm.setLong(1, pa);
+					pstm.setString(2, usuarioReagendar);
+					pstm.setBoolean(3,false);
+					pstm.setString(4,"");
+					
+					pstm.executeUpdate();
+				}
+			}
+			
+			con.commit();
+		}catch (Exception ex) {
+            resultado.setError_info(errorLog);
+            resultado.setSuccess(false);
+            resultado.setError(ex.getMessage());
+            con.rollback();
+        } finally {
+            if (closeCon) {
+                new DBConnect().closeObj(con, stm, rs, pstm)
+            }
+        }
+		
+		return resultado;
+		
+	}
+	
+	
+	
 }
