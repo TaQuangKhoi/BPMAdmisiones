@@ -12,6 +12,8 @@ function PbInputCtrl($scope,$http, $log, widgetNameFactory,blockUI) {
         if (newValue !== undefined) {
             if(newValue.length === 8  ){
                 doRequest("GET", $scope.properties.urlGet);
+            }else{
+                $scope.properties.valorRetorno = "";
             }
         }
         console.log($scope.properties.value);
