@@ -728,21 +728,21 @@ class NotificacionDAO {
 								plantilla=plantilla.replace("[ESPANOL-1]",(rs.getString("espanol").equals("1"))?dt.parrafoEspanol1:"");
 								plantilla=plantilla.replace("[ESPANOL-2]",(rs.getString("espanol").equals("2"))?dt.parrafoEspanol2:"");
 								plantilla=plantilla.replace("[ESPANOL-3]",(rs.getString("espanol").equals("3"))?dt.parrafoEspanol3:"");
-								plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-ENERO]",(rs.getString("periodo").substring(4,6).equals("10")|| rs.getString("periodo").substring(4,6).equals("05"))?dt.actividadIngreso1:"");
-								plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.actividadIngreso2:"");
-								plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(rs.getString("periodo").substring(4,6).equals("10") || rs.getString("periodo").substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
-								plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(rs.getString("periodo").substring(4,6).equals("60")|| rs.getString("periodo").substring(4,6).equals("35")|| rs.getString("periodo").substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
-								try {
-									Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes1"))*Float.parseFloat(dt.costoSGM))
+								plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-ENERO]",(periodo.substring(4,6).equals("10")|| periodo.substring(4,6).equals("05"))?dt.actividadIngreso1:"");
+								plantilla=plantilla.replace("[ACTIVIDADES-DE-INGRESO-AGOSTO]",(periodo.substring(4,6).equals("60")|| periodo.substring(4,6).equals("35")|| periodo.substring(4,6).equals("75"))?dt.actividadIngreso2:"");
+								plantilla=plantilla.replace("[CURSO-MATEMATICAS-ENERO]",(periodo.substring(4,6).equals("10") || periodo.substring(4,6).equals("05"))?dt.cursoMatematicas1:"");
+								plantilla=plantilla.replace("[CURSO-MATEMATICAS-AGOSTO]",(periodo.substring(4,6).equals("60")|| periodo.substring(4,6).equals("35")|| periodo.substring(4,6).equals("75"))?dt.cursoMatematicas2:"");
+							try {
+									Float descuento = (costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes1"))/100)))+Float.parseFloat(dt.costoSGM)
 									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",descuento.toString());
 								} catch (Exception e) {
-									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",dt.costoSGM);
+									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO1]",e.getMessage());
 								}
 								try {
-									Float descuento = Float.parseFloat(dt.costoSGM)-(Float.parseFloat(rs.getString("descuentoprontopagomes2"))*Float.parseFloat(dt.costoSGM))
+									Float descuento = (costo1-(costo1*(Float.parseFloat(rs.getString("descuentoprontopagomes2"))/100)))+Float.parseFloat(dt.costoSGM)
 									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",descuento.toString());
 								} catch (Exception e) {
-									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",dt.costoSGM);
+									plantilla=plantilla.replace("[COSTO-SGM-DESCUENTO2]",e.getMessage());
 								}
 								
 								

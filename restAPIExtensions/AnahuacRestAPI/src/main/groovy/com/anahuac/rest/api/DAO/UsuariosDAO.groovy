@@ -2811,7 +2811,7 @@ class UsuariosDAO {
 			pstm.setString(3, object.objSolicitudDeAdmisionApellidoPaterno);
 			pstm.setString(4, object.objSolicitudDeAdmisionApellidoMaterno);
 			pstm.setString(5, object.objSolicitudDeAdmisionCurp);
-			pstm.setInt(6, Integer.valueOf(object.objSolicitudDeAdmisionPromedioGeneral));
+			pstm.setString(6, object.objSolicitudDeAdmisionPromedioGeneral==null ? "0" :object.objSolicitudDeAdmisionPromedioGeneral.toString());
 			pstm.setString(7, object.objSolicitudDeAdmisionFechaNacimiento);
 			pstm.setInt(8, Integer.valueOf(object.objSolicitudDeAdmisionCatSexoPersistenceId));
 			pstm.setInt(9, Integer.valueOf(object.objSolicitudDeAdmisionCatNacionalidadPersistenceId));
