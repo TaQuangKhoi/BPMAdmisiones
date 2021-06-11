@@ -237,6 +237,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.envelope = function (row) {
         $scope.isenvelope = true;
         $scope.mensaje = "";
+        $("#321645123").text("")
         $scope.selectedrow = row;
     }
     $scope.envelopeCancel = function () {
