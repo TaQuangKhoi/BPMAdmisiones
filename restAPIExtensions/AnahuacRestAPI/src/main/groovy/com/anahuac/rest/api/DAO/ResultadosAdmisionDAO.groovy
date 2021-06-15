@@ -697,21 +697,19 @@ class ResultadosAdmisionDAO {
 			assert object instanceof Map;
 			String consulta = "";
 			 
-				 if(object.tipoResultado.equals("Sin resultado")){
-					 consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
-					 where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
-				 }else{
-					  consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
-					 where+=" WHERE INFTEMP.persistenceid IS NOT null";
-					 if(object.tipoResultado.equals("Aceptado")) {
-						where+="  AND (carta='Aceptado') ";
-					 }else if(object.tipoResultado.equals("Rechazada")){
-						where+="  AND (carta='Rechazado') ";
-					 }
-				 }
-			 
-			
-			
+			if(object.tipoResultado.equals("Sin resultado")){
+				consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
+				where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
+			}else{
+				consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
+				where+=" WHERE INFTEMP.persistenceid IS NOT null";
+				if(object.tipoResultado.equals("Aceptado")) {
+					where+="  AND (carta='Aceptado') ";
+				}else if(object.tipoResultado.equals("Rechazada")){
+					where+="  AND (carta='Rechazado') ";
+				}
+			}
+			errorlog=errorlog+" | INICIO";
 			//where+=" WHERE INFTEMP.persistenceid IS NOT null";
 			if(object.campus != null){
 				if(!object.campus.equals("Todos los campus")) {
@@ -742,6 +740,8 @@ class ResultadosAdmisionDAO {
 
 			
 			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				errorlog=errorlog+" | =======================================================================";
+				errorlog=errorlog+" | COLUMNA FILTRO"+ filtro.get("columna");
 				switch(filtro.get("columna")) {
 					case "IDBANNER":
 						if(where.contains("WHERE")) {
@@ -749,8 +749,9 @@ class ResultadosAdmisionDAO {
 						}else {
 							where+= " WHERE ";
 						}
-						where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') ";
+						where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "NOMBRE,EMAIL,CURP":
 					
@@ -767,6 +768,7 @@ class ResultadosAdmisionDAO {
 						
 						where +=" OR LOWER(SOLAD.curp) like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CAMPUS,PROGRAMA,PERÍODO":
 					errorlog="5";
@@ -783,6 +785,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					
 					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
@@ -799,6 +802,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(SOLAD.PROMEDIOGENERAL) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 
 					case "RESIDENCIA,TIPO DE ADMISIÓN,TIPO DE ALUMNO":
@@ -815,6 +819,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(TAL.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 
 					case "FECHA DE ENVÍO":
@@ -825,57 +830,62 @@ class ResultadosAdmisionDAO {
 						}
 						where +=" ( LOWER(to_char( TO_TIMESTAMP(SOLAD.fechasolicitudenviada, 'YYYY-MM-DDTHH:MI'), 'DD/MM/YYYY') ) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CIUDAD":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(SOLAD.ciudad) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(SOLAD.ciudad) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PAÍS":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(paisvives.descripcion) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(paisvives.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PROCEDENCIA":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CAMPUS INGRESO":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PERÍODO":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					/*====================================================================*/
 				}
-
-
 			}
+			errorlog=errorlog+" | FIN FOR======================================";
 			
 			switch(object.orderby) {
 				case "IDBANNER":
@@ -958,6 +968,7 @@ class ResultadosAdmisionDAO {
 			}
 			 
 			countQuery = countQuery.replace("[WHERE]", where); 
+			errorlog=errorlog+" | countQuery: " + countQuery;
 			pstm = con.prepareStatement(countQuery); 
 			rs= pstm.executeQuery();
 			
@@ -966,7 +977,8 @@ class ResultadosAdmisionDAO {
 			}
 			
 			consulta = consulta.replace("[ORDERBY]", orderby);
-			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?"); 
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			errorlog=errorlog+" | consulta: " + consulta;
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit);
 			pstm.setInt(2, object.offset);
@@ -1328,7 +1340,7 @@ class ResultadosAdmisionDAO {
                         }else {
                             where+= " WHERE ";
                         }
-                        where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') ";
+                        where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') )";
                         where = where.replace("[valor]", filtro.get("valor"));
                     break;
                     case "NOMBRE,EMAIL,CURP":

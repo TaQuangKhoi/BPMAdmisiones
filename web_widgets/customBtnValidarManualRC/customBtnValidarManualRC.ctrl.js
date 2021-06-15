@@ -9,7 +9,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       let paso = validacion();
       if(paso){
           //$scope.properties.value.fechaExamen = formatDate($scope.properties.value.fechaExamen)
-          doRequest("POST",$scope.properties.urlPost,$scope.properties.value)
+          let info = []
+          info.push($scope.properties.value)
+          doRequest("POST",$scope.properties.urlPost,info)
       }
     };
     
@@ -44,26 +46,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             swal(`¡debe ingresar el valor de la decisión de admisión!`,"","warning")
             return false;
         }
-        if(isNullOrUndefined($scope.properties.value.pdp_1) ){
-            swal(`¡debe ingresar el valor del PDP!`,"","warning")
-            return false;
+        if($scope.properties.value.decision == "Aceptado"){
+            
+            if(isNullOrUndefined($scope.properties.value.pdp_1) ){
+                swal(`¡debe ingresar el valor del PDP!`,"","warning")
+                return false;
+            }
+            if(isNullOrUndefined($scope.properties.value.pdu_1)){
+                swal(`¡debe ingresar el valor del PDU!`,"","warning")
+                return false;
+            }
+            if(isNullOrUndefined($scope.properties.value.sse_1)){
+               swal('¡debe ingresar el valor del SSE!',"","warning")
+                return false; 
+            }
+            if(isNullOrUndefined($scope.properties.value.pcda_1)){
+               swal('¡debe ingresar el valor del PCDA!',"","warning")
+                return false; 
+            }
+            if(isNullOrUndefined($scope.properties.value.pca_1)){
+                swal('¡debe ingresar el valor del PCA!',"","warning")
+                 return false; 
+            }
+        }else{
+            return true;
         }
-        if(isNullOrUndefined($scope.properties.value.pdu_1)){
-            swal(`¡debe ingresar el valor del PDU!`,"","warning")
-            return false;
-        }
-        if(isNullOrUndefined($scope.properties.value.sse_1)){
-           swal('¡debe ingresar el valor del SSE!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.pcda_1)){
-           swal('¡debe ingresar el valor del PCDA!',"","warning")
-            return false; 
-        }
-        if(isNullOrUndefined($scope.properties.value.pca_1)){
-            swal('¡debe ingresar el valor del PCA!',"","warning")
-             return false; 
-         }
+        
         return true;
     }
     

@@ -71,26 +71,24 @@ class ResultadoComiteDAO {
 				def object = jsonSlurper.parseText(jsonData);
 				
 				closeCon = validarConexion();
-								
+				
+				object.each{
 				//List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 					con.setAutoCommit(false)
-					pstm = con.prepareStatement(Statements.INSERT_RESULTADO_COMITE, Statement.RETURN_GENERATED_KEYS)
+					pstm = con.prepareStatement(it.update? Statements.UPDATE_RESULTADO_COMITE.replace("[IDBANNER]", it.IDBANNER) :Statements.INSERT_RESULTADO_COMITE, Statement.RETURN_GENERATED_KEYS)
 					
-					pstm.setString(1,object.IDBANNER);
-					pstm.setString(2,object.decision);
-					pstm.setString(3,object.pdp_1);
-					pstm.setString(4,object.pdu_1);
-					pstm.setString(5,object.sse_1);
-					pstm.setString(6,object.pcda_1);
-					pstm.setString(7,object.pca_1);
-					pstm.setString(8,object.observaciones);
-					
-					
+					pstm.setString(1,it.IDBANNER);
+					pstm.setString(2,it.decision);
+					pstm.setString(3,it.pdp_1);
+					pstm.setString(4,it.pdu_1);
+					pstm.setString(5,it.sse_1);
+					pstm.setString(6,it.pcda_1);
+					pstm.setString(7,it.pca_1);
+					pstm.setString(8,it.observaciones);
 					pstm.executeUpdate();
-					
-					con.commit();
-				
+				}
 				resultado.setSuccess(true)
+				con.commit();
 				//resultado.setData(estatus)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -110,6 +108,7 @@ class ResultadoComiteDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		Boolean existe = false;
+		Boolean execucion = false;
 		String errorLog = "";
 		try {
 			
@@ -130,6 +129,7 @@ class ResultadoComiteDAO {
 				
 				 
 				 object.each{
+					 //existe es una variable que se asigna en pantalla la cual mientras sea diferente de true, es un error que tiene que ser guardado
 					 if(it.existe != true) {
 						 errorLog+= "Entro"
 						 //revisar si el idBanner esta registrado o no
@@ -141,6 +141,7 @@ class ResultadoComiteDAO {
 						 }
 						 errorLog+=" existe:"+existe
 						 con.setAutoCommit(false)
+						 execucion = true;
 						 //segun lo resultado se crea o actualiza el dato del error
 						 errorLog+=" consulta:"+(existe?Statements.UPDATE_BITACORA_ERRORES_RC.replace("[IDBANNER]", it.idBanner):Statements.INSERT_BITACORA_ERRORES_RC)
 						 pstm = con.prepareStatement((existe?Statements.UPDATE_BITACORA_ERRORES_RC.replace("[IDBANNER]", it.idBanner):Statements.INSERT_BITACORA_ERRORES_RC), Statement.RETURN_GENERATED_KEYS)
@@ -150,10 +151,12 @@ class ResultadoComiteDAO {
 						 pstm.setString(4, sDate);
 						 pstm.executeUpdate();
 						 
-						 con.commit();
 					 }
 				 }
 				
+				 if(execucion) {					 
+					 con.commit();
+				 }
 				
 				resultado.setSuccess(true)
 				resultado.setData(estatus)
@@ -267,6 +270,48 @@ class ResultadoComiteDAO {
 	}
 	
 	
+	public Result getAspiranteRC(String idBanner, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			pstm = con.prepareStatement(Statements.GET_RC_BY_IDBANNER);
+			pstm.setString(1, idBanner)
+			
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Boolean isNullOrEmpty(String text) {
 		

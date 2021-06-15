@@ -60,7 +60,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         var datos = [];
         //Add the data rows from Excel file.
         for (var i = 0; i < excelRows.length; i++) {
-            datos.push(excelRows[i])
+            datos.push(needValues(excelRows[i]))
         }
         auditoria(datos)
         $scope.$apply();
@@ -83,7 +83,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             row.forEach(datos =>{
                 count++;
                 var info = angular.copy(datos);
-                info.fechaExamen = info['Fecha de examen']
+                //info.fechaExamen = info['Fecha de examen']
                 let paso = validacion(info);
                 
                 if(paso){
@@ -121,6 +121,20 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         blockUI.stop();
         
     }
+
+    function needValues(data){
+        let info= {};
+        $scope.properties.revisar.forEach(valor =>{
+            info = Object.assign({[valor]:(data[valor] || '')},info)
+        })
+        info.fechaExamen = (data['Fecha de examen'] || '');
+        info.PAAN = (data['MLEX'] || '');
+        info.PAAV = (data['CLEX'] || '');
+        info.PARA = (data['HLEX'] || '');
+        //info.TOTAL = (data['Total'] || '');
+        info.Nombre = (data['Nombre'] || '');
+        return info;
+    }
     
     function validacion(data){
         var datos = data;
@@ -134,7 +148,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                         error+=(error.length>0?",":"")+"falta el dato "+key
                     }
                     
-                }else if(key == "IDBANNER" && isNullOrUndefined(data['IDBANNER']) || data['IDBANNER'].length < 8){
+                }else if(key == "IDBANNER" && isNullOrUndefined(data['IDBANNER']) || key == "IDBANNER" &&  data['IDBANNER'].length != 8){
                     error+=(error.length>0?",":"")+"falta el dato id banner"
                 }
             }
@@ -175,13 +189,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             //let lstidBanner = info.idBanner.split(',')
             let indice = findData(info.idBanner.replaceAll("'",""))
             if(!info.Existe){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"no hay aspirante con ese idBanner"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"Id banner incorrecto o no se encuentra"}]
             }
             else if(info.mismaFecha){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`el aspirante ya tiene puntuacion en la fecha ${datos[indice]['fechaExamen']}`}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`El aspirante ya tiene puntuación en la fecha ${datos[indice]['fechaExamen']}`}]
             }
             else if(!info.EstaEnCarga){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"El aspirante no se encuentra en carga y consulta de resultados"}]
+            }else if(info.AA){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada"}]
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
@@ -192,7 +208,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 datos[indice]['LEXIUM_PARA'] = datos[indice]['PARA']
                 datos[indice]['PARA'] = convertirDato(datos[indice]['PARA'])
                 datos[indice]['LEXIUM_Total'] = datos[indice]['Total']
-                datos[indice]['Total'] = convertirDato(datos[indice]['Total'])
+                datos[indice]['Total'] = ""+(parseInt(datos[indice]['PAAN'].toString()) + parseInt(datos[indice]['PAAV'].toString()) + parseInt(datos[indice]['PARA'].toString()) );
                 $scope.final = [ ...$scope.final,datos[indice]]
             }
         })

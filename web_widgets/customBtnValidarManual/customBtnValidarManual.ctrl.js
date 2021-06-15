@@ -8,15 +8,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       //$scope.properties.value = $scope.properties.texto;
       let paso = validacion();
       if(paso){
+          debugger;
           $scope.properties.value.fechaExamen = formatDate($scope.properties.value.fechaExamen)
-          doRequest("POST",$scope.properties.urlPost,$scope.properties.value)
+          
+          let info = [];
+          info.push($scope.properties.value)
+          doRequest("POST",$scope.properties.urlPost,info)
       }
     };
     
     function formatDate(date) {
         //return date.slice(8,10)+"-"+date.slice(5,7)+"-"+date.slice(0,4);
         let current_datetime = date;
-        let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "-" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" +  current_datetime.getFullYear() + " "
+        let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "-" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" +  current_datetime.getFullYear() ;
+        return formatted_date;
     }
     
     function appendLeadingZeroes(n){
@@ -32,7 +37,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     
     function validacion(){
         if(isNullOrUndefined($scope.properties.value.tipoExamen)){
-           swal('¡debe ingresar el tipo de examen!',"","warning")
+           swal('¡No has seleccionado tipo de examen!',"","warning")
             return false; 
         }
         if( isNullOrUndefined($scope.properties.value.IDBANNER) || $scope.properties.value.IDBANNER.length < 8){
@@ -44,25 +49,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             return false;
         }
         if(isNullOrUndefined($scope.properties.value.Total) ){
-            swal(`¡debe ingresar el valor de Puntuación Total!`,"","warning")
+            swal(`¡Debes ingresar el valor de Puntuación Total!`,"","warning")
             return false;
         }
         if(isNullOrUndefined($scope.properties.value.fechaExamen) ){
-            swal(`¡debe ingresar el valor de la fecha de examen!`,"","warning")
+            swal(`¡Debes ingresar el valor de la fecha de examen!`,"","warning")
             return false;
         }
         if(isNullOrUndefined($scope.properties.value.PAAN)){
-            swal(`¡debe ingresar el valor de PAAN!`,"","warning")
+            swal(`¡Debes ingresar el valor de PAAN!`,"","warning")
             return false;
         }
         
         if(isNullOrUndefined($scope.properties.value.PAAV)){
-           swal('¡debe ingresar el valor de PAAV!',"","warning")
+           swal('¡Debes ingresar el valor de PAAV!',"","warning")
             return false; 
         }
         
         if(isNullOrUndefined($scope.properties.value.PARA)){
-           swal('¡debe ingresar el valor de PARA!',"","warning")
+           swal('¡Debes ingresar el valor de PARA!',"","warning")
             return false; 
         }
         return true;

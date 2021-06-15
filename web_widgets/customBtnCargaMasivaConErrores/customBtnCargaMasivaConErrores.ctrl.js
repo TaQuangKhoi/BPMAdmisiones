@@ -10,32 +10,48 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       blockUI.start();
       try{
           if(!isNullOrUndefined($scope.properties.value) ){
-          $scope.properties.value.forEach(datos =>{
-          count++;
-            var info = angular.copy(datos);
-                doRequest("POST",$scope.properties.urlPost,info).then(function() {
-                    if(count == $scope.properties.value.length){
-                        debugger;
-                        if($scope.properties.lstErrores.length > 0){
-                            doRequest("POST",$scope.properties.urlErrores,$scope.properties.lstErrores).then(function(){
-                                $scope.properties.tabla = "tabla"; 
-                                $scope.properties.value = []; 
-                                swal('¡Se han terminado la carga masiva!',"","success")
-                            });
-                        }else{
-                            $scope.properties.tabla = "tabla"; 
-                            $scope.properties.value = []; 
-                            swal('¡Se han terminado la carga masiva!',"","success")
-                        }
-                        
-                        
-                    }    
-                });       
-          }); 
-              
+            doRequest("POST",$scope.properties.urlPost,$scope.properties.value).then(function() {
+                if($scope.properties.lstErrores.length > 0){
+                    doRequest("POST",$scope.properties.urlErrores,$scope.properties.lstErrores).then(function(){
+                        $scope.properties.tabla = "tabla"; 
+                        $scope.properties.value = []; 
+                        swal('¡Se han terminado la carga masiva!',"","success")
+                        doRequest("GET",$scope.properties.urlLimpiar,"")
+                    });
+                }else{
+                    $scope.properties.tabla = "tabla"; 
+                    $scope.properties.value = []; 
+                    swal('¡Se han terminado la carga masiva!',"","success")
+                    doRequest("GET",$scope.properties.urlLimpiar,"")
+                }
+                
+            });    
+        /*$scope.properties.value.forEach(datos =>{
+        count++;
+          var info = angular.copy(datos);
+              doRequest("POST",$scope.properties.urlPost,info).then(function() {
+                  if(count == $scope.properties.value.length){
+                      if($scope.properties.lstErrores.length > 0){
+                          doRequest("POST",$scope.properties.urlErrores,$scope.properties.lstErrores).then(function(){
+                              $scope.properties.tabla = "tabla"; 
+                              $scope.properties.value = []; 
+                              swal('¡Se han terminado la carga masiva!',"","success")
+                              doRequest("GET",$scope.properties.urlLimpiar,"")
+                          });
+                      }else{
+                          $scope.properties.tabla = "tabla"; 
+                          $scope.properties.value = []; 
+                          swal('¡Se han terminado la carga masiva!',"","success")
+                          doRequest("GET",$scope.properties.urlLimpiar,"")
+                      }
+                      
+                      
+                  }    
+              });       
+        }); */
+            
       }
-      }
-      catch(error){}
+      }catch(error){}
       finally{
           blockUI.stop();
       }
