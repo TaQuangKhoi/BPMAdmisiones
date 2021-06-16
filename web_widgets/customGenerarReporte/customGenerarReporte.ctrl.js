@@ -1,12 +1,53 @@
-function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
+function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
 
   'use strict';
 
   var vm = this;
     this.action = function action() {
-        
+        var url="";
+        if($scope.properties.reporte=='Lexium'){
+            url="/bonita/API/extension/AnahuacRest?url=generarReporte&p=0&c=9999";
+        }else if($scope.properties.reporte=='Admitidos al propedéutico'){
+            url="/bonita/API/extension/AnahuacRest?url=generarReporteAdmitidosPropedeutico&p=0&c=9999"
+        }else if($scope.properties.reporte=="Datos de los familiares"){
+            url="/bonita/API/extension/AnahuacRest?url=generarReporteDatosFamiliares&p=0&c=9999"
+        }else{
+            url="/bonita/API/extension/AnahuacRest?url=generarReporteResultadosExamenes&p=0&c=9999"
+        }
+        doRequest("POST",url,null,$scope.properties.dataToSend,function(data){
+          if($scope.properties.fileExtension === "xls"){
+          const blob = b64toBlob(data.data[0]);
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, '_blank');
+            // window.location = blobUrl;
+          }else{
+              fakeLink(data.data[1])
+          }
+        })
     }
+    function b64toBlob(dataURI) {
 
+      var byteString = atob(dataURI);
+      var ab = new ArrayBuffer(byteString.length);
+      var ia = new Uint8Array(ab);
+      let contentType = "text/plain";
+      if($scope.properties.fileExtension === "xls"){
+        contentType = "application/vnd.ms-excel";
+      }
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: contentType });
+  }
+  function fakeLink(rua){
+    const linkSource = `data:text/plain;base64,${rua}`;
+    const downloadLink = document.createElement("a");
+    const fileName = "kwafile.rua";
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
   /**
    * Execute a get/post request to an URL
    * It also bind custom data from success|error to a data

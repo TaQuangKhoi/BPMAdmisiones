@@ -10,7 +10,6 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   
     $scope.forceKeyPressUppercase = function(e)
   {
-      debugger;
     var charInput = e.keyCode;
     var limite = $scope.properties.maxLength === 0 ?250:$scope.properties.maxLength;
     if((charInput >=48) && (charInput <=57)&&(e.target.value.length) <limite){
@@ -21,11 +20,11 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     }else{
             $scope.properties.value = null;
             $scope.properties.value = $scope.properties.max;
-        /*var start = e.target.selectionStart;
+        var start = e.target.selectionStart;
         var end = e.target.selectionEnd;
         e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
         e.target.setSelectionRange(start+1, start+1);
-         e.preventDefault();*/
+         e.preventDefault();
     }
      
     
@@ -34,7 +33,6 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   }
   
     $scope.$watch("properties.value",function(){
-        debugger;
         if($scope.properties.value >= $scope.properties.max){
             $scope.properties.value = null;
             $scope.properties.value = $scope.properties.max;

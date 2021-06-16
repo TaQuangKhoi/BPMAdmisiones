@@ -279,7 +279,6 @@ class ProcessFileDAO {
 					Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 					apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
 				}*/
-
 				
 				if(fileName.equals("constancia")) {
 					Integer countConstancias = 0;
@@ -296,8 +295,6 @@ class ProcessFileDAO {
 					
 					mapEnviarAzure.put("filename", caseId + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
 				}
-				
-				//Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 			} else {
 				throw new Exception("Documento no encontrado");
 			}

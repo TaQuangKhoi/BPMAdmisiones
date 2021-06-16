@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "customGenerarReporte",
   "name" : "GenerarReporte",
-  "lastUpdate" : 1622673752915,
+  "lastUpdate" : 1623354930051,
   "template" : "@customGenerarReporte.tpl.html",
   "icon" : "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 20'><path fill='#fff' d='M10 1v18h30V1H10zm29 17H11V2h28v16zM20 9.1l3 3 5-7L36 16H14l6-6.9zM18 6c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z'/></svg>",
   "controller" : "@customGenerarReporte.ctrl.js",
@@ -41,10 +41,56 @@
       "help" : "Specifies an alternate text for an image. The text should describe the image if the image contains information or should be left empty if the image is only for decoration",
       "type" : "text",
       "bond" : "interpolation"
+    },
+    {
+      "label" : "fileExtension",
+      "name" : "fileExtension",
+      "caption" : "fileExtension",
+      "help" : "fileExtension",
+      "type" : "choice",
+      "defaultValue" : "xls",
+      "choiceValues" : [
+        "xls",
+        "rua"
+      ],
+      "bond" : "expression"
+    },
+    {
+      "label" : "dataToSend",
+      "name" : "dataToSend",
+      "caption" : "dataToSend",
+      "help" : "dataToSend",
+      "type" : "text",
+      "bond" : "variable"
+    },
+    {
+      "label" : "reporte",
+      "name" : "reporte",
+      "caption" : "reporte",
+      "help" : "reporte",
+      "type" : "text",
+      "bond" : "expression"
     }
   ],
-  "assets" : [ ],
-  "requiredModules" : [ ],
+  "assets" : [
+    {
+      "id" : "e1f9dccc-a724-49ba-b85b-d177334616d3",
+      "name" : "angular-block-ui.min.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "6dc06d08-9955-4d59-889d-82804f27d4a1",
+      "name" : "angular-block-ui.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    }
+  ],
+  "requiredModules" : [
+    "blockUI"
+  ],
   "type" : "widget",
   "hasHelp" : false
 }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "SesionesPsicologoAdministrador",
   "name" : "SesionesPsicologoAdministrador",
-  "lastUpdate" : 1622508035158,
+  "lastUpdate" : 1622844864537,
   "rows" : [
     [
       {
@@ -1631,7 +1631,10 @@
         "            campus.push(roles.group_id.name)",
         "        }",
         "    });",
-        "",
+        "if(campus.length === 0){",
+        "   var url = \"/portal/resource/app/administrativo/dashboard/content/\";",
+        "        window.location.replace(url);",
+        "}",
         "return campus;"
       ],
       "exposed" : false

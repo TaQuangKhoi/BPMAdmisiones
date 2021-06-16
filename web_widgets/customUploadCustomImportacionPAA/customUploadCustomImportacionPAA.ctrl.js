@@ -60,7 +60,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         var datos = [];
         //Add the data rows from Excel file.
         for (var i = 0; i < excelRows.length; i++) {
-            datos.push(excelRows[i])
+            datos.push(needValues(excelRows[i]))
         }
         auditoria(datos)
         $scope.$apply();
@@ -83,172 +83,82 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             row.forEach(datos =>{
                 count++;
                 var info = angular.copy(datos);
-                info.fechaExamen = info['Fecha de examen']
+                //info.fechaExamen = info['Fecha de examen']
                 let paso = validacion(info);
                 
                 if(paso){
                     $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
                     $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['fechaExamen']}'`;
-                    info.tipoExamen = "KP"
-                    $scope.correctos = [...$scope.correctos,info]
+                    info.tipoExamen = "KP";
+                    info.INVP = "";
+                    $scope.correctos = [...$scope.correctos,info];
                 }
 
                 if(count === row.length){
-                    doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
-                        if(count == row.length){
+                    if($scope.correctos.length > 0){
+                        doRequest("POST",$scope.properties.urlPost,$scope.lstBanner).then(function() {
+                            if(count == row.length){
+                                $scope.properties.lstErrores = angular.copy($scope.errores)
+                                $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
+                                $scope.properties.tabla = "carga";
+                                //swal('¡Se han terminado la auditoria de los datos!',"","success")
+                            }
+                        })
+                    }else{
                             $scope.properties.lstErrores = angular.copy($scope.errores)
-                            $scope.properties.lstAlumnosResultados = angular.copy($scope.final)
+                            $scope.properties.lstAlumnosResultados = [];
                             $scope.properties.tabla = "carga";
-                            //swal('¡Se han terminado la auditoria de los datos!',"","success")
-                        }
-                    })
+
+                    }
+                    
                         
                 }
             })
           
              
         }
+        
         blockUI.stop();
         
     }
+
+    function needValues(data){
+        let info= {};
+        $scope.properties.revisar.forEach(valor =>{
+            info = Object.assign({[valor]:(data[valor] || '')},info)
+        })
+        info.fechaExamen = (data['Fecha de examen'] || '');
+        info.PAAN = (data['MLEX'] || '');
+        info.PAAV = (data['CLEX'] || '');
+        info.PARA = (data['HLEX'] || '');
+        //info.TOTAL = (data['Total'] || '');
+        info.Nombre = (data['Nombre'] || '');
+        return info;
+    }
     
-    function validacion(dato){
-        
+    function validacion(data){
+        var datos = data;
         var error = "";
-        
-        if( isNullOrUndefined(dato['IDBANNER']) || dato['IDBANNER'].length < 8){
-            error+=(error.length>0?",":"")+"falta el dato id banner"
-        }
-        if(isNullOrUndefined(dato['Total']) ){
-            error+=(error.length>0?",":"")+"falta el dato Puntuación Total"
-        }
-        if(isNullOrUndefined(dato['Fecha de examen']) ){
-            error+=(error.length>0?",":"")+"falta el dato de la fecha de examen"
+        if(datos !== null && datos !== undefined){
+            let columna = datos;
+            for(var key in columna){
+                if( $scope.properties.revisar.includes(key) && key != "fechaExamen" && key != "IDBANNER"){
+                    //json[key.toUpperCase()] = data[key]
+                    if(isNullOrUndefined(data[key])){
+                        error+=(error.length>0?",":"")+"falta el dato "+key
+                    }
+                    
+                }else if(key == "IDBANNER" && isNullOrUndefined(data['IDBANNER']) || key == "IDBANNER" &&  data['IDBANNER'].length != 8){
+                    error+=(error.length>0?",":"")+"falta el dato id banner"
+                }
+            }
             
+            if(error.length > 0){
+                $scope.errores = [ ...$scope.errores,{idBanner:data['IDBANNER'],nombre:data['Nombre'],Error:error}]
+                return false;
+              }
+              return true;
         }
-        if(isNullOrUndefined(dato['PAAN']) ){
-            error+=(error.length>0?",":"")+"falta el dato PAAN"
-            
-        }
-        
-        if(isNullOrUndefined(dato['PAAV']) ){
-           error+=(error.length>0?",":"")+"falta el dato PAAV"
-             
-        }
-        
-        if(isNullOrUndefined(dato['PARA']) ){
-           error+=(error.length>0?",":"")+"falta el dato PARA"
-        }
-        
-        if(isNullOrUndefined(dato['LA1']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA1"
-        }
-        
-        if(isNullOrUndefined(dato['LA2']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA2"
-        }
-        
-        if(isNullOrUndefined(dato['LA3']) ){
-           error+=(error.length>0?",":"")+"falta el dato LA3"
-        }
-        
-        if(isNullOrUndefined(dato['PG1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG1"
-             
-        }
-        
-        if(isNullOrUndefined(dato['PG2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG2"
-        }
-        
-        if(isNullOrUndefined(dato['PG3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG3"
-        }
-        
-        if(isNullOrUndefined(dato['PG4']) ){
-           error+=(error.length>0?",":"")+"falta el dato PG4"
-        }
-        
-        if(isNullOrUndefined(dato['PV1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV1"
-        }
-        
-        if(isNullOrUndefined(dato['PV2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV2"
-        }
-        
-        if(isNullOrUndefined(dato['PV3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PV3"
-        }
-        
-        if(isNullOrUndefined(dato['PE1']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE1"
-        }
-        
-        if(isNullOrUndefined(dato['PE2']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE2"
-        }
-        
-        if(isNullOrUndefined(dato['PE3']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE3"
-        }
-        
-        if(isNullOrUndefined(dato['PE4']) ){
-           error+=(error.length>0?",":"")+"falta el dato PE4"
-        }
-        
-        if(isNullOrUndefined(dato['LEO1']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO1"
-        }
-        
-        if(isNullOrUndefined(dato['LEO2']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO2"
-        }
-        
-        if(isNullOrUndefined(dato['LEO3']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO3"
-        }
-        
-        if(isNullOrUndefined(dato['LEO4']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO4";
-        }
-        
-        if(isNullOrUndefined(dato['LEO5']) ){
-           error+=(error.length>0?",":"")+"falta el dato LEO5"
-        }
-        
-        if(isNullOrUndefined(dato['CIT1']) ){
-           error+=(error.length>0?",":"")+"falta el dato CIT1"
-        }
-        
-        if(isNullOrUndefined(dato['CIT2']) ){
-           error+=(error.length>0?",":"")+"falta el dato CIT2"
-        }
-        
-        if(isNullOrUndefined(dato['HI1']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI1"
-        }
-        if(isNullOrUndefined(dato['HI2']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI2"
-        }
-        
-        if(isNullOrUndefined( dato['HI3']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI3"
-        }
-        if(isNullOrUndefined(dato['HI4']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI4"
-        }
-        if(isNullOrUndefined(dato['HI5']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI5"
-        }
-        if(isNullOrUndefined(dato['HI6']) ){
-           error+=(error.length>0?",":"")+"falta el dato HI6";
-        }
-        if(error.length > 0){
-          $scope.errores = [ ...$scope.errores,{idBanner:dato['IDBANNER'],nombre:dato['Nombre'],Error:error}]
-          return false;
-        }
-        return true;
     }
     
     function isNullOrUndefined(dato){
@@ -279,13 +189,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             //let lstidBanner = info.idBanner.split(',')
             let indice = findData(info.idBanner.replaceAll("'",""))
             if(!info.Existe){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"no hay aspirante con ese idBanner"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"Id banner incorrecto o no se encuentra"}]
             }
             else if(info.mismaFecha){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`el aspirante ya tiene puntuacion en la fecha ${datos[indice]['fechaExamen']}`}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:`El aspirante ya tiene puntuación en la fecha ${datos[indice]['fechaExamen']}`}]
             }
             else if(!info.EstaEnCarga){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"el aspirante no se encuantra en carga y consulta de resultados"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"El aspirante no se encuentra en carga y consulta de resultados"}]
+            }else if(info.AA){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice]['IDBANNER'],nombre:datos[indice]['Nombre'],Error:"Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada"}]
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
@@ -296,7 +208,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 datos[indice]['LEXIUM_PARA'] = datos[indice]['PARA']
                 datos[indice]['PARA'] = convertirDato(datos[indice]['PARA'])
                 datos[indice]['LEXIUM_Total'] = datos[indice]['Total']
-                datos[indice]['Total'] = convertirDato(datos[indice]['Total'])
+                datos[indice]['Total'] = ""+(parseInt(datos[indice]['PAAN'].toString()) + parseInt(datos[indice]['PAAV'].toString()) + parseInt(datos[indice]['PARA'].toString()) );
                 $scope.final = [ ...$scope.final,datos[indice]]
             }
         })
@@ -310,5 +222,13 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         });
         return  index
     }
+    
+    
+    function sliceDate(date){
+        
+        return `${date.slice(0,2)}-${date.slice(3,5)}-${date.slice(6,11)}`
+    }
+    
+   
     
 }

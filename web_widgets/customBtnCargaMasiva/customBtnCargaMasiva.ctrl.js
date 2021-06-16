@@ -8,8 +8,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       //$scope.properties.value = $scope.properties.texto;
       var count = 0;
       blockUI.start();
-      if(!isNullOrUndefined($scope.properties.value) ){
-          $scope.properties.value.forEach(datos =>{
+      try{
+          if(!isNullOrUndefined($scope.properties.value) ){
+            doRequest("POST",$scope.properties.urlPost,$scope.properties.value);
+            
+          /*$scope.properties.value.forEach(datos =>{
           count++;
             var info = angular.copy(datos);
                 doRequest("POST",$scope.properties.urlPost,info).then(function() {
@@ -19,12 +22,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal('¡Se han terminado la carga masiva!',"","success")
                     }    
                 });       
-          }); 
+          }); */
               
       }
-      
-      blockUI.stop();
-      
+      }
+      catch(error){}
+      finally{
+          blockUI.stop();
+      }
     };
     
     
@@ -46,9 +51,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .success(function (data, status) {
                 console.log(status)
                 console.log(data)
+                $scope.properties.tabla = "tabla"; 
+                $scope.properties.value = []; 
+                swal('¡Carga de resultados exitosa!',"","success")
             })
             .error(function (data, status) {
-                
+                swal("¡Carga incorrecta de resultados!","","error")
             })
             .finally(function () {
                 
