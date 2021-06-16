@@ -37,6 +37,7 @@ import com.anahuac.model.ProcesoCasoDAO
 import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.Entity.CaseVariable
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Transferencias
 import com.anahuac.catalogos.CatBachilleratosDAO
@@ -663,7 +664,7 @@ class ListadoDAO {
 				//CODIGO PP
 				else if (object.estatusSolicitud.equals("Aspirantes en proceso")) {
 					//where+=" AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en proceso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' )"
-					where += " AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en proceso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud a modificar' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud modificada' )"
+					where += " AND (sda.ESTATUSSOLICITUD != 'Solicitud rechazada') AND (sda.ESTATUSSOLICITUD != 'Solicitud lista roja') AND (sda.ESTATUSSOLICITUD != 'Aspirantes registrados sin validación de cuenta') AND (sda.ESTATUSSOLICITUD !='Aspirantes registrados con validación de cuenta') AND (sda.ESTATUSSOLICITUD != 'Solicitud en proceso') AND (sda.ESTATUSSOLICITUD != 'Solicitud recibida' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud a modificar' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud modificada' ) AND (sda.ESTATUSSOLICITUD != 'Solicitud vencida')"
 				} else if (object.estatusSolicitud.equals("Aspirantes en proceso aceptados")) {
 					where += " AND (sda.ESTATUSSOLICITUD = 'Sin definir')"
 				} else if (object.estatusSolicitud.equals("Aspirantes en proceso resultados")) {
@@ -1362,11 +1363,13 @@ class ListadoDAO {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
+						boolean noAzure = false;
 						try {
 							String urlFoto = rs.getString("urlfoto");
 							if (urlFoto != null && !urlFoto.isEmpty()) {
 								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
 							} else {
+								noAzure = true;
 								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
 								for (Document doc: doc1) {
 									encoded = "../API/formsDocumentImage?document=" + doc.getId();
@@ -1385,7 +1388,10 @@ class ListadoDAO {
 							} */
 						} catch (Exception e) {
 							LOGGER.error "[ERROR] " + e.getMessage();
-							columns.put("fotografiab64", "");
+							columns.put("fotografiabpm", "");
+							if(noAzure){
+								columns.put("fotografiab64", "");
+							}
 							errorlog += "" + e.getMessage();
 						}
 					}
@@ -9192,6 +9198,68 @@ class ListadoDAO {
 
 		return resultado;
 	}
+	
+	public Result archivedCaseVariable(String caseId, RestAPIContext context) {
+		Result resultado = new Result();
+		
+		CaseVariable objCaseVariable = new CaseVariable();
+		
+		List<CaseVariable> lstCaseVariable = new ArrayList<CaseVariable>();
+		List<String> lstIdVariable = new ArrayList<String>();
+		
+		Boolean closeCon = false;
+		
+		String strListVariable = "";
+		
+		try {
+			closeCon = validarConexionBonita();
+			pstm = con.prepareStatement(Statements.GET_ID_CASEVARIABLE)
+			pstm.setLong(1, Long.valueOf(caseId));
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				lstIdVariable.add(rs.getString("idVariable"));
+			}
+			
+			if(lstIdVariable.size()>0) {
+				strListVariable = lstIdVariable.join(",");
+				pstm = con.prepareStatement(Statements.GET_CASEVARIABLE.replace("[LISTIDVARIABLE]", strListVariable));
+				rs = pstm.executeQuery()
+				while (rs.next()) {
+					objCaseVariable = new CaseVariable();
+					objCaseVariable.setCase_id(rs.getString("containerid"));
+					objCaseVariable.setName(rs.getString("name"));
+					objCaseVariable.setDescription("");
+					objCaseVariable.setType(rs.getString("classname"));
+					
+					if(rs.getString("classname").equals("java.lang.Long")){
+					    objCaseVariable.setValue(rs.getString("longvalue") == null ? null : rs.getString("longvalue"));
+					} else if(rs.getString("classname").equals("java.lang.Boolean")){
+					    objCaseVariable.setValue(rs.getBoolean("booleanvalue") == null ? null : rs.getBoolean("booleanvalue").toString());
+					} else if(rs.getString("classname").equals("java.lang.String")){
+					    objCaseVariable.setValue(rs.getString("clobvalue") == null ? null : rs.getString("clobvalue"));
+					} else if(rs.getString("classname").equals("java.util.Date")){
+					    objCaseVariable.setValue(rs.getString("longvalue") == null ? null : rs.getString("longvalue"));
+					} else if(rs.getString("classname").equals("java.util.Map")){
+					    objCaseVariable.setValue(rs.getString("clobvalue") == null ? null : rs.getString("clobvalue"));
+					}
+					
+					lstCaseVariable.add(objCaseVariable);
+				}
+			}
+			resultado.setData(lstCaseVariable);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
 
 	private String encodeFileToBase64Binary(String fileName)
 	throws IOException {
@@ -9231,6 +9299,15 @@ class ListadoDAO {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
 			con = new DBConnect().getConnection();
+			retorno = true
+		}
+		return retorno
+	}
+	
+	public Boolean validarConexionBonita() {
+		Boolean retorno = false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
 			retorno = true
 		}
 		return retorno

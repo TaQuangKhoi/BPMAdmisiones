@@ -219,8 +219,14 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         return $http(req)
             .success(function (data, status) {
                 //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
+                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                if(data.length>0){
+                    url = url.replace("[TASKID]", data[0].id);
+                }
+                else {
+                    url = url.replace("[TASKID]", "");
+                }
+                url = url.replace("[CASEID]", rowData.caseid);
                 //window.top.location.href = url;
                 window.open(url,'_blank');
             })

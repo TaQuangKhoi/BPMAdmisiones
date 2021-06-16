@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmision",
   "name" : "viewValidarSolicitudDeAdmision",
-  "lastUpdate" : 1622249806680,
+  "lastUpdate" : 1623284155288,
   "rows" : [
     [
       {
@@ -31,6 +31,78 @@
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "taskId"
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : "context"
+                },
+                "urlCase" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "ec571d13-e665-436b-b0e9-5be7158a2b77",
+              "hasValidationError" : false,
+              "id" : "customLoadContext"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "caseVariable" : {
+                  "type" : "variable",
+                  "value" : "caseVariables"
+                }
+              },
+              "reference" : "eb413279-db1a-4d25-b195-a6041cc03083",
+              "hasValidationError" : false,
+              "id" : "customLoadCaseVariable"
+            }
+          ],
           [
             {
               "type" : "component",
@@ -27740,9 +27812,9 @@
       "exposed" : false
     },
     "context" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "{}"
       ],
       "exposed" : false
     },
@@ -28294,18 +28366,9 @@
       "exposed" : false
     },
     "caseId" : {
-      "type" : "expression",
+      "type" : "urlparameter",
       "value" : [
-        "var resultado=0;",
-        "",
-        "/*if($data.getCaseId != undefined || $data.getCaseId != null){",
-        "    if($data.getCaseId.length > 0){",
-        "        resultado = $data.getCaseId[0].caseId;",
-        "    }",
-        "}*/",
-        "resultado = $data.objSolicitudDeAdmision.caseId",
-        "//console.log($data.objSolicitudDeAdmision)",
-        "return resultado;"
+        "caseId"
       ],
       "exposed" : false
     },
@@ -28561,9 +28624,9 @@
       "exposed" : false
     },
     "caseVariables" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bpm/caseVariable?p=0&c=100&f=case_id={{objSolicitudDeAdmision.caseId}}"
+        "[]"
       ],
       "exposed" : false
     },
@@ -29201,6 +29264,13 @@
         "}\r",
         "\r",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "urlCase" : {
+      "type" : "urlparameter",
+      "value" : [
+        "caseId"
       ],
       "exposed" : false
     }

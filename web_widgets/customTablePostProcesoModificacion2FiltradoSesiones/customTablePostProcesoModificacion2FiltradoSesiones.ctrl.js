@@ -142,7 +142,6 @@ $scope.functionFechaExmenes = function (row, op) {
     }
 
     $scope.asignarTarea = function (rowData) {
-
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -150,17 +149,22 @@ $scope.functionFechaExmenes = function (row, op) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
-                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
-                //window.top.location.href = url;
-                 window.open(url,'_blank');
+                var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                if(data.length>0){
+                    url = url.replace("[TASKID]", data[0].id);
+                }
+                else {
+                    url = url.replace("[TASKID]", "");
+                }
+                url = url.replace("[CASEID]", rowData.caseid);
+                window.open(url,'_blank');
             })
             .error(function (data, status) {
                 console.error(data);
             })
             .finally(function () { });
     }
+
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";

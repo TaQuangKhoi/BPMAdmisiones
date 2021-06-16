@@ -1122,11 +1122,6 @@ class BecasDAO {
 									}
 								}
 								
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiabpm", encoded);
-								}
-								
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
 								errorlog+= ""+e.getMessage();

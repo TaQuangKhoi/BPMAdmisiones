@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1622508667687,
+  "lastUpdate" : 1623350258761,
   "rows" : [
     [
       {
@@ -15500,6 +15500,38 @@
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "getDuplicado" : {
+                        "type" : "variable",
+                        "value" : "findByCorreoElectronico"
+                      },
+                      "parametros" : {
+                        "type" : "variable",
+                        "value" : "parametros"
+                      }
+                    },
+                    "reference" : "12b78b11-dfe3-48e0-b23e-ac05e2d43648",
+                    "hasValidationError" : false,
+                    "id" : "customLoadUsuariosDuplicados"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
                       "md" : 9,
                       "lg" : 9
                     },
@@ -18317,6 +18349,50 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "isActualizarInformacion" : {
+                  "type" : "variable",
+                  "value" : "isActualizarInformacion.value"
+                },
+                "objSolicitudDeAdmision" : {
+                  "type" : "variable",
+                  "value" : "objSolicitudDeAdmision"
+                },
+                "objSolicitudDeAdmisionRespaldo" : {
+                  "type" : "variable",
+                  "value" : "objSolicitudDeAdmisionRespaldo"
+                },
+                "objTutor" : {
+                  "type" : "variable",
+                  "value" : "objTutor[0]"
+                },
+                "objTutorRespaldo" : {
+                  "type" : "variable",
+                  "value" : "objTutorRespaldo"
+                }
+              },
+              "reference" : "109f8c9e-cb7a-4136-9c37-39c1be35958c",
+              "hasValidationError" : false,
+              "id" : "customActualizarInformacion"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : "color-orange"
                 },
                 "hidden" : {
@@ -18347,6 +18423,46 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cambiar información del aspirante"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "isActualizarInformacion.value"
+                }
+              },
+              "reference" : "2089471e-f31b-46d8-b6f4-9f7d01a92cfd",
+              "hasValidationError" : false,
+              "id" : "pbCheckbox"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
                 "md" : 6,
                 "lg" : 6
               },
@@ -18369,11 +18485,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 50
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18381,7 +18497,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Primer nombre:"
+                  "value" : "Primer nombre: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -18411,11 +18527,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : "txtPNombre"
                 }
               },
-              "reference" : "d41c7ea6-f508-425b-bf1d-e39d0f61a4ec",
+              "reference" : "42c47b54-a663-4037-b321-da819034a009",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMay"
             },
             {
               "type" : "component",
@@ -18444,11 +18564,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 50
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18486,11 +18606,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : "txtSNombre"
                 }
               },
-              "reference" : "258c298f-a2cc-43b3-82f3-7f6877d663e3",
+              "reference" : "aadf440e-bcc3-4fa9-82e3-de7bec4c4d25",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMay"
             }
           ],
           [
@@ -18521,11 +18645,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 50
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18533,7 +18657,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Apellido paterno:"
+                  "value" : "Apellido paterno: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -18563,11 +18687,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : "txtApellidoP"
                 }
               },
-              "reference" : "906c79fa-96ba-4390-a5cc-67496d82dec2",
+              "reference" : "17973135-8676-40d5-95e2-c48b81c5269d",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMay"
             },
             {
               "type" : "component",
@@ -18596,11 +18724,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 50
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18638,11 +18766,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : "txtApellidoM"
                 }
               },
-              "reference" : "b19a7ea0-e87c-4304-9533-d8d63514d2af",
+              "reference" : "5312f817-288d-4a3c-ba9d-1ca9fed91732",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMay"
             }
           ],
           [
@@ -18660,8 +18792,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "isActualizarInformacion.value"
                 },
                 "required" : {
                   "type" : "constant",
@@ -18685,7 +18817,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Sexo:"
+                  "value" : "Sexo: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -18735,8 +18867,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "isActualizarInformacion.value"
                 },
                 "required" : {
                   "type" : "constant",
@@ -18760,7 +18892,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Nacionalidad:"
+                  "value" : "Nacionalidad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -18812,6 +18944,139 @@
                   "value" : ""
                 },
                 "hidden" : {
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Sexo: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Select an option"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catSexo"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "objSolicitudDeAdmision.catSexo"
+                }
+              },
+              "reference" : "8c3e64be-5e20-4a0f-ba74-f789371c07c7",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Nacionalidad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Select an option"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "catNacionalidad"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "objSolicitudDeAdmision.catNacionalidad"
+                }
+              },
+              "reference" : "a2523ec1-ca70-478d-bb0c-181da1daacf6",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
                   "type" : "constant",
                   "value" : false
                 },
@@ -18821,15 +19086,15 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 0
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 18
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18837,7 +19102,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "{{objSolicitudDeAdmision.catNacionalidad.descripcion == \"Mexicana\"?\"CURP:\":\"Número de pasaporte:\"}}"
+                  "value" : "{{objSolicitudDeAdmision.catNacionalidad.descripcion == \"Mexicana\"?\"CURP:\":\"Número de pasaporte:\"}} <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -18869,9 +19134,9 @@
                   "value" : 1
                 }
               },
-              "reference" : "49342d0d-8e98-4ad3-8f3e-d840349c610b",
+              "reference" : "3f08d13e-80bc-4302-820d-3ab0483c6406",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMayusculasyNumeros"
             },
             {
               "type" : "component",
@@ -18955,8 +19220,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
+                "md" : 3,
+                "lg" : 3
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -18977,11 +19242,11 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 20
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -18989,7 +19254,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Tutor:"
+                  "value" : "Nombre tutor: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -19004,7 +19269,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "objTutor[0].nombre+\" \"+objTutor[0].apellidos"
+                  "value" : "objTutor[0].nombre"
                 },
                 "type" : {
                   "type" : "constant",
@@ -19019,11 +19284,94 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
-              "reference" : "fc4f56cb-dc03-4951-9105-628db9c7067c",
+              "reference" : "00abdbb7-511d-4de2-963b-02206634b3e7",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputMinMay"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 3,
+                "lg" : 3
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : 20
+                },
+                "readOnly" : {
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Apellido tutor <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "objTutor[0].apellidos"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                },
+                "idInput" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "572ce7f2-68e4-45f1-af43-bebd06c4cae4",
+              "hasValidationError" : false,
+              "id" : "customInputMinMay"
             },
             {
               "type" : "component",
@@ -19048,15 +19396,15 @@
                 },
                 "minLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 0
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : 2
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -19064,7 +19412,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Promedio general:"
+                  "value" : "Promedio general: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -19086,19 +19434,21 @@
                   "value" : "text"
                 },
                 "min" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 0
                 },
                 "max" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : 10
                 },
                 "step" : {
                   "type" : "constant",
                   "value" : 1
                 }
               },
-              "reference" : "32e02f98-9d7f-4140-bf6a-9f49847d0a0f",
+              "reference" : "8e917010-77ea-480e-896a-635b2bac2ab6",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "customInputNumericoSolicitudUpdate"
             }
           ],
           [
@@ -19120,8 +19470,8 @@
                   "value" : false
                 },
                 "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
                 },
                 "required" : {
                   "type" : "constant",
@@ -19133,7 +19483,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Fecha de nacimiento"
+                  "value" : "Fecha de nacimiento <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -19164,9 +19514,9 @@
                   "value" : "Today"
                 }
               },
-              "reference" : "205e9b54-ac6f-4eb3-b9db-430770b4403d",
+              "reference" : "ac89edbd-93f8-4ea7-9b5e-55641e17b9c4",
               "hasValidationError" : false,
-              "id" : "pbDatePicker"
+              "id" : "customDatePickerCustomSA2"
             },
             {
               "type" : "component",
@@ -19242,6 +19592,122 @@
               "reference" : "b62f238d-cf23-4659-b597-b15f844aa979",
               "hasValidationError" : false,
               "id" : "customInputNumerico"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "!isActualizarInformacion.value"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Actualizar información"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "updateInformacion" : {
+                  "type" : "variable",
+                  "value" : "updateInformacion"
+                },
+                "isActualizarInformacion" : {
+                  "type" : "variable",
+                  "value" : "isActualizarInformacion"
+                },
+                "objSolicitudDeAdmisionRespaldo" : {
+                  "type" : "variable",
+                  "value" : "objSolicitudDeAdmisionRespaldo"
+                },
+                "objTutorRespaldo" : {
+                  "type" : "variable",
+                  "value" : "objTutorRespaldo"
+                },
+                "getDuplicado" : {
+                  "type" : "variable",
+                  "value" : "findByCorreoElectronico"
+                },
+                "parametros" : {
+                  "type" : "variable",
+                  "value" : "parametros"
+                }
+              },
+              "reference" : "464e89ee-331d-4694-bf99-13545d735897",
+              "hasValidationError" : false,
+              "id" : "customButtonActualizarInformacion"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<hr>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "c44c38fc-3e50-44bd-bfd7-feccefd1cebf",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -26834,9 +27300,9 @@
       "exposed" : false
     },
     "findByCorreoElectronico" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getDuplicado&correoElectronico={{objSolicitudDeAdmision.correoElectronico}}&fechaNacimiento={{objSolicitudDeAdmision.fechaNacimiento.toString()}}&curp={{curp}}&nombre={{NombreAspirante}}&caseid={{objSolicitudDeAdmision.caseId}}&p=0&c=9999{{nombreParametros}}"
+        "{}"
       ],
       "exposed" : false
     },
@@ -28011,6 +28477,69 @@
         "}",
         "",
         "return output;"
+      ],
+      "exposed" : false
+    },
+    "isActualizarInformacion" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"value\" : false",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "updateInformacion" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = {\r",
+        "    \"objSolicitudDeAdmisionPersistenceId\": $data.objSolicitudDeAdmision.persistenceId,\r",
+        "    \"objSolicitudDeAdmisionPrimerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
+        "    \"objSolicitudDeAdmisionSegundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
+        "    \"objSolicitudDeAdmisionApellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
+        "    \"objSolicitudDeAdmisionApellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno,\r",
+        "    \"objSolicitudDeAdmisionCurp\": $data.objSolicitudDeAdmision.curp,\r",
+        "    \"objSolicitudDeAdmisionPromedioGeneral\": $data.objSolicitudDeAdmision.promedioGeneral,\r",
+        "    \"objSolicitudDeAdmisionFechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento,\r",
+        "    \"objSolicitudDeAdmisionCatSexoPersistenceId\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
+        "    \"objSolicitudDeAdmisionCatNacionalidadPersistenceId\": $data.objSolicitudDeAdmision.catNacionalidad.persistenceId,\r",
+        "    \"objTutorPersistenceId\": $data.objTutor[0].persistenceId,\r",
+        "    \"objTutorNombre\": $data.objTutor[0].nombre,\r",
+        "    \"objTutorApellidos\": $data.objTutor[0].apellidos\r",
+        "};\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "objSolicitudDeAdmisionRespaldo" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "objTutorRespaldo" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "parametros" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
+        "    \"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
+        "    \"curp\": $data.curp,\r",
+        "    \"nombre\": $data.NombreAspirante,\r",
+        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
+        "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
+        "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
+        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno\r",
+        "}"
       ],
       "exposed" : false
     }

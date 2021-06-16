@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1622658834388,
+  "lastUpdate" : 1623456131681,
   "rows" : [
     [
       {
@@ -60,7 +60,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showbuttons"
+            "value" : "showbuttons || (selectedIndex === 0)"
           },
           "content" : {
             "type" : "variable",
@@ -74,6 +74,176 @@
         "reference" : "ca8b2112-1999-44dc-96c4-e1539c9cc875",
         "hasValidationError" : false,
         "id" : "customWizardtestsolicitud"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "selectedIndex !== 0"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "1541bd77-ed38-48e7-9646-8d860a8920d2",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "color-orange"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Tu solicitud venció"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "32f28961-7931-469c-a5db-b231a5b91a73",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "La solicitud que iniciaste ya ha perdido validez debido al tiempo que ha pasado desde que lo iniciaste. Si deseas comenzar tu solicitud nuevamente, da clic en el botón \"Reintentar\".\n\nNota: Todos los datos que proporcionaste anteriormente estarán presentes en esta nueva solicitud, pero deberás seleccionar un periodo diferente para tu nuevo intento."
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "ca94cc23-8aa8-4e6a-88d3-aaf438fceec6",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Reintentar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Siguiente"
+                }
+              },
+              "reference" : "6ca4f0eb-f787-4e3d-adc2-d2835a5c2378",
+              "hasValidationError" : false,
+              "id" : "customBtnWizardIndex2"
+            }
+          ]
+        ]
       }
     ],
     [
@@ -11303,7 +11473,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showbuttons"
+            "value" : "showbuttons || (selectedIndex === 0)"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -18751,10 +18921,31 @@
   ],
   "assets" : [
     {
-      "id" : "0e1a8102-48fc-43f6-9ec1-31e65321ca96",
-      "name" : "noimageavailable.png",
+      "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
+      "name" : "LogoAnahuacMerida.png",
       "type" : "img",
-      "order" : 54,
+      "order" : 43,
+      "external" : false
+    },
+    {
+      "id" : "82fd3565-70a3-45b1-8ada-7e5a0bdb6899",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 38,
+      "external" : false
+    },
+    {
+      "id" : "d2e8123d-edee-4cc8-9f9f-9f5be34ded68",
+      "name" : "LogoAnahuacMexicoNorte.png",
+      "type" : "img",
+      "order" : 44,
+      "external" : false
+    },
+    {
+      "id" : "2be7c5cc-1e4a-4f7e-94ff-9ec33ea5e8a8",
+      "name" : "LogoAnahuacPuebla.png",
+      "type" : "img",
+      "order" : 47,
       "external" : false
     },
     {
@@ -18762,6 +18953,62 @@
       "name" : "LogoAnahuacQueretaro.png",
       "type" : "img",
       "order" : 48,
+      "external" : false
+    },
+    {
+      "id" : "84aee134-2db8-4d7b-9283-87cafbedb8c4",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 40,
+      "external" : false
+    },
+    {
+      "id" : "b857eda8-2f97-4671-a0ad-5cd384f41366",
+      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
+      "type" : "img",
+      "order" : 49,
+      "external" : false
+    },
+    {
+      "id" : "953e9d17-4c6c-441f-aa43-87e3d9064081",
+      "name" : "LogoAnahuacMexicoSur.png",
+      "type" : "img",
+      "order" : 45,
+      "external" : false
+    },
+    {
+      "id" : "662f6aa6-73e1-4572-ac70-4fa0c4983f6a",
+      "name" : "pdf.png",
+      "type" : "img",
+      "order" : 53,
+      "external" : false
+    },
+    {
+      "id" : "ed9ed6d8-fed4-4a55-96ad-42eb35387590",
+      "name" : "LogoAnahuacVeracruzXalapa.png",
+      "type" : "img",
+      "order" : 50,
+      "external" : false
+    },
+    {
+      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "f153e149-591b-48b7-b837-b664e5bd5e8e",
+      "name" : "jquery.disableAutoFill.min.js",
+      "type" : "js",
+      "order" : 56,
+      "external" : false
+    },
+    {
+      "id" : "0e1a8102-48fc-43f6-9ec1-31e65321ca96",
+      "name" : "noimageavailable.png",
+      "type" : "img",
+      "order" : 54,
       "external" : false
     },
     {
@@ -18779,6 +19026,20 @@
       "external" : false
     },
     {
+      "id" : "2f9b8c41-2147-4408-bd97-da3aca028711",
+      "name" : "LogoAnahuacOaxaca.png",
+      "type" : "img",
+      "order" : 46,
+      "external" : false
+    },
+    {
+      "id" : "3cd41096-68a6-4f8f-91b0-f42023ead457",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 41,
+      "external" : false
+    },
+    {
       "id" : "159355d6-3c1a-4e26-8f86-a1a4944d01e0",
       "name" : "LogoInstitutoJuanPabloII.png",
       "type" : "img",
@@ -18790,97 +19051,6 @@
       "name" : "noimageavailabledoc.png",
       "type" : "img",
       "order" : 55,
-      "external" : false
-    },
-    {
-      "id" : "2be7c5cc-1e4a-4f7e-94ff-9ec33ea5e8a8",
-      "name" : "LogoAnahuacPuebla.png",
-      "type" : "img",
-      "order" : 47,
-      "external" : false
-    },
-    {
-      "id" : "953e9d17-4c6c-441f-aa43-87e3d9064081",
-      "name" : "LogoAnahuacMexicoSur.png",
-      "type" : "img",
-      "order" : 45,
-      "external" : false
-    },
-    {
-      "id" : "f153e149-591b-48b7-b837-b664e5bd5e8e",
-      "name" : "jquery.disableAutoFill.min.js",
-      "type" : "js",
-      "order" : 56,
-      "external" : false
-    },
-    {
-      "id" : "3cd41096-68a6-4f8f-91b0-f42023ead457",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 41,
-      "external" : false
-    },
-    {
-      "id" : "d2e8123d-edee-4cc8-9f9f-9f5be34ded68",
-      "name" : "LogoAnahuacMexicoNorte.png",
-      "type" : "img",
-      "order" : 44,
-      "external" : false
-    },
-    {
-      "id" : "84aee134-2db8-4d7b-9283-87cafbedb8c4",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 40,
-      "external" : false
-    },
-    {
-      "id" : "ed9ed6d8-fed4-4a55-96ad-42eb35387590",
-      "name" : "LogoAnahuacVeracruzXalapa.png",
-      "type" : "img",
-      "order" : 50,
-      "external" : false
-    },
-    {
-      "id" : "b857eda8-2f97-4671-a0ad-5cd384f41366",
-      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
-      "type" : "img",
-      "order" : 49,
-      "external" : false
-    },
-    {
-      "id" : "662f6aa6-73e1-4572-ac70-4fa0c4983f6a",
-      "name" : "pdf.png",
-      "type" : "img",
-      "order" : 53,
-      "external" : false
-    },
-    {
-      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "2f9b8c41-2147-4408-bd97-da3aca028711",
-      "name" : "LogoAnahuacOaxaca.png",
-      "type" : "img",
-      "order" : 46,
-      "external" : false
-    },
-    {
-      "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
-      "name" : "LogoAnahuacMerida.png",
-      "type" : "img",
-      "order" : 43,
-      "external" : false
-    },
-    {
-      "id" : "82fd3565-70a3-45b1-8ada-7e5a0bdb6899",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 38,
       "external" : false
     },
     {

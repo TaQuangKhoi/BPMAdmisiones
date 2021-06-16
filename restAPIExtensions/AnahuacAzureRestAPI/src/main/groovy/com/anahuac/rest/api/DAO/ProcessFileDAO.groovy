@@ -39,6 +39,8 @@ class ProcessFileDAO {
 	
 	public Result obtenerDocumentos(Long caseId, RestAPIContext context) {
 		Result resultado = new Result();
+		Result resultadoDeleteDocument = new Result();
+		
 		List<Object> lstResultado = new ArrayList<Object>();
 		Map<String, String> mapDocumentos = new LinkedHashMap<String, String>();
 		Boolean closeCon = false;
@@ -170,10 +172,21 @@ class ProcessFileDAO {
 				pstm.executeUpdate();
 			}
 			
-			lstResultado.add(mapDocumentos);
-			resultado.setData(lstResultado);
-			resultado.setSuccess(true);
-		}catch(Exception ex) {
+			new DBConnect().closeObj(con, stm, rs, pstm);
+			
+			resultadoDeleteDocument = deleteDocumentBonita(caseId);
+			if(resultadoDeleteDocument.isSuccess()) {
+				lstResultado.add(mapDocumentos);
+				resultado.setData(lstResultado);
+				resultado.setSuccess(true);
+			}
+			else {
+				LOGGER.error resultadoDeleteDocument.getError();
+				resultado.setSuccess(false)
+				resultado.setError(resultadoDeleteDocument.getError());
+			}			
+			
+		} catch(Exception ex) {
 			LOGGER.error ex.getMessage()
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
@@ -184,6 +197,57 @@ class ProcessFileDAO {
 		}
 		  
 		return resultado;
+	}
+	
+	public Result deleteDocumentBonita(Long caseId) {
+		Result resultado = new Result();
+		
+		Boolean closeCon = false;
+		
+		List<Integer> lstDocumentId = new ArrayList<Integer>();
+		
+		try {
+			closeCon = validarConexionBonita();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement(Statements.GET_DOCUMENT_TO_DELETE);
+			pstm.setLong(1, caseId);
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				lstDocumentId.add(rs.getInt("documentid"));
+			}
+			
+			if(lstDocumentId.size() > 0) {
+				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT.replace("[LSTDOCUMENTOID]", lstDocumentId.join(",")));
+				pstm.executeUpdate();
+				
+				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT_MAPPING);
+				pstm.setLong(1, caseId);
+				pstm.executeUpdate();
+				
+			}
+			con.commit();
+			con.setAutoCommit(true);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			con.rollback();
+			con.setAutoCommit(true);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Boolean validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+		return retorno;
 	}
 	
 	public Map<String, String> getFileBase64(org.bonitasoft.engine.api.APIClient apiClient, Long caseId, String fileName) {
@@ -211,11 +275,11 @@ class ProcessFileDAO {
 				mapEnviarAzure.put("filetype", archivoDoc.getContentMimeType());
 				mapEnviarAzure.put("contenedor", "privado");
 				//esto estaba comentado y las otras dos funciones descomentadas
-				if(!fileName.equals("fotoPasaporte")) {
+				/*if(!fileName.equals("fotoPasaporte")) {
 					Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 					apiClient.getProcessAPI().deleteContentOfArchivedDocument(archivo.id);
-				}
-				
+				}*/
+
 				
 				if(fileName.equals("constancia")) {
 					Integer countConstancias = 0;
@@ -233,8 +297,7 @@ class ProcessFileDAO {
 					mapEnviarAzure.put("filename", caseId + "/v-" + (countConstancias + 1) + " " + archivoDoc.getContentFileName());
 				}
 				
-				
-				Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
+				//Document deletedDoc = apiClient.getProcessAPI().removeDocument(archivo.id);
 			} else {
 				throw new Exception("Documento no encontrado");
 			}

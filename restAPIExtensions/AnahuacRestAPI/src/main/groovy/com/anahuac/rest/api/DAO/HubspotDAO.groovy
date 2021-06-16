@@ -1085,6 +1085,10 @@ class HubspotDAO {
 			}
 			
 			resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+			
+			Result dataResult = new Result();
+			dataResult = new TransferenciasDAO().GuardarFaltas(object.email);
+			LOGGER.error "dataResult: "+dataResult.getError()
 			//resultado.setSuccess(true);
 		} catch (Exception e) {
 			LOGGER.error "e: "+e.getMessage();

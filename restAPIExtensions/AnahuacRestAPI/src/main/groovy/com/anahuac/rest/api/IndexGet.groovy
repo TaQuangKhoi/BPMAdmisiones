@@ -24,7 +24,9 @@ import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
+import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
@@ -262,7 +264,16 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
-				
+				case "archivedCaseVariable":
+					String caseId =request.getParameter "caseId"
+					result = new ListadoDAO().archivedCaseVariable(caseId, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
 				case "getUserBonita":
 				String jsonData =request.getParameter "jsonData"
 				result = new SesionesDAO().getUserBonita(jsonData,context)
@@ -639,6 +650,38 @@ class IndexGet implements RestApiController {
 					}
 				break;
 				
+				case "getListaBitacoraRC":
+					result = new ResultadoComiteDAO().getListaBitacoraRC(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getLimpiarBitacoraErrores":
+					result = new ResultadoComiteDAO().getLimpiarBitacoraErrores(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getAspiranteRC":
+					String idbanner = request.getParameter "idbanner";
+				
+					result = new ResultadoComiteDAO().getAspiranteRC(idbanner,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
 					String correo = request.getParameter "correoElectronico";
@@ -762,6 +805,15 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				case "getSesionesReporte":
+				String jsonData =request.getParameter "jsonData"
+				result = new SesionesDAO().getSesionesReporte(jsonData)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 			}
 		}catch (Exception e) {
 			e.printStackTrace()
@@ -777,6 +829,12 @@ class IndexGet implements RestApiController {
 		}
 	}
 
+	public Result notFound(String url) {
+		Result resultado = new Result();
+		resultado.setSuccess(false);
+		resultado.setError("No se reconoce el servicio: "+url);
+		return resultado
+	}
 	/**
 	 * Build an HTTP response.
 	 *
