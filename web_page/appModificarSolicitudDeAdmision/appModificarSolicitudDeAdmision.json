@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1622652982940,
+  "lastUpdate" : 1623799846982,
   "rows" : [
     [
       {
@@ -2328,7 +2328,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "mostrarcampus"
+                              "value" : "ocultarCamposNuevos || mostrarcampus"
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -2393,7 +2393,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "mostrarcampus || (catSolicitudDeAdmision.catConcluisteProceso.descripcion === \"No\" || catSolicitudDeAdmision.catConcluisteProceso.descripcion === undefined)"
+                              "value" : "ocultarCamposNuevos || (mostrarcampus || (catSolicitudDeAdmision.catConcluisteProceso.descripcion === \"No\" || catSolicitudDeAdmision.catConcluisteProceso.descripcion === undefined))"
                             },
                             "disabled" : {
                               "type" : "constant",
@@ -2563,7 +2563,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Fotografía Personal (<strong>Tipo</strong> pasaporte) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Foto de perfil <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -11956,11 +11956,15 @@
                       "urlDireccion" : {
                         "type" : "expression",
                         "value" : "urlDireccion"
+                      },
+                      "ocultarCamposNuevos" : {
+                        "type" : "variable",
+                        "value" : "ocultarCamposNuevos"
                       }
                     },
-                    "reference" : "acbb7339-aadd-490b-84da-40e527983bdd",
+                    "reference" : "4ac4bf8c-0920-4afa-97d3-0a0a953d40d2",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud2"
+                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud3"
                   }
                 ],
                 [
@@ -12156,11 +12160,15 @@
                       "urlDireccion" : {
                         "type" : "expression",
                         "value" : "urlDireccion"
+                      },
+                      "ocultarCamposNuevos" : {
+                        "type" : "variable",
+                        "value" : "ocultarCamposNuevos"
                       }
                     },
-                    "reference" : "99e5b464-495a-4a28-abc1-4dda3dc4c286",
+                    "reference" : "3c0e52a6-8cce-4e48-a10b-0816e771c3f4",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud2"
+                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud3"
                   }
                 ],
                 [
@@ -12356,11 +12364,15 @@
                       "urlDireccion" : {
                         "type" : "expression",
                         "value" : "urlDireccion"
+                      },
+                      "ocultarCamposNuevos" : {
+                        "type" : "variable",
+                        "value" : "ocultarCamposNuevos"
                       }
                     },
-                    "reference" : "ab3cca3d-2383-4d7c-8bc4-1d13e69b7648",
+                    "reference" : "61c86a89-979a-438c-a324-5f9cc69b2fc5",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud2"
+                    "id" : "customBtnWizardIndexTabsCreateUpdateSolicitud3"
                   }
                 ]
               ]
@@ -23427,6 +23439,26 @@
       "type" : "constant",
       "value" : [
         "https://dev.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "processData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&f=state=ready&d=processId"
+      ],
+      "exposed" : false
+    },
+    "ocultarCamposNuevos" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = false;",
+        "",
+        "var version = parseFloat($data.processData[0].processId.version);",
+        "if(version < parseFloat(\"1.4\")){",
+        "    resultado = true;",
+        "}",
+        "return resultado;"
       ],
       "exposed" : false
     }

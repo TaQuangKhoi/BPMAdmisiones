@@ -30,7 +30,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Pase de lista Prueba 2" || 
                 taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
-                taskName === "Resultado final de comité"
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"
             )
         ){
             return false;
@@ -43,7 +44,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Pase de lista Prueba 2" || 
                 taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
-                taskName === "Resultado final de comité"
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"
             )
         ){
             return false;
@@ -55,7 +57,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Pase de lista Prueba 2" || 
                 taskName === "Pase de lista Prueba 3" || 
                 taskName === "Carga y consulta de resultados" || 
-                taskName === "Resultado final de comité"
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"
              )
         ){
             return false;
@@ -66,14 +69,16 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 taskName === "Pase de lista Prueba 3" || 
                 taskName === "Generar credencial" || 
                 taskName === "Carga y consulta de resultados" || 
-                taskName === "Resultado final de comité"
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"
             )
         ){
             return false;
         } else if (name === "Resultado" 
             && (
                 taskName === "Carga y consulta de resultados" || 
-                taskName === "Resultado final de comité"
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"
             )
         ){
             return false;
@@ -216,6 +221,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         $scope.properties.targetUrl = undefined;
         $timeout(function(){
             $scope.properties.targetUrl = "../../../portal/resource/app/" + ctrl.applicationToken + "/" + ctrl.pageToken + "/content/" + $window.location.search + searchSeparator() + "app=" + ctrl.applicationToken;
+            console.log($scope.properties.targetUrl);
         }, 0);
     }
      
@@ -254,7 +260,8 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "generar_credencial";
         }  else if (
             $scope.properties.currentTaskName === "Carga y consulta de resultados" || 
-            $scope.properties.currentTaskName === "Resultado final de comité"
+            $scope.properties.currentTaskName === "Resultado final de comité" ||
+            $scope.properties.currentTaskName === "Reactivar usuario rechazado"
         ){
             ctrl.pageToken = "Resultado";
         } else {

@@ -23,4 +23,10 @@ class Statements {
 	public static final String INSERT_CONSTANCIA = "INSERT INTO LISTACONSTANCIAFILE (persistenceid, caseId, urlConstancia) VALUES (case when (SELECT max(persistenceId) + 1 from LISTACONSTANCIAFILE ) is null then 1 else (SELECT max(persistenceId) + 1 from LISTACONSTANCIAFILE) end, ?, ?)";
 	
 	public static final String GET_IDBANNER="SELECT * from detallesolicitud where caseid=? limit 1"
+	
+	public static final String GET_DOCUMENT_TO_DELETE = "SELECT tenantid, id, processinstanceid, documentid, name, description, version, index_ FROM document_mapping WHERE processinstanceid = ? AND name != 'fotoPasaporte'"
+	
+	public static final String DELETE_DOCUMENT = "DELETE FROM document WHERE id IN ([LSTDOCUMENTOID]);";
+	
+	public static final String DELETE_DOCUMENT_MAPPING = "DELETE FROM document_mapping WHERE processinstanceid = ? AND name != 'fotoPasaporte'";
 }

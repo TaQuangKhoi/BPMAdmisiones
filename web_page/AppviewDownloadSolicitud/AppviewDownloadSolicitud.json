@@ -2,8 +2,44 @@
   "designerVersion" : "1.11.52",
   "id" : "AppviewDownloadSolicitud",
   "name" : "AppviewDownloadSolicitud",
-  "lastUpdate" : 1622503504013,
+  "lastUpdate" : 1623094556648,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "caseId" : {
+            "type" : "variable",
+            "value" : "caseId"
+          },
+          "taskId" : {
+            "type" : "variable",
+            "value" : "taskId"
+          },
+          "context" : {
+            "type" : "variable",
+            "value" : "context"
+          }
+        },
+        "reference" : "685334e6-9e16-48a1-96d1-b72e7a027fa9",
+        "hasValidationError" : false,
+        "id" : "customLoadContext"
+      }
+    ],
     [
       {
         "type" : "container",
@@ -11504,9 +11540,9 @@
       "exposed" : false
     },
     "context" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "{}"
       ],
       "exposed" : false
     },
@@ -11704,6 +11740,13 @@
         "    \"estadoBachillerato\":\"\",",
         "    \"ciudadBachillerato\":\"\"",
         "}"
+      ],
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "urlparameter",
+      "value" : [
+        "caseId"
       ],
       "exposed" : false
     }

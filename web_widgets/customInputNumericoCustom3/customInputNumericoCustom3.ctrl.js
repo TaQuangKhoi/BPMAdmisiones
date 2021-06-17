@@ -15,16 +15,16 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     if((charInput >=48) && (charInput <=57)&&(e.target.value.length) <limite){
         if($scope.properties.value >= $scope.properties.max){
             $scope.properties.value = null;
-            $scope.properties.value = $scope.properties.max;
+            $scope.properties.value = $scope.properties.max+"";
         }
     }else{
             $scope.properties.value = null;
-            $scope.properties.value = $scope.properties.max;
-        var start = e.target.selectionStart;
-        var end = e.target.selectionEnd;
-        e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
-        e.target.setSelectionRange(start+1, start+1);
-         e.preventDefault();
+            $scope.properties.value = $scope.properties.max+"";
+            var start = e.target.selectionStart;
+            var end = e.target.selectionEnd;
+            e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
+            e.target.setSelectionRange(start+1, start+1);
+            e.preventDefault();
     }
      
     

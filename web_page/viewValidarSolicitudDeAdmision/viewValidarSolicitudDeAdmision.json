@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmision",
   "name" : "viewValidarSolicitudDeAdmision",
-  "lastUpdate" : 1623113100287,
+  "lastUpdate" : 1623862438150,
   "rows" : [
     [
       {
@@ -69,6 +69,38 @@
               "reference" : "ec571d13-e665-436b-b0e9-5be7158a2b77",
               "hasValidationError" : false,
               "id" : "customLoadContext"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "caseVariable" : {
+                  "type" : "variable",
+                  "value" : "caseVariables"
+                }
+              },
+              "reference" : "ed85dce9-42f6-491c-86b3-be0efedaeb74",
+              "hasValidationError" : false,
+              "id" : "customLoadCaseVariable"
             }
           ],
           [
@@ -26878,10 +26910,24 @@
   ],
   "assets" : [
     {
-      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 7,
+      "id" : "143be123-3387-47ea-bca7-95c382bf69cb",
+      "name" : "spei_brand.png",
+      "type" : "img",
+      "order" : 10,
+      "external" : false
+    },
+    {
+      "id" : "93260311-382d-4184-8c97-92b5805d691a",
+      "name" : "AMEX.png",
+      "type" : "img",
+      "order" : 11,
+      "external" : false
+    },
+    {
+      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -26913,6 +26959,20 @@
       "external" : false
     },
     {
+      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 8,
+      "external" : false
+    },
+    {
+      "id" : "bb9b4e6e-5884-42d1-8b4d-99b0b9382398",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 7,
+      "external" : false
+    },
+    {
       "id" : "be750248-9b8b-4f05-b2fb-9b20ab4fd543",
       "name" : "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js",
       "type" : "js",
@@ -26924,34 +26984,6 @@
       "name" : "style.css",
       "type" : "css",
       "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "143be123-3387-47ea-bca7-95c382bf69cb",
-      "name" : "spei_brand.png",
-      "type" : "img",
-      "order" : 10,
-      "external" : false
-    },
-    {
-      "id" : "93260311-382d-4184-8c97-92b5805d691a",
-      "name" : "AMEX.png",
-      "type" : "img",
-      "order" : 11,
-      "external" : false
-    },
-    {
-      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "e904837c-c74c-4fc2-b8f8-dd758228b899",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 8,
       "external" : false
     }
   ],
@@ -28592,9 +28624,9 @@
       "exposed" : false
     },
     "caseVariables" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../API/bpm/caseVariable?p=0&c=100&f=case_id={{objSolicitudDeAdmision.caseId}}"
+        "[]"
       ],
       "exposed" : false
     },

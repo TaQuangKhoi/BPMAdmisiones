@@ -6,7 +6,7 @@
  * 
  * You can leave the controller empty if you do not need it.
  */
-function($scope, blockUI) {
+ function($scope, blockUI) {
     var white = 'white';
 
     // add a new variable in AngularJS scope. It'll be usable in the template directly with {{ backgroudColor }} 
@@ -39,7 +39,15 @@ function($scope, blockUI) {
 
                         if ($scope.properties.catSolicitudDeAdmision.selectedIndex !== null) {
                             $scope.properties.selectedIndex = $scope.properties.catSolicitudDeAdmision.selectedIndex;
-                        } else {
+                        } 
+                        else if (
+                            $scope.properties.catSolicitudDeAdmision.selectedIndex === null && 
+                            $scope.properties.catSolicitudDeAdmision.estatusSolicitud === "Periodo vencido"
+                        ){
+                            $scope.properties.selectedIndex = 0;
+                        } 
+                        
+                        else {
                             $scope.properties.selectedIndex = 1;
                         }
 
