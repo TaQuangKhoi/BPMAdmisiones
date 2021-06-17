@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Reportes",
   "name" : "Reportes",
-  "lastUpdate" : 1623355241521,
+  "lastUpdate" : 1623950194685,
   "rows" : [
     [
       {
@@ -648,6 +648,85 @@
                   },
                   "hidden" : {
                     "type" : "constant",
+                    "value" : false
+                  },
+                  "required" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "minLength" : {
+                    "type" : "constant",
+                    "value" : 8
+                  },
+                  "maxLength" : {
+                    "type" : "constant",
+                    "value" : 8
+                  },
+                  "readOnly" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Id banner"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "placeholder" : {
+                    "type" : "interpolation",
+                    "value" : "00000000"
+                  },
+                  "value" : {
+                    "type" : "variable",
+                    "value" : "idbanner"
+                  },
+                  "type" : {
+                    "type" : "constant",
+                    "value" : "text"
+                  },
+                  "min" : {
+                    "type" : "constant",
+                    "value" : 0
+                  },
+                  "max" : {
+                    "type" : "constant",
+                    "value" : 99999999
+                  },
+                  "step" : {
+                    "type" : "constant"
+                  }
+                },
+                "reference" : "11c15dc4-7f23-471f-bfae-44efd6a0b30c",
+                "hasValidationError" : false,
+                "id" : "customInputNumberText"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
                     "value" : true
                   },
                   "disabled" : {
@@ -712,8 +791,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "expression",
-                    "value" : "rptSelected=='Datos de los familiares'"
+                    "type" : "constant",
+                    "value" : false
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1965,7 +2044,8 @@
         "    \"carrera\":$data.carrera,",
         "    \"preparatoria\":$data.preparatoria,",
         "    \"sesion\":$data.sesion,",
-        "    \"encabezado\":$data.encabezado",
+        "    \"encabezado\":$data.encabezado,",
+        "    \"idbanner\":$data.idbanner",
         "}",
         "return json;"
       ],
@@ -1980,6 +2060,10 @@
       "value" : [
         "return true;"
       ],
+      "exposed" : false
+    },
+    "idbanner" : {
+      "type" : "constant",
       "exposed" : false
     }
   },
