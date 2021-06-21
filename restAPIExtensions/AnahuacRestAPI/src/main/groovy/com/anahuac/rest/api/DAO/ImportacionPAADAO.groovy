@@ -41,6 +41,7 @@ class ImportacionPAADAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		Boolean executar = false;
+		
 		try {
 			
 				def jsonSlurper = new JsonSlurper();
@@ -49,49 +50,98 @@ class ImportacionPAADAO {
 				closeCon = validarConexion();
 				object.each{
 					executar = true;
-					con.setAutoCommit(false)
-					pstm = con.prepareStatement(Statements.INSERT_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
+					if(it.update) {
+						
+						con.setAutoCommit(false)
+						pstm = con.prepareStatement(Statements.UPDATE_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
+						pstm.setString(1,it.PAAN);
+						pstm.setString(2,it.LA1);
+						pstm.setString(3,it.LA2);
+						pstm.setString(4,it.LA3);
+						pstm.setString(5,it.PG1);
+						pstm.setString(6,it.PG2);
+						pstm.setString(7,it.PG3);
+						pstm.setString(8,it.PG4);
+						pstm.setString(9,it.PV1);
+						pstm.setString(10,it.PV2);
+						pstm.setString(11,it.PV3);
+						pstm.setString(12,it.PE1);
+						pstm.setString(13,it.PE2);
+						pstm.setString(14,it.PE3);
+						pstm.setString(15,it.PE4);
+						pstm.setString(16,it.PAAV);
+						pstm.setString(17,it.LEO1);
+						pstm.setString(18,it.LEO2);
+						pstm.setString(19,it.LEO3);
+						pstm.setString(20,it.LEO4);
+						pstm.setString(21,it.LEO5);
+						pstm.setString(22,it.CIT1);
+						pstm.setString(23,it.CIT2);
+						pstm.setString(24,it.PARA);
+						pstm.setString(25,it.HI1);
+						pstm.setString(26,it.HI2);
+						pstm.setString(27,it.HI3);
+						pstm.setString(28,it.HI4);
+						pstm.setString(29,it.HI5);
+						pstm.setString(30,it.HI6);
+						pstm.setString(31,it.Total);
+						pstm.setString(32,it.MLEX);
+						pstm.setString(33,it.CLEX);
+						pstm.setString(34,it.HLEX);
+						pstm.setString(35,it.LEXIUM_Total);
+						pstm.setString(36,it.tipoExamen);
+						pstm.setString(37,it.INVP);
+						pstm.setString(39,it.fechaExamen);
+						pstm.setString(40,it.fechaExamen);
+						pstm.setString(40,it.IDBANNER);
+						pstm.executeUpdate();
+						
+					}else {
+							con.setAutoCommit(false)
+							pstm = con.prepareStatement(Statements.INSERT_IMPORTACIONPAA, Statement.RETURN_GENERATED_KEYS)
+							pstm.setString(1,it.IDBANNER);
+							pstm.setString(2,it.PAAN);
+							pstm.setString(3,it.LA1);
+							pstm.setString(4,it.LA2);
+							pstm.setString(5,it.LA3);
+							pstm.setString(6,it.PG1);
+							pstm.setString(7,it.PG2);
+							pstm.setString(8,it.PG3);
+							pstm.setString(9,it.PG4);
+							pstm.setString(10,it.PV1);
+							pstm.setString(11,it.PV2);
+							pstm.setString(12,it.PV3);
+							pstm.setString(13,it.PE1);
+							pstm.setString(14,it.PE2);
+							pstm.setString(15,it.PE3);
+							pstm.setString(16,it.PE4);
+							pstm.setString(17,it.PAAV);
+							pstm.setString(18,it.LEO1);
+							pstm.setString(19,it.LEO2);
+							pstm.setString(20,it.LEO3);
+							pstm.setString(21,it.LEO4);
+							pstm.setString(22,it.LEO5);
+							pstm.setString(23,it.CIT1);
+							pstm.setString(24,it.CIT2);
+							pstm.setString(25,it.PARA);
+							pstm.setString(26,it.HI1);
+							pstm.setString(27,it.HI2);
+							pstm.setString(28,it.HI3);
+							pstm.setString(29,it.HI4);
+							pstm.setString(30,it.HI5);
+							pstm.setString(31,it.HI6);
+							pstm.setString(32,it.Total);
+							pstm.setString(33,it.fechaExamen);
+							pstm.setString(34,it.MLEX);
+							pstm.setString(35,it.CLEX);
+							pstm.setString(36,it.HLEX);
+							pstm.setString(37,it.LEXIUM_Total);
+							pstm.setString(38,it.tipoExamen);
+							pstm.setString(39,it.INVP)
+							pstm.executeUpdate();
+					}
 					
-					pstm.setString(1,it.IDBANNER);
-					pstm.setString(2,it.PAAN);
-					pstm.setString(3,it.LA1);
-					pstm.setString(4,it.LA2);
-					pstm.setString(5,it.LA3);
-					pstm.setString(6,it.PG1);
-					pstm.setString(7,it.PG2);
-					pstm.setString(8,it.PG3);
-					pstm.setString(9,it.PG4);
-					pstm.setString(10,it.PV1);
-					pstm.setString(11,it.PV2);
-					pstm.setString(12,it.PV3);
-					pstm.setString(13,it.PE1);
-					pstm.setString(14,it.PE2);
-					pstm.setString(15,it.PE3);
-					pstm.setString(16,it.PE4);
-					pstm.setString(17,it.PAAV);
-					pstm.setString(18,it.LEO1);
-					pstm.setString(19,it.LEO2);
-					pstm.setString(20,it.LEO3);
-					pstm.setString(21,it.LEO4);
-					pstm.setString(22,it.LEO5);
-					pstm.setString(23,it.CIT1);
-					pstm.setString(24,it.CIT2);
-					pstm.setString(25,it.PARA);
-					pstm.setString(26,it.HI1);
-					pstm.setString(27,it.HI2);
-					pstm.setString(28,it.HI3);
-					pstm.setString(29,it.HI4);
-					pstm.setString(30,it.HI5);
-					pstm.setString(31,it.HI6);
-					pstm.setString(32,it.Total);
-					pstm.setString(33,it.fechaExamen);
-					pstm.setString(34,it.MLEX);
-					pstm.setString(35,it.CLEX);
-					pstm.setString(36,it.HLEX);
-					pstm.setString(37,it.LEXIUM_Total);
-					pstm.setString(38,it.tipoExamen);
-					pstm.setString(39,it.INVP)
-					pstm.executeUpdate();
+					
 					
 				}
 				
@@ -149,6 +199,20 @@ class ImportacionPAADAO {
 						 
 					 }
 					 estatus.add(columns)
+					 
+					 //realizo una consulta en el cual reviso si esta en la segunda oportunidad
+					/* def str = jsonSlurper.parseText('{"sdaregistro":0,"reginstroimportacion":0}');
+					 pstm = con.prepareStatement(Statements.GET_SEGUNDA_OPORTUNIDAD_IPPA)
+					 pstm.setString(1, idBanner[j]);
+					 rs= pstm.executeQuery();
+					 if(rs.next()) {
+						 str.sdaregistro = rs.getInt("SDAREGISTRO");
+						 str.reginstroimportacion = rs.getInt("REGINSTROIMPORTACION");
+					 }
+					 columns.put("puede", ((str.reginstroimportacio < str.sdaregistro) ? true:false) )*/
+					 
+					
+					 
 				 }
 				
 				
