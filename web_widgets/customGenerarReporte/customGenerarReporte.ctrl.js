@@ -75,7 +75,14 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
         .success(function(data, status) {
             callback(data);
         })
-        .error(function(data, status) {console.errror(data)})
+        .error(function(data, status) {
+            console.error(data)
+            Swal.fire({
+                icon: 'info',
+                title: 'Sin resultados',
+                text: 'No se encontraron resultados para la búsqueda'
+              })
+        })
         .finally(function() {
           vm.busy = false;
         });
