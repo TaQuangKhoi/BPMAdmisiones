@@ -134,4 +134,29 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             vm.busy = false;
         });
     }
+    $scope.validatePassword = function(password) {
+        var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/s
+        var size = password.length
+        return re.test(password) && size >= 8 && size <= 16
+    }
+    $scope.validatePasswordLC = function(password) {
+        var re = /(?=.*[a-z])/s
+        return re.test(password)
+    }
+    $scope.validatePasswordUC = function(password) {
+        var re = /(?=.*[A-Z])/s
+        return re.test(password)
+    }
+    $scope.validatePasswordNumber = function(password) {
+        var re = /(?=.*\d)/s
+        return re.test(password)
+    }
+    $scope.validatePasswordEspecial = function(password) {
+        var re = /(?=.*\W)/s
+        return re.test(password)
+    }
+    $scope.validatePasswordSize = function(password) {
+        var size = password.length
+        return size >= 8 && size <= 16
+    }
   }

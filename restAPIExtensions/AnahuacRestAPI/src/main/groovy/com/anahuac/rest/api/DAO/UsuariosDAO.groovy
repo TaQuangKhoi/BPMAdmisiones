@@ -233,7 +233,7 @@ class UsuariosDAO {
 			String asciiUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			String asciiLowerCase = asciiUpperCase.toLowerCase();
 			String digits = "1234567890";
-			String asciiChars = asciiUpperCase + asciiLowerCase + digits;
+			String asciiChars = asciiUpperCase + asciiLowerCase + digits ;
 			int length = 8;
 			String randomString = generateRandomString(length, asciiChars);
 			

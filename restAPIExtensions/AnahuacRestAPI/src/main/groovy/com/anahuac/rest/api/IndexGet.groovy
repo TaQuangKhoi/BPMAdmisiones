@@ -641,8 +641,9 @@ class IndexGet implements RestApiController {
 				
 				case "getAspirantePAA":
 					String idbanner = request.getParameter "idbanner";
+					String persistenceid = request.getParameter "persistenceid";
 					
-					result = new ImportacionPAADAO().getAspirantePAA(idbanner,context);
+					result = new ImportacionPAADAO().getAspirantePAA(idbanner,persistenceid,context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

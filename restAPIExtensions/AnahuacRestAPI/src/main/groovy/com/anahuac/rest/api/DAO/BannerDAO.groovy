@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatBachilleratos
 import com.anahuac.catalogos.CatBachilleratosDAO
 import com.anahuac.rest.api.DB.DBConnect
+import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.CatBachillerato
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.AzureConfig
@@ -60,7 +61,7 @@ class BannerDAO {
 			//errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
 
-			jsonResultado = getConsumePrepa(barrerToken);
+			//jsonResultado = getConsumePrepa(barrerToken);
 			//errorLog += " | " + jsonResultado;
 			//CREAR-------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M16\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
@@ -72,7 +73,7 @@ class BannerDAO {
 			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
 			
 			//PROBLEMA
-			//jsonResultado = "[{\"id\":\"118\",\"published\":\"2021-06-14 18:44:06.042369+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"8a6918bf-55cd-4480-b21b-f721997e15c8\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"8a6918bf-55cd-4480-b21b-f721997e15c8\",\"title\":\"Escuela Preparatoria Newton\",\"type\":\"secondarySchool\",\"code\":\"9948\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"119\",\"published\":\"2021-06-14 18:45:48.899705+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"00503c76-e77f-40ab-9997-d03c2c2ab950\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"Calle Florida\",\"78\",\"Col. Al\u00e1mos\"],\"id\":\"00503c76-e77f-40ab-9997-d03c2c2ab950\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"06460\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Miguel Hidalgo\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"Calle Florida\",\"streetLine2\":\"78\",\"streetLine3\":\"Col. Al\u00e1mos\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09016\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			jsonResultado = "[{\"id\": \"127\", \"published\": \"2021-06-17 18:16:06.330112+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"1b305a34-5c92-41ef-99b2-9a4206fba66c\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Mar Mediterraneo\", \"88\", \"Col. Estrellas\"], \"id\": \"1b305a34-5c92-41ef-99b2-9a4206fba66c\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Morelia\", \"postalCode\": \"58020\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Michoac\u00e1n\"}, \"title\": \"M\u00e9xico\"} }, \"addressExtended\": [{\"streetLine1\": \"Mar Mediterraneo\", \"streetLine2\": \"88\", \"streetLine3\": \"Col. Estrellas\", \"nationCode\": \"99\", \"stateCode\": \"M16\", \"countyCode\": null }] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"128\", \"published\": \"2021-06-17 18:16:37.956072+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"76b281d9-0496-49d9-811b-6e911270ba3e\"}, \"operation\": \"deleted\", \"contentType\": \"empty\", \"content\": {\"guid\": \"76b281d9-0496-49d9-811b-6e911270ba3e\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }]";
 			
 			errorLog += " | jsonResultado: " + jsonResultado;
 			errorLog += " | " + ("END JSON========================================");
@@ -201,6 +202,7 @@ class BannerDAO {
 		Boolean isMexicoOk = false;
 		Boolean isUsaOk = false;
 		Boolean isOtroPaisOk = false;
+		Boolean closeCon = false;
 
 		List < CatBachilleratos > lstCatBachilleratos = new ArrayList < CatBachilleratos > ();
 
@@ -944,52 +946,14 @@ class BannerDAO {
 							//if(operacion.equals("deleted")) {
 							errorLog = errorLog + " | " + row.getOperation();
 							errorLog = errorLog + " | " + row.getIdBachillerato();
-
-							lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
-							if (lstCatBachilleratos != null) {
-								for (CatBachilleratos objRow: lstCatBachilleratos) {
-									errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-									errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-									errorLog = errorLog + " | ================================================================== | ";
-									lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
-									objCatBachilleratosInput = new HashMap < String, Serializable > ();
-									contracto = new HashMap < String, Serializable > ();
-									/*CONSTRUCCION DE CONTRATO====================================================================*/
-									objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
-									objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-									objCatBachilleratosInput.put("isEliminado", true);
-									objCatBachilleratosInput.put("isEnabled", true);
-									objCatBachilleratosInput.put("todelete", "true");
-									objCatBachilleratosInput.put("perteneceRed", false);
-									objCatBachilleratosInput.put("region", null);
-									objCatBachilleratosInput.put("caseId", null);
-									objCatBachilleratosInput.put("clave", objRow.getClave());
-									objCatBachilleratosInput.put("fechaImportacion", null);
-									objCatBachilleratosInput.put("fechaCreacion", null);
-									objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
-									objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
-									objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
-									objCatBachilleratosInput.put("estado", objRow.getEstado());
-									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
-									objCatBachilleratosInput.put("pais", objRow.getPais());
-									objCatBachilleratosInput.put("id", objRow.getId());
-
-									objCatBachilleratosInput.put("streetLine1", objRow.getStreetLine1());
-									objCatBachilleratosInput.put("streetLine2", objRow.getStreetLine2());
-									objCatBachilleratosInput.put("streetLine3", objRow.getStreetLine3());
-									objCatBachilleratosInput.put("nationCode", objRow.getNationCode());
-									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
-									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
-									objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
-
-									lstCatBachilleratosInput.add(objCatBachilleratosInput);
-									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
-									processInstance = processAPI.startProcessWithInputs(processId, contracto);
-								}
-							}
-							else {
-								errorLog = errorLog + " | " + ("ELSE delete");
-							}
+							
+							closeCon = validarConexion();
+							pstm = con.prepareStatement(Statements.DELETE_BACHILLERATO_BY_ID)
+							pstm.setString(1, "ELIMINADO");
+							pstm.setString(2, "ELIMINADO");
+							pstm.setString(3, "ELIMINADO");
+							pstm.setString(4, row.getIdBachillerato());
+							pstm.executeUpdate();
 						}
 					}
 				}
@@ -1168,6 +1132,10 @@ class BannerDAO {
 			resultado.setError_info(errorLog);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado;
 	}
