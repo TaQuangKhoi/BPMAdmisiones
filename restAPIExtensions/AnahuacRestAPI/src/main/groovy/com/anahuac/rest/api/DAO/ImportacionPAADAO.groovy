@@ -230,7 +230,6 @@ class ImportacionPAADAO {
 				 String[] idBanner = object.IDBANNER.split(",");
 				 String[] fecha = object.FECHA.split(",");
 				 for(int j = 0; j < idBanner.size(); ++j) {
-					 //errorLog += Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",object.IDBANNER)
 					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]))
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();
@@ -240,12 +239,14 @@ class ImportacionPAADAO {
 					 columns.put("EstaEnCarga",false)
 					 columns.put("mismaFecha",false)
 					 columns.put("AA",false)
+					 columns.put("puede",false)
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
 						 columns.put("EstaEnCarga",isNullOrEmpty(rs.getString("primernombre")))
 						 columns.put("mismaFecha",(rs.getInt("mismafecha") == 1?true:false))
 						 columns.put("AA",(rs.getBoolean("AA")))
+						 columns.put("puede",(rs.getBoolean("puede")))
 						 
 					 }
 					 estatus.add(columns)
@@ -386,7 +387,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) and PAA.idBanner is NULL "
+			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND (PAA.idBanner is NULL  OR ( CASE WHEN sda.countRechazos IS NULL THEN 0 ELSE (sda.countRechazos ) END) = (select count(IPAA.persistenceid)  from IMPORTACIONPAA as IPAA WHERE IPAA.IDBANNER = da.idBanner)   )  "
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			

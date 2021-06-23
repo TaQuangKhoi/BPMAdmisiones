@@ -93,7 +93,7 @@ class ReportesDAO {
 
 
 
-            def titulos = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matrícula", "curp", "sesión", "fecha examen", "campus(VPD)"]
+            def titulos = ["Nombre", "Apaterno", "Amaterno", "Email", "Usuario", "Clave", "Edad", "Matrícula", "Curp", "Sesión", "Fecha examen", "Campus(VPD)"]
             def titulosRua = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesión", "fecha examen", "campus(VPD)"]
             if (object.encabezado) {
                 fw.write((titulosRua.join(",") + "\r\n").getBytes());

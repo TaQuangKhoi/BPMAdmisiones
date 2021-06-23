@@ -73,7 +73,7 @@ class BannerDAO {
 			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
 			
 			//PROBLEMA
-			jsonResultado = "[{\"id\": \"127\", \"published\": \"2021-06-17 18:16:06.330112+00\", \"resource\": {\"name\": \"addresses\", \"id\": \"1b305a34-5c92-41ef-99b2-9a4206fba66c\", \"version\": \"application/vnd.hedtech.integration.v11.1.0+json\"}, \"operation\": \"replaced\", \"contentType\": \"resource-representation\", \"content\": {\"addressLines\": [\"Mar Mediterraneo\", \"88\", \"Col. Estrellas\"], \"id\": \"1b305a34-5c92-41ef-99b2-9a4206fba66c\", \"place\": {\"country\": {\"code\": \"MEX\", \"locality\": \"Morelia\", \"postalCode\": \"58020\", \"postalTitle\": \"MEXICO\", \"region\": {\"title\": \"Michoac\u00e1n\"}, \"title\": \"M\u00e9xico\"} }, \"addressExtended\": [{\"streetLine1\": \"Mar Mediterraneo\", \"streetLine2\": \"88\", \"streetLine3\": \"Col. Estrellas\", \"nationCode\": \"99\", \"stateCode\": \"M16\", \"countyCode\": null }] }, \"publisher\": {\"id\": \"a216d744-fb37-413e-8430-7f187c223bda\", \"applicationName\": \"RUAD INTEGRATION API-UAN\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }, {\"id\": \"128\", \"published\": \"2021-06-17 18:16:37.956072+00\", \"resource\": {\"name\": \"educational-institutions\", \"id\": \"76b281d9-0496-49d9-811b-6e911270ba3e\"}, \"operation\": \"deleted\", \"contentType\": \"empty\", \"content\": {\"guid\": \"76b281d9-0496-49d9-811b-6e911270ba3e\"}, \"publisher\": {\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\", \"applicationName\": \"RUAD INTEGRATION API (Shared Data)\", \"tenant\": {\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\", \"alias\": \"uatest\", \"name\": \"Universidad Anahuac\", \"environment\": \"Test\"} } }]";
+			jsonResultado = "[{\"id\":\"139\",\"published\":\"2021-06-17 18:54:18.052854+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"fd70af83-6341-470e-b5e3-b6cbe3471377\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"fd70af83-6341-470e-b5e3-b6cbe3471377\",\"title\":\"Vancouver HScool\",\"type\":\"secondarySchool\",\"code\":\"9682\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"140\",\"published\":\"2021-06-17 18:54:43.243504+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"fd70af83-6341-470e-b5e3-b6cbe3471377\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"fd70af83-6341-470e-b5e3-b6cbe3471377\",\"title\":\"Vancouver HSchool\",\"type\":\"secondarySchool\",\"code\":\"9682\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"141\",\"published\":\"2021-06-17 18:55:06.248594+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"99Road St\",\"99\",\"British Columbia\"],\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"place\":{\"country\":{\"code\":\"CAN\",\"locality\":\"British Columbia\",\"postalTitle\":\"CANADA\",\"region\":{\"title\":\"Estado Extranjero\"},\"subRegion\":{\"title\":\"MUNICIPIO EXTRANJERO\"},\"title\":\"Canad\u00e1\"}},\"addressExtended\":[{\"streetLine1\":\"99Road St\",\"streetLine2\":\"99\",\"streetLine3\":\"British Columbia\",\"nationCode\":\"27\",\"stateCode\":\"FR\",\"countyCode\":\"20000\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"142\",\"published\":\"2021-06-17 18:55:26.873293+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"99Road St\",\"99\",\"North Vancouver\"],\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"place\":{\"country\":{\"code\":\"CAN\",\"locality\":\"British Columbia\",\"postalTitle\":\"CANADA\",\"region\":{\"title\":\"Estado Extranjero\"},\"subRegion\":{\"title\":\"MUNICIPIO EXTRANJERO\"},\"title\":\"Canad\u00e1\"}},\"addressExtended\":[{\"streetLine1\":\"99Road St\",\"streetLine2\":\"99\",\"streetLine3\":\"North Vancouver\",\"nationCode\":\"27\",\"stateCode\":\"FR\",\"countyCode\":\"20000\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"143\",\"published\":\"2021-06-17 18:55:43.692438+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"replaced\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"99Road St\",\"99\",\"North Vancouver\"],\"id\":\"2d1e77ef-8d6d-49f9-9080-8ef09009a4ea\",\"place\":{\"country\":{\"code\":\"CAN\",\"locality\":\"Montreal\",\"postalTitle\":\"CANADA\",\"region\":{\"title\":\"Estado Extranjero\"},\"subRegion\":{\"title\":\"MUNICIPIO EXTRANJERO\"},\"title\":\"Canad\u00e1\"}},\"addressExtended\":[{\"streetLine1\":\"99Road St\",\"streetLine2\":\"99\",\"streetLine3\":\"North Vancouver\",\"nationCode\":\"27\",\"stateCode\":\"FR\",\"countyCode\":\"20000\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
 			errorLog += " | jsonResultado: " + jsonResultado;
 			errorLog += " | " + ("END JSON========================================");
@@ -129,6 +129,29 @@ class BannerDAO {
 		return resultado.toString();
 	}
 
+	private String getAddresses(String barrerToken, String idDireccion) {
+		String urlParaVisitar = "https://integrate.elluciancloud.com/api/addresses/"+idDireccion;
+		StringBuilder resultado = new StringBuilder();
+
+		try {
+			URL url = new URL(urlParaVisitar);
+			HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+			conexion.setRequestProperty("Authorization", "Bearer " + barrerToken);
+			conexion.setRequestProperty("Accept", "application/vnd.hedtech.change-notifications.v2+json");
+			conexion.setRequestMethod("GET");
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
+			String linea;
+			while ((linea = rd.readLine()) != null) {
+				resultado.append(linea);
+			}
+			rd.close();
+		} catch (Exception e) {
+			LOGGER.error "[ERROR]" + e.getMessage();
+			e.printStackTrace();
+		}
+		return resultado.toString();
+	}
+	
 	private String getConsumePrepa(String barrerToken) {
 		String urlParaVisitar = "https://integrate.elluciancloud.com/consume";
 		StringBuilder resultado = new StringBuilder();
@@ -193,6 +216,7 @@ class BannerDAO {
 		String strStateCode = "";
 		String strNationCode = "";
 		String resultEducationalInstitutions = "";
+		String resultAddresses = "";
 
 		Boolean isCountyCodeOk = false;
 		Boolean isStateCodeOk = false;
@@ -304,9 +328,27 @@ class BannerDAO {
 									objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
 									errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
 									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+									
+									resultAddresses = getAddresses(barrerToken, objJsonAddressesDataAddress.get("id").toString());
+									if(!resultAddresses.equals("")) {
+										
+										objJsonPlace = (JSONObject) objJsonContent.get("place");
+										lstAddressExtended = (JSONArray) objJsonContent.get("addressExtended");
+										objJsonCountry = (JSONObject) objJsonPlace.get("country");
+										objJsonRegion = (JSONObject) objJsonCountry.get("region");
+				
+										errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
+										errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
+										if(objJsonRegion != null) {
+											errorLog = errorLog + " | " + ("Estado: " + objJsonRegion.get("title").toString());
+										}
+										errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
+									}
+									else {
+										
+									}
 								}
 							} else {
-								errorLog = errorLog + " | " + "ELSE RARO--------------------------------------------------------";
 								errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): " + (objEducationalInstitutions.getIdBachillerato());
 								errorLog = errorLog + " | objEducationalInstitutions.getDescripcion(): " + (objEducationalInstitutions.getDescripcion());
 								errorLog = errorLog + " | objEducationalInstitutions.getUsuarioBanner(): " + (objEducationalInstitutions.getUsuarioBanner());
@@ -350,19 +392,26 @@ class BannerDAO {
 						objJsonRegion = (JSONObject) objJsonCountry.get("region");
 
 						errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
-						errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
-						errorLog = errorLog + " | " + ("Estado: " + objJsonRegion.get("title").toString());
-						errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
+						errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
+						if(objJsonRegion != null) {
+							errorLog = errorLog + " | " + ("Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+						}
+						errorLog = errorLog + " | " + ("ciudad: " + (objJsonCountry.get("locality")==null ? "" : objJsonCountry.get("locality").toString()));
 						objAddresses.setIdDireccion(objJsonContent.get("id").toString());
 
 						objAddresses.setOperation(objJson.get("operation").toString());
+						
 						if (objJsonCountry.get("title").toString().equals("México")) {
 							objAddresses.setPais(objJsonCountry.get("title").toString());
-							objAddresses.setEstado(objJsonRegion.get("title").toString());
+							if(objJsonRegion != null) {
+								objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+							}
 							objAddresses.setCiudad(objJsonCountry.get("locality").toString());
 						} else {
 							objAddresses.setPais(objJsonCountry.get("title").toString());
-							objAddresses.setEstado(objJsonRegion.get("title").toString().equals("Estado Extranjero") ? "" : objJsonRegion.get("title").toString());
+							if(objJsonRegion != null) {
+								objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()).equals("Estado Extranjero") ? "" : (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+							}
 							objAddresses.setCiudad(objJsonCountry.get("locality").toString().equals("000000") ? "" : objJsonCountry.get("locality").toString());
 						}
 
@@ -387,41 +436,39 @@ class BannerDAO {
 			errorLog = errorLog + " | " + ("--------------------------------------------------------");
 
 			/*for(CatBachillerato row : lstEducationalInstitutions) {
-		objCatBachillerato= new CatBachillerato();
-		objCatBachillerato.setIdBachillerato(row.getIdBachillerato());
-		objCatBachillerato.setDescripcion(row.getDescripcion());
-		objCatBachillerato.setUsuarioBanner(row.getUsuarioBanner());
-		objCatBachillerato.setFechaImportacion(row.getFechaImportacion());
-		objCatBachillerato.setFechaCreacion(row.getFechaCreacion());
-		objCatBachillerato.setOperation(row.getOperation());
-		objCatBachillerato.setClave(row.getClave());
-		objCatBachillerato.setIsEliminado(false);
-		objCatBachillerato.setIsEnabled(true);
-		objCatBachillerato.setPerteneceRed(false);
-		objCatBachillerato.setTypeInd(row.getTypeInd())
-		
-		objCatBachillerato.setStreetLine1(row.getStreetLine1())
-		objCatBachillerato.setStreetLine2(row.getStreetLine2())
-		objCatBachillerato.setStreetLine3(row.getStreetLine3())
-		objCatBachillerato.setNationCode(row.getNationCode())
-		objCatBachillerato.setStateCode(row.getStateCode())
-		objCatBachillerato.setCountyCode(row.getCountyCode())
-		objCatBachillerato.setIdDireccion(row.getIdDireccion());
-
-		errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
-		errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
-		errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
-		errorLog = errorLog + " | row.getFechaImportacion(): "+(row.getFechaImportacion());
-		errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
-		errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
-		errorLog = errorLog + " | row.getClave(): "+(row.getClave());
-		objCatBachillerato.setPais("");
-		objCatBachillerato.setEstado("");
-		objCatBachillerato.setCiudad("");
+				objCatBachillerato= new CatBachillerato();
+				objCatBachillerato.setIdBachillerato(row.getIdBachillerato());
+				objCatBachillerato.setDescripcion(row.getDescripcion());
+				objCatBachillerato.setUsuarioBanner(row.getUsuarioBanner());
+				objCatBachillerato.setFechaImportacion(row.getFechaImportacion());
+				objCatBachillerato.setFechaCreacion(row.getFechaCreacion());
+				objCatBachillerato.setOperation(row.getOperation());
+				objCatBachillerato.setClave(row.getClave());
+				objCatBachillerato.setIsEliminado(false);
+				objCatBachillerato.setIsEnabled(true);
+				objCatBachillerato.setPerteneceRed(false);
+				objCatBachillerato.setTypeInd(row.getTypeInd())
 				
-
-		lstCatBachillerato.add(objCatBachillerato);
-	  }*/
+				objCatBachillerato.setStreetLine1(row.getStreetLine1())
+				objCatBachillerato.setStreetLine2(row.getStreetLine2())
+				objCatBachillerato.setStreetLine3(row.getStreetLine3())
+				objCatBachillerato.setNationCode(row.getNationCode())
+				objCatBachillerato.setStateCode(row.getStateCode())
+				objCatBachillerato.setCountyCode(row.getCountyCode())
+				objCatBachillerato.setIdDireccion(row.getIdDireccion());
+		
+				errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
+				errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
+				errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
+				errorLog = errorLog + " | row.getFechaImportacion(): "+(row.getFechaImportacion());
+				errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
+				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
+				errorLog = errorLog + " | row.getClave(): "+(row.getClave());
+				objCatBachillerato.setPais("");
+				objCatBachillerato.setEstado("");
+				objCatBachillerato.setCiudad("");
+				lstCatBachillerato.add(objCatBachillerato);
+			}*/
 
 			processInstance = null;
 			processAPI = context.getApiClient().getProcessAPI();
@@ -469,7 +516,6 @@ class BannerDAO {
 				errorLog = errorLog + " | row.getDescripcion(): " + (row.getDescripcion());
 
 				if (row.getOperation().equals("replaced")) {
-					//if(operacion.equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
 
 					lstCatBachilleratos = catBachilleratosDAO.findById(row.getIdBachillerato(), 0, 100);
@@ -552,7 +598,7 @@ class BannerDAO {
 									errorLog = errorLog + " | fechaImportacion: " + null;
 									errorLog = errorLog + " | fechaCreacion: " + null;
 									errorLog = errorLog + " | usuarioCreacion: " + "Administrador";
-									errorLog = errorLog + " | descripcion: " + objRow.getDescripcion();
+									errorLog = errorLog + " | descripcion: " + row.getDescripcion();
 									errorLog = errorLog + " | usuarioBanner: " + row.getUsuarioBanner();
 									errorLog = errorLog + " | estado: " + objRow.getEstado();
 									errorLog = errorLog + " | ciudad: " + objRow.getCiudad();
@@ -576,11 +622,11 @@ class BannerDAO {
 									objCatBachilleratosInput.put("perteneceRed", false);
 									objCatBachilleratosInput.put("region", null);
 									objCatBachilleratosInput.put("caseId", null);
-									objCatBachilleratosInput.put("clave", objRow.getClave());
+									objCatBachilleratosInput.put("clave", row.getClave());
 									objCatBachilleratosInput.put("fechaImportacion", null);
 									objCatBachilleratosInput.put("fechaCreacion", null);
 									objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
-									objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
+									objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 									objCatBachilleratosInput.put("estado", objRow.getEstado());
 									objCatBachilleratosInput.put("ciudad", objRow.getCiudad());
@@ -612,11 +658,11 @@ class BannerDAO {
 									errorLog = errorLog + " | perteneceRed " + false;
 									errorLog = errorLog + " | region " + null;
 									errorLog = errorLog + " | caseId " + null;
-									errorLog = errorLog + " | clave " + objRow.getClave();
+									errorLog = errorLog + " | clave " + row.getClave();
 									errorLog = errorLog + " | fechaImportacion " + null;
 									errorLog = errorLog + " | fechaCreacion " + null;
 									errorLog = errorLog + " | usuarioCreacion " + "Administrador";
-									errorLog = errorLog + " | descripcion " + objRow.getDescripcion();
+									errorLog = errorLog + " | descripcion " + row.getDescripcion();
 									errorLog = errorLog + " | usuarioBanner " + row.getUsuarioBanner();
 									errorLog = errorLog + " | estado " + row.getEstado();
 									errorLog = errorLog + " | ciudad " + row.getCiudad();
@@ -639,11 +685,11 @@ class BannerDAO {
 									objCatBachilleratosInput.put("perteneceRed", false);
 									objCatBachilleratosInput.put("region", null);
 									objCatBachilleratosInput.put("caseId", null);
-									objCatBachilleratosInput.put("clave", objRow.getClave());
+									objCatBachilleratosInput.put("clave", row.getClave());
 									objCatBachilleratosInput.put("fechaImportacion", null);
 									objCatBachilleratosInput.put("fechaCreacion", null);
 									objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
-									objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
+									objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 									objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 									objCatBachilleratosInput.put("estado", row.getEstado());
 									objCatBachilleratosInput.put("ciudad", row.getCiudad());
@@ -677,8 +723,8 @@ class BannerDAO {
 								if (!objRow.isIsEliminado()) {
 									if (row.getTypeInd().equals("H")) {
 										errorLog = errorLog + " | IF IS ELIMANDO ===========================================================================================";
-										errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-										errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
+										errorLog = errorLog + " | PersistenceId:" + row.getPersistenceId();
+										errorLog = errorLog + " | Descripcion:" + row.getDescripcion();
 										errorLog = errorLog + " | ================================================================== | ";
 										
 										isMexicoOk = false;
@@ -763,7 +809,7 @@ class BannerDAO {
 										objCatBachilleratosInput.put("perteneceRed", false);
 										objCatBachilleratosInput.put("region", null);
 										objCatBachilleratosInput.put("caseId", null);
-										objCatBachilleratosInput.put("clave", objRow.getClave());
+										objCatBachilleratosInput.put("clave", row.getClave());
 										objCatBachilleratosInput.put("fechaImportacion", null);
 										objCatBachilleratosInput.put("fechaCreacion", null);
 										objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
@@ -804,11 +850,11 @@ class BannerDAO {
 										objCatBachilleratosInput.put("perteneceRed", false);
 										objCatBachilleratosInput.put("region", null);
 										objCatBachilleratosInput.put("caseId", null);
-										objCatBachilleratosInput.put("clave", objRow.getClave());
+										objCatBachilleratosInput.put("clave", row.getClave());
 										objCatBachilleratosInput.put("fechaImportacion", null);
 										objCatBachilleratosInput.put("fechaCreacion", null);
 										objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
-										objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
+										objCatBachilleratosInput.put("descripcion", row.getDescripcion());
 										objCatBachilleratosInput.put("usuarioBanner", row.getUsuarioBanner());
 										objCatBachilleratosInput.put("estado", row.getEstado());
 										objCatBachilleratosInput.put("ciudad", row.getCiudad());
