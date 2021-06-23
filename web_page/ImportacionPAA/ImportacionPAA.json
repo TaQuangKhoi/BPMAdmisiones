@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1623717396993,
+  "lastUpdate" : 1624383315799,
   "rows" : [
     [
       {
@@ -805,6 +805,10 @@
                       "revisar" : {
                         "type" : "expression",
                         "value" : "revisar"
+                      },
+                      "lstBanner" : {
+                        "type" : "variable",
+                        "value" : "lstBanner"
                       }
                     },
                     "reference" : "f5edce9c-8d89-49a0-a4e3-ca98d6f1df27",
@@ -951,6 +955,18 @@
                       },
                       "urlErrores" : {
                         "type" : "constant"
+                      },
+                      "lstBanner" : {
+                        "type" : "variable",
+                        "value" : "lstBanner"
+                      },
+                      "urlValidar" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
+                      },
+                      "enviar" : {
+                        "type" : "constant",
+                        "value" : true
                       }
                     },
                     "reference" : "b1be1ec5-cc63-456b-8531-0bfb801792de",
@@ -1343,163 +1359,96 @@
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
-                      [ ]
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 8
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Id banner"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.IDBANNER"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "../API/extension/AnahuacRestGet?url=getUserIdBanner&p=0&c=10&idbanner="
+                            },
+                            "urlGet" : {
+                              "type" : "constant",
+                              "value" : "../API/extension/AnahuacRestGet?url=getUserIdBanner&p=0&c=10&idbanner="
+                            },
+                            "valorRetorno" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.Nombre"
+                            }
+                          },
+                          "reference" : "b5ea2ca7-b1a7-4372-910c-baabf3a95677",
+                          "hasValidationError" : false,
+                          "id" : "customInputBuscarIdBanner"
+                        }
+                      ]
                     ]
-                  },
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Tipo de examen:"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Seleccionar el tipo de examen"
-                      },
-                      "availableValues" : {
-                        "type" : "expression",
-                        "value" : "lstTipoExamenPAA"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant",
-                        "value" : "descripcion"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant",
-                        "value" : "clave"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "strAlumno.tipoExamen"
-                      }
-                    },
-                    "reference" : "b8e93581-450f-4d5a-a4d4-bd16cfb9d395",
-                    "hasValidationError" : false,
-                    "id" : "pbSelect"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : 8
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Id banner"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation"
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "strAlumno.IDBANNER"
-                      },
-                      "type" : {
-                        "type" : "constant",
-                        "value" : "text"
-                      },
-                      "min" : {
-                        "type" : "constant"
-                      },
-                      "max" : {
-                        "type" : "constant"
-                      },
-                      "step" : {
-                        "type" : "constant",
-                        "value" : 1
-                      },
-                      "urlPost" : {
-                        "type" : "constant",
-                        "value" : "../API/extension/AnahuacRestGet?url=getUserIdBanner&p=0&c=10&idbanner="
-                      },
-                      "urlGet" : {
-                        "type" : "constant",
-                        "value" : "../API/extension/AnahuacRestGet?url=getUserIdBanner&p=0&c=10&idbanner="
-                      },
-                      "valorRetorno" : {
-                        "type" : "variable",
-                        "value" : "strAlumno.Nombre"
-                      }
-                    },
-                    "reference" : "b5ea2ca7-b1a7-4372-910c-baabf3a95677",
-                    "hasValidationError" : false,
-                    "id" : "customInputBuscarIdBanner"
                   },
                   {
                     "type" : "component",
@@ -1579,6 +1528,247 @@
                 ],
                 [
                   {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "expression",
+                        "value" : "VariableCarga.view"
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Tipo de examen:"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "placeholder" : {
+                        "type" : "interpolation",
+                        "value" : "Seleccionar el tipo de examen"
+                      },
+                      "availableValues" : {
+                        "type" : "expression",
+                        "value" : "lstTipoExamenPAA"
+                      },
+                      "displayedKey" : {
+                        "type" : "constant",
+                        "value" : "descripcion"
+                      },
+                      "returnedKey" : {
+                        "type" : "constant",
+                        "value" : "clave"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "strAlumno.tipoExamen"
+                      }
+                    },
+                    "reference" : "b51fe592-3bcf-4b42-85bb-200710ccaa5c",
+                    "hasValidationError" : false,
+                    "id" : "pbSelect"
+                  },
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "b96b9768-d151-4f70-9877-9387eeb6e406",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Fecha del examen:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.fechaExamen"
+                            },
+                            "dateFormat" : {
+                              "type" : "constant",
+                              "value" : "dd-MM-yyyy"
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Enter a date (dd-MM-yyyy)"
+                            },
+                            "showToday" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "todayLabel" : {
+                              "type" : "interpolation",
+                              "value" : "Today"
+                            }
+                          },
+                          "reference" : "75b641c4-a02e-4628-8745-3ec6627cd29f",
+                          "hasValidationError" : false,
+                          "id" : "customDatePicker3"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "!VariableCarga.view"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Fecha del examen:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.fechaExamen"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "2d4464c0-e2bd-4370-8090-0862ad1d9ed9",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                [
+                  {
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
@@ -1606,12 +1796,87 @@
                     "rows" : [
                       [
                         {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Puntuación total:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.Total"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "f8210a4a-c669-4c53-894b-5bc330367498",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        },
+                        {
                           "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 6,
+                            "lg" : 6
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -1638,7 +1903,7 @@
                                   "xs" : 12,
                                   "sm" : 12,
                                   "md" : 12,
-                                  "lg" : 6
+                                  "lg" : 12
                                 },
                                 "propertyValues" : {
                                   "cssClasses" : {
@@ -1709,293 +1974,9 @@
                               }
                             ]
                           ]
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Puntuación total:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.Total"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant"
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "f8210a4a-c669-4c53-894b-5bc330367498",
-                          "hasValidationError" : false,
-                          "id" : "pbInput"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Fecha del examen:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 12
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.fechaExamen"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant"
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "3cb34ed7-a555-49d9-b15e-59427ed1601b",
-                          "hasValidationError" : false,
-                          "id" : "pbInput"
                         }
                       ],
                       [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 1,
-                            "lg" : 1
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "5b3e1a67-4f42-4b90-b899-8b7ac96a87ca",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [ ]
-                          ]
-                        },
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 1,
-                            "lg" : 1
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "af55ee30-da7b-4159-b002-ba98a0be367e",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "strAlumno.tipoExamen != \"KP\""
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "VariableCarga.view"
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "MLEX:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "strAlumno.LEXIUM_PAAN"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  }
-                                },
-                                "reference" : "5bb6786f-3b92-4787-b55f-feb1d9c4f02f",
-                                "hasValidationError" : false,
-                                "id" : "pbInput"
-                              }
-                            ]
-                          ]
-                        },
                         {
                           "type" : "component",
                           "dimension" : {
@@ -2072,7 +2053,7 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "container",
+                          "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -2085,96 +2066,66 @@
                               "value" : ""
                             },
                             "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
                               "type" : "constant",
                               "value" : false
                             },
-                            "repeatedCollection" : {
-                              "type" : "variable",
+                            "minLength" : {
+                              "type" : "constant",
                               "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "MLEX:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.LEXIUM_PAAN"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
                             }
                           },
-                          "reference" : "bab8cb39-cb17-49d0-86c5-37675cdb299d",
+                          "reference" : "5bb6786f-3b92-4787-b55f-feb1d9c4f02f",
                           "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "strAlumno.tipoExamen != \"KP\""
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "VariableCarga.view"
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "CLEX:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "strAlumno.LEXIUM_PAAV"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  }
-                                },
-                                "reference" : "60abf5b3-e48f-4066-b592-a9e2d5e6c183",
-                                "hasValidationError" : false,
-                                "id" : "pbInput"
-                              }
-                            ]
-                          ]
+                          "id" : "pbInput"
                         },
                         {
                           "type" : "component",
@@ -2252,7 +2203,7 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "container",
+                          "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -2265,96 +2216,66 @@
                               "value" : ""
                             },
                             "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
                               "type" : "constant",
                               "value" : false
                             },
-                            "repeatedCollection" : {
-                              "type" : "variable",
+                            "minLength" : {
+                              "type" : "constant",
                               "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "CLEX:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.LEXIUM_PAAV"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
                             }
                           },
-                          "reference" : "5ad67dbb-3671-45c3-bf4f-42ede0c3244d",
+                          "reference" : "60abf5b3-e48f-4066-b592-a9e2d5e6c183",
                           "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "expression",
-                                    "value" : "strAlumno.tipoExamen != \"KP\""
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "VariableCarga.view"
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "HLEX:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "strAlumno.LEXIUM_PARA"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  }
-                                },
-                                "reference" : "7baf05d9-5c25-4675-be20-6bcd5e0f1abe",
-                                "hasValidationError" : false,
-                                "id" : "pbInput"
-                              }
-                            ]
-                          ]
+                          "id" : "pbInput"
                         },
                         {
                           "type" : "component",
@@ -2432,7 +2353,7 @@
                           "id" : "pbInput"
                         },
                         {
-                          "type" : "container",
+                          "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -2445,96 +2366,141 @@
                               "value" : ""
                             },
                             "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
                               "type" : "constant",
                               "value" : false
                             },
-                            "repeatedCollection" : {
-                              "type" : "variable",
+                            "minLength" : {
+                              "type" : "constant",
                               "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "HLEX:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.LEXIUM_PARA"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
                             }
                           },
-                          "reference" : "2205298c-2609-4c10-adab-ad6284d667df",
+                          "reference" : "7baf05d9-5c25-4675-be20-6bcd5e0f1abe",
                           "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [
-                              {
-                                "type" : "component",
-                                "dimension" : {
-                                  "xs" : 12,
-                                  "sm" : 12,
-                                  "md" : 12,
-                                  "lg" : 12
-                                },
-                                "propertyValues" : {
-                                  "cssClasses" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "required" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "VariableCarga.view"
-                                  },
-                                  "labelHidden" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
-                                    "type" : "interpolation",
-                                    "value" : "INVP:"
-                                  },
-                                  "labelPosition" : {
-                                    "type" : "constant",
-                                    "value" : "top"
-                                  },
-                                  "labelWidth" : {
-                                    "type" : "constant",
-                                    "value" : 4
-                                  },
-                                  "placeholder" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "value" : {
-                                    "type" : "variable",
-                                    "value" : "strAlumno.INVP"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
-                                  }
-                                },
-                                "reference" : "bc51f62e-ada2-4717-b78f-d8338e2985d5",
-                                "hasValidationError" : false,
-                                "id" : "pbInput"
-                              }
-                            ]
-                          ]
+                          "id" : "pbInput"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "INVP:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.INVP"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "bc51f62e-ada2-4717-b78f-d8338e2985d5",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
                         }
                       ]
                     ]
@@ -2595,7 +2561,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 3
+                              "value" : 4
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -2633,7 +2599,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 800
+                              "value" : 2500
                             },
                             "step" : {
                               "type" : "constant",
@@ -2658,16 +2624,24 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
                             },
                             "required" : {
                               "type" : "constant",
                               "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2675,7 +2649,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Fecha del examen:"
+                              "value" : "Puntuación total KP:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2685,30 +2659,33 @@
                               "type" : "constant",
                               "value" : 4
                             },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno.fechaExamen"
+                              "value" : "strAlumno.LEXIUM_Total"
                             },
-                            "dateFormat" : {
+                            "type" : {
                               "type" : "constant",
-                              "value" : "dd-MM-yyyy"
+                              "value" : "text"
                             },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Enter a date (dd-MM-yyyy)"
-                            },
-                            "showToday" : {
+                            "min" : {
                               "type" : "constant",
-                              "value" : true
+                              "value" : 0
                             },
-                            "todayLabel" : {
-                              "type" : "interpolation",
-                              "value" : "Today"
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 2100
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
                             }
                           },
-                          "reference" : "fc14e03a-ff22-47bd-8dc8-e109cd2f0dcb",
+                          "reference" : "990abb2c-4f82-446a-9e03-2fd68bde30d4",
                           "hasValidationError" : false,
-                          "id" : "customDatePicker3"
+                          "id" : "customInputNumericoCustom3"
                         }
                       ],
                       [
@@ -2717,8 +2694,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -2742,8 +2719,8 @@
                               "value" : 3
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen == \"KP\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2773,7 +2750,8 @@
                               "value" : "text"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 200
                             },
                             "max" : {
                               "type" : "constant",
@@ -2793,8 +2771,85 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 1,
+                            "lg" : 1
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "MLEX:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.MLEX"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 0
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 690
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "f58479eb-9cf5-4675-8d11-a73c8c2a821f",
+                          "hasValidationError" : false,
+                          "id" : "customInputNumericoCustom3"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -2818,8 +2873,8 @@
                               "value" : 3
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen == \"KP\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2849,7 +2904,8 @@
                               "value" : "text"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 200
                             },
                             "max" : {
                               "type" : "constant",
@@ -2869,8 +2925,85 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 1,
+                            "lg" : 1
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "CLEX"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.CLEX"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 0
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 690
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "ae29472a-4bb3-4c27-9e5a-28fcd3b63d9e",
+                          "hasValidationError" : false,
+                          "id" : "customInputNumericoCustom3"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -2894,8 +3027,8 @@
                               "value" : 3
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen == \"KP\""
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2925,7 +3058,8 @@
                               "value" : "text"
                             },
                             "min" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 200
                             },
                             "max" : {
                               "type" : "constant",
@@ -2945,8 +3079,85 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 1,
+                            "lg" : 1
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "strAlumno.tipoExamen != \"KP\""
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "HLEX:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.HLEX"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant",
+                              "value" : 0
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 690
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "47c6b3e8-8f8f-40b4-bf2d-f6bf0240e495",
+                          "hasValidationError" : false,
+                          "id" : "customInputNumericoCustom3"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3004,7 +3215,8 @@
                               "type" : "constant"
                             },
                             "max" : {
-                              "type" : "constant"
+                              "type" : "constant",
+                              "value" : 3
                             },
                             "step" : {
                               "type" : "constant",
@@ -3034,8 +3246,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -3043,7 +3255,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "<i class=\"glyphicon glyphicon-eye-open\"></i>"
+                        "value" : ""
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -3056,15 +3268,11 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "secciones.PAAN"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : true
                       }
                     },
-                    "reference" : "55f2b7b5-f089-44f6-8dab-b86960518914",
+                    "reference" : "0fffb1d2-134c-4ea3-a0aa-7ea4fdede0ea",
                     "hasValidationError" : false,
-                    "id" : "customBtnChangeValues"
+                    "id" : "customBtnChangeValuesIconos"
                   },
                   {
                     "type" : "component",
@@ -3080,8 +3288,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -4452,8 +4660,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -4461,7 +4669,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "<i class=\"glyphicon glyphicon-eye-open\"></i>"
+                        "value" : "<i ng-if=\"properties.value\" class=\"glyphicon glyphicon-minus\"></i> <i ng-if=\"!properties.value\" class=\"glyphicon glyphicon-plus\"></i>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -4474,15 +4682,11 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "secciones.PAAV"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : true
                       }
                     },
-                    "reference" : "aa001422-10a0-40e4-994a-2d3c110659d4",
+                    "reference" : "6ba58018-b6a8-43ba-946d-523da8d1fda7",
                     "hasValidationError" : false,
-                    "id" : "customBtnChangeValues"
+                    "id" : "customBtnChangeValuesIconos"
                   },
                   {
                     "type" : "component",
@@ -4498,8 +4702,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -5262,8 +5466,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5284,15 +5488,11 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "secciones.PARA"
-                      },
-                      "seleccion" : {
-                        "type" : "constant",
-                        "value" : true
                       }
                     },
-                    "reference" : "0ab15250-f2f9-4a53-abdb-b0ae45f1d896",
+                    "reference" : "2cb3f265-b748-44a0-9004-3ca9ee353a03",
                     "hasValidationError" : false,
-                    "id" : "customBtnChangeValues"
+                    "id" : "customBtnChangeValuesIconos"
                   },
                   {
                     "type" : "component",
@@ -5308,8 +5508,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!VariableCarga.view"
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -5376,7 +5576,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "Habilidades Intelectuales"
+                              "value" : "Habilidades intelectuales"
                             },
                             "level" : {
                               "type" : "constant",
@@ -5985,6 +6185,14 @@
                       "tabla" : {
                         "type" : "variable",
                         "value" : "tabla"
+                      },
+                      "revisar" : {
+                        "type" : "expression",
+                        "value" : "revisarManual"
+                      },
+                      "urlValidar" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
                       }
                     },
                     "reference" : "89a4f7b4-d8bb-402d-8f94-db872ebfafe6",
@@ -6101,6 +6309,13 @@
       "name" : "jquery.min.js",
       "type" : "js",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "91129a56-9ef8-4fec-a7b6-147d5507d540",
+      "name" : "icono-libro.png",
+      "type" : "img",
+      "order" : 5,
       "external" : false
     },
     {
@@ -6312,16 +6527,17 @@
     "revisar" : {
       "type" : "json",
       "value" : [
-        "            [\"CIT1\",\r",
-        "            \"CIT2\",\r",
+        "            [\r",
+        "            \"IDBANNER\",\r",
         "            \"Fecha de examen\",\r",
+        "            \"CIT1\",\r",
+        "            \"CIT2\",\r",
         "            \"HI1\",\r",
         "            \"HI2\",\r",
         "            \"HI3\",\r",
         "            \"HI4\",\r",
         "            \"HI5\",\r",
         "            \"HI6\",\r",
-        "            \"IDBANNER\",\r",
         "            \"LA1\",\r",
         "            \"LA2\",\r",
         "            \"LA3\",\r",
@@ -6330,9 +6546,6 @@
         "            \"LEO3\",\r",
         "            \"LEO4\",\r",
         "            \"LEO5\",\r",
-        "            \"MLEX\",\r",
-        "            \"CLEX\",\r",
-        "            \"HLEX\",\r",
         "            \"PE1\",\r",
         "            \"PE2\",\r",
         "            \"PE3\",\r",
@@ -6344,6 +6557,12 @@
         "            \"PV1\",\r",
         "            \"PV2\",\r",
         "            \"PV3\",\r",
+        "            \"MLEX\",\r",
+        "            \"CLEX\",\r",
+        "            \"HLEX\",\r",
+        "            \"PAAV\",\r",
+        "            \"PARA\",\r",
+        "            \"PAAN\",\r",
         "            \"Total\"]"
       ],
       "exposed" : false
@@ -6360,6 +6579,33 @@
       "value" : [
         "if(!$data.VariableCarga.view){",
         "    $data.strAlumno.Total = \"\"+(parseFloat($data.strAlumno.PAAN ?$data.strAlumno.PAAN: 0) + parseFloat($data.strAlumno.PAAV ?$data.strAlumno.PAAV: 0) + parseFloat($data.strAlumno.PARA ?$data.strAlumno.PARA: 0))",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "revisarManual" : {
+      "type" : "json",
+      "value" : [
+        "[\"tipoExamen\",\"IDBANNER\",\"Nombre\",\"Total\",\"fechaExamen\",\"PAAN\",\"PAAV\",\"PARA\",\"MLEX\",\"CLEX\",\"HLEX\"]"
+      ],
+      "exposed" : false
+    },
+    "lstBanner" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "COVERSIONDEDATOS" : {
+      "type" : "expression",
+      "value" : [
+        "if( !$data.VariableCarga.view && $data.strAlumno.tipoExamen == \"KP\" ){",
+        "    $data.strAlumno.PAAN = convertirDato($data.strAlumno['MLEX']);",
+        "    $data.strAlumno.PAAV = convertirDato($data.strAlumno['CLEX']);",
+        "    $data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
+        "    ",
+        "    $data.strAlumno.LEXIUM_Total = \"\"+(parseFloat($data.strAlumno.MLEX ?$data.strAlumno.MLEX: 0) + parseFloat($data.strAlumno.CLEX ?$data.strAlumno.CLEX: 0) + parseFloat($data.strAlumno.HLEX ?$data.strAlumno.HLEX: 0))",
         "}"
       ],
       "exposed" : false

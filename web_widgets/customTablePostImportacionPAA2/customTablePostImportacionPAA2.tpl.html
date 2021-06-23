@@ -73,11 +73,11 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='INVP'"></i></span></th>
                             
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHARESULTADO')">FECHA DE CARGA DE RESULTADOS<i class="glyphicon"
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHARESULTADO')">Fecha del examen<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='FECHARESULTADO'"></i></span> <!--/ <span style="cursor:pointer" ng-click="setOrderBy('TIPO')">Tipo<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='FECHARESULTADO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMA')">fecha ultima modificacion<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='TIPO'"></i></span>--></th>
+                            ng-show="properties.dataToSend.orderby=='FECHAULTIMA'"></i></span></th>
                     <th> Acciones</th>
                 </tr>
             </thead>
@@ -89,7 +89,7 @@
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
                     <td><input ng-model="dynamicInput['puntuaciones']" class="form-control" ng-enter="filterKeyPress('PUNTUACIONES',dynamicInput['puntuaciones'])"></td>
-                    <td><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DE CARGA DE RESULTADOS',dynamicInput['fecha'])"></td>
+                    <td><input ng-model="dynamicInput['fecha']" class="form-control" ng-enter="filterKeyPress('FECHA DEL EXAMEN, FECHA ULTIMA MODIFICACION',dynamicInput['fecha'])"></td>
                     <td></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
@@ -122,7 +122,8 @@
                     </td>
                 
                     <td class="max-size">
-                        <b>{{row.fecharegistro }}</b><br> 
+                        <b>{{row.fechaexamen }}</b><br> 
+                        {{row.fecharegistro }}<br> 
                         <br>
                     </td>
                     <td class="max-size">

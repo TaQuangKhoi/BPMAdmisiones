@@ -2722,6 +2722,96 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.AutodescripcionV2">
+            <fields>
+                <field type="TEXT" length="255" name="comoEstaConformadaFamilia" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="materiasCalifBajas" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="materiasCalifAltas" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="materiasNoTeGustan" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="materiasTeGustan" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatEstudiasteEnElExtranjero" fetchType="EAGER" name="catEstudiadoExtranjero" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPais" fetchType="LAZY" name="paisEstudiasteExtranjero" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCuantoTiempo" fetchType="EAGER" name="tiempoEstudiasteExtranjero" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatUltimoCursoBachiller" fetchType="EAGER" name="catAreaBachillerato" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatExamenExtraordinario" fetchType="EAGER" name="catHasPresentadoExamenExtraordinario" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="cualExamenExtraPresentaste" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatSemestreReprobado" fetchType="EAGER" name="catHasReprobado" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="motivoExamenExtraordinario" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="periodoReprobaste" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="motivoReprobaste" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatUniversidadAIngresar" fetchType="EAGER" name="catInscritoOtraUniversidad" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatActualmenteTrabajas" fetchType="EAGER" name="catHasTenidoTrabajo" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatExperienciaAyudaCarrera" fetchType="EAGER" name="catExperienciaAyudaCarrera" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="empresaTrabajaste" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatActualmenteTrabajas" fetchType="EAGER" name="catActualnenteTrabajas" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="empresaTrabajas" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPersonaSaludable" fetchType="EAGER" name="catPersonaSaludable" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatDiscapacidad" fetchType="EAGER" name="catVivesEstadoDiscapacidad" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="tipoDiscapacidad" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="problemasSaludAtencionContinua" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="hasRecibidoAlgunaTerapia" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="comoDescribesTuFamilia" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="queCambiariasDeTuFamilia" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="familiarMejorRelacion" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="conQuienPlaticasProblemas" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="comoDescribesRelacionHermanos" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="admirasPersonalidadPadre" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="defectosObservasPadre" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="admirasPersonalidadMadre" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="defectosObservasMadre" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPracticaDeporte" fetchType="EAGER" name="catPracticasDeporte" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="queDeportePracticas" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTeGustaLeer" fetchType="EAGER" name="catTeGustaLeer" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="queLecturaPrefieres" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatParticipasGrupoSocial" fetchType="EAGER" name="catParticipasGrupoSocial" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="organizacionParticipas" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatJefeGrupoSocial" fetchType="EAGER" name="catJefeOrganizacionSocial" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="organizacionHasSidoJefe" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="queHacesEnTuTiempoLibre" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatParticipasGrupoSocial" fetchType="EAGER" name="pertenecesOrganizacion" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="organizacionesPerteneces" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="principalesVirtudes" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="principalesDefectos" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="mayorProblemaEnfrentado" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatResolvisteProblema" fetchType="EAGER" name="catYaResolvisteElProblema" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="comoResolvisteProblema" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="metasCortoPlazo" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="metasMedianoPlazo" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="metasLargoPlazo" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="comoTeDescribenTusAmigos" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="detallesPersonalidad" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="queCambiariasDeTi" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPracticaReligion" fetchType="EAGER" name="catPracticasReligion" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatAspectoDesagradoReligion" fetchType="EAGER" name="catAspectoDesagradaReligion" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="asprctosNoGustanReligion" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="motivoAspectosNoGustanReligion" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="caracteristicasExitoCarrera" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="profesionalComoTeVes" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="motivoElegisteCarrera" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="expectativasCarrera" nullable="true" collection="false"/>
+                <field type="TEXT" length="255" name="fuentesInfluyeronDesicion" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatPadresEstanDeAcuerdo" fetchType="EAGER" name="catPadresDeAcuerdo" nullable="true" collection="false"/>
+                <field type="STRING" length="500" name="motivoPadresNoAcuerdo" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatOrientacionVocacional" fetchType="EAGER" name="catOrientacionVocacional" nullable="true" collection="false"/>
+                <field type="TEXT" length="500" name="personasInfluyeronDesicion" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="pageIndex" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTerapia" fetchType="EAGER" name="catRecibidoTerapia" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.AutodescripcionV2Idiomas">
+            <fields>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatIdioma" fetchType="LAZY" name="idioma" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTraduccion" fetchType="LAZY" name="nivel" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="otroIdioma" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.model.ConfiguracionFTP">
             <fields>
                 <field type="STRING" length="255" name="dominio" nullable="true" collection="false"/>
@@ -2882,6 +2972,7 @@
                 <field type="STRING" length="255" name="lexiumTotal" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="fechaRegistro" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="tipoExamen" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="sesion_pid" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3310,6 +3401,7 @@
                 <field type="TEXT" length="255" name="observaciones" nullable="true" collection="false"/>
                 <field type="LOCALDATE" length="255" name="fechaRegistro" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="periodo" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="attribute" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="desactivado" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
@@ -3512,7 +3604,7 @@
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoCarrerasRec">
             <fields>
                 <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatGestionEscolar" fetchType="LAZY" name="carrera" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatGestionEscolar" fetchType="EAGER" name="carrera" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="comentarios" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
@@ -3534,8 +3626,8 @@
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoRasgos">
             <fields>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosObservados" fetchType="LAZY" name="rasgo" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosCalif" fetchType="LAZY" name="calificacion" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosObservados" fetchType="EAGER" name="rasgo" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosCalif" fetchType="EAGER" name="calificacion" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3557,8 +3649,8 @@
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoTerapias">
             <fields>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTipoTerapia" fetchType="LAZY" name="catTipoTerapia" nullable="true" collection="false"/>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTerapia" fetchType="LAZY" name="catRecibidoTerapia" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTipoTerapia" fetchType="EAGER" name="catTipoTerapia" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTerapia" fetchType="EAGER" name="catRecibidoTerapia" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="tipoTerapia" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="cuantoTiempo" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="recibidoTerapiaString" nullable="true" collection="false"/>

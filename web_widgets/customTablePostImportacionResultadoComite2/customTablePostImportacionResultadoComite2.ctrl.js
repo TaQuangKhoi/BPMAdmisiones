@@ -310,7 +310,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.getCatCampus();
     
     $scope.cargaManual = function(row){
-        $scope.properties.strInfo ={"nombre": `${row.apellidopaterno} ${row.apellidomaterno} ${row.primernombre} ${row.segundonombre}`,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64};
+        debugger;
+        $scope.properties.strInfo ={"nombre": `${row.primernombre+" "}  ${row.segundonombre+" "}  ${row.apellidopaterno+" "}  ${row.apellidomaterno+" "} `,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64};
         $scope.properties.datosAspirante = {
             "decision": "",
             "observaciones": "",
@@ -330,8 +331,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         return $http(req)
             .success(function (data, status) {
-                cargaDeDatos($scope.properties.datosAspirante,data.data[0])
-                console.log($scope.properties.datosAspirante)
+                $scope.properties.datosAspirante = data.data;
+                /*cargaDeDatos($scope.properties.datosAspirante,data.data[0])
+                console.log($scope.properties.datosAspirante)*/
             })
             .error(function (data, status) {
                 console.error(data);
@@ -351,7 +353,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                      json[(key+"_1")] = datos[key]
                 }
             }
-            json.observaciones = json.observacione;
+            //json.observaciones = json.observacione;
             json.update = true;
         }
     }

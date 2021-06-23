@@ -93,7 +93,11 @@ class ReportesDAO {
 
 
 
+<<<<<<< HEAD
             def titulos = ["Nombre", "Apaterno", "Amaterno", "Email", "Usuario", "Clave", "Edad", "Matrícula", "Curp", "Sesión", "Fecha examen", "Campus(VPD)"]
+=======
+            def titulos = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matrícula", "curp", "sesión", "fecha examen", "campus(VPD)"]
+>>>>>>> e54b2712 (actualizacion de importacionPAA)
             def titulosRua = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesión", "fecha examen", "campus(VPD)"]
             if (object.encabezado) {
                 fw.write((titulosRua.join(",") + "\r\n").getBytes());

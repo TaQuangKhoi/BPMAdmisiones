@@ -32,6 +32,13 @@ function PbDatePickerCtrl($scope, $log, widgetNameFactory, $element, $locale, $b
   if (!$scope.properties.isBound('value')) {
     $log.error('the pbDatepicker property named "value" need to be bound to a variable');
   }
+  
+  $scope.$watch("properties.value", function(){
+        var fechaminima = new Date(new Date().getTime());
+        console.log($scope.properties.value);
+        
+        
+    });
 
 
 }

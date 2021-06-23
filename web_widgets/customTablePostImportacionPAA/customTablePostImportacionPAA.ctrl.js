@@ -345,6 +345,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "PV3": "",
             "TOTAL": "",
             "tipoExamen":"",
+            "MLEX":"",
+            "CLEX":"",
+            "HLEX":"",
             "INVP":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
