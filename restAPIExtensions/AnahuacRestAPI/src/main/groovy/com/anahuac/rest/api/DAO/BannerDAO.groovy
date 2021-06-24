@@ -286,15 +286,16 @@ class BannerDAO {
 							objEducationalInstitutions.setOperation(objJson.get("operation").toString());
 						}
 						else {
-							errorLog = errorLog + " | educational-institutions";
-							errorLog = errorLog + " | " + ("idBachillerato: " + objJsonContent.get("id").toString());
-							errorLog = errorLog + " | " + ("code: " + objJsonContent.get("code").toString());
-							errorLog = errorLog + " | " + ("descripcion: " + objJsonContent.get("title").toString());
-							errorLog = errorLog + " | " + ("usuarioBanner: " + objJsonPublisher.get("applicationName").toString());
-							errorLog = errorLog + " | " + ("fechaImportacion: " + objJson.get("published").toString());
-							errorLog = errorLog + " | " + ("fechaCreacion: " + objJson.get("published").toString());
-	
-	
+							errorLog = errorLog + " | educational-institutions--------------------------------------------------";
+							errorLog = errorLog + " | " + ("IdBachillerato" +(objJsonContent.get("id").toString()));
+							errorLog = errorLog + " | " + ("Descripcion" +(objJsonContent.get("title").toString()));
+							errorLog = errorLog + " | " + ("UsuarioBanner" +(objJsonPublisher.get("applicationName").toString()));
+							errorLog = errorLog + " | " + ("FechaImportacion" +(objJson.get("published").toString()));
+							errorLog = errorLog + " | " + ("FechaCreacion" +(objJson.get("published").toString()));
+							errorLog = errorLog + " | " + ("Operation" +(objJson.get("operation").toString()));
+							errorLog = errorLog + " | " + ("Clave" +(objJsonContent.get("code").toString()));
+							errorLog = errorLog + " | " + ("TypeInd" +(objJsonContent.get("typeInd").toString()));
+
 							objEducationalInstitutions.setIdBachillerato(objJsonContent.get("id").toString());
 							objEducationalInstitutions.setDescripcion(objJsonContent.get("title").toString());
 							objEducationalInstitutions.setUsuarioBanner(objJsonPublisher.get("applicationName").toString());
@@ -302,7 +303,8 @@ class BannerDAO {
 							objEducationalInstitutions.setFechaCreacion(objJson.get("published").toString());
 							objEducationalInstitutions.setOperation(objJson.get("operation").toString());
 							objEducationalInstitutions.setClave(objJsonContent.get("code").toString());
-	
+							objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
+							
 							errorLog = errorLog + " | " + "objEducationalInstitutions.setStreetLine1";
 	
 							objEducationalInstitutions.setStreetLine1("");
@@ -449,7 +451,7 @@ class BannerDAO {
 									objEducationalInstitutions.setOperation("deleted");
 								}
 							}
-							objEducationalInstitutions.setTypeInd(objJsonContent.get("typeInd").toString());
+							
 						}
 						
 						lstEducationalInstitutions.add(objEducationalInstitutions);
@@ -648,7 +650,13 @@ class BannerDAO {
 									if (!strCountyCode.equals("")) {
 										isCountyCodeOk = strCountyCode.equals("20000")
 									}
-									isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+									
+									strStateCode = objRow.getStateCode() == null ? "" : objRow.getStateCode();
+									if (!strStateCode.equals("")) {
+										isStateCodeOk = strStateCode.toLowerCase().equals("fr")
+									}
+									
+									isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
 
 								}
 							}
@@ -794,7 +802,7 @@ class BannerDAO {
 								if (!objRow.isIsEliminado()) {
 									if (row.getTypeInd().equals("H")) {
 										errorLog = errorLog + " | IF IS ELIMANDO ===========================================================================================";
-										errorLog = errorLog + " | PersistenceId:" + row.getPersistenceId();
+										errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 										errorLog = errorLog + " | Descripcion:" + row.getDescripcion();
 										errorLog = errorLog + " | ================================================================== | ";
 										
@@ -861,7 +869,12 @@ class BannerDAO {
 												if (!strCountyCode.equals("")) {
 													isCountyCodeOk = strCountyCode.equals("20000")
 												}
-												isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+												strStateCode = row.getStateCode() == null ? "" : row.getStateCode();
+												if (!strStateCode.equals("")) {
+													isStateCodeOk = strStateCode.toLowerCase().equals("fr")
+												}
+												
+												isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
 											}
 										}
 										
@@ -1146,7 +1159,12 @@ class BannerDAO {
 						if (!strCountyCode.equals("")) {
 							isCountyCodeOk = strCountyCode.equals("20000")
 						}
-						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk);
+						strStateCode = objLstAddresses.getStateCode() == null ? "" : objLstAddresses.getStateCode();
+						if (!strStateCode.equals("")) {
+							isStateCodeOk = strStateCode.toLowerCase().equals("fr")
+						}
+						
+						isOtroPaisOk = (isNationCodeOk && isCountyCodeOk && isNationCodeLetterOk && isStateCodeOk);
 					}
 				}
 

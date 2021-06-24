@@ -1148,6 +1148,20 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					case "ID BANNER":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(id) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
                     case "DESCRIPCIÓN":
                         if (where.contains("WHERE")) {
                             where += " AND "
@@ -1168,7 +1182,7 @@ class CatalogosDAO {
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(FECHACREACION) ";
+                        where += " TO_CHAR(TO_TIMESTAMP(FECHACREACION, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') ";
                         if (filtro.get("operador").equals("Igual a")) {
                             where += "=LOWER('[valor]')"
                         } else {
@@ -1176,13 +1190,27 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					case "FECHA DE IMPORTACIÓN":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += "  TO_CHAR(TO_TIMESTAMP(fechaimportacion, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
                     case "FECHA DE IMPLEMENTACIÓN":
                         if (where.contains("WHERE")) {
                             where += " AND "
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(FECHAIMPLEMENTACION) ";
+                        where += "  TO_CHAR(TO_TIMESTAMP(FECHAIMPLEMENTACION, 'YYYY-MM-DD HH24:MI:SS'), 'DD-MM-YYYY HH24:MI:SS') ";
                         if (filtro.get("operador").equals("Igual a")) {
                             where += "=LOWER('[valor]')"
                         } else {
