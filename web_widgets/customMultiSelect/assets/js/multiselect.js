@@ -216,7 +216,7 @@ angular.module('ui.multiselect', [])
                         try {
                             angular.forEach(newVal.split(","), function(i) {
                                 angular.forEach(scope.items, function(item) {
-                                    if (angular.equals(item.model[scope.key], i)|| item.model[scope.key]==i) {
+                                    if (angular.equals(item.model[scope.key], i) || item.model[scope.key] == i) {
                                         item.checked = true;
                                         scope.singleHeader += item.model[scope.label] + ","
                                     }
@@ -226,7 +226,7 @@ angular.module('ui.multiselect', [])
 
                         }
 
-                        (scope.singleHeader == "") ? scope.singleHeader = "Seleccionar": scope.singleHeader = scope.singleHeader.slice(0, -1);
+                        (scope.singleHeader == "") ? scope.singleHeader = "Seleccionar": (newVal.split(",").length == 1) ? scope.singleHeader = scope.singleHeader.slice(0, -1) : scope.singleHeader = newVal.split(",").length + " Seleccionados";
                     }
                 }
 

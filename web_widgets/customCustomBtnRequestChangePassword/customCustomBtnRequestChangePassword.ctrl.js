@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http) {
+function PbButtonCtrl($scope, $http, blockUI) {
     
     $scope.action = function(){
         if(validate()){
@@ -26,6 +26,7 @@ function PbButtonCtrl($scope, $http) {
     }
     
     $scope.cambioPasswordBonita = function() {
+        blockUI.start();
         let data = {
             "nombreusuario": $scope.properties.objUser.email,
             "password": "password"
@@ -56,7 +57,7 @@ function PbButtonCtrl($scope, $http) {
            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         })
         .finally(function() {
-            
+            blockUI.stop();
         });
     }
 }

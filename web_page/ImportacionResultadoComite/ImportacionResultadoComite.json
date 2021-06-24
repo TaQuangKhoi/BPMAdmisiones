@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1623778424771,
+  "lastUpdate" : 1623787122824,
   "rows" : [
     [
       {
@@ -636,7 +636,7 @@
                                   },
                                   "datosAspirante" : {
                                     "type" : "variable",
-                                    "value" : "strAlumno"
+                                    "value" : "lstResultados"
                                   },
                                   "tabla" : {
                                     "type" : "variable",
@@ -2367,7 +2367,7 @@
                         "value" : ""
                       }
                     },
-                    "reference" : "553cdfb0-ea94-4d85-8b9b-89ed6ea58ec8",
+                    "reference" : "3aa3d966-726e-4589-845d-d6f6e846f0f2",
                     "hasValidationError" : false,
                     "id" : "pbContainer",
                     "rows" : [
@@ -2687,15 +2687,15 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "accion == \"infodatos\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
                 }
               },
-              "reference" : "ff6ef359-880f-4484-b1c5-9611904412ea",
+              "reference" : "b36c8384-3951-4025-ab45-58715815950b",
               "hasValidationError" : false,
               "id" : "pbContainer",
               "rows" : [
@@ -2730,7 +2730,7 @@
                         "value" : "center"
                       }
                     },
-                    "reference" : "2b39a3f6-f743-4f09-ab12-487ba78ce5d3",
+                    "reference" : "8dbb0cab-5227-4bd4-b36e-f1348ba6100c",
                     "hasValidationError" : false,
                     "id" : "pbTitle"
                   }
@@ -2760,21 +2760,26 @@
                       "headers" : {
                         "type" : "constant",
                         "value" : [
-                          "Id",
-                          "Name",
-                          "Description",
-                          "Date"
+                          "ID Banner",
+                          "Decisión de admisión",
+                          "periodo"
                         ]
                       },
                       "content" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "lstResultados"
                       },
                       "columnsKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : [
+                          "idbanner",
+                          "decision",
+                          "periodo"
+                        ]
                       },
                       "selectedRow" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "lstResultados"
                       },
                       "striped" : {
                         "type" : "constant",
@@ -2782,24 +2787,24 @@
                       },
                       "condensed" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "bordered" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "table" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "accion"
                       },
                       "view" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "VariableCarga.view"
                       }
                     },
-                    "reference" : "853948f0-ebea-4211-9c76-aaed98fabb7c",
+                    "reference" : "35fc139c-9b4b-487a-af2b-712263e0d1dd",
                     "hasValidationError" : false,
-                    "id" : "customTblImportacionResultadoComite"
+                    "id" : "customTblResultadoComite"
                   }
                 ]
               ]
@@ -2821,7 +2826,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "accion != \"insertar\""
+                  "value" : "accion != \"infoDatos\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -3770,7 +3775,7 @@
     "revisar" : {
       "type" : "json",
       "value" : [
-        "[\"decisión de admisión\",\"pdp_1\",\"pdu_1\",\"sse_1\",\"pcda_1\",\"pca_1\",\"número de matrícula\"]"
+        "[\"decisión de admisión\",\"pdp_1\",\"pdu_1\",\"sse_1\",\"pcda_1\",\"pca_1\",\"número de matrícula\",\"periodo\"]"
       ],
       "exposed" : false
     },
@@ -3857,6 +3862,13 @@
     },
     "accion" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "lstResultados" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
       "exposed" : false
     }
   },

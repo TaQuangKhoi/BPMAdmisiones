@@ -35,11 +35,11 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     $scope.$watch("properties.value",function(){
         if($scope.properties.value >= $scope.properties.max){
             $scope.properties.value = null;
-            $scope.properties.value = $scope.properties.max;
+            $scope.properties.value = $scope.properties.max+"";
         }
         if($scope.properties.value % 1 != 0){
-            $scope.properties.value = parseFloat($scope.properties.value).toFixed(2);
-            $scope.properties.value = parseFloat($scope.properties.value);
+            $scope.properties.value = (parseFloat($scope.properties.value).toFixed(2))+"";
+            $scope.properties.value = parseFloat($scope.properties.value)+"";
             $scope.$apply();
         }
     });

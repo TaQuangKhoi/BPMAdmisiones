@@ -318,7 +318,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "sse_1": "",
             "pcda_1": "",
             "pca_1": "",
-            "IDBANNER": ""
+            "IDBANNER": "",
+            "periodo":row.ingreso
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";

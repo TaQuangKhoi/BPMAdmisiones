@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Reportes",
   "name" : "Reportes",
-  "lastUpdate" : 1623355241521,
+  "lastUpdate" : 1624297834423,
   "rows" : [
     [
       {
@@ -648,6 +648,85 @@
                   },
                   "hidden" : {
                     "type" : "constant",
+                    "value" : false
+                  },
+                  "required" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "minLength" : {
+                    "type" : "constant",
+                    "value" : 8
+                  },
+                  "maxLength" : {
+                    "type" : "constant",
+                    "value" : 8
+                  },
+                  "readOnly" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "labelHidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Id banner"
+                  },
+                  "labelPosition" : {
+                    "type" : "constant",
+                    "value" : "top"
+                  },
+                  "labelWidth" : {
+                    "type" : "constant",
+                    "value" : 4
+                  },
+                  "placeholder" : {
+                    "type" : "interpolation",
+                    "value" : "00000000"
+                  },
+                  "value" : {
+                    "type" : "variable",
+                    "value" : "idbanner"
+                  },
+                  "type" : {
+                    "type" : "constant",
+                    "value" : "text"
+                  },
+                  "min" : {
+                    "type" : "constant",
+                    "value" : 0
+                  },
+                  "max" : {
+                    "type" : "constant",
+                    "value" : 99999999
+                  },
+                  "step" : {
+                    "type" : "constant"
+                  }
+                },
+                "reference" : "11c15dc4-7f23-471f-bfae-44efd6a0b30c",
+                "hasValidationError" : false,
+                "id" : "customInputNumberText"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
                     "value" : true
                   },
                   "disabled" : {
@@ -712,8 +791,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "expression",
-                    "value" : "rptSelected=='Datos de los familiares'"
+                    "type" : "constant",
+                    "value" : false
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -753,7 +832,7 @@
                   },
                   "returnedKey" : {
                     "type" : "constant",
-                    "value" : "persistenceId"
+                    "value" : "persistenceid"
                   },
                   "value" : {
                     "type" : "variable",
@@ -784,8 +863,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "expression",
-                    "value" : "rptSelected=='Datos de los familiares'"
+                    "type" : "constant",
+                    "value" : false
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -921,8 +1000,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "expression",
-                    "value" : "rptSelected=='Datos de los familiares'"
+                    "type" : "constant",
+                    "value" : false
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1129,8 +1208,8 @@
                     "value" : ""
                   },
                   "hidden" : {
-                    "type" : "expression",
-                    "value" : "rptSelected=='Admitidos al propedéutico' || rptSelected=='Datos de los familiares'"
+                    "type" : "constant",
+                    "value" : false
                   },
                   "disabled" : {
                     "type" : "constant",
@@ -1327,6 +1406,13 @@
                   "reporte" : {
                     "type" : "expression",
                     "value" : "rptSelected"
+                  },
+                  "ruaname" : {
+                    "type" : "constant"
+                  },
+                  "lstSesiones" : {
+                    "type" : "variable",
+                    "value" : ""
                   }
                 },
                 "reference" : "98b91221-fcfd-4556-bab2-42495611aaa4",
@@ -1404,6 +1490,14 @@
                   "reporte" : {
                     "type" : "expression",
                     "value" : "rptSelected"
+                  },
+                  "ruaname" : {
+                    "type" : "expression",
+                    "value" : "sesion"
+                  },
+                  "lstSesiones" : {
+                    "type" : "variable",
+                    "value" : "lstSesiones.data"
                   }
                 },
                 "reference" : "532b5a9f-9c70-42e4-9eb4-3dafd85073ac",
@@ -1485,7 +1579,7 @@
                   },
                   "hidden" : {
                     "type" : "expression",
-                    "value" : "rptSelected!='Resultado de examenes' && rptSelected!='Admitidos al propedéutico' && rptSelected!='Datos de los familiares'"
+                    "value" : "rptSelected!=\"Relación de aspirantes\" && rptSelected!='Resultado de examenes' && rptSelected!='Admitidos al propedéutico' && rptSelected!='Datos de los familiares'"
                   },
                   "srcType" : {
                     "type" : "constant",
@@ -1512,6 +1606,13 @@
                   "reporte" : {
                     "type" : "expression",
                     "value" : "rptSelected"
+                  },
+                  "ruaname" : {
+                    "type" : "constant"
+                  },
+                  "lstSesiones" : {
+                    "type" : "variable",
+                    "value" : ""
                   }
                 },
                 "reference" : "ffb736db-71be-4046-b5ac-18a46e166ad4",
@@ -1830,9 +1931,9 @@
       "exposed" : false
     },
     "periodos" : {
-      "type" : "businessdata",
+      "type" : "url",
       "value" : [
-        "{\"displayValue\":\"getCatPeriodo [com.anahuac.catalogos.CatPeriodo]\",\"businessObjectName\":\"CatPeriodo\",\"query\":{\"name\":\"getCatPeriodo\",\"displayName\":\"getCatPeriodo\"},\"id\":\"com.anahuac.catalogos.CatPeriodo\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+        "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22{{campus_selected.persistenceId}}%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D"
       ],
       "exposed" : false
     },
@@ -1895,7 +1996,8 @@
     "lstReportes" : {
       "type" : "json",
       "value" : [
-        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Resultado de examenes\"},{\"reporte\":\"Admitidos al propedéutico\"},{\"reporte\":\"Datos de los familiares\"}]"
+        "[{\"reporte\":\"Lexium\"},{\"reporte\":\"Resultado de examenes\"},{\"reporte\":\"Admitidos al propedéutico\"},{\"reporte\":\"Datos de los familiares\"}",
+        ",{\"reporte\":\"Relación de aspirantes\"}]"
       ],
       "exposed" : false
     },
@@ -1965,7 +2067,8 @@
         "    \"carrera\":$data.carrera,",
         "    \"preparatoria\":$data.preparatoria,",
         "    \"sesion\":$data.sesion,",
-        "    \"encabezado\":$data.encabezado",
+        "    \"encabezado\":$data.encabezado,",
+        "    \"idbanner\":$data.idbanner",
         "}",
         "return json;"
       ],
@@ -1980,6 +2083,10 @@
       "value" : [
         "return true;"
       ],
+      "exposed" : false
+    },
+    "idbanner" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

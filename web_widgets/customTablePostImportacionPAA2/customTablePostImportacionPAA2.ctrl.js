@@ -321,7 +321,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         $scope.properties.datosAspirante = {
             "CIT1": "",
             "CIT2": "",
-            "FECHAEXAMEN": "",
+            "fechaExamen": "",
             "HI1": "",
             "HI2": "",
             "HI3": "",
@@ -353,14 +353,19 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "PV3": "",
             "TOTAL": "",
             "tipoExamen":"",
-            "INVP":""
+            "CLEX":"",
+            "MLEX":"",
+            "HLEX":"",
+            "INVP":"",
+            "update":true,
+            "fecha":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "fragmento";
-        $scope.properties.view = true;
+        $scope.properties.view = false;
         var req = {
             method: "GET",
-            url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}`
+            url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
         };
         return $http(req)
             .success(function (data, status) {
@@ -385,15 +390,17 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 }else if(key === "total"){
                     json.Total = data[key]
                 }else if(key == "fechaexamen"){
-                    json.fechaExamen = data[key]
+                    json.fecha = data[key];
+                    let fecha = `${data[key].slice(3,5)}/${data[key].slice(0,2)}/${data[key].slice(6,10)}`;
+                    json.fechaExamen = new Date(fecha)
                 }else if(key == "tipoexamen"){
                     json.tipoExamen = data[key];
                 }else if(key == "lexiumpara"){
-                    json.LEXIUM_PARA = data[key]
+                    json.HLEX = data[key]
                 }else if(key == "lexiumpaav"){
-                    json.LEXIUM_PAAV = data[key]
+                    json.CLEX = data[key]
                 }else if(key == "lexiumpaan"){
-                    json.LEXIUM_PAAN = data[key]
+                    json.MLEX = data[key]
                 }else if(key == "lexiumtotal"){
                     json.LEXIUM_Total = data[key]
                 }
