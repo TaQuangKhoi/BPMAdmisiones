@@ -199,48 +199,6 @@ class ProcessFileDAO {
 		return resultado;
 	}
 	
-	public Result deleteDocumentBonita(Long caseId) {
-		Result resultado = new Result();
-		
-		Boolean closeCon = false;
-		
-		List<Integer> lstDocumentId = new ArrayList<Integer>();
-		
-		try {
-			closeCon = validarConexionBonita();
-			con.setAutoCommit(false);
-			pstm = con.prepareStatement(Statements.GET_DOCUMENT_TO_DELETE);
-			pstm.setLong(1, caseId);
-			rs = pstm.executeQuery();
-			while(rs.next()) {
-				lstDocumentId.add(rs.getInt("documentid"));
-			}
-			
-			if(lstDocumentId.size() > 0) {
-				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT.replace("[LSTDOCUMENTOID]", lstDocumentId.join(",")));
-				pstm.executeUpdate();
-				
-				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT_MAPPING);
-				pstm.setLong(1, caseId);
-				pstm.executeUpdate();
-				
-			}
-			con.commit();
-			con.setAutoCommit(true);
-			resultado.setSuccess(true);
-		} catch (Exception e) {
-			con.rollback();
-			con.setAutoCommit(true);
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-		}finally {
-			if(closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		return resultado
-	}
-	
 	public Boolean validarConexionBonita() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {
@@ -317,5 +275,47 @@ class ProcessFileDAO {
 		InputStream is = new ByteArrayInputStream(decodedBytes);
 		result = new AzureBlobFileUpload().uploadFile(is, mapEnviarAzure.get("filename"), mapEnviarAzure.get("filetype"), mapEnviarAzure.get("contenedor"), decodedBytes.length);
 		return result;
+	}
+
+	public Result deleteDocumentBonita(Long caseId) {
+		Result resultado = new Result();
+		
+		Boolean closeCon = false;
+		
+		List<Integer> lstDocumentId = new ArrayList<Integer>();
+		
+		try {
+			closeCon = validarConexionBonita();
+			con.setAutoCommit(false);
+			pstm = con.prepareStatement(Statements.GET_DOCUMENT_TO_DELETE);
+			pstm.setLong(1, caseId);
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				lstDocumentId.add(rs.getInt("documentid"));
+			}
+			
+			if(lstDocumentId.size() > 0) {
+				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT.replace("[LSTDOCUMENTOID]", lstDocumentId.join(",")));
+				pstm.executeUpdate();
+				
+				pstm = con.prepareStatement(Statements.DELETE_DOCUMENT_MAPPING);
+				pstm.setLong(1, caseId);
+				pstm.executeUpdate();
+				
+			}
+			con.commit();
+			con.setAutoCommit(true);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			con.rollback();
+			con.setAutoCommit(true);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
 	}
 }

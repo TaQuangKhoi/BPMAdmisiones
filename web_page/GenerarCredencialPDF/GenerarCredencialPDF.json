@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "GenerarCredencialPDF",
   "name" : "GenerarCredencialPDF",
-  "lastUpdate" : 1622506364255,
+  "lastUpdate" : 1624486462160,
   "rows" : [
     [
       {
@@ -1627,9 +1627,22 @@
   "inactiveAssets" : [ ],
   "variables" : {
     "datosUsuarioId" : {
-      "type" : "url",
+      "type" : "expression",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=10&f=caseId={{caseId}}"
+        "var x = angular.copy($data.detalleSolicitudNoOrdenado)\r",
+        "\r",
+        "var t = x.length, temp;\r",
+        "\r",
+        "for (var i = 1; i < t; i++) {\r",
+        "    for (var j = t - 1; j >= i; j--) {\r",
+        "        if (x[j].persistenceId > x[j - 1].persistenceId) {\r",
+        "            temp = x[j];\r",
+        "            x[j] = x[j - 1];\r",
+        "            x[j - 1] = temp;\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "return x;"
       ],
       "exposed" : false
     },
@@ -1734,6 +1747,13 @@
       "type" : "url",
       "value" : [
         "../api/bdm/businessdata/com.anahuac.model.SesionAspirante?q=findByUsername&p=0&c=10&f=Username={{userdataemail[0].username}}"
+      ],
+      "exposed" : false
+    },
+    "detalleSolicitudNoOrdenado" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=10&f=caseId={{caseId}}"
       ],
       "exposed" : false
     }
