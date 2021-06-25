@@ -311,16 +311,17 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     $scope.cargaManual = function(row){
         $scope.properties.datosAspirante = {
+            "IDBANNER": "",
+            "FECHAEXAMEN": "",
+            "IdSesion":"",
             "CIT1": "",
             "CIT2": "",
-            "FECHAEXAMEN": "",
             "HI1": "",
             "HI2": "",
             "HI3": "",
             "HI4": "",
             "HI5": "",
             "HI6": "",
-            "IDBANNER": "",
             "LA1": "",
             "LA2": "",
             "LA3": "",
@@ -351,6 +352,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "INVP":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+        $scope.properties.datosAspirante.IdSesion = row.id;
         $scope.properties.tabla = "fragmento";
         $scope.properties.view = false;
         /*var req = {

@@ -178,7 +178,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:data.IDBANNER,nombre:data.Nombre,Error:error}]
                 return false;
             }
-            data['LEXIUM_Total'] = data['Total']
+            data['LEXIUM_Total'] = ""+(parseInt(data.MLEX.toString()) + parseInt(data.CLEX.toString()) + parseInt(data.HLEX.toString()) );
             data['Total'] = ""+(parseInt(data.PAAN.toString()) + parseInt(data.PAAV.toString()) + parseInt(data.PARA.toString()) );
             return true;
         }
