@@ -240,8 +240,12 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago"){
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción"){
-            ctrl.pageToken = "autodescripcion";
-			//ctrl.pageToken = "autodescripcionV2";
+
+        	if(parseFloat($scope.properties.processData.version)>parseFloat("1.5")) {
+				ctrl.pageToken = "autodescripcionV2";
+			} else {
+            	ctrl.pageToken = "autodescripcion";
+			}
         } else if ($scope.properties.currentTaskName === "Seleccionar cita"){
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial"){
