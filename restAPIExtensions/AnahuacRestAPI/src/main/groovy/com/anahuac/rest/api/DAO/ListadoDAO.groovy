@@ -8519,7 +8519,7 @@ class ListadoDAO {
 			font.setBold(true);
 			style.setFont(font);
 
-			if (type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas" || type.equals("listasesioncalendarizadaspsicologo"))) {
+			if (type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas") || type.equals("listasesioncalendarizadaspsicologo") ) {
 
 				if (type.equals("sesioncalendarizadas")) {
 					dataResult = new SesionesDAO().getSesionesCalendarizadas(jsonData, context)

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1624488044025,
+  "lastUpdate" : 1624582798224,
   "rows" : [
     [
       {
@@ -472,6 +472,102 @@
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "lstContenido2.length < 1"
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "<i class=\"glyphicon glyphicon-download-alt\"></i> Excel"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "right"
+                                  },
+                                  "buttonStyle" : {
+                                    "type" : "constant",
+                                    "value" : "primary"
+                                  },
+                                  "action" : {
+                                    "type" : "constant",
+                                    "value" : "POST"
+                                  },
+                                  "assign" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "url" : {
+                                    "type" : "interpolation",
+                                    "value" : "../API/extension/AnahuacRest?url=postExcelAspirantesPAA&p=0&c=10"
+                                  },
+                                  "responseStatusCode" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "dataToSend" : {
+                                    "type" : "expression",
+                                    "value" : "Files"
+                                  },
+                                  "dataFromSuccess" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "closeOnSuccess" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "dataFromError" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "targetUrlOnSuccess" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "collectionToModify" : {
+                                    "type" : "variable"
+                                  },
+                                  "modalId" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "collectionPosition" : {
+                                    "type" : "constant",
+                                    "value" : "Last"
+                                  },
+                                  "valueToAdd" : {
+                                    "type" : "constant"
+                                  },
+                                  "removeItem" : {
+                                    "type" : "variable"
+                                  },
+                                  "fileExtension" : {
+                                    "type" : "constant",
+                                    "value" : "xls"
+                                  }
+                                },
+                                "reference" : "8089ee39-2e67-4932-85f1-8a734d8f0063",
+                                "hasValidationError" : false,
+                                "id" : "customCustomBtnDownloadExcel"
+                              }
+                            ],
                             [
                               {
                                 "type" : "component",
@@ -1081,9 +1177,9 @@
                                 "Fecha de examen",
                                 "IDBANNER",
                                 "Nombre",
-                                "PAAN",
-                                "PAAV",
-                                "PARA",
+                                "MLEX",
+                                "CLEX",
+                                "HLEX",
                                 "Total"
                               ]
                             },
@@ -1958,10 +2054,12 @@
                                     "value" : "text"
                                   },
                                   "min" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 0
                                   },
                                   "max" : {
-                                    "type" : "constant"
+                                    "type" : "constant",
+                                    "value" : 2070
                                   },
                                   "step" : {
                                     "type" : "constant",
@@ -2106,7 +2204,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno.LEXIUM_PAAN"
+                              "value" : "strAlumno.MLEX"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2256,7 +2354,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno.LEXIUM_PAAV"
+                              "value" : "strAlumno.CLEX"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2406,7 +2504,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno.LEXIUM_PARA"
+                              "value" : "strAlumno.HLEX"
                             },
                             "type" : {
                               "type" : "constant",
@@ -3247,7 +3345,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -3289,7 +3387,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -4661,7 +4759,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -4703,7 +4801,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -5467,7 +5565,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -5509,7 +5607,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!VariableCarga.view"
+                        "value" : "strAlumno.tipoExamen != \"KP\""
                       },
                       "text" : {
                         "type" : "interpolation",
@@ -6530,6 +6628,7 @@
         "            [\r",
         "            \"IDBANNER\",\r",
         "            \"Fecha de examen\",\r",
+        "            \"IdSesion\",\r",
         "            \"CIT1\",\r",
         "            \"CIT2\",\r",
         "            \"HI1\",\r",
@@ -6606,6 +6705,22 @@
         "    $data.strAlumno.PARA = convertirDato($data.strAlumno['HLEX']);",
         "    ",
         "    $data.strAlumno.LEXIUM_Total = \"\"+(parseFloat($data.strAlumno.MLEX ?$data.strAlumno.MLEX: 0) + parseFloat($data.strAlumno.CLEX ?$data.strAlumno.CLEX: 0) + parseFloat($data.strAlumno.HLEX ?$data.strAlumno.HLEX: 0))",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "Files" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros2, \r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":999999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuarioNombre\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"completos\":$data.activos.completos\r",
         "}"
       ],
       "exposed" : false

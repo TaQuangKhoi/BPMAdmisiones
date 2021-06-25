@@ -73,6 +73,7 @@ class BannerDAO {
 			//jsonResultado = "[{\"id\": \"77\",\"published\": \"2021-05-31 18:07:49.688346+00\",\"resource\":{\"name\": \"educational-institutions\",\"id\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"operation\": \"deleted\",\"contentType\": \"empty\",\"content\":{\"guid\": \"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\"},\"publisher\":{\"id\": \"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\": \"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\": \"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\": \"uatest\",\"name\": \"Universidad Anahuac\",\"environment\": \"Test\"}}}]"
 			
 			//PROBLEMA
+
 			jsonResultado = "[{\"id\":\"132\",\"published\":\"2021-06-17 18:36:38.890122+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addresses\":[{\"address\":{\"id\":\"f1a6ad1e-9ed1-4692-92fa-6df7582650b1\"},\"type\":{\"addressType\":\"school\"}}],\"homeInstitution\":\"external\",\"id\":\"efe85af3-95b3-49c6-823d-e86af029f8e5\",\"title\":\"Instituto Americano\",\"type\":\"secondarySchool\",\"code\":\"9680\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
 			errorLog += " | jsonResultado: " + jsonResultado;
@@ -330,6 +331,25 @@ class BannerDAO {
 									objJsonAddressesDataAddress = (JSONObject) objJsonAddressesData.get("address");
 									errorLog = errorLog + " | " + ("idDireccion: " + objJsonAddressesDataAddress.get("id").toString());
 									objEducationalInstitutions.setIdDireccion(objJsonAddressesDataAddress.get("id").toString());
+									
+									resultAddresses = getAddresses(barrerToken, objJsonAddressesDataAddress.get("id").toString());
+									if(!resultAddresses.equals("")) {
+										
+										objJsonPlace = (JSONObject) objJsonContent.get("place");
+										lstAddressExtended = (JSONArray) objJsonContent.get("addressExtended");
+										objJsonCountry = (JSONObject) objJsonPlace.get("country");
+										objJsonRegion = (JSONObject) objJsonCountry.get("region");
+				
+										errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
+										errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
+										if(objJsonRegion != null) {
+											errorLog = errorLog + " | " + ("Estado: " + objJsonRegion.get("title").toString());
+										}
+										errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
+									}
+									else {
+										
+									}
 								}
 							} else {
 								errorLog = errorLog + " | objEducationalInstitutions.getIdBachillerato(): " + (objEducationalInstitutions.getIdBachillerato());
