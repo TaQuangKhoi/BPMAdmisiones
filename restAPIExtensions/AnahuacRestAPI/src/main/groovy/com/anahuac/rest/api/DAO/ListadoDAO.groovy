@@ -5934,69 +5934,75 @@ class ListadoDAO {
 				headerprbs.setCellValue("PRUEBAS Y HORAS DE EXAMEN");
 				headerprbs.setCellStyle(style);
 				Row headersRow = sheet.createRow(++rowCount);
-				Cell header1 = headersRow.createCell(0);
+				Cell header20 = headersRow.createCell(0);
+				header20.setCellValue("ID BANNER");
+				header20.setCellStyle(style);
+				Cell header1 = headersRow.createCell(1);
 				header1.setCellValue("NOMBRE");
 				header1.setCellStyle(style);
-				Cell header2 = headersRow.createCell(1);
+				Cell header2 = headersRow.createCell(2);
 				header2.setCellValue("EMAIL");
 				header2.setCellStyle(style);
-				Cell header3 = headersRow.createCell(2);
+				Cell header3 = headersRow.createCell(3);
 				header3.setCellValue("CURP");
 				header3.setCellStyle(style);
-				Cell header4 = headersRow.createCell(3);
+				Cell header4 = headersRow.createCell(4);
 				header4.setCellValue("CAMPUS");
 				header4.setCellStyle(style);
-				Cell header5 = headersRow.createCell(4);
+				Cell header5 = headersRow.createCell(5);
 				header5.setCellValue("PROGRAMA");
 				header5.setCellStyle(style);
-				Cell header6 = headersRow.createCell(5);
+				Cell header6 = headersRow.createCell(6);
 				header6.setCellValue("INGRESO");
 				header6.setCellStyle(style);
-				Cell header7 = headersRow.createCell(6);
+				Cell header7 = headersRow.createCell(7);
 				header7.setCellValue("PROCEDENCIA");
 				header7.setCellStyle(style);
-				Cell header8 = headersRow.createCell(7);
+				Cell header8 = headersRow.createCell(8);
 				header8.setCellValue("PREPARATORIA");
 				header8.setCellStyle(style);
-				Cell header9 = headersRow.createCell(8);
+				Cell header9 = headersRow.createCell(9);
 				header9.setCellValue("PROMEDIO");
 				header9.setCellStyle(style);
-				Cell header10 = headersRow.createCell(9);
+				Cell header10 = headersRow.createCell(10);
 				header10.setCellValue("EXAMEN DE APTITUDES Y CONOCIMIENTOS");
 				header10.setCellStyle(style);
-				Cell header17 = headersRow.createCell(10);
+				Cell header17 = headersRow.createCell(11);
 				header17.setCellValue("ASISTENCIA");
 				header17.setCellStyle(style);
-				Cell header11 = headersRow.createCell(11);
+				Cell header11 = headersRow.createCell(12);
 				header11.setCellValue("ENTREVISTA");
 				header11.setCellStyle(style);
-				Cell header18 = headersRow.createCell(12);
+				Cell header18 = headersRow.createCell(13);
 				header18.setCellValue("ASISTENCIA");
 				header18.setCellStyle(style);
-				Cell header12 = headersRow.createCell(13);
+				Cell header12 = headersRow.createCell(14);
 				header12.setCellValue("EXAMEN PSICOMÉTRICO");
 				header12.setCellStyle(style);
-				Cell header19 = headersRow.createCell(14);
+				Cell header19 = headersRow.createCell(15);
 				header19.setCellValue("ASISTENCIA");
 				header19.setCellStyle(style);
-				Cell header13 = headersRow.createCell(15);
+				Cell header13 = headersRow.createCell(16);
 				header13.setCellValue("ESTATUS");
 				header13.setCellStyle(style);
-				Cell header14 = headersRow.createCell(16);
+				Cell header14 = headersRow.createCell(17);
 				header14.setCellValue("FECHA SOLICITUD");
 				header14.setCellStyle(style);
-				Cell header15 = headersRow.createCell(17);
+				Cell header15 = headersRow.createCell(18);
 				header15.setCellValue("ÚLTIMA MODIFICACIÓN");
 				header15.setCellStyle(style);
-				Cell header16 = headersRow.createCell(18);
+				Cell header16 = headersRow.createCell(19);
 				header16.setCellValue("TIEMPO ÚLTIMA MODIFICACIÓN");
 				header16.setCellStyle(style);
 				for (int i = 0; i < lstParams.size(); ++i) {
 
 					//SolicitudAdmisionCustom  solicitud = (SolicitudAdmisionCustom) lstParams.get(i);
 					Row row = sheet.createRow(++rowCount);
+					// ID BANNER
+					Cell cell20 = row.createCell(0);
+					cell20.setCellValue(lstParams[i].idbanner);
 					//Nombre
-					Cell cell1 = row.createCell(0);
+					Cell cell1 = row.createCell(1);
 					cell1.setCellValue(
 						lstParams[i].apellidopaterno + " " +
 						lstParams[i].apellidomaterno + " " +
@@ -6008,50 +6014,50 @@ class ListadoDAO {
 						// solicitud.getApellidoMaterno()
 					);
 					//Correo Electronico
-					Cell cell2 = row.createCell(1);
+					Cell cell2 = row.createCell(2);
 					cell2.setCellValue(lstParams[i].correoelectronico);
 					//cell2.setCellValue(solicitud.getCorreoElectronico());
 					//CURP
-					Cell cell3 = row.createCell(2);
+					Cell cell3 = row.createCell(3);
 					cell3.setCellValue(lstParams[i].curp);
 					//cell3.setCellValue(solicitud.getCurp());
 					//Campus
-					Cell cell4 = row.createCell(3);
+					Cell cell4 = row.createCell(4);
 					cell4.setCellValue(lstParams[i].campus);
 					//cell4.setCellValue(solicitud.getCatCampus().getDescripcion());
 					//PROGRAMA
-					Cell cell5 = row.createCell(4);
+					Cell cell5 = row.createCell(5);
 					cell5.setCellValue(lstParams[i].licenciatura);
 					//cell5.setCellValue(solicitud.getObjCatGestionEscolar().getNombre());
 					//Ingreso
-					Cell cell6 = row.createCell(5);
+					Cell cell6 = row.createCell(6);
 					cell6.setCellValue(lstParams[i].ingreso);
 					//cell6.setCellValue(solicitud.getCatPeriodo().getDescripcion());
 					//Estado
-					Cell cell7 = row.createCell(6);
+					Cell cell7 = row.createCell(7);
 					cell7.setCellValue(lstParams[i].procedencia);
 					//cell7.setCellValue(solicitud.getCatEstado().getDescripcion());
 					//PREPARATORIA
-					Cell cell8 = row.createCell(7);
+					Cell cell8 = row.createCell(8);
 					cell8.setCellValue(lstParams[i].preparatoria);
 					//cell8.setCellValue(solicitud.getCatBachilleratos().getDescripcion());
 					//PROMEDIO
-					Cell cell9 = row.createCell(8);
+					Cell cell9 = row.createCell(9);
 					cell9.setCellValue(lstParams[i].promediogeneral);
 					//cell9.setCellValue(solicitud.getPromedioGeneral());
 					//FECHAS
 					if (lstParams[i].fechasexamenes == null || lstParams[i].fechasexamenes == "" || lstParams[i].fechasexamenes == " ") {
-						Cell cell10 = row.createCell(9);
+						Cell cell10 = row.createCell(10);
 						cell10.setCellValue("SIN PROGRAMAR");
-						Cell cell17 = row.createCell(10);
+						Cell cell17 = row.createCell(11);
 						cell17.setCellValue((lstParams[i].cbcoincide == "t"?"Exento" : "No"));
-						Cell cell11 = row.createCell(11);
+						Cell cell11 = row.createCell(12);
 						cell11.setCellValue("SIN PROGRAMAR");
-						Cell cell18 = row.createCell(12);
+						Cell cell18 = row.createCell(13);
 						cell18.setCellValue("No");
-						Cell cell12 = row.createCell(13);
+						Cell cell12 = row.createCell(14);
 						cell12.setCellValue("SIN PROGRAMAR");
-						Cell cell19 = row.createCell(14);
+						Cell cell19 = row.createCell(15);
 						cell19.setCellValue("No");
 					} else {
 						String[] fechas = lstParams[i].fechasexamenes.split(",");
@@ -6099,21 +6105,21 @@ class ListadoDAO {
 
 						}
 
-						Cell cell10 = row.createCell(9);
+						Cell cell10 = row.createCell(10);
 						cell10.setCellValue(fechas1);
-						Cell cell17 = row.createCell(10);
+						Cell cell17 = row.createCell(11);
 						cell17.setCellValue(lstParams[i].cbcoincide == "t"?"Exento" : (asistencia1.equals("0")?"No" : "Sí"));
-						Cell cell11 = row.createCell(11);
+						Cell cell11 = row.createCell(12);
 						cell11.setCellValue(fechas2);
-						Cell cell18 = row.createCell(12);
+						Cell cell18 = row.createCell(13);
 						cell18.setCellValue((asistencia2.equals("0")?"No" : "Sí"));
-						Cell cell12 = row.createCell(13);
+						Cell cell12 = row.createCell(14);
 						cell12.setCellValue(fechas3);
-						Cell cell19 = row.createCell(14);
+						Cell cell19 = row.createCell(15);
 						cell19.setCellValue((asistencia3.equals("0")?"No" : "Sí"));
 					}
 					errorlog += " | " + i + " estatussolicitud: " + lstParams[i].estatussolicitud + " | ";
-					Cell cell13 = row.createCell(15);
+					Cell cell13 = row.createCell(16);
 					cell13.setCellValue(lstParams[i].estatussolicitud);
 
 					SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -6123,19 +6129,19 @@ class ListadoDAO {
 
 						String sDate1 = lstParams[i].fechasolicitudenviada;
 						Date date1 = formatter1.parse(sDate1);
-						Cell cell14 = row.createCell(16);
+						Cell cell14 = row.createCell(17);
 						cell14.setCellValue(f.format(date1));
 					}
 					errorlog += " | " + i + " fechaultimamodificacion: " + lstParams[i].fechaultimamodificacion + " | ";
 					if (lstParams[i].fechaultimamodificacion != "null" && lstParams[i].fechaultimamodificacion != null && lstParams[i].fechaultimamodificacion != "" && lstParams[i].fechaultimamodificacion != " ") {
 						String sDate2 = lstParams[i].fechaultimamodificacion;
 						Date date2 = formatter1.parse(sDate2);
-						Cell cell15 = row.createCell(17);
+						Cell cell15 = row.createCell(18);
 						cell15.setCellValue(f.format(date2));
 					}
 					errorlog += " | " + i + " tiempoultimamodificacion: " + lstParams[i].tiempoultimamodificacion + " | ";
 					if (lstParams[i].tiempoultimamodificacion != "null" && lstParams[i].tiempoultimamodificacion != null && lstParams[i].tiempoultimamodificacion != "" && lstParams[i].tiempoultimamodificacion != " ") {
-						Cell cell16 = row.createCell(18);
+						Cell cell16 = row.createCell(19);
 						cell16.setCellValue(lstParams[i].tiempoultimamodificacion);
 					}
 

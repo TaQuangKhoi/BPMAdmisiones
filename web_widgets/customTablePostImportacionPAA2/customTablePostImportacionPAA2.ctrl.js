@@ -358,9 +358,11 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "HLEX":"",
             "INVP":"",
             "update":true,
-            "fecha":""
+            "fecha":"",
+            "IdSesion":""
         };
         $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+        $scope.properties.datosAspirante.IdSesion = row.id;
         $scope.properties.tabla = "fragmento";
         $scope.properties.view = false;
         var req = {

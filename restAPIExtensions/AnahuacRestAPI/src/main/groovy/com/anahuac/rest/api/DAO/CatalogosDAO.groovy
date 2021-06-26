@@ -2091,7 +2091,180 @@ class CatalogosDAO {
         }
         return resultado
     }
-    /**********************JUAN ESQUER FIN******************************/
+	public Result getRespuestasINVP(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "WHERE ISELIMINADO=false", orderby = "ORDER BY ", errorlog = ""
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			CatEstadoCivilCustom row = new CatEstadoCivilCustom()
+			List < CatEstadoCivilCustom > rows = new ArrayList < CatEstadoCivilCustom > ();
+			closeCon = validarConexion();
+
+
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				switch (filtro.get("columna")) {
+					case "Clave":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(CLAVE) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Escala":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(DESCRIPCION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Pregunta":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(usuariobanner) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Respuesta":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(FECHACREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+					case "Puntuación":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " puntuacion ";
+						
+						where += "=[valor]"
+						
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						case "Genero":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(genero) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+				}
+			}
+			switch (object.orderby) {
+				case "CLAVE":
+					orderby += "clave";
+					break
+				case "Escala":
+					orderby += "escala";
+					break
+				case "Pregunta":
+					orderby += "pregunta";
+					break
+				case "Puntuación":
+					orderby += "puntuacion";
+					break
+				case "Genero":
+					orderby += "genero";
+					break
+				default:
+					orderby += "PERSISTENCEID";
+					break;
+			}
+			orderby += " " + object.orientation;
+			String consulta = "SELECT * FROM catrespuestasinvp"
+			consulta = consulta.replace("[WHERE]", where);
+			errorlog += "consulta:"
+			errorlog += consulta.replace("*", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", "")
+			pstm = con.prepareStatement(consulta.replace("*", "COUNT(PERSISTENCEID) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""))
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			errorlog += "consulta:"
+			errorlog += consulta
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				row = new CatEstadoCivilCustom()
+				row.setClave(rs.getString("clave"))
+				row.setDescripcion(rs.getString("descripcion"))
+				row.setIsEliminado(rs.getBoolean("isEliminado"))
+				try {
+					row.setFechaCreacion(rs.getString("fechaCreacion"))
+					row.setFechaImportacion(rs.getString("fechaImportacion"))
+					//row.fechaCreacion(new java.util.Date(rs.getDate("fechacreacion")))
+					//row.fechaImportacion(new java.util.Date(rs.getDate("fechaimportacion")))
+				} catch (Exception e) {
+					LOGGER.error "[ERROR] " + e.getMessage();
+					errorlog += e.getMessage()
+				}
+
+				row.setPersistenceId(rs.getLong("persistenceId"))
+				row.setPersistenceVersion(rs.getLong("persistenceVersion"))
+				row.setusuarioBanner(rs.getString("usuariobanner"))
+				rows.add(row)
+			}
+			resultado.setSuccess(true)
+
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+  
+	/**********************JUAN ESQUER FIN******************************/
     /***********************JESUS OSUNA********************************/
 
     public Result getCatEscolaridad(String jsonData, RestAPIContext context) {

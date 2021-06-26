@@ -4,14 +4,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   
     var vm = this;
     $scope.final = [];
-    $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
+    $scope.lstBanner = {};
     $scope.enviar = true;
       $scope.myFunc = function() {
         //$scope.properties.value = $scope.properties.texto;
         $scope.final = [];
         var count = 0;
         blockUI.start();
-        $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
+        $scope.lstBanner = {'IDBANNER':"", "FECHA":"","IDSESION":""};
         try{
             debugger;
              $scope.enviar = true;
@@ -19,6 +19,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.value.forEach(element=>{
                     $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${element['IDBANNER']}'`;
                     $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${element['fechaExamen']}'`;
+                    $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${element['IdSesion']}'`;
                 });
                 
               doRequest2("POST",$scope.properties.urlValidar,$scope.lstBanner).then(function() {

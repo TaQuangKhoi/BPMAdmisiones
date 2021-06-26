@@ -1180,6 +1180,11 @@ class Index implements RestApiController {
 					sesion.setCampus_pid(object.campus_pid)
 					sesion.setUltimo_dia_inscripcion(object.ultimo_dia_inscripcion)
 					sesion.setIsEliminado(object.isEliminado)
+					try {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:Long.parseLong(object.periodo_pid))
+					} catch (Exception e) {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:new Long(object.periodo_pid))
+					}
 					for (int i =0; i<object.pruebas.size(); i++) {
 						def obj = object.pruebas[i]
 						PruebaCustom prueba = new PruebaCustom()

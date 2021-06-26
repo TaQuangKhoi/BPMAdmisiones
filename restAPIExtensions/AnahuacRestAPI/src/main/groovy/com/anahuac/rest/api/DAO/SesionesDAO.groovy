@@ -561,9 +561,9 @@ class SesionesDAO {
 					pstm.setString(12, sesion.getUltimo_dia_inscripcion()+" 23:59:59")
 				}
 				pstm.setBoolean(13, sesion.getIsEliminado())
-				
+				pstm.setLong(14, sesion.getPeriodo_pid())
 				if(sesion.getPersistenceId()>0) {
-					pstm.setLong(14, sesion.getPersistenceId())
+					pstm.setLong(15, sesion.getPersistenceId())
 					pstm.executeUpdate()
 				}
 				else {
@@ -1047,6 +1047,20 @@ class SesionesDAO {
 					}
 					where = where.replace("[valor]", filtro.get("valor")+"")
 					break;
+					case "PERIODO":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" (s.periodo_pid ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=[valor] OR s.periodo_pid=0 OR s.periodo_pid=null)"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
 				}
 			}
 			Calendar calendar = dateToCalendar(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
@@ -1251,6 +1265,7 @@ class SesionesDAO {
 				sesion.setCiudad_pid(rs.getLong("ciudad_pid"))
 				sesion.setIsEliminado(rs.getBoolean("isEliminado"))
 				sesion.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
+				sesion.setPeriodo_pid(rs.getLong("periodo_pid"))
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_PID)
 				pstm.setLong(1, sesion.getPersistenceId())
 				rs = pstm.executeQuery()
