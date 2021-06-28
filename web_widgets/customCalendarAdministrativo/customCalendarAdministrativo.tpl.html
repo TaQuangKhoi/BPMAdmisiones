@@ -133,6 +133,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Periodo específico</label>
+                            <!--<select class="form-control" ng-model="sesion.bachillerato_pid" ng-options="preparatoria.persistenceid_string as preparatoria.descripcion  for preparatoria in preparatorias">
+                            <option value="">Seleccionar</option>
+                        </select>-->
+                            <multiselect class="input-xlarge" multiple="false" key="persistenceid" label="descripcion" ng-model="sesion.periodo_pid" options="periodo.persistenceid as periodo.descripcion for periodo in periodos" change="selected()"></multiselect>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

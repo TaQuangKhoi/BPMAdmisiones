@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appModificarSolicitudDeAdmision",
   "name" : "appModificarSolicitudDeAdmision",
-  "lastUpdate" : 1623799846982,
+  "lastUpdate" : 1624661084158,
   "rows" : [
     [
       {
@@ -4675,8 +4675,8 @@
                               "value" : false
                             },
                             "required" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "preparatoriaSeleccionada !== \"Otro\" && datosPreparatoria.paisBachillerato==''"
                             },
                             "minLength" : {
                               "type" : "constant",
@@ -4696,7 +4696,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Promedio general (captura tu promedio en una escala de 1 al 10) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Promedio general {{(datosPreparatoria.paisBachillerato=='México')?'(captura tu promedio en una escala de 1 al 10)':''}} <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4728,11 +4728,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria.paisBachillerato"
                             }
                           },
-                          "reference" : "87ba3c1f-99e2-4f7e-b957-aef7955ac638",
+                          "reference" : "c5239046-8aab-4d7d-a5d8-2ebea97178bc",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoSolicitudUpdate"
+                          "id" : "customInputNumericoSolicitudPromedio"
                         }
                       ],
                       [

@@ -269,6 +269,12 @@ function($scope, $http, blockUI, $window) {
             "valor": ($scope.properties.usuario[0].ciudadExamen == null) ? 0 : $scope.properties.usuario[0].ciudadExamen.persistenceId
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+        filtro = {
+            "columna": "PERIODO",
+            "operador": "Igual a",
+            "valor":  $scope.properties.usuario[0].catPeriodo.persistenceId
+        }
+        $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte + "&isMedicina=" + $scope.properties.isMedicina, null, $scope.dataToSend, null, function(datos, extra) {
             scheduler.clearAll();
             scheduler.parse(datos.data, "json");

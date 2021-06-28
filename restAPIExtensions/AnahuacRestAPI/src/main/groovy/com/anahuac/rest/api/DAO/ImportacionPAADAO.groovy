@@ -161,6 +161,7 @@ class ImportacionPAADAO {
 							
 							pstm.setString(38,it.tipoExamen);
 							pstm.setString(39,it.INVP);
+							pstm.setString(40,it.IdSesion)
 							pstm.executeUpdate();
 					}
 					
@@ -239,8 +240,9 @@ class ImportacionPAADAO {
 				
 				 String[] idBanner = object.IDBANNER.split(",");
 				 String[] fecha = object.FECHA.split(",");
+				 String[] idSesion = object.IDSESION.split(",");
 				 for(int j = 0; j < idBanner.size(); ++j) {
-					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]))
+					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]).replace("[IDSESION]", idSesion[j]))
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();
 					 columns.put("idBanner", idBanner[j] )
@@ -253,7 +255,7 @@ class ImportacionPAADAO {
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
-						 columns.put("EstaEnCarga",isNullOrEmpty(rs.getString("primernombre")))
+						 columns.put("EstaEnCarga",rs.getBoolean("CC"))
 						 columns.put("mismaFecha",(rs.getInt("mismafecha") == 1?true:false))
 						 columns.put("AA",(rs.getBoolean("AA")))
 						 columns.put("puede",(rs.getBoolean("puede")))
@@ -384,7 +386,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND (PAA.idBanner is NULL  OR ( CASE WHEN sda.countRechazos IS NULL THEN 0 ELSE (sda.countRechazos ) END) = (select count(IPAA.persistenceid)  from IMPORTACIONPAA as IPAA WHERE IPAA.IDBANNER = da.idBanner)   )  "
+			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((select count(persistenceid) from IMPORTACIONPAA WHERE idbanner = da.idbanner and sesion_pid::INTEGER = sesiones.persistenceid ) = 0 )  "
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
@@ -896,13 +898,7 @@ class ImportacionPAADAO {
 					SSA = rs.getString("valor")
 				}
 				
-				String consulta = "";
-				if(object.excel){
-					consulta = Statements.GET_ASPIRANTES_CON_PAA_EXCEL;
-				}else {
-					consulta = Statements.GET_ASPIRANTES_CON_PAA;
-				}
-				
+				String consulta= Statements.GET_ASPIRANTES_CON_PAA;
 				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
                     errorlog=consulta+" 1";
@@ -1257,7 +1253,7 @@ class ImportacionPAADAO {
 					resultado.setTotalRegistros(rs.getInt("registros"))
 				}
 				consulta=consulta.replace("[ORDERBY]", orderby)
-				consulta=consulta.replace("[LIMITOFFSET]", object.excel?" ":" LIMIT ? OFFSET ?")
+				consulta=consulta.replace("[LIMITOFFSET]"," LIMIT ? OFFSET ?")
 				errorlog=consulta+" 7";
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.limit)
@@ -1340,6 +1336,7 @@ class ImportacionPAADAO {
 				lstParams = dataResult.getData();
 				
 			} else {
+				errorLog += ""+dataResult
 				throw new Exception("No encontro datos");
 			}
 			//titulos que manejan la mayoria de los exceles
@@ -1374,7 +1371,7 @@ class ImportacionPAADAO {
 			++rowCount;
 			Row espacio = sheet.createRow(++rowCount);
 			
-			def titulos = ["IDBANNER","NOMBRE","EMAIL","CURP","CAMPUS","PROGRAMA","PERIODO","PROCEDENCIA","PREPARATORIA","PROMEDIO","ID SESION","SESION","PAAN","PAAV","PARA","INVP","FECHA DEL EXAMEN","FECHA ULTIMA MODIFICACION"]
+			def titulos = ["Id Banner","Nombre","Email","Curp","Campus","Programa","Periodo","Procedencia","Preparatoria","Promedio","Id sesión","Sesión","Paan","Paav","Para","Invp","Fecha del examen","Fecha ultima modificación"]
 			Row headersRow = sheet.createRow(rowCount);
 			++rowCount;
 			List<Cell> header = new ArrayList<Cell>();
@@ -1397,7 +1394,11 @@ class ImportacionPAADAO {
 				body = new ArrayList<Cell>()
 				for(int j=0;  j < info.size(); ++j) {
 					body.add(row.createCell(j))
-					body[j].setCellValue(lstParams[i][info.get(j)])
+					if(info.get(j).equals("nombre")){
+						body[j].setCellValue(lstParams[i].apellidopaterno + " " + lstParams[i].apellidomaterno+ " " + lstParams[i].primernombre + " " + lstParams[i].segundonombre)
+					}else{
+						body[j].setCellValue(lstParams[i][info.get(j)].toString())
+					}
 					body[j].setCellStyle(bodyStyle);
 					
 				}

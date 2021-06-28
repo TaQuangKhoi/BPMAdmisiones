@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1624494582455,
+  "lastUpdate" : 1624660032617,
   "rows" : [
     [
       {
@@ -4861,8 +4861,8 @@
                               "value" : 2
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "preparatoriaSeleccionada !== \"Otro\" && datosPreparatoria.paisBachillerato==''"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -4870,7 +4870,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Promedio general (captura tu promedio en una escala de 1 al 10) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Promedio general {{(datosPreparatoria.paisBachillerato=='México')?'(captura tu promedio en una escala de 1 al 10)':''}} <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4902,11 +4902,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria.paisBachillerato"
                             }
                           },
-                          "reference" : "0fe617e5-088e-4544-9d3a-3fa676a6f34b",
+                          "reference" : "b72fbcbf-5920-4972-80fd-add00bb23f50",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoSolicitudUpdate"
+                          "id" : "customInputNumericoSolicitudPromedio"
                         }
                       ],
                       [
