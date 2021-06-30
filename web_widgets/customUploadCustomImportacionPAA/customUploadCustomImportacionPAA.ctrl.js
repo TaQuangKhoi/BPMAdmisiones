@@ -90,13 +90,11 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 var info = angular.copy(datos);
                 //info.fechaExamen = info['Fecha de examen']
                 let paso = validacion(info);
-                
                 if(paso){
                     info.tipoExamen = "KP";
                     info.INVP = "";
                     $scope.correctos = [...$scope.correctos,info];
                 }
-
                 if(count === row.length){
                     $scope.correctos = findDuplicados($scope.correctos,"IDBANNER");
                     cargarlstBanner($scope.correctos);
@@ -109,21 +107,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                                 $scope.properties.tabla = "carga";
                                 //swal('¡Se han terminado la auditoria de los datos!',"","success")
                             }
-                        })
+                        });
                     }else{
                             $scope.properties.lstErrores = angular.copy($scope.errores)
                             $scope.properties.lstAlumnosResultados = [];
                             $scope.properties.tabla = "carga";
-
                     }
-                    
-                        
                 }
-            })
-          
-             
+            });
         }
-        
         blockUI.stop();
         
     }
@@ -247,6 +239,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada"}]
             }else if(!info.puede){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante ya cuenta con una puntuacion anterior"}]
+            }else if(!info.sc){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en la sesion subida"}]
             }else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
                 $scope.final = [ ...$scope.final,datos[indice]]

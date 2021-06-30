@@ -197,7 +197,6 @@
     
     
         	textarea.on('click keyup focus mouseup', function(){
-        	    debugger;
         		$timeout(function(){
         			scope.isBold = scope.cmdState('bold');
         			scope.isUnderlined = scope.cmdState('underline');
@@ -241,7 +240,6 @@
     
     	// model -> view
           ngModelController.$render = function () {
-            debugger;
               textarea.html(ngModelController.$viewValue);
           };
     	scope.$on('$viewContentLoaded', function(){
@@ -276,7 +274,6 @@
           );
 
     	scope.format = function(cmd, arg){
-    		debugger;
     		document.execCommand(cmd, false, arg);
     	}
     
