@@ -245,13 +245,14 @@ class ImportacionPAADAO {
 					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]).replace("[IDSESION]", idSesion[j]))
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();
-					 columns.put("idBanner", idBanner[j] )
-					 columns.put("Registrado",false)
-					 columns.put("Existe",false)
-					 columns.put("EstaEnCarga",false)
-					 columns.put("mismaFecha",false)
-					 columns.put("AA",false)
-					 columns.put("puede",false)
+					 columns.put("idBanner", idBanner[j] );
+					 columns.put("Registrado",false);
+					 columns.put("Existe",false);
+					 columns.put("EstaEnCarga",false);
+					 columns.put("mismaFecha",false);
+					 columns.put("AA",false);
+					 columns.put("puede",false);
+					 columns.put("sc", false);
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
@@ -259,6 +260,7 @@ class ImportacionPAADAO {
 						 columns.put("mismaFecha",(rs.getInt("mismafecha") == 1?true:false))
 						 columns.put("AA",(rs.getBoolean("AA")))
 						 columns.put("puede",(rs.getBoolean("puede")))
+						 columns.put("sc",(rs.getBoolean("SC")))
 						 
 					 }
 					 estatus.add(columns)

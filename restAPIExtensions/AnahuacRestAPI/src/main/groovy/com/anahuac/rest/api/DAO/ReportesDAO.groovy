@@ -62,7 +62,7 @@ class ReportesDAO {
 
 
 
-            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,'' as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
+            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
             pstm = con.prepareStatement(consulta)
@@ -556,7 +556,7 @@ class ReportesDAO {
             where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ")"
             where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
 
-            String consulta = "SELECT DISTINCT cda.idbanner id, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END                             AS nombre, pt.nombre || ' '|| pt.apellidos    nombepadres, cp.clave                           relacion, pt.empresatrabaja               AS empleador, pt.puesto                       AS titulo, pt.correoelectronico            AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, 'AD Admitido' AS codigodedecision FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid INNER JOIN sesionaspirante sa ON sa.username=sda.correoelectronico INNER JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 INNER JOIN sesiones s ON s.persistenceid=sa.sesiones_pid " + where + " ORDER BY cda.idbanner"
+            String consulta = "SELECT DISTINCT cda.idbanner id, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END                             AS nombre, pt.nombre || ' '|| pt.apellidos    nombepadres, cp.clave                           relacion, pt.empresatrabaja               AS empleador, pt.puesto                       AS titulo, pt.correoelectronico            AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, 'AD Admitido' AS codigodedecision, pt.calle ||' #' || pt.numeroexterior as calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion as estado, pt.codigopostal as cp, cpa.descripcion as pais, '' ultimamod, '' resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid INNER JOIN sesionaspirante sa ON sa.username=sda.correoelectronico INNER JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 INNER JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa on pt.catpais_pid=cpa.persistenceid" + where + " ORDER BY cda.idbanner"
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
             pstm = con.prepareStatement(consulta)
@@ -600,7 +600,7 @@ class ReportesDAO {
 
 
 
-            def titulos = ["ID", "Nombre Alumno", "Nombre de los Padres", "Relación", "Empleador", "Titulo", "Correo", "Dirección", "Teléfono", "Código de Decisión"]
+            def titulos = ["ID", "Nombre Alumno", "Nombre de los relativos", "Relación", "Empleador", "Titulo", "Correo", "Teléfono","Calle número y cruzamientos","Colonia","Delegación","Ciudad","Estado","CP","País", "Estatus","Última modificación", "Resultado de Admisión"]
             if (object.encabezado) {
                 fw.write((titulos.join(",") + "\r\n").getBytes());
                 Row headersRow = sheet.createRow(rowCount);
@@ -616,7 +616,7 @@ class ReportesDAO {
             bodyStyle.setWrapText(true);
             bodyStyle.setAlignment(HorizontalAlignment.LEFT);
 
-            def info = ["id", "nombre", "nombepadres", "relacion", "empleador", "titulo", "correo", "direccion", "telefono", "codigodedecision"]
+            def info = ["id", "nombre", "nombepadres", "relacion", "empleador", "titulo", "correo","telefono", "calle","colonia","delegacionmunicipio","ciudad","estado","cp","pais",  "codigodedecision", "ultimamod", "resultadoad"]
             List < Cell > body;
             String line = ""
             for (int i = 0; i < lstParams.size(); ++i) {
@@ -782,7 +782,7 @@ class ReportesDAO {
 
 
 
-			def titulos = ["Periodo","No. Solicitantes","Número de matrícula","Apellidos","Nombres","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión", "Fecha aplicación examen PAAN","Resultado", "Fecha de admisión","Fecha de nacimiento", "MMPI","EEMI","EEMN","EEMA","EEMQ","EEMS","EEMT", "Correo personal","Teléfono permanente","Teléfono celular"]
+			def titulos = ["Periodo","No. Solicitante","Número de matrícula","Apellidos","Nombres","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión(global)", "Fecha aplicación examen PAAN","Resultado", "Fecha de admisión","Fecha de nacimiento", "MMPI","EEMI","EEMN","EEMA","EEMQ","EEMS","EEMT", "Correo personal","Teléfono permanente","Teléfono celular"]
 			if (object.encabezado) {
 				fw.write((titulos.join(",") + "\r\n").getBytes());
 				Row headersRow = sheet.createRow(rowCount);
