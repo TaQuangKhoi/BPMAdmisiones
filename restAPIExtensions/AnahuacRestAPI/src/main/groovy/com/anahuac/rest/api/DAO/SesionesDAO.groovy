@@ -561,7 +561,7 @@ class SesionesDAO {
 					pstm.setString(12, sesion.getUltimo_dia_inscripcion()+" 23:59:59")
 				}
 				pstm.setBoolean(13, sesion.getIsEliminado())
-				pstm.setLong(14, sesion.getPeriodo_pid())
+				(sesion.getPeriodo_pid()==null)?pstm.setLong(14, 0L):pstm.setLong(14, sesion.getPeriodo_pid())
 				if(sesion.getPersistenceId()>0) {
 					pstm.setLong(15, sesion.getPersistenceId())
 					pstm.executeUpdate()

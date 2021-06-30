@@ -3796,6 +3796,9 @@ class CatalogosDAO {
                 } else {
                     row.setUsuarioCreacion(rs.getString("usuariocreacion"));
                 }
+				if(object.isAdmitido) {
+					row.setIsAdmitido(rs.getBoolean("isAdmitido"));
+				}
 
 
                 rows.add(row)
