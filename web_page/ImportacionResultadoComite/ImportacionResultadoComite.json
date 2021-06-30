@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1624990373893,
+  "lastUpdate" : 1625092118907,
   "rows" : [
     [
       {
@@ -1518,27 +1518,29 @@
                   "value" : "Seleccione un tipo de admisión"
                 },
                 "availableValues" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Aceptado",
-                    "Rechazado",
-                    "Revisión"
-                  ]
+                  "type" : "expression",
+                  "value" : "lstDecision"
                 },
                 "displayedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "descripcion"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "clave"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.decision"
+                },
+                "isAdmitido" : {
+                  "type" : "variable",
+                  "value" : "strAlumno.isAdmitido"
                 }
               },
-              "reference" : "b83db550-3396-4413-9e78-5ef88888a010",
+              "reference" : "b7ba5fc9-64d1-41ef-bb97-8b6572ae5a0a",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "customSelectTipoDecision"
             }
           ],
           [
@@ -3183,18 +3185,16 @@
                         "value" : "Seleccione un tipo de admisión"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "Aceptado",
-                          "Rechazado",
-                          "Revisión"
-                        ]
+                        "type" : "expression",
+                        "value" : "lstDecision"
                       },
                       "displayedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "descripcion"
                       },
                       "returnedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "clave"
                       },
                       "value" : {
                         "type" : "variable",
@@ -4014,6 +4014,13 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "lstDecision" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatTipoDecision [com.anahuac.catalogos.CatTipoDecision]\",\"businessObjectName\":\"CatTipoDecision\",\"query\":{\"name\":\"getCatTipoDecision\",\"displayName\":\"getCatTipoDecision\"},\"id\":\"com.anahuac.catalogos.CatTipoDecision\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
       ],
       "exposed" : false
     }

@@ -86,6 +86,7 @@ class ResultadoComiteDAO {
 					pstm.setString(7,it.pca_1);
 					pstm.setString(8,it.observaciones);
 					pstm.setString(9,it.periodo);
+					pstm.setBoolean(10, it.isAdmitido);
 					pstm.executeUpdate();
 				}
 				resultado.setSuccess(true)

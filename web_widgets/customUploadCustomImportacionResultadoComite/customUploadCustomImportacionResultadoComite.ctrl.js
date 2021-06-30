@@ -112,25 +112,35 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
         })
         info.nombre = (data.nombre || '');
         info.observaciones = (data.observaciones || '');
+        info.isAdmitido = false;
         return info;
     }
     
     function validacion(datos){
         var error = "";
         if(datos !== null && datos !== undefined){
-            if(!$scope.properties.tipoAdmision.some(el => datos['decisión de admisión'].includes(el))){
-                error+=(error.length>0?", ":" ")+"decisión de admisión tiene que tener uno de los tres estatus: Aceptado, Rechazado, Revisión"
+            if(!$scope.properties.lstDecision.some(el =>  datos['decisión de admisión'].includes(el.clave) )){
+                let lstTipoDecision = "";
+                $scope.properties.lstDecision.forEach(element => {
+                    lstDecision+= (lstTipoDecision.length>0?", ":" ")+element.descripcion;
+                });
+                error+=(error.length>0?", ":" ")+"decisión de admisión tiene que tener uno de los estatus: "+lstDecision;
             } else{
                 let columna = datos;
+                $scope.properties.lstDecision.forEach(element =>{
+                     if(datos['decisión de admisión'].includes(element.clave) ){
+                        datos.isAdmitido = true;
+                     }
+                });
                 for(var key in columna){
                     
-                    if( $scope.properties.revisar.includes(key) && key != "IDBANNER" && key != "número de matrícula" && datos["decisión de admisión"]== "Aceptado"){
+                    if( $scope.properties.revisar.includes(key) && key != "IDBANNER" && key != "número de matrícula" && datos.isAdmitido ){
                         let name = key.split("_1");
                         if(isNullOrUndefined(datos[key])){
                             error+=(error.length>0?", ":" ")+"falta el dato "+name[0]
                         }else if(!SioNO(datos[key]) && key.includes("_1")){
                             error+=(error.length>0?", ":" ")+name[0]+" tiene que ser Sí o No"
-                        } 
+                        }
                     }else if(key == "IDBANNER"){
                         if(isNullOrUndefined(datos.IDBANNER)){
                             error+=(error.length>0?",":"")+"falta el dato id banner "
