@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1623787122824,
+  "lastUpdate" : 1624990373893,
   "rows" : [
     [
       {
@@ -2701,12 +2701,41 @@
               "rows" : [
                 [
                   {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 2,
+                      "lg" : 2
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "44135e21-255c-4efe-b9d4-df2fe5d2b437",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [ ]
+                    ]
+                  },
+                  {
                     "type" : "component",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
+                      "md" : 8,
+                      "lg" : 8
                     },
                     "propertyValues" : {
                       "cssClasses" : {
@@ -2733,6 +2762,68 @@
                     "reference" : "8dbb0cab-5227-4bd4-b36e-f1348ba6100c",
                     "hasValidationError" : false,
                     "id" : "pbTitle"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 2,
+                      "lg" : 2
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Nuevo resultado"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "primary"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "accion"
+                      },
+                      "texto" : {
+                        "type" : "constant",
+                        "value" : "infodatos"
+                      },
+                      "view" : {
+                        "type" : "variable",
+                        "value" : "VariableCarga.view"
+                      },
+                      "strAlumno" : {
+                        "type" : "variable",
+                        "value" : "strAlumno"
+                      },
+                      "idBanner" : {
+                        "type" : "expression",
+                        "value" : "strInfo.idBanner"
+                      },
+                      "periodo" : {
+                        "type" : "expression",
+                        "value" : "strInfo.clavePeriodo"
+                      }
+                    },
+                    "reference" : "0fb13b95-dd59-487a-9eb3-6d73b0ece3c6",
+                    "hasValidationError" : false,
+                    "id" : "customBtnNuevoResultadoComite"
                   }
                 ],
                 [
@@ -2826,7 +2917,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "accion != \"infoDatos\""
+                  "value" : "accion != \"infodatos\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -2837,6 +2928,54 @@
               "hasValidationError" : false,
               "id" : "pbContainer",
               "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "<i class=\" glyphicon glyphicon-arrow-left\" aria-hidden=\"true\"></i> Regresar"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "info"
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "accion"
+                      },
+                      "texto" : {
+                        "type" : "constant",
+                        "value" : "listado"
+                      }
+                    },
+                    "reference" : "5f7490c2-4961-4a14-ae44-a99fa8790af5",
+                    "hasValidationError" : false,
+                    "id" : "customBtnCambioVariable"
+                  }
+                ],
                 [
                   {
                     "type" : "component",
@@ -2868,8 +3007,8 @@
                         "value" : 8
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : true
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -3595,6 +3734,13 @@
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "c6b74195-0847-476d-9ad4-3bb7857507b5",
+      "name" : "icono-libro.png",
+      "type" : "img",
+      "order" : 5,
       "external" : false
     }
   ],

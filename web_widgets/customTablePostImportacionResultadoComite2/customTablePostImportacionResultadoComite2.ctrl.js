@@ -310,8 +310,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.getCatCampus();
     
     $scope.cargaManual = function(row){
-        debugger;
-        $scope.properties.strInfo ={"nombre": `${row.primernombre+" "}  ${row.segundonombre+" "}  ${row.apellidopaterno+" "}  ${row.apellidomaterno+" "} `,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64};
+        $scope.properties.strInfo ={"nombre": `${row.primernombre+" "}  ${row.segundonombre+" "}  ${row.apellidopaterno+" "}  ${row.apellidomaterno+" "} `,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64,"idBanner":row.idbanner,"clavePeriodo":row.claveingreso};
         $scope.properties.datosAspirante = {
             "decision": "",
             "observaciones": "",
@@ -320,9 +319,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "sse_1": "",
             "pcda_1": "",
             "pca_1": "",
-            "IDBANNER": ""
+            "IDBANNER": "",
+            "periodo":""
         };
-        $scope.properties.datosAspirante.IDBANNER = row.idbanner;
+        //$scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "informacion";
         $scope.properties.view = false;
         var req = {
