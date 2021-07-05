@@ -46,25 +46,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             swal(`¡debe ingresar el valor de la decisión de admisión!`,"","warning")
             return false;
         }
-        if($scope.properties.value.decision == "Aceptado"){
+        if($scope.properties.value.isAdmitido){
             
-            if(isNullOrUndefined($scope.properties.value.pdp_1) ){
+            if(isNullOrUndefined($scope.properties.value.PDP_1) ){
                 swal(`¡debe ingresar el valor del PDP!`,"","warning")
                 return false;
             }
-            if(isNullOrUndefined($scope.properties.value.pdu_1)){
+            if(isNullOrUndefined($scope.properties.value.PDU_1)){
                 swal(`¡debe ingresar el valor del PDU!`,"","warning")
                 return false;
             }
-            if(isNullOrUndefined($scope.properties.value.sse_1)){
+            if(isNullOrUndefined($scope.properties.value.SSE_1)){
                swal('¡debe ingresar el valor del SSE!',"","warning")
                 return false; 
             }
-            if(isNullOrUndefined($scope.properties.value.pcda_1)){
+            if(isNullOrUndefined($scope.properties.value.PCDA_1)){
                swal('¡debe ingresar el valor del PCDA!',"","warning")
                 return false; 
             }
-            if(isNullOrUndefined($scope.properties.value.pca_1)){
+            if(isNullOrUndefined($scope.properties.value.PCA_1)){
                 swal('¡debe ingresar el valor del PCA!',"","warning")
                  return false; 
             }

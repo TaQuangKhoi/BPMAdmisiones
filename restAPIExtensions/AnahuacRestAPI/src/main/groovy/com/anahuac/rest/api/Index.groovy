@@ -817,6 +817,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "postEliminarResultado":
+					result = new ResultadoComiteDAO().postEliminarResultado(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/
 					case "getCatNacionalidadNew":
@@ -1833,6 +1843,17 @@ class Index implements RestApiController {
 				break;
 				case "generarReporteRelacionAspirantes":
 				result = new ReportesDAO().generarReporteRelacionAspirantes(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVP":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getSesionesINVP(object.sesion, object.fecha, object.uni, object.id)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

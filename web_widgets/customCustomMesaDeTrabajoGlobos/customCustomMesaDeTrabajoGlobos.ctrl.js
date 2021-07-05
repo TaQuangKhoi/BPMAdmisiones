@@ -10,7 +10,7 @@ function($scope, $http, blockUI) {
   $scope.redirect = function (_param, filtro) {
 
       if (_param === "progreso") {
-          if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua) {
+          if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua || $scope.isPaseDeLista ) {
               window.top.location.href = "/bonita/apps/administrativo/solicitudesEnProgreso/";
           }
       } else if (_param === "nuevas") {
@@ -20,7 +20,7 @@ function($scope, $http, blockUI) {
           }
 
       } else if (_param === "aspirantesEnProceso") {
-          if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua) {
+          if ($scope.isAdmisiones || $scope.isTiSerua || $scope.isSerua || $scope.isPaseDeLista ) {
               window.top.location.href = "/bonita/apps/administrativo/Aspirantes_ProcesoM/?estatusSelected=" + filtro;
           }
       } else if (_param === "sesiones") {

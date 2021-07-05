@@ -75,8 +75,8 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
                 row.forEach(datos =>{
                     count++;
                     var info = angular.copy(datos);
-                    info.IDBANNER = info['número de matrícula'];
-                    info.decision = info['decisión de admisión'];
+                    info.IDBANNER = info['Número de matrícula'];
+                    info.decision = info['Decisión de admisión'];
                     if(validacion(info)){
                         $scope.correctos = [...$scope.correctos,info];
                     }
@@ -108,28 +108,33 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
     function needValues(data){
         let info= {};
         $scope.properties.revisar.forEach(valor =>{
-            info = Object.assign({[valor]:(data[valor] || '')},info)
+            if(valor.includes("_1")){
+                info = Object.assign({[valor]:(data[valor] || 'No')},info)
+            }else{
+                info = Object.assign({[valor]:(data[valor] || '')},info)
+            }
         })
-        info.nombre = (data.nombre || '');
-        info.observaciones = (data.observaciones || '');
+        info.nombre = (data.Nombre || '');
+        info.observaciones = (data.Observaciones || '');
         info.isAdmitido = false;
+        info.Sesion = (data["Sesión"] || '');
         return info;
     }
     
     function validacion(datos){
         var error = "";
         if(datos !== null && datos !== undefined){
-            if(!$scope.properties.lstDecision.some(el =>  datos['decisión de admisión'].includes(el.clave) )){
+            if(!$scope.properties.lstDecision.some(el =>  datos['Decisión de admisión'].includes(el.clave) )){
                 let lstTipoDecision = "";
                 $scope.properties.lstDecision.forEach(element => {
-                    lstDecision+= (lstTipoDecision.length>0?", ":" ")+element.descripcion;
+                    lstTipoDecision+= (lstTipoDecision.length>0?", ":" ")+`${element.clave}`;
                 });
-                error+=(error.length>0?", ":" ")+"decisión de admisión tiene que tener uno de los estatus: "+lstDecision;
+                error+=(error.length>0?", ":" ")+"Decisión de admisión tiene que tener uno de los estatus: "+lstTipoDecision;
             } else{
                 let columna = datos;
                 $scope.properties.lstDecision.forEach(element =>{
-                     if(datos['decisión de admisión'].includes(element.clave) ){
-                        datos.isAdmitido = true;
+                     if(datos['Decisión de admisión'].includes(element.clave) ){
+                        datos.isAdmitido = element.isAdmitido;
                      }
                 });
                 for(var key in columna){
@@ -263,7 +268,7 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
         $scope.lstBanner = {'IDBANNER':"", "PERIODO":""};
 		arreglo.forEach(info =>{
         	$scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info.IDBANNER}'`;
-            $scope.lstBanner.PERIODO += `${$scope.lstBanner.PERIODO.length>0?",":""}'${info.periodo}'`;
+            $scope.lstBanner.PERIODO += `${$scope.lstBanner.PERIODO.length>0?",":""}'${info.Periodo}'`;
         });
     }
     
