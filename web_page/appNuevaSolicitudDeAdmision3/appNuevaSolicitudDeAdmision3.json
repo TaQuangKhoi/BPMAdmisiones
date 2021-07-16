@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1624660032617,
+  "lastUpdate" : 1626306110428,
   "rows" : [
     [
       {
@@ -24097,6 +24097,36 @@
       "type" : "constant",
       "value" : [
         "https://dev.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "formatearNombre" : {
+      "type" : "expression",
+      "value" : [
+        "function capitalizeName(name) {\r",
+        "    if( (/[A-Z][A-Z].*$/gm.test(name)) ){\r",
+        "        //return (name = name.substring(0, name.length - 1));\r",
+        "        name = name.toLowerCase();\r",
+        "    }\r",
+        "  return name.replace(/\\b(\\w)/g, s => s.toUpperCase());\r",
+        "}\r",
+        "\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.primerNombre != null && $data.catSolicitudDeAdmision.primerNombre.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.primerNombre = capitalizeName($data.catSolicitudDeAdmision.primerNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.segundoNombre != null && $data.catSolicitudDeAdmision.segundoNombre.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.segundoNombre = capitalizeName($data.catSolicitudDeAdmision.segundoNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.apellidoPaterno != null && $data.catSolicitudDeAdmision.apellidoPaterno.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.apellidoPaterno = capitalizeName( $data.catSolicitudDeAdmision.apellidoPaterno);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.apellidoMaterno != null && $data.catSolicitudDeAdmision.apellidoMaterno.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.apellidoMaterno = capitalizeName($data.catSolicitudDeAdmision.apellidoMaterno);\r",
+        "}"
       ],
       "exposed" : false
     }

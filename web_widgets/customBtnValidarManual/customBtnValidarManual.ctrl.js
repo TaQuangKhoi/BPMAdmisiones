@@ -60,8 +60,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                   }else if(datos.tipoExamen == "KP" && valores1.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],0,690)){
                       swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 0-690`,"warning")
                   }else if(datos.tipoExamen != "KP" && valores2.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],200,800)){
-                      swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800`,"warning")
-                      return false;
+                      if(columnas[i] == "PARA" && datos[columnas[i]] != "000"){
+                        swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800 o ser 000`,"warning")
+                        return false;
+                      }else if(columnas[i] != "PARA"){
+                        swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800`,"warning")
+                        return false; 
+                      }
+                      
                   }else if(columnas[i] == "fechaExamen" ){
                     if(isNullOrUndefined(datos[columnas[i]])){
                         swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");

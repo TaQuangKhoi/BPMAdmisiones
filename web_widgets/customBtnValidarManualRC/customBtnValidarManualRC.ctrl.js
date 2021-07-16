@@ -9,9 +9,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       let paso = validacion();
       if(paso){
           //$scope.properties.value.fechaExamen = formatDate($scope.properties.value.fechaExamen)
-          let info = []
-          info.push($scope.properties.value)
-          doRequest("POST",$scope.properties.urlPost,info)
+          let info = [];
+          info.push($scope.properties.value);
+          info[0].usuariocreacion = angular.copy($scope.properties.usuario);
+          doRequest("POST",$scope.properties.urlPost,info);
       }
     };
     

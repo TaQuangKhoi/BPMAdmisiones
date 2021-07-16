@@ -42,13 +42,12 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function () {
-                
                 blockUI.stop();
             });
     }
 
     $scope.asignarTarea = function (rowData) {
-
+        blockUI.start();
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -56,14 +55,15 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
                 var url = "/apps/administrativo/PaseDeLista";
                 window.top.location.href = url;
             })
             .error(function (data, status) {
                 console.error(data);
             })
-            .finally(function () { });
+            .finally(function () {
+                blockUI.stop();
+                });
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};
@@ -277,7 +277,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 method: "GET",
                 url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-
+            blockUI.start();
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
@@ -285,7 +285,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .error(function (data, status) {
                     console.error(data);
                 })
-                .finally(function () { });
+                .finally(function () {
+                    blockUI.stop();
+                });
         }
     });
     $scope.filtroCampus = ""

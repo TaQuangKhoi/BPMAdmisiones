@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1622765629825,
+  "lastUpdate" : 1626306116942,
   "rows" : [
     [
       {
@@ -4924,7 +4924,6 @@
     "setCampus" : {
       "type" : "expression",
       "value" : [
-        "debugger;\r",
         "if($data.formInput.catSolicitudDeAdmisionInput.catLugarExamen.descripcion === \"En el mismo campus en donde realizaré mi licenciatura\"){\r",
         "    $data.formInput.catSolicitudDeAdmisionInput.catCampus = $data.formInput.catSolicitudDeAdmisionInput.catCampusEstudio;\r",
         "}else if($data.formInput.catSolicitudDeAdmisionInput.catLugarExamen.descripcion === \"En un estado\"){\r",
@@ -4961,6 +4960,37 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"find [com.anahuac.model.SwitchLugarExamen]\",\"businessObjectName\":\"SwitchLugarExamen\",\"query\":{\"name\":\"find\",\"displayName\":\"find\"},\"id\":\"com.anahuac.model.SwitchLugarExamen\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "formatearNombre" : {
+      "type" : "expression",
+      "value" : [
+        "function capitalizeName(name) {\r",
+        "    debugger;\r",
+        "    if( (/[A-Z][A-Z].*$/gm.test(name)) ){\r",
+        "        //return (name = name.substring(0, name.length - 1));\r",
+        "        name = name.toLowerCase();\r",
+        "    }\r",
+        "  return name.replace(/\\b(\\w)/g, s => s.toUpperCase());\r",
+        "}\r",
+        "\r",
+        "\r",
+        "if($data.strRegistro.PrimerNombre != null && $data.strRegistro.PrimerNombre.trim().length>0){\r",
+        "    $data.strRegistro.PrimerNombre = capitalizeName($data.strRegistro.PrimerNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.strRegistro.SegundoNombre != null && $data.strRegistro.SegundoNombre.trim().length>0){\r",
+        "    $data.strRegistro.SegundoNombre = capitalizeName($data.strRegistro.SegundoNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.strRegistro.ApellidoPaterno != null && $data.strRegistro.ApellidoPaterno.trim().length>0){\r",
+        "    $data.strRegistro.ApellidoPaterno = capitalizeName( $data.strRegistro.ApellidoPaterno);\r",
+        "}\r",
+        "\r",
+        "if($data.strRegistro.ApellidoMaterno != null && $data.strRegistro.ApellidoMaterno.trim().length>0){\r",
+        "    $data.strRegistro.ApellidoMaterno = capitalizeName($data.strRegistro.ApellidoMaterno);\r",
+        "}"
       ],
       "exposed" : false
     }

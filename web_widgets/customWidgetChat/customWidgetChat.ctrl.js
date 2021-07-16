@@ -22,7 +22,7 @@ function($scope, $http) {
                         d.getElementsByTagName("head")[0].appendChild(s);
                     }
                 )();
-                //window.$crisp.push(['do', 'chat:open']);
+                window.$crisp.push(['do', 'chat:open']);
             })
             .error(function(data, status) {
                 console.log("error")

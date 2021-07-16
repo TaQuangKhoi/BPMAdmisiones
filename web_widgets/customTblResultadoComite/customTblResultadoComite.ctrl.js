@@ -19,42 +19,54 @@ function PbTableCtrl($scope, $window,$http,blockUI) {
   
    $scope.visualizarInfo = function(data){
       
-      $scope.properties.selectedRow = data;
-      $scope.properties.table = "infodatos";
-      $scope.properties.view = true;
+      doReques(data.IDBANNER,data.persistenceid);
+      $scope.properties.strInfo = data.fechasolicitudenviada;
       //$scope.$apply();
   }
   
-    $scope.eliminarRegostro = function(data){
-        let info = {idBanner:data.IDBANNER,desactivado:(data.desactivado =="t"?true:false),persistenceid:data.persistenceid};
-        
-        Swal.fire({
-          title: '¡Advertencia!',
-          text: `${info.desactivado?"¡Se eliminara este registro!":"¡El resultado anterior a este se convertira en el resultado oficial!"}`,
-          showCancelButton: true,
-          confirmButtonText: `Eliminar`,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            doReques(info);
-          }
-        });
-        
-        
-    }
-    
-    function doReques(info){
-        
+  
+    function doReques(idbanner,persistenceid){
         var req = {
-            method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=postEliminarResultado&p=0&c=100",
-            data: angular.copy(info)
+            method: "GET",
+            url: `/API/extension/AnahuacRestGet?url=getAspiranteRC_Expecifico&p=0&c=10&idbanner=${idbanner}&persistenceid=${persistenceid}`
         };
         return $http(req)
             .success(function (data, status) {
-                
+                cargaDeDatos(data.data);
+                $scope.properties.table = "infodatos";
+                $scope.properties.view = true;
             })
             .error(function (data, status) {
             });
+    }
+    
+    
+    function cargaDeDatos(datos){
+        
+        if(datos !== null && datos !== undefined){
+            datos.forEach(element =>{
+                let json = {
+                    "decision": "",
+                    "observaciones": "",
+                    "IDBANNER": "",
+                    "persistenceid":"",
+                    "desactivado":""
+                };
+                let columna = angular.copy(element);
+                for(var key in columna){
+                    if(!$scope.properties.variablesCambio.includes(key)){
+                        json[ (key=="idbanner"?"IDBANNER":key)] = element[key];
+                    }else{
+                         json[(key.toUpperCase()+"_1")] = element[key];
+                    }
+                }
+                //json[count].observaciones = json.observacione;
+                json.Periodo = json.periodo;
+                json.update = true;
+                $scope.properties.returnValue =  angular.copy(json);
+            });
+            
+        }
     }
   
   

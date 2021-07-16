@@ -21,6 +21,8 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
     return items.filter(comparator.bind(null, $scope.properties.value))
       .map(function (item) {
         $scope.properties.isAdmitido = item.isAdmitido? true : false;
+        //let str = item.descripcion.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+        $scope.properties.isPropedeutico = (item.clave == "AP"? true : false);
         return ctrl.getValue(item);
       })[0];
   };

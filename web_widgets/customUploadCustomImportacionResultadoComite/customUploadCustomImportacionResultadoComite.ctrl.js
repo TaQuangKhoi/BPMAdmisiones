@@ -118,6 +118,7 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
         info.observaciones = (data.Observaciones || '');
         info.isAdmitido = false;
         info.Sesion = (data["Sesión"] || '');
+        info.isPropedeutico = false;
         return info;
     }
     
@@ -133,8 +134,9 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
             } else{
                 let columna = datos;
                 $scope.properties.lstDecision.forEach(element =>{
-                     if(datos['Decisión de admisión'].includes(element.clave) ){
+                     if(datos['Decisión de admisión'] == element.clave ){
                         datos.isAdmitido = element.isAdmitido;
+                        datos.isPropedeutico = (element.clave == "AP"? true : false);
                      }
                 });
                 for(var key in columna){
