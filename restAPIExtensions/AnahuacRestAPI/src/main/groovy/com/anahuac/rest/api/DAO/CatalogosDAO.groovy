@@ -6365,6 +6365,85 @@ class CatalogosDAO {
         }
         return resultado
     }
+	
+	public Result getCatPeriodoActivoFechaEspecifica(String fecha, String tipo, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+
+		String consulta = "";
+		String errorLog = "";
+		String tipoCast = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Date fechaInicio = new Date();
+		Date fechaFinal = new Date();
+
+		CatPeriodoFinal objCatPeriodoFinal = new CatPeriodoFinal();
+
+		List < CatPeriodoFinal > lstCatPeriodoFinal = new ArrayList < CatPeriodoFinal > ();
+		try {
+
+			closeCon = validarConexion();
+			errorLog = errorLog + " | ";
+
+			errorLog = errorLog + " | tipo: " + tipo
+			if (tipo.equals("Semestral")) {
+				tipoCast = "issemestral";
+			}
+			if (tipo.equals("Cuatrimestral")) {
+				tipoCast = "iscuatrimestral";
+			}
+			if (tipo.equals("Anual")) {
+				tipoCast = "isanual";
+			}
+			errorLog = errorLog + " | tipoCast: " + tipoCast
+
+			consulta = Statements.GET_PERIODO_ACTIVO_FECHA_ESPECIFICA.replace("[TIPO]", tipoCast).replace("[FECHA]", fecha);
+			errorLog = errorLog + " | consulta: " + consulta
+
+			pstm = con.prepareStatement(consulta);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				objCatPeriodoFinal = new CatPeriodoFinal();
+				objCatPeriodoFinal.setPersistenceId(rs.getLong("persistenceId"));
+				objCatPeriodoFinal.setPersistenceId_string(rs.getString("persistenceId"));
+				objCatPeriodoFinal.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				objCatPeriodoFinal.setPersistenceVersion_string(rs.getString("persistenceVersion"));
+				objCatPeriodoFinal.setDescripcion(rs.getString("descripcion"));
+				objCatPeriodoFinal.setFechaCreacion(rs.getString("fechaCreacion"));
+				objCatPeriodoFinal.setIsEliminado(rs.getBoolean("isEliminado"));
+				objCatPeriodoFinal.setUsuarioBanner(rs.getString("usuarioBanner"));
+				objCatPeriodoFinal.setFechaImportacion(rs.getString("fechaImportacion"));
+				objCatPeriodoFinal.setClave(rs.getString("clave"));
+				objCatPeriodoFinal.setIsEnabled(rs.getBoolean("isEnabled"));
+				//objCatPeriodoFinal.setNombreCampus(rs.getString("nombreCampus"));
+				objCatPeriodoFinal.setIsCuatrimestral(rs.getBoolean("isCuatrimestral"));
+				objCatPeriodoFinal.setFechaInicio(rs.getString("fechaInicio"));
+				objCatPeriodoFinal.setFechaFin(rs.getString("fechaFin"));
+				objCatPeriodoFinal.setIsSemestral(rs.getBoolean("isSemestral"));
+				objCatPeriodoFinal.setIsAnual(rs.getBoolean("isAnual"));
+				objCatPeriodoFinal.setIsPropedeutico(rs.getString("isPropedeutico"));
+				objCatPeriodoFinal.setId(rs.getString("id"));
+				objCatPeriodoFinal.setActivo(rs.getBoolean("activo"));
+				lstCatPeriodoFinal.add(objCatPeriodoFinal);
+			}
+			errorLog = errorLog + " | paso el while";
+
+			resultado.setData(lstCatPeriodoFinal);
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 
     public Result getCatCiudadExcel(String jsonData, RestAPIContext context) {
         Result resultado = new Result();

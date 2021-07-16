@@ -46,15 +46,6 @@ class ResultadoComiteDAO {
 			def object = jsonSlurper.parseText(jsonData);
 			closeCon = validarConexion();
 			
-			/*String comando = Statements.GET_LAST_RESULTADO_COMITE+" WHERE IDBANNER = '"+object.idBanner+"' ORDER BY PERSISTENCEID DESC LIMIT 1";
-			pstm = con.prepareStatement(comando);
-			rs= pstm.executeQuery();
-			String pid = "";
-			if(rs.next()) {
-				pid = rs.getString("persistenceid");
-			}*/
-			//if(pid.equals(object.persistenceid)) {
-			
 			// REVISO SI EL REGISTRO SE ENCUENTRA ACTIVO, AL ENCONTRAR QUE ESTA ACTIVO BUSCA SI HAY OTRO REGISTRO EXCLUYENDO EL REGISTRO, SI LO ENCUENTRA SIGNIFICA QUE ESE REGISTRO PASARA DE DESACTIVADO A ACTIVADO
 			con.setAutoCommit(false);
 			
@@ -87,25 +78,30 @@ class ResultadoComiteDAO {
 			
 			
 			
-			//para actualizar correctamente al aspirante 
-			/*if(!object.desactivado) {
-				
-				pstm = con.prepareStatement(Statements.GET_ASPIRANTE_PERIODO_ID);
-				pstm.setString(1,object.idBanner);
-				pstm.setString(2,object.periodo);
-				rs= pstm.executeQuery();
-				
-				String periodo = "";
-				if(rs.next()) {
-					periodo = rs.getString("persistenceid")
-				}
-				
-				
-				pstm = con.prepareStatement(Statements.UPDATE_ACEPTADO_RESULTADO_COMITE.replace("[IDBANNER]", object.idBanner).replace("[PERIODO]", periodo));
-				pstm.setNull(1, java.sql.Types.NULL);
-				pstm.executeUpdate();
-			}*/
+			con.commit();
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
+		return resultado
+	}
+	
+	public Result postDesactivarResultado(String persistenceid, String usuario, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
 			
+			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(Statements.DELETE_BITACORA_ERRORES_RC, Statement.RETURN_GENERATED_KEYS)
+			pstm.executeUpdate();
 			con.commit();
 			resultado.setSuccess(true)
 		}catch(Exception e) {
@@ -170,12 +166,12 @@ class ResultadoComiteDAO {
 						sesion = rs.getLong("SESIONES_PID");
 					}
 					
-					if(!it.update || (it.update && !it.desactivado) ){
-						pstm = con.prepareStatement(Statements.UPDATE_RESULTADO_COMITE_DESACTIVAR.replace("[IDBANNER]", it.IDBANNER));
-						pstm.executeUpdate();
-					}
 					
-					pstm = con.prepareStatement(it.update? Statements.INSERT_RESULTADO_COMITE_MODIFICACION.replace("[DESACTIVADO]", it.desactivado):Statements.INSERT_RESULTADO_COMITE, Statement.RETURN_GENERATED_KEYS);
+					pstm = con.prepareStatement(Statements.UPDATE_RESULTADO_COMITE_DESACTIVAR.replace("[IDBANNER]", it.IDBANNER));
+					pstm.executeUpdate();
+					
+					
+					pstm = con.prepareStatement(it.update? Statements.INSERT_RESULTADO_COMITE_MODIFICACION:Statements.INSERT_RESULTADO_COMITE, Statement.RETURN_GENERATED_KEYS);
 					
 					pstm.setString(1,it.IDBANNER);
 					pstm.setString(2,it.decision);
@@ -189,26 +185,11 @@ class ResultadoComiteDAO {
 					pstm.setBoolean(10, it.isAdmitido);
 					pstm.setLong(11, gestionescolar);
 					pstm.setLong(12, sesion);
+					pstm.setString(13,it.usuariocreacion);
+					pstm.setBoolean(14, it.isPropedeutico)
 					
 					
 					pstm.executeUpdate();
-					
-					/* para mover la variable aceptado
-					pstm = con.prepareStatement(Statements.GET_ASPIRANTE_PERIODO_ID);
-					pstm.setString(1,it.idBanner);
-					pstm.setString(2,it.periodo);					
-					rs= pstm.executeQuery();
-					
-					String periodo = "";
-					if(rs.next()) {
-						periodo = rs.getString("persistenceid")
-					}
-					
-					pstm = con.prepareStatement(Statements.UPDATE_ACEPTADO_RESULTADO_COMITE.replace("[IDBANNER]", it.IDBANNER).replace("[PERIODO]", periodo));
-					pstm.setBoolean(1, it.isAdmitido);
-					pstm.executeUpdate();
-					*/
-					
 				}
 				resultado.setSuccess(true)
 				con.commit();
@@ -402,7 +383,7 @@ class ResultadoComiteDAO {
 			closeCon = validarConexion();
 			
 			
-			pstm = con.prepareStatement(Statements.GET_RC_BY_IDBANNER);
+			pstm = con.prepareStatement(Statements.GET_REGISTRO_RESULTADO_COMITE_BY_IDBANNER);
 			pstm.setString(1, idBanner);
 			
 			rs= pstm.executeQuery();
@@ -432,6 +413,52 @@ class ResultadoComiteDAO {
 		}
 		return resultado
 	}
+	
+	
+	public Result getAspiranteRC_Expecifico(String persistenceid, String idBanner, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			pstm = con.prepareStatement(Statements.GET_RC_BY_IDBANNER);
+			pstm.setString(1, idBanner);
+			pstm.setLong(2, Long.parseLong(persistenceid));
+			
+			errorlog+= "persistenceid:"+persistenceid;
+			
+			rs= pstm.executeQuery();
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 	
 	public Boolean isNullOrEmpty(String text) {
 		
@@ -1266,8 +1293,8 @@ class ResultadoComiteDAO {
 				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
 				
 				consulta=consulta.replace("[WHERE]", where);
-				errorlog=consulta.replace(" distinct on (da.idbanner) da.idbanner,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, RC.decision", " COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, RC.decision","")+"¡¡¿¿¿";
-				pstm = con.prepareStatement(consulta.replace(" distinct on (da.idbanner) da.idbanner,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, RC.decision", " COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, RC.decision",""));
+				errorlog=consulta.replace("distinct on (da.idbanner) da.idbanner,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, RC.decision, gestionescolar.persistenceid as idlicenciatura", " COUNT(distinct sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, RC.decision, gestionescolar.persistenceid","")+" 4"
+				pstm = con.prepareStatement(consulta.replace("distinct on (da.idbanner) da.idbanner,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, periodo.clave AS claveingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, RC.decision, gestionescolar.persistenceid as idlicenciatura", " COUNT(distinct sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,periodo.clave,sda.caseid,sda.telefonocelular,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, RC.decision, gestionescolar.persistenceid",""));
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))

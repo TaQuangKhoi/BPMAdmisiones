@@ -43,6 +43,7 @@ import com.anahuac.catalogos.CatRegistroDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
 import com.anahuac.rest.api.Entity.Custom.AppMenuRole
@@ -52,6 +53,7 @@ import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.anahuac.rest.api.Entity.db.Role
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -93,22 +95,18 @@ class UsuariosDAO {
 	
 		String error_log = "";
 		
+		Boolean closeCon = false;
+		
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -152,7 +150,7 @@ class UsuariosDAO {
 			error_log = error_log + " | String plantilla = resultadoN.getData().get(0);";
 			
 			error_log = error_log + " | if (inputStream != null) {";
-			plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + str.correo + "");
+			plantilla = plantilla.replace("[href-confirmar]", objProperties.getUrlHost() + "/bonita/apps/login/activate/?correo=" + str.correo + "");
 			error_log = error_log + " | plantilla = plantilla.replace([href-confirmar], prop.getProperty";
 			MailGunDAO dao = new MailGunDAO();
 			resultado = dao.sendEmailPlantilla(str.correo, "Completar Registro", plantilla.replace("\\", ""), "", object.campus, context);
@@ -195,24 +193,20 @@ class UsuariosDAO {
 		
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
+		Boolean closeCon = false;
+		
 		try {
 			Result dataResult = new Result();
 			List<Object> lstParams;
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+						
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -275,22 +269,17 @@ class UsuariosDAO {
 		Result resultado = new Result();
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -328,22 +317,18 @@ class UsuariosDAO {
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		CatRegistro objCatRegistro = new CatRegistro();
 		String errorLog ="";
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
 			/*def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);*/
 
@@ -387,22 +372,19 @@ class UsuariosDAO {
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
 		NotificacionDAO nDAO = new NotificacionDAO();
+		
+		Boolean closeCon = false;
+		
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			apiClient.login(username, password)
@@ -1170,19 +1152,14 @@ class UsuariosDAO {
 			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			assert object instanceof Map;
@@ -1440,7 +1417,6 @@ class UsuariosDAO {
 						processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 					}
 				}
-				
 			}
 			
 			con.commit();
@@ -1501,6 +1477,10 @@ class UsuariosDAO {
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
 			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_PASELISTA)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_ASPIRANTESPRUEBAS)
 			pstm.setString(1,object.correoNuevo);
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
@@ -2767,6 +2747,36 @@ class UsuariosDAO {
 			String consulta = "Update catregistro set password = '"+ password +"' where correoelectronico = '"+correo+"'";
 			List<String> rows = new ArrayList<String>();
 			closeCon = validarConexion();
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(consulta);
+			pstm.executeUpdate();
+				
+			con.commit();
+			//resultado.setError_info(" errorLog = "+errorLog)
+			resultado.setData(rows)
+			resultado.setSuccess(true)
+		}catch(Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog+" "+e.getMessage())
+			con.rollback();
+		}
+		finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	public Result updatePerfil() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			String consulta = "update profileentry set profileid=202 where profileid in (1,2,3)";
+			List<String> rows = new ArrayList<String>();
+			closeCon = validarConexionBonita();
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(consulta);
 			pstm.executeUpdate();

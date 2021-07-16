@@ -8324,7 +8324,7 @@ class ListadoDAO {
 					cell12.setCellValue(lstParams[i].periodo);
 
 					Cell cell8 = row.createCell(7);
-					cell8.setCellValue(lstParams[i].preparatoriaestado);
+					cell8.setCellValue(lstParams[i].procedencia);
 					Cell cell9 = row.createCell(8);
 					cell9.setCellValue(lstParams[i].preparatoria);
 					Cell cell13 = row.createCell(9);
@@ -8339,8 +8339,8 @@ class ListadoDAO {
 					cell14.setCellValue(lstParams[i].telefonocelular);
 
 					Cell cell10 = row.createCell(13);
-					cell10.setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : "No")) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : "No")));
-
+					cell10.setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))));
+					
 					if (type.equals("paselistareportelistado") && lstParams[i].tipoprueba_pid == "1") {
 						Cell cell15 = row.createCell(14);
 						cell15.setCellValue(lstParams[i].responsables);
