@@ -21,6 +21,15 @@ class CatGenericoFiltro {
 	
 	private String fechaImportacion;
 	
+	private Boolean isAdmitido;
+	
+	
+	public Boolean getIsAdmitido() {
+		return isAdmitido;
+	}
+	public void setIsAdmitido(Boolean isAdmitido) {
+		this.isAdmitido = isAdmitido;
+	}
 	
 	public String getOrden() {
 		return orden;

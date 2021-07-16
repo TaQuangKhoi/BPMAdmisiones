@@ -2990,25 +2990,12 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_pbvLUs7BEeuJyspcInb2hw" name="lstUniversidadesHasEstado" content="lstUniversidadesHasEstado" type="TYPE_VARIABLE" returnType="java.util.List">
               <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_pbvLU87BEeuJyspcInb2hw" name="lstUniversidadesHasEstado" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.Universidades"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_pbvLVM7BEeuJyspcInb2hw" name="lstUniversidadesHasEstadoInput" content="def universidadesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstUniversidadesHasEstadoInput.each{&#xD;&#xA;&#x9;//Add Universidades instance&#xD;&#xA;&#x9;universidadesList.add({ currentUniversidadesInput ->&#xD;&#xA;&#x9;&#x9;def universidadesVar = lstUniversidadesHasEstado.find { it.persistenceId.toString() == currentUniversidadesInput.persistenceId_string} ?: new com.anahuac.model.Universidades()&#xD;&#xA;&#x9;&#x9;universidadesVar.nombre = currentUniversidadesInput.nombre&#xD;&#xA;&#x9;&#x9;universidadesVar.anoInicio = currentUniversidadesInput.anoInicio&#xD;&#xA;&#x9;&#x9;universidadesVar.anoFin = currentUniversidadesInput.anoFin&#xD;&#xA;&#x9;&#x9;universidadesVar.carrera = currentUniversidadesInput.carrera&#xD;&#xA;&#x9;&#x9;universidadesVar.motivoSuspension = currentUniversidadesInput.motivoSuspension&#xD;&#xA;&#x9;&#x9;universidadesVar.caseId = currentUniversidadesInput.caseId?.trim() ? currentUniversidadesInput.caseId.toLong() : null&#xD;&#xA;&#x9;&#x9;universidadesVar.vencido = currentUniversidadesInput.vencido&#xD;&#xA;&#x9;&#x9;return universidadesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return universidadesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="_pbvLVc7BEeuJyspcInb2hw" name="lstUniversidadesHasEstadoInput" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_pbvLVs7BEeuJyspcInb2hw" name="lstUniversidadesHasEstado" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.Universidades"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_pbvLVM7BEeuJyspcInb2hw" name="lstUniversidadesHasEstadoInput" content="def universidadesList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstUniversidadesHasEstadoInput.each{&#xD;&#xA;&#x9;//Add Universidades instance&#xD;&#xA;&#x9;universidadesList.add({ currentUniversidadesInput ->&#xD;&#xA;&#x9;&#x9;def universidadesVar = lstUniversidadesHasEstado.find { it.persistenceId.toString() == currentUniversidadesInput.persistenceId_string} ?: new com.anahuac.model.Universidades()&#xD;&#xA;&#x9;&#x9;universidadesVar.nombre = currentUniversidadesInput.nombre&#xD;&#xA;&#x9;&#x9;universidadesVar.anoInicio = currentUniversidadesInput.anoInicio&#xD;&#xA;&#x9;&#x9;universidadesVar.anoFin = currentUniversidadesInput.anoFin&#xD;&#xA;&#x9;&#x9;universidadesVar.carrera = currentUniversidadesInput.carrera&#xD;&#xA;&#x9;&#x9;universidadesVar.motivoSuspension = currentUniversidadesInput.motivoSuspension&#xD;&#xA;&#x9;&#x9;universidadesVar.caseId = processInstanceId&#xD;&#xA;&#x9;&#x9;universidadesVar.vencido = currentUniversidadesInput.vencido&#xD;&#xA;&#x9;&#x9;return universidadesVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return universidadesList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Fx1eANXwEeudXfHDitrUHw" name="lstUniversidadesHasEstado" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.Universidades"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_Fx2FENXwEeudXfHDitrUHw" name="lstUniversidadesHasEstadoInput" type="COMPLEX" multiple="true" createMode="false"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_Fx69kNXwEeudXfHDitrUHw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_pbvLV87BEeuJyspcInb2hw" type="ASSIGNMENT" expression="addAll">
-              <inputTypes>java.util.Collection</inputTypes>
-            </operator>
-          </operations>
-          <operations xmi:type="expression:Operation" xmi:id="__Jlq4M-dEeusiaKlLTOCHQ">
-            <leftOperand xmi:type="expression:Expression" xmi:id="__Jlq4c-dEeusiaKlLTOCHQ" name="lstIdiomasV2" content="lstIdiomasV2" type="TYPE_VARIABLE" returnType="java.util.List">
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="__Jlq4s-dEeusiaKlLTOCHQ" name="lstIdiomasV2" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.AutodescripcionV2Idiomas"/>
-            </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="__Jlq48-dEeusiaKlLTOCHQ" name="lstIdiomasV2Input" content="def autodescripcionV2IdiomasList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstIdiomasV2Input.each{&#xD;&#xA;&#x9;//Add AutodescripcionV2Idiomas instance&#xD;&#xA;&#x9;autodescripcionV2IdiomasList.add({ currentAutodescripcionV2IdiomasInput ->&#xD;&#xA;&#x9;&#x9;def autodescripcionV2IdiomasVar = lstIdiomasV2.find { it.persistenceId.toString() == currentAutodescripcionV2IdiomasInput.persistenceId_string} ?: new com.anahuac.model.AutodescripcionV2Idiomas()&#xD;&#xA;&#x9;&#x9;autodescripcionV2IdiomasVar.idioma = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatIdioma using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catIdiomaVar = catIdiomaDAO.findByPersistenceId(currentAutodescripcionV2IdiomasInput.idioma?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.idioma.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catIdiomaVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentAutodescripcionV2IdiomasInput.idioma?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.idioma.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatIdioma` with the persistence id &quot; + currentAutodescripcionV2IdiomasInput.idioma?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.idioma.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;catIdiomaVar.clave = currentAutodescripcionV2IdiomasInput.idioma?.clave&#xD;&#xA;&#x9;&#x9;&#x9;catIdiomaVar.descripcion = currentAutodescripcionV2IdiomasInput.idioma?.descripcion&#xD;&#xA;&#x9;&#x9;&#x9;catIdiomaVar.fechaCreacion = currentAutodescripcionV2IdiomasInput.idioma?.fechaCreacion&#xD;&#xA;&#x9;&#x9;&#x9;catIdiomaVar.usuarioCreacion = currentAutodescripcionV2IdiomasInput.idioma?.usuarioCreacion&#xD;&#xA;&#x9;&#x9;&#x9;catIdiomaVar.isEliminado = currentAutodescripcionV2IdiomasInput.idioma?.isEliminado&#xD;&#xA;&#x9;&#x9;&#x9;return catIdiomaVar}()&#xD;&#xA;&#x9;&#x9;autodescripcionV2IdiomasVar.nivel = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatTraduccion using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catTraduccionVar = catTraduccionDAO.findByPersistenceId(currentAutodescripcionV2IdiomasInput.nivel?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.nivel.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catTraduccionVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentAutodescripcionV2IdiomasInput.nivel?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.nivel.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatTraduccion` with the persistence id &quot; + currentAutodescripcionV2IdiomasInput.nivel?.persistenceId_string?.trim() ? currentAutodescripcionV2IdiomasInput.nivel.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;catTraduccionVar.clave = currentAutodescripcionV2IdiomasInput.nivel?.clave&#xD;&#xA;&#x9;&#x9;&#x9;catTraduccionVar.descripcion = currentAutodescripcionV2IdiomasInput.nivel?.descripcion&#xD;&#xA;&#x9;&#x9;&#x9;catTraduccionVar.fechaCreacion = currentAutodescripcionV2IdiomasInput.nivel?.fechaCreacion&#xD;&#xA;&#x9;&#x9;&#x9;catTraduccionVar.usuarioCreacion = currentAutodescripcionV2IdiomasInput.nivel?.usuarioCreacion&#xD;&#xA;&#x9;&#x9;&#x9;catTraduccionVar.isEliminado = currentAutodescripcionV2IdiomasInput.nivel?.isEliminado&#xD;&#xA;&#x9;&#x9;&#x9;return catTraduccionVar}()&#xD;&#xA;&#x9;&#x9;autodescripcionV2IdiomasVar.otroIdioma = currentAutodescripcionV2IdiomasInput.otroIdioma&#xD;&#xA;&#x9;&#x9;return autodescripcionV2IdiomasVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return autodescripcionV2IdiomasList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-              <referencedElements xmi:type="process:ContractInput" xmi:id="__Jlq5M-dEeusiaKlLTOCHQ" name="lstIdiomasV2Input" type="COMPLEX" multiple="true"/>
-              <referencedElements xmi:type="expression:Expression" xmi:id="__Jlq5c-dEeusiaKlLTOCHQ" name="catTraduccionDAO" content="catTraduccionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTraduccionDAO" returnTypeFixed="true"/>
-              <referencedElements xmi:type="expression:Expression" xmi:id="__Jlq5s-dEeusiaKlLTOCHQ" name="catIdiomaDAO" content="catIdiomaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatIdiomaDAO" returnTypeFixed="true"/>
-              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="__Jlq58-dEeusiaKlLTOCHQ" name="lstIdiomasV2" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.AutodescripcionV2Idiomas"/>
-            </rightOperand>
-            <operator xmi:type="expression:Operator" xmi:id="__Jlq6M-dEeusiaKlLTOCHQ" type="ASSIGNMENT" expression="addAll">
               <inputTypes>java.util.Collection</inputTypes>
             </operator>
           </operations>
@@ -3827,6 +3814,48 @@
               <inputTypes>com.anahuac.catalogos.CatTerapia</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_Kz4VYNYNEeuWoPhbWsJbPA">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_Kz4VYdYNEeuWoPhbWsJbPA" name="lstInformacionEscolar" content="lstInformacionEscolar" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_Kz4VYtYNEeuWoPhbWsJbPA" name="lstInformacionEscolar" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.EscuelasHasEstado"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_Kz4VY9YNEeuWoPhbWsJbPA" name="lstInformacionEscolarInput" content="def escuelasHasEstadoList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstInformacionEscolarInput.each{&#xD;&#xA;&#x9;//Add EscuelasHasEstado instance&#xD;&#xA;&#x9;escuelasHasEstadoList.add({ currentEscuelasHasEstadoInput ->&#xD;&#xA;&#x9;&#x9;def escuelasHasEstadoVar = lstInformacionEscolar.find { it.persistenceId.toString() == currentEscuelasHasEstadoInput.persistenceId_string} ?: new com.anahuac.model.EscuelasHasEstado()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.grado = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatGradoAcademico using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catGradoAcademicoVar = catGradoAcademicoDAO.findByPersistenceId(currentEscuelasHasEstadoInput.grado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.grado.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catGradoAcademicoVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentEscuelasHasEstadoInput.grado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.grado.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatGradoAcademico` with the persistence id &quot; + currentEscuelasHasEstadoInput.grado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.grado.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catGradoAcademicoVar}()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.tipo = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatGradoAcademico using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catGradoAcademicoVar2 = catGradoAcademicoDAO.findByPersistenceId(currentEscuelasHasEstadoInput.tipo?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.tipo.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catGradoAcademicoVar2) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentEscuelasHasEstadoInput.tipo?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.tipo.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatGradoAcademico` with the persistence id &quot; + currentEscuelasHasEstadoInput.tipo?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.tipo.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catGradoAcademicoVar2}()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.escuela = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatBachilleratos using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catBachilleratosVar = catBachilleratosDAO.findByPersistenceId(currentEscuelasHasEstadoInput.escuela?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.escuela.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catBachilleratosVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentEscuelasHasEstadoInput.escuela?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.escuela.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatBachilleratos` with the persistence id &quot; + currentEscuelasHasEstadoInput.escuela?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.escuela.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catBachilleratosVar}()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.otraEscuela = currentEscuelasHasEstadoInput.otraEscuela&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.pais = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatPais using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catPaisVar = catPaisDAO.findByPersistenceId(currentEscuelasHasEstadoInput.pais?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.pais.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catPaisVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentEscuelasHasEstadoInput.pais?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.pais.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatPais` with the persistence id &quot; + currentEscuelasHasEstadoInput.pais?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.pais.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catPaisVar}()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.estado = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatEstados using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catEstadosVar = catEstadosDAO.findByPersistenceId(currentEscuelasHasEstadoInput.estado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.estado.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catEstadosVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentEscuelasHasEstadoInput.estado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.estado.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatEstados` with the persistence id &quot; + currentEscuelasHasEstadoInput.estado?.persistenceId_string?.trim() ? currentEscuelasHasEstadoInput.estado.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catEstadosVar}()&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.ciudad = currentEscuelasHasEstadoInput.ciudad&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.anoInicio = currentEscuelasHasEstadoInput.anoInicio&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.anoFin = currentEscuelasHasEstadoInput.anoFin&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.promedio = currentEscuelasHasEstadoInput.promedio&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.estadoString = currentEscuelasHasEstadoInput.estadoString&#xD;&#xA;&#x9;&#x9;escuelasHasEstadoVar.caseId = processInstanceId&#xD;&#xA;&#x9;&#x9;return escuelasHasEstadoVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return escuelasHasEstadoList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_UnrKsNYNEeuWoPhbWsJbPA" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_UnrKsdYNEeuWoPhbWsJbPA" name="lstInformacionEscolarInput" type="COMPLEX" multiple="true" createMode="false"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_UnrKstYNEeuWoPhbWsJbPA" name="catPaisDAO" content="catPaisDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatPaisDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_UnrKs9YNEeuWoPhbWsJbPA" name="catBachilleratosDAO" content="catBachilleratosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatBachilleratosDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_UnrKtNYNEeuWoPhbWsJbPA" name="lstInformacionEscolar" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.EscuelasHasEstado"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_UnrKtdYNEeuWoPhbWsJbPA" name="catGradoAcademicoDAO" content="catGradoAcademicoDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatGradoAcademicoDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_UnrKttYNEeuWoPhbWsJbPA" name="catEstadosDAO" content="catEstadosDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatEstadosDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_Kz4VatYNEeuWoPhbWsJbPA" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_ttMMsth1Eeuv4-3iF4pFdQ">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_ttMMs9h1Eeuv4-3iF4pFdQ" name="lstIdiomasV2" content="lstIdiomasV2" type="TYPE_VARIABLE" returnType="java.util.List">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_ttMMtNh1Eeuv4-3iF4pFdQ" name="lstIdiomasV2" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.IdiomasHablasV2"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_ttMMtdh1Eeuv4-3iF4pFdQ" name="lstIdiomasV2Input" content="def idiomasHablasV2List = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;lstIdiomasV2Input.each{&#xD;&#xA;&#x9;//Add a new composed IdiomasHablasV2 instance&#xD;&#xA;&#x9;idiomasHablasV2List.add({ currentIdiomasHablasV2Input ->&#xD;&#xA;&#x9;&#x9;def idiomasHablasV2Var = new com.anahuac.model.IdiomasHablasV2()&#xD;&#xA;&#x9;&#x9;idiomasHablasV2Var.nivel = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatTraduccion using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catTraduccionVar = catTraduccionDAO.findByPersistenceId(currentIdiomasHablasV2Input.nivel?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.nivel.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catTraduccionVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentIdiomasHablasV2Input.nivel?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.nivel.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatTraduccion` with the persistence id &quot; + currentIdiomasHablasV2Input.nivel?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.nivel.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catTraduccionVar}()&#xD;&#xA;&#x9;&#x9;idiomasHablasV2Var.idioma = {&#xD;&#xA;&#x9;&#x9;&#x9;//Retrieve aggregated CatIdioma using its DAO and persistenceId&#xD;&#xA;&#x9;&#x9;&#x9;def catIdiomaVar = catIdiomaDAO.findByPersistenceId(currentIdiomasHablasV2Input.idioma?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.idioma.persistenceId_string.toLong() : null)&#xD;&#xA;&#x9;&#x9;&#x9;if (!catIdiomaVar) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if (currentIdiomasHablasV2Input.idioma?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.idioma.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatIdioma` with the persistence id &quot; + currentIdiomasHablasV2Input.idioma?.persistenceId_string?.trim() ? currentIdiomasHablasV2Input.idioma.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;return null&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;return catIdiomaVar}()&#xD;&#xA;&#x9;&#x9;idiomasHablasV2Var.otroIdioma = currentIdiomasHablasV2Input.otroIdioma&#xD;&#xA;&#x9;&#x9;return idiomasHablasV2Var&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return idiomasHablasV2List" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_ttMMtth1Eeuv4-3iF4pFdQ" name="lstIdiomasV2Input" type="COMPLEX" multiple="true"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_ttMMt9h1Eeuv4-3iF4pFdQ" name="catTraduccionDAO" content="catTraduccionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatTraduccionDAO" returnTypeFixed="true"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_ttMMuNh1Eeuv4-3iF4pFdQ" name="catIdiomaDAO" content="catIdiomaDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatIdiomaDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_ttMMudh1Eeuv4-3iF4pFdQ" type="ASSIGNMENT" expression="addAll">
+              <inputTypes>java.util.Collection</inputTypes>
+            </operator>
+          </operations>
+          <operations xmi:type="expression:Operation" xmi:id="_BprQAeAbEeuX8sIYnCrWfg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="_BprQAuAbEeuX8sIYnCrWfg" name="catSolicitudDeAdmision" content="catSolicitudDeAdmision" type="TYPE_VARIABLE" returnType="com.anahuac.model.SolicitudDeAdmision">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BprQA-AbEeuX8sIYnCrWfg" name="catSolicitudDeAdmision" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.SolicitudDeAdmision"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_BprQBOAbEeuX8sIYnCrWfg" name="catSolicitudDeAdmisionInput.catReligion" content="//Retrieve aggregated CatReligion using its DAO and persistenceId&#xD;&#xA;def catReligionVar = catReligionDAO.findByPersistenceId(catSolicitudDeAdmisionInput?.catReligion?.persistenceId_string?.trim() ? catSolicitudDeAdmisionInput.catReligion.persistenceId_string.toLong() : null)&#xD;&#xA;if (!catReligionVar) {&#xD;&#xA;&#x9;if (catSolicitudDeAdmisionInput?.catReligion?.persistenceId_string?.trim() ? catSolicitudDeAdmisionInput.catReligion.persistenceId_string.toLong() : null) {&#xD;&#xA;&#x9;&#x9;throw new IllegalArgumentException(&quot;The aggregated reference of type `CatReligion` with the persistence id &quot; + catSolicitudDeAdmisionInput?.catReligion?.persistenceId_string?.trim() ? catSolicitudDeAdmisionInput.catReligion.persistenceId_string.toLong() : null + &quot; has not been found.&quot;)&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;return null&#xD;&#xA;}&#xD;&#xA;catReligionVar.descripcion = catSolicitudDeAdmisionInput?.catReligion?.descripcion&#xD;&#xA;catReligionVar.fechaCreacion = catSolicitudDeAdmisionInput?.catReligion?.fechaCreacion&#xD;&#xA;catReligionVar.isEliminado = catSolicitudDeAdmisionInput?.catReligion?.isEliminado&#xD;&#xA;catReligionVar.usuarioBanner = catSolicitudDeAdmisionInput?.catReligion?.usuarioBanner&#xD;&#xA;catReligionVar.fechaImplementacion = catSolicitudDeAdmisionInput?.catReligion?.fechaImplementacion&#xD;&#xA;catReligionVar.clave = catSolicitudDeAdmisionInput?.catReligion?.clave&#xD;&#xA;catReligionVar.isEnabled = catSolicitudDeAdmisionInput?.catReligion?.isEnabled&#xD;&#xA;catReligionVar.orden = catSolicitudDeAdmisionInput?.catReligion?.orden&#xD;&#xA;catReligionVar.id = catSolicitudDeAdmisionInput?.catReligion?.id&#xD;&#xA;return catReligionVar" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="com.anahuac.catalogos.CatReligion">
+              <referencedElements xmi:type="process:ContractInput" xmi:id="_BprQBeAbEeuX8sIYnCrWfg" name="catSolicitudDeAdmisionInput" type="COMPLEX" createMode="false"/>
+              <referencedElements xmi:type="expression:Expression" xmi:id="_BprQBuAbEeuX8sIYnCrWfg" name="catReligionDAO" content="catReligionDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatReligionDAO" returnTypeFixed="true"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="_BprQB-AbEeuX8sIYnCrWfg" type="JAVA_METHOD" expression="setCatReligion">
+              <inputTypes>com.anahuac.catalogos.CatReligion</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_vHlQyM4pEeumSdg3ir94Yg" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_vHlQyc4pEeumSdg3ir94Yg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_vHlQys4pEeumSdg3ir94Yg" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
@@ -3837,8 +3866,8 @@
               <referencedElements xmi:type="process:Data" xmi:id="_vHlQz84pEeumSdg3ir94Yg" name="fechavencimientoperiodo" dataType="_vHw4hs4pEeumSdg3ir94Yg"/>
             </condition>
           </BoundaryIntermediateEvents>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_vHlQ0M4pEeumSdg3ir94Yg">
-            <targetForm xmi:type="expression:Expression" xmi:id="_TdTTMM7DEeuJyspcInb2hw" name="appAutodescripcionV2" content="a2d3dd07-2569-427e-b7d3-a58d3a2ba365" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+          <formMapping xmi:type="process:FormMapping" xmi:id="_vHlQ0M4pEeumSdg3ir94Yg" type="NONE">
+            <targetForm xmi:type="expression:Expression" xmi:id="_oCu00Ng0Eeujp6B8jyOHiQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <filters xmi:type="process:ActorFilter" xmi:id="_vHlQ0s4pEeumSdg3ir94Yg" name="Solicitante" definitionId="initiator" definitionVersion="1.0.0">
             <configuration xmi:type="connectorconfiguration:ConnectorConfiguration" xmi:id="_vHlQ084pEeumSdg3ir94Yg" definitionId="initiator" version="1.0.0">
@@ -3858,28 +3887,7 @@
               <inputs xmi:type="process:ContractInput" xmi:id="_pbq55M7BEeuJyspcInb2hw" name="anoFin" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_pbq55c7BEeuJyspcInb2hw" name="carrera" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_pbq55s7BEeuJyspcInb2hw" name="motivoSuspension" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_pbq5587BEeuJyspcInb2hw" name="caseId" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_pbq56M7BEeuJyspcInb2hw" name="vencido" type="BOOLEAN" createMode="false"/>
-            </inputs>
-            <inputs xmi:type="process:ContractInput" xmi:id="__JlD0M-dEeusiaKlLTOCHQ" name="lstIdiomasV2Input" type="COMPLEX" multiple="true" dataReference="lstIdiomasV2" createMode="false">
-              <inputs xmi:type="process:ContractInput" xmi:id="__JlD0c-dEeusiaKlLTOCHQ" name="persistenceId_string" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="__JlD0s-dEeusiaKlLTOCHQ" name="idioma" type="COMPLEX" createMode="false">
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD08-dEeusiaKlLTOCHQ" name="persistenceId_string" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD1M-dEeusiaKlLTOCHQ" name="clave" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD1c-dEeusiaKlLTOCHQ" name="descripcion" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD1s-dEeusiaKlLTOCHQ" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD18-dEeusiaKlLTOCHQ" name="usuarioCreacion" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD2M-dEeusiaKlLTOCHQ" name="isEliminado" type="BOOLEAN" createMode="false"/>
-              </inputs>
-              <inputs xmi:type="process:ContractInput" xmi:id="__JlD2c-dEeusiaKlLTOCHQ" name="nivel" type="COMPLEX" createMode="false">
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD2s-dEeusiaKlLTOCHQ" name="persistenceId_string" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD28-dEeusiaKlLTOCHQ" name="clave" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD3M-dEeusiaKlLTOCHQ" name="descripcion" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD3c-dEeusiaKlLTOCHQ" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD3s-dEeusiaKlLTOCHQ" name="usuarioCreacion" createMode="false"/>
-                <inputs xmi:type="process:ContractInput" xmi:id="__JlD38-dEeusiaKlLTOCHQ" name="isEliminado" type="BOOLEAN" createMode="false"/>
-              </inputs>
-              <inputs xmi:type="process:ContractInput" xmi:id="__JlD4M-dEeusiaKlLTOCHQ" name="otroIdioma" createMode="false"/>
             </inputs>
             <inputs xmi:type="process:ContractInput" xmi:id="_KNQQ8NCAEeu95Nm5o8neWA" name="autodescripcionV2Input" type="COMPLEX" dataReference="autodescripcionV2" createMode="false">
               <inputs xmi:type="process:ContractInput" xmi:id="_KNQQ8dCAEeu95Nm5o8neWA" name="comoEstaConformadaFamilia" createMode="false"/>
@@ -3996,86 +4004,61 @@
                 <inputs xmi:type="process:ContractInput" xmi:id="_KNQRS9CAEeu95Nm5o8neWA" name="persistenceId_string" createMode="false"/>
               </inputs>
               <inputs xmi:type="process:ContractInput" xmi:id="_KNQRTNCAEeu95Nm5o8neWA" name="personasInfluyeronDesicion" createMode="false"/>
-              <inputs xmi:type="process:ContractInput" xmi:id="_KNQRTdCAEeu95Nm5o8neWA" name="caseId" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_KNQRTtCAEeu95Nm5o8neWA" name="pageIndex" createMode="false"/>
               <inputs xmi:type="process:ContractInput" xmi:id="_KNQRT9CAEeu95Nm5o8neWA" name="catRecibidoTerapia" type="COMPLEX" createMode="false">
                 <inputs xmi:type="process:ContractInput" xmi:id="_KNQRUNCAEeu95Nm5o8neWA" name="persistenceId_string" createMode="false"/>
               </inputs>
             </inputs>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRUdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catEstudiadoExtranjero || autodescripcionV2Input?.catEstudiadoExtranjero?.persistenceId_string" errorMessage="CatEstudiasteEnElExtranjero must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catEstudiadoExtranjero">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRUtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.paisEstudiasteExtranjero || autodescripcionV2Input?.paisEstudiasteExtranjero?.persistenceId_string" errorMessage="CatPais must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_paisEstudiasteExtranjero">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRU9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.tiempoEstudiasteExtranjero || autodescripcionV2Input?.tiempoEstudiasteExtranjero?.persistenceId_string" errorMessage="CatCuantoTiempo must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_tiempoEstudiasteExtranjero">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRVNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catAreaBachillerato || autodescripcionV2Input?.catAreaBachillerato?.persistenceId_string" errorMessage="CatUltimoCursoBachiller must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catAreaBachillerato">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRVdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catHasPresentadoExamenExtraordinario || autodescripcionV2Input?.catHasPresentadoExamenExtraordinario?.persistenceId_string" errorMessage="CatExamenExtraordinario must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catHasPresentadoExamenExtraordinario">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRVtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catHasReprobado || autodescripcionV2Input?.catHasReprobado?.persistenceId_string" errorMessage="CatSemestreReprobado must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catHasReprobado">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRV9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catInscritoOtraUniversidad || autodescripcionV2Input?.catInscritoOtraUniversidad?.persistenceId_string" errorMessage="CatUniversidadAIngresar must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catInscritoOtraUniversidad">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRWNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catHasTenidoTrabajo || autodescripcionV2Input?.catHasTenidoTrabajo?.persistenceId_string" errorMessage="CatActualmenteTrabajas must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catHasTenidoTrabajo">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRWdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catExperienciaAyudaCarrera || autodescripcionV2Input?.catExperienciaAyudaCarrera?.persistenceId_string" errorMessage="CatExperienciaAyudaCarrera must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catExperienciaAyudaCarrera">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRWtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catActualnenteTrabajas || autodescripcionV2Input?.catActualnenteTrabajas?.persistenceId_string" errorMessage="CatActualmenteTrabajas must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catActualnenteTrabajas">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRW9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catPersonaSaludable || autodescripcionV2Input?.catPersonaSaludable?.persistenceId_string" errorMessage="CatPersonaSaludable must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catPersonaSaludable">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRXNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catVivesEstadoDiscapacidad || autodescripcionV2Input?.catVivesEstadoDiscapacidad?.persistenceId_string" errorMessage="CatDiscapacidad must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catVivesEstadoDiscapacidad">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRXdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catPracticasDeporte || autodescripcionV2Input?.catPracticasDeporte?.persistenceId_string" errorMessage="CatPracticaDeporte must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catPracticasDeporte">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRXtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catTeGustaLeer || autodescripcionV2Input?.catTeGustaLeer?.persistenceId_string" errorMessage="CatTeGustaLeer must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catTeGustaLeer">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRX9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catParticipasGrupoSocial || autodescripcionV2Input?.catParticipasGrupoSocial?.persistenceId_string" errorMessage="CatParticipasGrupoSocial must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catParticipasGrupoSocial">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRYNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catJefeOrganizacionSocial || autodescripcionV2Input?.catJefeOrganizacionSocial?.persistenceId_string" errorMessage="CatJefeGrupoSocial must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catJefeOrganizacionSocial">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRYdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.pertenecesOrganizacion || autodescripcionV2Input?.pertenecesOrganizacion?.persistenceId_string" errorMessage="CatParticipasGrupoSocial must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_pertenecesOrganizacion">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRYtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catYaResolvisteElProblema || autodescripcionV2Input?.catYaResolvisteElProblema?.persistenceId_string" errorMessage="CatResolvisteProblema must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catYaResolvisteElProblema">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRY9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catPracticasReligion || autodescripcionV2Input?.catPracticasReligion?.persistenceId_string" errorMessage="CatPracticaReligion must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catPracticasReligion">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRZNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catAspectoDesagradaReligion || autodescripcionV2Input?.catAspectoDesagradaReligion?.persistenceId_string" errorMessage="CatAspectoDesagradoReligion must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catAspectoDesagradaReligion">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRZdCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catPadresDeAcuerdo || autodescripcionV2Input?.catPadresDeAcuerdo?.persistenceId_string" errorMessage="CatPadresEstanDeAcuerdo must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catPadresDeAcuerdo">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRZtCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catOrientacionVocacional || autodescripcionV2Input?.catOrientacionVocacional?.persistenceId_string" errorMessage="CatOrientacionVocacional must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catOrientacionVocacional">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRZ9CAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.caseId || autodescripcionV2Input?.caseId.isLong()" errorMessage="A Long value is expected for AutodescripcionV2.caseId" name="type_long_autodescripcionV2Input_caseId">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRaNCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.pageIndex || autodescripcionV2Input?.pageIndex.isLong()" errorMessage="A Long value is expected for AutodescripcionV2.pageIndex" name="type_long_autodescripcionV2Input_pageIndex">
-              <inputNames>autodescripcionV2Input</inputNames>
-            </constraints>
-            <constraints xmi:type="process:ContractConstraint" xmi:id="_KNQRadCAEeu95Nm5o8neWA" expression="!autodescripcionV2Input?.catRecibidoTerapia || autodescripcionV2Input?.catRecibidoTerapia?.persistenceId_string" errorMessage="CatTerapia must reference an existing instance with a persistenceId for AutodescripcionV2" name="aggregation_autodescripcionV2Input_catRecibidoTerapia">
-              <inputNames>autodescripcionV2Input</inputNames>
+            <inputs xmi:type="process:ContractInput" xmi:id="_Kzn2sNYNEeuWoPhbWsJbPA" name="lstInformacionEscolarInput" type="COMPLEX" multiple="true" dataReference="lstInformacionEscolar" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzpE0NYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Kzpr4NYNEeuWoPhbWsJbPA" name="grado" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_KzqS8NYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzqS8dYNEeuWoPhbWsJbPA" name="tipo" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_KzqS8tYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzqS89YNEeuWoPhbWsJbPA" name="escuela" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_Kzq6ANYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Kzq6AdYNEeuWoPhbWsJbPA" name="otraEscuela" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_Kzq6AtYNEeuWoPhbWsJbPA" name="pais" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_KzrhENYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhEdYNEeuWoPhbWsJbPA" name="estado" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_KzrhEtYNEeuWoPhbWsJbPA" name="persistenceId_string" createMode="false"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhE9YNEeuWoPhbWsJbPA" name="ciudad" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhFNYNEeuWoPhbWsJbPA" name="anoInicio" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhFdYNEeuWoPhbWsJbPA" name="anoFin" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhFtYNEeuWoPhbWsJbPA" name="promedio" createMode="false"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_KzrhF9YNEeuWoPhbWsJbPA" name="estadoString" createMode="false"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_ttLloNh1Eeuv4-3iF4pFdQ" name="lstIdiomasV2Input" type="COMPLEX" multiple="true" dataReference="lstIdiomasV2">
+              <inputs xmi:type="process:ContractInput" xmi:id="_ttLlodh1Eeuv4-3iF4pFdQ" name="persistenceId_string"/>
+              <inputs xmi:type="process:ContractInput" xmi:id="_ttLloth1Eeuv4-3iF4pFdQ" name="nivel" type="COMPLEX">
+                <inputs xmi:type="process:ContractInput" xmi:id="_ttLlo9h1Eeuv4-3iF4pFdQ" name="persistenceId_string"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_ttLlpNh1Eeuv4-3iF4pFdQ" name="idioma" type="COMPLEX">
+                <inputs xmi:type="process:ContractInput" xmi:id="_ttLlpdh1Eeuv4-3iF4pFdQ" name="persistenceId_string"/>
+              </inputs>
+              <inputs xmi:type="process:ContractInput" xmi:id="_ttLlpth1Eeuv4-3iF4pFdQ" name="otroIdioma"/>
+            </inputs>
+            <inputs xmi:type="process:ContractInput" xmi:id="_BpdNkOAbEeuX8sIYnCrWfg" name="catSolicitudDeAdmisionInput" type="COMPLEX" dataReference="catSolicitudDeAdmision" createMode="false">
+              <inputs xmi:type="process:ContractInput" xmi:id="_BpdNkeAbEeuX8sIYnCrWfg" name="catReligion" type="COMPLEX" createMode="false">
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNkuAbEeuX8sIYnCrWfg" name="persistenceId_string" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNk-AbEeuX8sIYnCrWfg" name="descripcion" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNlOAbEeuX8sIYnCrWfg" name="fechaCreacion" type="LOCALDATETIME" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNleAbEeuX8sIYnCrWfg" name="isEliminado" type="BOOLEAN" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNluAbEeuX8sIYnCrWfg" name="usuarioBanner" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNl-AbEeuX8sIYnCrWfg" name="fechaImplementacion" type="LOCALDATETIME" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNmOAbEeuX8sIYnCrWfg" name="clave" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNmeAbEeuX8sIYnCrWfg" name="isEnabled" type="BOOLEAN" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNmuAbEeuX8sIYnCrWfg" name="orden" type="INTEGER" createMode="false"/>
+                <inputs xmi:type="process:ContractInput" xmi:id="_BpdNm-AbEeuX8sIYnCrWfg" name="id" createMode="false"/>
+              </inputs>
+            </inputs>
+            <constraints xmi:type="process:ContractConstraint" xmi:id="_BprQAOAbEeuX8sIYnCrWfg" expression="!catSolicitudDeAdmisionInput?.catReligion || catSolicitudDeAdmisionInput?.catReligion?.persistenceId_string" errorMessage="CatReligion must reference an existing instance with a persistenceId for SolicitudDeAdmision" name="aggregation_catSolicitudDeAdmisionInput_catReligion">
+              <inputNames>catSolicitudDeAdmisionInput</inputNames>
             </constraints>
           </contract>
           <expectedDuration xmi:type="expression:Expression" xmi:id="_vHlR-s4pEeumSdg3ir94Yg" name="" content="" returnType="java.lang.Long" returnTypeFixed="true"/>
@@ -4833,8 +4816,8 @@
               <leftOperand xmi:type="expression:Expression" xmi:id="_vHl4RM4pEeumSdg3ir94Yg" name="objPrueba3" content="objPrueba3" type="TYPE_VARIABLE" returnType="java.util.Map">
                 <referencedElements xmi:type="process:JavaObjectData" xmi:id="_vHl4Rc4pEeumSdg3ir94Yg" name="objPrueba3" dataType="_vHw4i84pEeumSdg3ir94Yg" className="java.util.Map"/>
               </leftOperand>
-              <rightOperand xmi:type="expression:Expression" xmi:id="_vHl4Rs4pEeumSdg3ir94Yg" name="resultado3" content="import groovy.json.JsonBuilder&#xD;&#xA;import groovy.json.JsonSlurper&#xD;&#xA;&#xD;&#xA;Map&lt;String, Object> resultado=new HashMap&lt;String, Object>();&#xD;&#xA;&#xD;&#xA;def jsonSlurper = new JsonSlurper();&#xD;&#xA;def object = jsonSlurper.parseText(bodyAsString);&#xD;&#xA;&#xD;&#xA;assert object instanceof Map&#xD;&#xA;&#xD;&#xA;assert object.data instanceof List&#xD;&#xA;for(def row : object.data) {&#xD;&#xA;&#x9;assert row instanceof Map&#xD;&#xA;&#x9;if(row.contador.toString() == &quot;3&quot;){&#xD;&#xA;&#x9;&#x9;resultado.put(&quot;contador&quot;, row.contador);&#xD;&#xA;&#x9;&#x9;resultado.put(&quot;tiempo&quot;, row.tiempo);&#xD;&#xA;&#x9;&#x9;resultado.put(&quot;descripcion&quot;, row.descripcion);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Map">
-                <referencedElements xmi:type="definition:Output" xmi:id="_vHl4R84pEeumSdg3ir94Yg" name="bodyAsString" type="java.lang.String"/>
+              <rightOperand xmi:type="expression:Expression" xmi:id="_vHl4Rs4pEeumSdg3ir94Yg" name="resultado3" content="import groovy.json.JsonBuilder&#xD;&#xA;import groovy.json.JsonSlurper&#xD;&#xA;&#xD;&#xA;Map&lt;String, Object> resultado=new HashMap&lt;String, Object>();&#xD;&#xA;&#xD;&#xA;def jsonSlurper = new JsonSlurper();&#xD;&#xA;def object = jsonSlurper.parseText(bodyAsString);&#xD;&#xA;&#xD;&#xA;assert object instanceof Map&#xD;&#xA;&#xD;&#xA;assert object.data instanceof List&#xD;&#xA;for(def row : object.data) {&#xD;&#xA;&#x9;assert row instanceof Map&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;resultado.put(&quot;contador&quot;, row.contador);&#xD;&#xA;&#x9;resultado.put(&quot;tiempo&quot;, row.tiempo);&#xD;&#xA;&#x9;resultado.put(&quot;descripcion&quot;, row.descripcion);&#xD;&#xA;&#x9;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Map">
+                <referencedElements xmi:type="definition:Output" xmi:id="_M5tZ4N9XEeuRPfc0AwmfHA" name="bodyAsString" type="java.lang.String"/>
               </rightOperand>
               <operator xmi:type="expression:Operator" xmi:id="_vHl4SM4pEeumSdg3ir94Yg" type="ASSIGNMENT"/>
             </outputs>
@@ -19648,8 +19631,8 @@
       <data xmi:type="process:BusinessObjectData" xmi:id="_5iUdgM42EeumSdg3ir94Yg" name="autodescripcionV2" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.AutodescripcionV2">
         <defaultValue xmi:type="expression:Expression" xmi:id="_5iUdgc42EeumSdg3ir94Yg" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
-      <data xmi:type="process:BusinessObjectData" xmi:id="_nH65IM7CEeuJyspcInb2hw" name="lstIdiomasV2" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.AutodescripcionV2Idiomas">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_nH65Ic7CEeuJyspcInb2hw" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_jcCF8Nh1Eeuv4-3iF4pFdQ" name="lstIdiomasV2" multiple="true" dataType="_vHw4jc4pEeumSdg3ir94Yg" className="com.anahuac.model.IdiomasHablasV2">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_jdTRQNh1Eeuv4-3iF4pFdQ" name="" content="" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Object"/>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_vHwQic4pEeumSdg3ir94Yg" type="NONE">
         <targetForm xmi:type="expression:Expression" xmi:id="_vHwQis4pEeumSdg3ir94Yg" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
@@ -20551,19 +20534,25 @@
           <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_49-ZAc-kEeusiaKlLTOCHQ" name="Aspirante">
             <groups xmi:type="actormapping:Groups" xmi:id="_49-ZAs-kEeusiaKlLTOCHQ"/>
             <memberships xmi:type="actormapping:Membership" xmi:id="_49-ZA8-kEeusiaKlLTOCHQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZBM-kEeusiaKlLTOCHQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZBM-kEeusiaKlLTOCHQ">
+              <role>ASPIRANTE</role>
+            </roles>
             <users xmi:type="actormapping:Users" xmi:id="_49-ZBc-kEeusiaKlLTOCHQ"/>
           </actorMapping>
           <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_49-ZBs-kEeusiaKlLTOCHQ" name="Admisiones/Orientación vocacional">
             <groups xmi:type="actormapping:Groups" xmi:id="_49-ZB8-kEeusiaKlLTOCHQ"/>
             <memberships xmi:type="actormapping:Membership" xmi:id="_49-ZCM-kEeusiaKlLTOCHQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZCc-kEeusiaKlLTOCHQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZCc-kEeusiaKlLTOCHQ">
+              <role>ADMISIONES</role>
+            </roles>
             <users xmi:type="actormapping:Users" xmi:id="_49-ZCs-kEeusiaKlLTOCHQ"/>
           </actorMapping>
           <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_49-ZC8-kEeusiaKlLTOCHQ" name="Admisiones">
             <groups xmi:type="actormapping:Groups" xmi:id="_49-ZDM-kEeusiaKlLTOCHQ"/>
             <memberships xmi:type="actormapping:Membership" xmi:id="_49-ZDc-kEeusiaKlLTOCHQ"/>
-            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZDs-kEeusiaKlLTOCHQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_49-ZDs-kEeusiaKlLTOCHQ">
+              <role>ADMISIONES</role>
+            </roles>
             <users xmi:type="actormapping:Users" xmi:id="_49-ZD8-kEeusiaKlLTOCHQ"/>
           </actorMapping>
         </actorMappings>
@@ -20600,26 +20589,26 @@
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_499K-c-kEeusiaKlLTOCHQ" id="OTHER"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_499K-s-kEeusiaKlLTOCHQ" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_499K-8-kEeusiaKlLTOCHQ" id="OTHER"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEM-kEeusiaKlLTOCHQ" name="urlLogin" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEc-kEeusiaKlLTOCHQ" name="usuario" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEs-kEeusiaKlLTOCHQ" name="password" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AE8-kEeusiaKlLTOCHQ" name="urlEnvioCorreo" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFM-kEeusiaKlLTOCHQ" name="urlGetLastFechaExamenByUsername" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRegistro" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateEnviada" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AF8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateModificar" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateValidar" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRechazoLRoja" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRestaurarRechazoLRoja" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AG8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdatePago" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateSeleccionoFechaExamen" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateAutodescripcion" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateGenerarCredencial" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AH8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateNoAsistioPruebas" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateEsperaResultado" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIc-kEeusiaKlLTOCHQ" name="urlEventTimmers" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIs-kEeusiaKlLTOCHQ" name="urlUpdateTimmers" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AI8-kEeusiaKlLTOCHQ" name="urlObtenerArchivosAzure" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEM-kEeusiaKlLTOCHQ" name="urlLogin" value="https://dev.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEc-kEeusiaKlLTOCHQ" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AEs-kEeusiaKlLTOCHQ" name="password" value="bpm" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AE8-kEeusiaKlLTOCHQ" name="urlEnvioCorreo" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=generateHtml&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFM-kEeusiaKlLTOCHQ" name="urlGetLastFechaExamenByUsername" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=getLastFechaExamenByUsername&amp;p=0&amp;c=10" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRegistro" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateRegistro&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AFs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateEnviada" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateEnviada&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AF8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateModificar" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateModificar&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateValidar" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateValidar&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRechazoLRoja" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateRechazoLRoja&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AGs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateRestaurarRechazoLRoja" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateRestaurarRechazoLRoja&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AG8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdatePago" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdatePago&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateSeleccionoFechaExamen" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateSeleccionoFechaExamen&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHc-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateAutodescripcion" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateAutodescripcion&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AHs-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateGenerarCredencial" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateGenerarCredencial&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AH8-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateNoAsistioPruebas" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateNoAsistioPruebas&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIM-kEeusiaKlLTOCHQ" name="urlCreateOrUpdateEsperaResultado" value="https://dev.bpm.anahuac.mx/API/extension/AnahuacRest?url=createOrUpdateEsperaResultado&amp;p=0&amp;c=100" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIc-kEeusiaKlLTOCHQ" name="urlEventTimmers" value="https://dev.bpm.anahuac.mx/API/bpm/timerEventTrigger?caseId=[CASEID]&amp;p=0&amp;c=100&amp;" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AIs-kEeusiaKlLTOCHQ" name="urlUpdateTimmers" value="https://dev.bpm.anahuac.mx/API/bpm/timerEventTrigger/[timmerid]" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_49_AI8-kEeusiaKlLTOCHQ" name="urlObtenerArchivosAzure" value="https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacAzureRest?url=obtenerDocumentos&amp;p=0&amp;c=10&amp;caseId=" typeClassname="java.lang.String"/>
       </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_vHw4Es4pEeumSdg3ir94Yg" name="urlLogin" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_vHw4E84pEeumSdg3ir94Yg" name="usuario" typeClassname="java.lang.String"/>

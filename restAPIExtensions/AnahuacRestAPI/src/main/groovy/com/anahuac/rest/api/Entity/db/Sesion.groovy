@@ -16,7 +16,14 @@ class Sesion {
 	private Long ciudad_pid;
 	private String ultimo_dia_inscripcion;
 	private Boolean isEliminado;
+	private Long periodo_pid;
 	
+	public Long getPeriodo_pid() {
+		return periodo_pid;
+	}
+	public void setPeriodo_pid(Long periodo_pid) {
+		this.periodo_pid = periodo_pid;
+	}
 	public Boolean getIsEliminado() {
 		return isEliminado;
 	}

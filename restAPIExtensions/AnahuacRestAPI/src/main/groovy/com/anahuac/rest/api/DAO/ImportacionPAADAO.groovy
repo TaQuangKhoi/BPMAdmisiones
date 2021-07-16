@@ -2,6 +2,7 @@ package com.anahuac.rest.api.DAO
 
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
+import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
@@ -160,6 +161,7 @@ class ImportacionPAADAO {
 							
 							pstm.setString(38,it.tipoExamen);
 							pstm.setString(39,it.INVP);
+							pstm.setString(40,it.IdSesion)
 							pstm.executeUpdate();
 					}
 					
@@ -238,24 +240,27 @@ class ImportacionPAADAO {
 				
 				 String[] idBanner = object.IDBANNER.split(",");
 				 String[] fecha = object.FECHA.split(",");
+				 String[] idSesion = object.IDSESION.split(",");
 				 for(int j = 0; j < idBanner.size(); ++j) {
-					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]))
+					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS.replace("[VALOR]",idBanner[j]).replace("[FECHA]", fecha[j]).replace("[IDSESION]", idSesion[j]))
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();
-					 columns.put("idBanner", idBanner[j] )
-					 columns.put("Registrado",false)
-					 columns.put("Existe",false)
-					 columns.put("EstaEnCarga",false)
-					 columns.put("mismaFecha",false)
-					 columns.put("AA",false)
-					 columns.put("puede",false)
+					 columns.put("idBanner", idBanner[j] );
+					 columns.put("Registrado",false);
+					 columns.put("Existe",false);
+					 columns.put("EstaEnCarga",false);
+					 columns.put("mismaFecha",false);
+					 columns.put("AA",false);
+					 columns.put("puede",false);
+					 columns.put("sc", false);
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
-						 columns.put("EstaEnCarga",isNullOrEmpty(rs.getString("primernombre")))
+						 columns.put("EstaEnCarga",rs.getBoolean("CC"))
 						 columns.put("mismaFecha",(rs.getInt("mismafecha") == 1?true:false))
 						 columns.put("AA",(rs.getBoolean("AA")))
 						 columns.put("puede",(rs.getBoolean("puede")))
+						 columns.put("sc",(rs.getBoolean("SC")))
 						 
 					 }
 					 estatus.add(columns)
@@ -383,7 +388,7 @@ class ImportacionPAADAO {
 			}
 			
 			assert object instanceof Map;
-			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND (PAA.idBanner is NULL  OR ( CASE WHEN sda.countRechazos IS NULL THEN 0 ELSE (sda.countRechazos ) END) = (select count(IPAA.persistenceid)  from IMPORTACIONPAA as IPAA WHERE IPAA.IDBANNER = da.idBanner)   )  "
+			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((select count(persistenceid) from IMPORTACIONPAA WHERE idbanner = da.idbanner and sesion_pid::INTEGER = sesiones.persistenceid ) = 0 )  "
 			if(object.campus != null){
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
@@ -895,7 +900,7 @@ class ImportacionPAADAO {
 					SSA = rs.getString("valor")
 				}
 				
-				String consulta = Statements.GET_ASPIRANTES_CON_PAA
+				String consulta= Statements.GET_ASPIRANTES_CON_PAA;
 				
 				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
                     errorlog=consulta+" 1";
@@ -1243,15 +1248,14 @@ class ImportacionPAADAO {
 				where+=" "+campus +" "+programa +" " + ingreso + " " + estado +" "+bachillerato +" "+tipoalumno
 				
 				consulta=consulta.replace("[WHERE]", where);
-
-				errorlog=consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,sesion.persistenceid,sesion.nombre","")+"¡¡¿¿¿"
-				pstm = con.prepareStatement(consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,sesion.persistenceid,sesion.nombre",""))
+				errorlog=consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,sesion.persistenceid,sesion.nombre,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA","")+"¡¡¿¿¿"
+				pstm = con.prepareStatement(consulta.replace("sesion.persistenceid as id,sesion.nombre as sesion,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, PAA.PARA,PAA.PAAV,PAA.PAAN,PAA.fechaRegistro,PAA.INVP,PAA.fechaExamen,PAA.persistenceid,sesion.persistenceid,sesion.nombre,PAA.LEXIUMPAAN,PAA.LEXIUMPAAV,PAA.LEXIUMPARA",""))
 				rs= pstm.executeQuery()
 				if(rs.next()) {
 					resultado.setTotalRegistros(rs.getInt("registros"))
 				}
 				consulta=consulta.replace("[ORDERBY]", orderby)
-				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				consulta=consulta.replace("[LIMITOFFSET]"," LIMIT ? OFFSET ?")
 				errorlog=consulta+" 7";
 				pstm = con.prepareStatement(consulta)
 				pstm.setInt(1, object.limit)
@@ -1309,37 +1313,67 @@ class ImportacionPAADAO {
 	
 	
 	
-	public Result excelPlantillaRegistro(String jsonData, RestAPIContext context) {
+	public Result postExcelAspirantesPAA(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog = "";
 		
 		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
 			Result dataResult = new Result();
 			int rowCount = 0;
 			List<Object> lstParams;
 			//String type = object.type;
 			XSSFWorkbook workbook = new XSSFWorkbook();
-			XSSFSheet sheet = workbook.createSheet("Registros");
+			XSSFSheet sheet = workbook.createSheet("ImportacionEAC");
 			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
 			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
 			font.setBold(true);
 			style.setFont(font);
 			style.setAlignment(HorizontalAlignment.CENTER)
-			//color
-			IndexedColorMap colorMap = workbook.getStylesSource().getIndexedColors();
-			XSSFColor  color = new XSSFColor(new java.awt.Color(191,220,249),colorMap);
-			
-			style.setFillForegroundColor(color)
 			
 			dataResult = postListaAspirantePAA(0,0,jsonData,context);
 			if (dataResult.success) {
 				lstParams = dataResult.getData();
 				
 			} else {
+				errorLog += ""+dataResult
 				throw new Exception("No encontro datos");
 			}
+			//titulos que manejan la mayoria de los exceles
+			Row titleRow = sheet.createRow(++rowCount);
 			
-			def titulos = ["#","EXPEDIENTE","NOMBRE","SEGUNDO NOMBRE","APELL PATERNO","APELL MATERNO","CAMPUS","ESTADO","MUNICIPIO","PAIS","CORREO","CONTRASEÑA","SEXO","FECHA NACI","NACIONALIDAD","RELIGION","CURP/PASAPORTE","CELULAR","AVATAR","KARDEX","ESTCICIL","CCALLE","NUMEXT","NUMINT","COLONIA","CP","TEL-OTRO","PAA","UNIVERSIDAD","LICENCIATURA","PERIODO INGRESO","OTRA UNIVERSIDAD","PREPA","PREPA PAIS","PREPA ESTADO","PREPA CIUDAD","PREPA PROMEDIO","TUTOR TITULO","TUTOR NOMBRE","TUTOR APELLIDO","TUTOR EGRESADO","TUTOR UNI EGRESADO","TUTOR ESCOLARIDAD","TUTOR PARENTESCO","TRABAJO TUTOR","TUTOR EMPRESA","TUTOR GIRO EMPRESA","TUTOR PUESTO","TUTOR CALLE","TUTOR NUM EXT","TUTOR NUM INT","TUTOR COLONIA","TUTOR CP","TUTOR MUNICIPIO","TUTOR PAIS","TUTOR ESTADO","TUTOR CELULAR","PADRE TITULO","PADRE NOMBRE","PADRE APELLIDOS","PADRE VIVO","PADRE EGRESADO","PADRE UNI EGRESO","PADRE ESCOLARIDAD","PADRE TUTOR","PADRE CORREO","PADRE TRABAJA","PADRE EMPRESA","PADRE GIRO EMPRESA","PADRE","PADRE CALLE","PADRE NUM EXT","PADRE NUM INT","PADRE COLONIA","PADRE CP","PADRE MUNICIPIO","PADRE PAIS","PADRE ESTADO","PADRE CEL","MADRE TITULO","MADRE NOMBRE","MADRE APELLIDO","MADRE VIVE","MADRE EGRESADA","MADRE UNI EGRESADA","MADRE CORREO","MADRE ESCOL","MADRE CALLE","MADRE NUM EXT","MADRE NUM INT","MADRE COLONIA","MADRE CP","MADRE MUNICIPIO","MADRE PAIS","MADRE ESTADO","MADRE CEL","EMERGENCIA","EMERGENCIA NOMBRE","EMERGENCIA TELEFONO","EMERGENCIA CELULAR","CON QUIEN VIVES","ESTADO PADRES","DISCAPACIDAD","ATENCION MEDICA","PERSONA SALUDABLE","ALGUN DEPORTE","AYUDA SOCIAL","TIEMPO LIBRE","GUSTA LEER","TIPO LECTURA","JEFE ASOCIACION","CUAL ASOCIACION","ASOCIACION DEP","ASOCIACION SOC","ASOCIACION REL","ASOCIACION POL","ASOCIACION EST","FAMILIAR ANAHUAC","ATENCION ESPIRITUAL","CONOCE REGNUM","TIENE RELIGION","VALOR RELIGION","PRACTICAS RELIGION","NO GUSTAR RELIGION"]
+			Cell cellReporte = titleRow.createCell(1);
+			cellReporte.setCellValue("Reporte:");
+			cellReporte.setCellStyle(style);
+			
+			Cell cellTitle = titleRow.createCell(2);
+			cellTitle.setCellValue("ASPIRANTES CON PUNTUACIÓN");
+			
+			Cell cellFecha = titleRow.createCell(4);
+			cellFecha.setCellValue("Fecha:");
+			cellFecha.setCellStyle(style);
+			Calendar cal = Calendar.getInstance();
+			Date date = cal.getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+			String sDate = formatter.format(date);
+			Cell cellFechaData = titleRow.createCell(5);
+			cellFechaData.setCellValue(sDate);
+
+			Row blank = sheet.createRow(++rowCount);
+
+			Cell cellusuario = blank.createCell(4);
+			cellusuario.setCellValue("Usuario:");
+			cellusuario.setCellStyle(style);
+			Cell cellusuarioData = blank.createCell(5);
+			cellusuarioData.setCellValue(object.usuarioNombre);
+			
+			++rowCount;
+			Row espacio = sheet.createRow(++rowCount);
+			
+			def titulos = ["Id Banner","Nombre","Email","Curp","Campus","Programa","Periodo","Procedencia","Preparatoria","Promedio","Id sesión","Sesión","MLEX","Paan","CLEX","Paav","HLEX","Para","Invp","Fecha del examen","Fecha ultima modificación"]
 			Row headersRow = sheet.createRow(rowCount);
 			++rowCount;
 			List<Cell> header = new ArrayList<Cell>();
@@ -1354,7 +1388,7 @@ class ImportacionPAADAO {
 			bodyStyle.setAlignment(HorizontalAlignment.CENTER);
 			
 			
-			def info = ["nregistro","expediente","primernombre","segundonombre","apellidopaterno","apellidomaterno","campus","estado","municipio","pais","correo","contrasena","sexo","fechanacimiento","nacionalidad","religion","curp","celular","foto","kardex","estadocivil","casacalle","numext","numint","colonia","cp","otrotelefono","puntajepaa","universidad","licenciatura","periodoingreso","otrauniversidad","preparatoria","prepapais","prepaestado","prepaciudad","prepapromedio","tutortitulo","tutornombre","tutorapellido","tutoregresado","tutoruniegresado","tutorescolaridad","tutorparentesco","tutortrabaja","tutorempresa","tutorgiroempresa","tutorpuesto","tutorcalle","tutornumext","tutornumint","tutorcolonia","tutorcp","tutormunicipio","tutorpais","tutorestado","tutorcelular","padretitulo","padrenombre","padreapellido","padrevivo","padreegresado","padreuniegresado","padreescolaridad","padretutor","padrecorreo","padretrabaja","padreempresa","padregiroempresa","padrepuesto","padrecalle","padrenumext","padrenumint","padrecolonia","padrecp","padremunicipio","padrepais","padreestado","padrecel","madretitulo","madrenombre","madreapellido","madrevive","madreegresada","madreuniegresada","madrecorreo","madreescolaridad","madrecalle","madrenumext","madrenumint","madrecolonia","madrecp","madremunicipio","madrepais","madreestado","madrecel","emergencia","emergencianombre","emergenciatelefono","emergenciacelular","conquienvives","estadopadres","discapacidad","atencionmedica","personasaludable","algundeporte","ayudasocial","tiempolibre","tegustaleer","tipolectura","jefeasociacion","cualasociacion","asociaciondeportiva","asociacionsocial","asociacionreligiosa","asociacionpolitica","asociacionescolar","familiarenanahuac","atencionespiritual","conoceregnum","tienereligion","valorreligion","practicasreligion","aspectoreligionnogustar"]
+			def info = ["idbanner","nombre","correoelectronico","curp","campus","licenciatura","ingreso","procedencia","preparatoria","promediogeneral","id","sesion","lexiumpaan","paan","lexiumpaav","paav","lexiumpara","para","invp","fechaexamen","fecharegistro"]
 			List<Cell> body;
 			for (int i = 0; i < lstParams.size(); ++i){
 				Row row = sheet.createRow(rowCount);
@@ -1362,27 +1396,29 @@ class ImportacionPAADAO {
 				body = new ArrayList<Cell>()
 				for(int j=0;  j < info.size(); ++j) {
 					body.add(row.createCell(j))
-					body[j].setCellValue(lstParams[i][info.get(j)])
+					if(info.get(j).equals("nombre")){
+						body[j].setCellValue(lstParams[i].apellidopaterno + " " + lstParams[i].apellidomaterno+ " " + lstParams[i].primernombre + " " + lstParams[i].segundonombre)
+					}else{
+						body[j].setCellValue(lstParams[i][info.get(j)].toString())
+					}
 					body[j].setCellStyle(bodyStyle);
 					
 				}
 				
 			}
-			if(lstParams.size()>0) {
-				for(int i=0; i<=138; ++i) {
+			
+			for(int i=0; i<=20; ++i) {
 					sheet.autoSizeColumn(i);
-				}
-				
-				FileOutputStream outputStream = new FileOutputStream("");
-				workbook.write(outputStream);
-				outputStream.close();
-				
 			}
 			
 			
-			//List<Object> lstResultado = new ArrayList<Object>();
-			//lstResultado.add(encodeFileToBase64Binary(nameFile));
+			FileOutputStream outputStream = new FileOutputStream("ReportImportacionEAC.xls");
+			workbook.write(outputStream);
+
+			List < Object > lstResultado = new ArrayList < Object > ();
+			lstResultado.add( new ListadoDAO().encodeFileToBase64Binary("ReportImportacionEAC.xls"));
 			resultado.setSuccess(true);
+			resultado.setData(lstResultado);
 			resultado.setError_info(errorLog);
 			
 		}catch(Exception e) {
@@ -1395,4 +1431,7 @@ class ImportacionPAADAO {
 		
 		return resultado;
 	}
+	
+	
+	
 }

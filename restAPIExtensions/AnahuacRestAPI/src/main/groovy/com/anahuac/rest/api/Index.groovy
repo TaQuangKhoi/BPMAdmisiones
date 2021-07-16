@@ -1,4 +1,4 @@
-package com.anahuac.rest.api;
+package com.anahuac.rest.api
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -807,6 +807,45 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "postExcelAspirantesPAA":
+					result = new ImportacionPAADAO().postExcelAspirantesPAA(jsonData, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postEliminarResultado":
+					result = new ResultadoComiteDAO().postEliminarResultado(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "updateAspirantesPruebas":
+					result = new SesionesDAO().updateAspirantesPruebas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "insertAspirantesPruebas":
+					result = new SesionesDAO().insertAspirantesPruebas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 					
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/
@@ -1171,6 +1210,11 @@ class Index implements RestApiController {
 					sesion.setCampus_pid(object.campus_pid)
 					sesion.setUltimo_dia_inscripcion(object.ultimo_dia_inscripcion)
 					sesion.setIsEliminado(object.isEliminado)
+					try {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:Long.parseLong(object.periodo_pid))
+					} catch (Exception e) {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:new Long(object.periodo_pid))
+					}
 					for (int i =0; i<object.pruebas.size(); i++) {
 						def obj = object.pruebas[i]
 						PruebaCustom prueba = new PruebaCustom()
@@ -1268,7 +1312,7 @@ class Index implements RestApiController {
 					sesionAspirante.setResponsabledisponible_pid(object.responsabledisponible_pid)
 					sesionAspirante.setSesiones_pid(object.sesiones_pid)
 					sesionAspirante.setUsername(object.username)
-					result = new SesionesDAO().insertSesionAspirante(sesionAspirante)
+					result = new SesionesDAO().insertSesionAspirante(sesionAspirante,context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1819,6 +1863,50 @@ class Index implements RestApiController {
 				break;
 				case "generarReporteRelacionAspirantes":
 				result = new ReportesDAO().generarReporteRelacionAspirantes(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVP":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getSesionesINVP(object.sesion, object.fecha, object.uni, object.id)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVPTabla":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getSesionesINVPTabla(object.sesion, object.fecha, object.uni, object.id)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getUsersByPrueba":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getUsersByPrueba(object.prueba)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "insertRespuesta":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().insertRespuesta()
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

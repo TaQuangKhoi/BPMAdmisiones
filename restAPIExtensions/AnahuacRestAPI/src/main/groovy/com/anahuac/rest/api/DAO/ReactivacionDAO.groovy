@@ -25,7 +25,9 @@ import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 import groovy.json.JsonSlurper
@@ -496,19 +498,15 @@ class ReactivacionDAO {
 			Boolean avanzartarea = false;
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+			
+			closeCon = validarConexion();
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			assert object instanceof Map;
@@ -534,7 +532,7 @@ class ReactivacionDAO {
 			}
 
 
-			closeCon = validarConexion();
+			
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
 			pstm.setLong(1, object.campus);
