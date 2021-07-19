@@ -301,12 +301,18 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     $scope.UsuarioPasoLista = function(usuario ){
         usuario ??= "";
-        let txt = usuario.length <1?"no hay usuario":usuario;
+        let txt = usuario.length <1?"N/A":usuario;
+        return txt;
+    }
+    
+    $scope.fechaFormateo = function(fecha){
+        fecha ??= "";
+        let txt = fecha.length <1?"N/A":fecha;
         return txt;
     }
     
     $scope.paseLista = function(asistencia,acreditado,cb){
-        let txt =(asistencia === 't'?"Asistencia":(acreditado === 't'?"Acreditado": (cb ==='t'?"Exento":"Sin asistencia") ) );
+        let txt =(asistencia === 't'?"Asistencia":(acreditado === 't'?"Acreditado": (cb ==='t'?"Exento":"No acreditado") ) );
         return txt;
     }
     

@@ -16,7 +16,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
          return $http(req)
             .success(function (data, status) {
                 if(data.data.length < 1){
-                    swal("¡El aspirante todavia no ha seleccionado una sesion!","","warning")
+                    swal("¡El aspirante todavia no ha seleccionado una sesion!","","info")
                 }else{
                     var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
                     window.location.replace(url);
