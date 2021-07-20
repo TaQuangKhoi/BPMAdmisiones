@@ -307,7 +307,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     $scope.fechaFormateo = function(fecha){
         fecha ??= "";
-        let txt = fecha.length <1?"N/A":fecha;
+        let txt = fecha.length <1?"N/A":fecha.slice(0,10);
         return txt;
     }
     

@@ -69,8 +69,8 @@
                                     {{UsuarioPasoLista(row.usuariopaselista)}}
                                 </label>
                             </div>
-                            <div ng-switch-when="fecha | date:'dd-MM-yyyy HH:mm:ss'">
-                                {{fechaFormateo(row.fecha) | date:'dd-MM-yyyy HH:mm:ss' }}
+                            <div ng-switch-when="fecha | date:'dd-MM-yyyy'">
+                                {{fechaFormateo(row.fecha) | date:'dd-MM-yyyy'}}
                             </div>
                             <div ng-switch-default ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
                             </div>
