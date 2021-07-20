@@ -4630,6 +4630,23 @@ class SesionesDAO {
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 				}
+				//obtiene el nombre de los responsables
+				User usr;
+				UserMembership membership
+				String responsables = rs.getString("responsables");
+				String nombres= "";
+				if(!responsables.equals("null") && responsables != null) {
+					errorlog+=" "+responsables;
+					String[] arrOfStr = responsables.split(",");
+					for (String a: arrOfStr) {
+						if(Long.parseLong(a)>0) {
+							usr = context.getApiClient().getIdentityAPI().getUser(Long.parseLong(a))
+							nombres+=(nombres.length()>1?", ":"")+usr.getFirstName()+" "+usr.getLastName()
+						}
+					}
+				}
+				columns.put("responsablesnombre", nombres);
+				
 				info.add(columns)
 			}
 			resultado.setSuccess(true);
@@ -5421,14 +5438,15 @@ class SesionesDAO {
 		}
 		return resultado
 	}
-	public Result getResultadoINVP(String idbanner) {
+	public Result getResultadoINVP(String idbanner,Long sesionid) {
 		Result resultado = new Result()
 		Boolean closeCon = false
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion()
-			pstm = con.prepareStatement("SELECT idbanner,escala,puntuacion FROM resultadoinvp r inner join catescalatipo ce on ce.escala=r.escala where idbanner=?")
+			pstm = con.prepareStatement("SELECT r.idbanner,r.escala,r.puntuacion,r.sesiones_pid, ce.tipo FROM resultadoinvp r inner join catescalatipo ce on ce.escala=r.escala where r.idbanner=? and r.sesiones_pid=?")
 			pstm.setString(1, idbanner)
+			pstm.setLong(2, sesionid)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -5563,7 +5581,6 @@ class SesionesDAO {
 				respuestas.add(columns);
 			}
 			for(int i=0; i<respuestas.size(); i++) {
-				resultado.setError_info(resultado.getError_info() + " |-| aspirante:" + respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1) + " | respuestacorrecta:" +  respuestas.get(i).get("respuesta"))
 				if((respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1)=='C')==(respuestas.get(i).get("respuesta")=='t')) {
 					if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
 						respuestainvp.put(respuestas.get(i).get("escala"), Integer.parseInt(respuestas.get(i).get("puntuacion")))
@@ -5584,7 +5601,7 @@ class SesionesDAO {
 				rs = pstm.executeQuery()
 				if(!rs.next()) {
 					for (Map.Entry<String,Integer> entry: respuestainvp) {
-						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid) values (?,?,?,?)")
+						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0)")
 						pstm.setString(1, idbanner)
 						pstm.setString(2, entry.getKey())
 						pstm.setInt(3, entry.getValue())

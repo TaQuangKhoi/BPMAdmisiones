@@ -26,6 +26,12 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                     $scope.letterOrNumber = false;
                     $scope.properties.value = 0;
                 }
+            }else if($scope.letterOrNumber === null && $scope.properties.value.length>0){
+                if(e.key.match(letter)){
+                   $scope.letterOrNumber = true;
+                }else if(e.key.match(number)){
+                    $scope.letterOrNumber = false;
+                }
             }
             if($scope.letterOrNumber){
                 if ((e.key.match(letter)) && (e.target.value.length) < limite) {

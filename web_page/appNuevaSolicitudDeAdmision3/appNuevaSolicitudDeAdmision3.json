@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1626809216525,
+  "lastUpdate" : 1626823768390,
   "rows" : [
     [
       {
@@ -24349,6 +24349,53 @@
         "\r",
         "\r",
         "\r"
+      ],
+      "exposed" : false
+    },
+    "formateoModificacioTutor" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.jsonModificarTutor.nombre != null && $data.jsonModificarTutor.nombre.trim().length>0){\r",
+        "    $data.jsonModificarTutor.nombre = capitalizeName($data.jsonModificarTutor.nombre);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.apellidos != null && $data.jsonModificarTutor.apellidos.trim().length>0){\r",
+        "    $data.jsonModificarTutor.apellidos = capitalizeName($data.jsonModificarTutor.apellidos);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.empresaTrabaja != null && $data.jsonModificarTutor.empresaTrabaja.trim().length>0){\r",
+        "    $data.jsonModificarTutor.empresaTrabaja = capitalizeName($data.jsonModificarTutor.empresaTrabaja);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.giroEmpresa != null && $data.jsonModificarTutor.giroEmpresa.trim().length>0){\r",
+        "    $data.jsonModificarTutor.giroEmpresa = capitalizeName($data.jsonModificarTutor.giroEmpresa);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.puesto != null && $data.jsonModificarTutor.puesto.trim().length>0){\r",
+        "    $data.jsonModificarTutor.puesto = capitalizeFirstLetter($data.jsonModificarTutor.puesto);\r",
+        "}\r",
+        "\r",
+        "if(!$data.jsonModificarTutor.viveContigo ){\r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.estadoExtranjero != null && $data.jsonModificarTutor.estadoExtranjero.trim().length>0){\r",
+        "        $data.jsonModificarTutor.estadoExtranjero = capitalizeName($data.jsonModificarTutor.estadoExtranjero);\r",
+        "    }\r",
+        "\r",
+        "    if( !$data.jsonModificarTutor.haveCiudad && $data.jsonModificarTutor.ciudad != null && $data.jsonModificarTutor.ciudad.trim().length>0){\r",
+        "        $data.jsonModificarTutor.ciudad = capitalizeName($data.jsonModificarTutor.ciudad);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.delegacionMunicipio != null && $data.jsonModificarTutor.delegacionMunicipio.trim().length>0){\r",
+        "        $data.jsonModificarTutor.delegacionMunicipio = capitalizeName($data.jsonModificarTutor.delegacionMunicipio);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.colonia != null && $data.jsonModificarTutor.colonia.trim().length>0){\r",
+        "        $data.jsonModificarTutor.colonia = capitalizeName($data.jsonModificarTutor.colonia);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.calle != null && $data.jsonModificarTutor.calle.trim().length>0){\r",
+        "        $data.jsonModificarTutor.calle = capitalizeName($data.jsonModificarTutor.calle);\r",
+        "    }\r",
+        "}\r"
       ],
       "exposed" : false
     }
