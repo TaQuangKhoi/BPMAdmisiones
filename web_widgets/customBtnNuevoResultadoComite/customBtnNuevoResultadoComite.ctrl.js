@@ -16,7 +16,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             "pcda_1": "",
             "pca_1": "",
             "IDBANNER":  $scope.properties.idBanner,
-            "periodo": $scope.properties.periodo
+            "Periodo": $scope.properties.periodo,
+            "isPropedeutico":false
         };
       
     };

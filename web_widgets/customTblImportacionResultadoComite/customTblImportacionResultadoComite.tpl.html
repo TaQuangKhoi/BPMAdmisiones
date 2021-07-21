@@ -15,8 +15,10 @@
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                 <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-switch="column">
-                        <div ng-switch-when="Fecha de examen">
-                            {{(row['Fecha de examen']) | date:'dd-MM-yyyy' }}
+                        <div ng-switch-when="Campus ingreso/Periodo/Carrera">
+                            {{row.Universidad}}<br/>
+                            {{row.Periodo }}<br/>
+                            {{row.Carrera}}
                         </div>
                         <div ng-switch-default>
                             {{ $eval(column, row) | uiTranslate }}
@@ -25,8 +27,10 @@
                 </td>
                 <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-switch="column">
-                        <div ng-switch-when="Fecha de examen">
-                            {{row['Fecha de examen'] | date:'dd-MM-yyyy'}}
+                         <div ng-switch-when="Campus ingreso/Periodo/Carrera">
+                            {{row.Universidad}}<br/>
+                            {{row.Periodo }}<br/>
+                            {{row.Carrera}}
                         </div>
                         <div ng-switch-default>
                            <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>

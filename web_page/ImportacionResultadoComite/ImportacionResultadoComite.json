@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1624990373893,
+  "lastUpdate" : 1625619515755,
   "rows" : [
     [
       {
@@ -489,7 +489,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Aceptados"
+                      "value" : "Con Resultado"
                     }
                   },
                   "reference" : "b8061820-80cd-4502-a783-2b9a0caa94cb",
@@ -647,12 +647,20 @@
                                     "value" : "VariableCarga.view"
                                   },
                                   "variablesCambio" : {
-                                    "type" : "expression",
+                                    "type" : "constant",
                                     "value" : "variableCambio"
                                   },
                                   "strInfo" : {
                                     "type" : "variable",
                                     "value" : "strInfo"
+                                  },
+                                  "variableCambio" : {
+                                    "type" : "variable",
+                                    "value" : "accion"
+                                  },
+                                  "variableCambioValor" : {
+                                    "type" : "constant",
+                                    "value" : "listado"
                                   }
                                 },
                                 "reference" : "81c67c70-2762-4ddd-9edf-767a3be0380c",
@@ -826,6 +834,10 @@
                       "tipoAdmision" : {
                         "type" : "expression",
                         "value" : "VariableCarga.tipoAdmision"
+                      },
+                      "lstDecision" : {
+                        "type" : "variable",
+                        "value" : "lstDecision"
                       }
                     },
                     "reference" : "58a03951-847c-4598-9de3-db1c17ad2ef8",
@@ -944,7 +956,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Aplicar cambios"
+                        "value" : "Ejecutar carga"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1038,6 +1050,7 @@
                               "value" : [
                                 "Id banner",
                                 "Nombre",
+                                "Campus ingreso/Periodo/Carrera",
                                 "Decisión de admisión",
                                 "PDP",
                                 "PDU",
@@ -1055,12 +1068,13 @@
                               "value" : [
                                 "IDBANNER",
                                 "nombre",
+                                "Campus ingreso/Periodo/Carrera",
                                 "decision",
-                                "pdp_1",
-                                "pdu_1",
-                                "sse_1",
-                                "pcda_1",
-                                "pca_1"
+                                "PDP_1",
+                                "PDU_1",
+                                "SSE_1",
+                                "PCDA_1",
+                                "PCA_1"
                               ]
                             },
                             "selectedRow" : {
@@ -1518,27 +1532,33 @@
                   "value" : "Seleccione un tipo de admisión"
                 },
                 "availableValues" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Aceptado",
-                    "Rechazado",
-                    "Revisión"
-                  ]
+                  "type" : "variable",
+                  "value" : "lstDecision"
                 },
                 "displayedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "descripcion"
                 },
                 "returnedKey" : {
-                  "type" : "constant"
+                  "type" : "constant",
+                  "value" : "clave"
                 },
                 "value" : {
                   "type" : "variable",
                   "value" : "strAlumno.decision"
+                },
+                "isAdmitido" : {
+                  "type" : "variable",
+                  "value" : "strAlumno.isAdmitido"
+                },
+                "isPropedeutico" : {
+                  "type" : "variable",
+                  "value" : "strAlumno.isPropedeutico"
                 }
               },
-              "reference" : "b83db550-3396-4413-9e78-5ef88888a010",
+              "reference" : "b7ba5fc9-64d1-41ef-bb97-8b6572ae5a0a",
               "hasValidationError" : false,
-              "id" : "pbSelect"
+              "id" : "customSelectTipoDecision"
             }
           ],
           [
@@ -1617,7 +1637,7 @@
                   "value" : "Seleccionar..."
                 },
                 "availableValues" : {
-                  "type" : "constant",
+                  "type" : "variable",
                   "value" : [
                     "Sí",
                     "No"
@@ -1633,7 +1653,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strAlumno.pdp_1"
+                  "value" : "strAlumno.PDP_1"
                 }
               },
               "reference" : "ec50f7fc-f8b5-4c69-bc64-9692b1d8e4dc",
@@ -1686,7 +1706,7 @@
                   "value" : "Seleccionar..."
                 },
                 "availableValues" : {
-                  "type" : "constant",
+                  "type" : "variable",
                   "value" : [
                     "Sí",
                     "No"
@@ -1700,7 +1720,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strAlumno.pdu_1"
+                  "value" : "strAlumno.PDU_1"
                 }
               },
               "reference" : "e388384e-2a12-44b0-9d4d-185828530dcc",
@@ -1753,7 +1773,7 @@
                   "value" : "Seleccionar..."
                 },
                 "availableValues" : {
-                  "type" : "constant",
+                  "type" : "variable",
                   "value" : [
                     "Sí",
                     "No"
@@ -1767,7 +1787,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strAlumno.sse_1"
+                  "value" : "strAlumno.SSE_1"
                 }
               },
               "reference" : "efcd14ee-40b2-477b-adb4-20fd49d13db4",
@@ -1820,7 +1840,7 @@
                   "value" : "Seleccionar..."
                 },
                 "availableValues" : {
-                  "type" : "constant",
+                  "type" : "variable",
                   "value" : [
                     "Sí",
                     "No"
@@ -1834,7 +1854,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strAlumno.pcda_1"
+                  "value" : "strAlumno.PCDA_1"
                 }
               },
               "reference" : "c96e80a7-b41a-48da-91f9-c7fc40b7fac9",
@@ -1887,7 +1907,7 @@
                   "value" : "Seleccionar..."
                 },
                 "availableValues" : {
-                  "type" : "constant",
+                  "type" : "variable",
                   "value" : [
                     "Sí",
                     "No"
@@ -1901,7 +1921,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "strAlumno.pca_1"
+                  "value" : "strAlumno.PCA_1"
                 }
               },
               "reference" : "1b6f9221-3cad-4cd4-a410-15e9cb4183ef",
@@ -2014,6 +2034,10 @@
                 "tabla" : {
                   "type" : "variable",
                   "value" : "tabla"
+                },
+                "usuario" : {
+                  "type" : "variable",
+                  "value" : "userData.user_name"
                 }
               },
               "reference" : "6663aec3-a617-4250-acdc-d02f56b54b71",
@@ -2629,7 +2653,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Periodo:"
+                              "value" : "Id banner:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -2644,7 +2668,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strInfo.periodo"
+                              "value" : "strInfo.idBanner"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2661,9 +2685,252 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "a5519f70-8a98-474a-90db-54d2137c508f",
+                          "reference" : "7a189b56-9423-4448-8248-fa9913c0fb67",
                           "hasValidationError" : false,
                           "id" : "pbInput"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "procedencia:"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strInfo.procedencia"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "40f62ed9-e35f-41b9-9d6a-438a7ed0193d",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "accion != \"infodatos\""
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "b78b2a2e-2bad-4789-a4de-d0fb6db34e38",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Licenciatura:"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "Select an option"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "variable",
+                                    "value" : "getGestionEscolarByCampus"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "nombre"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId_string"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "strInfo.licenciatura"
+                                  },
+                                  "tipoLicenciatura" : {
+                                    "type" : "variable",
+                                    "value" : "strInfo.tipoLicenciatura"
+                                  }
+                                },
+                                "reference" : "e7e2cde7-aaba-47e8-a00b-b123fad80eb9",
+                                "hasValidationError" : false,
+                                "id" : "customSelectLicenciatura"
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "disabled" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Periodo:"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation",
+                                    "value" : "Select an option"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catPeriodo.data"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "clave"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "strAlumno.Periodo"
+                                  }
+                                },
+                                "reference" : "ddeba5eb-2272-4fb0-a1bc-f3a06077106b",
+                                "hasValidationError" : false,
+                                "id" : "customSelectPeriodoRC"
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]
@@ -2748,7 +3015,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "Registro de resultados"
+                        "value" : "Tabla de resultados"
                       },
                       "level" : {
                         "type" : "constant",
@@ -2851,9 +3118,11 @@
                       "headers" : {
                         "type" : "constant",
                         "value" : [
-                          "ID Banner",
                           "Decisión de admisión",
-                          "periodo"
+                          "Campus/Carrera/Periodo",
+                          "VPD/Fecha de decisón",
+                          "Comentarios",
+                          "Usuario/Fecha de modificacion/Fecha solicitud"
                         ]
                       },
                       "content" : {
@@ -2862,15 +3131,11 @@
                       },
                       "columnsKey" : {
                         "type" : "constant",
-                        "value" : [
-                          "idbanner",
-                          "decision",
-                          "periodo"
-                        ]
+                        "value" : [ ]
                       },
                       "selectedRow" : {
                         "type" : "variable",
-                        "value" : "lstResultados"
+                        "value" : ""
                       },
                       "striped" : {
                         "type" : "constant",
@@ -2891,6 +3156,18 @@
                       "view" : {
                         "type" : "variable",
                         "value" : "VariableCarga.view"
+                      },
+                      "variableCambio" : {
+                        "type" : "expression",
+                        "value" : "variableCambio"
+                      },
+                      "variablesCambio" : {
+                        "type" : "expression",
+                        "value" : "variableCambio"
+                      },
+                      "returnValue" : {
+                        "type" : "variable",
+                        "value" : "strAlumno"
                       }
                     },
                     "reference" : "35fc139c-9b4b-487a-af2b-712263e0d1dd",
@@ -3155,8 +3432,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3183,27 +3460,33 @@
                         "value" : "Seleccione un tipo de admisión"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "Aceptado",
-                          "Rechazado",
-                          "Revisión"
-                        ]
+                        "type" : "variable",
+                        "value" : "lstDecision"
                       },
                       "displayedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "descripcion"
                       },
                       "returnedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "clave"
                       },
                       "value" : {
                         "type" : "variable",
                         "value" : "strAlumno.decision"
+                      },
+                      "isAdmitido" : {
+                        "type" : "variable",
+                        "value" : "strAlumno.isAdmitido"
+                      },
+                      "isPropedeutico" : {
+                        "type" : "variable",
+                        "value" : "strAlumno.isPropedeutico"
                       }
                     },
-                    "reference" : "b83db550-3396-4413-9e78-5ef88888a010",
+                    "reference" : "211e3788-3f80-4a6f-b1e4-76bc918f6660",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "customSelectTipoDecision"
                   }
                 ],
                 [
@@ -3254,8 +3537,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3282,7 +3565,7 @@
                         "value" : "Seleccionar..."
                       },
                       "availableValues" : {
-                        "type" : "constant",
+                        "type" : "variable",
                         "value" : [
                           "Sí",
                           "No"
@@ -3298,7 +3581,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strAlumno.pdp_1"
+                        "value" : "strAlumno.PDP_1"
                       }
                     },
                     "reference" : "ec50f7fc-f8b5-4c69-bc64-9692b1d8e4dc",
@@ -3323,8 +3606,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3351,7 +3634,7 @@
                         "value" : "Seleccionar..."
                       },
                       "availableValues" : {
-                        "type" : "constant",
+                        "type" : "variable",
                         "value" : [
                           "Sí",
                           "No"
@@ -3365,7 +3648,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strAlumno.pdu_1"
+                        "value" : "strAlumno.PDU_1"
                       }
                     },
                     "reference" : "e388384e-2a12-44b0-9d4d-185828530dcc",
@@ -3390,8 +3673,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3418,7 +3701,7 @@
                         "value" : "Seleccionar..."
                       },
                       "availableValues" : {
-                        "type" : "constant",
+                        "type" : "variable",
                         "value" : [
                           "Sí",
                           "No"
@@ -3432,7 +3715,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strAlumno.sse_1"
+                        "value" : "strAlumno.SSE_1"
                       }
                     },
                     "reference" : "efcd14ee-40b2-477b-adb4-20fd49d13db4",
@@ -3457,8 +3740,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3485,7 +3768,7 @@
                         "value" : "Seleccionar..."
                       },
                       "availableValues" : {
-                        "type" : "constant",
+                        "type" : "variable",
                         "value" : [
                           "Sí",
                           "No"
@@ -3499,7 +3782,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strAlumno.pcda_1"
+                        "value" : "strAlumno.PCDA_1"
                       }
                     },
                     "reference" : "c96e80a7-b41a-48da-91f9-c7fc40b7fac9",
@@ -3524,8 +3807,8 @@
                         "value" : false
                       },
                       "disabled" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3552,7 +3835,7 @@
                         "value" : "Seleccionar..."
                       },
                       "availableValues" : {
-                        "type" : "constant",
+                        "type" : "variable",
                         "value" : [
                           "Sí",
                           "No"
@@ -3566,7 +3849,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "strAlumno.pca_1"
+                        "value" : "strAlumno.PCA_1"
                       }
                     },
                     "reference" : "1b6f9221-3cad-4cd4-a410-15e9cb4183ef",
@@ -3593,8 +3876,8 @@
                         "value" : false
                       },
                       "readOnly" : {
-                        "type" : "expression",
-                        "value" : "VariableCarga.view"
+                        "type" : "constant",
+                        "value" : false
                       },
                       "required" : {
                         "type" : "constant",
@@ -3650,7 +3933,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "view"
+                        "value" : "strAlumno.desactivado == \"t\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -3679,6 +3962,10 @@
                       "tabla" : {
                         "type" : "variable",
                         "value" : "tabla"
+                      },
+                      "usuario" : {
+                        "type" : "variable",
+                        "value" : "userData.user_name"
                       }
                     },
                     "reference" : "6663aec3-a617-4250-acdc-d02f56b54b71",
@@ -3858,7 +4145,8 @@
       "value" : [
         "{",
         "    \"view\":false,",
-        "    \"tipoAdmision\":[\"Aceptado\", \"Rechazado\", \"Revisión\"]",
+        "    \"tipoAdmision\":[\"Aceptado\", \"Rechazado\", \"Revisión\"],",
+        "    \"actualizarDatos\":false",
         "}"
       ],
       "exposed" : false
@@ -3921,7 +4209,7 @@
     "revisar" : {
       "type" : "json",
       "value" : [
-        "[\"decisión de admisión\",\"pdp_1\",\"pdu_1\",\"sse_1\",\"pcda_1\",\"pca_1\",\"número de matrícula\",\"periodo\"]"
+        "[\"Decisión de admisión\",\"PDP_1\",\"PDU_1\",\"SSE_1\",\"PCDA_1\",\"PCA_1\",\"Número de matrícula\",\"Periodo\",\"Sesión\",\"Universidad\",\"Carrera\"]"
       ],
       "exposed" : false
     },
@@ -3932,63 +4220,10 @@
       ],
       "exposed" : false
     },
-    "dataRechazo" : {
-      "type" : "expression",
-      "value" : [
-        "return {\r",
-        "    \"lstFiltro\": $data.lstFiltrosRechazo, \r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"usuario\":$data.userData.user_name,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
-        "    \"estatus\":\"Rechazado\"\r",
-        "}"
-      ],
-      "exposed" : false
-    },
-    "lstFiltrosRechazo" : {
-      "type" : "json",
-      "value" : [
-        "[]"
-      ],
-      "exposed" : false
-    },
-    "lstFiltrosPreRechazo" : {
-      "type" : "expression",
-      "value" : [
-        "[]"
-      ],
-      "exposed" : false
-    },
-    "lstContenidoRechazo" : {
-      "type" : "json",
-      "value" : [
-        "[]"
-      ],
-      "exposed" : false
-    },
     "lstFiltrosRevision" : {
       "type" : "json",
       "value" : [
         "[]"
-      ],
-      "exposed" : false
-    },
-    "dataRevision" : {
-      "type" : "expression",
-      "value" : [
-        "return {\r",
-        "    \"lstFiltro\": $data.lstFiltrosRechazo, \r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"usuario\":$data.userData.user_name,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
-        "    \"estatus\":\"Revisión\"\r",
-        "}"
       ],
       "exposed" : false
     },
@@ -4014,6 +4249,39 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "lstDecision" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatTipoDecision [com.anahuac.catalogos.CatTipoDecision]\",\"businessObjectName\":\"CatTipoDecision\",\"query\":{\"name\":\"getCatTipoDecision\",\"displayName\":\"getCatTipoDecision\"},\"id\":\"com.anahuac.catalogos.CatTipoDecision\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivoFechaEspecifica&p=0&c=10&tipo={{strInfo.tipoLicenciatura}}&fecha={{strInfo.fecha}}"
+      ],
+      "exposed" : false
+    },
+    "getGestionEscolarByCampus" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatGestionEscolar?q=getCatGestionEscolarByCampus&p=0&c=9999&f=campus={{strInfo.grupoBonita===undefined?'a':strInfo.grupoBonita}}"
+      ],
+      "exposed" : false
+    },
+    "strInfoAspirante" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "    \"licenciatura\":\"\",",
+        "    \"fecha\":\"\",",
+        "    \"periodo\":\"\",",
+        "    \"propedeutico\":\"\"",
+        "}"
       ],
       "exposed" : false
     }

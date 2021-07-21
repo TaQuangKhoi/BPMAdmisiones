@@ -310,18 +310,8 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.getCatCampus();
     
     $scope.cargaManual = function(row){
-        $scope.properties.strInfo ={"nombre": `${row.primernombre+" "}  ${row.segundonombre+" "}  ${row.apellidopaterno+" "}  ${row.apellidomaterno+" "} `,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64,"idBanner":row.idbanner,"clavePeriodo":row.claveingreso};
-        $scope.properties.datosAspirante = {
-            "decision": "",
-            "observaciones": "",
-            "pdp_1": "",
-            "pdu_1": "",
-            "sse_1": "",
-            "pcda_1": "",
-            "pca_1": "",
-            "IDBANNER": "",
-            "periodo":""
-        };
+        $scope.properties.strInfo ={"nombre": `${row.primernombre+" "}  ${row.segundonombre+" "}  ${row.apellidopaterno+" "}  ${row.apellidomaterno+" "} `,"correo":row.correoelectronico,"periodo":row.ingreso,"foto":row.fotografiab64,"idBanner":row.idbanner,"clavePeriodo":row.claveingreso,"procedencia":row.procedencia,"grupoBonita":row.grupobonita,"licenciatura":row.idlicenciatura};
+        $scope.properties.datosAspirante = [];
         //$scope.properties.datosAspirante.IDBANNER = row.idbanner;
         $scope.properties.tabla = "informacion";
         $scope.properties.view = false;
@@ -331,9 +321,10 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         return $http(req)
             .success(function (data, status) {
-                $scope.properties.datosAspirante = data.data;
-                /*cargaDeDatos($scope.properties.datosAspirante,data.data[0])
-                console.log($scope.properties.datosAspirante)*/
+                //$scope.properties.datosAspirante = data.data;
+                cargaDeDatos($scope.properties.datosAspirante,data.data);
+                console.log($scope.properties.datosAspirante);
+                $scope.properties.variableCambio =$scope.properties.variableCambioValor;
             })
             .error(function (data, status) {
                 console.error(data);
@@ -343,18 +334,31 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         
     }
 
-    function cargaDeDatos(json,datos){
+    function cargaDeDatos(final,datos){
+        
         if(datos !== null && datos !== undefined){
-            let columna = angular.copy(datos);
-            for(var key in columna){
-                if(!$scope.properties.variablesCambio.includes(key)){
-                    json[ (key=="idbanner"?key.toUpperCase():key)] = datos[key]
-                }else{
-                     json[(key+"_1")] = datos[key]
+            datos.forEach(element =>{
+                let json = {
+                    "decision": "",
+                    "observaciones": "",
+                    "IDBANNER": "",
+                    "persistenceid":"",
+                    "desactivado":""
+                };
+                let columna = angular.copy(element);
+                for(var key in columna){
+                    if(!$scope.properties.variablesCambio.includes(key)){
+                        json[ (key=="idbanner"?"IDBANNER":key)] = element[key];
+                    }else{
+                         json[(key.toUpperCase()+"_1")] = element[key];
+                    }
                 }
-            }
-            //json.observaciones = json.observacione;
-            json.update = true;
+                //json[count].observaciones = json.observacione;
+                json.Periodo = json.periodo;
+                json.update = true;
+                final.push(json);
+            });
+            
         }
     }
     

@@ -319,7 +319,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             "pcda_1": "",
             "pca_1": "",
             "IDBANNER": row.idbanner,
-            "periodo":row.claveingreso
+            "Periodo":row.claveingreso
         };
         $scope.properties.tabla = "fragmento";
         $scope.properties.view = false;

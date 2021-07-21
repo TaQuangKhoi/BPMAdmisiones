@@ -2437,6 +2437,7 @@
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isAdmitido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries>
@@ -2659,6 +2660,21 @@
                     <queryParameters/>
                 </query>
             </queries>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.AspirantesPruebas">
+            <fields>
+                <field type="STRING" length="255" name="username" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="prueba_pid" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="asistencia" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="countRechazo" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="sesiones_pid" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="catTipoPrueba_pid" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="responsabledisponible_pid" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="acreditado" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.Autodescripcion">
@@ -2971,6 +2987,16 @@
                 <field type="STRING" length="255" name="otroIdioma" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.IdiomasHablasV2">
+            <fields>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatTraduccion" fetchType="LAZY" name="nivel" nullable="true" collection="false"/>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatIdioma" fetchType="LAZY" name="idioma" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="otroIdioma" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3447,8 +3473,14 @@
                 <field type="TEXT" length="255" name="observaciones" nullable="true" collection="false"/>
                 <field type="LOCALDATE" length="255" name="fechaRegistro" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="periodo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="attribute" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isAdmitido" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="desactivado" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isPropedeutico" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="sesiones_pid" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="licenciatura_pid" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
+                <field type="LOCALDATETIME" length="255" name="fechaModificacion" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="isModificacion" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>

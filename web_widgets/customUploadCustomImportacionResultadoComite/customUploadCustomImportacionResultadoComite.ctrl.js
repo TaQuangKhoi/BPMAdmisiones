@@ -75,8 +75,8 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
                 row.forEach(datos =>{
                     count++;
                     var info = angular.copy(datos);
-                    info.IDBANNER = info['número de matrícula'];
-                    info.decision = info['decisión de admisión'];
+                    info.IDBANNER = info['Número de matrícula'];
+                    info.decision = info['Decisión de admisión'];
                     if(validacion(info)){
                         $scope.correctos = [...$scope.correctos,info];
                     }
@@ -108,29 +108,46 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
     function needValues(data){
         let info= {};
         $scope.properties.revisar.forEach(valor =>{
-            info = Object.assign({[valor]:(data[valor] || '')},info)
+            if(valor.includes("_1")){
+                info = Object.assign({[valor]:(data[valor] || 'No')},info)
+            }else{
+                info = Object.assign({[valor]:(data[valor] || '')},info)
+            }
         })
-        info.nombre = (data.nombre || '');
-        info.observaciones = (data.observaciones || '');
+        info.nombre = (data.Nombre || '');
+        info.observaciones = (data.Observaciones || '');
+        info.isAdmitido = false;
+        info.Sesion = (data["Sesión"] || '');
+        info.isPropedeutico = false;
         return info;
     }
     
     function validacion(datos){
         var error = "";
         if(datos !== null && datos !== undefined){
-            if(!$scope.properties.tipoAdmision.some(el => datos['decisión de admisión'].includes(el))){
-                error+=(error.length>0?", ":" ")+"decisión de admisión tiene que tener uno de los tres estatus: Aceptado, Rechazado, Revisión"
+            if(!$scope.properties.lstDecision.some(el =>  datos['Decisión de admisión'].includes(el.clave) )){
+                let lstTipoDecision = "";
+                $scope.properties.lstDecision.forEach(element => {
+                    lstTipoDecision+= (lstTipoDecision.length>0?", ":" ")+`${element.clave}`;
+                });
+                error+=(error.length>0?", ":" ")+"Decisión de admisión tiene que tener uno de los estatus: "+lstTipoDecision;
             } else{
                 let columna = datos;
+                $scope.properties.lstDecision.forEach(element =>{
+                     if(datos['Decisión de admisión'] == element.clave ){
+                        datos.isAdmitido = element.isAdmitido;
+                        datos.isPropedeutico = (element.clave == "AP"? true : false);
+                     }
+                });
                 for(var key in columna){
                     
-                    if( $scope.properties.revisar.includes(key) && key != "IDBANNER" && key != "número de matrícula" && datos["decisión de admisión"]== "Aceptado"){
+                    if( $scope.properties.revisar.includes(key) && key != "IDBANNER" && key != "número de matrícula" && datos.isAdmitido ){
                         let name = key.split("_1");
                         if(isNullOrUndefined(datos[key])){
                             error+=(error.length>0?", ":" ")+"falta el dato "+name[0]
                         }else if(!SioNO(datos[key]) && key.includes("_1")){
                             error+=(error.length>0?", ":" ")+name[0]+" tiene que ser Sí o No"
-                        } 
+                        }
                     }else if(key == "IDBANNER"){
                         if(isNullOrUndefined(datos.IDBANNER)){
                             error+=(error.length>0?",":"")+"falta el dato id banner "
@@ -253,7 +270,7 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
         $scope.lstBanner = {'IDBANNER':"", "PERIODO":""};
 		arreglo.forEach(info =>{
         	$scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info.IDBANNER}'`;
-            $scope.lstBanner.PERIODO += `${$scope.lstBanner.PERIODO.length>0?",":""}'${info.periodo}'`;
+            $scope.lstBanner.PERIODO += `${$scope.lstBanner.PERIODO.length>0?",":""}'${info.Periodo}'`;
         });
     }
     

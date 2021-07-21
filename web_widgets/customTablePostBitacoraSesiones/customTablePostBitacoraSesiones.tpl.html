@@ -1,0 +1,99 @@
+<div ng-show="!isenvelope">
+    <div style="margin-bottom:15px; float: right; margin-right:20px" >
+       <table>
+            <tr>
+                <td ng-show="false">
+                    <div style="margin-bottom:15px;" class="col-xs-12">
+                        <select class="form-control" ng-model="bitacora"
+                            ng-options=" bitacora for bitacora in properties.listaBitacoras"
+                            ng-change="changeBitacora()">
+                                <option style="display:none" value="">
+                                    Seleccionar Bitacora
+                                </option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="table-responsive col-xs-12"  ng-show="properties.bitacoraSelected.length>0" >
+        <table class="table scrollbars" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}" style="width: 100%">
+            <thead>
+                <tr>
+                    <th ng-repeat="row in properties.headers">
+                        <span style="cursor:pointer" ng-if="properties.desactivarOrder">{{row}}</span>
+                        <span style="cursor:pointer" ng-if="!properties.desactivarOrder" ng-click="setOrderBy(row+'')">{{row}}<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby==(row+'')"></i></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td ng-if="!properties.desactivarFiltro" ng-repeat="info in properties.inputList">
+                        <div ng-switch="info.type">
+                            <div ng-switch-when="select" >
+                                 <select class="form-control" ng-model="dynamicInput[info.name]"
+                                    ng-options="option for option in info.list"
+                                    ng-change="filterKeyPress(info.name,dynamicInput[info.name])">
+                                    <option  value="">
+                                        Todos 
+                                    </option>
+                                </select>
+                                
+                            </div>
+                            <div ng-switch-default>
+                                <input ng-model="dynamicInput[info.name]" class="form-control" ng-enter="filterKeyPress(info.name,dynamicInput[info.name])">
+                            </div>
+                        </div>
+                        
+                    </td>
+
+                </tr>
+                <tr ng-repeat="row in properties.lstContenido track by $index" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                    {{$index}}
+                    <td ng-repeat="column in properties.columnsKey">
+                        <div ng-switch="column">
+                            <div ng-switch-when="nombresesion" >
+                                <div ng-bind-html="$eval(column, row) | uiTranslate" ng-show="calcularRowspan($parent.$parent.$index,column) == 3" >
+                                </div>
+                            </div>
+                            <div ng-switch-when="asistencia" >
+                                <!--<label ng-repeat="info in paseLista(row.asistencia,row.acreditado,row.cb)" ng-bind-html="info"> -->
+                                <label>
+                                    {{paseLista(row.asistencia,row.acreditado,row.cb)}}
+                                </label>
+                            </div>
+                            <div ng-switch-when="usuariopaselista" >
+                                <label>
+                                    {{UsuarioPasoLista(row.usuariopaselista)}}
+                                </label>
+                            </div>
+                            <div ng-switch-when="fecha | date:'dd-MM-yyyy'">
+                                {{fechaFormateo(row.fecha) | date:'dd-MM-yyyy'}}
+                            </div>
+                            <div ng-switch-default ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
+                            </div>
+                        </div>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="{{properties.headers.length}}" ng-hide="properties.lstContenido.length >= 1" style="text-align: center;">
+                        no se encontro registros
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ng-show="isenvelope">
+    <label>Mensaje de recordatorio para usuario</label>
+    <textarea row="5" class="form-control" style="resize:none" ng-model="mensaje"></textarea>
+    <br>
+    <div class="col-md-12">
+        <div class="col-md-6"><button class="btn btn-danger" ng-click="envelopeCancel()">Cancelar</button></div>
+        <div class="col-md-6"><button class="btn btn-info" ng-click="sendMail(selectedrow,mensaje)">Enviar
+                recordatorio</button></div>
+    </div>
+</div>
