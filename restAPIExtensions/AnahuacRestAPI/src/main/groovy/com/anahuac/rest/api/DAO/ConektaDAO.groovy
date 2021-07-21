@@ -18,7 +18,9 @@ import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.ConektaOxxo
 import com.anahuac.rest.api.Entity.ConektaPaymentResponse
 import com.anahuac.rest.api.Entity.OrdenBitacora
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import io.conekta.Charge
@@ -623,23 +625,21 @@ class ConektaDAO {
 	public Result ejecutarEsperarPago(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		List<DetalleSolicitud> lstResultado = new ArrayList<DetalleSolicitud>();
-		
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
+			
 			String propFileName = "configuration.properties";
 			InputStream inputStream;
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+						
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -652,11 +652,12 @@ class ConektaDAO {
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			apiClient.processAPI.executeFlowNode(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Esperar pago", 0, 1).get(0).getId());
 			resultado.setSuccess(true);
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
+		
 		
 		return resultado;
 	}
