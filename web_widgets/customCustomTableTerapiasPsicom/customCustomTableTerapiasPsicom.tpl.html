@@ -1,0 +1,45 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content track by $index" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
+                    {{ $eval(column, row) | uiTranslate }}
+                    <select ng-model="row.catTipoTerapia" style="visibility: hidden">
+                        <option ng-repeat="terapia in properties.catTipoTerapia">{{terapia.descripcion}}</option>
+                    </select>
+                </td>
+                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index" 
+                ng-class="{'no-padding': row.catTipoTerapia.descripcion === 'Otro'}" class="inline-items">
+                    <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate" ng-hide="row.catTipoTerapia.descripcion === 'Otro'"></div>&nbsp;
+                    <input class="form-control col-xs-12" ng-model="row.otraTerapia" ng-show="row.catTipoTerapia.descripcion === 'Otro'" placeholder="Otro" maxlength="50">
+                </td>
+                <td>
+                    <select ng-model="row.recibidoTerapiaString" placeholder="Selecciona..." class="form-control col-xs-12" ng-change="setValue(row.recibidoTerapiaString, $index)">
+                        <option style="display:none" value="Selecciona...">Selecciona...</option>
+                        <option ng-repeat="opcion in properties.catRecibidoTerapia" ng-value="opcion.descripcion">{{opcion.descripcion}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input ng-model="row.tipoTerapia" ng-show="row.recibidoTerapiaString === 'Sí'" type="text" class="form-control col-xs-12"/>
+                </td>
+                <td>
+                    <input ng-model="row.cuantoTiempo" ng-show="row.recibidoTerapiaString === 'Sí'" type="text" class="form-control col-xs-12"/>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td ng-if="!properties.allowHTML"> {{ row | uiTranslate }}</td>
+                <td ng-if="properties.allowHTML" ng-bind-html="row | uiTranslate"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

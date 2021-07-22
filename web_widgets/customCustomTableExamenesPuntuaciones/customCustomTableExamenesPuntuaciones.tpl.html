@@ -1,0 +1,74 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <th ng-repeat="header in properties.headers">
+                     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
+                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label>INVP</label>
+                </td>
+                <td>
+                    <input type="number" class="form-control width-limited" ng-model="properties.puntuacionINVP" ng-maxlength="1" max="9">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>PAAN</label>
+                </td>
+                <td>
+                    <div ng-if="properties.objetoExamenes !== undefined">
+                        {{properties.objetoExamenes.paan}}
+                    </div>
+                    <div  ng-if="properties.objetoExamenes === undefined">
+                        No disponible
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>PAAV</label>
+                </td>
+                <td>
+                    <div ng-if="properties.objetoExamenes !== undefined">
+                        {{properties.objetoExamenes.paav}}
+                    </div>
+                    <div  ng-if="properties.objetoExamenes === undefined">
+                        No disponible
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>PARA</label>
+                </td>
+                <td>
+                    <div ng-if="properties.objetoExamenes !== undefined">
+                        {{properties.objetoExamenes.para}}
+                    </div>
+                    <div  ng-if="properties.objetoExamenes === undefined">
+                        No disponible
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Total</label>
+                </td>
+                <td>
+                    <div ng-if="properties.objetoExamenes !== undefined">
+                        {{properties.objetoExamenes.total}}
+                    </div>
+                    <div  ng-if="properties.objetoExamenes === undefined">
+                        No disponible
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

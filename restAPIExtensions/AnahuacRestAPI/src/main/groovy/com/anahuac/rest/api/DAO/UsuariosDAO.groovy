@@ -785,13 +785,13 @@ class UsuariosDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" ( LOWER(gestionescolar.DESCRIPCION) like lower('%[valor]%') ";
+							where +=" (gestionescolar.nombre ilike '%[valor]%' ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
+							where +=" OR periodo.DESCRIPCION ilike '%[valor]%' ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(campus.DESCRIPCION) like lower('%[valor]%') )";
+							where +=" OR campus.DESCRIPCION ilike '%[valor]%' )";
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;
 
@@ -803,7 +803,7 @@ class UsuariosDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +="( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+							where +="( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%')  ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
@@ -1477,6 +1477,10 @@ class UsuariosDAO {
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
 			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_PASELISTA)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_ASPIRANTESPRUEBAS)
 			pstm.setString(1,object.correoNuevo);
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()

@@ -898,7 +898,7 @@ class NotificacionDAO {
 					periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
 				    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
 					
-					plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1)
+					plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
 				} catch (Exception e) {
 					e.printStackTrace()
 				}
@@ -938,7 +938,7 @@ class NotificacionDAO {
 						periodo.substring(4,6).equals("60")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionagosto:
 						periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
 					    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
-						plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1)
+						plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
 					} catch (Exception e) {
 						e.printStackTrace()
 					}

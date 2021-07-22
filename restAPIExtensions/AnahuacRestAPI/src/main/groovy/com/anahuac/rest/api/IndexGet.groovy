@@ -718,17 +718,31 @@ class IndexGet implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				case "getBitacoraSesiones":
-					String username = request.getParameter "username";
+				
+				case "getResponsableEntrevista":
+					String responsabledisponible = request.getParameter "responsabledisponible";
 					
-					result = new SesionesDAO().getBitacoraSesiones(username,context);
+					result = new SesionesDAO().getResponsableEntrevista(responsabledisponible,context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
 					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				
+				case "getResponsablesPrueba":
+					String pruebaid = request.getParameter "pruebaid";
+					
+					result = new SesionesDAO().getResponsablesPrueba(pruebaid,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
@@ -887,6 +901,27 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				case "getTipoEscala":
+				result = new SesionesDAO().getTipoEscala()
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getResultadoINVP":
+				String idbanner =request.getParameter "idbanner"
+				String sesionid =request.getParameter "sesionid"
+				result = new SesionesDAO().getResultadoINVP(idbanner,Long.parseLong(sesionid))
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
 				break;
 			}
 		}catch (Exception e) {

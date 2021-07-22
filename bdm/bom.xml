@@ -731,6 +731,15 @@
             </queries>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.catalogos.CatEscalaTipo">
+            <fields>
+                <field type="STRING" length="255" name="escala" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="tipo" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.catalogos.CatEscolaridad">
             <fields>
                 <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
@@ -2211,6 +2220,7 @@
                 <field type="LOCALDATETIME" length="255" name="fechaCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="usuarioCreacion" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="clave" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="tipo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -2661,6 +2671,7 @@
                 <field type="LONG" length="255" name="sesiones_pid" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="catTipoPrueba_pid" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="responsabledisponible_pid" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="acreditado" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3475,6 +3486,17 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.ResultadoINVP">
+            <fields>
+                <field type="STRING" length="255" name="idbanner" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="escala" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="puntuacion" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="sesiones_pid" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.model.SesionAspirante">
             <fields>
                 <field type="STRING" length="512" name="username" nullable="true" collection="false"/>
@@ -3664,6 +3686,8 @@
                 <field type="STRING" length="255" name="quienIntegro" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="hasParticipadoActividadesAyuda" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="participacionActividadesVoluntaria" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3674,6 +3698,8 @@
                 <field type="INTEGER" length="255" name="orden" nullable="true" collection="false"/>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatGestionEscolar" fetchType="EAGER" name="carrera" nullable="true" collection="false"/>
                 <field type="TEXT" length="255" name="comentarios" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3687,6 +3713,8 @@
                 <field type="BOOLEAN" length="255" name="admitido" nullable="true" collection="false"/>
                 <field type="INTEGER" length="255" name="porcentajeBeca" nullable="true" collection="false"/>
                 <field type="INTEGER" length="255" name="porcentajeCredito" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3696,6 +3724,8 @@
             <fields>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosObservados" fetchType="EAGER" name="rasgo" nullable="true" collection="false"/>
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatRasgosCalif" fetchType="EAGER" name="calificacion" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3710,6 +3740,8 @@
                 <field type="STRING" length="255" name="empresaTrabaja" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="jubilado" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="otroParentesco" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
