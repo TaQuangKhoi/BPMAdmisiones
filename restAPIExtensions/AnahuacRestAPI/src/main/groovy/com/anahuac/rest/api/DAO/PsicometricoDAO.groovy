@@ -502,20 +502,10 @@ class PsicometricoDAO {
 						pstm.setString(5, caseId);
 						pstm.setBoolean(6, (row.jubilado !=null && row.jubilado !="") ? row.jubilado : false);
 						pstm.setBoolean(7, (row.vencido !=null && row.vencido !="") ? row.vencido : false);
+						pstm.setInt(8, 1);
+						pstm.setInt(9, 1);
 						
-						if(catParentezco.persistenceId != null && catParentezco.persistenceId != ""){
-							pstm.setInt(8, catParentezco.persistenceId);
-						}
-						else {
-							pstm.setNull(8, Types.INTEGER);
-						}
-						if(vive.persistenceId != null && vive.persistenceId != ""){
-							pstm.setInt(9, vive.persistenceId);
-						}
-						else {
-							pstm.setNull(9, Types.INTEGER);
-						}
-												
+						pstm.setString(8, caseId);
 						pstm.executeUpdate();
 						contador++;
 						strError = strError + " | contador: " + contador;

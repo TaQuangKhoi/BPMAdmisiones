@@ -62,10 +62,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                       swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800`,"warning")
                       return false;
                   }else if(columnas[i] == "fechaExamen" && isNullOrUndefined(datos[columnas[i]]) ){
-                    swal("¡Aviso!",`¡Debes ingresar el valor de fecha de examen!`,"warning");
+                    swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");
                     return false;
                   }else if(columnas[i] == "tipoExamen" && isNullOrUndefined(datos[columnas[i]]) ){
-                    swal("¡Aviso!",`¡Debes ingresar el valor de tipo examen!`,"warning");
+                    swal("¡Aviso!",`¡Debes ingresar el valor de tipo de examen!`,"warning");
                     return false;
                   }
                 }
