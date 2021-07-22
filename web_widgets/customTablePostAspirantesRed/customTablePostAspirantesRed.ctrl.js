@@ -2,36 +2,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
     
-    $scope.redirecc = function(row){
-        
-        let str = {
-            "username":row.correoelectronico,
-            "idbanner":row.idbanner
-        };
-        var req = {
-            method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10",
-            data: str,
-        };
-         return $http(req)
-            .success(function (data, status) {
-                if(data.data.length < 1){
-                    swal("¡El aspirante todavia no ha seleccionado una sesion!","","info")
-                }else{
-                    var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
-                    window.open(url, '_blank');
-                }
-            })
-            .error(function (data, status) {
-                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function () {
-                
-                blockUI.stop();
-            });
-        
-        
-    }
 
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
@@ -72,72 +42,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             });
     }
 
-    $scope.asignarTarea = function(rowData) {
-
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
-                if (data.length > 0) {
-                    url = url.replace("[TASKID]", data[0].id);
-                } else {
-                    url = url.replace("[TASKID]", "");
-                }
-                url = url.replace("[CASEID]", rowData.caseid);
-                //window.top.location.href = url;
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-    }
-    $scope.isenvelope = false;
-    $scope.selectedrow = {};
-    $scope.mensaje = "";
-    $scope.envelope = function(row) {
-        $scope.isenvelope = true;
-        $scope.mensaje = "";
-        $scope.selectedrow = row;
-    }
-    $scope.envelopeCancel = function() {
-        $scope.isenvelope = false;
-        $scope.selectedrow = {};
-    }
-    $scope.sendMail = function(row, mensaje) {
-        if (row.grupobonita == undefined) {
-            for (var i = 0; i < $scope.lstCampus.length; i++) {
-                if ($scope.lstCampus[i].descripcion == row.campus) {
-                    row.grupobonita = $scope.lstCampus[i].valor;
-                }
-            }
-        }
-        var req = {
-            method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
-            data: angular.copy({
-                "campus": row.grupobonita,
-                "correo": row.correoelectronico,
-                "codigo": "recordatorio",
-                "isEnviar": true,
-                "mensaje": mensaje
-            })
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-
-                $scope.envelopeCancel();
-            })
-            .error(function(data, status) {
-                console.error(data)
-            })
-            .finally(function() {});
-    }
+   
     $scope.lstCampus = [];
     $(function() {
         doRequest("POST", $scope.properties.urlPost);
@@ -252,6 +157,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
+    
     $scope.getCampusByGrupo = function(campus) {
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
@@ -267,7 +173,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return retorno;
     }
 
-    $scope.lstMembership = [];
+   /* $scope.lstMembership = [];
     $scope.$watch("properties.userId", function(newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
@@ -285,29 +191,21 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 })
                 .finally(function() {});
         }
+    });*/
+    
+      $scope.$watch("properties.lstCampus", function(newValue, oldValue) {
+        if (newValue !== undefined) {
+            $scope.campusByUser();
+        }
     });
 
     $scope.lstCampusByUser = [];
     $scope.campusByUser = function() {
         var resultado = [];
-        // var isSerua = true;
         resultado.push("Todos los campus")
-        for (var x in $scope.lstMembership) {
-            if ($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1) {
-                let i = 0;
-                resultado.forEach(value => {
-                    if (value == $scope.lstMembership[x].group_id.name) {
-                        i++;
-                    }
-                });
-                if (i === 0) {
-                    resultado.push($scope.lstMembership[x].group_id.name);
-                }
-            }
+        for (var x in $scope.properties.lstCampus) {
+            resultado.push($scope.properties.lstCampus[x].grupoBonita);
         }
-        // if(isSerua){
-        //     resultado.push("Todos los campus")
-        // }
         $scope.lstCampusByUser = resultado;
     }
     $scope.filtroCampus = ""
