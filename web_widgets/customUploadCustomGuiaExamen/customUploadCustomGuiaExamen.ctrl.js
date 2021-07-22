@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout, $log, gettextCatalog) {
+function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout, $log, gettextCatalog, blockUI) {
     var ctrl = this;
     this.name = widgetNameFactory.getName('pbInput');
     this.filename = '';
@@ -164,6 +164,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
     });
     
     async function Main() {
+        blockUI.start();
        const file = $('input[name="uploadPdf"]').get(0).files[0];
        
        var b64 =await toBase64(file);
@@ -175,6 +176,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
        return $http.post('/bonita/API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=10', jsonData, {
        headers: { 'Content-Type': "application/json" }
      }).then(function (results) {
+         blockUI.stop();
         $scope.properties.urlretorno=results.data.data[0]       
     });
     }

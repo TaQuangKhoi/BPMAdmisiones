@@ -74,14 +74,14 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
     $scope.errores = [];
     $scope.correctos = [];
     $scope.final = [];
-    $scope.lstBanner = {'IDBANNER':""};
+    $scope.lstBanner = {};
     function auditoria(row){
         
         var count = 0;
         $scope.errores = [];
         $scope.correctos = [];
         $scope.final = [];
-        $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
+        $scope.lstBanner = {'IDBANNER':"", "FECHA":"","IDSESION":""};
 
         blockUI.start();
         if(!isNullOrUndefined(row) ){
@@ -90,15 +90,11 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 var info = angular.copy(datos);
                 //info.fechaExamen = info['Fecha de examen']
                 let paso = validacion(info);
-                
                 if(paso){
-                    /*$scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
-                    $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['fechaExamen']}'`;*/
                     info.tipoExamen = "KP";
                     info.INVP = "";
                     $scope.correctos = [...$scope.correctos,info];
                 }
-
                 if(count === row.length){
                     $scope.correctos = findDuplicados($scope.correctos,"IDBANNER");
                     cargarlstBanner($scope.correctos);
@@ -111,21 +107,15 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                                 $scope.properties.tabla = "carga";
                                 //swal('¡Se han terminado la auditoria de los datos!',"","success")
                             }
-                        })
+                        });
                     }else{
                             $scope.properties.lstErrores = angular.copy($scope.errores)
                             $scope.properties.lstAlumnosResultados = [];
                             $scope.properties.tabla = "carga";
-
                     }
-                    
-                        
                 }
-            })
-          
-             
+            });
         }
-        
         blockUI.stop();
         
     }
@@ -147,21 +137,27 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         var error = "";
         let valores1= ["MLEX","CLEX","HLEX"];
         let valores2= ["PAAN","PAAV","PARA"];
-        let valores3=["MLEX","CLEX","HLEX","PAAN","PAAV","PARA","fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen"]
-        let valores4 =["fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen"]
+        let valores3=["MLEX","CLEX","HLEX","PAAN","PAAV","PARA","fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen","IdSesion","NombreSesion"]
+        let valores4 =["fechaExamen","IDBANNER","Total","LEXIUM_Total","Fecha de examen","IdSesion","NombreSesion"]
         if(data !== null && data !== undefined){
             data['PAAN'] = convertirDato(data['PAAN']);
             data['PAAV'] = convertirDato(data['PAAV']);
             data['PARA'] = convertirDato(data['PARA']);
             let columnas = $scope.properties.revisar;
             for(let i = 0; i< $scope.properties.revisar.length; i++){
-                if(isNullOrUndefined(data[columnas[i]])  && columnas[i] != "IDBANNER"){
+                if(isNullOrUndefined(data[columnas[i]])  && columnas[i] != "IDBANNER" && columnas[i] != "Fecha de examen"){
                     error+=(error.length>0?",":"")+"falta el dato "+columnas[i]
                 }else if(columnas[i] == "IDBANNER"){
                     if(isNullOrUndefined(data[columnas[i]])){
                         error+=(error.length>0?",":"")+"falta el dato id banner "
                     }else if(data[columnas[i]].length != 8){
                         error+=(error.length>0?",":"")+"id banner tiene que ser de 8 digitos"
+                    }
+                }else if(columnas[i] == "Fecha de examen"){
+                    if(isNullOrUndefined(data[columnas[i]])){
+                        error+=(error.length>0?",":"")+"falta el dato fecha de examen "
+                    }else if(!moment(data[columnas[i]],'DD-MM-YYYY').isValid()){
+                        error+=(error.length>0?",":"")+"la fecha no es valida tiene que ser DD-MM-YYYY"
                     }
                 }else if(!valores4.includes(columnas[i]) && checkNumber(data[columnas[i]])){
                     error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que ser un numero y sin decimales`;
@@ -171,6 +167,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                     error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar en el rango de 200-800`;
                 }else if(!valores3.includes(columnas[i]) && !isRangoValue(data[columnas[i]],0,10)){
                     error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar en el rango de 0-10`;
+                }else if(!valores3.includes(columnas[i]) && !haveZero(data[columnas[i]],0,10)){
+                    error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar entre 0-10 a dos digitos`;
                 }
             }
             
@@ -195,6 +193,14 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
 
     function isRangoValue(value,min,max){
         if(value >= min && value <= max){
+            return true;
+        }
+        return false;
+    }
+    
+    
+    function haveZero(value){
+        if(value.includes("0") && value.length == 2){
             return true;
         }
         return false;
@@ -225,14 +231,16 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"Id banner incorrecto o no se encuentra"}]
             }
             else if(info.mismaFecha){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:`El aspirante ya tiene puntuación en la fecha ${datos[indice].fechaExamen}`}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:`El aspirante ya cuenta con una puntuacion anterior en la fecha ${datos[indice]["fechaExamen"]}`}]
             }
             else if(!info.EstaEnCarga){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en carga y consulta de resultados"}]
             }else if(info.AA){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada"}]
             }else if(!info.puede){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante ya cuenta con una puntuacion"}]
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante ya cuenta con una puntuacion anterior"}]
+            }else if(!info.sc){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en la sesion subida"}]
             }else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
                 $scope.final = [ ...$scope.final,datos[indice]]
@@ -277,10 +285,11 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
      }
 
     function cargarlstBanner(arreglo){
-        $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
+        $scope.lstBanner = {'IDBANNER':"", "FECHA":"","IDSESION":""};
 		arreglo.forEach(info =>{
         	$scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${info['IDBANNER']}'`;
             $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${info['Fecha de examen']}'`;
+            $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${info['IdSesion']}'`;
         });
     }
 

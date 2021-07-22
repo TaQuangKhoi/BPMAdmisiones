@@ -6,12 +6,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     $scope.final = [];
     $scope.lstBanner = [];
       $scope.myFunc = function() {
-        $scope.lstBanner = {'IDBANNER':"", "FECHA":""};
+        $scope.lstBanner = {'IDBANNER':"", "FECHA":"","IDSESION":""};
         $scope.final = [];
         let paso = validacion($scope.properties.value);
         if(paso){
             $scope.lstBanner.IDBANNER += `${$scope.lstBanner.IDBANNER.length>0?",":""}'${$scope.properties.value['IDBANNER']}'`;
             $scope.lstBanner.FECHA += `${$scope.lstBanner.FECHA.length>0?",":""}'${formatDate($scope.properties.value.fechaExamen)}'`;
+            $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${$scope.properties.value['IdSesion']}'`;
             doRequest2("POST",$scope.properties.urlValidar,$scope.lstBanner).then(function() {
                 if($scope.final.length > 0){
                     $scope.final[0].fechaExamen = formatDate($scope.properties.value.fechaExamen)
@@ -59,11 +60,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                   }else if(datos.tipoExamen == "KP" && valores1.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],0,690)){
                       swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 0-690`,"warning")
                   }else if(datos.tipoExamen != "KP" && valores2.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],200,800)){
-                      swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800`,"warning")
-                      return false;
-                  }else if(columnas[i] == "fechaExamen" && isNullOrUndefined(datos[columnas[i]]) ){
-                    swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");
-                    return false;
+                      if(columnas[i] == "PARA" && datos[columnas[i]] != "000"){
+                        swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800 o ser 000`,"warning")
+                        return false;
+                      }else if(columnas[i] != "PARA"){
+                        swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800`,"warning")
+                        return false; 
+                      }
+                      
+                  }else if(columnas[i] == "fechaExamen" ){
+                    if(isNullOrUndefined(datos[columnas[i]])){
+                        swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");
+                        return false;
+                    }else if(!moment(datos[columnas[i]],'DD-MM-YYYY').isValid()){
+                         swal("¡Aviso!",`¡la fecha del examen no es valida tiene que ser DD-MM-YYYY!`,"warning");
+                         return false;
+                    }
                   }else if(columnas[i] == "tipoExamen" && isNullOrUndefined(datos[columnas[i]]) ){
                     swal("¡Aviso!",`¡Debes ingresar el valor de tipo de examen!`,"warning");
                     return false;
@@ -140,7 +152,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             else if(!info.EstaEnCarga){
                 swal("¡Aviso!",`¡El aspirante no se encuentra en carga y consulta de resultados!`,"warning");
-            }else if(!info.puede){
+            }else if(!info.puede && !$scope.properties.value.update){
                 swal("¡Aviso!",`¡El aspirante ya cuenta con una puntuacion!`,"warning");
             }
             else{

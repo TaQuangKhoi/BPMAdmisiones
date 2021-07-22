@@ -94,7 +94,7 @@
                         {{row.campus}}<br> {{row.licenciatura}} <br> {{row.periodo}}
                     </td>
                     <td>
-                        {{row.preparatoriaestado}}
+                        {{row.procedencia}}
                         <br/>
                         {{row.preparatoria}}
                         <br/>
@@ -116,11 +116,14 @@
                         Aspirante exento
                     </td>
                     <td ng-hide="row.tipoprueba_pid =='4' && row.cbcoincide == 't'">
-                        <div class=" middle-td text-center" >
+                        <div class=" middle-td text-center"  ng-show="row.acreditado === 'f'">
                             <span ng-class="row.asistencia === 't'?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true" ></span>
                             <!--<i class="glyphicon glyphicon-user iconograndetabla"></i>-->
                             <span style="width:4%; display: inline-block;"> </span>
                             <i class="glyphicon glyphicon-user iconograndetabla color-orange" ng-click="doRequestRedirect(row);"></i>
+                        </div>
+                        <div ng-show="row.acreditado === 't'">
+                            Acreditado
                         </div>
                     </td>
                     <td>

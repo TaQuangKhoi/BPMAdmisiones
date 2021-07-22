@@ -38,7 +38,7 @@ function($scope, $http, blockUI) {
     scheduler.attachEvent("onClick", function(id, e) {
         $scope.getSesion(id);
     })
-
+    $scope.periodos = [];
     $scope.horaInicio = new Date();
     $scope.horaFin = new Date();
     $scope.fechaCalendario = "";
@@ -1127,6 +1127,9 @@ function($scope, $http, blockUI) {
         });
     }
     $scope.loadCatalogs = function() {
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22"+$scope.properties.campusSelected.persistenceId+"%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D",null,null,null,function(periodos,extra){
+            $scope.periodos=periodos;
+        })
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100", null, { "lstFiltro": [], "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "catalogo": "CATResidencia" }, null, function(residencias, extra) {
             $scope.tipos = residencias.data
             doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getCatBachilleratos&p=0&c=9999", null, null, null, function(datos, extra) {
@@ -1254,7 +1257,8 @@ function($scope, $http, blockUI) {
             },
             "campus_pid": $scope.sesion.campus_pid,
             "ultimo_dia_inscripcion": null,
-            "isEliminado": false
+            "isEliminado": false,
+            "periodo_pid":null
         }
         $scope.pantallaCambiar(pantalla);
     }

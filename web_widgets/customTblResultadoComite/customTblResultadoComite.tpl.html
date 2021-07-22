@@ -13,38 +13,37 @@
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
-                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
-                    <div ng-switch="column">
-                        <div ng-switch-when="Fecha de examen">
-                            {{(row['Fecha de examen']) | date:'dd-MM-yyyy' }}
-                        </div>
-                        <div ng-switch-default>
-                            {{ $eval(column, row) | uiTranslate }}
-                        </div>
-                    </div>
-                </td>
-                <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
-                    <div ng-switch="column">
-                        <div ng-switch-when="Fecha de examen">
-                            {{row['Fecha de examen'] | date:'dd-MM-yyyy'}}
-                        </div>
-                        <div ng-switch-default>
-                           <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
-                        </div>
-                    </div>
-                    
-                </td>
-                <td>
+                    <td class="max-size">
+                        <b>{{row.decision}}</b>
+                    </td>
+                    <td class="max-size">
+                        <b>{{row.campus}}</b><br> 
+                        {{row.carrera}}<br> 
+                        {{row.periodo}}
+                    </td>
+                    <td class="max-size">
+                        <b>{{row.vpd}}</b><br> 
+                        {{row.fecharegistro}}
+                    </td>
+                    <td class="max-size">
+                        <b>{{row.observaciones}}</b>
+                    </td>
+                     <td>
+                        <b>{{row.usuario}}</b><br> 
+                        {{row.fechaultimamodificacion | date:'dd-MM-yyyy'}}<br> 
+                        {{row.fechasolicitudenviada | date:'dd-MM-yyyy'}}
+                    </td>
+                    <td class="max-size">
                         <table>
                             <tr>
                                 <td>
                                     <button class="btn btn-default" ng-click="visualizarInfo(row)">
-                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                    </button>
+                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                </button>
                                 </td>
                             </tr>
                         </table>
-                </td>
+                    </td>
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">

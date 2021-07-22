@@ -1,6 +1,37 @@
 function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
+    
+    $scope.redirecc = function(row){
+        
+        let str = {
+            "username":row.correoelectronico,
+            "idbanner":row.idbanner
+        };
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10",
+            data: str,
+        };
+         return $http(req)
+            .success(function (data, status) {
+                if(data.data.length < 1){
+                    swal("¡El aspirante todavia no ha seleccionado una sesion!","","info")
+                }else{
+                    var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
+                    window.open(url, '_blank');
+                }
+            })
+            .error(function (data, status) {
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+                blockUI.stop();
+            });
+        
+        
+    }
 
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
@@ -71,7 +102,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     $scope.envelope = function(row) {
         $scope.isenvelope = true;
         $scope.mensaje = "";
-        $("#321645").text("")
         $scope.selectedrow = row;
     }
     $scope.envelopeCancel = function() {
