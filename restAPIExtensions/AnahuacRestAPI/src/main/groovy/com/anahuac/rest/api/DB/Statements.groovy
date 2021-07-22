@@ -257,7 +257,12 @@ class Statements {
 	public static final String GET_COUNT_ASISTENCIA = "select count(CASE WHEN PL.asistencia THEN 1 END) as asistencias, ds.cbcoincide from paseLista as PL LEFT JOIN solicituddeadmision sda on PL.username = sda.correoelectronico LEFT JOIN detallesolicitud ds on sda.caseid = ds.caseid::Integer AND ds.vencido IS NOT true where  PL.username = ? GROUP BY ds.cbcoincide"
 	
 	//obtener la bitacora de resultados de un aspirante
-	public static final String GET_BITACORA_SESIONES_BY_USERNAME = "SELECT P.NOMBRE AS NOMBREPRUEBA,S.NOMBRE AS NOMBRESESION,AP.ASISTENCIA,AP.ACREDITADO,PL.USUARIOPASELISTA,PL.FECHA, CASE WHEN AP.CATTIPOPRUEBA_PID = 1 THEN DS.CBCOINCIDE ELSE 'f' END AS CB, CTP.descripcion,(select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = P.persistenceid) as responsables FROM ASPIRANTESPRUEBAS AS AP LEFT JOIN PRUEBAS AS P ON P.PERSISTENCEID = AP.PRUEBA_PID LEFT JOIN SESIONES AS S ON S.PERSISTENCEID = AP.SESIONES_PID LEFT JOIN PASELISTA PL ON PL.USERNAME = AP.USERNAME AND PL.PRUEBA_PID = P.PERSISTENCEID LEFT JOIN CATTIPOPRUEBA AS  CTP ON CTP.PERSISTENCEID = AP.CATTIPOPRUEBA_PID LEFT JOIN DETALLESOLICITUD AS DS ON DS.IDBANNER = ? where AP.username = ? ORDER BY S.PERSISTENCEID, AP.CATTIPOPRUEBA_PID DESC";
+	public static final String GET_BITACORA_SESIONES_BY_USERNAME = "SELECT P.NOMBRE AS NOMBREPRUEBA,S.NOMBRE AS NOMBRESESION,AP.ASISTENCIA,AP.ACREDITADO,PL.USUARIOPASELISTA,PL.FECHA,AP.CATTIPOPRUEBA_PID ,CASE WHEN AP.CATTIPOPRUEBA_PID = 1 THEN DS.CBCOINCIDE ELSE 'f' END AS CB, CTP.descripcion,(select String_AGG(distinct rd.responsableid::varchar,',') from responsabledisponible as rd where rd.isEliminado = false and rd.prueba_pid = P.persistenceid) as responsables, AP.RESPONSABLEDISPONIBLE_PID,AP.PRUEBA_PID  FROM ASPIRANTESPRUEBAS AS AP LEFT JOIN PRUEBAS AS P ON P.PERSISTENCEID = AP.PRUEBA_PID LEFT JOIN SESIONES AS S ON S.PERSISTENCEID = AP.SESIONES_PID LEFT JOIN PASELISTA PL ON PL.USERNAME = AP.USERNAME AND PL.PRUEBA_PID = P.PERSISTENCEID LEFT JOIN CATTIPOPRUEBA AS  CTP ON CTP.PERSISTENCEID = AP.CATTIPOPRUEBA_PID LEFT JOIN DETALLESOLICITUD AS DS ON DS.IDBANNER = ? where AP.username = ? ORDER BY S.PERSISTENCEID, AP.CATTIPOPRUEBA_PID DESC";
+	// obtener al responsable de la entrevista
+	public static final String GET_RESPONSABLE_DISPONIBLE_ENTREVISTA = "SELECT RESPONSABLEID FROM RESPONSABLEDISPONIBLE WHERE PERSISTENCEID = ?";
+	
+	// obtener al responsable de las pruebas
+	public static final String GET_RESPONSABLES_PRUEBA = "SELECT RESPONSABLEID FROM RESPONSABLEDISPONIBLE WHERE PRUEBA_PID = ?";
 		
 	//obtener los duplicados en validar la solicitud
 //	public static final String GET_DUPLICADOS = "SELECT sda.caseid,sda.primernombre,sda.segundonombre,sda.apellidopaterno,sda.apellidomaterno,sda.correoelectronico, sda.fechanacimiento, sda.estatusSolicitud, sda.curp, CP.descripcion as periodo, CGE.nombre as licenciatura, CCE.descripcion as campusEstudio,CCE2.descripcion as VPD, DS.idbanner from  solicituddeadmision as sda LEFT JOIN catperiodo CP on CP.persistenceid = sda.catperiodo_pid LEFT JOIN catGestionEscolar CGE ON CGE.persistenceid = sda.catgestionescolar_pid LEFT JOIN catCampus CCE ON CCE.persistenceid = sda.catcampusestudio_pid LEFT JOIN catCampus CCE2 ON CCE2.persistenceid = sda.catcampus_pid LEFT JOIN detallesolicitud DS on DS.caseid::Integer = sda.caseid  where sda.caseid != ? and (CONCAT(sda.primerNombre, ' ',sda.segundoNombre ,' ', sda.apellidoPaterno,' ',sda.apellidoMaterno  ) like CONCAT( '%', ? ,'%') OR sda.correoElectronico like  CONCAT('%', ? , '%') OR  sda.fechaNacimiento  like CONCAT( '%', ? , '%') OR sda.curp = CONCAT('%',?,'%') ) ORDER BY sda.persistenceId ASC"
@@ -414,6 +419,30 @@ class Statements {
 	public static final String UPDATE_TESTPSICOMETRICO = "UPDATE TESTPSICOMETRICO SET [COLUMNA] WHERE caseid=?";
 	public static final String INSERT_TESTPSICOMETRICO = "INSERT INTO TESTPSICOMETRICO (ajusteEfectivo,ajusteEscolarPrevio,ajusteExistencial,ajusteMedioFamiliar,ajusteMedioSocial,ajusteReligioso,califAjusteAfectivo,califAjusteEscolarPrevio,califAjusteExistencial,califAjusteMedioFamiliar,califAjusteMedioSocial,califAjusteReligioso,caseId,conclusioneINVP,fechaEntrevista,finalizado,hasParticipadoActividadesAyuda,interpretacionINVP,otroTipoAsistencia,participacionActividadesVoluntaria,persistenceversion,puntuacionINVP,quienIntegro,quienRealizoEntrevista,resumenSalud,catpersonasaludable_pid,catproblemasaludatencionco_pid,catrequieresasistencia_pid,catvivesestadodiscapacidad_pid) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	public static final String SELECT_TESTPSICOMETRICO_BY_CASEID = "SELECT caseId, persistenceid, ajusteefectivo, ajusteescolarprevio, ajusteexistencial, ajustemediofamiliar, ajustemediosocial, ajustereligioso, califajusteafectivo, califajusteescolarprevio, califajusteexistencial, califajustemediofamiliar, califajustemediosocial, califajustereligioso, conclusioneinvp, interpretacioninvp, persistenceversion, puntuacioninvp, recomendadopca, recomendadopcda, recomendadopdp, recomendadopdu, recomendadopia, recomendadosse, fechaentrevista, finalizado, resumensalud, otrotipoasistencia, catpersonasaludable_pid, catproblemasaludatencionco_pid, catrequieresasistencia_pid, catvivesestadodiscapacidad_pid, hasparticipadoactividadesayuda, participacionactividadesvoluntaria, quienintegro, quienrealizoentrevista FROM TESTPSICOMETRICO WHERE caseId = ?";
+	
+	public static final String DELETE_TESTPSICOMETRICO_FIENTESINFLUYE = "DELETE FROM testpsicometri_fientesinfluye WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_FIENTESINFLUYE = "INSERT INTO testpsicometri_fientesinfluye (testpsicometrico_pid, catinformaciondelacarrera_pid, fientesinfluyerondesicion_order) VALUES (?,?,?)";
+	
+	public static final String DELETE_TESTPSICOMETRICO_RAZONESINGRESO = "DELETE FROM testpsicometri_razonesingreso WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_RAZONESINGRESO = "INSERT INTO testpsicometri_razonesingreso (testpsicometrico_pid, catrazonesdeingreso_pid, razonesingreso_order) VALUES (?,?,?)";
+	
+	public static final String DELETE_TESTPSICOMETRICO_DISCAPACIDADES = "DELETE FROM testpsicometri_discapacidades WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_DISCAPACIDADES = "INSERT INTO testpsicometri_discapacidades (testpsicometrico_pid, cattipodiscapacidad_pid, discapacidades_order) VALUES (?,?,?)";
+	
+	public static final String DELETE_TESTPSICOMETRICO_CUSTOSRECOMEND = "DELETE FROM testpsicometri_custosrecomend WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_CUSTOSRECOMEND = "INSERT INTO testpsicometri_custosrecomend (testpsicometrico_pid, catcursos_pid, custosRecomendados_order) VALUES (?,?,?)";
+	
+	public static final String DELETE_TESTPSICOMETRICO_PROBLEMASSALUD = "DELETE FROM testpsicometri_problemassalud WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_PROBLEMASSALUD = "INSERT INTO testpsicometri_problemassalud (testpsicometrico_pid, catproblemasalud_pid, problemasSalud_order) VALUES (?,?,?)";
+	
+	public static final String DELETE_TESTPSICOMETRICO_TIPOASISTENCIA = "DELETE FROM testpsicometri_tipoasistencia WHERE testpsicometrico_pid=?";
+	public static final String INSERT_TESTPSICOMETRICO_TIPOASISTENCIA = "INSERT INTO testpsicometri_tipoasistencia (testpsicometrico_pid, cattipoasistencia_pid, tipoAsistencia_order) VALUES (?,?,?)";
+	
+	public static final String INSERT_TESTPSICOMETRICO_OBSERVACIONES = "INSERT INTO TestPsicometricoObservaciones(persistenceversion, orden, universidad, examen, admitido, vencido, porcentajeBeca, porcentajeCredito, caseId) VALUES (0,?,?,?,?,?,?,?,?)";
+	public static final String DELETE_TESTPSICOMETRICO_OBSERVACIONES = "DELETE FROM TestPsicometricoObservaciones WHERE caseId=? and vencido is not true";
+	
+	public static final String INSERT_TESTPSICOMETRICO_RELATIVOS = "INSERT INTO TestPsicometricoRelativos(nombre,apellidos,empresaTrabaja,otroParentesco,caseId,jubilado,vencido,catparentezco_pid,vive_pid,persistenceversion) VALUES (?,?,?,?,?,?,?,?,?,0)";
+	public static final String DELETE_TESTPSICOMETRICO_RELATIVOS = "DELETE FROM TestPsicometricoRelativos WHERE caseId=? and vencido is not true";
 	
 	/***********************ARTURO ZAMORANO FIN*******************************/
 	/***********************MARIO ICEDO*******************************/

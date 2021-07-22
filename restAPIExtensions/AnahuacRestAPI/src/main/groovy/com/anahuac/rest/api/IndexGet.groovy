@@ -719,6 +719,30 @@ class IndexGet implements RestApiController {
 					}
 				break;
 				
+				case "getResponsableEntrevista":
+					String responsabledisponible = request.getParameter "responsabledisponible";
+					
+					result = new SesionesDAO().getResponsableEntrevista(responsabledisponible,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getResponsablesPrueba":
+					String pruebaid = request.getParameter "pruebaid";
+					
+					result = new SesionesDAO().getResponsablesPrueba(pruebaid,context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
