@@ -55,10 +55,7 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='HORARIO'"></i></span>
                     </th>  
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('ASISTENCIA')">Procesado<i class="glyphicon"
-                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='ASISTENCIA'"></i></span></th>
-                    <th> Acciones</th>
+                    <th ng-if="procesada=='false'"> Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,14 +68,7 @@
                     <td><input ng-model="dynamicInput['alumnosa']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['alumnosa'])"></td>
                     <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('SEXO',dynamicInput['tipo'])"></td>
                     <td><input ng-model="dynamicInput['horario']" class="form-control" ng-enter="filterKeyPress('HORA DE LA ENTREVISTA',dynamicInput['horario'])"></td>
-                    <td>
-                        <select ng-model="dynamicInput['asistencia']" class="form-control" ng-change="filterKeyPress('ASISTENCIA',dynamicInput['asistencia'])">
-                            <option disabled selected value> Selecciona una opción </option>
-                            <option value="Sí">Sí</option>
-                            <option value="No">No</option>
-                        </select>
-                    </td>
-                    <td></td>
+                    <td ng-if="procesada=='false'"></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td>
@@ -111,15 +101,7 @@
                     <td>
                         {{row.entrada + " - " +row.salida }}
                     </td>
-                    <td ng-hide="row.tipoprueba_pid =='4' && row.cbcoincide == 't'">
-                        <div class=" middle-td text-center" >
-                            <span ng-class="'t' === 't'?'glyphicon glyphicon-check iconograndetabla' : 'glyphicon glyphicon-unchecked iconograndetabla' " aria-hidden="true" ></span>
-                            <!--<i class="glyphicon glyphicon-user iconograndetabla"></i>-->
-                            <span style="width:4%; display: inline-block;"> </span>
-                            <i class="glyphicon glyphicon-user iconograndetabla color-orange" ng-click="doRequestRedirect(row);"></i>
-                        </div>
-                    </td>
-                    <td>
+                    <td ng-if="procesada=='false'">
                         <table>
                             <tr>
                                 <!--<td> <button class="btn btn-default" ng-click="asignarTarea(row)">

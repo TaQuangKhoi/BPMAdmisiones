@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ResultadoINVP",
   "name" : "ResultadoINVP",
-  "lastUpdate" : 1626823939070,
+  "lastUpdate" : 1626907849472,
   "rows" : [
     [
       {
@@ -446,15 +446,19 @@
             "value" : true
           },
           "colors" : {
-            "type" : "constant"
+            "type" : "constant",
+            "value" : [
+              "#FF5900",
+              "#333333"
+            ]
           },
           "options" : {
             "type" : "constant"
           }
         },
-        "reference" : "f37a1ec5-a4ca-4973-954e-b3acafa9cd9f",
+        "reference" : "d00a3584-9552-4248-a31a-5da00d84649a",
         "hasValidationError" : false,
-        "id" : "pbChart"
+        "id" : "customChartCustom"
       }
     ]
   ],
@@ -507,18 +511,82 @@
     "getResultadoINVP" : {
       "type" : "url",
       "value" : [
-        "/bonita/API/extension/AnahuacRestGet?url=getResultadoINVP&p=0&c=9999&idbanner={{idbanner}}&sesionid={{sesionid}}"
+        "/bonita/API/extension/AnahuacRestGet?url=getResultadoINVP&p=0&c=9999&idbanner={{idbanner}}&sesionid={{idsesion}}"
       ],
       "exposed" : false
     },
     "datos" : {
       "type" : "expression",
       "value" : [
-        "var datos = [\"0\"];",
-        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {",
-        "        const element = $data.getResultadoINVP.data[index];",
-        "        datos.push(element.puntuacion)",
-        "    }",
+        "debugger;\r",
+        "var a= [{\"k\":30,\".5\":15,\".4\":12,\".2\":6},\r",
+        "{\"k\":29,\".5\":15,\".4\":12,\".2\":6},\r",
+        "{\"k\":28,\".5\":14,\".4\":11,\".2\":6},\r",
+        "{\"k\":27,\".5\":14,\".4\":11,\".2\":5},\r",
+        "{\"k\":26,\".5\":13,\".4\":10,\".2\":5},\r",
+        "{\"k\":25,\".5\":13,\".4\":10,\".2\":5},\r",
+        "{\"k\":24,\".5\":12,\".4\":10,\".2\":5},\r",
+        "{\"k\":23,\".5\":12,\".4\":9,\".2\":5},\r",
+        "{\"k\":22,\".5\":11,\".4\":9,\".2\":4},\r",
+        "{\"k\":21,\".5\":11,\".4\":8,\".2\":4},\r",
+        "{\"k\":20,\".5\":10,\".4\":8,\".2\":4},\r",
+        "{\"k\":19,\".5\":10,\".4\":8,\".2\":4},\r",
+        "{\"k\":18,\".5\":9,\".4\":7,\".2\":4},\r",
+        "{\"k\":17,\".5\":9,\".4\":7,\".2\":3},\r",
+        "{\"k\":16,\".5\":8,\".4\":6,\".2\":3},\r",
+        "{\"k\":15,\".5\":8,\".4\":6,\".2\":3},\r",
+        "{\"k\":14,\".5\":7,\".4\":6,\".2\":3},\r",
+        "{\"k\":13,\".5\":7,\".4\":5,\".2\":3},\r",
+        "{\"k\":12,\".5\":6,\".4\":5,\".2\":2},\r",
+        "{\"k\":11,\".5\":6,\".4\":4,\".2\":2},\r",
+        "{\"k\":10,\".5\":5,\".4\":4,\".2\":2},\r",
+        "{\"k\":9,\".5\":5,\".4\":4,\".2\":2},\r",
+        "{\"k\":8,\".5\":4,\".4\":3,\".2\":2},\r",
+        "{\"k\":7,\".5\":4,\".4\":3,\".2\":1},\r",
+        "{\"k\":6,\".5\":3,\".4\":2,\".2\":1},\r",
+        "{\"k\":5,\".5\":3,\".4\":2,\".2\":1},\r",
+        "{\"k\":4,\".5\":2,\".4\":2,\".2\":1},\r",
+        "{\"k\":3,\".5\":2,\".4\":1,\".2\":1},\r",
+        "{\"k\":2,\".5\":1,\".4\":1,\".2\":0},\r",
+        "{\"k\":1,\".5\":1,\".4\":0,\".2\":0},\r",
+        "{\"k\":0,\".5\":0,\".4\":0,\".2\":0}]\r",
+        "var datos = [];\r",
+        "var valorK=0;\r",
+        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "    const element = $data.getResultadoINVP.data[index];\r",
+        "    if (element.escala=='K') {\r",
+        "        valorK=element.puntuacion;\r",
+        "    }\r",
+        "}\r",
+        "var jsonk={};\r",
+        "for (let index = 0; index < a.length; index++) {\r",
+        "    const element = a[index];\r",
+        "    if(element.k==valorK){\r",
+        "        jsonk=element;\r",
+        "    }\r",
+        "    \r",
+        "}\r",
+        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "        const element = $data.getResultadoINVP.data[index];\r",
+        "        var valorpush=parseInt(element.puntuacion);\r",
+        "        \r",
+        "        if (element.escala=='Hs') {\r",
+        "            valorpush=parseInt(element.puntuacion)+jsonk['.5'];\r",
+        "        }\r",
+        "        if (element.escala=='Dp') {\r",
+        "            valorpush=parseInt(element.puntuacion)+jsonk['.4'];\r",
+        "        }\r",
+        "        if (element.escala=='Pt') {\r",
+        "            valorpush=parseInt(element.puntuacion)+jsonk['k'];\r",
+        "        }\r",
+        "        if (element.escala=='Es') {\r",
+        "            valorpush=parseInt(element.puntuacion)+jsonk['k'];\r",
+        "        }\r",
+        "        if (element.escala=='Ma') {\r",
+        "            valorpush=parseInt(element.puntuacion)+jsonk['.2'];\r",
+        "        }\r",
+        "        datos.push(valorpush)\r",
+        "    }\r",
         "return datos;"
       ],
       "exposed" : false
@@ -526,12 +594,19 @@
     "etiquetas" : {
       "type" : "expression",
       "value" : [
-        "var etiquetas = [\"?\"];",
+        "var etiquetas = [];",
         "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {",
         "        const element = $data.getResultadoINVP.data[index];",
         "        etiquetas.push(element.escala)",
         "    }",
         "return etiquetas;"
+      ],
+      "exposed" : false
+    },
+    "idsesion" : {
+      "type" : "urlparameter",
+      "value" : [
+        "idsesion"
       ],
       "exposed" : false
     }

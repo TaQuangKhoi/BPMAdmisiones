@@ -1,4 +1,4 @@
-function PbTableCtrl($scope, $http, $window,blockUI) {
+function PbTableCtrl($scope, $http, $window,blockUI,$location) {
 
     this.isArray = Array.isArray;
 
@@ -350,9 +350,16 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             });
     }
     
-    
-    $scope.redirectComentario = function(row){
-        var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.id_siu
+    function getUrlParam(param) {
+        var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
+        if (paramValue) {
+         return paramValue[1];
+        }
+     return '';
+  }
+  $scope.procesada=getUrlParam("procesada");
+  $scope.redirectComentario = function(row){
+        var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.id_siu+"&idsesion="+getUrlParam("idsesion")
         window.location.replace(url);
         $scope.properties.datosUsuario = row;
         $scope.properties.cambioPantalla = 'comentarios'

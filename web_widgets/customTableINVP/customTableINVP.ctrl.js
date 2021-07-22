@@ -5,18 +5,13 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
     $scope.cambioOrden = function(orden){
-        if(orden){
-            $scope.properties.orden = ">=";
-        }else{
-            $scope.properties.orden = "<";
-        }
         $scope.$apply();
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
         
     }
     
     $scope.redirecc = function(row){
-        var url = "/portal/resource/app/administrativo/ListadoAspirantesINVP/content/?idsesion="+row.id_sesion+"&idprueba="+row.id_prueba;
+        var url = "/portal/resource/app/administrativo/ListadoAspirantesINVP/content/?idsesion="+row.id_sesion+"&idprueba="+row.id_prueba+"&procesada="+!ctrl.orden;
         window.location.replace(url);
     }
     
@@ -162,13 +157,13 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
     ];
     $(function () {
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
     })
 
 
     $scope.$watch("properties.dataToSend", function (newValue, oldValue) {
         if (newValue !== undefined) {
-            doRequest("POST", $scope.properties.urlPost);
+            doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
         }
         console.log($scope.properties.dataToSend);
     });
@@ -179,7 +174,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             $scope.properties.dataToSend.orderby = order;
             $scope.properties.dataToSend.orientation = "ASC";
         }
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
     }
     
     $scope.filterKeyPress= function(columna,press){
@@ -198,7 +193,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             $scope.properties.dataToSend.lstFiltro.push(obj);
         }
         
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
     }
 
     $scope.lstPaginado = [];
@@ -271,7 +266,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             }
         }
 
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
     }
    $scope.getCampusByGrupo = function (campus) {
         var retorno = "";
@@ -397,7 +392,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             
         }
         
-        doRequest("POST", $scope.properties.urlPost);
+        doRequest("POST", (!ctrl.orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
     }
     
     $scope.sliceTexto = function(texto){
