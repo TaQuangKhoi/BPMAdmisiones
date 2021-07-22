@@ -259,7 +259,7 @@ class PsicometricoDAO {
                     pstm.setInt(26, catPersonaSaludable.persistenceId); 
                 }
                 else {
-                    pstm.setNull(26, Types.INTEGER);    
+                    pstm.setNull(26, Types.INTEGER);
                 }
                 if(catProblemaSaludAtencionContinua.persistenceId != null && catProblemaSaludAtencionContinua.persistenceId != ""){
                     pstm.setInt(27, catProblemaSaludAtencionContinua.persistenceId);    
@@ -494,6 +494,25 @@ class PsicometricoDAO {
 						assert catParentezco instanceof Map;
 						assert vive instanceof Map;
 						
+						strError = strError + " | contador: " + (1 + " - " + (row.nombre != null && row.nombre != "") ? row.nombre : "");
+						strError = strError + " | contador: " + (2 + " - " + (row.apellidos != null && row.apellidos != "") ? row.apellidos : "");
+						strError = strError + " | contador: " + (3 + " - " + (row.empresaTrabaja != null && row.empresaTrabaja != "") ? row.empresaTrabaja : "");
+						strError = strError + " | contador: " + (4 + " - " + (row.otroParentesco != null && row.otroParentesco != "") ? row.otroParentesco : "");
+						strError = strError + " | contador: " + (5 + " - " + caseId);
+						strError = strError + " | contador: " + (6 + " - " + (row.jubilado != null && row.jubilado != "") ? row.jubilado : false);
+						strError = strError + " | contador: " + (7 + " - " + (row.vencido != null && row.vencido != "") ? row.vencido : false);
+						
+						if (catParentezco.persistenceId != null && catParentezco.persistenceId != "") {
+							strError = strError + " | contador: " + (8 + " - " + catParentezco.persistenceId);
+						} else {
+							strError = strError + " | contador: " + (8 + " - Types.INTEGER");
+						}
+						if (vive.persistenceId != null && vive.persistenceId != "") {
+							strError = strError + " | contador: " + (9 + " - " + catParentezco.persistenceId);
+						} else {
+							strError = strError + " | contador: " + (9 + " - Types.INTEGER");
+						}
+						
 						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RELATIVOS);
 						pstm.setString(1, (row.nombre !=null && row.nombre !="") ? row.nombre : "");
 						pstm.setString(2, (row.apellidos !=null && row.apellidos !="") ? row.apellidos : "");
@@ -502,10 +521,20 @@ class PsicometricoDAO {
 						pstm.setString(5, caseId);
 						pstm.setBoolean(6, (row.jubilado !=null && row.jubilado !="") ? row.jubilado : false);
 						pstm.setBoolean(7, (row.vencido !=null && row.vencido !="") ? row.vencido : false);
-						pstm.setInt(8, 1);
-						pstm.setInt(9, 1);
 						
-						pstm.setString(8, caseId);
+						if(catParentezco.persistenceId != null && catParentezco.persistenceId != ""){
+							pstm.setInt(8, catParentezco.persistenceId);
+						}
+						else {
+							pstm.setNull(8, Types.INTEGER);
+						}
+						if(vive.persistenceId != null && vive.persistenceId != ""){
+							pstm.setInt(9, vive.persistenceId);
+						}
+						else {
+							pstm.setNull(9, Types.INTEGER);
+						}
+						
 						pstm.executeUpdate();
 						contador++;
 						strError = strError + " | contador: " + contador;

@@ -45,7 +45,7 @@ class NotificacionDAO {
 	PreparedStatement pstm;
 	float costo1=0,costo2=0,costo3=0,costo4=0
 	String periodo =""
-	public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		
 		Long userLogged = 0L;
@@ -67,14 +67,6 @@ class NotificacionDAO {
 				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 			}
 			plantilla = prop.getProperty("plantilla")
-			
-			/*-------------------------------------------------------------*/
-			LoadParametros objLoad = new LoadParametros();
-			PropertiesEntity objProperties = objLoad.getParametros();
-			/*-------------------------------------------------------------*/
-			
-			
-			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
@@ -218,7 +210,7 @@ class NotificacionDAO {
 				plantilla=plantilla.replace("<!--[CONTENIDO]-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr> <td class=\"col-12\"style=\"font-size: initial; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> [contenido]</td> </tr> </tbody> </table>")
 				plantilla=plantilla.replace("[contenido]", cn.getContenidoCorreo())
 				
-				plantilla=plantilla.replace("[HOST]", objProperties.getUrlHost())
+				plantilla=plantilla.replace("[HOST]", prop.getProperty("HOST"))
 				if(object.mensaje != null) {
 					errorlog += "| mensaje " + object.mensaje
 					plantilla = plantilla.replace("[MENSAJE]", object.mensaje);
@@ -396,7 +388,7 @@ class NotificacionDAO {
 					}
 				}
 			}else if(object.codigo.equals("registrar") && object.isEnviar) {
-				plantilla = plantilla.replace("[href-confirmar]", objProperties.getUrlHost() + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
+				plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
 			}else if (object.codigo.equals("transferencia")) {
 				try {
 					closeCon = validarConexion();
@@ -899,6 +891,7 @@ class NotificacionDAO {
 				    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
 					
 					plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
+					
 				} catch (Exception e) {
 					e.printStackTrace()
 				}
@@ -938,6 +931,7 @@ class NotificacionDAO {
 						periodo.substring(4,6).equals("60")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionagosto:
 						periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
 					    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
+						
 						plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
 					} catch (Exception e) {
 						e.printStackTrace()
@@ -1085,7 +1079,7 @@ class NotificacionDAO {
 			}
 			return plantilla
 		}
-		
+
 		public Result getDocumentoTest(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 			Result resultado = new Result();
 			Long caseId =11001L;
