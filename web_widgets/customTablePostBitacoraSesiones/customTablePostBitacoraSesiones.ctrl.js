@@ -1,10 +1,7 @@
-function PbTableCtrl($scope, $http, $window,blockUI) {
+function PbTableCtrl($scope, $http, $window,blockUI, modalService) {
     var ctrl = this;
     this.isArray = Array.isArray;
     this.orden = true;
-    
-    
-    
     
     this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
@@ -330,7 +327,47 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         return rowspan;
     }
     
+
+    $scope.getResponsableEntrevista = function(responsabledisponible){
+        responsabledisponible ?? = ""
+        if( responsabledisponible.length < 1){
+             swal("¡Psicologo asignado!","Sin asignar (Acreditado)","")
+        }else{
+            var req = {
+                method: "GET",
+                url: `../API/extension/AnahuacRestGet?url=getResponsableEntrevista&p=0&c=10&responsabledisponible=${responsabledisponible}`
+            };
+            return $http(req).success(function (data, status) {
+                
+                swal("¡Psicologo asignado!",data.data[0].responsablesnombre,"")
+            })
+            .error(function (data, status) {
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            }).finally(function () { });
+        }
+    }
     
+    $scope.getResponsables = function(prueba){
+        var req = {
+            method: "GET",
+            url: `../API/extension/AnahuacRestGet?url=getResponsablesPrueba&p=0&c=10&pruebaid=${prueba}`
+        };
+        return $http(req).success(function (data, status) {
+            $scope.properties.responsables = data.data;
+            closeModal();
+            openModal($scope.properties.modalName);
+        })
+        .error(function (data, status) {
+        }).finally(function () { });
+    }
+    
+    function openModal(modalId) {
+        modalService.open(modalId);
+    }
+
+    function closeModal() {
+        modalService.close();
+    }
     
     
 }

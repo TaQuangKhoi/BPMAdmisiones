@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "BitacoraSesiones",
   "name" : "BitacoraSesiones",
-  "lastUpdate" : 1626825304430,
+  "lastUpdate" : 1626904375013,
   "rows" : [
     [
       {
@@ -298,11 +298,213 @@
           "desactivarOrder" : {
             "type" : "constant",
             "value" : true
+          },
+          "responsables" : {
+            "type" : "variable",
+            "value" : "responsables"
+          },
+          "modalName" : {
+            "type" : "constant",
+            "value" : "modalResponsable"
           }
         },
         "reference" : "5627ba42-aa96-4e7c-97cc-bd95879658c2",
         "hasValidationError" : false,
         "id" : "customTablePostBitacoraSesiones"
+      }
+    ],
+    [
+      {
+        "type" : "modalContainer",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "modalId" : {
+            "type" : "constant",
+            "value" : "modalResponsable"
+          },
+          "size" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "animation" : {
+            "type" : "constant",
+            "value" : true
+          }
+        },
+        "reference" : "4db8e5a2-871a-41ca-8cb4-210195299c95",
+        "hasValidationError" : false,
+        "id" : "pbModalContainer",
+        "container" : {
+          "type" : "container",
+          "dimension" : {
+            "xs" : 12
+          },
+          "propertyValues" : { },
+          "reference" : "3a804270-5595-437c-99a2-2e69c439837e",
+          "hasValidationError" : false,
+          "id" : "pbContainer",
+          "rows" : [
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "allowHTML" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "headers" : {
+                    "type" : "constant",
+                    "value" : [
+                      "Responsables"
+                    ]
+                  },
+                  "content" : {
+                    "type" : "expression",
+                    "value" : "responsables"
+                  },
+                  "columnsKey" : {
+                    "type" : "constant",
+                    "value" : [
+                      "responsablesnombre"
+                    ]
+                  },
+                  "selectedRow" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "striped" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "condensed" : {
+                    "type" : "constant",
+                    "value" : true
+                  },
+                  "bordered" : {
+                    "type" : "constant",
+                    "value" : true
+                  }
+                },
+                "reference" : "8c7c2476-77f1-4a7a-a4d5-63578bb0403b",
+                "hasValidationError" : false,
+                "id" : "pbTable"
+              }
+            ],
+            [
+              {
+                "type" : "component",
+                "dimension" : {
+                  "xs" : 12,
+                  "sm" : 12,
+                  "md" : 12,
+                  "lg" : 12
+                },
+                "propertyValues" : {
+                  "cssClasses" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "hidden" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "disabled" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "label" : {
+                    "type" : "interpolation",
+                    "value" : "Cerrar"
+                  },
+                  "alignment" : {
+                    "type" : "constant",
+                    "value" : "right"
+                  },
+                  "buttonStyle" : {
+                    "type" : "constant",
+                    "value" : "primary"
+                  },
+                  "action" : {
+                    "type" : "constant",
+                    "value" : "Close modal"
+                  },
+                  "assign" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "url" : {
+                    "type" : "interpolation"
+                  },
+                  "responseStatusCode" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "dataToSend" : {
+                    "type" : "constant"
+                  },
+                  "dataFromSuccess" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "closeOnSuccess" : {
+                    "type" : "constant",
+                    "value" : false
+                  },
+                  "dataFromError" : {
+                    "type" : "variable",
+                    "value" : ""
+                  },
+                  "targetUrlOnSuccess" : {
+                    "type" : "interpolation"
+                  },
+                  "collectionToModify" : {
+                    "type" : "variable"
+                  },
+                  "modalId" : {
+                    "type" : "constant",
+                    "value" : ""
+                  },
+                  "collectionPosition" : {
+                    "type" : "constant",
+                    "value" : "Last"
+                  },
+                  "valueToAdd" : {
+                    "type" : "constant"
+                  },
+                  "removeItem" : {
+                    "type" : "variable"
+                  }
+                },
+                "reference" : "7c2be4b5-c9ed-438e-887d-c3ad8c27ad1f",
+                "hasValidationError" : false,
+                "id" : "pbButton"
+              }
+            ]
+          ]
+        }
       }
     ]
   ],
@@ -312,6 +514,13 @@
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "0c65e905-c391-491d-90bd-78e9691ebf1b",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 3,
       "external" : false
     },
     {
@@ -597,6 +806,13 @@
         "    {\"name\":\"Usuario paso lista\",\"type\":\"input\"},",
         "    {\"name\":\"Fecha de pase de lista\",\"type\":\"input\"}",
         "]"
+      ],
+      "exposed" : false
+    },
+    "responsables" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

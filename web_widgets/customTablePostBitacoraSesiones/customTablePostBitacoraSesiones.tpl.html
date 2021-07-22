@@ -72,6 +72,10 @@
                             <div ng-switch-when="fecha | date:'dd-MM-yyyy'">
                                 {{fechaFormateo(row.fecha) | date:'dd-MM-yyyy'}}
                             </div>
+                            <div ng-switch-when="responsablesnombre">
+                                <button class="btn btn-default" ng-if="row.cattipoprueba_pid != '1'" ng-click="getResponsables(row.prueba_pid)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                                <button class="btn btn-default" ng-if="row.cattipoprueba_pid == '1'" ng-click="getResponsableEntrevista(row.responsabledisponible_pid)"><i class="glyphicon glyphicon-eye-open"></i></button>
+                            </div>
                             <div ng-switch-default ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
                             </div>
                         </div>
