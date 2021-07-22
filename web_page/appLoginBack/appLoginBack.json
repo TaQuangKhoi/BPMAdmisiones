@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appLoginBack",
   "name" : "appLoginBack",
-  "lastUpdate" : 1624311029850,
+  "lastUpdate" : 1626976347189,
   "rows" : [
     [
       {
@@ -1057,7 +1057,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Correo electrónico : <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "Nombre de usuario"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -1072,7 +1072,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : "objUser.email"
+                        "value" : ""
                       },
                       "type" : {
                         "type" : "constant",
@@ -1131,18 +1131,60 @@
                   "type" : "constant",
                   "value" : "primary"
                 },
-                "objUser" : {
-                  "type" : "variable",
-                  "value" : "objUser"
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
                 },
-                "navigationVar" : {
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation"
+                },
+                "responseStatusCode" : {
                   "type" : "variable",
-                  "value" : "navigationVar"
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "constant"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
                 }
               },
-              "reference" : "d1cf3300-543f-455b-bb34-fa07024ba63b",
+              "reference" : "8e4e6eaa-44ca-4b2f-96e7-4755f4eea355",
               "hasValidationError" : false,
-              "id" : "customCustomBtnRequestChangePassword"
+              "id" : "pbButton"
             }
           ]
         ]
@@ -1413,13 +1455,6 @@
       "type" : "constant",
       "value" : [
         "login"
-      ],
-      "exposed" : false
-    },
-    "objUser" : {
-      "type" : "json",
-      "value" : [
-        "{ \"email\": \"\", \"password\": \"\" }"
       ],
       "exposed" : false
     }
