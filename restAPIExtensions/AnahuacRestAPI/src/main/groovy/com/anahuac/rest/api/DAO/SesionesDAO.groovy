@@ -5424,6 +5424,44 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	public Result getResultadosINVPIndividuales() {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		String where =""
+		String orderby= " ORDER BY ri.fecha_registro "
+		String orientation =" DESC "
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion()
+			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
+			pstm = con.prepareStatement("SELECT distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END                   AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro FROM resultadoinvp ri INNER JOIN detallesolicitud ds on ds.idbanner=ri.idbanner INNER JOIN solicituddeadmision sda on sda.caseid::character varying=ds.caseid INNER JOIN catregistro cr on cr.caseid=sda.caseid INNER JOIN sesiones s on s.persistenceid=ri.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2  "+ where + orderby + orientation)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	public Result getSesiones(String sesion, String fecha, String uni, String id) {
 		Result resultado = new Result()
 		Boolean closeCon = false
@@ -5733,23 +5771,29 @@ class SesionesDAO {
 				}	
 			}
 			try {
+				TimeZone tz = TimeZone.getTimeZone("UTC")
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS") // Quoted "Z" to indicate UTC, no timezone offset
+				df.setTimeZone(tz)
+				String nowAsISO = df.format(new Date())
 				pstm = con.prepareStatement("SELECT idbanner,escala,puntuacion FROM resultadoinvp where idbanner=? and sesiones_pid=?")
 				pstm.setString(1, idbanner)
 				pstm.setLong(2, Long.parseLong(sesiones_pid))
 				rs = pstm.executeQuery()
 				if(!rs.next()) {
 					for (Map.Entry<String,Integer> entry: respuestainvp) {
-						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0)")
+						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion,fecha_registro) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0,?)")
 						pstm.setString(1, idbanner)
 						pstm.setString(2, entry.getKey())
 						pstm.setInt(3, entry.getValue())
 						pstm.setLong(4, Long.parseLong(sesiones_pid))
+						pstm.setString(5, nowAsISO)
 						pstm.execute()
 					}
 				}
 			}
 			catch(Exception test) {
-				
+				resultado.setError("Error")
+				resultado.setError_info(test.getMessage())
 			}
 			
 			rows.add(respuestainvp)

@@ -67,6 +67,16 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 			}
 			plantilla = prop.getProperty("plantilla")
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			
+			errorlog += "| username = "+ objProperties.getUsuario();
+			errorlog += "| password = "+ objProperties.getPassword();
+			errorlog += "| host =     "+objProperties.getUrlHost();
+			/*-------------------------------------------------------------*/
+
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
@@ -168,8 +178,6 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			
 			//SELECT * from catnotificaciones where caseid=(SELECT caseid FROM procesocaso where campus = 'CAMPUS-MNORTE' and proceso='CatNotificaciones') and codigo='registrar'
 			
-			
-			
 			errorlog += "| se obtiene el catNotificaciones para generar el b64 del documento "
 
 			errorlog += "|  catNotificacionDAO"
@@ -210,7 +218,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				plantilla=plantilla.replace("<!--[CONTENIDO]-->", "<table width=\"80%\"> <thead></thead> <tbody> <tr> <td class=\"col-12\"style=\"font-size: initial; font-family: 'Source Sans Pro', Arial, Tahoma, Geneva, sans-serif;\"> [contenido]</td> </tr> </tbody> </table>")
 				plantilla=plantilla.replace("[contenido]", cn.getContenidoCorreo())
 				
-				plantilla=plantilla.replace("[HOST]", prop.getProperty("HOST"))
+				plantilla=plantilla.replace("[HOST]", objProperties.getUrlHost())
 				if(object.mensaje != null) {
 					errorlog += "| mensaje " + object.mensaje
 					plantilla = plantilla.replace("[MENSAJE]", object.mensaje);
@@ -388,7 +396,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					}
 				}
 			}else if(object.codigo.equals("registrar") && object.isEnviar) {
-				plantilla = plantilla.replace("[href-confirmar]", prop.getProperty("HOST") + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
+				plantilla = plantilla.replace("[href-confirmar]", objProperties.getUrlHost() + "/bonita/apps/login/activate/?correo=" + object.correo + "");	
 			}else if (object.codigo.equals("transferencia")) {
 				try {
 					closeCon = validarConexion();

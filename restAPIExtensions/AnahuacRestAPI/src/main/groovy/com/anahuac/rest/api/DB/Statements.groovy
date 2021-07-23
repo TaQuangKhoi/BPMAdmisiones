@@ -444,6 +444,15 @@ class Statements {
 	public static final String INSERT_TESTPSICOMETRICO_RELATIVOS = "INSERT INTO TestPsicometricoRelativos(nombre,apellidos,empresaTrabaja,otroParentesco,caseId,jubilado,vencido,catparentezco_pid,vive_pid,persistenceversion) VALUES (?,?,?,?,?,?,?,?,?,0)";
 	public static final String DELETE_TESTPSICOMETRICO_RELATIVOS = "DELETE FROM TestPsicometricoRelativos WHERE caseId=? and vencido is not true";
 	
+	public static final String INSERT_TESTPSICOMETRICO_CARRERASREC = "INSERT INTO TestPsicometricoCarrerasRec(orden, comentarios, caseId, vencido, carrera_pid, persistenceversion) VALUES (?, ?, ?, ?, ?, 0)";
+	public static final String DELETE_TESTPSICOMETRICO_CARRERASREC = "DELETE FROM TestPsicometricoCarrerasRec WHERE caseId=? and vencido is not true";
+	
+	public static final String INSERT_TESTPSICOMETRICO_RASGOS = "INSERT INTO TestPsicometricoRasgos(rasgo_pid, calificacion_pid, caseId, vencido, persistenceversion) VALUES (?, ?, ?, ?, 0)";
+	public static final String DELETE_TESTPSICOMETRICO_RASGOS = "DELETE FROM TestPsicometricoRasgos WHERE caseId=? and vencido is not true";
+	
+	public static final String INSERT_TESTPSICOMETRICO_TERAPIAS = "INSERT INTO TestPsicometricoTerapias(tipoTerapia, cuantoTiempo,recibidoTerapiaString,otraTerapia,caseId,vencido,catTipoTerapia_pid,catRecibidoTerapia_pid,persistenceversion) VALUES (?,?,?,?,?,?,?,?,0)";
+	public static final String DELETE_TESTPSICOMETRICO_TERAPIAS = "DELETE FROM TestPsicometricoTerapias WHERE caseId=? and vencido is not true";
+	
 	/***********************ARTURO ZAMORANO FIN*******************************/
 	/***********************MARIO ICEDO*******************************/
 

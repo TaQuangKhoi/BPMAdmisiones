@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "INVP",
   "name" : "INVP",
-  "lastUpdate" : 1626895147615,
+  "lastUpdate" : 1627078153352,
   "rows" : [
     [
       {
@@ -893,14 +893,24 @@
                           "Nombre aspirante",
                           "Sesión id",
                           "Sesión",
-                          "Fecha"
+                          "Fecha prueba",
+                          "Fecha registro"
                         ]
                       },
                       "content" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "getResultadosINVPIndividuales.data"
                       },
                       "columnsKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : [
+                          "idbanner",
+                          "nombre",
+                          "sesion_id",
+                          "sesion",
+                          "fecha_prueba",
+                          "fecha_registro"
+                        ]
                       },
                       "selectedRow" : {
                         "type" : "variable",
@@ -1808,6 +1818,13 @@
     },
     "getCampus" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "getResultadosINVPIndividuales" : {
+      "type" : "url",
+      "value" : [
+        "https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=getResultadosINVPIndividuales&p=0&c=9999"
+      ],
       "exposed" : false
     }
   },

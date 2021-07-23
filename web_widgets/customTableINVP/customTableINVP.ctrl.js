@@ -12,7 +12,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     $scope.redirecc = function(row){
         var url = "/portal/resource/app/administrativo/ListadoAspirantesINVP/content/?idsesion="+row.id_sesion+"&idprueba="+row.id_prueba+"&procesada="+!ctrl.orden;
-        window.location.replace(url);
+        window.location.href= url;
     }
     
     this.isClickable = function () {

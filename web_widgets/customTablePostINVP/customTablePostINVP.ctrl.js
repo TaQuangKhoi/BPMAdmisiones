@@ -340,7 +340,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,$location) {
                 $scope.properties.datosUsuario = data.data[0];
                 $scope.properties.cambioPantalla = 'lista'
                 var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idsesion="+row.sesion.persistenceId+"&idprueba="+row.prueba.persistenceId;
-                window.location.replace(url);
+                window.location.redirect=url;
             })
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
@@ -360,10 +360,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,$location) {
   $scope.procesada=getUrlParam("procesada");
   $scope.redirectComentario = function(row){
         var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.id_siu+"&idsesion="+getUrlParam("idsesion")
-        window.location.replace(url);
-        $scope.properties.datosUsuario = row;
-        $scope.properties.cambioPantalla = 'comentarios'
-        window.scrollTo(0,0);
+        window.location.href= url;
     }
     
     
