@@ -64,7 +64,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 swal("¡Aviso!", "Debe agregar el estado de la preparatoria", "warning");
             }else if($scope.properties.datosPreparatoria.ciudadBachillerato === ""){
                 swal("¡Aviso!", "Debe agregar la ciudad de la preparatoria", "warning");
-            }else if($scope.properties.dataToSend.promediogeneral === "" || $scope.properties.dataToSend.promediogeneral === undefined || $scope.properties.dataToSend.promediogeneral === null || isNaN($scope.properties.dataToSend.promediogeneral) ){
+            }else if($scope.properties.dataToSend.promediogeneral === "" || $scope.properties.dataToSend.promediogeneral === undefined || $scope.properties.dataToSend.promediogeneral === null || (isNaN($scope.properties.dataToSend.promediogeneral) && $scope.properties.datosPreparatoria.paisBachillerato === "México")  ){
                 swal("¡Aviso!", "Debe agregar el promedio", "warning");
             }else if($scope.properties.dataToSend.resultadopaa === "" || $scope.properties.dataToSend.resultadopaa === undefined || $scope.properties.dataToSend.resultadopaa === null || isNaN($scope.properties.dataToSend.resultadopaa) ){
                 swal("¡Aviso!", "Debe agregar el puntaje PAA", "warning");

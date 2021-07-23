@@ -1,17 +1,11 @@
-<div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstMembership.length>1">
-    <!--<select class="form-control" ng-model="filtroCampus"-->
-    <!--    ng-options="getCampusByGrupo(member.group_id.name) as getCampusByGrupo(member.group_id.name) for member in lstMembership"-->
-    <!--    ng-change="addFilter()">-->
-    <!--    <option style="display:none" value="">-->
-    <!--        Seleccionar campus-->
-    <!--    </option>-->
-    <!--</select>-->
-    
-    <select class="form-control" ng-model="filtroCampus" ng-options="getCampusByGrupo(member) as getCampusByGrupo(member) for member in lstCampusByUser" ng-change="addFilter()">
-        <!--<option style="display:none" value="">-->
-        <!--    Seleccionar campus-->
-        <!--</option>-->
-    </select>
+<div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstCampusByUser.length>2">
+     <div style="margin-bottom:15px;" class="col-xs-12" ng-show="lstCampusByUser.length>2">
+        <select class="form-control" ng-model="filtroCampus" ng-options="getCampusByGrupo(member) as getCampusByGrupo(member) for member in lstCampusByUser" ng-change="addFilter()">
+        <option style="display:none" value="">
+            Seleccionar campus
+        </option>
+        </select>
+    </div>
 </div>
 <div style="margin-bottom:15px;" class="col-xs-offset-9 col-xs-3">
     <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit">
