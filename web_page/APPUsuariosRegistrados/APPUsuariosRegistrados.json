@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPUsuariosRegistrados",
   "name" : "APPUsuariosRegistrados",
-  "lastUpdate" : 1626798767562,
+  "lastUpdate" : 1627064388933,
   "rows" : [
     [
       {
@@ -3958,11 +3958,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "preparatoriaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "datosPreparatoria.paisBachillerato"
                 }
               },
-              "reference" : "e9119c0f-b3b7-4a87-948e-18986b11c2fc",
+              "reference" : "f1150438-ae50-4b86-af5c-35f1fef03674",
               "hasValidationError" : false,
-              "id" : "customInputNumericoSolicitudUpdate"
+              "id" : "customInputNumericoSolicitudPromedio"
             }
           ],
           [
@@ -6995,6 +6999,42 @@
                         "value" : ""
                       },
                       "hidden" : {
+                        "type" : "expression",
+                        "value" : "promedioAceptado"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "El promedio general de un bachillerato procedente de mexica solo acepta números"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 4"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "ce379125-c9a5-47a4-8555-6d23a3483642",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
                         "type" : "constant",
                         "value" : true
                       },
@@ -7135,8 +7175,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "!promedioAceptado"
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -8926,6 +8966,22 @@
       "value" : [
         "if($data.catUsuarios_selectedNR.catTipoAdmision.clave == \"AA\"){",
         "    catUsuarios_selectedNR.cbcoincide2  = true",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "promedioAceptado" : {
+      "type" : "expression",
+      "value" : [
+        "let letter = /^[a-zA-Z]+$/;",
+        "if($data.catUsuarios_selectedNR.promediogeneral.toString().match(letter)){",
+        "    if($data.datosPreparatoria.paisBachillerato !='México'){",
+        "        return true;",
+        "    }else{",
+        "        return false;",
+        "    }",
+        "}else{",
+        "    return true;",
         "}"
       ],
       "exposed" : false

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1627058929394,
+  "lastUpdate" : 1627063919309,
   "rows" : [
     [
       {
@@ -27598,7 +27598,8 @@
       "type" : "expression",
       "value" : [
         "let ocultarDescuento=false",
-        "if( typeof $data.objSolicitudDeAdmision.promedioGeneral !== 'string'){",
+        "let letter = /^[a-zA-Z]+$/;",
+        "if(!$data.objSolicitudDeAdmision.promedioGeneral.toString().match(letter)){",
         "    var promedio = parseFloat($data.objSolicitudDeAdmision.promedioGeneral);",
         "    if(promedio > 8 && $data.perteneceRed){",
         "        ocultarDescuento = true;",
@@ -28648,7 +28649,9 @@
     "promedioAceptado" : {
       "type" : "expression",
       "value" : [
-        "if( typeof $data.objSolicitudDeAdmision.promedioGeneral === 'string'){",
+        "console.log(\"promedio\")",
+        "let letter = /^[a-zA-Z]+$/;",
+        "if($data.objSolicitudDeAdmision.promedioGeneral.toString().match(letter)){",
         "    if($data.datosPreparatoria.paisBachillerato !='México'){",
         "        return true;",
         "    }else{",
