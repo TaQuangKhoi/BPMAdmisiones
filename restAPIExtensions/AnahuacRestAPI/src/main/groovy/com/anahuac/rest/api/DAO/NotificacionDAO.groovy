@@ -45,7 +45,7 @@ class NotificacionDAO {
 	PreparedStatement pstm;
 	float costo1=0,costo2=0,costo3=0,costo4=0
 	String periodo =""
-	public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+public Result generateHtml(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		
 		Long userLogged = 0L;
@@ -71,10 +71,13 @@ class NotificacionDAO {
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
+			
+			
+			errorlog += "| username = "+ objProperties.getUsuario();
+			errorlog += "| password = "+ objProperties.getPassword();
+			errorlog += "| host =     "+objProperties.getUrlHost();
 			/*-------------------------------------------------------------*/
-			
-			
-			
+
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
@@ -899,6 +902,7 @@ class NotificacionDAO {
 				    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
 					
 					plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
+					
 				} catch (Exception e) {
 					e.printStackTrace()
 				}
@@ -938,6 +942,7 @@ class NotificacionDAO {
 						periodo.substring(4,6).equals("60")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionagosto:
 						periodo.substring(4,6).equals("35")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionMayo:
 					    periodo.substring(4,6).equals("75")?objSolicitudDeAdmision.get(0).getCatGestionEscolar().inscripcionSeptiembre:"0")
+						
 						plantilla=plantilla.replace("[LICENCIATURA-COSTO1]", costo1.toString())
 					} catch (Exception e) {
 						e.printStackTrace()
@@ -1085,7 +1090,7 @@ class NotificacionDAO {
 			}
 			return plantilla
 		}
-		
+
 		public Result getDocumentoTest(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 			Result resultado = new Result();
 			Long caseId =11001L;

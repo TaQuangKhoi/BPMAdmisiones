@@ -5691,7 +5691,7 @@ class SesionesDAO {
 		Boolean closeCon = false
 		String where =""
 		String idbanner=object.idbanner//"00845125"
-		String respuesta = object.respuesta//"FCCCFCFCCCF*CCFFFFCCFFFFFFFFCFFFF*FFFFFFFFCFCCCFCFCFFFCFCCFFCCCCFFCFFFFFFFCCFFCFFFCFFCFCFCCFCFCFFCFFFCFFFCFCCFFCCFCFCFFC*CFCCCFCFFCCFFFFFFCCCCFFFFFCFFCCFFCFCFFCCFCCCFFFFCFFFCFCCFCFCFFFFCCCCFFCFCFFFFCFFFCCFCCCFCCCFFFFFFFFFCCCFCFFCFCFFFFFCFCFFFCCFFFFCFFFFFCFFFFCCCCFFCCFCFCCFFFCFCFCFFFFCFFFFCCFCFCFCFFFFFFFFFFFCFFFCCFFFCFFCFFFFFFFFCCFFFCFFFFCFFCFCCFFFCCCFCFFFFCCFFCFCFFFFCFCFFFFFFFFFFCFCFFCFFCFFFFFFCFFCFCCCCFFFCFFFCFCFFFFFCFFFCCFCFFFFFFFFCCCFCCFFFFFFFFCCFCFFCCCCFFFFFCFFFFCCCFFCFCFFFFFFFFFFCFCCCFCFFFFCFFCFFFFCFFFFFFFFFCFCFCFFFFFFFCCCCFFCFFFCFFFFFCFFFCFFFFFFCCCCCFCFFF"
+		String respuesta = object.respuestas//"FCCCFCFCCCF*CCFFFFCCFFFFFFFFCFFFF*FFFFFFFFCFCCCFCFCFFFCFCCFFCCCCFFCFFFFFFFCCFFCFFFCFFCFCFCCFCFCFFCFFFCFFFCFCCFFCCFCFCFFC*CFCCCFCFFCCFFFFFFCCCCFFFFFCFFCCFFCFCFFCCFCCCFFFFCFFFCFCCFCFCFFFFCCCCFFCFCFFFFCFFFCCFCCCFCCCFFFFFFFFFCCCFCFFCFCFFFFFCFCFFFCCFFFFCFFFFFCFFFFCCCCFFCCFCFCCFFFCFCFCFFFFCFFFFCCFCFCFCFFFFFFFFFFFCFFFCCFFFCFFCFFFFFFFFCCFFFCFFFFCFFCFCCFFFCCCFCFFFFCCFFCFCFFFFCFCFFFFFFFFFFCFCFFCFFCFFFFFFCFFCFCCCCFFFCFFFCFCFFFFFCFFFCCFCFFFFFFFFCCCFCCFFFFFFFFCCFCFFCCCCFFFFFCFFFFCCCFFCFCFFFFFFFFFFCFCCCFCFFFFCFFCFFFFCFFFFFFFFFCFCFCFFFFFFFCCCCFFCFFFCFFFFFCFFFCFFFFFFCCCCCFCFFF"
 		String sesiones_pid=object.id_sesion//"1"
 		List < Map < String, Object >> respuestas = new ArrayList < Map < String, Object >> ();
 		List < Map < String, String >> additionalData = new ArrayList < Map < String, String >> ();
@@ -5733,17 +5733,22 @@ class SesionesDAO {
 				}	
 			}
 			try {
+				TimeZone tz = TimeZone.getTimeZone("UTC")
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS") // Quoted "Z" to indicate UTC, no timezone offset
+				df.setTimeZone(tz)
+				String nowAsISO = df.format(new Date())
 				pstm = con.prepareStatement("SELECT idbanner,escala,puntuacion FROM resultadoinvp where idbanner=? and sesiones_pid=?")
 				pstm.setString(1, idbanner)
 				pstm.setLong(2, Long.parseLong(sesiones_pid))
 				rs = pstm.executeQuery()
 				if(!rs.next()) {
 					for (Map.Entry<String,Integer> entry: respuestainvp) {
-						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0)")
+						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion,fecha_registro) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0),?")
 						pstm.setString(1, idbanner)
 						pstm.setString(2, entry.getKey())
 						pstm.setInt(3, entry.getValue())
 						pstm.setLong(4, Long.parseLong(sesiones_pid))
+						pstm.setString(5, nowAsISO)
 						pstm.execute()
 					}
 				}

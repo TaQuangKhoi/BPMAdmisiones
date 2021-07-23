@@ -133,12 +133,28 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
      
      
     ctrl.displayPage = function(token) {
-        if(ctrl.pageToken === "autodescripcion" && $scope.properties.currentTaskName === "Autodescripción"){
+    	if(token === "autodescripcion"){
+    		if($scope.properties.processDataV2.version == undefined){
+        		$timeout(function(){
+        			console.log("displayPage timer")
+        			ctrl.displayPage(token);
+                }, 100)
+        	}
+        	else {
+	        	if(parseFloat($scope.properties.processDataV2.version)>parseFloat("1.5")) {
+					token = "autodescripcionV2";
+				} else {
+	            	token = "autodescripcion";
+				}
+        	}
+    	}
+
+    	if(ctrl.pageToken === "autodescripcion" && $scope.properties.currentTaskName === "Autodescripción"){
             $scope.tokenNuevo = token;
             $scope.properties.accionModal = "salir";
             modalService.open($scope.properties.idModalConfirmacionAD);
         } else {
-            ctrl.redirectToPage(token);
+        	ctrl.redirectToPage(token);
         }
     };
 
@@ -235,17 +251,26 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     }
      
     function setApplication(){
+        console.log("testDAta");
         var application = $scope.properties.application;
         ctrl.applicationToken = application.token;
         if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago"){
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción"){
-
-        	if(parseFloat($scope.properties.processData.version)>parseFloat("1.5")) {
-				ctrl.pageToken = "autodescripcionV2";
-			} else {
-            	ctrl.pageToken = "autodescripcion";
-			}
+        	
+        	if($scope.properties.processDataV2 == undefined){
+        		$timeout(function(){
+        			console.log("setApplication timer")
+        			setApplication();
+                }, 100)
+        	}
+        	else {
+	        	if(parseFloat($scope.properties.processDataV2.version)>parseFloat("1.5")) {
+					ctrl.pageToken = "autodescripcionV2";
+				} else {
+	            	ctrl.pageToken = "autodescripcion";
+				}
+        	}
         } else if ($scope.properties.currentTaskName === "Seleccionar cita"){
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial"){

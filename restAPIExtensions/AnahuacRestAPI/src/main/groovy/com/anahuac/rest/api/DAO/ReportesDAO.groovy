@@ -62,7 +62,8 @@ class ReportesDAO {
 
 
 
-            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
+            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD, s.persistenceid as IdSesion, s.nombre as NombreSesion FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
+			errorLog += consulta;
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
             pstm = con.prepareStatement(consulta)
@@ -93,8 +94,8 @@ class ReportesDAO {
 
 
 
-            def titulos = ["Nombre", "Apaterno", "Amaterno", "Email", "Usuario", "Clave", "Edad", "Matrícula", "Curp", "Sesión", "Fecha examen", "Campus(VPD)"]
-            def titulosRua = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesión", "fecha examen", "campus(VPD)"]
+            def titulos = ["Nombre", "Apaterno", "Amaterno", "Email", "Usuario", "Clave", "Edad", "Matrícula", "Curp", "Sesión", "Fecha examen", "Campus(VPD)","IdSesión","NombreSesión"]
+            def titulosRua = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesión", "fecha examen", "campus(VPD)","idSesión","nombreSesión"]
             if (object.encabezado) {
                 fw.write((titulosRua.join(",") + "\r\n").getBytes());
                 Row headersRow = sheet.createRow(rowCount);
@@ -113,7 +114,7 @@ class ReportesDAO {
             SimpleDateFormat sdfin2 = new SimpleDateFormat("yyyy-MM-dd't'HH:mm:ss.SSS")
             SimpleDateFormat sdfout = new SimpleDateFormat("yyyy/MM/dd")
 
-            def info = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesion", "fecha_examen", "campusvpd"]
+            def info = ["nombre", "apaterno", "amaterno", "email", "usuario", "clave", "edad", "matricula", "curp", "sesion", "fecha_examen", "campusvpd","idsesion","nombresesion"]
             List < Cell > body;
             String line = ""
             for (int i = 0; i < lstParams.size(); ++i) {
@@ -750,7 +751,7 @@ class ReportesDAO {
 			where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ")"
 
 
-			String consulta = "SELECT DISTINCT periodo.clave periodo, registrados           nosolicitantes, cda.idbanner  nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END                      AS nombres, carrera.nombre           AS carrera, tipoadmision.descripcion    tipodeadmision, preparatoria.descripcion    preparatoria, sda.promediogeneral         promedio, sesion.nombre            AS sesion, '20-may-21'              AS fechaaplicacionexamenpaan, 'RE-Rechazado'           AS resultado, '29-may-21'              AS fechadeadmision, sda.fechanacimiento, '3'                   AS mmpi, ''                    AS eemi, ''                    AS eemn, ''                    AS eema, ''                    AS eemq, ''                    AS eems, ''                    AS eemt, sda.correoelectronico    email, sda.telefono, sda.telefonocelular celular FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint INNER JOIN catcampus cc ON cc.persistenceid=sda.catcampusestudio_pid INNER JOIN sesionaspirante sa ON sa.username=sda.correoelectronico INNER JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid INNER JOIN pruebas prueba on sa.sesiones_pid=prueba.sesion_pid and cattipoprueba_pid=4 INNER JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid INNER JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid INNER JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid INNER JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid INNER JOIN catcampus campusingreso ON campusingreso.persistenceid=catcampusestudio_pid INNER JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid INNER JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid " + where
+			String consulta = "SELECT *, row_number() over (ORDER BY nomatricula) nosolicitantes FROM (SELECT DISTINCT entrevista.aplicacion fechaentrevista, invp.aplicacion       fechainvp, eac.aplicacion        fechaeac, periodo.clave         periodo, cda.idbanner          nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END                      AS nombres, carrera.nombre           AS carrera, tipoadmision.descripcion    tipodeadmision, preparatoria.descripcion    preparatoria, sda.promediogeneral         promedio, sesion.nombre            AS sesion, '20-may-21'              AS fechaaplicacionexamenpaan, 'RE-Rechazado'           AS resultado, '29-may-21'              AS fechadeadmision, sda.fechanacimiento, sda.correoelectronico email, sda.telefono, sda.telefonocelular celular FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint INNER JOIN catcampus cc ON cc.persistenceid=sda.catcampusestudio_pid INNER JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true INNER JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid INNER JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid INNER JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid INNER JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid INNER JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid INNER JOIN catcampus campusingreso ON campusingreso.persistenceid=catcampusestudio_pid INNER JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid INNER JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid INNER JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND asistencia=true) INNER JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND asistencia=true) INNER JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND asistencia=true) "+ where+" )datos " 
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
 			pstm = con.prepareStatement(consulta)
@@ -782,7 +783,7 @@ class ReportesDAO {
 
 
 
-			def titulos = ["Periodo","No. Solicitante","Número de matrícula","Apellidos","Nombres","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión(global)", "Fecha aplicación examen PAAN","Resultado", "Fecha de admisión","Fecha de nacimiento", "MMPI","EEMI","EEMN","EEMA","EEMQ","EEMS","EEMT", "Correo personal","Teléfono permanente","Teléfono celular"]
+			def titulos = ["No. Solicitante","Periodo","Id Aspirante","Apellidos","Nombres","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión(global)", "Fecha aplicación examen EAC","Fecha aplicación INVP","Fecha Entrevista","Resultado", "Fecha de admisión", "Correo personal","Teléfono permanente","Teléfono celular"]
 			if (object.encabezado) {
 				fw.write((titulos.join(",") + "\r\n").getBytes());
 				Row headersRow = sheet.createRow(rowCount);
@@ -798,7 +799,7 @@ class ReportesDAO {
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.LEFT);
 
-			def info = ["periodo","nosolicitantes","nomatricula","apellidos","nombres","carrera","tipodeadmision","preparatoria","promedio","sesion","fechaaplicacionexamenpaan","resultado", "fechadeadmision","fechanacimiento","MMPI","EEMI","EEMN","EEMA","EEMQ","EEMS","EEMT","email","telefono","celular"]
+			def info = ["nosolicitantes","periodo","nomatricula","apellidos","nombres","carrera","tipodeadmision","preparatoria","promedio","sesion","fechaeac","fechainvp","fechaentrevista","resultado", "fechadeadmision","email","telefono","celular"]
 			List < Cell > body;
 			String line = ""
 			for (int i = 0; i < lstParams.size(); ++i) {
@@ -809,10 +810,10 @@ class ReportesDAO {
 				for (int j = 0; j < info.size(); ++j) {
 					body.add(row.createCell(j))
 					try {
-						body[j].setCellValue(lstParams[i][info.get(j)])
+						body[j].setCellValue( lstParams[i][info.get(j)])
 						line += (lstParams[i][info.get(j)]) + ((info.get(j).equals("observaciones")) ? "\r\n" : ",")
 					} catch (Exception e) {
-						body[j].setCellValue(lstParams[i][info.get(j)])
+						body[j].setCellValue( lstParams[i][info.get(j)])
 						line += (lstParams[i][info.get(j)]) + ((info.get(j).equals("observaciones")) ? "\r\n" : ",")
 					}
 

@@ -163,6 +163,7 @@ class PsicometricoDAO {
 
 		def catParentezco = null;
 		def vive = null;
+		def carrera = null;
 		
         Boolean closeCon = false;
         
@@ -259,7 +260,7 @@ class PsicometricoDAO {
                     pstm.setInt(26, catPersonaSaludable.persistenceId); 
                 }
                 else {
-                    pstm.setNull(26, Types.INTEGER);    
+                    pstm.setNull(26, Types.INTEGER);
                 }
                 if(catProblemaSaludAtencionContinua.persistenceId != null && catProblemaSaludAtencionContinua.persistenceId != ""){
                     pstm.setInt(27, catProblemaSaludAtencionContinua.persistenceId);    
@@ -295,7 +296,6 @@ class PsicometricoDAO {
             strError = strError + " | " + Statements.DELETE_TESTPSICOMETRICO_FIENTESINFLUYE;
             
             /*==============================================TESTPSICOMETRICO_FIENTESINFLUYE INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_FIENTESINFLUYE INICIO==============================================";
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_FIENTESINFLUYE);
             pstm.setInt(1, testPsicomInput_persistenceId);
             pstm.executeUpdate();
@@ -318,9 +318,7 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_FIENTESINFLUYE FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_FIENTESINFLUYE FIN==============================================";
             /*==============================================TESTPSICOMETRICO_RAZONESINGRESO INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_RAZONESINGRESO INICIO==============================================";
             contador = 0;
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_RAZONESINGRESO);
             pstm.setInt(1, testPsicomInput_persistenceId);
@@ -344,9 +342,7 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_RAZONESINGRESO FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_RAZONESINGRESO FIN==============================================";
             /*==============================================TESTPSICOMETRICO_DISCAPACIDADES INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_DISCAPACIDADES INICIO==============================================";
             contador = 0;
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_DISCAPACIDADES);
             pstm.setInt(1, testPsicomInput_persistenceId);
@@ -370,9 +366,7 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_DISCAPACIDADES FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_DISCAPACIDADES FIN==============================================";
             /*==============================================TESTPSICOMETRICO_CUSTOSRECOMEND INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_CUSTOSRECOMEND INICIO==============================================";
             contador = 0;
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_CUSTOSRECOMEND);
             pstm.setInt(1, testPsicomInput_persistenceId);
@@ -396,9 +390,7 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_CUSTOSRECOMEND FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_CUSTOSRECOMEND FIN==============================================";
             /*==============================================TESTPSICOMETRICO_PROBLEMASSALUD INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_PROBLEMASSALUD INICIO==============================================";
             contador = 0;
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_PROBLEMASSALUD);
             pstm.setInt(1, testPsicomInput_persistenceId);
@@ -422,9 +414,7 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_PROBLEMASSALUD FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_PROBLEMASSALUD FIN==============================================";
             /*==============================================TESTPSICOMETRICO_TIPOASISTENCIA INICIO==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_TIPOASISTENCIA INICIO==============================================";
             contador = 0;
             pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_TIPOASISTENCIA);
             pstm.setInt(1, testPsicomInput_persistenceId);
@@ -448,7 +438,6 @@ class PsicometricoDAO {
                 }
             }
             /*==============================================TESTPSICOMETRICO_TIPOASISTENCIA FIN==============================================*/
-            strError = strError + " | " + "==============================================TESTPSICOMETRICO_TIPOASISTENCIA FIN==============================================";
             /*========================================================TEST PSICOMETRICO ACCIONES========================================================*/
 			/*========================================================TEST PSICOMETRICO OBSERVACIONES ACCIONES========================================================*/
 			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_OBSERVACIONES);
@@ -502,10 +491,20 @@ class PsicometricoDAO {
 						pstm.setString(5, caseId);
 						pstm.setBoolean(6, (row.jubilado !=null && row.jubilado !="") ? row.jubilado : false);
 						pstm.setBoolean(7, (row.vencido !=null && row.vencido !="") ? row.vencido : false);
-						pstm.setInt(8, 1);
-						pstm.setInt(9, 1);
 						
-						pstm.setString(8, caseId);
+						if(catParentezco.persistenceId != null && catParentezco.persistenceId != ""){
+							pstm.setInt(8, catParentezco.persistenceId);
+						}
+						else {
+							pstm.setNull(8, Types.INTEGER);
+						}
+						if(vive.persistenceId != null && vive.persistenceId != ""){
+							pstm.setInt(9, vive.persistenceId);
+						}
+						else {
+							pstm.setNull(9, Types.INTEGER);
+						}
+						
 						pstm.executeUpdate();
 						contador++;
 						strError = strError + " | contador: " + contador;
@@ -515,7 +514,43 @@ class PsicometricoDAO {
 			
 			
 			/*========================================================TEST PSICOMETRICO RELATIVOS ACCIONES========================================================*/
-            
+			/*========================================================TEST PSICOMETRICO RELATIVOS ACCIONES========================================================*/
+			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_CARRERASREC);
+			pstm.setString(1, caseId);
+			pstm.executeUpdate();
+			strError = strError + " | " + "-------------------------------------------";
+			if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+				strError = strError + " | " + "-------------------------------------------";
+				if (object.testPsicomCarrerasRecInput != null && object.testPsicomCarrerasRecInput != "") {
+					assert object.testPsicomCarrerasRecInput instanceof List;
+					for (def row: object.testPsicomCarrerasRecInput) {
+						carrera = row.carrera;
+						
+						assert carrera instanceof Map;
+												
+						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_CARRERASREC);
+						pstm.setInt(1, (row.orden !=null && row.orden !="") ? row.orden : "");
+						pstm.setString(2, (row.comentarios !=null && row.comentarios !="") ? row.comentarios : "");
+						pstm.setString(3, caseId);
+						pstm.setBoolean(4, (row.vencido !=null && row.vencido !="") ? row.vencido : "");
+						
+						if(carrera.persistenceId != null && carrera.persistenceId != ""){
+							pstm.setInt(5, carrera.persistenceId);
+						}
+						else {
+							pstm.setNull(5, Types.INTEGER);
+						}
+						
+						pstm.executeUpdate();
+						contador++;
+						strError = strError + " | contador: " + contador;
+					}
+				}
+			}
+			
+			
+			/*========================================================TEST PSICOMETRICO RELATIVOS ACCIONES========================================================*/
+			//
             
 
             resultado.setError_info(strError);

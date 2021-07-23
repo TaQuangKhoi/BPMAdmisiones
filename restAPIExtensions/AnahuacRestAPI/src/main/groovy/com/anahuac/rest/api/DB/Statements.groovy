@@ -444,6 +444,9 @@ class Statements {
 	public static final String INSERT_TESTPSICOMETRICO_RELATIVOS = "INSERT INTO TestPsicometricoRelativos(nombre,apellidos,empresaTrabaja,otroParentesco,caseId,jubilado,vencido,catparentezco_pid,vive_pid,persistenceversion) VALUES (?,?,?,?,?,?,?,?,?,0)";
 	public static final String DELETE_TESTPSICOMETRICO_RELATIVOS = "DELETE FROM TestPsicometricoRelativos WHERE caseId=? and vencido is not true";
 	
+	public static final String INSERT_TESTPSICOMETRICO_CARRERASREC = "INSERT INTO TestPsicometricoCarrerasRec(orden, comentarios, caseId, vencido, carrera_pid, persistenceversion) VALUES (?, ?, ?, ?, ?, 0)";
+	public static final String DELETE_TESTPSICOMETRICO_CARRERASREC = "DELETE FROM TestPsicometricoCarrerasRec WHERE caseId=? and vencido is not true";
+	
 	/***********************ARTURO ZAMORANO FIN*******************************/
 	/***********************MARIO ICEDO*******************************/
 
