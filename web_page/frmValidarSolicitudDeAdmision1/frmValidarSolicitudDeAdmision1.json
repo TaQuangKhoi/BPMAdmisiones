@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1624577661579,
+  "lastUpdate" : 1627063919309,
   "rows" : [
     [
       {
@@ -16226,7 +16226,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<strong>EL bachillerato es parte de la red</strong>"
+                        "value" : "<strong>El bachillerato es parte de la red</strong>"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -19444,11 +19444,15 @@
                 "step" : {
                   "type" : "constant",
                   "value" : 1
+                },
+                "preparatoriaSeleccionada" : {
+                  "type" : "variable",
+                  "value" : "datosPreparatoria.paisBachillerato"
                 }
               },
-              "reference" : "8e917010-77ea-480e-896a-635b2bac2ab6",
+              "reference" : "e463d362-679c-4a9d-b4e5-944915db7728",
               "hasValidationError" : false,
-              "id" : "customInputNumericoSolicitudUpdate"
+              "id" : "customInputNumericoSolicitudPromedio"
             }
           ],
           [
@@ -19802,12 +19806,12 @@
           ],
           [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -19815,237 +19819,315 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Solicitar cambios"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                },
-                "valor" : {
-                  "type" : "variable",
-                  "value" : "cambiosArea"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "warning"
-                },
-                "mensaje" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "0c3ac059-3c17-4b1e-9360-60643be975c2",
-              "hasValidationError" : false,
-              "id" : "customBtnTrueFalse"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 3,
-                "lg" : 3
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Rechazar solicitud"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                },
-                "valor" : {
-                  "type" : "variable",
-                  "value" : "rechazarArea"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "default"
-                },
-                "mensaje" : {
-                  "type" : "variable",
-                  "value" : ""
-                }
-              },
-              "reference" : "e94983f2-d42b-42ad-bea0-d1aecddecca7",
-              "hasValidationError" : false,
-              "id" : "customBtnTrueFalse"
-            },
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 3,
-                "lg" : 3
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Validar candidato"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "success"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "dataToSend" : {
                   "type" : "expression",
-                  "value" : "formOutput"
+                  "value" : "!promedioAceptado"
                 },
-                "dataFromSuccess" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation",
-                  "value" : "/bonita/apps/administrativo/dashboard/"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
-                },
-                "accion" : {
-                  "type" : "variable",
-                  "value" : "\"Validar candidato\""
-                },
-                "isAdmisionAnahuac" : {
-                  "type" : "variable",
-                  "value" : "objSolicitudDeAdmision.catBachilleratos.perteneceRed && (objSolicitudDeAdmision.promedioGeneral>8) && formOutput.detalleSolicitudInput.cbCoincide"
-                },
-                "promedioMayor" : {
-                  "type" : "variable",
-                  "value" : "ocultarDescuento"
-                },
-                "tipoAdmision" : {
-                  "type" : "variable",
-                  "value" : "tipoAdmision"
-                },
-                "objCampanaSelected" : {
-                  "type" : "variable",
-                  "value" : "objCampanaSelected"
-                },
-                "perteneceRed" : {
-                  "type" : "variable",
-                  "value" : "objSolicitudDeAdmision.catBachilleratos.perteneceRed"
-                },
-                "tipoAlumno" : {
-                  "type" : "variable",
-                  "value" : "tipoAlumno"
-                },
-                "getPagoExamen" : {
-                  "type" : "variable",
-                  "value" : "getPagoExamen"
-                },
-                "isMexicano" : {
-                  "type" : "expression",
-                  "value" : "objSolicitudDeAdmision.catNacionalidad.descripcion == \"Mexicana\""
-                },
-                "preparatoriaSeleccionada" : {
-                  "type" : "variable",
-                  "value" : "preparatoriaSeleccionada"
-                },
-                "RechazoDocumentos" : {
-                  "type" : "variable",
-                  "value" : "RechazoDocumentos"
-                },
-                "ValorDescuento" : {
-                  "type" : "variable",
-                  "value" : "objDescuentoMax.descuento"
-                },
-                "objDetalleSolicitud" : {
-                  "type" : "variable",
-                  "value" : "objDetalleSolicitud"
-                },
-                "descuentoManual" : {
-                  "type" : "variable",
-                  "value" : "descuentoManual"
                 }
               },
-              "reference" : "788a69a8-3626-46b8-a8c2-6c940515dce2",
+              "reference" : "1cb68e36-28ec-4185-a053-22baca560486",
               "hasValidationError" : false,
-              "id" : "customBtnValidarInformacionVDescuento"
-            },
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 3,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Solicitar cambios"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "valor" : {
+                        "type" : "variable",
+                        "value" : "cambiosArea"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "warning"
+                      },
+                      "mensaje" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "0c3ac059-3c17-4b1e-9360-60643be975c2",
+                    "hasValidationError" : false,
+                    "id" : "customBtnTrueFalse"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 3,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Rechazar solicitud"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      },
+                      "valor" : {
+                        "type" : "variable",
+                        "value" : "rechazarArea"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "mensaje" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "e94983f2-d42b-42ad-bea0-d1aecddecca7",
+                    "hasValidationError" : false,
+                    "id" : "customBtnTrueFalse"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 3,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Validar candidato"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "success"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "Submit task"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "expression",
+                        "value" : "formOutput"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation",
+                        "value" : "/bonita/apps/administrativo/dashboard/"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      },
+                      "accion" : {
+                        "type" : "variable",
+                        "value" : "\"Validar candidato\""
+                      },
+                      "isAdmisionAnahuac" : {
+                        "type" : "variable",
+                        "value" : "objSolicitudDeAdmision.catBachilleratos.perteneceRed && (objSolicitudDeAdmision.promedioGeneral>8) && formOutput.detalleSolicitudInput.cbCoincide"
+                      },
+                      "promedioMayor" : {
+                        "type" : "variable",
+                        "value" : "ocultarDescuento"
+                      },
+                      "tipoAdmision" : {
+                        "type" : "variable",
+                        "value" : "tipoAdmision"
+                      },
+                      "objCampanaSelected" : {
+                        "type" : "variable",
+                        "value" : "objCampanaSelected"
+                      },
+                      "perteneceRed" : {
+                        "type" : "variable",
+                        "value" : "objSolicitudDeAdmision.catBachilleratos.perteneceRed"
+                      },
+                      "tipoAlumno" : {
+                        "type" : "variable",
+                        "value" : "tipoAlumno"
+                      },
+                      "getPagoExamen" : {
+                        "type" : "variable",
+                        "value" : "getPagoExamen"
+                      },
+                      "isMexicano" : {
+                        "type" : "expression",
+                        "value" : "objSolicitudDeAdmision.catNacionalidad.descripcion == \"Mexicana\""
+                      },
+                      "preparatoriaSeleccionada" : {
+                        "type" : "variable",
+                        "value" : "preparatoriaSeleccionada"
+                      },
+                      "RechazoDocumentos" : {
+                        "type" : "variable",
+                        "value" : "RechazoDocumentos"
+                      },
+                      "ValorDescuento" : {
+                        "type" : "variable",
+                        "value" : "objDescuentoMax.descuento"
+                      },
+                      "objDetalleSolicitud" : {
+                        "type" : "variable",
+                        "value" : "objDetalleSolicitud"
+                      },
+                      "descuentoManual" : {
+                        "type" : "variable",
+                        "value" : "descuentoManual"
+                      }
+                    },
+                    "reference" : "788a69a8-3626-46b8-a8c2-6c940515dce2",
+                    "hasValidationError" : false,
+                    "id" : "customBtnValidarInformacionVDescuento"
+                  },
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 3,
+                      "lg" : 3
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Lista roja"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "valor" : {
+                        "type" : "variable",
+                        "value" : "listarojaArea"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "danger"
+                      },
+                      "mensaje" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "39785ca9-9049-4fc5-989e-b65c9c05a189",
+                    "hasValidationError" : false,
+                    "id" : "customBtnTrueFalse"
+                  }
+                ]
+              ]
+            }
+          ],
+          [
             {
-              "type" : "component",
+              "type" : "container",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 3,
-                "lg" : 3
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -20056,34 +20138,52 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "disabled" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Lista roja"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "right"
-                },
-                "valor" : {
-                  "type" : "variable",
-                  "value" : "listarojaArea"
-                },
-                "buttonStyle" : {
-                  "type" : "constant",
-                  "value" : "danger"
-                },
-                "mensaje" : {
+                "repeatedCollection" : {
                   "type" : "variable",
                   "value" : ""
                 }
               },
-              "reference" : "39785ca9-9049-4fc5-989e-b65c9c05a189",
+              "reference" : "46d52c15-87f0-4235-b2b0-ce4f30e85b3a",
               "hasValidationError" : false,
-              "id" : "customBtnTrueFalse"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "promedioAceptado"
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "El promedio general de un bachillerato procedente de mexico solo acepta numeros"
+                      },
+                      "level" : {
+                        "type" : "constant",
+                        "value" : "Level 3"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "center"
+                      }
+                    },
+                    "reference" : "bfcf5579-5c0f-4b31-b357-a36b3801f3df",
+                    "hasValidationError" : false,
+                    "id" : "pbTitle"
+                  }
+                ]
+              ]
             }
           ],
           [
@@ -27498,13 +27598,16 @@
       "type" : "expression",
       "value" : [
         "let ocultarDescuento=false",
-        "var promedio = parseFloat($data.objSolicitudDeAdmision.promedioGeneral);",
-        "if(promedio > 8 && $data.perteneceRed){",
-        "    ocultarDescuento = true;",
-        "}else{",
-        "    ocultarDescuento = false;",
-        "}",
-        "return ocultarDescuento;"
+        "let letter = /^[a-zA-Z]+$/;",
+        "if(!$data.objSolicitudDeAdmision.promedioGeneral.toString().match(letter)){",
+        "    var promedio = parseFloat($data.objSolicitudDeAdmision.promedioGeneral);",
+        "    if(promedio > 8 && $data.perteneceRed){",
+        "        ocultarDescuento = true;",
+        "    }else{",
+        "        ocultarDescuento = false;",
+        "    }",
+        "    return ocultarDescuento;",
+        "}"
       ],
       "exposed" : false
     },
@@ -28539,6 +28642,23 @@
         "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
         "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
         "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "promedioAceptado" : {
+      "type" : "expression",
+      "value" : [
+        "console.log(\"promedio\")",
+        "let letter = /^[a-zA-Z]+$/;",
+        "if($data.objSolicitudDeAdmision.promedioGeneral.toString().match(letter)){",
+        "    if($data.datosPreparatoria.paisBachillerato !='México'){",
+        "        return true;",
+        "    }else{",
+        "        return false;",
+        "    }",
+        "}else{",
+        "    return true;",
         "}"
       ],
       "exposed" : false

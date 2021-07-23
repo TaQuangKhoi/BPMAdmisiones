@@ -483,6 +483,25 @@ class PsicometricoDAO {
 						assert catParentezco instanceof Map;
 						assert vive instanceof Map;
 						
+						strError = strError + " | contador: " + (1 + " - " + (row.nombre != null && row.nombre != "") ? row.nombre : "");
+						strError = strError + " | contador: " + (2 + " - " + (row.apellidos != null && row.apellidos != "") ? row.apellidos : "");
+						strError = strError + " | contador: " + (3 + " - " + (row.empresaTrabaja != null && row.empresaTrabaja != "") ? row.empresaTrabaja : "");
+						strError = strError + " | contador: " + (4 + " - " + (row.otroParentesco != null && row.otroParentesco != "") ? row.otroParentesco : "");
+						strError = strError + " | contador: " + (5 + " - " + caseId);
+						strError = strError + " | contador: " + (6 + " - " + (row.jubilado != null && row.jubilado != "") ? row.jubilado : false);
+						strError = strError + " | contador: " + (7 + " - " + (row.vencido != null && row.vencido != "") ? row.vencido : false);
+						
+						if (catParentezco.persistenceId != null && catParentezco.persistenceId != "") {
+							strError = strError + " | contador: " + (8 + " - " + catParentezco.persistenceId);
+						} else {
+							strError = strError + " | contador: " + (8 + " - Types.INTEGER");
+						}
+						if (vive.persistenceId != null && vive.persistenceId != "") {
+							strError = strError + " | contador: " + (9 + " - " + catParentezco.persistenceId);
+						} else {
+							strError = strError + " | contador: " + (9 + " - Types.INTEGER");
+						}
+						
 						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_RELATIVOS);
 						pstm.setString(1, (row.nombre !=null && row.nombre !="") ? row.nombre : "");
 						pstm.setString(2, (row.apellidos !=null && row.apellidos !="") ? row.apellidos : "");

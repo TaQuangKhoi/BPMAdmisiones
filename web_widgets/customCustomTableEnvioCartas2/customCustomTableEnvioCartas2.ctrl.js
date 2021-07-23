@@ -198,7 +198,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         for (var i = 0; i < $scope.lstCampus.length; i++) {
             if (campus == $scope.lstCampus[i].valor) {
                 retorno = $scope.lstCampus[i].descripcion
-                if($scope.lstMembership.length == 1){
+                if ($scope.lstCampusByUser.length == 2) {
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].grupoBonita    
                 }
             }else if(campus == "Todos los campus"){
@@ -216,7 +216,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
-                url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
+                url: `/API/identity/membership?p=0&c=100&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
 
             return $http(req).success(function (data, status) {
@@ -233,21 +233,23 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     });
 
 
-    $scope.lstCampusByUser = [];
-
-    $scope.campusByUser = function(){
-        var resultado=[];
-    // var isSerua = true;
+     $scope.lstCampusByUser = [];
+    $scope.campusByUser = function() {
+        var resultado = [];
         resultado.push("Todos los campus")
-        for(var x in $scope.lstMembership){
-            if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-                resultado.push($scope.lstMembership[x].group_id.name);
+        for (var x in $scope.lstMembership) {
+            if ($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1) {
+                let i = 0;
+                resultado.forEach(value => {
+                    if (value == $scope.lstMembership[x].group_id.name) {
+                        i++;
+                    }
+                });
+                if (i === 0) {
+                    resultado.push($scope.lstMembership[x].group_id.name);
+                }
             }
         }
-        // if(isSerua){
-        //     resultado.push("Todos los campus")
-        // }
-        console.log("campusByUser : : " + resultado);
         $scope.lstCampusByUser = resultado;
     }
 

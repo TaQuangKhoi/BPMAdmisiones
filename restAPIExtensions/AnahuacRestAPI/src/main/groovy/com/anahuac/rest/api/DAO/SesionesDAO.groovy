@@ -5743,7 +5743,7 @@ class SesionesDAO {
 				rs = pstm.executeQuery()
 				if(!rs.next()) {
 					for (Map.Entry<String,Integer> entry: respuestainvp) {
-						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion,fecha_registro) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0),?")
+						pstm = con.prepareStatement("INSERT INTO resultadoinvp (idbanner,escala,puntuacion,sesiones_pid, persistenceid,persistenceversion,fecha_registro) values (?,?,?,?,case when (SELECT max(persistenceId)+1 from resultadoinvp ) is null then 1 else (SELECT max(persistenceId)+1 from resultadoinvp) end,0,?)")
 						pstm.setString(1, idbanner)
 						pstm.setString(2, entry.getKey())
 						pstm.setInt(3, entry.getValue())
@@ -5754,7 +5754,8 @@ class SesionesDAO {
 				}
 			}
 			catch(Exception test) {
-				
+				resultado.setError("Error")
+				resultado.setError_info(test.getMessage())
 			}
 			
 			rows.add(respuestainvp)

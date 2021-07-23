@@ -72,7 +72,6 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			
-			
 			errorlog += "| username = "+ objProperties.getUsuario();
 			errorlog += "| password = "+ objProperties.getPassword();
 			errorlog += "| host =     "+objProperties.getUrlHost();
@@ -178,8 +177,6 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			
 			
 			//SELECT * from catnotificaciones where caseid=(SELECT caseid FROM procesocaso where campus = 'CAMPUS-MNORTE' and proceso='CatNotificaciones') and codigo='registrar'
-			
-			
 			
 			errorlog += "| se obtiene el catNotificaciones para generar el b64 del documento "
 
