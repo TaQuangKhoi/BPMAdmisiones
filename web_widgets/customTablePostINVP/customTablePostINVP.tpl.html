@@ -48,13 +48,6 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='SEXO'"></i></span></th>
                             
-                    
-                    
-                    <th> 
-                    <span style="cursor:pointer" ng-click="setOrderBy('HORARIO')">Hora de la prueba<i class="glyphicon"
-                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='HORARIO'"></i></span>
-                    </th>  
                     <th ng-if="procesada=='false'"> Acciones</th>
                 </tr>
             </thead>
@@ -67,24 +60,23 @@
                     <td><input ng-model="dynamicInput['residencia']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA, PREPARATORIA, PROMEDIO',dynamicInput['residencia'])"></td>
                     <td><input ng-model="dynamicInput['alumnosa']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA',dynamicInput['alumnosa'])"></td>
                     <td><input ng-model="dynamicInput['tipo']" class="form-control" ng-enter="filterKeyPress('SEXO',dynamicInput['tipo'])"></td>
-                    <td><input ng-model="dynamicInput['horario']" class="form-control" ng-enter="filterKeyPress('HORA DE LA ENTREVISTA',dynamicInput['horario'])"></td>
                     <td ng-if="procesada=='false'"></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td>
-                        <img ng-src="{{row.urlfoto}}" style="width: 64px;">
+                        <img ng-src="{{row.fotografiab64}}" style="width: 64px;">
                     </td>
                     <td>
-                        {{row.id_siu}}
+                        {{row.idbanner}}
                     </td>
                     <td>
-                         {{row.apellidopaterno}} {{row.apellidomaterno}} {{row.nombres}} <br> {{row.email}} <br> {{row.curp}}
+                         {{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}} {{row.segundonombre}} <br> {{row.correoelectronico}} <br> {{row.curp}}
                     </td>
                     <td>
                         {{row.campus}}<br> {{row.licenciatura}} <br> {{row.periodo}}
                     </td>
                     <td>
-                        {{row.preparatoriaestado}}
+                        {{row.procedencia}}
                         <br/>
                         {{row.preparatoria}}
                         <br/>
@@ -96,10 +88,6 @@
                     </td>
                     <td>
                         {{row.sexo}}
-                    </td>
-                    
-                    <td>
-                        {{row.entrada + " - " +row.salida }}
                     </td>
                     <td ng-if="procesada=='false'">
                         <table>

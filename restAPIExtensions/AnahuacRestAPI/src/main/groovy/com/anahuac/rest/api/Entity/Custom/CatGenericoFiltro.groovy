@@ -23,7 +23,39 @@ class CatGenericoFiltro {
 	
 	private Boolean isAdmitido;
 	
+	private String totc;
 	
+	private String letra;
+	
+	private String equivalente;
+	
+	private Boolean sexo;
+	
+	
+	public Boolean getSexo() {
+		return sexo;
+	}
+	public void setSexo(Boolean sexo) {
+		this.sexo = sexo;
+	}
+	public String getTotc() {
+		return totc;
+	}
+	public void setTotc(String totc) {
+		this.totc = totc;
+	}
+	public String getLetra() {
+		return letra;
+	}
+	public void setLetra(String letra) {
+		this.letra = letra;
+	}
+	public String getEquivalente() {
+		return equivalente;
+	}
+	public void setEquivalente(String equivalente) {
+		this.equivalente = equivalente;
+	}
 	public Boolean getIsAdmitido() {
 		return isAdmitido;
 	}

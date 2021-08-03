@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appLoginBack",
   "name" : "appLoginBack",
-  "lastUpdate" : 1626976347189,
+  "lastUpdate" : 1627496097833,
   "rows" : [
     [
       {
@@ -1057,7 +1057,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Nombre de usuario"
+                        "value" : "Correo electrónico : <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -1072,7 +1072,7 @@
                       },
                       "value" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "objUser.email"
                       },
                       "type" : {
                         "type" : "constant",
@@ -1131,60 +1131,18 @@
                   "type" : "constant",
                   "value" : "primary"
                 },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
+                "objUser" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "objUser"
                 },
-                "dataToSend" : {
-                  "type" : "constant"
-                },
-                "dataFromSuccess" : {
+                "navigationVar" : {
                   "type" : "variable",
-                  "value" : ""
-                },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
+                  "value" : "navigationVar"
                 }
               },
-              "reference" : "8e4e6eaa-44ca-4b2f-96e7-4755f4eea355",
+              "reference" : "bc865d86-71c3-4518-a197-8b9eed3c4685",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customCustomBtnRequestChangePasswordAdmin"
             }
           ]
         ]
@@ -1371,6 +1329,13 @@
       "external" : false
     },
     {
+      "id" : "d2a8b466-ca6a-4337-86d6-ec9fbac2f2f3",
+      "name" : "sweetalert2@10.js",
+      "type" : "js",
+      "order" : 7,
+      "external" : false
+    },
+    {
       "id" : "86fab1d5-6655-408c-af9b-b6c6022650d4",
       "name" : "style.css",
       "type" : "css",
@@ -1382,13 +1347,6 @@
       "name" : "bootstrap.min.js",
       "type" : "js",
       "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "d2a8b466-ca6a-4337-86d6-ec9fbac2f2f3",
-      "name" : "sweetalert2@10.js",
-      "type" : "js",
-      "order" : 7,
       "external" : false
     },
     {
@@ -1455,6 +1413,13 @@
       "type" : "constant",
       "value" : [
         "login"
+      ],
+      "exposed" : false
+    },
+    "objUser" : {
+      "type" : "json",
+      "value" : [
+        "{ \"email\": \"\", \"password\": \"\" }"
       ],
       "exposed" : false
     }

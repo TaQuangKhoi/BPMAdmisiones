@@ -502,6 +502,22 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				
+				case "getValidarEscalaINVP":
+					String tabla = request.getParameter "tabla";
+					String totc = request.getParameter "totc";
+					String letra = request.getParameter "letra";
+					String sexo = request.getParameter "sexo";
+					String id = request.getParameter "id";
+					result = new CatalogosDAO().getValidarEscalaINVP(tabla,totc,letra,sexo,id);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				case "getValidarOrden":
 					String tabla = request.getParameter "tabla";
 					String ordenString = request.getParameter "orden";
@@ -589,6 +605,17 @@ class IndexGet implements RestApiController {
 				break;
 				
 				case "getInfoPrueba":
+				String id = request.getParameter "id";
+				result = new SesionesDAO().getInfoPrueba(0, 9999, id);
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
+				case "getInfoSesion":
 				String id = request.getParameter "id";
 				result = new SesionesDAO().getInfoPrueba(0, 9999, id);
 				responseBuilder.withMediaType("application/json");
@@ -915,6 +942,16 @@ class IndexGet implements RestApiController {
 				String idbanner =request.getParameter "idbanner"
 				String sesionid =request.getParameter "sesionid"
 				result = new SesionesDAO().getResultadoINVP(idbanner,Long.parseLong(sesionid))
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				case "getEscalaINVPSexo":
+				String sexo = request.getParameter "sexo"
+				result = new SesionesDAO().getEscalaINVPSexo(sexo)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

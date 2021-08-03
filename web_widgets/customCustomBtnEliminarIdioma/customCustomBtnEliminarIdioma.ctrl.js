@@ -51,6 +51,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       // Only remove element for valid index
       if (index !== -1) {
         $scope.properties.collectionToModify.splice(index, 1);
+        closeModal(true);
       }
     }
   }

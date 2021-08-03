@@ -5,6 +5,11 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
     $scope.cambioOrden = function(orden){
+        if(orden){
+            $scope.properties.orden = ">=";
+        }else{
+            $scope.properties.orden = "<";
+        }
         $scope.$apply();
         doRequest("POST", (!orden)?$scope.properties.urlPost:$scope.properties.urlPost.replace("getSesionesINVPTabla","getSesionesINVPTablaProcesadas"));
         

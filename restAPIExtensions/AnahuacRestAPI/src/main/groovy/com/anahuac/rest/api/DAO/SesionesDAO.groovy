@@ -2573,7 +2573,6 @@ class SesionesDAO {
 					consulta=consulta.replace("[WHERE]", where);
 					consulta=consulta.replace("[ORDEN]", object.orden);
 					String consulta_EXT = Statements.EXT_SESIONESCALENDARIZADASLISTADO;
-					consulta=consulta.replace("[WHERE]", where);
 					consulta=consulta.replace("[RESIDENCIA]", residencia);
 					consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT);
 					String groupBy = "group by Pruebas.nombre, Pruebas.aplicacion, Sesion.tipo, Pruebas.persistenceid, Sesion.persistenceid, Pruebas.lugar, Pruebas.registrados, Sesion.nombre, ctipoprueba.descripcion, Pruebas.cupo, Pruebas.entrada,Pruebas.salida, campus.descripcion";
@@ -4498,6 +4497,42 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result getInfoSesion(Integer P, Integer C, String sesion_pid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		//List<PruebasCustom> rows = new ArrayList<PruebasCustom>();
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+				closeCon = validarConexion();
+				
+				pstm = con.prepareStatement(Statements.GET_SESION)
+				pstm.setLong(1,Long.parseLong(sesion_pid));
+				rs = pstm.executeQuery()
+				rows = new ArrayList < Map < String, Object >> ();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while (rs.next()) {
+					Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+
+					rows.add(columns);
+				}
+				resultado.setData(rows)
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result getFechaServidor(Integer P, Integer C) {
 		Result resultado = new Result();
@@ -5397,7 +5432,7 @@ class SesionesDAO {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion()
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombres, cr.apellidopaterno as APELLIDOP,cr.apellidomaterno as APELLIDOM,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,to_char(to_date(substring(sda.fechanacimiento,1,10),'YYYY-MM-DD'), 'DD/MM/YYYY') as fechanacimiento , cda.idbanner as id_siu,  s.nombre as sesion,s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD, sexo.clave as sexo, '1' as activo, periodo.clave as periodo, '' tipousuario, cec.descripcion as ESTADO_CIVIL,sda.calle ||' #' || cc.numeroexterior || ' '|| sda.colonia ||', '||ce.descripcion || ' ' || sda.ciudad || ' CP. ' || sda.codigopostal direccion FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join paselista sa on sa.username=sda.correoelectronico AND sa.asistencia=true inner join pruebas p on sa.prueba_pid=p.persistenceid and p.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=p.sesion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catestadocivil cec on  sda.catestadocivil_pid=cec.persistenceid INNER JOIN catestados ce on ce.persistenceid=sda.catestado_pid "+ where)
+			pstm = con.prepareStatement("SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombres, cr.apellidopaterno as APELLIDOP,cr.apellidomaterno as APELLIDOM,sda.correoelectronico as email,sda.telefonoCelular as celular, sda.telefono as telefono,cc.clave || cda.idbanner as usuario,to_char(to_date(substring(sda.fechanacimiento,1,10),'YYYY-MM-DD'), 'DD/MM/YYYY') as fechanacimiento , cda.idbanner as id_siu,  s.nombre as sesion,s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD, sexo.clave as sexo, '1' as activo, periodo.clave as periodo, '' tipousuario, cec.descripcion as ESTADO_CIVIL,sda.calle ||' #' || cc.numeroexterior || ' '|| sda.colonia ||', '||ce.descripcion || ' ' || sda.ciudad || ' CP. ' || sda.codigopostal direccion,ge.clave as ClaveCarrera, ge.nombre as NombreCarrera FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join paselista sa on sa.username=sda.correoelectronico AND sa.asistencia=true inner join pruebas p on sa.prueba_pid=p.persistenceid and p.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=p.sesion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catestadocivil cec on  sda.catestadocivil_pid=cec.persistenceid INNER JOIN catestados ce on ce.persistenceid=sda.catestado_pid INNER JOIN catGestionEscolar AS GE  ON GE.PERSISTENCEID = sda.catGestionEscolar_pid "+ where)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -5424,6 +5459,7 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
 	public Result getResultadosINVPIndividuales() {
 		Result resultado = new Result()
 		Boolean closeCon = false
@@ -5462,17 +5498,198 @@ class SesionesDAO {
 		}
 		return resultado
 	}
-	public Result getSesiones(String sesion, String fecha, String uni, String id) {
+	
+	public Result postResultadosINVPIndividuales(String jsonData,RestAPIContext context) {
 		Result resultado = new Result()
 		Boolean closeCon = false
+		Long userLogged = 0L;
+		String orderby="ORDER BY ", errorlog="",orientation =" DESC ", where ="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				switch(filtro.get("columna")) {
+
+				case "FECHA PRUEBA":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +=" LOWER( CAST(TO_CHAR(P.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					break;
+					
+				case "ID BANNER":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +=" CAST(ri.idbanner as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "NOMBRE ASPIRANTE":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +="  LOWER(concat(CR.apellidopaterno,' ',CR.apellidomaterno,' ',CR.primernombre,' ', CR.segundonombre)) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "FECHA REGISTRO":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +="  LOWER(ri.fecha_registro) LIKE LOWER('%[valor]%')";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "SESIÓN ID":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +="CAST(s.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+										
+				case "SESIÓN":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where +=" LOWER(S.nombre) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+							where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+
+				
+				}
+				
+				
+			}
+			switch(object.orderby) {
+				case "ID BANNER":
+				orderby+="ri.idbanner";
+				break;
+				case "NOMBRE ASPIRANTE":
+				orderby+="cr.primernombre";
+				break;
+				case "FECHA PRUEBA":
+				orderby+="P.aplicacion";
+				break;
+				case "FECHA REGISTRO":
+				orderby+="ri.fecha_registro";
+				break;
+				case "SESIÓN":
+				orderby+="s.nombre";
+				break;
+				case "SESIÓN ID":
+				orderby+="s.persistenceid";
+				break;
+				default:
+				orderby+="ri.fecha_registro"
+				break;
+			}
+			orderby+=" "+object.orientation;
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			String consulta = Statements.GET_RESULTADOINVPINDIVIDUAL;
+			consulta=consulta.replace("[WHERE]", where);
+
+			errorlog+=consulta;			
+			pstm = con.prepareStatement(consulta.replace("distinct  ri.idbanner, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END AS nombre, s.persistenceid sesion_id, s.nombre sesion, p.aplicacion fecha_prueba, ri.fecha_registro", "Count(distinct  ri.idbanner) as registros ").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""))
+			rs = pstm.executeQuery()
+			if(rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			consulta=consulta.replace("[ORDERBY]", orderby)
+			consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+			
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery()
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			//resultado.setError("500 Internal Server Error")
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorlog)
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getSesiones(String jsonData) {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		Long userLogged = 0L;
+		String orderby="ORDER BY s.nombre, ", errorlog="", role="", campus="", group="", residencia="";
+		List<String> lstGrupo = new ArrayList<String>();
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
 		String where ="WHERE s.borrador=false"
 		try {
-			where = (sesion==null || sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+sesion+"'"
-			where = (fecha==null || fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+fecha+"'"
-			where = (uni==null || uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+uni+"'"
-			where = (id==null || id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+id
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			where += (object.sesion==null || object.sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+object.sesion+"'";
+			where += (object.fecha==null || object.fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+object.fecha+"'";
+			where += (object.uni==null || object.uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+object.uni+"'";
+			where += (object.id==null || object.id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+object.id;
+			
+			if(object.campus != null) {
+				where +=" AND LOWER(cc.DESCRIPCION)  = LOWER('"+object.campus+"')";
+			}
+			
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion()
+			closeCon = validarConexion();
+			//consulta=consulta.replace("[WHERE]", where);
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
 			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion, s.persistenceid as id_sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD FROM sesiones s inner join catcampus cc on cc.persistenceid=s.campus_pid inner join pruebas p on s.persistenceid=p.sesion_pid  and p.cattipoprueba_pid=2 and p.registrados>0 inner join aspirantespruebas ap on ap.sesiones_pid=s.persistenceid and ap.asistencia=true "+ where)
 			rs = pstm.executeQuery()
@@ -5501,20 +5718,230 @@ class SesionesDAO {
 		}
 		return resultado
 	}
-	public Result getSesionesINVPTabla(String sesion, String fecha, String uni, String id) {
+	public Result getSesionesINVPTabla(String jsonData,RestAPIContext context) {
 		Result resultado = new Result()
-		Boolean closeCon = false
-		String where =" WHERE s.persistenceid not in (SELECT distinct sesiones_pid from resultadoinvp) "
+		Boolean closeCon = false;
+		Long userLogged = 0L;
+		String orderby="ORDER BY s.nombre, ", errorlog="", role="", campus="", group="", residencia="";
+		List<String> lstGrupo = new ArrayList<String>();
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
+		String consulta = Statements.GET_INVP_TABLA;
+		String where =" WHERE s.persistenceid not in (SELECT distinct sesiones_pid from resultadoinvp) ";
 		try {
-			where += (sesion==null || sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+sesion+"'"
-			where += (fecha==null || fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+fecha+"'"
-			where += (uni==null || uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+uni+"'"
-			where += (id==null || id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+id
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			where += (object.sesion==null || object.sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+object.sesion+"'"
+			where += (object.fecha==null || object.fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+object.fecha+"'"
+			where += (object.uni==null || object.uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+object.uni+"'"
+			where += (object.id==null || object.id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+object.id
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita()) && !lstGrupo.contains(rowGrupo.getDescripcion()) ) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			if(lstGrupo.size()>0) {
+				campus+=" AND ("
+			}
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				campus+="cc.descripcion='"+campusMiembro+"'"
+				if(i==(lstGrupo.size()-1)) {
+					campus+=") "
+				}
+				else {
+					campus+=" OR "
+				}
+			}
+			
+			if(object.campus != null) {
+				//campus +=" AND LOWER(cc.DESCRIPCION) = LOWER('"+object.campus+"')";
+				where +=" AND LOWER(cc.DESCRIPCION)  = LOWER('"+object.campus+"')";
+			}
+		
+			Boolean isHaving = false, TR= false, AR= false;
+			String  TRs= "", ARs ="";
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				switch(filtro.get("columna")) {
+
+				case "FECHA, LUGAR":
+					where +=" AND  ( LOWER( CAST(TO_CHAR(P.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+					where += "OR LOWER(P.entrada) LIKE LOWER('%[valor]%') "
+					where += "OR LOWER(P.salida) LIKE LOWER('%[valor]%') "
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(P.lugar) LIKE LOWER('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ID":
+					where +=" AND CAST(s.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "NOMBRE DE LA PRUEBA":
+					where +=" AND LOWER(P.nombre) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "CAMPUS":
+					errorlog+="CAMPUS"
+					campus +=" AND LOWER(cc.DESCRIPCION) ";
+					where +=" AND LOWER(cc.DESCRIPCION)  "
+					if(filtro.get("operador").equals("Igual a")) {
+						campus+="=LOWER('[valor]')"
+						where +="=LOWER('[valor]')"
+					}else {
+						campus+="LIKE LOWER('%[valor]%')"
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					campus = cc.replace("[valor]", filtro.get("valor"))
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "CUPO DE LA PRUEBA":
+					where +=" AND CAST(P.cupo as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ALUMNOS REGISTRADOS":
+					if (residencia.contains("WHERE")) {
+						residencia += " AND "
+					} else {
+						residencia += " WHERE "
+					}
+			
+					residencia +=" CAST(sesionregistrados as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						residencia+="='[valor]'"
+					}else {
+						residencia+="LIKE '%[valor]%'"
+					}
+					residencia = residencia.replace("[valor]", filtro.get("valor"))
+					break;
+										
+				case "NOMBRE DE LA SESION":
+					where +=" AND LOWER(S.nombre) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+							where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ALUMNOS ASISTIERON":
+					if (residencia.contains("WHERE")) {
+						residencia += " AND "
+					} else {
+						residencia += " WHERE "
+					}
+				
+					residencia +=" CAST(asistencias as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						residencia+="='[valor]'"
+					}else {
+						residencia+="LIKE '%[valor]%'"
+					}
+					residencia = residencia.replace("[valor]", filtro.get("valor"))
+					break;
+				
+				}
+				
+				
+			}
+			switch(object.orderby) {		
+				case "ID":
+				orderby+="pruebas_id";
+				break;
+				case "NOMBRE":
+				orderby+="P.nombre";
+				break;
+				case "ALUMNOS REGISTRADOS":
+				orderby+="sesionregistrados";
+				break;
+				case "CUPO":
+				orderby+="P.cupo";
+				break;
+				case "RESIDENCIA":
+				orderby+="S.residencia";
+				break;
+				case "FECHA":
+				orderby+="P.aplicacion";
+				break;
+				case "LUGAR":
+				orderby+="P.lugar";
+				break;
+				case "TIPO_PRUEBA":
+				orderby+="ctipoprueba.descripcion";
+				break;
+				case "NOMBRE_SESION":
+				orderby+="S.nombre";
+				break;
+				case "CAMPUS":
+				orderby+="cc.descripcion";
+				break;
+				case "ASISTENCIA":
+				orderby+="asistencias"
+				break;
+				default:
+				orderby+="P.aplicacion"
+				break;	
+			}
+			orderby+=" "+object.orientation;
+			consulta=consulta.replace("[WHERE]", where);
+			String consulta_EXT = Statements.COUNT_ASPIRANTESPRUEBA_BY_PRUEBA;
+			consulta=consulta.replace("[RESIDENCIA]", residencia);
+			consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT);
+			String groupBy = "group by S.NOMBRE, s.persistenceid,p.persistenceid,p.aplicacion,cc.clave,sexo.clave,periodo.clave,cec.descripcion,sda.calle,cc.numeroexterior,sda.colonia,ce.ciudad, sda.codigopostal, p.nombre, p.cupo, p.registrados, p.entrada, p.salida, p.lugar,p.aplicacion";
+			consulta=consulta.replace("[GROUPBY]", groupBy)
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion()
-			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion,s.persistenceid as id_sesion,p.persistenceid id_prueba, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD, sexo.clave as sexo, '1' as activo, periodo.clave as periodo, '' tipousuario, cec.descripcion as ESTADO_CIVIL,sda.calle ||' #' || cc.numeroexterior || ' '|| sda.colonia ||', '||ce.descripcion || ' ' || sda.ciudad || ' CP. ' || sda.codigopostal direccion, p.nombre prueba, p.cupo, p.registrados, p.entrada, p.salida, p.lugar FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join paselista sa on sa.username=sda.correoelectronico AND sa.asistencia=true inner join pruebas p on sa.prueba_pid=p.persistenceid and p.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=p.sesion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catestadocivil cec on  sda.catestadocivil_pid=cec.persistenceid INNER JOIN catestados ce on ce.persistenceid=sda.catestado_pid INNER JOIN responsabledisponible rd on rd.prueba_pid=p.persistenceid "+ where)
-			rs = pstm.executeQuery()
+			closeCon = validarConexion();
+			errorlog+=consulta.replace("* from (", "count(*) registros from ( ").replace("[LIMITOFFSET]", "").replace("[ORDERBY]","");
+			pstm = con.prepareStatement(consulta.replace("* from (", "count(*) registros from ( ").replace("[LIMITOFFSET]", "").replace("[ORDERBY]",""));
+			
+			rs= pstm.executeQuery();
+			while(rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}					
+			errorlog+="conteo exitoso "
+			
+			consulta=consulta.replace("[ORDERBY]", orderby);
+			consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			
+			errorlog = consulta;
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery();
+			
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
@@ -5529,10 +5956,12 @@ class SesionesDAO {
 			}
 			resultado.setSuccess(true)
 			resultado.setData(rows)
+			resultado.setError_info(errorlog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
-			resultado.setError("500 Internal Server Error")
-			resultado.setError_info(e.getMessage())
+			//resultado.setError("500 Internal Server Error")
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorlog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5540,20 +5969,235 @@ class SesionesDAO {
 		}
 		return resultado
 	}
-	public Result getSesionesINVPTablaProcesadas(String sesion, String fecha, String uni, String id) {
+	public Result getSesionesINVPTablaProcesadas(String jsonData, RestAPIContext context) {
 		Result resultado = new Result()
 		Boolean closeCon = false
+		Long userLogged = 0L;
+		String orderby="ORDER BY s.nombre, ", errorlog="", role="", campus="", group="", residencia="";
+		List<String> lstGrupo = new ArrayList<String>();
+		Map<String, String> objGrupoCampus = new HashMap<String, String>();
+		String consulta = Statements.GET_INVP_TABLA_PROCESADOS;
 		String where =" WHERE s.persistenceid in (SELECT distinct sesiones_pid from resultadoinvp) "
 		try {
-			where += (sesion==null || sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+sesion+"'"
-			where += (fecha==null || fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+fecha+"'"
-			where += (uni==null || uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+uni+"'"
-			where += (id==null || id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+id
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			where += (object.sesion==null || object.sesion=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.nombre='"+object.sesion+"'"
+			where += (object.fecha==null || object.fecha=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"to_char(p.aplicacion, 'DD/MM/YYYY')='"+object.fecha+"'"
+			where += (object.uni==null || object.uni=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"cc.clave='"+object.uni+"'"
+			where += (object.id==null || object.id=='')?"":(where.contains("WHERE")?" AND ":" WHERE ")+"s.persistenceid="+object.id
+			
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			userLogged = context.getApiSession().getUserId();
+			
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				for(CatCampus rowGrupo : lstCatCampus) {
+					if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita()) && !lstGrupo.contains(rowGrupo.getDescripcion()) ) {
+						lstGrupo.add(rowGrupo.getDescripcion());
+						break;
+					}
+				}
+			}
+			
+			if(lstGrupo.size()>0) {
+				campus+=" AND ("
+			}
+			for(Integer i=0; i<lstGrupo.size(); i++) {
+				String campusMiembro=lstGrupo.get(i);
+				campus+="cc.descripcion='"+campusMiembro+"'"
+				if(i==(lstGrupo.size()-1)) {
+					campus+=") "
+				}
+				else {
+					campus+=" OR "
+				}
+			}
+			
+			if(object.campus != null) {
+				//campus +=" AND LOWER(cc.DESCRIPCION) = LOWER('"+object.campus+"')";
+				where +=" AND LOWER(cc.DESCRIPCION)  = LOWER('"+object.campus+"')";
+			}
+		
+			Boolean isHaving = false, TR= false, AR= false;
+			String  TRs= "", ARs ="";
+			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				switch(filtro.get("columna")) {
+
+				case "FECHA, LUGAR":
+					where +=" AND  ( LOWER( CAST(TO_CHAR(P.aplicacion, 'DD-MM-YYYY') as varchar)) LIKE LOWER('%[valor]%') ";
+					where += "OR LOWER(P.entrada) LIKE LOWER('%[valor]%') "
+					where += "OR LOWER(P.salida) LIKE LOWER('%[valor]%') "
+					where = where.replace("[valor]", filtro.get("valor"))
+					
+					where +=" OR LOWER(P.lugar) LIKE LOWER('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ID":
+					where +=" AND CAST(s.persistenceid as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "NOMBRE DE LA PRUEBA":
+					where +=" AND LOWER(P.nombre) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "CAMPUS":
+					errorlog+="CAMPUS"
+					campus +=" AND LOWER(cc.DESCRIPCION) ";
+					where +=" AND LOWER(cc.DESCRIPCION)  "
+					if(filtro.get("operador").equals("Igual a")) {
+						campus+="=LOWER('[valor]')"
+						where +="=LOWER('[valor]')"
+					}else {
+						campus+="LIKE LOWER('%[valor]%')"
+						where+="LIKE LOWER('%[valor]%')"
+					}
+					campus = cc.replace("[valor]", filtro.get("valor"))
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "CUPO DE LA PRUEBA":
+					where +=" AND CAST(P.cupo as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="='[valor]'"
+					}else {
+						where+="LIKE '%[valor]%'"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ALUMNOS REGISTRADOS":
+					if (residencia.contains("WHERE")) {
+						residencia += " AND "
+					} else {
+						residencia += " WHERE "
+					}
+			
+					residencia +=" CAST(sesionregistrados as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						residencia+="='[valor]'"
+					}else {
+						residencia+="LIKE '%[valor]%'"
+					}
+					residencia = residencia.replace("[valor]", filtro.get("valor"))
+					break;
+										
+				case "NOMBRE DE LA SESION":
+					where +=" AND LOWER(S.nombre) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						where+="=LOWER('[valor]')"
+					}else {
+							where+="LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "ALUMNOS ASISTIERON":
+					if (residencia.contains("WHERE")) {
+						residencia += " AND "
+					} else {
+						residencia += " WHERE "
+					}
+				
+					residencia +=" CAST(asistencias as varchar) ";
+					if(filtro.get("operador").equals("Igual a")) {
+						residencia+="='[valor]'"
+					}else {
+						residencia+="LIKE '%[valor]%'"
+					}
+					residencia = residencia.replace("[valor]", filtro.get("valor"))
+					break;
+				
+				}
+				
+				
+			}
+			switch(object.orderby) {
+				case "ID":
+				orderby+="pruebas_id";
+				break;
+				case "NOMBRE":
+				orderby+="P.nombre";
+				break;
+				case "ALUMNOS REGISTRADOS":
+				orderby+="sesionregistrados";
+				break;
+				case "CUPO":
+				orderby+="P.cupo";
+				break;
+				case "RESIDENCIA":
+				orderby+="S.residencia";
+				break;
+				case "FECHA":
+				orderby+="P.aplicacion";
+				break;
+				case "LUGAR":
+				orderby+="P.lugar";
+				break;
+				case "TIPO_PRUEBA":
+				orderby+="ctipoprueba.descripcion";
+				break;
+				case "NOMBRE_SESION":
+				orderby+="S.nombre";
+				break;
+				case "CAMPUS":
+				orderby+="cc.descripcion";
+				break;
+				case "ASISTENCIA":
+				orderby+="asistencias"
+				break;
+				default:
+				orderby+="P.aplicacion"
+				break;
+			}
+			orderby+=" "+object.orientation;
+			consulta=consulta.replace("[WHERE]", where);
+			String consulta_EXT = Statements.COUNT_ASPIRANTESPRUEBA_BY_PRUEBA;
+			consulta=consulta.replace("[RESIDENCIA]", residencia);
+			consulta=consulta.replace("[COUNTASPIRANTES]", consulta_EXT);
+			String groupBy = "group by S.NOMBRE, s.persistenceid,p.persistenceid,p.aplicacion,cc.clave,sexo.clave,periodo.clave,cec.descripcion,sda.calle,cc.numeroexterior,sda.colonia,ce.ciudad, sda.codigopostal, p.nombre, p.cupo, p.registrados, p.entrada, p.salida, p.lugar,p.aplicacion";
+			consulta=consulta.replace("[GROUPBY]", groupBy)
+			
+			
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion()
+			closeCon = validarConexion();
+			errorlog+=consulta.replace("* from (", "count(*) registros from ( ").replace("[LIMITOFFSET]", "").replace("[ORDERBY]","");
+			pstm = con.prepareStatement(consulta.replace("* from (", "count(*) registros from ( ").replace("[LIMITOFFSET]", "").replace("[ORDERBY]",""));
+			
+			rs= pstm.executeQuery();
+			while(rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			errorlog+="conteo exitoso "
+			
+			consulta=consulta.replace("[ORDERBY]", orderby);
+			consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			
+			errorlog = consulta;
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery();
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT distinct s.nombre as sesion,s.persistenceid as id_sesion,p.persistenceid id_prueba, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD, sexo.clave as sexo, '1' as activo, periodo.clave as periodo, '' tipousuario, cec.descripcion as ESTADO_CIVIL,sda.calle ||' #' || cc.numeroexterior || ' '|| sda.colonia ||', '||ce.descripcion || ' ' || sda.ciudad || ' CP. ' || sda.codigopostal direccion, p.nombre prueba, p.cupo, p.registrados, p.entrada, p.salida, p.lugar FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join paselista sa on sa.username=sda.correoelectronico AND sa.asistencia=true inner join pruebas p on sa.prueba_pid=p.persistenceid and p.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=p.sesion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catestadocivil cec on  sda.catestadocivil_pid=cec.persistenceid INNER JOIN catestados ce on ce.persistenceid=sda.catestado_pid INNER JOIN responsabledisponible rd on rd.prueba_pid=p.persistenceid "+ where)
-			rs = pstm.executeQuery()
+			//pstm = con.prepareStatement("SELECT distinct s.nombre as sesion,s.persistenceid as id_sesion,p.persistenceid id_prueba, to_char(p.aplicacion, 'DD/MM/YYYY') as fecharegistro, cc.clave as campusVPD, sexo.clave as sexo, '1' as activo, periodo.clave as periodo, '' tipousuario, cec.descripcion as ESTADO_CIVIL,sda.calle ||' #' || cc.numeroexterior || ' '|| sda.colonia ||', '||ce.descripcion || ' ' || sda.ciudad || ' CP. ' || sda.codigopostal direccion, p.nombre prueba, p.cupo, p.registrados, p.entrada, p.salida, p.lugar FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join paselista sa on sa.username=sda.correoelectronico AND sa.asistencia=true inner join pruebas p on sa.prueba_pid=p.persistenceid and p.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=p.sesion_pid INNER JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid INNER JOIN catestadocivil cec on  sda.catestadocivil_pid=cec.persistenceid INNER JOIN catestados ce on ce.persistenceid=sda.catestado_pid INNER JOIN responsabledisponible rd on rd.prueba_pid=p.persistenceid "+ where)
+			//rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
@@ -5570,8 +6214,9 @@ class SesionesDAO {
 			resultado.setData(rows)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
-			resultado.setError("500 Internal Server Error")
-			resultado.setError_info(e.getMessage())
+			//resultado.setError("500 Internal Server Error")
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorlog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -5685,6 +6330,312 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	public Result getUsersByPrueba2(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		String where ="", orderby="ORDER BY AP.username, ", errorlog="", role="", group="", orderbyUsuario="ORDER BY sda.primernombre";
+		try {
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				String consulta = Statements.GET_ASPIRANTESSESION_PRUEBA;
+				List<SesionesAspiranteCustom> rows = new ArrayList<SesionesAspiranteCustom>();
+				List<Map<String, Object>> aspirante = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				
+				String SSA = "";
+				pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+				rs= pstm.executeQuery();
+				if(rs.next()) {
+					SSA = rs.getString("valor")
+				}
+				for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+					switch(filtro.get("columna")) {
+						
+						
+					case "NOMBRE, EMAIL, CURP":
+						where +=" AND ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ', sda.segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.curp) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "CAMPUS, PROGRAMA, INGRESO":
+						where +=" AND ( LOWER(campus.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(gestionescolar.nombre) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(CPO.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROCEDENCIA, PREPARATORIA, PROMEDIO":
+						/*where +=" AND ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";*/
+						where +=" AND (LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%')"
+						where = where.replace("[valor]", filtro.get("valor"))
+					
+						where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+					
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+									
+						
+					case "ID BANNER":
+					
+						where +=" AND CAST(ds.idbanner as varchar) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="='[valor]'"
+						}else {
+							where+="LIKE '%[valor]%'"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "NOMBRE":
+						where +="  AND LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "EMAIL":
+						where +=" AND LOWER(sda.correoelectronico) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "PROMEDIO":
+							where +=" AND CAST(sda.PROMEDIOGENERAL as varchar )";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="='[valor]'"
+							}else {
+								where+="LIKE '%[valor]%'"
+							}
+                            where = where.replace("[valor]", filtro.get("valor"))
+                            break;
+							
+					case "PREPARATORIA":
+							where +=" AND LOWER(prepa.DESCRIPCION) ";
+							if(filtro.get("operador").equals("Igual a")) {
+								where+="=LOWER('[valor]')"
+							}else {
+								where+="LIKE LOWER('%[valor]%')"
+							}
+							where= where.replace("[valor]", filtro.get("valor"))
+							break;
+							
+					case "RESIDENCIA":
+						where +="AND  LOWER(R.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "SEXO":
+						where +=" AND LOWER(sx.descripcion) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "LICENCIATURA":
+						where +=" AND LOWER(gestionescolar.nombre) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "UNIVERSIDAD":
+						where +=" AND LOWER(campus.DESCRIPCION) ";
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+						
+					case "HORA DE LA ENTREVISTA":
+						if(filtro.get("operador").equals("Igual a")) {
+							where+="=LOWER('[valor]')"
+						}else {
+							where+="LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
+						
+					case "ASISTENCIA":
+						where +=" AND (PL.asistencia ";
+						where+="= [valor] "
+						where = where.replace("[valor]",  (filtro.get("valor").toString().equals("Sí")?"true)":"false OR PL.asistencia is NULL)"))
+						break;
+						
+					}
+					
+					
+					
+					
+				}
+				
+				errorlog+="llego al orderby "
+				switch(object.orderby) {
+					
+					case "IDBANNER":
+					orderby+="ds.idbanner";
+					break;
+					case "NOMBRE":
+					orderby+="sda.apellidopaterno";
+					break;
+					case "EMAIL":
+					orderby+="sda.correoelectronico";
+					break;
+					case "PREPARATORIA":
+					orderby+="preparatoria"
+					break;
+					case "CAMPUS":
+					orderby+="campus.descripcion"
+					break;
+					case "RESIDENCIA":
+					orderby+="R.descripcion";
+					break;
+					case "CURP":
+					orderby+="sda.curp";
+					break;
+					case "PROCEDENCIA":
+					orderby+="estado.DESCRIPCION";
+					break;
+					case "INGRESO":
+					orderby+="CPO.descripcion";
+					break;
+					case "SEXO":
+					orderby+="sx.descripcion";
+					break;
+					case "LICENCIATURA":
+					orderby+="gestionescolar.nombre";
+					break;
+					case "PROMEDIO":
+					orderby+="sda.promediogeneral";
+					break;
+					case "ASISTENCIA":
+					orderby+= "asistencia";
+					break;
+					
+					case "HORARIO":
+					orderby+= "horario";
+					break;
+					
+					default:
+					orderby+="AP.username"
+					break;
+					
+				}
+										
+				//orderby+="SA.username"
+				orderby+=" "+object.orientation;
+				errorlog+="order by = "+orderby
+				consulta=consulta.replace("[WHERE]", where);
+				consulta=consulta.replace("[ENTREVISTA]", "");
+				consulta=consulta.replace("[REPORTE]", "");
+				
+				
+				errorlog+=" conteo = "+consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
+				pstm = con.prepareStatement(consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				pstm.setInt(1, object.prueba);
+				
+				rs= pstm.executeQuery()
+				if(rs.next()) {
+					resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+				consulta=consulta.replace("[ORDERBY]", orderby)
+				consulta=consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+				errorlog+="conteo exitoso "
+				
+				errorlog+=" consulta :"+consulta
+				pstm = con.prepareStatement(consulta)
+				pstm.setInt(1, object.prueba)
+				pstm.setInt(2, object.limit)
+				pstm.setInt(3, object.offset)
+				
+				rs = pstm.executeQuery()
+				
+				
+				
+				errorlog+="otra llamada "
+				aspirante = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+							String encoded = "";
+							try {
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
+								}
+							}catch(Exception e) {
+								columns.put("fotografiab64", "");
+								errorlog+= "esto = "+e.getMessage();
+							}
+						}
+					}
+					rows.add(columns);
+				}	
+						
+				resultado.setError_info(" errorLog = "+errorlog)
+				resultado.setData(rows)
+				resultado.setSuccess(true)
+				
+			} catch (Exception e) {
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
+				resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	public Result getUserByIdbanner(String idBanner) {
 		Result resultado = new Result()
 		Boolean closeCon = false
@@ -5811,6 +6762,52 @@ class SesionesDAO {
 		}
 		return resultado;
 	}
+	
+	
+	public Result getEscalaINVPSexo(String sexo) {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			String _sexo = ""; 
+			
+			if(sexo.equals("Femenino")) {
+				_sexo = "FALSE";
+			}else {
+				_sexo = "TRUE";
+			}
+			
+			pstm = con.prepareStatement("select totc,letra,equivalente,sexo from CATESCALAINVP WHERE isEliminado IS FALSE AND sexo IS "+_sexo)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	private static java.sql.Date convert(java.util.Date uDate) {
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());

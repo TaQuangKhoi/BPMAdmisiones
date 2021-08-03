@@ -3711,6 +3711,60 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+                    case "TOTC":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(totc) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+						
+                    case "LETRA":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(letra) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+						
+                    case "EQUIVALENTE":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(equivalente) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+						
+                    case "ESCALA":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(sexo) = [valor] ";
+                        where = where.replace("[valor]", (filtro.get("valor").toString().equals("Masculino")?"true)":"false OR sexo is NULL)"))
+                        break;
 
                 }
             }
@@ -3755,7 +3809,13 @@ class CatalogosDAO {
                     orderby += "fechaImportacion";
                     break;
                 default:
-                    if (object.isOrden) { orderby += "orden::integer" } else if (object.isOrdenAD || object.isBannerAD) { orderby += "clave::integer" } else { orderby += "descripcion" }
+                    if (object.isOrden) 
+					{ orderby += "orden::integer" } 
+					else if (object.isOrdenAD || object.isBannerAD) 
+					{ orderby += "clave::integer" } 
+					else if(object.catalogo.equals("CatEscalaINVP"))
+					{ orderby += "Sexo"}
+					else { orderby += "descripcion" }
 
                     break;
             }
@@ -3783,22 +3843,35 @@ class CatalogosDAO {
             while (rs.next()) {
 
                 row = new CatGenericoFiltro();
-                row.setClave(rs.getString("clave"))
-                if (object.isOrden) { row.setOrden(rs.getString("orden")) }
-                row.setDescripcion(rs.getString("descripcion"));
-                row.setFechaCreacion(rs.getString("fechacreacion"));
-                row.setIsEliminado(rs.getBoolean("isEliminado"));
-                row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-                row.setPersistenceVersion(rs.getLong("persistenceVersion"));
-                if (object.isBannerAD) {
-                    row.setFechaImportacion(rs.getString("fechaimportacion"));
-                    row.setUsuarioCreacion(rs.getString("usuariobanner"));
-                } else {
-                    row.setUsuarioCreacion(rs.getString("usuariocreacion"));
-                }
-				if(object.isAdmitido) {
-					row.setIsAdmitido(rs.getBoolean("isAdmitido"));
+				if(object.catalogo.equals("CatEscalaINVP")){
+					row.setTotc(rs.getString("totc"));
+					row.setLetra(rs.getString("letra"));
+					row.setEquivalente(rs.getString("equivalente"));
+					row.setSexo(rs.getBoolean("sexo"));
+					row.setFechaCreacion(rs.getString("fechacreacion"));
+					row.setIsEliminado(rs.getBoolean("isEliminado"));
+					row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+					row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+				}else{
+					row.setClave(rs.getString("clave"))
+					if (object.isOrden) { row.setOrden(rs.getString("orden")) }
+					row.setDescripcion(rs.getString("descripcion"));
+					row.setFechaCreacion(rs.getString("fechacreacion"));
+					row.setIsEliminado(rs.getBoolean("isEliminado"));
+					row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+					row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+					if (object.isBannerAD) {
+						row.setFechaImportacion(rs.getString("fechaimportacion"));
+						row.setUsuarioCreacion(rs.getString("usuariobanner"));
+					} else {
+						row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+					}
+					if(object.isAdmitido) {
+						row.setIsAdmitido(rs.getBoolean("isAdmitido"));
+					}
+				
 				}
+                
 
 
                 rows.add(row)
@@ -4902,6 +4975,57 @@ class CatalogosDAO {
         }
         return resultado
     }
+	
+	public Result getValidarEscalaINVP(String tabla, String totc,String letra, String Sexo, String id) {
+        Result resultado = new Result();
+        Boolean closeCon = false;
+        List < Boolean > lstResultado = new ArrayList < Boolean > ();
+
+        try {
+            List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+            closeCon = validarConexion();
+            String consulta;
+            String errorLog = consulta + ";";
+            if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
+                consulta = Statements.GET_VALIDACION_ESCALA_INVP_EDIT;
+            } else {
+                consulta = Statements.GET_VALIDACION_ESCALA_INVP;
+            }
+
+            errorLog += consulta + ";";
+            resultado.setError_info(errorLog);
+            consulta = consulta.replace("[TABLA]", tabla);
+            errorLog += consulta + ";";
+
+            pstm = con.prepareStatement(consulta);
+            pstm.setString(1, totc.toLowerCase());
+			pstm.setString(2, letra.toLowerCase());
+			pstm.setBoolean(3, Sexo.toBoolean());
+			
+            if (!id.equals(null) && !id.equals(" ") && !id.equals("")) {
+                pstm.setLong(4, Long.valueOf(id));
+            }
+
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                lstResultado.add(rs.getInt("total") < 1);
+            }
+
+            resultado.setSuccess(true);
+            resultado.setData(lstResultado);
+        } catch (Exception e) {
+        	LOGGER.error "[ERROR] " + e.getMessage();
+            resultado.setSuccess(false);
+            resultado.setError(e.getMessage());
+        } finally {
+            if (closeCon) {
+                new DBConnect().closeObj(con, stm, rs, pstm)
+            }
+        }
+        return resultado
+    }
+	
 
     public Result getValidarOrden(Integer parameterP, Integer parameterC, String tabla, Integer orden, String id) {
         Result resultado = new Result();

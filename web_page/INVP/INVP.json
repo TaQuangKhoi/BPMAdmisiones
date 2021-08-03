@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "INVP",
   "name" : "INVP",
-  "lastUpdate" : 1627078153352,
+  "lastUpdate" : 1628014043378,
   "rows" : [
     [
       {
@@ -894,12 +894,9 @@
                           "Sesión id",
                           "Sesión",
                           "Fecha prueba",
-                          "Fecha registro"
+                          "Fecha registro",
+                          "Ver"
                         ]
-                      },
-                      "content" : {
-                        "type" : "expression",
-                        "value" : "getResultadosINVPIndividuales.data"
                       },
                       "columnsKey" : {
                         "type" : "constant",
@@ -922,16 +919,52 @@
                       },
                       "condensed" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "urlPost" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=postResultadosINVPIndividuales&p=0&c=9999"
+                      },
+                      "dataToSend" : {
+                        "type" : "variable",
+                        "value" : "dataToFilter2"
+                      },
+                      "lstContenido" : {
+                        "type" : "variable",
+                        "value" : "lstContenido2"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "lstCampus" : {
+                        "type" : "variable",
+                        "value" : "lstCatCampus"
+                      },
+                      "campusSeleccionado" : {
+                        "type" : "variable",
+                        "value" : "getCampus"
+                      },
+                      "inputList" : {
+                        "type" : "expression",
+                        "value" : "dynamicInput"
+                      },
+                      "desactivarFiltro" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "desactivarOrder" : {
                         "type" : "constant",
                         "value" : false
                       }
                     },
-                    "reference" : "aeb97f9c-55cd-4467-b7eb-08211c4a07c8",
+                    "reference" : "e01f6165-17d2-43da-8939-8644ca9520d8",
                     "hasValidationError" : false,
-                    "id" : "pbTable"
+                    "id" : "customTablePostIndividualINVP"
                   }
                 ]
               ]
@@ -1703,7 +1736,18 @@
     "dataToFilter" : {
       "type" : "expression",
       "value" : [
-        "return {\"sesion\":\"\",\"fecha\":\"\",\"uni\":\"\",\"id\":\"\"};"
+        "return {\r",
+        "    \"sesion\":\"\",\r",
+        "    \"fecha\":\"\",\r",
+        "    \"uni\":\"\",\r",
+        "    \"id\":\"\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
       ],
       "exposed" : false
     },
@@ -1805,7 +1849,7 @@
     "activos" : {
       "type" : "constant",
       "value" : [
-        ">="
+        "<"
       ],
       "exposed" : false
     },
@@ -1820,10 +1864,42 @@
       "type" : "constant",
       "exposed" : false
     },
-    "getResultadosINVPIndividuales" : {
-      "type" : "url",
+    "dataToFilter2" : {
+      "type" : "expression",
       "value" : [
-        "https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=getResultadosINVPIndividuales&p=0&c=9999"
+        "return {\r",
+        "    \"sesion\":\"\",\r",
+        "    \"fecha\":\"\",\r",
+        "    \"uni\":\"\",\r",
+        "    \"id\":\"\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\": parseInt($data.userData.user_id),\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstContenido2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "dynamicInput" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    {\"name\":\"Id banner\",\"type\":\"input\"},",
+        "    {\"name\":\"Nombre aspirante\",\"type\":\"input\"},",
+        "    {\"name\":\"Sesión id\",\"type\":\"input\"},",
+        "    {\"name\":\"Sesión\",\"type\":\"input\"},",
+        "    {\"name\":\"Fecha prueba\",\"type\":\"input\"},",
+        "    {\"name\":\"Fecha registro\",\"type\":\"input\"}",
+        "]"
       ],
       "exposed" : false
     }

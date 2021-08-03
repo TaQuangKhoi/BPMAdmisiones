@@ -8,6 +8,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 blockUI.start();
                 submitTask();
             } else {
+                debugger;
                 swal($scope.properties.messageTitle, $scope.properties.errorMessage, "warning");
             }
         }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ResultadoINVP",
   "name" : "ResultadoINVP",
-  "lastUpdate" : 1627070601231,
+  "lastUpdate" : 1627944336153,
   "rows" : [
     [
       {
@@ -401,6 +401,58 @@
           },
           "text" : {
             "type" : "interpolation",
+            "value" : "{{EscalaConvertida | json}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "6274a43f-21b9-4b03-8f69-f318d092924f",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
             "value" : "<br>\n<br>\n<br>"
           },
           "alignment" : {
@@ -473,7 +525,7 @@
           },
           "data" : {
             "type" : "expression",
-            "value" : "datos"
+            "value" : "EscalaConvertida"
           },
           "labels" : {
             "type" : "expression",
@@ -500,7 +552,99 @@
             "type" : "constant"
           }
         },
-        "reference" : "d00a3584-9552-4248-a31a-5da00d84649a",
+        "reference" : "145b5029-5951-4bcd-b4f7-d77299b9963d",
+        "hasValidationError" : false,
+        "id" : "customChartCustom2"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Grafica escala de contenido"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "49e6320f-47fa-4181-985d-643564d2ac5c",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "Line"
+          },
+          "data" : {
+            "type" : "expression",
+            "value" : "datos2"
+          },
+          "labels" : {
+            "type" : "expression",
+            "value" : "etiquetas2"
+          },
+          "setLabels" : {
+            "type" : "constant",
+            "value" : [
+              "Default set label"
+            ]
+          },
+          "legendHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "colors" : {
+            "type" : "constant",
+            "value" : [
+              "#FF5900",
+              "#333333"
+            ]
+          },
+          "options" : {
+            "type" : "constant"
+          }
+        },
+        "reference" : "04bc6ece-9e17-4e43-a024-b729ac8dd657",
         "hasValidationError" : false,
         "id" : "customChartCustom"
       }
@@ -533,6 +677,13 @@
       "name" : "ims.png",
       "type" : "img",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "55f87529-d69a-4ad4-8cd9-fe976b21aa33",
+      "name" : "convercionINVP.js",
+      "type" : "js",
+      "order" : 4,
       "external" : false
     },
     {
@@ -570,6 +721,9 @@
       "type" : "expression",
       "value" : [
         "debugger;\r",
+        "if($data.escalaINVP == undefined){\r",
+        "   return []\r",
+        "}\r",
         "var a= [{\"k\":30,\".5\":15,\".4\":12,\".2\":6},\r",
         "{\"k\":29,\".5\":15,\".4\":12,\".2\":6},\r",
         "{\"k\":28,\".5\":14,\".4\":11,\".2\":6},\r",
@@ -603,7 +757,8 @@
         "{\"k\":0,\".5\":0,\".4\":0,\".2\":0}]\r",
         "var datos = [];\r",
         "var valorK=0;\r",
-        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "//for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "for (let index = 0; index < 13; index++) {\r",
         "    const element = $data.getResultadoINVP.data[index];\r",
         "    if (element.escala=='K') {\r",
         "        valorK=element.puntuacion;\r",
@@ -617,7 +772,13 @@
         "    }\r",
         "    \r",
         "}\r",
-        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "var estructura = {\r",
+        "    \"letra\":\"\",\r",
+        "    \"valorOriginal\":\"\",\r",
+        "    \"valorConvertido\":\"\"\r",
+        "};\r",
+        "//for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "for (let index = 0; index < 13; index++) {\r",
         "        const element = $data.getResultadoINVP.data[index];\r",
         "        var valorpush=parseInt(element.puntuacion);\r",
         "        \r",
@@ -636,6 +797,13 @@
         "        if (element.escala=='Ma') {\r",
         "            valorpush=parseInt(element.puntuacion)+jsonk['.2'];\r",
         "        }\r",
+        "        \r",
+        "        estructura.letra = element.escala;\r",
+        "        estructura.valorOriginal = valorpush+\"\";\r",
+        "        estructura.valorConvertido = angular.copy(conversionEscala($data.escalaINVP,element.escala,valorpush+\"\"));\r",
+        "        if(estructura.valorConvertido.length > 0){\r",
+        "            $data.EscalaConvertida = angular.copy(guardarEscala($data.EscalaConvertida,estructura));\r",
+        "        }\r",
         "        datos.push(valorpush)\r",
         "    }\r",
         "return datos;"
@@ -646,7 +814,7 @@
       "type" : "expression",
       "value" : [
         "var etiquetas = [];",
-        "for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {",
+        "for (let index = 0; index < ($data.getResultadoINVP.data.length > 12 ? 13 :$data.getResultadoINVP.data.length); index++) {",
         "        const element = $data.getResultadoINVP.data[index];",
         "        etiquetas.push(element.escala)",
         "    }",
@@ -658,6 +826,51 @@
       "type" : "urlparameter",
       "value" : [
         "idsesion"
+      ],
+      "exposed" : false
+    },
+    "etiquetas2" : {
+      "type" : "expression",
+      "value" : [
+        "var etiquetas = [];",
+        "for ( let index = 13; index < $data.getResultadoINVP.data.length ; index++) {",
+        "        const element = $data.getResultadoINVP.data[index];",
+        "        etiquetas.push(element.escala)",
+        "    }",
+        "return etiquetas;"
+      ],
+      "exposed" : false
+    },
+    "datos2" : {
+      "type" : "expression",
+      "value" : [
+        "var datos = [];\r",
+        "\r",
+        "for (let index = 13; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "    const element = $data.getResultadoINVP.data[index];\r",
+        "}\r",
+        "\r",
+        "\r",
+        "for (let index = 13; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "        const element = $data.getResultadoINVP.data[index];\r",
+        "        var valorpush=parseInt(element.puntuacion);\r",
+        "        datos.push(valorpush)\r",
+        "    }\r",
+        "return datos;"
+      ],
+      "exposed" : false
+    },
+    "escalaINVP" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getEscalaINVPSexo&p=0&c=9999&sexo={{aspiranteData.sexo}}"
+      ],
+      "exposed" : false
+    },
+    "EscalaConvertida" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

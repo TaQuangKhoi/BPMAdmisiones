@@ -264,6 +264,100 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
+	public Result postRecuperarPasswordAdministrativo(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
+		
+		Result resultadoN = new Result();
+		Usuarios objUsuario= new Usuarios();
+		Result resultado = new Result();
+		Long userLogged = 0L;
+		String campus = "";
+		
+		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
+		List<String> lstResultado = new ArrayList<String>();
+		try {
+			Result dataResult = new Result();
+			List<Object> lstParams;
+			String username = "";
+			String password = "";
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
+			apiClient.login(username, password);
+			
+			IdentityAPI identityAPI = apiClient.getIdentityAPI()
+			final User user = identityAPI.getUserByUserName(object.nombreusuario);
+			
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+			
+			//userLogged = context.getApiSession().getUserId();
+			userLogged = user.getId();
+			List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+			for(UserMembership objUserMembership : lstUserMembership) {
+				if(campus.length() < 1 ) {
+					for(CatCampus rowGrupo : lstCatCampus) {
+						if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+							campus = objUserMembership.getGroupName();
+							break;
+						}
+					}
+				}
+			}
+			//generacion del ramdon
+			String asciiUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			String asciiLowerCase = asciiUpperCase.toLowerCase();
+			String digits = "1234567890";
+			String asciiChars = asciiUpperCase + asciiLowerCase + digits;
+			int length = 8;
+			String randomString = generateRandomString(length, asciiChars);
+			
+			UserUpdater update_user = new UserUpdater();
+			update_user.setPassword(randomString);
+			final User user_update= identityAPI.updateUser(user.getId(), update_user);
+			object.password = randomString;
+			def str = jsonSlurper.parseText('{"campus": "'+campus+'","correo":"'+object.nombreusuario+'", "codigo": "recuperar","isEnviar":false}');
+			NotificacionDAO nDAO = new NotificacionDAO();
+			 
+			resultadoN = nDAO.generateHtml(parameterP, parameterC, "{\"campus\": \""+campus+"\", \"correo\":\""+object.nombreusuario+"\", \"codigo\": \"recuperar\", \"isEnviar\":false }", context);
+			String plantilla = resultadoN.getData().get(0);
+			plantilla = plantilla.replace("[password]", object.password );
+			plantilla = plantilla.replace("[NOMBRE]", (user.getFirstName()+" "+user.getLastName()) );
+			MailGunDAO dao = new MailGunDAO();
+			resultado = dao.sendEmailPlantilla(object.nombreusuario,"Nueva contraseña",plantilla.replace("\\", ""),"",campus+"", context);
+			lstResultado.add(plantilla);
+			resultado.setData(lstResultado);
+			resultado.setSuccess(true);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	
 	public Result postHabilitarUsaurio(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Usuarios objUsuario= new Usuarios();
 		Result resultado = new Result();
@@ -785,13 +879,13 @@ class UsuariosDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +=" (gestionescolar.nombre ilike '%[valor]%' ";
+							where +=" ( LOWER(gestionescolar.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR periodo.DESCRIPCION ilike '%[valor]%' ";
+							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%')  ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR campus.DESCRIPCION ilike '%[valor]%' )";
+							where +=" OR LOWER(campus.DESCRIPCION) like lower('%[valor]%') )";
 							where = where.replace("[valor]", filtro.get("valor"))
 							break;
 

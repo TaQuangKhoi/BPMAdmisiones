@@ -995,6 +995,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "recuperarPasswordAdministrativo":
+					result =  uDAO.postRecuperarPasswordAdministrativo(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "sendEmail":
 					result = mgDAO.sendEmail(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
@@ -1913,9 +1923,7 @@ class Index implements RestApiController {
 				}
 				break;
 				case "getSesionesINVPTabla":
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				result = new SesionesDAO().getSesionesINVPTabla(object.sesion, object.fecha, object.uni, object.id)
+				result = new SesionesDAO().getSesionesINVPTabla(jsonData,context)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -1924,9 +1932,7 @@ class Index implements RestApiController {
 				}
 				break;
 				case "getSesionesINVPTablaProcesadas":
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				result = new SesionesDAO().getSesionesINVPTablaProcesadas(object.sesion, object.fecha, object.uni, object.id)
+				result = new SesionesDAO().getSesionesINVPTablaProcesadas(jsonData,context)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
@@ -1934,6 +1940,7 @@ class Index implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
 				case "getUsersByPrueba":
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
@@ -1945,8 +1952,28 @@ class Index implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
-				case "insertRespuesta":
 				
+				case "getUsersByPrueba2":
+				result = new SesionesDAO().getUsersByPrueba2(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "postResultadosINVPIndividuales":
+				result = new SesionesDAO().postResultadosINVPIndividuales(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "insertRespuesta":
 				result = new SesionesDAO().insertRespuesta(jsonData)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
@@ -1956,9 +1983,7 @@ class Index implements RestApiController {
 				}
 				break;
 				case "getSesiones":
-				def jsonSlurper = new JsonSlurper();
-				def object = jsonSlurper.parseText(jsonData);
-				result = new SesionesDAO().getSesiones(object.sesion, object.fecha, object.uni, object.id)
+				result = new SesionesDAO().getSesiones(jsonData)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
