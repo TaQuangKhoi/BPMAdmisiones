@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1624305327959,
+  "lastUpdate" : 1626992528768,
   "rows" : [
     [
       {
@@ -622,11 +622,19 @@
                                   "currentToken" : {
                                     "type" : "variable",
                                     "value" : "currentToken"
+                                  },
+                                  "processData" : {
+                                    "type" : "variable",
+                                    "value" : "processData[0].processId"
+                                  },
+                                  "processDataV2" : {
+                                    "type" : "variable",
+                                    "value" : "processData[0].processId"
                                   }
                                 },
-                                "reference" : "1d8200b5-076f-4d63-9374-dfa34479c0d3",
+                                "reference" : "66c69567-f703-4c65-9645-41bdadcda5a4",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBonitaLayoutMenuFront"
+                                "id" : "customCustomBonitaLayoutMenuFrontV2"
                               }
                             ]
                           ]
@@ -3123,6 +3131,13 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.catSolicitudDeAdmision_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "processData" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready&d=processId"
       ],
       "exposed" : false
     }

@@ -241,6 +241,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción"){
             ctrl.pageToken = "autodescripcion";
+			//ctrl.pageToken = "autodescripcionV2";
         } else if ($scope.properties.currentTaskName === "Seleccionar cita"){
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial"){
