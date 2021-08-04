@@ -48,14 +48,24 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
       var fileName = "kwafile.rua";
         for (let index = 0; index < $scope.properties.lstSesiones.length; index++) {
             const element = $scope.properties.lstSesiones[index];
-            if (element.id==$scope.properties.ruaname.split(',')[0]) {
+            try{
+              if (element.id==$scope.properties.ruaname.split(',')[0]) {
                 fileName=element.text + ".rua";
+                downloadLink.href = linkSource;
+                downloadLink.download = fileName;
+                downloadLink.click();
+            }
+            }catch(e){
+              Swal.fire({
+                icon: 'info',
+                title: 'Sin resultados',
+                text: 'Favor de seleccionar por lo menos una sesión'
+              })
             }
             
+            
         }
-      downloadLink.href = linkSource;
-      downloadLink.download = fileName;
-      downloadLink.click();
+      
     }
     /**
      * Execute a get/post request to an URL
