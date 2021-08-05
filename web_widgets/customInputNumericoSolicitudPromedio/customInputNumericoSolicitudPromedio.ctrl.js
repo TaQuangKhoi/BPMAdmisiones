@@ -13,7 +13,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
     $scope.forceKeyPressUppercase = function(e) {
         var re=/^[a-zA-Z0-9.]*$/g;
         var charInput = e.keyCode;
-        var letter = /^[a-zA-Z]+$/;
+        var letter = /^[a-zA-Z+-]+$/;
         var number = /^[0-9.]+$/;
         debugger;
         if($scope.properties.preparatoriaSeleccionada!='México'){
