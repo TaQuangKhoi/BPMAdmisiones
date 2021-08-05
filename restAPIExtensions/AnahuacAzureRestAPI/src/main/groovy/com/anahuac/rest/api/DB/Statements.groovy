@@ -29,4 +29,6 @@ class Statements {
 	public static final String DELETE_DOCUMENT = "DELETE FROM document WHERE id IN ([LSTDOCUMENTOID]);";
 	
 	public static final String DELETE_DOCUMENT_MAPPING = "DELETE FROM document_mapping WHERE processinstanceid = ? AND name != 'fotoPasaporte'";
+	
+	public static final String SELECT_PROPERTIES_BONITA = "SELECT A.tenantid, A.id, A.process_id, A.name, A.value FROM proc_parameter AS A LEFT JOIN process_definition AS B ON B.processid = A.process_id WHERE A.name IN ('usuario','password') ORDER BY B.version DESC Limit 2";
 }

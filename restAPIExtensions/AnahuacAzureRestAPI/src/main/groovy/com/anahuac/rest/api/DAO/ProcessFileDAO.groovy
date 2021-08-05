@@ -67,8 +67,12 @@ class ProcessFileDAO {
 			
 			closeCon = validarConexion();
 			
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			apiClient.login(username, password);
