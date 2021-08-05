@@ -8340,7 +8340,7 @@ class ListadoDAO {
 
 					Cell cell10 = row.createCell(13);
 					cell10.setCellValue((lstParams[i].asistencia != null?(lstParams[i].asistencia == "t"?"Sí" : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))) : (lstParams[i].cbcoincide == "t"?"Aspirante exento" : (lstParams[i].acreditado == "t"?"Acreditado" : "No"))));
-					
+
 					if (type.equals("paselistareportelistado") && lstParams[i].tipoprueba_pid == "1") {
 						Cell cell15 = row.createCell(14);
 						cell15.setCellValue(lstParams[i].responsables);
@@ -8526,7 +8526,6 @@ class ListadoDAO {
 			style.setFont(font);
 
 			if (type.equals("sesioncalendarizadas") || type.equals("sesioncalendarizadasreporte") || type.equals("listasesioncalendarizadas") || type.equals("listasesioncalendarizadaspsicologo") ) {
-
 				if (type.equals("sesioncalendarizadas")) {
 					dataResult = new SesionesDAO().getSesionesCalendarizadas(jsonData, context)
 				} else if (type.equals("listasesioncalendarizadas")) {

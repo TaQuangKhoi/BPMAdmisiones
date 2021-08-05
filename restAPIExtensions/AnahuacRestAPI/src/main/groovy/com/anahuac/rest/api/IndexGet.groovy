@@ -26,7 +26,6 @@ import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
-import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
@@ -255,17 +254,6 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				case "getCatPeriodoActivoFechaEspecifica":
-					String tipo = request.getParameter "tipo";
-					String fecha = request.getParameter "fecha";					
-					result = new CatalogosDAO().getCatPeriodoActivoFechaEspecifica(tipo, context);
-					responseBuilder.withMediaType("application/json");
-					if (result.isSuccess()) {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-					}else {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-					}
-				break;
 				case "getEstadoCivil":
 				String jsonData =request.getParameter "jsonData"
 				result = new CatalogosDAO().getEstadoCivil(jsonData)
@@ -309,18 +297,6 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				
-				break;
-				
-				case "getPsicologoSesiones":
-					String sesiones = request.getParameter "sesiones";
-					String username = request.getParameter "username";
-					result = new SesionesDAO().deleteAspirantesPruebas(sesiones,username)
-					responseBuilder.withMediaType("application/json")
-					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
-					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-					}
 				break;
 				
 				case "getCatGestionEscolar":
@@ -502,22 +478,6 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				
-				case "getValidarEscalaINVP":
-					String tabla = request.getParameter "tabla";
-					String totc = request.getParameter "totc";
-					String letra = request.getParameter "letra";
-					String sexo = request.getParameter "sexo";
-					String id = request.getParameter "id";
-					result = new CatalogosDAO().getValidarEscalaINVP(tabla,totc,letra,sexo,id);
-					responseBuilder.withMediaType("application/json");
-					if (result.isSuccess()) {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-					}else {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-					}
-				break;
-				
 				case "getValidarOrden":
 					String tabla = request.getParameter "tabla";
 					String ordenString = request.getParameter "orden";
@@ -615,17 +575,6 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
-				case "getInfoSesion":
-				String id = request.getParameter "id";
-				result = new SesionesDAO().getInfoPrueba(0, 9999, id);
-				responseBuilder.withMediaType("application/json");
-				if (result.isSuccess()) {
-					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-				}else {
-					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-				}
-				break;
-				
 				case "getFechaServidor":
 				result = new SesionesDAO().getFechaServidor(0, 9999);
 				responseBuilder.withMediaType("application/json");
@@ -691,9 +640,8 @@ class IndexGet implements RestApiController {
 				
 				case "getAspirantePAA":
 					String idbanner = request.getParameter "idbanner";
-					String persistenceid = request.getParameter "persistenceid";
 					
-					result = new ImportacionPAADAO().getAspirantePAA(idbanner,persistenceid,context);
+					result = new ImportacionPAADAO().getAspirantePAA(idbanner,context);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
@@ -733,43 +681,6 @@ class IndexGet implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
-				
-				case "getAspiranteRC_Expecifico":
-					String idbanner = request.getParameter "idbanner";
-					String persistenceid = request.getParameter "persistenceid";
-					result = new ResultadoComiteDAO().getAspiranteRC_Expecifico(persistenceid,idbanner,context);
-					responseBuilder.withMediaType("application/json");
-					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-					}
-				break;
-				
-				case "getResponsableEntrevista":
-					String responsabledisponible = request.getParameter "responsabledisponible";
-					
-					result = new SesionesDAO().getResponsableEntrevista(responsabledisponible,context);
-					responseBuilder.withMediaType("application/json");
-					if (result.isSuccess()) {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-					}else {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-					}
-				break;
-				
-				case "getResponsablesPrueba":
-					String pruebaid = request.getParameter "pruebaid";
-					
-					result = new SesionesDAO().getResponsablesPrueba(pruebaid,context);
-					responseBuilder.withMediaType("application/json");
-					if (result.isSuccess()) {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
-					}else {
-						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
-					}
-				break;
-				
 				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
@@ -903,14 +814,6 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
-				case "getPeriodosReporte":
-				result = new ReportesDAO().getPeriodos()
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				break;
 				case "updatePerfil":
 				result =  new UsuariosDAO().updatePerfil()
 				if (result.isSuccess()) {
@@ -918,57 +821,6 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
-				break;
-				case "getUserByIdbanner":
-				String idbanner =request.getParameter "idbanner"
-				result = new SesionesDAO().getUserByIdbanner(idbanner)
-				responseBuilder.withMediaType("application/json")
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData().get(0)).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				break;
-				case "getTipoEscala":
-				result = new SesionesDAO().getTipoEscala()
-				responseBuilder.withMediaType("application/json")
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				break;
-				case "getResultadoINVP":
-				String idbanner =request.getParameter "idbanner"
-				String sesionid =request.getParameter "sesionid"
-				result = new SesionesDAO().getResultadoINVP(idbanner,Long.parseLong(sesionid))
-				responseBuilder.withMediaType("application/json")
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				
-				case "getEscalaINVPSexo":
-				String sexo = request.getParameter "sexo"
-				result = new SesionesDAO().getEscalaINVPSexo(sexo)
-				responseBuilder.withMediaType("application/json")
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				
-				break;
-				case "getResultadosINVPIndividuales":
-				result = new SesionesDAO().getResultadosINVPIndividuales()
-				responseBuilder.withMediaType("application/json")
-				if (result.isSuccess()) {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-				}else {
-					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-				}
-				
 				break;
 			}
 		}catch (Exception e) {

@@ -43,7 +43,6 @@ import com.anahuac.catalogos.CatRegistroDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
-import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Usuarios
 import com.anahuac.rest.api.Entity.Custom.AppMenuRole
@@ -53,6 +52,7 @@ import com.anahuac.rest.api.Entity.Custom.ModuloUsuario
 import com.anahuac.rest.api.Entity.db.BusinessAppMenu
 import com.anahuac.rest.api.Entity.db.CatBitacoraCorreo
 import com.anahuac.rest.api.Entity.db.Role
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import com.mashape.unirest.http.HttpResponse;
@@ -95,18 +95,27 @@ class UsuariosDAO {
 	
 		String error_log = "";
 		
-		Boolean closeCon = false;
-		
 		try {
 			String username = "";
 			String password = "";
-			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
+
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -193,20 +202,29 @@ class UsuariosDAO {
 		
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
-		Boolean closeCon = false;
-		
 		try {
 			Result dataResult = new Result();
 			List<Object> lstParams;
 			String username = "";
 			String password = "";
-						
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
+
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -227,7 +245,7 @@ class UsuariosDAO {
 			String asciiUpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			String asciiLowerCase = asciiUpperCase.toLowerCase();
 			String digits = "1234567890";
-			String asciiChars = asciiUpperCase + asciiLowerCase + digits ;
+			String asciiChars = asciiUpperCase + asciiLowerCase + digits;
 			int length = 8;
 			String randomString = generateRandomString(length, asciiChars);
 			
@@ -270,7 +288,7 @@ class UsuariosDAO {
 		Usuarios objUsuario= new Usuarios();
 		Result resultado = new Result();
 		Long userLogged = 0L;
-		String campus = "";
+		String campus = "",errorlog="";
 		
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
@@ -290,12 +308,8 @@ class UsuariosDAO {
 				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 			}
 
-			/*-------------------------------------------------------------*/
-			LoadParametros objLoad = new LoadParametros();
-			PropertiesEntity objProperties = objLoad.getParametros();
-			username = objProperties.getUsuario();
-			password = objProperties.getPassword();
-			/*-------------------------------------------------------------*/
+			username = prop.getProperty("USERNAME");
+			password = prop.getProperty("PASSWORD");
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -357,23 +371,32 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
-	
 	public Result postHabilitarUsaurio(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Usuarios objUsuario= new Usuarios();
 		Result resultado = new Result();
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
-		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
+
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -411,18 +434,27 @@ class UsuariosDAO {
 		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
 		CatRegistro objCatRegistro = new CatRegistro();
 		String errorLog ="";
-		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-			
+
 			/*def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);*/
 
@@ -466,19 +498,27 @@ class UsuariosDAO {
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
 		List<String> lstResultado = new ArrayList<String>();
 		NotificacionDAO nDAO = new NotificacionDAO();
-		
-		Boolean closeCon = false;
-		
 		try {
 			String username = "";
 			String password = "";
-			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
+
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			apiClient.login(username, password)
@@ -882,7 +922,7 @@ class UsuariosDAO {
 							where +=" ( LOWER(gestionescolar.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
-							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%')  ";
+							where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(campus.DESCRIPCION) like lower('%[valor]%') )";
@@ -897,7 +937,7 @@ class UsuariosDAO {
 							}else {
 								where+= " WHERE "
 							}
-							where +="( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%')  ";
+							where +="(  LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END) like lower('%[valor]%') ";
 							where = where.replace("[valor]", filtro.get("valor"))
 							
 							where +=" OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
@@ -1246,14 +1286,24 @@ class UsuariosDAO {
 			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			String username = "";
 			String password = "";
-			
+			Properties prop = new Properties();
+			String propFileName = "configuration.properties";
+			InputStream inputStream;
+			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+			if (inputStream != null) {
+				prop.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}
+
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-			
+
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			assert object instanceof Map;
@@ -1511,6 +1561,7 @@ class UsuariosDAO {
 						processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 					}
 				}
+				
 			}
 			
 			con.commit();
@@ -2863,36 +2914,6 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
-	public Result updatePerfil() {
-		Result resultado = new Result();
-		Boolean closeCon = false;
-		String errorLog = "";
-		try {
-			String consulta = "update profileentry set profileid=202 where profileid in (1,2,3)";
-			List<String> rows = new ArrayList<String>();
-			closeCon = validarConexionBonita();
-			con.setAutoCommit(false)
-			pstm = con.prepareStatement(consulta);
-			pstm.executeUpdate();
-				
-			con.commit();
-			//resultado.setError_info(" errorLog = "+errorLog)
-			resultado.setData(rows)
-			resultado.setSuccess(true)
-		}catch(Exception e) {
-			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-			resultado.setError_info(errorLog+" "+e.getMessage())
-			con.rollback();
-		}
-		finally{
-			if(closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		return resultado
-	}
 	
 	public Result updateInformacionAspirante(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -2944,496 +2965,35 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
-	
-	public Result selectAspirantesEnLaRed(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+	public Result updatePerfil() {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", orderby = "ORDER BY ", errorlog = "";
-		List < String > lstGrupo = new ArrayList < String > ();
-		List < Map < String, String >> lstGrupoCampus = new ArrayList < Map < String, String >> ();
-		List < DetalleSolicitud > lstDetalleSolicitud = new ArrayList < DetalleSolicitud > ();
-
-		Long userLogged = 0L;
-		Long caseId = 0L;
-		Long total = 0L;
-		Map < String, String > objGrupoCampus = new HashMap < String, String > ();
+		String errorLog = "";
 		try {
-			def jsonSlurper = new JsonSlurper();
-			def object = jsonSlurper.parseText(jsonData);
-			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
-
-			List < CatCampus > lstCatCampus = objCatCampusDAO.find(0, 9999)
-
-			userLogged = context.getApiSession().getUserId();
-
-			List < UserMembership > lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
-			for (UserMembership objUserMembership: lstUserMembership) {
-				for (CatCampus rowGrupo: lstCatCampus) {
-					if (objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
-						lstGrupo.add(rowGrupo.getDescripcion());
-						break;
-					}
-				}
-			}
-
-			assert object instanceof Map;
-			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
-			if (object.campus != null) {
-				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
-			}
-			
-			if (lstGrupo.size() > 0) {
-				campus += " AND ("
-			}
-			for (Integer i = 0; i < lstGrupo.size(); i++) {
-				String campusMiembro = lstGrupo.get(i);
-				campus += "campus.descripcion='" + campusMiembro + "'"
-				if (i == (lstGrupo.size() - 1)) {
-					campus += ") "
-				} else {
-					campus += " OR "
-				}
-			}
-
-			errorlog += "campus" + campus;
-			errorlog += "object.lstFiltro" + object.lstFiltro
-			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
-			closeCon = validarConexion();
-
-			String SSA = "";
-			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
-			rs = pstm.executeQuery();
-			if (rs.next()) {
-				SSA = rs.getString("valor")
-			}
-
-			String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
-
-			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
-				errorlog = consulta + " 1";
-				switch (filtro.get("columna")) {
-
-					case "NOMBRE,EMAIL,CURP":
-						errorlog += "NOMBRE,EMAIL,CURP"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
-					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
-						errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						/*where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						*/
-						where += "( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += "  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					case "ULTIMA MODIFICACION":
-						errorlog += "FECHAULTIMAMODIFICACION"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " (LOWER(fechaultimamodificacion) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-						where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-						where += "LIKE LOWER('%[valor]%'))";
-
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
-						//filtrado utilizado en lista roja y rechazado
-					case "NOMBRE,EMAIL,CURP":
-						errorlog += "NOMBRE,EMAIL,CURP"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
-					case "CAMPUS,PROGRAMA,INGRESO":
-						errorlog += "PROGRAMA,INGRESO,CAMPUS"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						where += " OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
-						where = where.replace("[valor]", filtro.get("valor"))
-
-						break;
-
-					case "ESTATUS":
-						errorlog += "ESTATUS"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " LOWER(sda.ESTATUSSOLICITUD) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					
-					case "IDBANNER":
-						errorlog += "IDBANNER"
-						tipoalumno += " AND LOWER(da.idbanner) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							tipoalumno += "=LOWER('[valor]')"
-						} else {
-							tipoalumno += "LIKE LOWER('%[valor]%')"
-						}
-						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-						break;
-
-					case "ID BANNER":
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " LOWER(da.idbanner) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-
-					case "LISTAROJA":
-						errorlog += "LISTAROJA"
-						tipoalumno += " AND LOWER(da.observacionesListaRoja) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							tipoalumno += "=LOWER('[valor]')"
-						} else {
-							tipoalumno += "LIKE LOWER('%[valor]%')"
-						}
-						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-						break;
-					case "MOTIVO DE LISTA ROJA":
-						errorlog += "LISTAROJA"
-						tipoalumno += " AND LOWER(da.observacionesListaRoja) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							tipoalumno += "=LOWER('[valor]')"
-						} else {
-							tipoalumno += "LIKE LOWER('%[valor]%')"
-						}
-						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-						break;
-					case "RECHAZO":
-						errorlog += "RECHAZO"
-						tipoalumno += " AND LOWER(da.observacionesRechazo) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							tipoalumno += "=LOWER('[valor]')"
-						} else {
-							tipoalumno += "LIKE LOWER('%[valor]%')"
-						}
-						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-						break;
-					case "MOTIVO DE LISTA RECHAZO":
-						errorlog += "RECHAZO"
-						tipoalumno += " AND LOWER(da.observacionesRechazo) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							tipoalumno += "=LOWER('[valor]')"
-						} else {
-							tipoalumno += "LIKE LOWER('%[valor]%')"
-						}
-						tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-						break;
-					case "FECHA SOLICITUD":
-						errorlog += "FECHA SOLICITUD"
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " LOWER(fechasolicitudenviada) ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-
-
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-						/*============================================*/
-					
-					case "FECHA DE ENVIO":
-						errorlog += "FECHA DE ENVIO";
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " to_char(sda.fechasolicitudenviada::timestamp, 'DD-MM-YYYY HH24:MI:SS') ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=LOWER('[valor]')"
-						} else {
-							where += "LIKE LOWER('%[valor]%')"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					case "ADMISIÓN ANÁHUAC":
-						errorlog += "ADMISIÓN ANÁHUAC";
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " sda.admisionAnahuac ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=[valor]"
-						} else {
-							where += "=[valor]"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					case "PAA (COLLEGE BOARD)":
-						errorlog += "PAA (COLLEGE BOARD)";
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " sda.tienePAA ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=[valor]"
-						} else {
-							where += "=[valor]"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-					case "DESCUENTO EN EXAMEN":
-						errorlog += "DESCUENTO EN EXAMEN";
-						if (where.contains("WHERE")) {
-							where += " AND "
-						} else {
-							where += " WHERE "
-						}
-						where += " sda.tieneDescuento ";
-						if (filtro.get("operador").equals("Igual a")) {
-							where += "=[valor]"
-						} else {
-							where += "=[valor]"
-						}
-						where = where.replace("[valor]", filtro.get("valor"))
-						break;
-						/*====================================================================*/
-
-					default:
-
-						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
-						//consulta=consulta.replace("[WHERE]", where);
-
-						break;
-				}
-
-			}
-			errorlog = consulta + " 2";
-			switch (object.orderby) {
-				case "RESIDEICA":
-					orderby += "residensia";
-					break;
-				case "TIPODEADMISION":
-					orderby += "tipoadmision";
-					break;
-				case "TIPODEALUMNO":
-					orderby += "tipoDeAlumno";
-					break;
-				case "FECHAULTIMAMODIFICACION":
-					orderby += "sda.fechaultimamodificacion";
-					break;
-				case "NOMBRE":
-					orderby += "sda.apellidopaterno";
-					break;
-				case "EMAIL":
-					orderby += "sda.correoelectronico";
-					break;
-				case "CURP":
-					orderby += "sda.curp";
-					break;
-				case "CAMPUS":
-					orderby += "campus.DESCRIPCION"
-					break;
-				case "PREPARATORIA":
-					orderby += "prepa.DESCRIPCION"
-					break;
-				case "PROGRAMA":
-					orderby += "gestionescolar.NOMBRE"
-					break;
-				case "INGRESO":
-					orderby += "periodo.DESCRIPCION"
-					break;
-				case "PROCEDENCIA":
-					orderby += "CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END";
-					break;
-				case "PROMEDIO":
-					orderby += "sda.PROMEDIOGENERAL";
-					break;
-				case "ESTATUS":
-					orderby += "sda.ESTATUSSOLICITUD";
-					break;
-				case "TIPO":
-					orderby += "da.TIPOALUMNO";
-					break;
-				case "TELEFONO":
-					orderby += "sda.telefonocelular";
-					break;
-				case "IDBANNER":
-					orderby += "da.idbanner";
-					break;
-				case "SOLICITUD":
-					orderby += "sda.caseid::INTEGER";
-					break;
-				case "LISTAROJA":
-					orderby += "da.observacionesListaRoja";
-					break;
-				case "RECHAZO":
-					orderby += "da.observacionesRechazo";
-					break;
-				case "FECHASOLICITUD":
-					orderby += "sda.fechasolicitudenviada";
-					break;
-				default:
-					orderby += "sda.persistenceid"
-					break;
-			}
-			errorlog = consulta + " 3";
-			orderby += " " + object.orientation;
-			consulta = consulta.replace("[CAMPUS]", campus)
-			consulta = consulta.replace("[PROGRAMA]", programa)
-			consulta = consulta.replace("[INGRESO]", ingreso)
-			consulta = consulta.replace("[ESTADO]", estado)
-			consulta = consulta.replace("[BACHILLERATO]", bachillerato)
-			consulta = consulta.replace("[TIPOALUMNO]", tipoalumno)
-
-			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno
-			errorlog = consulta + " 4";
-
-			consulta = consulta.replace("[WHERE]", where);
-			errorlog = consulta + " 5";
-			pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid", ""))
-			
-			errorlog = consulta + " 6";
-			rs = pstm.executeQuery()
-			if (rs.next()) {
-				resultado.setTotalRegistros(rs.getInt("registros"))
-			}
-			consulta = consulta.replace("[ORDERBY]", orderby)
-			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-			errorlog = consulta + " 7";
-
-			pstm = con.prepareStatement(consulta)
-			pstm.setInt(1, object.limit)
-			pstm.setInt(2, object.offset)
-			rs = pstm.executeQuery()
-			rows = new ArrayList < Map < String, Object >> ();
-			ResultSetMetaData metaData = rs.getMetaData();
-			int columnCount = metaData.getColumnCount();
-			errorlog = consulta + " 8";
-			while (rs.next()) {
-				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-
-				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
-						String encoded = "";
-						boolean noAzure = false;
-						try {
-							String urlFoto = rs.getString("urlfoto");
-							if (urlFoto != null && !urlFoto.isEmpty()) {
-								columns.put("fotografiab64", rs.getString("urlfoto") + SSA);
-							} else {
-								noAzure = true;
-								List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
-								for (Document doc: doc1) {
-									encoded = "../API/formsDocumentImage?document=" + doc.getId();
-									columns.put("fotografiab64", encoded);
-								}
-							}
-
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-								encoded = "../API/formsDocumentImage?document=" + doc.getId();
-								columns.put("fotografiabpm", encoded);
-							}
-						} catch (Exception e) {
-							LOGGER.error "[ERROR] " + e.getMessage();
-							columns.put("fotografiabpm", "");
-							if(noAzure){
-								columns.put("fotografiab64", "");
-							}
-							errorlog += "" + e.getMessage();
-						}
-					}
-				}
-
-				rows.add(columns);
-			}
-			errorlog = consulta + " 9";
-			resultado.setSuccess(true)
-
-			resultado.setError_info(errorlog);
+			String consulta = "update profileentry set profileid=202 where profileid in (1,2,3)";
+			List<String> rows = new ArrayList<String>();
+			closeCon = validarConexionBonita();
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement(consulta);
+			pstm.executeUpdate();
+				
+			con.commit();
+			//resultado.setError_info(" errorLog = "+errorLog)
 			resultado.setData(rows)
-
-		} catch (Exception e) {
+			resultado.setSuccess(true)
+		}catch(Exception e) {
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorlog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-		} finally {
-			if (closeCon) {
+			resultado.setError_info(errorLog+" "+e.getMessage())
+			con.rollback();
+		}
+		finally{
+			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}
 		return resultado
 	}
-	
-	
+
 }
