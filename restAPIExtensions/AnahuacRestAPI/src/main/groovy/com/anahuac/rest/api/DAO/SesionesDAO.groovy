@@ -6809,6 +6809,64 @@ class SesionesDAO {
 	}
 	
 	
+	public Result postSelectAspirantePrueba(String jsonData) {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("select distinc on (DS.idbanner) DS.idbanner from aspirantespruebas as ap inner join resultadoinvp as RI on RI.sesiones_pid = ap.sesiones_pid inner join detallesolicitud as DS on DS.idbanner = RI.idbanner where ap.sesiones_pid = ? and ap.acreditado is false and ap.asistencia is true and ap.cattipoprueba_pid = 2 ORDER BY RI.fecha_registro")
+			pstm.setInt(1,object.idSesion)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			int count = 0,indice = 0;
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				count++;
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if(metaData.getColumnLabel(i).toLowerCase().equals("idbanner") && rs.getString(i).equals(object.idbanner)) {
+						indice = count;
+					}
+				}
+
+				rows.add(columns);
+			}
+			indice--;
+			List < Map < String, Object >> rows2 = new ArrayList < Map < String, Object >> ();
+			if( indice > 0 && !object.accion ) {
+				rows2 = rows[indice-1];
+			}else if(indice < (rows.size()-1) ) {
+				rows2 = rows[indice -1]
+			}else {
+				Map < String, Object > info = new LinkedHashMap < String, Object > ();
+				info.put("accion", false)
+				rows2.add(info)
+			}
+			
+			
+			resultado.setSuccess(true)
+			resultado.setData(rows2)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	private static java.sql.Date convert(java.util.Date uDate) {
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
 		return sDate;

@@ -144,6 +144,164 @@ class PsicometricoDAO {
         columnaUpdate = columnaUpdate.substring(0, columnaUpdate.length()-2);
         return Statements.UPDATE_TESTPSICOMETRICO.replace("[COLUMNA]", columnaUpdate);
     }
+	
+	private Result generateUpdateResult(def testPsicomInput) {
+		Result result = new Result();
+		def catPersonaSaludable = null;
+		def catVivesEstadoDiscapacidad = null;
+		def catProblemaSaludAtencionContinua = null;
+		def catRequieresAsistencia = null;
+		
+		String columnaUpdate = "";
+		String strError = "";
+		try {
+        
+			strError += " |ajusteEfectivo";
+	        if(testPsicomInput.ajusteEfectivo != null && testPsicomInput.ajusteEfectivo != ""){
+	            columnaUpdate = columnaUpdate + "ajusteEfectivo = '"+testPsicomInput.ajusteEfectivo+"', ";
+	        }
+			strError += " |ajusteEscolarPrevio";
+	        if(testPsicomInput.ajusteEscolarPrevio != null && testPsicomInput.ajusteEscolarPrevio != ""){
+	            columnaUpdate = columnaUpdate + "ajusteEscolarPrevio = '"+testPsicomInput.ajusteEscolarPrevio+"', ";
+	        }
+			strError += " |ajusteExistencial";
+	        if(testPsicomInput.ajusteExistencial != null && testPsicomInput.ajusteExistencial != ""){
+	            columnaUpdate = columnaUpdate + "ajusteExistencial = '"+testPsicomInput.ajusteExistencial+"', ";
+	        }
+			strError += " |ajusteMedioFamiliar";
+	        if(testPsicomInput.ajusteMedioFamiliar != null && testPsicomInput.ajusteMedioFamiliar != ""){
+	            columnaUpdate = columnaUpdate + "ajusteMedioFamiliar = '"+testPsicomInput.ajusteMedioFamiliar+"', ";
+	        }
+			strError += " |ajusteMedioSocial";
+	        if(testPsicomInput.ajusteMedioSocial != null && testPsicomInput.ajusteMedioSocial != ""){
+	            columnaUpdate = columnaUpdate + "ajusteMedioSocial = '"+testPsicomInput.ajusteMedioSocial+"', ";
+	        }
+			strError += " |ajusteReligioso";
+	        if(testPsicomInput.ajusteReligioso != null && testPsicomInput.ajusteReligioso != ""){
+	            columnaUpdate = columnaUpdate + "ajusteReligioso = '"+testPsicomInput.ajusteReligioso+"', ";
+	        }
+			strError += " |califAjusteAfectivo";
+	        if(testPsicomInput.califAjusteAfectivo != null && testPsicomInput.califAjusteAfectivo != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteAfectivo = '"+testPsicomInput.califAjusteAfectivo+"', ";
+	        }
+			strError += " |califAjusteEscolarPrevio";
+	        if(testPsicomInput.califAjusteEscolarPrevio != null && testPsicomInput.califAjusteEscolarPrevio != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteEscolarPrevio = '"+testPsicomInput.califAjusteEscolarPrevio+"', ";
+	        }
+			strError += " |califAjusteExistencial";
+	        if(testPsicomInput.califAjusteExistencial != null && testPsicomInput.califAjusteExistencial != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteExistencial = '"+testPsicomInput.califAjusteExistencial+"', ";
+	        }
+			strError += " |califAjusteMedioFamiliar";
+	        if(testPsicomInput.califAjusteMedioFamiliar != null && testPsicomInput.califAjusteMedioFamiliar != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteMedioFamiliar = '"+testPsicomInput.califAjusteMedioFamiliar+"', ";
+	        }
+			strError += " |califAjusteMedioSocial";
+	        if(testPsicomInput.califAjusteMedioSocial != null && testPsicomInput.califAjusteMedioSocial != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteMedioSocial = '"+testPsicomInput.califAjusteMedioSocial+"', ";
+	        }
+			strError += " |califAjusteReligioso";
+	        if(testPsicomInput.califAjusteReligioso != null && testPsicomInput.califAjusteReligioso != ""){
+	            columnaUpdate = columnaUpdate + "califAjusteReligioso = '"+testPsicomInput.califAjusteReligioso+"', ";
+	        }
+			strError += " |conclusioneINVP";
+	        if(testPsicomInput.conclusioneINVP != null && testPsicomInput.conclusioneINVP != ""){
+	            columnaUpdate = columnaUpdate + "conclusioneINVP = '"+testPsicomInput.conclusioneINVP+"', ";
+	        }
+			strError += " |fechaEntrevista";
+	        if(testPsicomInput.fechaEntrevista != null && testPsicomInput.fechaEntrevista != ""){
+	            columnaUpdate = columnaUpdate + "fechaEntrevista = '"+testPsicomInput.fechaEntrevista+"', ";
+	        }
+			strError += " |finalizado";
+	        if(testPsicomInput.finalizado != null && testPsicomInput.finalizado != ""){
+	            columnaUpdate = columnaUpdate + "finalizado = '"+testPsicomInput.finalizado+"', ";
+	        }
+			strError += " |hasParticipadoActividadesAyuda";
+	        if(testPsicomInput.hasParticipadoActividadesAyuda != null && testPsicomInput.hasParticipadoActividadesAyuda != ""){
+	            columnaUpdate = columnaUpdate + "hasParticipadoActividadesAyuda = '"+testPsicomInput.hasParticipadoActividadesAyuda+"', ";
+	        }
+			strError += " |interpretacionINVP";
+	        if(testPsicomInput.interpretacionINVP != null && testPsicomInput.interpretacionINVP != ""){
+	            columnaUpdate = columnaUpdate + "interpretacionINVP = '"+testPsicomInput.interpretacionINVP+"', ";
+	        }
+			strError += " |otroTipoAsistencia";
+	        if(testPsicomInput.otroTipoAsistencia != null && testPsicomInput.otroTipoAsistencia != ""){
+	            columnaUpdate = columnaUpdate + "otroTipoAsistencia = '"+testPsicomInput.otroTipoAsistencia+"', ";
+	        }
+			strError += " |participacionActividadesVoluntaria";
+	        if(testPsicomInput.participacionActividadesVoluntaria != null && testPsicomInput.participacionActividadesVoluntaria != ""){
+	            columnaUpdate = columnaUpdate + "participacionActividadesVoluntaria = '"+testPsicomInput.participacionActividadesVoluntaria+"', ";
+	        }
+			strError += " |puntuacionINVP";
+	        if(testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != ""){
+	            columnaUpdate = columnaUpdate + "puntuacionINVP = '"+testPsicomInput.puntuacionINVP+"', ";
+	        }
+			strError += " |quienIntegro";
+	        if(testPsicomInput.quienIntegro != null && testPsicomInput.quienIntegro != ""){
+	            columnaUpdate = columnaUpdate + "quienIntegro = '"+testPsicomInput.quienIntegro+"', ";
+	        }
+			strError += " |quienRealizoEntrevista";
+	        if(testPsicomInput.quienRealizoEntrevista != null && testPsicomInput.quienRealizoEntrevista != ""){
+	            columnaUpdate = columnaUpdate + "quienRealizoEntrevista = '"+testPsicomInput.quienRealizoEntrevista+"', ";
+	        }
+			strError += " |resumenSalud";
+	        if(testPsicomInput.resumenSalud != null && testPsicomInput.resumenSalud != ""){
+	            columnaUpdate = columnaUpdate + "resumenSalud = '"+testPsicomInput.resumenSalud+"', ";
+	        }
+			
+			strError += " |catpersonasaludable_pid";
+					
+			//OBJ
+			if (testPsicomInput.catPersonaSaludable != null && testPsicomInput.catPersonaSaludable != "") {
+				catPersonaSaludable = testPsicomInput.catPersonaSaludable
+				assert catPersonaSaludable instanceof Map;
+				if (catPersonaSaludable.persistenceId != null && catPersonaSaludable.persistenceId != "") {
+					columnaUpdate = columnaUpdate + "catpersonasaludable_pid = " + catPersonaSaludable.persistenceId + ", ";
+				}
+			}
+			strError += " |catvivesestadodiscapacidad_pid";
+			if (testPsicomInput.catVivesEstadoDiscapacidad != null && testPsicomInput.catVivesEstadoDiscapacidad != "") {
+				catVivesEstadoDiscapacidad = testPsicomInput.catVivesEstadoDiscapacidad
+				assert catVivesEstadoDiscapacidad instanceof Map;
+				if (catVivesEstadoDiscapacidad.persistenceId != null && catVivesEstadoDiscapacidad.persistenceId != "") {
+					columnaUpdate = columnaUpdate + "catvivesestadodiscapacidad_pid = " + catVivesEstadoDiscapacidad.persistenceId + ", ";
+				}
+			}
+			strError += " |catproblemasaludatencionco_pid";
+			if (testPsicomInput.catProblemaSaludAtencionContinua != null && testPsicomInput.catProblemaSaludAtencionContinua != "") {
+				catProblemaSaludAtencionContinua = testPsicomInput.catProblemaSaludAtencionContinua
+				assert catProblemaSaludAtencionContinua instanceof Map;
+				if (catProblemaSaludAtencionContinua.persistenceId != null && catProblemaSaludAtencionContinua.persistenceId != "") {
+					columnaUpdate = columnaUpdate + "catproblemasaludatencionco_pid = " + catProblemaSaludAtencionContinua.persistenceId + ", ";
+				}
+			}
+			strError += " |catrequieresasistencia_pid";
+			if (testPsicomInput.catRequieresAsistencia != null && testPsicomInput.catRequieresAsistencia != "") {
+				catRequieresAsistencia = testPsicomInput.catRequieresAsistencia
+				assert catRequieresAsistencia instanceof Map;
+				if (catRequieresAsistencia.persistenceId != null && catRequieresAsistencia.persistenceId != "") {
+					columnaUpdate = columnaUpdate + "catrequieresasistencia_pid = " + catRequieresAsistencia.persistenceId + ", ";
+				}
+			}
+			
+			strError += " |columnaUpdate :: " + columnaUpdate + " ||| ";
+			columnaUpdate = columnaUpdate.substring(0, columnaUpdate.length()-2);
+			
+			
+			//		return Statements.UPDATE_TESTPSICOMETRICO.replace("[COLUMNA]", columnaUpdate);
+			List<String> data = new ArrayList<String>();
+			data.add(Statements.UPDATE_TESTPSICOMETRICO.replace("[COLUMNA]", columnaUpdate));
+			result.setData(data);
+		} catch(Exception e) {
+			LOGGER.error "e: "+e.getMessage();
+			result.setError_info(strError);
+			result.setSuccess(false);
+			result.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
     
     public Result insertUpdatePsicometrico(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
         Result resultado = new Result();
@@ -189,7 +347,13 @@ class PsicometricoDAO {
             }
                         
             consultaInsert = Statements.INSERT_TESTPSICOMETRICO;
-            consultaUpdate = generateUpdate(testPsicomInput);
+//            consultaUpdate = generateUpdate(testPsicomInput);
+			Result resultConsultaUpdate = generateUpdateResult(testPsicomInput);
+			if(!resultConsultaUpdate.isSuccess()) {
+				throw new Exception(resultConsultaUpdate.getError() + " || " + resultConsultaUpdate.getError_info());
+			} else {
+				consultaUpdate = resultConsultaUpdate.getData().get(0);
+			}
             
             strError = strError + " | " + consultaInsert;
             strError = strError + " | " + consultaUpdate;
@@ -402,23 +566,25 @@ class PsicometricoDAO {
             pstm.setInt(1, testPsicomInput_persistenceId);
             pstm.executeUpdate();
             strError = strError + " | " + "-------------------------------------------";
-            if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
-                strError = strError + " | " + "-------------------------------------------";
-                if (testPsicomInput.problemasSalud != null && testPsicomInput.problemasSalud != "") {
-                    assert testPsicomInput.problemasSalud instanceof List;
-                    for (def row: testPsicomInput.problemasSalud) {
-                        if(row.persistenceId != null && row.persistenceId != ""){
-                            pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_PROBLEMASSALUD);
-                            pstm.setInt(1, testPsicomInput_persistenceId);
-                            pstm.setInt(2, row.persistenceId);
-                            pstm.setInt(3, contador);
-                            pstm.executeUpdate();
-                            contador++;
-                            strError = strError + " | contador: " + contador;
-                        }
-                    }
-                }
-            }
+			
+//            if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+//                strError = strError + " | " + "-------------------------------------------";
+//                if (testPsicomInput.problemasSalud != null && testPsicomInput.problemasSalud != "") {
+//                    assert testPsicomInput.problemasSalud instanceof List;
+//                    for (def row: testPsicomInput.problemasSalud) {
+//                        if(row.persistenceId != null && row.persistenceId != ""){
+//                            pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_PROBLEMASSALUD);
+//                            pstm.setInt(1, testPsicomInput_persistenceId);
+//                            pstm.setInt(2, row.persistenceId);
+//                            pstm.setInt(3, contador);
+//                            pstm.executeUpdate();
+//                            contador++;
+//                            strError = strError + " | contador: " + contador;
+//                        }
+//                    }
+//                }
+//            }
+			
             /*==============================================TESTPSICOMETRICO_PROBLEMASSALUD FIN==============================================*/
             /*==============================================TESTPSICOMETRICO_TIPOASISTENCIA INICIO==============================================*/
             contador = 0;

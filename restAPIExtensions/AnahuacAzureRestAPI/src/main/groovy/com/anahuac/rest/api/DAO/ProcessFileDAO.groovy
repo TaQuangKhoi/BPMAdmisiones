@@ -17,7 +17,9 @@ import com.anahuac.model.SolicitudDeAdmision
 import com.anahuac.model.SolicitudDeAdmisionDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.engine.api.APIClient
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
