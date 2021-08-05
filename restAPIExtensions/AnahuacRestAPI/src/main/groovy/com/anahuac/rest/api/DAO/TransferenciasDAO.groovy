@@ -500,24 +500,15 @@ class TransferenciasDAO {
             Boolean avanzartarea = false;
             String username = "";
             String password = "";
-            Properties prop = new Properties();
-            String propFileName = "configuration.properties";
-            InputStream inputStream;
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-
-            /*-------------------------------------------------------------*/
-            LoadParametros objLoad = new LoadParametros();
-            PropertiesEntity objProperties = objLoad.getParametros();
-            username = objProperties.getUsuario();
-            password = objProperties.getPassword();
-            /*-------------------------------------------------------------*/
-
+			
+			closeCon = validarConexion();
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
             def jsonSlurper = new JsonSlurper();
             def object = jsonSlurper.parseText(jsonData);
             assert object instanceof Map;
@@ -548,9 +539,6 @@ class TransferenciasDAO {
                 }
             }
 
-            errorLog += " Antes del update "
-            closeCon = validarConexion();
-            errorLog += " closeCon " + closeCon
             con.setAutoCommit(false)
             pstm = con.prepareStatement(Statements.UPDATE_DATOS_TRASNFERENCIA)
             pstm.setLong(1, object.campus);
@@ -1056,24 +1044,16 @@ class TransferenciasDAO {
             Boolean avanzartarea = false;
             String username = "";
             String password = "";
-            Properties prop = new Properties();
-            String propFileName = "configuration.properties";
-            InputStream inputStream;
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
-
-            /*-------------------------------------------------------------*/
-            LoadParametros objLoad = new LoadParametros();
-            PropertiesEntity objProperties = objLoad.getParametros();
-            username = objProperties.getUsuario();
-            password = objProperties.getPassword();
-            /*-------------------------------------------------------------*/
-
+            
+			closeCon = validarConexion();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
             def jsonSlurper = new JsonSlurper();
             def object = jsonSlurper.parseText(jsonData);
             assert object instanceof Map;
@@ -1099,9 +1079,7 @@ class TransferenciasDAO {
                     errorLog = errorLog + " | FINAL"
                 }
             }
-			
-			
-			closeCon = validarConexion()
+						
 			String usuarioReagendar = "";
 			pstm = con.prepareStatement(Statements.GET_CORREO_BY_CASEID)
 			pstm.setLong(1, Long.valueOf(object.caseid.toString()))

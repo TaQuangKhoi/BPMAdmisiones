@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1627683106168,
+  "lastUpdate" : 1628191974406,
   "rows" : [
     [
       {
@@ -154,7 +154,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "col-lg-offset-2 col-md-offset-1 col-sm-offset-1"
+                  "value" : ""
                 },
                 "hidden" : {
                   "type" : "expression",
@@ -249,7 +249,7 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "center"
+                        "value" : "left"
                       }
                     },
                     "reference" : "c3c055e1-c2c7-45a1-a775-660630437d81",
@@ -2676,6 +2676,66 @@
                             "lg" : 12
                           },
                           "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion !== \"Sí\""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : 0
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 500
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Nombre de la organización o empresa donde trabajaste: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "autodescripcionV2.empresaTrabajaste"
+                            }
+                          },
+                          "reference" : "0eb40499-1dbe-4c55-8282-e75baf27f59d",
+                          "hasValidationError" : false,
+                          "id" : "customCustomTextAreaLimit"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "md" : 12,
+                            "sm" : 12,
+                            "xs" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
                             "labelHidden" : {
                               "type" : "constant",
                               "value" : false
@@ -2706,7 +2766,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Nombre de la organización o empresa donde trabajaste: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Sientes que tu experiencia de trabajo te ayudó a elegir tu carrera? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "value" : {
                               "type" : "variable",
@@ -2736,66 +2796,6 @@
                           "hasValidationError" : false,
                           "id" : "pbSelect",
                           "description" : ""
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "md" : 12,
-                            "sm" : 12,
-                            "xs" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "expression",
-                              "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion !== \"Sí\""
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : 0
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 3000
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Sientes que tu experiencia de trabajo te ayudó a elegir tu carrera? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 1
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.empresaTrabajaste"
-                            }
-                          },
-                          "reference" : "0eb40499-1dbe-4c55-8282-e75baf27f59d",
-                          "hasValidationError" : false,
-                          "id" : "customCustomTextAreaLimit"
                         }
                       ]
                     ]
@@ -4078,7 +4078,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Qué tipo de discapacidad? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Qué tipo de discapacidad? (describe brevemente) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4144,6 +4144,73 @@
                               "type" : "constant",
                               "value" : false
                             },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Tienes algún problema de salud que necesite atención médica continua?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 1
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona..."
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catProblemasSaludAtencion_query"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "autodescripcionV2.catProblemasSaludAtencion"
+                            }
+                          },
+                          "reference" : "b22ecbf4-3a3f-4624-a8df-ccc1e117b0d2",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion  !== \"Sí\""
+                            },
                             "readOnly" : {
                               "type" : "constant",
                               "value" : false
@@ -4166,7 +4233,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Tienes algún problema de salud que necesite atención médica continua?  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Describe brevemente  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4867,66 +4934,6 @@
                 ],
                 [
                   {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 6,
-                      "lg" : 6
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "readOnly" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "minLength" : {
-                        "type" : "constant",
-                        "value" : 0
-                      },
-                      "maxLength" : {
-                        "type" : "constant",
-                        "value" : 4000
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "¿Cómo describirías la relación con tus hermanos? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "value" : {
-                        "type" : "variable",
-                        "value" : "autodescripcionV2.comoDescribesRelacionHermanos"
-                      }
-                    },
-                    "reference" : "64099854-9efd-494b-a86e-ca30578f4114",
-                    "hasValidationError" : false,
-                    "id" : "customCustomTextAreaLimit"
-                  }
-                ],
-                [
-                  {
                     "type" : "container",
                     "dimension" : {
                       "xs" : 12,
@@ -5221,6 +5228,66 @@
                         }
                       ]
                     ]
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 6,
+                      "lg" : 6
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "readOnly" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "required" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "minLength" : {
+                        "type" : "constant",
+                        "value" : 0
+                      },
+                      "maxLength" : {
+                        "type" : "constant",
+                        "value" : 4000
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "¿Cómo describirías la relación con tus hermanos? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "value" : {
+                        "type" : "variable",
+                        "value" : "autodescripcionV2.comoDescribesRelacionHermanos"
+                      }
+                    },
+                    "reference" : "64099854-9efd-494b-a86e-ca30578f4114",
+                    "hasValidationError" : false,
+                    "id" : "customCustomTextAreaLimit"
                   }
                 ],
                 [
@@ -5940,7 +6007,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿En qué organizaciones sociales participas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿En cuál(es) organizacion(es) social(es) participas? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -6100,7 +6167,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿En qué asociación(es) o grupo(s) has tenido un rol directivo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿En cuál(es) asociación(es) o grupo(s) has tenido un rol directivo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -6244,7 +6311,7 @@
                             },
                             "placeholder" : {
                               "type" : "constant",
-                              "value" : "Select a Perteneces Organizacion"
+                              "value" : "Selecciona..."
                             },
                             "label" : {
                               "type" : "interpolation",
@@ -6320,7 +6387,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Cuál? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿En cuál? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -7590,8 +7657,8 @@
                         "value" : false
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -7662,8 +7729,8 @@
                         "value" : false
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -8626,7 +8693,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "autodescripcionV2.catPadresDeAcuerdo.descripcion !== \"No\""
+                        "value" : "autodescripcionV2.catPadresDeAcuerdo.descripcion !== \"Sí\""
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -14962,24 +15029,10 @@
   ],
   "assets" : [
     {
-      "id" : "917177a0-da27-4424-9a8d-98e88ea91825",
-      "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "22468614-0156-44f2-bd93-871bea466503",
       "name" : "sweetalert.min.js",
       "type" : "js",
       "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "856f275f-5bc9-4b57-aee6-5cc856bc6898",
-      "name" : "style (7).css",
-      "type" : "css",
-      "order" : 3,
       "external" : false
     },
     {
@@ -14994,6 +15047,20 @@
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "917177a0-da27-4424-9a8d-98e88ea91825",
+      "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "856f275f-5bc9-4b57-aee6-5cc856bc6898",
+      "name" : "style (7).css",
+      "type" : "css",
+      "order" : 3,
       "external" : false
     }
   ],
@@ -15213,6 +15280,9 @@
         "            pageIndex: $data.selectedIndex,\r",
         "            catRecibidoTerapia: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catRecibidoTerapia ? {\r",
         "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catRecibidoTerapia.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catRecibidoTerapia.persistenceId_string : null\r",
+        "            } : null,\r",
+        "            catProblemasSaludAtencion: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catProblemasSaludAtencion ? {\r",
+        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catProblemasSaludAtencion.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catProblemasSaludAtencion.persistenceId_string : null\r",
         "            } : null\r",
         "        },\r",
         "        lstUniversidadesHasEstadoInput:$data.lstUniversidadesHasEstadoMod,\r",
@@ -15765,7 +15835,7 @@
         "    output = false;\r",
         "    $data.errorMessageStep5 = \"El campo ¿Te consideras una persona saludable? no debe ir vacío.\";\r",
         "    $data.titleMessageStep5 = \"¿Te consideras una persona saludable?\";\r",
-        "} else if($data.autodescripcionV2.catVivesEstadoDiscapacidad === undefined || $data.autodescripcionV2.catVivesEstadoDiscapacidad === null || $data.autodescripcionV2.catVivesEstadoDiscapacidad === \"\"){\r",
+        "} else if($data.autodescripcionV2.catVivesEstadoDiscapacidad === undefined || $data.autodescripcionV2.catVivesEstadoDiscapacidad === null || $data.autodescripcionV2.catVivesEstadoDiscapacidad === \"\") {\r",
         "    output = false;\r",
         "    $data.errorMessageStep5 = \"El campo ¿Vives en situación de discapacidad? no debe ir vacío.\";\r",
         "    $data.titleMessageStep5 = \"¿Vives en situación de discapacidad?\";\r",
@@ -15773,10 +15843,14 @@
         "    output = false;\r",
         "    $data.errorMessageStep5 = \"El campo ¿Qué tipo de discapacidad? no debe ir vacío.\";\r",
         "    $data.titleMessageStep5 = \"¿Qué tipo de discapacidad?\";\r",
-        "} else if($data.autodescripcionV2.problemasSaludAtencionContinua === undefined || $data.autodescripcionV2.problemasSaludAtencionContinua === null || $data.autodescripcionV2.problemasSaludAtencionContinua === \"\"){\r",
+        "} else if($data.autodescripcionV2.catProblemasSaludAtencion === undefined || $data.autodescripcionV2.catProblemasSaludAtencion === null){\r",
         "    output = false;\r",
         "    $data.errorMessageStep5 = \"El campo ¿Tienes algún problema de salud que necesite atención médica continua? no debe ir vacío.\";\r",
         "    $data.titleMessageStep5 = \"¿Tienes algún problema de salud que necesite atención médica continua?\";\r",
+        "}else if($data.autodescripcionV2.catPersonaSaludable.descripcion === \"Sí\" && ($data.autodescripcionV2.problemasSaludAtencionContinua === undefined || $data.autodescripcionV2.problemasSaludAtencionContinua === null || $data.autodescripcionV2.problemasSaludAtencionContinua === \"\")) {\r",
+        "    output = false;\r",
+        "    $data.errorMessageStep5 = \"El campo Describa brevemente no debe ir vacío.\";\r",
+        "    $data.titleMessageStep5 = \"Describa brevemente\";\r",
         "} else if($data.autodescripcionV2.catRecibidoTerapia === undefined || $data.autodescripcionV2.catRecibidoTerapia === null || $data.autodescripcionV2.catRecibidoTerapia === \"\"){\r",
         "    output = false;\r",
         "    $data.errorMessageStep5 = \"El campo ¿Has recibido alguna terapia? no debe ir vacío.\";\r",
@@ -15856,8 +15930,8 @@
         "    $data.titleMessageStep6 = \"¿Si pudieras cambiar algo de tu familia, qué sería?\";\r",
         "} else if ($data.autodescripcionV2.familiarMejorRelacion === undefined || $data.autodescripcionV2.familiarMejorRelacion === null || $data.autodescripcionV2.familiarMejorRelacion === \"\") {\r",
         "    output = false;\r",
-        "    $data.errorMessageStep6 = \"El campo ¿Con quién de tu familia te llevas mejor? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep6 = \"¿Con quién de tu familia te llevas mejor?\";\r",
+        "    $data.errorMessageStep6 = \"El campo ¿Con quién de tu familia tienes una mejor relación? no debe ir vacío.\";\r",
+        "    $data.titleMessageStep6 = \"¿Con quién de tu familia tienes una mejor relación?\";\r",
         "} else if ($data.autodescripcionV2.conQuienPlaticasProblemas === undefined || $data.autodescripcionV2.conQuienPlaticasProblemas === null || $data.autodescripcionV2.conQuienPlaticasProblemas === \"\") {\r",
         "    output = false;\r",
         "    $data.errorMessageStep6 = \"El campo Cuándo tienes un problema, ¿con quién lo platicas? no debe ir vacío.\";\r",
@@ -16017,27 +16091,37 @@
         "$data.errorMessageStep9 = \"\";\r",
         "$data.titleMessageStep9 = \"\";\r",
         "\r",
-        "if ($data.objectSolicitud.catReligion === undefined || $data.objectSolicitud.catReligion === null || $data.objectSolicitud.catReligion === \"\") {\r",
-        "    output = false;\r",
-        "    $data.errorMessageStep9 = \"El campo ¿A qué religión perteneces? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep9 = \"¿A qué religión perteneces?\";\r",
-        "} else if ($data.autodescripcionV2.catPracticasReligion === undefined || $data.autodescripcionV2.catPracticasReligion === null || $data.autodescripcionV2.catPracticasReligion === \"\") {\r",
-        "    output = false;\r",
-        "    $data.errorMessageStep9 = \"El campo ¿Practicas tu religión? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep9 = \"¿Practicas tu religión?\";\r",
-        "} else if ($data.autodescripcionV2.catAspectoDesagradaReligion === undefined || $data.autodescripcionV2.catAspectoDesagradaReligion === null || $data.autodescripcionV2.catAspectoDesagradaReligion === \"\") {\r",
-        "    output = false;\r",
-        "    $data.errorMessageStep9 = \"El campo ¿Existe algún aspecto de tu religión que no te guste? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep9 = \"¿Existe algún aspecto de tu religión que no te guste?\";\r",
-        "} else if ($data.autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"Sí\" && ($data.autodescripcionV2.asprctosNoGustanReligion === undefined || $data.autodescripcionV2.asprctosNoGustanReligion === null || $data.autodescripcionV2.asprctosNoGustanReligion === \"\")) {\r",
-        "    output = false;\r",
-        "    $data.errorMessageStep9 = \"El campo ¿Qué aspectos no te gustan de tu religión? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep9 = \"¿Qué aspectos no te gustan de tu religión?\";\r",
-        "} else if ($data.autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"Sí\" && ($data.autodescripcionV2.motivoAspectosNoGustanReligion === undefined || $data.autodescripcionV2.motivoAspectosNoGustanReligion === null || $data.autodescripcionV2.motivoAspectosNoGustanReligion === \"\")) {\r",
-        "    output = false;\r",
-        "    $data.errorMessageStep9 = \"El campo ¿Por qué no te gustan estos aspectos de tu religión? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep9 = \"¿Por qué no te gustan estos aspectos de tu religión?\";\r",
+        "if($data.objectSolicitud.catReligion.descripcion !== \"Ateo\"){\r",
+        "    if ($data.objectSolicitud.catReligion === undefined || $data.objectSolicitud.catReligion === null || $data.objectSolicitud.catReligion === \"\") {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿A qué religión perteneces? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿A qué religión perteneces?\";\r",
+        "    } else if ($data.autodescripcionV2.catPracticasReligion === undefined || $data.autodescripcionV2.catPracticasReligion === null || $data.autodescripcionV2.catPracticasReligion === \"\") {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿Practicas tu religión? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿Practicas tu religión?\";\r",
+        "    } else if ($data.autodescripcionV2.catAspectoDesagradaReligion === undefined || $data.autodescripcionV2.catAspectoDesagradaReligion === null || $data.autodescripcionV2.catAspectoDesagradaReligion === \"\") {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿Existe algún aspecto de tu religión que no te guste? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿Existe algún aspecto de tu religión que no te guste?\";\r",
+        "    } else if ($data.autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"Sí\" && ($data.autodescripcionV2.asprctosNoGustanReligion === undefined || $data.autodescripcionV2.asprctosNoGustanReligion === null || $data.autodescripcionV2.asprctosNoGustanReligion === \"\")) {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿Qué aspectos no te gustan de tu religión? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿Qué aspectos no te gustan de tu religión?\";\r",
+        "    } else if ($data.autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"Sí\" && ($data.autodescripcionV2.motivoAspectosNoGustanReligion === undefined || $data.autodescripcionV2.motivoAspectosNoGustanReligion === null || $data.autodescripcionV2.motivoAspectosNoGustanReligion === \"\")) {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿Por qué no te gustan estos aspectos de tu religión? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿Por qué no te gustan estos aspectos de tu religión?\";\r",
+        "    }\r",
+        "}else{\r",
+        "    if ($data.objectSolicitud.catReligion === undefined || $data.objectSolicitud.catReligion === null || $data.objectSolicitud.catReligion === \"\") {\r",
+        "        output = false;\r",
+        "        $data.errorMessageStep9 = \"El campo ¿A qué religión perteneces? no debe ir vacío.\";\r",
+        "        $data.titleMessageStep9 = \"¿A qué religión perteneces?\";\r",
+        "    }\r",
         "}\r",
+        "\r",
+        "\r",
         "\r",
         "return output;\r"
       ],
@@ -16073,7 +16157,7 @@
         "    output = false;\r",
         "    $data.errorMessageStep10 = \"El campo ¿Tus padres están de acuerdo con tu elección? no debe ir vacío.\";\r",
         "    $data.titleMessageStep10 = \"¿Tus padres están de acuerdo con tu elección?\";\r",
-        "} else if ($data.autodescripcionV2.catPadresDeAcuerdo.descripcion ===\"No\" && ($data.autodescripcionV2.motivoPadresNoAcuerdo === undefined || $data.autodescripcionV2.motivoPadresNoAcuerdo === null || $data.autodescripcionV2.motivoPadresNoAcuerdo === \"\")) {\r",
+        "} else if ($data.autodescripcionV2.catPadresDeAcuerdo.descripcion ===\"Sí\" && ($data.autodescripcionV2.motivoPadresNoAcuerdo === undefined || $data.autodescripcionV2.motivoPadresNoAcuerdo === null || $data.autodescripcionV2.motivoPadresNoAcuerdo === \"\")) {\r",
         "    output = false;\r",
         "    $data.errorMessageStep10 = \"El campo ¿Por qué tus padres piensan eso? no debe ir vacío.\";\r",
         "    $data.titleMessageStep10 = \"¿Por qué tus padres piensan eso?\";\r",
@@ -16083,8 +16167,8 @@
         "    $data.titleMessageStep10 = \"¿Has recibido Orientación Vocacional?\";\r",
         "} else if ($data.autodescripcionV2.personasInfluyeronDesicion === undefined || $data.autodescripcionV2.personasInfluyeronDesicion === null || $data.autodescripcionV2.personasInfluyeronDesicion === \"\") {\r",
         "    output = false;\r",
-        "    $data.errorMessageStep10 = \"El campo ¿Qué persona y cómo intervino en tu elección de carrera? no debe ir vacío.\";\r",
-        "    $data.titleMessageStep10 = \"¿Qué persona y cómo intervino en tu elección de carrera?\";\r",
+        "    $data.errorMessageStep10 = \"El campo ¿Qué o quiénes influyeron en la elección de tu carrera? no debe ir vacío.\";\r",
+        "    $data.titleMessageStep10 = \"¿Qué o quiénes influyeron en la elección de tu carrera?\";\r",
         "}\r",
         "return output;"
       ],
@@ -16454,6 +16538,13 @@
       "type" : "expression",
       "value" : [
         "return new Date().getFullYear();"
+      ],
+      "exposed" : false
+    },
+    "catProblemasSaludAtencion_query" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatProblemasSaludAtencion?q=find&p=0&c=9999"
       ],
       "exposed" : false
     }

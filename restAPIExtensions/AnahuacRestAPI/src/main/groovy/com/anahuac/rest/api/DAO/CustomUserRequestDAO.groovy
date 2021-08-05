@@ -152,31 +152,24 @@ class CustomUserRequestDAO {
 	
 	public Result reAssignTask(String task_id, String user_id, RestAPIContext context) {
 		Result result = new Result();
+		
 		List<HumanTaskInstance> data = new ArrayList<HumanTaskInstance>();
+		
 		Integer inicioContador = 0;
 		Integer finContador = 0;
-//		String taskid = "";
+		
+		Boolean closeCon = false;
+			
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
+						
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			apiClient.login(username, password);

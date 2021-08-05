@@ -16,7 +16,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
          return $http(req)
             .success(function (data, status) {
                 if(data.data.length < 1){
-                    swal("¡El aspirante todavia no ha seleccionado una sesion!","","info")
+                    swal("¡El aspirante aún no ha seleccionado una sesión!","","info")
                 }else{
                     var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
                     window.open(url, '_blank');
@@ -73,7 +73,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-
+        var page = "verSolicitudAdmisionADV2";
+        
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -81,8 +82,24 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+
+            blockUI.start();
+            var req2 = {
+                method: "GET",
+                url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+            };
+
+            $http(req2)
+                .success(function(data2, status) {
+                    
+                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                
+                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                 if (data.length > 0) {
+                    if(parseFloat(data2[0].processId.version)<1.51){
+                        page = "verSolicitudAdmision";
+                    }
+                    url = url.replace("[PAGE]",page);
                     url = url.replace("[TASKID]", data[0].id);
                 } else {
                     url = url.replace("[TASKID]", "");
@@ -90,6 +107,14 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 url = url.replace("[CASEID]", rowData.caseid);
                 //window.top.location.href = url;
                 window.open(url, '_blank');
+                })
+                .error(function(data, status) {
+                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                })
+                .finally(function() {
+
+                    blockUI.stop();
+                });
             })
             .error(function(data, status) {
                 console.error(data);

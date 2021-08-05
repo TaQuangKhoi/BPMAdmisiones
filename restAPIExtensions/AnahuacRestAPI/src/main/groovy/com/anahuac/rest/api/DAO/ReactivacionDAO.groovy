@@ -498,17 +498,8 @@ class ReactivacionDAO {
 			Boolean avanzartarea = false;
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
+			
+			closeCon = validarConexion();
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
@@ -541,7 +532,7 @@ class ReactivacionDAO {
 			}
 
 
-			closeCon = validarConexion();
+			
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
 			pstm.setLong(1, object.campus);

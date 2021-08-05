@@ -133,8 +133,13 @@ class MailGunDAO {
 			//estructura.setCc(correocopia);
 			estructura.setSubject(object.subject)
 			estructura.setBody(object.body)
-						
+			
+			LOGGER.error "estructura para correo "+ estructura
+			
+			
 			JsonNode jsonNode = sendSimpleMessage(estructura)
+			LOGGER.error "================================="
+			LOGGER.error jsonNode.toString()
 			lstResultado.add(jsonNode.toString())
 			resultado.setData(lstResultado)
 			resultado.setSuccess(true)
@@ -230,7 +235,6 @@ class MailGunDAO {
 				if(ca.getCampus().getDescripcion().equals(objGrupoSelected.get("descripcion"))) {
 					estructura.setSandBox(ca.getMailgunDominio())
 					estructura.setApiKey(ca.getMailgun())
-					estructura.setFrom(ca.getMailgunCorreo())
 					errorlog += " estructura.sandbox= " + estructura.getSandBox();
 					errorlog += ", estructura.MailgunDominio= " + ca.getMailgunDominio();
 					errorlog += ", estructura.getMailgun= " + ca.getMailgun();
@@ -266,7 +270,7 @@ class MailGunDAO {
 	public static JsonNode sendSimpleMessage(EstructuraMailGun estructura) throws UnirestException {
 				HttpResponse<JsonNode> request = (estructura.getCc().equals(""))?Unirest.post("https://api.mailgun.net/v3/" + estructura.getSandBox() + "/messages")
 					.basicAuth("api", estructura.getApiKey())
-					.field("from", "Universidad Anáhuac <"+ estructura.getFrom() +">")
+					.field("from", "Universidad Anáhuac <servicios@"+ estructura.getSandBox() +">")
 					.field("to", estructura.getTo())
 					//.field("to", "ricardo.riveroll@anahuac.mx")
 					//.field("cc", estructura.getCc())
@@ -274,7 +278,7 @@ class MailGunDAO {
 					.field("html", estructura.getBody().replace("\\", ""))
 					.asJson():Unirest.post("https://api.mailgun.net/v3/" + estructura.getSandBox() + "/messages")
 					.basicAuth("api", estructura.getApiKey())
-					.field("from", "Universidad Anáhuac <"+ estructura.getFrom() +">")
+					.field("from", "Universidad Anáhuac <servicios@"+ estructura.getSandBox() +">")
 					.field("to", estructura.getTo())
 					//.field("to", "ricardo.riveroll@anahuac.mx")
 					.field("cc", estructura.getCc())

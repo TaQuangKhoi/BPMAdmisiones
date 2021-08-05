@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "verAutodescripcionV2",
   "name" : "verAutodescripcionV2",
-  "lastUpdate" : 1627683564011,
+  "lastUpdate" : 1628191974209,
   "rows" : [
     [
       {
@@ -688,8 +688,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catEstudiadoExtranjero.descripcion === \"No\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -765,8 +765,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catEstudiadoExtranjero.descripcion === \"No\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -1185,8 +1185,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasPresentadoExamenExtraordinario.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1245,8 +1245,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasPresentadoExamenExtraordinario.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1373,7 +1373,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : "autodescripcionV2.catHasReprobado.desccripcion"
+                  "value" : "autodescripcionV2.catHasReprobado.descripcion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -1410,8 +1410,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasReprobado.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1470,8 +1470,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasReprobado.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -1773,8 +1773,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion === \"No\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -1850,8 +1850,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion === \"No\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -2032,8 +2032,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catActualnenteTrabajas.descripcion === \"No\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -2473,7 +2473,7 @@
     ],
     [
       {
-        "type" : "component",
+        "type" : "container",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -2489,66 +2489,233 @@
             "type" : "constant",
             "value" : false
           },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Te consideras una persona saludable?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "placeholder" : {
-            "type" : "interpolation"
-          },
-          "value" : {
+          "repeatedCollection" : {
             "type" : "variable",
-            "value" : "autodescripcionV2.catPersonaSaludable.descripcion"
-          },
-          "type" : {
-            "type" : "constant",
-            "value" : "text"
-          },
-          "min" : {
-            "type" : "constant"
-          },
-          "max" : {
-            "type" : "constant"
-          },
-          "step" : {
-            "type" : "constant",
-            "value" : 1
+            "value" : ""
           }
         },
-        "reference" : "ef5ae17e-6e6c-454a-b492-887afea81dec",
+        "reference" : "73c9aa9b-f00f-4fbf-8fe1-9b8cf0212f0a",
         "hasValidationError" : false,
-        "id" : "pbInput"
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Te consideras una persona saludable?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.catPersonaSaludable.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "ef5ae17e-6e6c-454a-b492-887afea81dec",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Vives en situación de discapacidad?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "ed308345-5a9d-4fc3-a2a0-876ecc3162f2",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.descripcion === \"No\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Qué tipo de discapacidad?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.tipoDiscapacidad"
+                }
+              },
+              "reference" : "7a93298b-afb1-42d2-9110-70529cd37c8d",
+              "hasValidationError" : false,
+              "id" : "pbTextarea"
+            }
+          ]
+        ]
       },
       {
-        "type" : "component",
+        "type" : "container",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -2564,316 +2731,290 @@
             "type" : "constant",
             "value" : false
           },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "value" : {
+          "repeatedCollection" : {
             "type" : "variable",
-            "value" : "autodescripcionV2.problemasSaludAtencionContinua"
+            "value" : ""
           }
         },
-        "reference" : "f1ac5fbe-5df5-452b-a563-a3d3c9185443",
+        "reference" : "56be237e-e404-490f-a45a-0e46107b9494",
         "hasValidationError" : false,
-        "id" : "pbTextarea"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Vives en situación de discapacidad?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "placeholder" : {
-            "type" : "interpolation"
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.descripcion"
-          },
-          "type" : {
-            "type" : "constant",
-            "value" : "text"
-          },
-          "min" : {
-            "type" : "constant"
-          },
-          "max" : {
-            "type" : "constant"
-          },
-          "step" : {
-            "type" : "constant",
-            "value" : 1
-          }
-        },
-        "reference" : "ed308345-5a9d-4fc3-a2a0-876ecc3162f2",
-        "hasValidationError" : false,
-        "id" : "pbInput"
-      },
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Has recibido alguna terapia?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "placeholder" : {
-            "type" : "interpolation"
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "autodescripcionV2.catRecibidoTerapia.descripcion"
-          },
-          "type" : {
-            "type" : "constant",
-            "value" : "text"
-          },
-          "min" : {
-            "type" : "constant"
-          },
-          "max" : {
-            "type" : "constant"
-          },
-          "step" : {
-            "type" : "constant",
-            "value" : 1
-          }
-        },
-        "reference" : "3f95c55a-352f-428f-9d4a-7405ca7754ad",
-        "hasValidationError" : false,
-        "id" : "pbInput"
-      }
-    ],
-    [
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Qué tipo de discapacidad?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "autodescripcionV2.tipoDiscapacidad"
-          }
-        },
-        "reference" : "7a93298b-afb1-42d2-9110-70529cd37c8d",
-        "hasValidationError" : false,
-        "id" : "pbTextarea"
-      },
-      {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Qué tipo de terapia?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "autodescripcionV2.hasRecibidoAlgunaTerapia"
-          }
-        },
-        "reference" : "a6edf76a-f20a-4654-ac5b-4ca937bd5518",
-        "hasValidationError" : false,
-        "id" : "pbTextarea"
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "7980636f-ce00-4614-b375-cbf7ffbe26d0",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catProblemasSaludAtencion.descripcion  !== \"Sí\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Describe brevemente"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.problemasSaludAtencionContinua"
+                }
+              },
+              "reference" : "f1ac5fbe-5df5-452b-a563-a3d3c9185443",
+              "hasValidationError" : false,
+              "id" : "pbTextarea"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Has recibido alguna terapia?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.catRecibidoTerapia.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "3f95c55a-352f-428f-9d4a-7405ca7754ad",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catRecibidoTerapia.descripcion === \"No\""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "¿Qué tipo de terapia?"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "autodescripcionV2.hasRecibidoAlgunaTerapia"
+                }
+              },
+              "reference" : "a6edf76a-f20a-4654-ac5b-4ca937bd5518",
+              "hasValidationError" : false,
+              "id" : "pbTextarea"
+            }
+          ]
+        ]
       }
     ],
     [
@@ -3250,66 +3391,6 @@
     ],
     [
       {
-        "type" : "component",
-        "dimension" : {
-          "xs" : 12,
-          "sm" : 12,
-          "md" : 6,
-          "lg" : 6
-        },
-        "propertyValues" : {
-          "cssClasses" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "hidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "readOnly" : {
-            "type" : "constant",
-            "value" : true
-          },
-          "required" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "minLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "maxLength" : {
-            "type" : "constant",
-            "value" : ""
-          },
-          "labelHidden" : {
-            "type" : "constant",
-            "value" : false
-          },
-          "label" : {
-            "type" : "interpolation",
-            "value" : "¿Cómo describirías la relación con tus hermanos?"
-          },
-          "labelPosition" : {
-            "type" : "constant",
-            "value" : "top"
-          },
-          "labelWidth" : {
-            "type" : "constant",
-            "value" : 4
-          },
-          "value" : {
-            "type" : "variable",
-            "value" : "autodescripcionV2.comoDescribesRelacionHermanos"
-          }
-        },
-        "reference" : "c07dd98e-11c9-4a09-adf6-c39e0278447f",
-        "hasValidationError" : false,
-        "id" : "pbTextarea"
-      }
-    ],
-    [
-      {
         "type" : "container",
         "dimension" : {
           "xs" : 12,
@@ -3612,6 +3693,66 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "¿Cómo describirías la relación con tus hermanos?"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "autodescripcionV2.comoDescribesRelacionHermanos"
+          }
+        },
+        "reference" : "c07dd98e-11c9-4a09-adf6-c39e0278447f",
+        "hasValidationError" : false,
+        "id" : "pbTextarea"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
           "md" : 12,
           "lg" : 12
         },
@@ -3861,8 +4002,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catPracticasDeporte.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -4026,8 +4167,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catTeGustaLeer.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -4193,8 +4334,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catParticipasGrupoSocial.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -4218,7 +4359,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿En qué organizaciones sociales participas?"
+                  "value" : "¿En cuál(es) organizacion(es) social(es) participas?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -4358,8 +4499,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.catJefeOrganizacionSocial.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -4383,7 +4524,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿En qué asociación(es) o grupo(s) has tenido un rol directivo?"
+                  "value" : "¿En cuál(es) asociación(es) o grupo(s) has tenido un rol directivo?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -4583,8 +4724,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "autodescripcionV2.pertenecesOrganizacion.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -4608,7 +4749,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Cuál?"
+                  "value" : "¿En cuál?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -5153,8 +5294,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "autodescripcionV2.catYaResolvisteElProblema.descripcion === \"No\""
           },
           "readOnly" : {
             "type" : "constant",
@@ -5689,8 +5830,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -5794,8 +5935,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                 },
                 "required" : {
                   "type" : "constant",
@@ -5871,8 +6012,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -5931,8 +6072,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || autodescripcionV2.catAspectoDesagradaReligion.descripcion === \"No\""
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -6593,8 +6734,8 @@
             "value" : ""
           },
           "hidden" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "autodescripcionV2.catPadresDeAcuerdo.descripcion === \"No\""
           },
           "readOnly" : {
             "type" : "constant",

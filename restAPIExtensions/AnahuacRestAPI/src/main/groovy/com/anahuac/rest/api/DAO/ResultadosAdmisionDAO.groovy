@@ -738,6 +738,13 @@ class ResultadosAdmisionDAO {
 
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 			closeCon = validarConexion();
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			//String consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
 
 			
@@ -1001,9 +1008,15 @@ class ResultadosAdmisionDAO {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 							String encoded = "";
 							try {
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64", encoded);
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
 								}
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
@@ -1218,28 +1231,17 @@ class ResultadosAdmisionDAO {
 	public Result ejecutarCargaResultado(String idBanner, Map<String, Serializable> contract, RestAPIContext context) {
 		Result resultado = new Result();
 		List<DetalleSolicitud> lstResultado = new ArrayList<DetalleSolicitud>();
-		
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
+			
 			/*-------------------------------------------------------------*/
 			LoadParametros objLoad = new LoadParametros();
 			PropertiesEntity objProperties = objLoad.getParametros();
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			def objDetalleSolicitudDAO = context.getApiClient().getDAO(DetalleSolicitudDAO.class);
@@ -1255,7 +1257,6 @@ class ResultadosAdmisionDAO {
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
-		
 		return resultado;
 	}
 	

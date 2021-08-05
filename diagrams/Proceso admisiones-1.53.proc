@@ -3877,6 +3877,17 @@
               <inputTypes>com.anahuac.catalogos.CatProblemasSaludAtencion</inputTypes>
             </operator>
           </operations>
+          <operations xmi:type="expression:Operation" xmi:id="___zHIPYeEeua49GLTS6CMg">
+            <leftOperand xmi:type="expression:Expression" xmi:id="___zuMPYeEeua49GLTS6CMg" name="autodescripcionV2" content="autodescripcionV2" type="TYPE_VARIABLE" returnType="com.anahuac.model.AutodescripcionV2">
+              <referencedElements xmi:type="process:BusinessObjectData" xmi:id="_BgI4gPYfEeua49GLTS6CMg" name="autodescripcionV2" dataType="_ICfd1vPnEeuloOKsszIFOw" className="com.anahuac.model.AutodescripcionV2"/>
+            </leftOperand>
+            <rightOperand xmi:type="expression:Expression" xmi:id="___zuMfYeEeua49GLTS6CMg" name="newScript()" content="return processInstanceId" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.lang.Long">
+              <referencedElements xmi:type="expression:Expression" xmi:id="_GVVF0PYfEeua49GLTS6CMg" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+            </rightOperand>
+            <operator xmi:type="expression:Operator" xmi:id="___zuMvYeEeua49GLTS6CMg" type="JAVA_METHOD" expression="setCaseId">
+              <inputTypes>java.lang.Long</inputTypes>
+            </operator>
+          </operations>
           <loopCondition xmi:type="expression:Expression" xmi:id="_ICWR1fPnEeuloOKsszIFOw" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
           <loopMaximum xmi:type="expression:Expression" xmi:id="_ICWR1vPnEeuloOKsszIFOw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_ICWR1_PnEeuloOKsszIFOw" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>

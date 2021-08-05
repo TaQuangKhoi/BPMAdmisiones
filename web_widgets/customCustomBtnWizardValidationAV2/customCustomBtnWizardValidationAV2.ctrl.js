@@ -15,6 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
     
     function submitTask() {
+        debugger;
         var id;
         id = $scope.properties.taskId;
         if (id) {
