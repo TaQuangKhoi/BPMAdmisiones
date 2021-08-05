@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergenciaUpdate",
   "name" : "frgAgregarContactoEmergenciaUpdate",
-  "lastUpdate" : 1626990556401,
+  "lastUpdate" : 1628193538686,
   "rows" : [
     [
       {
@@ -452,7 +452,7 @@
           },
           "readOnly" : {
             "type" : "expression",
-            "value" : "bloqueoDatos"
+            "value" : "bloqueoCelular"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -948,6 +948,7 @@
         "            }else{\r",
         "                if($data.padre.desconozcoDatosPadres){\r",
         "                    $data.bloqueoDatos = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "                    $data.casoEmergenciaJSON = {\r",
         "                      \"nombre\": \"\",\r",
         "                      \"telefono\": \"\",\r",
@@ -1003,6 +1004,7 @@
         "            }else{\r",
         "                if($data.madre.desconozcoDatosPadres){\r",
         "                    $data.bloqueoDatos = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "                    $data.casoEmergenciaJSON = {\r",
         "                      \"nombre\": \"\",\r",
         "                      \"telefono\": \"\",\r",
@@ -1194,6 +1196,10 @@
         "    return 10;",
         "}"
       ],
+      "exposed" : false
+    },
+    "bloqueoCelular" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

@@ -284,7 +284,7 @@ function PbTableCtrl($scope, $http, $window,blockUI, modalService) {
     }
     
     $scope.redirecGrafica = function(row){
-      var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.idbanner+"&idsesion="+row.sesion_id
+      var url = "/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner="+row.idbanner+"&idsesion="+row.sesion_id+"&individual=true"
         window.location.href= url;
   }
 

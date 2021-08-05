@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "INVP",
   "name" : "INVP",
-  "lastUpdate" : 1628014043378,
+  "lastUpdate" : 1628193568054,
   "rows" : [
     [
       {
@@ -413,34 +413,6 @@
                     "hasValidationError" : false,
                     "id" : "customButtonSetValor"
                   }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "content" : {
-                        "type" : "variable",
-                        "value" : "lstFiltros"
-                      }
-                    },
-                    "reference" : "2be3ee5c-b7ed-46e1-a0a0-0b3dc3a64ec1",
-                    "hasValidationError" : false,
-                    "id" : "customListFiltrosBloqueoCampus"
-                  }
                 ]
               ]
             },
@@ -756,6 +728,34 @@
                         "type" : "constant",
                         "value" : false
                       },
+                      "content" : {
+                        "type" : "variable",
+                        "value" : "lstFiltros"
+                      }
+                    },
+                    "reference" : "2be3ee5c-b7ed-46e1-a0a0-0b3dc3a64ec1",
+                    "hasValidationError" : false,
+                    "id" : "customListFiltrosBloqueoCampus"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
                       "allowHTML" : {
                         "type" : "constant",
                         "value" : true
@@ -882,6 +882,34 @@
                         "type" : "constant",
                         "value" : false
                       },
+                      "content" : {
+                        "type" : "variable",
+                        "value" : "lstFiltros2"
+                      }
+                    },
+                    "reference" : "577f317b-9cd8-471f-88bc-646fa5bff949",
+                    "hasValidationError" : false,
+                    "id" : "customListFiltrosBloqueoCampus"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
                       "allowHTML" : {
                         "type" : "constant",
                         "value" : true
@@ -899,15 +927,8 @@
                         ]
                       },
                       "columnsKey" : {
-                        "type" : "constant",
-                        "value" : [
-                          "idbanner",
-                          "nombre",
-                          "sesion_id",
-                          "sesion",
-                          "fecha_prueba",
-                          "fecha_registro"
-                        ]
+                        "type" : "expression",
+                        "value" : "columnlist"
                       },
                       "selectedRow" : {
                         "type" : "variable",
@@ -1658,17 +1679,17 @@
       "external" : false
     },
     {
-      "id" : "b39d5730-8b0f-4006-8f67-b01ca8a4ba39",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "da8248c2-08af-421c-9ed4-5aa73c2f0386",
       "name" : "jquery.min (1).js",
       "type" : "js",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "b39d5730-8b0f-4006-8f67-b01ca8a4ba39",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
       "external" : false
     },
     {
@@ -1872,7 +1893,7 @@
         "    \"fecha\":\"\",\r",
         "    \"uni\":\"\",\r",
         "    \"id\":\"\",\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"lstFiltro\": $data.lstFiltros2,\r",
         "    \"usuario\": parseInt($data.userData.user_id),\r",
         "    \"orderby\":\"\",\r",
         "    \"orientation\":\"DESC\",\r",
@@ -1900,6 +1921,20 @@
         "    {\"name\":\"Fecha prueba\",\"type\":\"input\"},",
         "    {\"name\":\"Fecha registro\",\"type\":\"input\"}",
         "]"
+      ],
+      "exposed" : false
+    },
+    "columnlist" : {
+      "type" : "json",
+      "value" : [
+        "[\"idbanner\", \"nombre\", \"sesion_id\", \"sesion\", \"fecha_prueba\", \"fecha_registro | date:'yyyy-MM-dd HH:mm:ss'\"]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

@@ -38,11 +38,14 @@
                         </div>
                         
                     </td>
+                    <td></td>
 
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido track by $index" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td ng-repeat="column in properties.columnsKey">
-                        <div  ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
+                        <div ng-switch="column">
+                            
+                            <div ng-switch-default ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
                         </div>
                     </td>
                     <td>
@@ -58,7 +61,6 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
         </table>
             <div class="col-xs-5">
                 <div class="dataTables_info">Mostrando {{properties.dataToSend.offset+1}} a {{((properties.dataToSend.limit*valorSeleccionado)>value)?value:properties.dataToSend.limit*valorSeleccionado}} de {{value}} registros</div>
