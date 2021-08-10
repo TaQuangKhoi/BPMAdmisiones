@@ -74,7 +74,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
 
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", null, $scope.dataToSend, null, function(datos, extra) {
-            $scope.lstDatos = datos.data;
+            //$scope.lstDatos = datos.data;
+            if(datos.data.length>0){
+                datos.data.forEach(element =>{
+                    if(element.fotografiabpm != null){
+                       $scope.lstDatos = element;
+                    }
+                });
+            }
         })
     }
 

@@ -3,6 +3,14 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     this.isArray = Array.isArray;
     this.orden = false;
     
+    $scope.$watch("properties.orden", function (newValue, oldValue) {
+        if( $scope.properties.orden == ">="){
+            ctrl.orden = true;
+        }else{
+            ctrl.orden = false;
+        }
+        $scope.$apply();
+    });
     
     $scope.cambioOrden = function(orden){
         if(orden){

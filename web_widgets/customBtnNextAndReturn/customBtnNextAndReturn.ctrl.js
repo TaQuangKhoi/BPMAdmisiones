@@ -27,6 +27,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }else if(index < ($scope.properties.arregloDatos.length - 1)  && $scope.properties.accionNextOrReturn){
                     str.valor == datos[index+1][$scope.properties.campoDato];
                     str.index = index+1;
+                }else{
+                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"ultimo de la lista ":"primero de la lista "}, no se puede seleccionar otro!`,"","")
                 }
             } 
         });
@@ -53,7 +55,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
-                console.log(data)
+                if(!data.data[0].accion){
+                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"ultimo de la lista, ":"primero de la lista, "}no se puede seleccionar otro!`,"","")
+                }else{
+                    $scope.properties.value = data.data[0].idbanner
+                }
             })
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

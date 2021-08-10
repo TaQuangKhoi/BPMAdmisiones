@@ -28,10 +28,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
+                debugger
                 $scope.properties.lstContenido = data.data;
                 $scope.value = data.totalRegistros;
                 $scope.loadPaginado();
                 console.log(data.data)
+                console.log($scope.properties.lstContenido)
             })
             .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

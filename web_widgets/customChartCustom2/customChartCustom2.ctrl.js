@@ -26,6 +26,11 @@ function PbChartCtrl($scope, $log, uiTranslateFilter) {
       $scope.data = $scope.properties.data;
     }
      $scope.options = {
+            elements: {
+                line: {
+                    tension: 0
+                }
+            },
             tooltipTemplate: function(label) {
                 let info="";
                 $scope.properties.data.forEach( datos =>{
@@ -33,7 +38,7 @@ function PbChartCtrl($scope, $log, uiTranslateFilter) {
                         info = datos.valorOriginal;
                     }
                 })
-                return label.label + ':' + info;
+                return label.label + ':' +  info;
             }
         };
   });
