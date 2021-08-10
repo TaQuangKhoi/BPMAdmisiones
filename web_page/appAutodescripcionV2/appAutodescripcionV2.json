@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1628202432026,
+  "lastUpdate" : 1628634063374,
   "rows" : [
     [
       {
@@ -13516,7 +13516,7 @@
                         },
                         "disabled" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
                         },
                         "required" : {
                           "type" : "constant",
@@ -13610,7 +13610,7 @@
                               },
                               "disabled" : {
                                 "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                                "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -13689,7 +13689,7 @@
                               },
                               "readOnly" : {
                                 "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                                "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -13767,7 +13767,7 @@
                         },
                         "readOnly" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -14079,7 +14079,7 @@
                         },
                         "maxLength" : {
                           "type" : "constant",
-                          "value" : 1
+                          "value" : 2
                         },
                         "readOnly" : {
                           "type" : "expression",
@@ -16196,10 +16196,13 @@
         "",
         "if($data.objectSolicitud !== undefined){",
         "    if(",
-        "        $data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString ",
+        "        $data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuela.descripcion ",
         "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"Otro\" ",
         "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"OTRO\"",
         "    ){",
+        "        output = true;",
+        "    }",
+        "    else if ($data.objNuevoInformacionEscolar.pais != null){",
         "        output = true;",
         "    }",
         "}",
