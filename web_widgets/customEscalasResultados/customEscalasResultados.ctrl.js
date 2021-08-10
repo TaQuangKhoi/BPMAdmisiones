@@ -12,6 +12,13 @@ function ($scope, $http) {
    * It also bind custom data from success|error to a data
    * @return {void}
    */
+   $scope.$watch("properties.respuesta", function (newValue, oldValue) {
+        if (newValue !== undefined) {
+            doRequest(method, url, params,dataToSend)
+        }
+    });
+    
+   
   function doRequest(method, url, params,dataToSend) {
     vm.busy = true;
     var req = {
