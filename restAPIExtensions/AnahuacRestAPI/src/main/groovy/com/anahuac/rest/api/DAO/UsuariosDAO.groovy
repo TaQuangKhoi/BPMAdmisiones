@@ -2945,10 +2945,10 @@ class UsuariosDAO {
 		return resultado
 	}
 	
-	public Result selectAspirantesEnLaRed(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		public Result selectAspirantesEnLaRed(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", orderby = "ORDER BY ", errorlog = "";
+		String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", idsesionalumno = "", orderby = "ORDER BY ", errorlog = "";
 		List < String > lstGrupo = new ArrayList < String > ();
 		List < Map < String, String >> lstGrupoCampus = new ArrayList < Map < String, String >> ();
 		List < DetalleSolicitud > lstDetalleSolicitud = new ArrayList < DetalleSolicitud > ();
@@ -3007,7 +3007,7 @@ class UsuariosDAO {
 				SSA = rs.getString("valor")
 			}
 
-			String consulta = Statements.GET_ASPIRANTES_EN_PROCESO
+			String consulta = Statements.GET_ASPIRANTES_EN_PROCESO_RED
 
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";
@@ -3265,8 +3265,22 @@ class UsuariosDAO {
 						}
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+					case "ID SESION":
+						errorlog += "ID SESION";
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " sea.sesiones_pid ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=[valor]"
+						} else {
+							where += "=[valor]"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 						/*====================================================================*/
-
 					default:
 
 						//consulta=consulta.replace("[BACHILLERATO]", bachillerato)
@@ -3341,6 +3355,9 @@ class UsuariosDAO {
 				case "FECHASOLICITUD":
 					orderby += "sda.fechasolicitudenviada";
 					break;
+				case "IDSESION":
+					orderby += "sea.sesiones_pid";
+					break;
 				default:
 					orderby += "sda.persistenceid"
 					break;
@@ -3353,15 +3370,19 @@ class UsuariosDAO {
 			consulta = consulta.replace("[ESTADO]", estado)
 			consulta = consulta.replace("[BACHILLERATO]", bachillerato)
 			consulta = consulta.replace("[TIPOALUMNO]", tipoalumno)
-
-			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno
+			consulta = consulta.replace("[IDSESIONALUMNO]", idsesionalumno)
+			where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno + " " + idsesionalumno
 			errorlog = consulta + " 4";
 
 			consulta = consulta.replace("[WHERE]", where);
 			errorlog = consulta + " 5";
-			pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid", ""))
+			
+			String consultaCount = Statements.GET_ASPIRANTES_EN_PROCESO_COUNT
+			pstm = con.prepareStatement(consultaCount)
+            //pstm = con.prepareStatement(consulta.replaceAll("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado end AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION isnull THEN sda.estadoextranjero ELSE estado.descripcion end AS estado, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion end AS preparatoria, sda.promediogeneral, sda.estatussolicitud, da.tipoalumno, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion AS tipoadmision , R.descripcion AS residensia, TAL.descripcion AS tipodealumno, catcampus.descripcion AS transferencia, campusEstudio.clave AS claveCampus, gestionescolar.clave AS claveLicenciatura, sea.sesiones_pid", "COUNT(sda.persistenceid) as registros").replaceAll("[LIMITOFFSET]", "").replaceAll("[ORDERBY]", "").replaceAll("GROUP BY prepa.descripcion, sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion, campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero, sda.bachillerato, sda.promediogeneral, sda.estatussolicitud, da.tipoalumno, sda.caseid, sda.telefonocelular, da.observacioneslistaroja, da.observacionesrechazo, da.idbanner, campus.grupobonita, ta.descripcion, r.descripcion, tal.descripcion, catcampus.descripcion, campusestudio.clave, gestionescolar.clave, sea.sesiones_pid, sda.persistenceid", ""))
 			
 			errorlog = consulta + " 6";
+
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -3434,6 +3455,7 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
+
 	
 	
 }

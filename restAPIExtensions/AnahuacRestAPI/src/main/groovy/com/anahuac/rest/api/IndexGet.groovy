@@ -26,6 +26,7 @@ import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.PsicometricoDAO
 import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
@@ -255,6 +256,15 @@ class IndexGet implements RestApiController {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
 				break;
+				case "getPsicometricoCompleto":
+					Integer caseId = request.getParameter "caseId";
+					result = new PsicometricoDAO().getPsicometricoCompleto(caseId, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "getCatPeriodoActivoFechaEspecifica":
 					String tipo = request.getParameter "tipo";
 					String fecha = request.getParameter "fecha";					
@@ -969,6 +979,17 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				
+				break;
+				
+				case "getExistsIdBannerINVP":
+				String idbanner=request.getParameter "idbanner"
+				result = new SesionesDAO().getExistsIdBannerINVP(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
 				break;
 			}
 		}catch (Exception e) {

@@ -1732,7 +1732,7 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '2') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '3') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )";
 		try {
 				def jsonSlurper = new JsonSlurper();
 				def object = jsonSlurper.parseText(jsonData);
@@ -4803,7 +4803,7 @@ class SesionesDAO {
 		Long caseId = 0L;
 		Long total = 0L;
 		List<PruebasCustom> lstSesion = new ArrayList();
-		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '2') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )",campus="";
+		String where ="", orderby="ORDER BY ", errorlog="", role="", group="", residencia="WHERE ( (CAST(ultimaaplicacion AS DATE) + integer '3') >= (CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) )",campus="";
 		List<String> lstGrupo = new ArrayList<String>();
 		//Map<String, String> objGrupoCampus = new HashMap<String, String>();
 		try {
@@ -6821,8 +6821,8 @@ class SesionesDAO {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement("select distinc on (DS.idbanner) DS.idbanner from aspirantespruebas as ap inner join resultadoinvp as RI on RI.sesiones_pid = ap.sesiones_pid inner join detallesolicitud as DS on DS.idbanner = RI.idbanner where ap.sesiones_pid = ? and ap.acreditado is false and ap.asistencia is true and ap.cattipoprueba_pid = 2 ORDER BY RI.fecha_registro")
-			pstm.setInt(1,object.idSesion)
+			pstm = con.prepareStatement("select distinct ap.username, DS.idbanner,RI.fecha_registro from aspirantespruebas as ap inner join resultadoinvp as RI on RI.sesiones_pid = ap.sesiones_pid inner join detallesolicitud as DS on DS.idbanner = RI.idbanner where ap.sesiones_pid = ? and ap.acreditado is not true and ap.asistencia is true and ap.cattipoprueba_pid = 2 ORDER BY ap.username")
+			pstm.setInt(1,Integer.parseInt(object.idSesion))
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
@@ -6866,6 +6866,51 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
+	
+	
+	public Result getExistsIdBannerINVP(String idBanner) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_EXIST_BY_IDBANNER_INVP);
+			pstm.setString(1, idBanner)
+			
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				info.add(columns)
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	private static java.sql.Date convert(java.util.Date uDate) {
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());

@@ -876,9 +876,9 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					}
 				}
 				if(objSolicitudDeAdmision.get(0).getCatSexo()!=null) {
-					plantilla=plantilla.replace("Estimado(a)", objSolicitudDeAdmision.get(0).getCatSexo().getDescripcion().equals("Masculino")?"Estimado":"Estimada")
+					plantilla=plantilla.replace("o(a)", objSolicitudDeAdmision.get(0).getCatSexo().getDescripcion().equals("Masculino")?"o":"a")
 				}else {
-					plantilla=plantilla.replace("Estimado(a)", "Estimado")
+					plantilla=plantilla.replace("o(a)", "o")
 				}
 				plantilla=plantilla.replace("[NOMBRE-COMPLETO]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre()+" "+objSolicitudDeAdmision.get(0).getApellidoPaterno()+" "+objSolicitudDeAdmision.get(0).getApellidoMaterno())
 				plantilla=plantilla.replace("[NOMBRE]",objSolicitudDeAdmision.get(0).getPrimerNombre()+" "+objSolicitudDeAdmision.get(0).getSegundoNombre())

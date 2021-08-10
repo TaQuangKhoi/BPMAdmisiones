@@ -126,10 +126,10 @@ class ReportesDAO {
                     body.add(row.createCell(j))
                     try {
                         body[j].setCellValue((info.get(j).equals("clave")) ? sdfout.format(sdfin.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)])
-                        line += (info.get(j).equals("clave") ? sdfout.format(sdfin.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)]) + ((info.get(j).equals("campusvpd")) ? "\r\n" : ",")
+                        line += (info.get(j).equals("clave") ? sdfout.format(sdfin.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)]) + ((info.get(j).equals("idsesion")) ? "\r\n" : ",")
                     } catch (Exception e) {
                         body[j].setCellValue((info.get(j).equals("clave")) ? sdfout.format(sdfin2.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)])
-                        line += (info.get(j).equals("clave") ? sdfout.format(sdfin2.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)]) + ((info.get(j).equals("campusvpd")) ? "\r\n" : ",")
+                        line += (info.get(j).equals("clave") ? sdfout.format(sdfin2.parse(lstParams[i][info.get(j)])) : lstParams[i][info.get(j)]) + ((info.get(j).equals("idsesion")) ? "\r\n" : ",")
                     }
 
                     body[j].setCellStyle(bodyStyle);
@@ -139,7 +139,7 @@ class ReportesDAO {
             }
 
             if (lstParams.size() > 0) {
-                for (int i = 0; i <= 138; ++i) {
+                for (int i = 0; i <= 20; ++i) {
                     sheet.autoSizeColumn(i);
                 }
                 String fecha = lstParams[0]["fecharegistro"].toString() + "";
