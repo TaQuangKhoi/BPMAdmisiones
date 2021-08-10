@@ -6747,11 +6747,16 @@ class SesionesDAO {
 				resultado.setError_info(test.getMessage())
 			}
 			
-			rows.add(respuestainvp)
-			additionalData.add(aData)
-			resultado.setSuccess(true)
-			resultado.setData(rows)
-			resultado.setAdditional_data(additionalData)
+			if(resultado.getError().equals("Error")){
+				resultado.setSuccess(false);
+			}else {
+				rows.add(respuestainvp)
+				additionalData.add(aData)
+				resultado.setSuccess(true)
+				resultado.setData(rows)
+				resultado.setAdditional_data(additionalData)
+			}
+			
 		} catch (Exception e) {
 			resultado.setSuccess(false)
 			resultado.setError(e.getMessage())

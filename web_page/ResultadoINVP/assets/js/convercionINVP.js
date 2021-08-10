@@ -20,7 +20,7 @@ function guardarEscala(jsonArray,newObject) {
 
 
 function conversionEscala(jsonArray,letra,equivalente){
-    let convert = "";
+    let convert = "0";
     jsonArray.data.forEach( element =>{
         if(element.equivalente === equivalente && element.letra === letra){
             convert = element.totc;
