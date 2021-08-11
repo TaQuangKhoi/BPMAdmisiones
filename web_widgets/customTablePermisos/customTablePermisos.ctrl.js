@@ -53,7 +53,7 @@ function PbTableCtrl($scope, blockUI, $http) {
   $scope.paginaSelected = function(row){
       $scope.pagina=row;
       $scope.seleccionado=true;
-      doRequest("GET", "/bonita/API/identity/role?p=0&c=10&o=displayName%20ASC",null,null,function(datos){
+      doRequest("GET", "/bonita/API/identity/role?p=0&c=999&o=displayName%20ASC",null,null,function(datos){
         $scope.lstRoles=[];
         for (let index = 0; index < datos.length; index++) {
             $scope.lstRoles.push({...datos[index], "nuevo":true,"eliminado":false})      
@@ -86,8 +86,8 @@ function PbTableCtrl($scope, blockUI, $http) {
     rol.eliminado=true;
   }
   $scope.guardar=function(){
-      doRequest("POST","/bonita/API/extension/AnahuacRest?url=updateBusinessAppMenu&p=0&c=10",{},$scope.pagina,function(datos){
-        doRequest("GET","/bonita/API/extension/AnahuacRestGet?url=getBusinessAppMenu&p=0&c=10",{},null,function(datos){
+      doRequest("POST","/bonita/API/extension/AnahuacRest?url=updateBusinessAppMenu&p=0&c=999",{},$scope.pagina,function(datos){
+        doRequest("GET","/bonita/API/extension/AnahuacRestGet?url=getBusinessAppMenu&p=0&c=999",{},null,function(datos){
             $scope.properties.content=datos;
             $scope.ocultar();
         })
