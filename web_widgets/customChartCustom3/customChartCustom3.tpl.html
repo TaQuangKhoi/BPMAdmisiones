@@ -1,0 +1,301 @@
+
+<canvas id="chart" width="800" height="400"></canvas>
+
+
+<script type="module">
+   
+    function totalCasesChart(data, ctx) {
+      const {
+        confirmed,
+        deaths,
+        recovered,
+      } = data
+      const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: confirmed.map(item => new Intl.DateTimeFormat('es-MX', { month: 'long', day: 'numeric' }).format(new Date(item.date))),
+          datasets: [
+            {
+              label: 'Muertes',
+              borderColor: 'red',
+              data: deaths.map(item => item.cases),
+            },
+            {
+              label: 'Recuperados',
+              borderColor: 'green',
+              data: recovered.map(item => item.cases),
+            },
+            {
+              label: 'Confirmados',
+              borderColor: 'orange',
+              data: confirmed.map(item => item.cases),
+            }
+          ]
+        },
+        options: {
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: false,
+              }
+            }]
+          },
+          title: {
+            display: true,
+            text: 'Todos los casos desde el primer reporte COVID-19',
+            fontSize: 30,
+            padding: 30,
+            fontColor: '#12619c',
+          },
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 20,
+              boxWidth: 15,
+              fontFamily: 'system-ui',
+              fontColor: 'black',
+            }
+          },
+          layout: {
+            padding: {
+              right: 50,
+            }
+          },
+          tooltips: {
+            backgroundColor: '#0584f6',
+            titleFontSize: 20,
+            xPadding: 20,
+            yPadding: 20,
+            bodyFontSize: 15,
+            bodySpacing: 10,
+            mode: 'x',
+          },
+          elements: {
+            line: {
+              borderWidth: 8,
+              fill: false,
+            },
+            point: {
+              radius: 6,
+              borderWidth: 4,
+              backgroundColor: 'white',
+              hoverRadius: 8,
+              hoverBorderWidth: 4,
+            }
+          }
+        }
+      })
+    }
+
+    function renderCharts() {
+      const ctx = document.querySelector('#chart').getContext('2d')
+      const data = {
+  "recovered": [
+
+    {
+      "cases": 8061,
+      "date": "2020-02-14T00:00:00Z"
+    },
+    {
+      "cases": 9398,
+      "date": "2020-02-15T00:00:00Z"
+    },
+    {
+      "cases": 10867,
+      "date": "2020-02-16T00:00:00Z"
+    },
+    {
+      "cases": 12582,
+      "date": "2020-02-17T00:00:00Z"
+    },
+    {
+      "cases": 14351,
+      "date": "2020-02-18T00:00:00Z"
+    },
+    {
+      "cases": 16123,
+      "date": "2020-02-19T00:00:00Z"
+    },
+    {
+      "cases": 18181,
+      "date": "2020-02-20T00:00:00Z"
+    },
+    {
+      "cases": 1667,
+      "date": "2020-02-15T00:00:00Z"
+    },
+    {
+      "cases": 1771,
+      "date": "2020-02-16T00:00:00Z"
+    },
+    {
+      "cases": 1869,
+      "date": "2020-02-17T00:00:00Z"
+    },
+    {
+      "cases": 2008,
+      "date": "2020-02-18T00:00:00Z"
+    },
+    {
+      "cases": 2124,
+      "date": "2020-02-19T00:00:00Z"
+    },
+    {
+      "cases": 2249,
+      "date": "2020-02-20T00:00:00Z"
+    },
+    {
+      "cases": 2253,
+      "date": "2020-02-21T00:00:00Z"
+    },
+    {
+      "cases": 2460,
+      "date": "2020-02-22T00:00:00Z"
+    },
+    {
+      "cases": 2471,
+      "date": "2020-02-23T00:00:00Z"
+    },
+    {
+      "cases": 2631,
+      "date": "2020-02-24T00:00:00Z"
+    },
+    {
+      "cases": 2710,
+      "date": "2020-02-25T00:00:00Z"
+    },
+    {
+      "cases": 2772,
+      "date": "2020-02-26T00:00:00Z"
+    },
+    {
+      "cases": 2816,
+      "date": "2020-02-27T00:00:00Z"
+    },
+    {
+      "cases": 2874,
+      "date": "2020-02-28T00:00:00Z"
+    },
+    {
+      "cases": 2949,
+      "date": "2020-02-29T00:00:00Z"
+    },
+    {
+      "cases": 2998,
+      "date": "2020-03-01T00:00:00Z"
+    },
+    {
+      "cases": 3087,
+      "date": "2020-03-02T00:00:00Z"
+    },
+    {
+      "cases": 3162,
+      "date": "2020-03-03T00:00:00Z"
+    },
+    {
+      "cases": 3256,
+      "date": "2020-03-04T00:00:00Z"
+    },
+    {
+      "cases": 3349,
+      "date": "2020-03-05T00:00:00Z"
+    },
+    {
+      "cases": 3460,
+      "date": "2020-03-06T00:00:00Z"
+    },
+    {
+      "cases": 3558,
+      "date": "2020-03-07T00:00:00Z"
+    },
+    {
+      "cases": 3803,
+      "date": "2020-03-08T00:00:00Z"
+    },
+    {
+      "cases": 3995,
+      "date": "2020-03-09T00:00:00Z"
+    },
+    {
+      "cases": 4259,
+      "date": "2020-03-10T00:00:00Z"
+    },
+    {
+      "cases": 118368,
+      "date": "2020-03-10T00:00:00Z"
+    },
+    {
+      "cases": 126766,
+      "date": "2020-03-11T00:00:00Z"
+    },
+    {
+      "cases": 128343,
+      "date": "2020-03-12T00:00:00Z"
+    },
+    {
+      "cases": 145226,
+      "date": "2020-03-13T00:00:00Z"
+    },
+    {
+      "cases": 156100,
+      "date": "2020-03-14T00:00:00Z"
+    },
+    {
+      "cases": 167447,
+      "date": "2020-03-15T00:00:00Z"
+    },
+    {
+      "cases": 181546,
+      "date": "2020-03-16T00:00:00Z"
+    },
+    {
+      "cases": 197168,
+      "date": "2020-03-17T00:00:00Z"
+    },
+    {
+      "cases": 214915,
+      "date": "2020-03-18T00:00:00Z"
+    },
+    {
+      "cases": 242713,
+      "date": "2020-03-19T00:00:00Z"
+    },
+    {
+      "cases": 272167,
+      "date": "2020-03-20T00:00:00Z"
+    },
+    {
+      "cases": 304528,
+      "date": "2020-03-21T00:00:00Z"
+    },
+    {
+      "cases": 336093,
+      "date": "2020-03-22T00:00:00Z"
+    },
+    {
+      "cases": 378287,
+      "date": "2020-03-23T00:00:00Z"
+    },
+    {
+      "cases": 417966,
+      "date": "2020-03-24T00:00:00Z"
+    },
+    {
+      "cases": 467594,
+      "date": "2020-03-25T00:00:00Z"
+    },
+    {
+      "cases": 529591,
+      "date": "2020-03-26T00:00:00Z"
+    },
+    {
+      "cases": 593291,
+      "date": "2020-03-27T00:00:00Z"
+    }
+  ]
+}
+      totalCasesChart(data, ctx)
+    }
+    
+    renderCharts()
+  </script>

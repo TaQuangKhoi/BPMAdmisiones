@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ResultadoINVP",
   "name" : "ResultadoINVP",
-  "lastUpdate" : 1628621296585,
+  "lastUpdate" : 1628788469839,
   "rows" : [
     [
       {
@@ -99,7 +99,7 @@
           "xs" : 12,
           "sm" : 12,
           "md" : 4,
-          "lg" : 6
+          "lg" : 4
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -225,7 +225,7 @@
           "xs" : 12,
           "sm" : 12,
           "md" : 8,
-          "lg" : 6
+          "lg" : 8
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -252,7 +252,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 8,
-                "lg" : 3
+                "lg" : 8
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -442,7 +442,7 @@
                 "xs" : 12,
                 "sm" : 12,
                 "md" : 4,
-                "lg" : 3
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -772,7 +772,7 @@
           },
           "hidden" : {
             "type" : "constant",
-            "value" : false
+            "value" : true
           },
           "labelHidden" : {
             "type" : "constant",
@@ -880,7 +880,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Gráfica"
+            "value" : "Gráfica escalas básicas"
           },
           "level" : {
             "type" : "constant",
@@ -1039,9 +1039,9 @@
             "type" : "constant"
           }
         },
-        "reference" : "04bc6ece-9e17-4e43-a024-b729ac8dd657",
+        "reference" : "0824182d-d899-4495-8f5e-64aad09b19f8",
         "hasValidationError" : false,
-        "id" : "customChartCustom"
+        "id" : "customChartCustom2"
       }
     ]
   ],
@@ -1051,6 +1051,13 @@
       "name" : "omg.png",
       "type" : "img",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "5ae017e4-0842-4792-b822-55f5e5da95da",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 3,
       "external" : false
     },
     {
@@ -1068,24 +1075,17 @@
       "external" : false
     },
     {
-      "id" : "b6d93ec5-f299-4914-99c1-c5c5e8f7d67b",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "5ae017e4-0842-4792-b822-55f5e5da95da",
-      "name" : "anahuac_custom_styles (1).css",
-      "type" : "css",
-      "order" : 3,
-      "external" : false
-    },
-    {
       "id" : "88e9e76b-50ba-4e02-b64b-2ba788769edd",
       "name" : "ims.png",
       "type" : "img",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "b6d93ec5-f299-4914-99c1-c5c5e8f7d67b",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     }
   ],
@@ -1115,7 +1115,6 @@
     "datos" : {
       "type" : "expression",
       "value" : [
-        "\r",
         "if($data.escalaINVP == undefined){\r",
         "   return []\r",
         "}\r",
@@ -1153,7 +1152,7 @@
         "var datos = [];\r",
         "var valorK=0;\r",
         "//for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
-        "for (let index = 0; index < 13; index++) {\r",
+        "for (let index = 1; index < 14; index++) {\r",
         "    const element = $data.getResultadoINVP.data[index];\r",
         "    if (element.escala=='K') {\r",
         "        valorK=element.puntuacion;\r",
@@ -1173,7 +1172,7 @@
         "    \"valorConvertido\":\"\"\r",
         "};\r",
         "//for (let index = 0; index < $data.getResultadoINVP.data.length; index++) {\r",
-        "for (let index = 0; index < 13; index++) {\r",
+        "for (let index = 1; index < 14; index++) {\r",
         "        const element = $data.getResultadoINVP.data[index];\r",
         "        var valorpush=parseInt(element.puntuacion);\r",
         "        \r",
@@ -1209,7 +1208,7 @@
       "type" : "expression",
       "value" : [
         "var etiquetas = [];",
-        "for (let index = 0; index < ($data.getResultadoINVP.data.length > 12 ? 13 :$data.getResultadoINVP.data.length); index++) {",
+        "for (let index = 1; index < ($data.getResultadoINVP.data.length > 13 ? 14 :$data.getResultadoINVP.data.length); index++) {",
         "        const element = $data.getResultadoINVP.data[index];",
         "        etiquetas.push(element.escala)",
         "    }",
@@ -1228,7 +1227,7 @@
       "type" : "expression",
       "value" : [
         "var etiquetas = [];",
-        "for ( let index = 13; index < $data.getResultadoINVP.data.length ; index++) {",
+        "for ( let index = 14; index < $data.getResultadoINVP.data.length ; index++) {",
         "        const element = $data.getResultadoINVP.data[index];",
         "        etiquetas.push(element.escala)",
         "    }",
@@ -1243,7 +1242,7 @@
         "if($data.escalaINVP == undefined){\r",
         "   return []\r",
         "}\r",
-        "for (let index = 13; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "for (let index = 14; index < $data.getResultadoINVP.data.length; index++) {\r",
         "    const element = $data.getResultadoINVP.data[index];\r",
         "}\r",
         "\r",
@@ -1253,7 +1252,7 @@
         "    \"valorConvertido\":\"\"\r",
         "};\r",
         "\r",
-        "for (let index = 13; index < $data.getResultadoINVP.data.length; index++) {\r",
+        "for (let index = 14; index < $data.getResultadoINVP.data.length; index++) {\r",
         "        const element = $data.getResultadoINVP.data[index];\r",
         "        var valorpush=parseInt(element.puntuacion);\r",
         "        \r",
@@ -1261,7 +1260,7 @@
         "        estructura.valorOriginal = valorpush+\"\";\r",
         "        estructura.valorConvertido = angular.copy(conversionEscala($data.escalaINVP,element.escala,valorpush+\"\"));\r",
         "        if(estructura.valorConvertido.length > 0){\r",
-        "            $data.EscalaConvertida2 = angular.copy(guardarEscala($data.EscalaConvertida,estructura));\r",
+        "            $data.EscalaConvertida2 = angular.copy(guardarEscala($data.EscalaConvertida2,estructura));\r",
         "        }\r",
         "        datos.push(valorpush)\r",
         "    }\r",
