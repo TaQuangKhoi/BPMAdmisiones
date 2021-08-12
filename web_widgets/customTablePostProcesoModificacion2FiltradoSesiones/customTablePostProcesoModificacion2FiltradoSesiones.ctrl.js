@@ -169,7 +169,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return $http(req)
             .success(function(data, status) {
                 console.log(data)
-                var url = "/portal/resource/app/administrativo/verAutodescripcionv2/content/?app=administrativo&caseId=" + rowData.caseid + "&id=" + data[0].id;
+                var url = "/portal/resource/app/administrativo/verAutodescripcionv2/content/?app=administrativo&caseId=" + rowData.caseid + "&id=" + data[0].id + "&idbanner="+rowData.idbanner;
                 window.open(url, '_blank');
             })
             .error(function(data, status) {

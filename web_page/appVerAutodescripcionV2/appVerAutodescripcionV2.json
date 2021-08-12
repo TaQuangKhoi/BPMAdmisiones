@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcionV2",
   "name" : "appVerAutodescripcionV2",
-  "lastUpdate" : 1626134539580,
+  "lastUpdate" : 1628728482411,
   "rows" : [
     [
       {
@@ -2190,16 +2190,32 @@
       "exposed" : false
     },
     "caseId" : {
-      "type" : "urlparameter",
+      "type" : "expression",
       "value" : [
-        "caseId"
+        "var name = \"caseId\".replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');\r",
+        "    var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');\r",
+        "    var results = regex.exec(location.search);\r",
+        "    return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));"
       ],
       "exposed" : false
     },
     "urlTaskId" : {
-      "type" : "urlparameter",
+      "type" : "expression",
       "value" : [
-        "id"
+        "var name = \"id\".replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');\r",
+        "    var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');\r",
+        "    var results = regex.exec(location.search);\r",
+        "    return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));"
+      ],
+      "exposed" : false
+    },
+    "idBanner" : {
+      "type" : "expression",
+      "value" : [
+        "var name = \"idbanner\".replace(/[\\[]/, '\\\\[').replace(/[\\]]/, '\\\\]');\r",
+        "    var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');\r",
+        "    var results = regex.exec(location.search);\r",
+        "    return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));"
       ],
       "exposed" : false
     }
