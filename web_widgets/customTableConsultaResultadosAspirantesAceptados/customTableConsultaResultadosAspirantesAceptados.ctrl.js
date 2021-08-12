@@ -43,26 +43,54 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             });
     }
 
-    $scope.asignarTarea = function (rowData) {
-
+       $scope.asignarTarea = function(rowData) {
+        var page = "verSolicitudAdmisionADV2";
+        
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
         };
 
         return $http(req)
-            .success(function (data, status) {
-                debugger
-                //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
+            .success(function(data, status) {
+
+            blockUI.start();
+            var req2 = {
+                method: "GET",
+                url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+            };
+
+            $http(req2)
+                .success(function(data2, status) {
+                    
+                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                
+                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                if (data.length > 0) {
+                    if(parseFloat(data2[0].processId.version)<1.51){
+                        page = "verSolicitudAdmision";
+                    }
+                    url = url.replace("[PAGE]",page);
+                    url = url.replace("[TASKID]", data[0].id);
+                } else {
+                    url = url.replace("[TASKID]", "");
+                }
+                url = url.replace("[CASEID]", rowData.caseid);
                 //window.top.location.href = url;
-                window.open(url,'_blank');
+                window.open(url, '_blank');
+                })
+                .error(function(data, status) {
+                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                })
+                .finally(function() {
+
+                    blockUI.stop();
+                });
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 console.error(data);
             })
-            .finally(function () { });
+            .finally(function() {});
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};

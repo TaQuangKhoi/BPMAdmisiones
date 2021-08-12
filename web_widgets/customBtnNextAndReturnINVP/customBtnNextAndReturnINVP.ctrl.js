@@ -6,6 +6,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.myFunc = function() {
       if($scope.properties.arregloOServicio){
+          debugger
             doRequest($scope.properties.tipoDeUrl, $scope.properties.url);
         }else{
             $scope.searchArray();
@@ -55,7 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
-                if(!data.data[0].accion){
+                if(data.data[0].accion !== undefined && !data.data[0].accion){
                     swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"ultimo de la lista, ":"primero de la lista, "}no se puede seleccionar otro!`,"","")
                 }else{
                     
