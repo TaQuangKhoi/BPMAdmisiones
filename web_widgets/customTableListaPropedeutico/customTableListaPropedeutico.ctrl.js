@@ -21,10 +21,10 @@ function PbTableCtrl($scope, modalService) {
 
 
     $scope.deleteData = function(row, index) {
-        debugger;
-        $scope.properties.eliminar.splice([index],1);
+
+        $scope.properties.eliminar.splice([index], 1);
         console.log($scope.properties.eliminar + index);
-        $scope.properties.datosEditar=[];
+        $scope.properties.datosEditar = [];
     }
 
 

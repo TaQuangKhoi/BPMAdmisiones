@@ -434,58 +434,56 @@ function($scope, $http, blockUI) {
                 "No es posible agregar responsable sin capturar fecha de aplicación",
                 'info'
             )
-        }
-        else if ($scope.prueba.entrada == null) {
+        } else if ($scope.prueba.entrada == null) {
             Swal.fire(
                 "Imposible",
                 "No es posible agregar responsable sin capturar hora de inicio",
                 'info'
             )
-        }
-       else if ($scope.prueba.salida == null) {
+        } else if ($scope.prueba.salida == null) {
             Swal.fire(
                 "Imposible",
                 "No es posible agregar responsable sin capturar hora de finalización",
                 'info'
             )
-        }else  if ($scope.prueba.duracion == null && $scope.prueba.cattipoprueba_pid == 1) {
+        } else if ($scope.prueba.duracion == null && $scope.prueba.cattipoprueba_pid == 1) {
             Swal.fire(
                 "Imposible",
                 "No es posible agregar responsable sin capturar duración de las entrevistas",
                 'info'
             )
-        }else{
-        if ($scope.psicologo != null) {
-            $scope.psicologo.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles);
-            var push = true;
+        } else {
+            if ($scope.psicologo != null) {
+                $scope.psicologo.lstFechasDisponibles = angular.copy($scope.lstFechasDisponibles);
+                var push = true;
 
-            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
-                const element = $scope.prueba.psicologos[index];
-                if (element.id == $scope.psicologo.id) {
-                    push = false;
-                    $scope.prueba.psicologos[index] = angular.copy({...$scope.psicologo, licenciaturas: "" });
+                for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                    const element = $scope.prueba.psicologos[index];
+                    if (element.id == $scope.psicologo.id) {
+                        push = false;
+                        $scope.prueba.psicologos[index] = angular.copy({...$scope.psicologo, licenciaturas: "" });
+                    }
+
+                }
+                if (push) {
+                    $scope.prueba.psicologos.push(angular.copy({...$scope.psicologo, licenciaturas: "" }));
+                }
+
+
+                for (let index = 0; index < $scope.lstResponsables.length; index++) {
+                    const element = $scope.lstResponsables[index];
+                    if (element.id == $scope.psicologo.id) {
+                        $scope.lstResponsables.splice(index, 1)
+                    }
+
+                }
+                $scope.psicologo = null;
+                if ($scope.prueba.cattipoprueba_pid == 1) {
+                    $scope.setCupoValue();
                 }
 
             }
-            if (push) {
-                $scope.prueba.psicologos.push(angular.copy({...$scope.psicologo, licenciaturas: "" }));
-            }
-
-
-            for (let index = 0; index < $scope.lstResponsables.length; index++) {
-                const element = $scope.lstResponsables[index];
-                if (element.id == $scope.psicologo.id) {
-                    $scope.lstResponsables.splice(index, 1)
-                }
-
-            }
-            $scope.psicologo = null;
-            if ($scope.prueba.cattipoprueba_pid == 1) {
-                $scope.setCupoValue();
-            }
-
         }
-      }
     }
     $scope.eliminarLicenciatura = function(indice) {
         var a = $scope.pselected.licenciaturas.split(',');
@@ -774,7 +772,7 @@ function($scope, $http, blockUI) {
     }
 
     $scope.setHora = function(entrada) {
-        debugger;
+
         if (entrada) {
             $scope.prueba.entrada = $("#inicio").val();
             $("#fin").val("");
@@ -853,15 +851,13 @@ function($scope, $http, blockUI) {
     $scope.lstGestionEscolar = [];
     $scope.setEntrevistas = function() {
         if ($scope.prueba.aplicacion == null) {
-  
-        }
-        else if ($scope.prueba.entrada == null) {
-       
-        }
-       else if ($scope.prueba.salida == null) {
-            
-        }else  if ($scope.prueba.duracion == null) {
-            
+
+        } else if ($scope.prueba.entrada == null) {
+
+        } else if ($scope.prueba.salida == null) {
+
+        } else if ($scope.prueba.duracion == null) {
+
         } else {
             $scope.prueba.cambioDuracion = true;
 
@@ -1127,8 +1123,8 @@ function($scope, $http, blockUI) {
         });
     }
     $scope.loadCatalogs = function() {
-        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22"+$scope.properties.campusSelected.persistenceId+"%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D",null,null,null,function(periodos,extra){
-            $scope.periodos=periodos;
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22" + $scope.properties.campusSelected.persistenceId + "%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D", null, null, null, function(periodos, extra) {
+            $scope.periodos = periodos;
         })
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100", null, { "lstFiltro": [], "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "catalogo": "CATResidencia" }, null, function(residencias, extra) {
             $scope.tipos = residencias.data
@@ -1258,7 +1254,7 @@ function($scope, $http, blockUI) {
             "campus_pid": $scope.sesion.campus_pid,
             "ultimo_dia_inscripcion": null,
             "isEliminado": false,
-            "periodo_pid":null
+            "periodo_pid": null
         }
         $scope.pantallaCambiar(pantalla);
     }

@@ -5,49 +5,48 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     $scope.setVal = function() {
-        debugger
+        
         $scope.properties.variableDestino = angular.copy($scope.properties.variableAcopiar);
         //$scope.properties.variableDestino2 = angular.copy($scope.properties.variableAcopiar2);
-       $scope.openCloseModal()
-        
+        $scope.openCloseModal()
+
     };
 
-    $scope.openCloseModal= function () {
-        if($scope.properties.OpenModal){
-            modalService.open($scope.properties.modalId);
+    $scope.openCloseModal = function() {
+            if ($scope.properties.OpenModal) {
+                modalService.open($scope.properties.modalId);
+            } else {
+                modalService.close();
+            }
+
+
+
         }
-        else {
-            modalService.close();
-        }
-        
-        
-        
+        /**
+         * Execute a get/post request to an URL
+         * It also bind custom data from success|error to a data
+         * @return {void}
+         */
+    function doRequest(method, url, params, dataToSend, callback) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: dataToSend,
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+
+                callback(data.data[0]);
+            })
+            .error(function(data, status) {
+                console.error("error al llamar" + url);
+
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
     }
-    /**
-   * Execute a get/post request to an URL
-   * It also bind custom data from success|error to a data
-   * @return {void}
-   */
-  function doRequest(method, url, params, dataToSend, callback) {
-    vm.busy = true;
-    var req = {
-      method: method,
-      url: url,
-      data: dataToSend,
-      params: params
-    };
-
-    return $http(req)
-      .success(function(data, status) {
-          debugger;
-        callback(data.data[0]);
-      })
-      .error(function(data, status) {
-        console.error("error al llamar" + url);
-          
-      })
-      .finally(function() {
-        vm.busy = false;
-      });
-  }
 }

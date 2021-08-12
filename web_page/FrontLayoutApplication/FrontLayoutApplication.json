@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1626992528768,
+  "lastUpdate" : 1628790709452,
   "rows" : [
     [
       {
@@ -625,11 +625,11 @@
                                   },
                                   "processData" : {
                                     "type" : "variable",
-                                    "value" : "processData[0].processId"
+                                    "value" : "(processData.length>0)?processData[0].processId:processData2[0].processId"
                                   },
                                   "processDataV2" : {
                                     "type" : "variable",
-                                    "value" : "processData[0].processId"
+                                    "value" : "(processData.length>0)?processData[0].processId:processData2[0].processId"
                                   }
                                 },
                                 "reference" : "66c69567-f703-4c65-9645-41bdadcda5a4",
@@ -3055,6 +3055,8 @@
         "if($data.currentTask !== undefined){",
         "    if($data.currentTask.length > 0){",
         "        value = $data.currentTask[0].name;",
+        "    }else{",
+        "        value = $data.currentTask2[$data.currentTask2.length-1].name;",
         "    }",
         "}",
         "",
@@ -3138,6 +3140,20 @@
       "type" : "url",
       "value" : [
         "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready&d=processId"
+      ],
+      "exposed" : false
+    },
+    "currentTask2" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/archivedHumanTask?p=0&c=999&f=caseId={{getCatRegistro[0].caseId}}&f=state=completed"
+      ],
+      "exposed" : false
+    },
+    "processData2" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/archivedHumanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready&d=processId"
       ],
       "exposed" : false
     }

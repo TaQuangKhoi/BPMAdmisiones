@@ -723,7 +723,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                 } else {
-                    debugger;
+
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -2665,38 +2665,37 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             url: "../API/system/session/unusedid",
         };
         return $http(req).success(function(data, status) {
-            let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-            if($scope.properties.catSolicitudDeAdmision.correoElectronico != data.user_name){
-                swal("¡Error!", "Su sesion ha expirado", "warning");   
-                setTieout(function(){ window.top.location.href = $scope.properties.urlDireccion }, 3000);
-            }else{
-                var req = {
-                    method: "PUT",
-                    url: url,
-                    data: {
-                        "assigned_id": $scope.properties.userId
-                    }
-                };
-                //let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-                return $http(req).success(function(data, status) {
-                    //$scope.executeTask();
-                    submitTask();
-                })
-                .error(function(data, status) {
-                    $scope.hideModal();
-                    swal("Error", data.message, "error");
-                })
-                .finally(function() {
-                });
-            }
-        })
-        .error(function(data, status) {
-            swal("¡Error!", data.message, "error");
-        })
-        .finally(function() {
+                let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+                if ($scope.properties.catSolicitudDeAdmision.correoElectronico != data.user_name) {
+                    swal("¡Error!", "Su sesion ha expirado", "warning");
+                    setTieout(function() { window.top.location.href = $scope.properties.urlDireccion }, 3000);
+                } else {
+                    var req = {
+                        method: "PUT",
+                        url: url,
+                        data: {
+                            "assigned_id": $scope.properties.userId
+                        }
+                    };
+                    //let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+                    return $http(req).success(function(data, status) {
+                            //$scope.executeTask();
+                            submitTask();
+                        })
+                        .error(function(data, status) {
+                            $scope.hideModal();
+                            swal("Error", data.message, "error");
+                        })
+                        .finally(function() {});
+                }
+            })
+            .error(function(data, status) {
+                swal("¡Error!", data.message, "error");
+            })
+            .finally(function() {
 
-        });   
-        
+            });
+
     }
 
     function submitTask() {

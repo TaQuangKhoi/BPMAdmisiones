@@ -1,6 +1,6 @@
-function pbImage($scope){
-    $scope.quitarBanner=function(){
-        debugger;
-        $scope.properties.url2="";
+function pbImage($scope) {
+    $scope.quitarBanner = function() {
+
+        $scope.properties.url2 = "";
     }
 }

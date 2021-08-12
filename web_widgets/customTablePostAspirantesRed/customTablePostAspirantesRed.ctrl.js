@@ -28,7 +28,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                debugger
+                
                 $scope.properties.lstContenido = data.data;
                 $scope.value = data.totalRegistros;
                 $scope.loadPaginado();

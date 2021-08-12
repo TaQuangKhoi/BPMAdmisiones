@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout, $log, gettextCatalog, blockUI) {
+function PbUploadCtrl($scope, $sce, $element, $http, widgetNameFactory, $timeout, $log, gettextCatalog, blockUI) {
     var ctrl = this;
     this.name = widgetNameFactory.getName('pbInput');
     this.filename = '';
@@ -10,7 +10,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
     this.uploadComplete = uploadComplete;
 
     this.name = widgetNameFactory.getName('pbUpload');
-    $scope.progress=0;
+    $scope.progress = 0;
     this.preventFocus = function($event) {
         $event.target.blur();
     };
@@ -37,7 +37,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
         }
 
         if ($scope.procesar === true) {
-            
+
             $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
             $scope.properties.filename = event.target.files[0].name;
             $scope.properties.filetype = event.target.files[0].type
@@ -62,46 +62,46 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
             $log.warn('you need to define a url for pbUpload');
         }
     });
-    
- $scope.upload= function(){
-     debugger;
-    var file = $('input[name="uploadPdf"]').get(0).files[0];
-    Main()
-    var jsonData = {"b64":toBase64(file)}
-    var formData = new FormData();
-    formData.append('file', file);
-    
-    
 
-}
-    $scope.previewPDF=function(){
-        if($scope.properties.urlretorno==''){
-            
-        }else{
-        Swal.fire({
-      title: '<strong>Previsualizar documento</strong>',
-      width: 600,
-      height:800,
-      confirmButtonColor: '#231F20',
-      html:
-        '<object style="height: 80vh; width:100%" data="'+$scope.properties.urlretorno+'" type="application/pdf"> <embed src="'+$scope.properties.urlretorno+'" type="application/pdf" /> </object>',
-          showCloseButton: true,
-          confirmButtonText: 'Cerrar'
-        })
+    $scope.upload = function() {
+
+        var file = $('input[name="uploadPdf"]').get(0).files[0];
+        Main()
+        var jsonData = { "b64": toBase64(file) }
+        var formData = new FormData();
+        formData.append('file', file);
+
+
+
     }
-        
+    $scope.previewPDF = function() {
+        if ($scope.properties.urlretorno == '') {
+
+        } else {
+            Swal.fire({
+                title: '<strong>Previsualizar documento</strong>',
+                width: 600,
+                height: 800,
+                confirmButtonColor: '#231F20',
+                html: '<object style="height: 80vh; width:100%" data="' + $scope.properties.urlretorno + '" type="application/pdf"> <embed src="' + $scope.properties.urlretorno + '" type="application/pdf" /> </object>',
+                showCloseButton: true,
+                confirmButtonText: 'Cerrar'
+            })
+        }
+
     }
-    $scope.borrarDocumento=function(){
-        $scope.properties.urlretorno="";
-        $scope.properties.filetype="";
-        $scope.properties.filename="";
-        
+    $scope.borrarDocumento = function() {
+        $scope.properties.urlretorno = "";
+        $scope.properties.filetype = "";
+        $scope.properties.filename = "";
+
     }
+
     function progress(e) {
         if (e.lengthComputable) {
             $('#progress_percent').text(Math.floor((e.loaded * 100) / e.total));
             $('progress').attr({ value: e.loaded, max: e.total });
-            $scope.progress=Math.floor((e.loaded * 100) / e.total);
+            $scope.progress = Math.floor((e.loaded * 100) / e.total);
         }
     }
     //the filename displayed is not bound to the value as a bidirectionnal
@@ -157,28 +157,29 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
 
     }
     const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
     });
-    
+
     async function Main() {
         blockUI.start();
-       const file = $('input[name="uploadPdf"]').get(0).files[0];
-       
-       var b64 =await toBase64(file);
-       var jsonData={"b64":b64,
-           "filename":file.name,
-           "filetype":file.type,
-           "contenedor":"publico"
-       }
-       return $http.post('/bonita/API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=10', jsonData, {
-       headers: { 'Content-Type': "application/json" }
-     }).then(function (results) {
-         blockUI.stop();
-        $scope.properties.urlretorno=results.data.data[0]       
-    });
+        const file = $('input[name="uploadPdf"]').get(0).files[0];
+
+        var b64 = await toBase64(file);
+        var jsonData = {
+            "b64": b64,
+            "filename": file.name,
+            "filetype": file.type,
+            "contenedor": "publico"
+        }
+        return $http.post('/bonita/API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=10', jsonData, {
+            headers: { 'Content-Type': "application/json" }
+        }).then(function(results) {
+            blockUI.stop();
+            $scope.properties.urlretorno = results.data.data[0]
+        });
     }
 
 

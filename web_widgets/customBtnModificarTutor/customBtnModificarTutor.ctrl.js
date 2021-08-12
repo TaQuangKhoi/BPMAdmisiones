@@ -21,7 +21,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Open modal') {
             openModal($scope.properties.modalId);
         } else if ($scope.properties.action === 'Close modal') {
-            debugger;
+
             if ($scope.properties.tutor.catParentezco != $scope.properties.jsonModificarTutor.catParentezco) {
                 var verificar = false;
                 var parentescoRegistro = $scope.properties.jsonModificarTutor.catParentezco.descripcion;

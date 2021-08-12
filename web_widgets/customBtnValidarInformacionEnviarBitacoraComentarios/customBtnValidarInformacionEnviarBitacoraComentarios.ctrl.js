@@ -32,7 +32,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            debugger;
+
             var numeros = "0123456789";
             try {
                 if ($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined || Object.keys($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos).length === 0) {
@@ -74,13 +74,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToSend.detalleSolicitudInput.admisionAnahuac === undefined) {
                 $scope.properties.dataToSend.detalleSolicitudInput.admisionAnahuac = null
             }
-            if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+            if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
                 $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
             }
 
             if ($scope.properties.accion === "Solicitar cambios") {
                 console.log($scope.properties.objDetalleSolicitud)
-                if($scope.properties.objDetalleSolicitud !== undefined){
+                if ($scope.properties.objDetalleSolicitud !== undefined) {
                     /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = $scope.properties.objDetalleSolicitud.catDescuentos;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = $scope.properties.objDetalleSolicitud.descuento;
                     $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = $scope.properties.objDetalleSolicitud.promedioCoincide;*/
@@ -94,11 +94,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else {
                         $scope.confirmacion();
                     }
-                }else{
+                } else {
                     /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
                     $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
-                    if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                    if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
                         $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
                     }
 
@@ -114,10 +114,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.accion === "Rechazar solicitud") {
-               /* $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
-                $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
-                $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
-                if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                /* $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
+                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
+                 $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
+                if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
                     $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
                 }
                 $scope.properties.dataToSend.conIsInformacionValidada = true;
@@ -158,7 +158,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.dataToSend.conIs100Descuento = false;
                                     $scope.properties.dataToSend.conIsAdmisionAnahuac = true;
                                     $scope.properties.dataToSend.conIsRechazada = false;
-                                    
+
                                     $scope.confirmacion();
                                 } else {
                                     swal.fire("¡Tipo de admisión!", "Debe validar la carta de la Admisión Anáhuac", "warning");
@@ -359,13 +359,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 })
 
                 //FIN VALIDAR CANDIDATO
-            } 
-            
-            else if ($scope.properties.accion === "Lista roja") {
+            } else if ($scope.properties.accion === "Lista roja") {
                 /*$scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                 $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
                 $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = null;*/
-                if($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined){
+                if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
                     $scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide = false;
                 }
                 $scope.properties.dataToSend.conIsInformacionValidada = true;
@@ -564,9 +562,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (id) {
             var params = getUserParam();
             params.assign = $scope.properties.assign;
-            doRequest2('POST',$scope.properties.urlComentario,params)
+            doRequest2('POST', $scope.properties.urlComentario, params)
 
-            doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {    
+            doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
                 localStorageService.delete($window.location.href);
                 $scope.$apply();
             });
@@ -579,7 +577,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function doRequest2(method, url, params) {
         vm.busy = true;
         var comentarios = angular.copy($scope.properties.comentarioInfo);
-        comentarios.comentario = $scope.properties.observacion 
+        comentarios.comentario = $scope.properties.observacion
         var req = {
             method: method,
             url: url,
@@ -619,31 +617,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 method: "PUT",
                 url: url,
                 data: {
-                    assigned_id : ""
+                    assigned_id: ""
                 },
                 params: params
             };
 
             return $http(req).success(function(data, status) {
-                assignTask();
-            })
-            .error(function(data, status) {
-                console.error(data);
-                Swal.fire({
-                    title: 'No se puede ' + $scope.properties.accion +  ".",
-                    text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
-                    icon: "warning",
-                    confirmButtonColor: '#5cb85c',
-                    confirmButtonText: 'Cerrar',
-                }).then((result) => {
-                    $scope.$apply();
-                });
+                    assignTask();
+                })
+                .error(function(data, status) {
+                    console.error(data);
+                    Swal.fire({
+                        title: 'No se puede ' + $scope.properties.accion + ".",
+                        text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
+                        icon: "warning",
+                        confirmButtonColor: '#5cb85c',
+                        confirmButtonText: 'Cerrar',
+                    }).then((result) => {
+                        $scope.$apply();
+                    });
 
-                $scope.$apply();
-            })
-            .finally(function() {
-                vm.busy = false;
-            });
+                    $scope.$apply();
+                })
+                .finally(function() {
+                    vm.busy = false;
+                });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
@@ -660,13 +658,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 method: "PUT",
                 url: url,
                 data: {
-                    assigned_id : $scope.userid
+                    assigned_id: $scope.userid
                 },
                 params: params
             };
 
             return $http(req).success(function(data, status) {
-                submitTask();
+                    submitTask();
+                })
+                .error(function(data, status) {
+                    console.error(data);
+                })
+                .finally(function() {
+                    vm.busy = false;
+                });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function getUser() {
+        let url = "../API/system/session/1";
+        return $http.get(url).success(function(data, status) {
+                $scope.userid = data.user_id;
+                unassignTask();
             })
             .error(function(data, status) {
                 console.error(data);
@@ -674,23 +689,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
                 vm.busy = false;
             });
-        } else {
-            $log.log('Impossible to retrieve the task id value from the URL');
-        }
-    }
-
-    function getUser(){
-        let url = "../API/system/session/1";
-        return $http.get(url).success(function(data, status) {
-            $scope.userid = data.user_id;
-            unassignTask();
-        })
-        .error(function(data, status) {
-            console.error(data);
-        })
-        .finally(function() {
-            vm.busy = false;
-        });
     }
 
 }

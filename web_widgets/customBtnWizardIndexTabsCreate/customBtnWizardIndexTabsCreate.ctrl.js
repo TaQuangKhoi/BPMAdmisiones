@@ -86,7 +86,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.madre.estadoExtranjero = $scope.properties.tutor[0].estadoExtranjero;
                         }
                         $scope.assignTask();
-                    }else{
+                    } else {
                         if ($scope.properties.padre.viveContigo) {
                             $scope.properties.padre.calle = $scope.properties.tutor.calle;
                             $scope.properties.padre.catPais = $scope.properties.tutor.catPais;
@@ -115,7 +115,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
                         $scope.assignTask();
                     }
-                    
+
                 }
 
             } else if ($scope.properties.selectedIndex === 0) {
@@ -169,16 +169,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
                         swal("¡Campus presentado!", "Debes seleccionar el/los campus donde has presentado tu solicitud", "warning");
                         $scope.faltacampo = true;
-                    } else if($scope.properties.catSolicitudDeAdmision.catConcluisteProceso === null){
-                    	swal("¡Concluiste proceso!", "Debes seleccionar si concluiste el proceso en el campus donde presentaste tu solicitud", "warning");
+                    } else if ($scope.properties.catSolicitudDeAdmision.catConcluisteProceso === null) {
+                        swal("¡Concluiste proceso!", "Debes seleccionar si concluiste el proceso en el campus donde presentaste tu solicitud", "warning");
                         $scope.faltacampo = true;
-                    } else if($scope.properties.catSolicitudDeAdmision.catResultadoAdmision === null && $scope.properties.catSolicitudDeAdmision.catConcluisteProceso.descripcion === "Sí"){
-                    	swal("¡Resultado de admisión!", "Debes seleccionar el resultado de tu admisión en el campus donde presentaste tu solicitud", "warning");
+                    } else if ($scope.properties.catSolicitudDeAdmision.catResultadoAdmision === null && $scope.properties.catSolicitudDeAdmision.catConcluisteProceso.descripcion === "Sí") {
+                        swal("¡Resultado de admisión!", "Debes seleccionar el resultado de tu admisión en el campus donde presentaste tu solicitud", "warning");
                         $scope.faltacampo = true;
                     }
                 }
                 if (!$scope.faltacampo) {
-                    debugger;
+
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -224,39 +224,38 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
                         } else {
                             if ($scope.properties.fotopasaportearchivo.length > 0) {
-                                    var auxData = null;
-                                    if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
-                                        auxData = $scope.properties.fotopasaportearchivo[0];
-                                    } else {
-                                        auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
-                                    }
-                                    auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
-                                    auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
-                                    auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
-                                    if (auxData.id !== undefined) {
+                                var auxData = null;
+                                if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
+                                    auxData = $scope.properties.fotopasaportearchivo[0];
+                                } else {
+                                    auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
+                                }
+                                auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
+                                auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
+                                auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
+                                if (auxData.id !== undefined) {
+                                    $scope.properties.fotopasaportearchivo[0] = {
+                                        "id": angular.copy(auxData.id),
+                                        "newValue": angular.copy(auxData)
+                                    };
+                                } else {
+                                    if ($scope.properties.fotopasaportearchivo[0].newValue.filename !== $scope.properties.fotopasaporte.filename) {
                                         $scope.properties.fotopasaportearchivo[0] = {
-                                            "id": angular.copy(auxData.id),
                                             "newValue": angular.copy(auxData)
                                         };
-                                    } else {
-                                        if ($scope.properties.fotopasaportearchivo[0].newValue.filename !== $scope.properties.fotopasaporte.filename) {
-                                            $scope.properties.fotopasaportearchivo[0] = {
-                                                "newValue": angular.copy(auxData)
-                                            };
-                                        }
                                     }
+                                }
                                 $scope.properties.catSolicitudDeAdmision.urlFoto = "";
                             } else {
                                 if ($scope.properties.fotopasaporte !== undefined) {
-                                 $scope.properties.fotopasaportearchivo = [];
+                                    $scope.properties.fotopasaportearchivo = [];
                                     $scope.properties.fotopasaportearchivo.push({
                                         "newValue": angular.copy($scope.properties.fotopasaporte)
                                     });
                                     $scope.properties.catSolicitudDeAdmision.urlFoto = "";
-                                 }
-                                 else{
-                                    $scope.properties.fotopasaportearchivo = [];    
-                                 }
+                                } else {
+                                    $scope.properties.fotopasaportearchivo = [];
+                                }
                             }
                         }
 
@@ -303,27 +302,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             } else {
                                 if ($scope.properties.actanacimientoarchivo.length > 0) {
-                                        var auxData = null;
-                                        if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
-                                            auxData = $scope.properties.actanacimientoarchivo[0];
-                                        } else {
-                                            auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
-                                        }
-                                        auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
-                                        auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
-                                        auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
-                                        if (auxData.id !== undefined) {
+                                    var auxData = null;
+                                    if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
+                                        auxData = $scope.properties.actanacimientoarchivo[0];
+                                    } else {
+                                        auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
+                                    }
+                                    auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
+                                    auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
+                                    auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
+                                    if (auxData.id !== undefined) {
+                                        $scope.properties.actanacimientoarchivo[0] = {
+                                            "id": angular.copy(auxData.id),
+                                            "newValue": angular.copy(auxData)
+                                        };
+                                    } else {
+                                        if ($scope.properties.actanacimientoarchivo[0].newValue.filename !== $scope.properties.actanacimientoarchivo.filename) {
                                             $scope.properties.actanacimientoarchivo[0] = {
-                                                "id": angular.copy(auxData.id),
                                                 "newValue": angular.copy(auxData)
                                             };
-                                        } else {
-                                            if ($scope.properties.actanacimientoarchivo[0].newValue.filename !== $scope.properties.actanacimientoarchivo.filename) {
-                                                $scope.properties.actanacimientoarchivo[0] = {
-                                                    "newValue": angular.copy(auxData)
-                                                };
-                                            }
                                         }
+                                    }
                                     $scope.properties.catSolicitudDeAdmision.urlActaNacimiento = "";
                                 } else {
                                     if ($scope.properties.actanacimiento !== undefined) {
@@ -331,8 +330,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         $scope.properties.actanacimientoarchivo.push({
                                             "newValue": angular.copy($scope.properties.actanacimiento)
                                         });
-                                    $scope.properties.catSolicitudDeAdmision.urlActaNacimiento = "";
-                                    }else{
+                                        $scope.properties.catSolicitudDeAdmision.urlActaNacimiento = "";
+                                    } else {
                                         $scope.properties.actanacimientoarchivo = [];
                                     }
                                 }
@@ -354,7 +353,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.selectedIndex === 2) {
-                //debugger;
+                //
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
@@ -460,7 +459,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
             }
         } else if ($scope.properties.tabs === "Informacion Familiar") {
-            //debugger;
+            //
             if ($scope.properties.selectedIndex === 0) {
                 console.log("validar 0");
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -1054,7 +1053,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function getTask() {
-        debugger;
+
         var req = {
             method: 'GET',
             url: $scope.properties.urlCurrentTask

@@ -101,11 +101,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-            debugger;
-                if(data.data.length >0){
+
+                if (data.data.length > 0) {
                     $scope.properties.hermanosObj = data.data;
                     $scope.getInformacionEscolarVencidos();
-                }else{
+                } else {
                     $scope.getInformacionEscolarVencidos();
                 }
             })
@@ -128,13 +128,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-                if(data.data.length >0){
+                if (data.data.length > 0) {
                     $scope.properties.infoEscolarObj = data.data;
                     $scope.getUniviersidadesVencidos();
-                }else{
+                } else {
                     $scope.getUniviersidadesVencidos();
                 }
-                
+
             })
             .error(function(data, status) {
                 swal("Error", data.message, "error");
@@ -155,14 +155,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-            if(data.data.length >0){
-                $scope.properties.universidadesObj = data.data;
-                $scope.getIdiomaVencidos();
-            }else{
-                $scope.getIdiomaVencidos();
-            }
-            
-                
+                if (data.data.length > 0) {
+                    $scope.properties.universidadesObj = data.data;
+                    $scope.getIdiomaVencidos();
+                } else {
+                    $scope.getIdiomaVencidos();
+                }
+
+
             })
             .error(function(data, status) {
                 swal("Error", data.message, "error");
@@ -183,13 +183,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-            if(data.data.length >0){
-                $scope.properties.IdiomasObj = data.data;
-                $scope.getTerapiaVencidos();
-            }else{
-                $scope.getTerapiaVencidos();
-            }
-                
+                if (data.data.length > 0) {
+                    $scope.properties.IdiomasObj = data.data;
+                    $scope.getTerapiaVencidos();
+                } else {
+                    $scope.getTerapiaVencidos();
+                }
+
             })
             .error(function(data, status) {
                 swal("Error", data.message, "error");
@@ -210,13 +210,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-            if(data.data.length >0){
-                $scope.properties.terapiasObj = data.data;
-                $scope.getGrupoSocialVencidos();
-            }else{
-                $scope.getGrupoSocialVencidos();
-            }
-                
+                if (data.data.length > 0) {
+                    $scope.properties.terapiasObj = data.data;
+                    $scope.getGrupoSocialVencidos();
+                } else {
+                    $scope.getGrupoSocialVencidos();
+                }
+
             })
             .error(function(data, status) {
                 swal("Error", data.message, "error");
@@ -237,13 +237,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         };
 
         return $http(req).success(function(data, status) {
-            if(data.data.length >0){
-                $scope.properties.gruposSocialesObj = data.data;
-                 $scope.getParienteEgresadoVencidos();
-            }else{
-                $scope.getParienteEgresadoVencidos();
-            }
-                
+                if (data.data.length > 0) {
+                    $scope.properties.gruposSocialesObj = data.data;
+                    $scope.getParienteEgresadoVencidos();
+                } else {
+                    $scope.getParienteEgresadoVencidos();
+                }
+
             })
             .error(function(data, status) {
                 swal("Error", data.message, "error");

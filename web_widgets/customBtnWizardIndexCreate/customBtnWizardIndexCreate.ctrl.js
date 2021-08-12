@@ -458,7 +458,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
 
                             if (!$scope.fallo) {
-                                debugger;
+
                                 if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                         $scope.fallo = true;
@@ -805,7 +805,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                 } else {
-                    debugger;
+
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -975,7 +975,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         }
 
                         if (!$scope.fallo) {
-                            debugger;
+
                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                     $scope.fallo = true;
@@ -2578,8 +2578,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.assignTask();
                         }
                     }
-                }
-                else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
+                } else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
                     swal("¡Título!", "Debes seleccionar el título para identificar a la madre", "warning");
                 } else if ($scope.properties.madreInput.nombre === "" || $scope.properties.madreInput.nombre === undefined) {
                     swal("¡Nombre de la madre!", "Debes agregar nombre de la madre", "warning");
@@ -3245,7 +3244,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             }
 
                                             if (!$scope.fallo) {
-                                                debugger;
+
                                                 if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                                     if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                                         $scope.fallo = true;
@@ -3437,7 +3436,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                                     swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                                 } else {
-                                    debugger;
+
                                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                                         $scope.properties.selectedIndex--;
                                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
@@ -3527,7 +3526,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         }
 
                                         if (!$scope.fallo) {
-                                            debugger;
+
                                             if ($scope.properties.catSolicitudDeAdmision.tienePAA) {
                                                 if ($scope.properties.catSolicitudDeAdmision.resultadoPAA === 0 || $scope.properties.catSolicitudDeAdmision.resultadoPAA === "" || $scope.properties.catSolicitudDeAdmision.resultadoPAA === null || $scope.properties.catSolicitudDeAdmision.resultadoPAA === undefined) {
                                                     $scope.fallo = true;
@@ -4976,8 +4975,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                             $scope.assignTask();
                                         }
                                     }
-                                }
-                                else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
+                                } else if ($scope.properties.madreInput.catTitulo === 0 || $scope.properties.madreInput.catTitulo === null) {
                                     swal("¡Título!", "Debes seleccionar el título para identificar a la madre", "warning");
                                 } else if ($scope.properties.madreInput.nombre === "" || $scope.properties.madreInput.nombre === undefined) {
                                     swal("¡Nombre de la madre!", "Debes agregar nombre de la madre", "warning");
@@ -5344,7 +5342,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
 
                     function getTask() {
-                        debugger;
+
                         var req = {
                             method: 'GET',
                             url: $scope.properties.urlCurrentTask
@@ -5501,7 +5499,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function getTask() {
-        debugger;
+
         var req = {
             method: 'GET',
             url: $scope.properties.urlCurrentTask

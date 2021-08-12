@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http,  modalService) {
+function PbButtonCtrl($scope, $http, modalService) {
     'use strict';
     var vm = this;
 
@@ -10,14 +10,14 @@ function PbButtonCtrl($scope, $http,  modalService) {
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;
-            if($scope.properties.isModificacion === false){
-                $scope.properties.nuevosValores.forEach(element =>{
-                    $scope.properties.contenido.push(element);
-                })
-                //console.log("$scope.properties.contenido")
-               //console.log($scope.properties.contenido)
+            if ($scope.properties.isModificacion === false) {
+                $scope.properties.nuevosValores.forEach(element => {
+                        $scope.properties.contenido.push(element);
+                    })
+                    //console.log("$scope.properties.contenido")
+                    //console.log($scope.properties.contenido)
                 $scope.properties.nuevosValores = [];
-            }else{
+            } else {
                 $scope.properties.contenido[$scope.properties.index].orden = $scope.properties.nuevosValores[0].orden;
                 $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
@@ -28,13 +28,13 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.nuevosValores = [];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }
-            
+
             $scope.asignarTarea()
         } else {
             console.log("click doble");
         }
     }
-    
+
     function openModal(modalId) {
         modalService.open(modalId);
     }
@@ -44,7 +44,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
     }
 
     $scope.asignarTarea = function() {
-        debugger;
+
         var req = {
             method: "PUT",
             url: "/bonita/API/bpm/humanTask/" + $scope.properties.taskId,
@@ -58,7 +58,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -98,7 +98,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -125,7 +125,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
     }
 
     $scope.getObjTaskInformation = function() {
-        debugger;
+
         var req = {
             method: "GET",
             url: $scope.properties.urlTaskInformation
@@ -142,7 +142,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
                 closeModal();
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }

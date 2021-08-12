@@ -123,7 +123,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //INICIO VALIDAR CANDIDATO
                 //$scope.properties.descuentoManual
                 doRequestCallBack("GET", "/bonita/API/extension/AnahuacRestGet?url=getIdbanner&idbanner=" + $scope.properties.dataToSend.detalleSolicitudInput.idBanner, {}, {}, function(datos) {
-                    debugger;
+
                     if ($scope.properties.dataToSend.detalleSolicitudInput.isCurpValidado === false && $scope.properties.isMexicano) {
                         swal.fire("¡Validar CURP!", "Debe validar la CURP del aspirante", "warning");
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.promedioCoincide === undefined) {
@@ -232,7 +232,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                                     swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                                 } else {
-                                    if($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)){
+                                    if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)) {
                                         console.log("descuento descuentoManual")
                                         swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
                                     } else {
@@ -299,7 +299,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                             swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                         } else {
-                            if($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)){
+                            if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)) {
                                 console.log("descuento descuentoManual")
                                 swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
                             } else {
@@ -561,31 +561,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 method: "PUT",
                 url: url,
                 data: {
-                    assigned_id : ""
+                    assigned_id: ""
                 },
                 params: params
             };
 
             return $http(req).success(function(data, status) {
-                assignTask();
-            })
-            .error(function(data, status) {
-                Swal.fire({
-                    title: 'No se puede validar.',
-                    text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
-                    icon: "warning",
-                    confirmButtonColor: '#5cb85c',
-                    confirmButtonText: 'Cerrar',
-                }).then((result) => {
-                    window.close();
-                    $scope.$apply();
-                });
+                    assignTask();
+                })
+                .error(function(data, status) {
+                    Swal.fire({
+                        title: 'No se puede validar.',
+                        text: "Esta tarea no se puede ejecutar debido a que un usuario ya la ejecutó.",
+                        icon: "warning",
+                        confirmButtonColor: '#5cb85c',
+                        confirmButtonText: 'Cerrar',
+                    }).then((result) => {
+                        window.close();
+                        $scope.$apply();
+                    });
 
-                $scope.$apply();
-            })
-            .finally(function() {
-                vm.busy = false;
-            });
+                    $scope.$apply();
+                })
+                .finally(function() {
+                    vm.busy = false;
+                });
         } else {
             $log.log('Impossible to retrieve the task id value from the URL');
         }
@@ -602,13 +602,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 method: "PUT",
                 url: url,
                 data: {
-                    assigned_id : $scope.userid
+                    assigned_id: $scope.userid
                 },
                 params: params
             };
 
             return $http(req).success(function(data, status) {
-                submitTask();
+                    submitTask();
+                })
+                .error(function(data, status) {
+                    console.error(data);
+                })
+                .finally(function() {
+                    vm.busy = false;
+                });
+        } else {
+            $log.log('Impossible to retrieve the task id value from the URL');
+        }
+    }
+
+    function getUser() {
+        let url = "../API/system/session/1";
+        return $http.get(url).success(function(data, status) {
+                $scope.userid = data.user_id;
+                unassignTask();
             })
             .error(function(data, status) {
                 console.error(data);
@@ -616,22 +633,5 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
                 vm.busy = false;
             });
-        } else {
-            $log.log('Impossible to retrieve the task id value from the URL');
-        }
-    }
-
-    function getUser(){
-        let url = "../API/system/session/1";
-        return $http.get(url).success(function(data, status) {
-            $scope.userid = data.user_id;
-            unassignTask();
-        })
-        .error(function(data, status) {
-            console.error(data);
-        })
-        .finally(function() {
-            vm.busy = false;
-        });
     }
 }

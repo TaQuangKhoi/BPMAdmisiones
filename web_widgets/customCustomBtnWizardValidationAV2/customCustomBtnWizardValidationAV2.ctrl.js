@@ -1,21 +1,21 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
-    $scope.action = function(){
-        if($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0){
-            $scope.properties.selectedIndex --; 
-        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)){
-            if($scope.properties.isValidStep){
-                $scope.properties.selectedIndex ++; 
+    $scope.action = function() {
+        if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+            $scope.properties.selectedIndex--;
+        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+            if ($scope.properties.isValidStep) {
+                $scope.properties.selectedIndex++;
                 blockUI.start();
                 submitTask();
             } else {
-                debugger;
+
                 swal($scope.properties.messageTitle, $scope.properties.errorMessage, "warning");
             }
         }
     }
-    
+
     function submitTask() {
-        debugger;
+
         var id;
         id = $scope.properties.taskId;
         if (id) {
@@ -26,62 +26,62 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-    
+
     function doRequest(method, url) {
         let dataToSend = angular.copy($scope.properties.formOutput);
         $scope.properties.pageIndex = $scope.properties.selectedIndex;
-        
+
         var req = {
             method: method,
             url: url,
             // data: angular.copy($scope.properties.formOutput)
             data: dataToSend
         };
-        
+
         return $http(req)
-        .success(function(data, status) {
-            getCurrentTask();
-            console.log("Task done")
-        })
-        .error(function(data, status) {
-            blockUI.stop();
-            console.log("task failed")
-        });
+            .success(function(data, status) {
+                getCurrentTask();
+                console.log("Task done")
+            })
+            .error(function(data, status) {
+                blockUI.stop();
+                console.log("task failed")
+            });
     }
-    
-    function getCurrentTask(){
+
+    function getCurrentTask() {
         let contador = 0;
         let limite = 99
-        
-        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId +"&fstate=ready";
-        
+
+        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId + "&fstate=ready";
+
         var req = {
             method: "GET",
             url: url
         };
 
         return $http(req)
-        .success(function(data, status) {
-            if (data.length === 0){
-                console.log("retry, no task found");
+            .success(function(data, status) {
+                if (data.length === 0) {
+                    console.log("retry, no task found");
+                    getCurrentTask();
+                } else if (data[0].id === $scope.properties.taskId) {
+                    console.log("retry, same id");
+                    getCurrentTask();
+                } else {
+                    $scope.properties.taskId = data[0].id;
+                    console.log("Nueva tarea", $scope.properties.taskId);
+                    blockUI.stop();
+                }
+            })
+            .error(function(data, status) {
                 getCurrentTask();
-            } else if(data[0].id === $scope.properties.taskId){
-                console.log("retry, same id");
-                getCurrentTask();
-            } else {
-                $scope.properties.taskId = data[0].id;
-                console.log("Nueva tarea", $scope.properties.taskId);
-                blockUI.stop();
-            }
-        })
-        .error(function(data, status) {
-            getCurrentTask();
-            if(contador <= limite){
-                contador ++;
-                getCurrentTask();
-            } else {
-                blockUI.stop();
-            }
-        });
+                if (contador <= limite) {
+                    contador++;
+                    getCurrentTask();
+                } else {
+                    blockUI.stop();
+                }
+            });
     }
 }

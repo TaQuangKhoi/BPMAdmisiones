@@ -1,4 +1,4 @@
-function PbTableCtrl($scope, $http, $location, $log, $window, localStorageService, modalService,blockUI) {
+function PbTableCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
     this.isArray = Array.isArray;
 
     this.isClickable = function() {
@@ -6,7 +6,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     };
 
     this.selectRow = function(row) {
-        debugger;
+
         $scope.properties.selectedRow = row;
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
@@ -25,7 +25,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger;
+
                         $scope.properties.selectedRow = row;
                         $scope.properties.selectedRow["todelete"] = false;
                         $scope.properties.selectedRow["isEliminado"] = true;
@@ -55,7 +55,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             $log.log('Impossible to retrieve the process definition id value from the URL');
         }
     }
-    
+
     function doRequest(method, url, params) {
         blockUI.start();
         var req = {
@@ -79,10 +79,10 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
                 blockUI.stop();
             });
     }
-    
+
     function doRequestDelete(method, url, params) {
-       let datos = angular.copy($scope.properties.dataToSend);
-       datos.lstCatGestionEscolarInput[0].propedeuticos = [];
+        let datos = angular.copy($scope.properties.dataToSend);
+        datos.lstCatGestionEscolarInput[0].propedeuticos = [];
         var req = {
             method: method,
             url: url,
@@ -94,13 +94,13 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .success(function(data, status) {
                 doRequest("POST", $scope.properties.urlPost);
                 swal("!Eliminado correctamente!", "", "success");
-                
+
             })
             .error(function(data, status) {
-                
+
             });
     }
-    
+
     function doRequestGet() {
         var cantidad = angular.copy($scope.properties.cantidad);
         var req = {
@@ -118,176 +118,175 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             });
     }
     $scope.lstCampus = [{
-        "descripcion": "Anáhuac Cancún",
-        "valor": "CAMPUS-CANCUN"
-    },
-    {
-        "descripcion": "Anáhuac Mérida",
-        "valor": "CAMPUS-MAYAB"
-    },
-    {
-        "descripcion": "Anáhuac México Norte",
-        "valor": "CAMPUS-MNORTE"
-    },
-    {
-        "descripcion": "Anáhuac México Sur",
-        "valor": "CAMPUS-MSUR"
-    },
-    {
-        "descripcion": "Anáhuac Oaxaca",
-        "valor": "CAMPUS-OAXACA"
-    },
-    {
-        "descripcion": "Anáhuac Puebla",
-        "valor": "CAMPUS-PUEBLA"
-    },
-    {
-        "descripcion": "Anáhuac Querétaro",
-        "valor": "CAMPUS-QUERETARO"
-    },
-    {
-        "descripcion": "Anáhuac Xalapa",
-        "valor": "CAMPUS-XALAPA"
-    },
-    {
-        "descripcion": "Juan Pablo II",
-        "valor": "CAMPUS-JP2"
-    },
-    {
-        "descripcion": "Anáhuac Cordoba",
-        "valor": "CAMPUS-CORDOBA"
-    }
+            "descripcion": "Anáhuac Cancún",
+            "valor": "CAMPUS-CANCUN"
+        },
+        {
+            "descripcion": "Anáhuac Mérida",
+            "valor": "CAMPUS-MAYAB"
+        },
+        {
+            "descripcion": "Anáhuac México Norte",
+            "valor": "CAMPUS-MNORTE"
+        },
+        {
+            "descripcion": "Anáhuac México Sur",
+            "valor": "CAMPUS-MSUR"
+        },
+        {
+            "descripcion": "Anáhuac Oaxaca",
+            "valor": "CAMPUS-OAXACA"
+        },
+        {
+            "descripcion": "Anáhuac Puebla",
+            "valor": "CAMPUS-PUEBLA"
+        },
+        {
+            "descripcion": "Anáhuac Querétaro",
+            "valor": "CAMPUS-QUERETARO"
+        },
+        {
+            "descripcion": "Anáhuac Xalapa",
+            "valor": "CAMPUS-XALAPA"
+        },
+        {
+            "descripcion": "Juan Pablo II",
+            "valor": "CAMPUS-JP2"
+        },
+        {
+            "descripcion": "Anáhuac Cordoba",
+            "valor": "CAMPUS-CORDOBA"
+        }
     ];
-      $(function() {
+    $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
-    
-    
-    
+
+
+
     $scope.$watch("properties.dataToFilter", function(newValue, oldValue) {
         if (newValue !== undefined) {
             doRequest("POST", $scope.properties.urlPost);
         }
     });
-    $scope.setOrderBy= function(order){
-        debugger;
+    $scope.setOrderBy = function(order) {
+
         order = order.toUpperCase();
-        if($scope.properties.dataToFilter.orderby == order){
-            $scope.properties.dataToFilter.orientation = ($scope.properties.dataToFilter.orientation=="ASC")?"DESC":"ASC";
-        }else{
+        if ($scope.properties.dataToFilter.orderby == order) {
+            $scope.properties.dataToFilter.orientation = ($scope.properties.dataToFilter.orientation == "ASC") ? "DESC" : "ASC";
+        } else {
             $scope.properties.dataToFilter.orderby = order;
             $scope.properties.dataToFilter.orientation = "ASC";
         }
         doRequest("POST", $scope.properties.urlPost);
     }
-    
-    $scope.filterKeyPress= function(columna,press){
+
+    $scope.filterKeyPress = function(columna, press) {
         var aplicado = true;
         columna = columna.toUpperCase();
         for (let index = 0; index < $scope.properties.dataToFilter.lstFiltro.length; index++) {
             const element = $scope.properties.dataToFilter.lstFiltro[index];
-            if(element.columna==columna){
-                $scope.properties.dataToFilter.lstFiltro[index].valor=press;
-                $scope.properties.dataToFilter.lstFiltro[index].operador="Que contenga";
-                aplicado=false;
+            if (element.columna == columna) {
+                $scope.properties.dataToFilter.lstFiltro[index].valor = press;
+                $scope.properties.dataToFilter.lstFiltro[index].operador = "Que contenga";
+                aplicado = false;
             }
-            
+
         }
-        if(aplicado){
-            var obj = 	{ "columna":columna, "operador":"Que contenga", "valor":press }
+        if (aplicado) {
+            var obj = { "columna": columna, "operador": "Que contenga", "valor": press }
             $scope.properties.dataToFilter.lstFiltro.push(obj);
         }
-        
+
         doRequest("POST", $scope.properties.urlPost);
     }
-    
+
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
     $scope.iniciarP = 1;
     $scope.finalP = 10;
     $scope.valorTotal = 10;
-    
-    $scope.loadPaginado = function(){
-        $scope.valorTotal = Math.ceil($scope.value/$scope.properties.dataToFilter.limit);
-        $scope.lstPaginado=[]
-        if($scope.valorSeleccionado <= 5) {
+
+    $scope.loadPaginado = function() {
+        $scope.valorTotal = Math.ceil($scope.value / $scope.properties.dataToFilter.limit);
+        $scope.lstPaginado = []
+        if ($scope.valorSeleccionado <= 5) {
             $scope.iniciarP = 1;
-            $scope.finalP = $scope.valorTotal>10 ? 10 : $scope.valorTotal;
-        }
-        else {
+            $scope.finalP = $scope.valorTotal > 10 ? 10 : $scope.valorTotal;
+        } else {
             $scope.iniciarP = $scope.valorSeleccionado - 5;
-            $scope.finalP = $scope.valorTotal>($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
+            $scope.finalP = $scope.valorTotal > ($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
         }
-        for(var i=$scope.iniciarP; i<=$scope.finalP; i++){
+        for (var i = $scope.iniciarP; i <= $scope.finalP; i++) {
 
             var obj = {
-                "numero":i,
-                "inicio":((i*10)-9),
-                "fin":(i*10),
+                "numero": i,
+                "inicio": ((i * 10) - 9),
+                "fin": (i * 10),
                 "seleccionado": (i == $scope.valorSeleccionado)
             };
             $scope.lstPaginado.push(obj);
         }
     }
-    
-    $scope.siguiente = function(){
+
+    $scope.siguiente = function() {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].seleccionado){
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].seleccionado) {
                 objSelected = $scope.lstPaginado[i];
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
             }
         }
-        $scope.valorSeleccionado=$scope.valorSeleccionado+1;
-        if($scope.valorSeleccionado>Math.ceil($scope.value/$scope.properties.dataToFilter.limit)){
-            $scope.valorSeleccionado = Math.ceil($scope.value/$scope.properties.dataToFilter.limit);
+        $scope.valorSeleccionado = $scope.valorSeleccionado + 1;
+        if ($scope.valorSeleccionado > Math.ceil($scope.value / $scope.properties.dataToFilter.limit)) {
+            $scope.valorSeleccionado = Math.ceil($scope.value / $scope.properties.dataToFilter.limit);
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.anterior = function(){
+    $scope.anterior = function() {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].seleccionado){
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].seleccionado) {
                 objSelected = $scope.lstPaginado[i];
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
             }
         }
-        $scope.valorSeleccionado=$scope.valorSeleccionado-1;
-        if($scope.valorSeleccionado == 0){
+        $scope.valorSeleccionado = $scope.valorSeleccionado - 1;
+        if ($scope.valorSeleccionado == 0) {
             $scope.valorSeleccionado = 1;
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.seleccionarPagina = function(valorSeleccionado){
+    $scope.seleccionarPagina = function(valorSeleccionado) {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].numero == valorSeleccionado){
-                $scope.inicio = ($scope.lstPaginado[i].numero-1);
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].numero == valorSeleccionado) {
+                $scope.inicio = ($scope.lstPaginado[i].numero - 1);
                 $scope.fin = $scope.lstPaginado[i].fin;
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
-                $scope.properties.dataToFilter.offset=(($scope.lstPaginado[i].numero - 1) * $scope.properties.dataToFilter.limit)
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
+                $scope.properties.dataToFilter.offset = (($scope.lstPaginado[i].numero - 1) * $scope.properties.dataToFilter.limit)
             }
         }
 
         doRequest("POST", $scope.properties.urlPost);
     }
-    
-    
-   $scope.getCampusByGrupo = function (campus) {
+
+
+    $scope.getCampusByGrupo = function(campus) {
         var retorno = "";
         for (var i = 0; i < $scope.lstCampus.length; i++) {
             if (campus == $scope.lstCampus[i].valor) {
                 retorno = $scope.lstCampus[i].descripcion
             }
-            
+
         }
         return retorno;
     }
     $scope.lstMembership = [];
-    $scope.$watch("properties.userId", function (newValue, oldValue) {
-        debugger;
+    $scope.$watch("properties.userId", function(newValue, oldValue) {
+
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
@@ -295,17 +294,17 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             };
 
             return $http(req)
-                .success(function (data, status) {
+                .success(function(data, status) {
                     $scope.lstMembership = data;
                 })
-                .error(function (data, status) {
+                .error(function(data, status) {
                     console.error(data);
                 })
-                .finally(function () { });
+                .finally(function() {});
         }
     });
     $scope.filtroCampus = ""
-    $scope.addFilter = function () {
+    $scope.addFilter = function() {
         var filter = {
             "columna": "CAMPUS",
             "operador": "Igual a",
@@ -330,18 +329,18 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             $scope.properties.dataToFilter.lstFiltro.push(filter);
         }
     }
-    $scope.sizing=function(){
-        debugger;
+    $scope.sizing = function() {
+
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;
         $scope.finalP = 10;
-        try{
-            $scope.properties.dataToFilter.limit=parseInt($scope.properties.dataToFilter.limit);
-        }catch(exception){
-            
+        try {
+            $scope.properties.dataToFilter.limit = parseInt($scope.properties.dataToFilter.limit);
+        } catch (exception) {
+
         }
-        
+
         doRequest("POST", $scope.properties.urlPost);
     }
 }

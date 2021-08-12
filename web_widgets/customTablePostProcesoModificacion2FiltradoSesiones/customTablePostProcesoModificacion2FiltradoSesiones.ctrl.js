@@ -133,37 +133,42 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.cargarAD = function(rowData) {
-        $scope.loadProcessData(rowData);
+        $scope.loadProcessData(rowData, "humanTask");
 
     }
 
-    $scope.loadProcessData = function(rowData) {
+    $scope.loadProcessData = function(rowData,humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=ready&d=processId"
+            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+ ((humanTask == "humanTask") ? 'ready' : 'completed') +"&d=processId"
         };
 
         return $http(req)
             .success(function(data, status) {
-                let version = parseFloat(data[0].processId.version);
-                console.log(data)
-                console.log(version)
-                if (version < parseFloat("1.51")) {
-                    var url = "/portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=" + rowData.correoelectronico;
-                    window.open(url, '_blank');
+                if (data.length>0) {
+                    let version = parseFloat(data[0].processId.version);
+                    console.log(data)
+                    console.log(version)
+                    if (version < parseFloat("1.51")) {
+                        var url = "/portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=" + rowData.correoelectronico;
+                        window.open(url, '_blank');
+                    } else {
+                        $scope.loadTaskData(rowData,humanTask)
+                    }
                 } else {
-                    $scope.loadTaskData(rowData)
+                    $scope.loadProcessData(rowData,"archivedHumanTask");
                 }
+                
             })
             .error(function(data, status) {
                 console.error(data);
             })
     }
 
-    $scope.loadTaskData = function(rowData) {
+    $scope.loadTaskData = function(rowData,humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=ready"
+            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')
         };
 
         return $http(req)
@@ -178,7 +183,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        $scope.loadProcessDataVSol(rowData);
+        $scope.loadProcessDataVSol(rowData,"humanTask");
 
         /*var req = {
             method: "GET",
@@ -202,38 +207,43 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .finally(function() {});*/
     }
 
-    $scope.loadProcessDataVSol = function(rowData) {
+    $scope.loadProcessDataVSol = function(rowData,humanTask) {
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=ready&d=processId"
+            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')+"&d=processId"
         };
 
         return $http(req)
             .success(function(data, status) {
-                let version = parseFloat(data[0].processId.version);
-                console.log(data)
-                console.log(version)
-                $scope.loadTaskDataVSol(rowData, version);
+                if (data.length>0) {
+                    let version = parseFloat(data[0].processId.version);
+                    console.log(data)
+                    console.log(version)
+                    $scope.loadTaskDataVSol(rowData, version,humanTask);
+                } else {
+                    $scope.loadProcessDataVSol(rowData,"archivedHumanTask");
+                }
+                
             })
             .error(function(data, status) {
                 console.error(data);
             })
     }
 
-    $scope.loadTaskDataVSol = function(rowData, version) {
+    $scope.loadTaskDataVSol = function(rowData, version,humanTask) {
         var url = "";
         var req = {
             method: "GET",
-            url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=ready"
+            url: "../API/bpm/"+humanTask+"?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state="+((humanTask == "humanTask") ? 'ready' : 'completed')
         };
 
         return $http(req)
             .success(function(data, status) {
                 console.log(data)
                 if (version < parseFloat("1.51")) {
-                    url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
+                    url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
                 } else {
-                    url = "/bonita/apps/administrativo/verSolicitudAdmisionADV2/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
+                    url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmisionADV2/content/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
                 }
                 window.open(url, '_blank');
             })

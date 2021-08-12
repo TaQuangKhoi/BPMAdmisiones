@@ -84,7 +84,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.$watch("properties.campusSeleccionado", function (newValue, oldValue) {
         
         if (newValue !== undefined) {
-            debugger
+            
             $scope.properties.dataToSend.campus=$scope.properties.campusSeleccionado.descripcion;
             doRequest("POST", $scope.properties.urlPost);
         }

@@ -75,7 +75,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
     function startProcess() {
-        debugger
+        
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
             if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.orden) {
                 let validar = checkorder('editar');
@@ -93,7 +93,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave && $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].descripcion && $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden) {
                 let validar = checkorder('agregar');
             } else {
-                
+
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden) {
                     swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
                 } else if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave) {
@@ -213,20 +213,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function checkorder(funcion) {
-        debugger;
+
         $scope.continuar = false;
-        if(funcion === 'agregar'){
+        if (funcion === 'agregar') {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
             };
-        }else{
+        } else {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
             };
         }
-        
+
         return $http(req)
             .success(function(data, status) {
                 if (data.data[0]) {
@@ -234,7 +234,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     checkclave(funcion);
                 } else {
                     $scope.continuar = false;
-                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning"); 
+                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning");
                 }
             })
             .error(function(data, status) {
@@ -244,19 +244,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
 
-    function checkclave(funcion){
-        if(funcion === 'agregar'){
+    function checkclave(funcion) {
+        if (funcion === 'agregar') {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave + "&id="
             };
-        }else{
+        } else {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
             };
         }
-        
+
         return $http(req)
             .success(function(data, status) {
                 if (data.data[0]) {

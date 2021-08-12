@@ -86,7 +86,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             blockUI.start();
             var req2 = {
                 method: "GET",
-                url: `/API/bpm/humanTask?p=0&c=10&f=caseId=${rowData.caseid}&f=state=ready&d=processId`
+                url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
             };
 
             $http(req2)
@@ -95,12 +95,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                 ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
                 
                 var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
-                if (data.length > 0) {
+                if (data2.length > 0) {
                     if(parseFloat(data2[0].processId.version)<1.51){
                         page = "verSolicitudAdmision";
                     }
                     url = url.replace("[PAGE]",page);
-                    url = url.replace("[TASKID]", data[0].id);
+                    url = url.replace("[TASKID]", data2[0].id);
                 } else {
                     url = url.replace("[TASKID]", "");
                 }

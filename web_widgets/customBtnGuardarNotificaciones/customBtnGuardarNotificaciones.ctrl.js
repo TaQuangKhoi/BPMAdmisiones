@@ -129,7 +129,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         }
         for (let index = 0; index < $scope.properties.contenido.length; index++) {
             const element = $scope.properties.contenido[index];
-            if ($scope.properties.selectedData.clave==element.clave) {
+            if ($scope.properties.selectedData.clave == element.clave) {
                 error = true;
                 texto = "No puede haber dos claves iguales";
                 info = "¡Aviso!"
@@ -308,7 +308,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                             contentType: doc && doc.contentType ? doc.contentType : null
                         }))
                         lstCatComentariosFirmaInput = $scope.properties.strPersonaFirma.lstCatComentariosFirmaInput;
-                        debugger;
+
                         if (context.lstCatImageNotificacion_ref.storageIds.length > 0 && ($scope.properties.lstCatImageNotificacion == null || $scope.properties.lstCatImageNotificacion == undefined)) {
                             doRequest("GET", `../${context.lstCatImageNotificacion_ref.link}`, null, null, function(value) {
                                 vm.busy = false;

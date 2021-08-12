@@ -74,7 +74,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 var validar = false;
 function startProcess() {
-    debugger
+    
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
             if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.montoAspiranteLocal && $scope.properties.dataToChange2.montoAspitanteForaneo && $scope.properties.dataToChange2.montoAspiranteLocalDolares && $scope.properties.dataToChange2.instruccionesDePago ) {
                 if(!$scope.properties.dataToChange2.deshabilitarPagoDeExamenDeAdmision){

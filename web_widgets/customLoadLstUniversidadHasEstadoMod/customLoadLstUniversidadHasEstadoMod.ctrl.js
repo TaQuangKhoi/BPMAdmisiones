@@ -1,16 +1,16 @@
 function loadlstUniversidadesHasEstadoModCtrl($scope, $http) {
 
     $scope.loadListData = function() {
-    	$scope.properties.lstUniversidadesHasEstadoMod = [];
+        $scope.properties.lstUniversidadesHasEstadoMod = [];
         console.log("loadlstUniversidadesHasEstadoModCtrl---------------------------------------------------------------------------------------");
-        for(var index in $scope.properties.lstUniversidadesHasEstado){
-        	$scope.properties.lstUniversidadesHasEstadoMod.push(angular.copy($scope.properties.lstUniversidadesHasEstado[index]));
+        for (var index in $scope.properties.lstUniversidadesHasEstado) {
+            $scope.properties.lstUniversidadesHasEstadoMod.push(angular.copy($scope.properties.lstUniversidadesHasEstado[index]));
         }
-    	
+
     }
 
     function doRequest(method, url, dataToSend, callback, errorCallback) {
-        debugger;
+
         var req = {
             method: method,
             url: url,
@@ -23,6 +23,6 @@ function loadlstUniversidadesHasEstadoModCtrl($scope, $http) {
     }
 
     $scope.$watchCollection("properties.lstUniversidadesHasEstado", function(newValue, oldValue) {
-			$scope.loadListData();
-    });  
+        $scope.loadListData();
+    });
 }

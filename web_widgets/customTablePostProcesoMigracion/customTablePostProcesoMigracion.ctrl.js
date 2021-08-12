@@ -42,7 +42,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 
     $scope.asignarTarea = function (rowData) {
-        debugger
+        
         //var url = "/bonita/apps/administrativo/verSolicitudAspiranteMigrado/?caseId=[CASEID]&displayConfirmation=false";
         var url = "/bonita/portal/resource/app/administrativo/verSolicitudAspiranteMigrado/content/?caseId=[CASEID]&displayConfirmation=false";
         url = url.replace("[CASEID]", rowData.caseid);
@@ -55,7 +55,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
+                
                 var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
                 window.top.location.href = url;
@@ -130,7 +130,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 
     $scope.filterKeyPress= function(columna,press){
-        debugger
+        
         var aplicado = true;
         for (let index = 0; index < $scope.properties.dataToSend.lstFiltro.length; index++) {
             const element = $scope.properties.dataToSend.lstFiltro[index];
@@ -222,7 +222,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         doRequest("POST", $scope.properties.urlPost);
     }
     $scope.getCampusByGrupo = function (campus) {
-        debugger
+        
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
@@ -259,7 +259,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     $scope.lstCampusByUser = [];
     $scope.campusByUser = function(){
-        debugger
+        
         var resultado=[];
        // var isSerua = true;
         resultado.push("Todos los campus")

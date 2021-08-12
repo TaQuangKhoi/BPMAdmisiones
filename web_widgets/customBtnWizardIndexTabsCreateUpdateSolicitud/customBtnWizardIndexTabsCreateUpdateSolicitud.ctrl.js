@@ -123,7 +123,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if ($scope.properties.selectedIndex === 0) {
                 $scope.faltacampo = false;
                 console.log("validar 0");
-                debugger;
+
                 if ($scope.properties.catSolicitudDeAdmision.curp === null) {
                     $scope.properties.catSolicitudDeAdmision.curp = "";
                 }
@@ -172,11 +172,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if ($scope.properties.catSolicitudDeAdmision.catCampusPresentadoSolicitud.length === 0) {
                         swal("¡Campus presentado!", "Debes seleccionar el/los campus donde has presentado tu solicitud", "warning");
                         $scope.faltacampo = true;
-                    } else if($scope.properties.catSolicitudDeAdmision.catConcluisteProceso === null){
-                    	swal("¡Concluiste proceso!", "Debes seleccionar si concluiste el proceso en el campus donde presentaste tu solicitud", "warning");
+                    } else if ($scope.properties.catSolicitudDeAdmision.catConcluisteProceso === null) {
+                        swal("¡Concluiste proceso!", "Debes seleccionar si concluiste el proceso en el campus donde presentaste tu solicitud", "warning");
                         $scope.faltacampo = true;
-                    } else if($scope.properties.catSolicitudDeAdmision.catResultadoAdmision === null && $scope.properties.catSolicitudDeAdmision.catConcluisteProceso.descripcion === "Sí"){
-                    	swal("¡Resultado de admisión!", "Debes seleccionar el resultado de tu admisión en el campus donde presentaste tu solicitud", "warning");
+                    } else if ($scope.properties.catSolicitudDeAdmision.catResultadoAdmision === null && $scope.properties.catSolicitudDeAdmision.catConcluisteProceso.descripcion === "Sí") {
+                        swal("¡Resultado de admisión!", "Debes seleccionar el resultado de tu admisión en el campus donde presentaste tu solicitud", "warning");
                         $scope.faltacampo = true;
                     }
                 }
@@ -280,7 +280,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
             } else if ($scope.properties.selectedIndex === 2) {
-                debugger;
+
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
@@ -871,7 +871,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
             });
 
-        
+
     }
 
     function submitTask() {
@@ -909,7 +909,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function doRequest(method, url, params) {
         //vm.busy = true;
-        debugger;
+
         if ($scope.properties.tabs === "Informacion Personal") {
             $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexPersonal = $scope.properties.selectedIndex + 1;
 

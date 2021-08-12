@@ -11,40 +11,40 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
 
     $scope.openCloseModal = function() {
-        debugger;
-        if ($scope.properties.OpenModal) {
-            modalService.open($scope.properties.modalId);
-        } else {
-            $scope.properties.modalId[0] = {
-                "descripcion": "",
-                "isEliminado": false,
-                "usuarioCreacion": "",
-                "clave": "",
-                "fechaCreacion": null,
-                "nombre":"",
-                "enlace":"",
-                "tipoCentroEstudio":"",
-                "propedeutico":null,
-                "programaparcial":null,
-                "tipoLicenciatura":null,
-                "inscripcionenero":"",
-                "inscripcionMayo":"",
-                "inscripcionagosto":"",
-                "inscripcionSeptiembre":"",
-                "urlImgLicenciatura":"",
-                "isMedicina":false
+
+            if ($scope.properties.OpenModal) {
+                modalService.open($scope.properties.modalId);
+            } else {
+                $scope.properties.modalId[0] = {
+                    "descripcion": "",
+                    "isEliminado": false,
+                    "usuarioCreacion": "",
+                    "clave": "",
+                    "fechaCreacion": null,
+                    "nombre": "",
+                    "enlace": "",
+                    "tipoCentroEstudio": "",
+                    "propedeutico": null,
+                    "programaparcial": null,
+                    "tipoLicenciatura": null,
+                    "inscripcionenero": "",
+                    "inscripcionMayo": "",
+                    "inscripcionagosto": "",
+                    "inscripcionSeptiembre": "",
+                    "urlImgLicenciatura": "",
+                    "isMedicina": false
+                }
+                modalService.close();
             }
-            modalService.close();
+
+
+
         }
-
-
-
-    }
-    /**
-     * Execute a get/post request to an URL
-     * It also bind custom data from success|error to a data
-     * @return {void}
-     */
+        /**
+         * Execute a get/post request to an URL
+         * It also bind custom data from success|error to a data
+         * @return {void}
+         */
     function doRequest(method, url, params, dataToSend, callback) {
         vm.busy = true;
         var req = {
@@ -56,7 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                debugger;
+
                 callback(data.data[0]);
             })
             .error(function(data, status) {

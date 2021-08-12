@@ -1,18 +1,18 @@
-function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
+function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
     this.isArray = Array.isArray;
 
-    this.isClickable = function () {
+    this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
 
-    this.selectRow = function (row) {
+    this.selectRow = function(row) {
         if (this.isClickable()) {
             $scope.properties.selectedRow = row;
         }
     };
 
-    this.isSelected = function (row) {
+    this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
 
@@ -26,22 +26,22 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
                 $scope.properties.lstContenido = data.data;
                 $scope.value = data.totalRegistros;
                 $scope.loadPaginado();
                 console.log(data.data)
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
-            .finally(function () {
-                
+            .finally(function() {
+
                 blockUI.stop();
             });
     }
 
-    $scope.asignarTarea = function (rowData) {
+    $scope.asignarTarea = function(rowData) {
 
         var req = {
             method: "GET",
@@ -49,30 +49,30 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         };
 
         return $http(req)
-            .success(function (data, status) {
-                debugger
+            .success(function(data, status) {
+                
                 var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
                 window.top.location.href = url;
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 console.error(data);
             })
-            .finally(function () { });
+            .finally(function() {});
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
-    $scope.envelope = function (row) {
+    $scope.envelope = function(row) {
         $scope.isenvelope = true;
         $scope.mensaje = "";
         $scope.selectedrow = row;
     }
-    $scope.envelopeCancel = function () {
+    $scope.envelopeCancel = function() {
         $scope.isenvelope = false;
         $scope.selectedrow = {};
     }
-    $scope.sendMail = function (row, mensaje) {
+    $scope.sendMail = function(row, mensaje) {
         if (row.grupobonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
                 if ($scope.lstCampus[i].descripcion == row.campus) {
@@ -93,28 +93,28 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         };
 
         return $http(req)
-            .success(function (data, status) {
+            .success(function(data, status) {
 
                 $scope.envelopeCancel();
             })
-            .error(function (data, status) {
+            .error(function(data, status) {
                 console.error(data)
             })
-            .finally(function () { });
+            .finally(function() {});
     }
     $scope.lstCampus = [];
-    $(function () {
+    $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
 
 
-    $scope.$watch("properties.dataToSend", function (newValue, oldValue) {
+    $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
         if (newValue !== undefined) {
             doRequest("POST", $scope.properties.urlPost);
         }
         console.log($scope.properties.dataToSend);
     });
-    $scope.setOrderBy = function (order) {
+    $scope.setOrderBy = function(order) {
         if ($scope.properties.dataToSend.orderby == order) {
             $scope.properties.dataToSend.orientation = ($scope.properties.dataToSend.orientation == "ASC") ? "DESC" : "ASC";
         } else {
@@ -130,14 +130,13 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
     $scope.finalP = 10;
     $scope.valorTotal = 10;
 
-    $scope.loadPaginado = function () {
+    $scope.loadPaginado = function() {
         $scope.valorTotal = Math.ceil($scope.value / $scope.properties.dataToSend.limit);
         $scope.lstPaginado = []
         if ($scope.valorSeleccionado <= 5) {
             $scope.iniciarP = 1;
             $scope.finalP = $scope.valorTotal > 10 ? 10 : $scope.valorTotal;
-        }
-        else {
+        } else {
             $scope.iniciarP = $scope.valorSeleccionado - 5;
             $scope.finalP = $scope.valorTotal > ($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
         }
@@ -153,7 +152,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         }
     }
 
-    $scope.siguiente = function () {
+    $scope.siguiente = function() {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].seleccionado) {
@@ -168,7 +167,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.anterior = function () {
+    $scope.anterior = function() {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].seleccionado) {
@@ -183,7 +182,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.seleccionarPagina = function (valorSeleccionado) {
+    $scope.seleccionarPagina = function(valorSeleccionado) {
         var objSelected = {};
         for (var i in $scope.lstPaginado) {
             if ($scope.lstPaginado[i].numero == valorSeleccionado) {
@@ -196,21 +195,21 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
-    $scope.getCampusByGrupo = function (campus) {
+    $scope.getCampusByGrupo = function(campus) {
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                if($scope.lstMembership.length == 1){
-                    $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor    
+                if ($scope.lstMembership.length == 1) {
+                    $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor
                 }
             }
-            
+
         }
         return retorno;
     }
     $scope.lstMembership = [];
-    $scope.$watch("properties.userId", function (newValue, oldValue) {
+    $scope.$watch("properties.userId", function(newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
@@ -218,40 +217,40 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
             };
 
             return $http(req)
-                .success(function (data, status) {
+                .success(function(data, status) {
                     $scope.lstMembership = data;
                     $scope.campusByUser();
                 })
-                .error(function (data, status) {
+                .error(function(data, status) {
                     console.error(data);
                 })
-                .finally(function () { });
+                .finally(function() {});
         }
     });
-    
+
     $scope.lstCampusByUser = [];
-	$scope.campusByUser = function(){
-		var resultado=[];
-		debugger;
-		for(var x in $scope.lstMembership){
-			if($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1){
-				//resultado.push($scope.lstMembership[x].group_id.name);
-				let i = 0;
-                resultado.forEach(value =>{
-                    if(value == $scope.lstMembership[x].group_id.name){
-                       i++;
+    $scope.campusByUser = function() {
+        var resultado = [];
+
+        for (var x in $scope.lstMembership) {
+            if ($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1) {
+                //resultado.push($scope.lstMembership[x].group_id.name);
+                let i = 0;
+                resultado.forEach(value => {
+                    if (value == $scope.lstMembership[x].group_id.name) {
+                        i++;
                     }
                 });
-                if(i === 0){
-                   resultado.push($scope.lstMembership[x].group_id.name);  
+                if (i === 0) {
+                    resultado.push($scope.lstMembership[x].group_id.name);
                 }
-			}
-		}
-		$scope.lstCampusByUser = resultado;
-	}
-    
+            }
+        }
+        $scope.lstCampusByUser = resultado;
+    }
+
     $scope.filtroCampus = ""
-    $scope.addFilter = function () {
+    $scope.addFilter = function() {
         var filter = {
             "columna": "CAMPUS",
             "operador": "Igual a",
@@ -276,17 +275,17 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
             $scope.properties.dataToSend.lstFiltro.push(filter);
         }
     }
-    $scope.sizing=function(){
+    $scope.sizing = function() {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;
         $scope.finalP = 10;
-        try{
-            $scope.properties.dataToSend.limit=parseInt($scope.properties.dataToSend.limit);
-        }catch(exception){
-            
+        try {
+            $scope.properties.dataToSend.limit = parseInt($scope.properties.dataToSend.limit);
+        } catch (exception) {
+
         }
-        
+
         doRequest("POST", $scope.properties.urlPost);
     }
 
@@ -299,11 +298,11 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
         return $http(req)
             .success(function(data, status) {
                 $scope.lstCampus = [];
-                for(var index in data){
+                for (var index in data) {
                     $scope.lstCampus.push({
                         "descripcion": data[index].descripcion,
                         "valor": data[index].grupoBonita
-                    })                    
+                    })
                 }
             })
             .error(function(data, status) {
@@ -311,7 +310,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
             });
     }
 
-    $scope.openModal =function(row) {
+    $scope.openModal = function(row) {
         $scope.properties.datosAspirante = angular.copy(row);
         $scope.properties.jsonOriginal = angular.copy(row);
         modalService.open($scope.properties.modalid);

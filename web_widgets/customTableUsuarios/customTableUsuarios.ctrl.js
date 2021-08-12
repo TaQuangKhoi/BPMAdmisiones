@@ -52,11 +52,11 @@ function PbTableCtrl($scope, blockUI, $http) {
             })
             .error(function(data, status) {
                 console.error(data);
-                
-                if(data.message.includes("No se puede crear el usuario")){
-                    Swal.fire("¡Error!",data.message,"error");
+
+                if (data.message.includes("No se puede crear el usuario")) {
+                    Swal.fire("¡Error!", data.message, "error");
                 }
-                
+
             })
             .finally(function() {
                 vm.busy = false;
@@ -81,7 +81,7 @@ function PbTableCtrl($scope, blockUI, $http) {
             doRequest("GET", "/bonita/API/identity/role?p=0&c=100&o=displayName%20ASC", null, null, null, function(datos, extra) {
                 $scope.roles = datos;
                 doRequest("GET", "/API/identity/membership?p=0&c=100&f=user_id%3d" + $scope.properties.userid + "&d=role_id&d=group_id", null, null, null, function(datos, extra) {
-                    debugger;
+
                     var rolesMine = datos;
                     var isSerua = false;
                     for (let index0 = 0; index0 < rolesMine.length; index0++) {
@@ -140,7 +140,7 @@ function PbTableCtrl($scope, blockUI, $http) {
             ///bonita/API/identity/group/18?n=number_of_users
             $scope.pagina = 0;
             $scope.group_id = value.group_id;
-            if($scope.group_id !== null){
+            if ($scope.group_id !== null) {
                 var filter = {
                     "columna": "CAMPUS",
                     "operador": "Igual a",
@@ -159,28 +159,28 @@ function PbTableCtrl($scope, blockUI, $http) {
                         if (!encontrado) {
                             $scope.filtroToSend.lstFiltro.push(filter);
                         }
-    
+
                     }
                 } else {
                     $scope.filtroToSend.lstFiltro.push(filter);
                 }
-            }else {
-                
+            } else {
+
                 if ($scope.filtroToSend.lstFiltro.length > 0) {
                     var encontrado = false;
-                    for (let index = 0; index < $scope.filtroToSend.lstFiltro.length ; index++) {
+                    for (let index = 0; index < $scope.filtroToSend.lstFiltro.length; index++) {
                         const element = $scope.filtroToSend.lstFiltro[index];
                         if (element.columna == "CAMPUS") {
-                            $scope.filtroToSend.lstFiltro.splice(index,1);
-                            
+                            $scope.filtroToSend.lstFiltro.splice(index, 1);
+
                         }
                     }
                 }
-                
+
             }
-                
+
             $scope.loadCatalog();
-    
+
         }
 
     });
@@ -276,29 +276,29 @@ function PbTableCtrl($scope, blockUI, $http) {
     $scope.membership = [];
     /*****PAGINADO */
     $scope.agregarUsuario = function() {
-        if($scope.membership.length > 0){
-           Swal.fire({
-            title: `¿Estás seguro que desea crear usuario?`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#FF5900',
-            cancelButtonColor: '#231F20',
-            confirmButtonText: 'Continuar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                doRequest("POST", "/bonita/API/identity/user/", {}, $scope.usuario, null, function(datos, extra) {
-                    $scope.usuario = datos;
-                    $scope.agregarMembreciaUsuario();
+        if ($scope.membership.length > 0) {
+            Swal.fire({
+                title: `¿Estás seguro que desea crear usuario?`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#FF5900',
+                cancelButtonColor: '#231F20',
+                confirmButtonText: 'Continuar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    doRequest("POST", "/bonita/API/identity/user/", {}, $scope.usuario, null, function(datos, extra) {
+                        $scope.usuario = datos;
+                        $scope.agregarMembreciaUsuario();
 
 
-                })
-            }
-        }) 
-        }else{
-            Swal.fire("",'Agregar por lo menos un rol',"info")
+                    })
+                }
+            })
+        } else {
+            Swal.fire("", 'Agregar por lo menos un rol', "info")
         }
-        
+
 
     }
     $scope.agregarMembreciaUsuario = function() {
@@ -431,8 +431,8 @@ function PbTableCtrl($scope, blockUI, $http) {
         }).then((result) => {
             if (result.isConfirmed) {
                 delete $scope.usuario.icon;
-                var dataSend = {...$scope.usuario};
-                dataSend.enabled=$scope.usuario.enabled+"";
+                var dataSend = {...$scope.usuario };
+                dataSend.enabled = $scope.usuario.enabled + "";
                 doRequest("PUT", `/bonita/API/identity/user/${$scope.usuario.id}`, {}, dataSend, null, function(datos, extra) {
                     $scope.agregarMembreciaUsuario();
 

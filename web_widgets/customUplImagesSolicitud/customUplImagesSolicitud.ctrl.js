@@ -60,11 +60,11 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         if (newValue && newValue.filename) {
             var nombrearchivo = newValue.filename;
             var extension = nombrearchivo.split(".");
-            
-            for (var i = 0; i< extension.length; i++) {
-                if(extension[i]==="jpg" || extension[i]==="png" || extension[i]==="jpeg" || extension[i]==="jfif" || extension[i]==="JPG" || extension[i]==="PNG" || extension[i]==="JPEG" || extension[i]==="JFIF" ){
-                	newValue.filename = "Fot_"+$scope.properties.caseId+"."+extension[i]
-                }             
+
+            for (var i = 0; i < extension.length; i++) {
+                if (extension[i] === "jpg" || extension[i] === "png" || extension[i] === "jpeg" || extension[i] === "jfif" || extension[i] === "JPG" || extension[i] === "PNG" || extension[i] === "JPEG" || extension[i] === "JFIF") {
+                    newValue.filename = "Fot_" + $scope.properties.caseId + "." + extension[i]
+                }
             }
             console.log(newValue)
             ctrl.filemodel = true;
@@ -117,7 +117,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
 
     $scope.CheckDimension = function(response) {
         //Get reference of File.
-        debugger;
+
         var fileUpload = document.getElementById("file");
         $scope.properties.revisar = true;
         //Check whether the file is valid Image.
@@ -125,7 +125,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
         //var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.jpeg|.jfif)$");
         //var regex = new RegExp("([a-zA-Z0-9!@#$&()-\\-`.+,/\"]*)+(.jpg|.png|.jpeg|.jfif)$")
         var regex = new RegExp("(.jpg|.png|.jpeg|.jfif)$")
-        // if (regex.test($scope.properties.value.filename.toLowerCase())) {
+            // if (regex.test($scope.properties.value.filename.toLowerCase())) {
         if (regex.test(response.filename.toLowerCase())) {
             //Check whether HTML5 is supported.
             if (typeof(fileUpload.files) != "undefined") {
@@ -147,7 +147,7 @@ function PbUploadCtrl($scope, $sce, $element, widgetNameFactory, $timeout, $log,
                             //show width and height to user
                             ctrl.clear()
                             $scope.properties.permitido = false;
-                            
+
                             swal("¡La resolución de la imagen debe ser mayor de 480 x 576px!", "La imagen que intenta cargar es de " + height + " x " + width + "px. " + "Favor de cargar una imagen con la resolución indicada.", "warning");
                             return false;
                         }

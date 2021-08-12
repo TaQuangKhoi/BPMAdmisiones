@@ -19,14 +19,14 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
         let charInput = e.keyCode;
         let key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
         let limite = $scope.properties.maxLength === 0 ? 250 : $scope.properties.maxLength;
-        if ( (((charInput < 48) || (charInput > 57)) && (charInput !== 32)) && (e.target.value.length) < limite) {} else {
+        if ((((charInput < 48) || (charInput > 57)) && (charInput !== 32)) && (e.target.value.length) < limite) {} else {
             e.target.value = e.target.value.substring(0, limite);
             e.preventDefault();
         }
     }
 
     $scope.validar = function(e) {
-        debugger;
+
         let regex = new RegExp("^[a-zA-Z ]+$");
         let limite = $scope.properties.maxLength === 0 ? 250 : $scope.properties.maxLength;
         $scope.properties.value = $scope.properties.value.substring(0, limite);

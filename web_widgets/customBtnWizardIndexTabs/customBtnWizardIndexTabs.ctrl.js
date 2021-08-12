@@ -24,17 +24,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     swal("¡Calle!", "Debe agregar la calle", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.ciudad === "") {
                     swal("¡Ciudad!", "Debe agregar una ciudad", "warning");
-                } /*else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.calle2 === "") {
-                    swal("¡Entre calles!", "Debe agregar entre que calles se encuentra su domicilio", "warning");
-                } */else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.numExterior === "") {
+                }
+                /*else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.calle2 === "") {
+                                   swal("¡Entre calles!", "Debe agregar entre que calles se encuentra su domicilio", "warning");
+                               } */
+                else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.numExterior === "") {
                     swal("¡Número!", "Debe agregar el número de su domicilio", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.colonia === "") {
                     swal("¡Colonia!", "Debe agregar la colonia", "warning");
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono.length !== 10 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catPais.descripcion === "México") {
                     swal("¡Teléfono celular!", "Su teléfono celular debe ser de 10 digitos", "warning");
-                }/* else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono.length !== 14 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catPais.descripcion !== "México") {
-                    swal("¡Teléfono celular!", "Su teléfono celular debe ser de 14 digitos", "warning");
-                }*/ else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono === "") {
+                }
+                /* else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono.length !== 14 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catPais.descripcion !== "México") {
+                                    swal("¡Teléfono celular!", "Su teléfono celular debe ser de 14 digitos", "warning");
+                                }*/
+                else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefono === "") {
                     swal("¡Teléfono!", "Debe el agregar el teléfono", "warning");
                 } else if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
@@ -46,7 +50,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }*/
-  
+
             } else if ($scope.properties.selectedIndex === 0) {
                 $scope.faltacampo = false;
                 console.log("validar 0");
@@ -78,10 +82,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefonoCelular.length !== 10 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catNacionalidad.descripcion === "Mexicana") {
                     swal("¡Teléfono celular!", "Su teléfono celular debe ser de 10 digitos", "warning");
                     $scope.faltacampo = true;
-                }/* else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefonoCelular.length !== 14 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catNacionalidad.descripcion !== "Mexicana") {
-                    swal("¡Teléfono celular!", "Su teléfono celular debe ser de 14 digitos", "warning");
-                    $scope.faltacampo = true;
-                }*/ else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefonoCelular === "") {
+                }
+                /* else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefonoCelular.length !== 14 && $scope.properties.formInput.catSolicitudDeAdmisionInput.catNacionalidad.descripcion !== "Mexicana") {
+                                    swal("¡Teléfono celular!", "Su teléfono celular debe ser de 14 digitos", "warning");
+                                    $scope.faltacampo = true;
+                                }*/
+                else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.telefonoCelular === "") {
                     swal("¡Teléfono celular!", "Debe agregar su número celular", "warning");
                     $scope.faltacampo = true;
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catEstadoCivil === null) {
@@ -121,9 +127,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex++;
                     }
                 }
-  
+
             } else if ($scope.properties.selectedIndex === 2) {
-                debugger;
+
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.formInput.catSolicitudDeAdmisionInput.catBachilleratos === null) {
@@ -193,7 +199,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                         $scope.properties.formInput.constanciaDocumentInput = [];
-            $scope.properties.formInput.constanciaDocumentInput.push($scope.properties.kardex);
+                        $scope.properties.formInput.constanciaDocumentInput.push($scope.properties.kardex);
                         if ($scope.properties.tieneDescuento === true) {
                             if ($scope.properties.descuento !== undefined) {
                                 $scope.properties.formInput.descuentoDocumentInput = [];
@@ -227,7 +233,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }*/
-  
+
             }
         } else if ($scope.properties.tabs === "Informacion Familiar") {
             if ($scope.properties.selectedIndex === 0) {
@@ -244,9 +250,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     $scope.properties.cp = undefined;
                     $scope.properties.selectedIndex++;
                 }
-                
+
             } else if ($scope.properties.selectedIndex === 1) {
-  
+
                 console.log("validar 1");
                 if ($scope.properties.formInput.padreInput.desconozcoDatosPadres) {
                     if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -353,7 +359,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             }
                         }
-  
+
                     } else {
                         if ($scope.properties.formInput.padreInput.catTrabaja === 0 || $scope.properties.formInput.padreInput.catTrabaja === null) {
                             swal("¡Trabaja!", "Debe seleccionar si su padre trabaja", "warning");
@@ -450,7 +456,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }*/
-  
+
             } else if ($scope.properties.selectedIndex === 2) {
                 console.log("valida a la madre")
                 if ($scope.properties.formInput.madreInput.desconozcoDatosPadres) {
@@ -558,7 +564,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 }
                             }
                         }
-  
+
                     } else {
                         if ($scope.properties.formInput.madreInput.catTrabaja === 0 || $scope.properties.formInput.madreInput.catTrabaja === null) {
                             swal("¡Trabaja!", "Debe seleccionar si su madre trabaja", "warning");
@@ -578,10 +584,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.formInput.madreInput.catPais === 0 || $scope.properties.formInput.madreInput.catPais === null) {
                                 swal("¡País!", "Debe agregar el país del domicilio de la madre", "warning");
                             } else if (($scope.properties.formInput.madreInput.catEstado === 0 || $scope.properties.formInput.madreInput.catEstado === null) && $scope.properties.formInput.madreInput.catPais.descripcion === "México") {
-                                    swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
-                                } else if ($scope.properties.formInput.madreInput.estadoExtranjero === "" && $scope.properties.formInput.madreInput.catPais.descripcion !== "México") {
-                                    swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
-                                } else if ($scope.properties.formInput.madreInput.calle === "" || $scope.properties.formInput.madreInput.calle === undefined) {
+                                swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
+                            } else if ($scope.properties.formInput.madreInput.estadoExtranjero === "" && $scope.properties.formInput.madreInput.catPais.descripcion !== "México") {
+                                swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
+                            } else if ($scope.properties.formInput.madreInput.calle === "" || $scope.properties.formInput.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debe agregar la calle del domicilio de la madre", "warning");
                             } else if ($scope.properties.formInput.madreInput.codigoPostal === "" || $scope.properties.formInput.madreInput.codigoPostal === undefined) {
                                 swal("¡Código postal!", "Debe agregar el código postal del domicilio de la madre", "warning");
@@ -613,10 +619,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.formInput.madreInput.catPais === 0 || $scope.properties.formInput.madreInput.catPais === null) {
                                 swal("¡País!", "Debe agregar el país del domicilio de la madre", "warning");
                             } else if (($scope.properties.formInput.madreInput.catEstado === 0 || $scope.properties.formInput.madreInput.catEstado === null) && $scope.properties.formInput.madreInput.catPais.descripcion === "México") {
-                                    swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
-                                } else if ($scope.properties.formInput.madreInput.estadoExtranjero === "" && $scope.properties.formInput.madreInput.catPais.descripcion !== "México") {
-                                    swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
-                                } else if ($scope.properties.formInput.madreInput.calle === "" || $scope.properties.formInput.madreInput.calle === undefined) {
+                                swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
+                            } else if ($scope.properties.formInput.madreInput.estadoExtranjero === "" && $scope.properties.formInput.madreInput.catPais.descripcion !== "México") {
+                                swal("¡Estado!", "Debe agregar el estado del domicilio de la madre", "warning");
+                            } else if ($scope.properties.formInput.madreInput.calle === "" || $scope.properties.formInput.madreInput.calle === undefined) {
                                 swal("¡Calle!", "Debe agregar la calle del domicilio de la madre", "warning");
                             } else if ($scope.properties.formInput.madreInput.codigoPostal === "" || $scope.properties.formInput.madreInput.codigoPostal === undefined) {
                                 swal("¡Código postal!", "Debe agregar el código postal del domicilio de la madre", "warning");
@@ -655,7 +661,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }*/
-  
+
             } else if ($scope.properties.selectedIndex === 3) {
                 console.log("validar 3");
                 if ($scope.properties.formInput.contactoEmergenciaInput.length === 0) {
@@ -683,27 +689,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }
-  
+
             } else if ($scope.properties.selectedIndex === 1) {
-  
+
                 console.log("validar 1");
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
                     $scope.properties.selectedIndex++;
                 }
-  
+
             }
         }
     }
-  
+
     function openModal(modalid) {
-  
+
         modalService.open(modalid);
     }
-  
+
     function closeModal(shouldClose) {
         if (shouldClose)
             modalService.close();
     }
-  }
+}

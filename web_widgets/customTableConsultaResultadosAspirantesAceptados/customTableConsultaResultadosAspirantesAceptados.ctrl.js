@@ -52,7 +52,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
+                
                 //var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
@@ -124,7 +124,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     $scope.$watch("properties.campusSeleccionado", function (newValue, oldValue) {
         
         if (newValue !== undefined) {
-            debugger
+            
             $scope.properties.dataToSend.campus=$scope.properties.campusSeleccionado.valor;
             doRequest("POST", $scope.properties.urlPost);
         }

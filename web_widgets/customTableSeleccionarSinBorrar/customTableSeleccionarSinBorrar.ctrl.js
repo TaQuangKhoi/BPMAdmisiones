@@ -69,9 +69,9 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
             });
     }
-    
+
     function doRequestGet() {
-        debugger;
+
         /*var req = {
             method: "GET",
             url: $scope.properties.urlGet,

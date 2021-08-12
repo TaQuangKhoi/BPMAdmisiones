@@ -72,7 +72,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger
+        
 	if($scope.properties.dataToChange2.id != undefined){
 		if( $scope.properties.dataToChange2.id &&  $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.grupoBonita && $scope.properties.dataToChange2.urlAvisoPrivacidad  && $scope.properties.dataToChange2.calle && $scope.properties.dataToChange2.colonia && $scope.properties.dataToChange2.numeroExterior && $scope.properties.dataToChange2.numeroInterior && $scope.properties.dataToChange2.codigoPostal && $scope.properties.dataToChange2.municipio && $scope.properties.dataToChange2.pais && $scope.properties.dataToChange2.estados && $scope.properties.dataToChange2.email && $scope.properties.dataToChange2.urlImagen && ValidateEmail($scope.properties.dataToChange2.email) && !duplicados($scope.properties.dataToChange2.id,1,false,$scope.properties.dataToChange2.persistenceId) && !duplicados($scope.properties.dataToChange2.clave,2,false,$scope.properties.dataToChange2.persistenceId) && !duplicados($scope.properties.dataToChange2.orden,3,false,$scope.properties.dataToChange2.persistenceId)) {
 		 if ($scope.properties.processId) {

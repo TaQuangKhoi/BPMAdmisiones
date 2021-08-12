@@ -5,7 +5,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.action = function action() {
-        debugger;
+
         $scope.agregootro = false;
         $scope.faltaotro = false;
         $scope.isRegistrado = false;
@@ -23,31 +23,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal($scope.properties.closeOnSuccess);
             openModal($scope.properties.modalId);
         } else if ($scope.properties.action === 'Close modal') {
-            
-            if($scope.properties.tutor.catParentezco.descripcion !== null){
+
+            if ($scope.properties.tutor.catParentezco.descripcion !== null) {
                 var verificar = false;
                 var parentescoRegistro = $scope.properties.tutor.catParentezco.descripcion;
                 parentescoRegistro = parentescoRegistro.replace(" ", "");
-                if(parentescoRegistro === "Padre" || parentescoRegistro === "Madre" || parentescoRegistro === "Esposo(a)"){
+                if (parentescoRegistro === "Padre" || parentescoRegistro === "Madre" || parentescoRegistro === "Esposo(a)") {
                     verificar = true;
                 }
-                
-                if(verificar){
+
+                if (verificar) {
                     for (var x = 0; x < $scope.properties.formInput.tutorInput.length; x++) {
                         var desc = $scope.properties.formInput.tutorInput[x].catParentezco.descripcion.replace(" ", "");
                         if (desc === "Padre" || desc === "Madre" || desc === "Esposo(a)") {
-                            if(desc === parentescoRegistro){
+                            if (desc === parentescoRegistro) {
                                 swal("¡Advertencia!", "Ya existe registrado un(a) " + desc, "warning");
                                 $scope.isRegistrado = true;
-                                break;   
+                                break;
                             }
                         }
                     }
                 }
             }
-            
-            
-            if(!$scope.isRegistrado){
+
+
+            if (!$scope.isRegistrado) {
                 $scope.properties.tutor.isTutor = true;
                 if ($scope.properties.tutor.catTitulo === null) {
                     swal("¡Título!", "Debe seleccionar el título para identificar al tutor", "warning");

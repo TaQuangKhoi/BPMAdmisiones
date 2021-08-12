@@ -6,10 +6,10 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
     this.selectRow = function(row) {
         $scope.properties.selectedRow = row;
-        if(row.catBachilleratos !== undefined && row.catBachilleratos !== null){
+        if (row.catBachilleratos !== undefined && row.catBachilleratos !== null) {
             $scope.properties.selectedRow.bachillerato = row.catBachilleratos.descripcion;
         }
-        
+
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
     };
@@ -106,23 +106,23 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
                 blockUI.stop();
             });
     }
-/*
-    function doRequestGet() {
-        var cantidad = angular.copy($scope.properties.cantidad);
-        var req = {
-            method: "GET",
-            url: $scope.properties.urlGet,
-            data: angular.copy($scope.properties.dataToSend)
-        };
+    /*
+        function doRequestGet() {
+            var cantidad = angular.copy($scope.properties.cantidad);
+            var req = {
+                method: "GET",
+                url: $scope.properties.urlGet,
+                data: angular.copy($scope.properties.dataToSend)
+            };
 
-        return $http(req)
-            .success(function(data, status) {
-                $scope.properties.contenido = data;
-            })
-            .error(function(data, status) {
+            return $http(req)
+                .success(function(data, status) {
+                    $scope.properties.contenido = data;
+                })
+                .error(function(data, status) {
 
-            });
-    }*/
+                });
+        }*/
 
     $scope.lstCampus = [];
 
@@ -241,7 +241,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         for (var i = 0; i < $scope.lstCampus.length; i++) {
             if (campus == $scope.lstCampus[i].valor) {
                 retorno = $scope.lstCampus[i].descripcion
-                if($scope.properties.lstCampus.length == 1){
+                if ($scope.properties.lstCampus.length == 1) {
                     $scope.properties.filtroCampus = $scope.lstCampus[i].descripcion;
                     $scope.addFilter();
                 }
@@ -279,9 +279,9 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
                 .finally(function() {});
         }
     });
-    
+
     $scope.addFilter = function() {
-        debugger;
+
         $scope.properties.campus = $scope.getCampusByCampus($scope.properties.filtroCampus);
         localStorage.setItem("campus", $scope.getCampusByCampus($scope.properties.filtroCampus));
         var filter = {

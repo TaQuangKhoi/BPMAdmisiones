@@ -1,9 +1,9 @@
 function PbButtonCtrl($scope, $http, $sce) {
 
     'use strict';
-    
+
     $scope.content
-  
+
     var vm = this;
 
     /**
@@ -18,23 +18,23 @@ function PbButtonCtrl($scope, $http, $sce) {
             url: url,
             data: angular.copy($scope.properties.dataToSend)
         };
-  
+
         return $http(req).success(function(data, status) {
-            debugger;
-            
-            $scope.content = $sce.trustAsHtml(data.data[0]);
-            $scope.properties.dataFromSuccess = data;
-        })
-        .error(function(data, status) {
-            debugger;
-            $scope.properties.dataFromError = data;
-        })
-        .finally(function() {
-            vm.busy = false;
-        });
+
+
+                $scope.content = $sce.trustAsHtml(data.data[0]);
+                $scope.properties.dataFromSuccess = data;
+            })
+            .error(function(data, status) {
+
+                $scope.properties.dataFromError = data;
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
     }
 
-    $scope.$watch("properties.dataToSend", function(){
+    $scope.$watch("properties.dataToSend", function() {
         doRequest('POST', $scope.properties.urlPost);
     });
 }

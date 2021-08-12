@@ -31,7 +31,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             startProcess();
         } else if ($scope.properties.action === 'Submit task') {
-            debugger;
+
             var numeros = "0123456789";
             try {
                 if ($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos === undefined || Object.keys($scope.properties.dataToSend.detalleSolicitudInput.catDescuentos).length === 0) {
@@ -75,7 +75,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
             if ($scope.properties.accion === "Solicitar cambios") {
                 console.log($scope.properties.objDetalleSolicitud)
-                if($scope.properties.objDetalleSolicitud !== undefined){
+                if ($scope.properties.objDetalleSolicitud !== undefined) {
                     $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = $scope.properties.objDetalleSolicitud.catDescuentos;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = $scope.properties.objDetalleSolicitud.descuento;
                     $scope.properties.dataToSend.conIsInformacionValidada = false;
@@ -89,7 +89,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else {
                         $scope.confirmacion();
                     }
-                }else{
+                } else {
                     $scope.properties.dataToSend.detalleSolicitudInput.catDescuentos = null;
                     $scope.properties.dataToSend.detalleSolicitudInput.descuento = 0;
                     $scope.properties.dataToSend.conIsInformacionValidada = false;

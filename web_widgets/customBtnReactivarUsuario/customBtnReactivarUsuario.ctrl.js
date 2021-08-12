@@ -21,7 +21,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Close modal') {
             closeModal(true);
         } else if ($scope.properties.url) {
-            debugger;
+
             var existecambio = false;
             var isTransferencia = false;
             if ($scope.properties.valoresSolicitante.catCampus === null) {
@@ -73,12 +73,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.JSONTransferencia.estatus = $scope.properties.valoresSolicitante.estatussolicitud;
                 $scope.properties.JSONTransferencia.idbanner = $scope.properties.valoresSolicitante.idbanner;
                 $scope.properties.JSONTransferencia.catCampus = $scope.properties.valoresSolicitante.catCampus;
-                if($scope.properties.valoresSolicitante.countrechazos  === null){
-                    $scope.properties.JSONTransferencia.countrechazos  = 1;    
-                }else{
-                    $scope.properties.JSONTransferencia.countrechazos  = $scope.properties.valoresSolicitante.countrechazos + 1;
+                if ($scope.properties.valoresSolicitante.countrechazos === null) {
+                    $scope.properties.JSONTransferencia.countrechazos = 1;
+                } else {
+                    $scope.properties.JSONTransferencia.countrechazos = $scope.properties.valoresSolicitante.countrechazos + 1;
                 }
-                
+
                 console.log($scope.properties.JSONTransferencia);
                 $scope.properties.estadoSeleccionado = undefined;
                 doRequest($scope.properties.action, $scope.properties.url);
@@ -284,7 +284,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     //  $scope.sendMail=function(row) {
     function sendMail(row) {
-        debugger;
+
         if (row.catCampus.grupoBonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
                 if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {

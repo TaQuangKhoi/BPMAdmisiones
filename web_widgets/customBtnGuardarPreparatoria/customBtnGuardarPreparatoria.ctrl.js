@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http,  modalService) {
+function PbButtonCtrl($scope, $http, modalService) {
     'use strict';
     var vm = this;
 
@@ -10,15 +10,15 @@ function PbButtonCtrl($scope, $http,  modalService) {
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;
-            if($scope.properties.isModificacion === false){
-                debugger;
-                $scope.properties.nuevosValores.forEach(element =>{
-                    $scope.properties.contenido.push(element);
-                })
-                //console.log("$scope.properties.contenido")
-               //console.log($scope.properties.contenido)
-                $scope.properties.nuevosValores = [{"clave":"","descripcion":"","pais":"","estado":"","ciudad":"","isEliminado":false,"isEnabled":true,"perteneceRed":"","persistenceId_string":""}];
-            }else{
+            if ($scope.properties.isModificacion === false) {
+
+                $scope.properties.nuevosValores.forEach(element => {
+                        $scope.properties.contenido.push(element);
+                    })
+                    //console.log("$scope.properties.contenido")
+                    //console.log($scope.properties.contenido)
+                $scope.properties.nuevosValores = [{ "clave": "", "descripcion": "", "pais": "", "estado": "", "ciudad": "", "isEliminado": false, "isEnabled": true, "perteneceRed": "", "persistenceId_string": "" }];
+            } else {
                 $scope.properties.contenido[$scope.properties.index].clave = $scope.properties.nuevosValores[0].clave;
                 $scope.properties.contenido[$scope.properties.index].descripcion = $scope.properties.nuevosValores[0].descripcion;
                 $scope.properties.contenido[$scope.properties.index].fechaCreacion = $scope.properties.nuevosValores[0].fechaCreacion;
@@ -28,16 +28,16 @@ function PbButtonCtrl($scope, $http,  modalService) {
                 $scope.properties.contenido[$scope.properties.index].ciudad = $scope.properties.nuevosValores[0].ciudad;
                 $scope.properties.contenido[$scope.properties.index].fechaImportacion = $scope.properties.nuevosValores[0].fechaImportacion;
                 $scope.properties.contenido[$scope.properties.index].perteneceRed = $scope.properties.nuevosValores[0].perteneceRed;
-                $scope.properties.nuevosValores = [{"clave":"","descripcion":"","pais":"","estado":"","ciudad":"","isEliminado":false,"isEnabled":true,"perteneceRed":"","persistenceId_string":""}];
+                $scope.properties.nuevosValores = [{ "clave": "", "descripcion": "", "pais": "", "estado": "", "ciudad": "", "isEliminado": false, "isEnabled": true, "perteneceRed": "", "persistenceId_string": "" }];
                 //console.log($scope.properties.contenido[$scope.properties.index]);
             }
-            
+
             $scope.asignarTarea()
         } else {
             console.log("click doble");
         }
     }
-    
+
     function openModal(modalId) {
         modalService.open(modalId);
     }
@@ -60,7 +60,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -100,7 +100,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }
@@ -142,7 +142,7 @@ function PbButtonCtrl($scope, $http,  modalService) {
             .error(function(data, status) {
                 $("#loading").modal("hide");
                 $scope.loading = false;
-               // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {});
     }

@@ -1,33 +1,32 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
 
-  'use strict';
+    'use strict';
 
-  var vm = this;
+    var vm = this;
 
     $scope.myFunc = function() {
-        if($scope.properties.tipoVariable === "json"){
-          $scope.properties.value =  {};  
-        } else if($scope.properties.tipoVariable === "array"){
-          $scope.properties.value =  [];  
-        } else if($scope.properties.tipoVariable === "text"){
-          $scope.properties.value =  "";  
+        if ($scope.properties.tipoVariable === "json") {
+            $scope.properties.value = {};
+        } else if ($scope.properties.tipoVariable === "array") {
+            $scope.properties.value = [];
+        } else if ($scope.properties.tipoVariable === "text") {
+            $scope.properties.value = "";
         }
         $scope.properties.variable = $scope.properties.variableDato
-        doRequest("GET",$scope.properties.url,"");
+        doRequest("GET", $scope.properties.url, "");
     };
-    
-    function doRequest(method, url,datos) {
+
+    function doRequest(method, url, datos) {
         var req = {
             method: method,
             url: url,
             data: angular.copy(datos)
         };
         return $http(req)
-            .success(function (data, status) {
-                debugger;
+            .success(function(data, status) {
+
                 $scope.properties.value = data.data;
             })
-            .error(function (data, status) {
-            })
+            .error(function(data, status) {})
     }
 }

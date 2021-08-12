@@ -30,16 +30,16 @@ function loadContextCtrl($scope, $http) {
             $scope.objDataToPut["otroIdioma"] = "";
             $scope.objDataToPut["linkIdioma"] = "";
             $scope.objDataToPut["linkNivel"] = "";
-            
-            
+
+
             $scope.objDataToPut["persistenceId_string"] = lstIdiomasV2[index].persistenceId_string == undefined ? "" : lstIdiomasV2[index].persistenceId_string;
             $scope.objDataToPut["otroIdioma"] = lstIdiomasV2[index].otroIdioma == undefined ? "" : lstIdiomasV2[index].otroIdioma;
-            
+
             for (var indexL in lstIdiomasV2[index].links) {
                 if (lstIdiomasV2[index].links[indexL].rel === "idioma") {
-                    $scope.objDataToPut["linkIdioma"] = ".."+lstIdiomasV2[index].links[indexL].href;
+                    $scope.objDataToPut["linkIdioma"] = ".." + lstIdiomasV2[index].links[indexL].href;
                 } else if (lstIdiomasV2[index].links[indexL].rel === "nivel") {
-                    $scope.objDataToPut["linkNivel"] = ".."+lstIdiomasV2[index].links[indexL].href;
+                    $scope.objDataToPut["linkNivel"] = ".." + lstIdiomasV2[index].links[indexL].href;
                 }
             }
             $scope.properties.lstIdiomasV2.push(angular.copy($scope.objDataToPut));
@@ -68,7 +68,7 @@ function loadContextCtrl($scope, $http) {
     }
 
     function doRequest(method, url, dataToSend, callback, errorCallback) {
-        debugger;
+
         var req = {
             method: method,
             url: url,

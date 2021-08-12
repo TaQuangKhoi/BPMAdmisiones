@@ -56,7 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
     $scope.getCarrera = function() {
-        debugger
+        
             const regex = / /g;
           let carreraString= $scope.properties.usuario.catGestionEscolar.nombre;
           let nuevoNombreCarrera= " ";

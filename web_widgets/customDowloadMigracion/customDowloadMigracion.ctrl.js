@@ -114,7 +114,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   //============END
   
    $scope.uploadFile=function() {
-    debugger
+    
     vm.busy = true;
     $scope.filebase64={"b64":"data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,"+$scope.filebase64};
     var req = {

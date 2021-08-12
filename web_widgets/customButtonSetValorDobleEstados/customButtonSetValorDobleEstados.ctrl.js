@@ -12,30 +12,30 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
 
     $scope.openCloseModal = function() {
-        if ($scope.properties.OpenModal) {
-            modalService.open($scope.properties.modalId);
-        } else {
-            $scope.properties.variableDestino2 = [{
-                "orden": "",
-                "descripcion": "",
-                "usuarioCreacion": "",
-                "clave": "",
-                "isEliminado": false,
-                "pais": "",
-                "fechaCreacion": null,
-                "caseId": null
-            }]
-            modalService.close();
+            if ($scope.properties.OpenModal) {
+                modalService.open($scope.properties.modalId);
+            } else {
+                $scope.properties.variableDestino2 = [{
+                    "orden": "",
+                    "descripcion": "",
+                    "usuarioCreacion": "",
+                    "clave": "",
+                    "isEliminado": false,
+                    "pais": "",
+                    "fechaCreacion": null,
+                    "caseId": null
+                }]
+                modalService.close();
+            }
+
+
+
         }
-
-
-
-    }
-    /**
-     * Execute a get/post request to an URL
-     * It also bind custom data from success|error to a data
-     * @return {void}
-     */
+        /**
+         * Execute a get/post request to an URL
+         * It also bind custom data from success|error to a data
+         * @return {void}
+         */
     function doRequest(method, url, params, dataToSend, callback) {
         vm.busy = true;
         var req = {
@@ -47,7 +47,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                debugger;
+
                 callback(data.data[0]);
             })
             .error(function(data, status) {
