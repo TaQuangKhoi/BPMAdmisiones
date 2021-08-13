@@ -14,6 +14,7 @@ function ($scope, $http) {
    */
    $scope.$watch("properties.respuesta", function (newValue, oldValue) {
         if (newValue !== undefined) {
+            aplicarFactor();
             //doRequest(method, url, params,dataToSend)
         }
     });
@@ -54,7 +55,7 @@ function ($scope, $http) {
     $scope.respuestaProcesadas = [];
     function aplicarFactor(){
         var valorK=0;
-        $scope.properties.respuesta.foerEach(element =>{
+        $scope.properties.respuesta.forEach(element =>{
             if (element.escala=='K') {
                 valorK=element.puntuacion;
             }
@@ -66,23 +67,23 @@ function ($scope, $http) {
                 jsonk=element;
             }
         });
-        
-        $scope.properties.respuesta.forEach(element,index =>{
+        debugger;
+        $scope.properties.respuesta.forEach((element,index) =>{
         $scope.respuestaProcesadas.push(angular.copy(element));
         if (element.escala=='Hs') {
-            $scope.respuestaProcesadas[index].puntuacion =(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         if (element.escala=='Dp') {
-            $scope.respuestaProcesadas[index].puntuacion =(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         if (element.escala=='Pt') {
-            $scope.respuestaProcesadas[index].puntuacion =(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         if (element.escala=='Es') {
-            $scope.respuestaProcesadas[index].puntuacion =(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         if (element.escala=='Ma') {
-            $scope.respuestaProcesadas[index].puntuacion =(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         
         });
