@@ -5817,7 +5817,7 @@ class SesionesDAO {
 						campus+="LIKE LOWER('%[valor]%')"
 						where+="LIKE LOWER('%[valor]%')"
 					}
-					campus = cc.replace("[valor]", filtro.get("valor"))
+					campus = campus.replace("[valor]", filtro.get("valor"))
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
@@ -6069,7 +6069,7 @@ class SesionesDAO {
 						campus+="LIKE LOWER('%[valor]%')"
 						where+="LIKE LOWER('%[valor]%')"
 					}
-					campus = cc.replace("[valor]", filtro.get("valor"))
+					campus = campus.replace("[valor]", filtro.get("valor"))
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
@@ -6263,7 +6263,7 @@ class SesionesDAO {
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion()
-			pstm = con.prepareStatement("SELECT r.idbanner,r.escala,r.puntuacion,r.sesiones_pid, ce.tipo FROM resultadoinvp r inner join catescalatipo ce on ce.escala=r.escala where r.idbanner=? and r.sesiones_pid=?")
+			pstm = con.prepareStatement("SELECT r.idbanner,r.escala,r.puntuacion,r.sesiones_pid, ce.tipo FROM resultadoinvp r inner join catescalatipo ce on ce.escala=r.escala where r.idbanner=? and r.sesiones_pid=? order by ce.persistenceid::integer")
 			pstm.setString(1, idbanner)
 			pstm.setLong(2, sesionid)
 			rs = pstm.executeQuery()
@@ -6566,8 +6566,8 @@ class SesionesDAO {
 				consulta=consulta.replace("[REPORTE]", "");
 				
 				
-				errorlog+=" conteo = "+consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
-				pstm = con.prepareStatement(consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid,AP.USERNAME", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
+				errorlog+=" conteo = "+consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid, RI.idbanner as RIBANNER", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", "")
+				pstm = con.prepareStatement(consulta.replace("distinct on (AP.username) AP.username,P.nombre as nombre_prueba,P.Lugar as lugar_prueba,DS.IDBANNER,sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre,SDA.CORREOELECTRONICO,SDA.CURP,campus.descripcion AS campus,gestionescolar.nombre AS licenciatura, CPO.descripcion as periodo,CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia,sda.PROMEDIOGENERAL, CASE WHEN prepa.descripcion = 'Otro' THEN sda.bachillerato ELSE prepa.descripcion END AS preparatoria, R.descripcion as residencia, sx.descripcion as sexo, PL.ASISTENCIA, P.aplicacion, c.descripcion as tipo_prueba, case when C.persistenceid=1 then rd.horario  else concat(p.entrada,' - ',p.salida) end as horario, RD.PERSISTENCEID AS RD, DS.CASEID, sda.urlfoto,le.descripcion as lugarexamen,sda.telefonocelular,DS.cbCoincide,AP.acreditado,c.PERSISTENCEID as tipoprueba_pid, RI.idbanner as RIBANNER", " count(distinct AP.persistenceid) as  registros").replace("[LIMITOFFSET]","").replace("[ORDERBY]", ""));
 				pstm.setInt(1, object.prueba);
 				
 				rs= pstm.executeQuery()
@@ -6707,19 +6707,31 @@ class SesionesDAO {
 
 				respuestas.add(columns);
 			}
+			int count = 0;
+			for (int i = 0; i < respuesta.length(); i++) {
+				if (respuesta.charAt(i) == "*") {
+					count++;
+				}
+			}
+			
+			respuestainvp.put("?",count);
+			
 			for(int i=0; i<respuestas.size(); i++) {
-				if((respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1)=='C')==(respuestas.get(i).get("respuesta")=='t')) {
-					if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
-						respuestainvp.put(respuestas.get(i).get("escala"), Integer.parseInt(respuestas.get(i).get("puntuacion")))
+				if (!respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1).equals("*")) {
+					if((respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1)=='C')==(respuestas.get(i).get("respuesta")=='t')) {
+						if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
+							respuestainvp.put(respuestas.get(i).get("escala"), Integer.parseInt(respuestas.get(i).get("puntuacion")))
+						}else {
+							respuestainvp.put(respuestas.get(i).get("escala"), respuestainvp.get(respuestas.get(i).get("escala"))+Integer.parseInt(respuestas.get(0).get("puntuacion")))
+						}
+						
 					}else {
-						respuestainvp.put(respuestas.get(i).get("escala"), respuestainvp.get(respuestas.get(i).get("escala"))+Integer.parseInt(respuestas.get(0).get("puntuacion")))
+						if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
+							respuestainvp.put(respuestas.get(i).get("escala"), 0)
+						}
 					}
-					
-				}else {
-					if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
-						respuestainvp.put(respuestas.get(i).get("escala"), 0)
-					}
-				}	
+				}
+				
 			}
 			try {
 				TimeZone tz = TimeZone.getTimeZone("UTC")
@@ -6740,6 +6752,9 @@ class SesionesDAO {
 						pstm.setString(5, nowAsISO)
 						pstm.execute()
 					}
+				}else {
+					resultado.setError("Error");
+					resultado.setError_info("Ya hay un aspirante con ese id_sesion")
 				}
 			}
 			catch(Exception test) {
@@ -6816,7 +6831,8 @@ class SesionesDAO {
 	
 	public Result postSelectAspirantePrueba(String jsonData) {
 		Result resultado = new Result()
-		Boolean closeCon = false
+		Boolean closeCon = false;
+		String errorLog = "";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -6826,7 +6842,7 @@ class SesionesDAO {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement("select distinct ap.username, DS.idbanner,RI.fecha_registro from aspirantespruebas as ap inner join resultadoinvp as RI on RI.sesiones_pid = ap.sesiones_pid inner join detallesolicitud as DS on DS.idbanner = RI.idbanner where ap.sesiones_pid = ? and ap.acreditado is not true and ap.asistencia is true and ap.cattipoprueba_pid = 2 ORDER BY ap.username")
+			pstm = con.prepareStatement("select distinct on (ap.username) ap.username, RI.idbanner,RI.fecha_registro from resultadoinvp as RI inner join detallesolicitud as DS on DS.idbanner = RI.idbanner inner join solicituddeadmision as sda on sda.caseid::varchar = DS.caseid inner join aspirantespruebas as ap on sda.correoelectronico = ap.username where ap.sesiones_pid = ? and ap.acreditado is not true and ap.asistencia is true and ap.cattipoprueba_pid = 2 ORDER BY ap.username")
 			pstm.setInt(1,Integer.parseInt(object.idSesion))
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
@@ -6842,16 +6858,19 @@ class SesionesDAO {
 						indice = count;
 					}
 				}
-
 				rows.add(columns);
 			}
 			indice--;
 			List < Map < String, Object >> rows2 = new ArrayList < Map < String, Object >> ();
 			if( indice > 0 && !object.accion ) {
-				rows2 = rows[indice-1];
-			}else if(indice < (rows.size()-1) ) {
-				rows2 = rows[indice -1]
+				errorLog = "1";
+				rows2.add(rows[indice-1]);
+				
+			}else if(indice < (rows.size()-1) && object.accion ) {
+				errorLog = "2";
+				rows2.add(rows[indice+1]);
 			}else {
+				errorLog = "3";
 				Map < String, Object > info = new LinkedHashMap < String, Object > ();
 				info.put("accion", false)
 				rows2.add(info)
@@ -6860,10 +6879,11 @@ class SesionesDAO {
 			
 			resultado.setSuccess(true)
 			resultado.setData(rows2)
+			resultado.setError_info(errorLog)
 		} catch (Exception e) {
 			resultado.setSuccess(false)
-			resultado.setError("500 Internal Server Error")
-			resultado.setError_info(e.getMessage())
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorLog)
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

@@ -9034,7 +9034,108 @@ class ListadoDAO {
 
 		return resultado;
 	}
+	
+	public Result postExcelINVPIndividual(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "", where = "";
+		Boolean closeCon = false;
+		try {
+			Result dataResult = new Result();
+			int rowCount = 0;
+			List < Object > lstParams;
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			XSSFSheet sheet = workbook.createSheet("Reporte INVP individual");
+			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+			org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+			font.setBold(true);
+			style.setFont(font);
+			style.setAlignment(HorizontalAlignment.CENTER)
+				//color
+			IndexedColorMap colorMap = workbook.getStylesSource().getIndexedColors();
+			XSSFColor color = new XSSFColor(new java.awt.Color(191, 220, 249), colorMap);
 
+			style.setFillForegroundColor(color)
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			dataResult = new SesionesDAO().postResultadosINVPIndividuales(jsonData, context)
+			
+			if (dataResult.success) {
+				lstParams = dataResult.getData();
+
+			} else {
+				throw new Exception("No encontro datos");
+			}
+
+			def titulos = ["ID Banner", "Nombre aspirante", "Sesión id", "Sesión", "Fecha prueba", "Fecha registro"]
+				Row headersRow = sheet.createRow(rowCount);
+				++rowCount;
+				List < Cell > header = new ArrayList < Cell > ();
+				for (int i = 0; i < titulos.size(); ++i) {
+					header.add(headersRow.createCell(i))
+					header[i].setCellValue(titulos.get(i))
+					header[i].setCellStyle(style)
+				}
+			CellStyle bodyStyle = workbook.createCellStyle();
+			bodyStyle.setWrapText(true);
+			bodyStyle.setAlignment(HorizontalAlignment.LEFT);
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			def info = ["idbanner", "nombre", "sesion_id", "sesion", "fecha_prueba", "fecha_registro"]
+			List<Cell> body;
+			for (int i = 0; i < lstParams.size(); ++i){
+				Row row = sheet.createRow(rowCount);
+				++rowCount;
+				body = new ArrayList<Cell>()
+				for(int j=0;  j < info.size(); ++j) {
+					body.add(row.createCell(j))
+					if(info.get(j).toString().equals("fecha_registro")) {
+						String sDate = formatter.format(lstParams[i][info.get(j)]);
+						body[j].setCellValue(sDate)
+					}else {
+						body[j].setCellValue(lstParams[i][info.get(j)]);
+					}
+					
+					body[j].setCellStyle(bodyStyle);
+					
+				}
+				
+			}
+
+			if (lstParams.size() > 0) {
+				for (int i = 0; i <= 20; ++i) {
+					sheet.autoSizeColumn(i);
+				}
+				String nameFile = "Reporte INVP Individual.xls";
+				FileOutputStream outputStream = new FileOutputStream(nameFile);
+				workbook.write(outputStream);
+				List < Object > lstResultado = new ArrayList < Object > ();
+				lstResultado.add(encodeFileToBase64Binary(nameFile));
+				resultado.setData(lstResultado)
+				outputStream.close();
+
+			} else {
+				throw new Exception("No encontro datos:" + errorLog + dataResult.getError());
+			}
+
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+			e.printStackTrace();
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+
+		return resultado;
+	}
+	
 	public Result getExcelTransferencias(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		try {

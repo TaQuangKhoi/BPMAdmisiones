@@ -3,6 +3,7 @@ package com.anahuac.rest.api.DAO
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.Entity.Result
+import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -61,8 +62,7 @@ class ReportesDAO {
             where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
 
 
-
-            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD, s.persistenceid as IdSesion, s.nombre as NombreSesion FROM catregistro cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
+            String consulta = "SELECT distinct case when cr.segundonombre='' then cr.primernombre else cr.primernombre || ' ' || cr.segundonombre end as nombre, cr.apellidopaterno as apaterno,cr.apellidomaterno as amaterno,sda.correoelectronico as email,cc.clave || cda.idbanner as usuario,sda.fechanacimiento as clave, '' as edad, cda.idbanner as matricula, '' as curp, s.nombre as sesion, to_char(p.aplicacion, 'DD/MM/YYYY') as fecha_examen, cc.clave as campusVPD, s.persistenceid as IdSesion, s.nombre as NombreSesion FROM solicituddeadmision cr inner join DETALLESOLICITUD cda on cda.caseid::bigint=cr.caseid  AND (cda.cbcoincide=false OR cda.cbcoincide is null) inner join solicituddeadmision sda on sda.caseid=cda.caseid::bigint inner join catcampus cc on cc.persistenceid=sda.catcampusestudio_pid inner join sesionaspirante sa on sa.username=sda.correoelectronico inner join pruebas p on sa.sesiones_pid=p.sesion_pid and p.cattipoprueba_pid=4 inner join sesiones s on s.persistenceid=sa.sesiones_pid " + where
 			errorLog += consulta;
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
@@ -866,5 +866,8 @@ class ReportesDAO {
 
 		return resultado;
 	}
+	
+	
+	
 
 }
