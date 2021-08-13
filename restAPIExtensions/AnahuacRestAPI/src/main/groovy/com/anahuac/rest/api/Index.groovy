@@ -933,12 +933,18 @@ class Index implements RestApiController {
 					}
 					break;
 				case "RegistrarUsuario":
+				try{
 					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
 					break;
 				case "getOrderPaymentMethod":
 					result = cDao.getOrderPaymentMethod(parameterP, parameterC, jsonData, context);
@@ -1709,6 +1715,16 @@ class Index implements RestApiController {
 					
 					case "updateCorreoElectronico":
 					result = uDAO.updateCorreoElectronico(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				case "postExcelINVPIndividual":
+					result = new ListadoDAO().postExcelINVPIndividual(jsonData, context)
+					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

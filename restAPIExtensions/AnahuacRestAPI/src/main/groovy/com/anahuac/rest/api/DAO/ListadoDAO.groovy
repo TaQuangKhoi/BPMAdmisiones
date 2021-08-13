@@ -76,6 +76,10 @@ import com.itextpdf.text.pdf.draw.VerticalPositionMark
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.xssf.usermodel.IndexedColorMap
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle
+import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.anahuac.catalogos.CatMateriasDAO
@@ -9079,8 +9083,10 @@ class ListadoDAO {
 			CellStyle bodyStyle = workbook.createCellStyle();
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.LEFT);
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
+			DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			Date fechaCreacion = new Date();
+			DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 			def info = ["idbanner", "nombre", "sesion_id", "sesion", "fecha_prueba", "fecha_registro"]
 			List<Cell> body;
 			for (int i = 0; i < lstParams.size(); ++i){
@@ -9090,8 +9096,8 @@ class ListadoDAO {
 				for(int j=0;  j < info.size(); ++j) {
 					body.add(row.createCell(j))
 					if(info.get(j).toString().equals("fecha_registro")) {
-						String sDate = formatter.format(lstParams[i][info.get(j)]);
-						body[j].setCellValue(sDate)
+						fechaCreacion = dfSalida.parse(lstParams[i][info.get(j)].toString())
+						body[j].setCellValue(dformat.format(fechaCreacion))
 					}else {
 						body[j].setCellValue(lstParams[i][info.get(j)]);
 					}
