@@ -1,77 +1,108 @@
 function PbChartCtrl($scope, $log, uiTranslateFilter) {
 
-  function isMultiSeriesChart(chartType) {
-    return ["Line", "Bar", "Radar"].indexOf(chartType) > -1;
-  }
-
-  function isFlatArray(array) {
-    return array && array[0] && !Array.isArray(array[0]);
-  }
-
-  function translateArray(array) {
-    return (array || []).map(function(item) {
-      return uiTranslateFilter(item);
-    })
-  }
-
-  $scope.$watch('properties.data', function(value) {
-    if (isMultiSeriesChart($scope.properties.type) && isFlatArray($scope.properties.data)) {
-        let info = [];
-        $scope.properties.data.forEach( datos =>{
-            info.push(parseInt(datos.valorConvertido));
-        })
-      $scope.data = [info];
-    } else {
-        
-      $scope.data = $scope.properties.data;
-    }
-     $scope.options = {
-            elements: {
-                line: {
-                    tension: 0
-                }
-            },
-            tooltipTemplate: function(label) {
-                let info="";
-                $scope.properties.data.forEach( datos =>{
-                    if(label.value == datos.valorConvertido && label.label == datos.letra){
-                        info = datos.valorOriginal;
-                    }
-                })
-                return label.label + ':' +  info;
-            }
-        };
-  });
-
-  $scope.$watch('properties.colors', function(value) {
-    $scope.colors = ($scope.properties.colors || []).length > 0 ? $scope.properties.colors : null;
-  });
-
-  $scope.$watch('properties.options', function(value) {
-    if (angular.isString(value)) {
-      try {
-        $scope.options = angular.fromJson(value);
-      } catch (e) {
-        $log.error('[Chart widget] Advanced options property should be a valid json object, ex: { "animateRotate" : false }');
+  var chart = null;
+  function totalCasesChart(data, ctx) {
+          chart = new Chart(ctx, getEstructuraGrafica(data))
       }
-    } else {
-      $scope.options = value;
-    }
-  });
+  
+      function renderCharts() {
+        const ctx = document.querySelector('#'+$scope.properties.idCanvas)
+        const data = { "info": $scope.properties.data}
+        totalCasesChart(data, ctx);
+      }
 
-  $scope.$watch('properties.labels', function(labels) {
-    if(angular.isArray(labels)) {
-      $scope.labels = translateArray(labels);
-    } else {
-      $log.error('[Chart widget] Property named "labels" should be bound to an array');
-    }
-  });
+    $scope.$watch('properties.data', function(value) {
+      if(chart != null){
+          chart.data.datasets[0].data = ($scope.properties.data.map(item => item.valorConvertido));
+          chart.update();
+      }else if( $scope.properties.data.length > 0){
+          renderCharts();
+      }
+    });
 
-  $scope.$watch('properties.setLabels', function(setLabels) {
-    if(angular.isArray(setLabels)) {
-      $scope.setLabels = translateArray(setLabels);
-    } else {
-      $log.error('[Chart widget] Property named "setLabels" should be bound to an array');
+
+
+    function getEstructuraGrafica(data){
+      const {
+          info
+        } = data
+      let strChart = {
+          type: 'line',
+          data: {
+            labels: $scope.properties.labels,
+            datasets: [
+              {
+                borderColor: 'rgb(255, 89, 0)',
+                data: info.map(item => item.valorConvertido),
+                tension: 0,
+                fill: false
+              }
+            ]
+          },
+          options: {
+              maintainAspectRatio: false,
+              layout: {
+                padding: 20
+              },
+              plugins: {
+                  legend: {
+                      display: false,
+                  },
+                  tooltip:{
+                      displayColors:false,
+                      callbacks:{
+                          label: function(label) {
+                              let info="";
+                              $scope.properties.data.forEach( datos =>{
+                                  if(label.raw == datos.valorConvertido && label.label == datos.letra){
+                                      info = datos.valorOriginal;
+                                  }
+                              })
+                              return label.label + ':' +  info;
+                          }
+                      }
+                      
+                  }
+              },
+            scales: {
+              x: {
+                
+                ticks:{
+                  padding:10
+                }
+              },
+              x2:{
+                  ticks:{
+                      callback: function(index) {
+                          return $scope.properties.data[index].valorOriginal;
+                      }
+                  }
+              },
+              y:{
+                  min:30,
+                  ticks:{
+                    padding:20
+                  }
+              }
+            },
+            elements: {
+              line: {
+                borderWidth: 4,
+                fill: false,
+              },
+              point: {
+                radius: 6,
+                borderWidth: 4,
+                backgroundColor: 'white',
+                hoverRadius: 8,
+                hoverBorderWidth: 4,
+              }
+            }
+          }
+        }
+
+        return strChart;
+      
     }
-  });
-}
+  }
+  

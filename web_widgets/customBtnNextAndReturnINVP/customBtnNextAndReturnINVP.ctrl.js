@@ -6,7 +6,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.myFunc = function() {
       if($scope.properties.arregloOServicio){
-          debugger
             doRequest($scope.properties.tipoDeUrl, $scope.properties.url);
         }else{
             $scope.searchArray();
