@@ -4,6 +4,8 @@ import com.anahuac.catalogos.CatTerapiaDAO
 import com.anahuac.model.Autodescripcion
 import com.anahuac.model.AutodescripcionDAO
 import com.anahuac.model.AutodescripcionV2DAO
+import com.anahuac.model.TestPsicometrico
+import com.anahuac.model.TestPsicometricoDAO
 import com.anahuac.model.TestPsicometricoRasgos
 import com.anahuac.model.TestPsicometricoRasgosDAO
 import com.anahuac.model.TestPsicometricoRelativosDAO
@@ -1083,10 +1085,15 @@ class PsicometricoDAO {
 						else {
 							pstm.setNull(8, Types.INTEGER);
 						}
-						if(vive.persistenceId != null && vive.persistenceId != ""){
-							pstm.setInt(9, vive.persistenceId);
-						}
-						else {
+						
+						if(vive != null ) {
+							if(vive.persistenceId != null && vive.persistenceId != ""){
+								pstm.setInt(9, vive.persistenceId);
+							}
+							else {
+								pstm.setNull(9, Types.INTEGER);
+							}
+						} else {
 							pstm.setNull(9, Types.INTEGER);
 						}
 						
@@ -1099,29 +1106,29 @@ class PsicometricoDAO {
 			/*==============================================TESTPSICOMETRICO_RELATIVOS FIN==============================================*/
 			
 			/*==============================================TESTPSICOMETRICO_CUSTOSRECOMEND INICIO==============================================*/
-//			strError += "Cursos reocmendados | "
-//			contador = 0;
-//			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_CUSTOSRECOMEND);
-//			pstm.setInt(1, testPsicomInput_persistenceId);
-//			pstm.executeUpdate();
-//			strError = strError + " | " + "-------------------------------------------";
-//			if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
-//				strError = strError + " | " + "-------------------------------------------";
-//				if (testPsicomInput.custosRecomendados != null && testPsicomInput.custosRecomendados != "") {
-//					assert testPsicomInput.custosRecomendados instanceof List;
-//					for (def row: testPsicomInput.custosRecomendados) {
-//						if(row.persistenceId != null && row.persistenceId != ""){
-//							pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_CUSTOSRECOMEND);
-//							pstm.setInt(1, testPsicomInput_persistenceId);
-//							pstm.setInt(2, row.persistenceId);
-//							pstm.setInt(3, contador);
-//							pstm.executeUpdate();
-//							contador++;
-//							strError = strError + " | contador: " + contador;
-//						}
-//					}
-//				}
-//			}
+			strError += "Cursos reocmendados | "
+			contador = 0;
+			pstm = con.prepareStatement(Statements.DELETE_TESTPSICOMETRICO_CUSTOSRECOMEND);
+			pstm.setInt(1, testPsicomInput_persistenceId);
+			pstm.executeUpdate();
+			strError = strError + " | " + "-------------------------------------------";
+			if(testPsicomInput_persistenceId != null && testPsicomInput_persistenceId != 0) {
+				strError = strError + " | " + "-------------------------------------------";
+				if (testPsicomInput.custosRecomendados != null && testPsicomInput.custosRecomendados != "") {
+					assert testPsicomInput.custosRecomendados instanceof List;
+					for (def row: testPsicomInput.custosRecomendados) {
+						if(row.persistenceId != null && row.persistenceId != ""){
+							pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_CUSTOSRECOMEND);
+							pstm.setInt(1, testPsicomInput_persistenceId);
+							pstm.setInt(2, row.persistenceId);
+							pstm.setInt(3, contador);
+							pstm.executeUpdate();
+							contador++;
+							strError = strError + " | contador: " + contador;
+						}
+					}
+				}
+			}
 			/*==============================================TESTPSICOMETRICO_CUSTOSRECOMEND FIN==============================================*/
 			
 			/*========================================================TEST PSICOMETRICO RASGOS ACCIONES========================================================*/
@@ -1306,6 +1313,7 @@ class PsicometricoDAO {
 				testPsicomInput.put("catrequieresasistencia_pid", rs.getLong("catrequieresasistencia_pid"));
 				testPsicomInput.put("catvivesestadodiscapacidad_pid", rs.getLong("catvivesestadodiscapacidad_pid"));
 				testPsicomInput.put("catpersonasaludable_pid", rs.getLong("catrecibidoterapia_pid"));
+				
 			}
 			
 			objetoCompleto.put("testPsicomInput", testPsicomInput);
@@ -1317,7 +1325,6 @@ class PsicometricoDAO {
 			def objetoRasgos = context.getApiClient().getDAO(TestPsicometricoRasgosDAO.class);
 			testPsicomRasgosInput = objetoRasgos.findByCaseId(caseId, 0, 99);
 			objetoCompleto.put("testPsicomRasgosInput", testPsicomRasgosInput);
-			objetoCompleto.put("getPsicomAD", getPsicomAD(Long.valueOf(caseId), context));
 			
 			rows.add(objetoCompleto);
 			
@@ -1338,29 +1345,30 @@ class PsicometricoDAO {
 		return resultado;
 	}
 	
-	public Result getPsicomAD(Long caseId, RestAPIContext context) {
+	public Result getPsicometricoCursos(Long persistenceid) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		List<?> rows = new ArrayList<?>();
 		String strError = "";
-		Long persistenceId = 0L;
-		Map<String, Object> ad = new LinkedHashMap<String, Object>();
+		Map<String, Object> curso = new LinkedHashMap<String, Object>();
 		
 		try {
 			closeCon = validarConexion();
-			pstm = con.prepareStatement(Statements.SELECT_AD_BY_CASEID);
-			pstm.setLong(1, caseId);
-			
+			pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID_V2);
+			pstm.setString(1, persistenceid);
 			rs = pstm.executeQuery();
 			
-			strError += "Se obtuvo el result set | ";
 			while(rs.next()) {
-//				def objAD = context.getApiClient().getDAO(AutodescripcionV2DAO.class);
-//				rows.add(objAD.findByPersistenceId(rs.getLong("persistenceid")));
-				rows.add(rs.getLong("persistenceid"));
+				curso = new LinkedHashMap<String, Object>();
+				curso.put("fechaEntrevista", rs.getString("fechaEntrevista"));
+				curso.put("ajusteMedioFamiliar", rs.getString("ajusteMedioFamiliar"));
+				curso.put("califAjusteMedioFamiliar", rs.getString("califAjusteMedioFamiliar"));
+				
+				rows.add(curso);
 			}
 			
-			strError += " Se obtuvo el pid de la AD | ";
+			
+			strError += "Se obtuvieron los resultados | ";
 			resultado.setError_info(strError);
 			resultado.setData(rows);
 			resultado.setSuccess(true);
@@ -1369,9 +1377,9 @@ class PsicometricoDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
-//			if(closeCon) {
-//				new DBConnect().closeObj(con, stm, rs, pstm)
-//			}
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		
 		return resultado;

@@ -79,10 +79,10 @@ function startProcess() {
                 checkclave("editar");
             } else {
                 if (!$scope.properties.dataToChange2.equivalente) {
-                    swal("¡Aviso!", "Faltó capturar información en: Equivalente" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Valor de escala" , "warning");
                 }
                 if (!$scope.properties.dataToChange2.letra) {
-                    swal("¡Aviso!", "Faltó capturar información en: Letra." , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Escala código." , "warning");
                 }
                 if (!$scope.properties.dataToChange2.totc) {
                     swal("¡Aviso!", "Faltó capturar información en: TOTC.", "warning");
@@ -94,10 +94,10 @@ function startProcess() {
                 checkclave("agregar");
             } else {
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].equivalente) {
-                    swal("¡Aviso!", "Faltó capturar información en: equivalente.", "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Valor de escala.", "warning");
                 }
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].letra) {
-                    swal("¡Aviso!", "Faltó capturar información en: Letra.", "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Escala código.", "warning");
                 }
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].totc) {
                     swal("¡Aviso!", "Faltó capturar información en: TOTC.", "warning");

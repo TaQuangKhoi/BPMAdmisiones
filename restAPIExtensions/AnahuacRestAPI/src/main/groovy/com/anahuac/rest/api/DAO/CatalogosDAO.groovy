@@ -3740,8 +3740,37 @@ class CatalogosDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+					
+					case "ESCALA CÓDIGO":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(letra) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
 						
-                    case "EQUIVALENTE":
+                    case "VALOR DE ESCALA":
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " LOWER(equivalente) ";
+                        if (filtro.get("operador").equals("Igual a")) {
+                            where += "=LOWER('[valor]')"
+                        } else {
+                            where += "LIKE LOWER('%[valor]%')"
+                        }
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
+					case "EQUIVALENTE":
                         if (where.contains("WHERE")) {
                             where += " AND "
                         } else {
@@ -3756,14 +3785,14 @@ class CatalogosDAO {
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
 						
-                    case "ESCALA":
+                    case "SEXO":
                         if (where.contains("WHERE")) {
                             where += " AND "
                         } else {
                             where += " WHERE "
                         }
-                        where += " LOWER(sexo) = [valor] ";
-                        where = where.replace("[valor]", (filtro.get("valor").toString().equals("Masculino")?"true)":"false OR sexo is NULL)"))
+                        where += " sexo [valor] ";
+                        where = where.replace("[valor]", (filtro.get("valor").toString().equals("Masculino")?"is true":" is false OR sexo is NULL"))
                         break;
 
                 }

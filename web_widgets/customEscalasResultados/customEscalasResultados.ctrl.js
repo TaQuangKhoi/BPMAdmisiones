@@ -74,16 +74,16 @@ function ($scope, $http) {
             $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
         }
         if (element.escala=='Dp') {
-            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.4'];
         }
         if (element.escala=='Pt') {
-            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['k'];
         }
         if (element.escala=='Es') {
-            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['k'];
         }
         if (element.escala=='Ma') {
-            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.5'];
+            $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.2'];
         }
         
         });
