@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1628553620708,
+  "lastUpdate" : 1629249167491,
   "rows" : [
     [
       {
@@ -182,58 +182,6 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "labelHidden" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "label" : {
-                  "type" : "interpolation",
-                  "value" : "Default label"
-                },
-                "labelPosition" : {
-                  "type" : "constant",
-                  "value" : "top"
-                },
-                "labelWidth" : {
-                  "type" : "constant",
-                  "value" : 4
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "text" : {
-                  "type" : "interpolation",
-                  "value" : "<pre>\n{{  dataToSend | json }}\n</pre>"
-                },
-                "alignment" : {
-                  "type" : "constant",
-                  "value" : "left"
-                }
-              },
-              "reference" : "af4406f8-353e-4727-adb5-10496a033233",
-              "hasValidationError" : false,
-              "id" : "pbText"
-            }
-          ],
-          [
-            {
-              "type" : "component",
-              "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
-              },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
                 "value" : {
                   "type" : "constant",
                   "value" : "This is the initial value"
@@ -285,6 +233,22 @@
                 "bdmAutodescripcionExtraido" : {
                   "type" : "variable",
                   "value" : ""
+                },
+                "aucodescripcionV2" : {
+                  "type" : "variable",
+                  "value" : "bdmAutodescripcionExtraido"
+                },
+                "urlPost" : {
+                  "type" : "expression",
+                  "value" : "\"../API/extension/AnahuacRestGet?url=getPsicometricoCompleto&p=0&c=10&caseId=\" +  caseId"
+                },
+                "testPsicom" : {
+                  "type" : "variable",
+                  "value" : "testPsicom"
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
                 }
               },
               "reference" : "d56e9c0b-9eaa-4906-b6d3-bc26f01fd3ec",
@@ -4077,257 +4041,7 @@
                       ],
                       [
                         {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Vives en situación de discapacidad?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Selecciona..."
-                            },
-                            "availableValues" : {
-                              "type" : "expression",
-                              "value" : "catVivesEnSituacionDiscapacidad_query"
-                            },
-                            "displayedKey" : {
-                              "type" : "constant",
-                              "value" : "descripcion"
-                            },
-                            "returnedKey" : {
-                              "type" : "constant"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.catVivesEstadoDiscapacidad"
-                            }
-                          },
-                          "reference" : "0660f9f5-51a2-4d2f-8653-fc004d05ca73",
-                          "hasValidationError" : false,
-                          "id" : "pbSelect"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.problemasSaludAtencionContinua"
-                            }
-                          },
-                          "reference" : "4c49b312-f18d-4e98-acdd-56581a152663",
-                          "hasValidationError" : false,
-                          "id" : "customCustomTextAreaLimit"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Qué tipo de discapacidad?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.tipoDiscapacidad"
-                            }
-                          },
-                          "reference" : "02295947-fea5-4854-9b3a-9e73b5fb797d",
-                          "hasValidationError" : false,
-                          "id" : "customCustomTextAreaLimit"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Te consideras una persona saludable?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Selecciona..."
-                            },
-                            "availableValues" : {
-                              "type" : "expression",
-                              "value" : "catPersonaSaludable_query"
-                            },
-                            "displayedKey" : {
-                              "type" : "constant",
-                              "value" : "descripcion"
-                            },
-                            "returnedKey" : {
-                              "type" : "constant"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.catPersonaSaludable"
-                            }
-                          },
-                          "reference" : "ce1dc24d-67ae-47b5-96ca-0ff5316997a6",
-                          "hasValidationError" : false,
-                          "id" : "pbSelect"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
+                          "type" : "container",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
@@ -4343,199 +4057,603 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "<hr>"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "608a1c37-2059-4055-b617-917ae9e7242d",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "Terapias"
-                            },
-                            "level" : {
-                              "type" : "constant",
-                              "value" : "Level 4"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "center"
-                            }
-                          },
-                          "reference" : "b5d6893d-2009-4947-ac39-6fcaab8f06f0",
-                          "hasValidationError" : false,
-                          "id" : "pbTitle"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Has recibido alguna terapia?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : "Selecciona..."
-                            },
-                            "availableValues" : {
-                              "type" : "expression",
-                              "value" : "catTerapia_query"
-                            },
-                            "displayedKey" : {
-                              "type" : "constant",
-                              "value" : "descripcion"
-                            },
-                            "returnedKey" : {
-                              "type" : "constant"
-                            },
-                            "value" : {
+                            "repeatedCollection" : {
                               "type" : "variable",
-                              "value" : "autodescripcionV2.catRecibidoTerapia"
+                              "value" : ""
                             }
                           },
-                          "reference" : "46580ac3-5e0f-4bfc-9f33-8d2645f37e5f",
+                          "reference" : "5a5c1ce9-d937-4bb7-962e-d591a9b0791b",
                           "hasValidationError" : false,
-                          "id" : "pbSelect"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "¿Qué tipo de terapia?"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "autodescripcionV2.hasRecibidoAlgunaTerapia"
-                            }
-                          },
-                          "reference" : "a466c5ba-b446-45aa-adc4-45db7378ae1e",
-                          "hasValidationError" : false,
-                          "id" : "customCustomTextAreaLimit"
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "f415a03a-4ca6-4319-a6b4-40f197a3c59f",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "disabled" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Vives en situación de discapacidad?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation",
+                                          "value" : "Selecciona..."
+                                        },
+                                        "availableValues" : {
+                                          "type" : "expression",
+                                          "value" : "catVivesEnSituacionDiscapacidad_query"
+                                        },
+                                        "displayedKey" : {
+                                          "type" : "constant",
+                                          "value" : "descripcion"
+                                        },
+                                        "returnedKey" : {
+                                          "type" : "constant"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.catVivesEstadoDiscapacidad"
+                                        }
+                                      },
+                                      "reference" : "0660f9f5-51a2-4d2f-8653-fc004d05ca73",
+                                      "hasValidationError" : false,
+                                      "id" : "pbSelect"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Qué tipo de discapacidad?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.tipoDiscapacidad"
+                                        }
+                                      },
+                                      "reference" : "02295947-fea5-4854-9b3a-9e73b5fb797d",
+                                      "hasValidationError" : false,
+                                      "id" : "customCustomTextAreaLimit"
+                                    }
+                                  ]
+                                ]
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 6,
+                                  "lg" : 6
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "11795ebb-dd1c-4fc0-8d2b-3ee6bdcaea0c",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "readOnly" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "minLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "maxLength" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Tienes algún problema de salud que necesite atención médica continua?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.problemasSaludAtencionContinua"
+                                        }
+                                      },
+                                      "reference" : "4c49b312-f18d-4e98-acdd-56581a152663",
+                                      "hasValidationError" : false,
+                                      "id" : "customCustomTextAreaLimit"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "disabled" : {
+                                          "type" : "constant",
+                                          "value" : true
+                                        },
+                                        "required" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "labelHidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "label" : {
+                                          "type" : "interpolation",
+                                          "value" : "¿Te consideras una persona saludable?"
+                                        },
+                                        "labelPosition" : {
+                                          "type" : "constant",
+                                          "value" : "top"
+                                        },
+                                        "labelWidth" : {
+                                          "type" : "constant",
+                                          "value" : 4
+                                        },
+                                        "placeholder" : {
+                                          "type" : "interpolation",
+                                          "value" : "Selecciona..."
+                                        },
+                                        "availableValues" : {
+                                          "type" : "expression",
+                                          "value" : "catPersonaSaludable_query"
+                                        },
+                                        "displayedKey" : {
+                                          "type" : "constant",
+                                          "value" : "descripcion"
+                                        },
+                                        "returnedKey" : {
+                                          "type" : "constant"
+                                        },
+                                        "value" : {
+                                          "type" : "variable",
+                                          "value" : "autodescripcionV2.catPersonaSaludable"
+                                        }
+                                      },
+                                      "reference" : "ce1dc24d-67ae-47b5-96ca-0ff5316997a6",
+                                      "hasValidationError" : false,
+                                      "id" : "pbSelect"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "<hr>"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "608a1c37-2059-4055-b617-917ae9e7242d",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "Terapias"
+                                  },
+                                  "level" : {
+                                    "type" : "constant",
+                                    "value" : "Level 4"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "center"
+                                  }
+                                },
+                                "reference" : "b5d6893d-2009-4947-ac39-6fcaab8f06f0",
+                                "hasValidationError" : false,
+                                "id" : "pbTitle"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "a3935f8d-7f04-4e70-9a81-ac8f6e2c2e3c",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "container",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 6,
+                                        "lg" : 6
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "repeatedCollection" : {
+                                          "type" : "variable",
+                                          "value" : ""
+                                        }
+                                      },
+                                      "reference" : "6b35773f-4a85-4c0b-8016-ceaf6eca8dd9",
+                                      "hasValidationError" : false,
+                                      "id" : "pbContainer",
+                                      "rows" : [
+                                        [
+                                          {
+                                            "type" : "component",
+                                            "dimension" : {
+                                              "xs" : 12,
+                                              "sm" : 12,
+                                              "md" : 12,
+                                              "lg" : 12
+                                            },
+                                            "propertyValues" : {
+                                              "cssClasses" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "hidden" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "disabled" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "required" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "labelHidden" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "label" : {
+                                                "type" : "interpolation",
+                                                "value" : "¿Has recibido alguna terapia?"
+                                              },
+                                              "labelPosition" : {
+                                                "type" : "constant",
+                                                "value" : "top"
+                                              },
+                                              "labelWidth" : {
+                                                "type" : "constant",
+                                                "value" : 4
+                                              },
+                                              "placeholder" : {
+                                                "type" : "interpolation",
+                                                "value" : "Selecciona..."
+                                              },
+                                              "availableValues" : {
+                                                "type" : "expression",
+                                                "value" : "catTerapia_query"
+                                              },
+                                              "displayedKey" : {
+                                                "type" : "constant",
+                                                "value" : "descripcion"
+                                              },
+                                              "returnedKey" : {
+                                                "type" : "constant"
+                                              },
+                                              "value" : {
+                                                "type" : "variable",
+                                                "value" : "autodescripcionV2.catRecibidoTerapia"
+                                              }
+                                            },
+                                            "reference" : "46580ac3-5e0f-4bfc-9f33-8d2645f37e5f",
+                                            "hasValidationError" : false,
+                                            "id" : "pbSelect"
+                                          }
+                                        ],
+                                        [
+                                          {
+                                            "type" : "component",
+                                            "dimension" : {
+                                              "xs" : 12,
+                                              "sm" : 12,
+                                              "md" : 12,
+                                              "lg" : 12
+                                            },
+                                            "propertyValues" : {
+                                              "cssClasses" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "hidden" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "readOnly" : {
+                                                "type" : "constant",
+                                                "value" : true
+                                              },
+                                              "required" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "minLength" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "maxLength" : {
+                                                "type" : "constant",
+                                                "value" : ""
+                                              },
+                                              "labelHidden" : {
+                                                "type" : "constant",
+                                                "value" : false
+                                              },
+                                              "label" : {
+                                                "type" : "interpolation",
+                                                "value" : "¿Qué tipo de terapia?"
+                                              },
+                                              "labelPosition" : {
+                                                "type" : "constant",
+                                                "value" : "top"
+                                              },
+                                              "labelWidth" : {
+                                                "type" : "constant",
+                                                "value" : 4
+                                              },
+                                              "value" : {
+                                                "type" : "variable",
+                                                "value" : "autodescripcionV2.hasRecibidoAlgunaTerapia"
+                                              }
+                                            },
+                                            "reference" : "a466c5ba-b446-45aa-adc4-45db7378ae1e",
+                                            "hasValidationError" : false,
+                                            "id" : "customCustomTextAreaLimit"
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            ]
+                          ]
                         }
                       ]
                     ]
@@ -5223,7 +5341,7 @@
                             },
                             "content" : {
                               "type" : "expression",
-                              "value" : "observaciones"
+                              "value" : "observacionesFiltro"
                             },
                             "columnsKey" : {
                               "type" : "constant",
@@ -5256,6 +5374,157 @@
                           "reference" : "aca3d580-53c2-49fc-9571-c1ebb790e148",
                           "hasValidationError" : false,
                           "id" : "pbTable"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<hr>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "4f6b56f6-59c1-4bb8-aa34-27bdb4efbf32",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "color-orange"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "Cursos recomendados"
+                            },
+                            "level" : {
+                              "type" : "constant",
+                              "value" : "Level 4"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "center"
+                            }
+                          },
+                          "reference" : "2903461f-89da-420d-bb4c-7b8e8095132f",
+                          "hasValidationError" : false,
+                          "id" : "pbTitle"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "inline" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Cursos recomendados"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catCursos_query"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedValues" : {
+                              "type" : "variable",
+                              "value" : "dataToSend2.testPsicomInput.custosRecomendados"
+                            }
+                          },
+                          "reference" : "78570692-be6d-4641-adeb-ac00f8b0a0df",
+                          "hasValidationError" : false,
+                          "id" : "pbChecklist"
                         }
                       ]
                     ]
@@ -5319,105 +5588,6 @@
                       },
                       "alignment" : {
                         "type" : "constant",
-                        "value" : "right"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "primary"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Submit task"
-                      },
-                      "assign" : {
-                        "type" : "constant",
-                        "value" : true
-                      },
-                      "url" : {
-                        "type" : "interpolation"
-                      },
-                      "responseStatusCode" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "dataToSend" : {
-                        "type" : "expression",
-                        "value" : "formOutput"
-                      },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
-                      },
-                      "taskId" : {
-                        "type" : "variable",
-                        "value" : "taskId"
-                      },
-                      "caseId" : {
-                        "type" : "variable",
-                        "value" : "caseId"
-                      }
-                    },
-                    "reference" : "44abe700-e575-47ef-9314-f502148f76f3",
-                    "hasValidationError" : false,
-                    "id" : "customCustomExecuteTaskById"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Guardar no tarea"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
                         "value" : "center"
                       },
                       "buttonStyle" : {
@@ -5442,7 +5612,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "dataToSend"
+                        "value" : "dataToSend2"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -5478,96 +5648,6 @@
                       }
                     },
                     "reference" : "07adf648-70a5-4b8e-ad29-6f62619e5fcf",
-                    "hasValidationError" : false,
-                    "id" : "pbButton"
-                  }
-                ],
-                [
-                  {
-                    "type" : "component",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "cuestionarioCompleto !== true"
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "Guardar y completar"
-                      },
-                      "alignment" : {
-                        "type" : "constant",
-                        "value" : "right"
-                      },
-                      "buttonStyle" : {
-                        "type" : "constant",
-                        "value" : "success"
-                      },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "Submit task"
-                      },
-                      "assign" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "url" : {
-                        "type" : "interpolation"
-                      },
-                      "responseStatusCode" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "dataToSend" : {
-                        "type" : "constant"
-                      },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
-                      }
-                    },
-                    "reference" : "84387358-3f3f-4d63-87bb-59cad440ade9",
                     "hasValidationError" : false,
                     "id" : "pbButton"
                   }
@@ -7159,7 +7239,7 @@
                         },
                         "observaciones" : {
                           "type" : "variable",
-                          "value" : "observaciones"
+                          "value" : "dataToSend2.testPsicomObservacionesInput"
                         }
                       },
                       "reference" : "6e1c4ab8-5c0c-4b18-9187-626851b69b34",
@@ -7244,9 +7324,43 @@
       "exposed" : false
     },
     "testPsicom" : {
-      "type" : "url",
+      "type" : "json",
       "value" : [
-        "../{{context.testPsicom_ref.link}}"
+        "{\r",
+        "    \"testPsicomInput\": {\r",
+        "        \"fechaEntrevista\": \"\",\r",
+        "        \"ajusteMedioFamiliar\": \"\",\r",
+        "        \"califAjusteMedioFamiliar\": \"\",\r",
+        "        \"ajusteEscolarPrevio\": \"\",\r",
+        "        \"califAjusteEscolarPrevio\": \"\",\r",
+        "        \"ajusteMedioSocial\": \"\",\r",
+        "        \"califAjusteMedioSocial\": \"\",\r",
+        "        \"ajusteEfectivo\": \"\",\r",
+        "        \"califAjusteAfectivo\": \"\",\r",
+        "        \"ajusteReligioso\": \"\",\r",
+        "        \"califAjusteReligioso\": \"\",\r",
+        "        \"ajusteExistencial\": \"\",\r",
+        "        \"califAjusteExistencial\": \"\",\r",
+        "        \"interpretacionINVP\": \"\",\r",
+        "        \"puntuacionINVP\": \"\",\r",
+        "        \"resumenSalud\": \"\",\r",
+        "        \"finalizado\": false,\r",
+        "        \"otroTipoAsistencia\": \"\",\r",
+        "        \"quienRealizoEntrevista\": \"\",\r",
+        "        \"quienIntegro\": \"\",\r",
+        "        \"hasParticipadoActividadesAyuda\": \"\",\r",
+        "        \"participacionActividadesVoluntaria\": \"\",\r",
+        "        \"fuentesInfluyeronDesicion\": \"\",\r",
+        "        \"personasInfluyeronDesicion\": \"\",\r",
+        "        \"problemasSaludAtencionContinua\": \"\",\r",
+        "        \"tipoDiscapacidad\": \"\",\r",
+        "        \"custosRecomendados\":[]\r",
+        "    },\r",
+        "    \"caseId\": 0,\r",
+        "    \"testPsicomObservacionesInput\": [],\r",
+        "    \"testPsicomRelativosInput\": [],\r",
+        "    \"testPsicomRasgosInput\": []\r",
+        "}"
       ],
       "exposed" : false
     },
@@ -7310,7 +7424,6 @@
         "\t$data.testPsicom.fientesInfluyeronDesicion = $data.testPsicom_fientesInfluyeronDesicion;\r",
         "\t$data.testPsicom.razonesIngreso = $data.testPsicom_razonesIngreso;\r",
         "\t$data.testPsicom.custosRecomendados = $data.testPsicom_custosRecomendados;\r",
-        "\r",
         "\treturn {\r",
         "\t\t//map testPsicomCarrerasRec variable to expected task contract input\r",
         "\t\ttestPsicomCarrerasRecInput: $data.testPsicomCarrerasRec !== undefined ? $data.testPsicomCarrerasRec.map( it => ({\r",
@@ -7322,7 +7435,7 @@
         "\t\t\tcomentarios: it.comentarios !== undefined ? it.comentarios : null\r",
         "\t\t})): [],\r",
         "\t\t//map testPsicomObservaciones variable to expected task contract input\r",
-        "\t\ttestPsicomObservacionesInput: $data.observaciones !== undefined ? $data.observaciones.map( it => ({\r",
+        "\t\ttestPsicomObservacionesInput: ($data.dataToSend2.testPsicomObservacionesInput==null)?($data.observaciones !== undefined ? $data.observaciones.map( it => ({\r",
         "// \t\ttestPsicomObservacionesInput: $data.testPsicomObservaciones !== undefined ? $data.testPsicomObservaciones.map( it => ({\r",
         "\t\t\tpersistenceId_string: it.persistenceId_string !== undefined ? it.persistenceId_string : null,\r",
         "\t\t\torden: it.orden !== undefined ? it.orden : null,\r",
@@ -7331,7 +7444,7 @@
         "\t\t\tadmitido: it.admitido !== undefined ? it.admitido : null,\r",
         "\t\t\tporcentajeBeca: it.porcentajeBeca !== undefined ? it.porcentajeBeca : null,\r",
         "\t\t\tporcentajeCredito: it.porcentajeCredito !== undefined ? it.porcentajeCredito : null\r",
-        "\t\t})) : [],\r",
+        "\t\t})) : []):$data.dataToSend2.testPsicomObservacionesInput,\r",
         "\t\t//map testPsicomRasgos variable to expected task contract input\r",
         "\t\ttestPsicomRasgosInput: $data.rasgos !== undefined ?  $data.rasgos.map( it => ({\r",
         "// \t\ttestPsicomRasgosInput:$data.testPsicomRasgos !== undefined ?  $data.testPsicomRasgos.map( it => ({\r",
@@ -7692,7 +7805,7 @@
     "getCalificacionesExamenes" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner={{detalleSolicitudBDM.idBanner}}"
+        "../API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner={{detalleSolicitudBDM.idBanner}}&persistenceid="
       ],
       "exposed" : false
     },
@@ -7990,13 +8103,7 @@
         "        \"califAjusteExistencial\": $data.testPsicom.califAjusteExistencial,\r",
         "        \"interpretacionINVP\": $data.testPsicom.interpretacionINVP,\r",
         "        \"conclusioneINVP\": $data.testPsicom.conclusioneINVP,\r",
-        "        \"recomendadoPDU\": \"\",\r",
-        "        \"recomendadoSSE\": \"\",\r",
-        "        \"recomendadoPDP\": \"\",\r",
-        "        \"recomendadoPIA\": \"\",\r",
-        "        \"recomendadoPCDA\": \"\",\r",
-        "        \"recomendadoPCA\": \"\",\r",
-        "        \"puntuacionINVP\": \"\",\r",
+        "        \"puntuacionINVP\": $data.testPsicom.puntuacionINVP,\r",
         "        \"resumenSalud\": $data.testPsicom.resumenSalud,\r",
         "        \"finalizado\": \"\",\r",
         "        \"catPersonaSaludable\": $data.autodescripcionV2.catPersonaSaludable,\r",
@@ -8008,25 +8115,17 @@
         "        \"quienIntegro\": $data.testPsicom.quienIntegro,\r",
         "        \"hasParticipadoActividadesAyuda\": $data.testPsicom.hasParticipadoActividadesAyuda,\r",
         "        \"participacionActividadesVoluntaria\": $data.testPsicom.participacionActividadesVoluntaria,\r",
-        "        // \"fientesInfluyeronDesicion\": [],\r",
-        "        // \"razonesIngreso\": [],\r",
-        "        \r",
         "        \"fuentesInfluyeronDesicion\": $data.testPsicom.fuentesInfluyeronDesicion,\r",
         "        \"personasInfluyeronDesicion\": $data.testPsicom.personasInfluyeronDesicion,\r",
         "        \"problemasSaludAtencionContinua\": $data.testPsicom.problemasSaludAtencionContinua,\r",
         "        \"tipoDiscapacidad\": $data.testPsicom.tipoDiscapacidad,\r",
         "        \"hasRecibidoAlgunaTerapia\": $data.testPsicom.hasRecibidoAlgunaTerapia,\r",
-        "        \r",
-        "        \"custosRecomendados\": [],\r",
-        "        // \"discapacidades\": [],\r",
-        "        // \"problemasSalud\": [],\r",
-        "        // \"tipoAsistencia\": []\r",
+        "        \"catRecibidoTerapia\":{},\r",
+        "        \"custosRecomendados\": $data.testPsicom.testPsicomInput.custosRecomendados\r",
         "    },\r",
-        "    \"testPsicomObservacionesInput\": [],\r",
-        "    \"testPsicomRelativosInput\": [],\r",
-        "    \"testPsicomCarrerasRecInput\": [],\r",
-        "    \"testPsicomRasgosInput\": $data.rasgos,\r",
-        "    // \"testPsicomTerapiasInput\": []\r",
+        "    \"testPsicomObservacionesInput\": $data.observaciones,\r",
+        "    \"testPsicomRelativosInput\": $data.relativos,\r",
+        "    \"testPsicomRasgosInput\": $data.rasgos\r",
         "};"
       ],
       "exposed" : false
@@ -8049,6 +8148,76 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatPersonaSaludable [com.anahuac.catalogos.CatPersonaSaludable]\",\"businessObjectName\":\"CatPersonaSaludable\",\"query\":{\"name\":\"getCatPersonaSaludable\",\"displayName\":\"getCatPersonaSaludable\"},\"id\":\"com.anahuac.catalogos.CatPersonaSaludable\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+      ],
+      "exposed" : false
+    },
+    "testPsicombkp" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.testPsicom_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "dataToSend2" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"caseId\": $data.caseId,\r",
+        "    \"testPsicomInput\": {\r",
+        "        \"fechaEntrevista\": $data.testPsicom.fechaEntrevista,\r",
+        "        \"ajusteMedioFamiliar\": $data.testPsicom.ajusteMedioFamiliar,\r",
+        "        \"califAjusteMedioFamiliar\": $data.testPsicom.califAjusteMedioFamiliar,\r",
+        "        \"ajusteEscolarPrevio\": $data.testPsicom.ajusteEscolarPrevio,\r",
+        "        \"califAjusteEscolarPrevio\": $data.testPsicom.califAjusteEscolarPrevio,\r",
+        "        \"ajusteMedioSocial\": $data.testPsicom.ajusteMedioSocial,\r",
+        "        \"califAjusteMedioSocial\": $data.testPsicom.califAjusteMedioSocial,\r",
+        "        \"ajusteEfectivo\": $data.testPsicom.ajusteEfectivo,\r",
+        "        \"califAjusteAfectivo\": $data.testPsicom.califAjusteAfectivo,\r",
+        "        \"ajusteReligioso\": $data.testPsicom.ajusteReligioso,\r",
+        "        \"califAjusteReligioso\": $data.testPsicom.califAjusteReligioso,\r",
+        "        \"ajusteExistencial\": $data.testPsicom.ajusteExistencial,\r",
+        "        \"califAjusteExistencial\": $data.testPsicom.califAjusteExistencial,\r",
+        "        \"interpretacionINVP\": $data.testPsicom.interpretacionINVP,\r",
+        "        \"conclusioneINVP\": $data.testPsicom.conclusioneINVP,\r",
+        "        \"puntuacionINVP\": $data.testPsicom.puntuacionINVP,\r",
+        "        \"resumenSalud\": $data.testPsicom.resumenSalud,\r",
+        "        \"finalizado\": \"\",\r",
+        "        \"catPersonaSaludable\": $data.autodescripcionV2.catPersonaSaludable,\r",
+        "        \"catVivesEstadoDiscapacidad\": $data.autodescripcionV2.catVivesEstadoDiscapacidad,\r",
+        "        \"catProblemaSaludAtencionContinua\": {},\r",
+        "        \"catRequieresAsistencia\": {},\r",
+        "        \"otroTipoAsistencia\": \"\",\r",
+        "        \"quienRealizoEntrevista\": $data.testPsicom.quienRealizoEntrevista,\r",
+        "        \"quienIntegro\": $data.testPsicom.quienIntegro,\r",
+        "        \"hasParticipadoActividadesAyuda\": $data.testPsicom.hasParticipadoActividadesAyuda,\r",
+        "        \"participacionActividadesVoluntaria\": $data.testPsicom.participacionActividadesVoluntaria,\r",
+        "        \"fuentesInfluyeronDesicion\": $data.testPsicom.fuentesInfluyeronDesicion,\r",
+        "        \"personasInfluyeronDesicion\": $data.testPsicom.personasInfluyeronDesicion,\r",
+        "        \"problemasSaludAtencionContinua\": $data.testPsicom.problemasSaludAtencionContinua,\r",
+        "        \"tipoDiscapacidad\": $data.testPsicom.tipoDiscapacidad,\r",
+        "        \"hasRecibidoAlgunaTerapia\": $data.testPsicom.hasRecibidoAlgunaTerapia,\r",
+        "        \"catRecibidoTerapia\":{},\r",
+        "        \"custosRecomendados\": $data.testPsicom.testPsicomInput.custosRecomendados,\r",
+        "        \"testc\":\"sd\"\r",
+        "    },\r",
+        "    \"testPsicomObservacionesInput\": $data.testPsicom.testPsicomObservacionesInput,\r",
+        "    \"testPsicomRelativosInput\": $data.relativos,\r",
+        "    \"testPsicomRasgosInput\": $data.rasgos\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "observacionesFiltro" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;",
+        "var valor=$data.observaciones;",
+        "var filtro=JSON.parse(JSON.stringify($data.dataToSend2.testPsicomObservacionesInput))",
+        "return filtro.filter(function(observacion){",
+        "    observacion.examen=(observacion.examen)?\"Sí\":\"No\";",
+        "    observacion.admitido=(observacion.admitido)?\"Sí\":\"No\";",
+        "    return true;",
+        "});"
       ],
       "exposed" : false
     }

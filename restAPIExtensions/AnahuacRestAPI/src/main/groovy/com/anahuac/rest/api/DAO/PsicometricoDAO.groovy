@@ -779,9 +779,6 @@ class PsicometricoDAO {
 			if(testPsicomInput.tipoDiscapacidad != null && testPsicomInput.tipoDiscapacidad != ""){
 				columnaUpdate = columnaUpdate + "tipoDiscapacidad = '"+testPsicomInput.tipoDiscapacidad+"', ";
 			}
-			if(testPsicomInput.resumenSalud != null && testPsicomInput.resumenSalud != ""){
-				columnaUpdate = columnaUpdate + "resumenSalud = '"+testPsicomInput.resumenSalud+"', ";
-			}
 			
 			if(testPsicomInput.fuentesInfluyeronDesicion != null && testPsicomInput.fuentesInfluyeronDesicion != ""){
 				columnaUpdate = columnaUpdate + "fuentesInfluyeronDesicion = '"+testPsicomInput.fuentesInfluyeronDesicion+"', ";
@@ -1103,6 +1100,12 @@ class PsicometricoDAO {
 					}
 				}
 			}
+			if(testPsicomInput.puntuacionINVP!= null) {
+				pstm = con.prepareStatement(Statements.UPDATE_PUNTUACION_INVP);
+				pstm.setString(1,testPsicomInput.puntuacionINVP+"")
+				pstm.setString(2, caseId);
+				pstm.executeUpdate();
+			}
 			/*==============================================TESTPSICOMETRICO_RELATIVOS FIN==============================================*/
 			
 			/*==============================================TESTPSICOMETRICO_CUSTOSRECOMEND INICIO==============================================*/
@@ -1228,13 +1231,13 @@ class PsicometricoDAO {
 					assert object.testPsicomObservacionesInput instanceof List;
 					for (def row: object.testPsicomObservacionesInput) {
 						pstm = con.prepareStatement(Statements.INSERT_TESTPSICOMETRICO_OBSERVACIONES);
-						pstm.setString(1, (row.orden !=null && row.orden !="") ? row.orden : "");
+						pstm.setString(1, (row.orden !=null && row.orden !="") ? row.orden.toString() : "");
 						pstm.setString(2, (row.universidad !=null && row.universidad !="") ? row.universidad : "");
 						pstm.setBoolean(3, (row.examen !=null && row.examen !="") ? row.examen : false);
 						pstm.setBoolean(4, (row.admitido !=null && row.admitido !="") ? row.admitido : false);
 						pstm.setBoolean(5, (row.vencido !=null && row.vencido !="") ? row.vencido : false);
-						pstm.setInt(6, (row.porcentajeBeca !=null && row.porcentajeBeca !="") ? row.porcentajeBeca : 0);
-						pstm.setInt(7, (row.porcentajeCredito !=null && row.porcentajeCredito !="") ? row.porcentajeCredito : 0);
+						pstm.setInt(6, (row.porcentajeBeca !=null && row.porcentajeBeca !="") ? Integer.parseInt(row.porcentajeBeca) : 0);
+						pstm.setInt(7, (row.porcentajeCredito !=null && row.porcentajeCredito !="") ? Integer.parseInt(row.porcentajeCredito) : 0);
 						pstm.setString(8, caseId);
 						pstm.executeUpdate();
 						contador++;
@@ -1260,91 +1263,201 @@ class PsicometricoDAO {
 		return resultado
 	}
 	
-	public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
-		Result resultado = new Result();
-		Boolean closeCon = false;
-		List<?> rows = new ArrayList<?>();
-		String strError = "";
-		Map<String, Object> objetoCompleto = new LinkedHashMap<String, Object>();
-		Map<String, Object> testPsicomInput = new LinkedHashMap<String, Object>();
-		List<?> testPsicomObservacionesInput = new ArrayList<?>();
-		List<?> testPsicomRelativosInput = new ArrayList<?>();
-		List<?> testPsicomRasgosInput = new ArrayList<?>();
-		
-		try {
-			def objetoAD = context.getApiClient().getDAO(AutodescripcionDAO.class);
-			List<Autodescripcion> lstAD = objetoAD.findByCaseId(Long.valueOf(caseId), 0, 9);
+public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
+    String errorinfo="";
+    try {
+    Result resultado = new Result();
+    Boolean closeCon = false;
+    List<?> rows = new ArrayList<?>();
+    String strError = "";
+    Map<String, Object> objetoCompleto = new LinkedHashMap<String, Object>();
+    Map<String, Object> testPsicomInput = new LinkedHashMap<String, Object>();
+    List<Map<String, Object>> testPsicomObservacionesInput = new ArrayList<Map<String, Object>>();
+    List<Map<String, Object>> testPsicomRelativosInput = new ArrayList<Map<String, Object>>();
+    List<Map<String, Object>> testPsicomRasgosInput = new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> custosRecomendados = new ArrayList<Map<String, Object>>();
+    errorinfo+="[1] Preparacion de variables "
+    try {
+        errorinfo+="[2] AutodescripcionDAO.findByCaseId "
+        closeCon = validarConexion();
+        errorinfo+="[3] Conexion "
+        pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID_V2);
+        pstm.setString(1, caseId);
+        rs = pstm.executeQuery();
+        
+        while(rs.next()) {
+            testPsicomInput = new LinkedHashMap<String, Object>();
+            testPsicomInput.put("fechaEntrevista", rs.getString("fechaEntrevista"));
+            testPsicomInput.put("ajusteMedioFamiliar", rs.getString("ajusteMedioFamiliar"));
+            testPsicomInput.put("califAjusteMedioFamiliar", rs.getString("califAjusteMedioFamiliar"));
+            testPsicomInput.put("ajusteEscolarPrevio", rs.getString("ajusteEscolarPrevio"));
+            testPsicomInput.put("califAjusteEscolarPrevio", rs.getString("califAjusteEscolarPrevio"));
+            testPsicomInput.put("ajusteMedioSocial", rs.getString("ajusteMedioSocial"));
+            testPsicomInput.put("califAjusteMedioSocial", rs.getString("califAjusteMedioSocial"));
+            testPsicomInput.put("ajusteEfectivo", rs.getString("ajusteEfectivo"));
+            testPsicomInput.put("califAjusteAfectivo", rs.getString("califAjusteAfectivo"));
+            testPsicomInput.put("ajusteReligioso", rs.getString("ajusteReligioso"));
+            testPsicomInput.put("califAjusteReligioso", rs.getString("califAjusteReligioso"));
+            testPsicomInput.put("ajusteExistencial", rs.getString("ajusteExistencial"));
+            testPsicomInput.put("califAjusteExistencial", rs.getString("califAjusteExistencial"));
+            testPsicomInput.put("interpretacionINVP", rs.getString("interpretacionINVP"));
+            testPsicomInput.put("puntuacionINVP", rs.getString("puntuacionINVP"));
+            testPsicomInput.put("resumenSalud", rs.getString("resumenSalud"));
+            testPsicomInput.put("finalizado", rs.getBoolean("finalizado"));
+            testPsicomInput.put("otroTipoAsistencia", rs.getString("otroTipoAsistencia"));
+            testPsicomInput.put("quienRealizoEntrevista", rs.getString("quienRealizoEntrevista"));
+            testPsicomInput.put("quienIntegro", rs.getString("quienIntegro"));
+            testPsicomInput.put("hasParticipadoActividadesAyuda", rs.getString("hasParticipadoActividadesAyuda"));
+            testPsicomInput.put("participacionActividadesVoluntaria", rs.getString("participacionActividadesVoluntaria"));
+            testPsicomInput.put("fuentesInfluyeronDesicion", rs.getString("fuentesInfluyeronDesicion"));
+            testPsicomInput.put("personasInfluyeronDesicion", rs.getString("personasInfluyeronDesicion"));
+            testPsicomInput.put("problemasSaludAtencionContinua", rs.getString("problemasSaludAtencionContinua"));
+            testPsicomInput.put("tipoDiscapacidad", rs.getString("tipoDiscapacidad"));
+            testPsicomInput.put("catrecibidoterapia_pid", rs.getLong("catrecibidoterapia_pid"));
+            testPsicomInput.put("catproblemasaludatencionco_pid", rs.getLong("catproblemasaludatencionco_pid"));
+            testPsicomInput.put("catrequieresasistencia_pid", rs.getLong("catrequieresasistencia_pid"));
+            testPsicomInput.put("catvivesestadodiscapacidad_pid", rs.getLong("catvivesestadodiscapacidad_pid"));
+            testPsicomInput.put("catpersonasaludable_pid", rs.getLong("catrecibidoterapia_pid"));
+			testPsicomInput.put("conclusioneINVP", rs.getString("conclusioneINVP"));
 			
-			closeCon = validarConexion();
-			pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID_V2);
-			pstm.setString(1, caseId);
-			rs = pstm.executeQuery();
+            
+        }
+        errorinfo+="[4] testPsicomInput lleno "
+        
+        objetoCompleto.put("caseId", caseId);
+		objetoCompleto.put("quienRealizoEntrevista", testPsicomInput.get("quienRealizoEntrevista"));
+		objetoCompleto.put("quienIntegro", testPsicomInput.get("quienIntegro"));
+		objetoCompleto.put("puntuacionINVP", testPsicomInput.get("puntuacionINVP"));
+		objetoCompleto.put("fechaEntrevista", testPsicomInput.get("fechaEntrevista"));
+		objetoCompleto.put("hasParticipadoActividadesAyuda", testPsicomInput.get("hasParticipadoActividadesAyuda"));
+		objetoCompleto.put("participacionActividadesVoluntaria", testPsicomInput.get("participacionActividadesVoluntaria"));
+		objetoCompleto.put("ajusteMedioFamiliar", testPsicomInput.get("ajusteMedioFamiliar"));
+		objetoCompleto.put("ajusteEscolarPrevio", testPsicomInput.get("ajusteEscolarPrevio"));
+		objetoCompleto.put("califAjusteMedioFamiliar", testPsicomInput.get("califAjusteMedioFamiliar"));
+		objetoCompleto.put("ajusteMedioSocial", testPsicomInput.get("ajusteMedioSocial"));
+		objetoCompleto.put("califAjusteEscolarPrevio", testPsicomInput.get("califAjusteEscolarPrevio"));
+		objetoCompleto.put("califAjusteMedioSocial", testPsicomInput.get("califAjusteMedioSocial"));
+		objetoCompleto.put("ajusteEfectivo", testPsicomInput.get("ajusteEfectivo"));
+		objetoCompleto.put("califAjusteAfectivo", testPsicomInput.get("califAjusteAfectivo"));
+		objetoCompleto.put("ajusteReligioso", testPsicomInput.get("ajusteReligioso"));
+		objetoCompleto.put("califAjusteReligioso", testPsicomInput.get("califAjusteReligioso"));
+		objetoCompleto.put("ajusteExistencial", testPsicomInput.get("ajusteExistencial"));
+		objetoCompleto.put("califAjusteExistencial", testPsicomInput.get("califAjusteExistencial"));
+		objetoCompleto.put("resumenSalud", testPsicomInput.get("resumenSalud"));
+		objetoCompleto.put("interpretacionINVP", testPsicomInput.get("interpretacionINVP"));
+		objetoCompleto.put("conclusioneINVP", testPsicomInput.get("conclusioneINVP"));
+		
+        pstm = con.prepareStatement("SELECT * FROM TestPsicometricoRelativos where caseid=?");
+			pstm.setString(1, caseId)
+			rs= pstm.executeQuery();
+			
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
 			
 			while(rs.next()) {
-				testPsicomInput = new LinkedHashMap<String, Object>();
-                testPsicomInput.put("fechaEntrevista", rs.getString("fechaEntrevista"));
-                testPsicomInput.put("ajusteMedioFamiliar", rs.getString("ajusteMedioFamiliar"));
-                testPsicomInput.put("califAjusteMedioFamiliar", rs.getString("califAjusteMedioFamiliar"));
-                testPsicomInput.put("ajusteEscolarPrevio", rs.getString("ajusteEscolarPrevio"));
-                testPsicomInput.put("califAjusteEscolarPrevio", rs.getString("califAjusteEscolarPrevio"));
-                testPsicomInput.put("ajusteMedioSocial", rs.getString("ajusteMedioSocial"));
-                testPsicomInput.put("califAjusteMedioSocial", rs.getString("califAjusteMedioSocial"));
-                testPsicomInput.put("ajusteEfectivo", rs.getString("ajusteEfectivo"));
-                testPsicomInput.put("califAjusteAfectivo", rs.getString("califAjusteAfectivo"));
-                testPsicomInput.put("ajusteReligioso", rs.getString("ajusteReligioso"));
-                testPsicomInput.put("califAjusteReligioso", rs.getString("califAjusteReligioso"));
-                testPsicomInput.put("ajusteExistencial", rs.getString("ajusteExistencial"));
-                testPsicomInput.put("califAjusteExistencial", rs.getString("califAjusteExistencial"));
-                testPsicomInput.put("interpretacionINVP", rs.getString("interpretacionINVP"));
-                testPsicomInput.put("puntuacionINVP", rs.getString("puntuacionINVP"));
-                testPsicomInput.put("resumenSalud", rs.getString("resumenSalud"));
-                testPsicomInput.put("finalizado", rs.getBoolean("finalizado"));
-                testPsicomInput.put("otroTipoAsistencia", rs.getString("otroTipoAsistencia"));
-                testPsicomInput.put("quienRealizoEntrevista", rs.getString("quienRealizoEntrevista"));
-                testPsicomInput.put("quienIntegro", rs.getString("quienIntegro"));
-                testPsicomInput.put("hasParticipadoActividadesAyuda", rs.getString("hasParticipadoActividadesAyuda"));
-                testPsicomInput.put("participacionActividadesVoluntaria", rs.getString("participacionActividadesVoluntaria"));
-                testPsicomInput.put("fuentesInfluyeronDesicion", rs.getString("fuentesInfluyeronDesicion"));
-                testPsicomInput.put("personasInfluyeronDesicion", rs.getString("personasInfluyeronDesicion"));
-                testPsicomInput.put("problemasSaludAtencionContinua", rs.getString("problemasSaludAtencionContinua"));
-                testPsicomInput.put("tipoDiscapacidad", rs.getString("tipoDiscapacidad"));
-				testPsicomInput.put("catrecibidoterapia_pid", rs.getLong("catrecibidoterapia_pid"));
-				testPsicomInput.put("catproblemasaludatencionco_pid", rs.getLong("catproblemasaludatencionco_pid"));
-				testPsicomInput.put("catrequieresasistencia_pid", rs.getLong("catrequieresasistencia_pid"));
-				testPsicomInput.put("catvivesestadodiscapacidad_pid", rs.getLong("catvivesestadodiscapacidad_pid"));
-				testPsicomInput.put("catpersonasaludable_pid", rs.getLong("catrecibidoterapia_pid"));
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i), rs.getString(i));
+				}
+				testPsicomRelativosInput.add(columns)
+			}
+			
+        errorinfo+="[5] TestPsicometricoRelativosDAO.findByCaseId "
+        objetoCompleto.put("testPsicomRelativosInput", testPsicomRelativosInput);
+
+        pstm = con.prepareStatement("SELECT * FROM TestPsicometricoRasgos where caseid=?");
+			pstm.setString(1, caseId)
+			rs= pstm.executeQuery();
+			
+			metaData = rs.getMetaData();
+			columnCount = metaData.getColumnCount();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i), rs.getString(i));
+				}
+				testPsicomRasgosInput.add(columns)
+			}
+			pstm = con.prepareStatement("SELECT * FROM TestPsicometricoObservaciones where caseid=?");
+			pstm.setString(1, caseId)
+			rs= pstm.executeQuery();
+			metaData = rs.getMetaData();
+			columnCount = metaData.getColumnCount();
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					if(metaData.getColumnLabel(i).equals("admitido") || metaData.getColumnLabel(i).equals("examen")|| metaData.getColumnLabel(i).equals("vencido")) {
+						columns.put(metaData.getColumnLabel(i), rs.getBoolean(i));
+					}else if(metaData.getColumnLabel(i).equals("porcentajebeca")) {
+						columns.put("porcentajeBeca", rs.getString(i));
+					}else if(metaData.getColumnLabel(i).equals("porcentajecredito")) {
+						columns.put("porcentajeCredito", rs.getString(i));
+					} else {
+						columns.put(metaData.getColumnLabel(i), rs.getString(i));
+					}
+				}
+				testPsicomObservacionesInput.add(columns)
+			}
+			Integer testPsicomInput_persistenceId=0
+			pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID);
+			pstm.setString(1, caseId);
+			rs = pstm.executeQuery();
+			if(rs.next()) {
+				testPsicomInput_persistenceId = rs.getInt("persistenceid");
+			}
+			pstm = con.prepareStatement("SELECT cc.* FROM testpsicometri_custosrecomend curso inner join catcursos cc on curso.catcursos_pid=cc.persistenceid where curso.testpsicometrico_pid=?");
+			pstm.setInt(1, testPsicomInput_persistenceId)
+			rs= pstm.executeQuery();
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				columns.put("persistenceId", rs.getLong("persistenceId"));
+				columns.put("persistenceId_string",rs.getString("persistenceId"))
+				columns.put("persistenceVersion",rs.getLong("persistenceVersion"))
+				columns.put("persistenceVersion_string",rs.getString("persistenceVersion"))
+				columns.put("clave",rs.getString("clave"))
+				columns.put("descripcion",rs.getString("descripcion"))
+				columns.put("fechaCreacion",rs.getString("fechaCreacion"))
+				columns.put("usuarioCreacion",rs.getString("usuarioCreacion"))
+				columns.put("isEliminado",rs.getBoolean("isEliminado"))
 				
+				custosRecomendados.add(columns)
 			}
-			
-			objetoCompleto.put("testPsicomInput", testPsicomInput);
-			objetoCompleto.put("caseId", caseId);
-			objetoCompleto.put("testPsicomObservacionesInput", testPsicomObservacionesInput);
-			def objetoRelativos = context.getApiClient().getDAO(TestPsicometricoRelativosDAO.class);
-			testPsicomRelativosInput = objetoRelativos.findByCaseId(caseId, 0, 99);
-			objetoCompleto.put("testPsicomRelativosInput", testPsicomRelativosInput);
-			def objetoRasgos = context.getApiClient().getDAO(TestPsicometricoRasgosDAO.class);
-			testPsicomRasgosInput = objetoRasgos.findByCaseId(caseId, 0, 99);
-			objetoCompleto.put("testPsicomRasgosInput", testPsicomRasgosInput);
-			
-			rows.add(objetoCompleto);
-			
-			strError += "Se obtuvieron los resultados | ";
-			resultado.setError_info(strError);
-			resultado.setData(rows);
-			resultado.setSuccess(true);
-		}catch(Exception e) {
-			resultado.setError_info(strError);
-			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
-		}finally {
-			if(closeCon) {
-				new DBConnect().closeObj(con, stm, rs, pstm)
-			}
-		}
-		
-		return resultado;
-	}
-	
+		testPsicomInput.put("custosRecomendados", custosRecomendados)
+		objetoCompleto.put("testPsicomInput", testPsicomInput);
+        errorinfo+="[6] TestPsicometricoRasgosDAO.findByCaseId "
+        objetoCompleto.put("testPsicomRasgosInput", testPsicomRasgosInput);
+		objetoCompleto.put("testPsicomObservacionesInput", testPsicomObservacionesInput);
+        rows.add(objetoCompleto);
+        
+        errorinfo+="[7] rows.add "
+        resultado.setError_info(strError);
+        resultado.setData(rows);
+        resultado.setSuccess(true);
+    }catch(Exception e) {
+        resultado.setError_info(strError);
+        resultado.setSuccess(false);
+        resultado.setError(e.getMessage());
+    }finally {
+        if(closeCon) {
+            new DBConnect().closeObj(con, stm, rs, pstm)
+        }
+    }
+    
+    return resultado;
+    }catch(Exception fullEx) {
+        Result result= new Result()
+        result.setError(fullEx.getMessage())
+        result.setSuccess(false)
+        result.setError_info(errorinfo)
+        return result
+    }
+}
+
 	public Result getPsicometricoCursos(Long persistenceid) {
 		Result resultado = new Result();
 		Boolean closeCon = false;

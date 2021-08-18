@@ -6937,6 +6937,84 @@ class SesionesDAO {
 	}
 	
 	
+	public Result PostUpdateDeleteCatEscalaINVP(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement(Statements.UPDATE_CATESCALAINVP, Statement.RETURN_GENERATED_KEYS)
+				pstm.setString(1, object.letra);
+				pstm.setString(2, object.equivalente);
+				pstm.setString(3,object.totc);
+				pstm.setBoolean(4,object.sexo);
+				pstm.setBoolean(5,object.isEliminado);
+				pstm.setInt(6,object.persistenceId);
+				
+				pstm.executeUpdate();
+				con.commit();
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result postGetIdSesionByIdBanner(String jsonData) {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			object.each{
+				pstm = con.prepareStatement("Select S.persistenceid as idsesion, S.nombre as nombresesion, DS.idbanner from sesiones as S inner join sesionaspirante as SA on SA.sesiones_pid = S.persistenceid inner join solicituddeadmision as SDA on SDA.correoelectronico = SA.username inner join detallesolicitud as DS on DS.caseid = SDA.caseid::varchar where DS.idbanner = ?");
+				pstm.setString(1, it.idbanner);
+				rs = pstm.executeQuery()
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while (rs.next()) {
+					Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+			}
+			
+			
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 	private static java.sql.Date convert(java.util.Date uDate) {
 		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
 		return sDate;

@@ -15,4 +15,13 @@ function PbTableCtrl($scope) {
   this.isSelected = function(row) {
     return angular.equals(row, $scope.properties.selectedRow);
   }
+    $scope.$watch('properties.objetoExamenes', function(value) {
+    if (angular.isDefined(value) && value !== null) {
+        if(value.invp!=""){
+            $scope.properties.puntuacionINVP=parseInt(value.invp);
+        }
+     
+    }
+  });
+  
 }

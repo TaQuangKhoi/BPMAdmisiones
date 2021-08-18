@@ -1,45 +1,22 @@
 function ($scope, $http) {
-    function initExtraction(){
-        let links = $scope.properties.bdmAutodescripcion.links;
-
-        for(let i = 0; i < links.length; i++){
-            if(links[i].rel === "catAreaBachillerato"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "catVivesEstadoDiscapacidad"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "catProblemaSaludAtencionContinua"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "discapacidades"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "problemasSalud"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "catReligion"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "catAreaLaboralDeInteres"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "informacionCarrera"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "sacramentos"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "catRequieresAsistencia"){
-                getBDM(links[i].href, links[i].rel);
-            } else if(links[i].rel === "tipoAsistencia"){
-                getBDM(links[i].href, links[i].rel);
+    
+    function getPsicom(){
+        debugger;
+        let url =  window.location.protocol + "//" + window.location.hostname + "/bonita/API/extension/AnahuacRestGet?url=getPsicometricoCompleto&p=0&c=10&caseId=" + $scope.properties.caseId;
+        
+        $http.get(url).success((success)=>{
+            console.log(success);
+            if(success.data.length > 0){
+                $scope.properties.testPsicom = success.data[0];   
             }
-        }
-    }
-
-    function getBDM(_href, _rel){
-        $http.get(_href).success(function(data){
-            $scope.properties.bdmAutodescripcionExtraido[_rel] = data;
-        }).error(function(){
-
+        }).error((err)=>{
+            alert("no se pudo obtener le psicom" +  JSON.stringify(err));
         });
     }
-
-    $scope.$watch("properties.bdmAutodescripcion", function(){
-        if($scope.properties.bdmAutodescripcion !== undefined){
-            initExtraction();
+    
+    $scope.$watch("properties.caseId", ()=>{
+        if($scope.properties.caseId){
+           getPsicom(); 
         }
-    })
+    });
 }

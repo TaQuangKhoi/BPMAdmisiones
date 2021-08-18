@@ -793,10 +793,11 @@ class ImportacionPAADAO {
 			closeCon = validarConexion();
 			
 			
-			pstm = con.prepareStatement(Statements.GET_PAA_BY_IDBANNER);
+			pstm = con.prepareStatement(persistenceid.equals("")?Statements.GET_PAA_BY_IDBANNER_SIN_PERSISTENCE:Statements.GET_PAA_BY_IDBANNER);
 			pstm.setString(1, idBanner)
-			pstm.setLong(2, Long.parseLong(persistenceid))
-			
+			if(!persistenceid.equals("")) {
+				pstm.setLong(2, Long.parseLong(persistenceid))
+			}
 			rs= pstm.executeQuery();
 			
 			

@@ -3880,7 +3880,8 @@ class CatalogosDAO {
 					row.setFechaCreacion(rs.getString("fechacreacion"));
 					row.setIsEliminado(rs.getBoolean("isEliminado"));
 					row.setPersistenceId(rs.getLong("PERSISTENCEID"));
-					row.setPersistenceVersion(rs.getLong("persistenceVersion"));
+					row.setPersistenceVersion(rs.getString("persistenceVersion") == null ? null:rs.getLong("persistenceVersion"));
+					row.setUsuarioCreacion(rs.getString("usuariocreacion"));
 				}else{
 					row.setClave(rs.getString("clave"))
 					if (object.isOrden) { row.setOrden(rs.getString("orden")) }

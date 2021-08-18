@@ -257,6 +257,7 @@ class IndexGet implements RestApiController {
 					}
 				break;
 				case "getPsicometricoCompleto":
+				try{
 					String caseId = request.getParameter "caseId";
 					result = new PsicometricoDAO().getPsicometricoCompleto(caseId, context);
 					if (result.isSuccess()) {
@@ -264,6 +265,13 @@ class IndexGet implements RestApiController {
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+					
 					break;
 				case "getCatPeriodoActivoFechaEspecifica":
 					String tipo = request.getParameter "tipo";
@@ -701,7 +709,13 @@ class IndexGet implements RestApiController {
 				
 				case "getAspirantePAA":
 					String idbanner = request.getParameter "idbanner";
-					String persistenceid = request.getParameter "persistenceid";
+					String persistenceid = ""
+					try{
+						persistenceid = request.getParameter "persistenceid";
+					}catch(Exception ex1){
+						persistenceid=""
+					}
+					
 					
 					result = new ImportacionPAADAO().getAspirantePAA(idbanner,persistenceid,context);
 					responseBuilder.withMediaType("application/json");

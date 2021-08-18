@@ -48,7 +48,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     $scope.agregarOvservacion = function(){
         if($scope.validarObservacion()){
-            swal("Si", "Si se puede insertar la observacion", "success");
+           $scope.properties.observaciones.push(angular.copy($scope.properties.nuevaObservacion));
+           modalService.close();
         }
     }
 

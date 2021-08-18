@@ -29,7 +29,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Close modal') {
             closeModal(true);
         } else if ($scope.properties.url) {
-
+            debugger;
             if ($scope.properties.formInput.trim() === "") {
                 swal("Aviso!", "Debe agregar un comentario!", "warning");
             } else {
