@@ -6984,8 +6984,8 @@ class SesionesDAO {
 			def object = jsonSlurper.parseText(jsonData);
 			
 			object.each{
-				pstm = con.prepareStatement("Select S.persistenceid as idsesion, S.nombre as nombresesion, DS.idbanner from sesiones as S inner join sesionaspirante as SA on SA.sesiones_pid = S.persistenceid inner join solicituddeadmision as SDA on SDA.correoelectronico = SA.username inner join detallesolicitud as DS on DS.caseid = SDA.caseid::varchar where DS.idbanner = ?");
-				pstm.setString(1, it.idbanner);
+				pstm = con.prepareStatement("Select S.persistenceid as idsesion, S.nombre as nombresesion, DS.idbanner from sesiones as S inner join sesionaspirante as SA on SA.sesiones_pid = S.persistenceid inner join solicituddeadmision as SDA on SDA.correoelectronico = SA.username inner join detallesolicitud as DS on DS.caseid = SDA.caseid::varchar where DS.idbanner = ? order by S.persistenceid Desc limit 1");
+				pstm.setString(1, it.idbanner.toString());
 				rs = pstm.executeQuery()
 				ResultSetMetaData metaData = rs.getMetaData();
 				int columnCount = metaData.getColumnCount();
