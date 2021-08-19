@@ -76,7 +76,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if ($scope.properties.valoresSolicitante.countrechazos === null) {
                     $scope.properties.JSONTransferencia.countrechazos = 1;
                 } else {
-                    $scope.properties.JSONTransferencia.countrechazos = $scope.properties.valoresSolicitante.countrechazos + 1;
+                    $scope.properties.JSONTransferencia.countrechazos = parseInt($scope.properties.valoresSolicitante.countrechazos) + 1;
                 }
 
                 console.log($scope.properties.JSONTransferencia);

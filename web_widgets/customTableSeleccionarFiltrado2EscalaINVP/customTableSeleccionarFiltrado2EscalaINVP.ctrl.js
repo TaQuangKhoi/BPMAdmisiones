@@ -45,9 +45,16 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
 
     function startProcess() {
         if ($scope.properties.processId) {
-            var prom = doRequestDelete('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                localStorageService.delete($window.location.href);
-            });
+            if($scope.properties.selectedRow["persistenceIdVersion"] != null){
+                var prom = doRequestDelete('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                    localStorageService.delete($window.location.href);
+                });
+            }else{
+                var prom = doRequestDelete2('POST', '/bonita/API/extension/AnahuacRest?url=PostUpdateDeleteCatEscalaINVP&p=0&c=100', $scope.properties.userId).then(function() {
+                    localStorageService.delete($window.location.href);
+                });
+            }
+            
 
         } else {
             $log.log('Impossible to retrieve the process definition id value from the URL');
@@ -84,6 +91,26 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             method: method,
             url: url,
             data: angular.copy($scope.properties.dataToSend),
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                doRequest("POST", $scope.properties.urlPost);
+                swal("!Eliminado correctamente!", "", "success");
+
+            })
+            .error(function(data, status) {
+
+            });
+    }
+    
+    function doRequestDelete2(method, url, params) {
+
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy($scope.properties.dataToSend["lstCatEscalaINVPInput"][0]),
             params: params
         };
 

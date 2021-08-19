@@ -29,3 +29,8 @@ function conversionEscala(jsonArray,letra,equivalente){
     
     return convert;
 }
+
+
+function ocultarTitulo(nombreTitulo){
+     document.getElementById(nombreTitulo).style.display = "none";
+}

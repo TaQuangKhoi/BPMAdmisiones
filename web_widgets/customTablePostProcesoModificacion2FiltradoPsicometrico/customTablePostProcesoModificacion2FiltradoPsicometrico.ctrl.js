@@ -1,6 +1,37 @@
-function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
+function PbTableCtrl($scope, $http, $window, blockUI) {
 
     this.isArray = Array.isArray;
+    
+    $scope.redirecc = function(row){
+        
+        let str = {
+            "username":row.correoelectronico,
+            "idbanner":row.idbanner
+        };
+        var req = {
+            method: "POST",
+            url: "/bonita/API/extension/AnahuacRest?url=postBitacoraSesiones&p=0&c=10",
+            data: str,
+        };
+         return $http(req)
+            .success(function (data, status) {
+                if(data.data.length < 1){
+                    swal("¡El aspirante aún no ha seleccionado una sesión!","","info")
+                }else{
+                    var url = "/portal/resource/app/administrativo/BitacoraSesiones/content/?username="+row.correoelectronico+"&nombre="+`${row.apellidopaterno}\xa0${row.apellidomaterno}\xa0${row.primernombre}\xa0${row.segundonombre}`+"&idbanner="+row.idbanner;
+                    window.open(url, '_blank');
+                }
+            })
+            .error(function (data, status) {
+                //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function () {
+                
+                blockUI.stop();
+            });
+        
+        
+    }
 
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
@@ -36,68 +67,14 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function() {
+
                 blockUI.stop();
             });
     }
-    ///API/bpm/process/4774666324165829920?d=deployedBy&n=openCases&n=failedCases
-    $scope.preAsignarTarea = function(rowData) {
-
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                rowData.taskId = data[0].id;
-                rowData.taskName = data[0].name;
-                rowData.processId = data[0].processId;
-                //rowData.taskName=
-                $scope.preProcesoAsignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-    }
-    $scope.preProcesoAsignarTarea = function(rowData) {
-
-        var req = {
-            method: "GET",
-            url: `/API/bpm/process/${rowData.processId}?d=deployedBy&n=openCases&n=failedCases`
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                rowData.processName = data.name;
-                rowData.processVersion = data.version;
-                $scope.asignarTarea(rowData);
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
-    }
-
-    /*$scope.asignarTarea=function(rowData) {
-        var req = {
-            method: "PUT",
-            url: "/bonita/API/bpm/humanTask/"+rowData.taskId,
-            data: angular.copy({"assigned_id":""})
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                redireccionarTarea(rowData);
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
-    }*/
 
     $scope.asignarTarea = function(rowData) {
-
+        var page = "verSolicitudAdmisionADV2";
+        
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -105,38 +82,45 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         return $http(req)
             .success(function(data, status) {
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
+
+            blockUI.start();
+            var req2 = {
+                method: "GET",
+                url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+            };
+
+            $http(req2)
+                .success(function(data2, status) {
+                    
+                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+                
+                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                if (data2.length > 0) {
+                    if(parseFloat(data2[0].processId.version)<1.51){
+                        page = "verSolicitudAdmision";
+                    }
+                    url = url.replace("[PAGE]",page);
+                    url = url.replace("[TASKID]", data2[0].id);
+                } else {
+                    url = url.replace("[TASKID]", "");
+                }
+                url = url.replace("[CASEID]", rowData.caseid);
+                //window.top.location.href = url;
                 window.open(url, '_blank');
+                })
+                .error(function(data, status) {
+                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                })
+                .finally(function() {
+
+                    blockUI.stop();
+                });
             })
             .error(function(data, status) {
                 console.error(data);
             })
             .finally(function() {});
     }
-
-    function redireccionarTarea(rowData) {
-        var req = {
-            method: "PUT",
-            url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
-            data: angular.copy({ "assigned_id": $scope.properties.userId })
-        };
-
-        return $http(req)
-            .success(function(data, status) {
-                var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[NOMBREPROCESO]", rowData.processName);
-                url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
-                url = url.replace("[NOMBRETAREA]", rowData.taskName);
-                url = url.replace("[TASKID]", rowData.taskId);
-                $window.location.assign(url);
-            })
-            .error(function(data, status) {
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
-            })
-            .finally(function() {});
-    }
-
     $scope.isenvelope = false;
     $scope.selectedrow = {};
     $scope.mensaje = "";
@@ -150,10 +134,10 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         $scope.selectedrow = {};
     }
     $scope.sendMail = function(row, mensaje) {
-        if (row.catCampus.grupoBonita == undefined) {
+        if (row.grupobonita == undefined) {
             for (var i = 0; i < $scope.lstCampus.length; i++) {
-                if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
-                    row.catCampus.grupoBonita = $scope.lstCampus[i].valor;
+                if ($scope.lstCampus[i].descripcion == row.campus) {
+                    row.grupobonita = $scope.lstCampus[i].valor;
                 }
             }
         }
@@ -161,8 +145,8 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
-                "campus": row.catCampus.grupoBonita,
-                "correo": row.correoElectronico,
+                "campus": row.grupobonita,
+                "correo": row.correoelectronico,
                 "codigo": "recordatorio",
                 "isEnviar": true,
                 "mensaje": mensaje
@@ -190,6 +174,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             doRequest("POST", $scope.properties.urlPost);
         }
         console.log($scope.properties.dataToSend);
+
     });
     $scope.setOrderBy = function(order) {
         if ($scope.properties.dataToSend.orderby == order) {
@@ -219,6 +204,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
+
 
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
@@ -291,14 +277,13 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         doRequest("POST", $scope.properties.urlPost);
     }
-
     $scope.getCampusByGrupo = function(campus) {
         var retorno = "";
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                if ($scope.lstMembership.length == 2) {
-                    $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor
+                if ($scope.lstCampusByUser.length == 2) {
+                    $scope.properties.campusSeleccionado = $scope.properties.lstCampus[i].grupoBonita
                 }
             } else if (campus == "Todos los campus") {
                 retorno = campus
@@ -330,21 +315,24 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
     $scope.lstCampusByUser = [];
     $scope.campusByUser = function() {
         var resultado = [];
+        // var isSerua = true;
         resultado.push("Todos los campus")
         for (var x in $scope.lstMembership) {
             if ($scope.lstMembership[x].group_id.name.indexOf("CAMPUS") != -1) {
                 let i = 0;
-                resultado.forEach(value =>{
-                    if(value == $scope.lstMembership[x].group_id.name){
-                       i++;
+                resultado.forEach(value => {
+                    if (value == $scope.lstMembership[x].group_id.name) {
+                        i++;
                     }
                 });
-                if(i === 0){
-                   resultado.push($scope.lstMembership[x].group_id.name);  
+                if (i === 0) {
+                    resultado.push($scope.lstMembership[x].group_id.name);
                 }
-                //resultado.push($scope.lstMembership[x].group_id.name);
             }
         }
+        // if(isSerua){
+        //     resultado.push("Todos los campus")
+        // }
         $scope.lstCampusByUser = resultado;
     }
     $scope.filtroCampus = ""
@@ -404,7 +392,6 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         }
 
     }
-
     $scope.sizing = function() {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
@@ -440,47 +427,40 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             });
     }
 
+    $scope.Transferencia = function(row) {
+        let sedeExamen;
+        if (row.transferencia == row.campus) {
+            sedeExamen = "MISMO CAMPUS"
+        } else {
+            sedeExamen = "TRANSFERENCIA"
+        }
+        return sedeExamen;
+    }
+
+
     $scope.getCatCampus();
 
-    this.showdatos = function(row) {
-        $scope.properties.datosTransferencia = angular.copy(row);
-        $scope.properties.jsonOriginal = JSON.parse(row.valorOriginal);
-        $scope.properties.jsonCambio = JSON.parse(row.valorCambio);
-        openModal($scope.properties.modalid);
-    }
+    $scope.viewDownloadSolicitud = function(rowData) {
 
-    function openModal(modalid) {
+        var req = {
+            method: "GET",
+            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+        };
 
-        modalService.open(modalid);
-    }
-
-
-    $scope.openModal = function(row) {
-
-        if (parseInt(row.countrechazos) >= 1) {
-            Swal.fire({
-                title: `Aviso`,
-                text: "El aspirante ya fue reactivado anteriormente, ¿Desea continuar?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $scope.properties.datosAspirante = angular.copy(row);
-                    $scope.properties.jsonOriginal = angular.copy(row);
-                    modalService.open($scope.properties.modalid);
+        return $http(req)
+            .success(function(data, status) {
+                var url = "/apps/administrativo/descargarSolicitud/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                if (data.length > 0) {
+                    url = url.replace("[TASKID]", data[0].id);
+                } else {
+                    url = url.replace("[TASKID]", "");
                 }
+                url = url.replace("[CASEID]", rowData.caseid);
+                window.open(url, '_blank');
             })
-            $scope.$apply();
-        } else {
-            $scope.properties.datosAspirante = angular.copy(row);
-            $scope.properties.jsonOriginal = angular.copy(row);
-            modalService.open($scope.properties.modalid);
-        }
-
+            .error(function(data, status) {
+                console.error(data);
+            })
+            .finally(function() {});
     }
-
 }

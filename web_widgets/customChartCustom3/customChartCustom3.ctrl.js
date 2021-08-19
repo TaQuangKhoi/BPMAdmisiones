@@ -78,11 +78,33 @@ function PbChartCtrl($scope, $log, uiTranslateFilter) {
                       }
                   }
               },
+              x3:{
+                position:'top',
+                ticks:{
+                  padding:10
+                }
+              },
               y:{
                   min:30,
+                  max:120,
                   ticks:{
-                    padding:20
+                    maxTicksLimit:20,
+                    padding:5,
+                    stepSize: 5,
+                    
                   }
+                  
+              },
+               y2:{
+                  position:'right',
+                  min:30,
+                  max:120,
+                  ticks:{
+                    maxTicksLimit:20,
+                    padding:5,
+                    stepSize: 5
+                  }
+                  
               }
             },
             elements: {

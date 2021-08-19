@@ -146,6 +146,37 @@ function startProcess() {
                 vm.busy = false;
             });
     }
+    
+    function doRequest2(method, url, params) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy($scope.properties.dataToSend[$scope.properties.nombreTabla][0]),
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.properties.dataFromSuccess = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromError = undefined;
+                //notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
+                if ($scope.properties.targetUrlOnSuccess && method !== 'GET') {
+                    redirectIfNeeded();
+                }
+                closeModal($scope.properties.closeOnSuccess);
+            })
+            .error(function(data, status) {
+                $scope.properties.dataFromError = data;
+                $scope.properties.responseStatusCode = status;
+                $scope.properties.dataFromSuccess = undefined;
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
 
     function redirectIfNeeded() {
         var iframeId = $window.frameElement ? $window.frameElement.id : null;
@@ -217,14 +248,24 @@ function startProcess() {
             .success(function(data, status) {
                 if (data.data[0]) {
                     if ($scope.properties.processId) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                            doRequest("GET", $scope.properties.url).then(function() {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                            });
-                            localStorageService.delete($window.location.href);
-                        });
-
+                        if(funcion === 'agregar' || $scope.properties.dataToChange2.persistenceIdVersion != null ){
+                           var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            }); 
+                        }else{
+                            var prom = doRequest2('POST', '/bonita/API/extension/AnahuacRest?url=PostUpdateDeleteCatEscalaINVP&p=0&c=100', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            }); 
+                        }
+                        
                     } else {
                         $log.log('Impossible to retrieve the process definition id value from the URL');
                     }
