@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "verAutodescripcionV2",
   "name" : "verAutodescripcionV2",
-  "lastUpdate" : 1629401586300,
+  "lastUpdate" : 1629415219102,
   "rows" : [
     [
       {
@@ -2968,7 +2968,7 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 6,
+          "md" : 12,
           "lg" : 12
         },
         "propertyValues" : {
@@ -3045,7 +3045,7 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 6,
+          "md" : 12,
           "lg" : 12
         },
         "propertyValues" : {
@@ -6605,6 +6605,58 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "92652bd8-de0c-4a2e-9301-f275943eb183",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
                 "readOnly" : {
                   "type" : "constant",
                   "value" : true
@@ -6723,7 +6775,7 @@
                 },
                 "hidden" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "readOnly" : {
                   "type" : "constant",
@@ -6785,10 +6837,6 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
-                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
@@ -6801,13 +6849,17 @@
                   "type" : "constant",
                   "value" : ""
                 },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
                 "labelHidden" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Qué o quiénes influyeron en la elección de tu carrera?"
+                  "value" : "¿Has recibido Orientación Vocacional?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -6817,14 +6869,31 @@
                   "type" : "constant",
                   "value" : 4
                 },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
                 "value" : {
                   "type" : "variable",
-                  "value" : "autodescripcionV2.personasInfluyeronDesicion"
+                  "value" : "autodescripcionV2.catOrientacionVocacional.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
                 }
               },
-              "reference" : "7739feb9-6cc6-4509-ad3e-d80821d7d533",
+              "reference" : "f7667f20-8601-485a-8b09-8b82ffc3c8e5",
               "hasValidationError" : false,
-              "id" : "pbTextarea"
+              "id" : "pbInput"
             }
           ]
         ]
@@ -7130,6 +7199,10 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
                 "required" : {
                   "type" : "constant",
                   "value" : false
@@ -7142,17 +7215,13 @@
                   "type" : "constant",
                   "value" : ""
                 },
-                "readOnly" : {
-                  "type" : "constant",
-                  "value" : true
-                },
                 "labelHidden" : {
                   "type" : "constant",
                   "value" : false
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "¿Has recibido Orientación Vocacional?"
+                  "value" : "¿Qué o quiénes influyeron en la elección de tu carrera?"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -7162,31 +7231,14 @@
                   "type" : "constant",
                   "value" : 4
                 },
-                "placeholder" : {
-                  "type" : "interpolation"
-                },
                 "value" : {
                   "type" : "variable",
-                  "value" : "autodescripcionV2.catOrientacionVocacional.descripcion"
-                },
-                "type" : {
-                  "type" : "constant",
-                  "value" : "text"
-                },
-                "min" : {
-                  "type" : "constant"
-                },
-                "max" : {
-                  "type" : "constant"
-                },
-                "step" : {
-                  "type" : "constant",
-                  "value" : 1
+                  "value" : "autodescripcionV2.personasInfluyeronDesicion"
                 }
               },
-              "reference" : "f7667f20-8601-485a-8b09-8b82ffc3c8e5",
+              "reference" : "7739feb9-6cc6-4509-ad3e-d80821d7d533",
               "hasValidationError" : false,
-              "id" : "pbInput"
+              "id" : "pbTextarea"
             }
           ]
         ]
