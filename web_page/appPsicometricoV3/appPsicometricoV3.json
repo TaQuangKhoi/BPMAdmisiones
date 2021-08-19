@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1629308736421,
+  "lastUpdate" : 1629336415486,
   "rows" : [
     [
       {
@@ -123,7 +123,7 @@
                 },
                 "targetUrl" : {
                   "type" : "expression",
-                  "value" : "\"../portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=\" + solicitudDeAdmisionBDM.correoElectronico"
+                  "value" : "\"/portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=\" + solicitudDeAdmisionBDM.correoElectronico"
                 },
                 "pageToken" : {
                   "type" : "constant"
@@ -249,6 +249,14 @@
                 "caseId" : {
                   "type" : "variable",
                   "value" : "caseId"
+                },
+                "idbanner" : {
+                  "type" : "variable",
+                  "value" : "detalleSolicitudBDM.idBanner"
+                },
+                "sesionid" : {
+                  "type" : "variable",
+                  "value" : "sesionid"
                 }
               },
               "reference" : "d56e9c0b-9eaa-4906-b6d3-bc26f01fd3ec",
@@ -755,7 +763,7 @@
                                         },
                                         "content" : {
                                           "type" : "expression",
-                                          "value" : "relativos"
+                                          "value" : "dataToSend2.testPsicomRelativosInput"
                                         },
                                         "columnsKey" : {
                                           "type" : "constant",
@@ -796,7 +804,7 @@
                                         },
                                         "relativosBDM" : {
                                           "type" : "variable",
-                                          "value" : "testPsicomRelativos"
+                                          "value" : "dataToSend2.testPsicomRelativosInput"
                                         }
                                       },
                                       "reference" : "ca27826b-1fae-4033-8c40-eabde40ae392",
@@ -1427,7 +1435,7 @@
                                   },
                                   "rasgosBDM" : {
                                     "type" : "variable",
-                                    "value" : "testPsicomRasgos"
+                                    "value" : "dataToSend2.testPsicomRasgosInput"
                                   }
                                 },
                                 "reference" : "52744f43-7ad6-493a-bd1e-dfea9e795c03",
@@ -4727,13 +4735,42 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
-                                  "disabled" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "label" : {
+                                  "text" : {
                                     "type" : "interpolation",
                                     "value" : "Consulta INVP"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "targetUrl" : {
+                                    "type" : "expression",
+                                    "value" : "\"/portal/resource/app/administrativo/ResultadoINVP/content/?idbanner=\" + detalleSolicitudBDM.idBanner + \"&idsesion=\" + sesionid"
+                                  },
+                                  "pageToken" : {
+                                    "type" : "constant"
+                                  },
+                                  "processName" : {
+                                    "type" : "constant"
+                                  },
+                                  "processVersion" : {
+                                    "type" : "constant"
+                                  },
+                                  "taskId" : {
+                                    "type" : "constant"
+                                  },
+                                  "caseId" : {
+                                    "type" : "constant"
+                                  },
+                                  "target" : {
+                                    "type" : "constant",
+                                    "value" : "_self"
+                                  },
+                                  "appToken" : {
+                                    "type" : "constant"
+                                  },
+                                  "urlParams" : {
+                                    "type" : "constant"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -4742,61 +4779,11 @@
                                   "buttonStyle" : {
                                     "type" : "constant",
                                     "value" : "primary"
-                                  },
-                                  "action" : {
-                                    "type" : "constant",
-                                    "value" : "Open modal"
-                                  },
-                                  "assign" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "url" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "responseStatusCode" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "dataToSend" : {
-                                    "type" : "constant"
-                                  },
-                                  "dataFromSuccess" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "closeOnSuccess" : {
-                                    "type" : "constant",
-                                    "value" : false
-                                  },
-                                  "dataFromError" : {
-                                    "type" : "variable",
-                                    "value" : ""
-                                  },
-                                  "targetUrlOnSuccess" : {
-                                    "type" : "interpolation"
-                                  },
-                                  "collectionToModify" : {
-                                    "type" : "variable"
-                                  },
-                                  "modalId" : {
-                                    "type" : "constant",
-                                    "value" : "modalINVP"
-                                  },
-                                  "collectionPosition" : {
-                                    "type" : "constant",
-                                    "value" : "Last"
-                                  },
-                                  "valueToAdd" : {
-                                    "type" : "constant"
-                                  },
-                                  "removeItem" : {
-                                    "type" : "variable"
                                   }
                                 },
-                                "reference" : "bb9829ca-368f-4bff-ae87-9f297ff261c6",
+                                "reference" : "4af757b9-0cb4-4b6e-bfc4-5ae1cc52c423",
                                 "hasValidationError" : false,
-                                "id" : "pbButton"
+                                "id" : "pbLink"
                               }
                             ],
                             [
@@ -8149,8 +8136,8 @@
         "        \"testc\":\"sd\"\r",
         "    },\r",
         "    \"testPsicomObservacionesInput\": $data.testPsicom.testPsicomObservacionesInput,\r",
-        "    \"testPsicomRelativosInput\": $data.relativos,\r",
-        "    \"testPsicomRasgosInput\": $data.rasgos\r",
+        "    \"testPsicomRelativosInput\":  $data.testPsicom.testPsicomRelativosInput,\r",
+        "    \"testPsicomRasgosInput\":  $data.testPsicom.testPsicomRasgosInput\r",
         "};"
       ],
       "exposed" : false
@@ -8158,7 +8145,6 @@
     "observacionesFiltro" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
         "var valor=$data.observaciones;",
         "var filtro=JSON.parse(JSON.stringify($data.dataToSend2.testPsicomObservacionesInput))",
         "return filtro.filter(function(observacion){",
@@ -8166,6 +8152,13 @@
         "    observacion.admitido=(observacion.admitido)?\"Sí\":\"No\";",
         "    return true;",
         "});"
+      ],
+      "exposed" : false
+    },
+    "sesionid" : {
+      "type" : "constant",
+      "value" : [
+        "0"
       ],
       "exposed" : false
     }

@@ -2494,7 +2494,7 @@ class ListadoDAO {
 				if (object.estatusSolicitud.equals("Solicitud lista roja")) {
 					where += " AND sda.ESTATUSSOLICITUD='Solicitud lista roja'"
 				} else if (object.estatusSolicitud.equals("Solicitud rechazada")) {
-					where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada'"
+					where += " AND sda.ESTATUSSOLICITUD='Solicitud rechazada' "
 				} else if (object.estatusSolicitud.equals("Nuevas solicitudes")) {
 					where += " AND (sda.ESTATUSSOLICITUD='Solicitud modificada' OR sda.ESTATUSSOLICITUD='Solicitud recibida')"
 				} else if (object.estatusSolicitud.equals("Solicitud en proceso")) {

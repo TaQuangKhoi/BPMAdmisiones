@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgInfoSolicitudPsicom",
   "name" : "frgInfoSolicitudPsicom",
-  "lastUpdate" : 1629221165328,
+  "lastUpdate" : 1629321741378,
   "rows" : [
     [
       {
@@ -486,8 +486,9 @@
     "edad" : {
       "type" : "expression",
       "value" : [
+        "debugger;",
         "let dateNow = new Date();",
-        "let dateBirth = new Date($data.fechaNacimiento);",
+        "let dateBirth = new Date($data.fechaNacimiento.split(\"/\")[2],$data.fechaNacimiento.split(\"/\")[1],$data.fechaNacimiento.split(\"/\")[0]);",
         "",
         "let msDifference = dateNow.getTime() - dateBirth.getTime();",
         "",

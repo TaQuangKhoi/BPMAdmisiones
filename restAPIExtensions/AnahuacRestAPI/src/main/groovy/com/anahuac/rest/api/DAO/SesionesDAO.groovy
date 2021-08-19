@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.Date;
 
 import org.apache.commons.collections4.functors.ComparatorPredicate.Criterion
+import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.data.DataInstance
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.identity.User
@@ -7013,6 +7014,9 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
+	
+	
 	
 	
 	private static java.sql.Date convert(java.util.Date uDate) {

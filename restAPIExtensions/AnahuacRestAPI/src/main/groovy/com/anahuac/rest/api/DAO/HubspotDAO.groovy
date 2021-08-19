@@ -4,6 +4,7 @@ package com.anahuac.rest.api.DAO
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import java.sql.ResultSetMetaData
 import java.sql.Statement
 import java.text.DateFormat
 import java.text.DecimalFormat
@@ -216,7 +217,8 @@ class HubspotDAO {
 	public Result createOrUpdateEnviada(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Result resultadoApiKey = new Result();
-	
+		Boolean closeCon=false;
+		
 		List < SolicitudDeAdmision > lstSolicitudDeAdmision = new ArrayList < SolicitudDeAdmision > ();
 		List < PadresTutor > lstPadresTutor = new ArrayList < PadresTutor > ();
 		List < CatRegistro > lstCatRegistro = new ArrayList < CatRegistro > ();
@@ -387,9 +389,31 @@ class HubspotDAO {
 					} else {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
 					}
-	
+					//AQUI EMPIEZA LO QUE HIZO JUSQUER
+					closeCon = validarConexion()
+					List<Map<String, Object>> lstContactoEmergencias = new ArrayList<Map<String, Object>>();
+					pstm = con.prepareStatement("SELECT * FROM contactoEmergencias where caseid=?");
+					pstm.setLong(1, lstSolicitudDeAdmision.get(0).getCaseId())
+					rs= pstm.executeQuery();
 					
-	
+					
+					ResultSetMetaData metaData = rs.getMetaData();
+					int columnCount = metaData.getColumnCount();
+					
+					while(rs.next()) {
+						Map<String, Object> columns = new LinkedHashMap<String, Object>();
+		
+						for (int i = 1; i <= columnCount; i++) {
+							columns.put(metaData.getColumnLabel(i), rs.getString(i));
+						}
+						lstContactoEmergencias.add(columns)
+					}
+					for(Map<String,Object> contactoEmergencias:lstContactoEmergencias) {
+						objHubSpotData.put("nombre_emergencia_bpm", contactoEmergencias.get("nombre"));
+						objHubSpotData.put("numero_contacto_emergencia_bpm", contactoEmergencias.get("telefonocelular"));
+					}	
+					objHubSpotData.put("genero_bpm",lstSolicitudDeAdmision.get(0).getCatSexo().clave)
+					//AQUI TERMINO LO QUE HA AGREGADO JUSQUER
 					objHubSpotData.put("municipio_bpm", lstSolicitudDeAdmision.get(0).getCiudad());
 	
 					/*if(lstHubspotProperties.contains(lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion())) {
@@ -422,6 +446,11 @@ class HubspotDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
+		}
+		finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado
 	}

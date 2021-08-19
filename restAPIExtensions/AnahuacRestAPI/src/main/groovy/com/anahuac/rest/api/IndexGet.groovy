@@ -27,6 +27,7 @@ import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.PsicometricoDAO
+import com.anahuac.rest.api.DAO.ReactivacionDAO
 import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
@@ -994,6 +995,19 @@ class IndexGet implements RestApiController {
 				}
 				
 				break;
+				
+				
+				case "formateoVariablesPaseListaProceso":
+				String caseid=request.getParameter "caseid"
+				result = new ReactivacionDAO().formateoVariablesPaseListaProceso(Long.valueOf(caseid),context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				
 				case "getExistsIdBannerINVP":
 				String idbanner=request.getParameter "idbanner"

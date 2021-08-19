@@ -1084,7 +1084,7 @@ class PsicometricoDAO {
 						}
 						
 						if(vive != null ) {
-							if(vive.persistenceId != null && vive.persistenceId != ""){
+							if(vive.persistenceId != null && vive.persistenceId != ""  && vive.persistenceId != "0" && vive.persistenceId != 0){
 								pstm.setInt(9, vive.persistenceId);
 							}
 							else {
@@ -1347,7 +1347,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		objetoCompleto.put("interpretacionINVP", testPsicomInput.get("interpretacionINVP"));
 		objetoCompleto.put("conclusioneINVP", testPsicomInput.get("conclusioneINVP"));
 		
-        pstm = con.prepareStatement("SELECT * FROM TestPsicometricoRelativos where caseid=?");
+        pstm = con.prepareStatement("SELECT distinct ras.*, paren.descripcion as parentezco, vive.descripcion as vive, vive.persistenceid as vivepersistenceid, paren.persistenceid as parenpersistenceid FROM TestPsicometricoRelativos ras inner join catparentesco paren on paren.persistenceid=ras.catparentezco_pid inner join padrestutor pt on pt.catparentezco_pid=paren.persistenceid inner join catvive vive on vive.persistenceid=ras.vive_pid where ras.caseid=?");
 			pstm.setString(1, caseId)
 			rs= pstm.executeQuery();
 			
@@ -1357,17 +1357,31 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			
 			while(rs.next()) {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
-
-				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i), rs.getString(i));
-				}
+				Map<String, Object> catParentezco = new LinkedHashMap<String, Object>();
+				Map<String, Object> vive = new LinkedHashMap<String, Object>();
+				catParentezco.put("descripcion", rs.getString("parentezco"))
+				catParentezco.put("persistenceId", rs.getLong("parenpersistenceid"))
+				vive.put("persistenceId", rs.getLong("vivepersistenceid"))
+				vive.put("descripcion", rs.getString("vive")==null?"No":rs.getString("vive"))
+				columns.put("catParentezco",catParentezco)
+				columns.put("vive",vive)
+				columns.put("nombre", rs.getString("nombre"));
+				columns.put("apellidos", rs.getString("apellidos"));
+				columns.put("empresaTrabaja", rs.getString("empresaTrabaja"));
+				columns.put("jubilado", rs.getBoolean("jubilado"));
+				columns.put("persistenceId", rs.getLong("persistenceId"));
+				columns.put("persistenceVersion", rs.getLong("persistenceversion"));
+				columns.put("vencido", rs.getBoolean("vencido"));
+				columns.put("caseId", rs.getLong("caseId"));
 				testPsicomRelativosInput.add(columns)
 			}
 			
         errorinfo+="[5] TestPsicometricoRelativosDAO.findByCaseId "
-        objetoCompleto.put("testPsicomRelativosInput", testPsicomRelativosInput);
+			objetoCompleto.put("testPsicomRelativosInput", testPsicomRelativosInput);
+		
+        
 
-        pstm = con.prepareStatement("SELECT * FROM TestPsicometricoRasgos where caseid=?");
+        pstm = con.prepareStatement("SELECT ras.*, rasgo.descripcion rasgodescripcion, calif.descripcion califdescripcion FROM TestPsicometricoRasgos ras inner join catrasgoscalif calif on calif.persistenceid=ras.calificacion_pid inner join catrasgosobservados rasgo on rasgo.persistenceid=ras.rasgo_pid where ras.caseid=?");
 			pstm.setString(1, caseId)
 			rs= pstm.executeQuery();
 			
@@ -1376,10 +1390,21 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			
 			while(rs.next()) {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
-
-				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i), rs.getString(i));
-				}
+				Map<String, Object> rasgo = new LinkedHashMap<String, Object>();
+				Map<String, Object> calificacion = new LinkedHashMap<String, Object>();
+				rasgo.put("persistenceId",rs.getLong("rasgo_pid"))
+				rasgo.put("persistenceId_string",rs.getString("rasgo_pid"))
+				rasgo.put("descripcion",rs.getString("rasgodescripcion"))
+				
+				calificacion.put("persistenceId",rs.getLong("calificacion_pid"))
+				calificacion.put("persistenceId_string",rs.getString("calificacion_pid"))
+				calificacion.put("descripcion",rs.getString("califdescripcion"))
+				columns.put("rasgo", rasgo);
+				columns.put("calificacion", calificacion);
+				columns.put("persistenceId", rs.getLong("persistenceId"));
+				columns.put("persistenceVersion", rs.getLong("persistenceversion"));
+				columns.put("vencido", rs.getBoolean("vencido"));
+				columns.put("caseId", rs.getLong("caseId"));
 				testPsicomRasgosInput.add(columns)
 			}
 			pstm = con.prepareStatement("SELECT * FROM TestPsicometricoObservaciones where caseid=?");
@@ -1430,8 +1455,14 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		testPsicomInput.put("custosRecomendados", custosRecomendados)
 		objetoCompleto.put("testPsicomInput", testPsicomInput);
         errorinfo+="[6] TestPsicometricoRasgosDAO.findByCaseId "
-        objetoCompleto.put("testPsicomRasgosInput", testPsicomRasgosInput);
-		objetoCompleto.put("testPsicomObservacionesInput", testPsicomObservacionesInput);
+        if(testPsicomRasgosInput.size()>0) {
+			objetoCompleto.put("testPsicomRasgosInput", testPsicomRasgosInput);
+		}
+		
+		if (testPsicomObservacionesInput.size()>0) {
+			objetoCompleto.put("testPsicomObservacionesInput", testPsicomObservacionesInput);
+		}
+		
         rows.add(objetoCompleto);
         
         errorinfo+="[7] rows.add "

@@ -530,8 +530,8 @@ class ReactivacionDAO {
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 				}
 			}
-
-
+			
+			//errorLog+="1";
 			
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
@@ -549,7 +549,12 @@ class ReactivacionDAO {
 			pstm.executeUpdate();
 
 			con.commit();
-
+			
+			//Result formateo = new Result();
+			//formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
+			
+			//errorLog += formateo.toString();
+			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		} catch (Exception ex) {
@@ -565,6 +570,29 @@ class ReactivacionDAO {
 
 		return resultado;
 	}
+	
+	public Result formateoVariablesPaseListaProceso(Long caseid, RestAPIContext context) {
+		Result resultado = new Result()
+		try {
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
+			
+			Map<String, Serializable> rows = new HashMap<String, Serializable>();
+			
+			rows.put("asistenciaCollegeBoard", false);
+			rows.put("asistenciaPsicometrico", false);
+			rows.put("asistenciaEntrevista", false);
+			
+			processAPI.updateProcessDataInstances(caseid, rows)
+			
+		resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} 
+		return resultado
+	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
