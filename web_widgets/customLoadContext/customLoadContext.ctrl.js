@@ -39,7 +39,7 @@ function loadContextCtrl($scope, $http) {
     }
 
     function doRequest(method, url, dataToSend, callback, errorCallback) {
-        debugger;
+        
         var req = {
             method: method,
             url: url,

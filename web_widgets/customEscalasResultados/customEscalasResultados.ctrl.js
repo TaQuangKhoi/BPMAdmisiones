@@ -67,7 +67,7 @@ function ($scope, $http) {
                 jsonk=element;
             }
         });
-        debugger;
+        
         $scope.properties.respuesta.forEach((element,index) =>{
         $scope.respuestaProcesadas.push(angular.copy(element));
         if (element.escala=='Hs') {

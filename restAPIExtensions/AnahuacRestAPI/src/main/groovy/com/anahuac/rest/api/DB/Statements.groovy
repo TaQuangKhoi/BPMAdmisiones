@@ -314,7 +314,7 @@ class Statements {
 
 	public static final String GET_PAA_BY_IDBANNER = "SELECT idBanner,paan,la1,la2,la3,pg1,pg2,pg3,pg4,pv1,pv2,pv3,pe1,pe2,pe3,pe4,paav,leo1,leo2,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,fechaRegistro,tipoExamen,persistenceid,invp FROM IMPORTACIONPAA WHERE IDBANNER = ? and persistenceid = ?"
 	
-	public static final String GET_PAA_BY_IDBANNER_SIN_PERSISTENCE = "SELECT idBanner,paan,la1,la2,la3,pg1,pg2,pg3,pg4,pv1,pv2,pv3,pe1,pe2,pe3,pe4,paav,leo1,leo2,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,fechaRegistro,tipoExamen,persistenceid,invp FROM IMPORTACIONPAA WHERE IDBANNER = ?"
+	public static final String GET_PAA_BY_IDBANNER_SIN_PERSISTENCE = "SELECT idBanner,paan,la1,la2,la3,pg1,pg2,pg3,pg4,pv1,pv2,pv3,pe1,pe2,pe3,pe4,paav,leo1,leo2,leo3,leo4,leo5,cit1,cit2,para,hi1,hi2,hi3,hi4,hi5,hi6,paan::numeric + paav::numeric + para::numeric +invp::numeric as total,fechaExamen,lexiumPaan,LexiumPaav,lexiumPara,lexiumTotal,fechaRegistro,tipoExamen,persistenceid,invp FROM IMPORTACIONPAA WHERE IDBANNER = ?"
 	
 	public static final String GET_SEGUNDA_OPORTUNIDAD_IPPA = "select count(sda.persistenceid) AS SDAREGISTRO, COALESCE( IPAA.REGISTROS, 0 ) AS REGINSTROIMPORTACION from SOLICITUDDEADMISION SDA LEFT JOIN DETALLESOLICITUD AS DS ON DS.CASEID::INTEGER = SDA.CASEID LEFT JOIN (SELECT IDBANNER, COUNT(*) AS REGISTROS  FROM IMPORTACIONPAA GROUP BY IDBANNER) AS IPAA  ON IPAA.IDBANNER = DS.IDBANNER WHERE DS.IDBANNER = ? GROUP BY IPAA.REGISTROS"
 

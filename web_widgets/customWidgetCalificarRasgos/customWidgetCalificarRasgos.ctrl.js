@@ -11,7 +11,7 @@ function ($scope) {
                 let rasgoId = $scope.properties.rasgosBDM[rasgo].rasgo.persistenceId_string;
                 let califId = $scope.properties.rasgosBDM[rasgo].calificacion.persistenceId_string;
                 let classToClick = ".calif-" + rasgoId + "-" + califId;
-                debugger;
+                
                 setTimeout(() => {
                     $(classToClick).trigger("click");
                 }, 1000);

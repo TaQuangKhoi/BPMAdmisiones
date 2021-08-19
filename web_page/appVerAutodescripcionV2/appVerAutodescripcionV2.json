@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcionV2",
   "name" : "appVerAutodescripcionV2",
-  "lastUpdate" : 1628794112748,
+  "lastUpdate" : 1629403220100,
   "rows" : [
     [
       {
@@ -549,7 +549,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<label class=\"color-orange\">Residencia:</label> {{objectSolicitud.ciudad  + \", \" + objectSolicitud.catEstado.descripcion  + \", \" +  objectSolicitud.catPais.descripcion}}"
+                              "value" : "<label class=\"color-orange\">Residencia:</label> {{catResidencia.descripcion}}"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -723,27 +723,6 @@
   ],
   "assets" : [
     {
-      "id" : "ec7cec8a-c22f-4d57-b585-efd5b0ad6884",
-      "name" : "angular-block-ui.min.css",
-      "type" : "css",
-      "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "b828156b-419a-4e60-9ee0-f556967c708e",
-      "name" : "angular-block-ui.min.js",
-      "type" : "js",
-      "order" : 5,
-      "external" : false
-    },
-    {
-      "id" : "22468614-0156-44f2-bd93-871bea466503",
-      "name" : "sweetalert.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
-    {
       "id" : "e68f2e3b-4f9b-4d07-bd99-3c639128445e",
       "name" : "jquery.min.js",
       "type" : "js",
@@ -762,6 +741,27 @@
       "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
       "type" : "css",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "ec7cec8a-c22f-4d57-b585-efd5b0ad6884",
+      "name" : "angular-block-ui.min.css",
+      "type" : "css",
+      "order" : 6,
+      "external" : false
+    },
+    {
+      "id" : "b828156b-419a-4e60-9ee0-f556967c708e",
+      "name" : "angular-block-ui.min.js",
+      "type" : "js",
+      "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "22468614-0156-44f2-bd93-871bea466503",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 2,
       "external" : false
     },
     {
@@ -2216,6 +2216,20 @@
         "    var regex = new RegExp('[\\\\?&]' + name + '=([^&#]*)');\r",
         "    var results = regex.exec(location.search);\r",
         "    return results === null ? '' : decodeURIComponent(results[1].replace(/\\+/g, ' '));"
+      ],
+      "exposed" : false
+    },
+    "detalleSolicitud" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "catResidencia" : {
+      "type" : "url",
+      "value" : [
+        "..{{detalleSolicitud.links[2].href}}"
       ],
       "exposed" : false
     }

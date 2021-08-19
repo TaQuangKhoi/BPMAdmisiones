@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1629336415486,
+  "lastUpdate" : 1629400246393,
   "rows" : [
     [
       {
@@ -123,7 +123,7 @@
                 },
                 "targetUrl" : {
                   "type" : "expression",
-                  "value" : "\"/portal/resource/app/administrativo/verAutodescripcion/content/?app=administrativo&email=\" + solicitudDeAdmisionBDM.correoElectronico"
+                  "value" : "\"/portal/resource/app/administrativo/verSolicitudAdmisionADV2/content/?app=administrativo&id=\"+currentTask[0].id+\"&caseId=\"+caseId+\"&email=\" + solicitudDeAdmisionBDM.correoElectronico"
                 },
                 "pageToken" : {
                   "type" : "constant"
@@ -4131,8 +4131,8 @@
                                           "value" : ""
                                         },
                                         "hidden" : {
-                                          "type" : "constant",
-                                          "value" : false
+                                          "type" : "expression",
+                                          "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.clave==2"
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -4558,8 +4558,8 @@
                                                 "value" : ""
                                               },
                                               "hidden" : {
-                                                "type" : "constant",
-                                                "value" : false
+                                                "type" : "expression",
+                                                "value" : "autodescripcionV2.catRecibidoTerapia.clave==2"
                                               },
                                               "readOnly" : {
                                                 "type" : "constant",

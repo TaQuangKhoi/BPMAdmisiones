@@ -506,32 +506,30 @@ class ReactivacionDAO {
 			username = objProperties.getUsuario();
 			password = objProperties.getPassword();
 			/*-------------------------------------------------------------*/
-
+			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			assert object instanceof Map;
 
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient() //context.getApiClient();
 			apiClient.login(username, password)
-
+			
 			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
 			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
 			final SearchOptions searchOptions = searchBuilder.done();
 			SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 			List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
-
+			
 			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 				if (objHumanTaskInstance.getName().equals("Reactivar usuario rechazado")) {
 					Map < String, Serializable > inputs = new HashMap < String, Serializable > ()
 					inputs.put("activoUsuario", true);
-					inputs.put("countReactivacion",object.countrechazos);
+					inputs.put("countReactivacion",(object.countrechazos as Integer));
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 				}
 			}
-			
-			//errorLog+="1";
 			
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
@@ -550,11 +548,9 @@ class ReactivacionDAO {
 
 			con.commit();
 			
-			//Result formateo = new Result();
-			//formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
-			
-			//errorLog += formateo.toString();
-			
+			Result formateo = new Result();
+			formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
+			errorLog = formateo.isSuccess().toString();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		} catch (Exception ex) {

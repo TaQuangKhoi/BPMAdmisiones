@@ -1,7 +1,7 @@
 function ($scope, $http) {
     var vm = this;
     function getPsicom(){
-        debugger;
+        
         let url =  window.location.protocol + "//" + window.location.hostname + "/bonita/API/extension/AnahuacRestGet?url=getPsicometricoCompleto&p=0&c=10&caseId=" + $scope.properties.caseId;
         
         $http.get(url).success((success)=>{
