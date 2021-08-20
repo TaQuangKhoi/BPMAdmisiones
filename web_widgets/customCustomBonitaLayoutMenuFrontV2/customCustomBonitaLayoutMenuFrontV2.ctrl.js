@@ -140,7 +140,11 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 }, 100)
             } else {
                 if (parseFloat($scope.properties.processDataV2.version) > parseFloat("1.5")) {
-                    token = "autodescripcionV2";
+                    if ($scope.properties.currentTaskName!='Autodescripción') {
+						token = "autodescripcionV2vista";
+					} else {	
+						token = "autodescripcionV2";
+					}
                 } else {
                     token = "autodescripcion";
                 }
@@ -263,7 +267,13 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
                 }, 100)
             } else {
                 if (parseFloat($scope.properties.processDataV2.version) > parseFloat("1.5")) {
-                    ctrl.pageToken = "autodescripcionV2";
+					if ($scope.properties.currentTaskName!='Autodescripción') {
+						ctrl.pageToken = "autodescripcionV2vista";
+					} else {	
+						ctrl.pageToken = "autodescripcionV2";
+					}
+                    
+					
                 } else {
                     ctrl.pageToken = "autodescripcion";
                 }
