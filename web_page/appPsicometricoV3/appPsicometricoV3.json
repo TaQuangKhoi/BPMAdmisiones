@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1629400246393,
+  "lastUpdate" : 1629503539461,
   "rows" : [
     [
       {
@@ -115,7 +115,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Ver autodescripción"
+                  "value" : "Ver expediente"
                 },
                 "type" : {
                   "type" : "constant",
@@ -887,7 +887,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "TEST"
+                                    "value" : "Resultados de las pruebas"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -955,8 +955,8 @@
                                         "headers" : {
                                           "type" : "constant",
                                           "value" : [
-                                            "TEST",
-                                            "Score"
+                                            "Examen",
+                                            "Puntuación"
                                           ]
                                         },
                                         "content" : {
@@ -1531,7 +1531,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "readOnly" : {
                                     "type" : "constant",
@@ -1589,7 +1589,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "readOnly" : {
                                     "type" : "constant",
@@ -4732,8 +4732,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "resultadoINVP.data.length==0"
                                   },
                                   "text" : {
                                     "type" : "interpolation",
@@ -4764,7 +4764,7 @@
                                   },
                                   "target" : {
                                     "type" : "constant",
-                                    "value" : "_self"
+                                    "value" : "_blank"
                                   },
                                   "appToken" : {
                                     "type" : "constant"
@@ -5387,7 +5387,7 @@
                             },
                             "level" : {
                               "type" : "constant",
-                              "value" : "Level 4"
+                              "value" : "Level 3"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -5411,7 +5411,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "alignt-center"
                             },
                             "hidden" : {
                               "type" : "constant",
@@ -8159,6 +8159,13 @@
       "type" : "constant",
       "value" : [
         "0"
+      ],
+      "exposed" : false
+    },
+    "resultadoINVP" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getResultadoINVP&p=0&c=9999&idbanner={{detalleSolicitudBDM.idBanner}}&sesionid={{sesionid}}"
       ],
       "exposed" : false
     }

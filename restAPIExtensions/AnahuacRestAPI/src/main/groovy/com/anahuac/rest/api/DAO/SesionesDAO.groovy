@@ -564,8 +564,9 @@ class SesionesDAO {
 				}
 				pstm.setBoolean(13, sesion.getIsEliminado())
 				(sesion.getPeriodo_pid()==null)?pstm.setLong(14, 0L):pstm.setLong(14, sesion.getPeriodo_pid())
+				(sesion.getUsuarios_lst_id()==null)?pstm.setString(15, ""):pstm.setString(15, sesion.getUsuarios_lst_id())
 				if(sesion.getPersistenceId()>0) {
-					pstm.setLong(15, sesion.getPersistenceId())
+					pstm.setLong(16, sesion.getPersistenceId())
 					pstm.executeUpdate()
 				}
 				else {
@@ -1128,6 +1129,18 @@ class SesionesDAO {
 					}
 					where = where.replace("[valor]", filtro.get("valor")+"")
 					break;
+					case "EMAIL":
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" s.usuarios_lst_id ";
+					
+					where+="LIKE '%[valor]%'"
+					
+					where = where.replace("[valor]", filtro.get("valor")+"")
+					break;
 				}
 			}
 			Calendar calendar = dateToCalendar(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
@@ -1333,6 +1346,7 @@ class SesionesDAO {
 				sesion.setIsEliminado(rs.getBoolean("isEliminado"))
 				sesion.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
 				sesion.setPeriodo_pid(rs.getLong("periodo_pid"))
+				sesion.setUsuarios_lst_id(rs.getString("usuarios_lst_id"))
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_PID)
 				pstm.setLong(1, sesion.getPersistenceId())
 				rs = pstm.executeQuery()
@@ -6258,6 +6272,40 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	public Result getLstAspirantes(Long campus_pid) {
+		Result resultado = new Result()
+		Boolean closeCon = false
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion()
+			pstm = con.prepareStatement("SELECT correoelectronico from solicituddeadmision sda inner join detallesolicitud dt on dt.caseid::bigint=sda.caseid where sda.catcampus_pid=? order by sda.persistenceid desc limit 100 ")
+			pstm.setLong(1, campus_pid)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	public Result getResultadoINVP(String idbanner,Long sesionid) {
 		Result resultado = new Result()
 		Boolean closeCon = false
@@ -6688,9 +6736,9 @@ class SesionesDAO {
 		List < Map < String, Integer >> rows = new ArrayList < Map < String, Integer >> ();
 		Map<String,Integer> respuestainvp= new HashMap  < String, Integer >()
 		Map<String,String> aData= new HashMap  < String, String >()
-		aData.put("idbanner", idbanner)
-		aData.put("respuestas",respuesta)
-		aData.put("id_sesion",sesiones_pid)
+		aData.put("idbanner", idbanner);
+		aData.put("respuestas",respuesta);
+		aData.put("id_sesion",sesiones_pid);
 		try {
 			closeCon = validarConexion()
 			pstm = con.prepareStatement("SELECT persistenceid,  escala,  genero,  persistenceversion, pregunta, puntuacion, respuesta  FROM catrespuestasinvp where genero='ambos' OR genero=lower((SELECT cs.descripcion from solicituddeadmision sda inner join catsexo cs on cs.persistenceid=sda.catsexo_pid inner join detallesolicitud ds on ds.caseid::bigint=sda.caseid where ds.idbanner=? )) order by pregunta asc")
@@ -6718,7 +6766,7 @@ class SesionesDAO {
 			respuestainvp.put("?",count);
 			
 			for(int i=0; i<respuestas.size(); i++) {
-				if (!respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1).equals("*")) {
+				if (respuesta.charAt((Integer.parseInt(respuestas.get(i).get("pregunta"))-1)) != "*") {
 					if((respuesta.charAt(Integer.parseInt(respuestas.get(i).get("pregunta"))-1)=='C')==(respuestas.get(i).get("respuesta")=='t')) {
 						if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
 							respuestainvp.put(respuestas.get(i).get("escala"), Integer.parseInt(respuestas.get(i).get("puntuacion")))
@@ -6727,9 +6775,14 @@ class SesionesDAO {
 						}
 						
 					}else {
+						
 						if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
 							respuestainvp.put(respuestas.get(i).get("escala"), 0)
 						}
+					}
+				}else {
+					if(respuestainvp.get(respuestas.get(i).get("escala"))==null) {
+						respuestainvp.put(respuestas.get(i).get("escala"), 0)
 					}
 				}
 				

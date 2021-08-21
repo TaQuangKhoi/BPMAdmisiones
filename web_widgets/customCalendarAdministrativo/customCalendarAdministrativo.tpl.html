@@ -143,6 +143,15 @@
                             <multiselect class="input-xlarge" multiple="false" key="persistenceid" label="descripcion" ng-model="sesion.periodo_pid" options="periodo.persistenceid as periodo.descripcion for periodo in periodos" change="selected()"></multiselect>
                         </div>
                     </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Aspirante específico</label>
+                            <!--<select class="form-control" ng-model="sesion.bachillerato_pid" ng-options="preparatoria.persistenceid_string as preparatoria.descripcion  for preparatoria in preparatorias">
+                            <option value="">Seleccionar</option>
+                        </select>-->
+                            <multiselect class="input-xlarge" multiple="true" key="correoelectronico" label="correoelectronico" ng-model="sesion.usuarios_lst_id" options="lstusuarios.correoelectronico as lstusuarios.correoelectronico for lstusuarios in lstUsuarios" change="selected()"></multiselect>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

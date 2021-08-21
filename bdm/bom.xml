@@ -3547,6 +3547,7 @@
                 <field type="LOCALDATETIME" length="255" name="ultimo_dia_inscripcion" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="isEliminado" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="periodo_pid" nullable="true" collection="false"/>
+                <field type="STRING" length="512" name="usuarios_lst_id" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>
@@ -3735,6 +3736,17 @@
             <queries/>
             <indexes/>
         </businessObject>
+        <businessObject qualifiedName="com.anahuac.model.TestPsicometricoCursos">
+            <fields>
+                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCursos" fetchType="LAZY" name="curso" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="recomendado" nullable="true" collection="false"/>
+                <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoObservaciones">
             <fields>
                 <field type="STRING" length="255" name="orden" nullable="true" collection="false"/>
@@ -3799,17 +3811,6 @@
                 <field type="STRING" length="255" name="anoFin" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="carrera" nullable="true" collection="false"/>
                 <field type="STRING" length="255" name="motivoSuspension" nullable="true" collection="false"/>
-                <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
-            </fields>
-            <uniqueConstraints/>
-            <queries/>
-            <indexes/>
-        </businessObject>
-        <businessObject qualifiedName="com.anahuac.model.TestPsicometricoCursos">
-            <fields>
-                <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatCursos" fetchType="LAZY" name="curso" nullable="true" collection="false"/>
-                <field type="BOOLEAN" length="255" name="recomendado" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
             </fields>

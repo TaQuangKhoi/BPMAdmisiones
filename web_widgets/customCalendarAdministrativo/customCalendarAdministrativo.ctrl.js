@@ -39,6 +39,7 @@ function($scope, $http, blockUI) {
         $scope.getSesion(id);
     })
     $scope.periodos = [];
+    $scope.lstUsuarios = [];
     $scope.horaInicio = new Date();
     $scope.horaFin = new Date();
     $scope.fechaCalendario = "";
@@ -1122,9 +1123,14 @@ function($scope, $http, blockUI) {
             $scope.pantallaCambiar('prueba');
         });
     }
+
     $scope.loadCatalogs = function() {
+
         doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22" + $scope.properties.campusSelected.persistenceId + "%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D", null, null, null, function(periodos, extra) {
             $scope.periodos = periodos;
+            doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getLstAspirantes&p=0&c=9999&campus_pid=" + $scope.properties.campusSelected.persistenceId, null, null, null, function(usuarios, extra) {
+                $scope.lstUsuarios = usuarios;
+            })
         })
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100", null, { "lstFiltro": [], "usuario": "Administrador", "orderby": "", "orientation": "DESC", "limit": 999, "offset": 0, "catalogo": "CATResidencia" }, null, function(residencias, extra) {
             $scope.tipos = residencias.data
@@ -1254,7 +1260,8 @@ function($scope, $http, blockUI) {
             "campus_pid": $scope.sesion.campus_pid,
             "ultimo_dia_inscripcion": null,
             "isEliminado": false,
-            "periodo_pid": null
+            "periodo_pid": null,
+            "usuarios_lst_id": ""
         }
         $scope.pantallaCambiar(pantalla);
     }
@@ -1656,16 +1663,22 @@ function($scope, $http, blockUI) {
         }
     }
     $scope.countPsicologos = function() {
-        var cont = 0;
-        for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
-            const element = $scope.prueba.psicologos[index];
-            if (element.iseliminado == null || element.iseliminado == false) {
-                cont++
+            var cont = 0;
+            for (let index = 0; index < $scope.prueba.psicologos.length; index++) {
+                const element = $scope.prueba.psicologos[index];
+                if (element.iseliminado == null || element.iseliminado == false) {
+                    cont++
+                }
             }
+            return cont;
         }
-        return cont;
-    }
-    $scope.loadCatalogs();
+        //$scope.loadCatalogs();
     var hidden = document.getElementsByClassName("oculto");
-    hidden[0].classList.add("invisible")
+    hidden[0].classList.add("invisible");
+	$scope.$watch('properties.campusSelected', function(value) {
+	    debugger;
+        if (angular.isDefined(value) && value !== null) {
+            $scope.loadCatalogs();
+        }
+    });
 }

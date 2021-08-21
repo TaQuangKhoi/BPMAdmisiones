@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmisionADV2",
   "name" : "viewValidarSolicitudDeAdmisionADV2",
-  "lastUpdate" : 1629417253804,
+  "lastUpdate" : 1629499517528,
   "rows" : [
     [
       {
@@ -16734,8 +16734,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catEstudiadoExtranjero.descripcion == 'No'"
                             },
                             "required" : {
                               "type" : "constant",
@@ -16811,8 +16811,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catEstudiadoExtranjero.descripcion == 'No'"
                             },
                             "required" : {
                               "type" : "constant",
@@ -17231,8 +17231,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasPresentadoExamenExtraordinario.descripcion == 'No'"
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -17291,8 +17291,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasPresentadoExamenExtraordinario.descripcion == 'No'"
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -17419,7 +17419,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "autodescripcionV2.catHasReprobado.desccripcion"
+                              "value" : "autodescripcionV2.catHasReprobado.descripcion"
                             },
                             "type" : {
                               "type" : "constant",
@@ -17456,8 +17456,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasReprobado.descripcion == 'No'"
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -17516,8 +17516,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasReprobado.descripcion == 'No'"
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -17749,8 +17749,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion == 'No'"
                             },
                             "required" : {
                               "type" : "constant",
@@ -17826,8 +17826,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catHasTenidoTrabajo.descripcion == 'No'"
                             },
                             "required" : {
                               "type" : "constant",
@@ -18008,8 +18008,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catActualnenteTrabajas.descripcion == 'No'"
                             },
                             "required" : {
                               "type" : "constant",
@@ -18186,8 +18186,60 @@
                         "value" : ""
                       },
                       "hidden" : {
+                        "type" : "expression",
+                        "value" : "lstIdiomasV2.length>0"
+                      },
+                      "labelHidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "No aplica"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "55ad5203-c6c7-499d-be11-dcf8fd029f14",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "lstIdiomasV2.length==0"
                       },
                       "allowHTML" : {
                         "type" : "constant",
@@ -18526,8 +18578,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.descripcion=='No'"
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18578,8 +18630,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catVivesEstadoDiscapacidad.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -18767,8 +18819,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catRecibidoTerapia.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -19643,8 +19695,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catPracticasDeporte.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -19701,8 +19753,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catTeGustaLeer.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -19913,8 +19965,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catParticipasGrupoSocial.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -19971,8 +20023,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catJefeOrganizacionSocial.descripcion='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -20195,8 +20247,8 @@
                         "value" : ""
                       },
                       "hidden" : {
-                        "type" : "constant",
-                        "value" : false
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.pertenecesOrganizacion.descripcion=='No'"
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -20545,8 +20597,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catYaResolvisteElProblema.descripcion=='No'"
                             },
                             "readOnly" : {
                               "type" : "constant",
@@ -22279,8 +22331,8 @@
                               "value" : ""
                             },
                             "hidden" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "autodescripcionV2.catPadresDeAcuerdo.descripcion=='No'"
                             },
                             "readOnly" : {
                               "type" : "constant",

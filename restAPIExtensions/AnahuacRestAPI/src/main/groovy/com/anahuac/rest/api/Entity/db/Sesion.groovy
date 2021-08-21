@@ -17,7 +17,14 @@ class Sesion {
 	private String ultimo_dia_inscripcion;
 	private Boolean isEliminado;
 	private Long periodo_pid;
+	private String usuarios_lst_id;
 	
+	public String getUsuarios_lst_id() {
+		return usuarios_lst_id;
+	}
+	public void setUsuarios_lst_id(String usuarios_lst_id) {
+		this.usuarios_lst_id = usuarios_lst_id;
+	}
 	public Long getPeriodo_pid() {
 		return periodo_pid;
 	}

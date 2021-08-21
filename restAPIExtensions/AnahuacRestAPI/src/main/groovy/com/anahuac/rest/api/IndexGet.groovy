@@ -727,6 +727,26 @@ class IndexGet implements RestApiController {
 					}
 				break;
 				
+				case "getLstAspirantes":
+					String campus_pid = request.getParameter "campus_pid";
+					
+					try{
+						result = new SesionesDAO().getLstAspirantes(Long.parseLong(campus_pid));
+					}catch(Exception ex1){
+						result.setError("Favor de enviar campus_pid correcto")
+						result.setError_info(ex1.getMessage())
+					}
+					
+					
+					
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
 				case "getListaBitacoraRC":
 					result = new ResultadoComiteDAO().getListaBitacoraRC(context);
 					responseBuilder.withMediaType("application/json");

@@ -1238,8 +1238,10 @@ class Index implements RestApiController {
 					sesion.setCampus_pid(object.campus_pid)
 					sesion.setUltimo_dia_inscripcion(object.ultimo_dia_inscripcion)
 					sesion.setIsEliminado(object.isEliminado)
+					sesion.setUsuarios_lst_id((object.usuarios_lst_id==null)?"":object.usuarios_lst_id)
 					try {
 						sesion.setPeriodo_pid((object.periodo_pid==null)?null:Long.parseLong(object.periodo_pid))
+						
 					} catch (Exception e) {
 						sesion.setPeriodo_pid((object.periodo_pid==null)?null:new Long(object.periodo_pid))
 					}
