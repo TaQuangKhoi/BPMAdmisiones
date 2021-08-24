@@ -1135,9 +1135,9 @@ class SesionesDAO {
 					}else {
 						where+= " WHERE "
 					}
-					where +=" s.usuarios_lst_id ";
+					where +=" (s.usuarios_lst_id='' OR s.usuarios_lst_id is null OR s.usuarios_lst_id ";
 					
-					where+="LIKE '%[valor]%'"
+					where+="LIKE '%[valor]%')"
 					
 					where = where.replace("[valor]", filtro.get("valor")+"")
 					break;

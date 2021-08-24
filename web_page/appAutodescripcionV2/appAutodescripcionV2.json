@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1629478282403,
+  "lastUpdate" : 1629765477684,
   "rows" : [
     [
       {
@@ -15959,6 +15959,9 @@
         "    $data.errorMessageStep3 = \"El campo Nombre de la organización o empresa donde trabajas actualmente no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"Nombre de la organización o empresa donde trabajas actualmente\";\r",
         "}\r",
+        "if(!output && $data.selectedIndex>2  ){\r",
+        "    $data.selectedIndex=2  \r",
+        "}\r",
         "return output;"
       ],
       "exposed" : false
@@ -16769,6 +16772,13 @@
         "    $data.errorMessageStep12 = \"Por favor confirma la información\";\r",
         "    $data.titleMessageStep12 = \"\";\r",
         "}\r",
+        "\r",
+        "if(!$data.validateStep3){\r",
+        "    output = false;\r",
+        "    $data.errorMessageStep12 = \"Favor de revisar Información laboral\";\r",
+        "    $data.titleMessageStep12 = \"Información laboral\";\r",
+        "}\r",
+        "\r",
         "\r",
         "return output;"
       ],
