@@ -52,9 +52,11 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='TIPODEALUMNO'"></i></span></th>
                             
-                    <th>  <span style="cursor:pointer" ng-click="setOrderBy('SESIÓN')">Sesion<i class="glyphicon"
+                    <th>  <span style="cursor:pointer" ng-click="setOrderBy('SESIÓN')">Sesión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='SESIÓN'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PSICOLOGO')">Psicologo<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='SESIÓN'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('FECHA ENTREVISTA')">Fecha entrevista<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='FECHA ENTREVISTA'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('PSICOLOGO')">Psicologo<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='PSICOLOGO'"></i></span></th>
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
@@ -76,7 +78,7 @@
                     <td><input ng-model="dynamicInput['programa']" class="form-control" ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control" ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])"></td>
                     <td><input ng-model="dynamicInput['indicadores']" class="form-control" ng-enter="filterKeyPress('INDICADORES',dynamicInput['indicadores'])"></td>
-                    <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('SESIÓN,PSICOLOGO',dynamicInput['sesion'])"></td>
+                    <td><input ng-model="dynamicInput['sesion']" class="form-control" ng-enter="filterKeyPress('SESIÓN,FECHA ENTREVISTA',dynamicInput['sesion'])"></td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control" ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
                     <td></td>
@@ -110,7 +112,9 @@
                         <!-- {{ Transferencia(row)}} -->
                     </td>
                     <td>
-                        <b>sesion/psicologo</b>
+                        <b>{{row.sesion }}</b><br> 
+                        {{row.fechaentrevista}}
+                        {{row.responsableid}}
                     </td>
                     <td class="max-size">
                         <b>{{row.estatussolicitud }}</b><br> 
@@ -127,18 +131,8 @@
                             <tr>
                                 <td>
                                     <button class="btn btn-default" ng-click="asignarTarea(row)">
-                                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default" ng-click="viewDownloadSolicitud(row)">
-                                    <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                                </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-default" ng-click="redirecc(row)">
-                                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-                                    </button>
                                 </td>
                                 <td>
                                     <button class="btn btn-primary" ng-click="envelope(row)">

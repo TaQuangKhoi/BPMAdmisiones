@@ -73,8 +73,6 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
 
     $scope.asignarTarea = function(rowData) {
-        var page = "verSolicitudAdmisionADV2";
-        
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -92,21 +90,19 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $http(req2)
                 .success(function(data2, status) {
                     
-                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
-                
-                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                var url = "/apps/administrativo/appPsicometricoV3/?taskId=[TASKID]&id=[ID]";
                 if (data2.length > 0) {
-                    if(parseFloat(data2[0].processId.version)<1.51){
-                        page = "verSolicitudAdmision";
+                    if(parseFloat(data2[0].processId.version)>=1.51){
+                        url = url.replace("[ID]",data2[0].caseId);
+                        url = url.replace("[TASKID]", data2[0].id);
+                        window.open(url, '_blank');
                     }
-                    url = url.replace("[PAGE]",page);
-                    url = url.replace("[TASKID]", data2[0].id);
+                    
                 } else {
                     url = url.replace("[TASKID]", "");
                 }
-                url = url.replace("[CASEID]", rowData.caseid);
-                //window.top.location.href = url;
-                window.open(url, '_blank');
+                
+               
                 })
                 .error(function(data, status) {
                     notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

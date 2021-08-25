@@ -9,7 +9,7 @@
         </select>
     </div>
         <div style="margin-bottom:15px; float: right; margin-right:20px" >
-           <table>
+           <table ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null || filtroCampus =='Todos los campus'">
         <tr>
             <td  data-toggle="tooltip" data-placement="top" title="Cambio entre sesiones activas y pasadas">
                 <label style="margin-right:15px">{{ctrl.orden ?"Sesiones procesadas: ":"Sesiones de BPM: "}}</label>
@@ -22,7 +22,7 @@
                  <!--<label><input type="checkbox" ng-model="orden" ng-click="cambioOrden(orden)"> {{orden ?"Activos":"Pasados"}}</label>-->
             </td>
             <td>
-                <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit" style="margin-left: 15px;width: 100px;">
+                <select ng-change="sizing()" class="form-control" ng-model="properties.dataToSend.limit" style="margin-left: 15px;width: 100px;" >
                 <option ng-value="20">20</option>
                 <option ng-value="40">40</option>
                 <option ng-value="100">100</option>
@@ -32,7 +32,7 @@
     </table>
             
         </div>
-        <div class="table-responsive col-xs-12"  >
+        <div class="table-responsive col-xs-12"  ng-show="properties.campusSeleccionado != undefined && properties.campusSeleccionado != null || filtroCampus =='Todos los campus'">
             <table class="table scrollbars" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}" style="width: 100%">
                 <thead>
                     <tr>

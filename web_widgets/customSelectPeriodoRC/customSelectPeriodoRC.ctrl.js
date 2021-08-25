@@ -20,7 +20,7 @@ function PbSelectCtrl($scope, $parse, $log, widgetNameFactory, $timeout, $window
   this.findSelectedItem = function (items) {
     return items.filter(comparator.bind(null, $scope.properties.value))
       .map(function (item) {
-        //$scope.properties.tipoLicenciatura = item.tipoLicenciatura;
+        $scope.properties.idPeriodo = item.persistenceId;
         return ctrl.getValue(item);
       })[0];
   };

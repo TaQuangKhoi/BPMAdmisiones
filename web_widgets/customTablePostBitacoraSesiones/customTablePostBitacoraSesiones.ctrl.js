@@ -309,7 +309,7 @@ function PbTableCtrl($scope, $http, $window,blockUI, modalService) {
     }
     
     $scope.paseLista = function(asistencia,acreditado,cb){
-        let txt =(asistencia === 't'?"Asistencia":(acreditado === 't'?"Acreditado": (cb ==='t'?"Exento":"No acreditado") ) );
+        let txt =(asistencia === 't'?"Asistencia":(acreditado === 't'?"Acreditado": (cb ==='t'?"Exento":"Sin asistencia") ) );
         return txt;
     }
     

@@ -54,9 +54,14 @@
                     {{$index}}
                     <td ng-repeat="column in properties.columnsKey">
                         <div ng-switch="column">
+                            
                             <div ng-switch-when="nombresesion" >
-                                <div ng-bind-html="$eval(column, row) | uiTranslate" ng-show="calcularRowspan($parent.$parent.$index,column) == 3" >
+                                <div ng-show="calcularRowspan($parent.$parent.$index,column) == 3" >
+                                    {{row.sesiones_pid}} - {{row.nombresesion}}
                                 </div>
+                            </div>
+                            <div ng-switch-when="id-nombreprueba" >
+                                {{row.prueba_pid}} - {{row.nombreprueba}}
                             </div>
                             <div ng-switch-when="asistencia" >
                                 <!--<label ng-repeat="info in paseLista(row.asistencia,row.acreditado,row.cb)" ng-bind-html="info"> -->
