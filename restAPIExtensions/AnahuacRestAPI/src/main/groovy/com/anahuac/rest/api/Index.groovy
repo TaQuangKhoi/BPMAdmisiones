@@ -74,7 +74,7 @@ class Index implements RestApiController {
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
 		String jsonData = request.reader.readLines().join("\n")
-		
+		String idioma = "";
 		//VARIABLES DAO=======================================================
 		TestDAO dao =  new TestDAO();
 		ListadoDAO lDao = new ListadoDAO();
@@ -829,6 +829,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "postUpdateLicenciaturaPeriodo":
+					result = new ResultadoComiteDAO().postUpdateLicenciaturaPeriodo(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 					case "updateAspirantesPruebas":
 					result = new SesionesDAO().updateAspirantesPruebas(jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -934,7 +944,7 @@ class Index implements RestApiController {
 					break;
 				case "RegistrarUsuario":
 				try{
-					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
+					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context, idioma);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

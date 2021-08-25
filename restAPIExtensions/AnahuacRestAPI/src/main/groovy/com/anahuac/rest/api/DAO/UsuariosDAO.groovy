@@ -79,7 +79,7 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
-	public Result postRegistrarUsuario(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+	public Result postRegistrarUsuario(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context, String idioma) {
 		Result resultado = new Result();
 		Result resultadoN = new Result();
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
@@ -87,14 +87,16 @@ class UsuariosDAO {
 		Long userLogged = 0L;
 		Long caseId = 0L;
 		Long total = 0L;
-	
+		Long resultReq = 0;
+		Long resultReqA = 0;
 		Integer start = 0;
 		Integer end = 99999;
-	
+		Long step = 0;
 		Usuarios objUsuario = new Usuarios();
 	
+		Boolean success = false;
 		String error_log = "";
-		
+		String success_log = "";
 		Boolean closeCon = false;
 		
 		try {
@@ -120,7 +122,42 @@ class UsuariosDAO {
 			//inicializa la cuenta con la cual tendras permisos para registrar el usuario
 			apiClient.login(username, password)
 			error_log = error_log + " | apiClient.login(username, password)";
-	
+			
+			closeCon = validarConexion();
+			
+			while (step <= 0) {
+				try {
+					con.setAutoCommit(false);
+					pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+					pstm.setString(1, idioma);
+					pstm.setString(2, object.nombreusuario);
+		
+					resultReq = pstm.executeUpdate();
+					con.commit();
+					step = step+1;
+					success = true;
+					error_log = resultReq + " exito! query update"
+				}	catch (Exception e) {
+					if(success == false) {
+						pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
+						resultReqA = pstm.executeUpdate();
+						con.commit();
+						if(resultReqA > 0) {
+							error_log = resultReqA + " exito! query alter"
+							step = 0;
+							pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+							pstm.setString(1, idioma);
+							pstm.setString(2, object.nombreusuario);
+				
+							resultReq = pstm.executeUpdate();
+							con.commit();
+						}
+					}
+					con.rollback();
+					error_log = "Error catch: "+e+ " error query1: "+resultReq+" error query2: "+resultReqA;
+				}
+			}
+				
 			//Registro del usuario
 			IdentityAPI identityAPI = apiClient.getIdentityAPI()
 			final User user = identityAPI.createUser(creator);
@@ -181,6 +218,10 @@ class UsuariosDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			e.printStackTrace();
+		}finally{
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado;
 	}

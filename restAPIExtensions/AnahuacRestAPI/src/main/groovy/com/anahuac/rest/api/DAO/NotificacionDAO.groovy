@@ -53,9 +53,11 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		String encoded = "";
 		String errorlog = "";
 		
+		String idioma = "";
 		String plantilla ="";
 		String correo="",  asunto="",  body="",  cc="";
 		try {
+		
 			Properties prop = new Properties();
 			String propFileName = "configuration.properties";
 			InputStream inputStream;
@@ -82,6 +84,31 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			
 			assert object instanceof Map;
 			
+			/*-------------------ENG/ESP-----------------------------------*/				
+			try {				
+				pstm = con.prepareStatement(Statements.SELECT_IDIOMA_BY_USERNAME);
+				pstm.setString(1, object.nombreusuario);
+				
+				rs = pstm.executeQuery();
+				
+				if(rs.next()) {
+					idioma = rs.getString("idioma");
+				}
+				
+				if(idioma == "ENG") {
+					if(object.codigo.equals("registrar") || object.codigo.equals("reestablecer")) {
+						object.codigo+="-eng";
+						errorlog = "Primera condición";
+					} else if(object.codigo.equals("recuperar")) {
+						object.codigo="reestablecer-eng";
+						errorlog = "Segunda condición";
+					}
+				}
+			} catch (Exception e) {
+				errorlog = "Error generateHtml - select_idioma_by_username: "+rs+" object: "+object+" idioma: "+idioma+" exception: "+e;
+			}
+			
+			/*--------------------FIN-------------------------------------*/
 			userLogged = context.getApiSession().getUserId();
 			errorlog += "| Se obtuvo el usuario " + userLogged;
 			CatNotificaciones catNotificaciones= null;

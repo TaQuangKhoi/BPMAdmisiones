@@ -156,6 +156,7 @@ class ResultadoComiteDAO {
 				//List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 					con.setAutoCommit(false)
 					
+					//SE OBTINE LA CARRERA Y LA SESION A LA QUE ESTARA VINCULADO EL RESULTADO
 					pstm = con.prepareStatement(Statements.GET_IDS_PARA_RESULTADOCOMITE);
 					pstm.setString(1, it.IDBANNER);
 					
@@ -166,11 +167,11 @@ class ResultadoComiteDAO {
 						sesion = rs.getLong("SESIONES_PID");
 					}
 					
-					
+					//DESACTUVA TODOS LOS RESULTADOS QUE TENGA ESE IDBANNER
 					pstm = con.prepareStatement(Statements.UPDATE_RESULTADO_COMITE_DESACTIVAR.replace("[IDBANNER]", it.IDBANNER));
 					pstm.executeUpdate();
 					
-					
+					// SE AGREGA EL NUEVO RESULTADO O SE ACTUALIZA UN RESULTADO
 					pstm = con.prepareStatement(it.update? Statements.INSERT_RESULTADO_COMITE_MODIFICACION:Statements.INSERT_RESULTADO_COMITE, Statement.RETURN_GENERATED_KEYS);
 					
 					pstm.setString(1,it.IDBANNER);
@@ -293,13 +294,16 @@ class ResultadoComiteDAO {
 				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
 				
+				// RESIVO UN TEXTO SEPARADO POR COMAS DE LOS IDBANNER Y LOS PERIODOS ("VALOR1,VALOR2")
 				 String[] idBanner = object.IDBANNER.split(",");
 				 String[] periodo = object.PERIODO.split(",");
 				 for(int j = 0; j < idBanner.size(); ++j) {
 					 errorLog += Statements.GET_EXISTE_Y_DATOS_DUPLICADOS_RC.replace("[VALOR]",idBanner[j]).replace("[PERIODO]",periodo[j])
+					 //REVISO SI HAY VALORES QUE CONCUEDEN CON EL IDBANNER Y  EL PERIODO YA REGISTRADOS
 					 pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS_RC.replace("[VALOR]",idBanner[j]).replace("[PERIODO]",periodo[j]) )
 					 rs= pstm.executeQuery();
 					 columns = new LinkedHashMap<String, Object>();
+					 // ESTO ES PARA QUE SIEMPRE REGRESE VALORES POR SI NO EXISTE
 					 columns.put("idBanner", idBanner[j] )
 					 columns.put("Registrado",false)
 					 columns.put("Existe",false)
@@ -344,6 +348,7 @@ class ResultadoComiteDAO {
 				
 				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				//Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				//SE OBTIENE EL LISTADO DE LA BITACORRA DE ERRORES
 				pstm = con.prepareStatement(Statements.GET_BITACORA_ERRRORES_RC)
 				rs= pstm.executeQuery();
 				errorLog+="consulta";
@@ -460,6 +465,39 @@ class ResultadoComiteDAO {
 	
 	
 	
+	public Result postUpdateLicenciaturaPeriodo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			pstm = con.prepareStatement(Statements.UPDATE_USER_LICENCIATURA_AND_PERIODO);
+			pstm.setLong(1, Long.parseLong(object.idlicenciatura));
+			pstm.setLong(2, Long.parseLong(object.idPeriodo));
+			pstm.setString(3, object.correo);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	
 	public Boolean isNullOrEmpty(String text) {
 		
 		if(text?.equals("null") || text?.equals("") || text?.equals(" ") || text?.length() < 1) {
@@ -467,7 +505,8 @@ class ResultadoComiteDAO {
 		}
 		return true
 	}
-		
+	
+	//SE OBTIENE LOS ASPIRANTES QUE NO TIENE RESULTADOS	
 	public Result getAspirantesSinRC(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -900,7 +939,7 @@ class ResultadoComiteDAO {
 	
 	
 	
-	
+	// CONSULTA PARA OBTENER LOS ASPIRANTES QUE TIENE RESULTADOS
 	public Result postListaAspiranteRC ( Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
