@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1629824301958,
+  "lastUpdate" : 1629995229377,
   "rows" : [
     [
       {
@@ -140,6 +140,58 @@
               "hasValidationError" : false,
               "id" : "customCargarInformacionTarea",
               "description" : "Obtiene la información de la tarea en curso"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "{{formOutput}}"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "b9c0f4f9-36b3-4766-b9dc-a2fa3dba4442",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -1182,11 +1234,11 @@
                       },
                       "condensed" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "bordered" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "modalEliminar" : {
                         "type" : "constant",
@@ -1206,6 +1258,10 @@
                       "lstInformacionEscolarMod" : {
                         "type" : "variable",
                         "value" : "lstUniversidadesHasEstadoMod"
+                      },
+                      "vista" : {
+                        "type" : "constant",
+                        "value" : false
                       }
                     },
                     "reference" : "ed3a10c6-14a6-47e1-937c-4d2f574c82d1",
@@ -13662,7 +13718,7 @@
                 "rows" : [
                   [
                     {
-                      "type" : "component",
+                      "type" : "container",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -13678,65 +13734,172 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "readOnly" : {
-                          "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
-                        },
-                        "required" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "labelHidden" : {
-                          "type" : "constant",
-                          "value" : false
-                        },
-                        "label" : {
-                          "type" : "interpolation",
-                          "value" : "Escuela: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                        },
-                        "labelPosition" : {
-                          "type" : "constant",
-                          "value" : "top"
-                        },
-                        "labelWidth" : {
-                          "type" : "constant",
-                          "value" : 4
-                        },
-                        "placeholder" : {
-                          "type" : "interpolation"
-                        },
-                        "availableValues" : {
-                          "type" : "expression",
-                          "value" : "getCatBachillerato"
-                        },
-                        "displayedKey" : {
-                          "type" : "constant",
-                          "value" : "descripcion"
-                        },
-                        "value" : {
+                        "repeatedCollection" : {
                           "type" : "variable",
-                          "value" : "objNuevoInformacionEscolar.escuela"
-                        },
-                        "datosPreparatoria" : {
-                          "type" : "variable",
-                          "value" : "objNuevoInformacionEscolar.escuela"
-                        },
-                        "objNuevoInformacionEscolar" : {
-                          "type" : "variable",
-                          "value" : "objNuevoInformacionEscolar"
-                        },
-                        "catPais" : {
-                          "type" : "variable",
-                          "value" : "catPais_query"
-                        },
-                        "catEstados" : {
-                          "type" : "variable",
-                          "value" : "catEstadosQuery"
+                          "value" : ""
                         }
                       },
-                      "reference" : "6c906ccd-39d7-4e1e-aa69-2086d20a218c",
+                      "reference" : "367c4d3d-661b-4e2b-a945-888992e38bf5",
                       "hasValidationError" : false,
-                      "id" : "customSimpleAutocompletePreparatorias"
+                      "id" : "pbContainer",
+                      "rows" : [
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Escuela: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "availableValues" : {
+                                "type" : "expression",
+                                "value" : "getCatBachillerato"
+                              },
+                              "displayedKey" : {
+                                "type" : "constant",
+                                "value" : "descripcion"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "objNuevoInformacionEscolar.escuela"
+                              },
+                              "datosPreparatoria" : {
+                                "type" : "variable",
+                                "value" : "objNuevoInformacionEscolar.escuela"
+                              },
+                              "objNuevoInformacionEscolar" : {
+                                "type" : "variable",
+                                "value" : "objNuevoInformacionEscolar"
+                              },
+                              "catPais" : {
+                                "type" : "variable",
+                                "value" : "catPais_query"
+                              },
+                              "catEstados" : {
+                                "type" : "variable",
+                                "value" : "catEstadosQuery"
+                              }
+                            },
+                            "reference" : "6c906ccd-39d7-4e1e-aa69-2086d20a218c",
+                            "hasValidationError" : false,
+                            "id" : "customSimpleAutocompletePreparatorias"
+                          }
+                        ],
+                        [
+                          {
+                            "type" : "component",
+                            "dimension" : {
+                              "xs" : 12,
+                              "sm" : 12,
+                              "md" : 12,
+                              "lg" : 12
+                            },
+                            "propertyValues" : {
+                              "cssClasses" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "hidden" : {
+                                "type" : "expression",
+                                "value" : "objNuevoInformacionEscolar.escuela.descripcion!=\"Otro\""
+                              },
+                              "required" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "minLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "maxLength" : {
+                                "type" : "constant",
+                                "value" : ""
+                              },
+                              "readOnly" : {
+                                "type" : "expression",
+                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion)"
+                              },
+                              "labelHidden" : {
+                                "type" : "constant",
+                                "value" : false
+                              },
+                              "label" : {
+                                "type" : "interpolation",
+                                "value" : "Nombre escuela<span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              },
+                              "labelPosition" : {
+                                "type" : "constant",
+                                "value" : "top"
+                              },
+                              "labelWidth" : {
+                                "type" : "constant",
+                                "value" : 4
+                              },
+                              "placeholder" : {
+                                "type" : "interpolation"
+                              },
+                              "value" : {
+                                "type" : "variable",
+                                "value" : "objNuevoInformacionEscolar.otraEscuela"
+                              },
+                              "type" : {
+                                "type" : "constant",
+                                "value" : "text"
+                              },
+                              "min" : {
+                                "type" : "constant"
+                              },
+                              "max" : {
+                                "type" : "constant"
+                              },
+                              "step" : {
+                                "type" : "constant",
+                                "value" : 1
+                              }
+                            },
+                            "reference" : "5bbfd86c-2d7a-46f1-86dc-b245c520dbcc",
+                            "hasValidationError" : false,
+                            "id" : "pbInput"
+                          }
+                        ]
+                      ]
                     },
                     {
                       "type" : "component",
@@ -13757,7 +13920,7 @@
                         },
                         "disabled" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
+                          "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                         },
                         "required" : {
                           "type" : "constant",
@@ -13851,7 +14014,7 @@
                               },
                               "disabled" : {
                                 "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
+                                "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                               },
                               "required" : {
                                 "type" : "constant",
@@ -13930,7 +14093,7 @@
                               },
                               "readOnly" : {
                                 "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
+                                "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -14008,7 +14171,7 @@
                         },
                         "readOnly" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault"
+                          "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -15006,7 +15169,7 @@
                         },
                         "label" : {
                           "type" : "interpolation",
-                          "value" : "Motivo de suspención <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                          "value" : "Motivo de suspensión <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                         },
                         "labelPosition" : {
                           "type" : "constant",
@@ -15402,9 +15565,87 @@
       "value" : [
         "var resultado = null;\r",
         "try {\r",
+        "    console.log(\"Funcion de mapeo de datos ---jusquer\")\r",
         "    if($data.autodescripcionV2 !== undefined){\r",
         "        $data.autodescripcionV2.paisEstudiasteExtranjero = ($data.autodescripcionV2_paisEstudiasteExtranjero === undefined ? {} : $data.autodescripcionV2_paisEstudiasteExtranjero).persistenceId === undefined ? null : $data.autodescripcionV2_paisEstudiasteExtranjero;\r",
+        "    }else{\r",
+        "        $data.autodescripcionV2={\r",
+        "            comoEstaConformadaFamilia:  \"\", \r",
+        "            materiasCalifBajas:  \"\", \r",
+        "            materiasCalifAltas:  \"\", \r",
+        "            materiasNoTeGustan:  \"\", \r",
+        "            materiasTeGustan:  \"\", \r",
+        "            catEstudiadoExtranjero:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            paisEstudiasteExtranjero:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            tiempoEstudiasteExtranjero: {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catAreaBachillerato:    {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catHasPresentadoExamenExtraordinario: {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            cualExamenExtraPresentaste:  \"\", \r",
+        "            catHasReprobado:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            motivoExamenExtraordinario:  \"\", \r",
+        "            periodoReprobaste:  \"\", \r",
+        "            motivoReprobaste:  \"\", \r",
+        "            catInscritoOtraUniversidad: {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catHasTenidoTrabajo:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catExperienciaAyudaCarrera: {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            empresaTrabajaste:  \"\", \r",
+        "            catActualnenteTrabajas:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            empresaTrabajas:  \"\", \r",
+        "            catPersonaSaludable:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},  \r",
+        "            catVivesEstadoDiscapacidad:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            tipoDiscapacidad:  \"\", \r",
+        "            problemasSaludAtencionContinua:  \"\", \r",
+        "            hasRecibidoAlgunaTerapia:  \"\", \r",
+        "            comoDescribesTuFamilia:  \"\", \r",
+        "            queCambiariasDeTuFamilia:  \"\", \r",
+        "            familiarMejorRelacion:  \"\", \r",
+        "            conQuienPlaticasProblemas:  \"\", \r",
+        "            comoDescribesRelacionHermanos:  \"\", \r",
+        "            admirasPersonalidadPadre:  \"\", \r",
+        "            defectosObservasPadre:  \"\", \r",
+        "            admirasPersonalidadMadre:  \"\", \r",
+        "            defectosObservasMadre:  \"\", \r",
+        "            catPracticasDeporte:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            queDeportePracticas:  \"\", \r",
+        "            catTeGustaLeer:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            queLecturaPrefieres:  \"\", \r",
+        "            catParticipasGrupoSocial:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            organizacionParticipas:  \"\", \r",
+        "            catJefeOrganizacionSocial:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            organizacionHasSidoJefe:  \"\", \r",
+        "            queHacesEnTuTiempoLibre:  \"\", \r",
+        "            pertenecesOrganizacion:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            organizacionesPerteneces:  \"\", \r",
+        "            principalesVirtudes:  \"\", \r",
+        "            principalesDefectos:  \"\", \r",
+        "            mayorProblemaEnfrentado:  \"\", \r",
+        "            catYaResolvisteElProblema:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            comoResolvisteProblema:  \"\", \r",
+        "            metasCortoPlazo:  \"\", \r",
+        "            metasMedianoPlazo:  \"\", \r",
+        "            metasLargoPlazo:  \"\", \r",
+        "            comoTeDescribenTusAmigos:  \"\", \r",
+        "            detallesPersonalidad:  \"\", \r",
+        "            queCambiariasDeTi:  \"\", \r",
+        "            catPracticasReligion:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catAspectoDesagradaReligion:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            asprctosNoGustanReligion:  \"\", \r",
+        "            motivoAspectosNoGustanReligion:  \"\", \r",
+        "            caracteristicasExitoCarrera:  \"\", \r",
+        "            profesionalComoTeVes:  \"\", \r",
+        "            motivoElegisteCarrera:  \"\", \r",
+        "            expectativasCarrera:  \"\", \r",
+        "            fuentesInfluyeronDesicion:  \"\", \r",
+        "            catPadresDeAcuerdo:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            motivoPadresNoAcuerdo:  \"\", \r",
+        "            catOrientacionVocacional:   {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            personasInfluyeronDesicion:  \"\", \r",
+        "            pageIndex: $data.selectedIndex,\r",
+        "            catRecibidoTerapia:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"},\r",
+        "            catProblemasSaludAtencion:  {\"persistenceId\":0,\"persistenceId_string\":\"0\"}, \r",
+        "        }\r",
         "    }\r",
+        "\r",
         "    resultado = {\r",
         "        isAutodescripcionTerminadaCont: $data.formInput.isAutodescripcionTerminadaCont,\r",
         "        autodescripcionV2Input: {\r",
@@ -15438,16 +15679,10 @@
         "            catInscritoOtraUniversidad: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catInscritoOtraUniversidad ? {\r",
         "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catInscritoOtraUniversidad.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catInscritoOtraUniversidad.persistenceId_string : null\r",
         "            } : null,\r",
-        "            catHasTenidoTrabajo: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo ? {\r",
-        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo.persistenceId_string : null\r",
-        "            } : ($data.autodescripcionV2.catHasTenidoTrabajo.persistenceId === undefined || $data.autodescripcionV2.catHasTenidoTrabajo.persistenceId===null)?null:$data.autodescripcionV2.catHasTenidoTrabajo,\r",
-        "            catExperienciaAyudaCarrera: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera ? {\r",
-        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera.persistenceId_string : null\r",
-        "            } : ($data.autodescripcionV2.catExperienciaAyudaCarrera.persistenceId === undefined || $data.autodescripcionV2.catExperienciaAyudaCarrera.persistenceId===null)?null:$data.autodescripcionV2.catExperienciaAyudaCarrera,\r",
+        "            catHasTenidoTrabajo: null,\r",
+        "            catExperienciaAyudaCarrera:null,\r",
         "            empresaTrabajaste: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).empresaTrabajaste !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).empresaTrabajaste : null,\r",
-        "            catActualnenteTrabajas: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas ? {\r",
-        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas.persistenceId_string : null\r",
-        "            } : ($data.autodescripcionV2.catActualnenteTrabajas.persistenceId === undefined || $data.autodescripcionV2.catActualnenteTrabajas.persistenceId===null)?null:$data.autodescripcionV2.catActualnenteTrabajas,\r",
+        "            catActualnenteTrabajas: null,\r",
         "            empresaTrabajas: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).empresaTrabajas !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).empresaTrabajas : null,\r",
         "            catPersonaSaludable: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catPersonaSaludable ? {\r",
         "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catPersonaSaludable.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catPersonaSaludable.persistenceId_string : null\r",
@@ -15542,11 +15777,122 @@
         "            catReligion: $data.objectSolicitud.catReligion\r",
         "        }\r",
         "    }\r",
+        "    try{\r",
+        "        resultado.autodescripcionV2Input.catHasTenidoTrabajo=($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo ? {\r",
+        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catHasTenidoTrabajo.persistenceId_string : null\r",
+        "            } : null;    \r",
+        "            \r",
+        "    }catch(e){\r",
+        "        resultado.autodescripcionV2Input.catHasTenidoTrabajo={\"persistenceId\":0,\"persistenceId_string\":\"0\"};\r",
+        "    }\r",
+        "    try{\r",
+        "        resultado.autodescripcionV2Input.catExperienciaAyudaCarrera=($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera ? {\r",
+        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catExperienciaAyudaCarrera.persistenceId_string : null\r",
+        "            } : null;\r",
+        "    }catch(e){\r",
+        "        resultado.autodescripcionV2Input.catExperienciaAyudaCarrera={\"persistenceId\":0,\"persistenceId_string\":\"0\"};\r",
+        "    }\r",
+        "    try{\r",
+        "        resultado.autodescripcionV2Input.catActualnenteTrabajas=($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas ? {\r",
+        "                persistenceId_string: ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas.persistenceId_string !== undefined ? ($data.autodescripcionV2 === undefined ? {} : $data.autodescripcionV2).catActualnenteTrabajas.persistenceId_string : null\r",
+        "            } : null;\r",
+        "    }catch(e){\r",
+        "        resultado.autodescripcionV2Input.catActualnenteTrabajas={\"persistenceId\":0,\"persistenceId_string\":\"0\"};\r",
+        "    }\r",
         "    \r",
         "} catch (t) {\r",
         "    console.log(\"---------------------------------------------------\")\r",
-        "    console.log(t)\r",
+        "    console.error(t)\r",
         "    console.log(\"---------------------------------------------------\")\r",
+        "    resultado = {\r",
+        "        isAutodescripcionTerminadaCont: $data.formInput.isAutodescripcionTerminadaCont,\r",
+        "        autodescripcionV2Input: {\r",
+        "            comoEstaConformadaFamilia:  \"\", \r",
+        "            materiasCalifBajas:  \"\", \r",
+        "            materiasCalifAltas:  \"\", \r",
+        "            materiasNoTeGustan:  \"\", \r",
+        "            materiasTeGustan:  \"\", \r",
+        "            catEstudiadoExtranjero:   null,\r",
+        "            paisEstudiasteExtranjero:   null,\r",
+        "            tiempoEstudiasteExtranjero: null,\r",
+        "            catAreaBachillerato:    null,\r",
+        "            catHasPresentadoExamenExtraordinario: null ,\r",
+        "            cualExamenExtraPresentaste:  \"\", \r",
+        "            catHasReprobado:  null,\r",
+        "            motivoExamenExtraordinario:  \"\", \r",
+        "            periodoReprobaste:  \"\", \r",
+        "            motivoReprobaste:  \"\", \r",
+        "            catInscritoOtraUniversidad: null,\r",
+        "            catHasTenidoTrabajo:  null,\r",
+        "            catExperienciaAyudaCarrera: null,\r",
+        "            empresaTrabajaste:  \"\", \r",
+        "            catActualnenteTrabajas:  null,\r",
+        "            empresaTrabajas:  \"\", \r",
+        "            catPersonaSaludable:  null,  \r",
+        "            catVivesEstadoDiscapacidad:  null,\r",
+        "            tipoDiscapacidad:  \"\", \r",
+        "            problemasSaludAtencionContinua:  \"\", \r",
+        "            hasRecibidoAlgunaTerapia:  \"\", \r",
+        "            comoDescribesTuFamilia:  \"\", \r",
+        "            queCambiariasDeTuFamilia:  \"\", \r",
+        "            familiarMejorRelacion:  \"\", \r",
+        "            conQuienPlaticasProblemas:  \"\", \r",
+        "            comoDescribesRelacionHermanos:  \"\", \r",
+        "            admirasPersonalidadPadre:  \"\", \r",
+        "            defectosObservasPadre:  \"\", \r",
+        "            admirasPersonalidadMadre:  \"\", \r",
+        "            defectosObservasMadre:  \"\", \r",
+        "            catPracticasDeporte:  null,\r",
+        "            queDeportePracticas:  \"\", \r",
+        "            catTeGustaLeer:   null,\r",
+        "            queLecturaPrefieres:  \"\", \r",
+        "            catParticipasGrupoSocial:   null,\r",
+        "            organizacionParticipas:  \"\", \r",
+        "            catJefeOrganizacionSocial:  null,\r",
+        "            organizacionHasSidoJefe:  \"\", \r",
+        "            queHacesEnTuTiempoLibre:  \"\", \r",
+        "            pertenecesOrganizacion:   null,\r",
+        "            organizacionesPerteneces:  \"\", \r",
+        "            principalesVirtudes:  \"\", \r",
+        "            principalesDefectos:  \"\", \r",
+        "            mayorProblemaEnfrentado:  \"\", \r",
+        "            catYaResolvisteElProblema:   null,\r",
+        "            comoResolvisteProblema:  \"\", \r",
+        "            metasCortoPlazo:  \"\", \r",
+        "            metasMedianoPlazo:  \"\", \r",
+        "            metasLargoPlazo:  \"\", \r",
+        "            comoTeDescribenTusAmigos:  \"\", \r",
+        "            detallesPersonalidad:  \"\", \r",
+        "            queCambiariasDeTi:  \"\", \r",
+        "            catPracticasReligion:   null,\r",
+        "            catAspectoDesagradaReligion:   null,\r",
+        "            asprctosNoGustanReligion:  \"\", \r",
+        "            motivoAspectosNoGustanReligion:  \"\", \r",
+        "            caracteristicasExitoCarrera:  \"\", \r",
+        "            profesionalComoTeVes:  \"\", \r",
+        "            motivoElegisteCarrera:  \"\", \r",
+        "            expectativasCarrera:  \"\", \r",
+        "            fuentesInfluyeronDesicion:  \"\", \r",
+        "            catPadresDeAcuerdo:   null,\r",
+        "            motivoPadresNoAcuerdo:  \"\", \r",
+        "            catOrientacionVocacional:   null,\r",
+        "            personasInfluyeronDesicion:  \"\", \r",
+        "            pageIndex: $data.selectedIndex,\r",
+        "            catRecibidoTerapia:  null,\r",
+        "            catProblemasSaludAtencion:  null, \r",
+        "        },\r",
+        "        lstUniversidadesHasEstadoInput:$data.lstUniversidadesHasEstadoMod,\r",
+        "        lstIdiomasV2Input: $data.lstIdiomasV2.length === 0 ? [] : $data.lstIdiomasV2.map( it => ({\r",
+        "            persistenceId_string: it.persistenceId_string === undefined ? null : it.persistenceId_string,\r",
+        "            idioma: it.catIdioma === undefined ? null : it.catIdioma,\r",
+        "            nivel: it.catTraduccion === undefined ? null : it.catTraduccion,\r",
+        "            otroIdioma: it.otroIdioma === undefined ? null : it.otroIdioma\r",
+        "        })),\r",
+        "        lstInformacionEscolarInput: $data.lstInformacionEscolarMod,\r",
+        "        catSolicitudDeAdmisionInput:{\r",
+        "            catReligion: $data.objectSolicitud.catReligion\r",
+        "        }\r",
+        "    }\r",
         "}\r",
         "return resultado;"
       ],
@@ -15939,23 +16285,23 @@
         "$data.errorMessageStep3 = \"\";\r",
         "$data.titleMessageStep3 = \"\";\r",
         "if ($data.autodescripcionV2.catHasTenidoTrabajo === \"\" || $data.autodescripcionV2.catHasTenidoTrabajo === null || $data.autodescripcionV2.catHasTenidoTrabajo === undefined) {\r",
-        "\toutput = false;\r",
+        "    output = false;\r",
         "    $data.errorMessageStep3 = \"El campo ¿Has tenido algún trabajo? no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"¿Has tenido algún trabajo?\";\r",
         "} else if($data.autodescripcionV2.catHasTenidoTrabajo.descripcion === \"Sí\" && ($data.autodescripcionV2.catExperienciaAyudaCarrera === \"\" || $data.autodescripcionV2.catExperienciaAyudaCarrera === null || $data.autodescripcionV2.catExperienciaAyudaCarrera === undefined)) {\r",
-        "\toutput = false;\r",
+        "    output = false;\r",
         "    $data.errorMessageStep3 = \"El campo Nombre de la organización o empresa donde trabajaste no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"Nombre de la organización o empresa donde trabajaste\";\r",
-        "} else if($data.autodescripcionV2.catHasTenidoTrabajo.descripcion === \"Sí\" && ($data.autodescripcionV2.empresaTrabajaste === \"\" || $data.autodescripcionV2.empresaTrabajaste === null || $data.autodescripcionV2.empresaTrabajaste === undefined)){\r",
-        "\toutput = false;\r",
+        "} else if($data.autodescripcionV2.catHasTenidoTrabajo.descripcion === \"Sí\" && ($data.autodescripcionV2.catExperienciaAyudaCarrera === \"\" || $data.autodescripcionV2.catExperienciaAyudaCarrera === null || $data.autodescripcionV2.catExperienciaAyudaCarrera === undefined)){\r",
+        "    output = false;\r",
         "    $data.errorMessageStep3 = \"El campo ¿Sientes que tu experiencia de trabajo te ayudó a elegir tu carrera? no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"¿Sientes que tu experiencia de trabajo te ayudó a elegir tu carrera?\";\r",
         "} else if ($data.autodescripcionV2.catActualnenteTrabajas === \"\" || $data.autodescripcionV2.catActualnenteTrabajas === null || $data.autodescripcionV2.catActualnenteTrabajas === undefined) {\r",
-        "\toutput = false;\r",
+        "    output = false;\r",
         "    $data.errorMessageStep3 = \"El campo ¿Actualmente trabajas? no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"¿Actualmente trabajas?\";\r",
         "} else if($data.autodescripcionV2.catActualnenteTrabajas.descripcion === \"Sí\" && ($data.autodescripcionV2.empresaTrabajas === \"\" || $data.autodescripcionV2.empresaTrabajas === null || $data.autodescripcionV2.empresaTrabajas === undefined)) {\r",
-        "\toutput = false;\r",
+        "    output = false;\r",
         "    $data.errorMessageStep3 = \"El campo Nombre de la organización o empresa donde trabajas actualmente no debe ir vacío.\";\r",
         "    $data.titleMessageStep3 = \"Nombre de la organización o empresa donde trabajas actualmente\";\r",
         "}\r",
@@ -16573,7 +16919,12 @@
         "    resultado[\"titulo\"] = \"¡Promedio!\"\r",
         "    resultado[\"mensaje\"] = \"El campo Promedio no puede ir vacío\"\r",
         "}\r",
-        "\r",
+        "else if($data.objNuevoInformacionEscolar.escuela.descripcion==\"Otro\" &&( $data.objNuevoInformacionEscolar.otraEscuela === null || $data.objNuevoInformacionEscolar.otraEscuela === \"\")){\r",
+        "    resultado[\"error\"] = true;\r",
+        "    resultado[\"campo\"] = \"Nombre de la escuela\"\r",
+        "    resultado[\"titulo\"] = \"¡Nombre de la escuela!\"\r",
+        "    resultado[\"mensaje\"] = \"El campo Nombre de la escuela no puede ir vacío\"\r",
+        "}\r",
         "return resultado;"
       ],
       "exposed" : false

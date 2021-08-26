@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmisionADV2",
   "name" : "viewValidarSolicitudDeAdmisionADV2",
-  "lastUpdate" : 1629825286137,
+  "lastUpdate" : 1629995416849,
   "rows" : [
     [
       {
@@ -16364,7 +16364,7 @@
                       },
                       "content" : {
                         "type" : "expression",
-                        "value" : "lstInformacionEscolarMod"
+                        "value" : "lstInformacionEscolarModFiltro"
                       },
                       "columnsKey" : {
                         "type" : "constant",
@@ -16490,7 +16490,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "allowHTML" : {
                         "type" : "constant",
@@ -16538,6 +16538,89 @@
                     "reference" : "3e701fab-c8e7-43f9-9974-c75f8f10b409",
                     "hasValidationError" : false,
                     "id" : "pbTable"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "expression",
+                        "value" : "autodescripcionV2.catInscritoOtraUniversidad.descripcion==\"No\""
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Id",
+                          "Name",
+                          "Description",
+                          "Date"
+                        ]
+                      },
+                      "content" : {
+                        "type" : "expression",
+                        "value" : "lstUniversidadesHasEstadoMod"
+                      },
+                      "columnsKey" : {
+                        "type" : "constant"
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "modalEliminar" : {
+                        "type" : "constant",
+                        "value" : "na"
+                      },
+                      "modalEditar" : {
+                        "type" : "constant",
+                        "value" : "ns"
+                      },
+                      "accionModal" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "nombrePrepaDefault" : {
+                        "type" : "constant"
+                      },
+                      "lstInformacionEscolarMod" : {
+                        "type" : "variable",
+                        "value" : "lstUniversidadesHasEstadoMod"
+                      },
+                      "vista" : {
+                        "type" : "constant",
+                        "value" : true
+                      }
+                    },
+                    "reference" : "f233df1a-ca83-469e-a07d-814ce68b00b4",
+                    "hasValidationError" : false,
+                    "id" : "customCutomTableUniversidadesHasEstado"
                   }
                 ],
                 [
@@ -25459,6 +25542,25 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "lstInformacionEscolarModFiltro" : {
+      "type" : "expression",
+      "value" : [
+        "var retorno=[]",
+        "try{",
+        "    retorno=JSON.parse(JSON.stringify($data.lstInformacionEscolarMod));",
+        "}catch(e){",
+        "    ",
+        "}",
+        "retorno.filter(function(item){",
+        "    if(item.escuela.descripcion=='Otro'){",
+        "        item.escuela.descripcion=item.otraEscuela;",
+        "    }",
+        "    return true",
+        "})",
+        "return retorno;"
       ],
       "exposed" : false
     }

@@ -161,10 +161,11 @@ class ResultadoComiteDAO {
 					pstm.setString(1, it.IDBANNER);
 					
 					rs= pstm.executeQuery();
-					Long gestionescolar = 0L, sesion = 0L;
+					Long gestionescolar = 0L, sesion = 0L, countRechazos = 0L;
 					while(rs.next()) {
 						gestionescolar = rs.getLong("catgestionescolar_pid");
 						sesion = rs.getLong("SESIONES_PID");
+						countRechazos = rs.getLong("countrechazos");
 					}
 					
 					//DESACTUVA TODOS LOS RESULTADOS QUE TENGA ESE IDBANNER
@@ -188,6 +189,7 @@ class ResultadoComiteDAO {
 					pstm.setLong(12, sesion);
 					pstm.setString(13,it.usuariocreacion);
 					pstm.setBoolean(14, it.isPropedeutico)
+					pstm.setLong(15, countRechazos);
 					
 					
 					pstm.executeUpdate();
@@ -309,11 +311,13 @@ class ResultadoComiteDAO {
 					 columns.put("Existe",false)
 					 columns.put("EstaEnCarga",false)
 					 columns.put("puedePeriodo",false)
+					 columns.put("cantidadIntentos",false)
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
 						 columns.put("EstaEnCarga",isNullOrEmpty(rs.getString("primernombre")))
 						 columns.put("puedePeriodo",isNullOrEmpty(rs.getString("puedePeriodo")))
+						 columns.put("cantidadIntentos",isNullOrEmpty(rs.getString("cantidadIntentos")))
 					 }
 					 estatus.add(columns)
 				 }
@@ -333,6 +337,51 @@ class ResultadoComiteDAO {
 		}
 		return resultado
 	}
+	
+	
+	public Result postValidarUsuarioCantidadIntento(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				
+				List<Map<String, Object>> estatus = new ArrayList<Map<String, Object>>();
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				
+				//REVISO SI HAY VALORES QUE CONCUEDEN CON EL IDBANNER Y  EL PERIODO YA REGISTRADOS
+				pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS_RC.replace("[VALOR]",idBanner[j]).replace("[PERIODO]",periodo[j]) )
+				rs= pstm.executeQuery();
+				columns = new LinkedHashMap<String, Object>();
+				// ESTO ES PARA QUE SIEMPRE REGRESE VALORES POR SI NO EXISTE
+				columns.put("idBanner", object.IDBANNER )
+				columns.put("cantidadIntentos",false)
+				if(rs.next()) {
+					columns.put("cantidadIntentos",isNullOrEmpty(rs.getString("cantidadIntentos")))
+					
+				}
+				estatus.add(columns)
+				
+				
+				resultado.setSuccess(true)
+				resultado.setData(estatus)
+				resultado.setError_info(errorLog)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	
 	public Result getListaBitacoraRC( RestAPIContext context) {
@@ -475,11 +524,12 @@ class ResultadoComiteDAO {
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
+			con.setAutoCommit(false);
 			
 			pstm = con.prepareStatement(Statements.UPDATE_USER_LICENCIATURA_AND_PERIODO);
-			pstm.setLong(1, Long.parseLong(object.idlicenciatura));
-			pstm.setLong(2, Long.parseLong(object.idPeriodo));
-			pstm.setString(3, object.correo);
+			pstm.setLong(1, Long.parseLong(object.idlicenciatura.toString()));
+			pstm.setLong(2, Long.parseLong(object.idPeriodo.toString()));
+			pstm.setString(3, object.correo.toString());
 			pstm.executeUpdate();
 			
 			con.commit();
@@ -488,6 +538,7 @@ class ResultadoComiteDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog);
+			con.rollback();
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -495,7 +546,6 @@ class ResultadoComiteDAO {
 		}
 		return resultado
 	}
-	
 	
 	
 	public Boolean isNullOrEmpty(String text) {

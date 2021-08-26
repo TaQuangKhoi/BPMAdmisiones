@@ -76,4 +76,10 @@ function PbTableCtrl($scope, modalService) {
     function openModal(modal) {
         modalService.open(modal);
     }
+      $scope.$watch('properties.content', function(value) {
+          console.log("contenido de tabla cutomTableUniversidadesHasEstado")
+    if (angular.isDefined(value) && value !== null) {
+        console.log(value)
+    }
+  });
 }
