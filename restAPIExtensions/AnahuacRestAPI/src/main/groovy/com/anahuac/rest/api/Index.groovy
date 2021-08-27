@@ -779,6 +779,16 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "postValidarUsuarioCantidadIntento":
+					result = new ResultadoComiteDAO().postValidarUsuarioCantidadIntento(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 					case "getAspirantesSinRC":
 					result = new ResultadoComiteDAO().getAspirantesSinRC(0,9999,jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -868,6 +878,7 @@ class Index implements RestApiController {
 							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 						}
 					break;
+					
 					
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/

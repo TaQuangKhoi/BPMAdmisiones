@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatRasgosObservadosAcciones",
   "name" : "CatRasgosObservadosAcciones",
-  "lastUpdate" : 1622160504310,
+  "lastUpdate" : 1630025133310,
   "rows" : [
     [
       {
@@ -343,6 +343,7 @@
                 "headers" : {
                   "type" : "constant",
                   "value" : [
+                    "Orden",
                     "Clave",
                     "Descripción",
                     "Usuario creación",
@@ -355,6 +356,7 @@
                 "columnsKey" : {
                   "type" : "constant",
                   "value" : [
+                    "orden",
                     "clave",
                     "descripcion",
                     "usuarioCreacion",
@@ -410,9 +412,9 @@
                   "value" : "/bonita/API/extension/AnahuacRest?url=getCatGenerico&p=0&c=100"
                 }
               },
-              "reference" : "44cbf67d-6a07-44a1-9432-7992513bcc33",
+              "reference" : "50364140-7dd0-48e9-b63a-4879555d06d9",
               "hasValidationError" : false,
-              "id" : "customTableSeleccionarFiltradoCatalogosChicos"
+              "id" : "customTableSeleccionarFiltradoCatalogosChicosOrden"
             }
           ],
           [
@@ -557,6 +559,81 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
+                  "value" : 5
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Orden:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "catRasgosObservados_selected.orden"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "9871f3ec-5c21-45c8-a60d-ec105895a593",
+              "hasValidationError" : false,
+              "id" : "customInputNumerico"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
                   "value" : ""
                 },
                 "readOnly" : {
@@ -604,14 +681,16 @@
               "reference" : "0b8c1c67-5e8d-4e9c-8bfe-2d8dfcf749f6",
               "hasValidationError" : false,
               "id" : "pbInput"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -859,11 +938,15 @@
                 "nombreTabla" : {
                   "type" : "constant",
                   "value" : "lstCatRasgosObservadosInput"
+                },
+                "tabla" : {
+                  "type" : "constant",
+                  "value" : "CatRasgosObservados"
                 }
               },
-              "reference" : "b0c11537-1819-4095-8b88-8c7b174d697a",
+              "reference" : "5e14a84e-eb5a-483a-8960-40bd39cc7e9b",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatGenericoTipoAdmision"
+              "id" : "customButtonInstanciarCatGenericoOrden"
             }
           ],
           [
@@ -1040,6 +1123,81 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
+                  "value" : 5
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Orden:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "formOutputAgregar.lstCatRasgosObservadosInput[0].orden"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "b2a883f9-49e3-4616-b513-0ae7fa713aba",
+              "hasValidationError" : false,
+              "id" : "customInputNumerico"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
                   "value" : ""
                 },
                 "readOnly" : {
@@ -1087,14 +1245,16 @@
               "reference" : "637b4b5e-e247-451b-b8cd-0126a9967467",
               "hasValidationError" : false,
               "id" : "pbInput"
-            },
+            }
+          ],
+          [
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 8,
-                "lg" : 8
+                "md" : 12,
+                "lg" : 12
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -1335,11 +1495,15 @@
                 "nombreTabla" : {
                   "type" : "constant",
                   "value" : "lstCatRasgosObservadosInput"
+                },
+                "tabla" : {
+                  "type" : "constant",
+                  "value" : "CatRasgosObservados"
                 }
               },
-              "reference" : "9b557179-b873-4c2b-b78b-528f3efe2942",
+              "reference" : "55301775-0a25-4694-9273-1c8d43163aa9",
               "hasValidationError" : false,
-              "id" : "customButtonInstanciarCatGenericoTipoAdmision"
+              "id" : "customButtonInstanciarCatGenericoOrden"
             }
           ],
           [
@@ -2204,14 +2368,14 @@
     "processAgregarData" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?c=10&p=0&f=name=Agregar%20RasgosObservados"
+        "../API/bpm/process?c=10&p=0&f=name=Agregar%20RasgosObservados&f=version=2.0"
       ],
       "exposed" : false
     },
     "processEditData" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/process?c=1000&p=0&f=name=Editar%20RasgosObservados"
+        "../API/bpm/process?c=1000&p=0&f=name=Editar%20RasgosObservados&f=version=2.0"
       ],
       "exposed" : false
     },
@@ -2291,10 +2455,11 @@
         "    \"lstFiltro\": $data.lstFiltros,\r",
         "    \"usuario\": $data.userData.user_name,\r",
         "    \"orderby\": \"\",\r",
-        "    \"orientation\": \"DESC\",\r",
-        "    \"limit\": 20,\r",
+        "    \"orientation\": \"ASC\",\r",
+        "    \"limit\": 200,\r",
         "    \"offset\": 0,\r",
-        "    \"catalogo\": \"CatRasgosObservados\"\r",
+        "    \"catalogo\": \"CatRasgosObservados\",\r",
+        "    \"isOrden\":true\r",
         "};"
       ],
       "exposed" : false

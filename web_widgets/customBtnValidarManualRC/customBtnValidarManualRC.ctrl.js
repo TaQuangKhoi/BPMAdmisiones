@@ -3,6 +3,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   'use strict';
 
   var vm = this;
+  $scope.validaciones = {};
 
     $scope.myFunc = function() {
       //$scope.properties.value = $scope.properties.texto;
@@ -12,7 +13,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           let info = [];
           info.push($scope.properties.value);
           info[0].usuariocreacion = angular.copy($scope.properties.usuario);
-          doRequest("POST",$scope.properties.urlPost,info);
+          let info2 = {"IDBANNER":info[0].IDBANNER}
+          doRequestValidar("POST",$scope.properties.urlValidar,info2).then(function() {
+              if($scope.validaciones.cantidadIntentos <=2){
+                doRequest("POST",$scope.properties.urlPost,info)
+              }else{
+                swal(`¡Este aspirante a sobrepasado la cantidad de intentos permitidos!`,"","warning")
+              }
+            });
       }
     };
     
@@ -107,6 +115,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             });
     }
     
+    
+    function doRequestValidar(method, url,datos) {
+        blockUI.start();
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(datos)
+        };
+        return $http(req)
+            .success(function (data, status) {
+                $scope.validaciones = data.data[0];
+            })
+            .error(function (data, status) {
+                
+            })
+            .finally(function () {
+                
+                blockUI.stop();
+            });
+    }
     
 
 }

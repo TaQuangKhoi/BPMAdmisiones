@@ -354,12 +354,13 @@ class ResultadoComiteDAO {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
 				
 				//REVISO SI HAY VALORES QUE CONCUEDEN CON EL IDBANNER Y  EL PERIODO YA REGISTRADOS
-				pstm = con.prepareStatement(Statements.GET_EXISTE_Y_DATOS_DUPLICADOS_RC.replace("[VALOR]",idBanner[j]).replace("[PERIODO]",periodo[j]) )
+				pstm = con.prepareStatement(Statements.GET_CANTIDAD_INTENTOS_RC)
+				pstm.setString(1, object.IDBANNER)
 				rs= pstm.executeQuery();
 				columns = new LinkedHashMap<String, Object>();
 				// ESTO ES PARA QUE SIEMPRE REGRESE VALORES POR SI NO EXISTE
 				columns.put("idBanner", object.IDBANNER )
-				columns.put("cantidadIntentos",false)
+				columns.put("cantidadIntentos",0)
 				if(rs.next()) {
 					columns.put("cantidadIntentos",isNullOrEmpty(rs.getString("cantidadIntentos")))
 					

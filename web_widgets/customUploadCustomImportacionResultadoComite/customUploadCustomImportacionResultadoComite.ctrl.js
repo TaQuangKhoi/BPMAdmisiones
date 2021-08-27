@@ -216,6 +216,8 @@ function UploadCustomImportacionResultadoComite($scope, $http,blockUI) {
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].nombre,Error:"el aspirante no se encuantra en carga y consulta de resultados",usuario:$scope.properties.usuario,existe:true}]
             }else if(!info.puedePeriodo){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].nombre,Error:"el aspirante no se encuentra en el periodo subido",usuario:$scope.properties.usuario,existe:true}]
+            }else if(!info.cantidadIntentos){
+                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].nombre,Error:"el aspirante ha superado el numero de intentos",usuario:$scope.properties.usuario,existe:true}]
             }
             else{
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
