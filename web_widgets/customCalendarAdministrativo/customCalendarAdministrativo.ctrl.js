@@ -1522,6 +1522,34 @@ function($scope, $http, blockUI) {
             error = true;
             sweet.titulo = "Fecha de Último día para inscripción";
             sweet.texto = 'Favor de capturar "Fecha de Último día para inscripción"'
+        } else if($scope.sesion.usuarios_lst_id!=""){
+        	console.log("validar residencia con aspirante");
+        	var valido=false;
+        	for (var i = 0; i < $scope.lstUsuarios.length; i++) {
+        		valido=false;
+        		for (var j = 0; j < $scope.sesion.usuarios_lst_id.split(",").length; j++) {
+        			if($scope.sesion.usuarios_lst_id.split(",")[j]==$scope.lstUsuarios[i].correoelectronico){
+        				for (var k = 0; k < $scope.sesion.tipo.split(",").length; k++) {
+        					if ($scope.sesion.tipo.split(",").length==3) {
+        						valido=true;
+        					}else{
+        						if($scope.sesion.tipo.split(",")[k]==$scope.lstUsuarios[i].clave){
+        							valido=true;
+        						}
+        					}
+        				}
+        				
+        			}else{valido=true}
+        		}
+        		if (!valido) {
+        			error = true;
+		            sweet.titulo = "Configuración avanzada";
+		            sweet.texto = 'Uno de los aspirantes seleccionados no coincide con el tipo de residencia"'
+		            break;
+        		}
+        	}
+        	
+        	
         }
 
 

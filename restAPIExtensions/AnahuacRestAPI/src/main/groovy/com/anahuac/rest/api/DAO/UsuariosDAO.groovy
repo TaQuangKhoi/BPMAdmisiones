@@ -79,7 +79,7 @@ class UsuariosDAO {
 		return resultado;
 	}
 	
-	public Result postRegistrarUsuario(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context, String idioma) {
+	public Result postRegistrarUsuario(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Result resultadoN = new Result();
 		//List<Usuarios> lstResultado = new ArrayList<Usuarios>();
@@ -125,15 +125,16 @@ class UsuariosDAO {
 			
 			closeCon = validarConexion();
 			
-			while (step <= 0) {
+			/*while (step <= 0) {
 				try {
 					con.setAutoCommit(false);
 					pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
 					pstm.setString(1, idioma);
 					pstm.setString(2, object.nombreusuario);
-		
+					error_log ="idioma"
 					resultReq = pstm.executeUpdate();
 					con.commit();
+					error_log ="termino idioma"
 					step = step+1;
 					success = true;
 					error_log = resultReq + " exito! query update"
@@ -156,7 +157,7 @@ class UsuariosDAO {
 					con.rollback();
 					error_log = "Error catch: "+e+ " error query1: "+resultReq+" error query2: "+resultReqA;
 				}
-			}
+			}*/
 				
 			//Registro del usuario
 			IdentityAPI identityAPI = apiClient.getIdentityAPI()
@@ -3126,6 +3127,22 @@ class UsuariosDAO {
 						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+						
+						case "NOMBRE,CURP":
+						errorlog += "NOMBRE,CURP"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+
 
 					case "CAMPUS,PROGRAMA,INGRESO":
 						errorlog += "PROGRAMA,INGRESO,CAMPUS"

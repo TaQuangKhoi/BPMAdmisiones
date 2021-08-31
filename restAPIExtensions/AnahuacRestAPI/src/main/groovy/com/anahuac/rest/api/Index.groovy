@@ -26,6 +26,7 @@ import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.PsicometricoDAO
 import com.anahuac.rest.api.DAO.ResultadosAdmisionDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
+import com.anahuac.rest.api.DAO.AvanzeProcesoDAO
 import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.TestDAO
 import com.anahuac.rest.api.DAO.TransferenciasDAO
@@ -879,6 +880,16 @@ class Index implements RestApiController {
 						}
 					break;
 					
+					case "postAsistenciaProceso":
+						result = new AvanzeProcesoDAO().postAsistenciaProceso(jsonData,context);
+						responseBuilder.withMediaType("application/json")
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+					break;
+					
 					
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/
@@ -955,7 +966,7 @@ class Index implements RestApiController {
 					break;
 				case "RegistrarUsuario":
 				try{
-					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context, idioma);
+					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
