@@ -28,9 +28,6 @@
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span
-                            style="cursor:pointer" ng-click="setOrderBy('EMAIL')">Email<i class="glyphicon"
-                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='EMAIL'"></i></span> / <span
                             style="cursor:pointer" ng-click="setOrderBy('CURP')">CURP<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='CURP'"></i></span></th>
@@ -94,7 +91,7 @@
                     <td><input ng-model="dynamicInput['banner']" class="form-control"
                             ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control"
-                            ng-enter="filterKeyPress('NOMBRE,EMAIL,CURP',dynamicInput['nombre'])"></td>
+                            ng-enter="filterKeyPress('NOMBRE,CURP',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control"
                             ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control"
@@ -122,8 +119,7 @@
                     <td class="max-size">
                         <b>{{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}}
                             {{row.segundonombre}}</b><br>
-                        {{row.correoelectronico}}<br>
-                        {{row.curp}}
+                        {{row.curp}}<br>
                     </td>
                     <td class="max-size">
                         <b>{{row.campus}}</b><br>
@@ -139,14 +135,12 @@
                         <b>{{row.residensia}}</b><br>
                         {{row.tipoadmision}}<br>
                         {{row.tipodealumno}}
-                        <!-- {{ Transferencia(row)}} -->
                     </td>
                     <!--<td class="max-size">
                         <b>{{row.sesiones_pid}}</b>
                     </td>-->
                     <td class="max-size">
                         <b>{{row.estatussolicitud }}</b><br>
-                        <!--{{row.tipoalumno}}-->
                         <br>
                     </td>
                     <td>

@@ -85,7 +85,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			assert object instanceof Map;
 			
 			/*-------------------ENG/ESP-----------------------------------*/				
-			try {				
+			/*try {				
 				pstm = con.prepareStatement(Statements.SELECT_IDIOMA_BY_USERNAME);
 				pstm.setString(1, object.nombreusuario);
 				
@@ -106,7 +106,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 				}
 			} catch (Exception e) {
 				errorlog = "Error generateHtml - select_idioma_by_username: "+rs+" object: "+object+" idioma: "+idioma+" exception: "+e;
-			}
+			}*/
 			
 			/*--------------------FIN-------------------------------------*/
 			userLogged = context.getApiSession().getUserId();

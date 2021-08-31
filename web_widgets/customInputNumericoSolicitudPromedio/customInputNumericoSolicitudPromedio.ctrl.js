@@ -35,7 +35,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 }
                 if ($scope.letterOrNumber) {
                     if ((e.key.match(letter)) && (e.target.value.length) < limite) {
-                        $scope.properties.value += letter.test(e.key) ? e.key.toUpperCase() : "";
+                        $scope.properties.value += letter.test(e.key) ? e.key=='Enter'?"":e.key.toUpperCase() : "";
                         let start = e.target.selectionStart;
                         let end = e.target.selectionEnd;
                         e.target.value = e.target.value.substring(0, start) + e.target.value.substring(end);
