@@ -52,6 +52,7 @@ function loadContextCtrl($scope, $http) {
     }
 
     $scope.$watchCollection("properties.taskId", function(newValue, oldValue) {
+        console.log("loadcontext")
         if ($scope.properties.taskId !== undefined && $scope.properties.taskId !== "") {
             $scope.loadContextTask($scope.properties.taskId);
         }
