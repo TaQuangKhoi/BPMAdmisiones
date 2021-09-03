@@ -1,504 +1,522 @@
 {
-    "designerVersion": "1.11.52",
-    "id": "catNotificacionesFirma",
-    "name": "catNotificacionesFirma",
-    "lastUpdate": 1617148443870,
-    "rows": [
-        [{
-            "type": "component",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": ""
-                },
-                "hidden": {
-                    "type": "constant",
-                    "value": false
-                },
-                "text": {
-                    "type": "interpolation",
-                    "value": "Configuración de firmas"
-                },
-                "level": {
-                    "type": "constant",
-                    "value": "Level 2"
-                },
-                "alignment": {
-                    "type": "constant",
-                    "value": "center"
-                }
-            },
-            "reference": "729e3206-038e-4bd6-b045-cfe7c41b1b85",
-            "hasValidationError": false,
-            "id": "pbTitle"
-        }],
-        [{
-            "type": "container",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": "campus-container"
-                },
-                "hidden": {
-                    "type": "constant",
-                    "value": false
-                },
-                "repeatedCollection": {
-                    "type": "variable",
-                    "value": ""
-                }
-            },
-            "reference": "d3090574-a24b-437f-921e-1875d4db4968",
-            "hasValidationError": false,
-            "id": "pbContainer",
-            "rows": [
-                [{
-                    "type": "component",
-                    "dimension": {
-                        "xs": 12,
-                        "sm": 12,
-                        "md": 12,
-                        "lg": 12
-                    },
-                    "propertyValues": {
-                        "cssClasses": {
-                            "type": "constant",
-                            "value": "te"
-                        },
-                        "hidden": {
-                            "type": "expression",
-                            "value": "lstCampusUsuario.length <= 1"
-                        },
-                        "disabled": {
-                            "type": "constant",
-                            "value": false
-                        },
-                        "required": {
-                            "type": "constant",
-                            "value": false
-                        },
-                        "labelHidden": {
-                            "type": "constant",
-                            "value": false
-                        },
-                        "label": {
-                            "type": "interpolation",
-                            "value": "Campus"
-                        },
-                        "labelPosition": {
-                            "type": "constant",
-                            "value": "top"
-                        },
-                        "labelWidth": {
-                            "type": "constant",
-                            "value": 4
-                        },
-                        "placeholder": {
-                            "type": "interpolation",
-                            "value": "Seleccionar..."
-                        },
-                        "availableValues": {
-                            "type": "expression",
-                            "value": "lstCampus"
-                        },
-                        "displayedKey": {
-                            "type": "constant",
-                            "value": "descripcion"
-                        },
-                        "returnedKey": {
-                            "type": "constant"
-                        },
-                        "value": {
-                            "type": "variable",
-                            "value": "campus_selected"
-                        }
-                    },
-                    "reference": "adc747a4-d9f5-4408-ba99-84ae4dc2236f",
-                    "hasValidationError": false,
-                    "id": "pbSelect"
-                }]
-            ]
-        }],
-        [{
-            "type": "container",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": "tablecontainer"
-                },
-                "hidden": {
-                    "type": "constant",
-                    "value": false
-                },
-                "repeatedCollection": {
-                    "type": "variable",
-                    "value": ""
-                }
-            },
-            "reference": "51e3a2d2-6439-4972-93f5-f13fc1427398",
-            "hasValidationError": false,
-            "id": "pbContainer",
-            "rows": [
-                [{
-                    "type": "component",
-                    "dimension": {
-                        "xs": 12,
-                        "sm": 12,
-                        "md": 12,
-                        "lg": 12
-                    },
-                    "propertyValues": {
-                        "cssClasses": {
-                            "type": "constant",
-                            "value": ""
-                        },
-                        "hidden": {
-                            "type": "expression",
-                            "value": "campus_selected.descripcion == undefined"
-                        },
-                        "allowHTML": {
-                            "type": "constant",
-                            "value": true
-                        },
-                        "headers": {
-                            "type": "constant",
-                            "value": [
-                                "PersistenceId",
-                                "Cargo",
-                                "Correo",
-                                "Grupo",
-                                "NombreCompleto",
-                                "Telefono",
-                                "Titulo",
-                                "Facebook",
-                                "Twitter",
-                                "Banner",
-                                "Preview",
-                                "Editar"
-                            ]
-                        },
-                        "content": {
-                            "type": "expression",
-                            "value": "firmas"
-                        },
-                        "columnsKey": {
-                            "type": "constant",
-                            "value": [
-                                "persistenceId",
-                                "cargo",
-                                "correo",
-                                "grupo",
-                                "nombreCompleto",
-                                "telefono",
-                                "titulo",
-                                "CAMPUS",
-                                "facebook",
-                                "twitter",
-                                "banner"
-                            ]
-                        },
-                        "selectedRow": {
-                            "type": "variable",
-                            "value": ""
-                        },
-                        "striped": {
-                            "type": "constant",
-                            "value": true
-                        },
-                        "condensed": {
-                            "type": "constant",
-                            "value": false
-                        },
-                        "bordered": {
-                            "type": "constant",
-                            "value": false
-                        },
-                        "getCallback": {
-                            "type": "constant",
-                            "value": "/bonita/API/extension/AnahuacRestGet?url=getCatNotificacionesFirma&p=0&c=10"
-                        },
-                        "dataToSend": {
-                            "type": "variable",
-                            "value": "dataToSend"
-                        },
-                        "userId": {
-                            "type": "variable",
-                            "value": "userId.user_id"
-                        },
-                        "campusSelected": {
-                            "type": "variable",
-                            "value": "campus_selected"
-                        },
-                        "lstCampus": {
-                            "type": "variable",
-                            "value": "lstCampus"
-                        }
-                    },
-                    "reference": "8d545b7a-0aac-4b6c-8ee7-5a06b9e8ca9f",
-                    "hasValidationError": false,
-                    "id": "customCatNotificacionesFirma"
-                }]
-            ]
-        }]
+  "designerVersion" : "1.11.52",
+  "id" : "catNotificacionesFirma",
+  "name" : "catNotificacionesFirma",
+  "lastUpdate" : 1630624090564,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Configuración de firmas"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "729e3206-038e-4bd6-b045-cfe7c41b1b85",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
     ],
-    "assets": [{
-            "id": "5116889e-eea2-425e-9925-2b0e4521c012",
-            "name": "anahuac_custom_styles.css",
-            "type": "css",
-            "order": 1,
-            "external": false
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
         },
-        {
-            "id": "3f7b689f-64a9-4818-b3ed-efcd01a31f1e",
-            "name": "localization.json",
-            "type": "json",
-            "order": 0,
-            "external": false
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "campus-container"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
         },
-        {
-            "id": "a7785306-1fb9-4ccf-b7ca-c1a56f218e6a",
-            "name": "style.css",
-            "type": "css",
-            "order": 0,
-            "external": false
-        }
+        "reference" : "d3090574-a24b-437f-921e-1875d4db4968",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "te"
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "lstCampusUsuario.length <= 1"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campus"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Seleccionar..."
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "lstCampus"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "campus_selected"
+                }
+              },
+              "reference" : "adc747a4-d9f5-4408-ba99-84ae4dc2236f",
+              "hasValidationError" : false,
+              "id" : "pbSelect"
+            }
+          ]
+        ]
+      }
     ],
-    "inactiveAssets": [],
-    "variables": {
-        "firmas": {
-            "type": "url",
-            "value": [
-                "/bonita/API/extension/AnahuacRestGet?url=getCatNotificacionesFirma&p=0&c=10"
-            ],
-            "exposed": false
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
         },
-        "nicedit": {
-            "type": "constant",
-            "exposed": false
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : "tablecontainer"
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
         },
-        "dataToSend": {
-            "type": "expression",
-            "value": [
-                "return {\r",
-                "    \"estatusSolicitud\":\"Solicitud en progreso\",\r",
-                "    \"tarea\":\"Llenar solicitud\",\r",
-                "    \"lstFiltro\": $data.lstFiltros,\r",
-                "    \"type\": \"solicitudes_progreso\",\r",
-                "    \"usuario\":0,\r",
-                "    \"orderby\":\"NOMBRECOMPLETO\",\r",
-                "    \"orientation\":\"ASC\",\r",
-                "    \"limit\":20,\r",
-                "    \"offset\":0\r",
-                "};"
-            ],
-            "exposed": false
-        },
-        "lstColumnasFiltro": {
-            "type": "json",
-            "value": [
-                "[\r",
-                "\"PERSISTENCEID\",\r",
-                "\"CARGO\",\r",
-                "\"CORREO\",\r",
-                "\"GRUPO\",\r",
-                "\"NOMBRECOMPLETO\",\r",
-                "\"TELEFONO\",\r",
-                "\"TITULO\",\r",
-                "\"PREVIEW\",\r",
-                "\"EDITAR\"\r",
-                "]"
-            ],
-            "exposed": false
-        },
-        "lstContenido": {
-            "type": "json",
-            "value": [
-                "[]"
-            ],
-            "exposed": false
-        },
-        "lstFiltros": {
-            "type": "json",
-            "value": [
-                "[]"
-            ],
-            "exposed": false
-        },
-        "lstFiltrosPre": {
-            "type": "json",
-            "value": [
-                "[]"
-            ],
-            "exposed": false
-        },
-        "lstOperador": {
-            "type": "json",
-            "value": [
-                "[ \"Igual a\", \"Que contenga\" ]"
-            ],
-            "exposed": false
-        },
-        "objFiltro": {
-            "type": "json",
-            "value": [
-                "{ \"columna\":\"\", \"operador\":\"\", \"valor\":\"\" }"
-            ],
-            "exposed": false
-        },
-        "userId": {
-            "type": "url",
-            "value": [
-                "../API/system/session/unusedId"
-            ],
-            "exposed": false
-        },
-        "lstMembership": {
-            "type": "url",
-            "value": [
-                "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
-            ],
-            "exposed": false
-        },
-        "lstCampus": {
-            "type": "expression",
-            "value": [
-                "var resultado = [];\r",
-                "\r",
-                "for(var x in $data.lstCampusUsuario){\r",
-                "    for(var index in $data.lstCatCampus){\r",
-                "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
-                "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
-                "            resultado.push({...$data.lstCatCampus[index], \"group_id\":$data.lstCampusUsuario[x].group_id});\r",
-                "            if($data.lstCampusUsuario.length == 1){\r",
-                "                $data.campus_selected = resultado[0];\r",
-                "            }\r",
-                "        }\r",
-                "        \r",
-                "    }\r",
-                "}\r",
-                "return resultado;"
-            ],
-            "exposed": false
-        },
-        "lstCampusByUser": {
-            "type": "expression",
-            "value": [
-                "var resultado=[];\r",
-                "\r",
-                "for(var x in $data.lstMembership){\r",
-                "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
-                "        resultado.push({\"name\":$data.lstMembership[x].group_id.name,\"id\":$data.lstMembership[x].group_id.id});\r",
-                "    }\r",
-                "}\r",
-                "\r",
-                "return resultado;"
-            ],
-            "exposed": false
-        },
-        "lstCampusRole": {
-            "type": "expression",
-            "value": [
-                "var lstData = []\r",
-                "var objData = {}\r",
-                "for(var index in $data.lstCatCampus){\r",
-                "\tobjData = {\r",
-                "\t\t\"descripcion\":\"\",\r",
-                "\t\t\"valor\":\"\"\r",
-                "\t}\r",
-                "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
-                "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
-                "\tlstData.push(objData);\r",
-                "}\r",
-                "return lstData;"
-            ],
-            "exposed": false
-        },
-        "lstCampusUsuario": {
-            "type": "expression",
-            "value": [
-                "var resultado = [];\r",
-                "for(var x in $data.lstCampusByUser){\r",
-                "    for(var index in $data.lstCampusRole){\r",
-                "        if($data.lstCampusByUser[x].name === $data.lstCampusRole[index].valor){\r",
-                "            //resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
-                "            let r2 = [];\r",
-                "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
-                "            let i = 0;\r",
-                "            resultado.forEach(value =>{\r",
-                "                if(value.valor == r2[0].valor ){\r",
-                "                   i++;\r",
-                "                }\r",
-                "            });\r",
-                "            if(i === 0){\r",
-                "              resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
-                "            }\r",
-                "        }\r",
-                "    }\r",
-                "}\r",
-                "\r",
-                "return resultado;"
-            ],
-            "exposed": false
-        },
-        "campus_selected": {
-            "type": "json",
-            "value": [
-                "{",
-                "\"clave\": \"\",",
-                "\"descripcion\": \"\",",
-                "\"fechaCreacion\": \"\",",
-                "\"fechaImplementacion\": \"\",",
-                "\"id\": \"\",",
-                "\"isEliminado\": null,",
-                "\"isEnabled\": null,",
-                "\"nombreDocumento\": \"\",",
-                "\"persistenceId\": 0,",
-                "\"persistenceId_string\": \"\",",
-                "\"persistenceVersion\": 0,",
-                "\"persistenceVersion_string\": \"\",",
-                "\"urlAutorDatos\": \"\",",
-                "\"urlAvisoPrivacidad\": \"\",",
-                "\"urlDatosVeridicos\": \"\",",
-                "\"usuarioBanner\": \"\"",
-                "}"
-            ],
-            "exposed": false
-        },
-        "lstCatCampus": {
-            "type": "businessdata",
-            "value": [
-                "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
-            ],
-            "exposed": false
-        },
-        "userData": {
-            "type": "url",
-            "value": [
-                "../API/system/session/unusedId"
-            ],
-            "exposed": false
-        }
+        "reference" : "51e3a2d2-6439-4972-93f5-f13fc1427398",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "campus_selected.descripcion == undefined"
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "PersistenceId",
+                    "Cargo",
+                    "Correo",
+                    "Grupo",
+                    "NombreCompleto",
+                    "Telefono",
+                    "Titulo",
+                    "Facebook",
+                    "Twitter",
+                    "Banner",
+                    "Preview",
+                    "Editar"
+                  ]
+                },
+                "content" : {
+                  "type" : "expression",
+                  "value" : "firmas"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "persistenceId",
+                    "cargo",
+                    "correo",
+                    "grupo",
+                    "nombreCompleto",
+                    "telefono",
+                    "titulo",
+                    "CAMPUS",
+                    "facebook",
+                    "twitter",
+                    "banner"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "getCallback" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRestGet?url=getCatNotificacionesFirma&p=0&c=10"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userId.user_id"
+                },
+                "campusSelected" : {
+                  "type" : "variable",
+                  "value" : "campus_selected"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCampus"
+                }
+              },
+              "reference" : "8d545b7a-0aac-4b6c-8ee7-5a06b9e8ca9f",
+              "hasValidationError" : false,
+              "id" : "customCatNotificacionesFirma"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "5116889e-eea2-425e-9925-2b0e4521c012",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
     },
-    "hasValidationError": false,
-    "uuid": "fe79739a-39f5-4b44-a1b7-96a47e080ee8",
-    "type": "page",
-    "description": "Page generated with Bonita UI designer"
+    {
+      "id" : "3f7b689f-64a9-4818-b3ed-efcd01a31f1e",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "a7785306-1fb9-4ccf-b7ca-c1a56f218e6a",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "26eaea74-1a95-4022-893b-837996d1d263",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 2,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "firmas" : {
+      "type" : "url",
+      "value" : [
+        "/bonita/API/extension/AnahuacRestGet?url=getCatNotificacionesFirma&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "nicedit" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"estatusSolicitud\":\"Solicitud en progreso\",\r",
+        "    \"tarea\":\"Llenar solicitud\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"solicitudes_progreso\",\r",
+        "    \"usuario\":0,\r",
+        "    \"orderby\":\"NOMBRECOMPLETO\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstColumnasFiltro" : {
+      "type" : "json",
+      "value" : [
+        "[\r",
+        "\"PERSISTENCEID\",\r",
+        "\"CARGO\",\r",
+        "\"CORREO\",\r",
+        "\"GRUPO\",\r",
+        "\"NOMBRECOMPLETO\",\r",
+        "\"TELEFONO\",\r",
+        "\"TITULO\",\r",
+        "\"PREVIEW\",\r",
+        "\"EDITAR\"\r",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltrosPre" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstOperador" : {
+      "type" : "json",
+      "value" : [
+        "[ \"Igual a\", \"Que contenga\" ]"
+      ],
+      "exposed" : false
+    },
+    "objFiltro" : {
+      "type" : "json",
+      "value" : [
+        "{ \"columna\":\"\", \"operador\":\"\", \"valor\":\"\" }"
+      ],
+      "exposed" : false
+    },
+    "userId" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?f=user_id={{userData.user_id}}&d=role_id&d=group_id&c=100&p=0"
+      ],
+      "exposed" : false
+    },
+    "lstCampus" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "\r",
+        "for(var x in $data.lstCampusUsuario){\r",
+        "    for(var index in $data.lstCatCampus){\r",
+        "        if($data.lstCampusUsuario[x].descripcion === $data.lstCatCampus[index].descripcion){\r",
+        "            $data.lstCatCampus[index].valor = $data.lstCampusUsuario[x].valor;\r",
+        "            resultado.push({...$data.lstCatCampus[index], \"group_id\":$data.lstCampusUsuario[x].group_id});\r",
+        "            if($data.lstCampusUsuario.length == 1){\r",
+        "                $data.campus_selected = resultado[0];\r",
+        "            }\r",
+        "        }\r",
+        "        \r",
+        "    }\r",
+        "}\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusByUser" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado=[];\r",
+        "\r",
+        "for(var x in $data.lstMembership){\r",
+        "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
+        "        resultado.push({\"name\":$data.lstMembership[x].group_id.name,\"id\":$data.lstMembership[x].group_id.id});\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusRole" : {
+      "type" : "expression",
+      "value" : [
+        "var lstData = []\r",
+        "var objData = {}\r",
+        "for(var index in $data.lstCatCampus){\r",
+        "\tobjData = {\r",
+        "\t\t\"descripcion\":\"\",\r",
+        "\t\t\"valor\":\"\"\r",
+        "\t}\r",
+        "\tobjData[\"descripcion\"] = $data.lstCatCampus[index].descripcion;\r",
+        "\tobjData[\"valor\"] = $data.lstCatCampus[index].grupoBonita;\r",
+        "\tlstData.push(objData);\r",
+        "}\r",
+        "return lstData;"
+      ],
+      "exposed" : false
+    },
+    "lstCampusUsuario" : {
+      "type" : "expression",
+      "value" : [
+        "var resultado = [];\r",
+        "for(var x in $data.lstCampusByUser){\r",
+        "    for(var index in $data.lstCampusRole){\r",
+        "        if($data.lstCampusByUser[x].name === $data.lstCampusRole[index].valor){\r",
+        "            //resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let r2 = [];\r",
+        "            r2.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            let i = 0;\r",
+        "            resultado.forEach(value =>{\r",
+        "                if(value.valor == r2[0].valor ){\r",
+        "                   i++;\r",
+        "                }\r",
+        "            });\r",
+        "            if(i === 0){\r",
+        "              resultado.push({...$data.lstCampusRole[index],\"group_id\":$data.lstCampusByUser[x].id});\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "campus_selected" : {
+      "type" : "json",
+      "value" : [
+        "{",
+        "\"clave\": \"\",",
+        "\"descripcion\": \"\",",
+        "\"fechaCreacion\": \"\",",
+        "\"fechaImplementacion\": \"\",",
+        "\"id\": \"\",",
+        "\"isEliminado\": null,",
+        "\"isEnabled\": null,",
+        "\"nombreDocumento\": \"\",",
+        "\"persistenceId\": 0,",
+        "\"persistenceId_string\": \"\",",
+        "\"persistenceVersion\": 0,",
+        "\"persistenceVersion_string\": \"\",",
+        "\"urlAutorDatos\": \"\",",
+        "\"urlAvisoPrivacidad\": \"\",",
+        "\"urlDatosVeridicos\": \"\",",
+        "\"usuarioBanner\": \"\"",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstCatCampus" : {
+      "type" : "businessdata",
+      "value" : [
+        "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "fe79739a-39f5-4b44-a1b7-96a47e080ee8",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
 }
