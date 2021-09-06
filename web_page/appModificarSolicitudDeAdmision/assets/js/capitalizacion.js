@@ -25,7 +25,8 @@ function capitalizeName(name="") {
     let final = "";
     if(nombres.length>1){
         for(let i = 0; i<nombres.length; i++){
-            if(nombres[i] != "de" && nombres[i] != "la" && nombres[i] != "las"){
+            let conectores = ["del", "de", "los", "la", "las","y"];
+            if(!conectores.includes(nombres[i])){
                 if(nombres[i].length > 1){
                     final += (final.length>0?" ":"")+nombres[i].charAt(0).toUpperCase() + nombres[i].slice(1).toLowerCase();
                 }else{

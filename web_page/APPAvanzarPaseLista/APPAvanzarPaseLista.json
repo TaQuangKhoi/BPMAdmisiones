@@ -2,8 +2,96 @@
   "designerVersion" : "1.11.52",
   "id" : "APPAvanzarPaseLista",
   "name" : "APPAvanzarPaseLista",
-  "lastUpdate" : 1630351424344,
+  "lastUpdate" : 1630715140755,
   "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Avanzar el pase de lista"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 3"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "c0f3d03e-59bb-428f-b1b0-789b4ad817e1",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "datosUsuario"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getInfoByIdBanner"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "urlInfo"
+          }
+        },
+        "reference" : "03e251a7-ced1-4de5-a62b-078e34e1a401",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfo"
+      }
+    ],
     [
       {
         "type" : "container",
@@ -86,7 +174,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "datosUsuario[0].nombre"
                 },
                 "type" : {
                   "type" : "constant",
@@ -161,7 +249,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "datosUsuario[0].vpd"
                 },
                 "type" : {
                   "type" : "constant",
@@ -238,7 +326,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "datosUsuario[0].usuario"
                 },
                 "type" : {
                   "type" : "constant",
@@ -313,7 +401,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "datosUsuario[0].campus"
                 },
                 "type" : {
                   "type" : "constant",
@@ -390,7 +478,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "datosUsuario[0].idbanner"
                 },
                 "type" : {
                   "type" : "constant",
@@ -430,6 +518,192 @@
                   "type" : "constant",
                   "value" : false
                 },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Informacion de pase de lista"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "1d2c2c17-a202-4660-ab70-a7c3ce90e6b2",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Nombre de la prueba:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strPruebas[0].nombreprueba"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "dcf8dbcc-6ae2-469d-820f-b956db6b3013",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "fecha de la entrevista:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strPruebas[0].aplicacion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "8c4db38c-fd40-4f5c-864d-80d3ce4db688",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
                 "labelHidden" : {
                   "type" : "constant",
                   "value" : true
@@ -452,14 +726,14 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Informacion de pase de lista"
+                  "value" : "<br/>\nAsistencia:\n<br/>\n<b>\n{{strPruebas[0].asistencia === 't'?\"Asistencia\":(strPruebas[0].acreditado === 't'?\"Acreditado\": \"Sin asistencia\")}}\n</b>"
                 },
                 "alignment" : {
                   "type" : "constant",
                   "value" : "left"
                 }
               },
-              "reference" : "f0981bee-14d8-4f7e-a523-5d8877104a47",
+              "reference" : "fb7d6cbf-f146-4d2a-ad24-a0954a76dd56",
               "hasValidationError" : false,
               "id" : "pbText"
             }
@@ -470,8 +744,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
+                "md" : 4,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -496,7 +770,7 @@
                 },
                 "readOnly" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -504,7 +778,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "fecha prueba 1:"
+                  "value" : "Nombre de la prueba:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -519,7 +793,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "strPruebas[1].nombreprueba"
                 },
                 "type" : {
                   "type" : "constant",
@@ -536,19 +810,17 @@
                   "value" : 1
                 }
               },
-              "reference" : "8c4db38c-fd40-4f5c-864d-80d3ce4db688",
+              "reference" : "d57dc279-298d-4515-b86d-968b48baa006",
               "hasValidationError" : false,
               "id" : "pbInput"
-            }
-          ],
-          [
+            },
             {
               "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
+                "md" : 4,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -573,7 +845,7 @@
                 },
                 "readOnly" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -581,7 +853,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "fecha prueba 2:"
+                  "value" : "fecha del psicométrico:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -596,7 +868,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "strPruebas[1].aplicacion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -616,6 +888,56 @@
               "reference" : "3d6da8c4-84a9-4568-8025-4525acb4f828",
               "hasValidationError" : false,
               "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br/>\nAsistencia:\n<br/>\n<b>\n{{strPruebas[1].asistencia === 't'?\"Asistencia\":(strPruebas[1].acreditado === 't'?\"Acreditado\": \"Sin asistencia\" )}}\n</b>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "b2f76d89-44db-4455-a836-afed2a82354f",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -624,8 +946,8 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 6,
-                "lg" : 6
+                "md" : 4,
+                "lg" : 4
               },
               "propertyValues" : {
                 "cssClasses" : {
@@ -650,7 +972,7 @@
                 },
                 "readOnly" : {
                   "type" : "constant",
-                  "value" : false
+                  "value" : true
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -658,7 +980,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "fecha prueba 3:"
+                  "value" : "Nombre de la prueba:"
                 },
                 "labelPosition" : {
                   "type" : "constant",
@@ -673,7 +995,82 @@
                 },
                 "value" : {
                   "type" : "variable",
+                  "value" : "strPruebas[2].nombreprueba"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "caed69c4-b656-4fc7-b7e0-fde618d94ca1",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "fecha del Examen de aptitudes y conocimientos:"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "strPruebas[2].aplicacion"
                 },
                 "type" : {
                   "type" : "constant",
@@ -693,6 +1090,56 @@
               "reference" : "d01e0ffe-ef29-485b-9ed7-d409bef373f1",
               "hasValidationError" : false,
               "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 4,
+                "lg" : 4
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "<br/>\nAsistencia:\n<br/>\n<b>\n{{strPruebas[2].asistencia === 't'?\"Asistencia\":(strPruebas[2].acreditado === 't'?\"Acreditado\": (datosUsuario[0].cbcoincide ==='t'?\"Exento\":\"Sin asistencia\") )}}\n</b>"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                }
+              },
+              "reference" : "85b8ed7d-6213-4495-852c-2c692ac3b810",
+              "hasValidationError" : false,
+              "id" : "pbText"
             }
           ],
           [
@@ -701,7 +1148,7 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
-                "md" : 4,
+                "md" : 12,
                 "lg" : 4
               },
               "propertyValues" : {
@@ -727,62 +1174,32 @@
                 },
                 "buttonStyle" : {
                   "type" : "constant",
-                  "value" : "default"
-                },
-                "action" : {
-                  "type" : "constant",
-                  "value" : "Submit task"
-                },
-                "assign" : {
-                  "type" : "constant",
-                  "value" : false
+                  "value" : "primary"
                 },
                 "url" : {
-                  "type" : "interpolation"
-                },
-                "responseStatusCode" : {
-                  "type" : "variable",
-                  "value" : ""
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacRest?url=postAsistenciaProceso&p=0&c=9999"
                 },
                 "dataToSend" : {
-                  "type" : "constant"
+                  "type" : "expression",
+                  "value" : "dataToSend"
                 },
-                "dataFromSuccess" : {
-                  "type" : "variable",
-                  "value" : ""
+                "strValidar" : {
+                  "type" : "expression",
+                  "value" : "strPruebas"
                 },
-                "closeOnSuccess" : {
-                  "type" : "constant",
-                  "value" : false
+                "cb" : {
+                  "type" : "expression",
+                  "value" : "datosUsuario[0].cbcoincide"
                 },
-                "dataFromError" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "targetUrlOnSuccess" : {
-                  "type" : "interpolation"
-                },
-                "collectionToModify" : {
-                  "type" : "variable"
-                },
-                "modalId" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "collectionPosition" : {
-                  "type" : "constant",
-                  "value" : "Last"
-                },
-                "valueToAdd" : {
-                  "type" : "constant"
-                },
-                "removeItem" : {
-                  "type" : "variable"
+                "username" : {
+                  "type" : "expression",
+                  "value" : "datosUsuario[0].usuario"
                 }
               },
-              "reference" : "31a48c9b-7eae-436b-881e-909f4ec9809d",
+              "reference" : "5a7522a6-b3e5-48cd-9997-099d01e71a38",
               "hasValidationError" : false,
-              "id" : "pbButton"
+              "id" : "customBtnPostValidarAvanze"
             }
           ]
         ]
@@ -790,6 +1207,13 @@
     ]
   ],
   "assets" : [
+    {
+      "id" : "b78a8df9-170f-4451-be50-86f7b879aecb",
+      "name" : "angular-block-ui.min.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
     {
       "id" : "5dac6fbc-4cb2-4c75-9d77-ba9ec88905a2",
       "name" : "style.css",
@@ -803,10 +1227,131 @@
       "type" : "json",
       "order" : 0,
       "external" : false
+    },
+    {
+      "id" : "ebc5dddc-cea4-4773-b6e7-971d6850c298",
+      "name" : "anahuac_custom_styles (1).css",
+      "type" : "css",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "c454c859-62cf-4b47-a2ca-0d59a310b72d",
+      "name" : "angular-block-ui.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "idbanner" : {
+      "type" : "urlparameter",
+      "value" : [
+        "idbanner"
+      ],
+      "exposed" : false
+    },
+    "datosUsuario" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "datosFechas" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getFechaPruebasByUsername&p=0&c=9999&username={{datosUsuario[0].usuario < 1 ? '': datosUsuario[0].usuario}}"
+      ],
+      "exposed" : false
+    },
+    "strPruebas" : {
+      "type" : "json",
+      "value" : [
+        "[",
+        "    {",
+        "        \"asistencia\":\"\",",
+        "        \"cattipoprueba_pid\":\"\",",
+        "        \"acreditado\":\"\",",
+        "        \"aplicacion\":\"\",",
+        "        \"prueba_pid\":\"\"",
+        "    },",
+        "    {",
+        "        \"asistencia\":\"\",",
+        "        \"cattipoprueba_pid\":\"\",",
+        "        \"acreditado\":\"\",",
+        "        \"aplicacion\":\"\",",
+        "        \"prueba_pid\":\"\"",
+        "    },",
+        "    {",
+        "        \"asistencia\":\"\",",
+        "        \"cattipoprueba_pid\":\"\",",
+        "        \"acreditado\":\"\",",
+        "        \"aplicacion\":\"\",",
+        "        \"prueba_pid\":\"\"",
+        "    }",
+        "]"
+      ],
+      "exposed" : false
+    },
+    "cargaDeDatos" : {
+      "type" : "expression",
+      "value" : [
+        "",
+        "if($data.datosFechas !== undefined && $data.datosFechas !== null ){",
+        "    $data.strPruebas = $data.datosFechas;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "dataToSend" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "    \"caseid\":$data.datosUsuario[0].caseid,",
+        "    \"asistencia\":[",
+        "        {",
+        "            \"necesita\":($data.strPruebas[0].asistencia === 't'?false:($data.strPruebas[0].acreditado === 't'?false : true )),",
+        "            \"prueba\":$data.strPruebas[0].prueba_pid,",
+        "            \"username\":$data.datosUsuario[0].usuario,",
+        "            \"asistencia\":true,",
+        "            \"usuarioPaseLista\":$data.userData.user_name",
+        "        },",
+        "        {",
+        "            \"necesita\":($data.strPruebas[1].asistencia === 't'?false:($data.strPruebas[1].acreditado === 't'?false: true )),",
+        "            \"prueba\":$data.strPruebas[1].prueba_pid,",
+        "            \"username\":$data.datosUsuario[0].usuario,",
+        "            \"asistencia\":true,",
+        "            \"usuarioPaseLista\":$data.userData.user_name",
+        "        },",
+        "        {",
+        "            \"necesita\":($data.strPruebas[2].asistencia === 't'?false:($data.strPruebas[2].acreditado === 't'?false: ($data.datosUsuario[0].cbcoincide ==='t'?false:true) ) ),",
+        "            \"prueba\":$data.strPruebas[2].prueba_pid,",
+        "            \"username\":$data.datosUsuario[0].usuario,",
+        "            \"asistencia\":true,",
+        "            \"usuarioPaseLista\":$data.userData.user_name",
+        "        }",
+        "    ]",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "urlInfo" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&idbanner=\"+($data.idbanner.length < 1 ? \"\": $data.idbanner);"
+      ],
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "b6b9606d-205c-44e5-9778-5d31818c4f8b",
   "type" : "page",
