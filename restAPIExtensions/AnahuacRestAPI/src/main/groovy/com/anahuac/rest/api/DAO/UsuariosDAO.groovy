@@ -781,7 +781,71 @@ class UsuariosDAO {
 		}
 		return resultado
 	}
-	
+	public Result recoveryData(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		Long id =1L;
+		Long flownodedefinitionid=0L;
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			closeCon = validarConexionBonita();
+			
+			pstm = con.prepareStatement("SELECT displayName FROM flownode_instance  WHERE  displayName = 'Llenar solicitud' and rootcontainerid=?")
+			pstm.setLong(1, new Long(object.caseId))
+			rs = pstm.executeQuery()
+			if(!rs.next()) {
+				pstm = con.prepareStatement("SELECT table_name FROM information_schema.tables   WHERE  table_name = 'temporal_id'")
+				rs = pstm.executeQuery()
+				if(rs.next()) {
+					pstm = con.prepareStatement("update temporal_id set id=(SELECT id+1 FROM temporal_id limit 1)")
+					pstm.execute()
+					
+					pstm = con.prepareStatement("SELECT id FROM temporal_id limit 1")
+					rs = pstm.executeQuery()
+					if(rs.next()) {
+						id=rs.getLong("id")
+					}
+				}else {
+					pstm = con.prepareStatement("CREATE TABLE temporal_id (id bigint)")
+					pstm.execute()
+					pstm = con.prepareStatement("INSERT INTO temporal_id (id) values (1)")
+					pstm.execute()
+				}
+				
+				pstm = con.prepareStatement("SELECT flownodedefinitionid from arch_flownode_instance where rootcontainerid=? and name='Llenar solicitud' limit 1")
+				pstm.setLong(1, new Long(object.caseId))
+				rs = pstm.executeQuery()
+				if(rs.next()) {
+					flownodedefinitionid=rs.getLong("flownodedefinitionid")
+				}
+				
+				pstm = con.prepareStatement("INSERT INTO flownode_instance (tenantid, id, flownodedefinitionid, kind, rootcontainerid, parentcontainerid, name, displayname, displaydescription, stateid, statename, prev_state_id, terminal, stable, actorid, assigneeid, reachedstatedate, lastupdatedate, expectedenddate, claimeddate, priority, gatewaytype, hitbys, statecategory, logicalgroup1, logicalgroup2, logicalgroup3, logicalgroup4, loop_counter, loop_max, description, sequential, loopdatainputref, loopdataoutputref, datainputitemref, dataoutputitemref, loopcardinality, nbactiveinst, nbcompletedinst, nbterminatedinst, executedby, executedbysubstitute, activityinstanceid, state_executing, abortedbyboundary, triggeredbyevent, interrupting, tokencount) VALUES ( '1', ?, ?, 'user', ?, ?, 'Llenar solicitud', 'Llenar solicitud', null, '4', 'ready', '32', false, true, '911', '0', '1630625311223', '1630625311223', null, '0', '2', null, null, 'NORMAL', ?, ?, '0', ?, '-1', null, null, null, null, null, null, null, null, null, null, null, '0', '0', null, false, '0', null, null, '0')")
+				pstm.setLong(1, id)
+				pstm.setLong(2, flownodedefinitionid)
+				pstm.setLong(3, new Long(object.caseId))
+				pstm.setLong(4, new Long(object.caseId))
+				pstm.setLong(5, Long.parseLong(object.processDefinitionId))
+				pstm.setLong(6, new Long(object.caseId))
+				pstm.setLong(7, new Long(object.caseId))
+				pstm.execute()
+				
+				resultado.setSuccess(true)
+			}
+				
+			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
+				resultado.setSuccess(false);
+				resultado.setError(e.getMessage());
+				resultado.setError_info("")
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	public Boolean validarConexionBonita() {
 		Boolean retorno=false
 		if (con == null || con.isClosed()) {

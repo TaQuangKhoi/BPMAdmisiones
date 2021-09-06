@@ -1,5 +1,6 @@
 function WidgetlivingApplicationMenuController($scope, $http, $window, $location, $timeout, modalService) {
     var ctrl = this;
+    var vm = this;
 
     ctrl.appStarted = false;
     ctrl.disabledByTask = function(name) {
@@ -239,13 +240,12 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción") {
             ctrl.pageToken = "autodescripcion";
-            //ctrl.pageToken = "autodescripcionV2";
         } else if ($scope.properties.currentTaskName === "Seleccionar cita") {
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial") {
             let array = window.location.href.split("/");
             let appName = array[array.length - 2];
-
+            debugger;
             if (appName === "generar_credencial") {
                 ctrl.pageToken = "generar_credencial";
             } else {
@@ -279,13 +279,43 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         //     ctrl.appStarted = true;
         //     setApplication();    
         // }
-        if (
-            ($scope.properties.isCaseStarted && $scope.properties.currentTaskName !== "") ||
-            (!$scope.properties.isCaseStarted && $scope.properties.currentTaskName === "")
-        ) {
-            ctrl.appStarted = true;
-            setApplication();
-        }
+
+        doRequest("GET", "../API/identity/user/" + $scope.properties.userId, null, null, function(data) {
+
+            doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico=" + data.userName + "&p=0&c=500", null, null, function(datos1) {
+                doRequest("GET", "../API/bpm/humanTask?p=0&c=10&f=caseId=" + datos1[0].caseId + "&fstate=ready", null, null, function(data0) {
+                    if (data0.length > 0) {
+                        if (
+                            ($scope.properties.isCaseStarted && $scope.properties.currentTaskName !== "") ||
+                            (!$scope.properties.isCaseStarted && $scope.properties.currentTaskName === "")
+                        ) {
+                            ctrl.appStarted = true;
+                            setApplication();
+                        }
+                    } else {
+                        doRequest("GET", "../API/bpm/archivedActivity?f=caseId=" + datos1[0].caseId + "&f=state=aborted", null, null, function(datos2) {
+                            for (let index = 0; index < datos2.length; index++) {
+                                const element = datos2[index].displayName;
+                                if (true) {
+                                    $scope.properties.currentTaskName = "nueva_solicitud";
+                                    break;
+                                }
+
+                            }
+                            if (
+                                ($scope.properties.isCaseStarted && $scope.properties.currentTaskName !== "") ||
+                                (!$scope.properties.isCaseStarted && $scope.properties.currentTaskName === "")
+                            ) {
+                                ctrl.appStarted = true;
+                                setApplication();
+                            }
+                        })
+                    }
+
+                })
+            })
+        })
+
     });
 
     $scope.$watch("properties.isCaseStarted", function() {
@@ -307,4 +337,30 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
             ctrl.redirectToPage($scope.tokenNuevo);
         }
     });
+    /**
+     * Execute a get/post request to an URL
+     * It also bind custom data from success|error to a data
+     * @return {void}
+     * ../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico={{users.user_name}}&p=0&c=500
+     */
+    function doRequest(method, url, params, dataToSend, callback) {
+        vm.busy = true;
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(dataToSend),
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                calback(data);
+            })
+            .error(function(data, status) {
+                console.error(data)
+            })
+            .finally(function() {
+                vm.busy = false;
+            });
+    }
 }

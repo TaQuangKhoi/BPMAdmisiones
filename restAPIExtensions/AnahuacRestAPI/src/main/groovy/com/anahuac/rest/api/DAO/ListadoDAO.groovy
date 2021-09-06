@@ -3927,7 +3927,7 @@ class ListadoDAO {
 
 			//Cambio aplicado para que fusione los tres estatus en un solo reporte
 			if (object.estatusSolicitud != null) {
-				where += " AND (sda.ESTATUSSOLICITUD='Solicitud en proceso' OR sda.ESTATUSSOLICITUD='Solicitud a modificar'  OR sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta' OR sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta') ";
+				where += " AND (sda.ESTATUSSOLICITUD='Solicitud en proceso' OR sda.ESTATUSSOLICITUD='Solicitud a modificar'  OR sda.ESTATUSSOLICITUD='Aspirantes registrados sin validación de cuenta' OR sda.ESTATUSSOLICITUD='Aspirantes registrados con validación de cuenta' OR sda.ESTATUSSOLICITUD='Periodo vencido') ";
 			}
 
 			campus += " AND ("

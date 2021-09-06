@@ -3,7 +3,7 @@
   "previousDesignerVersion" : "1.10.18",
   "id" : "FrontLayoutApplication",
   "name" : "FrontLayoutApplication",
-  "lastUpdate" : 1629479212652,
+  "lastUpdate" : 1630946940215,
   "rows" : [
     [
       {
@@ -622,19 +622,11 @@
                                   "currentToken" : {
                                     "type" : "variable",
                                     "value" : "currentToken"
-                                  },
-                                  "processData" : {
-                                    "type" : "variable",
-                                    "value" : "(processData.length>0)?processData[0].processId:processData2[0].processId"
-                                  },
-                                  "processDataV2" : {
-                                    "type" : "variable",
-                                    "value" : "(processData.length>0)?processData[0].processId:processData2[0].processId"
                                   }
                                 },
-                                "reference" : "66c69567-f703-4c65-9645-41bdadcda5a4",
+                                "reference" : "1d8200b5-076f-4d63-9374-dfa34479c0d3",
                                 "hasValidationError" : false,
-                                "id" : "customCustomBonitaLayoutMenuFrontV2"
+                                "id" : "customCustomBonitaLayoutMenuFront"
                               }
                             ]
                           ]
@@ -1699,7 +1691,7 @@
                               },
                               "text" : {
                                 "type" : "interpolation",
-                                "value" : "<label>AVISO:</label> La contraseña debe de tener entre 8 y 16 caracteres, por lo menos una letra minúscula,  una letra mayúscula y un número."
+                                "value" : "<label>AVISO:</label> La contraseña debe contener al menos 10 caracteres, 3 dígitos, dos mayúsculas, dos minúsculas y dos caracteres especiales."
                               },
                               "alignment" : {
                                 "type" : "constant",
@@ -2717,6 +2709,13 @@
       ],
       "exposed" : false
     },
+    "logoRequest" : {
+      "type" : "url",
+      "value" : [
+        "{{logoURL}}"
+      ],
+      "exposed" : false
+    },
     "appName" : {
       "type" : "expression",
       "value" : [
@@ -2797,6 +2796,13 @@
     },
     "selectedProfile" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "logoURL" : {
+      "type" : "constant",
+      "value" : [
+        "../theme/images/logo.png"
+      ],
       "exposed" : false
     },
     "storageLanguage" : {
@@ -3041,8 +3047,6 @@
         "if($data.currentTask !== undefined){",
         "    if($data.currentTask.length > 0){",
         "        value = $data.currentTask[0].name;",
-        "    }else{",
-        "        value = $data.currentTask2[$data.currentTask2.length-1].name;",
         "    }",
         "}",
         "",
@@ -3119,27 +3123,6 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.catSolicitudDeAdmision_ref.link}}"
-      ],
-      "exposed" : false
-    },
-    "processData" : {
-      "type" : "url",
-      "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready&d=processId"
-      ],
-      "exposed" : false
-    },
-    "currentTask2" : {
-      "type" : "url",
-      "value" : [
-        "../API/bpm/archivedHumanTask?p=0&c=999&f=caseId={{getCatRegistro[0].caseId}}&f=state=completed"
-      ],
-      "exposed" : false
-    },
-    "processData2" : {
-      "type" : "url",
-      "value" : [
-        "../API/bpm/archivedHumanTask?p=0&c=10&f=caseId={{getCatRegistro[0].caseId}}&fstate=ready&d=processId"
       ],
       "exposed" : false
     }

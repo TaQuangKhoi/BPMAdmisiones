@@ -42,16 +42,19 @@ function getUserAbandono($scope, $http, $window) {
         };
         return $http(req)
             .success(function(data, status) {
-                if(data[0].name === "Modificar información"){
-                    $scope.ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
-                    $scope.url = ipBonita + "/portal/resource/app/aspirante/modificacion_iniciada/content/?app=aspirante";
-                }else {
-                    $scope.url = ipBonita + "/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante";
-                }
-                
-                if($data.currentTask[0].name !== "Llenar solicitud"){
-                    window.location.href = $scope.url;
-                }
+                try{
+                    if(data[0].name === "Modificar información"){
+                        $scope.ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
+                        $scope.url = ipBonita + "/portal/resource/app/aspirante/modificacion_iniciada/content/?app=aspirante";
+                    }else {
+                        $scope.url = ipBonita + "/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante";
+                    }
+                    
+                    if($data.currentTask[0].name !== "Llenar solicitud"){
+                        window.location.href = $scope.url;
+                    }
+                    
+                }catch(e){$scope.properties.isok = true}
             })
             .error(function(data, status) {
                 console.error(data);
