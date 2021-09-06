@@ -888,7 +888,7 @@ class SesionesDAO {
 				
 				asistenciaCollegeBoard.getValue()
 				
-				pstm=con.prepareStatement("SELECT p.persistenceid, p.cattipoprueba_pid from pruebas p where p.sesion_pid=? and p.cattipoprueba_pid!=1")
+				pstm=con.prepareStatement("SELECT p.persistenceid, p.cattipoprueba_pid from pruebas p where p.sesion_pid=? and p.cattipoprueba_pid!=1 order by p.cattipoprueba_pid DESC")
 				pstm.setLong(1, sesionAspirante.getSesiones_pid())
 				rs = pstm.executeQuery()
 				while(rs.next()) {
@@ -903,6 +903,18 @@ class SesionesDAO {
 					pstm.setNull(7, java.sql.Types.NULL);
 					pstm.setBoolean(8,(rs.getInt("cattipoprueba_pid")==2)?(Boolean)asistenciaPsicometrico.getValue():(Boolean)asistenciaCollegeBoard.getValue());
 					pstm.executeUpdate();
+					
+					//INSERT PARA LA BITACORA
+					pstm = con.prepareStatement(Statements.INSERT_BITACORAASPIRANTESPRUEBAS, Statement.RETURN_GENERATED_KEYS);
+					pstm.setString(1,sesionAspirante.getUsername());
+					pstm.setLong(2,rs.getInt("persistenceid"));
+					pstm.setBoolean(3,false);
+					pstm.setLong(4,sesionAspirante.getSesiones_pid());
+					pstm.setLong(5,rs.getInt("cattipoprueba_pid"));
+					pstm.setNull(6, java.sql.Types.NULL);
+					pstm.setBoolean(7,(rs.getInt("cattipoprueba_pid")==2)?(Boolean)asistenciaPsicometrico.getValue():(Boolean)asistenciaCollegeBoard.getValue());
+					pstm.executeUpdate();
+					
 				}
 				
 				pstm=con.prepareStatement("SELECT p.persistenceid, p.cattipoprueba_pid, rd.persistenceid Responsabledisponible_pid from pruebas p inner join responsabledisponible rd on rd.prueba_pid=p.persistenceid where p.sesion_pid=? and p.cattipoprueba_pid=1 and rd.persistenceid=?")
@@ -921,6 +933,18 @@ class SesionesDAO {
 					pstm.setLong(7,sesionAspirante.getResponsabledisponible_pid());
 					pstm.setBoolean(8,(Boolean)asistenciaEntrevista.getValue());
 					pstm.executeUpdate();
+					
+					//INSERT PARA LA BITACORA
+					pstm = con.prepareStatement(Statements.INSERT_BITACORAASPIRANTESPRUEBAS, Statement.RETURN_GENERATED_KEYS);
+					pstm.setString(1,sesionAspirante.getUsername());
+					pstm.setLong(2,rs.getLong("persistenceid"));
+					pstm.setBoolean(3,false);
+					pstm.setLong(4,sesionAspirante.getSesiones_pid());
+					pstm.setInt(5,rs.getInt("cattipoprueba_pid"));
+					pstm.setLong(6,sesionAspirante.getResponsabledisponible_pid());
+					pstm.setBoolean(7,(Boolean)asistenciaEntrevista.getValue());
+					pstm.executeUpdate();
+					
 				}else {
 					pstm=con.prepareStatement("select persistenceid from pruebas where sesion_pid = ? and cattipoprueba_pid = 1 order by persistenceid desc limit 1");
 					pstm.setLong(1, sesionAspirante.getSesiones_pid())
@@ -935,6 +959,17 @@ class SesionesDAO {
 						pstm.setInt(6,1);
 						pstm.setNull(7, java.sql.Types.NULL);
 						pstm.setBoolean(8,true);
+						pstm.executeUpdate();
+						
+						//INSERT PARA LA BITACORA
+						pstm = con.prepareStatement(Statements.INSERT_BITACORAASPIRANTESPRUEBAS, Statement.RETURN_GENERATED_KEYS);
+						pstm.setString(1,sesionAspirante.getUsername());
+						pstm.setLong(2,rs.getLong("persistenceid"));
+						pstm.setBoolean(3,false);
+						pstm.setLong(4,sesionAspirante.getSesiones_pid());
+						pstm.setInt(5,1);
+						pstm.setNull(6, java.sql.Types.NULL);
+						pstm.setBoolean(7,true);
 						pstm.executeUpdate();
 					}
 				}
@@ -2854,6 +2889,39 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	public Result updateBitacoraAspirantesPruebas(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				
+				closeCon = validarConexion();
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_BITACORAASPIRANTESPRUEBAS);
+				pstm.setBoolean(1,object.asistencia);
+				pstm.setLong(2,object.prueba);
+				pstm.setString(3,object.username);
+				
+				
+				pstm.executeUpdate();
+				con.commit();
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			con.rollback();
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 	
 	public Result insertPaseLista( String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -2876,11 +2944,13 @@ class SesionesDAO {
 				con.commit();
 				
 				Result dataResult = updateAspirantesPruebas(jsonData, context);
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
 				
 				resultado.setSuccess(true)
 			} catch (Exception e) {
+			String es = e.getMessage();
 			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
+			resultado.setError(es);
 			con.rollback();
 		}finally {
 			if(closeCon) {
@@ -2911,7 +2981,8 @@ class SesionesDAO {
 				
 				con.commit();
 				Result dataResult = updateAspirantesPruebas(jsonData, context);
-				errorLog += dataResult;
+				Result dataResult2 = updateBitacoraAspirantesPruebas(jsonData, context);
+				
 				resultado.setSuccess(true)
 				resultado.setError_info(errorLog)
 			} catch (Exception e) {
@@ -4697,6 +4768,53 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
+	
+	public Result postAspiranteSesionesByUsername(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_ASPIRANTE_SESIONES_BY_USERNAME);
+			pstm.setString(1, object.idbanner);
+			pstm.setString(2, object.username);
+			
+			rs= pstm.executeQuery();
+			
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			
+			while(rs.next()) {
+				Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				info.add(columns)
+			}
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
 	
 	public Result getResponsableEntrevista(String responsabledisponible, RestAPIContext context) {
 		Result resultado = new Result();

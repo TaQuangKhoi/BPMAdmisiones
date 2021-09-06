@@ -673,6 +673,8 @@ class ListadoDAO {
 					where += " AND (sda.ESTATUSSOLICITUD = 'Sin definir')"
 				} else if (object.estatusSolicitud.equals("Aspirantes en proceso resultados")) {
 					where += " AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados')"
+				}else if(object.estatusSolicitud.equals("Avanzar Aspirante")){
+					where += " AND ( sda.ESTATUSSOLICITUD = 'Autodescripción concluida' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial')";
 				}
 
 			}

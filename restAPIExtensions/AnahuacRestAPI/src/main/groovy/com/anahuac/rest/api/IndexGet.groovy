@@ -22,6 +22,7 @@ import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
+import com.anahuac.rest.api.DAO.AvanzeProcesoDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
@@ -413,6 +414,7 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
 				
 				case "getCatNotificacionesCampus":
 				String grupoBonita =request.getParameter "grupoBonita"
@@ -449,6 +451,40 @@ class IndexGet implements RestApiController {
 				
 				break;
 				
+				case "getFechaPruebasByUsername":
+				String username=request.getParameter "username"
+				result = new AvanzeProcesoDAO().getFechaPruebasByUsername(username)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getEstatusDelAspirante":
+				String username=request.getParameter "username"
+				result = new AvanzeProcesoDAO().getEstatusDelAspirante(username)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
+				case "getInfoByIdBanner":
+				String idbanner=request.getParameter "idbanner"
+				result = new AvanzeProcesoDAO().getInfoByIdBanner(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "getIdbanner":
 				String idbanner=request.getParameter "idbanner"
 				result = new SolicitudUsuarioDAO().getIdbanner(0, 9999, idbanner, context)
@@ -458,6 +494,7 @@ class IndexGet implements RestApiController {
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
 				
 				case "getUserIdBanner":
 				String idbanner=request.getParameter "idbanner"
@@ -470,6 +507,7 @@ class IndexGet implements RestApiController {
 				}
 				
 				break;
+				
 				case "getCatBachilleratos":
 				result = new CatalogoBachilleratoDAO().get(0, 9999, "", context)
 				responseBuilder.withMediaType("application/json")
