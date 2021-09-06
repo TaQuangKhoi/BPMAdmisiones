@@ -5,7 +5,6 @@ import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.catalogos.CatTerapiaDAO
 import com.anahuac.model.Autodescripcion
 import com.anahuac.model.AutodescripcionDAO
-import com.anahuac.model.AutodescripcionV2DAO
 import com.anahuac.model.TestPsicometrico
 import com.anahuac.model.TestPsicometricoDAO
 import com.anahuac.model.TestPsicometricoRasgos
