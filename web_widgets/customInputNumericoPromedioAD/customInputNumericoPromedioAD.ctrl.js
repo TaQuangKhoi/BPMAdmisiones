@@ -57,7 +57,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 if ($scope.properties.value.length > 2) {
                     $scope.properties.value = null;
                 }
-            } else if ($scope.properties.value.indexOf('.') != -1) {
+            } else if (($scope.properties.value+"").indexOf('.') != -1) {
                 if ($scope.properties.value === "10") {
                     $scope.properties.value = null;
                     $scope.properties.value = $scope.properties.max;

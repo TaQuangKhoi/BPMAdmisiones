@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1630446835367,
+  "lastUpdate" : 1630966776078,
   "rows" : [
     [
       {
@@ -6611,7 +6611,7 @@
                         },
                         "disabled" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault === true"
+                          "value" : "(accionModalGradoEscolar === \"ver\" || prepaDefault === true) && objNuevoInformacionEscolar.pais != null && objNuevoInformacionEscolar.pais != undefined"
                         },
                         "required" : {
                           "type" : "constant",
@@ -22663,13 +22663,6 @@
       "external" : false
     },
     {
-      "id" : "6ac335e9-1cbe-4781-9159-591df2da541b",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "e3542ff5-c399-411a-90a8-7160254f2d75",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -22681,6 +22674,13 @@
       "name" : "jquery.min (1).js",
       "type" : "js",
       "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "6ac335e9-1cbe-4781-9159-591df2da541b",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     }
   ],
@@ -24738,7 +24738,8 @@
       "type" : "expression",
       "value" : [
         "let output = false;",
-        "",
+        "        console.log(\"JUSQUER\");",
+        "        console.log($data.objNuevoInformacionEscolar);",
         "if($data.objectSolicitud !== undefined){",
         "    if(",
         "        $data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString ",
