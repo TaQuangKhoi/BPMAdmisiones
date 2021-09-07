@@ -30,7 +30,10 @@
                                 ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span
                             style="cursor:pointer" ng-click="setOrderBy('CURP')">CURP<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='CURP'"></i></span></th>
+                                ng-show="properties.dataToSend.orderby=='CURP'"></i></span> / <span
+                            style="cursor:pointer" ng-click="setOrderBy('VPD')">VPD<i class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='VPD'"></i></span></th>
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span
@@ -91,7 +94,7 @@
                     <td><input ng-model="dynamicInput['banner']" class="form-control"
                             ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control"
-                            ng-enter="filterKeyPress('NOMBRE,CURP',dynamicInput['nombre'])"></td>
+                            ng-enter="filterKeyPress('NOMBRE,CURP,VPD',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control"
                             ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control"
@@ -120,6 +123,7 @@
                         <b>{{row.apellidopaterno}} {{row.apellidomaterno}} {{row.primernombre}}
                             {{row.segundonombre}}</b><br>
                         {{row.curp}}<br>
+                        {{row.campussede}}
                     </td>
                     <td class="max-size">
                         <b>{{row.campus}}</b><br>
