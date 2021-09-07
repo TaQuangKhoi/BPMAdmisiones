@@ -1,7 +1,7 @@
 function WidgetlivingApplicationMenuController($scope, $http, $window, $location, $timeout, modalService) {
     var ctrl = this;
     var vm = this;
-
+    $scope.processVersion=0;
     ctrl.appStarted = false;
     ctrl.disabledByTask = function(name) {
         let taskName = $scope.properties.currentTaskName;
@@ -239,7 +239,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         if ($scope.properties.currentTaskName === "Pago de examen" || $scope.properties.currentTaskName === "Esperar pago") {
             ctrl.pageToken = "pago_de_examen";
         } else if ($scope.properties.currentTaskName === "Autodescripción") {
-            ctrl.pageToken = "autodescripcion";
+            ctrl.pageToken = ($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
         } else if ($scope.properties.currentTaskName === "Seleccionar cita") {
             ctrl.pageToken = "verSesiones";
         } else if ($scope.properties.currentTaskName === "Generar credencial") {
@@ -279,12 +279,13 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         //     ctrl.appStarted = true;
         //     setApplication();    
         // }
-
+        console.log("currentTask " + $scope.properties.currentTaskName)
         doRequest("GET", "../API/identity/user/" + $scope.properties.userId, null, null, function(data) {
 
             doRequest("GET", "../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico=" + data.userName + "&p=0&c=500", null, null, function(datos1) {
-                doRequest("GET", "../API/bpm/humanTask?p=0&c=10&f=caseId=" + datos1[0].caseId + "&fstate=ready", null, null, function(data0) {
+                doRequest("GET", "../API/bpm/humanTask?p=0&c=10&f=caseId=" + datos1[0].caseId + "&fstate=ready&d=processId", null, null, function(data0) {
                     if (data0.length > 0) {
+                        $scope.processVersion=data0[0].processId.version;
                         if (
                             ($scope.properties.isCaseStarted && $scope.properties.currentTaskName !== "") ||
                             (!$scope.properties.isCaseStarted && $scope.properties.currentTaskName === "")
@@ -354,7 +355,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
 
         return $http(req)
             .success(function(data, status) {
-                calback(data);
+                callback(data);
             })
             .error(function(data, status) {
                 console.error(data)
