@@ -1,1489 +1,1501 @@
 {
-    "designerVersion": "1.11.52",
-    "id": "frgDomicilioPermanenteUpdate",
-    "name": "frgDomicilioPermanenteUpdate",
-    "lastUpdate": 1630621056704,
-    "rows": [
-        [{
-            "type": "component",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": ""
-                },
-                "hidden": {
-                    "type": "constant",
-                    "value": false
-                },
-                "text": {
-                    "type": "interpolation",
-                    "value": "<label class=\"color-orange\">Domicilio permanente</label>"
-                },
-                "level": {
-                    "type": "constant",
-                    "value": "Level 4"
-                },
-                "alignment": {
-                    "type": "constant",
-                    "value": "center"
-                }
-            },
-            "reference": "0f8d44f3-52e2-4900-a053-a6e12aade116",
-            "hasValidationError": false,
-            "id": "pbTitle"
-        }],
-        [{
-            "type": "component",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": ""
-                },
-                "hidden": {
-                    "type": "constant",
-                    "value": false
-                },
-                "text": {
-                    "type": "interpolation",
-                    "value": "<b>Si tu domicilio es dentro de la república mexicana debes comenzar capturando el código postal y posteriormente da clic en el botón “Buscar código postal”, para el auto llenado de tu dirección.</b>"
-                },
-                "level": {
-                    "type": "constant",
-                    "value": "Level 4"
-                },
-                "alignment": {
-                    "type": "constant",
-                    "value": "center"
-                }
-            },
-            "reference": "014788eb-1d7d-49d9-81f6-0ba1dac6a857",
-            "hasValidationError": false,
-            "id": "pbTitle"
-        }],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "disabled": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "País:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation",
-                        "value": "Selecciona una opción"
-                    },
-                    "availableValues": {
-                        "type": "expression",
-                        "value": "catPais"
-                    },
-                    "displayedKey": {
-                        "type": "constant",
-                        "value": "descripcion"
-                    },
-                    "returnedKey": {
-                        "type": "constant"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.catPais"
-                    },
-                    "catSolicitudDeAdmision": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision"
-                    },
-                    "datosCP": {
-                        "type": "variable",
-                        "value": "cp"
-                    },
-                    "haveCiudad": {
-                        "type": "variable",
-                        "value": "haveCiudad"
-                    }
-                },
-                "reference": "4013ad37-d9eb-4335-b79f-ea2223451402",
-                "hasValidationError": false,
-                "id": "customSelectChangeValueUpdate"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 5
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Código postal:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.codigoPostal"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "9c9ec45a-b9c5-4189-be3a-02f5c4e38ff0",
-                "hasValidationError": false,
-                "id": "customInputNumerico"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": 0
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 50
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Código postal:"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.codigoPostal"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "4fdc451c-a1ef-49e3-b7cf-ae5f0d983286",
-                "hasValidationError": false,
-                "id": "customInputLimit"
-            }
-        ],
-        [{
-            "type": "component",
-            "dimension": {
-                "xs": 12,
-                "sm": 12,
-                "md": 12,
-                "lg": 12
-            },
-            "propertyValues": {
-                "cssClasses": {
-                    "type": "constant",
-                    "value": ""
-                },
-                "hidden": {
-                    "type": "expression",
-                    "value": "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
-                },
-                "disabled": {
-                    "type": "constant",
-                    "value": false
-                },
-                "label": {
-                    "type": "interpolation",
-                    "value": "Buscar código postal"
-                },
-                "alignment": {
-                    "type": "constant",
-                    "value": "right"
-                },
-                "buttonStyle": {
-                    "type": "constant",
-                    "value": "primary"
-                },
-                "action": {
-                    "type": "constant",
-                    "value": "Open modal"
-                },
-                "assign": {
-                    "type": "constant",
-                    "value": false
-                },
-                "url": {
-                    "type": "interpolation"
-                },
-                "responseStatusCode": {
-                    "type": "variable",
-                    "value": ""
-                },
-                "dataToSend": {
-                    "type": "constant"
-                },
-                "dataFromSuccess": {
-                    "type": "variable",
-                    "value": ""
-                },
-                "closeOnSuccess": {
-                    "type": "constant",
-                    "value": false
-                },
-                "dataFromError": {
-                    "type": "variable",
-                    "value": ""
-                },
-                "targetUrlOnSuccess": {
-                    "type": "interpolation"
-                },
-                "collectionToModify": {
-                    "type": "variable"
-                },
-                "modalId": {
-                    "type": "expression",
-                    "value": "modalCodigoPostal"
-                },
-                "collectionPosition": {
-                    "type": "constant",
-                    "value": "Last"
-                },
-                "valueToAdd": {
-                    "type": "constant"
-                },
-                "removeItem": {
-                    "type": "variable"
-                },
-                "estado": {
-                    "type": "variable",
-                    "value": "catSolicitudDeAdmision.catEstado"
-                },
-                "ciudad": {
-                    "type": "variable",
-                    "value": "catSolicitudDeAdmision.ciudad"
-                },
-                "municipio": {
-                    "type": "variable",
-                    "value": "catSolicitudDeAdmision.delegacionMunicipio"
-                },
-                "asentamiento": {
-                    "type": "variable",
-                    "value": "catSolicitudDeAdmision.colonia"
-                },
-                "estadoExtranjero": {
-                    "type": "variable",
-                    "value": "catSolicitudDeAdmision.estadoExtranjero"
-                },
-                "cp": {
-                    "type": "variable",
-                    "value": "cp"
-                },
-                "haveCiudad": {
-                    "type": "variable",
-                    "value": "haveCiudad"
-                }
-            },
-            "reference": "a513d98c-dfc1-405e-88cd-cb0f1d923347",
-            "hasValidationError": false,
-            "id": "customBtnCodigoPostal"
-        }],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
-                    },
-                    "disabled": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation",
-                        "value": "Selecciona una opción"
-                    },
-                    "availableValues": {
-                        "type": "expression",
-                        "value": "catEstado"
-                    },
-                    "displayedKey": {
-                        "type": "constant",
-                        "value": "descripcion"
-                    },
-                    "returnedKey": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.catEstado"
-                    }
-                },
-                "reference": "d2b658b4-e3a5-4a91-b12a-e88d12d948bb",
-                "hasValidationError": false,
-                "id": "pbSelect"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 50
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.estadoExtranjero"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    },
-                    "idInput": {
-                        "type": "variable",
-                        "value": ""
-                    }
-                },
-                "reference": "58f98583-a58a-4c48-b818-fb8fe2155241",
-                "hasValidationError": false,
-                "id": "customInputMinMay"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "readOnly": {
-                        "type": "expression",
-                        "value": "haveCiudad"
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Ciudad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.ciudad"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "a67f1c0b-e378-4234-aecf-1ea2581e06ec",
-                "hasValidationError": false,
-                "id": "pbInput"
-            }
-        ],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 1
-                    },
-                    "readOnly": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Ciudad/Municipio/Delegación/Poblado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.delegacionMunicipio"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    },
-                    "idInput": {
-                        "type": "variable",
-                        "value": ""
-                    }
-                },
-                "reference": "47ccdb13-49a0-4755-9f48-991fbb82c9b3",
-                "hasValidationError": false,
-                "id": "customInputMinMay"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant"
-                    },
-                    "readOnly": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Colonia:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.colonia"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "c4444d14-22da-49fd-9f9b-e15af98ca215",
-                "hasValidationError": false,
-                "id": "pbInput"
-            }
-        ],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 255
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Calle:   <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.calle"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "641ce116-c820-4c42-8acc-52fb21f1af6d",
-                "hasValidationError": false,
-                "id": "customInputLimit"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 255
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Entre calles:"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.calle2"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "d3b8c1fc-54c0-45fa-8edc-4db43371d1f2",
-                "hasValidationError": false,
-                "id": "customInputLimit"
-            }
-        ],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant"
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Núm. Exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.numExterior"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "c6f61023-5829-4cf4-bf33-703a839a90c5",
-                "hasValidationError": false,
-                "id": "pbInput"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Núm. Interior:"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.numInterior"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "a6e46ad6-3ea5-4a2a-be0f-3e90c5ace5e2",
-                "hasValidationError": false,
-                "id": "pbInput"
-            }
-        ],
-        [{
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 10
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Teléfono:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.telefono"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "f70655a4-2f26-406c-b7f6-063a1d30138b",
-                "hasValidationError": false,
-                "id": "customInputNumericoTelefono"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 14
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Teléfono:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.telefono"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "8fbfb4dd-8a25-4711-8d98-1e353969c9b3",
-                "hasValidationError": false,
-                "id": "customInputNumericoTelefono"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 10
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Otro teléfono de contacto:"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.otroTelefonoContacto"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "2f43ca7d-36e1-49fb-8ade-336e954100e5",
-                "hasValidationError": false,
-                "id": "customInputNumerico"
-            },
-            {
-                "type": "component",
-                "dimension": {
-                    "xs": 12,
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 6
-                },
-                "propertyValues": {
-                    "cssClasses": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "hidden": {
-                        "type": "expression",
-                        "value": "catSolicitudDeAdmision.catPais.descripcion === 'México'"
-                    },
-                    "required": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "minLength": {
-                        "type": "constant",
-                        "value": ""
-                    },
-                    "maxLength": {
-                        "type": "constant",
-                        "value": 14
-                    },
-                    "readOnly": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "labelHidden": {
-                        "type": "constant",
-                        "value": false
-                    },
-                    "label": {
-                        "type": "interpolation",
-                        "value": "Otro teléfono de contacto:"
-                    },
-                    "labelPosition": {
-                        "type": "constant",
-                        "value": "top"
-                    },
-                    "labelWidth": {
-                        "type": "constant",
-                        "value": 4
-                    },
-                    "placeholder": {
-                        "type": "interpolation"
-                    },
-                    "value": {
-                        "type": "variable",
-                        "value": "catSolicitudDeAdmision.otroTelefonoContacto"
-                    },
-                    "type": {
-                        "type": "constant",
-                        "value": "text"
-                    },
-                    "min": {
-                        "type": "constant"
-                    },
-                    "max": {
-                        "type": "constant"
-                    },
-                    "step": {
-                        "type": "constant",
-                        "value": 1
-                    }
-                },
-                "reference": "18694086-c7ad-45cd-8a92-a909a27fd77c",
-                "hasValidationError": false,
-                "id": "customInputNumerico"
-            }
-        ]
+  "designerVersion" : "1.11.52",
+  "id" : "frgDomicilioPermanenteUpdate",
+  "name" : "frgDomicilioPermanenteUpdate",
+  "lastUpdate" : 1630966089538,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<label class=\"color-orange\">Domicilio permanente</label>"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 4"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "0f8d44f3-52e2-4900-a053-a6e12aade116",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
     ],
-    "assets": [],
-    "inactiveAssets": [],
-    "variables": {
-        "catPais": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
         },
-        "catEstado": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<b>Si tu domicilio es dentro de la república mexicana debes comenzar capturando el código postal y posteriormente da clic en el botón “Buscar código postal”, para el auto llenado de tu dirección.</b>"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 4"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
         },
-        "modalCodigoPostal": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "reference" : "014788eb-1d7d-49d9-81f6-0ba1dac6a857",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
         },
-        "urlCodigoPostal": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "País:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Selecciona una opción"
+          },
+          "availableValues" : {
+            "type" : "expression",
+            "value" : "catPais"
+          },
+          "displayedKey" : {
+            "type" : "constant",
+            "value" : "descripcion"
+          },
+          "returnedKey" : {
+            "type" : "constant"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.catPais"
+          },
+          "catSolicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision"
+          },
+          "datosCP" : {
+            "type" : "variable",
+            "value" : "cp"
+          },
+          "haveCiudad" : {
+            "type" : "variable",
+            "value" : "haveCiudad"
+          }
         },
-        "objResponseCP": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "reference" : "4013ad37-d9eb-4335-b79f-ea2223451402",
+        "hasValidationError" : false,
+        "id" : "customSelectChangeValueUpdate"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
         },
-        "objResponseCPError": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 5
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Código postal:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.codigoPostal"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
         },
-        "lugarvalidacioncp": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "reference" : "9c9ec45a-b9c5-4189-be3a-02f5c4e38ff0",
+        "hasValidationError" : false,
+        "id" : "customInputNumerico"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
         },
-        "cp": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : 0
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 50
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Código postal:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.codigoPostal"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
         },
-        "haveCiudad": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "reference" : "4fdc451c-a1ef-49e3-b7cf-ae5f0d983286",
+        "hasValidationError" : false,
+        "id" : "customInputLimit"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
         },
-        "catSolicitudDeAdmision": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Buscar código postal"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "right"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "primary"
+          },
+          "action" : {
+            "type" : "constant",
+            "value" : "Open modal"
+          },
+          "assign" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "url" : {
+            "type" : "interpolation"
+          },
+          "responseStatusCode" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "dataToSend" : {
+            "type" : "constant"
+          },
+          "dataFromSuccess" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "closeOnSuccess" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "dataFromError" : {
+            "type" : "variable",
+            "value" : ""
+          },
+          "targetUrlOnSuccess" : {
+            "type" : "interpolation"
+          },
+          "collectionToModify" : {
+            "type" : "variable"
+          },
+          "modalId" : {
+            "type" : "expression",
+            "value" : "modalCodigoPostal"
+          },
+          "collectionPosition" : {
+            "type" : "constant",
+            "value" : "Last"
+          },
+          "valueToAdd" : {
+            "type" : "constant"
+          },
+          "removeItem" : {
+            "type" : "variable"
+          },
+          "estado" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.catEstado"
+          },
+          "ciudad" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.ciudad"
+          },
+          "municipio" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.delegacionMunicipio"
+          },
+          "asentamiento" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.colonia"
+          },
+          "estadoExtranjero" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.estadoExtranjero"
+          },
+          "cp" : {
+            "type" : "variable",
+            "value" : "cp"
+          },
+          "haveCiudad" : {
+            "type" : "variable",
+            "value" : "haveCiudad"
+          }
         },
-        "lengtcodigo": {
-            "type": "expression",
-            "value": [
-                "if($data.catSolicitudDeAdmision.codigoPostal.length >=5){",
-                "    $data.codigoPostalBuscar = $data.catSolicitudDeAdmision.codigoPostal;",
-                "}"
-            ],
-            "exposed": false
+        "reference" : "a513d98c-dfc1-405e-88cd-cb0f1d923347",
+        "hasValidationError" : false,
+        "id" : "customBtnCodigoPostal"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
         },
-        "codigoPostalBuscar": {
-            "type": "constant",
-            "value": [
-                ""
-            ],
-            "exposed": true
-        }
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
+          },
+          "disabled" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Selecciona una opción"
+          },
+          "availableValues" : {
+            "type" : "expression",
+            "value" : "catEstado"
+          },
+          "displayedKey" : {
+            "type" : "constant",
+            "value" : "descripcion"
+          },
+          "returnedKey" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.catEstado"
+          }
+        },
+        "reference" : "d2b658b4-e3a5-4a91-b12a-e88d12d948bb",
+        "hasValidationError" : false,
+        "id" : "pbSelect"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 50
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Estado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.estadoExtranjero"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          },
+          "idInput" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "58f98583-a58a-4c48-b818-fb8fe2155241",
+        "hasValidationError" : false,
+        "id" : "customInputMinMay"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "expression",
+            "value" : "haveCiudad"
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Ciudad: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.ciudad"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "a67f1c0b-e378-4234-aecf-1ea2581e06ec",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 1
+          },
+          "readOnly" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Ciudad/Municipio/Delegación/Poblado: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.delegacionMunicipio"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          },
+          "idInput" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "47ccdb13-49a0-4755-9f48-991fbb82c9b3",
+        "hasValidationError" : false,
+        "id" : "customInputMinMay"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant"
+          },
+          "readOnly" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Colonia:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.colonia"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "c4444d14-22da-49fd-9f9b-e15af98ca215",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 255
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Calle:   <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.calle"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "641ce116-c820-4c42-8acc-52fb21f1af6d",
+        "hasValidationError" : false,
+        "id" : "customInputLimit"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 255
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Entre calles:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.calle2"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "d3b8c1fc-54c0-45fa-8edc-4db43371d1f2",
+        "hasValidationError" : false,
+        "id" : "customInputLimit"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant"
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Núm. Exterior:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.numExterior"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "c6f61023-5829-4cf4-bf33-703a839a90c5",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Núm. Interior:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.numInterior"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "a6e46ad6-3ea5-4a2a-be0f-3e90c5ace5e2",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 10
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Teléfono:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.telefono"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "f70655a4-2f26-406c-b7f6-063a1d30138b",
+        "hasValidationError" : false,
+        "id" : "customInputNumericoTelefono"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 14
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Teléfono:  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.telefono"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "8fbfb4dd-8a25-4711-8d98-1e353969c9b3",
+        "hasValidationError" : false,
+        "id" : "customInputNumericoTelefono"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion !== 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 10
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Otro teléfono de contacto:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.otroTelefonoContacto"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "2f43ca7d-36e1-49fb-8ade-336e954100e5",
+        "hasValidationError" : false,
+        "id" : "customInputNumerico"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 6,
+          "md" : 6,
+          "lg" : 6
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "catSolicitudDeAdmision.catPais.descripcion === 'México'"
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : 14
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Otro teléfono de contacto:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.otroTelefonoContacto"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "18694086-c7ad-45cd-8a92-a909a27fd77c",
+        "hasValidationError" : false,
+        "id" : "customInputNumerico"
+      }
+    ]
+  ],
+  "assets" : [ ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "catPais" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
     },
-    "hasValidationError": false,
-    "type": "fragment"
+    "catEstado" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "modalCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlCodigoPostal" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "objResponseCP" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "objResponseCPError" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "lugarvalidacioncp" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "cp" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "haveCiudad" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "catSolicitudDeAdmision" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "lengtcodigo" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.catSolicitudDeAdmision.codigoPostal.length >=5){",
+        "    $data.codigoPostalBuscar = $data.catSolicitudDeAdmision.codigoPostal;",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "codigoPostalBuscar" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    }
+  },
+  "hasValidationError" : false,
+  "type" : "fragment"
 }
