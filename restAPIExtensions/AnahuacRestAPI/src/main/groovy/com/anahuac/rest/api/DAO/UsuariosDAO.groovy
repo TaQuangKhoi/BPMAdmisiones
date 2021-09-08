@@ -782,6 +782,7 @@ class UsuariosDAO {
 		return resultado
 	}
 	public Result recoveryData(String jsonData) {
+		String error_log=""
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		Long id =1L;
@@ -791,14 +792,16 @@ class UsuariosDAO {
 			def object = jsonSlurper.parseText(jsonData);
 
 			closeCon = validarConexionBonita();
-			
-			pstm = con.prepareStatement("SELECT displayName FROM flownode_instance  WHERE  displayName = 'Llenar solicitud' and rootcontainerid=?")
+			error_log+="[1] Buscando si hay tareas activas "
+			pstm = con.prepareStatement("SELECT displayName FROM flownode_instance where kind='user' and rootcontainerid=?")
 			pstm.setLong(1, new Long(object.caseId))
 			rs = pstm.executeQuery()
 			if(!rs.next()) {
+				error_log+="[2] Buscando si existe la tabla temporal_id "
 				pstm = con.prepareStatement("SELECT table_name FROM information_schema.tables   WHERE  table_name = 'temporal_id'")
 				rs = pstm.executeQuery()
 				if(rs.next()) {
+					error_log+="[3] Actualizando tabla temporal_id "
 					pstm = con.prepareStatement("update temporal_id set id=(SELECT id+1 FROM temporal_id limit 1)")
 					pstm.execute()
 					
@@ -808,37 +811,58 @@ class UsuariosDAO {
 						id=rs.getLong("id")
 					}
 				}else {
+					error_log+="[3] Creando tabla temporal_id "
 					pstm = con.prepareStatement("CREATE TABLE temporal_id (id bigint)")
 					pstm.execute()
 					pstm = con.prepareStatement("INSERT INTO temporal_id (id) values (1)")
 					pstm.execute()
 				}
 				
-				pstm = con.prepareStatement("SELECT flownodedefinitionid from arch_flownode_instance where rootcontainerid=? and name='Llenar solicitud' limit 1")
+				error_log+="[4] Buscando última tarea abortada "
+				pstm = con.prepareStatement("SELECT flownodedefinitionid, name, displayname FROM arch_flownode_instance afi where afi.id=(SELECT max(id) from arch_flownode_instance where rootcontainerid=? and kind='user' and statename='aborted' limit 1)")
 				pstm.setLong(1, new Long(object.caseId))
 				rs = pstm.executeQuery()
 				if(rs.next()) {
+					error_log+="[5] Última tarea " + rs.getString("name") + " "
 					flownodedefinitionid=rs.getLong("flownodedefinitionid")
+					
+					error_log+="[6] Actualizando timer fechavencimientoperiodo "
+					pstm = con.prepareStatement("update data_instance set longvalue=7942405330000 where containerid=? and name='fechavencimientoperiodo';")
+					pstm.setLong(1, new Long(object.caseId))
+					pstm.execute()
+					
+					
+					error_log+="[7] Recuperando tarea "
+					pstm = con.prepareStatement("INSERT INTO flownode_instance (tenantid, id, flownodedefinitionid, kind, rootcontainerid, parentcontainerid, name, displayname, displaydescription, stateid, statename, prev_state_id, terminal, stable, actorid, assigneeid, reachedstatedate, lastupdatedate, expectedenddate, claimeddate, priority, gatewaytype, hitbys, statecategory, logicalgroup1, logicalgroup2, logicalgroup3, logicalgroup4, loop_counter, loop_max, description, sequential, loopdatainputref, loopdataoutputref, datainputitemref, dataoutputitemref, loopcardinality, nbactiveinst, nbcompletedinst, nbterminatedinst, executedby, executedbysubstitute, activityinstanceid, state_executing, abortedbyboundary, triggeredbyevent, interrupting, tokencount) VALUES ( '1', ?, ?, 'user', ?, ?, '"+rs.getString("name")+"', '"+rs.getString("displayname")+"', null, '4', 'ready', '32', false, true, '911', '0', '1630625311223', '1630625311223', null, '0', '2', null, null, 'NORMAL', ?, ?, '0', ?, '-1', null, null, null, null, null, null, null, null, null, null, null, '0', '0', null, false, '0', null, null, '0')")
+					pstm.setLong(1, id)
+					pstm.setLong(2, flownodedefinitionid)
+					pstm.setLong(3, new Long(object.caseId))
+					pstm.setLong(4, new Long(object.caseId))
+					pstm.setLong(5, Long.parseLong(object.processDefinitionId))
+					pstm.setLong(6, new Long(object.caseId))
+					pstm.setLong(7, new Long(object.caseId))
+					pstm.execute()
+					resultado.setSuccess(true)
+				}else {
+					resultado.setError(" No tiene tareas abortadas")
+					resultado.setSuccess(true)
+					resultado.setError_info("No es posible recuperar datos de un proceso sin tareas abortadas")
 				}
 				
-				pstm = con.prepareStatement("INSERT INTO flownode_instance (tenantid, id, flownodedefinitionid, kind, rootcontainerid, parentcontainerid, name, displayname, displaydescription, stateid, statename, prev_state_id, terminal, stable, actorid, assigneeid, reachedstatedate, lastupdatedate, expectedenddate, claimeddate, priority, gatewaytype, hitbys, statecategory, logicalgroup1, logicalgroup2, logicalgroup3, logicalgroup4, loop_counter, loop_max, description, sequential, loopdatainputref, loopdataoutputref, datainputitemref, dataoutputitemref, loopcardinality, nbactiveinst, nbcompletedinst, nbterminatedinst, executedby, executedbysubstitute, activityinstanceid, state_executing, abortedbyboundary, triggeredbyevent, interrupting, tokencount) VALUES ( '1', ?, ?, 'user', ?, ?, 'Llenar solicitud', 'Llenar solicitud', null, '4', 'ready', '32', false, true, '911', '0', '1630625311223', '1630625311223', null, '0', '2', null, null, 'NORMAL', ?, ?, '0', ?, '-1', null, null, null, null, null, null, null, null, null, null, null, '0', '0', null, false, '0', null, null, '0')")
-				pstm.setLong(1, id)
-				pstm.setLong(2, flownodedefinitionid)
-				pstm.setLong(3, new Long(object.caseId))
-				pstm.setLong(4, new Long(object.caseId))
-				pstm.setLong(5, Long.parseLong(object.processDefinitionId))
-				pstm.setLong(6, new Long(object.caseId))
-				pstm.setLong(7, new Long(object.caseId))
-				pstm.execute()
 				
+				
+				
+			}else {
+				resultado.setError(" Tiene tareas activas")
 				resultado.setSuccess(true)
+				resultado.setError_info(" Revisar caso para tareas activas ")
 			}
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError(e.getMessage());
-				resultado.setError_info("")
+				resultado.setError_info(error_log)
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -3192,7 +3216,7 @@ class UsuariosDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
 						
-						case "NOMBRE,CURP":
+					case "NOMBRE,CURP":
 						errorlog += "NOMBRE,CURP"
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -3206,6 +3230,25 @@ class UsuariosDAO {
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
+						
+					case "NOMBRE,CURP,VPD":
+						errorlog += "NOMBRE,CURP"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(concat(sda.apellidopaterno,' ',sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda.curp) like lower('%[valor]%')  ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where += " OR LOWER(campus.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+
 
 
 					case "CAMPUS,PROGRAMA,INGRESO":
@@ -3436,6 +3479,9 @@ class UsuariosDAO {
 					orderby += "sda.curp";
 					break;
 				case "CAMPUS":
+					orderby += "campusEstudio.DESCRIPCION"
+					break;
+				case "VPD":
 					orderby += "campus.DESCRIPCION"
 					break;
 				case "PREPARATORIA":

@@ -313,9 +313,63 @@
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-YAENd63EeuIHpJcpvaR_g" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_-YAENt63EeuIHpJcpvaR_g" id="OTHER"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_PZVo0N65EeuIHpJcpvaR_g" name="urlLogin" value="https://procesos.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String"/>
-        <parameters xmi:type="parameter:Parameter" xmi:id="_uNn4kN69EeuIHpJcpvaR_g" name="urlUpdate" value="https://procesos.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=simpleSelectBonita&amp;p=0&amp;c=9999" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_uNn4kN69EeuIHpJcpvaR_g" name="urlUpdate" value="https://procesos.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=updatePerfil&amp;p=0&amp;c=9999" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_-jIucN69EeuIHpJcpvaR_g" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
         <parameters xmi:type="parameter:Parameter" xmi:id="_-jIucd69EeuIHpJcpvaR_g" name="password" value="bpm" typeClassname="java.lang.String"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_b3oN4BAvEeyxs6E6nDrh3g" name="Qualification" version="7.11.1-001" username="Administrador" password="bpm">
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_b3oN4RAvEeyxs6E6nDrh3g" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_b3oN4hAvEeyxs6E6nDrh3g" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN4xAvEeyxs6E6nDrh3g" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN5BAvEeyxs6E6nDrh3g" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_b3oN5RAvEeyxs6E6nDrh3g" id="rest-post-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN5hAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN5xAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN6BAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN6RAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          </children>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_b3oN6hAvEeyxs6E6nDrh3g" id="rest-get-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN6xAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN7BAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN7RAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_b3oN7hAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN7xAvEeyxs6E6nDrh3g" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN8BAvEeyxs6E6nDrh3g" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN8RAvEeyxs6E6nDrh3g" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_b3oN8hAvEeyxs6E6nDrh3g" id="OTHER"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_b3pcABAvEeyxs6E6nDrh3g" name="urlLogin" value="https://qa.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_b3pcARAvEeyxs6E6nDrh3g" name="urlUpdate" value="https://qa.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=updatePerfil&amp;p=0&amp;c=9999" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_b3pcAhAvEeyxs6E6nDrh3g" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_b3pcAxAvEeyxs6E6nDrh3g" name="password" value="Apl1c4c10n3s" typeClassname="java.lang.String"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_uMRp8BAvEeyxs6E6nDrh3g" name="integration" version="7.11.1-001" username="Administrador" password="bpm">
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_uMRp8RAvEeyxs6E6nDrh3g" type="CONNECTOR" definitionId="rest-post" definitionVersion="1.1.0" implementationId="rest-post-impl" implementationVersion="1.0.7"/>
+        <definitionMappings xmi:type="configuration:DefinitionMapping" xmi:id="_uMRp8hAvEeyxs6E6nDrh3g" type="CONNECTOR" definitionId="rest-get" definitionVersion="1.1.0" implementationId="rest-get-impl" implementationVersion="1.0.7"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRp8xAvEeyxs6E6nDrh3g" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRp9BAvEeyxs6E6nDrh3g" id="CONNECTOR">
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_uMRp9RAvEeyxs6E6nDrh3g" id="rest-post-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp9hAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp9xAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp-BAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp-RAvEeyxs6E6nDrh3g" key="rest-post-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          </children>
+          <children xmi:type="configuration:FragmentContainer" xmi:id="_uMRp-hAvEeyxs6E6nDrh3g" id="rest-get-impl-1.0.7">
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp-xAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="bonita-connector-rest-1.0.7.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp_BAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="httpcore-4.3.3.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp_RAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="httpclient-4.3.6.jar" type="CONNECTOR"/>
+            <fragments xmi:type="configuration:Fragment" xmi:id="_uMRp_hAvEeyxs6E6nDrh3g" key="rest-get-impl -- 1.0.7" value="guava-18.0.jar" type="CONNECTOR"/>
+          </children>
+        </processDependencies>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRp_xAvEeyxs6E6nDrh3g" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRqABAvEeyxs6E6nDrh3g" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRqARAvEeyxs6E6nDrh3g" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_uMRqAhAvEeyxs6E6nDrh3g" id="OTHER"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_uMRqAxAvEeyxs6E6nDrh3g" name="urlLogin" value="https://dev.bpm.anahuac.mx/loginservice?redirectUrl=portal%2Fhomepage&amp;username=[USUARIO]&amp;password=[PASSWORD]&amp;_l=es" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_uMRqBBAvEeyxs6E6nDrh3g" name="urlUpdate" value="https://dev.bpm.anahuac.mx/bonita/API/extension/AnahuacRestGet?url=updatePerfil&amp;p=0&amp;c=9999" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_uMSRABAvEeyxs6E6nDrh3g" name="usuario" value="Administrador" typeClassname="java.lang.String"/>
+        <parameters xmi:type="parameter:Parameter" xmi:id="_uMSRARAvEeyxs6E6nDrh3g" name="password" value="BPM2021bpm$" typeClassname="java.lang.String"/>
       </configurations>
       <parameters xmi:type="parameter:Parameter" xmi:id="_93MnwN64EeuIHpJcpvaR_g" name="urlLogin" typeClassname="java.lang.String"/>
       <parameters xmi:type="parameter:Parameter" xmi:id="_tvUzAN69EeuIHpJcpvaR_g" name="urlUpdate" typeClassname="java.lang.String"/>
