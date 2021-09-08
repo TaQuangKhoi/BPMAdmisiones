@@ -75,7 +75,7 @@ class TransferenciasDAO {
 
             assert object instanceof Map;
             where += " WHERE sda.iseliminado=false "
-            where += " AND (sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3')"
+            where += " AND (sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3') AND (sda.ESTATUSSOLICITUD != 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
 
             if (lstGrupo.size() > 0) {
                 campus += " AND ("
@@ -681,8 +681,6 @@ class TransferenciasDAO {
                     }
                 }
             }
-
-
 
             //			if(lstGrupo.size()>0) {
             //				where+=" OR campusNuevo IN ("

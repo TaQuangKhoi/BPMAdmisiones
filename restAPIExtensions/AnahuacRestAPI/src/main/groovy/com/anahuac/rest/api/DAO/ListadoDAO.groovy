@@ -3859,7 +3859,7 @@ class ListadoDAO {
             }
 
             assert object instanceof Map;
-            where += " WHERE sda.iseliminado=false AND campus.descripcion is not null "
+            where += " WHERE sda.iseliminado=false AND campus.descripcion is not null AND (sda.ESTATUSSOLICITUD != 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%') "
             if (object.campus != null) {
                 where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
             }
