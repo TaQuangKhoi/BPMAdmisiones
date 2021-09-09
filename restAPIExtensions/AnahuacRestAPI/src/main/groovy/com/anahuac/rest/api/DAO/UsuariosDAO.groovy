@@ -210,7 +210,7 @@ class UsuariosDAO {
 			error_log = error_log + " | lstResultado.add(plantilla.replace(";
 			//Result resultado2 = new Result();
 			//resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
-			error_log = error_log + resultado2.getError();
+			//error_log = error_log + resultado2.getError();
 			resultado.setData(lstResultado);
 			error_log = error_log + " | resultado.setData(lstResultado);";
 			resultado.setSuccess(true);
