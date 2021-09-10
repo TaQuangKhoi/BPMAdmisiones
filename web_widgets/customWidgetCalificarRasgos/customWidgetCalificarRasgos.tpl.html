@@ -1,0 +1,28 @@
+<table  class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Rasgo</th>
+            <th class="calif-header">Calificación</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="rasgo in properties.content">
+            <td>{{rasgo.rasgo.descripcion}}</td>
+            <td>
+                <div class="calif-option" ng-repeat="calif in properties.catRasgosCalif">
+                    {{calif.descripcion}} <input type="radio" class="radio-rasgo calif-{{rasgo.rasgo.persistenceId_string}}-{{calif.persistenceId_string}}" ng-value="calif" ng-model="rasgo.calificacion" style="margin: 4px 6px 0;" ng-checked="true">
+                    <!--{{rasgo.calificacion.persistenceId_string === calif.persistenceId_string}}-->
+                    <!--{{rasgo.calificacion.persistenceId_string  + " " +  calif.persistenceId_string}}-->
+                </div>
+            </td>
+        </tr>
+        <!--<tr ng-repeat="rasgo in properties.catRasgosObservados">-->
+        <!--    <td>{{rasgo.descripcion}}</td>-->
+        <!--    <td>-->
+        <!--        <div class="calif-option" ng-repeat="calif in properties.catRasgosCalif">-->
+        <!--            {{calif.descripcion}} <input type="radio">-->
+        <!--        </div>-->
+        <!--    </td>-->
+        <!--</tr>-->
+    </tbody>
+</table>

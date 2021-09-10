@@ -100,21 +100,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("Fotografía!", "Debe agregar una fotografía!", "warning");
                     } else if ($scope.properties.actanacimiento === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                         swal("Acta de nacimiento!", "Debe agregar su acta de nacimiento!", "warning");
-                    } else*/ if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                    } else*/
+                    if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                         $scope.properties.selectedIndex--;
                     } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                        if($scope.properties.fotopasaporte !== undefined){
-                                $scope.properties.fotopasaportearchivo["newValue"] = $scope.properties.fotopasaporte;
-                                console.log($scope.properties.fotopasaportearchivo);
-                            }
-                            if($scope.properties.actanacimiento !== undefined){
-                                $scope.properties.actanacimientoarchivo["newValue"] = $scope.properties.actanacimiento;
-                            }
-                        
-                       /* $scope.properties.fotoPasaporteDocumentInput = [];
-                        $scope.properties.actaNacimientoDocumentInput = [];
-                        $scope.properties.fotoPasaporteDocumentInput.push($scope.properties.fotopasaporte);
-                        $scope.properties.actaNacimientoDocumentInput.push($scope.properties.actanacimiento);*/
+                        if ($scope.properties.fotopasaporte !== undefined) {
+                            $scope.properties.fotopasaportearchivo["newValue"] = $scope.properties.fotopasaporte;
+                            console.log($scope.properties.fotopasaportearchivo);
+                        }
+                        if ($scope.properties.actanacimiento !== undefined) {
+                            $scope.properties.actanacimientoarchivo["newValue"] = $scope.properties.actanacimiento;
+                        }
+
+                        /* $scope.properties.fotoPasaporteDocumentInput = [];
+                         $scope.properties.actaNacimientoDocumentInput = [];
+                         $scope.properties.fotoPasaporteDocumentInput.push($scope.properties.fotopasaporte);
+                         $scope.properties.actaNacimientoDocumentInput.push($scope.properties.actanacimiento);*/
                         localS.setItem("catSolicitudDeAdmisionInput", JSON.stringify($scope.properties));
                         //localS.setItem("selectedIndex",$scope.properties.selectedIndex);
                         localS.setItem("actanacimiento", JSON.stringify($scope.properties.actanacimiento));
@@ -127,7 +128,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
 
             } else if ($scope.properties.selectedIndex === 2) {
-                debugger;
+
                 if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
                     $scope.properties.selectedIndex--;
                 } else if ($scope.properties.catSolicitudDeAdmision.catBachilleratos === null) {
@@ -561,10 +562,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.madreInput.catPais === 0 || $scope.properties.madreInput.catPais === null) {
                                 swal("País!", "Debe agregar el país del domicilio de la madre!", "warning");
                             } else if (($scope.properties.madreInput.catEstado === 0 || $scope.properties.madreInput.catEstado === null) && $scope.properties.madreInput.catPais.descripcion === "México") {
-                                    swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
-                                } else if ($scope.properties.madreInput.estadoExtranjero === "" && $scope.properties.madreInput.catPais.descripcion !== "México") {
-                                    swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
-                                } else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
+                                swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
+                            } else if ($scope.properties.madreInput.estadoExtranjero === "" && $scope.properties.madreInput.catPais.descripcion !== "México") {
+                                swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
+                            } else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("Calle!", "Debe agregar la calle del domicilio de la madre!", "warning");
                             } else if ($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) {
                                 swal("Código postal!", "Debe agregar el código postal del domicilio de la madre!", "warning");
@@ -595,10 +596,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.madreInput.catPais === 0 || $scope.properties.madreInput.catPais === null) {
                                 swal("País!", "Debe agregar el país del domicilio de la madre!", "warning");
                             } else if (($scope.properties.madreInput.catEstado === 0 || $scope.properties.madreInput.catEstado === null) && $scope.properties.madreInput.catPais.descripcion === "México") {
-                                    swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
-                                } else if ($scope.properties.madreInput.estadoExtranjero === "" && $scope.properties.madreInput.catPais.descripcion !== "México") {
-                                    swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
-                                } else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
+                                swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
+                            } else if ($scope.properties.madreInput.estadoExtranjero === "" && $scope.properties.madreInput.catPais.descripcion !== "México") {
+                                swal("Estado!", "Debe agregar el estado del domicilio de la madre!", "warning");
+                            } else if ($scope.properties.madreInput.calle === "" || $scope.properties.madreInput.calle === undefined) {
                                 swal("Calle!", "Debe agregar la calle del domicilio de la madre!", "warning");
                             } else if ($scope.properties.madreInput.codigoPostal === "" || $scope.properties.madreInput.codigoPostal === undefined) {
                                 swal("Código postal!", "Debe agregar el código postal del domicilio de la madre!", "warning");

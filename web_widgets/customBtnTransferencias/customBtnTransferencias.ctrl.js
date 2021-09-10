@@ -21,7 +21,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Close modal') {
             closeModal(true);
         } else if ($scope.properties.url) {
-            debugger;
+
             var existecambio = false;
             var isTransferencia = false;
             if ($scope.properties.valoresSolicitante.catCampus === null) {
@@ -45,7 +45,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
                 $scope.properties.JSONTransferencia.caseid = $scope.properties.valoresSolicitante.caseid;
                 $scope.properties.JSONTransferencia.licenciatura = $scope.properties.valoresSolicitante.catLicenciatura.persistenceId;
-                if(!$scope.properties.valoresSolicitante.catLicenciatura.propedeutico){
+                if (!$scope.properties.valoresSolicitante.catLicenciatura.propedeutico) {
                     $scope.properties.valoresSolicitante.catPropedeutico = null
                 }
                 if ($scope.properties.valoresSolicitante.catPropedeutico === null) {
@@ -80,54 +80,54 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     existecambio = true;
                     isTransferencia = true;
                 }
-                if(!isTransferencia){
-                  swal("¡Aviso!", "No se realizó ninguna transferencia, para realizar cambios a los datos del aspirante debe ir al modulo de usuarios registrados.", "warning");
-                }else{
-                  if (!existecambio) {
-                    swal("¡Aviso!", "No se realizó ninguna modificación, por tanto, no se realizará la transferencia", "warning");
+                if (!isTransferencia) {
+                    swal("¡Aviso!", "No se realizó ninguna transferencia, para realizar cambios a los datos del aspirante debe ir al modulo de usuarios registrados.", "warning");
                 } else {
-                    var jsonAnterior = {};
-                    var jsonNuevo = {};
-                    jsonAnterior.campus = $scope.properties.jsonOriginal.campussede;
-                    jsonAnterior.licenciatura = $scope.properties.jsonOriginal.licenciatura;
-                    jsonAnterior.propedeutico = $scope.properties.jsonOriginal.propedeutico;
-                    jsonAnterior.periodo = $scope.properties.jsonOriginal.ingreso;
-                    jsonAnterior.campusestudio = $scope.properties.jsonOriginal.campus;
-                    jsonNuevo.campus = $scope.properties.valoresSolicitante.catCampus.descripcion;
-                    jsonNuevo.licenciatura = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
-                    if ($scope.properties.valoresSolicitante.catPropedeutico === null) {
-                        jsonNuevo.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico
+                    if (!existecambio) {
+                        swal("¡Aviso!", "No se realizó ninguna modificación, por tanto, no se realizará la transferencia", "warning");
                     } else {
-                        jsonNuevo.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico.descripcion
+                        var jsonAnterior = {};
+                        var jsonNuevo = {};
+                        jsonAnterior.campus = $scope.properties.jsonOriginal.campussede;
+                        jsonAnterior.licenciatura = $scope.properties.jsonOriginal.licenciatura;
+                        jsonAnterior.propedeutico = $scope.properties.jsonOriginal.propedeutico;
+                        jsonAnterior.periodo = $scope.properties.jsonOriginal.ingreso;
+                        jsonAnterior.campusestudio = $scope.properties.jsonOriginal.campus;
+                        jsonNuevo.campus = $scope.properties.valoresSolicitante.catCampus.descripcion;
+                        jsonNuevo.licenciatura = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
+                        if ($scope.properties.valoresSolicitante.catPropedeutico === null) {
+                            jsonNuevo.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico
+                        } else {
+                            jsonNuevo.propedeutico = $scope.properties.valoresSolicitante.catPropedeutico.descripcion
+                        }
+                        jsonNuevo.periodo = $scope.properties.valoresSolicitante.periodo.descripcion;
+                        jsonNuevo.campusestudio = $scope.properties.valoresSolicitante.catCampusEstudio.descripcion;
+
+                        $scope.properties.JSONTransferencia.valororginal = JSON.stringify(jsonAnterior);
+                        $scope.properties.JSONTransferencia.valorcambio = JSON.stringify(jsonNuevo);
+                        $scope.properties.JSONTransferencia.usuario = $scope.properties.usuario.user_name;
+                        var nombreaspirante = "";
+                        if ($scope.properties.valoresSolicitante.segundonombre === "") {
+                            nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre;
+                        } else {
+                            nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.segundonombre;
+                        }
+                        $scope.properties.JSONTransferencia.campusAnterior = $scope.properties.jsonOriginal.campus
+                        $scope.properties.JSONTransferencia.campusNuevo = $scope.properties.valoresSolicitante.catCampus.descripcion
+                        $scope.properties.JSONTransferencia.aspirante = nombreaspirante;
+                        $scope.properties.JSONTransferencia.correoaspirante = $scope.properties.valoresSolicitante.correoelectronico;
+                        $scope.properties.JSONTransferencia.licenciaturatext = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
+                        $scope.properties.JSONTransferencia.periodotext = $scope.properties.valoresSolicitante.periodo.descripcion;
+                        $scope.properties.JSONTransferencia.estatus = $scope.properties.valoresSolicitante.estatussolicitud;
+                        $scope.properties.JSONTransferencia.idbanner = $scope.properties.valoresSolicitante.idbanner;
+                        $scope.properties.JSONTransferencia.catCampus = $scope.properties.valoresSolicitante.catCampus;
+                        console.log($scope.properties.JSONTransferencia);
+                        $scope.properties.estadoSeleccionado = undefined;
+                        doRequest($scope.properties.action, $scope.properties.url);
                     }
-                    jsonNuevo.periodo = $scope.properties.valoresSolicitante.periodo.descripcion;
-                    jsonNuevo.campusestudio = $scope.properties.valoresSolicitante.catCampusEstudio.descripcion;
-                    
-                    $scope.properties.JSONTransferencia.valororginal = JSON.stringify(jsonAnterior);
-                    $scope.properties.JSONTransferencia.valorcambio = JSON.stringify(jsonNuevo);
-                    $scope.properties.JSONTransferencia.usuario = $scope.properties.usuario.user_name;
-                    var nombreaspirante = "";
-                      if($scope.properties.valoresSolicitante.segundonombre === ""){
-                        nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre ;
-                    }else{
-                        nombreaspirante = $scope.properties.valoresSolicitante.apellidopaterno + " " + $scope.properties.valoresSolicitante.apellidomaterno + " " + $scope.properties.valoresSolicitante.primernombre + " " + $scope.properties.valoresSolicitante.segundonombre ;
-                    }
-                    $scope.properties.JSONTransferencia.campusAnterior = $scope.properties.jsonOriginal.campus
-                    $scope.properties.JSONTransferencia.campusNuevo = $scope.properties.valoresSolicitante.catCampus.descripcion
-                    $scope.properties.JSONTransferencia.aspirante = nombreaspirante;
-                    $scope.properties.JSONTransferencia.correoaspirante = $scope.properties.valoresSolicitante.correoelectronico;
-                    $scope.properties.JSONTransferencia.licenciaturatext = $scope.properties.valoresSolicitante.catLicenciatura.nombre;
-                    $scope.properties.JSONTransferencia.periodotext = $scope.properties.valoresSolicitante.periodo.descripcion;
-                    $scope.properties.JSONTransferencia.estatus = $scope.properties.valoresSolicitante.estatussolicitud;
-                    $scope.properties.JSONTransferencia.idbanner = $scope.properties.valoresSolicitante.idbanner;
-                    $scope.properties.JSONTransferencia.catCampus = $scope.properties.valoresSolicitante.catCampus;
-                    console.log($scope.properties.JSONTransferencia);
-                    $scope.properties.estadoSeleccionado = undefined;
-                    doRequest($scope.properties.action, $scope.properties.url);
-                }
 
                 }
-                
+
 
             }
         }
@@ -326,27 +326,27 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     //  $scope.sendMail=function(row) {
-    function sendMail(row){
-        debugger;
-             if(row.catCampus.grupoBonita==undefined){
-                 for(var i=0; i<$scope.lstCampus.length; i++){
-                     if($scope.lstCampus[i].descripcion==row.catCampus.descripcion){
-                         row.catCampus.grupoBonita=$scope.lstCampus[i].valor;
-                     }
-                 }
-             }
+    function sendMail(row) {
+
+        if (row.catCampus.grupoBonita == undefined) {
+            for (var i = 0; i < $scope.lstCampus.length; i++) {
+                if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
+                    row.catCampus.grupoBonita = $scope.lstCampus[i].valor;
+                }
+            }
+        }
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
-              "campus": row.catCampus.grupoBonita,
-              "correo": row.correoaspirante,
-              "codigo": "transferencia",
-              "isEnviar": true,
-              "mensaje":""
+                "campus": row.catCampus.grupoBonita,
+                "correo": row.correoaspirante,
+                "codigo": "transferencia",
+                "isEnviar": true,
+                "mensaje": ""
             })
         };
-//row.correoaspirante
+        //row.correoaspirante
         return $http(req)
             .success(function(data, status) {
                 getLstAspirantesTransferencia("POST", $scope.properties.urlPost);

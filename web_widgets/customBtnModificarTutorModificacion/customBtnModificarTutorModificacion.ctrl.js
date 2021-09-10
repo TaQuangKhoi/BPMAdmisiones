@@ -21,203 +21,203 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             openModal($scope.properties.modalId);
         } else if ($scope.properties.action === 'Close modal') {
             $scope.properties.tutor.isTutor = true;
-            debugger;
+
             if ($scope.properties.tutor.catTitulo != $scope.properties.jsonModificarTutor.catTitulo) {
                 $scope.properties.tutor.catTitulo = $scope.properties.jsonModificarTutor.catTitulo
             }
             if ($scope.properties.tutor.catParentezco != $scope.properties.jsonModificarTutor.catParentezco) {
                 $scope.properties.tutor.catParentezco = $scope.properties.jsonModificarTutor.catParentezco
                 if ($scope.properties.jsonModificarTutor.catParentezco.descripcion === "Padre") {
-                                $scope.properties.padre.catTitulo = $scope.properties.tutor.catTitulo;
-                                $scope.properties.padre.nombre = $scope.properties.tutor.nombre;
-                                $scope.properties.padre.apellidos = $scope.properties.tutor.apellidos;
-                                $scope.properties.padre.correoElectronico = $scope.properties.tutor.correoElectronico;
-                                $scope.properties.padre.catEscolaridad = $scope.properties.tutor.catEscolaridad;
-                                $scope.properties.padre.catEgresoAnahuac = $scope.properties.tutor.catEgresoAnahuac;
-                                $scope.properties.padre.catCampusEgreso = $scope.properties.tutor.catCampusEgreso;
-                                $scope.properties.padre.catTrabaja = $scope.properties.tutor.catTrabaja;
-                                $scope.properties.padre.empresaTrabaja = $scope.properties.tutor.empresaTrabaja;
-                                $scope.properties.padre.giroEmpresa = $scope.properties.tutor.giroEmpresa;
-                                $scope.properties.padre.puesto = $scope.properties.tutor.puesto;
-                                $scope.properties.padre.isTutor = $scope.properties.tutor.isTutor;
-                                $scope.properties.padre.calle = $scope.properties.tutor.calle;
-                                $scope.properties.padre.catPais = $scope.properties.tutor.catPais;
-                                $scope.properties.padre.numeroExterior = $scope.properties.tutor.numeroExterior;
-                                $scope.properties.padre.numeroInterior = $scope.properties.tutor.numeroInterior;
-                                $scope.properties.padre.catEstado = $scope.properties.tutor.catEstado;
-                                $scope.properties.padre.ciudad = $scope.properties.tutor.ciudad;
-                                $scope.properties.padre.colonia = $scope.properties.tutor.colonia;
-                                $scope.properties.padre.telefono = $scope.properties.tutor.telefono;
-                                $scope.properties.padre.codigoPostal = $scope.properties.tutor.codigoPostal;
-                                $scope.properties.padre.viveContigo = $scope.properties.tutor.viveContigo;
-                                $scope.properties.padre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
-                                $scope.properties.padre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
-                                $scope.properties.isPadretutor = true;
-                                for (var i = 0; i < $scope.properties.catVive.length; i++) {
-                                    if ($scope.properties.catVive[i].descripcion === "Si") {
-                                        $scope.properties.padre.vive = $scope.properties.catVive[i];
-                                    }
-                                }
-                                
-                                if($scope.properties.madre.vive.descripcion === "Si" && $scope.properties.madre.isTutor){
-                                    $scope.properties.madre.vive = null;
-                                    $scope.properties.madre.catTitulo = null;
-                                    $scope.properties.madre.nombre = "";
-                                    $scope.properties.madre.apellidos = "";
-                                    $scope.properties.madre.correoElectronico = "";
-                                    $scope.properties.madre.catEscolaridad = null;
-                                    $scope.properties.madre.catEgresoAnahuac = null;
-                                    $scope.properties.madre.catCampusEgreso = null;
-                                    $scope.properties.madre.catTrabaja = null;
-                                    $scope.properties.madre.empresaTrabaja = "";
-                                    $scope.properties.madre.giroEmpresa = "";
-                                    $scope.properties.madre.puesto = "";
-                                    $scope.properties.madre.isTutor = false;
-                                    $scope.properties.madre.calle = "";
-                                    $scope.properties.madre.catPais = null;
-                                    $scope.properties.madre.numeroExterior = "";
-                                    $scope.properties.madre.numeroInterior = "";
-                                    $scope.properties.madre.catEstado = null;
-                                    $scope.properties.madre.ciudad = "";
-                                    $scope.properties.madre.colonia = "";
-                                    $scope.properties.madre.telefono = "";
-                                    $scope.properties.madre.codigoPostal = "";
-                                    $scope.properties.madre.viveContigo = false;
-                                    $scope.properties.madre.delegacionMunicipio = "";
-                                    $scope.properties.madre.estadoExtranjero = "";
-                                    $scope.properties.isMadretutor = false;
-                                }
-                            } else if ($scope.properties.jsonModificarTutor.catParentezco.descripcion === "Madre") {
-                                $scope.properties.madre.catTitulo = $scope.properties.tutor.catTitulo;
-                                $scope.properties.madre.nombre = $scope.properties.tutor.nombre;
-                                $scope.properties.madre.apellidos = $scope.properties.tutor.apellidos;
-                                $scope.properties.madre.correoElectronico = $scope.properties.tutor.correoElectronico;
-                                $scope.properties.madre.catEscolaridad = $scope.properties.tutor.catEscolaridad;
-                                $scope.properties.madre.catEgresoAnahuac = $scope.properties.tutor.catEgresoAnahuac;
-                                $scope.properties.madre.catCampusEgreso = $scope.properties.tutor.catCampusEgreso;
-                                $scope.properties.madre.catTrabaja = $scope.properties.tutor.catTrabaja;
-                                $scope.properties.madre.empresaTrabaja = $scope.properties.tutor.empresaTrabaja;
-                                $scope.properties.madre.giroEmpresa = $scope.properties.tutor.giroEmpresa;
-                                $scope.properties.madre.puesto = $scope.properties.tutor.puesto;
-                                $scope.properties.madre.isTutor = $scope.properties.tutor.isTutor;
-                                $scope.properties.madre.calle = $scope.properties.tutor.calle;
-                                $scope.properties.madre.catPais = $scope.properties.tutor.catPais;
-                                $scope.properties.madre.numeroExterior = $scope.properties.tutor.numeroExterior;
-                                $scope.properties.madre.numeroInterior = $scope.properties.tutor.numeroInterior;
-                                $scope.properties.madre.catEstado = $scope.properties.tutor.catEstado;
-                                $scope.properties.madre.ciudad = $scope.properties.tutor.ciudad;
-                                $scope.properties.madre.colonia = $scope.properties.tutor.colonia;
-                                $scope.properties.madre.telefono = $scope.properties.tutor.telefono;
-                                $scope.properties.madre.codigoPostal = $scope.properties.tutor.codigoPostal;
-                                $scope.properties.madre.viveContigo = $scope.properties.tutor.viveContigo;
-                                $scope.properties.madre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
-                                $scope.properties.madre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
-                                $scope.properties.isMadretutor = true;
-                                for (var i = 0; i < $scope.properties.catVive.length; i++) {
-                                    if ($scope.properties.catVive[i].descripcion === "Si") {
-                                        $scope.properties.madre.vive = $scope.properties.catVive[i];
-                                    }
-                                }
-                                if($scope.properties.padre.vive.descripcion === "Si" && $scope.properties.padre.isTutor){
-                                    $scope.properties.padre.catTitulo = null;
-                                    $scope.properties.padre.nombre = "";
-                                    $scope.properties.padre.apellidos = "";
-                                    $scope.properties.padre.correoElectronico = "";
-                                    $scope.properties.padre.catEscolaridad = null;
-                                    $scope.properties.padre.catEgresoAnahuac = null;
-                                    $scope.properties.padre.catCampusEgreso = null;
-                                    $scope.properties.padre.catTrabaja = null;
-                                    $scope.properties.padre.empresaTrabaja = "";
-                                    $scope.properties.padre.giroEmpresa = "";
-                                    $scope.properties.padre.puesto = "";
-                                    $scope.properties.padre.isTutor = false;
-                                    $scope.properties.padre.calle = "";
-                                    $scope.properties.padre.catPais = null;
-                                    $scope.properties.padre.numeroExterior = "";
-                                    $scope.properties.padre.numeroInterior = "";
-                                    $scope.properties.padre.catEstado = null;
-                                    $scope.properties.padre.ciudad = "";
-                                    $scope.properties.padre.colonia = "";
-                                    $scope.properties.padre.telefono = "";
-                                    $scope.properties.padre.codigoPostal = "";
-                                    $scope.properties.padre.viveContigo = false;
-                                    $scope.properties.padre.vive = null;
-                                    $scope.properties.padre.delegacionMunicipio = "";
-                                    $scope.properties.padre.estadoExtranjero = "";
-                                    $scope.properties.isPadretutor = false;
-                                }
-                            }else{
-                                if($scope.properties.padre.vive.descripcion === "Si" && $scope.properties.padre.isTutor){
-                                    $scope.properties.padre.catTitulo = null;
-                                    $scope.properties.padre.nombre = "";
-                                    $scope.properties.padre.apellidos = "";
-                                    $scope.properties.padre.correoElectronico = "";
-                                    $scope.properties.padre.catEscolaridad = null;
-                                    $scope.properties.padre.catEgresoAnahuac = null;
-                                    $scope.properties.padre.catCampusEgreso = null;
-                                    $scope.properties.padre.catTrabaja = null;
-                                    $scope.properties.padre.empresaTrabaja = "";
-                                    $scope.properties.padre.giroEmpresa = "";
-                                    $scope.properties.padre.puesto = "";
-                                    $scope.properties.padre.isTutor = false;
-                                    $scope.properties.padre.calle = "";
-                                    $scope.properties.padre.catPais = null;
-                                    $scope.properties.padre.numeroExterior = "";
-                                    $scope.properties.padre.numeroInterior = "";
-                                    $scope.properties.padre.catEstado = null;
-                                    $scope.properties.padre.ciudad = "";
-                                    $scope.properties.padre.colonia = "";
-                                    $scope.properties.padre.telefono = "";
-                                    $scope.properties.padre.codigoPostal = "";
-                                    $scope.properties.padre.viveContigo = false;
-                                    $scope.properties.padre.vive = null;
-                                    $scope.properties.padre.delegacionMunicipio = "";
-                                    $scope.properties.padre.estadoExtranjero = "";
-                                    $scope.properties.isPadretutor = false;
-                                    if($scope.properties.contactoEmergencia.length > 0){
-                                        for(var x=0; x<$scope.properties.contactoEmergencia.length; x++){
-                                            if($scope.properties.contactoEmergencia[x].catParentesco.descripcion === "Padre"){
-                                                $scope.properties.contactoEmergencia.splice(x,1);
-                                            }
-                                        }
-                                    }
-                                }
-                                if($scope.properties.madre.vive.descripcion === "Si" && $scope.properties.madre.isTutor){
-                                    $scope.properties.madre.vive = null;
-                                    $scope.properties.madre.catTitulo = null;
-                                    $scope.properties.madre.nombre = "";
-                                    $scope.properties.madre.apellidos = "";
-                                    $scope.properties.madre.correoElectronico = "";
-                                    $scope.properties.madre.catEscolaridad = null;
-                                    $scope.properties.madre.catEgresoAnahuac = null;
-                                    $scope.properties.madre.catCampusEgreso = null;
-                                    $scope.properties.madre.catTrabaja = null;
-                                    $scope.properties.madre.empresaTrabaja = "";
-                                    $scope.properties.madre.giroEmpresa = "";
-                                    $scope.properties.madre.puesto = "";
-                                    $scope.properties.madre.isTutor = false;
-                                    $scope.properties.madre.calle = "";
-                                    $scope.properties.madre.catPais = null;
-                                    $scope.properties.madre.numeroExterior = "";
-                                    $scope.properties.madre.numeroInterior = "";
-                                    $scope.properties.madre.catEstado = null;
-                                    $scope.properties.madre.ciudad = "";
-                                    $scope.properties.madre.colonia = "";
-                                    $scope.properties.madre.telefono = "";
-                                    $scope.properties.madre.codigoPostal = "";
-                                    $scope.properties.madre.viveContigo = false;
-                                    $scope.properties.madre.delegacionMunicipio = "";
-                                    $scope.properties.madre.estadoExtranjero ="";
-                                    $scope.properties.isMadretutor = false;
-                                    if($scope.properties.contactoEmergencia.length > 0){
-                                        for(var x=0; x<$scope.properties.contactoEmergencia.length; x++){
-                                            if($scope.properties.contactoEmergencia[x].catParentesco.descripcion === "Madre"){
-                                                $scope.properties.contactoEmergencia.splice(x,1);
-                                            }
-                                        }
-                                    }
+                    $scope.properties.padre.catTitulo = $scope.properties.tutor.catTitulo;
+                    $scope.properties.padre.nombre = $scope.properties.tutor.nombre;
+                    $scope.properties.padre.apellidos = $scope.properties.tutor.apellidos;
+                    $scope.properties.padre.correoElectronico = $scope.properties.tutor.correoElectronico;
+                    $scope.properties.padre.catEscolaridad = $scope.properties.tutor.catEscolaridad;
+                    $scope.properties.padre.catEgresoAnahuac = $scope.properties.tutor.catEgresoAnahuac;
+                    $scope.properties.padre.catCampusEgreso = $scope.properties.tutor.catCampusEgreso;
+                    $scope.properties.padre.catTrabaja = $scope.properties.tutor.catTrabaja;
+                    $scope.properties.padre.empresaTrabaja = $scope.properties.tutor.empresaTrabaja;
+                    $scope.properties.padre.giroEmpresa = $scope.properties.tutor.giroEmpresa;
+                    $scope.properties.padre.puesto = $scope.properties.tutor.puesto;
+                    $scope.properties.padre.isTutor = $scope.properties.tutor.isTutor;
+                    $scope.properties.padre.calle = $scope.properties.tutor.calle;
+                    $scope.properties.padre.catPais = $scope.properties.tutor.catPais;
+                    $scope.properties.padre.numeroExterior = $scope.properties.tutor.numeroExterior;
+                    $scope.properties.padre.numeroInterior = $scope.properties.tutor.numeroInterior;
+                    $scope.properties.padre.catEstado = $scope.properties.tutor.catEstado;
+                    $scope.properties.padre.ciudad = $scope.properties.tutor.ciudad;
+                    $scope.properties.padre.colonia = $scope.properties.tutor.colonia;
+                    $scope.properties.padre.telefono = $scope.properties.tutor.telefono;
+                    $scope.properties.padre.codigoPostal = $scope.properties.tutor.codigoPostal;
+                    $scope.properties.padre.viveContigo = $scope.properties.tutor.viveContigo;
+                    $scope.properties.padre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                    $scope.properties.padre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                    $scope.properties.isPadretutor = true;
+                    for (var i = 0; i < $scope.properties.catVive.length; i++) {
+                        if ($scope.properties.catVive[i].descripcion === "Si") {
+                            $scope.properties.padre.vive = $scope.properties.catVive[i];
+                        }
+                    }
+
+                    if ($scope.properties.madre.vive.descripcion === "Si" && $scope.properties.madre.isTutor) {
+                        $scope.properties.madre.vive = null;
+                        $scope.properties.madre.catTitulo = null;
+                        $scope.properties.madre.nombre = "";
+                        $scope.properties.madre.apellidos = "";
+                        $scope.properties.madre.correoElectronico = "";
+                        $scope.properties.madre.catEscolaridad = null;
+                        $scope.properties.madre.catEgresoAnahuac = null;
+                        $scope.properties.madre.catCampusEgreso = null;
+                        $scope.properties.madre.catTrabaja = null;
+                        $scope.properties.madre.empresaTrabaja = "";
+                        $scope.properties.madre.giroEmpresa = "";
+                        $scope.properties.madre.puesto = "";
+                        $scope.properties.madre.isTutor = false;
+                        $scope.properties.madre.calle = "";
+                        $scope.properties.madre.catPais = null;
+                        $scope.properties.madre.numeroExterior = "";
+                        $scope.properties.madre.numeroInterior = "";
+                        $scope.properties.madre.catEstado = null;
+                        $scope.properties.madre.ciudad = "";
+                        $scope.properties.madre.colonia = "";
+                        $scope.properties.madre.telefono = "";
+                        $scope.properties.madre.codigoPostal = "";
+                        $scope.properties.madre.viveContigo = false;
+                        $scope.properties.madre.delegacionMunicipio = "";
+                        $scope.properties.madre.estadoExtranjero = "";
+                        $scope.properties.isMadretutor = false;
+                    }
+                } else if ($scope.properties.jsonModificarTutor.catParentezco.descripcion === "Madre") {
+                    $scope.properties.madre.catTitulo = $scope.properties.tutor.catTitulo;
+                    $scope.properties.madre.nombre = $scope.properties.tutor.nombre;
+                    $scope.properties.madre.apellidos = $scope.properties.tutor.apellidos;
+                    $scope.properties.madre.correoElectronico = $scope.properties.tutor.correoElectronico;
+                    $scope.properties.madre.catEscolaridad = $scope.properties.tutor.catEscolaridad;
+                    $scope.properties.madre.catEgresoAnahuac = $scope.properties.tutor.catEgresoAnahuac;
+                    $scope.properties.madre.catCampusEgreso = $scope.properties.tutor.catCampusEgreso;
+                    $scope.properties.madre.catTrabaja = $scope.properties.tutor.catTrabaja;
+                    $scope.properties.madre.empresaTrabaja = $scope.properties.tutor.empresaTrabaja;
+                    $scope.properties.madre.giroEmpresa = $scope.properties.tutor.giroEmpresa;
+                    $scope.properties.madre.puesto = $scope.properties.tutor.puesto;
+                    $scope.properties.madre.isTutor = $scope.properties.tutor.isTutor;
+                    $scope.properties.madre.calle = $scope.properties.tutor.calle;
+                    $scope.properties.madre.catPais = $scope.properties.tutor.catPais;
+                    $scope.properties.madre.numeroExterior = $scope.properties.tutor.numeroExterior;
+                    $scope.properties.madre.numeroInterior = $scope.properties.tutor.numeroInterior;
+                    $scope.properties.madre.catEstado = $scope.properties.tutor.catEstado;
+                    $scope.properties.madre.ciudad = $scope.properties.tutor.ciudad;
+                    $scope.properties.madre.colonia = $scope.properties.tutor.colonia;
+                    $scope.properties.madre.telefono = $scope.properties.tutor.telefono;
+                    $scope.properties.madre.codigoPostal = $scope.properties.tutor.codigoPostal;
+                    $scope.properties.madre.viveContigo = $scope.properties.tutor.viveContigo;
+                    $scope.properties.madre.delegacionMunicipio = $scope.properties.tutor.delegacionMunicipio;
+                    $scope.properties.madre.estadoExtranjero = $scope.properties.tutor.estadoExtranjero;
+                    $scope.properties.isMadretutor = true;
+                    for (var i = 0; i < $scope.properties.catVive.length; i++) {
+                        if ($scope.properties.catVive[i].descripcion === "Si") {
+                            $scope.properties.madre.vive = $scope.properties.catVive[i];
+                        }
+                    }
+                    if ($scope.properties.padre.vive.descripcion === "Si" && $scope.properties.padre.isTutor) {
+                        $scope.properties.padre.catTitulo = null;
+                        $scope.properties.padre.nombre = "";
+                        $scope.properties.padre.apellidos = "";
+                        $scope.properties.padre.correoElectronico = "";
+                        $scope.properties.padre.catEscolaridad = null;
+                        $scope.properties.padre.catEgresoAnahuac = null;
+                        $scope.properties.padre.catCampusEgreso = null;
+                        $scope.properties.padre.catTrabaja = null;
+                        $scope.properties.padre.empresaTrabaja = "";
+                        $scope.properties.padre.giroEmpresa = "";
+                        $scope.properties.padre.puesto = "";
+                        $scope.properties.padre.isTutor = false;
+                        $scope.properties.padre.calle = "";
+                        $scope.properties.padre.catPais = null;
+                        $scope.properties.padre.numeroExterior = "";
+                        $scope.properties.padre.numeroInterior = "";
+                        $scope.properties.padre.catEstado = null;
+                        $scope.properties.padre.ciudad = "";
+                        $scope.properties.padre.colonia = "";
+                        $scope.properties.padre.telefono = "";
+                        $scope.properties.padre.codigoPostal = "";
+                        $scope.properties.padre.viveContigo = false;
+                        $scope.properties.padre.vive = null;
+                        $scope.properties.padre.delegacionMunicipio = "";
+                        $scope.properties.padre.estadoExtranjero = "";
+                        $scope.properties.isPadretutor = false;
+                    }
+                } else {
+                    if ($scope.properties.padre.vive.descripcion === "Si" && $scope.properties.padre.isTutor) {
+                        $scope.properties.padre.catTitulo = null;
+                        $scope.properties.padre.nombre = "";
+                        $scope.properties.padre.apellidos = "";
+                        $scope.properties.padre.correoElectronico = "";
+                        $scope.properties.padre.catEscolaridad = null;
+                        $scope.properties.padre.catEgresoAnahuac = null;
+                        $scope.properties.padre.catCampusEgreso = null;
+                        $scope.properties.padre.catTrabaja = null;
+                        $scope.properties.padre.empresaTrabaja = "";
+                        $scope.properties.padre.giroEmpresa = "";
+                        $scope.properties.padre.puesto = "";
+                        $scope.properties.padre.isTutor = false;
+                        $scope.properties.padre.calle = "";
+                        $scope.properties.padre.catPais = null;
+                        $scope.properties.padre.numeroExterior = "";
+                        $scope.properties.padre.numeroInterior = "";
+                        $scope.properties.padre.catEstado = null;
+                        $scope.properties.padre.ciudad = "";
+                        $scope.properties.padre.colonia = "";
+                        $scope.properties.padre.telefono = "";
+                        $scope.properties.padre.codigoPostal = "";
+                        $scope.properties.padre.viveContigo = false;
+                        $scope.properties.padre.vive = null;
+                        $scope.properties.padre.delegacionMunicipio = "";
+                        $scope.properties.padre.estadoExtranjero = "";
+                        $scope.properties.isPadretutor = false;
+                        if ($scope.properties.contactoEmergencia.length > 0) {
+                            for (var x = 0; x < $scope.properties.contactoEmergencia.length; x++) {
+                                if ($scope.properties.contactoEmergencia[x].catParentesco.descripcion === "Padre") {
+                                    $scope.properties.contactoEmergencia.splice(x, 1);
                                 }
                             }
+                        }
+                    }
+                    if ($scope.properties.madre.vive.descripcion === "Si" && $scope.properties.madre.isTutor) {
+                        $scope.properties.madre.vive = null;
+                        $scope.properties.madre.catTitulo = null;
+                        $scope.properties.madre.nombre = "";
+                        $scope.properties.madre.apellidos = "";
+                        $scope.properties.madre.correoElectronico = "";
+                        $scope.properties.madre.catEscolaridad = null;
+                        $scope.properties.madre.catEgresoAnahuac = null;
+                        $scope.properties.madre.catCampusEgreso = null;
+                        $scope.properties.madre.catTrabaja = null;
+                        $scope.properties.madre.empresaTrabaja = "";
+                        $scope.properties.madre.giroEmpresa = "";
+                        $scope.properties.madre.puesto = "";
+                        $scope.properties.madre.isTutor = false;
+                        $scope.properties.madre.calle = "";
+                        $scope.properties.madre.catPais = null;
+                        $scope.properties.madre.numeroExterior = "";
+                        $scope.properties.madre.numeroInterior = "";
+                        $scope.properties.madre.catEstado = null;
+                        $scope.properties.madre.ciudad = "";
+                        $scope.properties.madre.colonia = "";
+                        $scope.properties.madre.telefono = "";
+                        $scope.properties.madre.codigoPostal = "";
+                        $scope.properties.madre.viveContigo = false;
+                        $scope.properties.madre.delegacionMunicipio = "";
+                        $scope.properties.madre.estadoExtranjero = "";
+                        $scope.properties.isMadretutor = false;
+                        if ($scope.properties.contactoEmergencia.length > 0) {
+                            for (var x = 0; x < $scope.properties.contactoEmergencia.length; x++) {
+                                if ($scope.properties.contactoEmergencia[x].catParentesco.descripcion === "Madre") {
+                                    $scope.properties.contactoEmergencia.splice(x, 1);
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if ($scope.properties.tutor.giroEmpresa != $scope.properties.jsonModificarTutor.giroEmpresa) {
                 $scope.properties.tutor.giroEmpresa = $scope.properties.jsonModificarTutor.giroEmpresa
@@ -336,7 +336,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                        } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
@@ -454,8 +454,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "codigoPostal": "",
                                 "viveContigo": false,
                                 "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                                "delegacionMunicipio": "",
+                                "estadoExtranjero": ""
                             };
                             closeModal(true);
                         }
@@ -470,10 +470,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -589,8 +589,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "codigoPostal": "",
                             "viveContigo": false,
                             "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                            "delegacionMunicipio": "",
+                            "estadoExtranjero": ""
                         };
                         closeModal(true);
                     }
@@ -612,10 +612,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if ($scope.properties.tutor.ciudad === "") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -731,8 +731,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "codigoPostal": "",
                             "viveContigo": false,
                             "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                            "delegacionMunicipio": "",
+                            "estadoExtranjero": ""
                         };
                         closeModal(true);
                     }
@@ -747,10 +747,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if ($scope.properties.tutor.numeroExterior === "") {
                     swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        }else if ($scope.properties.tutor.ciudad === "") {
+                    swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
+                    swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                } else if ($scope.properties.tutor.ciudad === "") {
                     swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                 } else if ($scope.properties.tutor.colonia === "") {
                     swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -866,8 +866,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         "codigoPostal": "",
                         "viveContigo": false,
                         "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                        "delegacionMunicipio": "",
+                        "estadoExtranjero": ""
                     };
                     closeModal(true);
                 }
@@ -902,10 +902,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             } else if ($scope.properties.tutor.numeroExterior === "") {
                                 swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        }else if ($scope.properties.tutor.ciudad === "") {
+                                swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                            } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
+                                swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                            } else if ($scope.properties.tutor.ciudad === "") {
                                 swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                             } else if ($scope.properties.tutor.colonia === "") {
                                 swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1021,8 +1021,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     "codigoPostal": "",
                                     "viveContigo": false,
                                     "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                                    "delegacionMunicipio": "",
+                                    "estadoExtranjero": ""
                                 };
                                 closeModal(true);
                             }
@@ -1038,9 +1038,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                        } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        }else if ($scope.properties.tutor.ciudad === "") {
+                        } else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1156,8 +1156,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "codigoPostal": "",
                                 "viveContigo": false,
                                 "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                                "delegacionMunicipio": "",
+                                "estadoExtranjero": ""
                             };
                             closeModal(true);
                         }
@@ -1180,9 +1180,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
+                        } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
                             swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        }else if ($scope.properties.tutor.ciudad === "") {
+                        } else if ($scope.properties.tutor.ciudad === "") {
                             swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                         } else if ($scope.properties.tutor.colonia === "") {
                             swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1298,8 +1298,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 "codigoPostal": "",
                                 "viveContigo": false,
                                 "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                                "delegacionMunicipio": "",
+                                "estadoExtranjero": ""
                             };
                             closeModal(true);
                         }
@@ -1314,10 +1314,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else if ($scope.properties.tutor.numeroExterior === "") {
                         swal("Número exterior!", "Debe agregar el número exterior del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.catEstado === null && $scope.properties.tutor.catPais.descripcion === "México") {
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        } else if(($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "")&& $scope.properties.tutor.catPais.descripcion !== "México"){
-                            swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
-                        }else if ($scope.properties.tutor.ciudad === "") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if (($scope.properties.tutor.estadoExtranjero === null || $scope.properties.tutor.estadoExtranjero === "") && $scope.properties.tutor.catPais.descripcion !== "México") {
+                        swal("Estado!", "Debe agregar el estado del domicilio del tutor!", "warning");
+                    } else if ($scope.properties.tutor.ciudad === "") {
                         swal("Ciudad!", "Debe agregar la calle del domicilio del tutor!", "warning");
                     } else if ($scope.properties.tutor.colonia === "") {
                         swal("Colonia!", "Debe agregar la colonia del domicilio del tutor!", "warning");
@@ -1433,8 +1433,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             "codigoPostal": "",
                             "viveContigo": false,
                             "otroParentesco": "",
-                            "delegacionMunicipio":"",
-                            "estadoExtranjero":""
+                            "delegacionMunicipio": "",
+                            "estadoExtranjero": ""
                         };
                         closeModal(true);
                     }

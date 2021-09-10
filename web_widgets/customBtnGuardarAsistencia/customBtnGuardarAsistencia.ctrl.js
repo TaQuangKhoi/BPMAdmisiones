@@ -80,7 +80,6 @@ function PbButtonCtrl($scope, $http, $window) {
         
         var inicio = moment(ini, 'HH:mm');
         var fin = moment(last, 'HH:mm');*/
-        debugger;
         
         var req = {
             method: "GET",
@@ -89,17 +88,19 @@ function PbButtonCtrl($scope, $http, $window) {
         return $http(req)
             .success(function (data, status) {
                 
+                let fecha =moment(angular.copy(data.data[0].fecha));
+                if(fecha.isSameOrAfter($scope.properties.datosUsuario.aplicacion)  ){
+                    $scope.properties.habilitado = true;
+                    
+                }else{
+                    $scope.properties.habilitado = false;
+                }
+                
                 //let fecha = moment(angular.copy(data.data[0].fecha))
                 //let fecha2 =moment(angular.copy(data.data[0].fecha)).subtract(1, 'day');
-                for(let i = 0;i<5;i++){
-                    let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
-                    if(fecha.isSame($scope.properties.datosUsuario.aplicacion)  ){
-                        $scope.properties.habilitado = true;
-                        break;
-                    }else{
-                        $scope.properties.habilitado = false;
-                    }
-                }
+                //for(let i = 0;i<3;i++){
+                    
+                //}
                 //$scope.properties.datosUsuario.fecha
                 //|| fecha2.isSame($scope.properties.datosUsuario.aplicacion)
                 /*if(fecha.isSame($scope.properties.datosUsuario.aplicacion)  ){

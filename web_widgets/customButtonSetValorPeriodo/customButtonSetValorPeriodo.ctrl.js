@@ -11,40 +11,40 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     };
 
     $scope.openCloseModal = function() {
-        if ($scope.properties.OpenModal) {
-            modalService.open($scope.properties.modalId);
-        } else {
-            $scope.properties.modalId[0] = {
-                "campus": null,
-                "nombreCampus":"",
-                "descripcion": "", 
-                "isEliminado": false, 
-                "usuarioBanner": "", 
-                "fechaImportacion":null,
-                "clave": "", 
-                "fechaCreacion": null,
-                "isEnabled":true,
-                "isCuatrimestral":false,
-                "fechaInicio":null,
-                "fechaFin":null,
-                "isSemestral":false,
-                "isAnual":false,
-                "year":"",
-                "codigo":"",
-                "activo":false,
-                "id":""
+            if ($scope.properties.OpenModal) {
+                modalService.open($scope.properties.modalId);
+            } else {
+                $scope.properties.modalId[0] = {
+                    "campus": null,
+                    "nombreCampus": "",
+                    "descripcion": "",
+                    "isEliminado": false,
+                    "usuarioBanner": "",
+                    "fechaImportacion": null,
+                    "clave": "",
+                    "fechaCreacion": null,
+                    "isEnabled": true,
+                    "isCuatrimestral": false,
+                    "fechaInicio": null,
+                    "fechaFin": null,
+                    "isSemestral": false,
+                    "isAnual": false,
+                    "year": "",
+                    "codigo": "",
+                    "activo": false,
+                    "id": ""
+                }
+                modalService.close();
             }
-            modalService.close();
+
+
+
         }
-
-
-
-    }
-    /**
-     * Execute a get/post request to an URL
-     * It also bind custom data from success|error to a data
-     * @return {void}
-     */
+        /**
+         * Execute a get/post request to an URL
+         * It also bind custom data from success|error to a data
+         * @return {void}
+         */
     function doRequest(method, url, params, dataToSend, callback) {
         vm.busy = true;
         var req = {
@@ -56,7 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function(data, status) {
-                debugger;
+
                 callback(data.data[0]);
             })
             .error(function(data, status) {

@@ -14,7 +14,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         } else if ($scope.properties.action === 'Start process') {
             blockUI.start();
             console.log("Alerta");
-            debugger;
+
             $scope.properties.dataToSend.catRegistroInput.nombreusuario = $scope.properties.strRegistro.CorreoElectronico;
             $scope.properties.dataToSend.catRegistroInput.primernombre = $scope.properties.strRegistro.PrimerNombre;
             $scope.properties.dataToSend.catRegistroInput.segundonombre = $scope.properties.strRegistro.SegundoNombre;
@@ -34,7 +34,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
 
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {
-                swal("¡"+$scope.properties.campoError+"!", $scope.properties.erroMessage, "warning");
+                swal("¡" + $scope.properties.campoError + "!", $scope.properties.erroMessage, "warning");
                 blockUI.stop();
             } else {
                 var req = {
@@ -42,24 +42,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     url: "../API/extension/AnahuacRestGet?url=getDatosUsername&p=0&c=10&username=" + $scope.properties.strRegistro.CorreoElectronico
                 };
                 return $http(req).success(function(data, status) {
-                    $scope.properties.getUserBonita = data.data;
-                    if ($scope.properties.getUserBonita !== undefined) {
-                        if($scope.properties.getUserBonita.length > 0){
-                            swal("Error", "Este correo electrónico ya está registrado.", "error");
-                            blockUI.stop();
+                        $scope.properties.getUserBonita = data.data;
+                        if ($scope.properties.getUserBonita !== undefined) {
+                            if ($scope.properties.getUserBonita.length > 0) {
+                                swal("Error", "Este correo electrónico ya está registrado.", "error");
+                                blockUI.stop();
+                            } else {
+                                startProcess();
+                            }
                         }
-                        else {
-                            startProcess();
-                        }
-                    }
-                }).error(function(data, status) {
-                    $scope.properties.dataFromError = data;
-                    $scope.properties.responseStatusCode = status;
-                    $scope.properties.dataFromSuccess = undefined;
-                })
-                .finally(function() {
-                    blockUI.stop();
-                });
+                    }).error(function(data, status) {
+                        $scope.properties.dataFromError = data;
+                        $scope.properties.responseStatusCode = status;
+                        $scope.properties.dataFromSuccess = undefined;
+                    })
+                    .finally(function() {
+                        blockUI.stop();
+                    });
             }
         } else if ($scope.properties.action === 'Submit task') {
             submitTask();
@@ -208,7 +207,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      */
     function doRequest(method, url, params) {
         //$scope.showLoading();
-        
+
         $scope.properties.disabled = true;
         var req = {
             method: method,

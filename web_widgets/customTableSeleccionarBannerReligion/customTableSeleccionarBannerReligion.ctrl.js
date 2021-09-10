@@ -1,27 +1,27 @@
 function PbTableCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
     this.isArray = Array.isArray;
     var habilitado = false;
-    
+
     this.isClickable = function() {
         return $scope.properties.isBound('selectedRow');
     };
 
     this.selectRow = function(row) {
-        debugger;
+
         $scope.properties.selectedRow = angular.copy(row);
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
     };
-    
+
     this.selectRow = function(row) {
-        debugger;
+
         $scope.properties.selectedRow = angular.copy(row);;
         $scope.properties.isSelected = 'editar';
         $scope.properties.selectedRow["todelete"] = false;
     };
-    
-      this.selectRowEnable = function(row)  {
-         swal("¿Esta seguro que desea modificarlo?", {
+
+    this.selectRowEnable = function(row) {
+        swal("¿Esta seguro que desea modificarlo?", {
                 buttons: {
                     cancel: "No",
                     catch: {
@@ -33,21 +33,21 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .then((value) => {
                 switch (value) {
                     case "Si":
-                    debugger;
-                    $scope.properties.selectedRow = row;
-                    $scope.properties.selectedRow["todelete"] = false;
-                    $scope.properties.selectedRow["isEnabled"] = !$scope.properties.selectedRow["isEnabled"];
-                    habilitado = true;
-                    $scope.$apply();
-                    startProcess();
-                    break;
+
+                        $scope.properties.selectedRow = row;
+                        $scope.properties.selectedRow["todelete"] = false;
+                        $scope.properties.selectedRow["isEnabled"] = !$scope.properties.selectedRow["isEnabled"];
+                        habilitado = true;
+                        $scope.$apply();
+                        startProcess();
+                        break;
                     default:
 
                 }
             });
     };
 
-    
+
     this.selectRowDelete = function(row) {
         swal("¿Esta seguro que desea eliminar?", {
                 buttons: {
@@ -61,7 +61,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger;
+
                         $scope.properties.selectedRow = row;
                         $scope.properties.selectedRow["todelete"] = false;
                         $scope.properties.selectedRow["isEliminado"] = true;
@@ -83,7 +83,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
 
     function startProcess() {
-        debugger
+        
         if ($scope.properties.processId) {
             var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
                 localStorageService.delete($window.location.href);
@@ -95,7 +95,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
     }
 
     function doRequest(method, url, params) {
-        debugger
+        
         var req = {
             method: method,
             url: url,
@@ -106,21 +106,21 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         return $http(req)
             .success(function(data, status) {
                 doRequestGet();
-                if(!habilitado){
+                if (!habilitado) {
                     swal("Eliminado correctamente", "", "success");
-                }else{
-                     swal("Modificado correctamente", "", "success");
+                } else {
+                    swal("Modificado correctamente", "", "success");
                 }
-                
-                
+
+
             })
             .error(function(data, status) {
-                
+
             });
     }
-    
+
     function doRequestGet() {
-        debugger
+        
         var cantidad = angular.copy($scope.properties.cantidad);
         var req = {
             method: "GET",

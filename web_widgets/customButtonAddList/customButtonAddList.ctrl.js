@@ -4,8 +4,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     var vm = this;
 
-    this.action = function action() {debugger;
-    $scope.properties.collectionToModify.push($scope.properties.valueToAdd)
+    this.action = function action() {
+        $scope.properties.collectionToModify.push($scope.properties.valueToAdd)
     };
 
     function openModal(modalId) {

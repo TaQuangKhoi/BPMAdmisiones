@@ -86,7 +86,7 @@ function PbTableCtrl($scope, $http, blockUI, $window) {
 
     $scope.ValidarFechaReagendacion = function() {
         //Acomodo de fechas
-        debugger
+        
         //Fecha actual
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');

@@ -38,8 +38,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     });
 
-
-
     function doRequest(method, url, params, dataToSend, extra, callback) {
         vm.busy = true;
         blockUI.start();
@@ -76,14 +74,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
 
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100", null, $scope.dataToSend, null, function(datos, extra) {
-            $scope.lstDatos = datos.data;
+            //$scope.lstDatos = datos.data;
+            if(datos.data.length>0){
+                datos.data.forEach(element =>{
+                    if(element.fotografiabpm != null){
+                       $scope.lstDatos = element;
+                    }
+                });
+            }
         })
     }
 
-
-
     $scope.loadAsistenciaCollegeBoard = function() {
-        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaCollegeBoard", null, null, null, function(datos, extra) {
             
             $scope.asistenciaCollegeBoard = (datos.value === "true");
@@ -91,7 +93,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         })
     }
     $scope.loadAsistenciaPsicometrico = function() {
-        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaPsicometrico", null, null, null, function(datos, extra) {
             
             $scope.asistenciaPsicometrico = (datos.value === "true");
@@ -99,13 +100,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         })
     }
     $scope.loadAsistenciaEntrevista = function() {
-        
         doRequest("GET", "../API/bpm/caseVariable/" + $scope.properties.caseId + "/asistenciaEntrevista", null, null, null, function(datos, extra) {
             
             $scope.asistenciaEntrevista = (datos.value === "true");
         })
     }
-
 
     $scope.$watchCollection('properties.fechasExamenes', function() {
 
@@ -123,7 +122,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         today = mm + '/' + dd + '/' + yyyy;
-
 
         //Fecha menor
         let FechaMenorStr=$scope.properties.fechasExamenes.data[0].aplicacion;
@@ -146,15 +144,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       if(fechaActualD >=FechaMenorDt){
           $scope.properties.PuedeReagendar=true;
       }
-
-
     }
+
     $scope.$watchCollection('properties.datosUsuarioId', function() {
         if ($scope.properties.datosUsuarioId != undefined && $scope.watcherCont2 === 0) {
             $scope.EjecutarFechas();
             $scope.watcherCont2 = 1;
         }
     });
+
     $scope.$watchCollection('properties.caseId', function() {
         if ($scope.properties.caseId != undefined) {
             $scope.loadAsistenciaCollegeBoard();
@@ -162,8 +160,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.loadAsistenciaEntrevista();
         }
     });
-
-
 
     $scope.$watchCollection('asistenciaCollegeBoard', function() {
         
@@ -175,6 +171,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             //$scope.fecha3;
         }
     });
+
     $scope.$watchCollection('asistenciaPsicometrico', function() {
         
         if ($scope.asistenciaPsicometrico != undefined && $scope.asistenciaPsicometrico === true) {
@@ -184,6 +181,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         }
     });
+
     $scope.$watchCollection('asistenciaEntrevista', function() {
         
         if ($scope.asistenciaEntrevista != undefined && $scope.asistenciaEntrevista === true) {
@@ -193,7 +191,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         }
     });
-
 
     $scope.EjecutarFechas = function() {
         if ($scope.properties.datosUsuarioId != undefined && $scope.properties.fechasExamenes != undefined) {
@@ -211,16 +208,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
-
-
-
-
-
-
-
     //op es la opcion de la fila (tipo del examen) y dato es que tipo de dato va en la columna(fecha, lugar, Horario)
     $scope.getFechas = function(op, dato) {
-        
         
         let resultado = "";
         if ($scope.properties.datosUsuarioId != undefined && $scope.properties.fechasExamenes != undefined) {
@@ -338,7 +327,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         }
         return resultado;
-
     }
 
     $scope.FechasAcomodado = function(fecha) {

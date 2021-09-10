@@ -11,5 +11,5 @@ class StatementsBachillerato {
 	public static final String INSERT_CATBITACORACOMENTARIOS="INSERT INTO CATBITACORACOMENTARIOS (persistenceid, comentario, fechacreacion, iseliminado, modulo, persistenceversion, usuario, usuariocomentario ) VALUES (CASE WHEN (SELECT MAX (persistenceid)+1 FROM CATBITACORACOMENTARIOS) is null then 1 else (SELECT MAX (persistenceid)+1 FROM CATBITACORACOMENTARIOS) END, ?, ?, ?,?, 0, ?, ? )"
 	
 	public static final String GET_CATBITACORACOMENTARIOS="SELECT bitacora.* FROM CATBITACORACOMENTARIOS bitacora LEFT JOIN SOLICITUDDEADMISION  sda ON sda.CORREOELECTRONICO=bitacora.USUARIOCOMENTARIO LEFT JOIN CATCAMPUS campus on sda.CATCAMPUS_PID=campus.persistenceid [WHERE] [ORDERBY] [LIMITOFFSET]";
-	public static final String UPDATE_PERTENCERED="UPDATE CATBACHILLERATOS set pertenecered =? where persistenceid=?"
+	public static final String UPDATE_PERTENCERED="UPDATE CATBACHILLERATOS set pertenecered =?, isenabled =? where persistenceid =?"
 }

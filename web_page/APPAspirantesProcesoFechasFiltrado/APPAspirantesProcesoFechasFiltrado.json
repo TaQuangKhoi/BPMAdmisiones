@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPAspirantesProcesoFechasFiltrado",
   "name" : "APPAspirantesProcesoFechasFiltrado",
-  "lastUpdate" : 1617148164980,
+  "lastUpdate" : 1628636554051,
   "rows" : [
     [
       {
@@ -353,7 +353,7 @@
                       },
                       "dataToSend" : {
                         "type" : "expression",
-                        "value" : "dataToSend"
+                        "value" : "dataToSend2"
                       },
                       "dataFromSuccess" : {
                         "type" : "variable",
@@ -691,9 +691,9 @@
                   "value" : "lstCatCampus"
                 }
               },
-              "reference" : "e8e6f423-f0c5-4254-9b44-99d517cddca8",
+              "reference" : "c970c538-0d2f-4be9-920f-9d5376cf7377",
               "hasValidationError" : false,
-              "id" : "customTablePostProcesoModificacion2FiltradoFechas"
+              "id" : "customTablePostProcesoModificacion2FiltradoFechasTimerStop"
             }
           ]
         ]
@@ -1656,6 +1656,13 @@
       "external" : false
     },
     {
+      "id" : "4c6aed07-31da-4f99-9979-0ecc00ae1f51",
+      "name" : "sweetalert2@10.js",
+      "type" : "js",
+      "order" : 5,
+      "external" : false
+    },
+    {
       "id" : "39cb7871-2fce-4d20-b657-552ca8bf6351",
       "name" : "style.css",
       "type" : "css",
@@ -1688,6 +1695,13 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "ccc91ca8-b444-401f-a0ea-eeeebec966f4",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 6,
       "external" : false
     }
   ],
@@ -1817,6 +1831,25 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToSend2" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"tarea\":\"Validar Información\",\r",
+        "    \"lstFiltro\": $data.lstFiltros, \r",
+        "    \"type\": \"aspirantes_proceso_fechas\",\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":9999,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"estatusSolicitud\": \"Aspirantes en proceso\",\r",
+        "    \"aspirantes\":\"regular\",\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
+        "}"
       ],
       "exposed" : false
     }

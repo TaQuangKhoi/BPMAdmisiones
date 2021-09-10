@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1617148304643,
+  "lastUpdate" : 1630976414412,
   "rows" : [
     [
       {
@@ -60,7 +60,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showbuttons"
+            "value" : "showbuttons || (selectedIndex === 0)"
           },
           "content" : {
             "type" : "variable",
@@ -74,6 +74,176 @@
         "reference" : "ca8b2112-1999-44dc-96c4-e1539c9cc875",
         "hasValidationError" : false,
         "id" : "customWizardtestsolicitud"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "selectedIndex !== 0"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "1541bd77-ed38-48e7-9646-8d860a8920d2",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : "color-orange"
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "Periodo de ingreso vencido"
+                },
+                "level" : {
+                  "type" : "constant",
+                  "value" : "Level 3"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "32f28961-7931-469c-a5db-b231a5b91a73",
+              "hasValidationError" : false,
+              "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Default label"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "text" : {
+                  "type" : "interpolation",
+                  "value" : "El periodo de ingreso que solicitaste ya ha vencido, para poder continuar con tu proceso debes seleccionar un periodo vigente. Todos los datos que has llenado hasta ahora permanecen solo debes actualizar el periodo y enviar nuevamente tu solicitud."
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                }
+              },
+              "reference" : "ca94cc23-8aa8-4e6a-88d3-aaf438fceec6",
+              "hasValidationError" : false,
+              "id" : "pbText"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Aceptar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "center"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "wizardLength" : {
+                  "type" : "variable",
+                  "value" : "wizardContent.length"
+                },
+                "selectedIndex" : {
+                  "type" : "variable",
+                  "value" : "selectedIndex"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Siguiente"
+                }
+              },
+              "reference" : "6ca4f0eb-f787-4e3d-adc2-d2835a5c2378",
+              "hasValidationError" : false,
+              "id" : "customBtnWizardIndex2"
+            }
+          ]
+        ]
       }
     ],
     [
@@ -1946,9 +2116,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "5d4ab8d6-4855-4fb3-ada1-c2fbd76690b2",
+                          "reference" : "14cdaaaf-8762-4628-aaed-b2991e477e5e",
                           "hasValidationError" : false,
-                          "id" : "customInputNumerico"
+                          "id" : "customInputNumericoTelefono"
                         },
                         {
                           "type" : "component",
@@ -2021,9 +2191,9 @@
                               "value" : 1
                             }
                           },
-                          "reference" : "0c686ef6-b547-4bc4-8c83-0511726fe7ea",
+                          "reference" : "ab878330-8b77-4b31-9ae1-0bcd5c3117f2",
                           "hasValidationError" : false,
-                          "id" : "customInputNumerico"
+                          "id" : "customInputNumericoTelefono"
                         },
                         {
                           "type" : "component",
@@ -2322,6 +2492,138 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "mostrarcampus"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Concluiste el proceso de admisión? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "CatConcluisteProceso"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision.catConcluisteProceso"
+                            }
+                          },
+                          "reference" : "e9432575-f46b-4cdc-ade5-e6aa52aeebe0",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "mostrarcampus || (catSolicitudDeAdmision.catConcluisteProceso.descripcion === \"No\" || catSolicitudDeAdmision.catConcluisteProceso.descripcion === undefined)"
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Cuál fue el resultado de admisiones? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catResultadoAdmision"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "catSolicitudDeAdmision.catResultadoAdmision"
+                            }
+                          },
+                          "reference" : "af60f0d4-2d34-485f-a71c-54810efbe7b6",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
                             "md" : 12,
                             "lg" : 12
                           },
@@ -2435,7 +2737,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Fotografía Personal (<strong>Tipo</strong> pasaporte) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                    "value" : "Foto de perfil <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2445,6 +2747,108 @@
                                 "reference" : "3a0cab06-e5cb-45e1-947e-2231fe9470a8",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlFoto === null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "f9d25cc8-e6a0-4048-ac91-29a51bcd1ffb",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlFoto === null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "url" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlFoto + azureTempKeyRes.data[0]"
+                                  },
+                                  "document" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "showPreview" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idmodal" : {
+                                    "type" : "constant",
+                                    "value" : "idmodalfoto1"
+                                  }
+                                },
+                                "reference" : "8ce5cd60-b348-4572-b8c9-45ccf411f76e",
+                                "hasValidationError" : false,
+                                "id" : "customFileViewerPopupUpdate"
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlFoto === null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "c02ffb69-567d-4ad7-9a12-e02fc50254c9",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
                               }
                             ],
                             [
@@ -2565,7 +2969,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                    "value" : "catSolicitudDeAdmision.urlFoto !== null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -2594,7 +2998,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                    "value" : "catSolicitudDeAdmision.urlFoto !== null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -2630,7 +3034,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
+                                    "value" : "catSolicitudDeAdmision.urlFoto !== null || (urlImagenPasaporte !== undefined && urlImagenPasaporte !== \"\" && urlImagenPasaporte !== null) ? true : ((context.fotoPasaporte_ref.length > 0) ? true : false)"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -2783,7 +3187,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<ul>\n<li>Debe de tener solo tu imagen.</li>\n<li>Tomada de frente y en proporción a una fotografía de alguna credencial.</li>\n<li>Debe ser reciente y bien enfocada.</li>\n<li>Si la fotografía no cumple con las características indicadas, puede ser rechazada y deberás corregirla antes de que puedas continuar con tu trámite.</li>\n</ul>"
+                                    "value" : "<ul>\n<li>Debe de tener solo tu imagen.</li>\n<li>Cara descubierta</li>\n<li>Puede ser tomada con tu celular</li>\n<li>Tomada de frente.</li>\n<li>Debe ser reciente y bien enfocada.</li>\n<li>Si la fotografía no cumple con las características indicadas, puede ser rechazada y deberás corregirla antes de que puedas continuar con tu trámite.</li>\n</ul>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -2793,6 +3197,85 @@
                                 "reference" : "fc4c9342-a2ec-4b0b-8628-a137e15a76a5",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Subir imagen"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "fotopasaporte"
+                                  },
+                                  "errorContent" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "permitido" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "HeightMaximo" : {
+                                    "type" : "constant",
+                                    "value" : 480
+                                  },
+                                  "WidthMaximo" : {
+                                    "type" : "constant",
+                                    "value" : 576
+                                  },
+                                  "revisar" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : "urlImagenPasaporte"
+                                  }
+                                },
+                                "reference" : "e48cddf3-807d-471f-9028-3c31f10910b2",
+                                "hasValidationError" : false,
+                                "id" : "customUplImages"
                               }
                             ],
                             [
@@ -2867,11 +3350,15 @@
                                   "urlretorno" : {
                                     "type" : "variable",
                                     "value" : "urlImagenPasaporte"
+                                  },
+                                  "caseId" : {
+                                    "type" : "variable",
+                                    "value" : "caseId"
                                   }
                                 },
-                                "reference" : "e48cddf3-807d-471f-9028-3c31f10910b2",
+                                "reference" : "a2aa7e7c-fca8-4b72-95a5-1c73b6c50f33",
                                 "hasValidationError" : false,
-                                "id" : "customUplImages"
+                                "id" : "customUplImagesSolicitud"
                               }
                             ]
                           ]
@@ -2952,6 +3439,108 @@
                                 "reference" : "2897f23c-f4b0-4ade-968c-674201c77f3e",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento === null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "d3932b57-33ee-4ca6-bc0b-bec7a784dde9",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento === null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "url" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento + azureTempKeyRes.data[0]"
+                                  },
+                                  "document" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "showPreview" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idmodal" : {
+                                    "type" : "constant",
+                                    "value" : "idmodalacta1"
+                                  }
+                                },
+                                "reference" : "1b182fde-cbd1-4cba-8c05-1c19b622dbf5",
+                                "hasValidationError" : false,
+                                "id" : "customFileViewerPopupUpdate"
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento === null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "ac13a709-13a3-4632-8502-f1c0ccfe02c9",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
                               }
                             ],
                             [
@@ -3072,7 +3661,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento !== null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -3101,7 +3690,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento !== null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -3137,7 +3726,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlActaNacimiento !== null ? true : (isPDF  !== \"true\" || isImagen !== \"true\") ? true : ((urlActa !== undefined && urlActa !== \"\" && urlActa  !== null) ? true : ((context.actaNacimiento_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -3355,7 +3944,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -3408,6 +3997,81 @@
                                 "reference" : "470e01c8-d48d-4267-968d-ff4dfeebadc8",
                                 "hasValidationError" : false,
                                 "id" : "customUploadCustom"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Cargar documento"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "actanacimiento"
+                                  },
+                                  "errorContent" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : "urlActa"
+                                  },
+                                  "isImagen" : {
+                                    "type" : "variable",
+                                    "value" : "isImagen"
+                                  },
+                                  "isPDF" : {
+                                    "type" : "variable",
+                                    "value" : "isPDF"
+                                  },
+                                  "caseId" : {
+                                    "type" : "variable",
+                                    "value" : "caseId"
+                                  }
+                                },
+                                "reference" : "aa7651b0-8252-4ba8-8f68-2c16621656af",
+                                "hasValidationError" : false,
+                                "id" : "customUploadCustomActa"
                               }
                             ]
                           ]
@@ -3535,7 +4199,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "INSTITUCIÓN DONDE CURSAS O CURSASTE LA PREPARATORIA O BACHILLERATO"
+                        "value" : "INSTITUCIÓN DONDE CURSAS O CURSASTE EL BACHILLERATO"
                       },
                       "level" : {
                         "type" : "constant",
@@ -3571,7 +4235,7 @@
                       },
                       "text" : {
                         "type" : "interpolation",
-                        "value" : "<label class=\"color-orange\">Institución donde cursas o cursaste la preparatoria o bachillerato</label>"
+                        "value" : "<label class=\"color-orange\">Institución donde cursas o cursaste el bachillerato</label>"
                       },
                       "level" : {
                         "type" : "constant",
@@ -3646,7 +4310,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Preparatoria: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Bachillerato: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3740,7 +4404,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Nombre de la preparatoria: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Nombre del bachillerato: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3817,7 +4481,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "País de tu preparatoria: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "País de tu bachillerato: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3894,7 +4558,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Estado de tu preparatoria: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Estado de tu bachillerato: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -3971,7 +4635,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Ciudad de tu preparatoria: (Ciudad/Municipio/Delegación/Poblado)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Ciudad de tu bachillerato: (Ciudad/Municipio/Delegación/Poblado)  <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4197,8 +4861,8 @@
                               "value" : 2
                             },
                             "readOnly" : {
-                              "type" : "constant",
-                              "value" : false
+                              "type" : "expression",
+                              "value" : "preparatoriaSeleccionada !== \"Otro\" && datosPreparatoria.paisBachillerato==''"
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -4206,7 +4870,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Promedio general (captura tu promedio en una escala de 1 al 10) <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Promedio general {{(datosPreparatoria.paisBachillerato=='México')?'(captura tu promedio en una escala de 1 al 10)':''}} <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4238,11 +4902,15 @@
                             "step" : {
                               "type" : "constant",
                               "value" : 1
+                            },
+                            "preparatoriaSeleccionada" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria.paisBachillerato"
                             }
                           },
-                          "reference" : "0fe617e5-088e-4544-9d3a-3fa676a6f34b",
+                          "reference" : "b72fbcbf-5920-4972-80fd-add00bb23f50",
                           "hasValidationError" : false,
-                          "id" : "customInputNumericoSolicitudUpdate"
+                          "id" : "customInputNumericoSolicitudPromedio"
                         }
                       ],
                       [
@@ -4322,6 +4990,108 @@
                                 "reference" : "00be6bb2-ba08-434d-998d-417a75aae9ad",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlConstancia === null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "4b296367-d3cd-4e3a-ad27-9b1d8ac97203",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlConstancia === null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "url" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlConstancia + azureTempKeyRes.data[0]"
+                                  },
+                                  "document" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "showPreview" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idmodal" : {
+                                    "type" : "constant",
+                                    "value" : "idmodal1"
+                                  }
+                                },
+                                "reference" : "a4d73b85-3319-4180-ae39-b16d2db7cb55",
+                                "hasValidationError" : false,
+                                "id" : "customFileViewerPopupUpdate"
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlConstancia === null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "8f9797eb-2ffc-4e0a-a140-6ca36384a4db",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
                               }
                             ],
                             [
@@ -4442,7 +5212,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlConstancia !== null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -4471,7 +5241,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlConstancia !== null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -4507,7 +5277,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlConstancia !== null ? true : (isPDFKardex !== \"true\" || isImageKardex !== \"true\") ? true : ((urlKardex !== undefined && urlKardex  !== \"\" && urlKardex  !== null) ? true : ((context.constancia_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -4724,7 +5494,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -4777,6 +5547,81 @@
                                 "reference" : "9db23730-fea6-4c93-8801-65db78a79887",
                                 "hasValidationError" : false,
                                 "id" : "customUploadCustom"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Carga tu constancia de calificaciones con promedio: (debe contener desde el primer semestre de preparatoria hasta lo cursado el día de hoy)<span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "kardex"
+                                  },
+                                  "errorContent" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : "urlKardex"
+                                  },
+                                  "isImagen" : {
+                                    "type" : "variable",
+                                    "value" : "isImageKardex"
+                                  },
+                                  "isPDF" : {
+                                    "type" : "variable",
+                                    "value" : "isPDFKardex"
+                                  },
+                                  "caseId" : {
+                                    "type" : "variable",
+                                    "value" : "caseId"
+                                  }
+                                },
+                                "reference" : "b1999543-313c-46a2-a6ee-13c049a328d1",
+                                "hasValidationError" : false,
+                                "id" : "customUploadCustomKardex"
                               }
                             ]
                           ]
@@ -5106,6 +5951,108 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA === null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "92629daf-20d7-483e-aac9-bbbe2585743d",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA === null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "url" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA  + azureTempKeyRes.data[0]"
+                                  },
+                                  "document" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "showPreview" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idmodal" : {
+                                    "type" : "constant",
+                                    "value" : "idmodal1"
+                                  }
+                                },
+                                "reference" : "cfa3daff-a0be-464d-b140-c219be664e23",
+                                "hasValidationError" : false,
+                                "id" : "customFileViewerPopupUpdate"
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA === null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "906df54f-daf2-40c5-8ec6-fe01726c23c7",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
                                     "value" : "(isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : (!((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false)))"
                                   },
                                   "repeatedCollection" : {
@@ -5208,7 +6155,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA !== null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -5237,7 +6184,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA !== null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -5273,7 +6220,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlCartaAA !== null ? true : (isPDFAA  !== \"true\" || isImagenAA !== \"true\") ? true : ((urlcartaAA !== undefined && urlcartaAA  !== \"\" && urlcartaAA  !== null) ? true : ((context.cartaAA_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -5490,7 +6437,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -5543,6 +6490,81 @@
                                 "reference" : "cedc9ac0-6bd3-4ac2-9cbd-27be370579ee",
                                 "hasValidationError" : false,
                                 "id" : "customUploadCustom"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Carga tu carta de Admisión Anáhuac: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "cartaAA"
+                                  },
+                                  "errorContent" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : "urlcartaAA"
+                                  },
+                                  "isImagen" : {
+                                    "type" : "variable",
+                                    "value" : "isImagenAA"
+                                  },
+                                  "isPDF" : {
+                                    "type" : "variable",
+                                    "value" : "isPDFAA"
+                                  },
+                                  "caseId" : {
+                                    "type" : "variable",
+                                    "value" : "caseId"
+                                  }
+                                },
+                                "reference" : "fd2b2394-572e-48b5-8519-cf72b2668fde",
+                                "hasValidationError" : false,
+                                "id" : "customUploadCustomCartaAA"
                               }
                             ]
                           ]
@@ -5763,7 +6785,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el College Board. Si la carta fue emitida hace más de un año ya no tiene validez.</label>"
+                                    "value" : "<label class=\"color-orange\">Importante: Coloca tu resultado PAA como viene en tu carta emitida por el College Board. Si la carta fue emitida hace más de tres periodos escolares ya no tiene validez.</label>"
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -5825,6 +6847,108 @@
                                 "reference" : "a55c3ebe-f7a5-4987-8759-25c4c67b07f2",
                                 "hasValidationError" : false,
                                 "id" : "pbText"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   === null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "89207860-dbf8-4ae9-9020-a7d4941aeaff",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
+                              },
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   === null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                  },
+                                  "type" : {
+                                    "type" : "constant",
+                                    "value" : "URL"
+                                  },
+                                  "url" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   + azureTempKeyRes.data[0]"
+                                  },
+                                  "document" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "showPreview" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "idmodal" : {
+                                    "type" : "constant",
+                                    "value" : "idmodal1"
+                                  }
+                                },
+                                "reference" : "e8b0b73a-c111-4005-8033-38e194004fdc",
+                                "hasValidationError" : false,
+                                "id" : "customFileViewerPopupUpdate"
+                              },
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 4,
+                                  "lg" : 4
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "expression",
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   === null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "b1e61ec7-9b87-4f26-8741-5e73abe76086",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [ ]
+                                ]
                               }
                             ],
                             [
@@ -5945,7 +7069,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   !== null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -5974,7 +7098,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   !== null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
                                   },
                                   "srcType" : {
                                     "type" : "constant",
@@ -6011,7 +7135,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "(isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
+                                    "value" : "catSolicitudDeAdmision.urlResultadoPAA   !== null ? true : (isPDFCollageBoard  !== \"true\" || isImagenCollage !== \"true\") ? true : ((urlCollageBoard !== undefined && urlCollageBoard  !== \"\" && urlCollageBoard  !== null) ? true : ((context.resultadoCB_ref.length > 0) ? true : false))"
                                   },
                                   "repeatedCollection" : {
                                     "type" : "variable",
@@ -6228,7 +7352,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "constant",
-                                    "value" : false
+                                    "value" : true
                                   },
                                   "required" : {
                                     "type" : "constant",
@@ -6281,6 +7405,81 @@
                                 "reference" : "0b98618a-c1f8-4d27-a45f-48b3f79b793a",
                                 "hasValidationError" : false,
                                 "id" : "customUploadCustom"
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "required" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Carga tu carta constancia oficial de College Board: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "placeholder" : {
+                                    "type" : "interpolation"
+                                  },
+                                  "url" : {
+                                    "type" : "constant",
+                                    "value" : "../API/formFileUpload"
+                                  },
+                                  "value" : {
+                                    "type" : "variable",
+                                    "value" : "collageBoard"
+                                  },
+                                  "errorContent" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "urlretorno" : {
+                                    "type" : "variable",
+                                    "value" : "urlCollageBoard"
+                                  },
+                                  "isImagen" : {
+                                    "type" : "variable",
+                                    "value" : "isImagenCollage"
+                                  },
+                                  "isPDF" : {
+                                    "type" : "variable",
+                                    "value" : "isPDFCollageBoard"
+                                  },
+                                  "caseId" : {
+                                    "type" : "variable",
+                                    "value" : "caseId"
+                                  }
+                                },
+                                "reference" : "9f1b85e1-b46c-45dc-b147-ff2abb6dc94e",
+                                "hasValidationError" : false,
+                                "id" : "customUploadCustomPAA"
                               }
                             ]
                           ]
@@ -6364,6 +7563,108 @@
                           "reference" : "66c80ebe-dbd9-4490-88eb-1adac47cfb53",
                           "hasValidationError" : false,
                           "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 4,
+                            "lg" : 4
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  === null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "58fe3281-4b04-45a9-8849-bb0964fcc5a4",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [ ]
+                          ]
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 4,
+                            "lg" : 4
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  === null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "URL"
+                            },
+                            "url" : {
+                              "type" : "expression",
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  + azureTempKeyRes.data[0]"
+                            },
+                            "document" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "showPreview" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "idmodal" : {
+                              "type" : "constant",
+                              "value" : "idmodal1"
+                            }
+                          },
+                          "reference" : "adf3eccf-9289-425f-ab32-b51166b3159c",
+                          "hasValidationError" : false,
+                          "id" : "customFileViewerPopupUpdate"
+                        },
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 4,
+                            "lg" : 4
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "expression",
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  === null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "009f99ca-3ea7-40e1-97c1-e9f036f5a9cd",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [ ]
+                          ]
                         }
                       ],
                       [
@@ -6484,7 +7785,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "(isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  !== null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -6513,7 +7814,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "(isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  !== null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
                             },
                             "srcType" : {
                               "type" : "constant",
@@ -6549,7 +7850,7 @@
                             },
                             "hidden" : {
                               "type" : "expression",
-                              "value" : "(isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
+                              "value" : "catSolicitudDeAdmision.urlDescuentos  !== null ? true : (isPDFDescuento !== \"true\" || isImagenDescuento !== \"true\") ? true : ((urlDescuento !== undefined && urlDescuento  !== \"\" && urlDescuento  !== null) ? true : ((context.descuento_ref.length > 0) ? true : false))"
                             },
                             "repeatedCollection" : {
                               "type" : "variable",
@@ -6766,7 +8067,7 @@
                             },
                             "hidden" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "required" : {
                               "type" : "constant",
@@ -6819,6 +8120,81 @@
                           "reference" : "b32a1354-3849-48d2-944c-a916e16e60e0",
                           "hasValidationError" : false,
                           "id" : "customUploadCustom"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Carga tu archivo de descuento: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "url" : {
+                              "type" : "constant",
+                              "value" : "../API/formFileUpload"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "descuento"
+                            },
+                            "errorContent" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "urlretorno" : {
+                              "type" : "variable",
+                              "value" : "urlDescuento"
+                            },
+                            "isImagen" : {
+                              "type" : "variable",
+                              "value" : "isImagenDescuento"
+                            },
+                            "isPDF" : {
+                              "type" : "variable",
+                              "value" : "isPDFDescuento"
+                            },
+                            "caseId" : {
+                              "type" : "variable",
+                              "value" : "caseId"
+                            }
+                          },
+                          "reference" : "a316d664-de16-40c1-97b2-223527bf78e8",
+                          "hasValidationError" : false,
+                          "id" : "customUploadCustomDescuento"
                         }
                       ]
                     ]
@@ -7590,7 +8966,8 @@
                   "modalCodigoPostal" : "datosCPTutor",
                   "cp" : "cp",
                   "haveCiudad" : "haveCiudadTutor",
-                  "codigopostaltutor" : "codigopostaltutor"
+                  "codigopostaltutor" : "codigopostaltutor",
+                  "telefonotutor" : ""
                 }
               }
             ],
@@ -9722,7 +11099,9 @@
                       "archivoLocalKardex" : "kardex",
                       "archivoLocalCartaAA" : "cartaAA",
                       "archivoLocalDescuento" : "descuento",
-                      "archivoLocalCollegeBoard" : "collageBoard"
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "CatConcluisteProceso" : "CatConcluisteProceso",
+                      "catResultadoAdmision" : "catResultadoAdmision"
                     }
                   }
                 ],
@@ -9771,7 +11150,10 @@
                       "archivoLocalKardex" : "kardex",
                       "archivoLocalCartaAA" : "cartaAA",
                       "archivoLocalDescuento" : "descuento",
-                      "archivoLocalCollegeBoard" : "collageBoard"
+                      "archivoLocalCollegeBoard" : "collageBoard",
+                      "urlActaAzure" : "catSolicitudDeAdmision.urlActaNacimiento",
+                      "urlFotoAzure" : "catSolicitudDeAdmision.urlFoto",
+                      "azureTempKeyRes" : "azureTempKeyRes"
                     }
                   }
                 ],
@@ -9835,7 +11217,12 @@
                       "archivoLocalDescuento" : "descuento",
                       "archivoLocalCartaAA" : "cartaAA",
                       "archivoLocalKardex" : "kardex",
-                      "archivoLocalActa" : "actanacimiento"
+                      "archivoLocalActa" : "actanacimiento",
+                      "azureTempKeyRes" : "azureTempKeyRes",
+                      "urlConstancia" : "catSolicitudDeAdmision.urlConstancia",
+                      "urlcartaAAAzure" : "catSolicitudDeAdmision.urlCartaAA",
+                      "urlPAAAzure" : "catSolicitudDeAdmision.urlResultadoPAA",
+                      "urlDescuentoAzure" : "catSolicitudDeAdmision.urlDescuentos"
                     }
                   }
                 ]
@@ -10065,7 +11452,9 @@
                 "formInput" : "",
                 "formOutput" : "formOutput",
                 "userId" : "users.user_id",
-                "Bachilleratopersistenceid" : "Bachilleratopersistenceid"
+                "Bachilleratopersistenceid" : "Bachilleratopersistenceid",
+                "userName" : "users.user_name",
+                "urlRedireccion" : "urlDireccion"
               }
             }
           ]
@@ -10088,7 +11477,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "showbuttons"
+            "value" : "showbuttons || (selectedIndex === 0)"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -10586,11 +11975,19 @@
                       "cartaAAarchivo" : {
                         "type" : "variable",
                         "value" : "context.cartaAA_ref"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "39f9c612-b7af-4df9-9392-b93cb832ff10",
+                    "reference" : "6594fb70-e265-49a5-9674-f135d4a96cbb",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexCreate"
+                    "id" : "customBtnWizardIndexCreate2"
                   }
                 ],
                 [
@@ -10782,11 +12179,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "309983a1-360a-4589-8478-fe5871b0c9f2",
+                    "reference" : "a71c032f-0d1d-4705-895f-e92b00efc8a6",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ],
                 [
@@ -10978,11 +12383,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "4b7167cf-67ff-4fa0-a86b-09b32bc54623",
+                    "reference" : "4ef6d390-6f74-4159-8c22-6601e7691263",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ],
                 [
@@ -11174,11 +12587,19 @@
                       "Bachilleratopersistenceid" : {
                         "type" : "variable",
                         "value" : "Bachilleratopersistenceid"
+                      },
+                      "userName" : {
+                        "type" : "variable",
+                        "value" : "users.user_name"
+                      },
+                      "urlDireccion" : {
+                        "type" : "expression",
+                        "value" : "urlDireccion"
                       }
                     },
-                    "reference" : "a354d199-19cc-4f54-96d1-51c2f3a506ac",
+                    "reference" : "28072d6b-3934-4402-a735-30505f05f31b",
                     "hasValidationError" : false,
-                    "id" : "customBtnWizardIndexTabsCreate"
+                    "id" : "customBtnWizardIndexTabsCreate2"
                   }
                 ]
               ]
@@ -11882,9 +13303,9 @@
                           "type" : "constant"
                         }
                       },
-                      "reference" : "d65ead00-ac9c-4b02-8cf0-6fd4f78887bd",
+                      "reference" : "b428c06d-ab60-4240-854a-7fbffec5b6f9",
                       "hasValidationError" : false,
-                      "id" : "customSelectCampus"
+                      "id" : "customSelectCampusByClave"
                     }
                   ]
                 ]
@@ -12106,11 +13527,19 @@
                         "urlCurrentTask" : {
                           "type" : "expression",
                           "value" : "urlCurrentTask"
+                        },
+                        "urlDireccion" : {
+                          "type" : "expression",
+                          "value" : "urlDireccion"
+                        },
+                        "userName" : {
+                          "type" : "variable",
+                          "value" : "users.user_name"
                         }
                       },
-                      "reference" : "0e280c37-e6e5-42ab-9295-963e75804622",
+                      "reference" : "b2fa39c0-dce7-4e64-b33b-88f58fd3f56e",
                       "hasValidationError" : false,
-                      "id" : "customBtnWizardModalModificacion"
+                      "id" : "customBtnWizardModalModificacion2"
                     }
                   ]
                 ]
@@ -13024,6 +14453,46 @@
         "reference" : "c42472ec-98e4-4501-974d-3896283832cf",
         "hasValidationError" : false,
         "id" : "customWidgetChat"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "constant",
+            "value" : "This is the initial value"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          },
+          "datosUsuario" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "158b17e2-3774-4cb8-a337-32f26d891049",
+        "hasValidationError" : false,
+        "id" : "customWidgetChatUser"
       }
     ],
     [
@@ -17309,8 +18778,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 2,
+          "lg" : 2
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -17343,8 +18812,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 2,
+          "lg" : 2
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -17377,8 +18846,8 @@
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
-          "md" : 4,
-          "lg" : 4
+          "md" : 2,
+          "lg" : 2
         },
         "propertyValues" : {
           "cssClasses" : {
@@ -17392,41 +18861,112 @@
           "datosUsuario" : {
             "type" : "variable",
             "value" : "users"
+          },
+          "isok" : {
+            "type" : "variable",
+            "value" : "casoabortado"
           }
         },
         "reference" : "df6c7d17-d449-4f79-8cf5-340c44eebdcd",
         "hasValidationError" : false,
         "id" : "customGetUserAbandono"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 3,
+          "lg" : 3
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "SolicitudDeAdmision" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision"
+          },
+          "datosTutor" : {
+            "type" : "variable",
+            "value" : "tutor"
+          },
+          "llenardatostutor" : {
+            "type" : "variable",
+            "value" : "llenardatostutor"
+          },
+          "jsonModificarTutor" : {
+            "type" : "variable",
+            "value" : "jsonModificarTutor"
+          },
+          "padre" : {
+            "type" : "variable",
+            "value" : "padre"
+          },
+          "madre" : {
+            "type" : "variable",
+            "value" : "madre"
+          },
+          "llenardatospadre" : {
+            "type" : "variable",
+            "value" : "llenardatospadre"
+          },
+          "llenardatosmadre" : {
+            "type" : "variable",
+            "value" : "llenardatosmadre"
+          }
+        },
+        "reference" : "71cae441-6f34-4887-b436-ea2b8730e366",
+        "hasValidationError" : false,
+        "id" : "customMismodomiciliotutor"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 3,
+          "lg" : 3
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "processDefinitionId" : {
+            "type" : "variable",
+            "value" : "processDefinitionId.processDefinitionId.id"
+          },
+          "caseid" : {
+            "type" : "variable",
+            "value" : "getCatRegistro[0].caseId"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "vericartareas"
+          }
+        },
+        "reference" : "4109ea33-b381-49d3-82ce-eb62d31b156f",
+        "hasValidationError" : false,
+        "id" : "customCustomrecoverydata"
       }
     ]
   ],
   "assets" : [
     {
-      "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
-      "name" : "LogoAnahuacMerida.png",
+      "id" : "0e1a8102-48fc-43f6-9ec1-31e65321ca96",
+      "name" : "noimageavailable.png",
       "type" : "img",
-      "order" : 43,
-      "external" : false
-    },
-    {
-      "id" : "82fd3565-70a3-45b1-8ada-7e5a0bdb6899",
-      "name" : "anahuac_custom_styles.css",
-      "type" : "css",
-      "order" : 38,
-      "external" : false
-    },
-    {
-      "id" : "d2e8123d-edee-4cc8-9f9f-9f5be34ded68",
-      "name" : "LogoAnahuacMexicoNorte.png",
-      "type" : "img",
-      "order" : 44,
-      "external" : false
-    },
-    {
-      "id" : "2be7c5cc-1e4a-4f7e-94ff-9ec33ea5e8a8",
-      "name" : "LogoAnahuacPuebla.png",
-      "type" : "img",
-      "order" : 47,
+      "order" : 54,
       "external" : false
     },
     {
@@ -17434,55 +18974,6 @@
       "name" : "LogoAnahuacQueretaro.png",
       "type" : "img",
       "order" : 48,
-      "external" : false
-    },
-    {
-      "id" : "84aee134-2db8-4d7b-9283-87cafbedb8c4",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 40,
-      "external" : false
-    },
-    {
-      "id" : "b857eda8-2f97-4671-a0ad-5cd384f41366",
-      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
-      "type" : "img",
-      "order" : 49,
-      "external" : false
-    },
-    {
-      "id" : "953e9d17-4c6c-441f-aa43-87e3d9064081",
-      "name" : "LogoAnahuacMexicoSur.png",
-      "type" : "img",
-      "order" : 45,
-      "external" : false
-    },
-    {
-      "id" : "662f6aa6-73e1-4572-ac70-4fa0c4983f6a",
-      "name" : "pdf.png",
-      "type" : "img",
-      "order" : 53,
-      "external" : false
-    },
-    {
-      "id" : "ed9ed6d8-fed4-4a55-96ad-42eb35387590",
-      "name" : "LogoAnahuacVeracruzXalapa.png",
-      "type" : "img",
-      "order" : 50,
-      "external" : false
-    },
-    {
-      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "0e1a8102-48fc-43f6-9ec1-31e65321ca96",
-      "name" : "noimageavailable.png",
-      "type" : "img",
-      "order" : 54,
       "external" : false
     },
     {
@@ -17500,20 +18991,6 @@
       "external" : false
     },
     {
-      "id" : "2f9b8c41-2147-4408-bd97-da3aca028711",
-      "name" : "LogoAnahuacOaxaca.png",
-      "type" : "img",
-      "order" : 46,
-      "external" : false
-    },
-    {
-      "id" : "3cd41096-68a6-4f8f-91b0-f42023ead457",
-      "name" : "logo.png",
-      "type" : "img",
-      "order" : 41,
-      "external" : false
-    },
-    {
       "id" : "159355d6-3c1a-4e26-8f86-a1a4944d01e0",
       "name" : "LogoInstitutoJuanPabloII.png",
       "type" : "img",
@@ -17525,6 +19002,104 @@
       "name" : "noimageavailabledoc.png",
       "type" : "img",
       "order" : 55,
+      "external" : false
+    },
+    {
+      "id" : "2be7c5cc-1e4a-4f7e-94ff-9ec33ea5e8a8",
+      "name" : "LogoAnahuacPuebla.png",
+      "type" : "img",
+      "order" : 47,
+      "external" : false
+    },
+    {
+      "id" : "953e9d17-4c6c-441f-aa43-87e3d9064081",
+      "name" : "LogoAnahuacMexicoSur.png",
+      "type" : "img",
+      "order" : 45,
+      "external" : false
+    },
+    {
+      "id" : "f153e149-591b-48b7-b837-b664e5bd5e8e",
+      "name" : "jquery.disableAutoFill.min.js",
+      "type" : "js",
+      "order" : 56,
+      "external" : false
+    },
+    {
+      "id" : "3cd41096-68a6-4f8f-91b0-f42023ead457",
+      "name" : "logo.png",
+      "type" : "img",
+      "order" : 41,
+      "external" : false
+    },
+    {
+      "id" : "d2e8123d-edee-4cc8-9f9f-9f5be34ded68",
+      "name" : "LogoAnahuacMexicoNorte.png",
+      "type" : "img",
+      "order" : 44,
+      "external" : false
+    },
+    {
+      "id" : "84aee134-2db8-4d7b-9283-87cafbedb8c4",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 40,
+      "external" : false
+    },
+    {
+      "id" : "ed9ed6d8-fed4-4a55-96ad-42eb35387590",
+      "name" : "LogoAnahuacVeracruzXalapa.png",
+      "type" : "img",
+      "order" : 50,
+      "external" : false
+    },
+    {
+      "id" : "b857eda8-2f97-4671-a0ad-5cd384f41366",
+      "name" : "LogoAnahuacVeracruzCoroba-Orizaba.png",
+      "type" : "img",
+      "order" : 49,
+      "external" : false
+    },
+    {
+      "id" : "662f6aa6-73e1-4572-ac70-4fa0c4983f6a",
+      "name" : "pdf.png",
+      "type" : "img",
+      "order" : 53,
+      "external" : false
+    },
+    {
+      "id" : "0cff87b2-d4ec-46e5-aa4b-faf1f712e521",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "2f9b8c41-2147-4408-bd97-da3aca028711",
+      "name" : "LogoAnahuacOaxaca.png",
+      "type" : "img",
+      "order" : 46,
+      "external" : false
+    },
+    {
+      "id" : "4a126601-f88e-435c-a7d5-38983e74ea43",
+      "name" : "LogoAnahuacMerida.png",
+      "type" : "img",
+      "order" : 43,
+      "external" : false
+    },
+    {
+      "id" : "82fd3565-70a3-45b1-8ada-7e5a0bdb6899",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 38,
+      "external" : false
+    },
+    {
+      "id" : "a83d31d5-384a-491a-9d24-aba20be3efcc",
+      "name" : "capitalizacion.js",
+      "type" : "js",
+      "order" : 57,
       "external" : false
     },
     {
@@ -17689,7 +19264,7 @@
         "        \"isValid\": true\r",
         "    },\r",
         "    {\r",
-        "        \"title\" : \"Preparatoria\",\r",
+        "        \"title\" : \"Bachillerato\",\r",
         "        \"value\" : \"personalInfo\",\r",
         "        \"isValid\": true\r",
         "    }\r",
@@ -17927,7 +19502,14 @@
         "    \"catPropedeutico\" : null,\r",
         "    \"delegacionMunicipio\" : \"\",\r",
         "    \"estadoExtranjero\" : \"\",\r",
-        "    \"resultadoPAA\" : 1\r",
+        "    \"resultadoPAA\" : 1,    \r",
+        "    \"urlFoto\": \"\",\r",
+        "\t\"urlConstancia\": \"\",\r",
+        "\t\"urlCartaAA\": \"\",\r",
+        "\t\"urlResultadoPAA\": \"\",\r",
+        "\t\"urlActaNacimiento\": \"\",\r",
+        "\t\"urlDescuentos\": \"\"\r",
+        "    \r",
         "  }\r",
         "}"
       ],
@@ -18075,7 +19657,19 @@
         "\t\t\t} : null,\r",
         "\t\t\ttienePAA: $data.catSolicitudDeAdmision.tienePAA !== undefined ? $data.catSolicitudDeAdmision.tienePAA : null,\r",
         "\t\t\ttieneDescuento: $data.catSolicitudDeAdmision.tieneDescuento !== undefined ? $data.catSolicitudDeAdmision.tieneDescuento : null,\r",
-        "\t\t\tadmisionAnahuac: $data.catSolicitudDeAdmision.admisionAnahuac !== undefined ? $data.catSolicitudDeAdmision.admisionAnahuac : null\r",
+        "\t\t\tadmisionAnahuac: $data.catSolicitudDeAdmision.admisionAnahuac !== undefined ? $data.catSolicitudDeAdmision.admisionAnahuac : null,\r",
+        "\t\t\turlFoto: $data.catSolicitudDeAdmision.urlFoto !== undefined ? $data.catSolicitudDeAdmision.urlFoto : null,\r",
+        "\t\t\turlConstancia: $data.catSolicitudDeAdmision.urlConstancia !== undefined ? $data.catSolicitudDeAdmision.urlConstancia : null,\r",
+        "\t\t\turlCartaAA: $data.catSolicitudDeAdmision.urlCartaAA !== undefined ? $data.catSolicitudDeAdmision.urlCartaAA : null,\r",
+        "\t\t\turlResultadoPAA: $data.catSolicitudDeAdmision.urlResultadoPAA !== undefined ? $data.catSolicitudDeAdmision.urlResultadoPAA : null,\r",
+        "\t\t\turlActaNacimiento: $data.catSolicitudDeAdmision.urlActaNacimiento !== undefined ? $data.catSolicitudDeAdmision.urlActaNacimiento : null,\r",
+        "\t\t\turlDescuentos: $data.catSolicitudDeAdmision.urlDescuentos !== undefined ? $data.catSolicitudDeAdmision.urlDescuentos : null,\r",
+        "\t\t\tcatConcluisteProceso: $data.catSolicitudDeAdmision.catConcluisteProceso ? {\r",
+        "\t\t\t\tpersistenceId_string: $data.catSolicitudDeAdmision.catConcluisteProceso.persistenceId_string !== undefined ? $data.catSolicitudDeAdmision.catConcluisteProceso.persistenceId_string : null\r",
+        "\t\t\t} : null,\r",
+        "\t\t\tcatResultadoAdmision: $data.catSolicitudDeAdmision.catResultadoAdmision ? {\r",
+        "\t\t\t\tpersistenceId_string: $data.catSolicitudDeAdmision.catResultadoAdmision.persistenceId_string !== undefined ? $data.catSolicitudDeAdmision.catResultadoAdmision.persistenceId_string : null\r",
+        "\t\t\t} : null\r",
         "\t\t},\r",
         "\t\t//map contactoEmergencia variable to expected task contract input\r",
         "\t\tcontactoEmergenciaInput: $data.contactoEmergencia.map( it => ({\r",
@@ -18485,7 +20079,7 @@
     "mismodomiciliopadre" : {
       "type" : "expression",
       "value" : [
-        "if($data.padre.viveContigo){\r",
+        "/*if($data.padre.viveContigo){\r",
         "    $data.padre.calle = $data.catSolicitudDeAdmision.calle;\r",
         "    $data.padre.codigoPostal = $data.catSolicitudDeAdmision.codigoPostal;\r",
         "    $data.padre.catPais = $data.catSolicitudDeAdmision.catPais;\r",
@@ -18514,14 +20108,14 @@
         "        $data.llenardatospadre = false;\r",
         "    }\r",
         "    \r",
-        "}"
+        "}*/"
       ],
       "exposed" : false
     },
     "mismodomiciliomadre" : {
       "type" : "expression",
       "value" : [
-        "if($data.madre.viveContigo){\r",
+        "/*if($data.madre.viveContigo){\r",
         "    $data.madre.calle = $data.catSolicitudDeAdmision.calle;\r",
         "    $data.madre.codigoPostal = $data.catSolicitudDeAdmision.codigoPostal;\r",
         "    $data.madre.catPais = $data.catSolicitudDeAdmision.catPais;\r",
@@ -18550,14 +20144,14 @@
         "        $data.llenardatosmadre = false;\r",
         "    }\r",
         "    \r",
-        "}"
+        "}*/"
       ],
       "exposed" : false
     },
     "mismodomiciliotutor" : {
       "type" : "expression",
       "value" : [
-        "if($data.tutor.viveContigo){\r",
+        "/*if($data.tutor.viveContigo){\r",
         "    $data.tutor.calle = $data.catSolicitudDeAdmision.calle;\r",
         "    $data.tutor.codigoPostal = $data.catSolicitudDeAdmision.codigoPostal;\r",
         "    $data.tutor.catPais = $data.catSolicitudDeAdmision.catPais;\r",
@@ -18566,7 +20160,7 @@
         "    $data.tutor.numeroExterior = $data.catSolicitudDeAdmision.numExterior;\r",
         "    $data.tutor.numeroInterior = $data.catSolicitudDeAdmision.numInterior;\r",
         "    $data.tutor.colonia = $data.catSolicitudDeAdmision.colonia;\r",
-        "    $data.tutor.telefono = $data.catSolicitudDeAdmision.telefono;\r",
+        "    $data.tutor.telefono = angular.copy($data.catSolicitudDeAdmision.telefono);\r",
         "    $data.tutor.delegacionMunicipio = $data.catSolicitudDeAdmision.delegacionMunicipio;\r",
         "    $data.tutor.estadoExtranjero = $data.catSolicitudDeAdmision.estadoExtranjero;\r",
         "    $data.llenardatostutor = true;\r",
@@ -18585,7 +20179,7 @@
         "        $data.tutor.estadoExtranjero = \"\";\r",
         "        $data.llenardatostutor = false;\r",
         "    }\r",
-        "}"
+        "}*/"
       ],
       "exposed" : false
     },
@@ -21537,31 +23131,39 @@
     "redirectCaseStarted" : {
       "type" : "expression",
       "value" : [
-        "debugger;\r",
+        "\r",
         "let ipBonita = window.location.protocol + \"//\" + window.location.host + \"/bonita\";\r",
         "let url = \"\";\r",
+        "let entro = false;\r",
         "\r",
         "if($data.isCaseStarted){\r",
-        "    \r",
-        "    if($data.currentTask[0].name === \"Modificar información\"){\r",
+        "    if($data.currentTask[0] === undefined){\r",
+        "        entro = true;\r",
+        "    }else{\r",
+        "        if($data.currentTask[0].name === \"Modificar información\"){\r",
         "        //url = ipBonita + \"/portal/resource/app/aspirante/modificar_solicitud/content/?app=aspirante\";\r",
         "        url = ipBonita + \"/portal/resource/app/aspirante/modificacion_iniciada/content/?app=aspirante\";\r",
-        "    }else {\r",
-        "        url = ipBonita + \"/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante\";\r",
+        "        }else {\r",
+        "            url = ipBonita + \"/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante\";\r",
+        "        }\r",
+        "        \r",
+        "        if($data.currentTask[0].name !== \"Llenar solicitud\"){\r",
+        "            window.location.href = url;\r",
+        "        }\r",
         "    }\r",
         "    \r",
-        "    if($data.currentTask[0].name !== \"Llenar solicitud\"){\r",
-        "        window.location.href = url;\r",
-        "    }\r",
-        "      \r",
         "}else if($data.isCaseStarted !== undefined){\r",
         "    if($data.currentTask === undefined){\r",
         "        url = ipBonita + \"/portal/resource/app/aspirante/solicitud_caducada/content/?app=aspirante\";\r",
         "        window.location.href = url;\r",
         "    }\r",
         "}\r",
-        "\r",
-        "return \"\";\r"
+        "if(entro === true){\r",
+        "    return entro\r",
+        "}else{\r",
+        "    return false;    \r",
+        "}\r",
+        "\r"
       ],
       "exposed" : false
     },
@@ -22513,6 +24115,372 @@
     },
     "imgMostrar" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "autocompleteoff" : {
+      "type" : "expression",
+      "value" : [
+        "document.getElementsByClassName(\"appNuevaSolicitudDeAdmision\")[0].setAttribute(\"autocomplete\", \"off\");",
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "azureTempKeyRes" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "CatConcluisteProceso" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatConcluisteProceso?q=find&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "catResultadoAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.catalogos.CatResultadoAdmision?q=find&p=0&c=500"
+      ],
+      "exposed" : false
+    },
+    "urlDireccion" : {
+      "type" : "constant",
+      "value" : [
+        "https://dev.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "formatearNombre" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.catSolicitudDeAdmision.primerNombre != null && $data.catSolicitudDeAdmision.primerNombre.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.primerNombre = capitalizeName($data.catSolicitudDeAdmision.primerNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.segundoNombre != null && $data.catSolicitudDeAdmision.segundoNombre.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.segundoNombre = capitalizeName($data.catSolicitudDeAdmision.segundoNombre);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.apellidoPaterno != null && $data.catSolicitudDeAdmision.apellidoPaterno.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.apellidoPaterno = capitalizeName( $data.catSolicitudDeAdmision.apellidoPaterno);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.apellidoMaterno != null && $data.catSolicitudDeAdmision.apellidoMaterno.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.apellidoMaterno = capitalizeName($data.catSolicitudDeAdmision.apellidoMaterno);\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formateoDomicilio" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "if($data.catSolicitudDeAdmision.estadoExtranjero != null && $data.catSolicitudDeAdmision.estadoExtranjero.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.estadoExtranjero = capitalizeText($data.catSolicitudDeAdmision.estadoExtranjero);\r",
+        "}\r",
+        "\r",
+        "if(!$data.haveCiudad && $data.catSolicitudDeAdmision.ciudad != null && $data.catSolicitudDeAdmision.ciudad.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.ciudad = capitalizeText($data.catSolicitudDeAdmision.ciudad);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.catPais.descripcion !== 'México' && $data.catSolicitudDeAdmision.delegacionMunicipio != null && $data.catSolicitudDeAdmision.delegacionMunicipio.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.delegacionMunicipio = capitalizeText($data.catSolicitudDeAdmision.delegacionMunicipio);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.catPais.descripcion !== 'México' && $data.catSolicitudDeAdmision.colonia != null && $data.catSolicitudDeAdmision.colonia.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.colonia = capitalizeText($data.catSolicitudDeAdmision.colonia);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.catPais.descripcion !== 'México' && $data.catSolicitudDeAdmision.paisBachillerato != null && $data.catSolicitudDeAdmision.paisBachillerato.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.paisBachillerato = capitalizeText($data.catSolicitudDeAdmision.paisBachillerato);\r",
+        "}\r",
+        "\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.calle != null && $data.catSolicitudDeAdmision.calle.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.calle = capitalizeText($data.catSolicitudDeAdmision.calle);\r",
+        "}\r",
+        "\r",
+        "if($data.catSolicitudDeAdmision.calle2 != null && $data.catSolicitudDeAdmision.calle2.trim().length>0){\r",
+        "    $data.catSolicitudDeAdmision.calle2 = capitalizeText( $data.catSolicitudDeAdmision.calle2);\r",
+        "}\r"
+      ],
+      "exposed" : false
+    },
+    "formateoBachilleratos" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "if( $data.preparatoriaSeleccionada == \"Otro\" && $data.datosPreparatoria.nombreBachillerato != null && $data.datosPreparatoria.nombreBachillerato.trim().length>0){\r",
+        "    $data.datosPreparatoria.nombreBachillerato = capitalizeText($data.datosPreparatoria.nombreBachillerato);\r",
+        "}\r",
+        "\r",
+        "\r",
+        "if( $data.preparatoriaSeleccionada == \"Otro\" && $data.datosPreparatoria.estadoBachillerato != null && $data.datosPreparatoria.estadoBachillerato.trim().length>0){\r",
+        "    $data.datosPreparatoria.estadoBachillerato = capitalizeText( $data.datosPreparatoria.estadoBachillerato);\r",
+        "}\r",
+        "\r",
+        "if( $data.preparatoriaSeleccionada == \"Otro\" && $data.datosPreparatoria.ciudadBachillerato != null && $data.datosPreparatoria.ciudadBachillerato.trim().length>0){\r",
+        "    $data.datosPreparatoria.ciudadBachillerato = capitalizeText( $data.datosPreparatoria.ciudadBachillerato);\r",
+        "}\r",
+        "\r",
+        "if( $data.preparatoriaSeleccionada == \"Otro\" && $data.datosPreparatoria.paisBachillerato != null && $data.datosPreparatoria.paisBachillerato.trim().length>0){\r",
+        "    $data.datosPreparatoria.paisBachillerato = capitalizeText( $data.datosPreparatoria.paisBachillerato);\r",
+        "}\r"
+      ],
+      "exposed" : false
+    },
+    "formateoTutores" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "if($data.tutor.nombre != null && $data.tutor.nombre.trim().length>0){\r",
+        "    $data.tutor.nombre = capitalizeName($data.tutor.nombre);\r",
+        "}\r",
+        "\r",
+        "if($data.tutor.apellidos != null && $data.tutor.apellidos.trim().length>0){\r",
+        "    $data.tutor.apellidos = capitalizeName($data.tutor.apellidos);\r",
+        "}\r",
+        "\r",
+        "if($data.tutor.empresaTrabaja != null && $data.tutor.empresaTrabaja.trim().length>0){\r",
+        "    $data.tutor.empresaTrabaja = $data.tutor.empresaTrabaja;\r",
+        "}\r",
+        "\r",
+        "if($data.tutor.giroEmpresa != null && $data.tutor.giroEmpresa.trim().length>0){\r",
+        "    $data.tutor.giroEmpresa = capitalizeFirstLetter($data.tutor.giroEmpresa);\r",
+        "}\r",
+        "\r",
+        "if($data.tutor.puesto != null && $data.tutor.puesto.trim().length>0){\r",
+        "    $data.tutor.puesto = capitalizeFirstLetter($data.tutor.puesto);\r",
+        "}\r",
+        "\r",
+        "\r",
+        "if(!$data.tutor.viveContigo ){\r",
+        "    if($data.tutor.catPais.descripcion !== 'México' && $data.tutor.estadoExtranjero != null && $data.tutor.estadoExtranjero.trim().length>0){\r",
+        "        $data.tutor.estadoExtranjero = capitalizeText($data.tutor.estadoExtranjero);\r",
+        "    }\r",
+        "\r",
+        "\r",
+        "    if( !$data.tutor.haveCiudad && $data.tutor.ciudad != null && $data.tutor.ciudad.trim().length>0){\r",
+        "        $data.tutor.ciudad = capitalizeText($data.tutor.ciudad);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.tutor.catPais.descripcion !== 'México' && $data.tutor.delegacionMunicipio != null && $data.tutor.delegacionMunicipio.trim().length>0){\r",
+        "        $data.tutor.delegacionMunicipio = capitalizeText($data.tutor.delegacionMunicipio);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.tutor.catPais.descripcion !== 'México' && $data.tutor.colonia != null && $data.tutor.colonia.trim().length>0){\r",
+        "        $data.tutor.colonia = capitalizeText($data.tutor.colonia);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.tutor.calle != null && $data.tutor.calle.trim().length>0){\r",
+        "        $data.tutor.calle = capitalizeText($data.tutor.calle);\r",
+        "    }\r",
+        "}\r",
+        "\r",
+        "\r",
+        "\r",
+        "\r"
+      ],
+      "exposed" : false
+    },
+    "formateoPadre" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.padre.desconozcoDatosPadres !== true){\r",
+        "    \r",
+        "    if($data.padre.nombre != null && $data.padre.nombre.trim().length>0){\r",
+        "        $data.padre.nombre = capitalizeName($data.padre.nombre);\r",
+        "    }\r",
+        "\r",
+        "    if($data.padre.apellidos != null && $data.padre.apellidos.trim().length>0){\r",
+        "      $data.padre.apellidos = capitalizeName($data.padre.apellidos);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.padre.empresaTrabaja != null && $data.padre.empresaTrabaja.trim().length>0){\r",
+        "        $data.padre.empresaTrabaja = capitalizeFirstLetter($data.padre.empresaTrabaja);\r",
+        "    }\r",
+        "\r",
+        "    if($data.padre.giroEmpresa != null && $data.padre.giroEmpresa.trim().length>0){\r",
+        "        $data.padre.giroEmpresa = capitalizeFirstLetter($data.padre.giroEmpresa);\r",
+        "    }\r",
+        "\r",
+        "    if($data.padre.puesto != null && $data.padre.puesto.trim().length>0){\r",
+        "        $data.padre.puesto = capitalizeFirstLetter($data.padre.puesto);\r",
+        "    }\r",
+        "\r",
+        "    if(!$data.padre.isTutor && !$data.isPadretutor  && !$data.padre.viveContigo ){\r",
+        "        \r",
+        "        if($data.padre.catPais.descripcion !== 'México' && $data.padre.estadoExtranjero != null && $data.padre.estadoExtranjero.trim().length>0){\r",
+        "            $data.padre.estadoExtranjero = capitalizeText($data.padre.estadoExtranjero);\r",
+        "        }\r",
+        "    \r",
+        "        if( !$data.padre.haveCiudad && $data.padre.ciudad != null && $data.padre.ciudad.trim().length>0){\r",
+        "            $data.padre.ciudad = capitalizeText($data.padre.ciudad);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.padre.catPais.descripcion !== 'México' && $data.padre.delegacionMunicipio != null && $data.padre.delegacionMunicipio.trim().length>0){\r",
+        "            $data.padre.delegacionMunicipio = capitalizeText($data.padre.delegacionMunicipio);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.padre.catPais.descripcion !== 'México' && $data.padre.colonia != null && $data.padre.colonia.trim().length>0){\r",
+        "            $data.padre.colonia = capitalizeText($data.padre.colonia);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.padre.calle != null && $data.padre.calle.trim().length>0){\r",
+        "            $data.padre.calle = capitalizeText($data.padre.calle);\r",
+        "        }\r",
+        "    }\r",
+        "    \r",
+        "}\r",
+        "\r",
+        "\r",
+        "\r",
+        "\r",
+        "\r"
+      ],
+      "exposed" : false
+    },
+    "formateoMadre" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.madre.desconozcoDatosPadres !== true){\r",
+        "    if($data.madre.nombre != null && $data.madre.nombre.trim().length>0){\r",
+        "        $data.madre.nombre = capitalizeName($data.madre.nombre);\r",
+        "    }\r",
+        "\r",
+        "    if($data.madre.apellidos != null && $data.madre.apellidos.trim().length>0){\r",
+        "        $data.madre.apellidos = capitalizeName($data.madre.apellidos);\r",
+        "    }\r",
+        "\r",
+        "    if($data.madre.empresaTrabaja != null && $data.madre.empresaTrabaja.trim().length>0){\r",
+        "        $data.madre.empresaTrabaja = capitalizeFirstLetter($data.madre.empresaTrabaja);\r",
+        "    }\r",
+        "\r",
+        "    if($data.madre.giroEmpresa != null && $data.madre.giroEmpresa.trim().length>0){\r",
+        "        $data.madre.giroEmpresa = capitalizeFirstLetter($data.madre.giroEmpresa);\r",
+        "    }\r",
+        "\r",
+        "    if($data.madre.puesto != null && $data.madre.puesto.trim().length>0){\r",
+        "        $data.madre.puesto = capitalizeFirstLetter($data.madre.puesto);\r",
+        "    }\r",
+        "\r",
+        "\r",
+        "    if(!$data.madre.isTutor && !$data.isMadretutor && !$data.madre.viveContigo ){\r",
+        "        \r",
+        "        if($data.madre.catPais.descripcion !== 'México' && $data.madre.estadoExtranjero != null && $data.madre.estadoExtranjero.trim().length>0){\r",
+        "            $data.madre.estadoExtranjero = capitalizeText($data.madre.estadoExtranjero);\r",
+        "        }\r",
+        "    \r",
+        "        if( !$data.madre.haveCiudad && $data.madre.ciudad != null && $data.madre.ciudad.trim().length>0){\r",
+        "            $data.madre.ciudad = capitalizeText($data.madre.ciudad);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.madre.catPais.descripcion !== 'México' && $data.madre.delegacionMunicipio != null && $data.madre.delegacionMunicipio.trim().length>0){\r",
+        "            $data.madre.delegacionMunicipio = capitalizeText($data.madre.delegacionMunicipio);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.madre.catPais.descripcion !== 'México' && $data.madre.colonia != null && $data.madre.colonia.trim().length>0){\r",
+        "            $data.madre.colonia = capitalizeText($data.madre.colonia);\r",
+        "        }\r",
+        "    \r",
+        "        if($data.madre.calle != null && $data.madre.calle.trim().length>0){\r",
+        "            $data.madre.calle = capitalizeText($data.madre.calle);\r",
+        "        }\r",
+        "    }\r",
+        "    \r",
+        "}\r",
+        "\r",
+        "\r",
+        "\r"
+      ],
+      "exposed" : false
+    },
+    "formateoModificacioTutor" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.jsonModificarTutor.nombre != null && $data.jsonModificarTutor.nombre.trim().length>0){\r",
+        "    $data.jsonModificarTutor.nombre = capitalizeName($data.jsonModificarTutor.nombre);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.apellidos != null && $data.jsonModificarTutor.apellidos.trim().length>0){\r",
+        "    $data.jsonModificarTutor.apellidos = capitalizeName($data.jsonModificarTutor.apellidos);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.empresaTrabaja != null && $data.jsonModificarTutor.empresaTrabaja.trim().length>0){\r",
+        "    $data.jsonModificarTutor.empresaTrabaja = capitalizeFirstLetter($data.jsonModificarTutor.empresaTrabaja);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.giroEmpresa != null && $data.jsonModificarTutor.giroEmpresa.trim().length>0){\r",
+        "    $data.jsonModificarTutor.giroEmpresa = capitalizeFirstLetter($data.jsonModificarTutor.giroEmpresa);\r",
+        "}\r",
+        "\r",
+        "if($data.jsonModificarTutor.puesto != null && $data.jsonModificarTutor.puesto.trim().length>0){\r",
+        "    $data.jsonModificarTutor.puesto = capitalizeFirstLetter($data.jsonModificarTutor.puesto);\r",
+        "}\r",
+        "\r",
+        "if(!$data.jsonModificarTutor.viveContigo ){\r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.estadoExtranjero != null && $data.jsonModificarTutor.estadoExtranjero.trim().length>0){\r",
+        "        $data.jsonModificarTutor.estadoExtranjero = capitalizeText($data.jsonModificarTutor.estadoExtranjero);\r",
+        "    }\r",
+        "\r",
+        "    if( !$data.jsonModificarTutor.haveCiudad && $data.jsonModificarTutor.ciudad != null && $data.jsonModificarTutor.ciudad.trim().length>0){\r",
+        "        $data.jsonModificarTutor.ciudad = capitalizeText($data.jsonModificarTutor.ciudad);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.delegacionMunicipio != null && $data.jsonModificarTutor.delegacionMunicipio.trim().length>0){\r",
+        "        $data.jsonModificarTutor.delegacionMunicipio = capitalizeText($data.jsonModificarTutor.delegacionMunicipio);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.catPais.descripcion !== 'México' && $data.jsonModificarTutor.colonia != null && $data.jsonModificarTutor.colonia.trim().length>0){\r",
+        "        $data.jsonModificarTutor.colonia = capitalizeText($data.jsonModificarTutor.colonia);\r",
+        "    }\r",
+        "    \r",
+        "    if($data.jsonModificarTutor.calle != null && $data.jsonModificarTutor.calle.trim().length>0){\r",
+        "        $data.jsonModificarTutor.calle = capitalizeText($data.jsonModificarTutor.calle);\r",
+        "    }\r",
+        "}\r"
+      ],
+      "exposed" : false
+    },
+    "processDefinitionId" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/case/{{getCatRegistro[0].caseId}}?d=processDefinitionId"
+      ],
+      "exposed" : false
+    },
+    "casoabortado" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "vericartareas" : {
+      "type" : "expression",
+      "value" : [
+        "debugger;",
+        "var retorno = false",
+        "try{",
+        "    for(var x=0;x<$data.verificarabortadas.length;x++){",
+        "        if($data.currentTask.length === 0){",
+        "            retorno=true",
+        "        }",
+        "    }",
+        "}catch(e){return false}",
+        "",
+        "return retorno;"
+      ],
+      "exposed" : false
+    },
+    "verificarabortadas" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/archivedActivity?f=caseId={{getCatRegistro[0].caseId}}&f=state=aborted"
+      ],
       "exposed" : false
     }
   },

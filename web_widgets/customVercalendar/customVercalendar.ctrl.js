@@ -269,6 +269,19 @@ function($scope, $http, blockUI, $window) {
             "valor": ($scope.properties.usuario[0].ciudadExamen == null) ? 0 : $scope.properties.usuario[0].ciudadExamen.persistenceId
         }
         $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+        filtro = {
+            "columna": "PERIODO",
+            "operador": "Igual a",
+            "valor":  $scope.properties.usuario[0].catPeriodo.persistenceId
+        }
+        $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
+
+        filtro = {
+            "columna": "EMAIL",
+            "operador": "Igual a",
+            "valor":  $scope.properties.usuario[0].correoElectronico
+        }
+        $scope.dataToSend.lstFiltro.push(angular.copy(filtro))
         doRequest("POST", "/bonita/API/extension/AnahuacRest?url=getSesionesCalendarioAspirante&p=0&c=10&fecha=" + fechaReporte + "&isMedicina=" + $scope.properties.isMedicina, null, $scope.dataToSend, null, function(datos, extra) {
             scheduler.clearAll();
             scheduler.parse(datos.data, "json");
@@ -440,6 +453,7 @@ function($scope, $http, blockUI, $window) {
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    $scope.sesion_aspirante.username = $scope.properties.usuario[0].correoElectronico
                     doRequest("POST", "/bonita/API/extension/AnahuacRest?url=insertSesionAspirante&p=0&c=10", null, $scope.sesion_aspirante, null, function(datos, extra) {
                         doRequest("GET", `/API/bpm/task?p=0&c=10&f=caseId%3d${$scope.properties.usuario[0].caseId}&f=isFailed%3dfalse`, null, null, null, function(datos, extra) {
                             var taskId = 0;
@@ -456,7 +470,7 @@ function($scope, $http, blockUI, $window) {
                                 Swal.fire({
                                         icon: 'success',
                                         title: 'Correcto',
-                                        text: `Sesión ${$scope.sesion.nombre} guardada correctamente`,
+                                        text: `Sesión ${$scope.sesion.nombre+" "} guardada correctamente`,
                                     })
                                     ///bonita/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante
                                     //$window.location.assign("/bonita/portal/resource/app/aspirante/confirmacion_credencial/content/?app=aspirante");
@@ -508,7 +522,7 @@ function($scope, $http, blockUI, $window) {
     }
     $scope.VerificarTask = function() {
         doRequest("GET", "/API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.usuario[0].caseId + "&fstate=ready", null, null, null, function(datos, extra) {
-            debugger
+            
             if ($scope.contadorVerificarTask <= 100) {
                 var isSeleccionar=false;
                 for (let index = 0; index < datos.length; index++) {

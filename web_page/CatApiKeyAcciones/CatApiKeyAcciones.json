@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatApiKeyAcciones",
   "name" : "CatApiKeyAcciones",
-  "lastUpdate" : 1616525411226,
+  "lastUpdate" : 1630623103994,
   "rows" : [
     [
       {
@@ -143,7 +143,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Azure API key"
+                  "value" : "Configuración API key"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -1281,12 +1281,12 @@
                 },
                 "variableAcopiar2" : {
                   "type" : "variable",
-                  "value" : "{\"persistenceId\": 0, \"persistenceId_string\": \"0\", \"persistenceVersion\": 0, \"persistenceVersion_string\": \"0\", \"campus\": null, \"conekta\": \"\", \"mailgun\": \"\", \"mailgunDominio\": \"\", \"mailgunCorreo\": \"\", \"crispChat\": \"\", \"isEliminado\": false, \"conektaPublicKey\": \"\", \"todelete\": false, \"hubspotKey\":\"\" }"
+                  "value" : "{\"persistenceId\": 0, \"persistenceId_string\": \"0\", \"persistenceVersion\": 0, \"persistenceVersion_string\": \"0\", \"campus\": null, \"conekta\": \"\", \"mailgun\": \"\", \"mailgunDominio\": \"\", \"mailgunCorreo\": \"\", \"crispChat\": \"\", \"isEliminado\": false, \"conektaPublicKey\": \"\", \"todelete\": false, \"hubspotKey\":\"\"}"
                 }
               },
-              "reference" : "db9e8c5d-f03c-4a4b-9c3f-b2b9eb07f570",
+              "reference" : "3d21171e-9b02-45f6-a889-e0b7b7b4dbf3",
               "hasValidationError" : false,
-              "id" : "customButtonSetValorDobleApiKey"
+              "id" : "customButtonSetValorDobleApiKeyData"
             },
             {
               "type" : "component",
@@ -2726,7 +2726,7 @@
                 },
                 "text" : {
                   "type" : "interpolation",
-                  "value" : "Azure configuración"
+                  "value" : "Configuración"
                 },
                 "level" : {
                   "type" : "constant",
@@ -2977,6 +2977,83 @@
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "BannerToken"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "azureData.bannerToken"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "980e992a-990f-42d8-aec9-1013c35c3879",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
                 "md" : 6,
                 "lg" : 6
               },
@@ -3135,16 +3212,23 @@
       "external" : false
     },
     {
-      "id" : "cf30fdeb-e6d5-4b76-943b-d7b451ba83dd",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "904e5fe4-5644-471d-b342-22cd809e70e1",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 2,
       "external" : false
     },
     {
       "id" : "6c76d16e-0290-41ed-b42c-2cef17c3e0f9",
       "name" : "style.css",
       "type" : "css",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "cf30fdeb-e6d5-4b76-943b-d7b451ba83dd",
+      "name" : "localization.json",
+      "type" : "json",
       "order" : 0,
       "external" : false
     }
@@ -3188,7 +3272,10 @@
       "exposed" : false
     },
     "catApiKey_selectedNR" : {
-      "type" : "constant",
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
       "exposed" : false
     },
     "lstCatApiKey" : {
@@ -3312,7 +3399,8 @@
         "{",
         "    \"azureAccountName\":\"\",",
         "    \"azureAccountKey\":\"\",",
-        "    \"azureDefaultEndpointsProtocol\":\"\"",
+        "    \"azureDefaultEndpointsProtocol\":\"\",",
+        "    \"bannerToken\":\"\"",
         "}"
       ],
       "exposed" : false
@@ -3337,6 +3425,7 @@
         "$data.azureData.azureAccountName=($data.azureData.azureAccountName==\"\")?$data.getAzureConfig.azureAccountName:$data.azureData.azureAccountName;",
         "$data.azureData.azureAccountKey=($data.azureData.azureAccountKey==\"\")?$data.getAzureConfig.azureAccountKey:$data.azureData.azureAccountKey;",
         "$data.azureData.azureDefaultEndpointsProtocol=($data.azureData.azureDefaultEndpointsProtocol==\"\")?$data.getAzureConfig.azureDefaultEndpointsProtocol:$data.azureData.azureDefaultEndpointsProtocol;",
+        "$data.azureData.bannerToken=($data.azureData.bannerToken==\"\")?$data.getAzureConfig.bannerToken:$data.azureData.bannerToken;",
         "",
         "return $data.azureData;"
       ],

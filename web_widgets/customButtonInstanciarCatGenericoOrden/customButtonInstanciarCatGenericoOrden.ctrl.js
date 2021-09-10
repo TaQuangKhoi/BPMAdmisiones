@@ -75,47 +75,47 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var validar = false;
 
     function startProcess() {
-        debugger
+        
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
             if ($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.orden) {
 
                 var req = {
                     method: 'GET',
-                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla="+$scope.properties.tabla+"&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
-                    
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=" + $scope.properties.tabla + "&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
+
                 };
                 return $http(req)
                     .success(function(data, status) {
                         if (data.data[0]) {
-                            
+
                             var req2 = {
                                 method: 'GET',
-                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla="+$scope.properties.tabla+"&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
+                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=" + $scope.properties.tabla + "&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
                             };
-                        return $http(req2).success(function(datos, status) {
-                            
-                            if(datos.data[0] === true){
-                                if ($scope.properties.processId) {
-                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                                        doRequest("GET", $scope.properties.url).then(function() {
-                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                                        });
-                                        localStorageService.delete($window.location.href);
-                                    });
+                            return $http(req2).success(function(datos, status) {
 
+                                if (datos.data[0] === true) {
+                                    if ($scope.properties.processId) {
+                                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                            doRequest("GET", $scope.properties.url).then(function() {
+                                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                            });
+                                            localStorageService.delete($window.location.href);
+                                        });
+
+                                    } else {
+                                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                                    }
                                 } else {
-                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                                 }
-                            }else {
-                                 swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                            }
-                            
-                            
-                        })
-                            
+
+
+                            })
+
                         } else {
-                            
+
                             swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
                         }
                     })
@@ -123,23 +123,23 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         console.log(data);
                         console.log(status);
                     })
-                /*if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                    /*if ($scope.properties.processId) {
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", $scope.properties.url).then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
                         });
-                        localStorageService.delete($window.location.href);
-                    });
 
-                } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
-                }*/
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }*/
             } else {
-                
+
                 if (!$scope.properties.dataToChange2.orden) {
                     swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
-                }else if (!$scope.properties.dataToChange2.clave) {
+                } else if (!$scope.properties.dataToChange2.clave) {
                     swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 } else if (!$scope.properties.dataToChange2.descripcion) {
                     swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
@@ -150,40 +150,40 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if ($scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave && $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].descripcion && $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden) {
                 var req = {
                     method: 'GET',
-                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla="+$scope.properties.tabla+"&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=" + $scope.properties.tabla + "&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
                 };
                 return $http(req)
                     .success(function(data, status) {
                         if (data.data[0]) {
-                            
+
                             var req2 = {
                                 method: 'GET',
-                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla="+$scope.properties.tabla+"&clave=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave + "&id="
+                                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=" + $scope.properties.tabla + "&clave=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave + "&id="
                             };
-                        return $http(req2).success(function(datos, status) {
-                            
-                            if(datos.data[0] === true){
-                                if ($scope.properties.processId) {
-                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
-                                        doRequest("GET", $scope.properties.url).then(function() {
-                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                                        });
-                                        localStorageService.delete($window.location.href);
-                                    });
+                            return $http(req2).success(function(datos, status) {
 
+                                if (datos.data[0] === true) {
+                                    if ($scope.properties.processId) {
+                                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                            doRequest("GET", $scope.properties.url).then(function() {
+                                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                            });
+                                            localStorageService.delete($window.location.href);
+                                        });
+
+                                    } else {
+                                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                                    }
                                 } else {
-                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                    swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
                                 }
-                            }else {
-                                 swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                            }
-                            
-                            
-                        })
-                            
+
+
+                            })
+
                         } else {
-                            
+
                             swal("¡Aviso!", "El orden capturado ya existe, por favor ingrese uno diferente.", "warning");
                         }
                     })
@@ -191,18 +191,18 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         console.log(data);
                         console.log(status);
                     })
-                /*if ($scope.properties.processId) {
-                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                        doRequest("GET", $scope.properties.url).then(function () {
-                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                    /*if ($scope.properties.processId) {
+                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
+                            doRequest("GET", $scope.properties.url).then(function () {
+                                $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                            });
+                            localStorageService.delete($window.location.href);
                         });
-                        localStorageService.delete($window.location.href);
-                    });
 
-                } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
-                }*/
+                    } else {
+                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                    }*/
             } else {
                 if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden) {
                     swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
@@ -211,8 +211,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 } else if (!$scope.properties.dataToChange2[$scope.properties.nombreTabla][0].descripcion) {
                     swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 }
-                
-                
+
+
 
             }
         }
@@ -227,7 +227,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
-        debugger;
+
         vm.busy = true;
         let datos = angular.copy($scope.properties.dataToSend)
         datos[$scope.properties.nombreTabla][0].orden = parseInt(datos[$scope.properties.nombreTabla][0].orden)

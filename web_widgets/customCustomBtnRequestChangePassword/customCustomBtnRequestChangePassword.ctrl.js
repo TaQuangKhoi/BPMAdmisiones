@@ -19,7 +19,7 @@ function PbButtonCtrl($scope, $http) {
         }
         
         if(!isValid){
-            swal("¡Atención!", errorMessage, "warning");
+            Swal.fire("¡Atención!", errorMessage, "warning");
         }
         
         return isValid;
@@ -41,9 +41,10 @@ function PbButtonCtrl($scope, $http) {
             if(data.success){
                 $scope.properties.navigationVar = "login";
                 let message = "Revisa tu bandeja de entrada para continuar con el proceso de recuperación de contraseña";
-                swal("Ya casi está listo.", message, "success");
+                Swal.fire("Ya casi está listo.", message, "success");
+                
             } else {
-                swal("Error.", data.error, "error");
+                Swal.fire("Error.", data.error, "error");
             }
         })
         .error(function(data, status) {
@@ -51,7 +52,7 @@ function PbButtonCtrl($scope, $http) {
             if(data.error.includes("SUserNotFoundException")){
                 errorMessage = "El Correo electrónico ingresado no está registrado."
             }
-            swal("Error.", errorMessage, "error");
+            Swal.fire("Error.", errorMessage, "error");
            // notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
         })
         .finally(function() {

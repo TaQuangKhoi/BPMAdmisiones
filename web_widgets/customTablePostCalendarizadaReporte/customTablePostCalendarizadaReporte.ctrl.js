@@ -55,7 +55,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
+                
                 var url = "/apps/administrativo/PaseDeLista";
                 window.top.location.href = url;
             })

@@ -38,7 +38,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.descuento = undefined;
                                 $scope.properties.collageBoard = undefined;
                                 $scope.properties.cartaAA = undefined;
-                                
+
                                 topFunction();
                                 $scope.properties.selectedIndex--;
                                 console.log(1)
@@ -493,7 +493,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                     }
                                 } else {
-                                    debugger;
+
                                     if ($scope.properties.collageBoard !== undefined) {
                                         $scope.properties.formInput.resultadoCBDocumentInput = [];
                                         $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);
@@ -617,7 +617,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.selectedIndex++;
                             }
                         } else {
-                            debugger;
+
                             if ($scope.properties.collageBoard !== undefined) {
                                 $scope.properties.formInput.resultadoCBDocumentInput = [];
                                 $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);
@@ -643,7 +643,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                 }
                             } else {
-                                debugger;
+
                                 if ($scope.properties.collageBoard !== undefined) {
                                     $scope.properties.formInput.resultadoCBDocumentInput = [];
                                     $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);
@@ -2442,5 +2442,5 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
-      }
+    }
 }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatNotificacionesCampus",
   "name" : "CatNotificacionesCampus",
-  "lastUpdate" : 1617249798894,
+  "lastUpdate" : 1630624839970,
   "rows" : [
     [
       {
@@ -329,7 +329,7 @@
                 },
                 "campusSelected" : {
                   "type" : "expression",
-                  "value" : "lstCampus[0].grupoBonita"
+                  "value" : "campus_selected.grupoBonita"
                 },
                 "previewHtml" : {
                   "type" : "variable",
@@ -1571,6 +1571,10 @@
                       "asString" : {
                         "type" : "variable",
                         "value" : "dataSelected.copia"
+                      },
+                      "retorno" : {
+                        "type" : "variable",
+                        "value" : "dataSelected.copia"
                       }
                     },
                     "reference" : "f7a9ab52-3d01-44df-b885-2af1ef59658b",
@@ -1938,6 +1942,13 @@
   ],
   "assets" : [
     {
+      "id" : "3dd24ac2-fde3-4dfe-9e75-2b8c2f380d79",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
       "id" : "74fb370d-ad7a-48fb-a51f-1b09c5d7c3db",
       "name" : "anahuac_custom_styles (2).css",
       "type" : "css",
@@ -1945,10 +1956,10 @@
       "external" : false
     },
     {
-      "id" : "3dd24ac2-fde3-4dfe-9e75-2b8c2f380d79",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "f792539a-7b26-44fa-bd25-d59435baf38f",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 2,
       "external" : false
     },
     {
@@ -2213,7 +2224,7 @@
         "if($data.dataSelected.copia==null){",
         "    return [];    ",
         "}else{",
-        "    return $data.dataSelected.copia.split(\";\");",
+        "    return $data.dataSelected.copia.split(\";\").splice(-1,1);",
         "}"
       ],
       "exposed" : false

@@ -1,8 +1,7 @@
 function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService, blockUI) {
-        var vm = this;
-        
+    var vm = this;
+    
     $scope.$watchCollection('properties.prepaSeleccionada', function (items) {
-        debugger;
         if($scope.properties.prepaSeleccionada !==undefined && $scope.properties.prepaSeleccionada !==" " && $scope.properties.prepaSeleccionada !==""){
                 
                 
@@ -22,9 +21,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             
         }
     });
-    
+
     $scope.$watchCollection('properties.clavePrepaSeleccionada', function (items) {
-        debugger;
         if($scope.properties.clavePrepaSeleccionada !==undefined && $scope.properties.clavePrepaSeleccionada !==" " && $scope.properties.clavePrepaSeleccionada !==""){
             for (var x = 0; x < $scope.properties.bachilleratos.length; x++) {
                 if ($scope.properties.clavePrepaSeleccionada === $scope.properties.bachilleratos[x].clave) {
@@ -42,9 +40,4 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             
         }
     });
-
-
-
-
-    
 }

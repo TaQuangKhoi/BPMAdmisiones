@@ -29,7 +29,6 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
   }
 
    $scope.validar = function(e){
-       debugger;
        if(window.mobileAndTabletCheck()){
            if($scope.properties.value.length > $scope.properties.maxLength){
                $scope.properties.value = $scope.properties.value.slice(0, -1) 

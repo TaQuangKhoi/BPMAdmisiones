@@ -50,7 +50,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
 
         return $http(req)
             .success(function (data, status) {
-                debugger
+                
                 var url = "/bonita/apps/administrativo/verSolicitudAdmision/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[TASKID]", data[0].id);
                 window.top.location.href = url;

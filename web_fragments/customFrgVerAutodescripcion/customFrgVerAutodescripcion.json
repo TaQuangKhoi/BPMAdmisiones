@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "customFrgVerAutodescripcion",
   "name" : "customFrgVerAutodescripcion",
-  "lastUpdate" : 1617148219232,
+  "lastUpdate" : 1630447430551,
   "rows" : [
     [
       {
@@ -313,7 +313,7 @@
                             },
                             "text" : {
                               "type" : "interpolation",
-                              "value" : "<label class=\"color-orange\">Residencia:</label> {{objectSolicitud.ciudad  + \", \" + objectSolicitud.catEstado.descripcion  + \", \" +  objectSolicitud.catPais.descripcion}}"
+                              "value" : "<label class=\"color-orange\">Residencia:</label> {{catResidencia.descripcion}}"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -373,6 +373,58 @@
                             }
                           },
                           "reference" : "a77b91da-8cee-45b8-bf72-49d8716fe26c",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : "jusquer_fragmento"
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "<div></div>"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "cbdcd5ca-91e4-4cda-841e-ecc98a07af73",
                           "hasValidationError" : false,
                           "id" : "pbText"
                         }
@@ -3088,7 +3140,8 @@
                               "value" : [
                                 "Universidad",
                                 "Año inicio",
-                                "Año fin"
+                                "Año fin",
+                                "Motivo suspensión"
                               ]
                             },
                             "content" : {
@@ -3100,7 +3153,8 @@
                               "value" : [
                                 "nombre",
                                 "anoInicio",
-                                "anoFin"
+                                "anoFin",
+                                "motivoSuspension"
                               ]
                             },
                             "selectedRow" : {
@@ -11429,6 +11483,13 @@
       "exposed" : true
     },
     "idBanner" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "catResidencia" : {
       "type" : "constant",
       "value" : [
         ""

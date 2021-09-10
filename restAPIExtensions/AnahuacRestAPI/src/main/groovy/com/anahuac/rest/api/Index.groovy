@@ -1,4 +1,4 @@
-package com.anahuac.rest.api;
+package com.anahuac.rest.api
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -9,19 +9,30 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import com.anahuac.catalogos.CatDocumentosTextos
+import com.anahuac.catalogos.CatNotificaciones
 import com.anahuac.catalogos.CatNotificacionesFirma
+import com.anahuac.rest.api.DAO.BecasDAO
+import com.anahuac.rest.api.DAO.BitacorasDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
+import com.anahuac.rest.api.DAO.CustomUserRequestDAO
 import com.anahuac.rest.api.DAO.DocumentosTextosDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
+import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
 import com.anahuac.rest.api.DAO.MailGunDAO
+import com.anahuac.rest.api.DAO.MigracionDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
+import com.anahuac.rest.api.DAO.PsicometricoDAO
 import com.anahuac.rest.api.DAO.ResultadosAdmisionDAO
 import com.anahuac.rest.api.DAO.SesionesDAO
+import com.anahuac.rest.api.DAO.AvanzeProcesoDAO
+import com.anahuac.rest.api.DAO.SolicitudUsuarioDAO
 import com.anahuac.rest.api.DAO.TestDAO
 import com.anahuac.rest.api.DAO.TransferenciasDAO
 import com.anahuac.rest.api.DAO.ReactivacionDAO
+import com.anahuac.rest.api.DAO.ReportesDAO
+import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
 import com.anahuac.rest.api.Entity.Result
@@ -64,7 +75,7 @@ class Index implements RestApiController {
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
 		String jsonData = request.reader.readLines().join("\n")
-		
+		String idioma = "";
 		//VARIABLES DAO=======================================================
 		TestDAO dao =  new TestDAO();
 		ListadoDAO lDao = new ListadoDAO();
@@ -77,6 +88,9 @@ class Index implements RestApiController {
 		TransferenciasDAO tDAO = new TransferenciasDAO();
 		ReactivacionDAO reDAO = new ReactivacionDAO();
 		ResultadosAdmisionDAO rDAO = new ResultadosAdmisionDAO();
+		SolicitudUsuarioDAO suDAO = new SolicitudUsuarioDAO();
+		CustomUserRequestDAO cuDAO = new CustomUserRequestDAO();
+		PsicometricoDAO psiDAO = new PsicometricoDAO();
 		//MAPEO DE SERVICIOS==================================================
 		try {
 			switch(url) {
@@ -96,6 +110,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "updateInformacionAspirante":
+					result = uDAO.updateInformacionAspirante(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
 				case "getExcelFile":
 					result = lDao.getExcelFile(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
@@ -448,6 +470,15 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					case "callSesiones":
+						result = new MigracionDAO().callSesiones(jsonData, context)
+						responseBuilder.withMediaType("application/json")
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+					break;
 					case "getSesionesAspirantes":
 					result = new SesionesDAO().getSesionesAspirantes(jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -617,6 +648,259 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					case "getBitacorasComentarios":
+					result = new BitacorasDAO().getBitacorasComentarios(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getComentariosValidacion":
+					result = new BitacorasDAO().getComentariosValidacion(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getComentariosValidacion":
+					result = new BitacorasDAO().getComentariosValidacion(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					
+					case "getRegistrosBecas":
+					result = new BecasDAO().getListadoRegistroBecas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postExcelBecas":
+					result = new BecasDAO().excelOnDeman(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getSesionesCalendarizadasPsicologoSupervisor":
+					result = new SesionesDAO().getSesionesCalendarizadasPsicologoSupervisor(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					//getSesionesPsicologoAdministradorAspirantes
+					case "getSesionesPsicologoAdministradorAspirantes":
+					result = new SesionesDAO().getSesionesPsicologoAdministradorAspirantes(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postGuardarUsuario":
+					result = new ImportacionPAADAO().postGuardarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postValidarUsuarioImportacionPAA":
+					result = new ImportacionPAADAO().postValidarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					
+					case "getAspirantesSinPAA":
+					result = new ImportacionPAADAO().getAspirantesSinPAA(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postListaAspirantePAA":
+					result = new ImportacionPAADAO().postListaAspirantePAA(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postGuardarBitacoraErrores":
+					result = new ResultadoComiteDAO().postGuardarBitacoraErroresRC(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postValidarUsuarioImportacionRC":
+					result = new ResultadoComiteDAO().postValidarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postValidarUsuarioCantidadIntento":
+					result = new ResultadoComiteDAO().postValidarUsuarioCantidadIntento(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "getAspirantesSinRC":
+					result = new ResultadoComiteDAO().getAspirantesSinRC(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postGuardarUsuarioRC":
+					result = new ResultadoComiteDAO().postGuardarUsuario(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postListaAspiranteRC":
+					result = new ResultadoComiteDAO().postListaAspiranteRC(0,9999,jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postExcelAspirantesPAA":
+					result = new ImportacionPAADAO().postExcelAspirantesPAA(jsonData, context);
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postEliminarResultado":
+					result = new ResultadoComiteDAO().postEliminarResultado(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postUpdateLicenciaturaPeriodo":
+					result = new ResultadoComiteDAO().postUpdateLicenciaturaPeriodo(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "updateAspirantesPruebas":
+					result = new SesionesDAO().updateAspirantesPruebas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "insertAspirantesPruebas":
+					result = new SesionesDAO().insertAspirantesPruebas(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "postBitacoraSesiones":
+						result = new SesionesDAO().postBitacoraSesiones(jsonData,context);
+						responseBuilder.withMediaType("application/json")
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+					break;
+					
+					case "postAspiranteSesionesByUsername":
+						result = new SesionesDAO().postAspiranteSesionesByUsername(jsonData,context);
+						responseBuilder.withMediaType("application/json")
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+					break;
+					
+					case "postAsistenciaProceso":
+						result = new AvanzeProcesoDAO().postAsistenciaProceso(jsonData,context);
+						responseBuilder.withMediaType("application/json")
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+					break;
+					
+					
 				/**************JESUS OSUNA FIN*********************/
 				/**************JOSÉ GARCÍA**********************/
 					case "getCatNacionalidadNew":
@@ -691,12 +975,18 @@ class Index implements RestApiController {
 					}
 					break;
 				case "RegistrarUsuario":
+				try{
 					result =  uDAO.postRegistrarUsuario(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
+					}catch(Exception ou){
+					result.setSuccess(false)
+					result.setError(ou.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
 					break;
 				case "getOrderPaymentMethod":
 					result = cDao.getOrderPaymentMethod(parameterP, parameterC, jsonData, context);
@@ -753,6 +1043,16 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "recuperarPasswordAdministrativo":
+					result =  uDAO.postRecuperarPasswordAdministrativo(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "sendEmail":
 					result = mgDAO.sendEmail(parameterP, parameterC, jsonData, context);
 					if (result.isSuccess()) {
@@ -763,6 +1063,9 @@ class Index implements RestApiController {
 					break;
 				case "generateHtml":
 					result = nDAO.generateHtml(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
+
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -977,6 +1280,13 @@ class Index implements RestApiController {
 					sesion.setCampus_pid(object.campus_pid)
 					sesion.setUltimo_dia_inscripcion(object.ultimo_dia_inscripcion)
 					sesion.setIsEliminado(object.isEliminado)
+					sesion.setUsuarios_lst_id((object.usuarios_lst_id==null)?"":object.usuarios_lst_id)
+					try {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:Long.parseLong(object.periodo_pid))
+						
+					} catch (Exception e) {
+						sesion.setPeriodo_pid((object.periodo_pid==null)?null:new Long(object.periodo_pid))
+					}
 					for (int i =0; i<object.pruebas.size(); i++) {
 						def obj = object.pruebas[i]
 						PruebaCustom prueba = new PruebaCustom()
@@ -1074,7 +1384,7 @@ class Index implements RestApiController {
 					sesionAspirante.setResponsabledisponible_pid(object.responsabledisponible_pid)
 					sesionAspirante.setSesiones_pid(object.sesiones_pid)
 					sesionAspirante.setUsername(object.username)
-					result = new SesionesDAO().insertSesionAspirante(sesionAspirante)
+					result = new SesionesDAO().insertSesionAspirante(sesionAspirante,context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1119,6 +1429,7 @@ class Index implements RestApiController {
 					
 					assert object instanceof Map;
 					AppMenuRole row = new AppMenuRole()
+					row.setDisplayname(object.displayname)
 					row.setId(object.id)
 					row.setRoles(new ArrayList<Role>())
 					for(def i=0; i<object.roles.size(); i++) {
@@ -1190,8 +1501,28 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "recoveryData":
+					result = uDAO.recoveryData(jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+									case "getApiCrispChat":
+					result = hDAO.getApiCrispChat();
+					/*result = new Result();
+					result.setSuccess(true);*/
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "createOrUpdateRegistro":
 					result = hDAO.createOrUpdateRegistro(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1200,6 +1531,8 @@ class Index implements RestApiController {
 					break;
 				case "createOrUpdateEnviada":
 					result = hDAO.createOrUpdateEnviada(parameterP, parameterC, jsonData, context)
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1207,15 +1540,27 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateModificar":
-					result = hDAO.createOrUpdateModificar(parameterP, parameterC, jsonData, context)
-					if (result.isSuccess()) {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
-					}else {
-						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
-					}
-					break;
+						result = hDAO.createOrUpdateModificar(parameterP, parameterC, jsonData, context)
+						/*result = new Result();
+						result.setSuccess(true);*/
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+						break;
+				case "createOrUpdateUsuariosRegistrados":
+						result = hDAO.createOrUpdateUsuariosRegistrados(parameterP, parameterC, jsonData, context)
+						if (result.isSuccess()) {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+						}else {
+							return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+						}
+						break;
 				case "createOrUpdateValidar":
-					result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateValidar(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1224,6 +1569,32 @@ class Index implements RestApiController {
 					break;
 				case "createOrUpdateRechazoLRoja":
 					result = hDAO.createOrUpdateRechazoLRoja(parameterP, parameterC, jsonData, context)
+					/*result = new Result();
+					result.setSuccess(true);*/
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "insertUpdatePsicometrico":
+					result = psiDAO.insertUpdatePsicometrico(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "insertUpdatePsicometricoV2":
+					result = psiDAO.insertUpdatePsicometricoV2(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "selectAspirantesPsicometrico":
+					result = psiDAO.selectAspirantesPsicometrico(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1231,7 +1602,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateRestaurarRechazoLRoja":
-					result = hDAO.createOrUpdateRestaurarRechazoLRoja(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateRestaurarRechazoLRoja(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1239,7 +1612,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdatePago":
-					result = hDAO.createOrUpdatePago(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdatePago(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1247,7 +1622,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateAutodescripcion":
-					result = hDAO.createOrUpdateAutodescripcion(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateAutodescripcion(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1255,7 +1632,9 @@ class Index implements RestApiController {
 					}
 					break;
 				case "createOrUpdateSeleccionoFechaExamen":
-					result = hDAO.createOrUpdateSeleccionoFechaExamen(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateSeleccionoFechaExamen(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1263,7 +1642,9 @@ class Index implements RestApiController {
 					}
 				break;
 				case "createOrUpdateGenerarCredencial":
-					result = hDAO.createOrUpdateGenerarCredencial(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateGenerarCredencial(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1271,7 +1652,9 @@ class Index implements RestApiController {
 					}
 				break
 				case "createOrUpdateEsperaResultado":
-					result = hDAO.createOrUpdateEsperaResultado(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateEsperaResultado(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1279,15 +1662,53 @@ class Index implements RestApiController {
 					}
 				break
 				case "createOrUpdateNoAsistioPruebas":
-					result = hDAO.createOrUpdateNoAsistioPruebas(parameterP, parameterC, jsonData, context)
+					result = hDAO.createOrUpdateNoAsistioPruebas(parameterP, parameterC, jsonData, context);
+					/*result = new Result();
+					result.setSuccess(true);*/
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
-				break
+				break;
 				case "reagendarExamen":
 					result = tDAO.reagendarExamen(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					case "updateCatNotificaciones":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					assert object instanceof Map;
+					CatNotificaciones catNotificaciones = new CatNotificaciones()
+					catNotificaciones.anguloImagenFooter = object.anguloImagenFooter
+					catNotificaciones.anguloImagenHeader = object.anguloImagenHeader
+					catNotificaciones.asunto = object.asunto
+					catNotificaciones.caseId = object.caseId
+					catNotificaciones.codigo = object.codigo
+					catNotificaciones.comentarioLeon = object.comentarioLeon
+					catNotificaciones.contenido  = object.contenido
+					catNotificaciones.contenidoCorreo = object.contenidoCorreo
+					catNotificaciones.contenidoLeonel = object.contenidoLeonel
+					catNotificaciones.descripcion = object.descripcion
+					catNotificaciones.docGuiaEstudio = object.docGuiaEstudio
+					catNotificaciones.enlaceBanner = object.enlaceBanner
+					catNotificaciones.enlaceContacto = object.enlaceContacto
+					catNotificaciones.enlaceFacebook = object.enlaceFacebook
+					catNotificaciones.enlaceFooter = object.enlaceFooter
+					catNotificaciones.enlaceInstagram = object.enlaceInstagram
+					catNotificaciones.enlaceTwitter = object.enlaceTwitter
+					catNotificaciones.nombreImagenFooter = object.nombreImagenFooter
+					catNotificaciones.textoFooter  = object.textoFooter
+					catNotificaciones.tipoCorreo = object.tipoCorreo
+					catNotificaciones.titulo = object.titulo
+					catNotificaciones.urlImgFooter = object.urlImgFooter
+					catNotificaciones.urlImgHeader = object.urlImgHeader
+					result = new NotificacionDAO().updateCatNotificaciones(catNotificaciones)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -1342,6 +1763,34 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				case "selectAspirantesEnLaRed":
+					result = uDAO.selectAspirantesEnLaRed(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+					case "updateCorreoElectronico":
+					result = uDAO.updateCorreoElectronico(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
+				case "postExcelINVPIndividual":
+					result = new ListadoDAO().postExcelINVPIndividual(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "getExcelTransferencias":
 					result = new ListadoDAO().getExcelTransferencias(parameterP, parameterC, jsonData, context)
 					responseBuilder.withMediaType("application/json")
@@ -1367,6 +1816,7 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
 				case "getUsuariosConSolicitudVencida":
 					result = uDAO.getUsuariosConSolicitudVencida(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -1383,7 +1833,278 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "getPadresTutorVencido":
+					result = suDAO.getPadresTutorVencido(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getPadreVencido":
+					result = suDAO.getPadreVencido(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getMadreVencido":
+					result = suDAO.getMadreVencido(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getContactoEmergencia":
+					result = suDAO.getContactoEmergencia(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getHermanosVencidos":
+					result = suDAO.getHermanosVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getInformacionEscolarVencidos":
+					result = suDAO.getInformacionEscolarVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getUniviersidadesVencidos":
+					result = suDAO.getUniviersidadesVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getIdiomaVencidos":
+					result = suDAO.getIdiomaVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getTerapiaVencidos":
+					result = suDAO.getTerapiaVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getGrupoSocialVencidos":
+					result = suDAO.getGrupoSocialVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getParienteEgresadoVencidos":
+					result = suDAO.getParienteEgresadoVencidos(parameterP, parameterC, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "selectConsultaDeResultadosManual":
+					result = rDAO.selectConsultaDeResultadosManual(parameterP, parameterC, jsonData, context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				/*******************MARIO ICEDO FIN**********************/
+				case "getActiveProcess":
+					result = cuDAO.getActiveProcess(context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "reAssignTask":
+					String task_id = request.getParameter "task_id"
+					String fecha = request.getParameter "user_id"
+					result = cuDAO.reAssignTask(task_id, user_id, context);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				case "generarReporte":
+				result = new ReportesDAO().generarReporte(jsonData);
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break
+				case "generarReporteResultadosExamenes":
+				result = new ReportesDAO().generarReporteResultadosExamenes(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break
+				case "generarReporteAdmitidosPropedeutico":
+				result = new ReportesDAO().generarReporteAdmitidosPropedeutico(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "generarReporteDatosFamiliares":
+				result = new ReportesDAO().generarReporteDatosFamiliares(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "generarReporteRelacionAspirantes":
+				result = new ReportesDAO().generarReporteRelacionAspirantes(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVP":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getSesionesINVP(object.sesion, object.fecha, object.uni, object.id)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVPTabla":
+				result = new SesionesDAO().getSesionesINVPTabla(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				case "getSesionesINVPTablaProcesadas":
+				result = new SesionesDAO().getSesionesINVPTablaProcesadas(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getUsersByPrueba":
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				result = new SesionesDAO().getUsersByPrueba(object.prueba)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getUsersByPrueba2":
+				result = new SesionesDAO().getUsersByPrueba2(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "postResultadosINVPIndividuales":
+				result = new SesionesDAO().postResultadosINVPIndividuales(jsonData,context)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "insertRespuesta":
+				result = new SesionesDAO().insertRespuesta(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				case "postSelectAspirantePrueba":
+				result = new SesionesDAO().postSelectAspirantePrueba(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "postGetIdSesionByIdBanner":
+				result = new SesionesDAO().postGetIdSesionByIdBanner(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "PostUpdateDeleteCatEscalaINVP":
+				result = new SesionesDAO().PostUpdateDeleteCatEscalaINVP(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getSesiones":
+				result = new SesionesDAO().getSesiones(jsonData)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {

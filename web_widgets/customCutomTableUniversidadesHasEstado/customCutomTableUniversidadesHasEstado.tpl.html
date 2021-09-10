@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+                <thead>
+                    <tr>
+                        <th>Universidad:</th>
+                        <th>Año inicio:</th>
+                        <th>Año fin:</th>
+                        <th>Carrera:</th>
+                        <th ng-if="!properties.vista" class="text-center">Acciones:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="row in properties.content">
+                        <td style="vertical-align: middle;">
+                            {{row.nombre}}
+                        </td>
+                        <td>
+                            {{row.anoInicio}}
+                        </td>
+                        <td>
+                            {{row.anoFin}}
+                        </td>
+                        <td>
+                            {{row.carrera}}
+                        </td>
+                        <td class="text-center" ng-if="!properties.vista">
+                            <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'ver')">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                            <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'editar')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'eliminar')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr  ng-repeat-end=""><td><label>Motivo de suspensión:</label></td><td class="text-center" colspan="{{properties.vista?3:4}}"> {{row.motivoSuspension}}</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 text-center" ng-if="!properties.vista">
+        <button class="btn btn-primary" ng-click="ctrl.showModalAgregar()">Agregar universidad</button>
+    </div>
+</div>

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcionPsic",
   "name" : "appVerAutodescripcionPsic",
-  "lastUpdate" : 1616525319119,
+  "lastUpdate" : 1630453902892,
   "rows" : [
     [
       {
@@ -234,7 +234,7 @@
                       },
                       "elementSelector" : {
                         "type" : "constant",
-                        "value" : ".main-ad-container"
+                        "value" : ".main-ad-container-custom"
                       }
                     },
                     "reference" : "687bc886-6ad7-4565-a970-37da4d7e87c6",
@@ -257,7 +257,7 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : "main-ad-container"
+                  "value" : "main-ad-container-custom"
                 },
                 "hidden" : {
                   "type" : "constant",
@@ -284,7 +284,7 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : "jusquer2"
                       },
                       "hidden" : {
                         "type" : "constant",
@@ -298,7 +298,8 @@
                       "formInput" : "formInput",
                       "selectedIndex" : "",
                       "objectSolicitud" : "objectSolicitud",
-                      "idBanner" : "objDetalleSolicitud.idBanner"
+                      "idBanner" : "objDetalleSolicitud.idBanner",
+                      "catResidencia" : "catResidencia"
                     }
                   }
                 ]
@@ -627,7 +628,7 @@
     "taskContext" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/userTask/{{taskId}}/context"
+        "..{{returnTaskContext}}"
       ],
       "exposed" : false
     },
@@ -886,6 +887,31 @@
       "type" : "constant",
       "value" : [
         "test2"
+      ],
+      "exposed" : false
+    },
+    "returnTaskContext" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.taskId !== undefined && $data.taskId !== null && $data.taskId !== \"\"){",
+        "    return \"/API/bpm/userTask/\"+ $data.taskId + \"/context\";",
+        "} else if($data.archivedCaseInfo !== undefined){",
+        "    return \"/API/bpm/archivedCase/\" + $data.archivedCaseInfo[0].id + \"/context\";",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "archivedCaseInfo" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/archivedCase?f=sourceObjectId={{caseList[0].caseId}}"
+      ],
+      "exposed" : false
+    },
+    "catResidencia" : {
+      "type" : "url",
+      "value" : [
+        "..{{objDetalleSolicitud.links[2].href}}"
       ],
       "exposed" : false
     }

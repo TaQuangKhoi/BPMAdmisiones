@@ -12,8 +12,8 @@
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonCollage.aplicacion.split("-")[2]+"-"+jsonCollage.aplicacion.split("-")[1]+"-"+jsonCollage.aplicacion.split("-")[0]}}</li>
             <li ng-if="properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonCollage.entrada}} - {{jsonCollage.salida}}</li>
             <li ng-if="!properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonCollage.horario}}</li>
-            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>{{(jsonCollage.online)?'*URL':'*Lugar'}}:</strong>{{jsonCollage.lugar}}</li>
-            <li ng-hide="jsonCollage.online" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonCollage.calle}}, {{(jsonCollage.numero_int!='' && jsonCollage.numero_int!=null)?"#" + jsonCollage.numero_int:''}} {{jsonCollage.colonia}}</li>
+            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Lugar:</strong>{{jsonCollage.lugar}}</li>
+            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonCollage.calle}}, #{{jsonCollage.numero_int}} {{jsonCollage.colonia}}</li>
         </ul>
         <ul class="list-group col-lg-6 col-md-6">
             <li class="list-group-item btn-primary" style="text-align: left;"><strong>Psicométrico</strong></li>
@@ -22,8 +22,8 @@
             <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonPsicometrico.aplicacion.split("-")[2]+"-"+jsonPsicometrico.aplicacion.split("-")[1]+"-"+jsonPsicometrico.aplicacion.split("-")[0]}}</li>
             <li ng-if="properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonPsicometrico.entrada}} - {{jsonPsicometrico.salida}}</li>
             <li ng-if="!properties.isCorrectTask" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonPsicometrico.horario}}</li>
-            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>{{(jsonPsicometrico.online)?'*URL':'*Lugar'}}:</strong>{{jsonPsicometrico.lugar}}</li>
-            <li ng-hide="jsonPsicometrico.online" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonPsicometrico.calle}}, {{(jsonPsicometrico.numero_int!=''&& jsonPsicometrico.numero_int!=null)?'#'+jsonPsicometrico.numero_int:''}} {{jsonPsicometrico.colonia}}</li>
+            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Lugar:</strong>{{jsonPsicometrico.lugar}}</li>
+            <li class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonPsicometrico.calle}}, #{{jsonPsicometrico.numero_int}} {{jsonPsicometrico.colonia}}</li>
         </ul>
         <ul class="list-group col-lg-6 col-md-6">
             <li title="Entrevista" style="cursor: pointer; text-align: left;" class="list-group-item btn-primary"><strong> Entrevista  </strong></li>
@@ -31,8 +31,8 @@
             <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Descripción:</strong>{{jsonEntrevista.descripcion}}</li>
             <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Fecha:</strong>{{jsonEntrevista.aplicacion.split("-")[2]+"-"+jsonEntrevista.aplicacion.split("-")[1]+"-"+jsonEntrevista.aplicacion.split("-")[0]}}</li>
             <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Hora:</strong>{{jsonEntrevista.horario}}
-                <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>{{(jsonEntrevista.online)?'*URL':'*Lugar'}}:</strong>{{jsonEntrevista.lugar}}</li>
-                <li ng-show="jsonEntrevista.online==false" class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonEntrevista.calle}}, {{(jsonEntrevista.numero_int!='' && jsonEntrevista.numero_int!=null)?'#'+jsonEntrevista.numero_int:''}} {{jsonEntrevista.colonia}}</li>
+                <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Lugar:</strong>{{jsonEntrevista.lugar}}</li>
+                <li  class="list-group-item list-group-item-default" style="text-align: left;"><strong>*Dirección:</strong>{{jsonEntrevista.calle}}, #{{jsonEntrevista.numero_int}} {{jsonEntrevista.colonia}}</li>
         </ul>
     </div> 
     </div>

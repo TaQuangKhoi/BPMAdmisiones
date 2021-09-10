@@ -8,7 +8,18 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
 
     $scope.generateObjContrato = function() {
         console.log($scope.properties.informacionEnviar)
-        $scope.asignarTarea();
+        if (angular.isDefined($scope.properties.taskId)) {
+            $scope.asignarTarea();
+        } else {
+            if (angular.isDefined($scope.properties.selectedData)) {
+                var dataToSend = {...$scope.properties.selectedData }
+                doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
+                    $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");
+                })
+            } else {
+                console.error("los datos a enviar no están definidos");
+            }
+        }
     }
 
     $scope.sendData = function() {
@@ -35,7 +46,18 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                     redireccionarTarea();
                 })
             } else {
-                $scope.asignarTarea()
+                if (angular.isDefined($scope.properties.taskId)) {
+                    $scope.asignarTarea();
+                } else {
+                    if (angular.isDefined($scope.properties.selectedData)) {
+                        var dataToSend = {...$scope.properties.selectedData }
+                        doRequest("POST", "/API/extension/AnahuacRest?url=updateCatNotificaciones&p=0&c=10", null, dataToSend, function(response) {
+                            $window.location.assign("/portal/resource/app/administrativo/notificaciones/content/?app=administrativo");
+                        })
+                    } else {
+                        console.error("los datos a enviar no están definidos");
+                    }
+                }
             }
 
         } else {
@@ -92,20 +114,36 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
         var error = false;
         var texto = "";
         var info = "";
-         if ($scope.properties.selectedData.asunto == "") {
+        if ($scope.properties.selectedData.asunto == "") {
             error = true;
             texto = "Faltó capturar información: Asunto";
             info = "¡Aviso!"
-        }
-        else if ($scope.properties.selectedData.contenidoCorreo == "" || $scope.properties.selectedData.contenidoCorreo == "<p></p>") {
+        } else if ($scope.properties.selectedData.contenidoCorreo == "" || $scope.properties.selectedData.contenidoCorreo == "<p></p>") {
             error = true;
             texto = "Faltó capturar información: Contenido de correo";
             info = "¡Aviso!"
-        } 
+        } else if ($scope.properties.selectedData.clave == "") {
+            error = true;
+            texto = "Faltó capturar información: Clave";
+            info = "¡Aviso!"
+        }
+        var count=0;
+        for (let index = 0; index < $scope.properties.contenido.length; index++) {
+            const element = $scope.properties.contenido[index];
+            if ($scope.properties.selectedData.codigo == element.codigo) {
+                count++;
+                if(count>1){
+                    error = true;
+                    texto = "No puede haber dos claves iguales";
+                    info = "¡Aviso!"
+                }
+                
+            }
+        }
         if (error) {
             swal(info, texto, "warning");
         }
-        
+
         return error;
     }
     $scope.submitTask = function() {
@@ -275,7 +313,7 @@ function PbButtonCtrl($scope, $http, modalService, $window) {
                             contentType: doc && doc.contentType ? doc.contentType : null
                         }))
                         lstCatComentariosFirmaInput = $scope.properties.strPersonaFirma.lstCatComentariosFirmaInput;
-                        debugger;
+
                         if (context.lstCatImageNotificacion_ref.storageIds.length > 0 && ($scope.properties.lstCatImageNotificacion == null || $scope.properties.lstCatImageNotificacion == undefined)) {
                             doRequest("GET", `../${context.lstCatImageNotificacion_ref.link}`, null, null, function(value) {
                                 vm.busy = false;

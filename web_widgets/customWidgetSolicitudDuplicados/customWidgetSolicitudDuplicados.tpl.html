@@ -1,9 +1,11 @@
+<div style ="text-align: center !important;">Búsqueda de solicitudes duplicadas</div>
 <div class="text-center">
-    <div class="panel panel-default panel-table" ng-show="properties.findByCorreoElectronico.length == 1" style="margin-left: auto;margin-right: auto;">
+    <div class="panel panel-default panel-table" ng-show="properties.findByCorreoElectronico.length == 0" style="margin-left: auto;margin-right: auto;">
+   
         <div class="panel-heading">
             <div class="tr">
                 <div class="td">
-                    <input type="checkbox" name="" ng-model="properties.value" ng-disabled="true"> {{properties.findByCorreoElectronico.length > 1?"Se encontraron duplicados": "No se encontraron duplicados"}}
+                    <input type="checkbox" name="" ng-model="properties.value" ng-disabled="true"> {{properties.findByCorreoElectronico.length > 0?"Se encontraron duplicados": "No se encontraron duplicados"}}
                     
                 </div>
             </div>
@@ -20,11 +22,11 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default panel-table" ng-show="properties.findByCorreoElectronico.length > 1" style="margin-left: auto;margin-right: auto;">
+    <div class="panel panel-default panel-table" ng-show="properties.findByCorreoElectronico.length > 0" style="margin-left: auto;margin-right: auto;">
         <div class="panel-heading">
             <div class="tr">
                 <div class="td">
-                    <input type="checkbox" name="" ng-model="properties.value"> {{properties.findByCorreoElectronico.length > 1?"Se encontraron duplicados": "No se encontraron duplicados"}}
+                    <input type="checkbox" name="" ng-model="properties.value"> {{properties.findByCorreoElectronico.length > 0?"Se encontraron duplicados": "No se encontraron duplicados"}}
                 </div>
             </div>
         </div>
@@ -51,4 +53,3 @@
     </div>
 </div>
 
-<div style ="text-align: center !important;">Busqueda de solicitudes duplicadas</div>

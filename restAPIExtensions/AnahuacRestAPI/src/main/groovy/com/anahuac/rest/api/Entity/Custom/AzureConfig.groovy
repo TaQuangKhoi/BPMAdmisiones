@@ -8,6 +8,7 @@ class AzureConfig {
 	private String azureAccountName;
 	private String azureAccountKey;
 	private String azureDefaultEndpointsProtocol;
+	private String bannerToken;
 	public String getAzureAccountName() {
 		return azureAccountName;
 	}
@@ -25,6 +26,12 @@ class AzureConfig {
 	}
 	public void setAzureDefaultEndpointsProtocol(String azureDefaultEndpointsProtocol) {
 		this.azureDefaultEndpointsProtocol = azureDefaultEndpointsProtocol;
+	}
+	public String getBannerToken() {
+		return bannerToken;
+	}
+	public void setBannerToken(String bannerToken) {
+		this.bannerToken = bannerToken;
 	}
 	
 }

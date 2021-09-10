@@ -7,7 +7,7 @@
                   	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
                 </th>
             </tr>
-            <tr><th style="width:40vw"><input class="form-control" ng-model="filtro"></th><th></th></tr>
+            <tr><td style="width:40vw"><input class="form-control" ng-model="filtro"></td><td></td></tr>
         </thead>
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content | filter:filtro:strict" ng-click="paginaSelected(row)" ng-class="{'info': ctrl.isSelected(row)}">

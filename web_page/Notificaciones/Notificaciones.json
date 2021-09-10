@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Notificaciones",
   "name" : "Notificaciones",
-  "lastUpdate" : 1617148509167,
+  "lastUpdate" : 1630622989455,
   "rows" : [
     [
       {
@@ -910,7 +910,7 @@
                       },
                       "hidden" : {
                         "type" : "constant",
-                        "value" : false
+                        "value" : true
                       },
                       "value" : {
                         "type" : "constant",
@@ -9457,24 +9457,10 @@
   ],
   "assets" : [
     {
-      "id" : "7125392e-78af-40ee-9b9f-b805a84ec148",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "86959921-6410-430f-b591-2f7f6f7ef5f2",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "a795bd7a-3f29-43dd-aaf6-bddf987c4378",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "4e7ec6db-dbd4-488c-9400-dfb2f7e0cc00",
+      "name" : "twitter.png",
+      "type" : "img",
+      "order" : 6,
       "external" : false
     },
     {
@@ -9482,6 +9468,13 @@
       "name" : "instagram.png",
       "type" : "img",
       "order" : 5,
+      "external" : false
+    },
+    {
+      "id" : "eefaec91-601b-4aca-9a0d-ac13aa3a4071",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 8,
       "external" : false
     },
     {
@@ -9499,10 +9492,10 @@
       "external" : false
     },
     {
-      "id" : "3b4f65e6-2547-4a2a-9fd9-6c3eb7b28188",
-      "name" : "bootstrap.min.css",
-      "type" : "css",
-      "order" : 1,
+      "id" : "86959921-6410-430f-b591-2f7f6f7ef5f2",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
       "external" : false
     },
     {
@@ -9513,10 +9506,24 @@
       "external" : false
     },
     {
-      "id" : "4e7ec6db-dbd4-488c-9400-dfb2f7e0cc00",
-      "name" : "twitter.png",
-      "type" : "img",
-      "order" : 6,
+      "id" : "7125392e-78af-40ee-9b9f-b805a84ec148",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "a795bd7a-3f29-43dd-aaf6-bddf987c4378",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "3b4f65e6-2547-4a2a-9fd9-6c3eb7b28188",
+      "name" : "bootstrap.min.css",
+      "type" : "css",
+      "order" : 1,
       "external" : false
     }
   ],
@@ -9945,10 +9952,10 @@
         "    \"descripcion\": \"[TELEFONO-DIRECTOR-ADMISIONES]\"\r",
         "},{\r",
         "    \"nombre\": \"Actividades ingreso Enero\",\r",
-        "    \"descripcion\": \"[ACTIVIDADES-DE-INFRESO-ENERO]\"\r",
+        "    \"descripcion\": \"[ACTIVIDADES-DE-INGRESO-ENERO]\"\r",
         "},{\r",
         "    \"nombre\": \"Actividades ingreso Agosto\",\r",
-        "    \"descripcion\": \"[ACTIVIDADES-DE-INFRESO-AGOSTO]\"\r",
+        "    \"descripcion\": \"[ACTIVIDADES-DE-INGRESO-AGOSTO]\"\r",
         "},{\r",
         "    \"nombre\": \"Costo del SGM\",\r",
         "    \"descripcion\": \"[COSTO-SGM]\"\r",
@@ -9967,7 +9974,21 @@
         "},{\r",
         "    \"nombre\": \"Curso matemáticas Agosto\",\r",
         "    \"descripcion\": \"[CURSO-MATEMATICAS-AGOSTO]\"\r",
-        "}]"
+        "},{\r",
+        "    \"nombre\": \"Costo del SGM con descuento\",\r",
+        "    \"descripcion\": \"[COSTO-SGM-DESCUENTO1]\"\r",
+        "},{\r",
+        "    \"nombre\": \"Costo del SGM con descuento 2\",\r",
+        "    \"descripcion\": \"[COSTO-SGM-DESCUENTO2]\"\r",
+        "},{\r",
+        "    \"nombre\": \"Fecha limite de pago\",\r",
+        "    \"descripcion\": \"[|fechalimitedepago|]\"\r",
+        "},{\r",
+        "    \"nombre\": \"Fecha limite entrega documentación\",\r",
+        "    \"descripcion\": \"[|fechalimiteentregadocumentacion|]\"\r",
+        "}\r",
+        "\r",
+        "]"
       ],
       "exposed" : false
     },
@@ -10000,7 +10021,16 @@
         "\r",
         "for(var x in $data.lstMembership){\r",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
-        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        //resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        let i = 0;\r",
+        "        resultado.forEach(value =>{\r",
+        "        if(value == $data.lstMembership[x].group_id.name){\r",
+        "            i++;\r",
+        "            }\r",
+        "        });\r",
+        "        if(i === 0){\r",
+        "            resultado.push($data.lstMembership[x].group_id.name);  \r",
+        "        }\r",
         "    }\r",
         "}\r",
         "\r",

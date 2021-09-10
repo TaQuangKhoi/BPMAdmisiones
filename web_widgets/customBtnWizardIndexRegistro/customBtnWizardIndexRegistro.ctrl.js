@@ -466,7 +466,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                         swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                     }
                                 } else {
-                                    debugger;
+
                                     if ($scope.properties.collageBoard !== undefined) {
                                         $scope.properties.formInput.resultadoCBDocumentInput = [];
                                         $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);
@@ -588,7 +588,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                 $scope.properties.selectedIndex++;
                             }
                         } else {
-                            debugger;
+
                             if ($scope.properties.collageBoard !== undefined) {
                                 $scope.properties.formInput.resultadoCBDocumentInput = [];
                                 $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);
@@ -614,7 +614,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                                     swal("¡Documento de descuento!", "Debes agregar el documento que acredita tu descuento", "warning");
                                 }
                             } else {
-                                debugger;
+
                                 if ($scope.properties.collageBoard !== undefined) {
                                     $scope.properties.formInput.resultadoCBDocumentInput = [];
                                     $scope.properties.formInput.resultadoCBDocumentInput.push($scope.properties.collageBoard);

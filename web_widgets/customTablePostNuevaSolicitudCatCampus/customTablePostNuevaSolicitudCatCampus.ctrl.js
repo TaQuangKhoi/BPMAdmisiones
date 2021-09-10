@@ -12,12 +12,12 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }
     };
     this.selectRowEditar = function(row) {
-        debugger;
+
         $scope.properties.selectedRow = row;
         $scope.properties.isSelected = 'editar';
     };
     this.selectRowDelete = function(row) {
-        swal("¡Aviso!","¿Está seguro que desea eliminar?","warning", {
+        swal("¡Aviso!", "¿Está seguro que desea eliminar?", "warning", {
                 buttons: {
                     cancel: "No",
                     catch: {
@@ -29,7 +29,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger
+                        
                         $scope.properties.selectedRow = row;
                         row.isEliminado = true
                         $scope.properties.selectedRow["todelete"] = false;
@@ -48,6 +48,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         
         $scope.properties.isSelected = 'editar';*/
     };
+
     function startProcess() {
         if ($scope.properties.processId) {
             var prom = doRequests('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
@@ -61,6 +62,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     this.isSelected = function(row) {
         return angular.equals(row, $scope.properties.selectedRow);
     }
+
     function doRequests(method, url, params) {
         var req = {
             method: method,
@@ -68,7 +70,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             data: angular.copy($scope.properties.dataToSendFiltro),
             params: params
         };
-        
+
         return $http(req)
             .success(function(data, status) {
                 $scope.properties.lstContenido = data.data;
@@ -83,6 +85,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
     }
+
     function doRequest(method, url, params) {
         blockUI.start();
         var req = {
@@ -107,8 +110,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             });
     }
     ///API/bpm/process/4774666324165829920?d=deployedBy&n=openCases&n=failedCases
-        $scope.preAsignarTarea=function(rowData) {
-        
+    $scope.preAsignarTarea = function(rowData) {
+
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -116,9 +119,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                rowData.taskId=data[0].id;
-                rowData.taskName=data[0].name;
-                rowData.processId=data[0].processId;
+                rowData.taskId = data[0].id;
+                rowData.taskName = data[0].name;
+                rowData.processId = data[0].processId;
                 //rowData.taskName=
                 $scope.preProcesoAsignarTarea(rowData);
             })
@@ -127,8 +130,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
     }
-    $scope.preProcesoAsignarTarea=function(rowData) {
-        
+    $scope.preProcesoAsignarTarea = function(rowData) {
+
         var req = {
             method: "GET",
             url: `/API/bpm/process/${rowData.processId}?d=deployedBy&n=openCases&n=failedCases`
@@ -136,8 +139,8 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
 
         return $http(req)
             .success(function(data, status) {
-                rowData.processName=data.name;
-                rowData.processVersion=data.version;
+                rowData.processName = data.name;
+                rowData.processVersion = data.version;
                 $scope.asignarTarea(rowData);
             })
             .error(function(data, status) {
@@ -145,11 +148,11 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             })
             .finally(function() {});
     }
-    $scope.asignarTarea=function(rowData) {
+    $scope.asignarTarea = function(rowData) {
         var req = {
             method: "PUT",
-            url: "/bonita/API/bpm/humanTask/"+rowData.taskId,
-            data: angular.copy({"assigned_id":""})
+            url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
+            data: angular.copy({ "assigned_id": "" })
         };
 
         return $http(req)
@@ -165,13 +168,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     function redireccionarTarea(rowData) {
         var req = {
             method: "PUT",
-            url: "/bonita/API/bpm/humanTask/"+rowData.taskId,
-            data: angular.copy({"assigned_id": $scope.properties.userId})
+            url: "/bonita/API/bpm/humanTask/" + rowData.taskId,
+            data: angular.copy({ "assigned_id": $scope.properties.userId })
         };
 
         return $http(req)
             .success(function(data, status) {
-                var url="/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
+                var url = "/bonita/portal/resource/taskInstance/[NOMBREPROCESO]/[VERSIONPROCESO]/[NOMBRETAREA]/content/?id=[TASKID]&displayConfirmation=false";
                 url = url.replace("[NOMBREPROCESO]", rowData.processName);
                 url = url.replace("[VERSIONPROCESO]", rowData.processVersion);
                 url = url.replace("[NOMBRETAREA]", rowData.taskName);
@@ -184,41 +187,41 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .finally(function() {});
     }
 
-    $scope.isenvelope=false;
-    $scope.selectedrow={};
-    $scope.mensaje="";
-    $scope.envelope=function(row){
-        $scope.isenvelope=true;
-        $scope.mensaje="";
-        $scope.selectedrow=row;
+    $scope.isenvelope = false;
+    $scope.selectedrow = {};
+    $scope.mensaje = "";
+    $scope.envelope = function(row) {
+        $scope.isenvelope = true;
+        $scope.mensaje = "";
+        $scope.selectedrow = row;
     }
-    $scope.envelopeCancel=function(){
-        $scope.isenvelope=false;
-        $scope.selectedrow={};
+    $scope.envelopeCancel = function() {
+        $scope.isenvelope = false;
+        $scope.selectedrow = {};
     }
-         $scope.sendMail=function(row,mensaje) {
-             if(row.catCampus.grupoBonita==undefined){
-                 for(var i=0; i<$scope.lstCampus.length; i++){
-                     if($scope.lstCampus[i].descripcion==row.catCampus.descripcion){
-                         row.catCampus.grupoBonita=$scope.lstCampus[i].valor;
-                     }
-                 }
-             }
+    $scope.sendMail = function(row, mensaje) {
+        if (row.catCampus.grupoBonita == undefined) {
+            for (var i = 0; i < $scope.lstCampus.length; i++) {
+                if ($scope.lstCampus[i].descripcion == row.catCampus.descripcion) {
+                    row.catCampus.grupoBonita = $scope.lstCampus[i].valor;
+                }
+            }
+        }
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
             data: angular.copy({
-              "campus": row.catCampus.grupoBonita,
-              "correo": row.correoElectronico,
-              "codigo": "recordatorio",
-              "isEnviar": true,
-              "mensaje":mensaje
+                "campus": row.catCampus.grupoBonita,
+                "correo": row.correoElectronico,
+                "codigo": "recordatorio",
+                "isEnviar": true,
+                "mensaje": mensaje
             })
         };
 
         return $http(req)
             .success(function(data, status) {
-                
+
                 $scope.envelopeCancel();
             })
             .error(function(data, status) {
@@ -227,151 +230,150 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .finally(function() {});
     }
     $scope.lstCampus = [{
-    "descripcion":"Anáhuac Cancún",
-    "valor":"CAMPUS-CANCUN"
-},
-{
-    "descripcion":"Anáhuac Mayab",
-    "valor":"CAMPUS-MAYAB"
-},
-{
-    "descripcion":"Anáhuac México Norte",
-    "valor":"CAMPUS-MNORTE"
-},
-{
-    "descripcion":"Anáhuac México Sur",
-    "valor":"CAMPUS-MSUR"
-},
-{
-    "descripcion":"Anáhuac Oaxaca",
-    "valor":"CAMPUS-OAXACA"
-},
-{
-    "descripcion":"Anáhuac Puebla",
-    "valor":"CAMPUS-PUEBLA"
-},
-{
-    "descripcion":"Anáhuac Querétaro",
-    "valor":"CAMPUS-QUERETARO"
-},
-{
-    "descripcion":"Anáhuac Xalapa",
-    "valor":"CAMPUS-XALAPA"
-},
-{
-    "descripcion":"Juan Pablo II",
-    "valor":"CAMPUS-JP2"
-},
-{
-    "descripcion":"Anáhuac Cordoba",
-    "valor":"CAMPUS-CORDOBA"
-}
-];
+            "descripcion": "Anáhuac Cancún",
+            "valor": "CAMPUS-CANCUN"
+        },
+        {
+            "descripcion": "Anáhuac Mayab",
+            "valor": "CAMPUS-MAYAB"
+        },
+        {
+            "descripcion": "Anáhuac México Norte",
+            "valor": "CAMPUS-MNORTE"
+        },
+        {
+            "descripcion": "Anáhuac México Sur",
+            "valor": "CAMPUS-MSUR"
+        },
+        {
+            "descripcion": "Anáhuac Oaxaca",
+            "valor": "CAMPUS-OAXACA"
+        },
+        {
+            "descripcion": "Anáhuac Puebla",
+            "valor": "CAMPUS-PUEBLA"
+        },
+        {
+            "descripcion": "Anáhuac Querétaro",
+            "valor": "CAMPUS-QUERETARO"
+        },
+        {
+            "descripcion": "Anáhuac Xalapa",
+            "valor": "CAMPUS-XALAPA"
+        },
+        {
+            "descripcion": "Juan Pablo II",
+            "valor": "CAMPUS-JP2"
+        },
+        {
+            "descripcion": "Anáhuac Cordoba",
+            "valor": "CAMPUS-CORDOBA"
+        }
+    ];
     $(function() {
         doRequest("POST", $scope.properties.urlPost);
     })
-    
-    
+
+
     $scope.$watch("properties.dataToSend", function(newValue, oldValue) {
         if (newValue !== undefined) {
             doRequest("POST", $scope.properties.urlPost);
         }
         console.log($scope.properties.dataToSend);
     });
-    $scope.setOrderBy= function(order){
-        if($scope.properties.dataToSend.orderby == order){
-            $scope.properties.dataToSend.orientation = ($scope.properties.dataToSend.orientation=="ASC")?"DESC":"ASC";
-        }else{
+    $scope.setOrderBy = function(order) {
+        if ($scope.properties.dataToSend.orderby == order) {
+            $scope.properties.dataToSend.orientation = ($scope.properties.dataToSend.orientation == "ASC") ? "DESC" : "ASC";
+        } else {
             $scope.properties.dataToSend.orderby = order;
             $scope.properties.dataToSend.orientation = "ASC";
         }
         doRequest("POST", $scope.properties.urlPost);
     }
-    
+
     $scope.lstPaginado = [];
     $scope.valorSeleccionado = 1;
     $scope.iniciarP = 1;
     $scope.finalP = 10;
     $scope.valorTotal = 10;
-    
-    $scope.loadPaginado = function(){
-        $scope.valorTotal = Math.ceil($scope.value/$scope.properties.dataToSend.limit);
-        $scope.lstPaginado=[]
-        if($scope.valorSeleccionado <= 5) {
+
+    $scope.loadPaginado = function() {
+        $scope.valorTotal = Math.ceil($scope.value / $scope.properties.dataToSend.limit);
+        $scope.lstPaginado = []
+        if ($scope.valorSeleccionado <= 5) {
             $scope.iniciarP = 1;
-            $scope.finalP = $scope.valorTotal>10 ? 10 : $scope.valorTotal;
-        }
-        else {
+            $scope.finalP = $scope.valorTotal > 10 ? 10 : $scope.valorTotal;
+        } else {
             $scope.iniciarP = $scope.valorSeleccionado - 5;
-            $scope.finalP = $scope.valorTotal>($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
+            $scope.finalP = $scope.valorTotal > ($scope.valorSeleccionado + 4) ? ($scope.valorSeleccionado + 4) : $scope.valorTotal;
         }
-        for(var i=$scope.iniciarP; i<=$scope.finalP; i++){
+        for (var i = $scope.iniciarP; i <= $scope.finalP; i++) {
 
             var obj = {
-                "numero":i,
-                "inicio":((i*10)-9),
-                "fin":(i*10),
+                "numero": i,
+                "inicio": ((i * 10) - 9),
+                "fin": (i * 10),
                 "seleccionado": (i == $scope.valorSeleccionado)
             };
             $scope.lstPaginado.push(obj);
         }
     }
-    
-    $scope.siguiente = function(){
+
+    $scope.siguiente = function() {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].seleccionado){
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].seleccionado) {
                 objSelected = $scope.lstPaginado[i];
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
             }
         }
-        $scope.valorSeleccionado=$scope.valorSeleccionado+1;
-        if($scope.valorSeleccionado>Math.ceil($scope.value/$scope.properties.dataToSend.limit)){
-            $scope.valorSeleccionado = Math.ceil($scope.value/$scope.properties.dataToSend.limit);
+        $scope.valorSeleccionado = $scope.valorSeleccionado + 1;
+        if ($scope.valorSeleccionado > Math.ceil($scope.value / $scope.properties.dataToSend.limit)) {
+            $scope.valorSeleccionado = Math.ceil($scope.value / $scope.properties.dataToSend.limit);
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.anterior = function(){
+    $scope.anterior = function() {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].seleccionado){
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].seleccionado) {
                 objSelected = $scope.lstPaginado[i];
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
             }
         }
-        $scope.valorSeleccionado=$scope.valorSeleccionado-1;
-        if($scope.valorSeleccionado == 0){
+        $scope.valorSeleccionado = $scope.valorSeleccionado - 1;
+        if ($scope.valorSeleccionado == 0) {
             $scope.valorSeleccionado = 1;
         }
         $scope.seleccionarPagina($scope.valorSeleccionado);
     }
 
-    $scope.seleccionarPagina = function(valorSeleccionado){
+    $scope.seleccionarPagina = function(valorSeleccionado) {
         var objSelected = {};
-        for(var i in $scope.lstPaginado){
-            if($scope.lstPaginado[i].numero == valorSeleccionado){
-                $scope.inicio = ($scope.lstPaginado[i].numero-1);
+        for (var i in $scope.lstPaginado) {
+            if ($scope.lstPaginado[i].numero == valorSeleccionado) {
+                $scope.inicio = ($scope.lstPaginado[i].numero - 1);
                 $scope.fin = $scope.lstPaginado[i].fin;
-                $scope.valorSeleccionado=$scope.lstPaginado[i].numero;
-                $scope.properties.dataToSend.offset=(($scope.lstPaginado[i].numero - 1) * $scope.properties.dataToSend.limit)
+                $scope.valorSeleccionado = $scope.lstPaginado[i].numero;
+                $scope.properties.dataToSend.offset = (($scope.lstPaginado[i].numero - 1) * $scope.properties.dataToSend.limit)
             }
         }
 
         doRequest("POST", $scope.properties.urlPost);
     }
-        $scope.getCampusByGrupo = function (campus) {
+    $scope.getCampusByGrupo = function(campus) {
         var retorno = "";
         for (var i = 0; i < $scope.lstCampus.length; i++) {
             if (campus == $scope.lstCampus[i].valor) {
                 retorno = $scope.lstCampus[i].descripcion
             }
-            
+
         }
         return retorno;
     }
     $scope.lstMembership = [];
-    $scope.$watch("properties.userId", function (newValue, oldValue) {
+    $scope.$watch("properties.userId", function(newValue, oldValue) {
         if (newValue !== undefined) {
             var req = {
                 method: "GET",
@@ -379,17 +381,17 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             };
 
             return $http(req)
-                .success(function (data, status) {
+                .success(function(data, status) {
                     $scope.lstMembership = data;
                 })
-                .error(function (data, status) {
+                .error(function(data, status) {
                     console.error(data);
                 })
-                .finally(function () { });
+                .finally(function() {});
         }
     });
     $scope.filtroCampus = ""
-    $scope.addFilter = function () {
+    $scope.addFilter = function() {
         var filter = {
             "columna": "CAMPUS",
             "operador": "Igual a",
@@ -414,17 +416,17 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             $scope.properties.dataToSend.lstFiltro.push(filter);
         }
     }
-    $scope.sizing=function(){
+    $scope.sizing = function() {
         $scope.lstPaginado = [];
         $scope.valorSeleccionado = 1;
         $scope.iniciarP = 1;
         $scope.finalP = 10;
-        try{
-            $scope.properties.dataToSend.limit=parseInt($scope.properties.dataToSend.limit);
-        }catch(exception){
-            
+        try {
+            $scope.properties.dataToSend.limit = parseInt($scope.properties.dataToSend.limit);
+        } catch (exception) {
+
         }
-        
+
         doRequest("POST", $scope.properties.urlPost);
     }
 }

@@ -34,7 +34,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         let titleMessage = "";
         let topYear = new Date().getFullYear() + 1;
         let currentYear = new Date().getFullYear();
-        let promedioRegex = /(?<![\d.])(\d{1,2}|\d{0,2}\.\d{1})?(?![\d.])/;
+        let promedioRegex = /([\d.])(\d{1,2}|\d{0,2}\.\d{1})?(?![\d.])/;
 
         if($scope.properties.infoEscuela.grado === null){
             isValid = false;

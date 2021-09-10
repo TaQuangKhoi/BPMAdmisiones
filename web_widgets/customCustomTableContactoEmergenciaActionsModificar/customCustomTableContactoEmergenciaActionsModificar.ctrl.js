@@ -17,7 +17,7 @@ function PbTableCtrl($scope, modalService) {
     }
 
     this.showdatos = function(row) {
-        debugger;
+
         $scope.properties.datomodificar = angular.copy(row);
         $scope.properties.ver = true;
         $scope.properties.datosEditar = row;
@@ -34,18 +34,18 @@ function PbTableCtrl($scope, modalService) {
         $scope.properties.ver = false;
         $scope.properties.datosEditar = row;
         openModal($scope.properties.modalid);
-        
+
     }
 
-  
+
     $scope.deleteData = function(row, index) {
-        
-            $scope.properties.eliminar.splice(index, 1);
-            console.log($scope.properties.eliminar + index);
+
+        $scope.properties.eliminar.splice(index, 1);
+        console.log($scope.properties.eliminar + index);
     }
-    
-    
-    function openModal(modalid,modalidContactoEmergencia) {
+
+
+    function openModal(modalid, modalidContactoEmergencia) {
 
         modalService.open(modalid);
     }

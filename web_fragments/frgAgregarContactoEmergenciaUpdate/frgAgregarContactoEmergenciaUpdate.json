@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgAgregarContactoEmergenciaUpdate",
   "name" : "frgAgregarContactoEmergenciaUpdate",
-  "lastUpdate" : 1617148304613,
+  "lastUpdate" : 1630966089538,
   "rows" : [
     [
       {
@@ -334,6 +334,10 @@
           "step" : {
             "type" : "constant",
             "value" : 1
+          },
+          "idInput" : {
+            "type" : "variable",
+            "value" : ""
           }
         },
         "reference" : "c69d44dc-78c6-46ad-b9de-8ed9ce846744",
@@ -447,8 +451,8 @@
             "value" : "telefonoMaxLength"
           },
           "readOnly" : {
-            "type" : "constant",
-            "value" : false
+            "type" : "expression",
+            "value" : "bloqueoCelular"
           },
           "labelHidden" : {
             "type" : "constant",
@@ -896,7 +900,7 @@
     "datosPadre" : {
       "type" : "expression",
       "value" : [
-        "debugger;\r",
+        "\r",
         "var mostrar = false;\r",
         "var otro = true;\r",
         "for (var x = 0; x < $data.catCasoDeEmergencia.length; x++) {\r",
@@ -927,6 +931,7 @@
         "                    }\r",
         "                    $data.showmadrealert = false;\r",
         "                    $data.showpadrealert = false;\r",
+        "                    $data.bloqueoCelular = false;\r",
         "                } else {\r",
         "                    $data.casoEmergenciaJSON = {\r",
         "                      \"nombre\": \"\",\r",
@@ -939,6 +944,7 @@
         "                    $data.bloqueoDatos = true;\r",
         "                    $data.showpadrealert = false;\r",
         "                    $data.showmadrealert = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "    \t\t\t\tmostrar = true;\r",
         "                }\r",
         "            }else{\r",
@@ -954,6 +960,7 @@
         "                    }\r",
         "                    $data.showpadrealert = false;\r",
         "                    $data.showmadrealert = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "    \t\t\t    mostrar = true;\r",
         "                }\r",
         "            }\r",
@@ -982,6 +989,7 @@
         "                    }\r",
         "                    $data.showmadrealert = false;\r",
         "                    $data.showpadrealert = false;\r",
+        "                    $data.bloqueoCelular = false;\r",
         "                } else {\r",
         "                    $data.bloqueoDatos = true;\r",
         "                    $data.casoEmergenciaJSON = {\r",
@@ -994,6 +1002,7 @@
         "                    }\r",
         "                    $data.showmadrealert = false;\r",
         "                    $data.showpadrealert = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "    \t\t\t    mostrar = true;\r",
         "                }\r",
         "            }else{\r",
@@ -1009,6 +1018,7 @@
         "                    }\r",
         "                    $data.showmadrealert = false;\r",
         "                    $data.showpadrealert = true;\r",
+        "                    $data.bloqueoCelular = true;\r",
         "    \t\t\t    mostrar = true;\r",
         "                }\r",
         "            }\r",
@@ -1016,6 +1026,7 @@
         "        } else if ($data.catCasoDeEmergencia[x].descripcion === \"Tutor\") {\r",
         "            $data.showpadrealert = false;\r",
         "            $data.showmadrealert = false;\r",
+        "            $data.bloqueoCelular = false;\r",
         "            $data.bloqueoDatos = true;\r",
         "            /*$data.casoEmergenciaJSON = {\r",
         "                      \"nombre\": \"\",\r",
@@ -1056,6 +1067,7 @@
         "            }\r",
         "            $data.showmadrealert = false;\r",
         "            $data.showpadrealert = false;\r",
+        "            $data.bloqueoCelular = false;\r",
         "        } else {\r",
         "            $data.bloqueoDatos = true;\r",
         "        }\r",
@@ -1183,13 +1195,17 @@
     "telefonoMaxLength" : {
       "type" : "expression",
       "value" : [
-        "debugger;",
+        "",
         "if($data.isExtranjero || $data.casoEmergenciaJSON.catCasoDeEmergencia.descripcion === \"Otro\"){",
         "    return 14",
         "} else {",
         "    return 10;",
         "}"
       ],
+      "exposed" : false
+    },
+    "bloqueoCelular" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

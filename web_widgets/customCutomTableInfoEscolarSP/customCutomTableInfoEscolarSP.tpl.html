@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-lg-12">
+        <label>Da clic en el lápiz y completa los años que estuviste en esta institución. <span class="glyphicon glyphicon-asterisk color-orange"></span></label>
+        <label>Si cursaste tu bachillerato en más de un colegio, agrega los otros dando clic en el botón de agregar escuela</label>
+        <div class="table-responsive">
+            <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+                <thead>
+                    <tr>
+                        <th>Nombre:</th>
+                        <th>Año inicio:</th>
+                        <th>Año fin:</th>
+                        <th>Promedio:</th>
+                        <th class="text-center">Acciones:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in properties.content" >
+                        <td>
+                            {{row.escuela.descripcion=='Otro'?row.otraEscuela:row.escuela.descripcion}}
+                        </td>
+                        <td>
+                            {{row.anoInicio}}
+                        </td>
+                        <td>
+                            {{row.anoFin}}
+                        </td>
+                        <td>
+                            {{row.promedio}}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'ver')">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                            <button class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'editar')">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                            <button ng-disabled="row.escuela.descripcion === properties.nombrePrepaDefault" class="btn btn-link" ng-click="ctrl.selectRow(row, $index, 'eliminar')">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-12 text-center">
+        <button class="btn btn-primary" ng-click="ctrl.showModalAgregar()">Agregar escuela</button>
+    </div>
+</div>

@@ -19,7 +19,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal($scope.properties.closeOnSuccess);
             openModal($scope.properties.modalId);
         } else if ($scope.properties.action === 'Close modal') {
-            debugger;
+
             if ($scope.properties.contactoJson.catCasoDeEmergencia === null) {
                 swal("¡Contacto de emergencia!", "Debes de agregar por lo menos un contacto de emergencia", "warning");
             } else if ($scope.properties.contactoJson.nombre === "") {

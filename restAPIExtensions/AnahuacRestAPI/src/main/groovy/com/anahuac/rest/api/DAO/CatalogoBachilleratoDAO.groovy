@@ -490,17 +490,24 @@ class CatalogoBachilleratoDAO {
 			def object = jsonSlurper.parseText(jsonData);
 			
 			assert object instanceof Map;
+
 				closeCon = validarConexion();
 				pstm = con.prepareStatement(StatementsBachillerato.UPDATE_PERTENCERED)
 				pstm.setBoolean(1, object.perteneceRed)
-				pstm.setLong(2, object.persistenceId)
+				pstm.setBoolean(2, object.isEnabled)
+				pstm.setLong(3, object.persistenceId)
 				
 				pstm.execute()
 				resultado.setSuccess(true)
 				data.add(catBachillerado)
 				resultado.setData(data)
 			
-			} catch (Exception e) {
+			pstm.execute()
+			resultado.setSuccess(true)
+			data.add(catBachillerado)
+			resultado.setData(data)
+		
+		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {

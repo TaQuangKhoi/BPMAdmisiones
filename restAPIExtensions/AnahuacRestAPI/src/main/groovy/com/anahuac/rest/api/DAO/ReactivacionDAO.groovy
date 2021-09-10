@@ -25,7 +25,9 @@ import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
 import groovy.json.JsonSlurper
@@ -88,6 +90,12 @@ class ReactivacionDAO {
 			errorlog += "object.lstFiltro" + object.lstFiltro
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			String consulta = Statements.GET_USUARIOS_RECHAZADOS_COMITE
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog += ", columna " + filtro.get("columna")
@@ -441,10 +449,20 @@ class ReactivacionDAO {
 					if (metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
 						String encoded = "";
 						try {
-							for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+							String urlFoto = rs.getString("urlfoto");
+							if(urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+							}else {
+								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for(Document doc : doc1) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							}
+							/*for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
 								encoded = "../API/formsDocumentImage?document=" + doc.getId();
 								columns.put("fotografiab64", encoded);
-							}
+							}*/
 						} catch (Exception e) {
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
@@ -480,45 +498,39 @@ class ReactivacionDAO {
 			Boolean avanzartarea = false;
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			closeCon = validarConexion();
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			assert object instanceof Map;
 
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient() //context.getApiClient();
 			apiClient.login(username, password)
-
+			
 			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
 			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
 			final SearchOptions searchOptions = searchBuilder.done();
 			SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 			List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
-
+			
 			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 				if (objHumanTaskInstance.getName().equals("Reactivar usuario rechazado")) {
 					Map < String, Serializable > inputs = new HashMap < String, Serializable > ()
 					inputs.put("activoUsuario", true);
-					inputs.put("countReactivacion",object.countrechazos);
+					inputs.put("countReactivacion",(object.countrechazos as Integer));
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 				}
 			}
-
-
-			closeCon = validarConexion();
+			
 			con.setAutoCommit(false)
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
 			pstm.setLong(1, object.campus);
@@ -535,7 +547,10 @@ class ReactivacionDAO {
 			pstm.executeUpdate();
 
 			con.commit();
-
+			
+			Result formateo = new Result();
+			formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
+			errorLog = formateo.isSuccess().toString();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		} catch (Exception ex) {
@@ -551,6 +566,29 @@ class ReactivacionDAO {
 
 		return resultado;
 	}
+	
+	public Result formateoVariablesPaseListaProceso(Long caseid, RestAPIContext context) {
+		Result resultado = new Result()
+		try {
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
+			
+			Map<String, Serializable> rows = new HashMap<String, Serializable>();
+			
+			rows.put("asistenciaCollegeBoard", false);
+			rows.put("asistenciaPsicometrico", false);
+			rows.put("asistenciaEntrevista", false);
+			
+			processAPI.updateProcessDataInstances(caseid, rows)
+			
+		resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} 
+		return resultado
+	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false

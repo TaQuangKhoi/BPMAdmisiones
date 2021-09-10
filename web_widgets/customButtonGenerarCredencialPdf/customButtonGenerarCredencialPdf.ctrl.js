@@ -10,7 +10,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             var opt = {
                 margin: [0, 0, 0, 0],
                 filename: 'CredencialAnahuac.pdf',
-                image: { type: 'jpg', quality: 1 },
+                image: { type: 'jpg', quality:  0.98 },
                 html2canvas: { dpi: 150, letterRendering: true, useCORS: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };

@@ -1,6 +1,5 @@
 function getUserAbandono($scope, $http, $window) {
     $scope.$watch("properties.datosUsuario", function() {
-        debugger;
         if ($scope.properties.datosUsuario !== undefined) {
             var req = {
                 method: "GET",
@@ -8,7 +7,6 @@ function getUserAbandono($scope, $http, $window) {
             };
             return $http(req)
                 .success(function(data, status) {
-                    debugger;
                     if(data.length === 0){
                        $scope.getSolicitudAbandonada();
                     }else{
@@ -30,7 +28,6 @@ function getUserAbandono($scope, $http, $window) {
         };
         return $http(req)
             .success(function(data, status) {
-                debugger;
                 $scope.getTaskAbandono(data[0].caseId);
             })
             .error(function(data, status) {
@@ -39,24 +36,25 @@ function getUserAbandono($scope, $http, $window) {
     }
 
     $scope.getCurrentTask = function(caseid) {
-        debugger;
         var req = {
             method: "GET",
             url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + caseid + "&fstate=ready"
         };
         return $http(req)
             .success(function(data, status) {
-                debugger;
-                if(data[0].name === "Modificar información"){
-                    $scope.ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
-                    $scope.url = ipBonita + "/portal/resource/app/aspirante/modificacion_iniciada/content/?app=aspirante";
-                }else {
-                    $scope.url = ipBonita + "/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante";
-                }
-                
-                if($data.currentTask[0].name !== "Llenar solicitud"){
-                    window.location.href = $scope.url;
-                }
+                try{
+                    if(data[0].name === "Modificar información"){
+                        $scope.ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
+                        $scope.url = ipBonita + "/portal/resource/app/aspirante/modificacion_iniciada/content/?app=aspirante";
+                    }else {
+                        $scope.url = ipBonita + "/portal/resource/app/aspirante/solicitud_iniciada/content/?app=aspirante";
+                    }
+                    
+                    if($data.currentTask[0].name !== "Llenar solicitud"){
+                        window.location.href = $scope.url;
+                    }
+                    
+                }catch(e){$scope.properties.isok = true}
             })
             .error(function(data, status) {
                 console.error(data);
@@ -64,14 +62,12 @@ function getUserAbandono($scope, $http, $window) {
     }
 
     $scope.getTaskAbandono = function(caseid) {
-        debugger;
         var req = {
             method: "GET",
             url: "../API/bpm/humanTask?p=0&c=10&f=caseId=" + caseid + "&fstate=ready"
         };
         return $http(req)
             .success(function(data, status) {
-                debugger;
                 if (data.length === 0) {
                     $scope.ipBonita = window.location.protocol + "//" + window.location.host + "/bonita";
                     $scope.url = $scope.ipBonita + "/portal/resource/app/aspirante/solicitud_caducada/content/?app=aspirante";

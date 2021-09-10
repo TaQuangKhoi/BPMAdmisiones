@@ -72,7 +72,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function startProcess() {
-        debugger
+        
         if ($scope.properties.dataToChange2.campus) {
             if($scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion && $scope.properties.dataToChange2.fechaInicio && $scope.properties.dataToChange2.fechaFinal ){
     if ($scope.properties.processId) {

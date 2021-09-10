@@ -12,15 +12,16 @@
         <tbody ng-if="ctrl.isArray(properties.content) && ctrl.isArray(properties.columnsKey)">
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)"
                 ng-class="{'info': ctrl.isSelected(row)}">
-                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
-                    {{ $eval(column, row) | uiTranslate }}
-                </td>
                 <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate"></div>
-                    <button ng-if="$index ==9" class="btn btn-default"  ng-click="asignarTarea(row)" >
+                    <button ng-if="$index ==10" class="btn btn-default"  ng-click="asignarTarea(row)" >
                         <span class=" glyphicon glyphicon-eye-open" aria-hidden="false"></span>
                     </button>
                 </td>
+                <td ng-if="!properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
+                    {{ $eval(column, row) | uiTranslate }}
+                </td>
+                
             </tr>
         </tbody>
         <tbody ng-if="ctrl.isArray(properties.content) && !ctrl.isArray(properties.columnsKey)">
