@@ -393,7 +393,7 @@ class ImportacionPAADAO {
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
 
-			where+=" AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados')"				
+			where+=" AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial')"				
 				
 			
 			if(lstGrupo.size()>0) {
@@ -868,7 +868,7 @@ class ImportacionPAADAO {
 				where+=" AND LOWER(campus.grupoBonita) = LOWER('"+object.campus+"') "
 			}			
 
-			where+=" AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados')"				
+			where+=" AND (sda.ESTATUSSOLICITUD = 'Carga y consulta de resultados' OR sda.ESTATUSSOLICITUD = 'Elección de pruebas calendarizado' OR sda.ESTATUSSOLICITUD = 'Ya se imprimió su credencial' )"				
 			if(object.completos) {
 				where += " AND (PAA.INVP IS NOT NULL AND PAA.INVP <> '') "
 			}else {
