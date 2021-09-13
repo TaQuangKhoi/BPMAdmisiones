@@ -26,7 +26,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       
       function formatDate(date) {
           let current_datetime = date;
-          let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "-" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" +  current_datetime.getFullYear() ;
+          let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "/" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "/" +  current_datetime.getFullYear() ;
           return formatted_date;
       }
       
@@ -72,8 +72,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if(isNullOrUndefined(datos[columnas[i]])){
                         swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");
                         return false;
-                    }else if(!moment(datos[columnas[i]],'DD-MM-YYYY').isValid()){
-                         swal("¡Aviso!",`¡la fecha del examen no es valida tiene que ser DD-MM-YYYY!`,"warning");
+                    }else if(!moment(datos[columnas[i]],'DD/MM/YYYY').isValid()){
+                         swal("¡Aviso!",`¡la fecha del examen no es valida tiene que ser DD/MM/YYYY!`,"warning");
                          return false;
                     }
                   }else if(columnas[i] == "tipoExamen" && isNullOrUndefined(datos[columnas[i]]) ){
@@ -150,9 +150,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             else if(info.mismaFecha && !$scope.properties.value.update ){
                 swal("¡Aviso!",`¡El aspirante ya tiene puntuación en la fecha ${formatDate(datos['fechaExamen'])}`,"warning");
             }
-            else if(!info.EstaEnCarga){
+            /*else if(!info.EstaEnCarga){
                 swal("¡Aviso!",`¡El aspirante no se encuentra en carga y consulta de resultados!`,"warning");
-            }else if(!info.puede && !$scope.properties.value.update){
+            }*/
+            else if(!info.puede && !$scope.properties.value.update){
                 swal("¡Aviso!",`¡El aspirante ya cuenta con una puntuacion!`,"warning");
             }
             else{

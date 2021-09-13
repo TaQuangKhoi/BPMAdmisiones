@@ -22,7 +22,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function (data, status) {
                 console.log(data.data)
-                location.reload(true);
+                swal("¡El aspirante a sido avanzado!", {buttons: false,timer: 1500,});
+                setTimeout(function(){ location.reload(true); }, 1500);
+                
             })
             .error(function (data, status) {
             })

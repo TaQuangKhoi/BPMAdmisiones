@@ -48,26 +48,43 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
         const linkSource = `data:text/plain;base64,${rua}`;
         const downloadLink = document.createElement("a");
         var fileName = "kwafile.rua";
+        var descargo = false;
         for (let index = 0; index < $scope.properties.lstSesiones.length; index++) {
             const element = $scope.properties.lstSesiones[index];
             try {
-                if (element.id == $scope.properties.ruaname.split(',')[0]) {
+                if(!descargo && !isNullOrUndefined($scope.properties.dataToSend.idbanner) && $scope.properties.dataToSend.idbanner.length == 8 && isNullOrUndefined($scope.properties.dataToSend.sesion)){
+                    descargo = true;
+                    fileName = $scope.properties.dataToSend.idbanner + ".rua";
+                    downloadLink.href = linkSource;
+                    downloadLink.download = fileName;
+                    downloadLink.click();
+                } else if (element.id == $scope.properties.ruaname.split(',')[0]) {
                     fileName = element.text + ".rua";
                     downloadLink.href = linkSource;
                     downloadLink.download = fileName;
                     downloadLink.click();
                 }
             } catch (e) {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Sin resultados',
-                    text: 'Favor de seleccionar por lo menos una sesión'
-                })
+                if(! descargo){
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Sin resultados',
+                        text: 'Favor de seleccionar por lo menos una sesión'
+                    })  
+                }
+                
             }
 
 
         }
 
+    }
+    
+    function isNullOrUndefined(dato) {
+        if (dato === undefined || dato === null || dato.toString().trim().length <= 0) {
+            return true;
+        }
+        return false
     }
     /**
      * Execute a get/post request to an URL

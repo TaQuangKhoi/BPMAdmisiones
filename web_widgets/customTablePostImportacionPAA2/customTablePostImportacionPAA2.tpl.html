@@ -66,6 +66,8 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='ID'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Sesión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='SESION'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Puntuación Validada<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='SESION'"></i></span></th>
                     <th> 
                         <span style="cursor:pointer" ng-click="setOrderBy('PAAN')">PAAN<i class="glyphicon"
@@ -120,7 +122,9 @@
                         {{row.preparatoria}}<br>
                         {{row.promediogeneral}}
                     </td>
-                    <td><b>{{row.id}}</b> <br> <b>{{row.sesion}}</b></td>
+                    <td><b>{{row.id}}</b> <br> <b>{{row.sesion}}</b><br>
+                         <b>{{row.lexium != 't'?'Validado':'No validado'}}</b></td>
+                    
                      <td>
                         <b>{{row.paan}}</b><br>
                         {{row.paav}}<br>
