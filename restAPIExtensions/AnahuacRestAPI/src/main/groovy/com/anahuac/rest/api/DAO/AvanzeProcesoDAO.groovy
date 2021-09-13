@@ -44,7 +44,7 @@ class AvanzeProcesoDAO {
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
-			errorLog +=jsonData;
+			//errorLog +=jsonData;
 			//closeCon = validarConexion();
 			
 			def jsonSlurper = new JsonSlurper();
@@ -64,70 +64,64 @@ class AvanzeProcesoDAO {
 			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 				
 				if (objHumanTaskInstance.getName().equals("Seleccionar cita")) {
+					errorLog+="Sesion"
 					isSeleccionCita = true;
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(),inputs);
 				}
+				
+			}
+			
+			sleep(30000);
+			
+			SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
+			lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 				if (objHumanTaskInstance.getName().equals("Generar credencial")) {
+					errorLog+="credencial"
 					generoCredencial = true;
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(),inputs);
 				}
 			}
 			
-			// revisa si  avanzo silo lo de seleccionar cita
-			if(isSeleccionCita && !generoCredencial) {
-				int count = 0;
-				while((count < 50 && !generoCredencial)) {
-					count++;
-					SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
-					lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
-					for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
-						if (objHumanTaskInstance.getName().equals("Generar credencial")) {
-							generoCredencial = true;
-							processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
-							processAPI.executeUserTask(objHumanTaskInstance.getId(),inputs);
-						}
+			if(generoCredencial) {
+				// Se pasan las variables del proceso a true
+				Map<String, Serializable> rows = new HashMap<String, Serializable>();
+				
+				rows.put("asistenciaCollegeBoard", true);
+				rows.put("asistenciaPsicometrico", true);
+				rows.put("asistenciaEntrevista", true);
+				
+				processAPI.updateProcessDataInstances(Long.parseLong(object.caseid), rows);
+				
+				
+				//vencer el timer
+				searchBuilder = new SearchOptionsBuilder(0, 99999);
+				searchOptions = searchBuilder.done();
+				SearchResult < TimerEventTriggerInstance > SearchTimmerTaskSearch = context.getApiClient().getProcessAPI().searchTimerEventTriggerInstances(Long.parseLong(object.caseid),searchOptions)
+	
+				List < TimerEventTriggerInstance > lstTimerTaskSearch = SearchTimmerTaskSearch.getResult();
+	
+				for (TimerEventTriggerInstance objTimerInstance: lstTimerTaskSearch) {
+					if (objTimerInstance.getEventInstanceName().equals("Timmer pase de lista") ) {
+						Date date = new Date(60)
+						processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
 					}
 				}
-				
 			}
 			
-			
-			// Se pasan las variables del proceso a true
-			Map<String, Serializable> rows = new HashMap<String, Serializable>();
-			
-			rows.put("asistenciaCollegeBoard", true);
-			rows.put("asistenciaPsicometrico", true);
-			rows.put("asistenciaEntrevista", true);
-			
-			processAPI.updateProcessDataInstances(Long.parseLong(object.caseid), rows);
-			
-			
-			//vencer el timer
-			searchBuilder = new SearchOptionsBuilder(0, 99999);
-			searchOptions = searchBuilder.done();
-			SearchResult < TimerEventTriggerInstance > SearchTimmerTaskSearch = context.getApiClient().getProcessAPI().searchTimerEventTriggerInstances(Long.parseLong(object.caseid),searchOptions)
-
-			List < TimerEventTriggerInstance > lstTimerTaskSearch = SearchTimmerTaskSearch.getResult();
-
-			for (TimerEventTriggerInstance objTimerInstance: lstTimerTaskSearch) {
-				if (objTimerInstance.getEventInstanceName().equals("Timmer pase de lista") ) {
-					Date date = new Date(60)
-					processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
-				}
-			}
 			
 			for(int i = 0; i<3; i++) {
 				errorLog +="5"
 				if(object.asistencia[i].necesita == true) {
-					errorLog +="6"
+					//errorLog +="6"
 					Result resultado2 = new Result();
 					String data = '{ "prueba": [PRUEBA] , "username": "[USERNAME]", "asistencia": [ASISTENCIA],"usuarioPaseLista":"[USUARIOPASELISTA]" }';
 					data = data.replace("[PRUEBA]",object.asistencia[i].prueba.toString()).replace("[USERNAME]", object.asistencia[i].username.toString()).replace("[ASISTENCIA]", object.asistencia[i].asistencia.toString()).replace("[USUARIOPASELISTA]", object.asistencia[i].usuarioPaseLista.toString())
-					errorLog += data;
+					//errorLog += data;
 					resultado2 = new SesionesDAO().insertPaseLista(data,context);
-					errorLog +="Error"+i+":"+resultado2.getError();
+					//errorLog +="Error"+i+":"+resultado2.getError();
 				}
 			}
 			
