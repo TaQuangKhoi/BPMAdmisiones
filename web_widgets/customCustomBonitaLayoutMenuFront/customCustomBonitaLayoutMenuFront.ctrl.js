@@ -144,10 +144,13 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     ctrl.redirectToPage = function(token) {
         var previousToken = ctrl.pageToken;
         var previousPath = window.location.pathname;
-
+        if(token=="autodescripcion"){
+            token=($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
+        }
+        
         ctrl.pageToken = token;
         var urlPath = "";
-        if (previousToken === "autodescripcion" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones") {
+        if (previousToken === "autodescripcion" || previousToken === "autodescripcionV2" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones") {
             previousPath.substring(0, previousPath.length - previousToken.length - 2) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);
         } else {
             previousPath.substring(0, previousPath.length - previousToken.length - 1) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);

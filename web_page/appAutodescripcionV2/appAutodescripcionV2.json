@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1631914428295,
+  "lastUpdate" : 1631919318511,
   "rows" : [
     [
       {
@@ -17048,10 +17048,10 @@
         "    if ($data.lstInformacionEscolarMod[index].escuela === undefined || $data.lstInformacionEscolarMod[index].escuela === null || $data.lstInformacionEscolarMod[index].escuela === \"\") {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if ($data.lstInformacionEscolarMod[index].pais === undefined || $data.lstInformacionEscolarMod[index].pais === null || $data.lstInformacionEscolarMod[index].pais === \"\") {\r",
+        "    } else if (($data.lstInformacionEscolarMod[index].pais === undefined || $data.lstInformacionEscolarMod[index].pais === null || $data.lstInformacionEscolarMod[index].pais === \"\") && $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro') {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if ($data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estado === undefined || $data.lstInformacionEscolarMod[index].estado === null || $data.lstInformacionEscolarMod[index].estado === \"\")) {\r",
+        "    } else if ( $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro' && $data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estado === undefined || $data.lstInformacionEscolarMod[index].estado === null || $data.lstInformacionEscolarMod[index].estado === \"\")) {\r",
         "        resultado = false;\r",
         "        break;\r",
         "    } else if ($data.lstInformacionEscolarMod[index].ciudad === undefined || $data.lstInformacionEscolarMod[index].ciudad === null || $data.lstInformacionEscolarMod[index].ciudad === \"\") {\r",
@@ -17063,7 +17063,7 @@
         "    } else if ($data.lstInformacionEscolarMod[index].anoFin === undefined || $data.lstInformacionEscolarMod[index].anoFin === null || $data.lstInformacionEscolarMod[index].anoFin === \"\") {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if ($data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estadoString === undefined || $data.lstInformacionEscolarMod[index].estadoString === null || $data.lstInformacionEscolarMod[index].estadoString === \"\")) {\r",
+        "    } else if ( $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro' && $data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estadoString === undefined || $data.lstInformacionEscolarMod[index].estadoString === null || $data.lstInformacionEscolarMod[index].estadoString === \"\")) {\r",
         "        resultado = false;\r",
         "        break;\r",
         "    }\r",
