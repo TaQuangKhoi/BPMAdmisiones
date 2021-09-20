@@ -213,6 +213,12 @@ function customSetDataTransferencia($scope, $http) {
         }
     });
 
+    $scope.$watch("properties.catRegistro", function() {
+        if($scope.properties.catRegistro.length>0){
+            $scope.properties.valoresSolicitante.numeroContacto = $scope.properties.catRegistro[0].numeroContacto;
+        }
+    });
+
 
     /*$scope.$watch("properties.catCiudadExamen", function(){
          if($scope.properties.catCiudadExamen !== undefined){

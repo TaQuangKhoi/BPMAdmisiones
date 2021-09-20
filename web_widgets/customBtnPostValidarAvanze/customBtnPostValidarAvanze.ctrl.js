@@ -5,8 +5,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
   var vm = this;
 
     $scope.myFunc = function() {
+         
         if(validar()){
-            doRequestEstatus("GET","../API/extension/AnahuacRestGet?url=getEstatusDelAspirante&p=0&c=9999&username="+$scope.properties.username,"");
+         doRequestEstatus("GET","../API/extension/AnahuacRestGet?url=getEstatusDelAspirante&p=0&c=9999&username="+$scope.properties.username,"");  
         }
     };
     
@@ -40,11 +41,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return $http(req)
             .success(function (data, status) {
-                if(data[0].estatussolicitud === "Autodescripción concluida" ||data[0].estatussolicitud === "Elección de pruebas calendarizado" || data[0].estatussolicitud === "Ya se imprimió su credencial"){
-                    doRequest("POST",$scope.properties.url,"")
-                }else{
-                     swal("¡El no esta en los estatus correspondientes para avanzar!","","info")
-                }
+                doRequest("POST",$scope.properties.url,"")
+                //if(data[0].estatussolicitud === "Autodescripción concluida" ||data[0].estatussolicitud === "Elección de pruebas calendarizado" || data[0].estatussolicitud === "Ya se imprimió su credencial"){
+                    
+                //}else{
+                  //   swal("¡El no esta en los estatus correspondientes para avanzar!","","info")
+                //}
             })
             .error(function (data, status) {
             })

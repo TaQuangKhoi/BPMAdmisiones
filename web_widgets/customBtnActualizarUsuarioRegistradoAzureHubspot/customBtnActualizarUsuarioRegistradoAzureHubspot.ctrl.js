@@ -111,6 +111,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         existecambio = true;
                     }
                 }
+
+                $scope.properties.JSONUsuarioRegistrado.numeroContacto = $scope.properties.dataToSend.numeroContacto == null?'':$scope.properties.dataToSend.numeroContacto; 
                 
                 $scope.properties.JSONUsuarioRegistrado.bachillerato = parseInt($scope.properties.dataToSend.catBachilleratos.persistenceid);
                 $scope.properties.JSONUsuarioRegistrado.nombrebachillerato = $scope.properties.datosPreparatoria.nombreBachillerato;
