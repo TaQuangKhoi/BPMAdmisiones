@@ -934,7 +934,7 @@ class UsuariosDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
-			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
 			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
 //				if(object.estatusSolicitud !=null) {
 				
@@ -1425,6 +1425,15 @@ class UsuariosDAO {
 			
 			consulta+=" WHERE ";
 			con.setAutoCommit(false)
+			
+			if(object.numeroContacto != null ) {
+				errorLog +="actualizar contacto";
+				pstm = con.prepareStatement(Statements.UPDATE_REGISTRO_NUMEROCONTACTO);
+				pstm.setString(1,object.numeroContacto);
+				pstm.setString(2,object.correoelectronico);
+				pstm.executeUpdate();
+			}		
+			
 			errorLog += " consulta = "+Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta)
 			pstm = con.prepareStatement(Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta))
 			pstm.setString(1,object.primernombre);

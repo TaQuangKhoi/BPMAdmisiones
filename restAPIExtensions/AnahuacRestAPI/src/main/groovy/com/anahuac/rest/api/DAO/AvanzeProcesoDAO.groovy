@@ -5,7 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.ResultSetMetaData
 import java.sql.Statement
-
+import java.time.LocalDateTime
 import org.bonitasoft.engine.search.SearchOptions
 import org.bonitasoft.engine.search.SearchOptionsBuilder
 import org.bonitasoft.engine.api.APIClient
@@ -42,10 +42,11 @@ class AvanzeProcesoDAO {
 	public Result postAsistenciaProceso(String jsonData, RestAPIContext context) {
 		Result resultado = new Result()
 		Boolean closeCon = false;
+		Boolean update = false;
 		String errorLog = "";
 		try {
 			//errorLog +=jsonData;
-			//closeCon = validarConexion();
+			//
 			
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -72,7 +73,7 @@ class AvanzeProcesoDAO {
 				
 			}
 			
-			sleep(30000);
+			sleep(15000);
 			
 			SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 			lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
@@ -105,7 +106,7 @@ class AvanzeProcesoDAO {
 	
 				for (TimerEventTriggerInstance objTimerInstance: lstTimerTaskSearch) {
 					if (objTimerInstance.getEventInstanceName().equals("Timmer pase de lista") ) {
-						Date date = new Date(60)
+						Date date = new Date(90)
 						processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
 					}
 				}
@@ -124,6 +125,29 @@ class AvanzeProcesoDAO {
 					//errorLog +="Error"+i+":"+resultado2.getError();
 				}
 			}
+			errorLog +="6"
+			closeCon = validarConexion();
+			errorLog +="7"
+			
+			pstm = con.prepareStatement("select  persistenceid from solicituddeadmision where caseid = ? order by persistenceid DESC limit 1");
+			pstm.setLong(1,Long.parseLong(object.caseid));
+			rs = pstm.executeQuery()
+			errorLog +="8"
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				errorLog +="9"
+				for (int i = 1; i <= columnCount; i++) {
+					errorLog +="10"
+					update = true;
+					con.setAutoCommit(false)
+					pstm = con.prepareStatement("update  solicituddeadmision set estatussolicitud = 'Carga y consulta de resultados'  where persistenceid = ? ");
+					pstm.setLong(1, rs.getLong(i));
+					pstm.executeUpdate();
+				}
+				
+			}
 			
 			resultado.setSuccess(true);
 			resultado.setError(errorLog);
@@ -131,6 +155,9 @@ class AvanzeProcesoDAO {
 			resultado.setSuccess(false)
 			resultado.setError(errorLog);
 			resultado.setError_info(e.getMessage())
+			if(update) {
+				con.rollback();
+			}
 		} finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -176,6 +203,41 @@ class AvanzeProcesoDAO {
 		return resultado
 	}
 	
+	public Result getIsPeriodoActivo(String usuario) {
+		Result resultado = new Result()
+		Boolean closeCon = false;
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT (CAST(cp.fechaFin AS DATE) > CAST(TO_CHAR(NOW(),'YYYY-MM-DD') as DATE) ) as periodoActivo FROM solicitudDeAdmision AS sda INNER JOIN CatPeriodo AS cp on sda.catperiodo_pid = cp.persistenceid where sda.correoelectronico = ? ");
+			pstm.setString(1, usuario);
+			rs = pstm.executeQuery()
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+	
+		return resultado
+	}
 	
 	public Result getFechaPruebasByUsername(String username) {
 		Result resultado = new Result()
@@ -246,6 +308,116 @@ class AvanzeProcesoDAO {
 			}
 		}
 	
+		return resultado
+	}
+	
+	
+	public Result updateTimmerPeriodoVencido( RestAPIContext context) {
+		//Vencimiento periodo
+		Result resultado = new Result()
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
+			//Select para optener usuario
+			closeCon = validarConexion();
+			pstm = con.prepareStatement("SELECT caseid FROM SolicitudDeAdmision ");
+			rs = pstm.executeQuery()
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			
+			Date fechaFin = new Date();
+			fechaFin = Date.parse("yyyy-MM-dd","2121-10-01");
+			
+			Map<String, Serializable> rows2 = new HashMap<String, Serializable>();
+			rows2.put("fechavencimientoperiodo", fechaFin);
+			
+			
+			while (rs.next()) {
+				//Long.parseLong(rs.getString(i))
+				
+				for (int i = 1; i <= columnCount; i++) {
+					
+					SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+					SearchOptions searchOptions = searchBuilder.done();
+					
+					try {
+						//cambio en la variable de fechavencimientoperiodo
+						processAPI.updateProcessDataInstances(Long.parseLong(rs.getString(i)), rows2);
+					}catch(Exception ex) {
+						errorLog+="Caseid:"+Long.parseLong(rs.getString(i))+"Error:"+ex.getMessage();
+					}
+					
+					try {
+						
+						
+						SearchResult < TimerEventTriggerInstance > SearchTimmerTaskSearch = context.getApiClient().getProcessAPI().searchTimerEventTriggerInstances( Long.parseLong(rs.getString(i)),searchOptions)
+						List < TimerEventTriggerInstance > lstTimerTaskSearch = SearchTimmerTaskSearch.getResult();
+						for (TimerEventTriggerInstance objTimerInstance: lstTimerTaskSearch) {
+							if (objTimerInstance.getEventInstanceName().equals("Vencimiento periodo") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}			
+							if (objTimerInstance.getEventInstanceName().equals("Solicitud vencida") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Mod ven.") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Val ven") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Pago ven") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Espera ven") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Carga ven") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Gen ven") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							if (objTimerInstance.getEventInstanceName().equals("Selec cita") ) {
+								Date date = new Date(4123465200000);
+								processAPI.updateExecutionDateOfTimerEventTriggerInstance(objTimerInstance.getId(), date)
+							}
+							
+						}
+					}catch(Exception ex) {
+						errorLog+="Caseid:"+Long.parseLong(rs.getString(i))+"Error:"+ex.getMessage();
+					}
+					
+					
+					
+				}
+				
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog)
+		}catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(errorLog)
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		
 		return resultado
 	}
 	

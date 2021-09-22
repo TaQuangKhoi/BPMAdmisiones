@@ -409,7 +409,7 @@ class HubspotDAO {
 						lstContactoEmergencias.add(columns)
 					}
 					for(Map<String,Object> contactoEmergencias:lstContactoEmergencias) {
-						objHubSpotData.put("nombre_emergencia_bpm", contactoEmergencias.get("nombre"));
+						objHubSpotData.put("nombre_contacto_emergencia_bpm", contactoEmergencias.get("nombre"));
 						objHubSpotData.put("numero_contacto_emergencia_bpm", contactoEmergencias.get("telefonocelular"));
 					}	
 					objHubSpotData.put("genero_bpm",lstSolicitudDeAdmision.get(0).getCatSexo().clave)

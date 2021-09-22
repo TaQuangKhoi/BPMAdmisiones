@@ -473,6 +473,29 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getIsPeriodoActivo":
+				String username=request.getParameter "username"
+				result = new AvanzeProcesoDAO().getIsPeriodoActivo(username)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
+				case "updateTimmerPeriodoVencido":
+					
+					result = new AvanzeProcesoDAO().updateTimmerPeriodoVencido(context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				
+				break;
 				
 				case "getInfoByIdBanner":
 				String idbanner=request.getParameter "idbanner"
