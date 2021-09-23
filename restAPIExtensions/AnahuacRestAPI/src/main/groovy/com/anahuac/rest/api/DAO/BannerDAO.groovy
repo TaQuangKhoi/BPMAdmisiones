@@ -185,6 +185,7 @@ class BannerDAO {
 		JSONObject objJson = null;
 		JSONObject objJsonAddressesData = null;
 		JSONObject objJsonAddressExtended = null;
+		JSONObject objJsoneducationalInstitutionsExtended= null;
 		JSONObject objJsonAddressesDataAddress = null;
 		JSONObject objJsonResource = null;
 		JSONObject objJsonContent = null;
@@ -196,6 +197,7 @@ class BannerDAO {
 
 		JSONArray objJsonAddresses = null;
 		JSONArray lstAddressExtended = null;
+		JSONArray lstEducationalInstitutionsExtended = null;
 		JSONArray lstJson = null;
 
 		JSONParser parser = new JSONParser();
@@ -437,6 +439,11 @@ class BannerDAO {
 												objAddresses.setStateCode(objJsonAddressExtended.get("stateCode").toString().equals("null") ? null : (objJsonAddressExtended.get("stateCode").toString()));
 												objAddresses.setCountyCode(objJsonAddressExtended.get("countyCode").toString().equals("null") ? null : (objJsonAddressExtended.get("countyCode").toString()));
 											}
+											Iterator < JSONObject > iteratoreducationalInstitutionsExtended = lstEducationalInstitutionsExtended.iterator();
+											while(iteratoreducationalInstitutionsExtended.hasNext()) {
+												objJsoneducationalInstitutionsExtended = iteratoreducationalInstitutionsExtended.next();
+												objAddresses.setIdBachillerato(objJsoneducationalInstitutionsExtended.get("id").toString().equals("null") ? null : (objJsoneducationalInstitutionsExtended.get("id").toString()))
+											}
 											lstAddresses.add(objAddresses);
 											
 											
@@ -461,6 +468,7 @@ class BannerDAO {
 						errorLog = errorLog + " | addresses";
 						objJsonPlace = (JSONObject) objJsonContent.get("place");
 						lstAddressExtended = (JSONArray) objJsonContent.get("addressExtended");
+						lstEducationalInstitutionsExtended = (JSONArray) objJsonContent.get("educationalInstitutionsExtended");
 						objJsonCountry = (JSONObject) objJsonPlace.get("country");
 						objJsonRegion = (JSONObject) objJsonCountry.get("region");
 
@@ -489,6 +497,7 @@ class BannerDAO {
 						}
 
 						Iterator < JSONObject > iteratorAddressExtended = lstAddressExtended.iterator();
+						
 						while (iteratorAddressExtended.hasNext()) {
 							objJsonAddressExtended = iteratorAddressExtended.next();
 							objAddresses.setStreetLine1(objJsonAddressExtended.get("streetLine1").toString().equals("null") ? null : (objJsonAddressExtended.get("streetLine1").toString()));
@@ -497,6 +506,11 @@ class BannerDAO {
 							objAddresses.setNationCode(objJsonAddressExtended.get("nationCode").toString().equals("null") ? null : (objJsonAddressExtended.get("nationCode").toString()));
 							objAddresses.setStateCode(objJsonAddressExtended.get("stateCode").toString().equals("null") ? null : (objJsonAddressExtended.get("stateCode").toString()));
 							objAddresses.setCountyCode(objJsonAddressExtended.get("countyCode").toString().equals("null") ? null : (objJsonAddressExtended.get("countyCode").toString()));
+						}
+						Iterator < JSONObject > iteratoreducationalInstitutionsExtended = lstEducationalInstitutionsExtended.iterator();
+						while(iteratoreducationalInstitutionsExtended.hasNext()) {
+							objJsoneducationalInstitutionsExtended = iteratoreducationalInstitutionsExtended.next();
+							objAddresses.setIdBachillerato(objJsoneducationalInstitutionsExtended.get("id").toString().equals("null") ? null : (objJsoneducationalInstitutionsExtended.get("id").toString()))
 						}
 						lstAddresses.add(objAddresses);
 					break;
@@ -617,10 +631,12 @@ class BannerDAO {
 								
 								isStreetLineOk = (objRow.getStreetLine1() != null && objRow.getStreetLine3() != null);
 								errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
-								
+								errorLog = errorLog + " | isStateCodeOk: " + (isStateCodeOk);
+								errorLog = errorLog + " | isStreetLineOk: " + (isStreetLineOk);
 								errorLog = errorLog + " | getStreetLine1: " + objRow.getStreetLine1()
 								errorLog = errorLog + " | getStreetLine3: " + objRow.getStreetLine3()
 								isMexicoOk = (isNationCodeOk && isStateCodeOk && isStreetLineOk);
+								errorLog = errorLog + " | isMexicoOk: " + (isMexicoOk);
 							} else {
 								if (objRow.getPais().equals("Estados Unidos de América")) {
 									strNationCode = objRow.getNationCode() == null ? "" : objRow.getNationCode();
@@ -690,6 +706,7 @@ class BannerDAO {
 									errorLog = errorLog + " | stateCode: " + objRow.getStateCode();
 									errorLog = errorLog + " | countyCode: " + objRow.getCountyCode();
 									errorLog = errorLog + " | typeInd: " + row.getTypeInd();
+									errorLog = errorLog + " | isEliminado: " + !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
 									errorLog = errorLog + " | CON H ---------------------------------------------------------";
 									
 									/*CONSTRUCCION DE CONTRATO=====================================================================*/
@@ -1169,6 +1186,10 @@ class BannerDAO {
 				}
 
 				lstCatBachilleratos = catBachilleratosDAO.findByIdDireccion(objLstAddresses.getIdDireccion(), 0, 100);
+				if(lstCatBachilleratos.size()==0) {
+					errorLog = errorLog + " |lstCatBachilleratos.size()=0, IDBACHILLERATO de busqueda " + objLstAddresses.getIdBachillerato();
+					lstCatBachilleratos = catBachilleratosDAO.findById(objLstAddresses.getIdBachillerato(), 0, 100);
+				}
 				for (CatBachilleratos objRow: lstCatBachilleratos) {
 					//if (!objRow.isIsEliminado()) {
 
