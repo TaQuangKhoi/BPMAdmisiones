@@ -1757,6 +1757,78 @@ class HubspotDAO {
 	  
 	  return resultado;
   }
+  public Result createOrUpdateUsuarioRegistrado(String jsonData) {
+	  Result resultado = new Result();
+	  Result resultadoApiKey = new Result();
+	  
+	  List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+	  List<SolicitudDeAdmision> lstSolicitudDeAdmision = new ArrayList<SolicitudDeAdmision>();
+	  List<String> lstValueProperties = new ArrayList<String>();
+	  
+	  Map<String, String> objHubSpotData = new HashMap<String, String>();
+	  
+	  String strError = "";
+	  String nombreCompleto = "";
+	  String catLugarExamenDescripcion = "";
+	  String lugarExamen = "";
+	  String estadoExamen = "";
+	  String ciudadExamen ="";
+	  String apikeyHubspot ="";
+	  
+	  Date fecha = new Date();
+	  
+	  DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	  try {
+		  def jsonSlurper = new JsonSlurper();
+		  def object = jsonSlurper.parseText(jsonData);
+		  
+		  assert object instanceof Map;
+		  
+		  resultadoApiKey = getApikeyHubspot(object.catCampus.clave);
+		  apikeyHubspot = (String) resultadoApiKey.getData().get(0);
+		  
+		  objHubSpotData.put("firstname", object.primernombre + (object.segundonombre.trim()=="")?"":object.segundonombre.trim());
+		  objHubSpotData.put("lastname", object.apellidopaterno + (object.apellidomaterno.trim()=="")?"":object.apellidomaterno.trim());
+		  objHubSpotData.put("campus_vpd_bpm", object.catCampus.clave);
+		  objHubSpotData.put("email", object.correoelectronico);
+		  objHubSpotData.put("campus_admision_bpm",object.catCampusEstudio.clave);
+		  objHubSpotData.put("carrera",object.catGestionEscolar.clave);
+		  objHubSpotData.put("periodo_de_ingreso_bpm",object.catPeriodo.clave);
+		  if(object.propedeutico!=null) {
+			  objHubSpotData.put("periodo_propedeutico_bpm",object.propedeutico);
+		  }
+		  objHubSpotData.put("genero_bpm",object.catSexo.clave);
+		  objHubSpotData.put("fecha_nacimiento_bpm",object.fechanacimiento);
+		  objHubSpotData.put("promedio_bpm",object.promedio);
+		  if (object.catBachilleratos.clave.equals("otro")) {
+			  objHubSpotData.put("preparatoria_bpm", object.nombrebachillerato);
+		  } else {
+			  objHubSpotData.put("preparatoria_bpm", object.catBachilleratos.descripcion);
+		  }
+		  objHubSpotData.put("residencia_bpm",object.catResidencia.clave);
+		  objHubSpotData.put("tipo_de_alumno_bpm",object.catTipoAlumno.clave);
+		  objHubSpotData.put("tipo_de_admision_bpm",object.catTipoAdmision.clave);
+		  objHubSpotData.put("lugar_de_examen_bpm",object.catLugarExamen.descripcion);
+		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento);
+		  objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
+		  
+		  
+		  resultado = createOrUpdateHubspot(object.correoelectronico, apikeyHubspot, objHubSpotData);
+
+			  
+		  
+		  
+		  resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+		  //resultado.setSuccess(true);
+	  } catch (Exception e) {
+		  LOGGER.error "e: "+e.getMessage();
+		  resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
+		  resultado.setSuccess(false);
+		  resultado.setError(e.getMessage());
+		  e.printStackTrace();
+	  }
+	  return resultado
+  }
   
 }
 

@@ -845,7 +845,23 @@ class UsuariosDAO {
 					pstm.setLong(6, new Long(object.caseId))
 					pstm.setLong(7, new Long(object.caseId))
 					pstm.execute()
+					
+					new DBConnect().closeObj(con, stm, rs, pstm)
+					
+					closeCon = validarConexion();
+					
+					pstm = con.prepareStatement("SELECT  estatussolicitud FROM solicituddeadmision where caseid=?")
+					pstm.setString(1, object.caseId.toString())
+					rs= pstm.executeQuery()
+					if(rs.next()) {
+						
+						pstm = con.prepareStatement("UPDATE solicituddeadmision set estatussolicitud=? where caseid=?;")
+						pstm.setString(1, rs.getString("estatussolicitud").split(":")[1].trim())
+						pstm.setString(2, object.caseId.toString())
+						pstm.execute()
+					}
 					resultado.setSuccess(true)
+					
 				}else {
 					resultado.setError(" No tiene tareas abortadas")
 					resultado.setSuccess(true)

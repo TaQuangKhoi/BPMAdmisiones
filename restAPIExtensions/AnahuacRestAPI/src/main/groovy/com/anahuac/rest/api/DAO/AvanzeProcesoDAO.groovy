@@ -239,6 +239,78 @@ class AvanzeProcesoDAO {
 		return resultado
 	}
 	
+	
+	public Result updatePeriodo(String clave, String tipo, String correo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String tipoCast = "";
+		
+		try {
+			
+			closeCon = validarConexion();
+			
+			
+			if (tipo.equals("Semestral")) {
+				tipoCast = "issemestral";
+			}
+			if (tipo.equals("Cuatrimestral")) {
+				tipoCast = "iscuatrimestral";
+			}
+			if (tipo.equals("Anual")) {
+				tipoCast = "isanual";
+			}
+			
+			String sda_persistenceid= "";
+			
+			pstm = con.prepareStatement("select persistenceid from solicituddeadmision order by persistenceid DESC limit 1");
+			pstm.setString(1, correo);
+			rs = pstm.executeQuery()
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while (rs.next()) {
+				for (int i = 1; i <= columnCount; i++) {
+					sda_persistenceid =  rs.getString(i);
+				}	
+			}
+			
+			
+			String consulta = "SELECT persistenceid FROM catperiodo where clave = ? and iseliminado is false and  activo is true and "+tipoCast+" is true "
+			pstm = con.prepareStatement(consulta);
+			pstm.setString(1, clave);
+			rs = pstm.executeQuery()
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			
+			metaData = rs.getMetaData();
+			columnCount = metaData.getColumnCount();
+			
+			while (rs.next()) {
+
+				for (int i = 1; i <= columnCount; i++) {
+					con.setAutoCommit(false)
+					pstm = con.prepareStatement("update solicituddeadmision set catperiodo_pid = ? where persistenceid = ?");
+					pstm.setLong(1, Long.parseLong(rs.getString(i)) );
+					pstm.setString(2, sda_persistenceid);
+						
+					pstm.executeUpdate();
+					con.commit();
+				}
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+	
+		return resultado
+	}
+	
 	public Result getFechaPruebasByUsername(String username) {
 		Result resultado = new Result()
 		Boolean closeCon = false;
