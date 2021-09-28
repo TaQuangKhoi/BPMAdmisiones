@@ -2,13 +2,24 @@ function loadContextCtrl($scope, $http) {
     $scope.lstArchivedCase = [];
 
     $scope.loadContextTask = function(taskId) {
-        doRequest("GET", "../API/bpm/userTask/"+taskId+"/context", {},
+        //doRequest("GET", "../API/bpm/userTask/"+taskId+"/context", {},
+        let task;
+        doRequest("GET", "../API/bpm/archivedManualTask?p=0&c=10&f=caseId="+$scope.properties.caseId, {},
         function(data, status){//SUCCESS
-            $scope.properties.context = data;
+            task = data;
+            
+            doRequest("GET", `../API/bpm/archivedUserTask/${task[task.length-1].id}/context`, {},
+                function(data, status){//SUCCESS
+                    $scope.properties.context = data;
+                },
+                function(data, status){//ERROR
+                })
         },
         function(data, status){//ERROR
 
-        })
+        });
+        
+        
     }
 
     $scope.loadArchivedCase = function(caseId) {

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcionPsic",
   "name" : "appVerAutodescripcionPsic",
-  "lastUpdate" : 1630453902892,
+  "lastUpdate" : 1632522393821,
   "rows" : [
     [
       {
@@ -621,7 +621,7 @@
     "currentTask" : {
       "type" : "url",
       "value" : [
-        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready"
+        "../API/bpm/archivedManualTask?p=0&c=10&f=caseId={{caseList[0].caseId}}"
       ],
       "exposed" : false
     },
@@ -635,7 +635,7 @@
     "taskId" : {
       "type" : "expression",
       "value" : [
-        " return $data.currentTask[0].id;",
+        " return $data.currentTask[$data.currentTask.length -1].id;",
         "// return $data.newTaskId;"
       ],
       "exposed" : false
@@ -893,10 +893,17 @@
     "returnTaskContext" : {
       "type" : "expression",
       "value" : [
-        "if($data.taskId !== undefined && $data.taskId !== null && $data.taskId !== \"\"){",
+        "/*if($data.taskId !== undefined && $data.taskId !== null && $data.taskId !== \"\"){",
         "    return \"/API/bpm/userTask/\"+ $data.taskId + \"/context\";",
+        "    //return \"../API/bpm/archivedUserTask/{{$data.taskId[$data.taskId.length-1].id}}/context\"",
         "} else if($data.archivedCaseInfo !== undefined){",
-        "    return \"/API/bpm/archivedCase/\" + $data.archivedCaseInfo[0].id + \"/context\";",
+        "    //return \"/API/bpm/archivedUserTask/\" + $data.archivedCaseInfo[0].id + \"/context\";",
+        "    return `../API/bpm/archivedUserTask/${$data.taskId[$data.taskId.length-1].id}/context`",
+        "}",
+        "*/",
+        "if($data.taskId !== undefined && $data.taskId !== null && $data.taskId !== \"\"){",
+        "    return `/API/bpm/archivedUserTask/${$data.taskId}/context`",
+        "",
         "}"
       ],
       "exposed" : false

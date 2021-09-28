@@ -56,7 +56,7 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='ID'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Sesión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                            ng-show="properties.dataToSend.orderby=='SESION'"></i></span>/ <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Puntuación Validada<i class="glyphicon"
+                            ng-show="properties.dataToSend.orderby=='SESION'"></i></span>/ <span style="cursor:pointer" ng-click="setOrderBy('SESION')">PAA Validada<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='SESION'"></i></span></th>
                             
@@ -106,7 +106,7 @@
                          <br>
                          <b>{{row.nombre}}</b>
                          <br>
-                         <b>{{row.lexium != 't'?'Validado':'No validado'}}</b>
+                         <b>{{row.lexium == 't'?'Validado':'No validado'}}</b>
                     </td>
                 
                     <td class="max-size">

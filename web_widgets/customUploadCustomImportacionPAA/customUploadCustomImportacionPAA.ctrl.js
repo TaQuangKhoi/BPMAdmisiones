@@ -156,8 +156,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 }else if(columnas[i] == "Fecha de examen"){
                     if(isNullOrUndefined(data[columnas[i]])){
                         error+=(error.length>0?",":"")+"falta el dato fecha de examen "
-                    }else if(!moment(data[columnas[i]],'DD-MM-YYYY').isValid()){
-                        error+=(error.length>0?",":"")+"la fecha no es valida tiene que ser DD-MM-YYYY"
+                    }else if(!moment(data[columnas[i]],'DD/MM/YYYY').isValid()){
+                        error+=(error.length>0?",":"")+"la fecha no es valida tiene que ser DD/MM/YYYY"
                     }
                 }else if(!valores4.includes(columnas[i]) && checkNumber(data[columnas[i]])){
                     error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que ser un numero y sin decimales`;
@@ -180,7 +180,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             data['Total'] = ""+(parseInt(data.PAAN.toString()) + parseInt(data.PAAV.toString()) + parseInt(data.PARA.toString()) );
             return true;
         }
-        $scope.errores = [ ...$scope.errores,{idBanner:data.IDBANNER,nombre:data.Nombre,Error:"datos en blanco"}]
+        $scope.errores = [ ...$scope.errores,{idBanner:data.IDBANNER,nombre:data.nombre,Error:"datos en blanco"}]
         return false;
     }
     
@@ -233,9 +233,10 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
             else if(info.mismaFecha){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:`El aspirante ya cuenta con una puntuacion anterior en la fecha ${datos[indice]["fechaExamen"]}`}]
             }
-            else if(!info.EstaEnCarga){
-                $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en carga y consulta de resultados"}]
-            }else if(info.AA){
+           // else if(!info.EstaEnCarga){
+               // $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante no se encuentra en carga y consulta de resultados"}]
+            // }
+            else if(info.AA){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada"}]
             }else if(!info.puede){
                 $scope.errores = [ ...$scope.errores,{idBanner:datos[indice].IDBANNER,nombre:datos[indice].Nombre,Error:"El aspirante ya cuenta con una puntuacion anterior"}]

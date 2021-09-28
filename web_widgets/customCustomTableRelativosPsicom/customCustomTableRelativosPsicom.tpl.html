@@ -12,7 +12,7 @@
         <tbody >
             <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                 <td ng-repeat="column in properties.columnsKey track by $index">
-                    {{ $eval(column, row) | uiTranslate }}
+                    {{ ctrl.desconoceSusDatos( $eval(column, row) ) | uiTranslate }}
                     <!-- {{ row | json }}
                     {{ column }} -->
                     <label ng-if="column === 'catParentezco.descripcion'" ng-show="row.isTutor === true && row.vive === null">(Tutor)</label>
@@ -25,7 +25,7 @@
                     </div>
                 </td> -->
                 <td>
-                    <input type="checkbox" ng-model="row.jubilado"> 
+                    <input type="checkbox" ng-model="row.jubilado" ng-click="isJubilado(row.persistenceId)"> 
                 </td>
             </tr>
         </tbody>

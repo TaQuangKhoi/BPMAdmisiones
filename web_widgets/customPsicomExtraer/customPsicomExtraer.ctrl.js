@@ -22,7 +22,7 @@ function ($scope, $http) {
     $scope.$watch('properties.idbanner', function(value) {
     if (angular.isDefined(value) && value !== null) {
          vm.busy = true;
-    var dataToSend=[{"idbanner":value}]     
+    var dataToSend={"idbanner":value}
     var req = {
       method: "POST",
       url: "/bonita/API/extension/AnahuacRest?url=postGetIdSesionByIdBanner&p=0&c=9999",

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1630100453408,
+  "lastUpdate" : 1632852738064,
   "rows" : [
     [
       {
@@ -763,7 +763,7 @@
                                         },
                                         "content" : {
                                           "type" : "expression",
-                                          "value" : "dataToSend2.testPsicomRelativosInput"
+                                          "value" : "testPsicomRelativosInput"
                                         },
                                         "columnsKey" : {
                                           "type" : "constant",
@@ -1074,7 +1074,7 @@
                                 "id" : "frgPrepaPsicom",
                                 "binding" : {
                                   "preparatoria" : "solicitudDeAdmisionBDM.catBachilleratos.descripcion",
-                                  "codigo" : "solicitudDeAdmisionBDM.catBachilleratos.id",
+                                  "codigo" : "solicitudDeAdmisionBDM.catBachilleratos.clave",
                                   "pga" : "solicitudDeAdmisionBDM.promedioGeneral",
                                   "pais" : "solicitudDeAdmisionBDM.catBachilleratos.pais",
                                   "estado" : "solicitudDeAdmisionBDM.catBachilleratos.estado",
@@ -1881,9 +1881,9 @@
                               "value" : "filtroToSend"
                             }
                           },
-                          "reference" : "c66a0b45-9cc4-40fc-a6a9-eaf6e4cdb3a5",
+                          "reference" : "15079cad-f754-4736-b72d-94bfdefa4995",
                           "hasValidationError" : false,
-                          "id" : "customBtnEnviarComentarioAPP"
+                          "id" : "customBtnEnviarComentarioByUserAPP"
                         }
                       ],
                       [
@@ -1962,7 +1962,7 @@
                               "value" : [
                                 "comentario",
                                 "usuario",
-                                "fechacreacion| date:'dd-MM-yyyy HH:mm:ss'",
+                                "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'",
                                 "modulo"
                               ]
                             },
@@ -7174,7 +7174,7 @@
                         },
                         "observaciones" : {
                           "type" : "variable",
-                          "value" : "dataToSend2.testPsicomObservacionesInput"
+                          "value" : "testPsicom.testPsicomObservacionesInput"
                         }
                       },
                       "reference" : "6e1c4ab8-5c0c-4b18-9187-626851b69b34",
@@ -8126,8 +8126,8 @@
         "        \"quienIntegro\": $data.testPsicom.quienIntegro,\r",
         "        \"hasParticipadoActividadesAyuda\": $data.testPsicom.hasParticipadoActividadesAyuda,\r",
         "        \"participacionActividadesVoluntaria\": $data.testPsicom.participacionActividadesVoluntaria,\r",
-        "        \"fuentesInfluyeronDesicion\": $data.testPsicom.fuentesInfluyeronDesicion,\r",
-        "        \"personasInfluyeronDesicion\": $data.testPsicom.personasInfluyeronDesicion,\r",
+        "        \"fuentesInfluyeronDesicion\": $data.autodescripcionV2.fuentesInfluyeronDesicion,\r",
+        "        \"personasInfluyeronDesicion\": $data.autodescripcionV2.personasInfluyeronDesicion,\r",
         "        \"problemasSaludAtencionContinua\": $data.testPsicom.problemasSaludAtencionContinua,\r",
         "        \"tipoDiscapacidad\": $data.testPsicom.tipoDiscapacidad,\r",
         "        \"hasRecibidoAlgunaTerapia\": $data.testPsicom.hasRecibidoAlgunaTerapia,\r",
@@ -8137,7 +8137,7 @@
         "    },\r",
         "    \"testPsicomObservacionesInput\": $data.testPsicom.testPsicomObservacionesInput,\r",
         "    \"testPsicomRelativosInput\":  $data.testPsicom.testPsicomRelativosInput,\r",
-        "    \"testPsicomRasgosInput\":  $data.testPsicom.testPsicomRasgosInput\r",
+        "    \"testPsicomRasgosInput\":  $data.rasgos\r",
         "};"
       ],
       "exposed" : false
@@ -8166,6 +8166,22 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getResultadoINVP&p=0&c=9999&idbanner={{detalleSolicitudBDM.idBanner}}&sesionid={{sesionid}}"
+      ],
+      "exposed" : false
+    },
+    "testPsicomRelativosInput" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "cargarRelativos" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.testPsicomRelativosInput.length > $data.dataToSend2.testPsicomRelativosInput.length && $data.testPsicomRelativosInput.length === 3){",
+        "    $data.dataToSend2.testPsicomRelativosInput = angular.copy($data.testPsicomRelativosInput)",
+        "}"
       ],
       "exposed" : false
     }

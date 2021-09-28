@@ -138,12 +138,12 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_xXuU0CO3Eeuus_kbSTzppw" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> catNotificacionesList = new ArrayList&lt;CatNotificaciones>();&#xD;&#xA;&#xD;&#xA;for(Long persistenceId : lstCatNotificacionesInput){&#xD;&#xA;&#x9;if(persistenceId != null){&#xD;&#xA;&#x9;&#x9;CatNotificaciones objCatNotificaciones = catNotificacionesDAO.findByPersistenceId(persistenceId);&#xD;&#xA;&#x9;&#x9;objCatNotificaciones.caseId = processInstanceId;&#xD;&#xA;&#x9;&#x9;catNotificacionesList.add(objCatNotificaciones);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catNotificacionesList;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_QAljsHFYEeuFn-MBT6psmw" name="lstCatNotificacionesInput" type="LONG" multiple="true">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_QAljsXFYEeuFn-MBT6psmw"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> catNotificacionesList = new ArrayList&lt;CatNotificaciones>();&#xD;&#xA;&#xD;&#xA;for(Long persistenceId : lstCatNotificacionesInput){&#xD;&#xA;&#x9;if(persistenceId != null){&#xD;&#xA;&#x9;&#x9;CatNotificaciones objCatNotificaciones = catNotificacionesDAO.findByPersistenceId(persistenceId);&#xD;&#xA;&#x9;&#x9;objCatNotificaciones.caseId = processInstanceId.toString();&#xD;&#xA;&#x9;&#x9;catNotificacionesList.add(objCatNotificaciones);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catNotificacionesList;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_3oN-EB1jEey0C6zuS2SJ1g" name="lstCatNotificacionesInput" type="LONG" multiple="true">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_3oN-ER1jEey0C6zuS2SJ1g"/>
           </referencedElements>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljsnFYEeuFn-MBT6psmw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljs3FYEeuFn-MBT6psmw" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3oOlIB1jEey0C6zuS2SJ1g" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3oOlIR1jEey0C6zuS2SJ1g" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_wckGgyB9EeutYKHMa0KIkQ" type="NONE">

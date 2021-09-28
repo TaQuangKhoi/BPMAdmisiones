@@ -97,10 +97,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else if (info.mismaFecha) {
                 $scope.properties.lstErrores = [...$scope.properties.lstErrores, { idBanner: datos[indice]['IDBANNER'], nombre: datos[indice]['Nombre'], Error: `El aspirante ya tiene puntuación en la fecha ${datos[indice]['fechaExamen']}` }]
                 $scope.enviar = false;
-            } else if (!info.EstaEnCarga) {
-                $scope.properties.lstErrores = [...$scope.properties.lstErrores, { idBanner: datos[indice]['IDBANNER'], nombre: datos[indice]['Nombre'], Error: "El aspirante no se encuentra en carga y consulta de resultados" }]
-                $scope.enviar = false;
-            } else if (info.AA) {
+            } //else if (!info.EstaEnCarga) {
+                //$scope.properties.lstErrores = [...$scope.properties.lstErrores, { idBanner: datos[indice]['IDBANNER'], nombre: datos[indice]['Nombre'], Error: "El aspirante no se encuentra en carga y consulta de resultados" }]
+               // $scope.enviar = false;
+            //} 
+            else if (info.AA) {
                 $scope.properties.lstErrores = [...$scope.properties.lstErrores, { idBanner: datos[indice]['IDBANNER'], nombre: datos[indice]['Nombre'], Error: "Este aspirante tendra que ser cargado manual ya que cuenta con una puntuacion registrada" }]
                 $scope.enviar = false;
             } else if (!info.puede) {
