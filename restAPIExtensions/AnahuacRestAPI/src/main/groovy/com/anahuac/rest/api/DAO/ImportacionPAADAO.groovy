@@ -248,7 +248,7 @@ class ImportacionPAADAO {
 					 columns.put("idBanner", idBanner[j] );
 					 columns.put("Registrado",false);
 					 columns.put("Existe",false);
-					 columns.put("EstaEnCarga",false);
+					 //columns.put("EstaEnCarga",false);
 					 columns.put("mismaFecha",false);
 					 columns.put("AA",false);
 					 columns.put("puede",false);
@@ -256,7 +256,7 @@ class ImportacionPAADAO {
 					 if(rs.next()) {
 						 columns.put("Registrado",isNullOrEmpty(rs.getString("idbanner")))
 						 columns.put("Existe",isNullOrEmpty(rs.getString("dsbanner")))
-						 columns.put("EstaEnCarga",rs.getBoolean("CC"))
+						 //columns.put("EstaEnCarga",rs.getBoolean("CC"))
 						 columns.put("mismaFecha",(rs.getInt("mismafecha") == 1?true:false))
 						 columns.put("AA",(rs.getBoolean("AA")))
 						 columns.put("puede",(rs.getBoolean("puede")))
@@ -792,10 +792,11 @@ class ImportacionPAADAO {
 			
 			closeCon = validarConexion();
 			
-			
-			pstm = con.prepareStatement(persistenceid.equals("")?Statements.GET_PAA_BY_IDBANNER_SIN_PERSISTENCE:Statements.GET_PAA_BY_IDBANNER);
+			errorlog+=(persistenceid.equals("") || persistenceid.equals(null) )  ?Statements.GET_PAA_BY_IDBANNER_SIN_PERSISTENCE:Statements.GET_PAA_BY_IDBANNER
+			pstm = con.prepareStatement( (persistenceid.equals("") || persistenceid.equals(null) )  ?Statements.GET_PAA_BY_IDBANNER_SIN_PERSISTENCE:Statements.GET_PAA_BY_IDBANNER);
 			pstm.setString(1, idBanner)
-			if(!persistenceid.equals("")) {
+			if(!(persistenceid.equals("") || persistenceid.equals(null) )) {
+				errorlog+="el valor es:"+persistenceid+" validacion"
 				pstm.setLong(2, Long.parseLong(persistenceid))
 			}
 			rs= pstm.executeQuery();

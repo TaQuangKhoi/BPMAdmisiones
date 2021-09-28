@@ -1670,6 +1670,12 @@ class UsuariosDAO {
 					}
 				}
 			}
+			HubspotDAO hDAO = new HubspotDAO()
+			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
+			
+			if(!hResultado.success) {
+				throw new Exception(hResultado.error + " | " + hResultado.error_info)
+			}
 			
 			con.commit();
 			resultado.setSuccess(true)

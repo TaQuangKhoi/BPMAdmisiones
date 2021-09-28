@@ -6012,7 +6012,7 @@ class SesionesDAO {
 			}
 			switch(object.orderby) {		
 				case "ID":
-				orderby+="pruebas_id";
+				orderby+="s.persistenceid";
 				break;
 				case "NOMBRE":
 				orderby+="P.nombre";
@@ -6102,6 +6102,7 @@ class SesionesDAO {
 		}
 		return resultado
 	}
+	
 	public Result getSesionesINVPTablaProcesadas(String jsonData, RestAPIContext context) {
 		Result resultado = new Result()
 		Boolean closeCon = false

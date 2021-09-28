@@ -784,12 +784,12 @@ class PsicometricoDAO {
 				columnaUpdate = columnaUpdate + "tipoDiscapacidad = '"+testPsicomInput.tipoDiscapacidad+"', ";
 			}
 			
-			if(testPsicomInput.fuentesInfluyeronDesicion != null && testPsicomInput.fuentesInfluyeronDesicion != ""){
+			/*if(testPsicomInput.fuentesInfluyeronDesicion != null && testPsicomInput.fuentesInfluyeronDesicion != ""){
 				columnaUpdate = columnaUpdate + "fuentesInfluyeronDesicion = '"+testPsicomInput.fuentesInfluyeronDesicion+"', ";
-			}
-			if(testPsicomInput.personasInfluyeronDesicion != null && testPsicomInput.personasInfluyeronDesicion != ""){
+			}*/
+			/*if(testPsicomInput.personasInfluyeronDesicion != null && testPsicomInput.personasInfluyeronDesicion != ""){
 				columnaUpdate = columnaUpdate + "personasInfluyeronDesicion = '"+testPsicomInput.personasInfluyeronDesicion+"', ";
-			}
+			}*/
 			if(testPsicomInput.problemasSaludAtencionContinua != null && testPsicomInput.problemasSaludAtencionContinua != ""){
 				columnaUpdate = columnaUpdate + "problemasSaludAtencionContinua = '"+testPsicomInput.problemasSaludAtencionContinua+"', ";
 			}
@@ -917,6 +917,7 @@ class PsicometricoDAO {
 				throw new Exception("Error en el update :: " + resultConsultaUpdate.getError() + " || " + resultConsultaUpdate.getError_info());
 			} else {
 				consultaUpdate = resultConsultaUpdate.getData().get(0);
+				
 			}
 			
 			closeCon = validarConexion();
@@ -926,6 +927,7 @@ class PsicometricoDAO {
 			pstm.setString(1, caseId);
 			rs = pstm.executeQuery();
 			if(rs.next()) {
+				strError+=consultaUpdate;
 				pstm = con.prepareStatement(consultaUpdate);
 				pstm.setString(1, caseId);
 				pstm.executeUpdate();
