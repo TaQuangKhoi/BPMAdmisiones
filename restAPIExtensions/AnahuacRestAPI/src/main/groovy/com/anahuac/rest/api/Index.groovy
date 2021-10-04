@@ -1245,6 +1245,8 @@ class Index implements RestApiController {
 					row.setAzureAccountName(object.azureAccountName)
 					row.setAzureAccountKey(object.azureAccountKey)
 					row.setAzureDefaultEndpointsProtocol(object.azureDefaultEndpointsProtocol)
+					row.setBannerToken(object.bannerToken)
+					row.setAdminPassword(object.adminPassword)
 					
 					result = new CatalogosDAO().insertAzureConfig(row)
 					if (result.isSuccess()) {

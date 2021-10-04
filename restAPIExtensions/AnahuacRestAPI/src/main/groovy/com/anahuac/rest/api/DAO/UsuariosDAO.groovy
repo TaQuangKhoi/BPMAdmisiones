@@ -208,9 +208,9 @@ class UsuariosDAO {
 			error_log = error_log + " | resultado = dao.sendEmailPlantilla(str.correo,";
 			lstResultado.add(plantilla.replace("\\", ""))
 			error_log = error_log + " | lstResultado.add(plantilla.replace(";
-			//Result resultado2 = new Result();
-			//resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
-			//error_log = error_log + resultado2.getError();
+			Result resultado2 = new Result();
+			resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
+			error_log = error_log + resultado2.getError();
 			resultado.setData(lstResultado);
 			error_log = error_log + " | resultado.setData(lstResultado);";
 			resultado.setSuccess(true);
@@ -1479,7 +1479,7 @@ class UsuariosDAO {
 			}else{
 				pstm.setLong(11, object.sexo);
 			}
-			pstm.setString(12, object.fechanacimiento);
+			pstm.setString(12, object.fechanacimiento?.toString().replace("t","T"));
 			/*if(object.estado == null){
 				pstm.setNull(13, java.sql.Types.BIGINT);
 			}else{
@@ -1746,6 +1746,10 @@ class UsuariosDAO {
 			pstm.setString(1,object.correoNuevo);
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_BITACORACORREO)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute();
 			con.commit();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
@@ -3146,7 +3150,7 @@ class UsuariosDAO {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
 			
-			if (lstGrupo.size() > 0) {
+			/*if (lstGrupo.size() > 0) {
 				campus += " AND ("
 			}
 			for (Integer i = 0; i < lstGrupo.size(); i++) {
@@ -3157,7 +3161,7 @@ class UsuariosDAO {
 				} else {
 					campus += " OR "
 				}
-			}
+			}*/
 
 			errorlog += "campus" + campus;
 			errorlog += "object.lstFiltro" + object.lstFiltro

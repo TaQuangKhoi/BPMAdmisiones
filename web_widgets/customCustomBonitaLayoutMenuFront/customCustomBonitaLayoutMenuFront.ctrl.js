@@ -146,6 +146,19 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         var previousPath = window.location.pathname;
         if(token=="autodescripcion"){
             token=($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
+            if(token=="autodescripcionV2"){
+                var taskName = $scope.properties.currentTaskName;
+                if(taskName === "Seleccionar cita" ||
+                taskName === "Generar credencial" ||
+                taskName === "Pase de lista Prueba 1" ||
+                taskName === "Pase de lista Prueba 2" ||
+                taskName === "Pase de lista Prueba 3" ||
+                taskName === "Carga y consulta de resultados" ||
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"){
+                    token="autodescripcionV2vista";
+                }
+            }
         }
         
         ctrl.pageToken = token;

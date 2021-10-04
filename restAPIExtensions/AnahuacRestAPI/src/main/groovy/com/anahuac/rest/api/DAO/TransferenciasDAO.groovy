@@ -1087,7 +1087,7 @@ class TransferenciasDAO {
 			}
 			
 			if(object.isProceso == null) {
-				con.setAutoCommit(false)
+				/*con.setAutoCommit(false)
 				
 				List<Long> pruebas = new ArrayList<Long>()
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
@@ -1115,7 +1115,7 @@ class TransferenciasDAO {
 					}
 				}
 				
-				con.commit();
+				con.commit();*/
 			}else {
 				Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(usuarioReagendar, context)
 				errorLog += " el error en el eliminar es : " + resultadoSesion.getError();

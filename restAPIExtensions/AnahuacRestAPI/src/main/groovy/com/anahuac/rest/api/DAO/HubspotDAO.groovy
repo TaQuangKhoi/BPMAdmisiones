@@ -1778,6 +1778,10 @@ class HubspotDAO {
 	  Date fecha = new Date();
 	  
 	  DateFormat dfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	  DateFormat dfSalidaFN = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+      Date fechaCreacion = new Date();
+      DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
+	  
 	  try {
 		  def jsonSlurper = new JsonSlurper();
 		  def object = jsonSlurper.parseText(jsonData);
@@ -1787,18 +1791,23 @@ class HubspotDAO {
 		  resultadoApiKey = getApikeyHubspot(object.catCampus.clave);
 		  apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 		  
-		  objHubSpotData.put("firstname", object.primernombre + (object.segundonombre.trim()=="")?"":object.segundonombre.trim());
-		  objHubSpotData.put("lastname", object.apellidopaterno + (object.apellidomaterno.trim()=="")?"":object.apellidomaterno.trim());
+		  objHubSpotData.put("firstname", object.primernombre+(object.segundonombre?.toString().trim()==""?"":" "+object.segundonombre?.toString().trim()) );
+		  objHubSpotData.put("lastname", object.apellidopaterno + (object.apellidomaterno?.toString().trim()==""?"":" "+object.apellidomaterno?.toString().trim()) );
 		  objHubSpotData.put("campus_vpd_bpm", object.catCampus.clave);
 		  objHubSpotData.put("email", object.correoelectronico);
 		  objHubSpotData.put("campus_admision_bpm",object.catCampusEstudio.clave);
 		  objHubSpotData.put("carrera",object.catGestionEscolar.clave);
 		  objHubSpotData.put("periodo_de_ingreso_bpm",object.catPeriodo.clave);
-		  if(object.propedeutico!=null) {
-			  objHubSpotData.put("periodo_propedeutico_bpm",object.propedeutico);
+		  if(object.catPropedeutico !=null && object.propedeutico != null) {
+			  objHubSpotData.put("periodo_propedeutico_bpm",object.catPropedeutico.clave);
+		  }else {
+			  objHubSpotData.put("periodo_propedeutico_bpm","");
 		  }
 		  objHubSpotData.put("genero_bpm",object.catSexo.clave);
-		  objHubSpotData.put("fecha_nacimiento_bpm",object.fechanacimiento);
+		  // formateo de la fecha
+		  fechaCreacion = dfSalidaFN.parse(object.fechanacimiento.toString().replace("t","T"))
+		  
+		  objHubSpotData.put("fecha_nacimiento_bpm",dformat.format(fechaCreacion));
 		  objHubSpotData.put("promedio_bpm",object.promedio);
 		  if (object.catBachilleratos.clave.equals("otro")) {
 			  objHubSpotData.put("preparatoria_bpm", object.nombrebachillerato);
@@ -1811,15 +1820,13 @@ class HubspotDAO {
 		  objHubSpotData.put("lugar_de_examen_bpm",object.catLugarExamen.descripcion);
 		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento);
 		  objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
+		  objHubSpotData.put("email", object.correoelectronico);
 		  
 		  
 		  resultado = createOrUpdateHubspot(object.correoelectronico, apikeyHubspot, objHubSpotData);
 
-			  
-		  
-		  
 		  resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));
-		  //resultado.setSuccess(true);
+		  resultado.setSuccess(true);
 	  } catch (Exception e) {
 		  LOGGER.error "e: "+e.getMessage();
 		  resultado.setError_info(strError+" | "+(resultado.getError_info() == null ? "" : resultado.getError_info()));

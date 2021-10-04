@@ -87,6 +87,15 @@ class CatalogosDAO {
         }
         return retorno
     }
+	public Boolean validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+		return retorno;
+	}
+
     /************************DANIEL CERVANTES****************************/
     
     public Result getCatCampus(String jsonData, RestAPIContext context) {
@@ -1714,6 +1723,9 @@ class CatalogosDAO {
                     case "BannerToken":
                         ac.setBannerToken(rs.getString("valor"))
                         break;
+					case "filterPassword":
+						ac.setAdminPassword(rs.getString("valor"))
+						break;
                 }
             }
             data.add(ac)
@@ -1806,7 +1818,31 @@ class CatalogosDAO {
                 pstm.setString(3, "Token para hacer peticiones a banner")
                 pstm.executeUpdate()
             }
-
+			
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "filterPassword")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				pstm = con.prepareStatement(AzureConfig.UPDATE_CONFIGURACIONES)
+				pstm.setString(1, ac.getAdminPassword())
+				pstm.setString(2, "filterPassword")
+				pstm.executeUpdate()
+			} else {
+				pstm = con.prepareStatement(AzureConfig.INSERT_CONFIGURACIONES)
+				pstm.setString(1, "filterPassword")
+				pstm.setString(2, ac.getAdminPassword())
+				pstm.setString(3, "Contraseña que se utiliza para poder iniciar sesión y ejecutar una tarea desde el filter llamado por el webhook de conekta")
+				pstm.executeUpdate()
+			}
+			
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+			closeCon=validarConexionBonita()
+			pstm = con.prepareStatement("UPDATE proc_parameter set value =? where name='password'")
+			pstm.setString(1,ac.getAdminPassword())
+			pstm.executeUpdate()
+			
 
             data.add(ac)
             result.setSuccess(true);
