@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1630966776078,
+  "lastUpdate" : 1633387078638,
   "rows" : [
     [
       {
@@ -19417,6 +19417,34 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : "taskContext"
+                }
+              },
+              "reference" : "86a15dfd-3a33-4b2a-a0d1-b34425e326dd",
+              "hasValidationError" : false,
+              "id" : "customLoadContextForce"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -24772,6 +24800,19 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "loadData" : {
+      "type" : "expression",
+      "value" : [
+        "try{",
+        "  $data.formInput.catReligion=$data.objectSolicitud.catReligion; ",
+        "}catch(e){",
+        "    console.log(\"Aun no carga religión\")",
+        "}",
+        "",
+        "return true;"
       ],
       "exposed" : false
     }
