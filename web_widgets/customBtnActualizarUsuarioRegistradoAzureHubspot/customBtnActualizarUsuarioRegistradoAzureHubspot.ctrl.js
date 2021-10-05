@@ -379,8 +379,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 obtenerDocumentos(caseId);
             }
             $scope.properties.dataToSend.caseid=0;
+            
             //getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
-            if(!updateFile){
+            if(updateFile){
                 window.location.href = window.location.href
             }
             

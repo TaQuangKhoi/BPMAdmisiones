@@ -97,22 +97,105 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
     }*/
 
     $scope.asignarTarea = function(rowData) {
+        var page = "verSolicitudAdmisionADV2";
+        doRequest2("GET", "/API/bpm/archivedHumanTask?p=0&c=10&f=caseId=" + rowData.caseid + "&f=state=aborted&d=processId", null, null, function(dataAborted) {
+            if (dataAborted.length > 0) {
+                doRequest2("POST", "/bonita/API/extension/AnahuacRest?url=recoveryData&p=0&c=100", null, { "caseId": parseInt(rowData.caseid), "processDefinitionId": dataAborted[0].processId.id }, function(recoveryData) {
+                    var req = {
+                        method: "GET",
+                        url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                    };
 
-        var req = {
-            method: "GET",
-            url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
-        };
+                    return $http(req)
+                        .success(function(data, status) {
 
-        return $http(req)
-            .success(function(data, status) {
-                var url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=[TASKID]&displayConfirmation=false";
-                url = url.replace("[TASKID]", data[0].id);
-                window.open(url, '_blank');
-            })
-            .error(function(data, status) {
-                console.error(data);
-            })
-            .finally(function() {});
+                            blockUI.start();
+                            var req2 = {
+                                method: "GET",
+                                url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                            };
+
+                            $http(req2)
+                                .success(function(data2, status) {
+
+                                    ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+
+                                    var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                    if (data2.length > 0) {
+                                        if (parseFloat(data2[0].processId.version) < 1.51) {
+                                            page = "verSolicitudAdmision";
+                                        }
+                                        url = url.replace("[PAGE]", page);
+                                        url = url.replace("[TASKID]", data2[0].id);
+                                    } else {
+                                        url = url.replace("[TASKID]", "");
+                                    }
+                                    url = url.replace("[CASEID]", rowData.caseid);
+                                    //window.top.location.href = url;
+                                    window.open(url, '_blank');
+                                })
+                                .error(function(data, status) {
+                                    notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                                })
+                                .finally(function() {
+                                    blockUI.stop();
+                                });
+                        })
+                        .error(function(data, status) {
+                            console.error(data);
+                        })
+                        .finally(function() {});
+
+                })
+            } else {
+                var req = {
+                    method: "GET",
+                    url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
+                };
+
+                return $http(req)
+                    .success(function(data, status) {
+
+                        blockUI.start();
+                        var req2 = {
+                            method: "GET",
+                            url: `/API/bpm/${(data.length>0)?"humanTask":"archivedHumanTask"}?p=0&c=10&f=caseId=${rowData.caseid}&f=state=${(data.length>0)?"ready":"completed"}&d=processId`
+                        };
+
+                        $http(req2)
+                            .success(function(data2, status) {
+
+                                ///API/bpm/humanTask?p=0&c=10&f=caseId=30197&f=state=ready&d=processId
+
+                                var url = "/bonita/portal/resource/app/administrativo/[PAGE]/content/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                if (data2.length > 0) {
+                                    if (parseFloat(data2[0].processId.version) < 1.51) {
+                                        page = "verSolicitudAdmision";
+                                    }
+                                    url = url.replace("[PAGE]", page);
+                                    url = url.replace("[TASKID]", data2[0].id);
+                                } else {
+                                    url = url.replace("[TASKID]", "");
+                                }
+                                url = url.replace("[CASEID]", rowData.caseid);
+                                //window.top.location.href = url;
+                                window.open(url, '_blank');
+                            })
+                            .error(function(data, status) {
+                                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                            })
+                            .finally(function() {
+
+                                blockUI.stop();
+                            });
+                    })
+                    .error(function(data, status) {
+                        console.error(data);
+                    })
+                    .finally(function() {});
+            }
+
+        })
     }
 
     function redireccionarTarea(rowData) {
@@ -297,7 +380,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         for (var i = 0; i < $scope.properties.lstCampus.length; i++) {
             if (campus == $scope.properties.lstCampus[i].grupoBonita) {
                 retorno = $scope.properties.lstCampus[i].descripcion
-                if ($scope.lstMembership.length == 2) {
+                if ($scope.lstMembership.length == 1) {
                     $scope.properties.campusSeleccionado = $scope.lstCampus[i].valor
                 }
             } else if (campus == "Todos los campus") {
@@ -417,6 +500,27 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
         }
 
         doRequest("POST", $scope.properties.urlPost);
+    }
+    
+    function doRequest2(method, url, params, dataToSend, callback) {
+        var req = {
+            method: method,
+            url: url,
+            data: dataToSend,
+            params: params
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                callback(data);
+            })
+            .error(function(data, status) {
+                console.error(data);
+
+            })
+            .finally(function() {
+               
+            });
     }
 
     $scope.getCatCampus = function() {

@@ -47,7 +47,8 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
     function ProcessExcel(data) {
         //Read the Excel File data.
         var workbook = XLSX.read(data, {
-            type: 'binary'
+            type: 'binary',
+            encoding: "UTF-8"
         });
  
         //Fetch the name of First Sheet.

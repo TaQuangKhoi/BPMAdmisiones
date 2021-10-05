@@ -11,7 +11,8 @@ function PbTableCtrl($scope) {
     this.isJubilado = function(id){
         for(let i=0; i<$scope.properties.content.length;i++){
             if($scope.properties.content[i].persistenceId == id){
-                $scope.properties.content[i].jubilado = !$scope.properties.content[i].jubilado;
+                //$scope.properties.content[i].jubilado = !$scope.properties.content[i].jubilado;
+                console.log($scope.properties.content[i].jubilado);
             }
         }
     }
@@ -113,7 +114,9 @@ function PbTableCtrl($scope) {
             if(existe == null){
                let padre = $scope.properties.datosPadre;
 				padre.jubilado = false;
-               $scope.properties.content.push(padre);
+				let isJubilado = $scope.properties.content.find(element => element.persistenceId === $scope.properties.datosPadre.persistenceId)
+                $scope.properties.content.push(padre);
+                $scope.valorJubilado()
             }
         }
     });
@@ -125,6 +128,7 @@ function PbTableCtrl($scope) {
                let madre = $scope.properties.datosMadre;
 			   madre.jubilado = false;
                $scope.properties.content.push(madre);
+               $scope.valorJubilado()
            }
         }
     });
@@ -136,44 +140,38 @@ function PbTableCtrl($scope) {
                let tutor = $scope.properties.datosTutor;
 			   tutor.jubilado = false;
 			   tutor.vive = {"descripcion":"Sí"};
+			   tutor.vives = null;
                $scope.properties.content.push(tutor);
+               $scope.valorJubilado()
            }
         }
     });
     
-    
-    
-    $scope.$watch("properties.relativosBDM", function (newValue, oldValue) {
-        if (newValue !== undefined) {
-            if($scope.properties.relativosBDM.length === 0){
-                if($scope.properties.datosTutor !== undefined){
-                    let existe = $scope.properties.content.find(element => element.persistenceId === $scope.properties.datosTutor.persistenceId)
-                    if(existe == null ){
-                        let tutor = $scope.properties.datosTutor;
-			            tutor.jubilado = false;
-                        $scope.properties.content.push(tutor);
+    $scope.valorJubilado = function(){
+        if($scope.properties.relativosBDM.length === 3 && $scope.properties.content.length === 3 ){
+            let valorindex = [];
+            $scope.properties.relativosBDM.forEach(element => {
+                for(let i=0; i<$scope.properties.content.length;i++){
+                    let valor = valorindex.find(data => data == i);
+                    if( valor == null ){
+                        if($scope.properties.content[i].apellidos == element.apellidos && $scope.properties.content[i].nombre == element.nombre){
+                            if($scope.properties.content[i].isTutor && $scope.properties.content[i].vives === null && element.vive === null){
+                                $scope.properties.content[i].jubilado = element.jubilado;
+                                valorindex.push(i);
+                            }else if($scope.properties.content[i].vives === undefined){
+                                $scope.properties.content[i].jubilado = element.jubilado;
+                                valorindex.push(i);
+                            }
+                        }
                     }
+                    
                 }
-                if($scope.properties.datosMadre !== undefined){
-                    let existe = $scope.properties.content.find(element => element.persistenceId === $scope.properties.datosMadre.persistenceId)
-                    if(existe == null){
-                        let madre = $scope.properties.datosMadre;
-			            madre.jubilado = false;
-                        $scope.properties.content.push(madre);
-                    }
-                }
-                
-                if($scope.properties.datosPadre !== undefined){
-                    let existe = $scope.properties.content.find(element => element.persistenceId === $scope.properties.datosPadre.persistenceId)
-                    if(existe == null ){
-                        let padre = $scope.properties.datosPadre;
-				        padre.jubilado = false;
-                        $scope.properties.content.push(padre);
-                    }
-                }
-            }
+            });
+            
+           // console.log($scope.properties.content);
         }
-    });
+    }
+    
      
     // initWatcherTutor();
     initWatcherRelativos();
