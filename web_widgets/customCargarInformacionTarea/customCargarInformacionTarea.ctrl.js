@@ -1,8 +1,7 @@
 function ($scope, $http) {
     
     function getCurrentTask(){
-        //let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId +"&fstate=ready";
-        let url = "../API/bpm/archivedManualTask?p=0&c=10&f=caseId=" + $scope.properties.caseId;
+        let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId +"&fstate=ready";
         
         var req = {
             method: "GET",
@@ -16,8 +15,7 @@ function ($scope, $http) {
             // + " EL NUEVO ES "
             // + data[0].id;
             // swal("OK", message, "success");
-            //$scope.properties.taskId = data[0].id;
-            $scope.properties.taskId = data[data.length - 1].id;
+            $scope.properties.taskId = data[0].id;
         })
         .error(function(data, status) {
             // swal("¡Error!","NO se ha podido obtener los datos de la tarea.","error");

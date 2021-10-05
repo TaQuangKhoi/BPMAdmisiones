@@ -190,7 +190,6 @@ class HubspotDAO {
 					objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 					objHubSpotData.put("apoyo_ov_bpm", lstSolicitudDeAdmision.get(0).isNecesitoAyuda());
 					objHubSpotData.put("phone", lstCatRegistro.get(0).getNumeroContacto());
-					//
 					
 					resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
 				}
@@ -1815,10 +1814,10 @@ class HubspotDAO {
 		  } else {
 			  objHubSpotData.put("preparatoria_bpm", object.catBachilleratos.descripcion);
 		  }
-		  objHubSpotData.put("residencia_bpm",object.catResidencia.clave);
-		  objHubSpotData.put("tipo_de_alumno_bpm",object.catTipoAlumno.clave);
-		  objHubSpotData.put("tipo_de_admision_bpm",object.catTipoAdmision.clave);
-		  objHubSpotData.put("lugar_de_examen_bpm",object.catLugarExamen.descripcion);
+		  objHubSpotData.put("residencia_bpm",object.catResidencia?.clave);
+		  objHubSpotData.put("tipo_de_alumno_bpm",object.catTipoAlumno?.clave);
+		  objHubSpotData.put("tipo_de_admision_bpm",object.catTipoAdmision?.clave);
+		  objHubSpotData.put("lugar_de_examen_bpm",object.catLugarExamen?.descripcion);
 		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento);
 		  objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 		  objHubSpotData.put("email", object.correoelectronico);
