@@ -1647,7 +1647,7 @@ class UsuariosDAO {
 				
 			}
 			errorLog += " descuento = "+object.descuento
-			if(object.descuento.toString().equals("100")) {
+			if( object.descuento.toString().equals("100")) {
 				errorLog += " en el if con el caseid " + object.caseid
 				SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 				searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);

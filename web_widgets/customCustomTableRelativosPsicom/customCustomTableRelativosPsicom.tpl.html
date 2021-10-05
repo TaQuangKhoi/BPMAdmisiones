@@ -15,7 +15,7 @@
                     {{ ctrl.desconoceSusDatos( $eval(column, row) ) | uiTranslate }}
                     <!-- {{ row | json }}
                     {{ column }} -->
-                    <label ng-if="column === 'catParentezco.descripcion'" ng-show="row.isTutor === true && row.vive === null">(Tutor)</label>
+                    <label ng-if="column === 'catParentezco.descripcion'" ng-show="row.isTutor === true && row.vives === null">(Tutor)</label>
                 </td>
                 <!-- <td ng-if="properties.allowHTML" ng-repeat="column in properties.columnsKey track by $index">
                     <div ng-if="properties.allowHTML" ng-bind-html="$eval(column, row) | uiTranslate">
@@ -25,7 +25,7 @@
                     </div>
                 </td> -->
                 <td>
-                    <input type="checkbox" ng-model="row.jubilado" ng-click="isJubilado(row.persistenceId)"> 
+                    <input type="checkbox" ng-model="row.jubilado" ng-change="ctrl.isJubilado(row.persistenceId)"> 
                 </td>
             </tr>
         </tbody>
