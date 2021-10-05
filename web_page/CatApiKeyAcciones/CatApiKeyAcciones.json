@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "CatApiKeyAcciones",
   "name" : "CatApiKeyAcciones",
-  "lastUpdate" : 1633378627560,
+  "lastUpdate" : 1633397204658,
   "rows" : [
     [
       {
@@ -3474,11 +3474,11 @@
       "type" : "json",
       "value" : [
         "{",
-        "    \"azureAccountName\":\"\",",
-        "    \"azureAccountKey\":\"\",",
-        "    \"azureDefaultEndpointsProtocol\":\"\",",
-        "    \"bannerToken\":\"\",",
-        "    \"adminPassword\":\"\"",
+        "    \"azureAccountName\":null,",
+        "    \"azureAccountKey\":null,",
+        "    \"azureDefaultEndpointsProtocol\":null,",
+        "    \"bannerToken\":null,",
+        "    \"adminPassword\":null",
         "}"
       ],
       "exposed" : false
@@ -3500,12 +3500,12 @@
     "setAzureConfig" : {
       "type" : "expression",
       "value" : [
-        "$data.azureData.azureAccountName=($data.azureData.azureAccountName==\"\")?$data.getAzureConfig.azureAccountName:$data.azureData.azureAccountName;",
-        "$data.azureData.azureAccountKey=($data.azureData.azureAccountKey==\"\")?$data.getAzureConfig.azureAccountKey:$data.azureData.azureAccountKey;",
-        "$data.azureData.azureDefaultEndpointsProtocol=($data.azureData.azureDefaultEndpointsProtocol==\"\")?$data.getAzureConfig.azureDefaultEndpointsProtocol:$data.azureData.azureDefaultEndpointsProtocol;",
-        "$data.azureData.bannerToken=($data.azureData.bannerToken==\"\")?$data.getAzureConfig.bannerToken:$data.azureData.bannerToken;",
-        "$data.azureData.adminPassword=($data.azureData.adminPassword==\"\")?$data.getAzureConfig.adminPassword:$data.azureData.adminPassword;",
-        "",
+        "$data.azureData.azureAccountName=($data.azureData.azureAccountName==null)?$data.getAzureConfig.azureAccountName:$data.azureData.azureAccountName;\r",
+        "$data.azureData.azureAccountKey=($data.azureData.azureAccountKey==null)?$data.getAzureConfig.azureAccountKey:$data.azureData.azureAccountKey;\r",
+        "$data.azureData.azureDefaultEndpointsProtocol=($data.azureData.azureDefaultEndpointsProtocol==null)?$data.getAzureConfig.azureDefaultEndpointsProtocol:$data.azureData.azureDefaultEndpointsProtocol;\r",
+        "$data.azureData.bannerToken=($data.azureData.bannerToken==null)?$data.getAzureConfig.bannerToken:$data.azureData.bannerToken;\r",
+        "$data.azureData.adminPassword=($data.azureData.adminPassword==null)?$data.getAzureConfig.adminPassword:$data.azureData.adminPassword;\r",
+        "\r",
         "return $data.azureData;"
       ],
       "exposed" : false

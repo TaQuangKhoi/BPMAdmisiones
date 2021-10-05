@@ -2017,12 +2017,12 @@ class UsuariosDAO {
 						pstm = con.prepareStatement(AppMenuRole.INSERT)
 						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
-						pstm.execute()
+						pstm.execute();
 					}else if(!rol.nuevo && rol.eliminado) {
 						pstm = con.prepareStatement(AppMenuRole.DELETE)
 						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
-						pstm.execute()
+						pstm.execute();
 					}
 				}
 				

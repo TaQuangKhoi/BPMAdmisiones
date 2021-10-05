@@ -189,6 +189,7 @@ class HubspotDAO {
 					objHubSpotData.put("estatus_admision_bpm", "Registro");
 					objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 					objHubSpotData.put("apoyo_ov_bpm", lstSolicitudDeAdmision.get(0).isNecesitoAyuda());
+					objHubSpotData.put("phone", lstCatRegistro.get(0).getNumeroContacto());
 					//
 					
 					resultado = createOrUpdateHubspot(object.email, apikeyHubspot, objHubSpotData);
@@ -1821,6 +1822,7 @@ class HubspotDAO {
 		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento);
 		  objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 		  objHubSpotData.put("email", object.correoelectronico);
+		  objHubSpotData.put("phone", object.numeroContacto);
 		  
 		  
 		  resultado = createOrUpdateHubspot(object.correoelectronico, apikeyHubspot, objHubSpotData);
