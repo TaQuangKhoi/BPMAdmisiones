@@ -384,7 +384,7 @@ class AvanzeProcesoDAO {
 	}
 	
 	
-	public Result updateTimmerPeriodoVencido( RestAPIContext context) {
+	public Result updateTimmerPeriodoVencido(Integer P, Integer C, RestAPIContext context) {
 		//Vencimiento periodo
 		Result resultado = new Result()
 		Boolean closeCon = false;
@@ -394,7 +394,9 @@ class AvanzeProcesoDAO {
 			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			//Select para optener usuario
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT caseid FROM SolicitudDeAdmision ");
+			pstm = con.prepareStatement("SELECT caseid FROM SolicitudDeAdmision order by persistenceid DESC LIMIT ? OFFSET ?");
+			pstm.setInt(1, C);
+			pstm.setInt(2, P);
 			rs = pstm.executeQuery()
 			
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();

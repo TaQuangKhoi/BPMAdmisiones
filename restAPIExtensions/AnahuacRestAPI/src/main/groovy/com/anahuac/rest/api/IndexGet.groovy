@@ -502,8 +502,11 @@ class IndexGet implements RestApiController {
 				
 				
 				case "updateTimmerPeriodoVencido":
-					
-					result = new AvanzeProcesoDAO().updateTimmerPeriodoVencido(context)
+					def p = request.getParameter "p";
+					def c = request.getParameter "c";
+					Integer parameterP = Integer.valueOf(p);
+					Integer parameterC = Integer.valueOf(c);
+					result = new AvanzeProcesoDAO().updateTimmerPeriodoVencido(parameterP, parameterC,context)
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

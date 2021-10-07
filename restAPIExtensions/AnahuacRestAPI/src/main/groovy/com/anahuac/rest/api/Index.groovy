@@ -1734,6 +1734,17 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "createOrUpdateTransferirAspirante":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					assert object instanceof Map;
+					result = new HubspotDAO().createOrUpdateTransferirAspirante(object.valorcambio, object.valororginal, object.correoaspirante, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				case "selectBitacoraTransferencias":
 					result = tDAO.selectBitacoraTransferencias(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {

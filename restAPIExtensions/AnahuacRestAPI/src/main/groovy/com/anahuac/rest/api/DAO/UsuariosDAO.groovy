@@ -1442,10 +1442,10 @@ class UsuariosDAO {
 			consulta+=" WHERE ";
 			con.setAutoCommit(false)
 			
-			if(object.numeroContacto != null ) {
+			if(object.telefonoCelular != null ) {
 				errorLog +="actualizar contacto";
 				pstm = con.prepareStatement(Statements.UPDATE_REGISTRO_NUMEROCONTACTO);
-				pstm.setString(1,object.numeroContacto);
+				pstm.setString(1,object.telefonoCelular);
 				pstm.setString(2,object.correoelectronico);
 				pstm.executeUpdate();
 			}		
@@ -1513,9 +1513,10 @@ class UsuariosDAO {
 			}else {
 				pstm.setLong(21, object.catPaisExamen.persistenceId)
 			}
+			pstm.setString(22, object.telefonoCelular);
 			
 			// el where final
-			pstm.setLong(22, Long.valueOf(object.caseid));
+			pstm.setLong(23, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
 			String detalleSolicitud ="";
 			
@@ -1674,7 +1675,7 @@ class UsuariosDAO {
 			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
 			
 			if(!hResultado.success) {
-				throw new Exception(hResultado.error + " | " + hResultado.error_info)
+				throw new Exception("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
@@ -3672,6 +3673,11 @@ class UsuariosDAO {
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				pstm = con.prepareStatement("UPDATE CATREGISTRO SET numeroContacto = ? WHERE nombreusuario = ?")
+				pstm.setString(1, numeroContacto)
+				pstm.setString(2, nombreUsuario)
+				pstm.executeUpdate();
+				
+				pstm = con.prepareStatement("UPDATE SolicitudDeAdmision SET telefonocelular = ? WHERE correoelectronico = ?")
 				pstm.setString(1, numeroContacto)
 				pstm.setString(2, nombreUsuario)
 				pstm.executeUpdate();

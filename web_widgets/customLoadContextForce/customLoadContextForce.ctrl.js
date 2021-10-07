@@ -9,7 +9,12 @@ function loadContextCtrl($scope, $http) {
                 //	../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready
                 doRequest("GET","../API/bpm/humanTask?p=0&c=10&f=caseId="+$scope.caseId+"&fstate=ready", null, function(data,status){
                     $scope.taskId=data[0].id;
-                    
+                    doRequest("GET","../API/bpm/userTask/"+$scope.taskId+"/context", null, function(context,status){
+                        $scope.properties.context = context;
+                        
+                    },function(data,status){
+            
+                    })
                 },function(data,status){
         
                 })
@@ -82,12 +87,12 @@ function loadContextCtrl($scope, $http) {
             .error(errorCallback);
     }
 
-    $scope.$watchCollection("taskId", function(newValue, oldValue) {
+    /*$scope.$watchCollection("taskId", function(newValue, oldValue) {
         console.log("loadcontext")
         if ($scope.taskId !== undefined && $scope.taskId !== "") {
             $scope.loadContextTask($scope.taskId);
         }
-    });
+    });*/
 
     /*$scope.$watchCollection("caseId", function(newValue, oldValue) {
         if ($scope.caseId !== undefined) {

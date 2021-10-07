@@ -4178,6 +4178,19 @@ class ListadoDAO {
                         }
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
+						
+					case "ESTATUS,TELEFONO":
+                        errorlog += "ESTATUS"
+                        if (where.contains("WHERE")) {
+                            where += " AND "
+                        } else {
+                            where += " WHERE "
+                        }
+                        where += " ( LOWER(sda.ESTATUSSOLICITUD) LIKE LOWER('[valor]') ";
+						where += " OR LOWER(sda.telefonocelular) LIKE LOWER('[valor]') )";
+						
+                        where = where.replace("[valor]", filtro.get("valor"))
+                        break;
                     case "TELEFONO":
                         errorlog += "TELEFONO"
                         if (where.contains("WHERE")) {

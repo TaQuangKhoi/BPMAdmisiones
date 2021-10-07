@@ -585,9 +585,10 @@ class TransferenciasDAO {
 			} else {
 				errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
 			}
-
+			Result rHdao= new Result()
+			rHdao = new HubspotDAO().createOrUpdateTransferirAspirante(object.valorcambio, object.valororginal, object.correoaspirante, context)
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog);
+            resultado.setError_info(errorLog+ " || " +rHdao.getError_info());
         } catch (Exception ex) {
             resultado.setError_info(errorLog);
             resultado.setSuccess(false);
