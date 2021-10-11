@@ -54,6 +54,27 @@ class HubspotDAO {
 	Statement stm;
 	ResultSet rs;
 	PreparedStatement pstm;
+	Map<String,String> estatusMap = new HashMap<String, String>() {{put("Registro","Registro");
+        put("Solicitud enviada","Envío de solicitud");
+        put("Solicitud a modificar","Solicitud cambios");
+        put("Solicitud rechazada","Solicitud rechazada");
+        put("Lista Roja","Lista Roja");
+        put("Solicitud en espera de pago","Validado");
+        put("Autodescripción en proceso","Pagó examen de admisión");
+        put("Autodescripción concluida","Autodescripción");
+        put("Elección de pruebas calendarizado","Seleccionó fecha de examen");
+        put("Ya se imprimió su credencial","Credencial Generada");
+        put("Solicitud recibida","Envío de solicitud");
+        put("Solicitud en proceso","Registro");
+        put("Aspirantes registrados con validación de cuenta","Registro");
+        put("Carga y consulta de resultados","Credencial Generada");
+        put("Solicitud en espera de pago","Validado");
+        put("Validación pago condonado","Pagó examen de admisión");
+        put("Validación descuento 100%","Pagó examen de admisión");
+        put("Autodescripción de proceso","Pagó examen de admisión");
+        put("Carga y consulta de resultados","Credencial Generada");
+        put("Resultado final del comité","Credencial Generada");
+        put("Rechazado por comité","Credencial Generada");}};
 	public Boolean validarConexion() {
 		  Boolean retorno=false
 		  if (con == null || con.isClosed()) {
@@ -1786,18 +1807,50 @@ class HubspotDAO {
 		  apikeyHubspot = (String) resultadoApiKey.getData().get(0);
 		  strError+="si apikeyhubspot";
 		  
-		  objHubSpotData.put("firstname", object.primernombre+(object.segundonombre?.toString().trim()==""?"":" "+object.segundonombre?.toString().trim()) );
+		  objHubSpotData.put("firstname", object.primernombre + (object.segundonombre?.toString().trim()==""?"":" "+object.segundonombre?.toString().trim()) );
 		  objHubSpotData.put("lastname", object.apellidopaterno + (object.apellidomaterno?.toString().trim()==""?"":" "+object.apellidomaterno?.toString().trim()) );
 		  objHubSpotData.put("campus_vpd_bpm", object.catCampus.clave);
 		  objHubSpotData.put("email", object.correoelectronico);
 		  objHubSpotData.put("campus_admision_bpm",object.catCampusEstudio.clave);
-		  objHubSpotData.put("carrera",object.catGestionEscolar.clave);
-		  objHubSpotData.put("periodo_de_ingreso_bpm",object.catPeriodo.clave);
+		  
+		  if(object.catGestionEscolar != null) {
+			  if(!object.catGestionEscolar.clave.equals("")) {
+				  lstValueProperties = getLstValueProperties("carrera", apikeyHubspot);
+				  strError = strError + " | lstValueProperties.size() "+lstValueProperties.size();
+				  if(lstValueProperties.contains(object.catGestionEscolar.clave)) {
+					  objHubSpotData.put("carrera", object.catGestionEscolar.clave);
+				  }
+			  }
+		  }
+		  
+		  //objHubSpotData.put("carrera",object.catGestionEscolar.clave);
+		  
+		  if(object.catPeriodo != null) {
+			  lstValueProperties = getLstValueProperties("periodo_de_ingreso_bpm", apikeyHubspot);
+			  strError+= " | lstValueProperties:"+lstValueProperties
+			  if(lstValueProperties.contains(object.catPeriodo.clave)) {
+				  strError = strError + " | entro al if";
+				  strError = strError + " | object.catPeriodo.clave: "+object.catPeriodo.clave;
+				  objHubSpotData.put("periodo_de_ingreso_bpm", object.catPeriodo.clave);
+			  }
+		  }
+		  
+		  
+		  //objHubSpotData.put("periodo_de_ingreso_bpm",object.catPeriodo.clave);
+		  
 		  if(object.catPropedeutico !=null && object.propedeutico != null) {
+			  lstValueProperties = getLstValueProperties("periodo_propedeutico_bpm", apikeyHubspot);
+			  if(lstValueProperties.contains(object.catPropedeutico.clave)) {
+				  objHubSpotData.put("periodo_propedeutico_bpm", object.catPropedeutico.clave);
+			  }
+		  }
+		  
+		 /* if(object.catPropedeutico !=null && object.propedeutico != null) {
 			  objHubSpotData.put("periodo_propedeutico_bpm",object.catPropedeutico.clave);
 		  }else {
 			  objHubSpotData.put("periodo_propedeutico_bpm","");
-		  }
+		  }*/
+		  
 		  objHubSpotData.put("genero_bpm",object.catSexo.clave);
 		  // formateo de la fecha
 		  fechaCreacion = dfSalidaFN.parse(object.fechanacimiento.toString().replace("t","T"))
@@ -1813,7 +1866,7 @@ class HubspotDAO {
 		  objHubSpotData.put("tipo_de_alumno_bpm",object.catTipoAlumno?.clave);
 		  objHubSpotData.put("tipo_de_admision_bpm",object.catTipoAdmision?.clave);
 		  objHubSpotData.put("lugar_de_examen_bpm",object.catLugarExamen?.descripcion);
-		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento);
+		  objHubSpotData.put("porcentaje_de_descuento_bpm",object.descuento == null? "": object.descuento);
 		  objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 		  objHubSpotData.put("email", object.correoelectronico);
 		  objHubSpotData.put("phone", object.telefonoCelular);
@@ -1909,6 +1962,7 @@ class HubspotDAO {
 		  objHubSpotData.put("fecha_transferencia_bpm",dfSalida.format(fecha));
 		  objHubSpotData.put("origen_vpd_bpm", claveOriginal);
 		  objHubSpotData.put("destino_vpd_bpm", claveCambio);
+		  objHubSpotData.put("estatus_admision_bpm","Transferencia a otro campus")
 		  strError += "| 2._ Hubspot original " + objHubSpotData.toString()
 		  resultado = createOrUpdateHubspot(correoElectronico, apikeyHubspotOriginal, objHubSpotData);
 		  
@@ -1954,7 +2008,7 @@ class HubspotDAO {
 						objHubSpotData.put("numero_contacto_emergencia_bpm", contactoEmergencias.get("telefonocelular"));
 					}
 					objHubSpotData.put("genero_bpm",lstSolicitudDeAdmision.get(0).getCatSexo().clave)
-					objHubSpotData.put("estatus_admision_bpm",lstSolicitudDeAdmision.get(0).getEstatusSolicitud())
+					objHubSpotData.put("estatus_admision_bpm",estatusMap.get(lstSolicitudDeAdmision.get(0).getEstatusSolicitud()))
 					//AQUI TERMINO LO QUE HA AGREGADO JUSQUER
 					objHubSpotData.put("campus_admision_bpm", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
 					
