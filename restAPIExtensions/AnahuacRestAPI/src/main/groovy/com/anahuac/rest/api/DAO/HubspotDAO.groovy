@@ -72,9 +72,9 @@ class HubspotDAO {
         put("Validación pago condonado","Pagó examen de admisión");
         put("Validación descuento 100%","Pagó examen de admisión");
         put("Autodescripción de proceso","Pagó examen de admisión");
-        put("Carga y consulta de resultados","Credencial Generada");
-        put("Resultado final del comité","Credencial Generada");
-        put("Rechazado por comité","Credencial Generada");}};
+        put("Carga y consulta de resultados","En espera de resultados");
+        put("Resultado final del comité","En espera de resultados");
+        put("Rechazado por comité","En espera de resultados");}};
 	public Boolean validarConexion() {
 		  Boolean retorno=false
 		  if (con == null || con.isClosed()) {
@@ -380,8 +380,7 @@ class HubspotDAO {
 					objHubSpotData.put("lugar_de_examen_bpm", lugarExamen);
 					fechaNacimiento = Date.from(lstSolicitudDeAdmision.get(0).getFechaNacimiento().atZone(ZoneId.systemDefault()).toInstant());
 	
-					objHubSpotData.put("pais", lstSolicitudDeAdmision.get(0).getCatPais().descripcion);
-					
+					objHubSpotData.put("pais", lstSolicitudDeAdmision.get(0).getCatPais().getDescripcion())
 					strError = strError + " | ----------------------------- ";
 					
 					objHubSpotData.put("campus_admision_bpm", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
@@ -429,7 +428,7 @@ class HubspotDAO {
 					objHubSpotData.put("genero_bpm",lstSolicitudDeAdmision.get(0).getCatSexo().clave)
 					//AQUI TERMINO LO QUE HA AGREGADO JUSQUER
 					objHubSpotData.put("municipio_bpm", lstSolicitudDeAdmision.get(0).getCiudad());
-	
+					
 					/*if(lstHubspotProperties.contains(lstSolicitudDeAdmision.get(0).getCatEstado().getDescripcion())) {
 						objHubSpotData.put("importacion_estados", lstSolicitudDeAdmision.get(0).getCatEstado().getClave());
 					}*/
@@ -1532,7 +1531,7 @@ class HubspotDAO {
 					objHubSpotData.put("tipo_de_admision_bpm", tipoAdmision);
 					objHubSpotData.put("residencia_bpm", residencia);
 					
-					if (lstSolicitudDeAdmision.get(0).getCatBachilleratos().getClave().equals("otro")) {
+					if (lstSolicitudDeAdmision.get(0).getCatBachilleratos().getClave().toLowerCase().equals("otro")) {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getBachillerato());
 					} else {
 						objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
@@ -1857,7 +1856,7 @@ class HubspotDAO {
 		  
 		  objHubSpotData.put("fecha_nacimiento_bpm",dformat.format(fechaCreacion));
 		  objHubSpotData.put("promedio_bpm",object.promedio);
-		  if (object.catBachilleratos.clave.equals("otro")) {
+		  if (object.catBachilleratos.clave.toLowerCase().equals("otro")) {
 			  objHubSpotData.put("preparatoria_bpm", object.nombrebachillerato);
 		  } else {
 			  objHubSpotData.put("preparatoria_bpm", object.catBachilleratos.descripcion);
@@ -1975,6 +1974,15 @@ class HubspotDAO {
 		  lstSolicitudDeAdmision = objSolicitudDeAdmisionDAO.findByCorreoElectronico(correoElectronico, 0, 1);
 		  
 		  if(lstCatRegistro != null) {
+			  //TODO
+			  Date fechaFF = null;
+			  Date fechaE = null;
+			  Date fechaAA = null;
+			  Date fechaPS = null;
+			  DateFormat dfSalidaNT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			  
+			  DateFormat dfSalidaFF = new SimpleDateFormat("yyyy-MM-dd");
+			  dfSalida.setTimeZone(TimeZone.getTimeZone("GMT"));
 			  strError += "| 3._ lstCatRegistro"
 				
 				strError = strError + " | lstSolicitudDeAdmision.size: "+lstSolicitudDeAdmision.size();
@@ -2009,6 +2017,39 @@ class HubspotDAO {
 					}
 					objHubSpotData.put("genero_bpm",lstSolicitudDeAdmision.get(0).getCatSexo().clave)
 					objHubSpotData.put("estatus_admision_bpm",estatusMap.get(lstSolicitudDeAdmision.get(0).getEstatusSolicitud()))
+					Result resultadoFirstFecha = new Result();
+					Result resultadoFechasSesiones = new Result();
+					List<Map<String, Object>> lstResultadoFF = new ArrayList<Map<String, Object>>();
+					List<Map<String, Object>> lstResultadoFS = new ArrayList<Map<String, Object>>();
+					resultadoFechasSesiones = new SesionesDAO().getDatosSesionUsername(correoElectronico);
+					strError = strError + " | resultadoFechasSesiones.getError_info: "+resultadoFechasSesiones.getError_info();
+					lstResultadoFS = (List<Map<String, Object>>)resultadoFechasSesiones.getData();
+					if(lstResultadoFS.size()>0) {
+						for(Map<String, Object> fechassesiones : lstResultadoFS) {
+							strError = strError + " " + fechassesiones.get("descripcion");
+							strError = strError + " " + fechassesiones.get("aplicacion");
+							String fechaobj = String.valueOf(fechassesiones.get("aplicacion"));
+							strError = strError + " " + fechaobj;
+							if(fechassesiones.get("descripcion").equals("Entrevista")) {
+								fechaE = dfSalida.parse(fechaobj + " 00:00");
+							}else if(fechassesiones.get("descripcion").equals("Examen de aptitudes y conocimientos")) {
+								fechaAA = dfSalida.parse(fechaobj+ " 00:00");
+							}else if(fechassesiones.get("descripcion").equals("Examen Psicométrico")) {
+								fechaPS  = dfSalida.parse(fechaobj + " 00:00");
+							}
+						}
+						if(fechaE != null) {
+							objHubSpotData.put("fecha_entrevista_bpm", fechaE.getTime());
+						}
+						if(fechaAA != null) {
+							objHubSpotData.put("fecha_de_examen_bpm", fechaAA.getTime());
+						}
+						if(fechaPS != null) {
+							objHubSpotData.put("fecha_psicometrico_bpm", fechaPS.getTime());
+						}
+						strError = strError + " | fechaE " + fechaE + " | fechaAA " + fechaAA + " | fechaPSString " + fechaPS;
+					}
+					
 					//AQUI TERMINO LO QUE HA AGREGADO JUSQUER
 					objHubSpotData.put("campus_admision_bpm", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
 					
@@ -2130,8 +2171,8 @@ class HubspotDAO {
                 objHubSpotData.put("lugar_de_examen_bpm", lugarExamen);
                 fechaNacimiento = Date.from(lstSolicitudDeAdmision.get(0).getFechaNacimiento().atZone(ZoneId.systemDefault()).toInstant());
 
-                objHubSpotData.put("pais", lstSolicitudDeAdmision.get(0).getCatPais().descripcion);
-                
+                objHubSpotData.put("pais", lstSolicitudDeAdmision.get(0).getCatPais().getDescripcion())
+				objHubSpotData.put("municipio_bpm", lstSolicitudDeAdmision.get(0).getCiudad());
                 strError = strError + " | ----------------------------- ";
                 
                 objHubSpotData.put("campus_admision_bpm", lstSolicitudDeAdmision.get(0).getCatCampusEstudio().getClave());
@@ -2157,6 +2198,12 @@ class HubspotDAO {
 				objHubSpotData.put("apoyo_ov_bpm", lstSolicitudDeAdmision.get(0).isNecesitoAyuda());
 				objHubSpotData.put("phone", lstCatRegistro.get(0).getNumeroContacto());
 				
+				if(lstSolicitudDeAdmision.get(0).getCatBachilleratos().getClave().toLowerCase().equals("otro")) {
+					objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getBachillerato());
+				}
+				else {
+					objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
+				}
 				lstDetalleSolicitud = objDetalleSolicitudDAO.findByCaseId(String.valueOf(lstCatRegistro.get(0).getCaseId()), 0, 1);
 				
 				strError = strError + " | lstDetalleSolicitud.empty: "+lstDetalleSolicitud.empty;
@@ -2184,12 +2231,7 @@ class HubspotDAO {
 						objHubSpotData.put("tipo_de_admision_bpm", tipoAdmision);
 						objHubSpotData.put("residencia_bpm", residencia);
 						
-						if(lstSolicitudDeAdmision.get(0).getCatBachilleratos().getClave().equals("otro")) {
-							objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getBachillerato());
-						}
-						else {
-							objHubSpotData.put("preparatoria_bpm", lstSolicitudDeAdmision.get(0).getCatBachilleratos().getDescripcion());
-						}
+						
 						objHubSpotData.put("mensaje_bpm", lstDetalleSolicitud.get(0).getObservacionesCambio());
 						objHubSpotData.put("fecha_actualizacion_bpm", dfSalida.format(fecha));
 						descuento = ""+lstDetalleSolicitud.get(0).getDescuento();

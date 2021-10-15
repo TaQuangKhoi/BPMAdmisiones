@@ -51,6 +51,23 @@ class AvanzeProcesoDAO {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
+			closeCon = validarConexion();
+			pstm = con.prepareStatement("select estatussolicitud from solicituddeadmision where caseid = ? order by persistenceid DESC limit 1");
+			pstm.setLong(1,Long.parseLong(object.caseid));
+			rs = pstm.executeQuery();
+			
+			List < Map < String, Object >> rows2 = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData2 = rs.getMetaData();
+			int columnCount2 = metaData2.getColumnCount();
+			String estatus = "";
+			while (rs.next()) {
+				for (int i = 1; i <= columnCount2; i++) {
+					estatus = rs.getString(i)
+				}
+				
+			}
+			
+			
 			Map < String, Serializable > inputs = new HashMap < String, Serializable > ();
 			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			
@@ -58,6 +75,8 @@ class AvanzeProcesoDAO {
 			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
 			searchBuilder.sort(HumanTaskInstanceSearchDescriptor.PARENT_PROCESS_INSTANCE_ID, Order.ASC);
 			SearchOptions searchOptions = searchBuilder.done();
+			
+			
 			
 			SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 			List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
@@ -86,7 +105,21 @@ class AvanzeProcesoDAO {
 				}
 			}
 			
-			if(generoCredencial) {
+			for(int i = 0; i<3; i++) {
+				errorLog +="5"
+				if(object.asistencia[i].necesita == true) {
+					//errorLog +="6"
+					Result resultado2 = new Result();
+					String data = '{ "prueba": [PRUEBA] , "username": "[USERNAME]", "asistencia": [ASISTENCIA],"usuarioPaseLista":"[USUARIOPASELISTA]" }';
+					data = data.replace("[PRUEBA]",object.asistencia[i].prueba.toString()).replace("[USERNAME]", object.asistencia[i].username.toString()).replace("[ASISTENCIA]", object.asistencia[i].asistencia.toString()).replace("[USUARIOPASELISTA]", object.asistencia[i].usuarioPaseLista.toString())
+					//errorLog += data;
+					resultado2 = new SesionesDAO().insertPaseLista(data,context);
+					//errorLog +="Error"+i+":"+resultado2.getError();
+				}
+			}
+			errorLog +="6"
+			
+			if(generoCredencial || estatus.equals("Ya se imprimió su credencial")) {
 				// Se pasan las variables del proceso a true
 				Map<String, Serializable> rows = new HashMap<String, Serializable>();
 				
@@ -112,21 +145,6 @@ class AvanzeProcesoDAO {
 				}
 			}
 			
-			
-			for(int i = 0; i<3; i++) {
-				errorLog +="5"
-				if(object.asistencia[i].necesita == true) {
-					//errorLog +="6"
-					Result resultado2 = new Result();
-					String data = '{ "prueba": [PRUEBA] , "username": "[USERNAME]", "asistencia": [ASISTENCIA],"usuarioPaseLista":"[USUARIOPASELISTA]" }';
-					data = data.replace("[PRUEBA]",object.asistencia[i].prueba.toString()).replace("[USERNAME]", object.asistencia[i].username.toString()).replace("[ASISTENCIA]", object.asistencia[i].asistencia.toString()).replace("[USUARIOPASELISTA]", object.asistencia[i].usuarioPaseLista.toString())
-					//errorLog += data;
-					resultado2 = new SesionesDAO().insertPaseLista(data,context);
-					//errorLog +="Error"+i+":"+resultado2.getError();
-				}
-			}
-			errorLog +="6"
-			closeCon = validarConexion();
 			errorLog +="7"
 			
 			pstm = con.prepareStatement("select  persistenceid from solicituddeadmision where caseid = ? order by persistenceid DESC limit 1");

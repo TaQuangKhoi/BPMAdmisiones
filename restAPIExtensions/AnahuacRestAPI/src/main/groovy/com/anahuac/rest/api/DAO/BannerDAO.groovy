@@ -403,12 +403,16 @@ class BannerDAO {
 											errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
 											if(objJsonRegion != null) {
 												errorLog = errorLog + " | " + ("Estado: " + objJsonRegion.get("title").toString());
-											}
+												objEducationalInstitutions.setEstado(objJsonRegion.get("title").toString())
+												objAddresses.setEstado(objJsonRegion.get("title").toString())
+												}
 											errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
 											if(objJsonRegion != null) {
 												errorLog = errorLog + " | " + ("Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+												objEducationalInstitutions.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
+												objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
 											}
 											errorLog = errorLog + " | " + ("ciudad: " + (objJsonCountry.get("locality")==null ? "" : objJsonCountry.get("locality").toString()));
 											objAddresses.setIdDireccion(objJsonContent.get("id").toString());
@@ -476,6 +480,7 @@ class BannerDAO {
 						errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
 						if(objJsonRegion != null) {
 							errorLog = errorLog + " | " + ("Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+							objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
 						}
 						errorLog = errorLog + " | " + ("ciudad: " + (objJsonCountry.get("locality")==null ? "" : objJsonCountry.get("locality").toString()));
 						objAddresses.setIdDireccion(objJsonContent.get("id").toString());

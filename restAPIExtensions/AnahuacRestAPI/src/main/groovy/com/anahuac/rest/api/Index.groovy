@@ -272,6 +272,7 @@ class Index implements RestApiController {
 					}
 					break;
 					
+					
 				/**************DANIEL CERVANTES********************/
 					case "getCatCampus":
 					result = new CatalogosDAO().getCatCampus(jsonData, context)

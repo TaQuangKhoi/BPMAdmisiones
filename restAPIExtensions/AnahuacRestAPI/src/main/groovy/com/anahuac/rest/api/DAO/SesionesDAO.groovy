@@ -4664,7 +4664,7 @@ class SesionesDAO {
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				
-				pstm = con.prepareStatement(Statements.GET_COUNT_ASISTENCIA)
+				/*pstm = con.prepareStatement(Statements.GET_COUNT_ASISTENCIA)
 				pstm.setString(1,username);
 				rs = pstm.executeQuery()
 				while(rs.next()) {
@@ -4672,7 +4672,7 @@ class SesionesDAO {
 					cbcoincide = rs.getBoolean("cbcoincide")
 				}
 				
-				if(!count == 3 || !(count >= 2 && cbcoincide == true)) {
+				if(!count == 3 || !(count >= 2 && cbcoincide == true)) {*/
 					
 					pstm = con.prepareStatement(Statements.GET_SESIONASPIRANTE)
 					pstm.setString(1, username)
@@ -4707,7 +4707,7 @@ class SesionesDAO {
 						
 					}
 					
-				}
+				//}
 				
 				
 				
@@ -6849,7 +6849,7 @@ class SesionesDAO {
 		def object = jsonSlurper.parseText(jsonData);
 		Result resultado = new Result()
 		Boolean closeCon = false
-		String where =""
+		String where ="",errorLog = "";
 		String idbanner=object.idbanner//"00845125"
 		String respuesta = object.respuestas//"FCCCFCFCCCF*CCFFFFCCFFFFFFFFCFFFF*FFFFFFFFCFCCCFCFCFFFCFCCFFCCCCFFCFFFFFFFCCFFCFFFCFFCFCFCCFCFCFFCFFFCFFFCFCCFFCCFCFCFFC*CFCCCFCFFCCFFFFFFCCCCFFFFFCFFCCFFCFCFFCCFCCCFFFFCFFFCFCCFCFCFFFFCCCCFFCFCFFFFCFFFCCFCCCFCCCFFFFFFFFFCCCFCFFCFCFFFFFCFCFFFCCFFFFCFFFFFCFFFFCCCCFFCCFCFCCFFFCFCFCFFFFCFFFFCCFCFCFCFFFFFFFFFFFCFFFCCFFFCFFCFFFFFFFFCCFFFCFFFFCFFCFCCFFFCCCFCFFFFCCFFCFCFFFFCFCFFFFFFFFFFCFCFFCFFCFFFFFFCFFCFCCCCFFFCFFFCFCFFFFFCFFFCCFCFFFFFFFFCCCFCCFFFFFFFFCCFCFFCCCCFFFFFCFFFFCCCFFCFCFFFFFFFFFFCFCCCFCFFFFCFFCFFFFCFFFFFFFFFCFCFCFFFFFFFCCCCFFCFFFCFFFFFCFFFCFFFFFFCCCCCFCFFF"
 		String sesiones_pid=object.id_sesion//"1"
@@ -6862,6 +6862,9 @@ class SesionesDAO {
 		aData.put("respuestas",respuesta);
 		aData.put("id_sesion",sesiones_pid);
 		try {
+			Result resultado2 = new Result();
+			resultado2 = insertBitacoraComentarios(jsonData);
+			errorLog = resultado2.getError();
 			closeCon = validarConexion()
 			pstm = con.prepareStatement("SELECT persistenceid,  escala,  genero,  persistenceversion, pregunta, puntuacion, respuesta  FROM catrespuestasinvp where genero='ambos' OR genero=lower((SELECT cs.descripcion from solicituddeadmision sda inner join catsexo cs on cs.persistenceid=sda.catsexo_pid inner join detallesolicitud ds on ds.caseid::bigint=sda.caseid where ds.idbanner=? )) order by pregunta asc")
 			pstm.setString(1, idbanner)
@@ -6945,7 +6948,7 @@ class SesionesDAO {
 				additionalData.add(aData)
 				resultado.setSuccess(true)
 				resultado.setData(rows)
-				resultado.setAdditional_data(additionalData)
+				resultado.setAdditional_data(additionalData+"error:"+errorLog)
 			}
 			
 		} catch (Exception e) {
@@ -7180,6 +7183,85 @@ class SesionesDAO {
 			resultado.setError("500 Internal Server Error")
 			resultado.setError_info(e.getMessage())
 		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getGetFechaPsicometrico(String usuario) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT to_char(p.aplicacion, 'DD/MM/YYYY') AS aplicacion FROM pruebas AS p INNER JOIN aspirantespruebas AS ap ON AP.prueba_pid = p.persistenceid  WHERE p.cattipoprueba_pid = 2 AND ap.acreditado is not true AND ap.username = ? ORDER BY ap.persistenceid DESC LIMIT 1");
+			pstm.setString(1, usuario);
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result insertBitacoraComentarios( String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			
+				def jsonSlurper = new JsonSlurper();
+				def object = jsonSlurper.parseText(jsonData);
+				closeCon = validarConexion();
+				
+				Calendar cal = Calendar.getInstance();
+				Date date = cal.getTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+				String sDate = formatter.format(date);
+				
+				con.setAutoCommit(false)
+				pstm = con.prepareStatement("INSERT INTO CatBitacoraComentarios (comentario,usuarioComentario,usuario,modulo,fechaCreacion,isEliminado,persistenceid) VALUES(?,?,?,?,?,false,case when (SELECT max(persistenceId)+1 from CatBitacoraComentarios ) is null then 1 else (SELECT max(persistenceId)+1 from CatBitacoraComentarios) end ) ")
+				pstm.setString(1, object.respuestas);
+				pstm.setString(2, object.idbanner);
+				pstm.setString(3,"Administrador");
+				pstm.setString(4,"INVP");
+				pstm.setString(5,sDate);
+				
+				pstm.executeUpdate();
+				
+				con.commit();
+				
+				resultado.setSuccess(true)
+			} catch (Exception e) {
+			String es = e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(es);
+			con.rollback();
+		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}

@@ -2275,7 +2275,93 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			resultado.setSuccess(true);
 			resultado.setData(rows);
 		}catch (Exception e) {
-			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}	
+	
+	public Result postGetCatBitacoraComentariosPsicometrico(String usuarioComentario, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion()
+			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
+			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ?")
+			pstm.setString(1, usuarioComentario)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					if(metaData.getColumnLabel(i).toLowerCase().equals("usuario")) {
+						User usr;
+						String responsables = rs.getString(i);
+						String nombres= "";
+						if(!responsables.equals("null") && responsables != null) {
+							usr = context.getApiClient().getIdentityAPI().getUserByUserName(responsables);
+							nombres=usr.getFirstName()+" "+usr.getLastName();
+						}
+						columns.put(metaData.getColumnLabel(i), nombres);
+					}else {
+						columns.put(metaData.getColumnLabel(i), rs.getString(i));
+					}
+					
+					
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setError_info(errorLog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getFechaINVP(String usuario) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ri.fecha_registro FROM resultadoinvp ri INNER JOIN sesiones s on s.persistenceid=ri.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 INNER JOIN aspirantespruebas AS ap ON ap.prueba_pid = p.persistenceid where ap.username = ? order by ap.persistenceid DESC limit 1")
+			pstm.setString(1, usuario)
+			rs = pstm.executeQuery()
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+
+				rows.add(columns);
+			}
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
 			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());

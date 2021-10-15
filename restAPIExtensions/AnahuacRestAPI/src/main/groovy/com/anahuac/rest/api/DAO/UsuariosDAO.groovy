@@ -3697,4 +3697,243 @@ class UsuariosDAO {
 		return resultado
 	}
 	
+	
+	
+	public Result selectAspirantesSmartCampus( String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", idsesionalumno = "", orderby = "ORDER BY ", errorlog = "";
+
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			 
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+
+			String consulta = Statements.GET_ASPIRANTES_SMART_CAMPUS;
+
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				errorlog = consulta + " 1";
+				switch (filtro.get("columna")) {
+					case "NOMBRE,CURP,VPD":
+						errorlog += "NOMBRE,CURP"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(curp) like lower('%[valor]%')  ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where += " OR LOWER(vpd) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+
+				case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+					errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					/*where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+					*/
+					where += "( LOWER(estadoPreparatoria) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += "  OR LOWER(preparatoria) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(promedio) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				case "ULTIMA MODIFICACION":
+					errorlog += "FECHAULTIMAMODIFICACION"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " (LOWER(fechaUltimaModificacion) ";
+					if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}
+					where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(fechaUltimaModificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
+					where += "LIKE LOWER('%[valor]%'))";
+
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "CAMPUS,PROGRAMA,INGRESO":
+					errorlog += "PROGRAMA,INGRESO,CAMPUS"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " ( LOWER(campusDestino) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(licenciatura) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(periodo) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					break;
+					
+				case "ESTATUS":
+					errorlog += "ESTATUS"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " LOWER(estatus) ";
+					if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				
+				case "ID BANNER":
+					errorlog += "IDBANNER"
+					tipoalumno += " AND LOWER(idbanner) ";
+					if (filtro.get("operador").equals("Igual a")) {
+						tipoalumno += "=LOWER('[valor]')"
+					} else {
+						tipoalumno += "LIKE LOWER('%[valor]%')"
+					}
+					tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					
+				}
+
+			}
+			errorlog = consulta + " 2";
+			switch (object.orderby) {
+				case "IDBANNER":
+					orderby += "idbanner";
+				break;
+				case "NOMBRE":
+					orderby += "nombre";
+				break;
+				case "CURP":
+					orderby += "CURP";
+				break;
+				case "VPD":
+					orderby += "VPD";
+				break;
+				
+				case "CAMPUS":
+					orderby += "CAMPUSDESTIONE";
+				break;
+				case "PROGRAMA":
+					orderby += "LICENCIATURA";
+				break;
+				case "PERIODO":
+					orderby += "PERIODO";
+				break;
+				
+				case "PROCEDENCIA":
+					orderby += "ESTADOPREPARATORIA";
+				break;
+				case "PREPARATORIA":
+					orderby += "PREPARATORIA";
+				break;
+				case "PROMEDIO":
+					orderby += "PROMEDIO";
+				break;
+				
+				
+				case "RESIDENCIA":
+					orderby += "RESIDENCIA";
+				break;
+				case "ESTATUS":
+					orderby += "ESTATUS";
+				break;
+				case "FECHA SOLICITUD":
+					orderby += "PROMEDIO";
+				break;
+				case "ULTIMA MODIFICACION":
+					orderby += "PROMEDIO";
+				break;
+				
+				default:					
+					orderby += "NOMBRE"
+				break;
+			}
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery();
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
+						columns.put("foto", rs.getString(i) + SSA);
+					}else {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+				}
+
+				rows.add(columns);
+			}
+			errorlog = consulta + " 9";
+			resultado.setSuccess(true)
+
+			resultado.setError_info(errorlog);
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+
 }

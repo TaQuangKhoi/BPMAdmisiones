@@ -291,6 +291,42 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				case "postGetCatBitacoraComentariosPsicometrico":
+				try{
+					String usuario = request.getParameter "usuario";
+					result = new PsicometricoDAO().postGetCatBitacoraComentariosPsicometrico(usuario,context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getFechaINVP":
+				try{
+					String usuario = request.getParameter "usuario";
+					result = new PsicometricoDAO().getFechaINVP(usuario);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
 				case "getCatPeriodoActivoFechaEspecifica":
 					String tipo = request.getParameter "tipo";
 					String fecha = request.getParameter "fecha";					
@@ -1119,6 +1155,18 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				case "getGetFechaPsicometrico":
+				String usuario=request.getParameter "usuario"
+				result = new SesionesDAO().getGetFechaPsicometrico(usuario)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace()
