@@ -3702,7 +3702,7 @@ class UsuariosDAO {
 	public Result selectAspirantesSmartCampus( String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", idsesionalumno = "", orderby = "ORDER BY ", errorlog = "";
+		String where = "", orderby = "ORDER BY ", errorlog = "";
 
 		Long userLogged = 0L;
 		Long caseId = 0L;
@@ -3722,7 +3722,11 @@ class UsuariosDAO {
 			if (rs.next()) {
 				SSA = rs.getString("valor")
 			}
-
+			
+			if(object.campus != null) {
+				where += " WHERE LOWER(campusDestino) = LOWER('" + object.campus + "') " ;
+			}
+			
 			String consulta = Statements.GET_ASPIRANTES_SMART_CAMPUS;
 
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
@@ -3753,9 +3757,6 @@ class UsuariosDAO {
 					} else {
 						where += " WHERE "
 					}
-					/*where +=" ( LOWER(estado.DESCRIPCION) like lower('%[valor]%') ";
-					where = where.replace("[valor]", filtro.get("valor"))
-					*/
 					where += "( LOWER(estadoPreparatoria) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 
@@ -3772,18 +3773,32 @@ class UsuariosDAO {
 					} else {
 						where += " WHERE "
 					}
-					where += " (LOWER(fechaUltimaModificacion) ";
+					where += " LOWER(fechaUltimaModificacion) ";
 					if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
 					}
-					where += " OR to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(fechaUltimaModificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') ";
-					where += "LIKE LOWER('%[valor]%'))";
 
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
+				case "FECHA SOLICITUD":
+					errorlog += "fechaEnvioSolicitud"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " LOWER(fechaEnvioSolicitud) ";
+					if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}
+
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
 				case "CAMPUS,PROGRAMA,INGRESO":
 					errorlog += "PROGRAMA,INGRESO,CAMPUS"
 					if (where.contains("WHERE")) {
@@ -3802,14 +3817,27 @@ class UsuariosDAO {
 
 					break;
 					
-				case "ESTATUS":
+				case "RESIDENCIA,ESTATUS":
 					errorlog += "ESTATUS"
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
 						where += " WHERE "
 					}
-					where += " LOWER(estatus) ";
+					where += " ( LOWER(residencia) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(estatus) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				
+				case "ID BANNER":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " LOWER(idbanner) ";
 					if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
@@ -3817,23 +3845,12 @@ class UsuariosDAO {
 					}
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
-				
-				case "ID BANNER":
-					errorlog += "IDBANNER"
-					tipoalumno += " AND LOWER(idbanner) ";
-					if (filtro.get("operador").equals("Igual a")) {
-						tipoalumno += "=LOWER('[valor]')"
-					} else {
-						tipoalumno += "LIKE LOWER('%[valor]%')"
-					}
-					tipoalumno = tipoalumno.replace("[valor]", filtro.get("valor"))
-					break;
 					
 					
 				}
 
 			}
-			errorlog = consulta + " 2";
+			
 			switch (object.orderby) {
 				case "IDBANNER":
 					orderby += "idbanner";
@@ -3876,10 +3893,10 @@ class UsuariosDAO {
 					orderby += "ESTATUS";
 				break;
 				case "FECHA SOLICITUD":
-					orderby += "PROMEDIO";
+					orderby += "fechaEnvioSolicitud";
 				break;
 				case "ULTIMA MODIFICACION":
-					orderby += "PROMEDIO";
+					orderby += "fechaUltimaModificacion";
 				break;
 				
 				default:					
@@ -3930,6 +3947,42 @@ class UsuariosDAO {
 			resultado.setError(e.getMessage());
 		} finally {
 			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getUniversidadSmartCampus() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT DISTINCT campusDestino FROM AspirantesSmartCampus");
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
 			}
 		}

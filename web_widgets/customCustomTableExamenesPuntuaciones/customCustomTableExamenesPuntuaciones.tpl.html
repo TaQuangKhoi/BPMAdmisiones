@@ -9,12 +9,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="text-left">
+            <tr >
                 <td class="text-left" style="text-align: left;">
                     <label>INVP</label>
                 </td>
                 <td>
-                    <input type="number" class="form-control width-limited" ng-model="properties.puntuacionINVP" ng-maxlength="1" max="3">
+                <div class="block form-group form-inline">
+                    <input ng-keypress="forceKeyPressUppercase($event)" class="form-control width-limited" ng-model="properties.puntuacionINVP" ng-disabled="getTotal()==0" ng-if="getTotal()!=0"> <label ng-if="getTotal()!=0">{{ (properties.fechaINVP.length > 0 ?properties.fechaINVP[0].fecha_prueba:"") }}</label>
+                    <label class="label-next-input"  ng-if="getTotal()==0">Aun no hay resultados cargados de examen de aptitudes y conocimientos, no es posible mostrar este dato.</label>
+                </div>
                 </td>
             </tr>
             <tr>
