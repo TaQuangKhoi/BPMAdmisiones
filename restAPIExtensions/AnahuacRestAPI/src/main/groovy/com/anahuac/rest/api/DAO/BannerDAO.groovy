@@ -402,15 +402,15 @@ class BannerDAO {
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + objJsonCountry.get("title").toString());
 											if(objJsonRegion != null) {
-												errorLog = errorLog + " | " + ("Estado: " + objJsonRegion.get("title").toString());
+												errorLog = errorLog + " | " + ("1.Estado: " + objJsonRegion.get("title").toString());
 												objEducationalInstitutions.setEstado(objJsonRegion.get("title").toString())
-												objAddresses.setEstado(objJsonRegion.get("title").toString())
+												/*1*/objAddresses.setEstado(objJsonRegion.get("title").toString())
 												}
 											errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
 											if(objJsonRegion != null) {
-												errorLog = errorLog + " | " + ("Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+												errorLog = errorLog + " | " + ("2.Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 												objEducationalInstitutions.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
 												objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
 											}
@@ -479,8 +479,12 @@ class BannerDAO {
 						errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 						errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
 						if(objJsonRegion != null) {
-							errorLog = errorLog + " | " + ("Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
-							objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
+							errorLog = errorLog + " | " + ("3.Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+							try {
+							objAddresses.setEstado(objJsonRegion.get("title").toString())
+							}catch(Exception e) {
+								errorLog = errorLog + " | 3.Estado: " + e.getMessage()
+							}
 						}
 						errorLog = errorLog + " | " + ("ciudad: " + (objJsonCountry.get("locality")==null ? "" : objJsonCountry.get("locality").toString()));
 						objAddresses.setIdDireccion(objJsonContent.get("id").toString());
@@ -496,7 +500,12 @@ class BannerDAO {
 						} else {
 							objAddresses.setPais(objJsonCountry.get("title").toString());
 							if(objJsonRegion != null) {
-								objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()).equals("Estado Extranjero") ? "" : (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+								//objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()).equals("Estado Extranjero") ? "" : (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
+								try {
+									objAddresses.setEstado(objJsonRegion.get("title").toString())
+								}catch(Exception e) {
+									errorLog = errorLog + " | 4.Estado: " + e.getMessage()
+								}
 							}
 							objAddresses.setCiudad(objJsonCountry.get("locality").toString().equals("000000") ? "" : objJsonCountry.get("locality").toString());
 						}
