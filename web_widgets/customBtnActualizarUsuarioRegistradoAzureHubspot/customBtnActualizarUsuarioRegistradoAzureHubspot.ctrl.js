@@ -112,7 +112,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     }
                 }
 
-                $scope.properties.JSONUsuarioRegistrado.numeroContacto = $scope.properties.dataToSend.numeroContacto == null?'':$scope.properties.dataToSend.numeroContacto; 
+                //$scope.properties.JSONUsuarioRegistrado.numeroContacto = $scope.properties.dataToSend.numeroContacto == null?'':$scope.properties.dataToSend.numeroContacto;
+                $scope.properties.JSONUsuarioRegistrado.telefonoCelular = $scope.properties.dataToSend.telefonocelular == null?'':$scope.properties.dataToSend.telefonocelular;  
                 
                 $scope.properties.JSONUsuarioRegistrado.bachillerato = parseInt($scope.properties.dataToSend.catBachilleratos.persistenceid);
                 $scope.properties.JSONUsuarioRegistrado.nombrebachillerato = $scope.properties.datosPreparatoria.nombreBachillerato;

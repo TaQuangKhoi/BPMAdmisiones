@@ -28,7 +28,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     str.valor == datos[index+1][$scope.properties.campoDato];
                     str.index = index+1;
                 }else{
-                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"ultimo de la lista ":"primero de la lista "}, no se puede seleccionar otro!`,"","")
+                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"último de la lista ":"primero de la lista "}, no se puede seleccionar otro!`,"","")
                 }
             } 
         });
@@ -56,7 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function (data, status) {
                 if(data.data[0].accion !== undefined && !data.data[0].accion){
-                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"ultimo de la lista, ":"primero de la lista, "}no se puede seleccionar otro!`,"","")
+                    swal(`¡El aspirante es el ${$scope.properties.accionNextOrReturn?"último de la lista, ":"primero de la lista, "}no se puede seleccionar otro!`,"","")
                 }else{
                     
                     $scope.properties.value = data.data[0].idbanner

@@ -54,6 +54,7 @@ function ($scope, $http) {
     
     $scope.respuestaProcesadas = [];
     function aplicarFactor(){
+        $scope.respuestaProcesadas = [];
         var valorK=0;
         $scope.properties.respuesta.forEach(element =>{
             if (element.escala=='K') {
@@ -68,6 +69,8 @@ function ($scope, $http) {
             }
         });
         
+        let mfExtra = {};
+        let indexmf=0;
         $scope.properties.respuesta.forEach((element,index) =>{
         $scope.respuestaProcesadas.push(angular.copy(element));
         if (element.escala=='Hs') {
@@ -85,8 +88,23 @@ function ($scope, $http) {
         if (element.escala=='Ma') {
             $scope.respuestaProcesadas[index].puntuacion = parseInt(element.puntuacion)+jsonk['.2'];
         }
+        if(element.escala == 'Mf (femenino)'){
+            mfExtra = angular.copy($scope.respuestaProcesadas[index]);
+            mfExtra.escala = 'Mfm';
+            mfExtra.puntuacion = 0;
+            $scope.respuestaProcesadas[index].escala = 'Mff'
+            indexmf = index;
+        }
+        if(element.escala == 'Mf (masculino)' ){
+            mfExtra = angular.copy($scope.respuestaProcesadas[index]);
+            mfExtra.escala = 'Mff';
+            mfExtra.puntuacion = 0;
+            $scope.respuestaProcesadas[index].escala = 'Mfm'
+            indexmf = index;
+        }
         
         });
+        $scope.respuestaProcesadas.splice((indexmf+1),0,angular.copy(mfExtra));
     }
    
   function doRequest(method, url, params,dataToSend) {

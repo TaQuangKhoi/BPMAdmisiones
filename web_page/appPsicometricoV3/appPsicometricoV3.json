@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1633388548597,
+  "lastUpdate" : 1634256828581,
   "rows" : [
     [
       {
@@ -769,7 +769,7 @@
                                           "type" : "constant",
                                           "value" : [
                                             "catParentezco.descripcion",
-                                            "nombre",
+                                            "nombre+(nombre!=null?' ':'')+apellidos",
                                             "vive.descripcion",
                                             "empresaTrabaja"
                                           ]
@@ -988,6 +988,10 @@
                                         "puntuacionINVP" : {
                                           "type" : "variable",
                                           "value" : "testPsicom.puntuacionINVP"
+                                        },
+                                        "fechaINVP" : {
+                                          "type" : "expression",
+                                          "value" : "getFechaInvp"
                                         }
                                       },
                                       "reference" : "0a3daaf1-12de-4605-bf28-32b6784a6c98",
@@ -1206,7 +1210,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Fuentes que influyeron en tu decisión: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "Fuentes que influyeron en tu decisión:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -1266,7 +1270,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "¿Qué o quiénes influyeron en la elección de tu carrera? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                              "value" : "¿Qué o quiénes influyeron en la elección de tu carrera?"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -1879,11 +1883,15 @@
                             "filtroToSend" : {
                               "type" : "variable",
                               "value" : "filtroToSend"
+                            },
+                            "userComentario" : {
+                              "type" : "expression",
+                              "value" : "solicitudDeAdmisionBDM.correoElectronico"
                             }
                           },
-                          "reference" : "15079cad-f754-4736-b72d-94bfdefa4995",
+                          "reference" : "30a7f596-5e39-4c47-a0d6-30bfa8324d43",
                           "hasValidationError" : false,
-                          "id" : "customBtnEnviarComentarioByUserAPP"
+                          "id" : "customBtnEnviarComentarioByUserAPP2"
                         }
                       ],
                       [
@@ -1962,7 +1970,7 @@
                               "value" : [
                                 "comentario",
                                 "usuario",
-                                "fechaCreacion| date:'dd-MM-yyyy HH:mm:ss'",
+                                "fechacreacion| date:'dd-MM-yyyy HH:mm:ss'",
                                 "modulo"
                               ]
                             },
@@ -2282,7 +2290,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2316,19 +2324,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "ae98438b-3fb3-465c-a221-d12345469e71",
+                                      "reference" : "c313496f-4c02-44aa-a96f-6ef58fe46276",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -2453,7 +2463,7 @@
                                         },
                                         "label" : {
                                           "type" : "interpolation",
-                                          "value" : "Ajuste escplar previo"
+                                          "value" : "Ajuste escolar previo"
                                         },
                                         "labelPosition" : {
                                           "type" : "constant",
@@ -2576,7 +2586,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2610,19 +2620,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "c6523654-0695-482a-b96c-5953e985e664",
+                                      "reference" : "f3883314-bfe5-4d02-bda4-4f9c9fee308d",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -2870,7 +2882,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -2904,19 +2916,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "f5f3b8c1-86bf-48dc-aab0-0dfa1217b801",
+                                      "reference" : "c7c6f9de-46bf-4ee0-90b1-5d5cd6f67c9b",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -3164,7 +3178,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -3198,19 +3212,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "7d256e89-2427-4e7e-97f3-6aa234b52e45",
+                                      "reference" : "4631ebc8-3568-4933-a9f6-f4cb43763574",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -3458,7 +3474,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -3492,19 +3508,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "0c85d470-5b34-49b6-bdfc-9c6fd98875c8",
+                                      "reference" : "d1fb8d5d-0e3a-4967-8d0d-360bffd9e00a",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -3752,7 +3770,7 @@
                                         },
                                         "maxLength" : {
                                           "type" : "constant",
-                                          "value" : ""
+                                          "value" : 1
                                         },
                                         "readOnly" : {
                                           "type" : "constant",
@@ -3786,19 +3804,21 @@
                                           "value" : "text"
                                         },
                                         "min" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 0
                                         },
                                         "max" : {
-                                          "type" : "constant"
+                                          "type" : "constant",
+                                          "value" : 4
                                         },
                                         "step" : {
                                           "type" : "constant",
                                           "value" : 1
                                         }
                                       },
-                                      "reference" : "6394e98b-fa61-4573-85af-49376179e197",
+                                      "reference" : "d0abc43d-c933-41b5-8a5a-34d0ed7cc2a1",
                                       "hasValidationError" : false,
-                                      "id" : "pbInput"
+                                      "id" : "customInputNumericoCustom3"
                                     }
                                   ]
                                 ]
@@ -5016,7 +5036,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "Carreras recomendadas"
+                                    "value" : "Carrera"
                                   },
                                   "level" : {
                                     "type" : "constant",
@@ -5163,7 +5183,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "Agregar observación"
+                              "value" : "Agregar opción"
                             },
                             "alignment" : {
                               "type" : "constant",
@@ -5233,7 +5253,7 @@
                             },
                             "cleanObject" : {
                               "type" : "expression",
-                              "value" : "{     \"orden\": \"\",     \"universidad\": \"\",     \"examen\": false,     \"admitido\": false,     \"porcentajeBeca\": \"\",     \"porcentajeCredito\": \"\" }"
+                              "value" : "{     \"orden\": \"\",     \"universidad\": \"\",     \"examen\": false,     \"admitido\": false,     \"porcentajeBeca\": \"0\",     \"porcentajeCredito\": \"0\" }"
                             }
                           },
                           "reference" : "4cf45a81-1c38-4991-b8e4-597c70621fc8",
@@ -6608,7 +6628,7 @@
                         },
                         "maxLength" : {
                           "type" : "constant",
-                          "value" : 2
+                          "value" : 3
                         },
                         "readOnly" : {
                           "type" : "constant",
@@ -6654,9 +6674,9 @@
                           "value" : 1
                         }
                       },
-                      "reference" : "b6a477bf-21a3-4030-8c31-c7e1476243dc",
+                      "reference" : "891dec0c-e4ae-447c-b335-c8ca990bb42c",
                       "hasValidationError" : false,
-                      "id" : "pbInput"
+                      "id" : "customInputNumerico"
                     },
                     {
                       "type" : "component",
@@ -6840,7 +6860,7 @@
                         },
                         "maxLength" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : 3
                         },
                         "readOnly" : {
                           "type" : "constant",
@@ -6874,19 +6894,21 @@
                           "value" : "text"
                         },
                         "min" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 0
                         },
                         "max" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 101
                         },
                         "step" : {
                           "type" : "constant",
                           "value" : 1
                         }
                       },
-                      "reference" : "642d752b-3817-4535-8b2f-785a1da1590e",
+                      "reference" : "dae56522-92c7-4fca-acc7-ac4a4d08532a",
                       "hasValidationError" : false,
-                      "id" : "pbInput"
+                      "id" : "customInputNumericoCustom3"
                     },
                     {
                       "type" : "component",
@@ -6915,7 +6937,7 @@
                         },
                         "maxLength" : {
                           "type" : "constant",
-                          "value" : ""
+                          "value" : 3
                         },
                         "readOnly" : {
                           "type" : "constant",
@@ -6949,19 +6971,21 @@
                           "value" : "text"
                         },
                         "min" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 0
                         },
                         "max" : {
-                          "type" : "constant"
+                          "type" : "constant",
+                          "value" : 101
                         },
                         "step" : {
                           "type" : "constant",
                           "value" : 1
                         }
                       },
-                      "reference" : "b5c5d64e-d468-483d-b249-b7cb64e1a5cc",
+                      "reference" : "0e0fdbcf-88f6-494c-a0a1-3e6e7b501359",
                       "hasValidationError" : false,
-                      "id" : "pbInput"
+                      "id" : "customInputNumericoCustom3"
                     }
                   ]
                 ]
@@ -7611,7 +7635,7 @@
     "catRasgosObservados_query" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"getCatRasgosObservados [com.anahuac.catalogos.CatRasgosObservados]\",\"businessObjectName\":\"CatRasgosObservados\",\"query\":{\"name\":\"getCatRasgosObservados\",\"displayName\":\"getCatRasgosObservados\"},\"id\":\"com.anahuac.catalogos.CatRasgosObservados\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"getCatRasgosObservados [com.anahuac.catalogos.CatRasgosObservados]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatRasgosObservados\",\"displayName\":\"getCatRasgosObservados\"},\"id\":\"com.anahuac.catalogos.CatRasgosObservados\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"100\"}}"
       ],
       "exposed" : false
     },
@@ -7661,7 +7685,7 @@
     "lstCatBitacoraComentarios" : {
       "type" : "url",
       "value" : [
-        "../API/bdm/businessData/com.anahuac.bitacora.CatBitacoraComentarios?q=getCatBitacoraComentariosByUser&p=0&c=9999&f=usuario={{solicitudDeAdmision.correoElectronico}}"
+        "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
       ],
       "exposed" : false
     },
@@ -8240,6 +8264,81 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getPsicometricoMotivo&p=0&c=9999&caseId={{caseId}}"
+      ],
+      "exposed" : false
+    },
+    "getFechaPsicometrico" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getGetFechaPsicometrico&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
+      ],
+      "exposed" : false
+    },
+    "cargarFechaPsicometrico" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.getFechaPsicometrico != null){",
+        "    if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
+        "        ",
+        "    }else{",
+        "        $data.testPsicom.fechaEntrevista =  $data.getFechaPsicometrico.data[0].aplicacion+'T00:00:00.000Z';",
+        "    }",
+        "    ",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "isFinalizado" : {
+      "type" : "expression",
+      "value" : [
+        "var  hayDatos = [];",
+        "//primer dato es si hay fecha",
+        "if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
+        "    hayDatos.push(true);",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
+        "if($data.testPsicom.quienRealizoEntrevista != null && $data.testPsicom.quienRealizoEntrevista.toString().trim().length > 0){",
+        "    hayDatos.push(true)",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
+        "if($data.testPsicom.quienIntegro != null && $data.testPsicom.quienIntegro.toString().trim().length > 0){",
+        "    hayDatos.push(true)",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
+        "if($data.TestPsicometricoRelativos != null && $data.TestPsicometricoRelativos.length == 3){",
+        "    hayDatos.push(true)",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
+        "if($data.testPsicom.puntuacionINVP != null && $data.testPsicom.puntuacionINVP.toString().trim().length > 0){",
+        "    hayDatos.push(true)",
+        "}else{",
+        "    hayDatos.push(false);",
+        "}",
+        "",
+        "if($data.rasgos != null && $data.rasgos.length > 0){",
+        "    let completado = true;",
+        "    $data.rasgos.forEach(element =>{",
+        "        if(element.calificacion === null){",
+        "            completado = false;",
+        "        }",
+        "    });",
+        "    hayDatos.push(completado);",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "getFechaInvp" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getFechaINVP&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
       ],
       "exposed" : false
     }

@@ -22,17 +22,19 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             messageTitle = "Universidad";
             output = false;
         } else if ($scope.properties.nuevaObservacion.porcentajeBeca === ""){
-            errorMessage = "El campo '% Beca' no debe ir vacío y debe contener un valor numérico.";
+            $scope.properties.nuevaObservacion.porcentajeBeca = "0";
+            /*errorMessage = "El campo '% Beca' no debe ir vacío y debe contener un valor numérico.";
             messageTitle = "% Beca";
-            output = false;
+            output = false;*/
         } else if(!regex.test($scope.properties.nuevaObservacion.porcentajeBeca)){
             errorMessage = "El campo '% Beca' no debe ir vacío y debe contener un valor numérico.";
             messageTitle = "% Beca!";
             output = false;
         } else if ($scope.properties.nuevaObservacion.porcentajeCredito === ""){
-            errorMessage = "El campo '% Crédito' no debe ir vacío y debe contener un valor numérico.";
+            $scope.properties.nuevaObservacion.porcentajeCredito = "0";
+            /*errorMessage = "El campo '% Crédito' no debe ir vacío y debe contener un valor numérico.";
             messageTitle = "% Crédito";
-            output = false;
+            output = false;*/
         } else if(!regex.test($scope.properties.nuevaObservacion.porcentajeCredito)){
             errorMessage = "El campo '% Crédito' no debe ir vacío y debe contener un valor numérico.";
             messageTitle = "% Crédito!";
