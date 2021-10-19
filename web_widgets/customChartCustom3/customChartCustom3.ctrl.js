@@ -94,10 +94,14 @@ function PbChartCtrl($scope, $log, uiTranslateFilter) {
                     }
                 },
                 y:{
-                    min:30,
+                    min:25,
                     max:120,
+                    grid:{
+                        display:false
+                    },
+                    
                     ticks:{
-                      maxTicksLimit:20,
+                      maxTicksLimit:21,
                       padding:5,
                       stepSize: 5,
                       
@@ -106,10 +110,13 @@ function PbChartCtrl($scope, $log, uiTranslateFilter) {
                 },
                  y2:{
                     position:'right',
-                    min:30,
+                    min:25,
                     max:120,
+                    grid:{
+                        display:false
+                    },
                     ticks:{
-                      maxTicksLimit:20,
+                      maxTicksLimit:21,
                       padding:5,
                       stepSize: 5
                     }

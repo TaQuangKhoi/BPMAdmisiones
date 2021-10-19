@@ -590,6 +590,85 @@ class ReactivacionDAO {
 	}
 	
 	
+	
+	
+	public Result respaldoUsuario(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement("INSERT INTO SolicitudDeAdmisionRespaldo SELECT  * FROM SolicitudDeAdmision WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO AutodescripcionRespaldo SELECT * FROM Autodescripcion WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO AutodescripcionV2Respaldo SELECT * FROM AutodescripcionV2 WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO CatRegistroRespaldo SELECT * FROM CatRegistroRespaldo WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO ContactoEmergenciaRespaldo SELECT * FROM ContactoEmergencia WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO DetalleSolicitudRespaldo SELECT * FROM DetalleSolicitud WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO EscuelaHasEstadoRespaldo SELECT * FROM EscuelaHasEstado WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO GrupoSocialRespaldo SELECT * FROM GrupoSocial WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO HermanoRespaldo SELECT * FROM Hermano WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO IdiomasHablasRespaldo SELECT * FROM IdiomasHablas WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			//Revisarlo como conectar los datos
+			//pstm = con.prepareStatement("INSERT INTO IdiomasHablasV2Respaldo SELECT * FROM IdiomasHablasV2 WHERE caseid = "+object.caseid);
+			//pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO InfoCartaRespaldo SELECT * FROM InfoCarta WHERE numerodematricula = '"+object.idbanner+"'");
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO PadresTutorRespaldo SELECT * FROM PadresTutor WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO ParienteEARespaldo SELECT * FROM ParienteEgresadoAnahuac WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO PlantillaHermanosRespaldo SELECT * FROM PlantillaHermanos WHERE idreg::INTEGER = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO PlantillaRegistroRespaldo SELECT * FROM PlantillaRegistro WHERE expediente = '"+object.idbanner+"'");
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO TerapiaRespaldo SELECT * FROM Terapia WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement("INSERT INTO UniversidadesRespaldo SELECT * FROM Universidades WHERE caseid = "+object.caseid);
+			pstm.executeUpdate();
+			
+			con.commit();
+			resultado.setSuccess(true)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+			con.rollback();
+		}
+		return resultado;
+	} 
+	
 	public Boolean validarConexion() {
 		Boolean retorno = false
 		if (con == null || con.isClosed()) {
