@@ -251,7 +251,8 @@ class BannerDAO {
 		Matcher matcher = null;
 
 		try {
-
+			//TODO
+			def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
 			errorLog = errorLog + " | jsonResultado: " + jsonResultado;
 			lstJson = (org.json.simple.JSONArray) parser.parse(jsonResultado);
 
@@ -273,7 +274,19 @@ class BannerDAO {
 
 				switch (objJsonResource.get("name").toString()) {
 					case "educational-institutions":
-
+					if (objJson.get("operation").toString().equals("deleted")||objJson.get("operation").toString().equals("replaced") ) {
+						if(objJsonContent.get("id") != null) {
+							lstCatBachilleratos = catBachilleratosDAO.findById(objJsonContent.get("id").toString(), 0, 100);
+						}
+						else {
+							lstCatBachilleratos = catBachilleratosDAO.findById(objJsonContent.get("guid").toString(), 0, 100);
+						}
+						
+						if(lstCatBachilleratos.size()==0) {
+							objJson.put("operation", "created")
+						}
+					}
+						
 						if (objJson.get("operation").toString().equals("deleted")) {
 							errorLog = errorLog + " | " + "IF DELETE--------------------------------------------------------";
 							errorLog = errorLog + " | " + objJsonContent.get("id");
@@ -361,37 +374,7 @@ class BannerDAO {
 										errorLog = errorLog + " | " + ("resultAddresses: " + resultAddresses);
 										if(!resultAddresses.equals("")) {
 											errorLog = errorLog + " | " + ("resultAddresses: " + resultAddresses);
-											//{
-												//"addressLines": [
-													//"Av. Xalapa 73."
-												//],
-												//"id": "3b23dc9c-3cab-4919-9b16-9dcff1ad672f",
-												//"place": {
-													//"country": {
-														//"code": "MEX",
-														//"locality": "Veracruz",
-														//"postalCode": "91130",
-														//"postalTitle": "MEXICO",
-														//"region": {
-															//"title": "Veracruz"
-														//},
-														//"subRegion": {
-															//"title": "Xalapa"
-														//},
-														//"title": "México"
-													//}
-												//},
-												//"addressExtended": [
-													//{
-														//"streetLine1": "Av. Xalapa 73.",
-														//"streetLine2": null,
-														//"streetLine3": null,
-														//"nationCode": "99",
-														//"stateCode": "M30",
-														//"countyCode": "30087"
-													//}
-												//]
-											//}
+											
 											objJsonContent = (JSONObject) parser.parse(resultAddresses);
 											
 											objJsonPlace = (JSONObject) objJsonContent.get("place");
@@ -535,42 +518,6 @@ class BannerDAO {
 
 			}
 			errorLog = errorLog + " | " + ("--------------------------------------------------------");
-
-			/*for(CatBachillerato row : lstEducationalInstitutions) {
-				objCatBachillerato= new CatBachillerato();
-				objCatBachillerato.setIdBachillerato(row.getIdBachillerato());
-				objCatBachillerato.setDescripcion(row.getDescripcion());
-				objCatBachillerato.setUsuarioBanner(row.getUsuarioBanner());
-				objCatBachillerato.setFechaImportacion(row.getFechaImportacion());
-				objCatBachillerato.setFechaCreacion(row.getFechaCreacion());
-				objCatBachillerato.setOperation(row.getOperation());
-				objCatBachillerato.setClave(row.getClave());
-				objCatBachillerato.setIsEliminado(false);
-				objCatBachillerato.setIsEnabled(true);
-				objCatBachillerato.setPerteneceRed(false);
-				objCatBachillerato.setTypeInd(row.getTypeInd())
-				
-				objCatBachillerato.setStreetLine1(row.getStreetLine1())
-				objCatBachillerato.setStreetLine2(row.getStreetLine2())
-				objCatBachillerato.setStreetLine3(row.getStreetLine3())
-				objCatBachillerato.setNationCode(row.getNationCode())
-				objCatBachillerato.setStateCode(row.getStateCode())
-				objCatBachillerato.setCountyCode(row.getCountyCode())
-				objCatBachillerato.setIdDireccion(row.getIdDireccion());
-		
-				errorLog = errorLog + " | row.getIdBachillerato(): "+(row.getIdBachillerato());
-				errorLog = errorLog + " | row.getDescripcion(): "+(row.getDescripcion());
-				errorLog = errorLog + " | row.getUsuarioBanner(): "+(row.getUsuarioBanner());
-				errorLog = errorLog + " | row.getFechaImportacion(): "+(row.getFechaImportacion());
-				errorLog = errorLog + " | row.getFechaCreacion(): "+(row.getFechaCreacion());
-				errorLog = errorLog + " | row.getOperation(): "+(row.getOperation());
-				errorLog = errorLog + " | row.getClave(): "+(row.getClave());
-				objCatBachillerato.setPais("");
-				objCatBachillerato.setEstado("");
-				objCatBachillerato.setCiudad("");
-				lstCatBachillerato.add(objCatBachillerato);
-			}*/
-
 			processInstance = null;
 			processAPI = context.getApiClient().getProcessAPI();
 
@@ -604,7 +551,8 @@ class BannerDAO {
 
 			errorLog = errorLog + " | " + ("====================================");
 			errorLog = errorLog + " | lstEducationalInstitutions.size():" + (lstEducationalInstitutions.size());
-			def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
+			//TODO
+			//def catBachilleratosDAO = context.getApiClient().getDAO(CatBachilleratosDAO.class);
 			for (CatBachillerato row: lstEducationalInstitutions) {
 				errorLog = errorLog + " | row.getOperation(): " + (row.getOperation());
 				errorLog = errorLog + " | row.getUsuarioBanner(): " + (row.getUsuarioBanner());
@@ -1204,92 +1152,81 @@ class BannerDAO {
 					errorLog = errorLog + " |lstCatBachilleratos.size()=0, IDBACHILLERATO de busqueda " + objLstAddresses.getIdBachillerato();
 					lstCatBachilleratos = catBachilleratosDAO.findById(objLstAddresses.getIdBachillerato(), 0, 100);
 				}
-				for (CatBachilleratos objRow: lstCatBachilleratos) {
-					//if (!objRow.isIsEliminado()) {
-
-						errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-						errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-						errorLog = errorLog + " | ================================================================== | ";
-
-						lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
-						objCatBachilleratosInput = new HashMap < String, Serializable > ();
-						contracto = new HashMap < String, Serializable > ();
-						/*CONSTRUCCION DE CONTRATO=====================================================================*/
-						objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
-						objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
-
-						objCatBachilleratosInput.put("isEliminado", !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) );
-						objCatBachilleratosInput.put("isEnabled", objRow.isIsEnabled());
-						objCatBachilleratosInput.put("todelete", (objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
-
-						objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
-						objCatBachilleratosInput.put("region", null);
-						objCatBachilleratosInput.put("caseId", null);
-						objCatBachilleratosInput.put("clave", objRow.getClave());
-						objCatBachilleratosInput.put("fechaImportacion", null);
-						objCatBachilleratosInput.put("fechaCreacion", null);
-						objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
-						objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
-						objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
-						objCatBachilleratosInput.put("estado", objLstAddresses.getEstado());
-						objCatBachilleratosInput.put("ciudad", objLstAddresses.getCiudad());
-						objCatBachilleratosInput.put("pais", objLstAddresses.getPais());
-						objCatBachilleratosInput.put("id", objRow.getId());
-						/*eddressExtended--------------------------------------------------------------------------------*/
-						objCatBachilleratosInput.put("streetLine1", objLstAddresses.getStreetLine1());
-						objCatBachilleratosInput.put("streetLine2", objLstAddresses.getStreetLine2());
-						objCatBachilleratosInput.put("streetLine3", objLstAddresses.getStreetLine3());
-						objCatBachilleratosInput.put("nationCode", objLstAddresses.getNationCode());
-						objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
-						objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
-						objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
-
-						
-						
-						errorLog = errorLog + " | DIRECCION==========================================================================================";
-						errorLog = errorLog + " | " + ("persistenceId - " + objRow.getPersistenceId());
-						errorLog = errorLog + " | " + ("persistenceVersion - " + objRow.getPersistenceVersion());
-						errorLog = errorLog + " | " + ("isEliminado - " + !( objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) );
-						errorLog = errorLog + " | " + ("isEnabled - " + objRow.isIsEnabled());
-						errorLog = errorLog + " | " + ("todelete - " + ( ( objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true" ) );
-						errorLog = errorLog + " | " + ("perteneceRed - " + objRow.isPerteneceRed());
-						errorLog = errorLog + " | " + ("region - " + null);
-						errorLog = errorLog + " | " + ("caseId - " + null);
-						errorLog = errorLog + " | " + ("clave - " + objRow.getClave());
-						errorLog = errorLog + " | " + ("fechaImportacion - " + null);
-						errorLog = errorLog + " | " + ("fechaCreacion - " + null);
-						errorLog = errorLog + " | " + ("usuarioCreacion - " + "Administrador");
-						errorLog = errorLog + " | " + ("descripcion - " + objRow.getDescripcion());
-						errorLog = errorLog + " | " + ("usuarioBanner - " + objRow.getUsuarioBanner());
-						errorLog = errorLog + " | " + ("estado - " + objLstAddresses.getEstado());
-						errorLog = errorLog + " | " + ("ciudad - " + objLstAddresses.getCiudad());
-						errorLog = errorLog + " | " + ("pais - " + objLstAddresses.getPais());
-						errorLog = errorLog + " | " + ("id - " + objRow.getId());
-						errorLog = errorLog + " | " + ("streetLine1 - " + objLstAddresses.getStreetLine1());
-						errorLog = errorLog + " | " + ("streetLine2 - " + objLstAddresses.getStreetLine2());
-						errorLog = errorLog + " | " + ("streetLine3 - " + objLstAddresses.getStreetLine3());
-						errorLog = errorLog + " | " + ("nationCode - " + objLstAddresses.getNationCode());
-						errorLog = errorLog + " | " + ("stateCode - " + objLstAddresses.getStateCode());
-						errorLog = errorLog + " | " + ("countyCode - " + objLstAddresses.getCountyCode());
-						errorLog = errorLog + " | DIRECCION==========================================================================================";
-
-						lstCatBachilleratosInput.add(objCatBachilleratosInput);
-						contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
-						processInstance = processAPI.startProcessWithInputs(processId, contracto);
-					/*} else {
-
-						errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
-						errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
-						errorLog = errorLog + " | is eliminado";
-						errorLog = errorLog + " | ================================================================== | ";
-
-					}*/
+				if(lstCatBachilleratos.size()>0){
+					for (CatBachilleratos objRow: lstCatBachilleratos) {
+							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
+							errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
+							errorLog = errorLog + " | ================================================================== | ";
+	
+							lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
+							objCatBachilleratosInput = new HashMap < String, Serializable > ();
+							contracto = new HashMap < String, Serializable > ();
+							/*CONSTRUCCION DE CONTRATO=====================================================================*/
+							objCatBachilleratosInput.put("persistenceId", objRow.getPersistenceId());
+							objCatBachilleratosInput.put("persistenceVersion", objRow.getPersistenceVersion());
+	
+							objCatBachilleratosInput.put("isEliminado", !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) );
+							objCatBachilleratosInput.put("isEnabled", objRow.isIsEnabled());
+							objCatBachilleratosInput.put("todelete", (objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true");
+	
+							objCatBachilleratosInput.put("perteneceRed", objRow.isPerteneceRed());
+							objCatBachilleratosInput.put("region", null);
+							objCatBachilleratosInput.put("caseId", null);
+							objCatBachilleratosInput.put("clave", objRow.getClave());
+							objCatBachilleratosInput.put("fechaImportacion", null);
+							objCatBachilleratosInput.put("fechaCreacion", null);
+							objCatBachilleratosInput.put("usuarioCreacion", "Administrador");
+							objCatBachilleratosInput.put("descripcion", objRow.getDescripcion());
+							objCatBachilleratosInput.put("usuarioBanner", objRow.getUsuarioBanner());
+							objCatBachilleratosInput.put("estado", objLstAddresses.getEstado());
+							objCatBachilleratosInput.put("ciudad", objLstAddresses.getCiudad());
+							objCatBachilleratosInput.put("pais", objLstAddresses.getPais());
+							objCatBachilleratosInput.put("id", objRow.getId());
+							/*eddressExtended--------------------------------------------------------------------------------*/
+							objCatBachilleratosInput.put("streetLine1", objLstAddresses.getStreetLine1());
+							objCatBachilleratosInput.put("streetLine2", objLstAddresses.getStreetLine2());
+							objCatBachilleratosInput.put("streetLine3", objLstAddresses.getStreetLine3());
+							objCatBachilleratosInput.put("nationCode", objLstAddresses.getNationCode());
+							objCatBachilleratosInput.put("stateCode", objLstAddresses.getStateCode());
+							objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
+							objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
+	
+							
+							
+							errorLog = errorLog + " | DIRECCION==========================================================================================";
+							errorLog = errorLog + " | " + ("persistenceId - " + objRow.getPersistenceId());
+							errorLog = errorLog + " | " + ("persistenceVersion - " + objRow.getPersistenceVersion());
+							errorLog = errorLog + " | " + ("isEliminado - " + !( objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) );
+							errorLog = errorLog + " | " + ("isEnabled - " + objRow.isIsEnabled());
+							errorLog = errorLog + " | " + ("todelete - " + ( ( objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) ) ? "false" : "true" ) );
+							errorLog = errorLog + " | " + ("perteneceRed - " + objRow.isPerteneceRed());
+							errorLog = errorLog + " | " + ("region - " + null);
+							errorLog = errorLog + " | " + ("caseId - " + null);
+							errorLog = errorLog + " | " + ("clave - " + objRow.getClave());
+							errorLog = errorLog + " | " + ("fechaImportacion - " + null);
+							errorLog = errorLog + " | " + ("fechaCreacion - " + null);
+							errorLog = errorLog + " | " + ("usuarioCreacion - " + "Administrador");
+							errorLog = errorLog + " | " + ("descripcion - " + objRow.getDescripcion());
+							errorLog = errorLog + " | " + ("usuarioBanner - " + objRow.getUsuarioBanner());
+							errorLog = errorLog + " | " + ("estado - " + objLstAddresses.getEstado());
+							errorLog = errorLog + " | " + ("ciudad - " + objLstAddresses.getCiudad());
+							errorLog = errorLog + " | " + ("pais - " + objLstAddresses.getPais());
+							errorLog = errorLog + " | " + ("id - " + objRow.getId());
+							errorLog = errorLog + " | " + ("streetLine1 - " + objLstAddresses.getStreetLine1());
+							errorLog = errorLog + " | " + ("streetLine2 - " + objLstAddresses.getStreetLine2());
+							errorLog = errorLog + " | " + ("streetLine3 - " + objLstAddresses.getStreetLine3());
+							errorLog = errorLog + " | " + ("nationCode - " + objLstAddresses.getNationCode());
+							errorLog = errorLog + " | " + ("stateCode - " + objLstAddresses.getStateCode());
+							errorLog = errorLog + " | " + ("countyCode - " + objLstAddresses.getCountyCode());
+							errorLog = errorLog + " | DIRECCION==========================================================================================";
+	
+							lstCatBachilleratosInput.add(objCatBachilleratosInput);
+							contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
+							processInstance = processAPI.startProcessWithInputs(processId, contracto);
+					}
+				}else {
+					
 				}
-				/*}
-				else {
-				  errorLog = errorLog + " | ELSE ADDRESSES";
-				  errorLog = errorLog + " | objLstAddresses.getOperation():" + (objLstAddresses.getOperation());
-				}*/
 			}
 
 			resultado.setData(lstEducationalInstitutions);
