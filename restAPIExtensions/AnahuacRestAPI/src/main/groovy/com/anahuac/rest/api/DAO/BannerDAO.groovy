@@ -118,9 +118,11 @@ class BannerDAO {
 			rd.close();
 			//System.out.println(urlParaVisitar);
 			//System.out.println(resultado.toString());
+			new LogDAO().insertTransactionLog("POST", "CORRECTO", "https://integrate.elluciancloud.com/auth", resultado.toString(), "Autenticarse para obtener el token de acceso, BannerToken:" + barrerKey.replace("-.-.-", ""))
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOGGER.error "[ERROR]" + e.getMessage();
+			new LogDAO().insertTransactionLog("POST", "FALLIDO", "https://integrate.elluciancloud.com/auth", e.getMessage(), "Autenticarse para obtener el token de acceso, BannerToken:" + barrerKey.replace("-.-.-", ""))
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -145,7 +147,9 @@ class BannerDAO {
 				resultado.append(linea);
 			}
 			rd.close();
+			new LogDAO().insertTransactionLog("GET", "CORRECTO", urlParaVisitar, resultado.toString(), "Obtiene dirección apartir de un id, idDireccion:" + idDireccion)
 		} catch (Exception e) {
+			new LogDAO().insertTransactionLog("GET", "FALLIDO", urlParaVisitar, e.getMessage(), "Obtiene dirección apartir de un id, idDireccion:" + idDireccion)
 			LOGGER.error "[ERROR]" + e.getMessage();
 			e.printStackTrace();
 		}
@@ -170,9 +174,11 @@ class BannerDAO {
 			rd.close();
 			//System.out.println(urlParaVisitar);
 			//System.out.println(resultado.toString());
+			new LogDAO().insertTransactionLog("GET", "CORRECTO", "https://integrate.elluciancloud.com/consume", resultado.toString(), "Obtener preparatorias")
 		} catch (Exception e) {
 			LOGGER.error "[ERROR]" + e.getMessage();
 			e.printStackTrace();
+			new LogDAO().insertTransactionLog("GET", "FALLIDO", "https://integrate.elluciancloud.com/consume", e.getMessage(), "Obtener preparatorias")
 		}
 		return resultado.toString();
 	}

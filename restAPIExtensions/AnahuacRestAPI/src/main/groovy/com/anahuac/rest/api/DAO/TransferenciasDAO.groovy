@@ -550,7 +550,8 @@ class TransferenciasDAO {
             }
             pstm.setLong(4, object.periodo);
             pstm.setLong(5, object.campusestudio);
-            pstm.setLong(6, Long.valueOf(object.caseid));
+			pstm.setString(6, object.estatus)
+            pstm.setLong(7, Long.valueOf(object.caseid));
             pstm.executeUpdate();
 
             con.commit();

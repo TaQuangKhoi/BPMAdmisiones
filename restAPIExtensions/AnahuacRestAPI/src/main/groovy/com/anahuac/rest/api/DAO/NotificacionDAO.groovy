@@ -56,6 +56,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		String idioma = "";
 		String plantilla ="";
 		String correo="",  asunto="",  body="",  cc="";
+		Boolean cartaenviar=false;
 		try {
 		
 			Properties prop = new Properties();
@@ -661,6 +662,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 						plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
 						plantilla=plantilla.replace("[|seleccionado|]",rs.getString("seleccionado"));
+						cartaenviar=true;
 						}catch(Exception infex) {
 							
 						}
@@ -750,6 +752,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							plantilla=plantilla.replace("[|statuspdu|]",rs.getString("statuspdu"));
 							plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 							plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
+							cartaenviar=true;
 							}catch(Exception infex) {
 								
 							}
@@ -847,7 +850,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			lstAdditionalData.add("correo="+correo)
 			lstAdditionalData.add("asunto="+asunto)
 			lstAdditionalData.add("cc="+cc)
-			if(object.isEnviar) {
+			if((object.isEnviar && object.codigo!="carta-informacion") ||(object.isEnviar && object.codigo=="carta-informacion" && cartaenviar) ) {
 				resultado = mgd.sendEmailPlantilla(correo, asunto, plantilla.replace("\\", ""), cc, object.campus, context)
 				CatBitacoraCorreo catBitacoraCorreo = new CatBitacoraCorreo();
 				catBitacoraCorreo.setCodigo(object.codigo)

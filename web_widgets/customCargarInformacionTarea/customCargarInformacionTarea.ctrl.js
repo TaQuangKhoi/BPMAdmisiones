@@ -1,4 +1,4 @@
-function ($scope, $http) {
+function ($scope, $http,$location) {
     
     function getCurrentTask(){
         let url = "../API/bpm/humanTask?p=0&c=10&f=caseId=" + $scope.properties.caseId +"&fstate=ready";
@@ -48,7 +48,12 @@ function ($scope, $http) {
     $scope.loadCaseId= function(){
         doRequest("GET","/bonita/API/system/session/unusedid", null, function(data,status){
             doRequest("GET","../API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&f=correoelectronico="+data.user_name+"&p=0&c=500", null, function(data,status){
+                if(data.length>0){
                 $scope.caseId=data[0].caseId;
+                    
+                }else{
+                   $scope.caseId= getUrlParam("caseId");
+                }
                 //  ../API/bpm/humanTask?p=0&c=10&f=caseId={{caseList[0].caseId}}&fstate=ready
                 doRequest("GET","../API/bpm/humanTask?p=0&c=10&f=caseId="+$scope.caseId+"&fstate=ready", null, function(data,status){
                     $scope.taskId=data[0].id;
@@ -163,5 +168,12 @@ function ($scope, $http) {
         }
     });*/
     debugger;
+     function getUrlParam(param) {
+    var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
+    if (paramValue) {
+      return paramValue[1];
+    }
+    return '';
+  }
     $scope.loadCaseId();
 }
