@@ -597,7 +597,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     function getAspiranteRC() {
         var req = {
-            method: method,
+            method: "GET",
             url: "/API/extension/AnahuacRestGet?url=getAspiranteRC",
             data: $scope.properties.dataToSend.idbanner
             
