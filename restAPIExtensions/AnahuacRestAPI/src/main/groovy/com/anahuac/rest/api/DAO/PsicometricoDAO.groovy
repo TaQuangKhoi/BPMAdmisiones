@@ -2608,7 +2608,6 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					columns.put("autodescripcionv2", true);
 				}
 
 				rows.add(columns);
