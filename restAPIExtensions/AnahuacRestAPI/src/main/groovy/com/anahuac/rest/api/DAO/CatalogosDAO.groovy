@@ -1726,7 +1726,10 @@ class CatalogosDAO {
 					case "filterPassword":
 						ac.setAdminPassword(rs.getString("valor"))
 						break;
-                }
+					case "bannerMatchPerson":
+					ac.setBannerMatchPerson(rs.getString("valor"))
+					break;
+		}
             }
             data.add(ac)
             result.setSuccess(true);
@@ -1832,6 +1835,21 @@ class CatalogosDAO {
 				pstm.setString(1, "filterPassword")
 				pstm.setString(2, ac.getAdminPassword())
 				pstm.setString(3, "Contraseña que se utiliza para poder iniciar sesión y ejecutar una tarea desde el filter llamado por el webhook de conekta")
+				pstm.executeUpdate()
+			}
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "bannerMatchPerson")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				pstm = con.prepareStatement(AzureConfig.UPDATE_CONFIGURACIONES)
+				pstm.setString(1, ac.getBannerMatchPerson())
+				pstm.setString(2, "bannerMatchPerson")
+				pstm.executeUpdate()
+			} else {
+				pstm = con.prepareStatement(AzureConfig.INSERT_CONFIGURACIONES)
+				pstm.setString(1, "bannerMatchPerson")
+				pstm.setString(2, ac.getBannerMatchPerson())
+				pstm.setString(3, "APIKEY de banner para la autorización de Match person")
 				pstm.executeUpdate()
 			}
 			

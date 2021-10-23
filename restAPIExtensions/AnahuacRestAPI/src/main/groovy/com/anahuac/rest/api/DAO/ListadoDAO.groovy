@@ -4186,8 +4186,8 @@ class ListadoDAO {
                         } else {
                             where += " WHERE "
                         }
-                        where += " ( LOWER(sda.ESTATUSSOLICITUD) LIKE LOWER('[valor]') ";
-						where += " OR LOWER(sda.telefonocelular) LIKE LOWER('[valor]') )";
+                        where += " ( LOWER(sda.ESTATUSSOLICITUD) LIKE LOWER('%[valor]%') ";
+						where += " OR LOWER(sda.telefonocelular) LIKE LOWER('%[valor]%') )";
 						
                         where = where.replace("[valor]", filtro.get("valor"))
                         break;
