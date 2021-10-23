@@ -2418,7 +2418,15 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT  ds.idbanner,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ")
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			pstm = con.prepareStatement("SELECT  sda.urlfoto,ds.idbanner,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ")
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
@@ -2428,7 +2436,12 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
 				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					if(metaData.getColumnLabel(i).toLowerCase().equals("urlfoto")) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString("urlfoto") + SSA);
+					}else {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+					
 				}
 
 				rows.add(columns);
@@ -2522,6 +2535,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
+		Boolean autov1 = false;
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
@@ -2537,16 +2551,58 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 				for (int i = 1; i <= columnCount; i++) {
 					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					columns.put("autodescripcion", true);
+					autov1 = true;
 				}
 
 				rows.add(columns);
 			}
 			
-			pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM autodescripcionv2 where caseid = "+caseid)
-			rs = pstm.executeQuery()
+			if(!autov1) {
+				pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM autodescripcionv2 where caseid = "+caseid)
+				rs = pstm.executeQuery()
+				rows = new ArrayList < Map < String, Object >> ();
+				metaData = rs.getMetaData();
+				columnCount = metaData.getColumnCount();
+				while (rs.next()) {
+					Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						columns.put("autodescripcionv2", true);
+					}
+	
+					rows.add(columns);
+				}
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setError_info(errorLog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getInfoRasgos(String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			pstm = con.prepareStatement("SELECT rc.descripcion AS calificacion, cro.descripcion AS rasgo FROM TestPsicometricoRasgos AS tpr LEFT JOIN CatRasgosCalif AS rc ON rc.persistenceid = tpr.calificacion_pid LEFT JOIN CatRasgosObservados AS cro ON cro.persistenceid = tpr.rasgo_pid where tpr.caseid = ? ")
+			pstm.setString(1, caseid);
+			rs = pstm.executeQuery();
+			
 			rows = new ArrayList < Map < String, Object >> ();
-			metaData = rs.getMetaData();
-			columnCount = metaData.getColumnCount();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
@@ -2570,4 +2626,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		}
 		return resultado
 	}
+	
+	
+	
 }

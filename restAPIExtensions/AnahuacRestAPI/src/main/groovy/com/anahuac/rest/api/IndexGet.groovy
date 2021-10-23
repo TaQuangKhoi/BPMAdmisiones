@@ -405,6 +405,40 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getInfoFuentesInfluyeron":
+				try{
+					String caseid = request.getParameter "caseid";
+					result = new PsicometricoDAO().getInfoFuentesInfluyeron(caseid);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoRasgos":
+				try{
+					String caseid = request.getParameter "caseid";
+					result = new PsicometricoDAO().getInfoRasgos(caseid);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				
 				case "getCatPeriodoActivoFechaEspecifica":
 					String tipo = request.getParameter "tipo";
