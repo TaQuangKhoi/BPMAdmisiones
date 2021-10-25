@@ -273,9 +273,7 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
             doc.text(15, inicio, element.rasgo);
             inicio+=5;
         });
-
         
-
         doc.setFont(undefined, 'normal')
         inicio=30;
         $scope.datosRasgos.forEach( element =>{
@@ -285,10 +283,21 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         inicio+=5;
         doc.text(15, inicio, "CAPACIDAD DE ADAPTACIÓN");
         inicio+=5;
-        doc.line(15, inicio, 250, 15);
-        inicio+=10;
-        doc.text(15, inicio, "Ajuste al medio familiar");
-
+        doc.line(15, inicio, 150, inicio);
+        inicio+=5;
+        var capacidades = ["Ajuste al medio familiar","Ajuste escolar previo","Ajuste al medio social","Ajuste afectivo (filiación)","Ajuste religioso","Ajuste existencial"]
+        for(let i=0;i<6;i++){
+            doc.text(15, inicio, capacidades[i]);
+            inicio+=5;
+            pageHeight= doc.internal.pageSize.height;
+            if (inicio>=pageHeight)
+            {
+                doc.addPage();
+            }
+            
+        }
+        
+        
         // Save the PDF
         doc.save(`${$scope.properties.fileName}.pdf`);
     }
