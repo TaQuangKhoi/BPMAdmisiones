@@ -51,7 +51,7 @@ class ImportacionPAADAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		Boolean executar = false;
-		
+		String errorLog = "";
 		try {
 			
 				def jsonSlurper = new JsonSlurper();
@@ -67,49 +67,45 @@ class ImportacionPAADAO {
 						pstm.setString(2,it.LA1);
 						pstm.setString(3,it.LA2);
 						pstm.setString(4,it.LA3);
-						pstm.setString(5,it.PG1);
-						pstm.setString(6,it.PG2);
-						pstm.setString(7,it.PG3);
-						pstm.setString(8,it.PG4);
-						pstm.setString(9,it.PV1);
-						pstm.setString(10,it.PV2);
-						pstm.setString(11,it.PV3);
-						pstm.setString(12,it.PE1);
-						pstm.setString(13,it.PE2);
-						pstm.setString(14,it.PE3);
-						pstm.setString(15,it.PE4);
-						pstm.setString(16,it.PAAV);
-						pstm.setString(17,it.LEO1);
-						pstm.setString(18,it.LEO2);
-						pstm.setString(19,it.LEO3);
-						pstm.setString(20,it.LEO4);
-						pstm.setString(21,it.LEO5);
-						pstm.setString(22,it.CIT1);
-						pstm.setString(23,it.CIT2);
-						pstm.setString(24,it.PARA);
-						pstm.setString(25,it.HI1);
-						pstm.setString(26,it.HI2);
-						pstm.setString(27,it.HI3);
-						pstm.setString(28,it.HI4);
-						pstm.setString(29,it.HI5);
-						pstm.setString(30,it.HI6);
-						pstm.setString(31,it.Total);
+						pstm.setString(5,it.LA4);
+						pstm.setString(6,it.PG1);
+						pstm.setString(7,it.PG2);
+						pstm.setString(8,it.PG3);
+						pstm.setString(9,it.PG4);
+						pstm.setString(10,it.PG5);
+						pstm.setString(11,it.PV1);
+						pstm.setString(12,it.PV4);
+						pstm.setString(13,it.PAAV);
+						pstm.setString(14,it.LEO1);
+						pstm.setString(15,it.LEO3);
+						pstm.setString(16,it.LEO4);
+						pstm.setString(17,it.LEO5);
+						pstm.setString(18,it.CIT1);
+						pstm.setString(19,it.CIT2);
+						pstm.setString(20,it.PARA);
+						pstm.setString(21,it.HI1);
+						pstm.setString(22,it.HI2);
+						pstm.setString(23,it.HI3);
+						pstm.setString(24,it.HI4);
+						pstm.setString(25,it.HI5);
+						pstm.setString(26,it.HI6);
+						pstm.setString(27,it.Total);
 						if(it.tipoExamen.equals("KP")) {
-							pstm.setString(32,it.MLEX);
-							pstm.setString(33,it.CLEX);
-							pstm.setString(34,it.HLEX);
-							pstm.setString(35,it.LEXIUM_Total);
+							pstm.setString(28,it.MLEX);
+							pstm.setString(29,it.CLEX);
+							pstm.setString(30,it.HLEX);
+							pstm.setString(31,it.LEXIUM_Total);
 						}else {
-							pstm.setString(32,"");
-							pstm.setString(33,"");
-							pstm.setString(34,"");
-							pstm.setString(35,"");
+							pstm.setString(28,"");
+							pstm.setString(29,"");
+							pstm.setString(30,"");
+							pstm.setString(31,"");
 						}
-						pstm.setString(36,it.tipoExamen);
-						pstm.setString(37,it.INVP);
-						pstm.setString(38,it.fechaExamen);
-						pstm.setLong(39,Long.parseLong(it.PERSISTENCEID));
-						pstm.setString(40,it.IDBANNER);
+						pstm.setString(32,it.tipoExamen);
+						pstm.setString(33,it.INVP);
+						pstm.setString(34,it.fechaExamen);
+						pstm.setLong(35,Long.parseLong(it.PERSISTENCEID));
+						pstm.setString(36,it.IDBANNER);
 						pstm.executeUpdate();
 						
 					}else {
@@ -119,59 +115,58 @@ class ImportacionPAADAO {
 							pstm.setString(3,it.LA1);
 							pstm.setString(4,it.LA2);
 							pstm.setString(5,it.LA3);
-							pstm.setString(6,it.PG1);
-							pstm.setString(7,it.PG2);
-							pstm.setString(8,it.PG3);
-							pstm.setString(9,it.PG4);
-							pstm.setString(10,it.PV1);
-							pstm.setString(11,it.PV2);
-							pstm.setString(12,it.PV3);
-							pstm.setString(13,it.PE1);
-							pstm.setString(14,it.PE2);
-							pstm.setString(15,it.PE3);
-							pstm.setString(16,it.PE4);
-							pstm.setString(17,it.PAAV);
-							pstm.setString(18,it.LEO1);
-							pstm.setString(19,it.LEO2);
-							pstm.setString(20,it.LEO3);
-							pstm.setString(21,it.LEO4);
-							pstm.setString(22,it.LEO5);
-							pstm.setString(23,it.CIT1);
-							pstm.setString(24,it.CIT2);
-							pstm.setString(25,it.PARA);
-							pstm.setString(26,it.HI1);
-							pstm.setString(27,it.HI2);
-							pstm.setString(28,it.HI3);
-							pstm.setString(29,it.HI4);
-							pstm.setString(30,it.HI5);
-							pstm.setString(31,it.HI6);
-							pstm.setString(32,it.Total);
-							pstm.setString(33,it.fechaExamen);
+							pstm.setString(6,it.LA4);
+							pstm.setString(7,it.PG1);
+							pstm.setString(8,it.PG2);
+							pstm.setString(9,it.PG3);
+							pstm.setString(10,it.PG4);
+							pstm.setString(11,it.PG5);
+							pstm.setString(12,it.PV1);
+							pstm.setString(13,it.PV4);
+							pstm.setString(14,it.PAAV);
+							pstm.setString(15,it.LEO1);
+							pstm.setString(16,it.LEO3);
+							pstm.setString(17,it.LEO4);
+							pstm.setString(18,it.LEO5);
+							pstm.setString(19,it.CIT1);
+							pstm.setString(20,it.CIT2);
+							pstm.setString(21,it.PARA);
+							pstm.setString(22,it.HI1);
+							pstm.setString(23,it.HI2);
+							pstm.setString(24,it.HI3);
+							pstm.setString(25,it.HI4);
+							pstm.setString(26,it.HI5);
+							pstm.setString(27,it.HI6);
+							pstm.setString(28,it.Total);
+							pstm.setString(29,it.fechaExamen);
 							if(it.tipoExamen.equals("KP")) {
-								pstm.setString(34,it.MLEX);
-								pstm.setString(35,it.CLEX);
-								pstm.setString(36,it.HLEX);
-								pstm.setString(37,it.LEXIUM_Total);
+								pstm.setString(30,it.MLEX);
+								pstm.setString(31,it.CLEX);
+								pstm.setString(32,it.HLEX);
+								pstm.setString(33,it.LEXIUM_Total);
 							}else {
-								pstm.setString(34,"");
-								pstm.setString(35,"");
-								pstm.setString(36,"");
-								pstm.setString(37,"");
+								pstm.setString(30,"");
+								pstm.setString(31,"");
+								pstm.setString(32,"");
+								pstm.setString(33,"");
 							}
 							
-							pstm.setString(38,it.tipoExamen);
-							pstm.setString(39,it.INVP);
-							pstm.setString(40,it.IdSesion)
+							pstm.setString(34,it.tipoExamen);
+							pstm.setString(35,it.INVP);
+							pstm.setString(36,it.IdSesion)
 							pstm.executeUpdate();
 					}
 					
-					
-					
 				}
 				
-				resultado.setSuccess(true)
+				
+				resultado.setSuccess(true);
 				if(executar) {
-					con.commit();					
+					con.commit();
+					Result resultado2 = new Result();
+					resultado2 = subirDatosBannerEthos(jsonData,context);
+					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();
+					resultado.setError_info(errorLog);
 				}
 				//resultado.setData(estatus)
 			} catch (Exception e) {
@@ -184,7 +179,111 @@ class ImportacionPAADAO {
 			}
 		}
 		return resultado
-	} 
+	}
+	
+	public Result subirDatosBannerEthos(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			
+			object.each{
+				
+				String fecha =  it.fechaExamen.substring(6, 10)+"-"+it.fechaExamen.substring(3, 5)+"-"+it.fechaExamen.substring(0, 2);
+				 
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
+				errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAN", it.PAAN, fecha);
+				errorLog += ", INTEGRACION SUBIDA PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
+				errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
+				errorLog += ", INTEGRACION SUBIDA LA1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA02", it.LA2, fecha);
+				errorLog += ", INTEGRACION SUBIDA LA2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA03", it.LA3, fecha);
+				errorLog += ", INTEGRACION SUBIDA LA3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA04", it.LA4, fecha);
+				errorLog += ", INTEGRACION SUBIDA LA4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG01", it.PG1, fecha);
+				errorLog += ", INTEGRACION SUBIDA PG1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG02", it.PG2, fecha);
+				errorLog += ", INTEGRACION SUBIDA PG2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG03", it.PG3, fecha);
+				errorLog += ", INTEGRACION SUBIDA PG3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG04", it.PG4, fecha);
+				errorLog += ", INTEGRACION SUBIDA PG4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG05", it.PG5, fecha);
+				errorLog += ", INTEGRACION SUBIDA PG5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV01", it.PV1, fecha);
+				errorLog += ", INTEGRACION SUBIDA PV1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV04", it.PV4, fecha);
+				errorLog += ", INTEGRACION SUBIDA PV4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO1", it.LEO1, fecha);
+				errorLog += ", INTEGRACION SUBIDA LEO1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO3", it.LEO3, fecha);
+				errorLog += ", INTEGRACION SUBIDA LEO3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO4", it.LEO4, fecha);
+				errorLog += ", INTEGRACION SUBIDA LEO4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO5", it.LEO5, fecha);
+				errorLog += ", INTEGRACION SUBIDA LEO5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT1", it.CIT1, fecha);
+				errorLog += ", INTEGRACION SUBIDA CIT1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT2", it.CIT2, fecha);
+				errorLog += ", INTEGRACION SUBIDA CIT2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI01", it.HI1, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI02", it.HI2, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI03", it.HI3, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI04", it.HI4, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI05", it.HI5, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI06", it.HI6, fecha);
+				errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				
+				
+				resultado.setSuccess(true);
+				resultado.setError_info(errorLog);
+				
+			}
+		}catch(Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorLog);
+		}
+		
+		return resultado;
+	}
 	
 	
 	public Result postUpdateINVP(String jsonData, RestAPIContext context) {
@@ -1237,7 +1336,7 @@ class ImportacionPAADAO {
 					orderby+="TO_DATE(PAA.fechaRegistro,'DD-MM-YYYY')";
 					break;
 					default:
-					orderby+="TO_DATE(PAA.fechaExamen,'DD-MM-YYYY')";
+					orderby+="TO_DATE(PAA.fechaRegistro,'DD-MM-YYYY')";
 					break;
 				}
 				orderby+=" "+object.orientation;

@@ -13,6 +13,7 @@ import com.anahuac.catalogos.CatNotificaciones
 import com.anahuac.catalogos.CatNotificacionesFirma
 import com.anahuac.rest.api.DAO.BecasDAO
 import com.anahuac.rest.api.DAO.BitacorasDAO
+import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.rest.api.DAO.CatalogoBachilleratoDAO
 import com.anahuac.rest.api.DAO.ConektaDAO
 import com.anahuac.rest.api.DAO.CustomUserRequestDAO
@@ -75,7 +76,7 @@ class Index implements RestApiController {
 		Integer parameterP = Integer.valueOf(p);
 		Integer parameterC = Integer.valueOf(c);
 		String jsonData = request.reader.readLines().join("\n")
-		String idioma = "";
+
 		//VARIABLES DAO=======================================================
 		TestDAO dao =  new TestDAO();
 		ListadoDAO lDao = new ListadoDAO();
@@ -1597,6 +1598,14 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "cambiosBannerPreparatoria":
+					result = new BannerDAO().cambiosBannerPreparatoria(context,"",jsonData)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;	
 				case "selectAspirantesPsicometrico":
 					result = psiDAO.selectAspirantesPsicometrico(parameterP, parameterC, jsonData, context)
 					if (result.isSuccess()) {
@@ -2138,6 +2147,7 @@ class Index implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {

@@ -3,6 +3,7 @@ package com.anahuac.rest.api.DAO
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
 import com.anahuac.catalogos.CatTerapiaDAO
+import com.anahuac.rest.api.DAO.BannerDAO
 import com.anahuac.model.Autodescripcion
 import com.anahuac.model.AutodescripcionDAO
 import com.anahuac.model.TestPsicometrico
@@ -869,6 +870,7 @@ class PsicometricoDAO {
 		
 	public Result insertUpdatePsicometricoV2(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
+		Result resultado2 = new Result();
 				
 		String strError = "";
 		String columnaUpdate = "";
@@ -979,7 +981,7 @@ class PsicometricoDAO {
 				pstm.setString(19, (testPsicomInput.otroTipoAsistencia != null && testPsicomInput.otroTipoAsistencia != "") ? testPsicomInput.otroTipoAsistencia : "");
 				pstm.setString(20, (testPsicomInput.participacionActividadesVoluntaria != null && testPsicomInput.participacionActividadesVoluntaria != "") ? testPsicomInput.participacionActividadesVoluntaria : "");
 				pstm.setInt(21, 0);
-				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "") ? testPsicomInput.puntuacionINVP : 0);
+				pstm.setInt(22, (testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "") ? Integer.parseInt(testPsicomInput.puntuacionINVP+"") : 0);
 				pstm.setString(23, (testPsicomInput.quienIntegro != null && testPsicomInput.quienIntegro != "") ? testPsicomInput.quienIntegro : "");
 				pstm.setString(24, (testPsicomInput.quienRealizoEntrevista != null && testPsicomInput.quienRealizoEntrevista != "") ? testPsicomInput.quienRealizoEntrevista : "");
 				pstm.setString(25, (testPsicomInput.resumenSalud != null && testPsicomInput.resumenSalud != "") ? testPsicomInput.resumenSalud : "");
@@ -1251,8 +1253,25 @@ class PsicometricoDAO {
 					}
 				}
 			}
-			/*========================================================TEST PSICOMETRICO OBSERVACIONES ACCIONES========================================================*/
+			String idBanner=""
+			pstm = con.prepareStatement("SELECT idbanner from detallesolicitud where caseid=?")
+			pstm.setString(1, caseId)
+			rs = pstm.executeQuery()
+			if(rs.next()) {
+				idBanner = rs.getString("idbanner")
+			}
 			
+			if(closeCon && testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "" &&  testPsicomInput.fechaEntrevista !="") {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+				resultado2=new BannerDAO().integracionBannerEthos(context, idBanner, "MMPI", testPsicomInput.puntuacionINVP+"",testPsicomInput.fechaEntrevista.substring(0,9))
+				if(!resultado2.success) {
+					
+					throw new Exception(resultado2.error_info)
+				}
+			}
+			
+			/*========================================================TEST PSICOMETRICO OBSERVACIONES ACCIONES========================================================*/
+			//TODO
 			resultado.setError_info(strError);
 			resultado.setSuccess(true);
 		} catch (Exception e) {
@@ -2411,7 +2430,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 	}
 	
 	
-	public Result getInfoReportes(String usuario) {
+	public Result getInfoReportes(String usuario,RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -2426,7 +2445,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 				SSA = rs.getString("valor")
 			}
 			
-			pstm = con.prepareStatement("SELECT  sda.urlfoto,ds.idbanner,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ")
+			pstm = con.prepareStatement("SELECT  sda.resultadoPAA,sda.caseid,ds.idbanner,sda.urlfoto,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ")
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
@@ -2436,8 +2455,22 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
 				for (int i = 1; i <= columnCount; i++) {
-					if(metaData.getColumnLabel(i).toLowerCase().equals("urlfoto")) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString("urlfoto") + SSA);
+					if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+						String encoded = "";
+						try {
+							String urlFoto = rs.getString("urlfoto");
+							/*if(urlFoto != null && !urlFoto.isEmpty()) {
+								columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+							}else {*/
+								List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+								for(Document doc : doc1) {
+									encoded = "../API/formsDocumentImage?document="+doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+							//}
+						}catch(Exception e) {
+							columns.put("fotografiab64", "");
+						}
 					}else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					}
@@ -2665,6 +2698,104 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 		return resultado
 	}
 	
+	public Result getInfoSaludPSeccion(String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Boolean querySuccess = false;
+		String strError = "";
+		
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.SELECT_SITUACION_SALUD);
+			pstm.setLong(1, Long.parseLong(caseid));
+			rs = pstm.executeQuery();
+
+			strError += "SELECT_SITUACION_SALUD: Success | ";
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+
+			while (rs.next()) {
+				columns = new LinkedHashMap<String, Object>();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				
+				rows.add(columns);
+			}
+			
+			
+			strError += "Se obtuvieron los resultados | ";
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setError_info(errorLog+" - Error: "+strError);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
 	
+	public Result getInfoSaludSSeccion(String caseid) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Boolean querySuccess = false;
+		String strError = "";
+		
+		try {
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+			List<Map<String, Object>> lstCursos = new ArrayList<Map<String, Object>>();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.SELECT_RECOMENDACIONES_CONCLUSIONES);
+			pstm.setString(1, caseid);
+			rs = pstm.executeQuery();
+				
+			strError += "SELECT_RECOMENDACIONES_CONCLUSIONES: Success | ";
+			
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			
+			while (rs.next()) {				
+				columns = new LinkedHashMap < String, Object > ();
+				
+				for (int i = 1; i <= columnCount; i++) {
+						columns.put("salud", rs.getString("salud"));
+						columns.put("conclusiones_recomendaciones", rs.getString("conclusiones_recomendaciones"));
+						columns.put("interpretacion", rs.getString("interpretacion"));
+						columns.put("cursos_recomendados", rs.getString("cursos_recomendados"));
+				}
+				rows.add(columns);
+			}
+
+
+			
+			strError += "Se obtuvieron los resultados | ";
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+		}catch (Exception e) {
+			resultado.setError_info(errorLog+" - Error: "+strError);
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
 	
 }

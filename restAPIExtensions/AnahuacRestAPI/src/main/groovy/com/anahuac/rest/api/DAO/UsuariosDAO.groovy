@@ -121,43 +121,61 @@ class UsuariosDAO {
 			creator.setProfessionalContactData(proContactDataCreator);
 			//inicializa la cuenta con la cual tendras permisos para registrar el usuario
 			apiClient.login(username, password)
+			error_log = error_log + " | "+apiClient.login(username, password);
 			error_log = error_log + " | apiClient.login(username, password)";
 			
 			closeCon = validarConexion();
 			
-			/*while (step <= 0) {
-				try {
-					con.setAutoCommit(false);
-					pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
-					pstm.setString(1, idioma);
-					pstm.setString(2, object.nombreusuario);
-					error_log ="idioma"
-					resultReq = pstm.executeUpdate();
-					con.commit();
-					error_log ="termino idioma"
-					step = step+1;
-					success = true;
-					error_log = resultReq + " exito! query update"
-				}	catch (Exception e) {
-					if(success == false) {
-						pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
-						resultReqA = pstm.executeUpdate();
-						con.commit();
-						if(resultReqA > 0) {
-							error_log = resultReqA + " exito! query alter"
-							step = 0;
-							pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
-							pstm.setString(1, idioma);
-							pstm.setString(2, object.nombreusuario);
-				
-							resultReq = pstm.executeUpdate();
-							con.commit();
-						}
+			    try {
+			        con.setAutoCommit(false);
+			        pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+			        pstm.setString(1, object.idioma);
+			        pstm.setString(2, object.nombreusuario);
+			
+			        resultReq = pstm.executeUpdate();
+			        con.commit();
+					
+			        success = true;
+					if(resultReq > 0) {
+						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+						//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+					} else {
+						error_log = resultReq + " Error! query update_idioma_registro_by_username_1"
 					}
+			        
+			    } catch (Exception e) {
 					con.rollback();
-					error_log = "Error catch: "+e+ " error query1: "+resultReq+" error query2: "+resultReqA;
-				}
-			}*/
+			        if (success == false) {
+			            try {
+			                con.setAutoCommit(false);
+			                pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
+			                resultReqA = pstm.executeUpdate();
+			                con.commit();
+
+			                if (resultReqA > 0) {
+			                    con.setAutoCommit(false);
+			                    pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+			                    pstm.setString(1, parameterIdioma);
+			                    pstm.setString(2, object.nombreusuario);
+			
+			                    resultReq = pstm.executeUpdate();
+			                    con.commit();
+								if(resultReq > 0) {
+									error_log = resultReq + " Exito! query update_idioma_registro_by_username_2"
+								} else {
+									error_log = resultReq + " Error! query update_idioma_registro_by_username_2"
+								}
+			                    
+			                } else {
+								error_log = resultReqA + " Error! query update_table_registro"
+							}
+			            } catch (Exception e1) {
+			                con.rollback();
+			                error_log = "Error catch_1: " + e + " error query1: " + resultReq + " error query2: " + resultReqA;
+			            }
+			        }
+
+			    }
 				
 			//Registro del usuario
 			IdentityAPI identityAPI = apiClient.getIdentityAPI()
@@ -3664,6 +3682,44 @@ class UsuariosDAO {
 	}
 
 	
+	public Result getIdiomaByUsername(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String idioma = "";
+		String errorlog = "";
+		List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+		
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.SELECT_IDIOMA_BY_USERNAME);
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			Map<String, Object> columns = new LinkedHashMap<String, Object>();
+			errorlog = "Se ejecuto la consulta";
+				while(rs.next()) {
+					idioma = rs.getString("idioma").toString();
+					columns.put("idioma", idioma);
+				}
+				
+				errorlog = "Se completo el llenado del mapa "+ columns;
+				
+				rows.add(columns);
+				resultado.setData(rows);
+				resultado.setSuccess(true);
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError_info(errorlog)
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Result updateNumeroContacto(String nombreUsuario, String numeroContacto) {
 		Result resultado = new Result();
