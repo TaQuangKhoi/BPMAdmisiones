@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "Reportes",
   "name" : "Reportes",
-  "lastUpdate" : 1631290392921,
+  "lastUpdate" : 1635982507312,
   "rows" : [
     [
       {
@@ -419,8 +419,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "expression",
-                  "value" : "lstCampus.length==1"
+                  "type" : "constant",
+                  "value" : true
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -469,6 +469,78 @@
               "reference" : "0eb24443-64e9-4048-a1c7-d405a3aa2733",
               "hasValidationError" : false,
               "id" : "pbSelect"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "campus2.length<2"
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Campus"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation",
+                  "value" : "Select an option"
+                },
+                "availableValues" : {
+                  "type" : "expression",
+                  "value" : "campus2"
+                },
+                "displayedKey" : {
+                  "type" : "constant",
+                  "value" : "descripcion"
+                },
+                "returnedKey" : {
+                  "type" : "constant",
+                  "value" : "clave"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "campus2valor"
+                },
+                "multiple" : {
+                  "type" : "constant",
+                  "value" : true
+                }
+              },
+              "reference" : "25cf60f1-e22e-4936-b06c-87c3a22302b0",
+              "hasValidationError" : false,
+              "id" : "customMultiSelect"
             }
           ],
           [
@@ -1888,6 +1960,7 @@
       "value" : [
         "    if($data.lstCampus.length==1){",
         "        $data.campus_selected=$data.lstCampus[0]",
+        "        $data.campus2valor=$data.lstCampus[0].clave",
         "    }"
       ],
       "exposed" : false
@@ -1900,9 +1973,9 @@
       "exposed" : false
     },
     "lstCarrera" : {
-      "type" : "businessdata",
+      "type" : "json",
       "value" : [
-        "{\"displayValue\":\"getCatGestionEscolarByCampus [com.anahuac.catalogos.CatGestionEscolar]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatGestionEscolarByCampus\",\"displayName\":\"getCatGestionEscolarByCampus\"},\"id\":\"com.anahuac.catalogos.CatGestionEscolar\",\"filters\":[{\"name\":\"campus\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{campus_selected.grupoBonita}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"9999\"}}"
+        "[]"
       ],
       "exposed" : false
     },
@@ -2068,7 +2141,8 @@
         "    \"preparatoria\":$data.preparatoria,",
         "    \"sesion\":$data.sesion,",
         "    \"encabezado\":$data.encabezado,",
-        "    \"idbanner\":$data.idbanner",
+        "    \"idbanner\":$data.idbanner,",
+        "    \"multicampus\":$data.campus2valor",
         "}",
         "return json;"
       ],
@@ -2087,6 +2161,40 @@
     },
     "idbanner" : {
       "type" : "constant",
+      "exposed" : false
+    },
+    "campus2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "setCampus2" : {
+      "type" : "expression",
+      "value" : [
+        "$data.campus2 = ($data.lstCampus.length>0)?$data.lstCampus:[];",
+        "return $data.campus2;"
+      ],
+      "exposed" : false
+    },
+    "campus2valor" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstGestionEscolar" : {
+      "type" : "url",
+      "value" : [
+        "/bonita/API/extension/AnahuacRestGet?url=getCatGestionEscolarMultiple&p=0&c=9999&campus={{campus2valor}}"
+      ],
+      "exposed" : false
+    },
+    "setCarrera" : {
+      "type" : "expression",
+      "value" : [
+        "$data.lstCarrera=($data.lstGestionEscolar.length>0)?$data.lstGestionEscolar:[]",
+        "return $data.lstCarrera;"
+      ],
       "exposed" : false
     }
   },
