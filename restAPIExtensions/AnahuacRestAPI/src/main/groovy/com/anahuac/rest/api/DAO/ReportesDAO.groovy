@@ -599,8 +599,6 @@ class ReportesDAO {
                     } else {
                         columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
                     }
-
-
                 }
 
                 rows.add(columns);
