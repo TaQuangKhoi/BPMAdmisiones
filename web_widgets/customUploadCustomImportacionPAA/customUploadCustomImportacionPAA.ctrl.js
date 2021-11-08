@@ -131,6 +131,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
         info.PAAV = (data['CLEX'] || '');
         info.PARA = (data['HLEX'] || '');
         info.Nombre = (data['Nombre'] || '');
+        info.Total = "0";
         return info;
     }
     

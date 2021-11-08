@@ -4,20 +4,28 @@ function convertirDato (dato){
     var escala = 500;
     let cantidad = 0;
     let calculo = 0;
-    if(dato >= 0 && dato <= 248){
-        cantidad = (248 - dato)
-        calculo = parseFloat(300/248);
+    if(dato >= 0 && dato <= 269){
+        cantidad = (270 - dato)
+        calculo = parseFloat(300/270);
         for(let i = 0; i < cantidad; i++){
-            escala =  parseFloat(escala - (calculo) )
+            escala =  parseFloat(escala - (calculo) );
+        }
+        let floor = Math.floor(escala)
+        if((floor % 10) == 5){
+        	return floor +"";
         }
         return Math.round(escala) + "";
 
-    }else if(dato >= 249 && dato <=690){
-        cantidad = ((dato-249) - 442 )
-        cantidad = (cantidad + 442)
-        calculo = parseFloat(300/442);
-        for(let i = 0; i <= cantidad; i++){
-            escala =  parseFloat(escala + (calculo) )
+    }else if(dato >= 270 && dato <=690){
+        cantidad = ((dato-269) - 422 )
+        cantidad = (cantidad + 421)
+        calculo = parseFloat(300/420);
+        for(let i = 0; i < cantidad; i++){
+            escala =  parseFloat(escala + (calculo) );
+        }
+        let floor = Math.floor(escala)
+        if((floor % 10) == 5){
+        	return floor+"";
         }
         return Math.round(escala) + "";
     } else {

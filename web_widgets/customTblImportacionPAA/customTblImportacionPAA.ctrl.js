@@ -18,7 +18,6 @@ function PbTableCtrl($scope, $window) {
   }
   
    $scope.visualizarInfo = function(data){
-      
       $scope.properties.selectedRow = data;
       $scope.properties.table = "fragmento";
       $scope.properties.view = true;
