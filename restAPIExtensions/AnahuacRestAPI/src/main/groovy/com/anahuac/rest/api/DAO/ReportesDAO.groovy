@@ -30,6 +30,10 @@ class ReportesDAO {
     Statement stm;
     ResultSet rs;
     PreparedStatement pstm;
+	
+	ResultSet rs2;
+	PreparedStatement pstm2;
+	
     public Result generarReporte(String jsonData) {
         Result resultado = new Result();
         String errorLog = "", where = "";
@@ -573,36 +577,96 @@ class ReportesDAO {
             where += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND sda.catbachilleratos_pid in (" + object.preparatoria + ")"
             where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ")"
             where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
+			
 
-            String consulta = "SELECT DISTINCT cda.idbanner id, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END    AS nombre, pt.nombre || ' '|| pt.apellidos || case when pt.istutor then '(TUTOR)' else '' end   AS nombepadres, cp.clave                           relacion, case when pt.cattrabaja_pid is null then 'No' else trabaja.descripcion end as trabaja, pt.empresatrabaja               AS empleador, pt.puesto                       AS titulo, pt.correoelectronico            AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, sda.estatussolicitud                 AS codigodedecision, pt.calle ||' #' || pt.numeroexterior AS calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion  AS estado, pt.codigopostal AS cp, cpa.descripcion AS pais, to_char(to_date(sda.fechaultimamodificacion, 'YYYY-MM-DD\"T\"HH24:MI:SS'),'YYYY-MM-DD HH24:MI')                 ultimamod, ''                 resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid" + where + " ORDER BY cda.idbanner"
+            //String consulta = "SELECT DISTINCT cda.idbanner AS id ,  CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END    AS nombre, pt.nombre || ' '|| pt.apellidos AS nombepadres, cp.descripcion AS relacion,case when pt.istutor then 'Si' else 'No' end AS istutor ,case when pt.cattrabaja_pid is null then 'No' else trabaja.descripcion end as trabaja, pt.empresatrabaja AS empleador, pt.puesto AS titulo, pt.correoelectronico AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, sda.estatussolicitud  AS codigodedecision, pt.calle ||' #' || pt.numeroexterior AS calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion  AS estado, pt.codigopostal AS cp, cpa.descripcion AS pais, to_char(to_date(sda.fechaultimamodificacion, 'YYYY-MM-DD\"T\"HH24:MI:SS'),'YYYY-MM-DD HH24:MI')   ultimamod, ''   resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid " + where + " ORDER BY cda.idbanner "
+			String consulta = "SELECT DISTINCT ON (cda.idbanner) cda.idbanner AS id  FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid "+ where + " ORDER BY cda.idbanner ";
             List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
             closeCon = validarConexion();
             pstm = con.prepareStatement(consulta)
-
-
             rs = pstm.executeQuery()
+			
             rows = new ArrayList < Map < String, Object >> ();
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
             String idbanner = "";
+			Boolean entro = false;
             while (rs.next()) {
                 Map < String, Object > columns = new LinkedHashMap < String, Object > ();
                 for (int i = 1; i <= columnCount; i++) {
-                    if (metaData.getColumnLabel(i).toLowerCase().equals("idbanner")) {
-                        if (rs.getString(i).equals(idbanner)) {
-                            columns.put(metaData.getColumnLabel(i).toLowerCase(), "");
-                        } else {
-                            columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-							idbanner=rs.getString(i);
-							
-                        }
-                    } else {
-                        columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-                    }
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					//obtener tutor
+					String conusltaFamiliares = "SELECT COUNT (*) as cantidadtutores FROM (SELECT  DISTINCT ON (pt.catparentezco_pid) pt.catparentezco_pid FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid  WHERE cda.idbanner= '"+rs.getString(i)+"' AND pt.istutor IS true  ORDER BY  pt.catparentezco_pid) AS DATOS"
+					pstm2 = con.prepareStatement(conusltaFamiliares)
+					rs2 = pstm2.executeQuery()
+					int numeroTutores = 0;
+					while(rs2.next()) {
+						numeroTutores = rs2.getInt("cantidadtutores");
+					}
+					
+					conusltaFamiliares = "SELECT  CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END    AS nombre, pt.nombre || ' '|| pt.apellidos AS nombepadres, cp.descripcion AS relacion,case when pt.cattrabaja_pid is null then 'No' else trabaja.descripcion end as trabaja, pt.empresatrabaja AS empleador, pt.puesto AS titulo, pt.correoelectronico AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, sda.estatussolicitud  AS codigodedecision, pt.calle ||' #' || pt.numeroexterior AS calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion  AS estado, pt.codigopostal AS cp, cpa.descripcion AS pais, to_char(to_date(sda.fechaultimamodificacion, 'YYYY-MM-DD\"T\"HH24:MI:SS'),'YYYY-MM-DD HH24:MI')   ultimamod, ''   resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid  WHERE cda.idbanner= '"+rs.getString(i)+"' AND pt.istutor IS TRUE ORDER BY  pt.persistenceid DESC  LIMIT 1  OFFSET "+(numeroTutores>=1?numeroTutores-1:numeroTutores)
+					pstm2 = con.prepareStatement(conusltaFamiliares)
+					rs2 = pstm2.executeQuery()
+					ResultSetMetaData metaData2 = rs2.getMetaData();
+					int columnCount2 = metaData2.getColumnCount();
+					while(rs2.next()) {
+						for (int j = 1; j <= columnCount2; j++) {
+							entro = true;
+							if(metaData2.getColumnLabel(j).toLowerCase().equals("nombepadres")) {
+								columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j)+" (TUTOR)");
+							}else {
+								columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+							}
+						}
+					}
+					if(entro) {
+						rows.add(columns);
+						columns = new LinkedHashMap < String, Object > ();
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						entro = false;
+					}
+					
+					
+					//Obtiene al padre
+					conusltaFamiliares = "SELECT  DISTINCT ON (pt.catparentezco_pid) CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END    AS nombre, pt.nombre || ' '|| pt.apellidos AS nombepadres, cp.descripcion AS relacion,case when pt.cattrabaja_pid is null then 'No' else trabaja.descripcion end as trabaja, pt.empresatrabaja AS empleador, pt.puesto AS titulo, pt.correoelectronico AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, sda.estatussolicitud  AS codigodedecision, pt.calle ||' #' || pt.numeroexterior AS calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion  AS estado, pt.codigopostal AS cp, cpa.descripcion AS pais, to_char(to_date(sda.fechaultimamodificacion, 'YYYY-MM-DD\"T\"HH24:MI:SS'),'YYYY-MM-DD HH24:MI')   ultimamod, ''   resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid  WHERE cda.idbanner= '"+rs.getString(i)+"' AND (cp.clave = 'P' OR cp.clave = 'M') ORDER BY  pt.catparentezco_pid DESC  LIMIT 2"
+					pstm2 = con.prepareStatement(conusltaFamiliares)
+					rs2 = pstm2.executeQuery()
+					metaData2 = rs2.getMetaData();
+					columnCount2 = metaData2.getColumnCount();
+					while(rs2.next()) {
+						columns = new LinkedHashMap < String, Object > ();
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						for (int j = 1; j <= columnCount2; j++) {
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+						}
+						rows.add(columns);
+					}
+
+					
+					//Obtiene a la madre
+					/*conusltaFamiliares = "SELECT  CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno || ' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END ELSE cr.apellidopaterno||' '||cr.apellidomaterno ||' ' || CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END END    AS nombre, pt.nombre || ' '|| pt.apellidos AS nombepadres, cp.descripcion AS relacion,case when pt.istutor then 'Si' else 'No' end AS istutor ,case when pt.cattrabaja_pid is null then 'No' else trabaja.descripcion end as trabaja, pt.empresatrabaja AS empleador, pt.puesto AS titulo, pt.correoelectronico AS correo, pt.calle ||' #' || pt.numeroexterior || ' '|| pt.colonia ||', '||ce.descripcion || ' ' || pt.ciudad || ' ' || pt.codigopostal direccion, pt.telefono, sda.estatussolicitud  AS codigodedecision, pt.calle ||' #' || pt.numeroexterior AS calle, pt.colonia, pt.delegacionmunicipio, pt.ciudad, ce.descripcion  AS estado, pt.codigopostal AS cp, cpa.descripcion AS pais, to_char(to_date(sda.fechaultimamodificacion, 'YYYY-MM-DD\"T\"HH24:MI:SS'),'YYYY-MM-DD HH24:MI')   ultimamod, ''   resultadoad FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid AND cda.idbanner != '' INNER JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint AND sda.estatussolicitud != 'Solicitud vencida' INNER JOIN padrestutor pt ON pt.caseid=cda.caseid::bigint INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid INNER JOIN catestados ce ON ce.persistenceid=pt.catestado_pid LEFT JOIN sesionaspirante sa ON sa.username=sda.correoelectronico LEFT JOIN pruebas p ON sa.sesiones_pid=p.sesion_pid AND p.cattipoprueba_pid=4 LEFT JOIN sesiones s ON s.persistenceid=sa.sesiones_pid INNER JOIN catpais cpa ON pt.catpais_pid=cpa.persistenceid LEFT JOIN catpadretrabaja trabaja on trabaja.persistenceid=pt.cattrabaja_pid INNER JOIN catcampus campus on campus.persistenceid=sda.catcampus_pid  WHERE cda.idbanner= '"+rs.getString(i)+"' AND cp.clave = 'M' ORDER BY  pt.persistenceid DESC  LIMIT 1"
+					pstm2 = con.prepareStatement(conusltaFamiliares)
+					rs2 = pstm2.executeQuery()
+					metaData2 = rs2.getMetaData();
+					columnCount2 = metaData2.getColumnCount();
+					while(rs2.next()) {
+						for (int j = 1; j <= columnCount2; j++) {
+							entro = true;
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+						}
+					}
+					if(entro) {
+						rows.add(columns);
+						columns = new LinkedHashMap < String, Object > ();
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+						entro = false;
+					}*/
+					
                 }
 
-                rows.add(columns);
+                //rows.add(columns);
             }
+			//errorLog +=rows.toString()
             errorLog += "|Consulta:" + consulta + "|"
             dataResult.setData(rows)
             dataResult.setSuccess(true)
