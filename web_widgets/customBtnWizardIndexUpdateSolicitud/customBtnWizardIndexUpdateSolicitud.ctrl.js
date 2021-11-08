@@ -318,9 +318,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Estado de tu preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined || $scope.properties.datosPreparatoria.ciudadBachillerato === "") {
                         swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
-                    } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral) && $scope.properties.datosPreparatoria.paisBachillerato === 'México') {
+                    } else if ((isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)||$scope.properties.catSolicitudDeAdmision.promedioGeneral=="0") && $scope.properties.datosPreparatoria.paisBachillerato === 'México') {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
-                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
+                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" ||$scope.properties.catSolicitudDeAdmision.promedioGeneral=="0" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                     } else {
                         if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
@@ -718,9 +718,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
                         }
                     }
-                } else if (isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral) && $scope.properties.datosPreparatoria.paisBachillerato === 'México') {
+                } else if ((isNaN($scope.properties.catSolicitudDeAdmision.promedioGeneral)||$scope.properties.catSolicitudDeAdmision.promedioGeneral=="0") && $scope.properties.datosPreparatoria.paisBachillerato === 'México') {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
-                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
+                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === ""||$scope.properties.catSolicitudDeAdmision.promedioGeneral=="0" || $scope.properties.catSolicitudDeAdmision.promedioGeneral === null) {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuvo en tu preparatoria", "warning");
                 } else {
 

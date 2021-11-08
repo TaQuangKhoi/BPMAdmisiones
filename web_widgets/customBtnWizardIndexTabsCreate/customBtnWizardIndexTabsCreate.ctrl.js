@@ -367,7 +367,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         swal("¡Estado preparatoria!", "Debes agregar el estado de tu preparatoria", "warning");
                     } else if ($scope.properties.datosPreparatoria.ciudadBachillerato === undefined) {
                         swal("¡Ciudad de tu preparatoria!", "Debes agregar la ciudad de tu preparatoria", "warning");
-                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
+                    } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral=="0") {
                         swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                     } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                         swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
@@ -416,7 +416,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             }
                         }
                     }
-                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "") {
+                } else if ($scope.properties.catSolicitudDeAdmision.promedioGeneral === "" || $scope.properties.catSolicitudDeAdmision.promedioGeneral=="0") {
                     swal("¡Promedio!", "Debes agregar el promedio que obtuviste en tu preparatoria", "warning");
                 } else if ($scope.properties.kardex === undefined || JSON.stringify($scope.properties.actanacimiento) == '{}') {
                     swal("¡Contancia de calificaciones!", "Debes agregar la constancia de calificaciones de tu preparatoria", "warning");
