@@ -5,13 +5,25 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
     $scope.datosFuentesInfluyeron = [];
     $scope.datosRasgos = [];
     $scope.datosCapacidad = [];
-    $scope.datosSalud = [];
-    
-    $scope.cargarDatos = function(){
-        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario="+$scope.properties.usuario,1);
+    $scope.datosSaludPSeccion = [];
+    $scope.datosSaludSSeccion = [];
+    $scope.datosBitacoraComentarios = [];
+    $scope.salud;
+    $scope.comentarios;
+    $scope.conclusiones_recomendaciones;
+    $scope.interpretacion;
+    $scope.cursos = {
+        "PDU": false,
+        "SSE": false,
+        "PDP": false,
+        "PCA": false
     }
-    
-    function doRequest(method, url,numero) {
+
+    $scope.cargarDatos = function() {
+        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario, 1);
+    }
+
+    function doRequest(method, url, numero) {
         blockUI.start();
         //data: angular.copy($scope.properties.dataToSend),
         var req = {
@@ -23,41 +35,59 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
             .success(function(data, status) {
                 switch (numero) {
                     case 1:
-                        if(data.length > 0){
+                        if (data.length > 0) {
                             $scope.datosUsuario = data[0];
                         }
-                        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoRelativos&p=0&c=9999&caseid="+$scope.properties.caseId,2);
-                      break;
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRelativos&p=0&c=9999&caseid=" + $scope.properties.caseId, 2);
+                        break;
                     case 2:
                         $scope.datosPadres = data;
-                        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoRelativosHermanos&p=0&c=9999&caseid="+$scope.properties.caseId,3);
-                      break;
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRelativosHermanos&p=0&c=9999&caseid=" + $scope.properties.caseId, 3);
+                        break;
                     case 3:
-                        if(data.length > 0){
-                            $scope.datosHermanos= data;
+                        if (data.length > 0) {
+                            $scope.datosHermanos = data;
                         }
-                        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid="+$scope.properties.caseId,4);
-                      break;
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid=" + $scope.properties.caseId, 4);
+                        break;
                     case 4:
-                        if(data.length > 0){
+                        if (data.length > 0) {
                             $scope.getInfoFuentesInfluyeron = data;
                         }
-                        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid="+$scope.properties.caseId,5);
-                      break;
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid=" + $scope.properties.caseId, 5);
+                        break;
                     case 5:
-                        if(data.length > 0){
+                        if (data.length > 0) {
                             $scope.datosRasgos = data;
                         }
-                        doRequest("GET","../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid="+$scope.properties.caseId,6);
-                      break;
-                    case  6:
-                        if(data.length > 0){
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid=" + $scope.properties.caseId, 6);
+                        break;
+                    case 6:
+                        if (data.length > 0) {
                             $scope.datosCapacidad = data;
                         }
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludPSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId, 7);
+                        break;
+                    case 7:
+                        if (data.length > 0) {
+                            $scope.datosSaludPSeccion = data;
+                        }
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludSSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId, 8);
+                        break;
+                    case 8:
+                        if (data.length > 0) {
+                            $scope.datosSaludSSeccion = data;
+                        }
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario, 9);
+                        break;
+                    case 9:
+                        if (data.length > 0) {
+                            $scope.datosBitacoraComentarios = data;
+                        }
                         $scope.generatePDF();
-                      break;
-                  }
-               
+                        break;
+                }
+
             })
             .error(function(data, status) {
                 //notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
@@ -67,381 +97,443 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
             });
     }
 
-    
+
     $scope.generatePDF = function() {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
-        
-        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/LogoUniversidadAnahuac.png","PNG",((width/2)-30),((height/2)-90),70,70 );
-        doc.addImage($scope.datosUsuario.fotografiab64,"JPG",((width/2)+50),((height/2)-80),30,40 );
-        doc.setFontSize(12);
-        doc.text('DEPARTAMENTO DE ORIENTACIÓN VOCACIONAL', width/2, (height/2), { align: 'center' })
-        doc.text('REPORTE PSICOLÓGICO', width/2, (height/2)+10, { align: 'center' })
-        
-        //Rectangulo
-        doc.rect(10, (height/2)+30, 195, 80, 'S');
-        
-        doc.setFontSize(10);
-        doc.setFont(undefined, 'bold')
-        doc.text(15, (height/2)+40, 'Nombre del Aspirante:');
-        doc.text(15, (height/2)+45, 'Fecha de nacimiento:');
-        doc.text(15, (height/2)+50, 'Preparatoria:');
-        doc.text(15, (height/2)+55, 'Ciudad de la preparatoria:');
-        doc.text(15, (height/2)+60, 'País:');
-        // Un solo titulo
-        doc.text(15, (height/2)+65, 'Carrera que desea');
-        doc.text(15, (height/2)+68, 'estudiar:');
-        
-        doc.text(15, (height/2)+73, 'Fecha:');
-        doc.text(15, (height/2)+78, 'PAAV:');
-        doc.text(15, (height/2)+83, 'PAAN:');
-        doc.text(15, (height/2)+88, 'PARA:');
-        doc.text(15, (height/2)+93, 'PAA: ');
-        doc.text(15, (height/2)+98, 'INVP:');
-        //segunda fila
-        doc.text(135, (height/2)+45, 'Edad:');
-        doc.text(135, (height/2)+50, 'Promedio:');
-        doc.text(135, (height/2)+73, 'Tipo de Admisión:');
-        doc.text(135, (height/2)+78, 'Periodo Ingreso:');
-        doc.text(135, (height/2)+83, 'Entrevisto:');
-        doc.text(135, (height/2)+88, 'Integro:');
-        
-        
-        
-        doc.setFont(undefined, 'normal');
-        doc.text(60, (height/2)+40, `${$scope.datosUsuario.idbanner}-${$scope.datosUsuario.nombre}`);
-        doc.text(60, (height/2)+45, $scope.datosUsuario.fechanacimiento);
-        doc.text(60, (height/2)+50, $scope.datosUsuario.preparatoria);
-        doc.text(60, (height/2)+55, $scope.datosUsuario.ciudad);
-        doc.text(60, (height/2)+60, $scope.datosUsuario.pais);
-        doc.text(60, (height/2)+66.5, $scope.datosUsuario.carrera);
-        doc.text(60, (height/2)+73, 'N/A');
-        doc.text(60, (height/2)+78, $scope.datosUsuario.paav);
-        doc.text(60, (height/2)+83, $scope.datosUsuario.paan);
-        doc.text(60, (height/2)+88, $scope.datosUsuario.para);
-        doc.text(60, (height/2)+93, ($scope.datosUsuario.resultadopaa == 0? (parseInt($scope.datosUsuario.paav) + parseInt($scope.datosUsuario.paan)+parseInt($scope.datosUsuario.para)+""): '0'));
-        doc.text(60, (height/2)+98, $scope.datosUsuario.invp);
-        //segunda fila
-        doc.text(167, (height/2)+45, $scope.datosUsuario.edad);
-        doc.text(167, (height/2)+50, $scope.datosUsuario.promedio);
-        doc.text(167, (height/2)+73, $scope.datosUsuario.tipoadmision);
-        doc.text(167, (height/2)+78, $scope.datosUsuario.periodo);
-        doc.text(167, (height/2)+83, $scope.datosUsuario.quienrealizoentrevista);
-        doc.text(167, (height/2)+88, $scope.datosUsuario.quienintegro);
-        
-        
-        doc.addPage();
-        
-        doc.setFontSize(10);
-        doc.setFont(undefined, 'bold')
+        var yvalue = 30;
+        var fontText = 10;
+        var fontTitle = 14;
+        var fontSubTitle = 13;
+        var fontparam = undefined;
+        var margenPrimeraFila = 15;
+        var margenSegundaFila =  135;
+        var respuestasPrimeraFila = 60;
+        var respuestasSegundaFila = 167;
 
-        doc.text(15, 20, 'Información familiar');
-        
-        doc.text(15, 25, 'Ocupación del Padre:');
-        doc.text(15, 30, 'Empresa:');
-        doc.text(15, 35, 'Universidad Anahuac:');
-        
-        doc.text(15, 45, 'Ocupación de la Madre:');
-        doc.text(15, 50, 'Empresa:');
-        doc.text(15, 55, 'Universidad Anahuac:');
-        
-        doc.text(15, 65, 'Ocupación del Tutor:');
-        doc.text(15, 70, 'Empresa:');
-        doc.text(15, 75, 'Universidad Anahuac:');
+        doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/LogoRUA.png", "PNG", ((width / 2) + 35), ((height / 2) - 128), 60, 20);
 
-        
-        doc.setFont(undefined, 'normal')
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold');
+        doc.text('DEPARTAMENTO DE ORIENTACIÓN VOCACIONAL', margenPrimeraFila, (height / 2) - 118)
+
+        doc.setFontSize(fontTitle);
+        doc.text('REPORTE PSICOLÓGICO', margenPrimeraFila, (height / 2) - 108)
+
+
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, (height / 2) - 98, 190, 70, 'F');
+
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 88, 'Información personal');
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, (height / 2) - 78, 'Nombre del Aspirante:');
+        doc.text(margenPrimeraFila, (height / 2) - 73, 'Fecha de nacimiento:');
+        doc.text(margenPrimeraFila, (height / 2) - 68, 'Preparatoria:');
+        doc.text(margenPrimeraFila, (height / 2) - 63, 'Ciudad de la preparatoria:');
+        doc.text(margenPrimeraFila, (height / 2) - 58, 'País:');
+        doc.text(margenPrimeraFila, (height / 2) - 53, 'Carrera que desea');
+        doc.text(margenPrimeraFila, (height / 2) - 48, 'estudiar:');
+        doc.text(margenPrimeraFila, (height / 2) - 43, 'Edad:');
+        doc.text(margenPrimeraFila, (height / 2) - 38, 'Promedio:');
+        doc.text(margenPrimeraFila, (height / 2) - 33, 'Fecha:');
+
+        doc.setDrawColor(115, 66, 34)
+        doc.rect(157.5,((height / 2)-84),35,45)
+        doc.addImage($scope.datosUsuario.fotografiab64, "JPG", 160, ((height / 2)-82), 30, 40);
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, (height / 2) - 18, 'Información de la admisión')
+
+        doc.setFontSize(10);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, (height / 2) - 8, 'PAAV:');
+        doc.text(margenPrimeraFila, (height / 2) - 3, 'PAAN:');
+        doc.text(margenPrimeraFila, (height / 2) + 3, 'PARA:');
+        doc.text(margenPrimeraFila, (height / 2) + 8, 'PAA: ');
+        doc.text(margenPrimeraFila, (height / 2) + 13, 'INVP:');
+
+        doc.text(margenSegundaFila, (height / 2) - 8, 'Tipo de Admisión:');
+        doc.text(margenSegundaFila, (height / 2) - 3, 'Periodo Ingreso:');
+        doc.text(margenSegundaFila, (height / 2) + 3, 'Entrevisto:');
+        doc.text(margenSegundaFila, (height / 2) + 8, 'Integro:');
+
+        doc.setFont(fontparam, 'normal');
+        doc.text(respuestasPrimeraFila, (height / 2) - 78, `${$scope.datosUsuario.idbanner}-${$scope.datosUsuario.nombre}`);
+        doc.text(respuestasPrimeraFila, (height / 2) - 73, $scope.datosUsuario.fechanacimiento);
+        doc.text(respuestasPrimeraFila, (height / 2) - 68, $scope.datosUsuario.preparatoria);
+        doc.text(respuestasPrimeraFila, (height / 2) - 63, $scope.datosUsuario.ciudad);
+        doc.text(respuestasPrimeraFila, (height / 2) - 58, $scope.datosUsuario.pais);
+        doc.text(respuestasPrimeraFila, (height / 2) - 51.5, $scope.datosUsuario.carrera);
+        doc.text(respuestasPrimeraFila, (height / 2) - 43, $scope.datosUsuario.edad);
+        doc.text(respuestasPrimeraFila, (height / 2) - 38, $scope.datosUsuario.promedio);
+        doc.text(respuestasPrimeraFila, (height / 2) - 33, 'N/A');
+
+        doc.text(respuestasPrimeraFila, (height / 2) - 8, $scope.datosUsuario.paav);
+        doc.text(respuestasPrimeraFila, (height / 2) - 3, $scope.datosUsuario.paan);
+        doc.text(respuestasPrimeraFila, (height / 2) + 3, $scope.datosUsuario.para);
+        doc.text(respuestasPrimeraFila, (height / 2) + 8, ($scope.datosUsuario.resultadopaa == 0 ? (parseInt($scope.datosUsuario.paav) + parseInt($scope.datosUsuario.paan) + parseInt($scope.datosUsuario.para) + "") : '0'));
+        doc.text(respuestasPrimeraFila, (height / 2) + 13, $scope.datosUsuario.invp);
+
+        doc.text(respuestasSegundaFila, (height / 2) - 8, $scope.datosUsuario.tipoadmision);
+        doc.text(respuestasSegundaFila, (height / 2) - 3, $scope.datosUsuario.periodo);
+        doc.text(respuestasSegundaFila, (height / 2) + 3, $scope.datosUsuario.quienrealizoentrevista);
+        doc.text(respuestasSegundaFila, (height / 2) + 8, $scope.datosUsuario.quienintegro);
+
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, 170, 190, 85, 'F');
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 180, 'Información familiar');
+
+        doc.setFontSize(10);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, 190, 'Ocupación del Padre:');
+        doc.text(margenPrimeraFila, 195, 'Empresa:');
+        doc.text(margenPrimeraFila, 200, 'Universidad Anahuac:');
+
+        doc.text(margenPrimeraFila, 215, 'Ocupación de la Madre:');
+        doc.text(margenPrimeraFila, 220, 'Empresa:');
+        doc.text(margenPrimeraFila, 225, 'Universidad Anahuac:');
+
+        doc.text(margenPrimeraFila, 240, 'Ocupación del Tutor:');
+        doc.text(margenPrimeraFila, 245, 'Empresa:');
+        doc.text(margenPrimeraFila, 250, 'Universidad Anahuac:');
+
+        doc.setFont(fontparam, 'normal')
         $scope.datosPadres.forEach(element => {
-            if(element.parentesco == "Padre"){
-                doc.text(60, 25, element.puesto == ""?"Se desconoce":element.puesto);
-                doc.text(60, 30, element.empresatrabaja);
-                doc.text(60, 35, element.campusanahuac == null?"No":element.campusanahuac);
-            }else if (element.parentesco == "Madre"){
-                doc.text(60, 45, element.puesto == ""?"Se desconoce":element.puesto);
-                doc.text(60, 50, element.empresatrabaja);
-                doc.text(60, 55, element.campusanahuac == null?"No":element.campusanahuac);
+            if (element.parentesco == "Padre") {
+                doc.text(respuestasPrimeraFila, 190, element.puesto == "" ? "Se desconoce" : element.puesto);
+                doc.text(respuestasPrimeraFila, 195, element.empresatrabaja);
+                doc.text(respuestasPrimeraFila, 200, element.campusanahuac == null ? "No" : element.campusanahuac);
+            } else if (element.parentesco == "Madre") {
+                doc.text(respuestasPrimeraFila, 215, element.puesto == "" ? "Se desconoce" : element.puesto);
+                doc.text(respuestasPrimeraFila, 220, element.empresatrabaja);
+                doc.text(respuestasPrimeraFila, 225, element.campusanahuac == null ? "No" : element.campusanahuac);
             }
-            if(element.istutor == "t"){
-                doc.text(60, 65, element.puesto == ""?"Se desconoce":element.puesto);
-                doc.text(60, 70, element.empresatrabaja);
-                doc.text(60, 75, element.campusanahuac == null?"No":element.campusanahuac);
+            if (element.istutor == "t") {
+                doc.text(respuestasPrimeraFila, 240, element.puesto == "" ? "Se desconoce" : element.puesto);
+                doc.text(respuestasPrimeraFila, 245, element.empresatrabaja);
+                doc.text(respuestasPrimeraFila, 250, element.campusanahuac == null ? "No" : element.campusanahuac);
             }
         });
-        var yvalue = 85;
-        if($scope.datosHermanos.length > 0){
-            let yHermanos = 85;
-            $scope.datosHermanos.forEach(element=>{
-                doc.text(15, yHermanos, `Ocupación del Hermano ${index+1}:`);
-                doc.text(55, yHermanos,  element.isestudia == "t"?"Estudiante":(element.istrabaja=="t"?"trabajador(a)":"Se desconoce"));
-                if(element.istrabaja == 't'){
-                    yHermanos+=5;
-                    doc.text(15, yHermanos, `Ocupación del Hermano ${index+1}:`);
-                    doc.text(60, yHermanos, element.empresatrabaja);
-                }
-                if(element.isestudia == 't'){
-                    yHermanos+=5;
-                    doc.text(15, yHermanos, 'Escuela:');
-                    doc.text(60, yHermanos, element.escuelaestudia);
-                }
-                yHermanos+=10;
-                if (yHermanos>=275)
-                {
-                    doc.addPage();
-                    yHermanos=15;
-                }
-                yvalue = yHermanos;
-            });
-        }
-        
-        doc.setFontSize(10);
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yvalue, 'Fuentes que influyeron en su decisíon:');
-        doc.setFont(undefined, 'normal')
-        if($scope.datosFuentesInfluyeron.length > 0){
-            yvalue+= 10;
-            if($scope.datosFuentesInfluyeron[0].autodescripcion == true){
-                
-                $scope.datosFuentesInfluyeron.forEach( element =>{
-                    doc.text(15, yvalue, element.fuentes);
-                    yvalue+=5;
-                    if (yvalue>=275)
-                    {
+
+        doc.addPage();
+        /*----------------------------------------------------------------- FIN PRIMERA HOJA-----------------------------------------------------------------*/
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yvalue, 'Fuentes que influyeron en su decisíon:');
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal')
+        if ($scope.datosFuentesInfluyeron.length > 0) {
+            yvalue += 10;
+            if ($scope.datosFuentesInfluyeron[0].autodescripcion == true) {
+                $scope.datosFuentesInfluyeron.forEach(element => {
+                    doc.text(margenPrimeraFila, yvalue, element.fuentes);
+                    yvalue += 5;
+                    if (yvalue >= 275) {
                         doc.addPage();
-                        yvalue=15;
+                        yvalue = 30;
                     }
                 });
-            }else{
-                doc.text($scope.datosCapacidad[0][capacidades[i].nombre],15, yvalue,{maxWidth: 180});
-                //doc.text(15, yvalue, element.fuentes.match(/.{1,100}(\s|$)/g));
+            } else {
+                doc.text($scope.datosCapacidad[0][capacidades[i].nombre], margenPrimeraFila, yvalue, { maxWidth: 180 });
                 let count = Math.ceil((element.fuentes.length / 180))
-                yvalue+= (count*7)+3;
-                if (yvalue>=275)
-                {
+                yvalue += (count * 7) + 3;
+                if (yvalue >= 275) {
                     doc.addPage();
-                    yvalue=15;
+                    yvalue = 30;
                 }
-                
             }
-        }else{
-            yvalue+=7;
-            doc.text(15, yvalue, "N/A");
-            yvalue+=7;
+        } else {
+            yvalue += 10;
+            doc.text(margenPrimeraFila, yvalue, "No se capturo ninguna fuente.");
+            yvalue += 7;
         }
 
-        let yValor=yvalue;
-        if( (295 - yvalue) < 143 ){
+        let yValor = yvalue;
+        if ((295 - yvalue) < 143) {
             doc.addPage();
-            yValor=15;
+            yValor = 30;
         }
-        doc.setFontSize(12);
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "Rasgos observados durante la entrevista");
-        yValor+=7;
-        doc.setFontSize(10);
-        $scope.datosRasgos.forEach( element =>{
-            doc.setFont(undefined, 'bold')
-            doc.text(15, yValor, element.rasgo);
-            doc.setFont(undefined, 'normal')
-            doc.text(65, yValor, element.calificacion);
-            yValor+=7;
+
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, yValor, 190, 100, 'F');
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor += 7, "Rasgos observados durante la entrevista");
+
+        yValor += 10;
+        respuestasPrimeraFila += 5;
+        doc.setFontSize(fontText);
+        $scope.datosRasgos.forEach(element => {
+            doc.setFont(fontparam, 'bold')
+            doc.text(margenPrimeraFila, yValor, element.rasgo);
+            doc.setFont(fontparam, 'normal')
+            doc.text(respuestasPrimeraFila, yValor, element.calificacion);
+            yValor += 7;
         });
-        yValor+=7;
-        console.log("valor de yValor"+yValor)
-        if (yValor>=230)
-        {
+
+        yValor += 7;
+        if (yValor >= 230) {
             doc.addPage();
             yValor = 15;
         }
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "CAPACIDAD DE ADAPTACIÓN");
-        yValor+=7;
-        doc.line(15, yValor, 195, yValor);
-        yValor+=7;
-        var capacidadesTitulo = ["Ajuste al medio familiar","Ajuste escolar previo","Ajuste al medio social","Ajuste afectivo (filiación)","Ajuste religioso","Ajuste existencial"]
-        var capacidades = [{nombre:'ajustemediofamiliar',calificacion:'califajustemediofamiliar'},{nombre:'ajusteescolarprevio',calificacion:'califajusteescolarprevio'},{nombre:'ajustemediosocial',calificacion:'califajustemediosocial'},{nombre:'ajusteefectivo',calificacion:'califajusteafectivo'},{nombre:'ajustereligioso',calificacion:'califajustereligioso'},{nombre:'ajusteexistencial',calificacion:'califajusteexistencial'}]
-        let newPage,reseteo = false;
-        for(let i=0;i<6;i++){    
-            if (yValor>=275)
-            {
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "Salud");
+        yValor += 10;
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'bold');
+        doc.text(margenPrimeraFila, yValor, "Salud");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
+        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        let count = Math.ceil(($scope.salud.length / 180))
+        yValor += (count * 7) + 3;
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "¿Vives en situación de discapacidad?");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosSaludPSeccion[0].cat_situacion_discapacidad_descripcion, margenPrimeraFila, yValor);
+        yValor += (1 * 7);
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "¿Tienes algún problema de salud que necesite atención médica continua?");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        doc.text(($scope.datosSaludPSeccion[0].situacion_discapacidad != '' ? $scope.datosSaludPSeccion[0].situacion_discapacidad : "N/A"), margenPrimeraFila, yValor);
+        yValor += (1 * 7);
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "¿Te consideras una persona saludable?");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosSaludPSeccion[0].cat_persona_saludable_descripcion, margenPrimeraFila, yValor);
+        yValor += (1 * 7);
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "¿Has recibido alguna terapia?");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        doc.text($scope.datosSaludPSeccion[0].cat_terapia_descripcion, margenPrimeraFila, yValor);
+        yValor += (1 * 7);
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor, "¿Qué tipo de terapia?");
+        yValor += 7;
+
+        doc.setFont(fontparam, 'normal');
+        doc.text(($scope.datosSaludPSeccion[0].tipo_terapia != '' ? $scope.datosSaludPSeccion[0].tipo_terapia : "N/A"), margenPrimeraFila, yValor);
+        yValor += 7;
+
+        if (yValor >= 275) {
+            doc.addPage();
+            yValor = 15;
+        }
+
+        doc.addPage();
+        /*----------------------------------------------------------------- FIN SEGUNDA HOJA -----------------------------------------------------------------*/
+
+        yValor = 30
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, yValor, 190, 240, 'F');
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor += 7, "Capacidad de adaptación");
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal');
+        yValor += 10;
+
+        var capacidadesTitulo = ["Ajuste al medio familiar", "Ajuste escolar previo", "Ajuste al medio social", "Ajuste afectivo (filiación)", "Ajuste religioso", "Ajuste existencial"]
+        var capacidades = [{ nombre: 'ajustemediofamiliar', calificacion: 'califajustemediofamiliar' }, { nombre: 'ajusteescolarprevio', calificacion: 'califajusteescolarprevio' }, { nombre: 'ajustemediosocial', calificacion: 'califajustemediosocial' }, { nombre: 'ajusteefectivo', calificacion: 'califajusteafectivo' }, { nombre: 'ajustereligioso', calificacion: 'califajustereligioso' }, { nombre: 'ajusteexistencial', calificacion: 'califajusteexistencial' }]
+        let newPage, reseteo = false;
+
+        for (let i = 0; i < 6; i++) {
+            if (yValor >= 275) {
                 doc.addPage();
                 newPage = true;
                 reseteo = false;
             }
-            if(!reseteo && newPage){
+            if (!reseteo && newPage) {
                 reseteo = true;
                 yValor = 30;
             }
-            doc.setFont(undefined, 'bold')
-            doc.text(15, yValor, capacidadesTitulo[i]);
-            yValor+=7;
-            doc.setFont(undefined, 'normal');
+
+            doc.setFont(fontparam, 'bold')
+            doc.text(margenPrimeraFila, yValor, capacidadesTitulo[i]);
+            yValor += 7;
+
+            doc.setFont(fontparam, 'normal');
             $scope.datosCapacidad[0][capacidades[i].nombre] = convertToPlain($scope.datosCapacidad[0][capacidades[i].nombre])
-            doc.text($scope.datosCapacidad[0][capacidades[i].nombre],15, yValor,{maxWidth: 180, align: "justify"});
+
+            doc.text($scope.datosCapacidad[0][capacidades[i].nombre], margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
             let count = Math.ceil(($scope.datosCapacidad[0][capacidades[i].nombre].length / 180))
-            yValor+= (count*7)+3;
+            yValor += (count * 7) + 3;
+
             doc.text(165, yValor, "Puntiación:");
             doc.text(185, yValor, $scope.datosCapacidad[0][capacidades[i].calificacion]);
-            yValor+=7;
+            yValor += 7;
         }
-        
-        if (yValor>=150)
-        {
+
+        if (yValor >= 150) {
             doc.addPage();
-            yValor=15;
-        }
-
-        doc.setFontSize(12);
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "Salud");
-        yValor+=7;
-
-        doc.setFontSize(10);
-        doc.text(15, yValor, "Salud");
-        yValor+=7;
-        doc.setFont(undefined, 'normal');
-        doc.text("N/A",15, yValor);
-        yValor+= (1*7);
-
-        if (yValor>=275)
-        {
+            yValor = 15;
+        } else {
             doc.addPage();
-            yValor=15;
         }
 
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "¿Vives en situación de discapacidad?");
-        doc.setFont(undefined, 'normal');
-        doc.text(85, yValor, "N/A");
-        yValor+=7;
+        /*----------------------------------------------------------------- FIN TERCERA HOJA -----------------------------------------------------------------*/
 
-        if (yValor>=275)
-        {
+        yValor = 30
+
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, yValor, 190, 50, 'F');
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor+=7, "Conclusiones y recomendaciones");
+        yValor += 10;
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal');
+        $scope.conclusiones_recomendaciones = convertToPlain($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
+        doc.text($scope.conclusiones_recomendaciones, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        count = Math.ceil(($scope.conclusiones_recomendaciones.length / 180))
+        yValor += (count * 7) + 3;
+
+        if (yValor >= 275) {
             doc.addPage();
-            yValor=15;
+            yValor = 15;
         }
-        
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "¿Tienes algún problema de salud que necesite atención médica continua?");
-        yValor+=7;
-        doc.setFont(undefined, 'normal');
-        doc.text('N/A',15, yValor);
-        yValor+= (1*7);
 
-        if (yValor>=275)
-        {
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor+=20, "Interpretación");
+        yValor += 1;
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal');
+        $scope.interpretacion = convertToPlain($scope.datosSaludSSeccion[0].interpretacion);
+        doc.text($scope.interpretacion, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        count = Math.ceil(($scope.interpretacion.length / 180))
+        yValor += (count * 7) + 3;
+
+        if (yValor >= 275) {
             doc.addPage();
-            yValor=15;
+            yValor = 15;
         }
 
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "¿Te consideras una persona saludable?");
-        doc.setFont(undefined, 'normal');
-        doc.text(85, yValor, "N/A");
-        yValor+= 5;
+        doc.setFillColor(228, 212, 200)
+        doc.rect(10, yValor+=10, 190, 35, 'F');
 
-        if (yValor>=275)
-        {
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor+=7, "Comentarios");
+        yValor += 10;
+
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal');
+        $scope.comentarios = convertToPlain($scope.datosBitacoraComentarios[0].comentario);
+        doc.text($scope.comentarios, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        count = Math.ceil(($scope.comentarios.length / 180))
+        yValor += (count * 7) + 3;
+
+        if (yValor >= 275) {
             doc.addPage();
-            yValor=15;
+            yValor = 15;
         }
 
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, yValor+=20, "Cursos Recomendados")
+        yValor += 10;
 
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "¿Has recibido alguna terapia?");
-        doc.setFont(undefined, 'normal');
-        doc.text(85, yValor, "N/A");
-        yValor+= 5;
+        doc.setFontSize(fontText);
+        doc.setFont(fontparam, 'normal');
+        for (let i = 0; i < $scope.datosSaludSSeccion.length; i++) {
+            switch ($scope.datosSaludSSeccion[i].cursos_recomendados) {
+                case "PDU":
+                    $scope.cursos.PDU = true;
+                    break;
+                case "SSE":
+                    $scope.cursos.SSE = true;
+                    break;
+                case "PDP":
+                    $scope.cursos.PDP = true;
+                    break;
+                case "PCA":
+                    $scope.cursos.PCA = true;
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        if (yValor>=275)
-        {
+        doc.text("PDU: " + ($scope.cursos.PDU ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValor += (1 * 7);
+        doc.text("SSE: " + ($scope.cursos.SSE ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValor += (1 * 7);
+        doc.text("PDP: " + ($scope.cursos.PDP ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValor += (1 * 7);
+        doc.text("PCA: " + ($scope.cursos.PCA ? "Si" : "No"),margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        yValor += (1 * 7);
+
+        if (yValor >= 275) {
             doc.addPage();
-            yValor=15;
+            yValor = 15;
         }
 
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "¿Qué tipo de terapia?");
-        yValor+=7;
-        doc.setFont(undefined, 'normal');
-        doc.text('N/A',15, yValor);
-        yValor+=7;
-
-        if (yValor>=275)
-        {
-            doc.addPage();
-            yValor=15;
-        }
-
-        
-        doc.setFont(undefined, 'bold')
-        //doc.text(100, yValor, "Cursos Recomendados");
-        doc.text("Cursos Recomendados",width/2, yValor, { align: 'center' });
-        yValor+=7;
-       
-        doc.setFont(undefined, 'normal');
-        //doc.text(85, yValor, "PDU: N/A, SSE: N/A, PDP: N/A, PCA: N/A");
-        doc.text("PDU: N/A, SSE: N/A, PDP: N/A, PCA: N/A",width/2, yValor, { align: 'center' });
-        yValor+=7;
-
-        if (yValor>=275)
-        {
-            doc.addPage();
-            yValor=15;
-        }
-
-        
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "Conclusiones y recomendaciones");
-        yValor+=7;
-       
-        doc.setFont(undefined, 'normal');
-        doc.text('N/A',15, yValor);
-        yValor+= (1*7);
-
-        if (yValor>=275)
-        {
-            doc.addPage();
-            yValor=15;
-        }
-
-        
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "Interpretación");
-        yValor+=7;
-       
-        doc.setFont(undefined, 'normal');
-        doc.text('N/A',15, yValor);
-        yValor+= (1*7);
-
-        if (yValor>=275)
-        {
-            doc.addPage();
-            yValor=15;
-        }
-
-        
-        doc.setFont(undefined, 'bold')
-        doc.text(15, yValor, "Comentarios");
-        yValor+=7;
-       
-        doc.setFont(undefined, 'normal');
-        doc.text('N/A',15, yValor);
-        
-        yValor+= (1*7);
-
-        if (yValor>=275)
-        {
-            doc.addPage();
-            yValor=15;
-        }
-
-        console.log(height)
-
-
-        // Save the PDF
         doc.save(`${$scope.properties.fileName}_ReporteOV.pdf`);
     }
-    
+
     function convertToPlain(html) {
         html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
         html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
@@ -453,7 +545,9 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         html = html.replace(/<br\s*[\/]?>/gi, "\n");
         html = html.replace(/<[^>]+>/ig, '');
         html = html.replaceAll("&#34;", '"');
+        html = html.replace(/(<([^>]+)>)/ig, '');
+
         return html;
     }
-    
+
 }

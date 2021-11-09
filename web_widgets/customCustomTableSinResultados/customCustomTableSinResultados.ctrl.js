@@ -340,6 +340,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         return fechas;
 
     }
+    $scope.decision = {"rechazado":false,"caseid":0};
 
     //Confirmacion para aceptar/rechazar al aspirante
     $scope.confirmacion = function(accion, rowData) {
@@ -355,10 +356,15 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         }).then((result) => {
 
             if (result.isConfirmed) {
+                $scope.decision = {"rechazado":false,"caseid":0,"idbanner":"0"};
                 if (accion === "aceptar") {
                     $scope.properties.formOutput.infoCartaInput.carta = "Aceptado";
                 } else {
                     $scope.properties.formOutput.infoCartaInput.carta = "Rechazado";
+                    $scope.decision.rechazado = true;
+                    $scope.decision.caseid = rowData.caseid;
+                    $scope.decision.idbanner = rowData.idbanner;
+                    
                 }
                 $scope.asignarTareaValidacionManual(rowData);
                 $scope.$apply();
@@ -423,15 +429,34 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         };
 
         return $http(req).success(function(data, status) {
+            if($scope.decision.rechazado == true){
+                doRequestRechazadosRespaldo("POST","/bonita/API/extension/AnahuacRest?url=RealizarRespaldo&p=0&c=100")
+            }else{
                 doRequest("POST", $scope.properties.urlPost);
-            })
-            .error(function(data, status) {
+            }
+        }).error(function(data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
                 blockUI.stop();
             })
             // .finally(function() {
             //     blockUI.stop();
             // });
+    }
+    
+    function doRequestRechazadosRespaldo(method, url) {
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy($scope.decision)
+        };
+
+        return $http(req).success(function(data, status) {
+                doRequest("POST", $scope.properties.urlPost);
+            })
+            .error(function(data, status) {
+                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                blockUI.stop();
+            })
     }
 
 

@@ -532,6 +532,7 @@ class ReactivacionDAO {
 			}
 			
 			con.setAutoCommit(false)
+			
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
 			pstm.setLong(1, object.campus);
 			pstm.setLong(2, object.licenciatura);
@@ -551,9 +552,7 @@ class ReactivacionDAO {
 			Result formateo = new Result();
 			formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
 			errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
-			Result resultado2 = new Result();
-			resultado2 = respaldoUsuario(jsonData, context);
-			errorLog += " Respaldo: "+resultado2.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+resultado2.getError_info();
+			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
 		} catch (Exception ex) {
@@ -677,9 +676,106 @@ class ReactivacionDAO {
 			resultado.setError(e.getMessage())
 			resultado.setError_info(errorLog)
 			con.rollback();
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
 		}
 		return resultado;
 	} 
+	
+	
+	public Result RealizarRespaldo(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			Result resultado2 = new Result();
+			resultado2 = guardarTutorIntento(jsonData, context);
+			errorLog += "TutorIntento: "+resultado2.isSuccess().toString()+" Errores: "+resultado2.getError()+" Error_info: "+resultado2.getError_info();
+			
+			resultado2 = new Result();
+			resultado2 = respaldoUsuario(jsonData, context);
+			errorLog += " Respaldo: "+resultado2.isSuccess().toString()+" Errores: "+resultado2.getError()+" Error_info: "+resultado2.getError_info();
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog)
+			
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorLog)
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	
+	public Result guardarTutorIntento(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		boolean autocomit = false;
+		try {
+			errorLog+="1";
+			
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			String consultaNumeroIntento = "SELECT CASE WHEN countRechazos IS NULL THEN 0 ELSE countRechazos END AS countRechazos FROM solicituddeadmision  WHERE caseid = "+object.caseid
+			pstm = con.prepareStatement(consultaNumeroIntento)
+			rs = pstm.executeQuery()
+			errorLog+="5"
+			String numeroIntento = "0";
+			while(rs.next()) {
+				numeroIntento = rs.getString(1);
+			}
+			errorLog+="numero:"+numeroIntento
+			
+			String consulta = "SELECT  DISTINCT ON (pt.catparentezco_pid) pt.persistenceid FROM solicituddeadmision sda  INNER JOIN padrestutor pt ON pt.caseid=sda.caseid AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid  WHERE sda.caseid = "+object.caseid+" AND pt.istutor IS true  ORDER BY   pt.catparentezco_pid ASC,pt.persistenceid DESC "
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				errorLog+="7"
+				String update = "UPDATE PadresTutor SET countIntentos = "+numeroIntento+" WHERE persistenceid = "+rs.getString(1)
+				pstm = con.prepareStatement(update);
+				pstm.executeUpdate();
+			}
+			
+			consulta = "SELECT  DISTINCT ON (pt.catparentezco_pid) pt.persistenceid FROM solicituddeadmision sda  INNER JOIN padrestutor pt ON pt.caseid=sda.caseid AND sda.estatussolicitud != 'Solicitud vencida' AND sda.estatussolicitud not like '%Período vencido en:%' INNER JOIN CatParentesco cp ON cp.persistenceid=pt.catparentezco_pid  WHERE sda.caseid = "+object.caseid+" AND (cp.clave = 'P' OR cp.clave = 'M') ORDER BY   pt.catparentezco_pid ASC,pt.persistenceid DESC  LIMIT 2"
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery()
+			while(rs.next()) {
+				errorLog+="8"
+				String update = "UPDATE PadresTutor SET countIntentos = "+numeroIntento+" WHERE persistenceid = "+rs.getString(1)
+				pstm = con.prepareStatement(update);
+				pstm.executeUpdate();
+			}
+
+			errorLog+="9"
+			con.commit();
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorLog)
+			con.rollback();
+			
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
