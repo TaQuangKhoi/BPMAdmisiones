@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1634690308808,
+  "lastUpdate" : 1636419579853,
   "rows" : [
     [
       {
@@ -7868,7 +7868,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || objectSolicitud.catReligion.descripcion === \"Agnóstico\" || objectSolicitud.catReligion.descripcion === \"Ninguna\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -7940,7 +7940,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || objectSolicitud.catReligion.descripcion === \"Agnóstico\" || objectSolicitud.catReligion.descripcion === \"Ninguna\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -14786,8 +14786,8 @@
                           "value" : false
                         },
                         "disabled" : {
-                          "type" : "constant",
-                          "value" : false
+                          "type" : "expression",
+                          "value" : ""
                         },
                         "label" : {
                           "type" : "interpolation",
@@ -17258,7 +17258,7 @@
     "year" : {
       "type" : "expression",
       "value" : [
-        "return (new Date().getFullYear()+1);"
+        "return (new Date().getFullYear());"
       ],
       "exposed" : false
     },

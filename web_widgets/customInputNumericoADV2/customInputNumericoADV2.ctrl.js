@@ -105,4 +105,10 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             }
         }
     }
+    $scope.validYear=function(){
+        if($scope.properties.max<$scope.properties.value || $scope.properties.min>$scope.properties.value){
+           swal("", "por favor captura un año correcto", "warning");
+           $scope.properties.value="";
+        }
+    }
 }
