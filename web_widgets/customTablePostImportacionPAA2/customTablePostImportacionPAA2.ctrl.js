@@ -360,6 +360,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $scope.properties.datosAspirante.IdSesion = row.id;
         $scope.properties.tabla = "fragmento";
         $scope.properties.view = false;
+         $scope.properties.update = "";
         var req = {
             method: "GET",
             url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
@@ -392,6 +393,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                     json.fechaExamen = new Date(fecha)
                 } else if (key == "tipoexamen") {
                     json.tipoExamen = data[key];
+                    $scope.properties.update = data[key];
                 } else if (key == "lexiumpara") {
                     json.HLEX = data[key]
                 } else if (key == "lexiumpaav") {

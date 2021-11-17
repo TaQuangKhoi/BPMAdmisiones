@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1636393125779,
+  "lastUpdate" : 1637090121065,
   "rows" : [
     [
       {
@@ -5275,7 +5275,7 @@
                     },
                     "title" : {
                       "type" : "interpolation",
-                      "value" : "Observaciones e información general"
+                      "value" : "Otras opciones y cursos"
                     }
                   },
                   "reference" : "315dd08c-73c0-49d2-a380-fa5181719a98",
@@ -5681,68 +5681,92 @@
                         "type" : "constant",
                         "value" : "primary"
                       },
-                      "action" : {
-                        "type" : "constant",
-                        "value" : "POST"
-                      },
                       "assign" : {
                         "type" : "constant",
                         "value" : false
                       },
-                      "url" : {
-                        "type" : "interpolation",
-                        "value" : "{{urlPostPsicom}}"
+                      "urlParametro" : {
+                        "type" : "expression",
+                        "value" : "solicitudDeAdmisionBDM.correoElectronico"
                       },
-                      "responseStatusCode" : {
+                      "returnValues" : {
                         "type" : "variable",
-                        "value" : ""
+                        "value" : "getPsicometricoFinalizado"
                       },
                       "dataToSend" : {
                         "type" : "expression",
                         "value" : "dataToSend2"
                       },
-                      "dataFromSuccess" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "closeOnSuccess" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "dataFromError" : {
-                        "type" : "variable",
-                        "value" : ""
-                      },
-                      "targetUrlOnSuccess" : {
-                        "type" : "interpolation"
-                      },
-                      "collectionToModify" : {
-                        "type" : "variable"
-                      },
-                      "modalId" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "collectionPosition" : {
-                        "type" : "constant",
-                        "value" : "Last"
-                      },
-                      "valueToAdd" : {
-                        "type" : "constant"
-                      },
-                      "removeItem" : {
-                        "type" : "variable"
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "{{urlPostPsicom}}"
                       }
                     },
-                    "reference" : "07adf648-70a5-4b8e-ad29-6f62619e5fcf",
+                    "reference" : "d079f9e4-6fa3-4a9b-9329-840614ed8525",
                     "hasValidationError" : false,
-                    "id" : "pbButton"
+                    "id" : "customBtnPsicometrico"
                   }
                 ]
               ]
             }
           ]
         ]
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "getPsicometricoFinalizado"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getPsicometricoFinalizado"
+          },
+          "urlInfo" : {
+            "type" : "constant",
+            "value" : "&usuario="
+          },
+          "urlParametro" : {
+            "type" : "expression",
+            "value" : "solicitudDeAdmisionBDM.correoElectronico"
+          }
+        },
+        "reference" : "35b291a5-7967-42d7-ac63-ff7bf9789349",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfo2"
       }
     ],
     [
@@ -8543,10 +8567,27 @@
       ],
       "exposed" : false
     },
-    "getPsicometricoFinalizado" : {
-      "type" : "url",
+    "finalizado" : {
+      "type" : "constant",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getPsicometricoFinalizado&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
+        "No"
+      ],
+      "exposed" : false
+    },
+    "urlInfo" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.solicitudDeAdmisionBDM != null){",
+        "    return \"&usuario=\"+$data.solicitudDeAdmisionBDM.correoElectronico;",
+        "}",
+        "return \"\""
+      ],
+      "exposed" : false
+    },
+    "getPsicometricoFinalizado" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

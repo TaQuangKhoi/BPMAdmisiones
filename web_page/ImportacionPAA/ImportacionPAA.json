@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1636051772213,
+  "lastUpdate" : 1636588767140,
   "rows" : [
     [
       {
@@ -689,6 +689,14 @@
                                   "orden" : {
                                     "type" : "variable",
                                     "value" : "activos.completos"
+                                  },
+                                  "isUpdate" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "update" : {
+                                    "type" : "variable",
+                                    "value" : "isUpdate"
                                   }
                                 },
                                 "reference" : "7d210bb1-9a51-4a4d-9783-56a202238efa",
@@ -1433,11 +1441,15 @@
                       "restablecer" : {
                         "type" : "variable",
                         "value" : "secciones"
+                      },
+                      "update" : {
+                        "type" : "variable",
+                        "value" : "isUpdate"
                       }
                     },
-                    "reference" : "10ed91dd-c938-4e6a-a92f-908084bcf7cc",
+                    "reference" : "9159f99a-f2f6-4732-ac94-e407295aa446",
                     "hasValidationError" : false,
-                    "id" : "customBtnCambioVariable2"
+                    "id" : "customBtnCambioVariable3"
                   }
                 ],
                 [
@@ -1695,11 +1707,15 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "strAlumno.tipoExamen"
+                      },
+                      "update" : {
+                        "type" : "expression",
+                        "value" : "isUpdate"
                       }
                     },
-                    "reference" : "b51fe592-3bcf-4b42-85bb-200710ccaa5c",
+                    "reference" : "105ae480-267b-4228-bf39-754a1464a6b3",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "customSelectTipoExamen"
                   },
                   {
                     "type" : "container",
@@ -3435,7 +3451,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -3807,7 +3823,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4284,7 +4300,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4611,7 +4627,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAV"
+                        "value" : "!secciones.PAAV || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4983,7 +4999,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAV"
+                        "value" : "!secciones.PAAV || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -5310,7 +5326,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PARA"
+                        "value" : "!secciones.PARA || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -6056,10 +6072,31 @@
   ],
   "assets" : [
     {
+      "id" : "a5d6d1eb-b438-4f8c-90d1-b762497464e5",
+      "name" : "moment.min.js",
+      "type" : "js",
+      "order" : 6,
+      "external" : false
+    },
+    {
+      "id" : "3c41d885-ac4c-4775-bd8b-4c893cbd0f41",
+      "name" : "sweetalert.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
       "id" : "ef0ec1e5-4f2d-4e3b-994f-d6abce0a9af6",
       "name" : "tabla-conversion-paa.js",
       "type" : "js",
       "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "3dc8d042-f0f0-4854-8705-d2d0c8d17906",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 8,
       "external" : false
     },
     {
@@ -6070,24 +6107,24 @@
       "external" : false
     },
     {
+      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "91129a56-9ef8-4fec-a7b6-147d5507d540",
+      "name" : "icono-libro.png",
+      "type" : "img",
+      "order" : 5,
+      "external" : false
+    },
+    {
       "id" : "87708034-1a16-4a8c-9950-1ce364312abf",
       "name" : "style.css",
       "type" : "css",
       "order" : 0,
-      "external" : false
-    },
-    {
-      "id" : "a5d6d1eb-b438-4f8c-90d1-b762497464e5",
-      "name" : "moment.min.js",
-      "type" : "js",
-      "order" : 6,
-      "external" : false
-    },
-    {
-      "id" : "3dc8d042-f0f0-4854-8705-d2d0c8d17906",
-      "name" : "encabezados.css",
-      "type" : "css",
-      "order" : 8,
       "external" : false
     },
     {
@@ -6102,27 +6139,6 @@
       "name" : "anahuac_custom_styles.css",
       "type" : "css",
       "order" : 1,
-      "external" : false
-    },
-    {
-      "id" : "91129a56-9ef8-4fec-a7b6-147d5507d540",
-      "name" : "icono-libro.png",
-      "type" : "img",
-      "order" : 5,
-      "external" : false
-    },
-    {
-      "id" : "40d846e1-60ec-414d-b83c-c6776531122d",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "3c41d885-ac4c-4775-bd8b-4c893cbd0f41",
-      "name" : "sweetalert.min.js",
-      "type" : "js",
-      "order" : 3,
       "external" : false
     }
   ],
@@ -6407,6 +6423,13 @@
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
         "    \"completos\":$data.activos.completos\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "isUpdate" : {
+      "type" : "constant",
+      "value" : [
+        ""
       ],
       "exposed" : false
     }

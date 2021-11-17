@@ -15,6 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${$scope.properties.value['IdSesion']}'`;
             doRequest2("POST",$scope.properties.urlValidar,$scope.lstBanner).then(function() {
                 if($scope.final.length > 0){
+                    isKp($scope.properties.value)
                     $scope.final[0].fechaExamen = formatDate($scope.properties.value.fechaExamen)
                     doRequest("POST",$scope.properties.urlPost,$scope.final)
                 }
@@ -36,10 +37,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           }
           return n
       }
-  
-          
-          
-          
       
       function validacion(datos){
             var error = "";
@@ -59,6 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     return false;
                   }else if(datos.tipoExamen == "KP" && valores1.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],0,690)){
                       swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 0-690`,"warning")
+                      return false;
                   }else if(datos.tipoExamen != "KP" && valores2.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],200,800)){
                       if(columnas[i] == "PARA" && datos[columnas[i]] != "000"){
                         swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800 o ser 000`,"warning")
@@ -81,6 +79,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     return false;
                   }
                 }
+                if(datos.tipoExamen == "KP"){
+                    let valores3=["LA1","LA2","LA3","LA4","PG1","PG2","PG3","PG4","PG5","PV1","PV4","LEO1","LEO3","LEO4","LEO5","CIT1","CIT2","HI1","HI2","HI3","HI4","HI5","HI6"]
+                    for(let i=0; i<valores3.length; i++){
+                        
+                        if(!isRangoValue(datos[valores3[i]],0,10)){
+                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar en el rango de 0-10`,"warning")
+                            return false; 
+                        }else if(!haveZero(datos[valores3[i]])){
+                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar entre 0-10 a dos digitos`,"warning")
+                            return false; 
+                        }
+                    }
+                }
+                
+                
                 return true;
             }
           return false;
@@ -102,6 +115,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           }
           return false;
       }
+
+      function haveZero(value){
+        if(value.includes("0") && value.length == 2){
+            return true;
+        }
+        return false;
+      }
       
       
       function doRequest(method, url,datos) {
@@ -115,6 +135,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               .success(function (data, status) {
                       swal('¡Se han guardado los datos correctamente!',"","success")
                       $scope.properties.tabla = "tabla";
+                      $scope.properties.update = "";
               })
               .error(function (data, status) {
                 let fecha = `${datos[key].slice(3,5)}/${datos[key].slice(0,2)}/${datos[key].slice(6,10)}`;
@@ -170,6 +191,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         });
         return  index
     }    
+
+
+    function isKp(datos){
+        if(datos.tipoExamen != "KP"){
+            let valores = ["MLEX","CLEX","HLEX","CIT1","CIT2","HI1","HI2","HI3","HI4","HI5","HI6","LA1","LA2","LA3","LA4","LEO1","LEO3","LEO4","LEO5","PG1","PG2","PG3","PG4","PG5","PV1","PV4"]
+            valores.forEach(element =>{
+                datos[element] = "";
+            });
+        }
+    }
       
   
   }

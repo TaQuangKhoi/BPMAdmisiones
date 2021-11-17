@@ -192,7 +192,8 @@ class ImportacionPAADAO {
 			object.each{
 				
 				String fecha =  it.fechaExamen.substring(6, 10)+"-"+it.fechaExamen.substring(3, 5)+"-"+it.fechaExamen.substring(0, 2);
-				 
+				
+				
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
 				errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
@@ -202,74 +203,87 @@ class ImportacionPAADAO {
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
 				errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
-				errorLog += ", INTEGRACION SUBIDA LA1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				if(it.tipoExamen.toString().equals("KP")) {
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
+					errorLog += ", INTEGRACION SUBIDA MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CLEX", it.CLEX, fecha);
+					errorLog += ", INTEGRACION SUBIDA CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
+					errorLog += ", INTEGRACION SUBIDA HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
+					errorLog += ", INTEGRACION SUBIDA LA1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA02", it.LA2, fecha);
+					errorLog += ", INTEGRACION SUBIDA LA2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA03", it.LA3, fecha);
+					errorLog += ", INTEGRACION SUBIDA LA3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA04", it.LA4, fecha);
+					errorLog += ", INTEGRACION SUBIDA LA4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG01", it.PG1, fecha);
+					errorLog += ", INTEGRACION SUBIDA PG1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG02", it.PG2, fecha);
+					errorLog += ", INTEGRACION SUBIDA PG2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG03", it.PG3, fecha);
+					errorLog += ", INTEGRACION SUBIDA PG3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG04", it.PG4, fecha);
+					errorLog += ", INTEGRACION SUBIDA PG4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG05", it.PG5, fecha);
+					errorLog += ", INTEGRACION SUBIDA PG5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV01", it.PV1, fecha);
+					errorLog += ", INTEGRACION SUBIDA PV1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV04", it.PV4, fecha);
+					errorLog += ", INTEGRACION SUBIDA PV4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO1", it.LEO1, fecha);
+					errorLog += ", INTEGRACION SUBIDA LEO1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO3", it.LEO3, fecha);
+					errorLog += ", INTEGRACION SUBIDA LEO3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO4", it.LEO4, fecha);
+					errorLog += ", INTEGRACION SUBIDA LEO4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO5", it.LEO5, fecha);
+					errorLog += ", INTEGRACION SUBIDA LEO5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT1", it.CIT1, fecha);
+					errorLog += ", INTEGRACION SUBIDA CIT1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT2", it.CIT2, fecha);
+					errorLog += ", INTEGRACION SUBIDA CIT2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI01", it.HI1, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI02", it.HI2, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI03", it.HI3, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI04", it.HI4, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI05", it.HI5, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					
+					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI06", it.HI6, fecha);
+					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				}
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA02", it.LA2, fecha);
-				errorLog += ", INTEGRACION SUBIDA LA2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA03", it.LA3, fecha);
-				errorLog += ", INTEGRACION SUBIDA LA3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA04", it.LA4, fecha);
-				errorLog += ", INTEGRACION SUBIDA LA4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG01", it.PG1, fecha);
-				errorLog += ", INTEGRACION SUBIDA PG1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG02", it.PG2, fecha);
-				errorLog += ", INTEGRACION SUBIDA PG2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG03", it.PG3, fecha);
-				errorLog += ", INTEGRACION SUBIDA PG3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG04", it.PG4, fecha);
-				errorLog += ", INTEGRACION SUBIDA PG4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PG05", it.PG5, fecha);
-				errorLog += ", INTEGRACION SUBIDA PG5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV01", it.PV1, fecha);
-				errorLog += ", INTEGRACION SUBIDA PV1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PV04", it.PV4, fecha);
-				errorLog += ", INTEGRACION SUBIDA PV4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO1", it.LEO1, fecha);
-				errorLog += ", INTEGRACION SUBIDA LEO1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO3", it.LEO3, fecha);
-				errorLog += ", INTEGRACION SUBIDA LEO3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO4", it.LEO4, fecha);
-				errorLog += ", INTEGRACION SUBIDA LEO4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LEO5", it.LEO5, fecha);
-				errorLog += ", INTEGRACION SUBIDA LEO5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT1", it.CIT1, fecha);
-				errorLog += ", INTEGRACION SUBIDA CIT1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CIT2", it.CIT2, fecha);
-				errorLog += ", INTEGRACION SUBIDA CIT2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI01", it.HI1, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI02", it.HI2, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI2:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI03", it.HI3, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI3:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI04", it.HI4, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI4:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI05", it.HI5, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
-				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI06", it.HI6, fecha);
-				errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				
 				resultado.setSuccess(true);

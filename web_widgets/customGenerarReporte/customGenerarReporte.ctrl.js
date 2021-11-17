@@ -5,6 +5,7 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
     var vm = this;
     this.action = function action() {
         var url = "";
+        console.log("mensaje")
         if ($scope.properties.reporte == 'Lexium') {
             url = "/bonita/API/extension/AnahuacRest?url=generarReporte&p=0&c=9999";
         } else if ($scope.properties.reporte == 'Admitidos al propedéutico') {
@@ -29,7 +30,7 @@ function PbImageButtonCtrl($scope, $http, $location, $log, $window, localStorage
     }
 
     function b64toBlob(dataURI) {
-
+        console.log("mensaje")
         var byteString = atob(dataURI);
         var ab = new ArrayBuffer(byteString.length);
         var ia = new Uint8Array(ab);
