@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1636589953174,
+  "lastUpdate" : 1637112958726,
   "rows" : [
     [
       {
@@ -663,10 +663,6 @@
                 "catGradoAcademico" : {
                   "type" : "variable",
                   "value" : "getCatGradoAcademico[0]"
-                },
-                "objectSolicitud" : {
-                  "type" : "variable",
-                  "value" : "objectSolicitud"
                 }
               },
               "reference" : "15f61528-9f70-4433-aabc-c2915b6664ae",
@@ -7868,7 +7864,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || objectSolicitud.catReligion.descripcion === \"Agnóstico\" || objectSolicitud.catReligion.descripcion === \"Ninguna\""
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -7940,7 +7936,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\" || objectSolicitud.catReligion.descripcion === \"Agnóstico\" || objectSolicitud.catReligion.descripcion === \"Ninguna\""
+                        "value" : "objectSolicitud.catReligion.descripcion === \"Ateo\""
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -13906,7 +13902,7 @@
                       ]
                     },
                     {
-                      "type" : "container",
+                      "type" : "component",
                       "dimension" : {
                         "xs" : 12,
                         "sm" : 12,
@@ -13922,160 +13918,53 @@
                           "type" : "constant",
                           "value" : false
                         },
-                        "repeatedCollection" : {
+                        "disabled" : {
+                          "type" : "expression",
+                          "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
+                        },
+                        "required" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "labelHidden" : {
+                          "type" : "constant",
+                          "value" : false
+                        },
+                        "label" : {
+                          "type" : "interpolation",
+                          "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        },
+                        "labelPosition" : {
+                          "type" : "constant",
+                          "value" : "top"
+                        },
+                        "labelWidth" : {
+                          "type" : "constant",
+                          "value" : 4
+                        },
+                        "placeholder" : {
+                          "type" : "interpolation",
+                          "value" : "Select an option"
+                        },
+                        "availableValues" : {
+                          "type" : "expression",
+                          "value" : "catPais_query"
+                        },
+                        "displayedKey" : {
+                          "type" : "constant",
+                          "value" : "descripcion"
+                        },
+                        "returnedKey" : {
+                          "type" : "constant"
+                        },
+                        "value" : {
                           "type" : "variable",
-                          "value" : ""
+                          "value" : "objNuevoInformacionEscolar.pais"
                         }
                       },
-                      "reference" : "bf14ff59-c980-4270-8989-6b43596edc74",
+                      "reference" : "c111ae19-95e7-49b8-bfdc-fa65cf618dc0",
                       "hasValidationError" : false,
-                      "id" : "pbContainer",
-                      "rows" : [
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "expression",
-                                "value" : "(objNuevoInformacionEscolar.escuela.clave=='Otro')"
-                              },
-                              "disabled" : {
-                                "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion|| prepaDefault)"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "País: <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation",
-                                "value" : "Select an option"
-                              },
-                              "availableValues" : {
-                                "type" : "expression",
-                                "value" : "catPais_query"
-                              },
-                              "displayedKey" : {
-                                "type" : "constant",
-                                "value" : "descripcion"
-                              },
-                              "returnedKey" : {
-                                "type" : "constant"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "objNuevoInformacionEscolar.pais"
-                              }
-                            },
-                            "reference" : "c111ae19-95e7-49b8-bfdc-fa65cf618dc0",
-                            "hasValidationError" : false,
-                            "id" : "pbSelect"
-                          }
-                        ],
-                        [
-                          {
-                            "type" : "component",
-                            "dimension" : {
-                              "xs" : 12,
-                              "sm" : 12,
-                              "md" : 12,
-                              "lg" : 12
-                            },
-                            "propertyValues" : {
-                              "cssClasses" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "hidden" : {
-                                "type" : "expression",
-                                "value" : "(objNuevoInformacionEscolar.escuela.clave!=='Otro')"
-                              },
-                              "required" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "minLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "maxLength" : {
-                                "type" : "constant",
-                                "value" : ""
-                              },
-                              "readOnly" : {
-                                "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion|| prepaDefault)"
-                              },
-                              "labelHidden" : {
-                                "type" : "constant",
-                                "value" : false
-                              },
-                              "label" : {
-                                "type" : "interpolation",
-                                "value" : "País <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>:"
-                              },
-                              "labelPosition" : {
-                                "type" : "constant",
-                                "value" : "top"
-                              },
-                              "labelWidth" : {
-                                "type" : "constant",
-                                "value" : 4
-                              },
-                              "placeholder" : {
-                                "type" : "interpolation"
-                              },
-                              "value" : {
-                                "type" : "variable",
-                                "value" : "objNuevoInformacionEscolar.paisBachillerato"
-                              },
-                              "type" : {
-                                "type" : "constant",
-                                "value" : "text"
-                              },
-                              "min" : {
-                                "type" : "constant"
-                              },
-                              "max" : {
-                                "type" : "constant"
-                              },
-                              "step" : {
-                                "type" : "constant",
-                                "value" : 1
-                              }
-                            },
-                            "reference" : "d1509464-9c6e-42d0-aa31-bdd6cd8bf116",
-                            "hasValidationError" : false,
-                            "id" : "pbInput"
-                          }
-                        ]
-                      ]
+                      "id" : "pbSelect"
                     }
                   ],
                   [
@@ -14204,7 +14093,7 @@
                               },
                               "readOnly" : {
                                 "type" : "expression",
-                                "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion || prepaDefault)"
+                                "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                               },
                               "labelHidden" : {
                                 "type" : "constant",
@@ -14282,7 +14171,7 @@
                         },
                         "readOnly" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || (objNuevoInformacionEscolar.escuela.descripcion === objectSolicitud.catBachilleratos.descripcion || prepaDefault)"
+                          "value" : "objNuevoInformacionEscolar.escuela.clave!='Otro' && (accionModalGradoEscolar === \"ver\" || prepaDefault)"
                         },
                         "labelHidden" : {
                           "type" : "constant",
@@ -14786,8 +14675,8 @@
                           "value" : false
                         },
                         "disabled" : {
-                          "type" : "expression",
-                          "value" : ""
+                          "type" : "constant",
+                          "value" : false
                         },
                         "label" : {
                           "type" : "interpolation",
@@ -15548,24 +15437,10 @@
   ],
   "assets" : [
     {
-      "id" : "917177a0-da27-4424-9a8d-98e88ea91825",
-      "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
-      "type" : "css",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "22468614-0156-44f2-bd93-871bea466503",
       "name" : "sweetalert.min.js",
       "type" : "js",
       "order" : 2,
-      "external" : false
-    },
-    {
-      "id" : "856f275f-5bc9-4b57-aee6-5cc856bc6898",
-      "name" : "style (7).css",
-      "type" : "css",
-      "order" : 3,
       "external" : false
     },
     {
@@ -15580,6 +15455,20 @@
       "name" : "localization.json",
       "type" : "json",
       "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "917177a0-da27-4424-9a8d-98e88ea91825",
+      "name" : "anahuac_custom_styles (1) (1) (1) (1).css",
+      "type" : "css",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "856f275f-5bc9-4b57-aee6-5cc856bc6898",
+      "name" : "style (7).css",
+      "type" : "css",
+      "order" : 3,
       "external" : false
     }
   ],
@@ -15988,7 +15877,7 @@
         "            motivoPadresNoAcuerdo:  \"\", \r",
         "            catOrientacionVocacional:   null,\r",
         "            personasInfluyeronDesicion:  \"\", \r",
-        "            pageIndex: -1,\r",
+        "            pageIndex: $data.selectedIndex,\r",
         "            catRecibidoTerapia:  null,\r",
         "            catProblemasSaludAtencion:  null, \r",
         "        },\r",
@@ -16957,33 +16846,32 @@
     "validatePrepa" : {
       "type" : "expression",
       "value" : [
-        "//debugger;\r",
         "var resultado = {\r",
         "    \"error\":false,\r",
         "    \"campo\":\"\",\r",
         "    \"titulo\":\"\",\r",
         "    \"mensaje\":\"\"\r",
         "};\r",
-        "console.log(\"Validar preparatoria -- CLICK AQUI JESUS\");\r",
-        "if(($data.objNuevoInformacionEscolar.escuela === undefined || $data.objNuevoInformacionEscolar.escuela === null || $data.objNuevoInformacionEscolar.escuela === \"\")&& $data.objNuevoInformacionEscolar.escuela.descripcion!=='Otro'){\r",
+        "\r",
+        "if($data.objNuevoInformacionEscolar.escuela === undefined || $data.objNuevoInformacionEscolar.escuela === null || $data.objNuevoInformacionEscolar.escuela === \"\"){\r",
         "    resultado[\"error\"] = true;\r",
         "    resultado[\"campo\"] = \"escuela\"\r",
         "    resultado[\"titulo\"] = \"¡Escuela!\"\r",
         "    resultado[\"mensaje\"] = \"Captura el nombre de la escuela.\"\r",
         "}\r",
-        "else if(($data.objNuevoInformacionEscolar.pais === undefined || $data.objNuevoInformacionEscolar.pais === null || $data.objNuevoInformacionEscolar.pais === \"\") && $data.objNuevoInformacionEscolar.escuela.descripcion!=='Otro'){\r",
+        "else if($data.objNuevoInformacionEscolar.pais === undefined || $data.objNuevoInformacionEscolar.pais === null || $data.objNuevoInformacionEscolar.pais === \"\"){\r",
         "    resultado[\"error\"] = true;\r",
         "    resultado[\"campo\"] = \"pais\"\r",
         "    resultado[\"titulo\"] = \"¡País!\"\r",
         "    resultado[\"mensaje\"] = \"Captura el País de tu escuela.\"\r",
         "}\r",
-        "else if($data.objNuevoInformacionEscolar.pais?.descripcion === \"México\" && ($data.objNuevoInformacionEscolar.estado === undefined  || $data.objNuevoInformacionEscolar.estado === null || $data.objNuevoInformacionEscolar.estado === \"\") && $data.objNuevoInformacionEscolar.escuela.descripcion!=='Otro'){\r",
+        "else if($data.objNuevoInformacionEscolar.pais.descripcion === \"México\" && ($data.objNuevoInformacionEscolar.estado === undefined  || $data.objNuevoInformacionEscolar.estado === null || $data.objNuevoInformacionEscolar.estado === \"\")){\r",
         "    resultado[\"error\"] = true;\r",
         "    resultado[\"campo\"] = \"estado\"\r",
         "    resultado[\"titulo\"] = \"¡Estado!\"\r",
         "    resultado[\"mensaje\"] = \"Captura el Estado de tu escuela.\"\r",
         "}\r",
-        "else if( ($data.objNuevoInformacionEscolar.pais?.descripcion !== \"México\" || $data.objNuevoInformacionEscolar.escuela.descripcion === 'Otro') && ($data.objNuevoInformacionEscolar.estadoString === undefined || $data.objNuevoInformacionEscolar.estadoString === null || $data.objNuevoInformacionEscolar.estadoString === \"\")){\r",
+        "else if($data.objNuevoInformacionEscolar.pais.descripcion !== \"México\" && ($data.objNuevoInformacionEscolar.estadoString === undefined || $data.objNuevoInformacionEscolar.estadoString === null || $data.objNuevoInformacionEscolar.estadoString === \"\")){\r",
         "    resultado[\"error\"] = true;\r",
         "    resultado[\"campo\"] = \"estadoString\"\r",
         "    resultado[\"titulo\"] = \"¡Estado!\"\r",
@@ -17031,7 +16919,7 @@
         "    resultado[\"titulo\"] = \"¡Promedio!\"\r",
         "    resultado[\"mensaje\"] = \"El campo Promedio no puede ir vacío\"\r",
         "}\r",
-        "else if($data.objNuevoInformacionEscolar.escuela==\"Otro\" &&( $data.objNuevoInformacionEscolar.otraEscuela === null || $data.objNuevoInformacionEscolar.otraEscuela === \"\")){\r",
+        "else if($data.objNuevoInformacionEscolar.escuela.descripcion==\"Otro\" &&( $data.objNuevoInformacionEscolar.otraEscuela === null || $data.objNuevoInformacionEscolar.otraEscuela === \"\")){\r",
         "    resultado[\"error\"] = true;\r",
         "    resultado[\"campo\"] = \"Nombre de la escuela\"\r",
         "    resultado[\"titulo\"] = \"¡Nombre de la escuela!\"\r",
@@ -17049,10 +16937,10 @@
         "    if ($data.lstInformacionEscolarMod[index].escuela === undefined || $data.lstInformacionEscolarMod[index].escuela === null || $data.lstInformacionEscolarMod[index].escuela === \"\") {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if (($data.lstInformacionEscolarMod[index].pais === undefined || $data.lstInformacionEscolarMod[index].pais === null || $data.lstInformacionEscolarMod[index].pais === \"\") && $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro') {\r",
+        "    } else if ($data.lstInformacionEscolarMod[index].pais === undefined || $data.lstInformacionEscolarMod[index].pais === null || $data.lstInformacionEscolarMod[index].pais === \"\") {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if ( $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro' && $data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estado === undefined || $data.lstInformacionEscolarMod[index].estado === null || $data.lstInformacionEscolarMod[index].estado === \"\")) {\r",
+        "    } else if ($data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estado === undefined || $data.lstInformacionEscolarMod[index].estado === null || $data.lstInformacionEscolarMod[index].estado === \"\")) {\r",
         "        resultado = false;\r",
         "        break;\r",
         "    } else if ($data.lstInformacionEscolarMod[index].ciudad === undefined || $data.lstInformacionEscolarMod[index].ciudad === null || $data.lstInformacionEscolarMod[index].ciudad === \"\") {\r",
@@ -17064,7 +16952,7 @@
         "    } else if ($data.lstInformacionEscolarMod[index].anoFin === undefined || $data.lstInformacionEscolarMod[index].anoFin === null || $data.lstInformacionEscolarMod[index].anoFin === \"\") {\r",
         "        resultado = false;\r",
         "        break;\r",
-        "    } else if ( $data.lstInformacionEscolarMod[index].escuela.descripcion!=='Otro' && $data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estadoString === undefined || $data.lstInformacionEscolarMod[index].estadoString === null || $data.lstInformacionEscolarMod[index].estadoString === \"\")) {\r",
+        "    } else if ($data.lstInformacionEscolarMod[index].pais === \"México\" && ($data.lstInformacionEscolarMod[index].estadoString === undefined || $data.lstInformacionEscolarMod[index].estadoString === null || $data.lstInformacionEscolarMod[index].estadoString === \"\")) {\r",
         "        resultado = false;\r",
         "        break;\r",
         "    }\r",
@@ -17258,7 +17146,7 @@
     "year" : {
       "type" : "expression",
       "value" : [
-        "return (new Date().getFullYear()+1);"
+        "return new Date().getFullYear();"
       ],
       "exposed" : false
     },

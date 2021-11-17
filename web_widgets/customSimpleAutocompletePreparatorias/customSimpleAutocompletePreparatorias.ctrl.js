@@ -24,45 +24,22 @@ function PbAutocompleteCtrl($scope, $parse, $log, widgetNameFactory) {
         $scope.properties.objNuevoInformacionEscolar.ciudad = $scope.properties.datosPreparatoria.ciudad.trim();
         $scope.properties.objNuevoInformacionEscolar.pais = null;
         $scope.properties.objNuevoInformacionEscolar.estado = null;
-        if($scope.properties.value.descripcion != null){
-            for(var indexP in $scope.properties.catPais){
-                if($scope.properties.catPais[indexP].descripcion == item.pais.trim()){
-                    $scope.properties.objNuevoInformacionEscolar.pais = $scope.properties.catPais[indexP];
-                    break;
-                }
-            }
-
-            for(var indexE in $scope.properties.catEstados){
-                if($scope.properties.catEstados[indexE].descripcion == item.estado.trim()){
-                    $scope.properties.objNuevoInformacionEscolar.estado = $scope.properties.catEstados[indexE];
-                    break;
-                }
-            }
-        }
-        
-    }
-
-    $scope.testblur = function() {
-        var otro = true;
-        for (var x = 0; x < $scope.properties.availableValues.length; x++) {
-            if ($scope.properties.value.descripcion === $scope.properties.availableValues[x].descripcion) {
-                otro = false;
-                if ($scope.properties.availableValues[x].descripcion === "Otro") {
-                    $scope.properties.objNuevoInformacionEscolar.otraEscuela = "";
-                    $scope.properties.objNuevoInformacionEscolar.paisBachillerato = "";
-                    $scope.properties.objNuevoInformacionEscolar.estadoString = "";
-                    $scope.properties.objNuevoInformacionEscolar.ciudad = "";
-                    $scope.properties.value = "Otro";
-                }
+        for(var indexP in $scope.properties.catPais){
+            if($scope.properties.catPais[indexP].descripcion == item.pais.trim()){
+                $scope.properties.objNuevoInformacionEscolar.pais = $scope.properties.catPais[indexP];
                 break;
             }
         }
-        if (otro) {
-            $scope.properties.objNuevoInformacionEscolar.otraEscuela = $scope.properties.value;
-            $scope.properties.objNuevoInformacionEscolar.paisBachillerato = "";
-            $scope.properties.objNuevoInformacionEscolar.estadoString = "";
-            $scope.properties.objNuevoInformacionEscolar.ciudad = "";
-            $scope.properties.value = $scope.properties.availableValues.find(element => element.descripcion == "Otro");
+
+        for(var indexE in $scope.properties.catEstados){
+            if($scope.properties.catEstados[indexE].descripcion == item.estado.trim()){
+                $scope.properties.objNuevoInformacionEscolar.estado = $scope.properties.catEstados[indexE];
+                break;
+            }
         }
+    }
+
+    $scope.testblur = function() {
+        
     }
 }
