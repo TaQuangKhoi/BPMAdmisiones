@@ -1290,12 +1290,12 @@ class PsicometricoDAO {
 			
 			if( testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "" &&  testPsicomInput.fechaEntrevista !="") {
 				//"MMPI"
-				String fecha = testPsicomInput.fechaEntrevista.substring(0,9)
+				String fecha = testPsicomInput.fechaEntrevista.substring(0,10)
 				
-				if(testPsicomInput.fechaEntrevista.substring(0,9).contains("/")) {
+				if(testPsicomInput.fechaEntrevista.substring(0,10).contains("/")) {
 					SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy")
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
-					fecha = sdf.format(sdfd.parse(testPsicomInput.fechaEntrevista.substring(0,9)))
+					fecha = sdf.format(sdfd.parse(testPsicomInput.fechaEntrevista.substring(0,10)))
 				}
 				
 				Result resultado2 = new Result();
@@ -1637,7 +1637,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			}
 
 			assert object instanceof Map;
-			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((SELECT COUNT(persistenceid) FROM TestPsicometrico as TP2 WHERE TP2.countRechazo = TP.countRechazo) = 0) "
+			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((SELECT COUNT(persistenceid) FROM TestPsicometrico as TP2 WHERE TP2.countRechazo = TP.countRechazo) = 0)  "
 			if (object.campus != null) {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
