@@ -3354,7 +3354,8 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			}
 			
 			if(!autov1) {
-				pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM autodescripcionv2 where caseid = "+caseid)
+				//pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM autodescripcionv2 where caseid = "+caseid)
+				pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM TestPsicometrico where caseid = "+caseid)
 				rs = pstm.executeQuery()
 				rows = new ArrayList < Map < String, Object >> ();
 				metaData = rs.getMetaData();

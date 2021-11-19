@@ -1,4 +1,4 @@
-function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
+function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     $scope.datosUsuario = {};
     $scope.datosPadres = [];
     $scope.datosHermanos = [];
@@ -102,15 +102,23 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
+        var i = 0;
+        var recSize=0;
+        var textSize;
+        var textCount;
+        var textConvert;
         var yvalue = 30;
         var fontText = 10;
         var fontTitle = 14;
         var fontSubTitle = 13;
         var fontparam = undefined;
         var margenPrimeraFila = 15;
-        var margenSegundaFila =  135;
+        var margenSegundaFila =  115;
+        var margenSegundaFilaRasgos =  115;
         var respuestasPrimeraFila = 60;
         var respuestasSegundaFila = 167;
+        var respuestasSegundaFilaInfoAdm = 147;
+        var yValorRagos = 77;
 
         doc.addImage("widgets/customBtnPDFPsicometrico/assets/img/LogoRUA.png", "PNG", ((width / 2) + 35), ((height / 2) - 128), 60, 20);
 
@@ -123,15 +131,16 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
 
 
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, (height / 2) - 98, 190, 70, 'F');
+        doc.rect(10, (height / 2) - 103, 190, 75, 'F');
 
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 88, 'Información personal');
+        doc.text(margenPrimeraFila, (height / 2) - 93, 'Información personal');
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'bold')
+        doc.text(margenPrimeraFila, (height / 2) - 83, 'Id banner:');
         doc.text(margenPrimeraFila, (height / 2) - 78, 'Nombre del Aspirante:');
         doc.text(margenPrimeraFila, (height / 2) - 73, 'Fecha de nacimiento:');
         doc.text(margenPrimeraFila, (height / 2) - 68, 'Preparatoria:');
@@ -156,7 +165,7 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         doc.text(margenPrimeraFila, (height / 2) - 8, 'PAAV:');
         doc.text(margenPrimeraFila, (height / 2) - 3, 'PAAN:');
         doc.text(margenPrimeraFila, (height / 2) + 3, 'PARA:');
-        doc.text(margenPrimeraFila, (height / 2) + 8, 'PAA: ');
+        doc.text(margenPrimeraFila, (height / 2) + 8, 'PAAT: ');
         doc.text(margenPrimeraFila, (height / 2) + 13, 'INVP:');
 
         doc.text(margenSegundaFila, (height / 2) - 8, 'Tipo de Admisión:');
@@ -165,15 +174,17 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         doc.text(margenSegundaFila, (height / 2) + 8, 'Integro:');
 
         doc.setFont(fontparam, 'normal');
-        doc.text(respuestasPrimeraFila, (height / 2) - 78, `${$scope.datosUsuario.idbanner}-${$scope.datosUsuario.nombre}`);
+        doc.text(respuestasPrimeraFila, (height / 2) - 83, $scope.datosUsuario.idbanner);
+        doc.text(respuestasPrimeraFila, (height / 2) - 78, $scope.datosUsuario.nombre);
         doc.text(respuestasPrimeraFila, (height / 2) - 73, $scope.datosUsuario.fechanacimiento);
         doc.text(respuestasPrimeraFila, (height / 2) - 68, $scope.datosUsuario.preparatoria);
         doc.text(respuestasPrimeraFila, (height / 2) - 63, $scope.datosUsuario.ciudad);
         doc.text(respuestasPrimeraFila, (height / 2) - 58, $scope.datosUsuario.pais);
         doc.text(respuestasPrimeraFila, (height / 2) - 51.5, $scope.datosUsuario.carrera);
-        doc.text(respuestasPrimeraFila, (height / 2) - 43, $scope.datosUsuario.edad);
+        doc.text(respuestasPrimeraFila, (height / 2) - 43, (Math.trunc(parseInt($scope.datosUsuario.edad))).toString());
+        debugger
         doc.text(respuestasPrimeraFila, (height / 2) - 38, $scope.datosUsuario.promedio);
-        doc.text(respuestasPrimeraFila, (height / 2) - 33, 'N/A');
+        doc.text(respuestasPrimeraFila, (height / 2) - 33, ($scope.datosUsuario.fechafinalizacion == null ? "N/A" : $scope.datosUsuario.fechafinalizacion = ($filter('date')(Date.parse($scope.datosUsuario.fechafinalizacion), "dd/MMM/yyyy")).toString()));
 
         doc.text(respuestasPrimeraFila, (height / 2) - 8, $scope.datosUsuario.paav);
         doc.text(respuestasPrimeraFila, (height / 2) - 3, $scope.datosUsuario.paan);
@@ -181,13 +192,13 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         doc.text(respuestasPrimeraFila, (height / 2) + 8, ($scope.datosUsuario.resultadopaa == 0 ? (parseInt($scope.datosUsuario.paav) + parseInt($scope.datosUsuario.paan) + parseInt($scope.datosUsuario.para) + "") : '0'));
         doc.text(respuestasPrimeraFila, (height / 2) + 13, $scope.datosUsuario.invp);
 
-        doc.text(respuestasSegundaFila, (height / 2) - 8, $scope.datosUsuario.tipoadmision);
-        doc.text(respuestasSegundaFila, (height / 2) - 3, $scope.datosUsuario.periodo);
-        doc.text(respuestasSegundaFila, (height / 2) + 3, $scope.datosUsuario.quienrealizoentrevista);
-        doc.text(respuestasSegundaFila, (height / 2) + 8, $scope.datosUsuario.quienintegro);
+        doc.text(respuestasSegundaFilaInfoAdm, (height / 2) - 8, $scope.datosUsuario.tipoadmision);
+        doc.text(respuestasSegundaFilaInfoAdm, (height / 2) - 3, $scope.datosUsuario.periodo);
+        doc.text(138, (height / 2) + 3, $scope.datosUsuario.quienrealizoentrevista);
+        doc.text(138, (height / 2) + 8, $scope.datosUsuario.quienintegro);
 
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, 170, 190, 85, 'F');
+        doc.rect(10, 170, 190, 100, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
@@ -195,33 +206,63 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
 
         doc.setFontSize(10);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, 190, 'Ocupación del Padre:');
-        doc.text(margenPrimeraFila, 195, 'Empresa:');
-        doc.text(margenPrimeraFila, 200, 'Universidad Anahuac:');
+        doc.text(margenPrimeraFila, 190, 'Nombre del Padre:');
+        doc.text(margenPrimeraFila, 195, 'Ocupación del Padre:');
+        doc.text(margenPrimeraFila, 200, 'Empresa:');
+        doc.text(margenPrimeraFila, 205, 'Universidad Anahuac:');
 
-        doc.text(margenPrimeraFila, 215, 'Ocupación de la Madre:');
-        doc.text(margenPrimeraFila, 220, 'Empresa:');
-        doc.text(margenPrimeraFila, 225, 'Universidad Anahuac:');
+        doc.text(margenPrimeraFila, 215, 'Nombre de la Madre:');
+        doc.text(margenPrimeraFila, 220, 'Ocupación de la Madre:');
+        doc.text(margenPrimeraFila, 225, 'Empresa:');
+        doc.text(margenPrimeraFila, 230, 'Universidad Anahuac:');
 
-        doc.text(margenPrimeraFila, 240, 'Ocupación del Tutor:');
-        doc.text(margenPrimeraFila, 245, 'Empresa:');
-        doc.text(margenPrimeraFila, 250, 'Universidad Anahuac:');
-
+        doc.text(margenPrimeraFila, 240, 'Nombre del tutor:');
+        doc.text(margenPrimeraFila, 245, 'Ocupación del Tutor:');
+        doc.text(margenPrimeraFila, 250, 'Empresa:');
+        doc.text(margenPrimeraFila, 255, 'Universidad Anahuac:');
+        debugger
         doc.setFont(fontparam, 'normal')
         $scope.datosPadres.forEach(element => {
             if (element.parentesco == "Padre") {
-                doc.text(respuestasPrimeraFila, 190, element.puesto == "" ? "Se desconoce" : element.puesto);
-                doc.text(respuestasPrimeraFila, 195, element.empresatrabaja);
-                doc.text(respuestasPrimeraFila, 200, element.campusanahuac == null ? "No" : element.campusanahuac);
+                if(element.vive == "Sí"){
+                    doc.text(respuestasPrimeraFila, 190, element.nombre == "" ? "Se desconoce" : element.nombre);
+                    doc.text(respuestasPrimeraFila, 195, "Finado");
+                    doc.text(respuestasPrimeraFila, 200, "Finado");
+                    doc.text(respuestasPrimeraFila, 205, "Finado");
+                } else if(element.desconozcodatospadres == "t") {
+                    doc.text(respuestasPrimeraFila, 190, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 195, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 200, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 205, "Se desconoce");
+                } else{
+                    doc.text(respuestasPrimeraFila, 190, element.nombre == "" ? "Se desconoce" : element.nombre);
+                    doc.text(respuestasPrimeraFila, 195, element.puesto == "" ? "No trabaja" : element.puesto);
+                    doc.text(respuestasPrimeraFila, 200, element.empresatrabaja == "" ? "No trabaja" : element.empresatrabaja);
+                    doc.text(respuestasPrimeraFila, 205, element.campusanahuac == null ? "No" : element.campusanahuac);   
+                }
             } else if (element.parentesco == "Madre") {
-                doc.text(respuestasPrimeraFila, 215, element.puesto == "" ? "Se desconoce" : element.puesto);
-                doc.text(respuestasPrimeraFila, 220, element.empresatrabaja);
-                doc.text(respuestasPrimeraFila, 225, element.campusanahuac == null ? "No" : element.campusanahuac);
+                if(element.vive != "Sí") {
+                    doc.text(respuestasPrimeraFila, 215, element.nombre == "" ? "Se desconoce" : element.nombre);
+                    doc.text(respuestasPrimeraFila, 220, "Finado");
+                    doc.text(respuestasPrimeraFila, 225, "Finado");
+                    doc.text(respuestasPrimeraFila, 230, "Finado");
+                }  else if (element.desconozcodatospadres == "t") {
+                    doc.text(respuestasPrimeraFila, 215, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 220, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 225, "Se desconoce");
+                    doc.text(respuestasPrimeraFila, 230, "Se desconoce");
+                } else {
+                    doc.text(respuestasPrimeraFila, 215, element.nombre == "" ? "Se desconoce" : element.nombre);
+                    doc.text(respuestasPrimeraFila, 220, element.puesto == "" ? "No trabaja" : element.puesto);
+                    doc.text(respuestasPrimeraFila, 225, element.empresatrabaja == "" ? "No trabaja" : element.empresatrabaja);
+                    doc.text(respuestasPrimeraFila, 230, element.campusanahuac == null ? "No" : element.campusanahuac);
+                }
             }
             if (element.istutor == "t") {
-                doc.text(respuestasPrimeraFila, 240, element.puesto == "" ? "Se desconoce" : element.puesto);
-                doc.text(respuestasPrimeraFila, 245, element.empresatrabaja);
-                doc.text(respuestasPrimeraFila, 250, element.campusanahuac == null ? "No" : element.campusanahuac);
+                doc.text(respuestasPrimeraFila, 240, element.nombre == "" ? "Se desconoce" : element.nombre);
+                doc.text(respuestasPrimeraFila, 245, element.puesto == "" ? "No trabaja" : element.puesto);
+                doc.text(respuestasPrimeraFila, 250, element.empresatrabaja == "" ? "No trabaja" : element.empresatrabaja);
+                doc.text(respuestasPrimeraFila, 255, element.campusanahuac == null ? "No" : element.campusanahuac);
             }
         });
 
@@ -257,7 +298,8 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         } else {
             yvalue += 10;
             doc.text(margenPrimeraFila, yvalue, "No se capturo ninguna fuente.");
-            yvalue += 7;
+            //yvalue += 7;
+            yvalue += 20;
         }
 
         let yValor = yvalue;
@@ -267,21 +309,30 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         }
 
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, 100, 'F');
+        doc.rect(10, yValor, 190, 90, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor += 7, "Rasgos observados durante la entrevista");
+        doc.text(margenPrimeraFila, yValor += 7, "Rasgos observados durante la entrevista (Deficiente, Regular, Bien, Excelente)");
 
         yValor += 10;
         respuestasPrimeraFila += 5;
         doc.setFontSize(fontText);
         $scope.datosRasgos.forEach(element => {
-            doc.setFont(fontparam, 'bold')
-            doc.text(margenPrimeraFila, yValor, element.rasgo);
-            doc.setFont(fontparam, 'normal')
-            doc.text(respuestasPrimeraFila, yValor, element.calificacion);
-            yValor += 7;
+            if(i > 10) {
+                doc.setFont(fontparam, 'bold')
+                doc.text(margenSegundaFilaRasgos, yValorRagos, element.rasgo);
+                doc.setFont(fontparam, 'normal')
+                doc.text(respuestasSegundaFila, yValorRagos, element.calificacion);
+                yValorRagos += 7;
+            } else {
+                doc.setFont(fontparam, 'bold')
+                doc.text(margenPrimeraFila, yValor, element.rasgo);
+                doc.setFont(fontparam, 'normal')
+                doc.text(respuestasPrimeraFila, yValor, element.calificacion);
+                yValor += 7;
+            }
+            i+=1;
         });
 
         yValor += 7;
@@ -291,18 +342,15 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         }
 
         doc.setFontSize(fontSubTitle);
-        doc.setFont(fontparam, 'bold')
+
+        doc.setFont(fontparam, 'bold');
         doc.text(margenPrimeraFila, yValor, "Salud");
         yValor += 10;
 
         doc.setFontSize(fontText);
-        doc.setFont(fontparam, 'bold');
-        doc.text(margenPrimeraFila, yValor, "Salud");
-        yValor += 7;
-
         doc.setFont(fontparam, 'normal');
         $scope.salud = convertToPlain($scope.datosSaludSSeccion[0].salud);
-        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "justify" });
+        doc.text($scope.salud, margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
         let count = Math.ceil(($scope.salud.length / 180))
         yValor += (count * 7) + 3;
 
@@ -434,12 +482,17 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
 
         yValor = 30
 
+
+        recSize = recResize($scope.datosSaludSSeccion[0].conclusiones_recomendaciones);
+        recSize += 40;
+
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor, 190, 50, 'F');
+        doc.rect(10, yValor, 190, recSize, 'F');
+        //doc.rect(10, yValor, 190, 50, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor+=7, "Conclusiones y recomendaciones");
+        doc.text(margenPrimeraFila, yValor+=10, "Conclusiones y recomendaciones");
         yValor += 10;
 
         doc.setFontSize(fontText);
@@ -456,8 +509,8 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor+=20, "Interpretación");
-        yValor += 1;
+        doc.text(margenPrimeraFila, yValor+=30, "Interpretación");
+        yValor += 10;
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
@@ -471,12 +524,18 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
             yValor = 15;
         }
 
+        recSize = recResize($scope.datosBitacoraComentarios[0].conclusiones_recomendaciones);
+        recSize += 20;
+
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor+=10, 190, 35, 'F');
+        doc.rect(10, yValor+=20, 190, recSize, 'F');
+
+        /*doc.setFillColor(228, 212, 200)
+        doc.rect(10, yValor+=10, 190, 35, 'F');*/
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor+=7, "Comentarios");
+        doc.text(margenPrimeraFila, yValor+=10, "Comentarios");
         yValor += 10;
 
         doc.setFontSize(fontText);
@@ -493,7 +552,7 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
-        doc.text(margenPrimeraFila, yValor+=20, "Cursos Recomendados")
+        doc.text(margenPrimeraFila, yValor+=30, "Cursos Recomendados")
         yValor += 10;
 
         doc.setFontSize(fontText);
@@ -548,6 +607,18 @@ function PbButtonCtrl($scope, $http, modalService, blockUI, $q) {
         html = html.replace(/(<([^>]+)>)/ig, '');
 
         return html;
+    }
+
+    function recResize(texto) {
+        
+        if(texto != undefined) {
+            textConvert = convertToPlain(texto);
+            textCount = Math.ceil((textConvert.length/180));
+            textSize = (textCount * 7)+3;
+        } else {
+            textSize = 35;
+        }
+        return textSize;
     }
 
 }
