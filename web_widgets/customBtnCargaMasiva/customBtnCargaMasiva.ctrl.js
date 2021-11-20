@@ -61,6 +61,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.tabla = "tabla";
                 $scope.properties.value = [];
                 swal('¡Carga de resultados exitosa!', "", "success")
+                doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
             })
             .error(function(data, status) {
                 swal("¡Carga incorrecta de resultados!", "", "error")
@@ -84,6 +85,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 revisarDatos(data, $scope.properties.value)
             })
             .error(function(data, status) {})
+    }
+    
+    function doRequest3(method, url,datos) {
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(datos)
+        };
+        return $http(req)
+            .success(function (data, status) {
+                console.log("Se subieron los datos");
+            })
+            .error(function (data, status) {
+            })
     }
 
 

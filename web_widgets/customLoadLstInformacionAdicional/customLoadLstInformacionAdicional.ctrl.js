@@ -28,6 +28,14 @@ function loadLstInformacionAdicionalCtrl($scope, $http) {
 
             if (existe) {
                 $scope.properties.lstInformacionEscolarMod = angular.copy($scope.properties.lstInformacionEscolarInput);
+                for (let index = 0; index < $scope.properties.lstInformacionEscolarMod.length; index++) {
+                    const element = $scope.properties.lstInformacionEscolarMod[index];
+                    if(element.otraEscuela==''){
+                        $scope.properties.lstInformacionEscolarMod[index].otraEscuela=$scope.properties.objectSolicitud.bachillerato
+                        $scope.properties.lstInformacionEscolarMod[index].estadoString=$scope.properties.objectSolicitud.estadoBachillerato;
+                        $scope.properties.lstInformacionEscolarMod[index].ciudad=$scope.properties.objectSolicitud.ciudadBachillerato;
+                    }
+                }
             } else {
                 $scope.objInformacionEscolarInput = {
                     "persistenceId_string": "",
@@ -43,12 +51,13 @@ function loadLstInformacionAdicionalCtrl($scope, $http) {
                     "promedio": "",
                     "estadoString": ""
                 };
-
+                $scope.objInformacionEscolarInput.otraEscuela=$scope.properties.objectSolicitud.bachillerato;
+                $scope.objInformacionEscolarInput.ciudad=$scope.properties.objectSolicitud.ciudadBachillerato;
+                $scope.objInformacionEscolarInput.estadoString=$scope.properties.objectSolicitud.estadoBachillerato;
                 $scope.objInformacionEscolarInput.escuela = angular.copy($scope.properties.catBachillerato);
                 $scope.objInformacionEscolarInput.promedio = angular.copy($scope.properties.promedioGeneral);
                 $scope.objInformacionEscolarInput.grado = angular.copy($scope.properties.catGradoAcademico);
                 $scope.objInformacionEscolarInput.tipo = angular.copy($scope.properties.catGradoAcademico);
-
                 $scope.properties.lstInformacionEscolarMod.push($scope.objInformacionEscolarInput)
             }
         }
@@ -76,4 +85,9 @@ function loadLstInformacionAdicionalCtrl($scope, $http) {
             $scope.loadListData();
         }
     });
+      $scope.$watch('properties.objectSolicitud', function(value) {
+    if (angular.isDefined(value) && value !== null) {
+      $scope.loadListData();
+    }
+  });
 }

@@ -87,7 +87,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar en el rango de 0-10`,"warning")
                             return false; 
                         }else if(!haveZero(datos[valores3[i]])){
-                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar entre 0-10 a dos digitos`,"warning")
+                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar entre 0-10 a dos dígitos`,"warning")
                             return false; 
                         }
                     }
@@ -136,6 +136,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                       swal('¡Se han guardado los datos correctamente!',"","success")
                       $scope.properties.tabla = "tabla";
                       $scope.properties.update = "";
+                      doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
               })
               .error(function (data, status) {
                 let fecha = `${datos[key].slice(3,5)}/${datos[key].slice(0,2)}/${datos[key].slice(6,10)}`;
@@ -157,6 +158,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return $http(req)
             .success(function (data, status) {
                 revisarDatos(data,$scope.properties.value)
+            })
+            .error(function (data, status) {
+            })
+    }
+    
+    function doRequest3(method, url,datos) {
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(datos)
+        };
+        return $http(req)
+            .success(function (data, status) {
+                console.log("Se subieron los datos");
             })
             .error(function (data, status) {
             })
