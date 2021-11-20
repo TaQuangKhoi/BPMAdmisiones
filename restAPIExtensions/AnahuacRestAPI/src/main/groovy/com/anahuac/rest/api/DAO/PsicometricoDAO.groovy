@@ -1289,14 +1289,13 @@ class PsicometricoDAO {
 			}*/
 			
 			if( testPsicomInput.puntuacionINVP != null && testPsicomInput.puntuacionINVP != "" &&  testPsicomInput.fechaEntrevista !="") {
-				//"MMPI"
-				String fecha = testPsicomInput.fechaEntrevista.substring(0,10)
+				String fecha = testPsicomInput.fechaEntrevista.substring(0,10);
 				
 				if(testPsicomInput.fechaEntrevista.substring(0,10).contains("/")) {
-					SimpleDateFormat sdfd = new SimpleDateFormat("dd/MM/yyyy")
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
-					fecha = sdf.format(sdfd.parse(testPsicomInput.fechaEntrevista.substring(0,10)))
+					fecha =  testPsicomInput.fechaEntrevista.substring(6, 10)+"-"+testPsicomInput.fechaEntrevista.substring(3, 5)+"-"+testPsicomInput.fechaEntrevista.substring(0, 2);
 				}
+				
+				strError+= "fecha:"+fecha;
 				
 				Result resultado2 = new Result();
 				resultado2 = integracionEthos(fecha,idBanner,"MMPI",testPsicomInput.puntuacionINVP+"",context);
@@ -1637,7 +1636,8 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			}
 
 			assert object instanceof Map;
-			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((SELECT COUNT(persistenceid) FROM TestPsicometrico as TP2 WHERE TP2.countRechazo = TP.countRechazo) = 0)  "
+			//AND ((SELECT COUNT(persistenceid) FROM TestPsicometrico as TP2 WHERE TP2.countRechazo = TP.countRechazo) = 0)
+			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false )  "
 			if (object.campus != null) {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
@@ -2349,7 +2349,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 			}
 
 			assert object instanceof Map;
-			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND ((SELECT COUNT(persistenceid) FROM TestPsicometrico as TP2 WHERE TP2.countRechazo = TP.countRechazo) = 0) "
+			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND tp.persistenceid IS NOT NULL"
 			if (object.campus != null) {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
@@ -2380,7 +2380,7 @@ public Result getPsicometricoCompleto(String caseId, RestAPIContext context) {
 				SSA = rs.getString("valor")
 			}
 
-			String consulta = Statements.GET_ASPIRANTES_EN_PROCESO_PSICOMETRICO;
+			String consulta = Statements.GET_ASPIRANTES_CON_PSICOMETRICO;
 
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";

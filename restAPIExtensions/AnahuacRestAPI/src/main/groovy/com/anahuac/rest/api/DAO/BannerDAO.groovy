@@ -1752,8 +1752,8 @@ class BannerDAO {
 				}
 			}
 			
-			Boolean update=false
-			String soatestId = ""
+			Boolean update=false;
+			String soatestId = "";
 			/*String fecha=""
 			
 			pstm = con.prepareStatement("select to_char(now(), 'YYYY-MM-DD') fechahoraservidor")
@@ -1764,7 +1764,7 @@ class BannerDAO {
 			
 			errorLog += "| studentAptitudeAssessments.size()="+studentAptitudeAssessments.size()
 			for(int i=0; i<studentAptitudeAssessments.size(); i++) {
-				if(studentAptitudeAssessments.get(i).assessment.id==aptitude.id) {
+				if(studentAptitudeAssessments.get(i).assessment.id==aptitude.id && studentAptitudeAssessments.get(i).assessedOn == fecha ) {
 					soatestId = studentAptitudeAssessments.get(i).id
 					//fecha=studentAptitudeAssessments.get(i).assessedOn
 					update=true
