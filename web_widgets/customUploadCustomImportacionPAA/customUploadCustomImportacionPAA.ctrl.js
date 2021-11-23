@@ -170,7 +170,7 @@ function UploadCustomImportacionPAA($scope, $http,blockUI) {
                 }else if(!valores3.includes(columnas[i]) && !isRangoValue(data[columnas[i]],0,10)){
                     error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar en el rango de 0-10`;
                 }else if(!valores3.includes(columnas[i]) && !haveZero(data[columnas[i]],0,10)){
-                    error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar entre 0-10 a dos digitos`;
+                    error+=(error.length>0?",":"")+columnas[i]+`\xa0(${data[columnas[i]]})\xa0tiene que estar entre 0-10 a dos dígitos`;
                 }
             }
             

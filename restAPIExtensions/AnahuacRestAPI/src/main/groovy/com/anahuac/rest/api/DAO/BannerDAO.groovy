@@ -1804,4 +1804,165 @@ class BannerDAO {
 		return resultado;
 	}
 	
+	public Result integracionBannerEthosEAC(RestAPIContext context,String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String campus_pid = "";
+		String campus2 = "";
+		String campus3 = "";
+		String errorLog = "";
+		String barrerToken = "";
+		String bannerMatchPerson =""
+		String tokenUniversidad=""
+		String tokenMatchPerson=""
+		String resultPersonsCredentials =""
+		String resultAptitudeAssessments=""
+		String resultSources=""
+		String resultStudentAptitudeAssessments=""
+		String resultAssessmentSpecialCircumstances=""
+		
+		def jsonSlurper = new JsonSlurper();
+		def str_studentAptitudeAssessments;
+		def str_sources;
+		def str_assessmentSpecialCircumstances ;
+		def str_aptitudeAssessments;
+		def str_personsCredentials;
+		def aptitude = null;
+		try {
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+			
+			object.each{
+			   String fecha =  it.fechaExamen.substring(6, 10)+"-"+it.fechaExamen.substring(3, 5)+"-"+it.fechaExamen.substring(0, 2);
+
+				pstm = con.prepareStatement("SELECT ck.tokenbanner, (SELECT valor from catconfiguracion where clave='bannerMatchPerson' limit 1) as bannerMatchPerson, sda.catcampus_pid FROM catapikey ck inner join solicituddeadmision sda on sda.catcampus_pid=ck.campus_pid inner join detallesolicitud ds on ds.caseid::bigint=sda.caseid and ds.IDBANNER=? limit 1")
+				pstm.setString(1, it.IDBANNER);
+				rs = pstm.executeQuery();
+				if(rs.next()) {
+					barrerToken = rs.getString("tokenbanner")
+					bannerMatchPerson = rs.getString("bannerMatchPerson")
+					campus_pid = rs.getString("catcampus_pid")
+				}
+				errorLog += "|IDBANNER : "+it.IDBANNER;
+				if(barrerToken==null) {
+					campus_pid = "0";
+					errorLog += "La universidad no cuenta con token Banner Ethos ";
+					//throw new Exception("La universidad no cuenta con token Banner Ethos")
+				}
+				errorLog += "1";
+				if(!campus_pid.equals("0")) {
+					Boolean update=false;
+					String soatestId = "";
+					Boolean existeIdBanner = true;
+					errorLog += "2";
+					if(!campus_pid.equals(campus2)) {
+						errorLog += "3";
+						tokenUniversidad = getBarreToken(barrerToken);
+						tokenMatchPerson = getBarreToken(bannerMatchPerson)
+						campus2 = campus_pid;
+					}
+					errorLog += "4";
+					resultPersonsCredentials = personsCredentials(tokenMatchPerson, it.IDBANNER+"")
+					str_personsCredentials = jsonSlurper.parseText(resultPersonsCredentials)
+					assert str_personsCredentials instanceof List<Map>;
+					errorLog += "5";
+					if(str_personsCredentials.size()==0) {
+						existeIdBanner = false;
+						errorLog += ", No se encontró aspirante con IDBANNER: " + it.IDBANNER;
+						//throw new Exception("No se encontró aspirante con it.IDBANNER: " + it.IDBANNER)
+					}
+					if(existeIdBanner) {
+						errorLog += "6";
+						if(!campus_pid.equals(campus3)) {
+							errorLog += "7";
+							resultAptitudeAssessments = aptitudeAssessments(tokenMatchPerson)
+							str_aptitudeAssessments = jsonSlurper.parseText(resultAptitudeAssessments)
+							assert str_aptitudeAssessments instanceof List<Map>;
+							errorLog += "8";
+							resultAssessmentSpecialCircumstances = assessmentSpecialCircumstances(tokenMatchPerson)
+							str_assessmentSpecialCircumstances = jsonSlurper.parseText(resultAssessmentSpecialCircumstances)
+							assert str_assessmentSpecialCircumstances instanceof List<Map>;
+							errorLog += "9";
+							resultSources = sources(tokenMatchPerson)
+							str_sources = jsonSlurper.parseText(resultSources)
+							assert str_sources instanceof List<Map>;
+							errorLog += "10";
+							campus3 = campus_pid;
+						}
+						errorLog += "11";
+							
+						resultStudentAptitudeAssessments = studentAptitudeAssessments(tokenUniversidad, str_personsCredentials.get(0).id)
+						str_studentAptitudeAssessments = jsonSlurper.parseText(resultStudentAptitudeAssessments)
+						assert str_studentAptitudeAssessments instanceof List<Map>;
+						errorLog += "12";
+						aptitude = null
+						def titulos = null;
+						if(it.tipoExamen.toString().equals("KP")){
+							errorLog += "13";
+						   titulos = ["PAAV","PAAN","PARA","MLEX","CLEX","HLEX","LA01","LA02","LA03","LA04","PG01","PG02","PG03","PG04","PG05","PV01","PV04","LEO1","LEO3","LEO4","LEO5","CIT1","CIT2","HI01","HI02","HI03","HI04","HI05","HI06"]
+						}else{
+						   titulos = ["PAAV","PAAN","PARA"]
+						   errorLog += "14";
+						}
+						for(int i=0; i<str_aptitudeAssessments.size();i++) {
+						   for(int j=0; j<titulos.size(); ++j){
+							  if(str_aptitudeAssessments.get(i).code.equals(titulos[j])) {
+								aptitude = str_aptitudeAssessments.get(i);
+
+								errorLog += "| studentAptitudeAssessments.size()="+str_studentAptitudeAssessments.size()
+								update=false;
+								for(int e=0; i<str_studentAptitudeAssessments.size(); e++) {
+									if(str_studentAptitudeAssessments.get(i).assessment.id==aptitude.id && str_studentAptitudeAssessments.get(e).assessedOn == fecha ) {
+										soatestId = str_studentAptitudeAssessments.get(e).id
+										update=true
+									}
+								}
+								 
+								errorLog+="|barrerToken="+tokenUniversidad
+								errorLog+="|studentId="+str_personsCredentials.get(0).id
+								errorLog+="|assessmentId="+aptitude.id
+								errorLog+="|score="+it[titulos[i].replace('0','')+""]+""
+								errorLog+="|specialCircumstancesId="+str_assessmentSpecialCircumstances.get(0).id
+								errorLog+="|sourceId="+str_sources.get(0).id
+								errorLog+="|fecha="+fecha
+								
+								/*if(update) {
+								   updateStudentAptitudeAssessments(tokenUniversidad, str_personsCredentials.get(0).id, aptitude.id, Integer.parseInt(it[titulos[i].replace('0','')+""]+''), str_assessmentSpecialCircumstances.get(0).id, str_sources.get(0).id,fecha,soatestId,titulos[i].equals("MMPI"));
+								}else {
+								   insertStudentAptitudeAssessments(tokenUniversidad, str_personsCredentials.get(0).id, aptitude.id, Integer.parseInt(it[titulos[i].replace('0','')+""]+''), str_assessmentSpecialCircumstances.get(0).id, str_sources.get(0).id,fecha,soatestId,titulos[i].equals("MMPI"))
+								}*/
+							  }
+						   }
+							
+						}
+						
+						
+						
+					}
+				}
+				
+			}
+			
+			
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog)
+			
+			//resultadoGetConsumeJSON.setSuccess(true);
+		} catch (Exception e) {
+			errorLog += " | " + e.getMessage();
+			e.printStackTrace()
+			resultado.setSuccess(false)
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorLog)
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+
+		return resultado;
+	}
+	
+	
 }

@@ -335,7 +335,8 @@ class IndexGet implements RestApiController {
 				case "getFechaINVP":
 				try{
 					String usuario = request.getParameter "usuario";
-					result = new PsicometricoDAO().getFechaINVP(usuario);
+					String intento = request.getParameter "intento";
+					result = new PsicometricoDAO().getFechaINVP(usuario,intento);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {

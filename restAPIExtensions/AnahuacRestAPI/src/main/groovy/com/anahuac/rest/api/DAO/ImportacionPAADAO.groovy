@@ -159,15 +159,14 @@ class ImportacionPAADAO {
 					
 				}
 				
-				
-				resultado.setSuccess(true);
 				if(executar) {
 					con.commit();
-					Result resultado2 = new Result();
+					/*Result resultado2 = new Result();
 					resultado2 = subirDatosBannerEthos(jsonData,context);
-					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();
+					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();*/
 					resultado.setError_info(errorLog);
 				}
+				resultado.setSuccess(true);
 				//resultado.setData(estatus)
 			} catch (Exception e) {
 			resultado.setSuccess(false);
@@ -189,10 +188,12 @@ class ImportacionPAADAO {
 			def object = jsonSlurper.parseText(jsonData);
 			
 			
+			//resultado = new BannerDAO().integracionBannerEthosEAC(context, jsonData)
+			//errorLog += "INTEGRACION SUBIDA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+			
 			object.each{
 				
 				String fecha =  it.fechaExamen.substring(6, 10)+"-"+it.fechaExamen.substring(3, 5)+"-"+it.fechaExamen.substring(0, 2);
-				
 				
 				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
 				errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
@@ -282,14 +283,12 @@ class ImportacionPAADAO {
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI06", it.HI6, fecha);
 					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				}
-				
-				
-				
-				
 				resultado.setSuccess(true);
 				resultado.setError_info(errorLog);
 				
 			}
+			
+			
 		}catch(Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());

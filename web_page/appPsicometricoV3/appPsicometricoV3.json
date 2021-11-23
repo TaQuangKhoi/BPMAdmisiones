@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1637197015618,
+  "lastUpdate" : 1637363288805,
   "rows" : [
     [
       {
@@ -8441,11 +8441,13 @@
       "type" : "expression",
       "value" : [
         "if($data.getFechaPsicometrico != null){",
-        "    debugger;",
+        "    ",
         "    if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
         "        ",
         "    }else{",
-        "        $data.testPsicom.fechaEntrevista =  $data.getFechaPsicometrico.data[0].aplicacion+'T00:00:00.000';",
+        "        let fecha = $data.getFechaPsicometrico.data[0].aplicacion;",
+        "        fecha = `${fecha.slice(6,10)}-${fecha.slice(3,5)}-${fecha.slice(0,2)}`",
+        "        $data.testPsicom.fechaEntrevista =  fecha+'T00:00:00.000';",
         "    }",
         "    ",
         "}"
