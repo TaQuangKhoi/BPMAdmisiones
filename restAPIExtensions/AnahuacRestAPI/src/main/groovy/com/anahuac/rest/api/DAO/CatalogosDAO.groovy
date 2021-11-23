@@ -7187,5 +7187,50 @@ class CatalogosDAO {
         is.close();
         return bytes;
     }
+	
+	public Result getEstadosPreparatorias(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Map<String, Object> lstEstadosPreparatorias = new LinkedHashMap<String, Object>();
+		List<?> rows = new ArrayList<?>();
+	
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			closeCon = validarConexion();
+	
+			errorLog = "Step 1: Se espera ejecutar la consulta"
+			pstm = con.prepareStatement(Statements.GET_ESTADOS_PREPARATORIA);
+			pstm.setString(1, object.estado);
+			rs = pstm.executeQuery();
+	
+			errorLog = "Step 2: Se espera respuesta de la consulta"
+	
+			while (rs.next()) {
+				lstEstadosPreparatorias = new LinkedHashMap<String, Object>();
+				lstEstadosPreparatorias.put("estado", rs.getString("estado"));
+	
+				rows.add(lstEstadosPreparatorias);
+			}
+	
+			errorLog = "La consulta se ejecuto correctamente."
+			resultado.setError_info(errorLog);
+			resultado.setData(rows);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog+" - error: "+e.getMessage());
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
     /***********************ARTURO ZAMORANO0 FIN**************************/
 }
