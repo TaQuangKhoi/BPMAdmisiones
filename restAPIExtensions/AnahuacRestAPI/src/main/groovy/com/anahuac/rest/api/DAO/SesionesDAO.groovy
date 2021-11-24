@@ -1096,7 +1096,7 @@ class SesionesDAO {
 					}
 					where +=" (s.preparatoria_pid";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor] OR s.preparatoria_pid=0) AND ( ((SELECT estado FROM catbachilleratos WHERE persistenceid=[valor]) IN (SELECT unnest(string_to_array((SELECT estado_preparatoria FROM sesiones WHERE persistenceid=s.persistenceid),',')))) OR  s.estado_preparatoria IS NULL OR  s.estado_preparatoria='') "
+						where+="=[valor] OR s.preparatoria_pid=0) AND ( (( case when (SELECT estado FROM catbachilleratos WHERE persistenceid=[valor]) is null then (select estadobachillerato from solicituddeadmision where correoelectronico='[VALOR-CORREO]' limit 1) else (SELECT estado FROM catbachilleratos WHERE persistenceid=[valor]) end) IN (SELECT unnest(string_to_array((SELECT estado_preparatoria FROM sesiones WHERE persistenceid=s.persistenceid),',')))) OR s.estado_preparatoria IS NULL OR s.estado_preparatoria='')"
 					}else {
 						where+="LIKE '%[valor]%'"
 					}
@@ -1183,6 +1183,7 @@ class SesionesDAO {
 					where+="LIKE '%[valor]%')"
 					
 					where = where.replace("[valor]", filtro.get("valor")+"")
+					where = where.replace("[VALOR-CORREO]", filtro.get("valor")+"")
 					break;
 				}
 			}
