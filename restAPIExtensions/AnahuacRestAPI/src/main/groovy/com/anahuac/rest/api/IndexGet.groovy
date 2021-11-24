@@ -284,7 +284,12 @@ class IndexGet implements RestApiController {
 				case "getPsicometricoCompleto":
 				try{
 					String caseId = request.getParameter "caseId";
-					result = new PsicometricoDAO().getPsicometricoCompleto(caseId, context);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getPsicometricoCompleto(caseId,cantidad, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -300,8 +305,14 @@ class IndexGet implements RestApiController {
 				
 				case "getPsicometricoMotivo":
 				try{
+				
 					String caseId = request.getParameter "caseId";
-					result = new PsicometricoDAO().getPsicometricoMotivo(caseId);
+					String intentos = request.getParameter "intentos";
+					int cantidad = 0;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Integer.parseInt(intentos);
+					}
+					result = new PsicometricoDAO().getPsicometricoMotivo(caseId,cantidad);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -335,8 +346,7 @@ class IndexGet implements RestApiController {
 				case "getFechaINVP":
 				try{
 					String usuario = request.getParameter "usuario";
-					String intento = request.getParameter "intento";
-					result = new PsicometricoDAO().getFechaINVP(usuario,intento);
+					result = new PsicometricoDAO().getFechaINVP(usuario);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -350,10 +360,30 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getFechaSesion":
+				try{
+					String usuario = request.getParameter "usuario";
+					String intento = request.getParameter "intento";
+					result = new PsicometricoDAO().getFechaSesion(usuario,intento);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
 				case "getPsicometricoFinalizado":
 				try{
 					String usuario = request.getParameter "usuario";
-					result = new PsicometricoDAO().getPsicometricoFinalizado(usuario);
+					String intentos = request.getParameter "intentos";
+					result = new PsicometricoDAO().getPsicometricoFinalizado(usuario,intentos);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {

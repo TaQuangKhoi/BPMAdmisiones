@@ -132,10 +132,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     // else if ($scope.properties.preparatoriaSeleccionada == "Otro") {
                     //     swal.fire("¡Preparatoria!", `La preparatoria proporcionada por el aspirante, no se encuentra en el catálogo, es necesario actualizar este dato para poder continuar.`, "warning");
                     // } 
-                    else if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null) || ($scope.properties.objCampanaSelected == undefined || $scope.properties.objCampanaSelected == null)) {
-                        console.log("descuento descuentoManual")
-                        swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
-                    }
                     else if ($scope.properties.dataToSend.detalleSolicitudInput.revisado === undefined) {
                         swal.fire("¡Validar duplicados!", "Debe seleccionar si reviso los duplicados", "warning");
                     } else if ($scope.properties.dataToSend.detalleSolicitudInput.catTipoAlumno === null) {
@@ -303,7 +299,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                             $scope.properties.dataToSend.detalleSolicitudInput.idBanner = "";
                             swal.fire("¡Id Banner!", "Favor de capturar 8 dígitos para Id Banner", "warning");
                         } else {
-                            if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null) && ($scope.properties.objCampanaSelected == undefined || $scope.properties.objCampanaSelected == null)) {
+                            if ($scope.properties.descuentoManual && ($scope.properties.ValorDescuento == undefined || $scope.properties.ValorDescuento == null)) {
                                 console.log("descuento descuentoManual")
                                 swal.fire("¡Descuento!", "Debe seleccionar un descuento", "warning");
                             } else {

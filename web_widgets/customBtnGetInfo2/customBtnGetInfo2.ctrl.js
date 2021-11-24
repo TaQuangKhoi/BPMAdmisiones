@@ -24,7 +24,7 @@ function PbButtonCtrl($scope, $http, $window, blockUI) {
         blockUI.start();
         var req = {
             method: "GET",
-            url: `/bonita/API/extension/AnahuacRestGet?url=${$scope.properties.url}&p=0&c=100${$scope.properties.urlInfo}${$scope.properties.urlParametro}`,
+            url: `/bonita/API/extension/AnahuacRestGet?url=${$scope.properties.url}&p=0&c=100${$scope.properties.urlInfo}${$scope.properties.urlParametro}${$scope.properties.urlInfo2}${$scope.properties.urlParametro2}`,
         };
 
         return $http(req)

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1637367951485,
+  "lastUpdate" : 1637617950682,
   "rows" : [
     [
       {
@@ -18013,7 +18013,7 @@
                                   },
                                   "hidden" : {
                                     "type" : "expression",
-                                    "value" : "context.descuento_ref.length ==0"
+                                    "value" : "context.descuento_ref.length ==0 && objSolicitudDeAdmision.urlDescuentos === \"\" || objSolicitudDeAdmision.urlDescuentos === null"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -28224,7 +28224,7 @@
         "let resultado=false\r",
         "let Notiene1,Notiene2,Notiene3;\r",
         "let op1, op2, op3;\r",
-        "\r",
+        "console.log(\"rechazo documento\")\r",
         "//VERIFICA SI TIENE COMPROBANTE DE CB\r",
         "if($data.objDocumentos === undefined){\r",
         "    if($data.objSolicitudDeAdmision.urlResultadoPAA === null){\r",
@@ -28295,7 +28295,7 @@
         "if($data.context.descuento_ref.length ==0 && $data.objSolicitudDeAdmision.urlDescuentos === null){\r",
         "    //SI NO TIENE \r",
         "    Notiene3=true;\r",
-        "}else if($data.context.descuento_ref.length !==0 || objSolicitudDeAdmision.urlDescuentos !== null){\r",
+        "}else if($data.context.descuento_ref.length !==0 || $data.objSolicitudDeAdmision.urlDescuentos !== null){\r",
         "    Notiene3=false;\r",
         "    //SI TIENE\r",
         "    if($data.CheckBoxDescuento){\r",
