@@ -51,5 +51,10 @@ function PbTableCtrl($scope) {
     }
   }
   
+  $scope.formatFecha = function(fecha){
+      let newFecha = `${fecha.slice(0,4)}/${fecha.slice(5,7)}/${fecha.slice(8,10)}`;
+      return newFecha;
+  }
+  
   
 }

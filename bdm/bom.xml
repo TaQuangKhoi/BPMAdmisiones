@@ -3828,7 +3828,14 @@
                 <field type="LONG" length="255" name="countRechazo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="findByCaseIdAndCountRechazo" content="SELECT t &#13;&#10;FROM TestPsicometricoRasgos t &#13;&#10;WHERE t.caseId = :caseId&#13;&#10;AND t.countRechazo = :countRechazo&#13;&#10;ORDER BY t.persistenceId ASC" returnType="com.anahuac.model.TestPsicometricoRasgos">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                        <queryParameter name="countRechazo" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoRelativos">
@@ -4269,165 +4276,6 @@
                 <relationField type="AGGREGATION" reference="com.anahuac.catalogos.CatDiploma" fetchType="EAGER" name="catDiploma" nullable="true" collection="false"/>
                 <field type="LONG" length="255" name="caseId" nullable="true" collection="false"/>
                 <field type="BOOLEAN" length="255" name="vencido" nullable="true" collection="false"/>
-            </fields>
-            <uniqueConstraints/>
-            <queries/>
-            <indexes/>
-        </businessObject>
-        <businessObject qualifiedName="com.anahuac.respaldos.PlantillaHermanosRespaldo">
-            <fields>
-                <field type="STRING" length="255" name="primerNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="segundoNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="apellidoPaterno" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="apellidoMaterno" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="campus" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="expediente" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="idReg" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="nombreHermano" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="apellidoHermano" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="fechaNacimientoHermano" nullable="true" collection="false"/>
-                <field type="INTEGER" length="255" name="estudioHermano" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="institucionHermano" nullable="true" collection="false"/>
-                <field type="INTEGER" length="255" name="trabajoHermano" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="empresaHermano" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="idBanner" nullable="true" collection="false"/>
-                <field type="LOCALDATE" length="255" name="fechaRegistro" nullable="true" collection="false"/>
-            </fields>
-            <uniqueConstraints/>
-            <queries/>
-            <indexes/>
-        </businessObject>
-        <businessObject qualifiedName="com.anahuac.respaldos.PlantillaRegistroRespaldo">
-            <fields>
-                <field type="LONG" length="255" name="nRegistro" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="expediente" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="primerNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="segundoNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="apellidoPaterno" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="apellidoMaterno" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="campus" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="estado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="municipio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="pais" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="correo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="contrasena" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="sexo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="fechaNacimiento" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="nacionalidad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="religion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="curp" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="celular" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="foto" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="estadoCivil" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="casaCalle" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="numExt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="numInt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="colonia" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="cp" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="otroTelefono" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="puntajePaa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="licenciatura" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="periodoIngreso" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="otraUniversidad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="preparatoria" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="prepaPais" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="prepaEstado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="prepaCiudad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="prepaPromedio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorTitulo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorApellido" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorEgresado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorUniEgresado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorParentesco" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorTrabaja" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorEmpresa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorGiroEmpresa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorPuesto" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorDireccion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorCalle" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorNumExt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorNumInt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorColonia" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorCP" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorMunicipio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorPais" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorEstado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorCelular" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreTitulo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreApellido" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreVivo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreEgresado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreUniEgresado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreEscolaridad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreTutor" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreCorreo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreTrabaja" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreEmpresa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreGiroEmpresa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padrePuesto" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreDireccion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreCalle" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreNumExt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreNumInt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreColonia" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreCP" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreMunicipio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padrePais" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreEstado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padreCel" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreTitulo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreApellido" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreVive" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreEgresada" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreUniEgresada" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreCorreo" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreEscolaridad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="padresDireccion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreCalle" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreNumExt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreNumInt" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreColonia" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreCP" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreMunicipio" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madrePais" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreEstado" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="madreCel" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="emergencia" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="emergenciaNombre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="emergenciaTelefono" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="emergenciaCelular" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="conQuienVives" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="estadoPadres" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="universidad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tutorEscolaridad" nullable="true" collection="false"/>
-                <field type="LOCALDATE" length="255" name="fechaRegistro" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="kardex" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="discapacidad" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="atencionMedica" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="personaSaludable" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="algunDeporte" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="ayudaSocial" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="tiempoLibre" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="teGustaLeer" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="fecuenciaDeLeer" nullable="true" collection="false"/>
-                <field type="TEXT" length="255" name="tipoLectura" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="jefeAsociacion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="cualAsociacion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="asociacionDeportiva" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="asociacionSocial" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="asociacionReligiosa" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="asociacionPolitica" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="asociacionEscolar" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="familiarEnAnahuac" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="atencionEspiritual" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="conoceRegnum" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="valorReligion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="practicasReligion" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="aspectoReligionNoGustar" nullable="true" collection="false"/>
-                <field type="STRING" length="255" name="tieneReligion" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
             <queries/>

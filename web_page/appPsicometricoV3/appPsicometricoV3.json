@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1637363288805,
+  "lastUpdate" : 1637791003795,
   "rows" : [
     [
       {
@@ -389,6 +389,10 @@
                 "sesionid" : {
                   "type" : "variable",
                   "value" : "sesionid"
+                },
+                "intentos" : {
+                  "type" : "expression",
+                  "value" : "intentos"
                 }
               },
               "reference" : "d56e9c0b-9eaa-4906-b6d3-bc26f01fd3ec",
@@ -586,7 +590,8 @@
                                   "idBanner" : "detalleSolicitudBDM.idBanner",
                                   "nombre" : "nombre",
                                   "periodo" : "solicitudDeAdmisionBDM.catPeriodo.descripcion",
-                                  "fechaNacimiento" : "solicitudDeAdmisionBDM.fechaNacimiento | date:'dd/MM/yyyy'"
+                                  "fechaNacimiento" : "solicitudDeAdmisionBDM.fechaNacimiento | date:'dd/MM/yyyy'",
+                                  "readOnly" : "getFechaInvp[0].asistencia == 't'?true:false;"
                                 }
                               }
                             ],
@@ -5762,6 +5767,14 @@
           "urlParametro" : {
             "type" : "expression",
             "value" : "solicitudDeAdmisionBDM.correoElectronico"
+          },
+          "urlInfo2" : {
+            "type" : "constant",
+            "value" : "&intentos="
+          },
+          "urlParametro2" : {
+            "type" : "expression",
+            "value" : "intentos"
           }
         },
         "reference" : "35b291a5-7967-42d7-ac63-ff7bf9789349",
@@ -7510,7 +7523,7 @@
     "testPsicomRasgos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseId [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRasgos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRasgos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"99\"}}"
       ],
       "exposed" : false
     },
@@ -7927,7 +7940,7 @@
     "getCalificacionesExamenes" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner={{detalleSolicitudBDM.idBanner}}&persistenceid="
+        "../API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner={{detalleSolicitudBDM.idBanner}}&persistenceid={{getFechaInvp==null?'0':getFechaInvp[0].persistenceid}}"
       ],
       "exposed" : false
     },
@@ -8320,7 +8333,9 @@
         "        \"hasRecibidoAlgunaTerapia\": $data.testPsicom.hasRecibidoAlgunaTerapia,\r",
         "        \"catRecibidoTerapia\":{},\r",
         "        \"custosRecomendados\": $data.testPsicom.testPsicomInput.custosRecomendados,\r",
-        "        \"testc\":\"sd\"\r",
+        "        \"testc\":\"sd\",\r",
+        "        \"countRechazo\":($data.intentos === null || $data.intentos == 'null')? 0 :parseInt($data.intentos),\r",
+        "        \"sesion_pid\":$data.getFechaInvp == null ? 0 : $data.getFechaInvp[0].sesiones_pid+''\r",
         "    },\r",
         "    \"testPsicomObservacionesInput\": $data.testPsicom.testPsicomObservacionesInput,\r",
         "    \"testPsicomRelativosInput\":  $data.testPsicom.testPsicomRelativosInput,\r",
@@ -8426,28 +8441,22 @@
     "getPsicometricoMotivo" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getPsicometricoMotivo&p=0&c=9999&caseId={{caseId}}"
-      ],
-      "exposed" : false
-    },
-    "getFechaPsicometrico" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacRestGet?url=getGetFechaPsicometrico&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
+        "../API/extension/AnahuacRestGet?url=getPsicometricoMotivo&p=0&c=9999&caseId={{caseId}}&intentos={{intentos}}"
       ],
       "exposed" : false
     },
     "cargarFechaPsicometrico" : {
       "type" : "expression",
       "value" : [
-        "if($data.getFechaPsicometrico != null){",
-        "    ",
+        "if($data.getFechaInvp != null){",
+        "    debugger;",
         "    if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
         "        ",
         "    }else{",
-        "        let fecha = $data.getFechaPsicometrico.data[0].aplicacion;",
-        "        fecha = `${fecha.slice(6,10)}-${fecha.slice(3,5)}-${fecha.slice(0,2)}`",
-        "        $data.testPsicom.fechaEntrevista =  fecha+'T00:00:00.000';",
+        "        //let fecha = $data.getFechaPsicometrico.data[0].aplicacion;",
+        "        //fecha = `${fecha.slice(6,10)}-${fecha.slice(3,5)}-${fecha.slice(0,2)}`",
+        "",
+        "        $data.testPsicom.fechaEntrevista =  $data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z';",
         "    }",
         "    ",
         "}"
@@ -8559,14 +8568,16 @@
         "    $data.testPsicom.finalizado = true;",
         "}else{",
         "    $data.testPsicom.finalizado = false",
-        "}"
+        "}",
+        "",
+        "console.log(\"Resultado finalizado:\"+$data.testPsicom.finalizado)"
       ],
       "exposed" : false
     },
     "getFechaInvp" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacRestGet?url=getFechaINVP&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}"
+        "../API/extension/AnahuacRestGet?url=getFechaSesion&p=0&c=9999&usuario={{solicitudDeAdmisionBDM.correoElectronico}}&intento={{intentos}}"
       ],
       "exposed" : false
     },
@@ -8591,6 +8602,13 @@
       "type" : "json",
       "value" : [
         "[]"
+      ],
+      "exposed" : false
+    },
+    "intentos" : {
+      "type" : "urlparameter",
+      "value" : [
+        "intento"
       ],
       "exposed" : false
     }
