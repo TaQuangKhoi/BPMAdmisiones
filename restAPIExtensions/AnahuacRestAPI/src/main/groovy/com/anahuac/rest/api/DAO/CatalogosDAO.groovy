@@ -7188,7 +7188,7 @@ class CatalogosDAO {
         return bytes;
     }
 	
-	public Result getEstadosPreparatorias(String jsonData, RestAPIContext context) {
+	public Result getEstadosPreparatorias() {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -7196,17 +7196,10 @@ class CatalogosDAO {
 		List<?> rows = new ArrayList<?>();
 	
 		try {
-			def jsonSlurper = new JsonSlurper();
-			def object = jsonSlurper.parseText(jsonData);
 			closeCon = validarConexion();
 	
-			errorLog = "Step 1: Se espera ejecutar la consulta"
-			pstm = con.prepareStatement(Statements.GET_ESTADOS_PREPARATORIA);
-			pstm.setString(1, object.estado);
+			pstm = con.prepareStatement(Statements.GET_ESTADOS_PREPARATORIA);	
 			rs = pstm.executeQuery();
-	
-			errorLog = "Step 2: Se espera respuesta de la consulta"
-	
 			while (rs.next()) {
 				lstEstadosPreparatorias = new LinkedHashMap<String, Object>();
 				lstEstadosPreparatorias.put("estado", rs.getString("estado"));
@@ -7214,7 +7207,6 @@ class CatalogosDAO {
 				rows.add(lstEstadosPreparatorias);
 			}
 	
-			errorLog = "La consulta se ejecuto correctamente."
 			resultado.setError_info(errorLog);
 			resultado.setData(rows);
 			resultado.setSuccess(true);

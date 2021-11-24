@@ -533,14 +533,19 @@ class SesionesDAO {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		Boolean singleTime=true
+		String error_log = "";
 		try {
 				List<SesionCustom> rows = new ArrayList<SesionCustom>();
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				if(sesion.getPersistenceId()>0) {
+					error_log = "No se pudo ejecutar el update"
 					pstm = con.prepareStatement(Statements.UPDATE_SESION)
+					error_log = "Se ejecuto el update: " + pstm
 				}else {
+					error_log = "No se pudo ejecutar el insert"
 					pstm = con.prepareStatement(Statements.INSERT_SESION, Statement.RETURN_GENERATED_KEYS)
+					error_log = "Se ejecuto el insert: " + pstm
 				}
 				pstm.setString(1, sesion.getNombre())
 				pstm.setString(2, sesion.getDescripcion())
@@ -565,8 +570,11 @@ class SesionesDAO {
 				pstm.setBoolean(13, sesion.getIsEliminado())
 				(sesion.getPeriodo_pid()==null)?pstm.setLong(14, 0L):pstm.setLong(14, sesion.getPeriodo_pid())
 				(sesion.getUsuarios_lst_id()==null)?pstm.setString(15, ""):pstm.setString(15, sesion.getUsuarios_lst_id())
+				(sesion.getEstado_preparatoria()==null)?pstm.setString(16, ""):pstm.setString(16, sesion.getEstado_preparatoria())
 				if(sesion.getPersistenceId()>0) {
-					pstm.setLong(16, sesion.getPersistenceId())
+					(sesion.getEstado_preparatoria()==null)?pstm.setString(16, ""):pstm.setString(16, sesion.getEstado_preparatoria())
+					pstm.setLong(17, sesion.getPersistenceId())
+					
 					pstm.executeUpdate()
 				}
 				else {
@@ -1088,7 +1096,7 @@ class SesionesDAO {
 					}
 					where +=" (s.preparatoria_pid";
 					if(filtro.get("operador").equals("Igual a")) {
-						where+="=[valor] OR s.preparatoria_pid=0)"
+						where+="=[valor] OR s.preparatoria_pid=0) AND ( ((SELECT estado FROM catbachilleratos WHERE persistenceid=[valor]) IN (SELECT unnest(string_to_array((SELECT estado_preparatoria FROM sesiones WHERE persistenceid=s.persistenceid),',')))) OR  s.estado_preparatoria IS NULL OR  s.estado_preparatoria='') "
 					}else {
 						where+="LIKE '%[valor]%'"
 					}
@@ -1396,6 +1404,7 @@ class SesionesDAO {
 				sesion.setUltimo_dia_inscripcion(rs.getString("ultimo_dia_inscripcion"))
 				sesion.setPeriodo_pid(rs.getLong("periodo_pid"))
 				sesion.setUsuarios_lst_id(rs.getString("usuarios_lst_id"))
+				sesion.setEstado_preparatoria(rs.getString("estado_preparatoria"))
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_SESION_PID)
 				pstm.setLong(1, sesion.getPersistenceId())
 				rs = pstm.executeQuery()
