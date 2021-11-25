@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1637793628656,
+  "lastUpdate" : 1637801072253,
   "rows" : [
     [
       {
@@ -250,6 +250,10 @@
                       "caseId" : {
                         "type" : "expression",
                         "value" : "caseId"
+                      },
+                      "intentos" : {
+                        "type" : "expression",
+                        "value" : "intentos"
                       }
                     },
                     "reference" : "62286004-f6f5-44b5-b359-96a46f89cf3c",
@@ -8451,6 +8455,9 @@
         "if($data.getFechaInvp != null){",
         "    debugger;",
         "    if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
+        "        if($data.testPsicom.fechaEntrevista != ($data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z') && getFechaInvp[0].asistencia == 't' ){",
+        "            $data.testPsicom.fechaEntrevista =  $data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z'",
+        "        }",
         "        ",
         "    }else{",
         "        //let fecha = $data.getFechaPsicometrico.data[0].aplicacion;",

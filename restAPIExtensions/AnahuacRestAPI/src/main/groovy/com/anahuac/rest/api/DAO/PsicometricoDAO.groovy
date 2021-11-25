@@ -930,7 +930,7 @@ class PsicometricoDAO {
 			closeCon = validarConexion();
 			
 			/*========================================================TEST PSICOMETRICO ACCIONES========================================================*/
-			pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID_V2);
+			pstm = con.prepareStatement(Statements.SELECT_TESTPSICOMETRICO_BY_CASEID_V2+" AND countRechazo = "+ testPsicomInput.countRechazo);
 			pstm.setString(1, caseId);
 			rs = pstm.executeQuery();
 			if(rs.next()) {
@@ -3303,7 +3303,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 	}
 	
 	
-	public Result getInfoReportes(String usuario,RestAPIContext context) {
+	public Result getInfoReportes(String usuario,Long intento,RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = ""; 
@@ -3318,12 +3318,14 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 				SSA = rs.getString("valor")
 			}
 			
-			pstm = con.prepareStatement("SELECT  sda.resultadoPAA,sda.caseid,ds.idbanner,tp.fechaFinalizacion,sda.urlfoto,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? ")
+			pstm = con.prepareStatement("SELECT  sda.resultadoPAA,sda.caseid,ds.idbanner,tp.fechaFinalizacion,sda.urlfoto,CONCAT(sda.apellidopaterno,' ',sda.apellidomaterno,CASE WHEN (sda.apellidomaterno != '' ) THEN ' ' END,sda.segundonombre,CASE WHEN ( sda.segundonombre != '' ) THEN ' ' END,sda.primernombre) AS nombre,  TO_CHAR(sda.fechanacimiento::DATE, 'dd-Mon-yyyy') AS fechanacimiento ,(CASE WHEN cb.descripcion = 'Otro' THEN sda.bachillerato ELSE cb.descripcion END) AS preparatoria, (CASE WHEN cb.descripcion = 'Otro' THEN sda.ciudadBachillerato ELSE cb.ciudad END) AS ciudad, cp.descripcion as pais, cge.nombre as carrera, IPAA.INVP,IPAA.PARA,IPAA.PAAN,IPAA.PAAV, sda.promediogeneral as promedio, cta.descripcion AS tipoAdmision, catP.clave as periodo,tp.quienIntegro, tp.quienRealizoEntrevista, date_part('year', age( sda.fechanacimiento::DATE)) as edad FROM SolicitudDeAdmision AS sda INNER JOIN DetalleSolicitud AS ds ON sda.caseid = ds.caseid::INTEGER INNER JOIN catbachilleratos AS cb ON cb.persistenceid = sda.catbachilleratos_pid INNER JOIN catpais AS cp ON cp.persistenceid = sda.catpais_pid INNER JOIN catGestionEscolar as CGE ON CGE.persistenceid = sda.catGestionEscolar_pid INNER JOIN importacionPAA AS IPAA ON IPAA.idbanner = DS.idbanner INNER JOIN catTipoAdmision AS cta ON cta.persistenceid = ds.cattipoadmision_pid INNER JOIN catPeriodo AS catP ON catP.persistenceid = sda.catperiodo_pid INNER JOIN testPsicometrico AS tp ON tp.caseid::INTEGER = sda.caseid WHERE sda.correoelectronico = ? AND countrechazo = ?")
 			pstm.setString(1, usuario)
-			rs = pstm.executeQuery()
+			pstm.setLong(2, intento)
+			rs = pstm.executeQuery();
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
+			
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
@@ -3437,7 +3439,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		return resultado
 	}
 	
-	public Result getInfoFuentesInfluyeron(String caseid) {
+	public Result getInfoFuentesInfluyeron(String caseid, Long intentos) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -3465,7 +3467,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			
 			if(!autov1) {
 				//pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM autodescripcionv2 where caseid = "+caseid)
-				pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM TestPsicometrico where caseid = '"+caseid+"'")
+				pstm = con.prepareStatement("SELECT fuentesInfluyeronDesicion as fuentes FROM TestPsicometrico where caseid = '"+caseid+"' AND countRechazo = "+intentos)
 				rs = pstm.executeQuery()
 				rows = new ArrayList < Map < String, Object >> ();
 				metaData = rs.getMetaData();
@@ -3496,15 +3498,16 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 	}
 	
 	
-	public Result getInfoRasgos(String caseid) {
+	public Result getInfoRasgos(String caseid, Long intentos) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT rc.descripcion AS calificacion, cro.descripcion AS rasgo FROM TestPsicometricoRasgos AS tpr LEFT JOIN CatRasgosCalif AS rc ON rc.persistenceid = tpr.calificacion_pid LEFT JOIN CatRasgosObservados AS cro ON cro.persistenceid = tpr.rasgo_pid where tpr.caseid = ? ")
+			pstm = con.prepareStatement("SELECT rc.descripcion AS calificacion, cro.descripcion AS rasgo FROM TestPsicometricoRasgos AS tpr LEFT JOIN CatRasgosCalif AS rc ON rc.persistenceid = tpr.calificacion_pid LEFT JOIN CatRasgosObservados AS cro ON cro.persistenceid = tpr.rasgo_pid where tpr.caseid = ?  AND tpr.countRechazo = ?")
 			pstm.setString(1, caseid);
+			pstm.setLong(2, intentos);
 			rs = pstm.executeQuery();
 			
 			rows = new ArrayList < Map < String, Object >> ();
@@ -3534,15 +3537,16 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 	}
 	
 	
-	public Result getInfoCapacidadAdaptacion(String caseid) {
+	public Result getInfoCapacidadAdaptacion(String caseid, Long intentos) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT ajusteMedioFamiliar,califAjusteMedioFamiliar,ajusteEscolarPrevio,califAjusteEscolarPrevio,ajusteMedioSocial,califAjusteMedioSocial,ajusteEfectivo,califAjusteAfectivo,ajusteReligioso,califAjusteReligioso,ajusteExistencial,califAjusteExistencial FROM TestPsicometrico where caseid = ? ")
+			pstm = con.prepareStatement("SELECT ajusteMedioFamiliar,califAjusteMedioFamiliar,ajusteEscolarPrevio,califAjusteEscolarPrevio,ajusteMedioSocial,califAjusteMedioSocial,ajusteEfectivo,califAjusteAfectivo,ajusteReligioso,califAjusteReligioso,ajusteExistencial,califAjusteExistencial FROM TestPsicometrico where caseid = ? AND countRechazo = ?")
 			pstm.setString(1, caseid);
+			pstm.setLong(2, intentos);
 			rs = pstm.executeQuery();
 			
 			rows = new ArrayList < Map < String, Object >> ();
@@ -3620,7 +3624,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		return resultado;
 	}
 	
-	public Result getInfoSaludSSeccion(String caseid) {
+	public Result getInfoSaludSSeccion(String caseid, Long intentos) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String errorLog = "";
@@ -3635,6 +3639,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			
 			pstm = con.prepareStatement(Statements.SELECT_RECOMENDACIONES_CONCLUSIONES);
 			pstm.setString(1, caseid);
+			pstm.setLong(2, intentos);
 			rs = pstm.executeQuery();
 				
 			strError += "SELECT_RECOMENDACIONES_CONCLUSIONES: Success | ";

@@ -20,7 +20,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     }
 
     $scope.cargarDatos = function() {
-        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario, 1);
+        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoReportes&p=0&c=9999&usuario=" + $scope.properties.usuario+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 1);
     }
 
     function doRequest(method, url, numero) {
@@ -48,19 +48,19 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         if (data.length > 0) {
                             $scope.datosHermanos = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid=" + $scope.properties.caseId, 4);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoFuentesInfluyeron&p=0&c=9999&caseid=" + $scope.properties.caseId+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 4);
                         break;
                     case 4:
                         if (data.length > 0) {
                             $scope.getInfoFuentesInfluyeron = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid=" + $scope.properties.caseId, 5);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoRasgos&p=0&c=9999&caseid=" + $scope.properties.caseId+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 5);
                         break;
                     case 5:
                         if (data.length > 0) {
                             $scope.datosRasgos = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid=" + $scope.properties.caseId, 6);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoCapacidadAdaptacion&p=0&c=9999&caseid=" + $scope.properties.caseId+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 6);
                         break;
                     case 6:
                         if (data.length > 0) {
@@ -78,7 +78,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         if (data.length > 0) {
                             $scope.datosSaludSSeccion = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario, 9);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 9);
                         break;
                     case 9:
                         if (data.length > 0) {
