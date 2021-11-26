@@ -72,13 +72,13 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         if (data.length > 0) {
                             $scope.datosSaludPSeccion = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludSSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId, 8);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=getInfoSaludSSeccion&p=0&c=9999&caseid=" + $scope.properties.caseId+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 8);
                         break;
                     case 8:
                         if (data.length > 0) {
                             $scope.datosSaludSSeccion = data;
                         }
-                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario+"&intentos="+($scope.properties.intentos == null?0:$scope.properties.intentos), 9);
+                        doRequest("GET", "../API/extension/AnahuacRestGet?url=postGetCatBitacoraComentariosPsicometrico&p=0&c=9999&usuario=" + $scope.properties.usuario, 9);
                         break;
                     case 9:
                         if (data.length > 0) {
