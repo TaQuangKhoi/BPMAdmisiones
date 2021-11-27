@@ -1591,7 +1591,7 @@ class BannerDAO {
 		String targetURL = "https://integrate.elluciancloud.com/api/student-aptitude-assessments"
 		/*String jsonInputString = (mmpi)?"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}":
 		"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}"*/
-		String jsonInputString = (mmpi)?'{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "numeric", "value": '+score+' } }': '{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "literal", "value": '+((10>score)?"0"+score:score)+' } }';
+		String jsonInputString = (true)?'{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "numeric", "value": '+score+' } }': '{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "literal", "value": '+((10>score)?"0"+score:score)+' } }';
 		String strError = "";
 		
 		JSONObject jsonProperties =  (JSONObject) new JSONParser().parse(jsonInputString)
@@ -1647,7 +1647,7 @@ class BannerDAO {
 	private Result updateStudentAptitudeAssessments(String barrerToken,String studentId, String assessmentId, Integer score, String fecha,String soatestId, Boolean mmpi) {
 		Result resultado = new Result();
 		String targetURL = "https://integrate.elluciancloud.com/api/student-aptitude-assessments/"+soatestId
-		String jsonInputString = (mmpi)?"{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}":
+		String jsonInputString = (true)?"{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}":
         "{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}"
 		String strError = "";
 		
