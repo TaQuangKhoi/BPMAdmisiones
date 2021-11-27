@@ -214,7 +214,7 @@ class ImportacionPAADAO {
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
 					errorLog += ", INTEGRACION SUBIDA HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
+					/*resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
 					errorLog += ", INTEGRACION SUBIDA LA1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA02", it.LA2, fecha);
@@ -281,7 +281,7 @@ class ImportacionPAADAO {
 					errorLog += ", INTEGRACION SUBIDA HI5:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HI06", it.HI6, fecha);
-					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					errorLog += ", INTEGRACION SUBIDA HI6:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();*/
 				}
 				resultado.setSuccess(true);
 				resultado.setError_info(errorLog);

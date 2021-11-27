@@ -3775,7 +3775,14 @@
                 <field type="LONG" length="255" name="countRechazo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="findByCaseIdAndCountRechazo" content="SELECT t &#13;&#10;FROM TestPsicometrico t &#13;&#10;WHERE t.caseId = :caseId&#13;&#10;AND t.countRechazo = :countRechazo&#13;&#10;ORDER BY t.persistenceId ASC" returnType="com.anahuac.model.TestPsicometrico">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                        <queryParameter name="countRechazo" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoCarrerasRec">
@@ -3788,7 +3795,17 @@
                 <field type="LONG" length="255" name="countRechazo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="findByCaseIdAndCountRechazo" content="SELECT t &#10;FROM TestPsicometricoCarrerasRec t &#10;WHERE t.orden = :orden&#10;AND t.comentarios = :comentarios&#10;AND t.caseId = :caseId&#10;AND t.vencido = :vencido&#10;AND t.countRechazo = :countRechazo&#10;ORDER BY t.persistenceId ASC" returnType="com.anahuac.model.TestPsicometricoCarrerasRec">
+                    <queryParameters>
+                        <queryParameter name="orden" className="java.lang.Integer"/>
+                        <queryParameter name="comentarios" className="java.lang.String"/>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                        <queryParameter name="vencido" className="java.lang.Boolean"/>
+                        <queryParameter name="countRechazo" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoCursos">
@@ -3852,7 +3869,14 @@
                 <field type="LONG" length="255" name="countRechazo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="findByCaseIdAndCountRechazo" content="SELECT t &#13;&#10;FROM TestPsicometricoRelativos t &#13;&#10;WHERE t.caseId = :caseId&#13;&#10;AND t.countRechazo = :countRechazo&#13;&#10;ORDER BY t.persistenceId ASC" returnType="com.anahuac.model.TestPsicometricoRelativos">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.String"/>
+                        <queryParameter name="countRechazo" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.TestPsicometricoTerapias">
@@ -3868,7 +3892,14 @@
                 <field type="LONG" length="255" name="countRechazo" nullable="true" collection="false"/>
             </fields>
             <uniqueConstraints/>
-            <queries/>
+            <queries>
+                <query name="findByCaseIdAndCountRechazo" content="SELECT t &#13;&#10;FROM TestPsicometricoTerapias t &#13;&#10;WHERE  t.caseId = :caseId&#13;&#10;AND t.countRechazo = :countRechazo&#13;&#10;ORDER BY t.persistenceId ASC" returnType="com.anahuac.model.TestPsicometricoTerapias">
+                    <queryParameters>
+                        <queryParameter name="caseId" className="java.lang.Long"/>
+                        <queryParameter name="countRechazo" className="java.lang.Long"/>
+                    </queryParameters>
+                </query>
+            </queries>
             <indexes/>
         </businessObject>
         <businessObject qualifiedName="com.anahuac.model.Universidades">
