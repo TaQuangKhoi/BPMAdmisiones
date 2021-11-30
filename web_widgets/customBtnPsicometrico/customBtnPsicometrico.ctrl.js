@@ -26,7 +26,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
     return $http(req)
       .success(function(data, status) {
-          doRequest2("GET","../API/extension/AnahuacRestGet?url=getPsicometricoFinalizado&p=0&c=10&usuario="+$scope.properties.urlParametro);
+          doRequest2("GET","../API/extension/AnahuacRestGet?url=getPsicometricoFinalizado&p=0&c=10&usuario="+$scope.properties.urlParametro+"&intentos="+$scope.properties.urlParametro2);
         notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status});
       })
       .error(function(data, status) {

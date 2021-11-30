@@ -422,7 +422,14 @@ class IndexGet implements RestApiController {
 				case "getInfoRelativos":
 				try{
 					String caseid = request.getParameter "caseid";
-					result = new PsicometricoDAO().getInfoRelativos(caseid);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					
+					result = new PsicometricoDAO().getInfoRelativos(caseid,cantidad);
+					
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {

@@ -77,7 +77,7 @@ function PbTableCtrl($scope) {
     // }
   $scope.$watch('properties.relativosBDM', function(value) {
     if (angular.isDefined(value) && value !== null) {
-        
+        $scope.valorJubilado();
     } else{
         value=[];
     }
@@ -148,8 +148,10 @@ function PbTableCtrl($scope) {
     });
     
     $scope.valorJubilado = function(){
+        
         if($scope.properties.relativosBDM.length === 3 && $scope.properties.content.length === 3 ){
             let valorindex = [];
+            debugger;
             $scope.properties.relativosBDM.forEach(element => {
                 for(let i=0; i<$scope.properties.content.length;i++){
                     let valor = valorindex.find(data => data == i);
