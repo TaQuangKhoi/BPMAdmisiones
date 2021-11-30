@@ -747,6 +747,9 @@ class PsicometricoDAO {
 			if(testPsicomInput.fechaEntrevista != null){
 				columnaUpdate = columnaUpdate + "fechaEntrevista = '"+testPsicomInput.fechaEntrevista+"', ";
 			}
+			if(testPsicomInput.sesion_pid != null){
+				columnaUpdate = columnaUpdate + "sesion_pid = "+testPsicomInput.sesion_pid+" , ";
+			}
 			if(testPsicomInput.finalizado != null && testPsicomInput.finalizado != ""){
 				columnaUpdate = columnaUpdate + "finalizado = "+testPsicomInput.finalizado+" , ";
 			}
@@ -1037,6 +1040,7 @@ class PsicometricoDAO {
 				pstm.setString(33, (testPsicomInput.tipoDiscapacidad != null && testPsicomInput.tipoDiscapacidad != "") ? testPsicomInput.tipoDiscapacidad : "");
 				pstm.setString(34, (testPsicomInput.hasRecibidoAlgunaTerapia != null && testPsicomInput.hasRecibidoAlgunaTerapia != "") ? testPsicomInput.hasRecibidoAlgunaTerapia : "");
 				pstm.setLong(35, (testPsicomInput.countRechazo != null) ? testPsicomInput.countRechazo : 0);
+				pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 )
 				pstm.executeUpdate();
 			}
 			
@@ -1122,7 +1126,7 @@ class PsicometricoDAO {
 				pstm = con.prepareStatement(Statements.UPDATE_PUNTUACION_INVP);
 				pstm.setString(1,testPsicomInput.puntuacionINVP+"")
 				pstm.setString(2, caseId);
-				pstm.setString(3, testPsicomInput.sesion_pid);
+				pstm.setString(3, testPsicomInput.sesion_pid+"");
 				pstm.executeUpdate();
 			}
 			/*==============================================TESTPSICOMETRICO_RELATIVOS FIN==============================================*/
