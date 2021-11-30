@@ -3210,7 +3210,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 2")
+			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 1")
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			int cantidad = 0;
@@ -3236,7 +3236,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			
 			errorLog+= "| consulta: SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset
 			
-			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset )
+			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+"  AND catTipoPrueba_pid = 1 order by ap.persistenceid DESC limit 1 OFFSET "+offset )
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			
