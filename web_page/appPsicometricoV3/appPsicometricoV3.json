@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appPsicometricoV3",
   "name" : "appPsicometricoV3",
-  "lastUpdate" : 1637793628656,
+  "lastUpdate" : 1638316322551,
   "rows" : [
     [
       {
@@ -250,6 +250,10 @@
                       "caseId" : {
                         "type" : "expression",
                         "value" : "caseId"
+                      },
+                      "intentos" : {
+                        "type" : "expression",
+                        "value" : "intentos"
                       }
                     },
                     "reference" : "62286004-f6f5-44b5-b359-96a46f89cf3c",
@@ -1387,7 +1391,7 @@
                             },
                             "readOnly" : {
                               "type" : "constant",
-                              "value" : false
+                              "value" : true
                             },
                             "required" : {
                               "type" : "constant",
@@ -5705,6 +5709,10 @@
                       "url" : {
                         "type" : "interpolation",
                         "value" : "{{urlPostPsicom}}"
+                      },
+                      "urlParametro2" : {
+                        "type" : "expression",
+                        "value" : "intentos"
                       }
                     },
                     "reference" : "d079f9e4-6fa3-4a9b-9329-840614ed8525",
@@ -8335,7 +8343,7 @@
         "        \"custosRecomendados\": $data.testPsicom.testPsicomInput.custosRecomendados,\r",
         "        \"testc\":\"sd\",\r",
         "        \"countRechazo\":($data.intentos === null || $data.intentos == 'null')? 0 :parseInt($data.intentos),\r",
-        "        \"sesion_pid\":$data.getFechaInvp == null ? 0 : $data.getFechaInvp[0].sesiones_pid+''\r",
+        "        \"sesion_pid\":($data.getFechaInvp === null || $data.getFechaInvp.length < 1) ? 0 : $data.getFechaInvp[0].sesiones_pid+''\r",
         "    },\r",
         "    \"testPsicomObservacionesInput\": $data.testPsicom.testPsicomObservacionesInput,\r",
         "    \"testPsicomRelativosInput\":  $data.testPsicom.testPsicomRelativosInput,\r",
@@ -8390,7 +8398,7 @@
     "TestPsicometricoRelativos" : {
       "type" : "businessdata",
       "value" : [
-        "{\"displayValue\":\"findByCaseId [com.anahuac.model.TestPsicometricoRelativos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseId\",\"displayName\":\"findByCaseId\"},\"id\":\"com.anahuac.model.TestPsicometricoRelativos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
+        "{\"displayValue\":\"findByCaseIdAndCountRechazo [com.anahuac.model.TestPsicometricoRelativos]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"findByCaseIdAndCountRechazo\",\"displayName\":\"findByCaseIdAndCountRechazo\"},\"id\":\"com.anahuac.model.TestPsicometricoRelativos\",\"filters\":[{\"name\":\"caseId\",\"type\":\"STRING\",\"collection\":false,\"value\":\"{{caseId}}\"},{\"name\":\"countRechazo\",\"type\":\"LONG\",\"collection\":false,\"value\":\"{{intentos}}\"}],\"pagination\":{\"p\":\"0\",\"c\":\"10\"}}"
       ],
       "exposed" : false
     },
@@ -8403,30 +8411,30 @@
         "        if($data.getPsicometricoMotivo.data.length > 0){",
         "            ",
         "            if($data.getPsicometricoMotivo.data[0].personasinfluyerondesicion == null){",
-        "                if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null || $data.testPsicom.personasInfluyeronDesicion === \"\" ){",
+        "                if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null || $data.testPsicom.personasInfluyeronDesicion == \"\" ){",
         "                    $data.testPsicom.personasInfluyeronDesicion = $data.autodescripcionV2.personasInfluyeronDesicion",
         "                }",
         "            }else{",
-        "                if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null || $data.testPsicom.personasInfluyeronDesicion === \"\" ){",
+        "                if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null || $data.testPsicom.personasInfluyeronDesicion == \"\" ){",
         "                    $data.testPsicom.personasInfluyeronDesicion = $data.getPsicometricoMotivo.data[0].personasinfluyerondesicion;",
         "                }",
         "            }",
         "            if($data.getPsicometricoMotivo.data[0].fuentesinfluyerondesicion == null){",
-        "                if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null || $data.testPsicom.fuentesInfluyeronDesicion === \"\" ){",
+        "                if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null  ){",
         "                    $data.testPsicom.fuentesInfluyeronDesicion = $data.autodescripcionV2.fuentesInfluyeronDesicion",
         "                }",
         "            }else{",
-        "                if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null || $data.testPsicom.fuentesInfluyeronDesicion === \"\" ){",
+        "                if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null  ){",
         "                    $data.testPsicom.fuentesInfluyeronDesicion = $data.getPsicometricoMotivo.data[0].fuentesinfluyerondesicion;   ",
         "                }",
         "            }",
         "            ",
         "        }else{",
-        "            if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null || $data.testPsicom.personasInfluyeronDesicion === \"\" ){",
+        "            if( $data.testPsicom.personasInfluyeronDesicion === undefined || $data.testPsicom.personasInfluyeronDesicion === null  || $data.testPsicom.personasInfluyeronDesicion == \"\" ){",
         "                $data.testPsicom.personasInfluyeronDesicion = $data.autodescripcionV2.personasInfluyeronDesicion",
         "            }",
         "            ",
-        "            if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null || $data.testPsicom.fuentesInfluyeronDesicion === \"\" ){",
+        "            if($data.testPsicom.fuentesInfluyeronDesicion === undefined || $data.testPsicom.fuentesInfluyeronDesicion === null  ){",
         "                $data.testPsicom.fuentesInfluyeronDesicion = $data.autodescripcionV2.fuentesInfluyeronDesicion",
         "            }",
         "            ",
@@ -8448,14 +8456,16 @@
     "cargarFechaPsicometrico" : {
       "type" : "expression",
       "value" : [
-        "if($data.getFechaInvp != null){",
-        "    debugger;",
+        "if($data.getFechaInvp != null && $data.getFechaInvp.length > 0){",
         "    if($data.testPsicom.fechaEntrevista != null && $data.testPsicom.fechaEntrevista.toString().trim().length>0){",
+        "        // && getFechaInvp[0].asistencia == 't'",
+        "        if($data.testPsicom.fechaEntrevista != ($data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z') ){",
+        "            $data.testPsicom.fechaEntrevista =  $data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z'",
+        "        }",
         "        ",
         "    }else{",
         "        //let fecha = $data.getFechaPsicometrico.data[0].aplicacion;",
         "        //fecha = `${fecha.slice(6,10)}-${fecha.slice(3,5)}-${fecha.slice(0,2)}`",
-        "",
         "        $data.testPsicom.fechaEntrevista =  $data.getFechaInvp[0].fecha_prueba+'T00:00:00.000Z';",
         "    }",
         "    ",
@@ -8492,7 +8502,7 @@
         "    hayDatos.push(false);",
         "}",
         "",
-        "if($data.testPsicom.puntuacionINVP != null && $data.testPsicom.puntuacionINVP.toString().trim().length > 0){",
+        "if($data.testPsicom.puntuacionINVP != null && $data.testPsicom.puntuacionINVP.toString().trim().length > 0 && parseInt($data.testPsicom.puntuacionINVP) > 0){",
         "    hayDatos.push(true)",
         "}else{",
         "    hayDatos.push(false);",

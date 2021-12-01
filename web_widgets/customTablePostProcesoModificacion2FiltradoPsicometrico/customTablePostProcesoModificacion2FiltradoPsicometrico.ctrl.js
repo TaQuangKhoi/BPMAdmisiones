@@ -95,7 +95,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                     if(parseFloat(data2[0].processId.version)>=1.51){
                         url = url.replace("[ID]",data2[0].caseId);
                         url = url.replace("[TASKID]", data2[0].id);
-                        url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? rowData.countrechazo:rowData.countrechazos );
+                        url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );
                         window.open(url, '_blank');
                     }
                     

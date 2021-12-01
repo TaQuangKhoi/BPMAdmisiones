@@ -855,4 +855,47 @@ class SolicitudUsuarioDAO {
 	}
 	
 	
+	public Result getUpdateFamiliaresIntento(String caseid, intentos, cantidad) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		Boolean executar = false;
+		try {
+			
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT persistenceid FROM padresTutor WHERE caseid = ${caseid} ORDER BY persistenceid DESC LIMIT ${cantidad}");
+			rs= pstm.executeQuery();
+			
+			executar = true;
+			con.setAutoCommit(false)
+			if (rs.next()) {
+				
+				pstm = con.prepareStatement("UPDATE padresTutor WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			if(executar) {
+				con.commit();
+			}
+			
+			resultado.setSuccess(true);
+			//resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+			if(executar) {
+				con.rollback();
+			}
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
 }

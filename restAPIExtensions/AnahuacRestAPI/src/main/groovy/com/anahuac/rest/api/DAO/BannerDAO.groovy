@@ -1586,11 +1586,12 @@ class BannerDAO {
 	 * 
 	 * @return {"assessedOn": "", "assessment": {"id": ""}, "form": {"name": "Test Form A", "number": "TA"}, "id": "", "preference": "primary", "reported": "official", "score": {"type": "numeric", "value": 0 }, "source": {"id": ""}, "specialCircumstances": [{"id": ""} ], "status": "active", "student": {"id": ""}, "update": "original"}
 	 * */
-	private Result insertStudentAptitudeAssessments(String barrerToken,String studentId, String assessmentId, Integer score,String specialCircumstancesId,String sourceId, String fecha, Boolean mmpi) {
+	private Result insertStudentAptitudeAssessments(String barrerToken,String studentId, String assessmentId, Integer score, String fecha, Boolean mmpi) {
 		Result resultado = new Result();
 		String targetURL = "https://integrate.elluciancloud.com/api/student-aptitude-assessments"
-		String jsonInputString = (mmpi)?"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}":
-		"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}"
+		/*String jsonInputString = (mmpi)?"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}":
+		"{\"id\": \"00000000-0000-0000-0000-000000000000\", \"student\": {\"id\": \""+studentId+"\"}, \"assessment\": {\"id\": \""+assessmentId+"\"}, \"assessedOn\": \""+fecha+"\", \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"form\": {\"number\": \"TA\", \"name\": \"Test Form A\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"update\": \"original\", \"preference\": \"primary\", \"source\": {\"id\": \""+sourceId+"\"}, \"status\": \"active\", \"reported\": \"official\"}"*/
+		String jsonInputString = (true)?'{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "numeric", "value": '+score+' } }': '{"id": "00000000-0000-0000-0000-000000000000", "student": {"id": "'+studentId+'"}, "assessment": {"id": "'+assessmentId+'"}, "assessedOn": "'+fecha+'", "score": {"type": "literal", "value": '+((10>score)?"0"+score:score)+' } }';
 		String strError = "";
 		
 		JSONObject jsonProperties =  (JSONObject) new JSONParser().parse(jsonInputString)
@@ -1643,11 +1644,11 @@ class BannerDAO {
 	 *
 	 * @return {"assessedOn": "", "assessment": {"id": ""}, "form": {"name": "Test Form A", "number": "TA"}, "id": "", "preference": "primary", "reported": "official", "score": {"type": "numeric", "value": 0 }, "source": {"id": ""}, "specialCircumstances": [{"id": ""} ], "status": "active", "student": {"id": ""}, "update": "original"}
 	 * */
-	private Result updateStudentAptitudeAssessments(String barrerToken,String studentId, String assessmentId, Integer score,String specialCircumstancesId,String sourceId, String fecha,String soatestId, Boolean mmpi) {
+	private Result updateStudentAptitudeAssessments(String barrerToken,String studentId, String assessmentId, Integer score, String fecha,String soatestId, Boolean mmpi) {
 		Result resultado = new Result();
 		String targetURL = "https://integrate.elluciancloud.com/api/student-aptitude-assessments/"+soatestId
-		String jsonInputString = (mmpi)?"{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"form\": {\"name\": \"Test Form A\", \"number\": \"TA\"}, \"preference\": \"primary\", \"reported\": \"official\", \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"source\": {\"id\": \""+sourceId+"\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}":
-		"{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"form\": {\"name\": \"Test Form A\", \"number\": \"TA\"}, \"preference\": \"primary\", \"reported\": \"official\", \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"source\": {\"id\": \""+sourceId+"\"}, \"specialCircumstances\": [{\"id\": \""+specialCircumstancesId+"\"} ], \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}"
+		String jsonInputString = (true)?"{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"score\": {\"type\": \"numeric\", \"value\": "+score+" }, \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}":
+        "{\"assessedOn\": \""+fecha+"\", \"assessment\": {\"id\": \""+assessmentId+"\"}, \"score\": {\"type\": \"literal\", \"value\": \""+((10>score)?"0"+score:score)+"\" }, \"status\": \"active\", \"student\": {\"id\": \""+studentId+"\"}, \"update\": \"original\"}"
 		String strError = "";
 		
 		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -1733,13 +1734,13 @@ class BannerDAO {
 			def aptitudeAssessments = jsonSlurper.parseText(resultAptitudeAssessments)
 			assert aptitudeAssessments instanceof List<Map>;
 			
-			resultAssessmentSpecialCircumstances = assessmentSpecialCircumstances(tokenMatchPerson)
+			/*resultAssessmentSpecialCircumstances = assessmentSpecialCircumstances(tokenMatchPerson)
 			def assessmentSpecialCircumstances = jsonSlurper.parseText(resultAssessmentSpecialCircumstances)
-			assert assessmentSpecialCircumstances instanceof List<Map>;
+			assert assessmentSpecialCircumstances instanceof List<Map>;*/
 			
-			resultSources = sources(tokenMatchPerson)
+			/*resultSources = sources(tokenMatchPerson)
 			def sources = jsonSlurper.parseText(resultSources)
-			assert sources instanceof List<Map>;
+			assert sources instanceof List<Map>;*/
 			
 			resultStudentAptitudeAssessments = studentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id)
 			def studentAptitudeAssessments = jsonSlurper.parseText(resultStudentAptitudeAssessments)
@@ -1777,14 +1778,12 @@ class BannerDAO {
 			errorLog+="|studentId="+personsCredentials.get(0).id
 			errorLog+="|assessmentId="+aptitude.id
 			errorLog+="|score="+score+""
-			errorLog+="|specialCircumstancesId="+assessmentSpecialCircumstances.get(0).id
-			errorLog+="|sourceId="+sources.get(0).id
 			errorLog+="|fecha="+fecha
 			
 			if(update) {
-				updateStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), assessmentSpecialCircumstances.get(0).id, sources.get(0).id,fecha,soatestId,codeScore.equals("MMPI"))
+				updateStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,soatestId,codeScore.equals("MMPI"))
 			}else {
-				insertStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), assessmentSpecialCircumstances.get(0).id, sources.get(0).id,fecha,codeScore.equals("MMPI"))
+				insertStudentAptitudeAssessments(tokenUniversidad, personsCredentials.get(0).id, aptitude.id, Integer.parseInt(score+""), fecha,codeScore.equals("MMPI"))
 			}
 			resultado.setSuccess(true);
 			resultado.setError_info(errorLog)

@@ -416,7 +416,12 @@ class IndexGet implements RestApiController {
 				case "getInfoReportes":
 				try{
 					String usuario = request.getParameter "usuario";
-					result = new PsicometricoDAO().getInfoReportes(usuario,context);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoReportes(usuario,cantidad,context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -433,7 +438,14 @@ class IndexGet implements RestApiController {
 				case "getInfoRelativos":
 				try{
 					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					
 					result = new PsicometricoDAO().getInfoRelativos(caseid);
+					
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -467,7 +479,12 @@ class IndexGet implements RestApiController {
 				case "getInfoFuentesInfluyeron":
 				try{
 					String caseid = request.getParameter "caseid";
-					result = new PsicometricoDAO().getInfoFuentesInfluyeron(caseid);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoFuentesInfluyeron(caseid,cantidad);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -484,7 +501,12 @@ class IndexGet implements RestApiController {
 				case "getInfoRasgos":
 				try{
 					String caseid = request.getParameter "caseid";
-					result = new PsicometricoDAO().getInfoRasgos(caseid);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoRasgos(caseid,cantidad);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -501,7 +523,12 @@ class IndexGet implements RestApiController {
 				case "getInfoCapacidadAdaptacion":
 				try{
 					String caseid = request.getParameter "caseid";
-					result = new PsicometricoDAO().getInfoCapacidadAdaptacion(caseid);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoCapacidadAdaptacion(caseid,cantidad);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -535,7 +562,12 @@ class IndexGet implements RestApiController {
 				case "getInfoSaludSSeccion":
 				try{
 					String caseid = request.getParameter "caseid";
-					result = new PsicometricoDAO().getInfoSaludSSeccion(caseid);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoSaludSSeccion(caseid,cantidad);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -808,6 +840,21 @@ class IndexGet implements RestApiController {
 				case "getUserIdBanner":
 				String idbanner=request.getParameter "idbanner"
 				result = new SolicitudUsuarioDAO().getUserIdBanner(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getUpdateFamiliaresIntento":
+				String caseid=request.getParameter "caseid"
+				String intentos=request.getParameter "intentos"
+				String cantidad=request.getParameter "cantidad"
+				
+				result = new SolicitudUsuarioDAO().getUpdateFamiliaresIntento(caseid,intentos,cantidad)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
