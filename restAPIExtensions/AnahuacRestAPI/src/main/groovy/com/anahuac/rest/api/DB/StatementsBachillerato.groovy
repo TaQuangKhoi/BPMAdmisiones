@@ -12,4 +12,5 @@ class StatementsBachillerato {
 	
 	public static final String GET_CATBITACORACOMENTARIOS="SELECT bitacora.* FROM CATBITACORACOMENTARIOS bitacora LEFT JOIN SOLICITUDDEADMISION  sda ON sda.CORREOELECTRONICO=bitacora.USUARIOCOMENTARIO LEFT JOIN CATCAMPUS campus on sda.CATCAMPUS_PID=campus.persistenceid [WHERE] [ORDERBY] [LIMITOFFSET]";
 	public static final String UPDATE_PERTENCERED="UPDATE CATBACHILLERATOS set pertenecered =?, isenabled =? where persistenceid =?"
+	public static final String GET_DESCUENTOS_CIUDAD_BACHILLERATO_BY_ID = "SELECT c.* FROM CatDescuentos c INNER JOIN catBachilleratos cb ON c.catbachilleratos_pid = cb.persistenceid WHERE c.isEliminado = false AND CURRENT_TIMESTAMP BETWEEN  TO_DATE(c.inicioVigencia,'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(c.finVigencia,'YYYY-MM-DD HH24:MI:SS') AND c.campus = ? AND (c.catbachilleratos_pid = ? OR c.ciudad = ?) ORDER BY c.descuento DESC";
 }

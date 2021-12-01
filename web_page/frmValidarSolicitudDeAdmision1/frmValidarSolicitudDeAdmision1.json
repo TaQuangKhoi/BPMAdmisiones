@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1637617950682,
+  "lastUpdate" : 1638388046095,
   "rows" : [
     [
       {
@@ -27507,14 +27507,14 @@
     "objgetDescuentosCampana" : {
       "type" : "url",
       "value" : [
-        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCampana&bachillerato={{objSolicitudDeAdmision.catBachilleratos.descripcion}}&campus={{campus}}&ciudad={{objSolicitudDeAdmision.ciudad}}&p=0&c=1&correo=null"
+        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCampana&campus={{campus}}&p=0&c=1&correo=null"
       ],
       "exposed" : false
     },
     "objGetDescuentosCiudadBachillerato" : {
       "type" : "url",
       "value" : [
-        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCiudadBachillerato&bachillerato={{objSolicitudDeAdmision.catBachilleratos.descripcion}}&campus={{campus}}&ciudad={{objSolicitudDeAdmision.ciudadExamen.descripcion==null?(objSolicitudDeAdmision.catLugarExamen.descripcion == 'En el mismo campus en donde realizaré mi licenciatura'?objSolicitudDeAdmision.catCampus.descripcion:\"\"):objSolicitudDeAdmision.ciudadExamen.descripcion}}&p=0&c=1&correo=null"
+        "/bonita/API/extension/AnahuacRestGet?url=getDescuentosCiudadBachillerato&id={{objSolicitudDeAdmision.catBachilleratos.persistenceId}}&campus={{campus}}&ciudad={{objSolicitudDeAdmision.ciudadExamen.descripcion==null?(objSolicitudDeAdmision.catLugarExamen.descripcion == 'En el mismo campus en donde realizaré mi licenciatura'?objSolicitudDeAdmision.catCampus.descripcion:\"\"):objSolicitudDeAdmision.ciudadExamen.descripcion}}&p=0&c=1&correo=null"
       ],
       "exposed" : false
     },

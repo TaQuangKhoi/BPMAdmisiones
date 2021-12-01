@@ -122,6 +122,22 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("application/json")
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
 				break;
+				case "getDescuentosCiudadBachilleratoById":
+				def p = request.getParameter "p";
+				if (p == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter p is missing"}""")
+				}
+				def c = request.getParameter "c";
+				if (c == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter c is missing"}""")
+				}
+				String ciudad=request.getParameter "ciudad"
+				String campus=request.getParameter "campus"
+				String id=request.getParameter "id"
+				result = new CatalogoBachilleratoDAO().getDescuentosCiudadBachilleratoById(Integer.valueOf(p), Integer.valueOf(c), campus, id, ciudad, context)
+				responseBuilder.withMediaType("application/json")
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				break;
 				case "getDescuentosCampana":
 				def p = request.getParameter "p";
 				if (p == null) {
