@@ -237,12 +237,45 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var params = getUserParam();
           params.assign = $scope.properties.assign;
         doRequest('POST', '../API/bpm/userTask/' + id + '/execution', params).then(function() {
-          localStorageService.delete($window.location.href);
+          doRequestFamilia().then(
+            function(data, status){//SUCCESS
+              localStorageService.delete($window.location.href);
+            },
+            function(data, status){//ERROR
+              localStorageService.delete($window.location.href);
+            }
+          );
+          
         });
       } else {
         $log.log('Impossible to retrieve the task id value from the URL');
       }
     }
+
+
+    function doRequestFamilia() {
+      let cantidad = ($scope.properties.dataToSend.tutorInput.length);
+      let url = `../API/extension/AnahuacRestGet?url=getUpdateFamiliaresIntento&p=0&c=10&caseid=${$scope.properties.catSolicitudDeAdmision.caseId}&intentos=${$scope.properties.catSolicitudDeAdmision.countRechazos === null?0:$scope.properties.catSolicitudDeAdmision.countRechazos}&cantidad=${cantidad == null?0:cantidad}`;
+      vm.busy = true;
+        var req = {
+          method: "GET",
+          url: url
+        };
+    
+        return $http(req)
+          .success(function(data, status) {
+              
+            blockUI.stop();
+          })
+          .error(function(data, status) {
+              blockUI.stop();
+            
+          })
+          .finally(function() {
+            vm.busy = false;
+          });
+      }
+
   
   }
   
