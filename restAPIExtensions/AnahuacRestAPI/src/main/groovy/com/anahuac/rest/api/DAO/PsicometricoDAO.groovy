@@ -1040,11 +1040,11 @@ class PsicometricoDAO {
 				pstm.setString(33, (testPsicomInput.tipoDiscapacidad != null && testPsicomInput.tipoDiscapacidad != "") ? testPsicomInput.tipoDiscapacidad : "");
 				pstm.setString(34, (testPsicomInput.hasRecibidoAlgunaTerapia != null && testPsicomInput.hasRecibidoAlgunaTerapia != "") ? testPsicomInput.hasRecibidoAlgunaTerapia : "");
 				pstm.setLong(35, (testPsicomInput.countRechazo != null) ? testPsicomInput.countRechazo : 0);
-				pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 );
-				if(testPsicomInput.sesion_pid == null || testPsicomInput.sesion_pid == 0 ) {
+				//pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 );
+				if(testPsicomInput.sesion_pid == null || Long.parseLong(testPsicomInput.sesion_pid) == 0 ) {
 					pstm.setNull(36, Types.INTEGER);
 				}else {
-					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 );					
+					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid) : 0 );					
 				}
 				pstm.executeUpdate();
 			}

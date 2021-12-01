@@ -428,7 +428,7 @@ class IndexGet implements RestApiController {
 						cantidad = Long.parseLong(intentos);
 					}
 					
-					result = new PsicometricoDAO().getInfoRelativos(caseid,cantidad);
+					result = new PsicometricoDAO().getInfoRelativos(caseid);
 					
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
@@ -824,6 +824,21 @@ class IndexGet implements RestApiController {
 				case "getUserIdBanner":
 				String idbanner=request.getParameter "idbanner"
 				result = new SolicitudUsuarioDAO().getUserIdBanner(idbanner)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getUpdateFamiliaresIntento":
+				String caseid=request.getParameter "caseid"
+				String intentos=request.getParameter "intentos"
+				String cantidad=request.getParameter "cantidad"
+				
+				result = new SolicitudUsuarioDAO().getUpdateFamiliaresIntento(caseid,intentos,cantidad)
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())

@@ -9,7 +9,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     $scope.datosSaludSSeccion = [];
     $scope.datosBitacoraComentarios = [];
     $scope.salud;
-    $scope.comentarios;
+    $scope.comentarios = [];
     $scope.conclusiones_recomendaciones;
     $scope.interpretacion;
     $scope.cursos = {
@@ -190,7 +190,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(respuestasPrimeraFila, (height / 2) - 8, $scope.datosUsuario.paav);
         doc.text(respuestasPrimeraFila, (height / 2) - 3, $scope.datosUsuario.paan);
         doc.text(respuestasPrimeraFila, (height / 2) + 3, $scope.datosUsuario.para);
-        doc.text(respuestasPrimeraFila, (height / 2) + 8, ($scope.datosUsuario.resultadopaa == 0 ? (parseInt($scope.datosUsuario.paav) + parseInt($scope.datosUsuario.paan) + parseInt($scope.datosUsuario.para) + "") : '0'));
+        doc.text(respuestasPrimeraFila, (height / 2) + 8, ($scope.datosUsuario.resultadopaa == 0 ? (parseInt($scope.datosUsuario.paav) + parseInt($scope.datosUsuario.paan) + parseInt($scope.datosUsuario.para) + "") : $scope.datosUsuario.resultadopaa));
         doc.text(respuestasPrimeraFila, (height / 2) + 13, $scope.datosUsuario.invp);
 
         doc.text(respuestasSegundaFilaInfoAdm, (height / 2) - 8, $scope.datosUsuario.tipoadmision);
@@ -536,8 +536,18 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         recSize = recResize($scope.datosBitacoraComentarios[0].conclusiones_recomendaciones);
         recSize += 20;
 
+        let nuevaLogitud = 15;
+        // calcular el font para los comentarios
+        for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
+
+            $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+            count = Math.ceil(($scope.comentarios[i].length / 180))
+            nuevaLogitud += (count * 10) + 3;
+    
+        }
+
         doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor+=20, 190, recSize, 'F');
+        doc.rect(10, yValor+=20, 190, nuevaLogitud, 'F');
 
         /*doc.setFillColor(228, 212, 200)
         doc.rect(10, yValor+=10, 190, 35, 'F');*/
@@ -551,24 +561,31 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
         debugger
+        
        // $scope.comentarios = convertToPlain($scope.datosBitacoraComentarios[0].comentario);
         //doc.internal.write(-2, "Tw")
-       debugger
+        $scope.comentarios = [];
         for (let i = 0; i < $scope.datosBitacoraComentarios.length; i++) {
 
-        $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+            $scope.comentarios[i] = convertToPlain( $scope.datosBitacoraComentarios[i].comentario);
+    
+            doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
+    
+            count = Math.ceil(($scope.comentarios[i].length / 180))
+            yValor += (count * 7) + 3;
+    
+            if (yValor >= 275) {
+                doc.addPage();
+                yValor = 15;
+            }
+    
+        }      
 
-        doc.text($scope.comentarios[i], margenPrimeraFila, yValor, { maxWidth: 180, align: "left" });
-
-        count = Math.ceil(($scope.comentarios.length / 180))
-        yValor += (count * 7) + 3;
-
-        if (yValor >= 275) {
+        if ( (yValor+=30) >= 275) {
             doc.addPage();
             yValor = 15;
         }
-
-        }           
+        
         doc.setFontSize(fontSubTitle);
         doc.setFont(fontparam, 'bold')
         doc.text(margenPrimeraFila, yValor+=30, "Cursos Recomendados")
