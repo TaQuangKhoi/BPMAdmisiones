@@ -864,14 +864,26 @@ class SolicitudUsuarioDAO {
 			
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement("SELECT persistenceid FROM padresTutor WHERE caseid = ${caseid} ORDER BY persistenceid DESC LIMIT ${cantidad}");
-			rs= pstm.executeQuery();
+			// Saca a los padres
+			errorlog+="Actualizar a los padres";
+			pstm = con.prepareStatement("SELECT DISTINCT ON (catparentezco_pid) * FROM padrestutor where caseid = ${caseid} AND desconozcodatospadres IS NOT NULL ORDER by catparentezco_pid,persistenceid DESC  limit 2");
+			rs = pstm.executeQuery();
 			
 			executar = true;
 			con.setAutoCommit(false)
-			if (rs.next()) {
-				
-				pstm = con.prepareStatement("UPDATE padresTutor WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+			while(rs.next()) {
+				errorlog+="UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			// Saca a los tutores
+			errorlog+="Actualizar a los tutores";
+			pstm = con.prepareStatement("SELECT persistenceid FROM padresTutor WHERE caseid = ${caseid} AND vive_pid IS NULL AND istutor IS TRUE ORDER BY persistenceid DESC LIMIT ${cantidad}");
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				errorlog+=", UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
 				pstm.executeUpdate();
 			}
 			
