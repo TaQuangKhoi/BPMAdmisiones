@@ -864,13 +864,16 @@ class SolicitudUsuarioDAO {
 			
 			closeCon = validarConexion();
 			
+			executar = true;
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = null WHERE  caseid = ${caseid} AND countIntento = ${intentos} " );
+			pstm.executeUpdate();
+			
 			// Saca a los padres
 			errorlog+="Actualizar a los padres";
 			pstm = con.prepareStatement("SELECT DISTINCT ON (catparentezco_pid) * FROM padrestutor where caseid = ${caseid} AND desconozcodatospadres IS NOT NULL ORDER by catparentezco_pid,persistenceid DESC  limit 2");
 			rs = pstm.executeQuery();
 			
-			executar = true;
-			con.setAutoCommit(false)
 			while(rs.next()) {
 				errorlog+="UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
 				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
