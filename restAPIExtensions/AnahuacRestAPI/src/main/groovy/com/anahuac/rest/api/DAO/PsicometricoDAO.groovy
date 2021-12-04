@@ -747,6 +747,9 @@ class PsicometricoDAO {
 			if(testPsicomInput.fechaEntrevista != null){
 				columnaUpdate = columnaUpdate + "fechaEntrevista = '"+testPsicomInput.fechaEntrevista+"', ";
 			}
+			if(testPsicomInput.sesion_pid != null && testPsicomInput.sesion_pid == 0){
+				columnaUpdate = columnaUpdate + "sesion_pid = "+testPsicomInput.sesion_pid+" , ";
+			}
 			if(testPsicomInput.finalizado != null && testPsicomInput.finalizado != ""){
 				columnaUpdate = columnaUpdate + "finalizado = "+testPsicomInput.finalizado+" , ";
 			}
@@ -1037,6 +1040,12 @@ class PsicometricoDAO {
 				pstm.setString(33, (testPsicomInput.tipoDiscapacidad != null && testPsicomInput.tipoDiscapacidad != "") ? testPsicomInput.tipoDiscapacidad : "");
 				pstm.setString(34, (testPsicomInput.hasRecibidoAlgunaTerapia != null && testPsicomInput.hasRecibidoAlgunaTerapia != "") ? testPsicomInput.hasRecibidoAlgunaTerapia : "");
 				pstm.setLong(35, (testPsicomInput.countRechazo != null) ? testPsicomInput.countRechazo : 0);
+				//pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 );
+				if(testPsicomInput.sesion_pid == null || Long.parseLong(testPsicomInput.sesion_pid) == 0 ) {
+					pstm.setNull(36, Types.INTEGER);
+				}else {
+					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid) : 0 );					
+				}
 				pstm.executeUpdate();
 			}
 			
@@ -1122,7 +1131,7 @@ class PsicometricoDAO {
 				pstm = con.prepareStatement(Statements.UPDATE_PUNTUACION_INVP);
 				pstm.setString(1,testPsicomInput.puntuacionINVP+"")
 				pstm.setString(2, caseId);
-				pstm.setString(3, testPsicomInput.sesion_pid);
+				pstm.setString(3, testPsicomInput.sesion_pid+"");
 				pstm.executeUpdate();
 			}
 			/*==============================================TESTPSICOMETRICO_RELATIVOS FIN==============================================*/
@@ -3119,7 +3128,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion()
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ?")
+			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ? ORDER BY persistenceId DESC")
 			pstm.setString(1, usuarioComentario)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
@@ -3206,7 +3215,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 2")
+			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 1")
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			int cantidad = 0;
@@ -3232,7 +3241,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			
 			errorLog+= "| consulta: SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset
 			
-			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset )
+			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+"  AND ap.catTipoPrueba_pid = 1 order by ap.persistenceid DESC limit 1 OFFSET "+offset )
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			
