@@ -848,23 +848,66 @@ class ReportesDAO {
 			where += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND sda.catbachilleratos_pid in (" + object.preparatoria + ")"
 			where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
 			where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ")"
+			
+			int numero = 1;
 
-			String consulta = "SELECT *, row_number() over (ORDER BY nomatricula) nosolicitantes FROM (SELECT DISTINCT entrevista.aplicacion fechaentrevista, invp.aplicacion AS fechainvp, eac.aplicacion AS fechaeac, periodo.clave AS periodo, cda.idbanner AS nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END AS nombres, carrera.nombre AS carrera, tipoadmision.descripcion AS tipodeadmision, preparatoria.descripcion AS preparatoria, sda.promediogeneral AS promedio, sesion.nombre AS sesion, '20-may-21' AS fechaaplicacionexamenpaan, 'RE-Rechazado' AS resultado, '29-may-21' AS fechadeadmision, sda.fechanacimiento, sda.correoelectronico email, sda.telefono, sda.telefonocelular celular FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid LEFT JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint LEFT JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true LEFT JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid LEFT JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid LEFT JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid LEFT JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid LEFT JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid LEFT JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid LEFT JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid LEFT JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid LEFT JOIN catcampus campusingreso ON campusingreso.persistenceid=sda.catcampusestudio_pid LEFT JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid LEFT JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) "+ where+" )datos "
+			//String consulta = "SELECT *, row_number() over (ORDER BY nomatricula) nosolicitantes FROM (SELECT DISTINCT entrevista.aplicacion fechaentrevista, invp.aplicacion AS fechainvp, eac.aplicacion AS fechaeac, periodo.clave AS periodo, cda.idbanner AS nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END AS nombres, carrera.nombre AS carrera, tipoadmision.descripcion AS tipodeadmision, preparatoria.descripcion AS preparatoria, sda.promediogeneral AS promedio, sesion.nombre AS sesion, '20-may-21' AS fechaaplicacionexamenpaan, 'RE-Rechazado' AS resultado, '29-may-21' AS fechadeadmision, sda.fechanacimiento, sda.correoelectronico email, sda.telefono, sda.telefonocelular celular FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid LEFT JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint LEFT JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true LEFT JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid LEFT JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid LEFT JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid LEFT JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid LEFT JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid LEFT JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid LEFT JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid LEFT JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid LEFT JOIN catcampus campusingreso ON campusingreso.persistenceid=sda.catcampusestudio_pid LEFT JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid LEFT JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) "+ where+" )datos "
+			String consulta = "SELECT DISTINCT sda.persistenceid,sda.caseid FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid LEFT JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint LEFT JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true LEFT JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid LEFT JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid LEFT JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid LEFT JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid LEFT JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid LEFT JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid LEFT JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid LEFT JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid LEFT JOIN catcampus campusingreso ON campusingreso.persistenceid=sda.catcampusestudio_pid LEFT JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid LEFT JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) "+ where+"  order by sda.persistenceid "
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement(consulta)
-			rs = pstm.executeQuery()
+			pstm = con.prepareStatement(consulta);
+			rs = pstm.executeQuery();
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			while (rs.next()) {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-
-				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				
+				String consultaAspirante ="";
+				
+				consultaAspirante = "SELECT DISTINCT entrevista.aplicacion fechaentrevista, invp.aplicacion AS fechainvp, eac.aplicacion AS fechaeac, periodo.clave AS periodo, cda.idbanner AS nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END AS nombres, carrera.nombre AS carrera, tipoadmision.descripcion AS tipodeadmision, preparatoria.descripcion AS preparatoria, sda.promediogeneral AS promedio, sesion.nombre AS sesion, '20-may-21' AS fechaaplicacionexamenpaan, 'N/A' AS resultado, 'N/A' AS fechadeadmision, sda.fechanacimiento, sda.correoelectronico email, sda.telefono, sda.telefonocelular celular,  CASE WHEN sda.countRechazos IS NULL THEN 0 ELSE sda.countRechazos END countrechazos FROM catregistro cr INNER JOIN DETALLESOLICITUDRespaldo cda ON cda.caseid::bigint=cr.caseid LEFT JOIN solicitudDeAdmisionRespaldo sda ON sda.caseid=cda.caseid::bigint LEFT JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true LEFT JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid LEFT JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid LEFT JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid LEFT JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid LEFT JOIN autodescripcionRespaldo autodescripcion ON autodescripcion.caseid=sda.caseid LEFT JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid LEFT JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid LEFT JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid LEFT JOIN catcampus campusingreso ON campusingreso.persistenceid=sda.catcampusestudio_pid LEFT JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid LEFT JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) WHERE SDA.caseid ="+rs.getString("caseid");
+				pstm2 = con.prepareStatement(consultaAspirante)
+				rs2 = pstm2.executeQuery()
+				ResultSetMetaData metaData2 = rs2.getMetaData();
+				int columnCount2 = metaData2.getColumnCount();
+				while(rs2.next()) {
+					columns = new LinkedHashMap < String, Object > ();
+					for (int j = 1; j <= columnCount2; j++) {
+						if(metaData2.getColumnLabel(j).toLowerCase().equals("nomatricula") ) {
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+							columns.put("nosolicitantes", numero.toString());
+							numero++;
+						}else {
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+						}
+					}
+					rows.add(columns);
 				}
+				
+				
+				consultaAspirante = "SELECT DISTINCT entrevista.aplicacion fechaentrevista, invp.aplicacion AS fechainvp, eac.aplicacion AS fechaeac, periodo.clave AS periodo, cda.idbanner AS nomatricula, CASE WHEN cr.apellidomaterno=''THEN cr.apellidopaterno ELSE cr.apellidopaterno||' '||cr.apellidomaterno END AS apellidos, CASE WHEN cr.segundonombre=''THEN cr.primernombre ELSE cr.primernombre || ' ' || cr.segundonombre END AS nombres, carrera.nombre AS carrera, tipoadmision.descripcion AS tipodeadmision, preparatoria.descripcion AS preparatoria, sda.promediogeneral AS promedio, sesion.nombre AS sesion, '20-may-21' AS fechaaplicacionexamenpaan, 'N/A' AS resultado, 'N/A' AS fechadeadmision, sda.fechanacimiento, sda.correoelectronico email, sda.telefono, sda.telefonocelular celular, CASE WHEN sda.countrechazos IS NULL THEN 0 ELSE sda.countrechazos END countrechazos FROM catregistro cr INNER JOIN DETALLESOLICITUD cda ON cda.caseid::bigint=cr.caseid LEFT JOIN solicituddeadmision sda ON sda.caseid=cda.caseid::bigint LEFT JOIN aspirantespruebas sa ON sa.username=sda.correoelectronico AND sa.asistencia=true LEFT JOIN sesiones sesion ON sa.sesiones_pid=sesion.persistenceid LEFT JOIN catcampus campus ON campus.persistenceid=sda.catcampus_pid INNER JOIN catperiodo periodo ON sda.catPeriodo_pid=periodo.persistenceid LEFT JOIN catgestionescolar gestionescolar ON sda.catgestionescolar_pid=gestionescolar.persistenceid LEFT JOIN catbachilleratos preparatoria ON sda.catbachilleratos_pid=preparatoria.persistenceid LEFT JOIN autodescripcion autodescripcion ON autodescripcion.caseid=sda.caseid LEFT JOIN catreligion religion ON religion.persistenceid=autodescripcion.catreligion_pid LEFT JOIN catsexo sexo ON sexo.persistenceid=sda.catsexo_pid LEFT JOIN cattipoadmision tipoadmision ON cattipoadmision_pid=tipoadmision.persistenceid LEFT JOIN catcampus campusingreso ON campusingreso.persistenceid=sda.catcampusestudio_pid LEFT JOIN cattipoalumno tipoalumno ON tipoalumno.persistenceid=cda.cattipoalumno_pid LEFT JOIN catgestionescolar carrera ON carrera.persistenceid=sda.catgestionescolar_pid LEFT JOIN pruebas eac ON eac.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=4 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas invp ON invp.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=2 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) LEFT JOIN pruebas entrevista ON entrevista.persistenceid= (SELECT prueba_pid FROM aspirantespruebas WHERE username=sda.correoelectronico AND cattipoprueba_pid=1 AND (asistencia=true OR acreditado = true) ORDER BY persistenceid ASC limit 1) WHERE SDA.caseid ="+rs.getString("caseid");	
+				pstm2 = con.prepareStatement(consultaAspirante)
+				rs2 = pstm2.executeQuery()
+				metaData2 = rs2.getMetaData();
+				columnCount2 = metaData2.getColumnCount();
+				while(rs2.next()) {
+					columns = new LinkedHashMap < String, Object > ();
+					for (int j = 1; j <= columnCount2; j++) {
+						
+						if(metaData2.getColumnLabel(j).toLowerCase().equals("nomatricula") ) {
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+							columns.put("nosolicitantes", numero.toString());
+							numero++;
+						}else {
+							columns.put(metaData2.getColumnLabel(j).toLowerCase(), rs2.getString(j));
+						}
+					}
+					rows.add(columns);
+				}
+				
+				
 
-				rows.add(columns);
+				//rows.add(columns);
 			}
 			errorLog += "|Consulta:" + consulta + "|"
 			dataResult.setData(rows)
@@ -879,7 +922,7 @@ class ReportesDAO {
 
 
 
-			def titulos = ["No. Solicitante","Periodo","Id Aspirante","Apellidos","Nombres","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión(global)", "Fecha aplicación examen EAC","Fecha aplicación INVP","Fecha Entrevista","Resultado", "Fecha de admisión", "Correo personal","Teléfono permanente","Teléfono celular"]
+			def titulos = ["No. Solicitante","Periodo","Id Aspirante","Apellidos","Nombres","Intento","Carrera","Tipo de admisión","Preparatoria de procedencia", "Promedio","Sesión(global)", "Fecha aplicación examen EAC","Fecha aplicación INVP","Fecha Entrevista","Resultado", "Fecha de admisión", "Correo personal","Teléfono permanente","Teléfono celular"]
 			if (object.encabezado) {
 				fw.write((titulos.join(",") + "\r\n").getBytes());
 				Row headersRow = sheet.createRow(rowCount);
@@ -895,7 +938,7 @@ class ReportesDAO {
 			bodyStyle.setWrapText(true);
 			bodyStyle.setAlignment(HorizontalAlignment.LEFT);
 
-			def info = ["nosolicitantes","periodo","nomatricula","apellidos","nombres","carrera","tipodeadmision","preparatoria","promedio","sesion","fechaeac","fechainvp","fechaentrevista","resultado", "fechadeadmision","email","telefono","celular"]
+			def info = ["nosolicitantes","periodo","nomatricula","apellidos","nombres","countrechazos","carrera","tipodeadmision","preparatoria","promedio","sesion","fechaeac","fechainvp","fechaentrevista","resultado", "fechadeadmision","email","telefono","celular"]
 			List < Cell > body;
 			String line = ""
 			for (int i = 0; i < lstParams.size(); ++i) {
