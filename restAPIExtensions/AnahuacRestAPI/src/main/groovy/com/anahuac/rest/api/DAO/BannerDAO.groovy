@@ -40,7 +40,11 @@ import com.bonitasoft.engine.api.ProcessAPI
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 
+import com.anahuac.rest.api.DAO.LogDAO
+
 class BannerDAO {
+	
+	LogDAO logDAO = new LogDAO();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BannerDAO.class);
 	Connection con;
@@ -323,6 +327,9 @@ class BannerDAO {
 		Boolean isUsaOk = false;
 		Boolean isOtroPaisOk = false;
 		Boolean closeCon = false;
+		
+		Boolean isEstadoOk = false;
+		Boolean isCodigoPostalOk = false;
 
 		List < CatBachilleratos > lstCatBachilleratos = new ArrayList < CatBachilleratos > ();
 
@@ -485,6 +492,7 @@ class BannerDAO {
 											errorLog = errorLog + " | " + ("ciudad: " + objJsonCountry.get("locality").toString());
 											errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 											errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
+											errorLog = errorLog + " | " + ("codigo postal: " + (objJsonCountry.get("postalCode")==null ? "" : objJsonCountry.get("postalCode").toString()));
 											if(objJsonRegion != null) {
 												errorLog = errorLog + " | " + ("2.Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 												objEducationalInstitutions.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()))
@@ -497,6 +505,7 @@ class BannerDAO {
 											
 											if (objJsonCountry.get("title").toString().equals("México")) {
 												objAddresses.setPais(objJsonCountry.get("title").toString());
+												objAddresses.setPostalCode(objJsonCountry.get("postalCode").toString())
 												if(objJsonRegion != null) {
 													objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 												}
@@ -554,6 +563,7 @@ class BannerDAO {
 
 						errorLog = errorLog + " | " + ("idDireccion: " + objJsonContent.get("id").toString());
 						errorLog = errorLog + " | " + ("pais: " + (objJsonCountry.get("title")==null ? "" : objJsonCountry.get("title").toString()));
+						errorLog = errorLog + " | " + ("codigoPostal: " + (objJsonCountry.get("postalCode")==null ? "" : objJsonCountry.get("postalCode").toString()));
 						if(objJsonRegion != null) {
 							errorLog = errorLog + " | " + ("3.Estado: " + (objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 							try {
@@ -566,6 +576,7 @@ class BannerDAO {
 						objAddresses.setIdDireccion(objJsonContent.get("id").toString());
 
 						objAddresses.setOperation(objJson.get("operation").toString());
+						objAddresses.setPostalCode(objJsonCountry.get("postalCode").toString())
 						
 						if (objJsonCountry.get("title").toString().equals("México")) {
 							objAddresses.setPais(objJsonCountry.get("title").toString());
@@ -573,6 +584,7 @@ class BannerDAO {
 								objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 							}
 							objAddresses.setCiudad(objJsonCountry.get("locality").toString());
+							
 						} else {
 							objAddresses.setPais(objJsonCountry.get("title").toString());
 							if(objJsonRegion != null) {
@@ -670,8 +682,20 @@ class BannerDAO {
 							isNationCodeOk = false;
 							isCountyCodeOk = false;
 							isNationCodeLetterOk = false;
+							isEstadoOk = true;
 							
 							if (objRow.getPais().equals("México")) {
+								
+								//Validar Estado
+								closeCon = validarConexion();
+								pstm = con.prepareStatement(Statements.GET_ESTADO_BY_NOMBRE)
+								pstm.setString(1, objRow.getEstado());
+								rs = pstm.executeQuery();
+								
+								if(rs.next()) {
+									isEstadoOk = true;
+								}
+								
 								strStateCode = objRow.getStateCode() == null ? "" : objRow.getStateCode();
 								if (!strStateCode.equals("")) {
 									matcher = patternEstado.matcher(strStateCode.toLowerCase());
@@ -790,6 +814,11 @@ class BannerDAO {
 									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+									
+									//Guardar en Log BD  - Angel G
+									String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
+									logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -853,6 +882,10 @@ class BannerDAO {
 									objCatBachilleratosInput.put("stateCode", objRow.getStateCode());
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+									
+									//Guardar en Log BD  - Angel G
+									String isEliminado = "true";
+									logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -884,11 +917,22 @@ class BannerDAO {
 										isNationCodeOk = false;
 										isCountyCodeOk = false;
 										isNationCodeLetterOk = false;
+										isEstadoOk = false;
 										
 										errorLog = errorLog + " | " + ("====================================");
 										errorLog = errorLog + " | " + ("Validar Pais y estado");
 										if (row.getPais().equals("México")) {
 											errorLog = errorLog + " | " + (row.getPais());
+											
+											//Validar Estado
+											closeCon = validarConexion();
+											pstm = con.prepareStatement(Statements.GET_ESTADO_BY_NOMBRE)
+											pstm.setString(1, objRow.getEstado());
+											rs = pstm.executeQuery();
+											
+											if(rs.next()) {
+												isEstadoOk = true;	
+											}
 										
 											strStateCode = row.getStateCode() == null ? "" : row.getStateCode();
 											errorLog = errorLog + " | strStateCode: " + (strStateCode);
@@ -982,6 +1026,10 @@ class BannerDAO {
 										objCatBachilleratosInput.put("stateCode", row.getStateCode());
 										objCatBachilleratosInput.put("countyCode", row.getCountyCode());
 										objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+										
+										//Guardar en Log BD  - Angel G
+										String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
+										logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 
@@ -1024,6 +1072,10 @@ class BannerDAO {
 										objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 										objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 
+										//Guardar en Log BD  - Angel G
+										String isEliminado = "true";
+										logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+										
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 										contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
 										processInstance = processAPI.startProcessWithInputs(processId, contracto);
@@ -1067,6 +1119,10 @@ class BannerDAO {
 								objCatBachilleratosInput.put("stateCode", row.getStateCode());
 								objCatBachilleratosInput.put("countyCode", row.getCountyCode());
 								objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+								
+								//Guardar en Log BD  - Angel G
+								String isEliminado = "true";
+								logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 								lstCatBachilleratosInput.add(objCatBachilleratosInput);
 								contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1108,6 +1164,10 @@ class BannerDAO {
 								objCatBachilleratosInput.put("stateCode", row.getStateCode());
 								objCatBachilleratosInput.put("countyCode", row.getCountyCode());
 								objCatBachilleratosInput.put("typeInd", row.getTypeInd());
+								
+								//Guardar en Log BD  - Angel G
+								String isEliminado = "true";
+								logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 								
 								errorLog = errorLog + " | ---------------------------------------------------------";
 								errorLog = errorLog + " | " + ("isEliminado: "+ objCatBachilleratosInput.get("isEliminado"));
@@ -1288,7 +1348,9 @@ class BannerDAO {
 							objCatBachilleratosInput.put("countyCode", objLstAddresses.getCountyCode());
 							objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
 	
-							
+							//Guardar en Log BD  - Angel G
+							String isEliminado = !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
+							logDAO.insertBachilleratoLog(objLstAddresses.getOperation(), objRow.getUsuarioBanner(), objRow.getId(), objLstAddresses.getPais(), objLstAddresses.getEstado(), objLstAddresses.getCiudad(), objRow.getDescripcion(), objRow.getTypeInd(), objLstAddresses.getPostalCode(), isEliminado);
 							
 							errorLog = errorLog + " | DIRECCION==========================================================================================";
 							errorLog = errorLog + " | " + ("persistenceId - " + objRow.getPersistenceId());
