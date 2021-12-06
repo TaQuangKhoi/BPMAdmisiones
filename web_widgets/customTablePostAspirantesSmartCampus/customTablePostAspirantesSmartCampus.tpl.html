@@ -24,16 +24,19 @@
                     <th>Foto</th>
                     <th><span style="cursor:pointer" ng-click="setOrderBy('IDBANNER')">Id banner<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='IDBANNER'"></i></span></th>
+                                ng-show="properties.dataToSend.orderby=='IDBANNER'"></i></span> /  <span
+                            style="cursor:pointer" ng-click="setOrderBy('VPD')">VPD<i class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='VPD'"></i></span></th>
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('NOMBRE')">Nombre<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='NOMBRE'"></i></span> / <span
                             style="cursor:pointer" ng-click="setOrderBy('CURP')">CURP<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='CURP'"></i></span> / <span
-                            style="cursor:pointer" ng-click="setOrderBy('VPD')">VPD<i class="glyphicon"
+                            style="cursor:pointer" ng-click="setOrderBy('CORREO')">Email<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='VPD'"></i></span></th>
+                                ng-show="properties.dataToSend.orderby=='CORREO'"></i></span></th>
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('CAMPUS')">Campus<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='CAMPUS'"></i></span> / <span
@@ -51,6 +54,10 @@
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span
+                            style="cursor:pointer" ng-click="setOrderBy('CLAVE')">Clave<i
+                                class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='CLAVE'"></i></span> / <span
                             style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
@@ -69,27 +76,33 @@
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última
                             modificación<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
+                                ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span> / <span
+                            style="cursor:pointer" ng-click="setOrderBy('FECHAPAGO')">Fecha de pago<i
+                                class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='FECHAPAGO'"></i></span></th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td></td>
                     <td><input ng-model="dynamicInput['banner']" class="form-control"
-                            ng-enter="filterKeyPress('ID BANNER',dynamicInput['banner'])"></td>
+                            ng-enter="filterKeyPress('ID BANNER, VPD',dynamicInput['banner'])"></td>
                     <td><input ng-model="dynamicInput['nombre']" class="form-control"
-                            ng-enter="filterKeyPress('NOMBRE,CURP,VPD',dynamicInput['nombre'])"></td>
+                            ng-enter="filterKeyPress('NOMBRE,CURP,CORREO',dynamicInput['nombre'])"></td>
                     <td><input ng-model="dynamicInput['programa']" class="form-control"
                             ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control"
-                            ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])">
+                            ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,CLAVE,PROMEDIO',dynamicInput['preparatoria'])">
                     </td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control"
                             ng-enter="filterKeyPress('RESIDENCIA,ESTATUS',dynamicInput['estatus'])"></td>
                     <td><input ng-model="dynamicInput['fechasolicitud']" class="form-control"
-                            ng-enter="filterKeyPress('FECHA SOLICITUD',dynamicInput['fechasolicitud'])"></td>
+                            ng-enter="filterKeyPress('FECHA SOLICITUD, FECHA PAGO',dynamicInput['fechasolicitud'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control"
                             ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
+                    <td></td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)"
                     ng-class="{'info': ctrl.isSelected(row)}">
@@ -98,12 +111,14 @@
                         faltan fotos
                     </td>
                     <td class="max-size">
-                        <b>{{row.idbanner}}</b>
+                        <b>{{row.idbanner}}</b><br>
+                           {{row.vpd}}
                     </td>
                     <td class="max-size">
                         <b>{{row.nombre}}</b><br>
                         {{row.curp}}<br>
-                        {{row.vpd}}
+                        {{row.correo}}
+
                     </td>
                     <td class="max-size">
                         <b>{{row.campus}}</b><br>
@@ -112,7 +127,7 @@
                     </td>
                     <td class="max-size">
                         <b>{{row.procedencia}}</b><br>
-                        {{row.preparatoria}}<br>
+                        {{row.preparatoria}}-{{row.clave}}<br>
                         {{row.promedio}}
                     </td>
                     <td>
@@ -120,11 +135,17 @@
                         {{row.estatus}}
                     </td>
                     <td>
-                        <b>{{row.fechaenviosolicitud}}</b>
+                        <b>{{row.fechaenviosolicitud}}<br>
+                        {{row.fechaPago}}</b>
                     </td>
                     <td>
                         <b>{{row.fechaultimamodificacion}}</b>
                     </td>
+                    <td class="text-center">
+                    <button class="btn btn-default" ng-click="verSolicitud(row)">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    </button>
+                </td>
                 </tr>
             </tbody>
         </table>
