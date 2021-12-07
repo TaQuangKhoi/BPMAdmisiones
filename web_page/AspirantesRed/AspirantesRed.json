@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "AspirantesRed",
   "name" : "AspirantesRed",
-  "lastUpdate" : 1637114109650,
+  "lastUpdate" : 1638809589881,
   "rows" : [
     [
       {
@@ -72,7 +72,7 @@
     ],
     [
       {
-        "type" : "container",
+        "type" : "tabsContainer",
         "dimension" : {
           "xs" : 12,
           "sm" : 12,
@@ -88,140 +88,360 @@
             "type" : "constant",
             "value" : false
           },
-          "repeatedCollection" : {
-            "type" : "variable",
-            "value" : ""
+          "vertical" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "tabs"
           }
         },
-        "reference" : "7416dce5-316e-427c-8738-42d06cd492fc",
+        "reference" : "f05d77f9-0bac-4066-b38e-35c9eeb6752b",
         "hasValidationError" : false,
-        "id" : "pbContainer",
-        "rows" : [
-          [
-            {
-              "type" : "component",
+        "id" : "pbTabsContainer",
+        "tabList" : [
+          {
+            "type" : "tabContainer",
+            "dimension" : {
+              "xs" : 12,
+              "sm" : 12,
+              "md" : 12,
+              "lg" : 12
+            },
+            "propertyValues" : {
+              "cssClasses" : {
+                "type" : "constant",
+                "value" : ""
+              },
+              "hidden" : {
+                "type" : "constant",
+                "value" : false
+              },
+              "disabled" : {
+                "type" : "constant",
+                "value" : false
+              },
+              "title" : {
+                "type" : "interpolation",
+                "value" : "Aspirantes en BPM"
+              }
+            },
+            "reference" : "bfd39e0e-db6d-47fc-ad2f-5d0239b0c415",
+            "hasValidationError" : false,
+            "id" : "pbTabContainer",
+            "container" : {
+              "type" : "container",
               "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "xs" : 12
               },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "content" : {
-                  "type" : "variable",
-                  "value" : "lstFiltros"
-                }
-              },
-              "reference" : "bc036cf5-4c7d-4acb-a0c8-4114f278b327",
+              "propertyValues" : { },
+              "reference" : "7a0d23b3-5bdd-4cb5-9bc9-f2d0dee0d402",
               "hasValidationError" : false,
-              "id" : "customListFiltrosBloqueoCampus"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "repeatedCollection" : {
+                        "type" : "variable",
+                        "value" : ""
+                      }
+                    },
+                    "reference" : "7416dce5-316e-427c-8738-42d06cd492fc",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "content" : {
+                              "type" : "variable",
+                              "value" : "lstFiltros"
+                            }
+                          },
+                          "reference" : "bc036cf5-4c7d-4acb-a0c8-4114f278b327",
+                          "hasValidationError" : false,
+                          "id" : "customListFiltrosBloqueoCampus"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnLaRed&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSend"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenido"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "getCampus"
+                            },
+                            "lstCampus" : {
+                              "type" : "variable",
+                              "value" : "lstCatCampus"
+                            }
+                          },
+                          "reference" : "79401a23-dc1b-4806-ba72-a76c646affe6",
+                          "hasValidationError" : false,
+                          "id" : "customTablePostAspirantesRed"
+                        }
+                      ]
+                    ]
+                  }
+                ]
+              ]
             }
-          ],
-          [
-            {
-              "type" : "component",
+          },
+          {
+            "type" : "tabContainer",
+            "dimension" : {
+              "xs" : 12,
+              "sm" : 12,
+              "md" : 12,
+              "lg" : 12
+            },
+            "propertyValues" : {
+              "cssClasses" : {
+                "type" : "constant",
+                "value" : ""
+              },
+              "hidden" : {
+                "type" : "constant",
+                "value" : false
+              },
+              "disabled" : {
+                "type" : "constant",
+                "value" : false
+              },
+              "title" : {
+                "type" : "interpolation",
+                "value" : "Aspirantes de Smart Campus"
+              }
+            },
+            "reference" : "326c8957-405e-4ac0-a145-49d4cc8ad070",
+            "hasValidationError" : false,
+            "id" : "pbTabContainer",
+            "container" : {
+              "type" : "container",
               "dimension" : {
-                "xs" : 12,
-                "sm" : 12,
-                "md" : 12,
-                "lg" : 12
+                "xs" : 12
               },
-              "propertyValues" : {
-                "cssClasses" : {
-                  "type" : "constant",
-                  "value" : ""
-                },
-                "hidden" : {
-                  "type" : "constant",
-                  "value" : false
-                },
-                "allowHTML" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "headers" : {
-                  "type" : "constant",
-                  "value" : [
-                    "Id",
-                    "Name",
-                    "Description",
-                    "Date"
-                  ]
-                },
-                "columnsKey" : {
-                  "type" : "constant"
-                },
-                "selectedRow" : {
-                  "type" : "variable",
-                  "value" : ""
-                },
-                "striped" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "condensed" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "bordered" : {
-                  "type" : "constant",
-                  "value" : true
-                },
-                "urlPost" : {
-                  "type" : "constant",
-                  "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnLaRed&p=0&c=100"
-                },
-                "dataToSend" : {
-                  "type" : "variable",
-                  "value" : "dataToSend"
-                },
-                "lstContenido" : {
-                  "type" : "variable",
-                  "value" : "lstContenido"
-                },
-                "userId" : {
-                  "type" : "variable",
-                  "value" : "userData.user_id"
-                },
-                "campusSeleccionado" : {
-                  "type" : "variable",
-                  "value" : "getCampus"
-                },
-                "lstCampus" : {
-                  "type" : "variable",
-                  "value" : "lstCatCampus"
-                }
-              },
-              "reference" : "79401a23-dc1b-4806-ba72-a76c646affe6",
+              "propertyValues" : { },
+              "reference" : "e773d940-661c-46f4-9e2c-8f44c5fb8dab",
               "hasValidationError" : false,
-              "id" : "customTablePostAspirantesRed"
+              "id" : "pbContainer",
+              "rows" : [
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "content" : {
+                        "type" : "variable",
+                        "value" : "lstFiltros2"
+                      }
+                    },
+                    "reference" : "f6d5758d-148c-4421-a4d8-6a4d6e931b16",
+                    "hasValidationError" : false,
+                    "id" : "customListFiltrosBloqueoCampus"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Id",
+                          "Name",
+                          "Description",
+                          "Date"
+                        ]
+                      },
+                      "columnsKey" : {
+                        "type" : "constant",
+                        "value" : [ ]
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "urlPost" : {
+                        "type" : "constant",
+                        "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesSmartCampus&p=0&c=100"
+                      },
+                      "dataToSend" : {
+                        "type" : "variable",
+                        "value" : "dataToSend2"
+                      },
+                      "lstContenido" : {
+                        "type" : "variable",
+                        "value" : "lstContenido2"
+                      },
+                      "userId" : {
+                        "type" : "variable",
+                        "value" : "userData.user_id"
+                      },
+                      "campusSeleccionado" : {
+                        "type" : "variable",
+                        "value" : "getCampus2"
+                      },
+                      "lstCampus" : {
+                        "type" : "variable",
+                        "value" : "lstCatCampus"
+                      }
+                    },
+                    "reference" : "8cfcab0d-e0ec-4b5f-8311-f86855071c05",
+                    "hasValidationError" : false,
+                    "id" : "customTablePostAspirantesSmartCampus"
+                  }
+                ]
+              ]
             }
-          ]
+          }
         ]
       }
     ]
   ],
   "assets" : [
     {
-      "id" : "228e6a26-563a-4ffe-bbbf-2c684594c05a",
-      "name" : "encabezados.css",
-      "type" : "css",
-      "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "f7f96414-32ea-477d-a95e-ba4fe1504f72",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 2,
+      "id" : "3a5f0411-aeff-441b-ae76-a36ddcf9c5ea",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     },
     {
@@ -246,10 +466,17 @@
       "external" : false
     },
     {
-      "id" : "3a5f0411-aeff-441b-ae76-a36ddcf9c5ea",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
+      "id" : "228e6a26-563a-4ffe-bbbf-2c684594c05a",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "f7f96414-32ea-477d-a95e-ba4fe1504f72",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 2,
       "external" : false
     },
     {
@@ -317,6 +544,46 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"CatCampus\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
+      ],
+      "exposed" : false
+    },
+    "dataToSend2" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"lstFiltro\": $data.lstFiltros2, \r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"DESC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus2 != null? ($data.getCampus2+\"\"):$data.getCampus2\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "lstContenido2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "getCampus2" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "lstFiltros2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "lstFiltrosPre2" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

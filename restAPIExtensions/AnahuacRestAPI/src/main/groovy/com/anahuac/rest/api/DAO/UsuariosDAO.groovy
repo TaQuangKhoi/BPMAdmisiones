@@ -3788,7 +3788,7 @@ class UsuariosDAO {
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";
 				switch (filtro.get("columna")) {
-					case "NOMBRE,CURP,VPD":
+					case "NOMBRE,CURP,CORREO":
 						errorlog += "NOMBRE,CURP"
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -3801,12 +3801,12 @@ class UsuariosDAO {
 						where += " OR LOWER(curp) like lower('%[valor]%')  ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where += " OR LOWER(vpd) like lower('%[valor]%') )";
+						where += " OR LOWER(correo) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
 
-				case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+				case "PROCEDENCIA,PREPARATORIA,CLAVE,PROMEDIO":
 					errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3817,6 +3817,9 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += "  OR LOWER(preparatoria) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(clave) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(promedio) like lower('%[valor]%') )";
@@ -3839,7 +3842,7 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
-				case "FECHA SOLICITUD":
+				case "FECHA SOLICITUD,FECHA PAGO":
 					errorlog += "fechaEnvioSolicitud"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3847,12 +3850,15 @@ class UsuariosDAO {
 						where += " WHERE "
 					}
 					where += " LOWER(fechaEnvioSolicitud) ";
-					if (filtro.get("operador").equals("Igual a")) {
+					/*if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
-					}
+					}*/
 
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				case "CAMPUS,PROGRAMA,INGRESO":
@@ -3887,18 +3893,21 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
-				case "ID BANNER":
+				case "ID BANNER, VPD":
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
 						where += " WHERE "
 					}
 					where += " LOWER(idbanner) ";
-					if (filtro.get("operador").equals("Igual a")) {
+					/*if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
-					}
+					}*/
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(vpd) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
@@ -3954,7 +3963,15 @@ class UsuariosDAO {
 				case "ULTIMA MODIFICACION":
 					orderby += "fechaUltimaModificacion";
 				break;
-				
+				case "FECHA PAGO":
+					orderby += "fechaPago";
+				break;
+				case "CORREO":
+					orderby += "correo";
+				break;
+				case "CLAVE":
+					orderby += "clave";
+				break;
 				default:					
 					orderby += "NOMBRE"
 				break;
@@ -3962,7 +3979,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, clave, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
