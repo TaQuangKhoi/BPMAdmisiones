@@ -3819,7 +3819,7 @@ class UsuariosDAO {
 					where += "  OR LOWER(preparatoria) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 
-					where += " OR LOWER(clave) like lower('%[valor]%') )";
+					where += " OR LOWER(clavePreparatoria) like lower('%[valor]%')";
 					where = where.replace("[valor]", filtro.get("valor"))
 
 					where += " OR LOWER(promedio) like lower('%[valor]%') )";
@@ -3970,7 +3970,7 @@ class UsuariosDAO {
 					orderby += "correo";
 				break;
 				case "CLAVE":
-					orderby += "clave";
+					orderby += "clavePreparatoria";
 				break;
 				default:					
 					orderby += "NOMBRE"
@@ -3979,7 +3979,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, clave, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, clavePreparatoria, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -3998,11 +3998,44 @@ class UsuariosDAO {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
 				for (int i = 1; i <= columnCount; i++) {
-					if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					String encoded = "";
+					boolean noAzure = false;
+					try {
+						String urlfoto = rs.getString("foto");
+						if (urlfoto != null && !urlfoto.isEmpty()) {
+							columns.put("fotografiab64", rs.getString("foto") + SSA);
+							columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
+							columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
+						} else {
+							noAzure = true;
+							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
+							for (Document doc: doc1) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+						}
+						for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiabpm", encoded);
+							}
+					}
+					catch(Exception e) {
+						LOGGER.error "[ERROR] " + e.getMessage();
+						columns.put("fotografiabpm", "");
+						if(noAzure){
+							columns.put("fotografiab64", "");
+						}
+						errorlog += "" + e.getMessage();
+					}
+					
+				
+
+					/*if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
 						columns.put("foto", rs.getString(i) + SSA);
 					}else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
+					}*/
 				}
 
 				rows.add(columns);
