@@ -500,10 +500,10 @@ class BannerDAO {
 											objAddresses.setIdDireccion(objJsonContent.get("id").toString());
 					
 											objAddresses.setOperation(objJson.get("operation").toString());
+											objAddresses.setPostalCode(objJsonCountry.get("postalCode").toString())
 											
 											if (objJsonCountry.get("title").toString().equals("México")) {
 												objAddresses.setPais(objJsonCountry.get("title").toString());
-												objAddresses.setPostalCode(objJsonCountry.get("postalCode").toString())
 												if(objJsonRegion != null) {
 													objAddresses.setEstado((objJsonRegion.get("title")==null ? "" : objJsonRegion.get("title").toString()));
 												}
@@ -665,6 +665,7 @@ class BannerDAO {
 				errorLog = errorLog + " | row.getOperation(): " + (row.getOperation());
 				errorLog = errorLog + " | row.getClave(): " + (row.getClave());
 				errorLog = errorLog + " | row.getDescripcion(): " + (row.getDescripcion());
+				errorLog = errorLog + " | row.getCodigoPostal(): " + (row.getPostalCode()());
 
 				if (row.getOperation().equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
@@ -685,14 +686,14 @@ class BannerDAO {
 							if (objRow.getPais().equals("México")) {
 								
 								//Validar Estado
-								closeCon = validarConexion();
+								/*closeCon = validarConexion();
 								pstm = con.prepareStatement(Statements.GET_ESTADO_BY_NOMBRE)
 								pstm.setString(1, objRow.getEstado());
 								rs = pstm.executeQuery();
 								
 								if(rs.next()) {
 									isEstadoOk = true;
-								}
+								}*/
 								
 								strStateCode = objRow.getStateCode() == null ? "" : objRow.getStateCode();
 								if (!strStateCode.equals("")) {
@@ -923,14 +924,14 @@ class BannerDAO {
 											errorLog = errorLog + " | " + (row.getPais());
 											
 											//Validar Estado
-											closeCon = validarConexion();
+											/*closeCon = validarConexion();
 											pstm = con.prepareStatement(Statements.GET_ESTADO_BY_NOMBRE)
 											pstm.setString(1, objRow.getEstado());
 											rs = pstm.executeQuery();
 											
 											if(rs.next()) {
 												isEstadoOk = true;	
-											}
+											}*/
 										
 											strStateCode = row.getStateCode() == null ? "" : row.getStateCode();
 											errorLog = errorLog + " | strStateCode: " + (strStateCode);
@@ -1086,7 +1087,8 @@ class BannerDAO {
 								errorLog = errorLog + " | ELSE CREAR DATA ==========================================================================================";
 								errorLog = errorLog + " | " + row.getOperation();
 								errorLog = errorLog + " | processIdCrear: " + processIdCrear;
-								errorLog = errorLog + " | TypeInd: " + row.getTypeInd()
+								errorLog = errorLog + " | TypeInd: " + row.getTypeInd();
+								errorLog = errorLog + " | CodigoPostal: " + row.getPostalCode();
 								lstCatBachilleratosInput = new ArrayList < Map < String, Serializable >> ();
 								objCatBachilleratosInput = new HashMap < String, Serializable > ();
 								contracto = new HashMap < String, Serializable > ();
