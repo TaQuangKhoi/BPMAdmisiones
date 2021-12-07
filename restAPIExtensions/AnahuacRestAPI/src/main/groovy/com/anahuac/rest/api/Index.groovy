@@ -36,6 +36,7 @@ import com.anahuac.rest.api.DAO.ReportesDAO
 import com.anahuac.rest.api.DAO.ResultadoComiteDAO
 import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.DAO.UsuariosDAO
+import com.anahuac.rest.api.DAO.LogDAO
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.Custom.AppMenuRole
 import com.anahuac.rest.api.Entity.Custom.AzureConfig
@@ -1220,6 +1221,20 @@ class Index implements RestApiController {
 					firma.setApellido(object.apellido)
 					firma.setBanner(object.banner)
 					result = new NotificacionDAO().insertFirma(firma)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+
+					case "insertBachilleratoLog":
+					def jsonSlurper = new JsonSlurper();
+					def object = jsonSlurper.parseText(jsonData);
+					
+					assert object instanceof Map;
+
+					result = new LogDAO().insertBachilleratoLog(object.operation, object.usuarioBanner, object.idBachillerato, object.pais, object.estado, object.ciudad, object.descripcion, object.typeInd, object.postalCode, object.isEliminado)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

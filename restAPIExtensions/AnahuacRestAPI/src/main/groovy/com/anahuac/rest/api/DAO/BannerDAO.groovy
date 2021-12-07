@@ -43,8 +43,6 @@ import groovy.json.JsonSlurper
 import com.anahuac.rest.api.DAO.LogDAO
 
 class BannerDAO {
-	
-	LogDAO logDAO = new LogDAO();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BannerDAO.class);
 	Connection con;
@@ -817,7 +815,7 @@ class BannerDAO {
 									
 									//Guardar en Log BD  - Angel G
 									String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
-									logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
@@ -885,7 +883,7 @@ class BannerDAO {
 									
 									//Guardar en Log BD  - Angel G
 									String isEliminado = "true";
-									logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1029,7 +1027,7 @@ class BannerDAO {
 										
 										//Guardar en Log BD  - Angel G
 										String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
-										logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 
@@ -1074,7 +1072,7 @@ class BannerDAO {
 
 										//Guardar en Log BD  - Angel G
 										String isEliminado = "true";
-										logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 										
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 										contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1122,7 +1120,7 @@ class BannerDAO {
 								
 								//Guardar en Log BD  - Angel G
 								String isEliminado = "true";
-								logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+								new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 
 								lstCatBachilleratosInput.add(objCatBachilleratosInput);
 								contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1167,7 +1165,7 @@ class BannerDAO {
 								
 								//Guardar en Log BD  - Angel G
 								String isEliminado = "true";
-								logDAO.insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+								new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
 								
 								errorLog = errorLog + " | ---------------------------------------------------------";
 								errorLog = errorLog + " | " + ("isEliminado: "+ objCatBachilleratosInput.get("isEliminado"));
@@ -1350,7 +1348,7 @@ class BannerDAO {
 	
 							//Guardar en Log BD  - Angel G
 							String isEliminado = !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
-							logDAO.insertBachilleratoLog(objLstAddresses.getOperation(), objRow.getUsuarioBanner(), objRow.getId(), objLstAddresses.getPais(), objLstAddresses.getEstado(), objLstAddresses.getCiudad(), objRow.getDescripcion(), objRow.getTypeInd(), objLstAddresses.getPostalCode(), isEliminado);
+							new LogDAO().insertBachilleratoLog(objLstAddresses.getOperation(), objRow.getUsuarioBanner(), objRow.getId(), objLstAddresses.getPais(), objLstAddresses.getEstado(), objLstAddresses.getCiudad(), objRow.getDescripcion(), objRow.getTypeInd(), objLstAddresses.getPostalCode(), isEliminado);
 							
 							errorLog = errorLog + " | DIRECCION==========================================================================================";
 							errorLog = errorLog + " | " + ("persistenceId - " + objRow.getPersistenceId());
