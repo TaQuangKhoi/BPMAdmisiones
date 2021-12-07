@@ -593,7 +593,7 @@ class ReportesDAO {
 			Boolean entro = false;
             while (rs.next()) {
                 Map < String, Object > columns = new LinkedHashMap < String, Object > ();
-				columns.put('id', rs.getString("id"));
+				//columns.put('id', rs.getString("id"));
 				String consultaFamiliares ="", ids= "";
 				
 				// Obtienes a los tutores
@@ -622,7 +622,7 @@ class ReportesDAO {
 				int columnCount2 = metaData2.getColumnCount();
 				while(rs2.next()) {
 					columns = new LinkedHashMap < String, Object > ();
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					columns.put('id', rs.getString("id"));
 					for (int j = 1; j <= columnCount2; j++) {
 						//entro = true;
 						if(metaData2.getColumnLabel(j).toLowerCase().equals("nombepadres") && (rs2.getString("tutor").equals("null") || rs2.getString("tutor").equals(null) ) ) {
