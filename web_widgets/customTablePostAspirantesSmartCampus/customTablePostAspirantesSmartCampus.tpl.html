@@ -72,15 +72,15 @@
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHASOLICITUD')">Fecha solicitud<i
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='FECHASOLICITUD'"></i></span></th>
-                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última
-                            modificación<i class="glyphicon"
-                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span> / <span
+                                ng-show="properties.dataToSend.orderby=='FECHASOLICITUD'"></i></span>  / <span
                             style="cursor:pointer" ng-click="setOrderBy('FECHAPAGO')">Fecha de pago<i
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='FECHAPAGO'"></i></span></th>
+                    <th> <span style="cursor:pointer" ng-click="setOrderBy('FECHAULTIMAMODIFICACION')">Última
+                            modificación<i class="glyphicon"
+                                ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                                ng-show="properties.dataToSend.orderby=='FECHAULTIMAMODIFICACION'"></i></span></th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -102,13 +102,13 @@
                             ng-enter="filterKeyPress('FECHA SOLICITUD, FECHA PAGO',dynamicInput['fechasolicitud'])"></td>
                     <td><input ng-model="dynamicInput['ultimamodificacion']" class="form-control"
                             ng-enter="filterKeyPress('ULTIMA MODIFICACION',dynamicInput['ultimamodificacion'])"></td>
-                    <td></td>
+                    <td>Ruta de pago/Ruta de solicitud</td>
                 </tr>
                 <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)"
                     ng-class="{'info': ctrl.isSelected(row)}">
                     <td class="max-size">
-                        <!--<img ng-src="{{row.fotografiab64}}" style="width: 64px;">-->
-                        faltan fotos
+                        <img ng-src="{{row.fotografiab64}}" style="width: 64px;">
+                        <!--faltan fotos-->
                     </td>
                     <td class="max-size">
                         <b>{{row.idbanner}}</b><br>
@@ -127,7 +127,7 @@
                     </td>
                     <td class="max-size">
                         <b>{{row.procedencia}}</b><br>
-                        {{row.preparatoria}}-{{row.clave}}<br>
+                        {{row.clavepreparatoria}} - {{row.preparatoria}}<br>
                         {{row.promedio}}
                     </td>
                     <td>
@@ -136,15 +136,18 @@
                     </td>
                     <td>
                         <b>{{row.fechaenviosolicitud}}<br>
-                        {{row.fechaPago}}</b>
+                        {{row.fechapago}}</b>
                     </td>
                     <td>
                         <b>{{row.fechaultimamodificacion}}</b>
                     </td>
                     <td class="text-center">
-                    <button class="btn btn-default" ng-click="verSolicitud(row)">
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                    </button>
+                        <button class="btn btn-default" ng-click="rutaPagoDownload(row)">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                        </button>
+                        <button class="btn btn-default" ng-click="rutaSolicitudDownload(row)">
+                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                        </button>
                 </td>
                 </tr>
             </tbody>
