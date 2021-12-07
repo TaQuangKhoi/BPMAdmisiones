@@ -1893,6 +1893,15 @@ class Index implements RestApiController {
 					}
 					break;
 					
+				case "selectAspirantesRechazadosRespaldo":
+					result = reDAO.selectAspirantesRechazadosRespaldo(jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+					
 				case "guardarTutorIntento":
 					result = reDAO.guardarTutorIntento(jsonData, context)
 					if (result.isSuccess()) {
