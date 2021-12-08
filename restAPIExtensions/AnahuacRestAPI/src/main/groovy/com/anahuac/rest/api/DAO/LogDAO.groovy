@@ -124,7 +124,7 @@ class LogDAO {
 				
 			}catch(SQLException sqle) {
 				if(sqle.getMessage().toLowerCase().contains("exist")) {
-					pstm=con.prepareStatement("CREATE TABLE bachillerato_log (id bigserial NOT NULL, operation CHARACTER VARYING(50) NOT NULL, usuarioBanner CHARACTER VARYING(50) NOT NULL, idBachillerato CHARACTER VARYING(15) NOT NULL, pais CHARACTER VARYING(50) NOT NULL, estado CHARACTER VARYING(50) NOT NULL, ciudad CHARACTER VARYING(50) NOT NULL, descripcion CHARACTER VARYING(150) NOT NULL, typeInd CHARACTER VARYING(50) NOT NULL, postalCode CHARACTER VARYING(15) NOT NULL, isEliminado CHARACTER VARYING(5) NOT NULL, fecha_ejecucion TIMESTAMP without TIME zone DEFAULT NOW() NOT NULL, PRIMARY KEY (id) )")
+					pstm=con.prepareStatement("CREATE TABLE bachillerato_log (id bigserial NOT NULL, operation CHARACTER VARYING(50) NOT NULL, usuarioBanner CHARACTER VARYING(50) NOT NULL, idBachillerato CHARACTER VARYING(50) NOT NULL, pais CHARACTER VARYING(50) NOT NULL, estado CHARACTER VARYING(50) NOT NULL, ciudad CHARACTER VARYING(50) NOT NULL, descripcion CHARACTER VARYING(150) NOT NULL, typeInd CHARACTER VARYING(50) NOT NULL, postalCode CHARACTER VARYING(20) NOT NULL, isEliminado CHARACTER VARYING(10) NOT NULL, fecha_ejecucion TIMESTAMP without TIME zone DEFAULT NOW() NOT NULL, PRIMARY KEY (id) )")
 					pstm.execute();
 					resultado=insertBachilleratoLog(operation, usuarioBanner, idBachillerato, pais, estado, ciudad, descripcion, typeInd, postalCode, isEliminado)
 				}else {

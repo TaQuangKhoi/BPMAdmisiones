@@ -74,7 +74,11 @@ class BannerDAO {
 
 			jsonResultado = getConsumePrepa(barrerToken);
 			
+			//JSO PRUEBA ANGEL
+			//jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			
 			//errorLog += " | " + jsonResultado;
+			
 			//CREAR-------------------------------------------------------
 			//jsonResultado = "[{\"id\":\"81\",\"published\":\"2021-05-31 18:30:53.865019+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"ba22c5ad-ab30-4d13-9fb2-3f7a8999375c\",\"title\":\"Instituto Curie\",\"type\":\"secondarySchool\",\"code\":\"9345\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"82\",\"published\":\"2021-05-31 18:31:56.227161+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"AV. Montevideo\"],\"id\":\"7baa7116-e698-488f-b630-b3d14bbe9314\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"07730\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"Gustavo A. Madero\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"AV. Montevideo\",\"streetLine2\":null,\"streetLine3\":\"calle 3\",\"nationCode\":\"99\",\"stateCode\":\"M16\",\"countyCode\":\"09005\"}]},\"publisher\":{\"id\":\"a216d744-fb37-413e-8430-7f187c223bda\",\"applicationName\":\"RUAD INTEGRATION API-UAN\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
@@ -501,6 +505,7 @@ class BannerDAO {
 					
 											objAddresses.setOperation(objJson.get("operation").toString());
 											objAddresses.setPostalCode(objJsonCountry.get("postalCode").toString())
+											objEducationalInstitutions.setPostalCode(objJsonCountry.get("postalCode").toString())
 											
 											if (objJsonCountry.get("title").toString().equals("México")) {
 												objAddresses.setPais(objJsonCountry.get("title").toString());
@@ -665,7 +670,7 @@ class BannerDAO {
 				errorLog = errorLog + " | row.getOperation(): " + (row.getOperation());
 				errorLog = errorLog + " | row.getClave(): " + (row.getClave());
 				errorLog = errorLog + " | row.getDescripcion(): " + (row.getDescripcion());
-				errorLog = errorLog + " | row.getCodigoPostal(): " + (row.getPostalCode()());
+				errorLog = errorLog + " | row.getCodigoPostal(): " + (row.getPostalCode());
 
 				if (row.getOperation().equals("replaced")) {
 					errorLog = errorLog + " | " + row.getOperation();
@@ -815,8 +820,8 @@ class BannerDAO {
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 									
 									//Guardar en Log BD  - Angel G
-									String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk) );
-									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+									String isEliminado = objCatBachilleratosInput.get("isEliminado");
+									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
@@ -884,7 +889,7 @@ class BannerDAO {
 									
 									//Guardar en Log BD  - Angel G
 									String isEliminado = "true";
-									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
 									contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1027,8 +1032,8 @@ class BannerDAO {
 										objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 										
 										//Guardar en Log BD  - Angel G
-										String isEliminado = !(row.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
-										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+										String isEliminado = objCatBachilleratosInput.get("isEliminado");
+										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 
@@ -1073,7 +1078,7 @@ class BannerDAO {
 
 										//Guardar en Log BD  - Angel G
 										String isEliminado = "true";
-										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+										new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 										
 										lstCatBachilleratosInput.add(objCatBachilleratosInput);
 										contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1122,7 +1127,7 @@ class BannerDAO {
 								
 								//Guardar en Log BD  - Angel G
 								String isEliminado = "true";
-								new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+								new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 
 								lstCatBachilleratosInput.add(objCatBachilleratosInput);
 								contracto.put("lstCatBachilleratosInput", lstCatBachilleratosInput);
@@ -1166,8 +1171,8 @@ class BannerDAO {
 								objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 								
 								//Guardar en Log BD  - Angel G
-								String isEliminado = "true";
-								new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), row.getPostalCode(), isEliminado);
+								//String isEliminado = "true";
+								//new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(),"", isEliminado);
 								
 								errorLog = errorLog + " | ---------------------------------------------------------";
 								errorLog = errorLog + " | " + ("isEliminado: "+ objCatBachilleratosInput.get("isEliminado"));
@@ -1305,12 +1310,16 @@ class BannerDAO {
 					lstCatBachilleratos = catBachilleratosDAO.findById(objLstAddresses.getIdBachillerato(), 0, 100);
 				}
 				if(lstCatBachilleratos.size()>0){
+					errorLog = errorLog + "|lstCatBachilleratos.size()>0";
 					for (CatBachilleratos objRow: lstCatBachilleratos) {
-							for(int i=0; i<object.size(); i++) {
-								if(object.get(i).content.educationalInstitutionsExtended.get(0).code.equals(objRow.getClave())) {
-									objRow.setDescripcion(object.get(i).content.educationalInstitutionsExtended.get(0).title)
-								}
-							}
+	
+							//for(int i=0; i<object.size(); i++) {
+								//Se comento porque truena el get item
+								//if(object.get(i).content.educationalInstitutionsExtended.get(0).code.equals(objRow.getClave())) {
+									//objRow.setDescripcion(object.get(i).content.educationalInstitutionsExtended.get(0).title)
+									
+								//}
+							//}
 							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 							errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 							errorLog = errorLog + " | ================================================================== | ";
@@ -1349,8 +1358,25 @@ class BannerDAO {
 							objCatBachilleratosInput.put("typeInd", objRow.getTypeInd());
 	
 							//Guardar en Log BD  - Angel G
-							String isEliminado = !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
+							String isEliminado =  objCatBachilleratosInput.get("isEliminado");//"false";
+							errorLog = errorLog + " | Guardar en Log BD";
+								
 							new LogDAO().insertBachilleratoLog(objLstAddresses.getOperation(), objRow.getUsuarioBanner(), objRow.getId(), objLstAddresses.getPais(), objLstAddresses.getEstado(), objLstAddresses.getCiudad(), objRow.getDescripcion(), objRow.getTypeInd(), objLstAddresses.getPostalCode(), isEliminado);
+							errorLog = errorLog + " | " + objLstAddresses.getOperation();
+							errorLog = errorLog + " | " + objRow.getUsuarioBanner();
+							errorLog = errorLog + " | " + objRow.getId();
+							errorLog = errorLog + " | " + objLstAddresses.getPais();
+							errorLog = errorLog + " | " + objLstAddresses.getEstado();
+							errorLog = errorLog + " | " + objLstAddresses.getCiudad();
+							errorLog = errorLog + " | " + objRow.getDescripcion();
+							errorLog = errorLog + " | " + objRow.getTypeInd();
+							errorLog = errorLog + " | " + objLstAddresses.getPostalCode();
+							errorLog = errorLog + " | " + isEliminado+ " | ";
+							errorLog = errorLog +  !(objRow.getTypeInd().equals("H") && (isMexicoOk || isUsaOk || isOtroPaisOk));
+							errorLog = errorLog + " --- " ;
+							
+							
+							
 							
 							errorLog = errorLog + " | DIRECCION==========================================================================================";
 							errorLog = errorLog + " | " + ("persistenceId - " + objRow.getPersistenceId());
