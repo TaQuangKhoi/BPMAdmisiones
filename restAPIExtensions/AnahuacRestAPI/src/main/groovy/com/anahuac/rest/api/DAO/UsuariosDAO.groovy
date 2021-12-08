@@ -3842,7 +3842,7 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
-				case "FECHA SOLICITUD,FECHA PAGO":
+				case "FECHA SOLICITUD, FECHA PAGO":
 					errorlog += "fechaEnvioSolicitud"
 					if (where.contains("WHERE")) {
 						where += " AND "
