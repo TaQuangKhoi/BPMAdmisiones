@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPAspirantesRechazados",
   "name" : "APPAspirantesRechazados",
-  "lastUpdate" : 1638921056844,
+  "lastUpdate" : 1638922213236,
   "rows" : [
     [
       {
@@ -188,7 +188,161 @@
           ],
           [
             {
-              "type" : "tabsContainer",
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Filtro específico"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : "lstFiltrosPre"
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : "modalFiltroEspecifico"
+                }
+              },
+              "reference" : "94916839-496b-46da-b0e3-0033498b869d",
+              "hasValidationError" : false,
+              "id" : "customButtonSetValor"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 6,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Excel"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "POST"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "url" : {
+                  "type" : "interpolation",
+                  "value" : "../API/extension/AnahuacRest?url=getExcelFile&p=0&c=10"
+                },
+                "responseStatusCode" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "dataToSend" : {
+                  "type" : "expression",
+                  "value" : "dataToSend"
+                },
+                "dataFromSuccess" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "closeOnSuccess" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "dataFromError" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "targetUrlOnSuccess" : {
+                  "type" : "interpolation"
+                },
+                "collectionToModify" : {
+                  "type" : "variable"
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "collectionPosition" : {
+                  "type" : "constant",
+                  "value" : "Last"
+                },
+                "valueToAdd" : {
+                  "type" : "constant"
+                },
+                "removeItem" : {
+                  "type" : "variable"
+                },
+                "fileExtension" : {
+                  "type" : "constant",
+                  "value" : "xls"
+                }
+              },
+              "reference" : "84d9a500-3c79-4a30-9501-61e2ac708c43",
+              "hasValidationError" : false,
+              "id" : "customCustomBtnDownloadExcel"
+            }
+          ],
+          [
+            {
+              "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -204,477 +358,97 @@
                   "type" : "constant",
                   "value" : false
                 },
-                "vertical" : {
+                "content" : {
+                  "type" : "variable",
+                  "value" : "lstFiltros"
+                }
+              },
+              "reference" : "fb9d2ce5-d0b1-481e-bc3e-9ec455f0bb61",
+              "hasValidationError" : false,
+              "id" : "customListFiltrosBloqueoCampus"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
                   "type" : "constant",
                   "value" : false
                 },
-                "type" : {
+                "allowHTML" : {
                   "type" : "constant",
-                  "value" : "tabs"
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Foto",
+                    "ID Banner",
+                    "Nombre / Email / Teléfono",
+                    "Campus / Programa / Ingreso",
+                    "Promedio",
+                    "Motivo de rechazo",
+                    "Acciones"
+                  ]
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : "dataToSend"
+                },
+                "lstContenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "campusSeleccionado" : {
+                  "type" : "variable",
+                  "value" : "getCampus"
+                },
+                "lstCampus" : {
+                  "type" : "variable",
+                  "value" : "lstCatCampus"
                 }
               },
-              "reference" : "a8fb96e4-ea7b-46de-b9d8-d8502375a64b",
+              "reference" : "52375d86-c6c8-46b8-9522-23ad045591a1",
               "hasValidationError" : false,
-              "id" : "pbTabsContainer",
-              "tabList" : [
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "Aspirantes para reactivar"
-                    }
-                  },
-                  "reference" : "8ba29e53-1f9c-4cce-bc3a-d21b015dc3e4",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "381ada2d-a043-4542-b369-8fa5c90a76f9",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 6,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Filtro específico"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "Submit task"
-                            },
-                            "variableDestino" : {
-                              "type" : "variable",
-                              "value" : "lstFiltrosPre"
-                            },
-                            "variableAcopiar" : {
-                              "type" : "variable",
-                              "value" : "lstFiltros"
-                            },
-                            "OpenModal" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : "modalFiltroEspecifico"
-                            }
-                          },
-                          "reference" : "94916839-496b-46da-b0e3-0033498b869d",
-                          "hasValidationError" : false,
-                          "id" : "customButtonSetValor"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 6,
-                            "md" : 6,
-                            "lg" : 6
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "disabled" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Excel"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "right"
-                            },
-                            "buttonStyle" : {
-                              "type" : "constant",
-                              "value" : "primary"
-                            },
-                            "action" : {
-                              "type" : "constant",
-                              "value" : "POST"
-                            },
-                            "assign" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "url" : {
-                              "type" : "interpolation",
-                              "value" : "../API/extension/AnahuacRest?url=getExcelFile&p=0&c=10"
-                            },
-                            "responseStatusCode" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "dataToSend" : {
-                              "type" : "expression",
-                              "value" : "dataToSend"
-                            },
-                            "dataFromSuccess" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "closeOnSuccess" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "dataFromError" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "targetUrlOnSuccess" : {
-                              "type" : "interpolation"
-                            },
-                            "collectionToModify" : {
-                              "type" : "variable"
-                            },
-                            "modalId" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "collectionPosition" : {
-                              "type" : "constant",
-                              "value" : "Last"
-                            },
-                            "valueToAdd" : {
-                              "type" : "constant"
-                            },
-                            "removeItem" : {
-                              "type" : "variable"
-                            },
-                            "fileExtension" : {
-                              "type" : "constant",
-                              "value" : "xls"
-                            }
-                          },
-                          "reference" : "84d9a500-3c79-4a30-9501-61e2ac708c43",
-                          "hasValidationError" : false,
-                          "id" : "customCustomBtnDownloadExcel"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "content" : {
-                              "type" : "variable",
-                              "value" : "lstFiltros"
-                            }
-                          },
-                          "reference" : "fb9d2ce5-d0b1-481e-bc3e-9ec455f0bb61",
-                          "hasValidationError" : false,
-                          "id" : "customListFiltrosBloqueoCampus"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Foto",
-                                "ID Banner",
-                                "Nombre / Email / Teléfono",
-                                "Campus / Programa / Ingreso",
-                                "Promedio",
-                                "Motivo de rechazo",
-                                "Acciones"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "urlPost" : {
-                              "type" : "constant",
-                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesEnproceso&p=0&c=100"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : "dataToSend"
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : "lstContenido"
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : "userData.user_id"
-                            },
-                            "campusSeleccionado" : {
-                              "type" : "variable",
-                              "value" : "getCampus"
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : "lstCatCampus"
-                            }
-                          },
-                          "reference" : "52375d86-c6c8-46b8-9522-23ad045591a1",
-                          "hasValidationError" : false,
-                          "id" : "customTablePostRechazadosFiltrado"
-                        }
-                      ]
-                    ]
-                  }
-                },
-                {
-                  "type" : "tabContainer",
-                  "dimension" : {
-                    "xs" : 12,
-                    "sm" : 12,
-                    "md" : 12,
-                    "lg" : 12
-                  },
-                  "propertyValues" : {
-                    "cssClasses" : {
-                      "type" : "constant",
-                      "value" : ""
-                    },
-                    "hidden" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "disabled" : {
-                      "type" : "constant",
-                      "value" : false
-                    },
-                    "title" : {
-                      "type" : "interpolation",
-                      "value" : "Listado de aspirantes rechazados"
-                    }
-                  },
-                  "reference" : "ac060a5b-4b4d-48e0-821e-0c1c1c0bb2ab",
-                  "hasValidationError" : false,
-                  "id" : "pbTabContainer",
-                  "container" : {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12
-                    },
-                    "propertyValues" : { },
-                    "reference" : "404addcd-5f4b-4905-ab22-b88468ea6dc4",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "content" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "0adb2d28-2ed0-40e7-a4cc-b81b951e8f9a",
-                          "hasValidationError" : false,
-                          "id" : "customListFiltrosBloqueoCampus"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "headers" : {
-                              "type" : "constant",
-                              "value" : [
-                                "Id",
-                                "Name",
-                                "Description",
-                                "Date"
-                              ]
-                            },
-                            "columnsKey" : {
-                              "type" : "constant"
-                            },
-                            "selectedRow" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
-                            "striped" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "condensed" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "bordered" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "urlPost" : {
-                              "type" : "constant",
-                              "value" : "/bonita/API/extension/AnahuacRest?url=selectAspirantesRechazadosRespaldo&p=0&c=100"
-                            },
-                            "dataToSend" : {
-                              "type" : "variable",
-                              "value" : "dataToSend2"
-                            },
-                            "lstContenido" : {
-                              "type" : "variable",
-                              "value" : "lstContenido2"
-                            },
-                            "userId" : {
-                              "type" : "variable",
-                              "value" : "userData.user_id"
-                            },
-                            "campusSeleccionado" : {
-                              "type" : "variable",
-                              "value" : "getCampus2"
-                            },
-                            "lstCampus" : {
-                              "type" : "variable",
-                              "value" : "lstCatCampus"
-                            }
-                          },
-                          "reference" : "f9bddf21-d579-4ff9-a4c7-2a01cb382ea3",
-                          "hasValidationError" : false,
-                          "id" : "customTablePostRechazadosFiltrado"
-                        }
-                      ]
-                    ]
-                  }
-                }
-              ]
+              "id" : "customTablePostRechazadosFiltrado"
             }
           ],
           [
@@ -1978,46 +1752,6 @@
       "type" : "businessdata",
       "value" : [
         "{\"displayValue\":\"getCatCampus [com.anahuac.catalogos.CatCampus]\",\"businessObjectName\":\"undefined\",\"query\":{\"name\":\"getCatCampus\",\"displayName\":\"getCatCampus\"},\"id\":\"com.anahuac.catalogos.CatCampus\",\"filters\":[],\"pagination\":{\"p\":\"0\",\"c\":\"999\"}}"
-      ],
-      "exposed" : false
-    },
-    "dataToSend2" : {
-      "type" : "expression",
-      "value" : [
-        "return {\r",
-        "    \"lstFiltro\": $data.lstFiltros,\r",
-        "    \"usuario\":$data.userData.user_name,\r",
-        "    \"orderby\":\"\",\r",
-        "    \"orientation\":\"DESC\",\r",
-        "    \"limit\":20,\r",
-        "    \"offset\":0,\r",
-        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus\r",
-        "};"
-      ],
-      "exposed" : false
-    },
-    "lstContenido2" : {
-      "type" : "json",
-      "value" : [
-        "[]"
-      ],
-      "exposed" : false
-    },
-    "getCampus2" : {
-      "type" : "constant",
-      "exposed" : false
-    },
-    "lstFiltros2" : {
-      "type" : "json",
-      "value" : [
-        "[]"
-      ],
-      "exposed" : false
-    },
-    "lstFiltrosPre2" : {
-      "type" : "json",
-      "value" : [
-        "[]"
       ],
       "exposed" : false
     }
