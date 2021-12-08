@@ -3849,12 +3849,12 @@ class UsuariosDAO {
 					} else {
 						where += " WHERE "
 					}
-					where += " ( LOWER(fechaEnvioSolicitud) ";
-					if (filtro.get("operador").equals("Igual a")) {
+					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
+					/*if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
-					}
+					}*/
 
 					where = where.replace("[valor]", filtro.get("valor"))
 
