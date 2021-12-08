@@ -3806,7 +3806,7 @@ class UsuariosDAO {
 						
 						break;
 
-				case "PROCEDENCIA,PREPARATORIA,CLAVE,PROMEDIO":
+				case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
 					errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
 					if (where.contains("WHERE")) {
 						where += " AND "
@@ -3816,11 +3816,11 @@ class UsuariosDAO {
 					where += "( LOWER(estadoPreparatoria) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 
-					where += "  OR LOWER(preparatoria) like lower('%[valor]%') ";
+					where += "  OR LOWER(concat(clavePreparatoria,' - ',preparatoria)) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 
-					where += " OR LOWER(clavePreparatoria) like lower('%[valor]%')";
-					where = where.replace("[valor]", filtro.get("valor"))
+					/*where += " OR LOWER(clavePreparatoria) like lower('%[valor]%')";
+					where = where.replace("[valor]", filtro.get("valor"))*/
 
 					where += " OR LOWER(promedio) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
@@ -3969,9 +3969,9 @@ class UsuariosDAO {
 				case "CORREO":
 					orderby += "correo";
 				break;
-				case "CLAVE":
+				/*case "CLAVE":
 					orderby += "clavePreparatoria";
-				break;
+				break;*/
 				default:					
 					orderby += "NOMBRE"
 				break;
@@ -3979,7 +3979,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, clavePreparatoria, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
