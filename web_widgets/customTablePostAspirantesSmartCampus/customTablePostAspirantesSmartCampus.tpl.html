@@ -53,11 +53,11 @@
                             style="cursor:pointer" ng-click="setOrderBy('PREPARATORIA')">Preparatoria<i
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> / <span
+                                ng-show="properties.dataToSend.orderby=='PREPARATORIA'"></i></span> <!--/ <span
                             style="cursor:pointer" ng-click="setOrderBy('CLAVE')">Clave<i
                                 class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
-                                ng-show="properties.dataToSend.orderby=='CLAVE'"></i></span> / <span
+                                ng-show="properties.dataToSend.orderby=='CLAVE'"></i></span>--> / <span
                             style="cursor:pointer" ng-click="setOrderBy('PROMEDIO')">Promedio<i class="glyphicon"
                                 ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                                 ng-show="properties.dataToSend.orderby=='PROMEDIO'"></i></span></th>
@@ -94,7 +94,7 @@
                     <td><input ng-model="dynamicInput['programa']" class="form-control"
                             ng-enter="filterKeyPress('CAMPUS,PROGRAMA,INGRESO',dynamicInput['programa'])"></td>
                     <td><input ng-model="dynamicInput['preparatoria']" class="form-control"
-                            ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,CLAVE,PROMEDIO',dynamicInput['preparatoria'])">
+                            ng-enter="filterKeyPress('PROCEDENCIA,PREPARATORIA,PROMEDIO',dynamicInput['preparatoria'])">
                     </td>
                     <td><input ng-model="dynamicInput['estatus']" class="form-control"
                             ng-enter="filterKeyPress('RESIDENCIA,ESTATUS',dynamicInput['estatus'])"></td>
@@ -127,7 +127,7 @@
                     </td>
                     <td class="max-size">
                         <b>{{row.procedencia}}</b><br>
-                        {{row.clavepreparatoria}} - {{row.preparatoria}}<br>
+                        {{row.preparatoria}}<br>
                         {{row.promedio}}
                     </td>
                     <td>
