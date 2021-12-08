@@ -808,10 +808,7 @@ class ReactivacionDAO {
 
 			assert object instanceof Map;
 			//(sda.ESTATUSSOLICITUD != 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')
-			where += " WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
-			if (object.campus != null) {
-				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
-			}
+			where += " WHERE sda.iseliminado IS NOT TRUE and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
 			
 			if (lstGrupo.size() > 0) {
 				campus += " AND ("
@@ -916,6 +913,20 @@ class ReactivacionDAO {
 
 						break;
 						
+					case "CAMPUS":
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " LOWER(campus.descripcion) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')"
+						} else {
+							where += "LIKE LOWER('%[valor]%')"
+						}
+						where = where.replace("[valor]", filtro.get("valor"))
+						break;
 					case "NÚMERO DE SOLICITUD":
 						errorlog += "SOLICITUD"
 						if (where.contains("WHERE")) {
@@ -1039,6 +1050,7 @@ class ReactivacionDAO {
 			
 			String consultaCount = Statements.GET_ASPIRANTES_RESPALDO_COUNT
 			consultaCount = consultaCount.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[CAMPUS]", campus)
 			pstm = con.prepareStatement(consultaCount)
 			
 			errorlog = consulta + " 6";
