@@ -840,7 +840,23 @@ class ReactivacionDAO {
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";
 				switch (filtro.get("columna")) {
-
+				
+				case "IDBANNER,NOMBRE,EMAIL":
+					errorlog+="IDBANNER,NOMBRE,EMAIL"
+					if(where.contains("WHERE")) {
+						where+= " AND "
+					}else {
+						where+= " WHERE "
+					}
+					where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(da.idbanner) like lower('%[valor]%') ) ";
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					case "NOMBRE,EMAIL,CURP":
 						errorlog += "NOMBRE,EMAIL,CURP"
 						if (where.contains("WHERE")) {
@@ -857,6 +873,35 @@ class ReactivacionDAO {
 						where += " OR LOWER(sda.curp) like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						break;
+					case "PREPARATORIA,PROCEDENCIA,PROMEDIO":
+						errorlog+="PREPARATORIA,ESTADO,PROMEDIO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						/*where +="  OR LOWER(prepa.DESCRIPCION) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))*/
+						
+						where +="  OR LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where +=" OR LOWER(sda.PROMEDIOGENERAL) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					case "ESTATUS":
+						errorlog+="ESTATUS,TIPO"
+						if(where.contains("WHERE")) {
+							where+= " AND "
+						}else {
+							where+= " WHERE "
+						}
+						where +=" ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+					break;
 					case "ULTIMA MODIFICACION":
 						errorlog += "FECHAULTIMAMODIFICACION"
 						if (where.contains("WHERE")) {
