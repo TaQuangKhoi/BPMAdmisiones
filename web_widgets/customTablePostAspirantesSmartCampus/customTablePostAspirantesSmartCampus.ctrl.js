@@ -263,8 +263,9 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
   
     $scope.rutaPagoDownload = function(row) {
-        //$window.open(row.rutaPagob64);
-        axios({
+        $window.title = "RUTA_PAGO - "+row.idbanner
+        $window.open(row.rutaPagob64);
+        /*axios({
                 url: row.rutaPagob64,
                 method: 'GET',
                 responseType: 'blob'
@@ -278,13 +279,13 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);
-             })
+             })*/
     }
     
     $scope.rutaSolicitudDownload = function(row) {
-        //$window.open(row.rutaSolicitudb64);
+        $window.open(row.rutaSolicitudb64);
         
-        axios({
+        /*axios({
                 url: row.rutaSolicitudb64,
                 method: 'GET',
                 responseType: 'blob'
@@ -298,7 +299,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                   document.body.appendChild(link);
                   link.click();
                   document.body.removeChild(link);
-             })
+             })*/
     }
     
     $scope.getCatCampus();
