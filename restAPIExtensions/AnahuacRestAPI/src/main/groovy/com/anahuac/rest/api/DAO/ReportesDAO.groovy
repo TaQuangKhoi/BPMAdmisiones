@@ -575,7 +575,7 @@ class ReportesDAO {
             where += (object.periodo == null || object.periodo.equals("")) ? "" : " AND sda.catperiodo_pid in (" + object.periodo + ")"
             where += (object.carrera == null || object.carrera.equals("")) ? "" : " AND sda.catgestionescolar_pid in (" + object.carrera + ")"
             where += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND sda.catbachilleratos_pid in (" + object.preparatoria + ")"
-            where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL))"
+            where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND s.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL) OR (da.cbcoincide IS TRUE AND ap.acreditado IS TRUE))"
             where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
 			
 
@@ -845,7 +845,7 @@ class ReportesDAO {
 			where += (object.carrera == null || object.carrera.equals("")) ? "" : " AND (sda.catgestionescolar_pid in (${object.carrera}) OR sda2.catgestionescolar_pid in (${object.carrera}) ) "
 			where += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND (sda.catbachilleratos_pid in (${object.preparatoria}) OR sda2.catbachilleratos_pid in (${object.preparatoria}) )"
 			where += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '${object.idbanner }' "
-			where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND sesion.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL) "
+			where += (object.sesion == null || object.sesion.equals("")) ? "" : " AND sesion.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL) OR (da.cbcoincide IS TRUE AND ap.acreditado IS TRUE) )";
 			
 			// se carga el where para las subconsultas
 			where2 += " campus.clave in (" + condicion +") "
@@ -853,7 +853,7 @@ class ReportesDAO {
 			where2 += (object.carrera == null || object.carrera.equals("")) ? "" : " AND sda.catgestionescolar_pid in (" + object.carrera + ")"
 			where2 += (object.preparatoria == null || object.preparatoria.equals("")) ? "" : " AND sda.catbachilleratos_pid in (" + object.preparatoria + ")"
 			where2 += (object.idbanner == null || object.idbanner.equals("")) ? "" : " AND cda.idbanner = '" + object.idbanner + "'"
-			where2 += (object.sesion == null || object.sesion.equals("")) ? "" : " AND sesion.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL)  "
+			where2 += (object.sesion == null || object.sesion.equals("")) ? "" : " AND sesion.persistenceid in (" + object.sesion + ") AND (ap.asistencia IS TRUE OR (PL.asistencia IS NULL AND ap.acreditado IS NULL) OR (da.cbcoincide IS TRUE AND ap.acreditado IS TRUE)) "
 			
 			int numero = 1;
 
