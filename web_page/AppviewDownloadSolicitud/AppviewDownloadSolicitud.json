@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "AppviewDownloadSolicitud",
   "name" : "AppviewDownloadSolicitud",
-  "lastUpdate" : 1637357683702,
+  "lastUpdate" : 1638847483447,
   "rows" : [
     [
       {
@@ -230,6 +230,22 @@
                       "PDFobjcasosDeEmergencia" : {
                         "type" : "variable",
                         "value" : "objcasosDeEmergencia"
+                      },
+                      "PDFobjInformacionAlumno" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "PDFimagenBase64" : {
+                        "type" : "variable",
+                        "value" : "objImagenPasaporte"
+                      },
+                      "urlFoto" : {
+                        "type" : "expression",
+                        "value" : "urlImagen"
+                      },
+                      "data" : {
+                        "type" : "variable",
+                        "value" : "userData"
                       }
                     },
                     "reference" : "8512b6d5-301b-4066-a206-41e72e50174b",
@@ -11583,20 +11599,6 @@
   ],
   "assets" : [
     {
-      "id" : "ea272bb3-4585-4558-b176-a0ec93a93ef2",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 3,
-      "external" : false
-    },
-    {
-      "id" : "9635490b-6b74-4f9b-97c3-3e44ca292e32",
-      "name" : "LogoRUA.png",
-      "type" : "img",
-      "order" : 4,
-      "external" : false
-    },
-    {
       "id" : "25ed5e66-d559-4ff1-9542-2dae267ca6cf",
       "name" : "style.css",
       "type" : "css",
@@ -11622,6 +11624,20 @@
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "9635490b-6b74-4f9b-97c3-3e44ca292e32",
+      "name" : "LogoRUA.png",
+      "type" : "img",
+      "order" : 4,
+      "external" : false
+    },
+    {
+      "id" : "ea272bb3-4585-4558-b176-a0ec93a93ef2",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 3,
       "external" : false
     }
   ],
@@ -11849,6 +11865,27 @@
       "type" : "urlparameter",
       "value" : [
         "caseId"
+      ],
+      "exposed" : false
+    },
+    "objImagenPasaporte" : {
+      "type" : "url",
+      "value" : [
+        "../API/formsDocumentImage?document={{context.fotoPasaporte_ref[0].id}}"
+      ],
+      "exposed" : false
+    },
+    "urlImagen" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/formsDocumentImage?document=\"+$data.context.fotoPasaporte_ref[0].id"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
       ],
       "exposed" : false
     }
