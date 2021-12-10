@@ -548,7 +548,7 @@ class ReactivacionDAO {
 			pstm.executeUpdate();
 			
 			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO_AUTODESCRIPCION)
-			pstm.setString(1, object.caseid+'');
+			pstm.setLong(1, Long.valueOf(object.caseid));
 			pstm.executeUpdate(); 
 
 			con.commit();
