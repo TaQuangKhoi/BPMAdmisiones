@@ -855,43 +855,64 @@ class SolicitudUsuarioDAO {
 	}
 	
 	
-	public Result getUpdateFamiliaresIntento(String caseid, intentos,relacion,cantidad,isTutor) {
+	public Result getUpdateFamiliaresIntento(String caseid, intentos, cantidad) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorlog="";
+		Boolean executar = false;
 		try {
 			
 			closeCon = validarConexion();
 			
-			if(isTutor) {
-				
-			}
+			executar = true;
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = null WHERE  caseid = ${caseid} AND countIntento = ${intentos} " );
+			pstm.executeUpdate();
 			
-			pstm = con.prepareStatement("SELECT * FROM padresTutor WHERE caseid = ${caseid} AND isTutor = ${isTutor}  ORDER BY persistenceid DESC LIMIT ${cantidad}");
+			// Saca a los padres
+			errorlog+="Actualizar a los padres";
+			pstm = con.prepareStatement("SELECT DISTINCT ON (catparentezco_pid) * FROM padrestutor where caseid = ${caseid} AND desconozcodatospadres IS NOT NULL ORDER by catparentezco_pid,persistenceid DESC  limit 2");
+			rs = pstm.executeQuery();
 			
-			rs= pstm.executeQuery();
-			
-			
-			ResultSetMetaData metaData = rs.getMetaData();
-			int columnCount = metaData.getColumnCount();
-			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
 			
 			while(rs.next()) {
-				Map<String, Object> columns = new LinkedHashMap<String, Object>();
-
-				for (int i = 1; i <= columnCount; i++) {
-					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-				}
-				info.add(columns)
+				
+				pstm = con.prepareStatement("INSERT INTO padresTutorRespaldo ( persistenceid,persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid,countintento) SELECT  (case when (SELECT max(persistenceId)+1 from padresTutorRespaldo) is null then 0 else (SELECT max(persistenceId)+1 from padresTutorRespaldo) END) as persistenceid,persistenceid as persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid, ${intentos} as countintento FROM PadresTutor WHERE caseid = ${caseid} AND Persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+				
+				errorlog+="UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			// Saca a los tutores
+			errorlog+="Actualizar a los tutores";
+			pstm = con.prepareStatement("SELECT persistenceid FROM padresTutor WHERE caseid = ${caseid} AND vive_pid IS NULL AND istutor IS TRUE ORDER BY persistenceid DESC LIMIT ${cantidad}");
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				
+				pstm = con.prepareStatement("INSERT INTO padresTutorRespaldo ( persistenceid,persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid,countintento) SELECT  (case when (SELECT max(persistenceId)+1 from padresTutorRespaldo) is null then 0 else (SELECT max(persistenceId)+1 from padresTutorRespaldo) END) as persistenceid,persistenceid as persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid, ${intentos} as countintento FROM PadresTutor WHERE caseid = ${caseid} AND Persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+				
+				errorlog+=", UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			if(executar) {
+				con.commit();
 			}
 			
 			resultado.setSuccess(true);
-			resultado.setData(info);
+			//resultado.setData(info);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog);
+			if(executar) {
+				con.rollback();
+			}
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

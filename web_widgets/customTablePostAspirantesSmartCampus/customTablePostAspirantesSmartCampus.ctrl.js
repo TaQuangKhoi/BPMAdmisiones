@@ -262,8 +262,46 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             });
     }
   
-  
-  
+    $scope.rutaPagoDownload = function(row) {
+        $window.title = "RUTA_PAGO - "+row.idbanner
+        $window.open(row.rutaPagob64);
+        /*axios({
+                url: row.rutaPagob64,
+                method: 'GET',
+                responseType: 'blob'
+        })
+            .then((response) => {
+                  const url = window.URL
+                        .createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', 'RUTA_PAGO - '+row.idbanner+'.pdf');
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+             })*/
+    }
+    
+    $scope.rutaSolicitudDownload = function(row) {
+        $window.open(row.rutaSolicitudb64);
+        
+        /*axios({
+                url: row.rutaSolicitudb64,
+                method: 'GET',
+                responseType: 'blob'
+        })
+            .then((response) => {
+                  const url = window.URL
+                        .createObjectURL(new Blob([response.data]));
+                  const link = document.createElement('a');
+                  link.href = url;
+                  link.setAttribute('download', 'RUTA_SOLICITUD - '+row.idbanner+'.pdf');
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+             })*/
+    }
+    
     $scope.getCatCampus();
   
     

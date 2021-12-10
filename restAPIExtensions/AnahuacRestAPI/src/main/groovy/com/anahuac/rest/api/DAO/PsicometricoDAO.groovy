@@ -747,6 +747,9 @@ class PsicometricoDAO {
 			if(testPsicomInput.fechaEntrevista != null){
 				columnaUpdate = columnaUpdate + "fechaEntrevista = '"+testPsicomInput.fechaEntrevista+"', ";
 			}
+			if(testPsicomInput.sesion_pid != null && testPsicomInput.sesion_pid == 0){
+				columnaUpdate = columnaUpdate + "sesion_pid = "+testPsicomInput.sesion_pid+" , ";
+			}
 			if(testPsicomInput.finalizado != null && testPsicomInput.finalizado != ""){
 				columnaUpdate = columnaUpdate + "finalizado = "+testPsicomInput.finalizado+" , ";
 			}
@@ -1037,6 +1040,12 @@ class PsicometricoDAO {
 				pstm.setString(33, (testPsicomInput.tipoDiscapacidad != null && testPsicomInput.tipoDiscapacidad != "") ? testPsicomInput.tipoDiscapacidad : "");
 				pstm.setString(34, (testPsicomInput.hasRecibidoAlgunaTerapia != null && testPsicomInput.hasRecibidoAlgunaTerapia != "") ? testPsicomInput.hasRecibidoAlgunaTerapia : "");
 				pstm.setLong(35, (testPsicomInput.countRechazo != null) ? testPsicomInput.countRechazo : 0);
+				//pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? testPsicomInput.sesion_pid : 0 );
+				if(testPsicomInput.sesion_pid == null || Long.parseLong(testPsicomInput.sesion_pid) == 0 ) {
+					pstm.setNull(36, Types.INTEGER);
+				}else {
+					pstm.setLong(36, (testPsicomInput.sesion_pid != null) ? Long.parseLong(testPsicomInput.sesion_pid) : 0 );					
+				}
 				pstm.executeUpdate();
 			}
 			
@@ -1122,7 +1131,7 @@ class PsicometricoDAO {
 				pstm = con.prepareStatement(Statements.UPDATE_PUNTUACION_INVP);
 				pstm.setString(1,testPsicomInput.puntuacionINVP+"")
 				pstm.setString(2, caseId);
-				pstm.setString(3, testPsicomInput.sesion_pid);
+				pstm.setString(3, testPsicomInput.sesion_pid+"");
 				pstm.executeUpdate();
 			}
 			/*==============================================TESTPSICOMETRICO_RELATIVOS FIN==============================================*/
@@ -2684,13 +2693,19 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 						} else {
 							where += " WHERE "
 						}
-						where += " LOWER(sda.ESTATUSSOLICITUD) ";
-						if (filtro.get("operador").equals("Igual a")) {
+						//where += " LOWER(sda.ESTATUSSOLICITUD) ";
+						where += " ( LOWER(sda.ESTATUSSOLICITUD) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(sda2.ESTATUSSOLICITUD) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						/*if (filtro.get("operador").equals("Igual a")) {
 							where += "=LOWER('[valor]')"
 						} else {
 							where += "LIKE LOWER('%[valor]%')"
 						}
-						where = where.replace("[valor]", filtro.get("valor"))
+						where = where.replace("[valor]", filtro.get("valor"))*/
 						break;
 					case "TELEFONO":
 						errorlog += "TELEFONO"
@@ -2940,7 +2955,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 
 			consulta = consulta.replace("[WHERE]", where);
 			errorlog = consulta + " 5";
-			pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, s.nombre as sesion,RD.responsableid,CAST(TO_CHAR(P.aplicacion, 'DD-MM-YYYY') as varchar) as fechaentrevista, tp.finalizado,tp.countrechazo", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, s.nombre, RD.responsableid, P.aplicacion,tp.finalizado,tp.countrechazo", ""))
+			pstm = con.prepareStatement(consulta.replace("CASE WHEN prepa.descripcion = 'Otro' THEN sda.estadobachillerato ELSE prepa.estado END AS procedencia, to_char(CURRENT_TIMESTAMP - TO_TIMESTAMP(sda.fechaultimamodificacion, 'YYYY-MM-DDTHH:MI'), 'DD \"días\" HH24 \"horas\" MI \"minutos\"') AS tiempoultimamodificacion, sda.fechasolicitudenviada, sda.fechaultimamodificacion, sda.urlfoto, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusEstudio.descripcion AS campus, campus.descripcion AS campussede, gestionescolar.NOMBRE AS licenciatura, periodo.DESCRIPCION AS ingreso, CASE WHEN estado.DESCRIPCION ISNULL THEN sda.estadoextranjero ELSE estado.DESCRIPCION END AS estado, CASE WHEN prepa.DESCRIPCION = 'Otro' THEN sda.bachillerato ELSE prepa.DESCRIPCION END AS preparatoria, sda.PROMEDIOGENERAL, sda.ESTATUSSOLICITUD, da.TIPOALUMNO, sda.caseid, sda.telefonocelular, da.observacionesListaRoja, da.observacionesRechazo, da.idbanner, campus.grupoBonita, TA.descripcion as tipoadmision , R.descripcion as residensia, TAL.descripcion as tipoDeAlumno, catcampus.descripcion as transferencia, campusEstudio.clave as claveCampus, gestionescolar.clave as claveLicenciatura, s.nombre as sesion,RD.responsableid,CAST(TO_CHAR(P.aplicacion, 'DD-MM-YYYY') as varchar) as fechaentrevista, tp.finalizado,tp.countrechazo,sda2.estatussolicitud as estatussolicitud2", "COUNT(sda.persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", "").replace("GROUP BY prepa.descripcion,sda.estadobachillerato, prepa.estado, sda.fechaultimamodificacion, sda.fechasolicitudenviada, sda.apellidopaterno, sda.apellidomaterno, sda.primernombre, sda.segundonombre, sda.correoelectronico, sda.curp, campusestudio.descripcion,campus.descripcion, gestionescolar.nombre, periodo.descripcion, estado.descripcion, sda.estadoextranjero,sda.bachillerato,sda.promediogeneral,sda.estatussolicitud,da.tipoalumno,sda.caseid,sda.telefonocelular,da.observacioneslistaroja,da.observacionesrechazo,da.idbanner,campus.grupobonita,ta.descripcion,r.descripcion,tal.descripcion,catcampus.descripcion,campusestudio.clave,gestionescolar.clave, sda.persistenceid, s.nombre, RD.responsableid, P.aplicacion,tp.finalizado,tp.countrechazo,sda2.estatussolicitud", ""))
 			errorlog = consulta + " 6";
 			rs = pstm.executeQuery()
 			if (rs.next()) {
@@ -3119,7 +3134,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion()
 			//SELECT s.persistenceid, s.nombre sesion, prueba.nombre prueba, prueba.cupo, prueba.aplicacion fecha, prueba.lugar from paselista pl inner join pruebas prueba on prueba.persistenceid=pl.prueba_pid and prueba.cattipoprueba_pid=2 inner join sesiones s on s.persistenceid=prueba.sesion_pid where pl.asistencia=true
-			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ?")
+			pstm = con.prepareStatement("SELECT comentario,fechaCreacion,isEliminado,modulo,persistenceId,persistenceVersion,usuario,usuarioComentario FROM CatBitacoraComentarios where usuarioComentario = ? ORDER BY persistenceId DESC")
 			pstm.setString(1, usuarioComentario)
 			rs = pstm.executeQuery()
 			rows = new ArrayList < Map < String, Object >> ();
@@ -3206,7 +3221,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 		try {
 			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
 			closeCon = validarConexion();
-			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 2")
+			pstm = con.prepareStatement("SELECT  COUNT(persistenceid) as cantidad FROM aspirantespruebas  where username = ? and asistencia is true and catTipoPrueba_pid = 1")
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			int cantidad = 0;
@@ -3232,7 +3247,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			
 			errorLog+= "| consulta: SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset
 			
-			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+" order by ap.persistenceid DESC limit 1 OFFSET "+offset )
+			pstm = con.prepareStatement("SELECT  p.aplicacion fecha_prueba, ap.asistencia, paa.persistenceid, ap.sesiones_pid FROM aspirantespruebas AS ap INNER JOIN sesiones s on s.persistenceid=ap.sesiones_pid INNER JOIN pruebas p on p.sesion_pid=s.persistenceid and p.cattipoprueba_pid=2 LEFT JOIN solicitudDeAdmision AS sda ON sda.correoelectronico = ap.username LEFT JOIN detalleSolicitud AS ds ON ds.caseid = sda.caseid::varchar LEFT JOIN importacionPAA AS paa ON paa.idbanner = ds.idbanner and paa.sesion_pid = s.persistenceid::varchar LEFT JOIN paseLista AS pl ON pl.prueba_pid = ap.prueba_pid where ap.username = ? "+condicion+"  AND ap.catTipoPrueba_pid = 1 order by ap.persistenceid DESC limit 1 OFFSET "+offset )
 			pstm.setString(1, usuario)
 			rs = pstm.executeQuery();
 			

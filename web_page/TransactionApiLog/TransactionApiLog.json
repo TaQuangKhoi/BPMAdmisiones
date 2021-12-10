@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "TransactionApiLog",
   "name" : "TransactionApiLog",
-  "lastUpdate" : 1635204346727,
+  "lastUpdate" : 1638378277331,
   "rows" : [
     [
       {
@@ -223,12 +223,142 @@
                                           "type" : "constant",
                                           "value" : false
                                         },
+                                        "text" : {
+                                          "type" : "interpolation",
+                                          "value" : "Transacciones Log"
+                                        },
+                                        "level" : {
+                                          "type" : "constant",
+                                          "value" : "Level 4"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        }
+                                      },
+                                      "reference" : "ec2b0297-b8ef-4ede-8c55-c8387dd24568",
+                                      "hasValidationError" : false,
+                                      "id" : "pbTitle"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
                                         "lstLog" : {
                                           "type" : "variable",
                                           "value" : "transactionLog"
                                         }
                                       },
                                       "reference" : "2f165049-5d0e-4cd6-b152-2b52d6d04b4e",
+                                      "hasValidationError" : false,
+                                      "id" : "customApiLogTable"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ],
+                            [
+                              {
+                                "type" : "container",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : "m-portlet__body"
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "repeatedCollection" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  }
+                                },
+                                "reference" : "facd3745-50cb-4245-a731-5a65737e59a9",
+                                "hasValidationError" : false,
+                                "id" : "pbContainer",
+                                "rows" : [
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "text" : {
+                                          "type" : "interpolation",
+                                          "value" : "Bachilleratos Log"
+                                        },
+                                        "level" : {
+                                          "type" : "constant",
+                                          "value" : "Level 4"
+                                        },
+                                        "alignment" : {
+                                          "type" : "constant",
+                                          "value" : "left"
+                                        }
+                                      },
+                                      "reference" : "a0dfb550-d42f-40b3-b3a4-1a3aa8df7a42",
+                                      "hasValidationError" : false,
+                                      "id" : "pbTitle"
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "type" : "component",
+                                      "dimension" : {
+                                        "xs" : 12,
+                                        "sm" : 12,
+                                        "md" : 12,
+                                        "lg" : 12
+                                      },
+                                      "propertyValues" : {
+                                        "cssClasses" : {
+                                          "type" : "constant",
+                                          "value" : ""
+                                        },
+                                        "hidden" : {
+                                          "type" : "constant",
+                                          "value" : false
+                                        },
+                                        "lstLog" : {
+                                          "type" : "variable",
+                                          "value" : "bachilleratoLog"
+                                        }
+                                      },
+                                      "reference" : "6f481f86-9e4d-4bf8-9aba-43bbd9bdb96a",
                                       "hasValidationError" : false,
                                       "id" : "customApiLogTable"
                                     }
@@ -285,6 +415,13 @@
       "type" : "url",
       "value" : [
         "../API/extension/AnahuacRestGet?url=getTransactionLog&p=0&c=10"
+      ],
+      "exposed" : false
+    },
+    "bachilleratoLog" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getBachilleratoLog&p=0&c=10"
       ],
       "exposed" : false
     }

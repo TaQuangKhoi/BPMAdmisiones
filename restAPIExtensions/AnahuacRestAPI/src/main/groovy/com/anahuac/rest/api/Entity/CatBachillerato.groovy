@@ -21,7 +21,7 @@ class CatBachillerato {
 	private String nationCode;
 	private String stateCode;
 	private String countyCode;
-
+	private String postalCode;
 	private String typeInd;
 	
 	public String getTypeInd() {
@@ -191,6 +191,14 @@ class CatBachillerato {
 	public void setOperation(String operation) {
 		this.operation = operation;
 	}
+	
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
 
 	@Override
 	public String toString() {
@@ -200,9 +208,11 @@ class CatBachillerato {
 				+ isEnabled + ", perteneceRed=" + perteneceRed + ", clave=" + clave + ", idDireccion=" + idDireccion
 				+ ", idBachillerato=" + idBachillerato + ", operation=" + operation + ", streetLine1=" + streetLine1
 				+ ", streetLine2=" + streetLine2 + ", streetLine3=" + streetLine3 + ", nationCode=" + nationCode
-				+ ", stateCode=" + stateCode + ", countyCode=" + countyCode + "]";
+				+ ", stateCode=" + stateCode + ", countyCode=" + countyCode + ", postalCode=" + postalCode
+				+ ", typeInd=" + typeInd + "]";
 	}
 
+	
 	@Override
 	public boolean equals(Object obj) {
 		Boolean part1=obj != null;

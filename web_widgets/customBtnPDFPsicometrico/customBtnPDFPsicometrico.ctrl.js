@@ -82,7 +82,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         break;
                     case 9:
                         if (data.length > 0) {
-                            
+                        	debugger
                             $scope.datosBitacoraComentarios = data;
                         }
                         $scope.generatePDF();
@@ -272,7 +272,6 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
         doc.text(margenPrimeraFila, yvalue, 'Fuentes que influyeron en su decisíon:');
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal')
-        debugger
         if ($scope.getInfoFuentesInfluyeron.length > 0) {
             yvalue += 10;
             if ($scope.getInfoFuentesInfluyeron[0].autodescripcion == true) {
@@ -560,7 +559,8 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
 
         doc.setFontSize(fontText);
         doc.setFont(fontparam, 'normal');
-    
+        debugger
+        
        // $scope.comentarios = convertToPlain($scope.datosBitacoraComentarios[0].comentario);
         //doc.internal.write(-2, "Tw")
         $scope.comentarios = [];

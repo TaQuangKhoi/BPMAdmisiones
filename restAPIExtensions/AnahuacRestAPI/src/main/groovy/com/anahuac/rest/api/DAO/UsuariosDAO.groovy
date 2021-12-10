@@ -3788,7 +3788,7 @@ class UsuariosDAO {
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 				errorlog = consulta + " 1";
 				switch (filtro.get("columna")) {
-					case "NOMBRE,CURP,VPD":
+					case "NOMBRE,CURP,CORREO":
 						errorlog += "NOMBRE,CURP"
 						if (where.contains("WHERE")) {
 							where += " AND "
@@ -3801,7 +3801,7 @@ class UsuariosDAO {
 						where += " OR LOWER(curp) like lower('%[valor]%')  ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
-						where += " OR LOWER(vpd) like lower('%[valor]%') )";
+						where += " OR LOWER(correo) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						break;
@@ -3816,8 +3816,11 @@ class UsuariosDAO {
 					where += "( LOWER(estadoPreparatoria) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
 
-					where += "  OR LOWER(preparatoria) like lower('%[valor]%') ";
+					where += "  OR LOWER(concat(clavePreparatoria,' - ',preparatoria)) like lower('%[valor]%') ";
 					where = where.replace("[valor]", filtro.get("valor"))
+
+					/*where += " OR LOWER(clavePreparatoria) like lower('%[valor]%')";
+					where = where.replace("[valor]", filtro.get("valor"))*/
 
 					where += " OR LOWER(promedio) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
@@ -3839,20 +3842,23 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
-				case "FECHA SOLICITUD":
+				case "FECHA SOLICITUD, FECHA PAGO":
 					errorlog += "fechaEnvioSolicitud"
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
 						where += " WHERE "
 					}
-					where += " LOWER(fechaEnvioSolicitud) ";
-					if (filtro.get("operador").equals("Igual a")) {
+					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
+					/*if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
-					}
+					}*/
 
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				case "CAMPUS,PROGRAMA,INGRESO":
@@ -3887,18 +3893,21 @@ class UsuariosDAO {
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 				
-				case "ID BANNER":
+				case "ID BANNER, VPD":
 					if (where.contains("WHERE")) {
 						where += " AND "
 					} else {
 						where += " WHERE "
 					}
-					where += " LOWER(idbanner) ";
-					if (filtro.get("operador").equals("Igual a")) {
+					where += " ( LOWER(idbanner) like lower('%[valor]%') ";
+					/*if (filtro.get("operador").equals("Igual a")) {
 						where += "=LOWER('[valor]')"
 					} else {
 						where += "LIKE LOWER('%[valor]%')"
-					}
+					}*/
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(vpd) like lower('%[valor]%') )";
 					where = where.replace("[valor]", filtro.get("valor"))
 					break;
 					
@@ -3954,7 +3963,15 @@ class UsuariosDAO {
 				case "ULTIMA MODIFICACION":
 					orderby += "fechaUltimaModificacion";
 				break;
-				
+				case "FECHA PAGO":
+					orderby += "fechaPago";
+				break;
+				case "CORREO":
+					orderby += "correo";
+				break;
+				/*case "CLAVE":
+					orderby += "clavePreparatoria";
+				break;*/
 				default:					
 					orderby += "NOMBRE"
 				break;
@@ -3962,7 +3979,7 @@ class UsuariosDAO {
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			
-			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
@@ -3981,11 +3998,44 @@ class UsuariosDAO {
 				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
 
 				for (int i = 1; i <= columnCount; i++) {
-					if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					String encoded = "";
+					boolean noAzure = false;
+					try {
+						String urlfoto = rs.getString("foto");
+						if (urlfoto != null && !urlfoto.isEmpty()) {
+							columns.put("fotografiab64", rs.getString("foto") + SSA);
+							columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
+							columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
+						} else {
+							noAzure = true;
+							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
+							for (Document doc: doc1) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+						}
+						for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiabpm", encoded);
+							}
+					}
+					catch(Exception e) {
+						LOGGER.error "[ERROR] " + e.getMessage();
+						columns.put("fotografiabpm", "");
+						if(noAzure){
+							columns.put("fotografiab64", "");
+						}
+						errorlog += "" + e.getMessage();
+					}
+					
+				
+
+					/*if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
 						columns.put("foto", rs.getString(i) + SSA);
 					}else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
+					}*/
 				}
 
 				rows.add(columns);

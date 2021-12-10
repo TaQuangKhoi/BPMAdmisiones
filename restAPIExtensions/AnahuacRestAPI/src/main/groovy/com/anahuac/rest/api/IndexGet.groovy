@@ -122,6 +122,22 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("application/json")
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
 				break;
+				case "getDescuentosCiudadBachilleratoById":
+				def p = request.getParameter "p";
+				if (p == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter p is missing"}""")
+				}
+				def c = request.getParameter "c";
+				if (c == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter c is missing"}""")
+				}
+				String ciudad=request.getParameter "ciudad"
+				String campus=request.getParameter "campus"
+				String id=request.getParameter "id"
+				result = new CatalogoBachilleratoDAO().getDescuentosCiudadBachilleratoById(Integer.valueOf(p), Integer.valueOf(c), campus, id, ciudad, context)
+				responseBuilder.withMediaType("application/json")
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				break;
 				case "getDescuentosCampana":
 				def p = request.getParameter "p";
 				if (p == null) {
@@ -422,7 +438,14 @@ class IndexGet implements RestApiController {
 				case "getInfoRelativos":
 				try{
 					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					
 					result = new PsicometricoDAO().getInfoRelativos(caseid);
+					
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
 					}else {
@@ -826,6 +849,21 @@ class IndexGet implements RestApiController {
 				
 				break;
 				
+				case "getUpdateFamiliaresIntento":
+				String caseid=request.getParameter "caseid"
+				String intentos=request.getParameter "intentos"
+				String cantidad=request.getParameter "cantidad"
+				
+				result = new SolicitudUsuarioDAO().getUpdateFamiliaresIntento(caseid,intentos,cantidad)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
 				case "getCatBachilleratos":
 				result = new CatalogoBachilleratoDAO().get(0, 9999, "", context)
 				responseBuilder.withMediaType("application/json")
@@ -1013,6 +1051,16 @@ class IndexGet implements RestApiController {
 				
 				case "getTransactionLog":
 				result = new LogDAO().getTransactionLog();
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+
+				case "getBachilleratoLog":
+				result = new LogDAO().getBachilleratoLog();
 				responseBuilder.withMediaType("application/json");
 				if (result.isSuccess()) {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
