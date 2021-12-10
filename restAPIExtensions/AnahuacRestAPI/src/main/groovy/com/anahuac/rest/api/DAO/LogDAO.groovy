@@ -99,13 +99,13 @@ class LogDAO {
 		return resultado
 	}
 	
-	public Result insertBachilleratoLog(String operation, String usuarioBanner, String idBachillerato, String pais, String estado, String ciudad, String descripcion, String typeInd, String postalCode, String isEliminado) {
+	public Result insertBachilleratoLog(String operation, String usuarioBanner, String idBachillerato, String pais, String estado, String ciudad, String descripcion, String typeInd, String postalCode, String isEliminado, String isEstadoOk, String isCodigoPostalOk, String isMatchOk) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		try {
 				List<CatNotificacionesFirma> rows = new ArrayList<CatNotificacionesFirma>();
 				closeCon = validarConexion();
-				pstm = con.prepareStatement("INSERT INTO bachillerato_log ( operation, usuarioBanner, idBachillerato, pais, estado, ciudad, descripcion, typeInd, postalCode, isEliminado) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
+				pstm = con.prepareStatement("INSERT INTO bachillerato_log ( operation, usuarioBanner, idBachillerato, pais, estado, ciudad, descripcion, typeInd, postalCode, isEliminado, isEstadoOk, isCodigoPostalOk, isMatchOk) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);")
 				pstm.setString(1, operation)
 				pstm.setString(2, usuarioBanner)
 				pstm.setString(3, idBachillerato)
@@ -116,6 +116,9 @@ class LogDAO {
 				pstm.setString(8, typeInd)
 				pstm.setString(9, postalCode)
 				pstm.setString(10, isEliminado)
+				pstm.setString(11, isEstadoOk)
+				pstm.setString(12, isCodigoPostalOk)
+				pstm.setString(13, isMatchOk)
 				pstm.execute()
 				
 				resultado.setSuccess(true)
@@ -124,7 +127,7 @@ class LogDAO {
 				
 			}catch(SQLException sqle) {
 				if(sqle.getMessage().toLowerCase().contains("exist")) {
-					pstm=con.prepareStatement("CREATE TABLE bachillerato_log (id bigserial NOT NULL, operation CHARACTER VARYING(50) NOT NULL, usuarioBanner CHARACTER VARYING(50) NOT NULL, idBachillerato CHARACTER VARYING(50) NOT NULL, pais CHARACTER VARYING(50) NOT NULL, estado CHARACTER VARYING(50) NOT NULL, ciudad CHARACTER VARYING(50) NOT NULL, descripcion CHARACTER VARYING(150) NOT NULL, typeInd CHARACTER VARYING(50) NOT NULL, postalCode CHARACTER VARYING(20) NOT NULL, isEliminado CHARACTER VARYING(10) NOT NULL, fecha_ejecucion TIMESTAMP without TIME zone DEFAULT NOW() NOT NULL, PRIMARY KEY (id) )")
+					pstm=con.prepareStatement("CREATE TABLE bachillerato_log (id bigserial NOT NULL, operation CHARACTER VARYING(50) NOT NULL, usuarioBanner CHARACTER VARYING(50) NOT NULL, idBachillerato CHARACTER VARYING(50) NOT NULL, pais CHARACTER VARYING(50) NOT NULL, estado CHARACTER VARYING(50) NOT NULL, ciudad CHARACTER VARYING(50) NOT NULL, descripcion CHARACTER VARYING(150) NOT NULL, typeInd CHARACTER VARYING(50) NOT NULL, postalCode CHARACTER VARYING(20) NOT NULL, isEliminado CHARACTER VARYING(10) NOT NULL, isEstadoOk CHARACTER VARYING(10) NOT NULL, isCodigoPostalOk CHARACTER VARYING(10) NOT NULL, isMatchOk CHARACTER VARYING(10) NOT NULL , fecha_ejecucion TIMESTAMP without TIME zone DEFAULT NOW() NOT NULL, PRIMARY KEY (id) )")
 					pstm.execute();
 					resultado=insertBachilleratoLog(operation, usuarioBanner, idBachillerato, pais, estado, ciudad, descripcion, typeInd, postalCode, isEliminado)
 				}else {
