@@ -72,10 +72,10 @@ class BannerDAO {
 			//errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
 
-			jsonResultado = getConsumePrepa(barrerToken);
+			//jsonResultado = getConsumePrepa(barrerToken);
 			
-			//JSO PRUEBA ANGEL
-			//jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
+			//JSON PRUEBA ANGEL CREATE
+			jsonResultado = "[{\"id\":\"329\",\"published\":\"2021-12-08 01:33:33.630727+00\",\"resource\":{\"name\":\"educational-institutions\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"version\":\"application/vnd.hedtech.integration.v6+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"homeInstitution\":\"external\",\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"},\"publisher\":{\"id\":\"c9d2d963-68db-445d-a874-c9c103aa32ba\",\"applicationName\":\"RUAD INTEGRATION API (Shared Data)\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}},{\"id\":\"330\",\"published\":\"2021-12-08 01:34:40.980862+00\",\"resource\":{\"name\":\"addresses\",\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"version\":\"application/vnd.hedtech.integration.v11.1.0+json\"},\"operation\":\"created\",\"contentType\":\"resource-representation\",\"content\":{\"addressLines\":[\"linea 1\",\"linea 2\"],\"id\":\"86e485b9-f1a0-4764-9316-e89491be7f8c\",\"place\":{\"country\":{\"code\":\"MEX\",\"locality\":\"CDMX\",\"postalCode\":\"02400\",\"postalTitle\":\"MEXICO\",\"region\":{\"title\":\"Ciudad de M\u00e9xico\"},\"subRegion\":{\"title\":\"AZCAPOTZALCO\"},\"title\":\"M\u00e9xico\"}},\"addressExtended\":[{\"streetLine1\":\"linea 1\",\"streetLine2\":null,\"streetLine3\":\"linea 2\",\"nationCode\":\"99\",\"stateCode\":\"M09\",\"countyCode\":\"09002\"}],\"educationalInstitutionsExtended\":[{\"id\":\"cc0967f6-e05d-4652-9498-fe69b08bf1aa\",\"title\":\"prueba 5\",\"type\":\"secondarySchool\",\"code\":\"10395\",\"typeInd\":\"H\"}]},\"publisher\":{\"id\":\"c7aa6fe2-5472-44c0-aaed-c0faa1b5c91a\",\"applicationName\":\"RUAD INTEGRATION API-UAS\",\"tenant\":{\"id\":\"184dddce-65c5-4621-92a3-5703037fb3ed\",\"alias\":\"uatest\",\"name\":\"Universidad Anahuac\",\"environment\":\"Test\"}}}]";
 			
 			//errorLog += " | " + jsonResultado;
 			
@@ -332,6 +332,7 @@ class BannerDAO {
 		
 		Boolean isEstadoOk = false;
 		Boolean isCodigoPostalOk = false;
+		Boolean isMatchOk = false;
 
 		List < CatBachilleratos > lstCatBachilleratos = new ArrayList < CatBachilleratos > ();
 
@@ -688,6 +689,8 @@ class BannerDAO {
 							isNationCodeLetterOk = false;
 							isEstadoOk = true;
 							
+							errorLog = errorLog + " | entra al replaced";
+							
 							if (objRow.getPais().equals("México")) {
 								
 								//Validar Estado
@@ -819,6 +822,8 @@ class BannerDAO {
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 									
+									
+									errorLog = errorLog + " | entra al Guardar en Log BD replaced con H";
 									//Guardar en Log BD  - Angel G
 									String isEliminado = objCatBachilleratosInput.get("isEliminado");
 									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
@@ -887,8 +892,10 @@ class BannerDAO {
 									objCatBachilleratosInput.put("countyCode", objRow.getCountyCode());
 									objCatBachilleratosInput.put("typeInd", row.getTypeInd());
 									
+									errorLog = errorLog + " | SIN H  Guardar en Log BD";
 									//Guardar en Log BD  - Angel G
 									String isEliminado = "true";
+									
 									new LogDAO().insertBachilleratoLog(row.getOperation(), row.getUsuarioBanner(), row.getIdBachillerato(), row.getPais(), row.getEstado(), row.getCiudad(), row.getDescripcion(), row.getTypeInd(), "", isEliminado);
 
 									lstCatBachilleratosInput.add(objCatBachilleratosInput);
@@ -1320,6 +1327,56 @@ class BannerDAO {
 									
 								//}
 							//}
+						
+							if (objRow.getPais().equals("México")) {
+								
+								errorLog = errorLog + " | entra al IF objRow.getPais().equals(México):" + objRow.getPais();
+								
+								//Validar si Existe el Estado
+								closeCon = validarConexion();
+								pstm = con.prepareStatement(Statements.GET_ESTADO_BY_CLAVE)
+								pstm.setString(1, objLstAddresses.getStateCode());
+								rs = pstm.executeQuery();
+								
+								if(rs.next()) {
+									isEstadoOk = true;
+								}
+								
+								//Validar si Existe el Codigo Postal
+								closeCon = validarConexion();
+								pstm = con.prepareStatement(Statements.GET_CIUDAD_BY_CODIGO_POSTAL)
+								pstm.setString(1, objLstAddresses.getPostalCode());
+								rs = pstm.executeQuery();
+								
+								if(rs.next()) {
+									isCodigoPostalOk = true;
+								}
+								
+								//Validar si hay match entre la clave del estado y el codigo postal
+								closeCon = validarConexion();
+								pstm = con.prepareStatement(Statements.GET_INFO_BY_CODIGO_POSTAL_AND_CLAVE_ESTADO)
+								pstm.setString(1, objLstAddresses.getPostalCode());
+								pstm.setString(2, objLstAddresses.getStateCode());
+								rs = pstm.executeQuery();
+								
+								if(rs.next()) {
+									isMatchOk = true;
+								}
+								
+								errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
+								errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
+								errorLog = errorLog + " | isMatchOk:" + isMatchOk;
+							
+							}else {
+								errorLog = errorLog + " | entra al ELSE objRow.getPais().equals(México):" + objRow.getPais();
+								errorLog = errorLog + " | isEstadoOk:" + isEstadoOk;
+								errorLog = errorLog + " | isCodigoPostalOk:" + isCodigoPostalOk;
+								errorLog = errorLog + " | isMatchOk:" + isMatchOk;
+							}
+							
+							
+							
+							
 							errorLog = errorLog + " | PersistenceId:" + objRow.getPersistenceId();
 							errorLog = errorLog + " | Descripcion:" + objRow.getDescripcion();
 							errorLog = errorLog + " | ================================================================== | ";
@@ -1359,7 +1416,7 @@ class BannerDAO {
 	
 							//Guardar en Log BD  - Angel G
 							String isEliminado =  objCatBachilleratosInput.get("isEliminado");//"false";
-							errorLog = errorLog + " | Guardar en Log BD";
+							errorLog = errorLog + " | Guardar en Log BD en Created";
 								
 							new LogDAO().insertBachilleratoLog(objLstAddresses.getOperation(), objRow.getUsuarioBanner(), objRow.getId(), objLstAddresses.getPais(), objLstAddresses.getEstado(), objLstAddresses.getCiudad(), objRow.getDescripcion(), objRow.getTypeInd(), objLstAddresses.getPostalCode(), isEliminado);
 							errorLog = errorLog + " | " + objLstAddresses.getOperation();
@@ -1419,6 +1476,7 @@ class BannerDAO {
 						}
 						
 						if(lstCatBachilleratos.size()==0 && object.get(i).operation.equals("replaced")) {
+							errorLog = errorLog + " --- ANGEL operation.equals(replaced)" ;
 							lstCatBachilleratosInput.add(generateContract(object.get(i), isMexicoOk, isUsaOk, isOtroPaisOk))
 						}
 						
