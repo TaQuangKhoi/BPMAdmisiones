@@ -52,7 +52,7 @@
                             ng-show="properties.dataToSend.orderby=='TIPOALUMNO'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('TIPOADMISION')">Tipo Admisión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='TIPOADMISION'"></i></span></th>
-                    <!--<th> Acciones</th>-->
+                    <th> Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@
                 <td><input ng-model="dynamicInput['estado']" class="form-control" ng-enter="filterKeyPress('PREPARATORIA,PROCEDENCIA,PROMEDIO',dynamicInput['estado'])"></td>
                 <td><input ng-model="dynamicInput['estatus']" class="form-control" ng-enter="filterKeyPress('ESTATUS',dynamicInput['estatus'])"></td>
                 <td><input ng-model="dynamicInput['tipos']" class="form-control" ng-enter="filterKeyPress('RESIDENCIA,TIPO ALUMNO,TIPO ADMISION',dynamicInput['tipos'])"></td>
-                <!--<td></td>-->
+                <td></td>
             </tr>
             <tr ng-repeat="row in properties.lstContenido" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
                     <td class="max-size">
@@ -89,27 +89,29 @@
                         {{row.residencia}} <br> {{row.tipoalumno}}
                         <br> {{row.tipoadmision}}
                     </td>
-                    <!--<td class="max-size">
+                    <td class="max-size">
                         <table>
                             <tr>
                                 <td>
-                                    <button class="btn btn-default" ng-click="asignarTarea(row)">
+                                    <button class="btn btn-default" ng-click="generatePDF()">
                                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                     </button>
                                 </td>
-                            </tr>
-                            
-                            <tr>
                                 <td>
-                                    <button class="btn btn-default" ng-click="openModal(row)">
-                                    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                    <button class="btn btn-default">
+                                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                                    <!--<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>-->
+                                </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default">
+                                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                                    <!--<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>-->
                                 </button>
                                 </td>
                             </tr>
-                            
-                            
                         </table>
-                    </td> -->
+                    </td>
                 </tr>
         </tbody>
     </table>
