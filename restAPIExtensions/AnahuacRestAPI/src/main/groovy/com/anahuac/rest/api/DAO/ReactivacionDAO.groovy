@@ -546,6 +546,10 @@ class ReactivacionDAO {
 			pstm.setInt(6, Integer.valueOf(object.countrechazos));
 			pstm.setLong(7, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
+			
+			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO_AUTODESCRIPCION)
+			pstm.setString(1, object.caseid+'');
+			pstm.executeUpdate(); 
 
 			con.commit();
 			
@@ -783,6 +787,11 @@ class ReactivacionDAO {
 		String where = "", campus = "",  orderby = "ORDER BY ", errorlog = "";
 		List < String > lstGrupo = new ArrayList < String > ();
 
+		Boolean primeraCondicion = false;
+		String consultaCountAux = "";
+		Long totalRegistrosAux = 0;
+		String consultaInicial = "";
+
 		Long userLogged = 0L;
 		Long caseId = 0L;
 		Long total = 0L;
@@ -848,7 +857,8 @@ class ReactivacionDAO {
 					}else {
 						where+= " WHERE "
 					}
-					where +=" ( LOWER(concat(sda.primernombre,' ', sda.segundonombre,' ',sda.apellidopaterno,' ',sda.apellidomaterno)) like lower('%[valor]%') ";
+					primeraCondicion = true;
+					where +=" ( LOWER(concat(sda.apellidopaterno,' ', sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) like lower('%[valor]%') ";
 						where = where.replace("[valor]", filtro.get("valor"))
 						
 						where +=" OR LOWER(sda.correoelectronico) like lower('%[valor]%') ";
@@ -1096,22 +1106,41 @@ class ReactivacionDAO {
 			String consultaCount = Statements.GET_ASPIRANTES_RESPALDO_COUNT
 			consultaCount = consultaCount.replace("[WHERE]", where);
 			consultaCount = consultaCount.replace("[CAMPUS]", campus)
+			consultaCountAux = consultaCount;
 			pstm = con.prepareStatement(consultaCount)
 			
 			errorlog = consulta + " 6";
 
 			rs = pstm.executeQuery()
 			if (rs.next()) {
-				resultado.setTotalRegistros(rs.getInt("registros"))
+			 	resultado.setTotalRegistros(rs.getInt("registros"))
+			 	totalRegistrosAux =	rs.getInt("registros");
 			}
 			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
 			errorlog = consulta + " 7";
 
+			consultaInicial = consulta;			
+			if(primeraCondicion == true && totalRegistrosAux == 0) {
+				errorlog = consulta + " if totalRegistrosAux "+consulta;
+				consulta = consultaInicial;
+				consulta = consulta.replace(" ( LOWER(concat(sda.apellidopaterno,' ', sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ", " ( LOWER(concat(sda.apellidopaterno,' ',sda.primernombre,' ',sda.segundonombre)) ")
+
+				consultaCountAux = consultaCountAux.replace("  ( LOWER(concat(sda.apellidopaterno,' ', sda.apellidomaterno,' ',sda.primernombre,' ',sda.segundonombre)) ", "  ( LOWER(concat(sda.apellidopaterno,' ',sda.primernombre,' ',sda.segundonombre)) ")
+				pstm = con.prepareStatement(consultaCountAux)
+			
+				errorlog = consulta + " 6";
+				rs = pstm.executeQuery()
+				if (rs.next()) {
+				 	resultado.setTotalRegistros(rs.getInt("registros"))
+				}
+			}
+
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit)
 			pstm.setInt(2, object.offset)
 			rs = pstm.executeQuery()
+
 			rows = new ArrayList < Map < String, Object >> ();
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
@@ -1154,7 +1183,7 @@ class ReactivacionDAO {
 
 				rows.add(columns);
 			}
-			errorlog = consulta + " 9";
+			errorlog = consulta + " 9" + consultaCount;
 			resultado.setSuccess(true)
 
 			resultado.setError_info(errorlog);
