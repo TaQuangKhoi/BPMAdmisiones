@@ -56,6 +56,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 		String idioma = "";
 		String plantilla ="";
 		String correo="",  asunto="",  body="",  cc="";
+		Boolean cartaenviar=false;
 		try {
 		
 			Properties prop = new Properties();
@@ -83,31 +84,115 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			def object = jsonSlurper.parseText(jsonData);
 			
 			assert object instanceof Map;
-			
-			/*-------------------ENG/ESP-----------------------------------*/				
-			/*try {				
+			Boolean closeConPlantilla=false;
+			/*-------------------ENG/ESP-----------------------------------*/
+		/*	try {
+				closeConPlantilla = validarConexion();
 				pstm = con.prepareStatement(Statements.SELECT_IDIOMA_BY_USERNAME);
-				pstm.setString(1, object.nombreusuario);
-				
+				pstm.setString(1, object.correo);
+					
 				rs = pstm.executeQuery();
-				
+					
 				if(rs.next()) {
 					idioma = rs.getString("idioma");
 				}
-				
-				if(idioma == "ENG") {
-					if(object.codigo.equals("registrar") || object.codigo.equals("reestablecer")) {
-						object.codigo+="-eng";
-						errorlog = "Primera condición";
-					} else if(object.codigo.equals("recuperar")) {
-						object.codigo="reestablecer-eng";
-						errorlog = "Segunda condición";
-					}
-				}
+					
 			} catch (Exception e) {
 				errorlog = "Error generateHtml - select_idioma_by_username: "+rs+" object: "+object+" idioma: "+idioma+" exception: "+e;
+			} finally {
+				if(closeConPlantilla) {
+					new DBConnect().closeObj(con, stm, rs, pstm);
+				}
 			}*/
 			
+			/*-------------------CARTAS, REGISTRO, REESTABLECER, RECUPERAR, ACTIVADO, ETC-----------------------------------*/
+			/*if(idioma == "ENG") {
+				if(object.codigo.equals("registrar") || object.codigo.equals("reestablecer")) {
+					object.codigo+="-eng";
+					errorlog = "Registrar // Reestablecer";
+					
+				} else if(object.codigo.equals("recuperar")) {
+					object.codigo="reestablecer-eng";
+					errorlog = "Recuperar";
+					
+				} else if(object.codigo.equals("activado")) {
+					object.codigo+="-eng";
+					errorlog = "Activado";
+					
+				} else if(object.codigo.equals("carta-aceptar")) {
+					object.codigo+="-eng";
+					errorlog = "Carta-aceptar";
+					
+				} else if(object.codigo.equals("carta-rechazo")) {
+					object.codigo+="-eng";
+					errorlog = "Carta-rechazo";
+					
+				} else if(object.codigo.equals("carta-informacion")) {
+					object.codigo+="-eng";
+					errorlog = "Carta-informacion";
+					
+				} else if(object.codigo.equals("examenentrevista")) {
+					object.codigo+="-eng";
+					errorlog = "Examen entrevista";
+					
+				} else if(object.codigo.equals("transferencia")) {
+					object.codigo+="-eng";
+					errorlog = "Transferencia";
+					
+				} else if(object.codigo.equals("carta-propedeutico")) {
+					object.codigo+="-eng";
+					errorlog = "Carta-propedeutico";
+					
+				} else if(object.codigo.equals("carta-pdu")) {
+					object.codigo+="-eng";
+					errorlog = "Carta-pdu";
+					
+				} else if(object.codigo.equals("enviada")) {
+					object.codigo+="-eng";
+					errorlog = "Enviada";
+					
+				} else if(object.codigo.equals("cambios")) {
+					object.codigo+="-eng";
+					errorlog = "Cambios";
+					
+				} else if(object.codigo.equals("rechazada")) {
+					object.codigo+="-eng";
+					errorlog = "Rechazada";
+					
+				} else if(object.codigo.equals("listaroja")) {
+					object.codigo+="-eng";
+					errorlog = "Listaroja";
+					
+				} else if(object.codigo.equals("validada")) {
+					object.codigo+="-eng";
+					errorlog = "Validada";
+					
+				} else if(object.codigo.equals("pago")) {
+					object.codigo+="-eng";
+					errorlog = "Pago";
+					
+				} else if(object.codigo.equals("validada-aa")) {
+					object.codigo+="-eng";
+					errorlog = "Validada-aa";
+					
+				} else if(object.codigo.equals("recordatorio")) {
+					object.codigo+="-eng";
+					errorlog = "recordatorio";
+					
+				} else if(object.codigo.equals("autodescripcion")) {
+					object.codigo+="-eng";
+					errorlog = "Autodescripcion";
+					
+				} else if(object.codigo.equals("credencial")) {
+					object.codigo+="-eng";
+					errorlog = "Credencial";
+					
+				} else if(object.codigo.equals("validada-100")) {
+					object.codigo+="-eng";
+					errorlog = "Validada-100";
+					
+				}
+			}*/
 			/*--------------------FIN-------------------------------------*/
 			userLogged = context.getApiSession().getUserId();
 			errorlog += "| Se obtuvo el usuario " + userLogged;
@@ -251,11 +336,23 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 					plantilla = plantilla.replace("[MENSAJE]", object.mensaje);
 				}
 			}
-			plantilla=plantilla.replace("[DAY]",String.valueOf(dayOfMonth))
-			plantilla=plantilla.replace("[MONTH]",Month[mes])
-			plantilla=plantilla.replace("[YEAR]",annio)
-			plantilla=plantilla.replace("[HOUR]",hora)
-			plantilla=plantilla.replace("[MIN]",minuto)
+			
+			if(idioma == "ENG") {
+				String[] MonthEng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+				plantilla=plantilla.replace("[DAY] / [MONTH] / [YEAR] | [HOUR]:[MIN]","[MONTH] / [DAY] / [YEAR] | [HOUR]:[MIN]");
+				
+				plantilla=plantilla.replace("[MONTH]",MonthEng[mes])
+				plantilla=plantilla.replace("[DAY]",String.valueOf(dayOfMonth))
+				plantilla=plantilla.replace("[YEAR]",annio)
+				plantilla=plantilla.replace("[HOUR]",hora)
+				plantilla=plantilla.replace("[MIN]",minuto)
+			} else {
+				plantilla=plantilla.replace("[DAY]",String.valueOf(dayOfMonth))
+				plantilla=plantilla.replace("[MONTH]",Month[mes])
+				plantilla=plantilla.replace("[YEAR]",annio)
+				plantilla=plantilla.replace("[HOUR]",hora)
+				plantilla=plantilla.replace("[MIN]",minuto)
+			}
 			//8 Seccion table atributos usuario
 			errorlog += "| Variable8.1 listado de correos copia"
 			String tablaUsuario= ""
@@ -661,6 +758,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 						plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 						plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
 						plantilla=plantilla.replace("[|seleccionado|]",rs.getString("seleccionado"));
+						cartaenviar=true;
 						}catch(Exception infex) {
 							
 						}
@@ -750,6 +848,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 							plantilla=plantilla.replace("[|statuspdu|]",rs.getString("statuspdu"));
 							plantilla=plantilla.replace("[|universidad|]",rs.getString("universidad"));
 							plantilla=plantilla.replace("[|notaslistaroja|]",rs.getString("notaslistaroja"));
+							cartaenviar=true;
 							}catch(Exception infex) {
 								
 							}
@@ -847,7 +946,7 @@ public Result generateHtml(Integer parameterP, Integer parameterC, String jsonDa
 			lstAdditionalData.add("correo="+correo)
 			lstAdditionalData.add("asunto="+asunto)
 			lstAdditionalData.add("cc="+cc)
-			if(object.isEnviar) {
+			if((object.isEnviar && object.codigo!="carta-informacion") ||(object.isEnviar && object.codigo=="carta-informacion" && cartaenviar) ) {
 				resultado = mgd.sendEmailPlantilla(correo, asunto, plantilla.replace("\\", ""), cc, object.campus, context)
 				CatBitacoraCorreo catBitacoraCorreo = new CatBitacoraCorreo();
 				catBitacoraCorreo.setCodigo(object.codigo)

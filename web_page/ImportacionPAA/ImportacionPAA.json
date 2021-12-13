@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionPAA",
   "name" : "ImportacionPAA",
-  "lastUpdate" : 1630698345849,
+  "lastUpdate" : 1637342264280,
   "rows" : [
     [
       {
@@ -689,6 +689,14 @@
                                   "orden" : {
                                     "type" : "variable",
                                     "value" : "activos.completos"
+                                  },
+                                  "isUpdate" : {
+                                    "type" : "variable",
+                                    "value" : ""
+                                  },
+                                  "update" : {
+                                    "type" : "variable",
+                                    "value" : "isUpdate"
                                   }
                                 },
                                 "reference" : "7d210bb1-9a51-4a4d-9783-56a202238efa",
@@ -1027,7 +1035,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "Aplicar cambios"
+                        "value" : "Guardar"
                       },
                       "alignment" : {
                         "type" : "constant",
@@ -1149,7 +1157,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "table-size"
                             },
                             "hidden" : {
                               "type" : "expression",
@@ -1299,7 +1307,7 @@
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : ""
+                              "value" : "table-size"
                             },
                             "hidden" : {
                               "type" : "constant",
@@ -1433,11 +1441,15 @@
                       "restablecer" : {
                         "type" : "variable",
                         "value" : "secciones"
+                      },
+                      "update" : {
+                        "type" : "variable",
+                        "value" : "isUpdate"
                       }
                     },
-                    "reference" : "10ed91dd-c938-4e6a-a92f-908084bcf7cc",
+                    "reference" : "9159f99a-f2f6-4732-ac94-e407295aa446",
                     "hasValidationError" : false,
-                    "id" : "customBtnCambioVariable2"
+                    "id" : "customBtnCambioVariable3"
                   }
                 ],
                 [
@@ -1695,11 +1707,15 @@
                       "value" : {
                         "type" : "variable",
                         "value" : "strAlumno.tipoExamen"
+                      },
+                      "update" : {
+                        "type" : "expression",
+                        "value" : "isUpdate"
                       }
                     },
-                    "reference" : "b51fe592-3bcf-4b42-85bb-200710ccaa5c",
+                    "reference" : "105ae480-267b-4228-bf39-754a1464a6b3",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "customSelectTipoExamen"
                   },
                   {
                     "type" : "container",
@@ -1775,11 +1791,11 @@
                             },
                             "dateFormat" : {
                               "type" : "constant",
-                              "value" : "dd-MM-yyyy"
+                              "value" : "dd/MM/yyyy"
                             },
                             "placeholder" : {
                               "type" : "interpolation",
-                              "value" : "Enter a date (dd-MM-yyyy)"
+                              "value" : "Enter a date (dd/MM/yyyy)"
                             },
                             "showToday" : {
                               "type" : "constant",
@@ -1790,7 +1806,7 @@
                               "value" : "Today"
                             }
                           },
-                          "reference" : "75b641c4-a02e-4628-8745-3ec6627cd29f",
+                          "reference" : "db5ddad3-024b-465b-8f0a-037ab7c8b09d",
                           "hasValidationError" : false,
                           "id" : "customDatePicker3"
                         }
@@ -2865,7 +2881,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 800
+                              "value" : 801
                             },
                             "step" : {
                               "type" : "constant",
@@ -2942,7 +2958,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 690
+                              "value" : 691
                             },
                             "step" : {
                               "type" : "constant",
@@ -3019,7 +3035,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 800
+                              "value" : 801
                             },
                             "step" : {
                               "type" : "constant",
@@ -3096,7 +3112,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 690
+                              "value" : 691
                             },
                             "step" : {
                               "type" : "constant",
@@ -3173,7 +3189,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 800
+                              "value" : 801
                             },
                             "step" : {
                               "type" : "constant",
@@ -3250,7 +3266,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 690
+                              "value" : 691
                             },
                             "step" : {
                               "type" : "constant",
@@ -3326,7 +3342,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 3
+                              "value" : 4
                             },
                             "step" : {
                               "type" : "constant",
@@ -3435,7 +3451,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -3488,8 +3504,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3510,7 +3526,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -3548,7 +3564,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -3564,8 +3580,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3586,7 +3602,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -3624,7 +3640,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -3640,8 +3656,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3700,7 +3716,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -3708,6 +3724,82 @@
                             }
                           },
                           "reference" : "ac367dd3-40ca-4fbb-b394-94f7c0be7ea9",
+                          "hasValidationError" : false,
+                          "id" : "customInputNumericoCustom3"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 3,
+                            "lg" : 3
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "LA4"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.LA4"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 11
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "cb4cd87f-6384-4ee4-8106-4a9af2059d8b",
                           "hasValidationError" : false,
                           "id" : "customInputNumericoCustom3"
                         }
@@ -3731,7 +3823,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -3780,12 +3872,41 @@
                       ],
                       [
                         {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 1,
+                            "lg" : 1
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "de820954-550b-44dd-a83e-f36c91fa92fa",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [ ]
+                          ]
+                        },
+                        {
                           "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3806,7 +3927,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -3844,7 +3965,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -3860,8 +3981,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3882,7 +4003,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -3920,7 +4041,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -3936,8 +4057,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -3958,7 +4079,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -3996,7 +4117,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -4012,8 +4133,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
+                            "md" : 2,
+                            "lg" : 2
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -4034,7 +4155,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -4072,7 +4193,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -4082,6 +4203,82 @@
                           "reference" : "50bb71d5-8f67-42aa-b496-94857291c8bd",
                           "hasValidationError" : false,
                           "id" : "customInputNumericoCustom3"
+                        },
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : 3
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "VariableCarga.view"
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "PG5"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strAlumno.PG5"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant",
+                              "value" : 11
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "88b6f006-2a8b-462c-a090-cf51e1e340b3",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
                         }
                       ]
                     ]
@@ -4103,7 +4300,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAN"
+                        "value" : "!secciones.PAAN || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4152,6 +4349,35 @@
                       ],
                       [
                         {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 2,
+                            "lg" : 2
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "28b6cd6f-ecab-4cdf-9dde-66d3c6c157f4",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [ ]
+                          ]
+                        },
+                        {
                           "type" : "component",
                           "dimension" : {
                             "xs" : 12,
@@ -4178,7 +4404,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -4216,7 +4442,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -4254,7 +4480,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -4266,7 +4492,7 @@
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "PV2:"
+                              "value" : "PV4:"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4281,7 +4507,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "strAlumno.PV2"
+                              "value" : "strAlumno.PV4"
                             },
                             "type" : {
                               "type" : "constant",
@@ -4292,7 +4518,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -4300,454 +4526,6 @@
                             }
                           },
                           "reference" : "b7733ad8-980d-49e7-befc-638fa359ee5f",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 2
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "PV3:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.PV3"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "081be219-12a6-4d66-bd2f-2bf81ba41b63",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        }
-                      ]
-                    ]
-                  }
-                ],
-                [
-                  {
-                    "type" : "container",
-                    "dimension" : {
-                      "xs" : 12,
-                      "sm" : 12,
-                      "md" : 12,
-                      "lg" : 12
-                    },
-                    "propertyValues" : {
-                      "cssClasses" : {
-                        "type" : "constant",
-                        "value" : ""
-                      },
-                      "hidden" : {
-                        "type" : "expression",
-                        "value" : "!secciones.PAAN"
-                      },
-                      "repeatedCollection" : {
-                        "type" : "variable",
-                        "value" : ""
-                      }
-                    },
-                    "reference" : "4af5aa4b-3ec6-499b-8a82-9a7732a6fa29",
-                    "hasValidationError" : false,
-                    "id" : "pbContainer",
-                    "rows" : [
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "Pensamiento estocástico"
-                            },
-                            "level" : {
-                              "type" : "constant",
-                              "value" : "Level 4"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "center"
-                            }
-                          },
-                          "reference" : "d22a3d72-55d1-4ebf-9147-d3f73b72109e",
-                          "hasValidationError" : false,
-                          "id" : "pbTitle"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 2
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "PE1"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.PE1"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "0da0afc6-aca4-4257-87bb-8c0c4a36d7e1",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 2
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "PE2:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.PE2"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "44cfaa89-bf0f-49ec-a9a2-0ae685a318fa",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "PE3:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.PE3"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "d373aeb5-e099-43d7-8a61-2981cb1eac45",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 3,
-                            "lg" : 3
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 2
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "PE4:"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.PE4"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "5359b5b9-c52b-45f1-87ff-b5969462593d",
                           "hasValidationError" : false,
                           "id" : "customInputNumericoCustom3"
                         }
@@ -4849,7 +4627,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAV"
+                        "value" : "!secciones.PAAV || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -4902,8 +4680,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -4924,7 +4702,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -4962,7 +4740,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -4978,8 +4756,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -5000,83 +4778,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "VariableCarga.view"
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "LEO2"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "placeholder" : {
-                              "type" : "interpolation"
-                            },
-                            "value" : {
-                              "type" : "variable",
-                              "value" : "strAlumno.LEO2"
-                            },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
-                            },
-                            "min" : {
-                              "type" : "constant"
-                            },
-                            "max" : {
-                              "type" : "constant",
-                              "value" : 10
-                            },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
-                            }
-                          },
-                          "reference" : "298cbdd6-a628-4875-9bcf-c67ae52f62d2",
-                          "hasValidationError" : false,
-                          "id" : "customInputNumericoCustom3"
-                        },
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "required" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5114,7 +4816,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5124,45 +4826,14 @@
                           "reference" : "5fa14f3d-592d-4056-a352-a84524c493ae",
                           "hasValidationError" : false,
                           "id" : "customInputNumericoCustom3"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "container",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 2,
-                            "lg" : 2
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "repeatedCollection" : {
-                              "type" : "variable",
-                              "value" : ""
-                            }
-                          },
-                          "reference" : "9a241c7c-250b-43ed-8e9c-9a26ef99c40b",
-                          "hasValidationError" : false,
-                          "id" : "pbContainer",
-                          "rows" : [
-                            [ ]
-                          ]
                         },
                         {
                           "type" : "component",
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -5183,7 +4854,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5221,7 +4892,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5237,8 +4908,8 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 4,
-                            "lg" : 4
+                            "md" : 3,
+                            "lg" : 3
                           },
                           "propertyValues" : {
                             "cssClasses" : {
@@ -5259,7 +4930,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5297,7 +4968,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5328,7 +4999,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PAAV"
+                        "value" : "!secciones.PAAV || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -5432,7 +5103,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5470,7 +5141,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5508,7 +5179,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5546,7 +5217,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5655,7 +5326,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "!secciones.PARA"
+                        "value" : "!secciones.PARA || strAlumno.tipoExamen != \"KP\""
                       },
                       "repeatedCollection" : {
                         "type" : "variable",
@@ -5730,7 +5401,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5768,7 +5439,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5806,7 +5477,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5844,7 +5515,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5882,7 +5553,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5920,7 +5591,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -5960,7 +5631,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -5998,7 +5669,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -6036,7 +5707,7 @@
                             },
                             "maxLength" : {
                               "type" : "constant",
-                              "value" : 2
+                              "value" : 3
                             },
                             "readOnly" : {
                               "type" : "expression",
@@ -6074,7 +5745,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -6150,7 +5821,7 @@
                             },
                             "max" : {
                               "type" : "constant",
-                              "value" : 10
+                              "value" : 11
                             },
                             "step" : {
                               "type" : "constant",
@@ -6303,6 +5974,10 @@
                       "urlValidar" : {
                         "type" : "constant",
                         "value" : "/bonita/API/extension/AnahuacRest?url=postValidarUsuarioImportacionPAA&p=0&c=100"
+                      },
+                      "update" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "89a4f7b4-d8bb-402d-8f94-db872ebfafe6",
@@ -6674,22 +6349,18 @@
         "            \"LA1\",\r",
         "            \"LA2\",\r",
         "            \"LA3\",\r",
+        "            \"LA4\",\r",
         "            \"LEO1\",\r",
-        "            \"LEO2\",\r",
         "            \"LEO3\",\r",
         "            \"LEO4\",\r",
         "            \"LEO5\",\r",
-        "            \"PE1\",\r",
-        "            \"PE2\",\r",
-        "            \"PE3\",\r",
-        "            \"PE4\",\r",
         "            \"PG1\",\r",
         "            \"PG2\",\r",
         "            \"PG3\",\r",
         "            \"PG4\",\r",
+        "            \"PG5\",\r",
         "            \"PV1\",\r",
-        "            \"PV2\",\r",
-        "            \"PV3\",\r",
+        "            \"PV4\",\r",
         "            \"MLEX\",\r",
         "            \"CLEX\",\r",
         "            \"HLEX\",\r",
@@ -6756,6 +6427,13 @@
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
         "    \"completos\":$data.activos.completos\r",
         "}"
+      ],
+      "exposed" : false
+    },
+    "isUpdate" : {
+      "type" : "constant",
+      "value" : [
+        ""
       ],
       "exposed" : false
     }

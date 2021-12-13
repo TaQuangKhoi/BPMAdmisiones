@@ -241,7 +241,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .success(function(data, status) {
                 console.log(data)
                 if (version < parseFloat("1.51")) {
-                    url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
+                    url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmision/content/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
                 } else {
                     url = "/bonita/portal/resource/app/administrativo/verSolicitudAdmisionADV2/content/?id=" + data[0].id + "&caseId=" + rowData.caseid + "&displayConfirmation=false";
                 }

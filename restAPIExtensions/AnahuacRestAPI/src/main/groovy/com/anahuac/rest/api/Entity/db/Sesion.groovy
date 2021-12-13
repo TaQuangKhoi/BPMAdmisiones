@@ -18,7 +18,15 @@ class Sesion {
 	private Boolean isEliminado;
 	private Long periodo_pid;
 	private String usuarios_lst_id;
+	private String estado_preparatoria;
 	
+	
+	public String getEstado_preparatoria() {
+		return estado_preparatoria;
+	}
+	public void setEstado_preparatoria(String estado_preparatoria) {
+		this.estado_preparatoria = estado_preparatoria;
+	}
 	public String getUsuarios_lst_id() {
 		return usuarios_lst_id;
 	}

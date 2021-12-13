@@ -56,6 +56,8 @@
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='ID'"></i></span> / <span style="cursor:pointer" ng-click="setOrderBy('SESION')">Sesión<i class="glyphicon"
                             ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
+                            ng-show="properties.dataToSend.orderby=='SESION'"></i></span>/ <span style="cursor:pointer" ng-click="setOrderBy('SESION')">PAA Validada<i class="glyphicon"
+                            ng-class="(properties.dataToSend.orientation=='ASC')?'glyphicon-arrow-up':'glyphicon-arrow-down'"
                             ng-show="properties.dataToSend.orderby=='SESION'"></i></span></th>
                             
                     <th> <span style="cursor:pointer" ng-click="setOrderBy('ESTATUS')">Estatus<i class="glyphicon"
@@ -103,10 +105,8 @@
                          <b>{{row.id}}</b>
                          <br>
                          <b>{{row.nombre}}</b>
-                        <!-- <b>{{row.residensia}}</b><br>
-                        {{row.tipoadmision}}<br>
-                        {{row.tipodealumno}}
-                        {{ Transferencia(row)}} -->
+                         <br>
+                         <b>{{row.lexium == 't'?'Validado':'No validado'}}</b>
                     </td>
                 
                     <td class="max-size">

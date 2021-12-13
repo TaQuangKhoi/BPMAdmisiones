@@ -2,7 +2,7 @@ function ($scope, $http) {
     var vm = this;
     function getPsicom(){
         
-        let url =  window.location.protocol + "//" + window.location.hostname + "/bonita/API/extension/AnahuacRestGet?url=getPsicometricoCompleto&p=0&c=10&caseId=" + $scope.properties.caseId;
+        let url =  window.location.protocol + "//" + window.location.hostname + "/bonita/API/extension/AnahuacRestGet?url=getPsicometricoCompleto&p=0&c=10&caseId=" + $scope.properties.caseId+"&intentos="+$scope.properties.intentos;
         
         $http.get(url).success((success)=>{
             console.log(success);
@@ -22,7 +22,7 @@ function ($scope, $http) {
     $scope.$watch('properties.idbanner', function(value) {
     if (angular.isDefined(value) && value !== null) {
          vm.busy = true;
-    var dataToSend=[{"idbanner":value}]     
+    var dataToSend={"idbanner":value}
     var req = {
       method: "POST",
       url: "/bonita/API/extension/AnahuacRest?url=postGetIdSesionByIdBanner&p=0&c=9999",

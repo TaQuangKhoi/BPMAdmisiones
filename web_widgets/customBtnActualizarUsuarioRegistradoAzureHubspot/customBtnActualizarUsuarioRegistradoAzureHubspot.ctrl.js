@@ -22,6 +22,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal(true);
         } else if ($scope.properties.url) {
             var existecambio = false;
+            var cambioUniversidad = false;
+            var cambioLicenciatura = false;
+            var cambioPeriodo = false;
             const re = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
             const regexEmail = "^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
             const tipoAdmision = ($scope.properties.dataToSend.catTipoAdmision !== null  && $scope.properties.dataToSend.catTipoAdmision !== undefined) ? true : false;
@@ -111,6 +114,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         existecambio = true;
                     }
                 }
+
+                //$scope.properties.JSONUsuarioRegistrado.numeroContacto = $scope.properties.dataToSend.numeroContacto == null?'':$scope.properties.dataToSend.numeroContacto;
+                $scope.properties.JSONUsuarioRegistrado.telefonoCelular = $scope.properties.dataToSend.telefonocelular == null?'':$scope.properties.dataToSend.telefonocelular;  
                 
                 $scope.properties.JSONUsuarioRegistrado.bachillerato = parseInt($scope.properties.dataToSend.catBachilleratos.persistenceid);
                 $scope.properties.JSONUsuarioRegistrado.nombrebachillerato = $scope.properties.datosPreparatoria.nombreBachillerato;
@@ -137,7 +143,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.properties.JSONUsuarioRegistrado.resultadoPAA = $scope.properties.dataToSend.resultadopaa;
                 $scope.properties.JSONUsuarioRegistrado.tienePAA = ($scope.properties.dataToSend.tienepaa == "t" ?true:false );
                 if($scope.properties.dataToSend.catTipoAdmision !== null  && $scope.properties.dataToSend.catTipoAdmision !== undefined){
-                    $scope.properties.JSONUsuarioRegistrado.cbCoincide = ($scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false);
+                    //$scope.properties.JSONUsuarioRegistrado.cbCoincide = ($scope.properties.dataToSend.catTipoAdmision.clave == "AA"?true:false);
+                    $scope.properties.JSONUsuarioRegistrado.cbCoincide =  $scope.properties.dataToSend.cbcoincide2
                 }
                 $scope.properties.JSONUsuarioRegistrado.descuento = $scope.properties.dataToSend.descuento;
                 $scope.properties.JSONUsuarioRegistrado.Documentos = angular.copy($scope.properties.archivos);
@@ -180,12 +187,15 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 }
                 if($scope.properties.JSONUsuarioRegistrado.catCampusEstudio.descripcion !== $scope.properties.jsonOriginal.campussede){
                     existecambio = true;
+                    cambioUniversidad=true;
                 }
                 if($scope.properties.JSONUsuarioRegistrado.catGestionEscolar.descripcion !== $scope.properties.jsonOriginal.licenciatura){
                     existecambio = true;
+                    cambioLicenciatura=true;
                 }
                 if($scope.properties.JSONUsuarioRegistrado.catPeriodo.descripcion !== $scope.properties.jsonOriginal.ingreso){
                     existecambio = true;
+                    cambioPeriodo = true;
                 }
                 if($scope.properties.JSONUsuarioRegistrado.propedeutico === null || $scope.properties.JSONUsuarioRegistrado.propedeutico === undefined){
                     if($scope.properties.JSONUsuarioRegistrado.propedeutico !== $scope.properties.jsonOriginal.propedeutico){
@@ -263,7 +273,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     jsonNuevo.estadobachillerato = $scope.properties.JSONUsuarioRegistrado.estadobachillerato;
                     jsonNuevo.ciudadbachillerato = $scope.properties.JSONUsuarioRegistrado.ciudadbachillerato;
                     jsonNuevo.promedio = $scope.properties.JSONUsuarioRegistrado.promediogeneral;
-                    doRequest($scope.properties.action, $scope.properties.url);
+                    if (cambioPeriodo || cambioUniversidad || cambioLicenciatura){
+                		getAspiranteRC();
+                	}else{
+                		doRequest($scope.properties.action, $scope.properties.url);	
+                	}
+                    
                     
                 }
             }
@@ -376,8 +391,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 obtenerDocumentos(caseId);
             }
             $scope.properties.dataToSend.caseid=0;
+            
             //getLstUsuariosRegistrados("POST",$scope.properties.urlPost);
-            if(!updateFile){
+            if(updateFile){
                 window.location.href = window.location.href
             }
             
@@ -578,4 +594,39 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             closeModal($scope.properties.closeOnSuccess);
         });
     }
+
+    function getAspiranteRC() {
+        var req = {
+            method: "GET",
+            url: "/API/extension/AnahuacRestGet?url=getAspiranteRC",
+            data: $scope.properties.dataToSend.idbanner
+            
+        };
+  
+        return $http(req).success(function(data, status) {
+            if(data.data.length>0){
+            	swal({
+		          title: "¡Aviso!",
+		          text: "El aspirante ya cuenta con un resultado, si modifica estos datos, deberá volver a generar un resultado en el modulo de resultados. ¿Desea continuar?",
+		          icon: "warning",
+		          buttons: ["No","Sí"],
+		          dangerMode: true,
+		        })
+		        .then((willDelete) => {
+		          if (willDelete) {
+		              doRequest($scope.properties.action, $scope.properties.url);
+		          } else {
+		            
+		          }
+		        });
+            }else{
+            	doRequest($scope.properties.action, $scope.properties.url);
+            }
+        }).error(function(data, status) {
+        	console.error(data)
+        }).finally(function() {
+            closeModal($scope.properties.closeOnSuccess);
+        });
+    }
+
 }

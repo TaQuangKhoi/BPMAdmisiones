@@ -223,6 +223,15 @@ function($scope, $http, blockUI, $window) {
             $scope.jsonEntrevista.calle = datos.data[0].calle;
             $scope.jsonEntrevista.numero_int = datos.data[0].numero_int;
             $scope.jsonEntrevista.psicologos = datos.data[0].psicologos;
+            for (let index = 1; index < datos.data[0].psicologos.length; index++) {
+                const element = datos.data[0].psicologos[index];
+                for (let index2 = 0; index2 < element.lstFechasDisponibles.length; index2++) {
+                    const element2 = element.lstFechasDisponibles[index2];
+                    $scope.jsonEntrevista.psicologos[0].lstFechasDisponibles.push(element2)    
+                }
+                
+                
+            }
         })
     }
     $scope.getLstSesion = function() {

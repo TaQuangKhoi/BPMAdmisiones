@@ -4,7 +4,7 @@
             <tr>
                 <th ng-repeat="header in properties.headers">
                      <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>
-                  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
+                     <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>
                 </th>
                 <th>
                     VER
@@ -25,6 +25,7 @@
                         <b>{{row.vpd}}</b><br> 
                         {{row.fecharegistro}}
                     </td>
+                    <td><strong>PDP:</strong>{{row.pdp}},<strong>PDU:</strong>{{row.pdu}},<strong>SSE:</strong>{{row.sse}},<strong>PCDA:</strong>{{row.pcda}},<strong>PCA:</strong>{{row.pca}}</td>
                     <td class="max-size">
                         <b>{{row.observaciones}}</b>
                     </td>

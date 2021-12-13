@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1630966776078,
+  "lastUpdate" : 1633479660800,
   "rows" : [
     [
       {
@@ -15387,7 +15387,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Participas en alguna organización que realice ayuda social? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "¿Participas o asistes a alguna organización, club o grupo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -19413,6 +19413,34 @@
               "reference" : "0a33b224-2a8e-4888-8edf-4c699dd5014b",
               "hasValidationError" : false,
               "id" : "pbTitle"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : "taskContext"
+                }
+              },
+              "reference" : "86a15dfd-3a33-4b2a-a0d1-b34425e326dd",
+              "hasValidationError" : false,
+              "id" : "customLoadContextForce"
             }
           ],
           [
@@ -23926,7 +23954,7 @@
         "    $data.errorMessageStep7 = \"Si seleccionaste Sí en el campo ¿Te gusta leer? debes seleccionar al menos una opción.\";\r",
         "} else if($data.formInput.catParticipasGrupoSocial === null){\r",
         "    isValid = false;\r",
-        "    $data.titleMessageStep7 = \"¿Participas en alguna organización que realice ayuda social?\";\r",
+        "    $data.titleMessageStep7 = \"¿Participas o asistes a alguna organización, club o grupo?\";\r",
         "    $data.errorMessageStep7 = \"Selecciona un valor.\";\r",
         "} else if ($data.formInput.catParticipasGrupoSocial.descripcion === \"Sí\" && $data.formInput.organizacionParticipas === \"\"){\r",
         "    isValid = false;\r",
@@ -24772,6 +24800,19 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "loadData" : {
+      "type" : "expression",
+      "value" : [
+        "try{",
+        "  $data.formInput.catReligion=$data.objectSolicitud.catReligion; ",
+        "}catch(e){",
+        "    console.log(\"Aun no carga religión\")",
+        "}",
+        "",
+        "return true;"
       ],
       "exposed" : false
     }

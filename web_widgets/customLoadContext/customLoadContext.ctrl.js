@@ -2,22 +2,26 @@ function loadContextCtrl($scope, $http) {
     $scope.lstArchivedCase = [];
 
     $scope.loadContextTask = function(taskId) {
+        console.log("LOAD TASK");
         doRequest("GET", "../API/bpm/userTask/"+taskId+"/context", {},
         function(data, status){//SUCCESS
             $scope.properties.context = data;
         },
         function(data, status){//ERROR
-
+            if($scope.properties.caseId !== undefined){
+                $scope.loadArchivedCase($scope.properties.caseId,true);
+            }
         })
     }
 
-    $scope.loadArchivedCase = function(caseId) {
-        if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
+    $scope.loadArchivedCase = function(caseId,revivida) {
+        console.log("LOAD ARCHIVED TASK");
+        if ($scope.properties.taskId === undefined || $scope.properties.taskId === "" || revivida) {
             doRequest("GET", "../API/bpm/archivedCase?c=1&p=0&f=sourceObjectId="+caseId, {},
             function(data, status){//SUCCESS
                 $scope.lstArchivedCase = data;
                 if(data.length>0){
-                    $scope.loadContextCaseId(data[0]);
+                    $scope.loadContextCaseId(data[0],revivida);
                 }
             },
             function(data, status){//ERROR
@@ -26,8 +30,8 @@ function loadContextCtrl($scope, $http) {
         }
     }
 
-    $scope.loadContextCaseId = function(archivedCase) {
-        if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
+    $scope.loadContextCaseId = function(archivedCase, revivida) {
+        if ($scope.properties.taskId === undefined || $scope.properties.taskId === "" || revivida) {
             doRequest("GET", "../API/bpm/archivedCase/"+archivedCase.id+"/context", {},
             function(data, status){//SUCCESS
                 $scope.properties.context = data;
@@ -61,7 +65,7 @@ function loadContextCtrl($scope, $http) {
     $scope.$watchCollection("properties.caseId", function(newValue, oldValue) {
         if ($scope.properties.caseId !== undefined) {
             if ($scope.properties.taskId === undefined || $scope.properties.taskId === "") {
-                $scope.loadArchivedCase($scope.properties.caseId);
+                $scope.loadArchivedCase($scope.properties.caseId,false);
             }
         }
     });

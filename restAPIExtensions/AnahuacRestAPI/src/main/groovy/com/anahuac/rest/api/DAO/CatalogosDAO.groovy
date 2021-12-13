@@ -87,6 +87,15 @@ class CatalogosDAO {
         }
         return retorno
     }
+	public Boolean validarConexionBonita() {
+		Boolean retorno=false
+		if (con == null || con.isClosed()) {
+			con = new DBConnect().getConnectionBonita();
+			retorno=true
+		}
+		return retorno;
+	}
+
     /************************DANIEL CERVANTES****************************/
     
     public Result getCatCampus(String jsonData, RestAPIContext context) {
@@ -1714,7 +1723,13 @@ class CatalogosDAO {
                     case "BannerToken":
                         ac.setBannerToken(rs.getString("valor"))
                         break;
-                }
+					case "filterPassword":
+						ac.setAdminPassword(rs.getString("valor"))
+						break;
+					case "bannerMatchPerson":
+					ac.setBannerMatchPerson(rs.getString("valor"))
+					break;
+		}
             }
             data.add(ac)
             result.setSuccess(true);
@@ -1806,7 +1821,46 @@ class CatalogosDAO {
                 pstm.setString(3, "Token para hacer peticiones a banner")
                 pstm.executeUpdate()
             }
-
+			
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "filterPassword")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				pstm = con.prepareStatement(AzureConfig.UPDATE_CONFIGURACIONES)
+				pstm.setString(1, ac.getAdminPassword())
+				pstm.setString(2, "filterPassword")
+				pstm.executeUpdate()
+			} else {
+				pstm = con.prepareStatement(AzureConfig.INSERT_CONFIGURACIONES)
+				pstm.setString(1, "filterPassword")
+				pstm.setString(2, ac.getAdminPassword())
+				pstm.setString(3, "Contraseña que se utiliza para poder iniciar sesión y ejecutar una tarea desde el filter llamado por el webhook de conekta")
+				pstm.executeUpdate()
+			}
+			pstm = con.prepareStatement(AzureConfig.GET_CONFIGURACIONES_CLAVE)
+			pstm.setString(1, "bannerMatchPerson")
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				pstm = con.prepareStatement(AzureConfig.UPDATE_CONFIGURACIONES)
+				pstm.setString(1, ac.getBannerMatchPerson())
+				pstm.setString(2, "bannerMatchPerson")
+				pstm.executeUpdate()
+			} else {
+				pstm = con.prepareStatement(AzureConfig.INSERT_CONFIGURACIONES)
+				pstm.setString(1, "bannerMatchPerson")
+				pstm.setString(2, ac.getBannerMatchPerson())
+				pstm.setString(3, "APIKEY de banner para la autorización de Match person")
+				pstm.executeUpdate()
+			}
+			
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+			closeCon=validarConexionBonita()
+			pstm = con.prepareStatement("UPDATE proc_parameter set value =? where name='password'")
+			pstm.setString(1,ac.getAdminPassword())
+			pstm.executeUpdate()
+			
 
             data.add(ac)
             result.setSuccess(true);
@@ -7133,5 +7187,42 @@ class CatalogosDAO {
         is.close();
         return bytes;
     }
+	
+	public Result getEstadosPreparatorias() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		Map<String, Object> lstEstadosPreparatorias = new LinkedHashMap<String, Object>();
+		List<?> rows = new ArrayList<?>();
+	
+		try {
+			closeCon = validarConexion();
+	
+			pstm = con.prepareStatement(Statements.GET_ESTADOS_PREPARATORIA);	
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+				lstEstadosPreparatorias = new LinkedHashMap<String, Object>();
+				lstEstadosPreparatorias.put("estado", rs.getString("estado"));
+	
+				rows.add(lstEstadosPreparatorias);
+			}
+	
+			resultado.setError_info(errorLog);
+			resultado.setData(rows);
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorLog+" - error: "+e.getMessage());
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
     /***********************ARTURO ZAMORANO0 FIN**************************/
 }

@@ -331,25 +331,21 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             "LA1": "",
             "LA2": "",
             "LA3": "",
+            "LA4": "",
             "LEO1": "",
-            "LEO2": "",
             "LEO3": "",
             "LEO4": "",
             "LEO5": "",
             "PAAN": "",
             "PAAV": "",
             "PARA": "",
-            "PE1": "",
-            "PE2": "",
-            "PE3": "",
-            "PE4": "",
             "PG1": "",
             "PG2": "",
             "PG3": "",
             "PG4": "",
+            "PG5": "",
             "PV1": "",
-            "PV2": "",
-            "PV3": "",
+            "PV4": "",
             "TOTAL": "",
             "tipoExamen": "",
             "CLEX": "",
@@ -364,6 +360,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
         $scope.properties.datosAspirante.IdSesion = row.id;
         $scope.properties.tabla = "fragmento";
         $scope.properties.view = false;
+         $scope.properties.update = "";
         var req = {
             method: "GET",
             url: `/API/extension/AnahuacRestGet?url=getAspirantePAA&p=0&c=10&idbanner=${row.idbanner}&persistenceid=${row.persistenceid}`
@@ -396,6 +393,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
                     json.fechaExamen = new Date(fecha)
                 } else if (key == "tipoexamen") {
                     json.tipoExamen = data[key];
+                    $scope.properties.update = data[key];
                 } else if (key == "lexiumpara") {
                     json.HLEX = data[key]
                 } else if (key == "lexiumpaav") {

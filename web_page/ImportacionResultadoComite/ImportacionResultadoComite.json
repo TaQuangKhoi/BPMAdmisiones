@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ImportacionResultadoComite",
   "name" : "ImportacionResultadoComite",
-  "lastUpdate" : 1630007150693,
+  "lastUpdate" : 1634328627573,
   "rows" : [
     [
       {
@@ -2031,6 +2031,9 @@
                 "usuario" : {
                   "type" : "variable",
                   "value" : "userData.user_name"
+                },
+                "urlValidar" : {
+                  "type" : "constant"
                 }
               },
               "reference" : "6663aec3-a617-4250-acdc-d02f56b54b71",
@@ -2736,6 +2739,83 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
+                            "md" : 6,
+                            "lg" : 6
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Campus ingreso"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "strInfo.campus"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "71aca31e-bb56-4540-8285-f0aa33d648c3",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
                             "md" : 12,
                             "lg" : 12
                           },
@@ -3190,6 +3270,10 @@
                                   "tipoValor3" : {
                                     "type" : "constant",
                                     "value" : "json"
+                                  },
+                                  "datosAspirante" : {
+                                    "type" : "variable",
+                                    "value" : "lstResultados"
                                   }
                                 },
                                 "reference" : "f9cef7e0-52b9-473e-8302-0035a2b74d01",
@@ -3422,8 +3506,9 @@
                         "type" : "constant",
                         "value" : [
                           "Decisión de admisión",
-                          "Campus/Carrera/Periodo",
+                          "Campus Ingreso/Carrera/Periodo",
                           "VPD/Fecha de decisón",
+                          "Cursos asignados por el comité",
                           "Comentarios",
                           "Usuario/Fecha de modificacion/Fecha solicitud"
                         ]
@@ -4615,7 +4700,8 @@
         "return {",
         "    \"correo\": angular.copy($data.strInfo.correo),",
         "    \"idlicenciatura\":angular.copy($data.strInfo.idlicenciatura),",
-        "    \"idPeriodo\":angular.copy($data.strInfo.idperiodo.toString())",
+        "    \"idPeriodo\":angular.copy($data.strInfo.idperiodo.toString()),",
+        "    \"idBanner\":angular.copy($data.strInfo.idBanner)",
         "}"
       ],
       "exposed" : false

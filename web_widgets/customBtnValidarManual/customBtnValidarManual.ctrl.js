@@ -15,6 +15,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $scope.lstBanner.IDSESION += `${$scope.lstBanner.IDSESION.length>0?",":""}'${$scope.properties.value['IdSesion']}'`;
             doRequest2("POST",$scope.properties.urlValidar,$scope.lstBanner).then(function() {
                 if($scope.final.length > 0){
+                    isKp($scope.properties.value)
                     $scope.final[0].fechaExamen = formatDate($scope.properties.value.fechaExamen)
                     doRequest("POST",$scope.properties.urlPost,$scope.final)
                 }
@@ -26,7 +27,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       
       function formatDate(date) {
           let current_datetime = date;
-          let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "-" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "-" +  current_datetime.getFullYear() ;
+          let formatted_date = appendLeadingZeroes(current_datetime.getDate())+ "/" + appendLeadingZeroes(current_datetime.getMonth() + 1) + "/" +  current_datetime.getFullYear() ;
           return formatted_date;
       }
       
@@ -36,10 +37,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           }
           return n
       }
-  
-          
-          
-          
       
       function validacion(datos){
             var error = "";
@@ -59,6 +56,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     return false;
                   }else if(datos.tipoExamen == "KP" && valores1.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],0,690)){
                       swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 0-690`,"warning")
+                      return false;
                   }else if(datos.tipoExamen != "KP" && valores2.includes(columnas[i]) && !isRangoValue(datos[columnas[i]],200,800)){
                       if(columnas[i] == "PARA" && datos[columnas[i]] != "000"){
                         swal("¡Aviso!",`${columnas[i]}\xa0(${datos[columnas[i]]})\xa0tiene que estar en el rango de 200-800 o ser 000`,"warning")
@@ -72,8 +70,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     if(isNullOrUndefined(datos[columnas[i]])){
                         swal("¡Aviso!",`¡Debes ingresar el valor de fecha del examen!`,"warning");
                         return false;
-                    }else if(!moment(datos[columnas[i]],'DD-MM-YYYY').isValid()){
-                         swal("¡Aviso!",`¡la fecha del examen no es valida tiene que ser DD-MM-YYYY!`,"warning");
+                    }else if(!moment(datos[columnas[i]],'DD/MM/YYYY').isValid()){
+                         swal("¡Aviso!",`¡la fecha del examen no es valida tiene que ser DD/MM/YYYY!`,"warning");
                          return false;
                     }
                   }else if(columnas[i] == "tipoExamen" && isNullOrUndefined(datos[columnas[i]]) ){
@@ -81,6 +79,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     return false;
                   }
                 }
+                if(datos.tipoExamen == "KP"){
+                    let valores3=["LA1","LA2","LA3","LA4","PG1","PG2","PG3","PG4","PG5","PV1","PV4","LEO1","LEO3","LEO4","LEO5","CIT1","CIT2","HI1","HI2","HI3","HI4","HI5","HI6"]
+                    for(let i=0; i<valores3.length; i++){
+                        
+                        if(!isRangoValue(datos[valores3[i]],0,10)){
+                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar en el rango de 0-10`,"warning")
+                            return false; 
+                        }else if(!haveZero(datos[valores3[i]])){
+                            swal("¡Aviso!",`${valores3[i]}\xa0(${datos[valores3[i]]})\xa0tiene que estar entre 0-10 a dos dígitos`,"warning")
+                            return false; 
+                        }
+                    }
+                }
+                
+                
                 return true;
             }
           return false;
@@ -102,6 +115,13 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
           }
           return false;
       }
+
+      function haveZero(value){
+        if(value.includes("0") && value.length == 2){
+            return true;
+        }
+        return false;
+      }
       
       
       function doRequest(method, url,datos) {
@@ -115,6 +135,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
               .success(function (data, status) {
                       swal('¡Se han guardado los datos correctamente!',"","success")
                       $scope.properties.tabla = "tabla";
+                      $scope.properties.update = "";
+                      doRequest3("POST","/bonita/API/extension/AnahuacRest?url=subirDatosBannerEthos&p=0&c=100",$scope.final)
               })
               .error(function (data, status) {
                 let fecha = `${datos[key].slice(3,5)}/${datos[key].slice(0,2)}/${datos[key].slice(6,10)}`;
@@ -140,6 +162,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .error(function (data, status) {
             })
     }
+    
+    function doRequest3(method, url,datos) {
+        var req = {
+            method: method,
+            url: url,
+            data: angular.copy(datos)
+        };
+        return $http(req)
+            .success(function (data, status) {
+                console.log("Se subieron los datos");
+            })
+            .error(function (data, status) {
+            })
+    }
 
 
     function revisarDatos(data,datos){
@@ -150,9 +186,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             else if(info.mismaFecha && !$scope.properties.value.update ){
                 swal("¡Aviso!",`¡El aspirante ya tiene puntuación en la fecha ${formatDate(datos['fechaExamen'])}`,"warning");
             }
-            else if(!info.EstaEnCarga){
+            /*else if(!info.EstaEnCarga){
                 swal("¡Aviso!",`¡El aspirante no se encuentra en carga y consulta de resultados!`,"warning");
-            }else if(!info.puede && !$scope.properties.value.update){
+            }*/
+            else if(!info.puede && !$scope.properties.value.update){
                 swal("¡Aviso!",`¡El aspirante ya cuenta con una puntuacion!`,"warning");
             }
             else{
@@ -169,6 +206,16 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         });
         return  index
     }    
+
+
+    function isKp(datos){
+        if(datos.tipoExamen != "KP"){
+            let valores = ["MLEX","CLEX","HLEX","CIT1","CIT2","HI1","HI2","HI3","HI4","HI5","HI6","LA1","LA2","LA3","LA4","LEO1","LEO3","LEO4","LEO5","PG1","PG2","PG3","PG4","PG5","PV1","PV4"]
+            valores.forEach(element =>{
+                datos[element] = "";
+            });
+        }
+    }
       
   
   }

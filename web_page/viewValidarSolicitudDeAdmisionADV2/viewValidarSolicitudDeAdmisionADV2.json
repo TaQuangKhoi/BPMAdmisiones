@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "viewValidarSolicitudDeAdmisionADV2",
   "name" : "viewValidarSolicitudDeAdmisionADV2",
-  "lastUpdate" : 1630533165115,
+  "lastUpdate" : 1634777365014,
   "rows" : [
     [
       {
@@ -20090,7 +20090,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Participas en alguna organización que realice ayuda social?"
+                        "value" : "¿Participas o asistes a alguna organización, club o grupo?"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -25561,6 +25561,13 @@
         "    return true",
         "})",
         "return retorno;"
+      ],
+      "exposed" : false
+    },
+    "catPeriodoActivo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{objSolicitudDeAdmision.catGestionEscolar.tipoLicenciatura}}"
       ],
       "exposed" : false
     }

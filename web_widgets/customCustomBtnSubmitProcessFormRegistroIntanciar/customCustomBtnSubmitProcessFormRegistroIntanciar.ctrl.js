@@ -30,7 +30,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 "nombre": $scope.properties.strRegistro.PrimerNombre + " " + $scope.properties.strRegistro.SegundoNombre,
                 "apellido": $scope.properties.strRegistro.ApellidoPaterno + " " + $scope.properties.strRegistro.ApellidoMaterno,
                 "password": $scope.properties.strRegistro.Password,
-                "campus": $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus.grupoBonita
+                "campus": $scope.properties.dataToSend.catSolicitudDeAdmisionInput.catCampus.grupoBonita,
+                "numeroContacto":$scope.properties.strRegistro.numeroContacto
             }
 
             if (!$scope.properties.strRegistro.Validado || $scope.properties.strRegistro.error) {

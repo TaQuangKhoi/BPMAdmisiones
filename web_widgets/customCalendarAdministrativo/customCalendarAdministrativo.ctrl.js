@@ -207,6 +207,8 @@ function($scope, $http, blockUI) {
     $scope.catcampus = [];
     $scope.psicologos = [];
     $scope.lstResponsables = [];
+
+    $scope.lstEstadosPreparatoria = [];
     $scope.pantallaCambiar = function(pantalla) {
         var today = new Date();
         var dd = today.getDate();
@@ -1126,6 +1128,11 @@ function($scope, $http, blockUI) {
 
     $scope.loadCatalogs = function() {
 
+        doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getEstadosPreparatorias&p=0&c=100", null, null, null, function(data, extra) {
+           debugger
+            $scope.lstEstadosPreparatoria = data;
+        })
+
         doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getPeriodosReporte&p=0&c=9999&jsonData=%7B%22lstFiltro%22%3A%5B%7B%22columna%22%3A%22CAMPUS%22%2C%22valor%22%3A%22" + $scope.properties.campusSelected.persistenceId + "%22%2C%22operador%22%3A%22Igual%20a%22%7D%5D%7D", null, null, null, function(periodos, extra) {
             $scope.periodos = periodos;
             doRequest("GET", "/bonita/API/extension/AnahuacRestGet?url=getLstAspirantes&p=0&c=9999&campus_pid=" + $scope.properties.campusSelected.persistenceId, null, null, null, function(usuarios, extra) {
@@ -1205,6 +1212,7 @@ function($scope, $http, blockUI) {
 
     }
     $scope.agregarNuevaSesion = function(pantalla) {
+        debugger
         $scope.sesion = {
             "bachillerato_pid": null,
             "ciudad_pid": null,
@@ -1261,7 +1269,8 @@ function($scope, $http, blockUI) {
             "ultimo_dia_inscripcion": null,
             "isEliminado": false,
             "periodo_pid": null,
-            "usuarios_lst_id": ""
+            "usuarios_lst_id": "",
+            "estado_preparatoria":""
         }
         $scope.pantallaCambiar(pantalla);
     }

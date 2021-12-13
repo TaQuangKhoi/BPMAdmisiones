@@ -550,7 +550,8 @@ class TransferenciasDAO {
             }
             pstm.setLong(4, object.periodo);
             pstm.setLong(5, object.campusestudio);
-            pstm.setLong(6, Long.valueOf(object.caseid));
+			pstm.setString(6, object.estatus)
+            pstm.setLong(7, Long.valueOf(object.caseid));
             pstm.executeUpdate();
 
             con.commit();
@@ -585,9 +586,10 @@ class TransferenciasDAO {
 			} else {
 				errorLog += " no elimino al aspirante de la sesion "+ resultadoSesion.isSuccess().toString();
 			}
-
+			Result rHdao= new Result()
+			rHdao = new HubspotDAO().createOrUpdateTransferirAspirante(object.valorcambio, object.valororginal, object.correoaspirante, context)
             resultado.setSuccess(true)
-            resultado.setError_info(errorLog);
+            resultado.setError_info(errorLog+ " || rHdao.getError_info()");
         } catch (Exception ex) {
             resultado.setError_info(errorLog);
             resultado.setSuccess(false);
@@ -1087,7 +1089,7 @@ class TransferenciasDAO {
 			}
 			
 			if(object.isProceso == null) {
-				con.setAutoCommit(false)
+				/*con.setAutoCommit(false)
 				
 				List<Long> pruebas = new ArrayList<Long>()
 				pstm = con.prepareStatement(Statements.GET_PRUEBAS_ASPIRANTE)
@@ -1115,7 +1117,7 @@ class TransferenciasDAO {
 					}
 				}
 				
-				con.commit();
+				con.commit();*/
 			}else {
 				Result resultadoSesion = new SesionesDAO().eliminarSesionAspirante(usuarioReagendar, context)
 				errorLog += " el error en el eliminar es : " + resultadoSesion.getError();

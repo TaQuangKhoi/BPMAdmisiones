@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appNuevaSolicitudDeAdmision3",
   "name" : "appNuevaSolicitudDeAdmision",
-  "lastUpdate" : 1630976414412,
+  "lastUpdate" : 1638465197304,
   "rows" : [
     [
       {
@@ -19728,7 +19728,8 @@
         "\t\t\tviveContigo: $data.madre.viveContigo !== undefined ? $data.madre.viveContigo : null,\r",
         "\t\t\tdesconozcoDatosPadres: $data.madre.desconozcoDatosPadres !== undefined ? $data.madre.desconozcoDatosPadres : null,\r",
         "\t\t\tdelegacionMunicipio: $data.madre.delegacionMunicipio !== undefined ? $data.madre.delegacionMunicipio : null,\r",
-        "\t\t\testadoExtranjero: $data.madre.estadoExtranjero !== undefined ? $data.madre.estadoExtranjero : null\r",
+        "\t\t\testadoExtranjero: $data.madre.estadoExtranjero !== undefined ? $data.madre.estadoExtranjero : null,\r",
+        "            countIntento: $data.madre.desconozcoDatosPadres !== undefined ?  ($data.selectedIndexFamiliar!== 2?null:($data.catSolicitudDeAdmision.countRechazos == null?0:$data.catSolicitudDeAdmision.countRechazos) )   : null\r",
         "\t\t},\r",
         "\t\t//map padre variable to expected task contract input\r",
         "\t\tpadreInput: {\r",
@@ -19773,7 +19774,8 @@
         "\t\t\tviveContigo: $data.padre.viveContigo !== undefined ? $data.padre.viveContigo : null,\r",
         "\t\t\tdesconozcoDatosPadres: $data.padre.desconozcoDatosPadres !== undefined ? $data.padre.desconozcoDatosPadres : null,\r",
         "\t\t\tdelegacionMunicipio: $data.padre.delegacionMunicipio !== undefined ? $data.padre.delegacionMunicipio : null,\r",
-        "\t\t\testadoExtranjero: $data.padre.estadoExtranjero !== undefined ? $data.padre.estadoExtranjero : null\r",
+        "\t\t\testadoExtranjero: $data.padre.estadoExtranjero !== undefined ? $data.padre.estadoExtranjero : null,\r",
+        "            countIntento:  $data.padre.desconozcoDatosPadres !== undefined ? ($data.selectedIndexFamiliar!== 1?null:($data.catSolicitudDeAdmision.countRechazos == null?0:$data.catSolicitudDeAdmision.countRechazos) ) : null\r",
         "\t\t},\r",
         "\t\t//map tutor variable to expected task contract input\r",
         "\t\ttutorInput: $data.tutorbdm.map( it => ({\r",
@@ -19820,7 +19822,8 @@
         "\t\t\totroParentesco: it.otroParentesco !== undefined ? it.otroParentesco : null,\r",
         "\t\t\tdesconozcoDatosPadres: it.desconozcoDatosPadres !== undefined ? it.desconozcoDatosPadres : null,\r",
         "\t\t\tdelegacionMunicipio: it.delegacionMunicipio !== undefined ? it.delegacionMunicipio : null,\r",
-        "\t\t\testadoExtranjero: it.estadoExtranjero !== undefined ? it.estadoExtranjero : null\r",
+        "\t\t\testadoExtranjero: it.estadoExtranjero !== undefined ? it.estadoExtranjero : null,\r",
+        "            countIntento: it.nombre !== undefined  ?  ($data.selectedIndexFamiliar!== 0?null:($data.catSolicitudDeAdmision.countRechazos == null?0:$data.catSolicitudDeAdmision.countRechazos) ) : null\r",
         "\t\t}))\r",
         "\t}\r",
         "}"
@@ -24149,7 +24152,7 @@
     "urlDireccion" : {
       "type" : "constant",
       "value" : [
-        "https://dev.bpm.anahuac.mx/apps/login/admisiones/"
+        "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
       ],
       "exposed" : false
     },

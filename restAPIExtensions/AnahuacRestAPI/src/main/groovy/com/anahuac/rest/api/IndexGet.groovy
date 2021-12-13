@@ -26,6 +26,7 @@ import com.anahuac.rest.api.DAO.AvanzeProcesoDAO
 import com.anahuac.rest.api.DAO.HubspotDAO
 import com.anahuac.rest.api.DAO.ImportacionPAADAO
 import com.anahuac.rest.api.DAO.ListadoDAO
+import com.anahuac.rest.api.DAO.LogDAO
 import com.anahuac.rest.api.DAO.NotificacionDAO
 import com.anahuac.rest.api.DAO.PsicometricoDAO
 import com.anahuac.rest.api.DAO.ReactivacionDAO
@@ -93,6 +94,18 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				case "getIdiomaByUsername":
+				String username =request.getParameter "username"
+				result = new UsuariosDAO().getIdiomaByUsername(username);
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "getDescuentosCiudadBachillerato":
 				def p = request.getParameter "p";
 				if (p == null) {
@@ -106,6 +119,22 @@ class IndexGet implements RestApiController {
 				String campus=request.getParameter "campus"
 				String bachillerato=request.getParameter "bachillerato"
 				result = new CatalogoBachilleratoDAO().getDescuentosCiudadBachillerato(Integer.valueOf(p), Integer.valueOf(c), campus, bachillerato, ciudad, context)
+				responseBuilder.withMediaType("application/json")
+				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				break;
+				case "getDescuentosCiudadBachilleratoById":
+				def p = request.getParameter "p";
+				if (p == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter p is missing"}""")
+				}
+				def c = request.getParameter "c";
+				if (c == null) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter c is missing"}""")
+				}
+				String ciudad=request.getParameter "ciudad"
+				String campus=request.getParameter "campus"
+				String id=request.getParameter "id"
+				result = new CatalogoBachilleratoDAO().getDescuentosCiudadBachilleratoById(Integer.valueOf(p), Integer.valueOf(c), campus, id, ciudad, context)
 				responseBuilder.withMediaType("application/json")
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
 				break;
@@ -181,6 +210,17 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				case "getUniversidadSmartCampus":
+				result = new UsuariosDAO().getUniversidadSmartCampus()
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 				case "getCatTipoPrueba":
 				String jsonData =request.getParameter "jsonData"
 				result = new SesionesDAO().getCatTipoPrueba(jsonData)
@@ -209,7 +249,6 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("text/html; charset=utf-8")
 				
 				return buildResponse(responseBuilder, HttpServletResponse.SC_OK, resultado)
-				
 				break;
 				
 				case "getCatBitacoraComentario":
@@ -261,7 +300,12 @@ class IndexGet implements RestApiController {
 				case "getPsicometricoCompleto":
 				try{
 					String caseId = request.getParameter "caseId";
-					result = new PsicometricoDAO().getPsicometricoCompleto(caseId, context);
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getPsicometricoCompleto(caseId,cantidad, context);
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
@@ -273,8 +317,279 @@ class IndexGet implements RestApiController {
 					result.setError(e1.getMessage())
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
+				break;
+				
+				case "getPsicometricoMotivo":
+				try{
+				
+					String caseId = request.getParameter "caseId";
+					String intentos = request.getParameter "intentos";
+					int cantidad = 0;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Integer.parseInt(intentos);
+					}
+					result = new PsicometricoDAO().getPsicometricoMotivo(caseId,cantidad);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "postGetCatBitacoraComentariosPsicometrico":
+				try{
+					String usuario = request.getParameter "usuario";
+					result = new PsicometricoDAO().postGetCatBitacoraComentariosPsicometrico(usuario,context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getFechaINVP":
+				try{
+					String usuario = request.getParameter "usuario";
+					result = new PsicometricoDAO().getFechaINVP(usuario);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getFechaSesion":
+				try{
+					String usuario = request.getParameter "usuario";
+					String intento = request.getParameter "intento";
+					result = new PsicometricoDAO().getFechaSesion(usuario,intento);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
+				case "getPsicometricoFinalizado":
+				try{
+					String usuario = request.getParameter "usuario";
+					String intentos = request.getParameter "intentos";
+					result = new PsicometricoDAO().getPsicometricoFinalizado(usuario,intentos);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoReportes":
+				try{
+					String usuario = request.getParameter "usuario";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoReportes(usuario,cantidad,context);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoRelativos":
+				try{
+					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
 					
-					break;
+					result = new PsicometricoDAO().getInfoRelativos(caseid);
+					
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoRelativosHermanos":
+				try{
+					String caseid = request.getParameter "caseid";
+					result = new PsicometricoDAO().getInfoRelativosHermanos(caseid);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoFuentesInfluyeron":
+				try{
+					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoFuentesInfluyeron(caseid,cantidad);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoRasgos":
+				try{
+					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoRasgos(caseid,cantidad);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoCapacidadAdaptacion":
+				try{
+					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoCapacidadAdaptacion(caseid,cantidad);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoSaludPSeccion":
+				try{
+					String caseid = request.getParameter "caseid";
+					result = new PsicometricoDAO().getInfoSaludPSeccion(caseid);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getInfoSaludSSeccion":
+				try{
+					String caseid = request.getParameter "caseid";
+					String intentos = request.getParameter "intentos";
+					Long cantidad = 0L;
+					if(intentos != null && !intentos.equals("null") ){
+						cantidad = Long.parseLong(intentos);
+					}
+					result = new PsicometricoDAO().getInfoSaludSSeccion(caseid,cantidad);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				}catch(Exception e1){
+					result = new Result()
+					result.setSuccess(false)
+					result.setError(e1.getMessage())
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				case "getEstadosPreparatorias":
+					result = new CatalogosDAO().getEstadosPreparatorias()
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				break;
+
 				case "getCatPeriodoActivoFechaEspecifica":
 					String tipo = request.getParameter "tipo";
 					String fecha = request.getParameter "fecha";					
@@ -473,6 +788,32 @@ class IndexGet implements RestApiController {
 				}
 				break;
 				
+				case "getIsPeriodoActivo":
+				String username=request.getParameter "username"
+				result = new AvanzeProcesoDAO().getIsPeriodoActivo(username)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
+				
+				case "updateTimmerPeriodoVencido":
+					def p = request.getParameter "p";
+					def c = request.getParameter "c";
+					Integer parameterP = Integer.valueOf(p);
+					Integer parameterC = Integer.valueOf(c);
+					result = new AvanzeProcesoDAO().updateTimmerPeriodoVencido(parameterP, parameterC,context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+				
+				break;
 				
 				case "getInfoByIdBanner":
 				String idbanner=request.getParameter "idbanner"
@@ -502,6 +843,21 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("application/json")
 				if (result.isSuccess()) {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				
+				break;
+				
+				case "getUpdateFamiliaresIntento":
+				String caseid=request.getParameter "caseid"
+				String intentos=request.getParameter "intentos"
+				String cantidad=request.getParameter "cantidad"
+				
+				result = new SolicitudUsuarioDAO().getUpdateFamiliaresIntento(caseid,intentos,cantidad)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 				}else {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
@@ -688,6 +1044,26 @@ class IndexGet implements RestApiController {
 				responseBuilder.withMediaType("application/json");
 				if (result.isSuccess()) {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+				
+				case "getTransactionLog":
+				result = new LogDAO().getTransactionLog();
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
+				}else {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+				}
+				break;
+
+				case "getBachilleratoLog":
+				result = new LogDAO().getBachilleratoLog();
+				responseBuilder.withMediaType("application/json");
+				if (result.isSuccess()) {
+					 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.data).toString());
 				}else {
 					 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 				}
@@ -994,6 +1370,15 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				case "getCatGestionEscolarMultiple":
+				String campus =request.getParameter "campus"
+				result = new ReportesDAO().getCatGestionEscolarMultiple(campus)
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result.getData()).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
 				case "updatePerfil":
 				result =  new UsuariosDAO().updatePerfil()
 				if (result.isSuccess()) {
@@ -1077,6 +1462,18 @@ class IndexGet implements RestApiController {
 					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 				}
 				break;
+				
+				case "getGetFechaPsicometrico":
+				String usuario=request.getParameter "usuario"
+				result = new SesionesDAO().getGetFechaPsicometrico(usuario)
+				responseBuilder.withMediaType("application/json")
+				if (result.isSuccess()) {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+				}else {
+					return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+				}
+				break;
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace()

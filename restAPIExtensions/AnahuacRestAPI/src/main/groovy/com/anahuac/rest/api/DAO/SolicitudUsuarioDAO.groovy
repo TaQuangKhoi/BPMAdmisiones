@@ -681,86 +681,15 @@ class SolicitudUsuarioDAO {
 			
 			closeCon = validarConexion();
 			
-			//MODO ORIGINAL DE LA CONSULTA
-//			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
-//			pstm.setLong(1,  Long.valueOf(caseid))
-//			pstm.setString(2, nombre)
-//			pstm.setString(3, correoElectronico)
-//			pstm.setString(4, fechaNacimiento)
-//			pstm.setString(5, curp)
-			
-			//MODO NUEVO D ELA CONSULTA AGREGANDO FILTROS 
-			pstm = con.prepareStatement(Statements.GET_DUPLICADOS);
-			pstm.setLong(1,  Long.valueOf(caseid));
-//			pstm.setString(2, nombre);
-//			pstm.setString(3, correoElectronico);
-//			pstm.setString(4, fechaNacimiento);
-			
-			//Primer nombre y primer apellido
-			pstm.setString(2, primerNombre);
+			pstm = con.prepareStatement(Statements.GET_DUPLICADOSV2);
+			pstm.setString(1, primerNombre);
+			pstm.setString(2, segundoNombre);
 			pstm.setString(3, apellidoPaterno);
-			
-			//Segundo nombre y primer apellido
-			pstm.setString(4, segundoNombre);
-			pstm.setString(5, apellidoPaterno);
-			
-			//Para  el primer nombre y el segundo apellido
-			pstm.setString(6, primerNombre);
-			pstm.setString(7, apellidoMaterno);
-			
-			//Para  el segundo nombre  y el segundo apellido
-			pstm.setString(8, segundoNombre);
-			pstm.setString(9, apellidoMaterno);
-			
-			//Para  los dos nombres y el primer apellido
-			pstm.setString(10, (primerNombre + " " + segundoNombre));
-			pstm.setString(11, apellidoPaterno);
-			
-			//Para  los dos nombres y el segundo apellido
-			pstm.setString(12, (primerNombre + " " + segundoNombre));
-			pstm.setString(13, apellidoMaterno);
-			
-			//Para  los dos nombres y los dos apellido
-			pstm.setString(14, (primerNombre + " " + segundoNombre));
-			pstm.setString(15, (apellidoPaterno + " " + apellidoMaterno));
-			
-			pstm.setString(16, correoElectronico);
-			pstm.setString(17, fechaNacimiento);
-			
-			//Primer nombre y primer apellido
-			pstm.setString(18, primerNombre);
-			pstm.setString(19, apellidoPaterno);
-			
-			//Segundo nombre y primer apellido
-			pstm.setString(20, segundoNombre);
-			pstm.setString(21, apellidoPaterno);
-			
-			//Para  el primer nombre y el segundo apellido
-			pstm.setString(22, primerNombre);
-			pstm.setString(23, apellidoMaterno);
-			
-			//Para  el segundo nombre  y el segundo apellido
-			pstm.setString(24, segundoNombre);
-			pstm.setString(25, apellidoMaterno);
-			
-			//Para  los dos nombres y el primer apellido
-			pstm.setString(26, (primerNombre + " " + segundoNombre));
-			pstm.setString(27, apellidoPaterno);
-			
-			//Para  los dos nombres y el segundo apellido
-			pstm.setString(28, (primerNombre + " " + segundoNombre));
-			pstm.setString(29, apellidoMaterno);
-			
-			//Para  los dos nombres y los dos apellido
-			pstm.setString(30, (primerNombre + " " + segundoNombre));
-			pstm.setString(31, (apellidoPaterno + " " + apellidoMaterno));
-			
-			pstm.setString(32, curp);
-			
-			//pstm.setString(5, idbanner)
-			/*if(!curp.equals(null) && !curp.equals(" ") && !curp.equals("")) {
-				
-			}*/
+			pstm.setString(4, apellidoMaterno);
+			pstm.setLong(5,  Long.valueOf(caseid));
+			pstm.setString(6, correoElectronico);
+			pstm.setString(7, curp);
+
 			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento;
 			rs= pstm.executeQuery();
 			
@@ -917,6 +846,73 @@ class SolicitudUsuarioDAO {
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	
+	public Result getUpdateFamiliaresIntento(String caseid, intentos, cantidad) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		Boolean executar = false;
+		try {
+			
+			closeCon = validarConexion();
+			
+			executar = true;
+			con.setAutoCommit(false)
+			pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = null WHERE  caseid = ${caseid} AND countIntento = ${intentos} " );
+			pstm.executeUpdate();
+			
+			// Saca a los padres
+			errorlog+="Actualizar a los padres";
+			pstm = con.prepareStatement("SELECT DISTINCT ON (catparentezco_pid) * FROM padrestutor where caseid = ${caseid} AND desconozcodatospadres IS NOT NULL ORDER by catparentezco_pid,persistenceid DESC  limit 2");
+			rs = pstm.executeQuery();
+			
+			
+			while(rs.next()) {
+				
+				pstm = con.prepareStatement("INSERT INTO padresTutorRespaldo ( persistenceid,persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid,countintento) SELECT  (case when (SELECT max(persistenceId)+1 from padresTutorRespaldo) is null then 0 else (SELECT max(persistenceId)+1 from padresTutorRespaldo) END) as persistenceid,persistenceid as persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid, ${intentos} as countintento FROM PadresTutor WHERE caseid = ${caseid} AND Persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+				
+				errorlog+="UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			// Saca a los tutores
+			errorlog+="Actualizar a los tutores";
+			pstm = con.prepareStatement("SELECT persistenceid FROM padresTutor WHERE caseid = ${caseid} AND vive_pid IS NULL AND istutor IS TRUE ORDER BY persistenceid DESC LIMIT ${cantidad}");
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				
+				pstm = con.prepareStatement("INSERT INTO padresTutorRespaldo ( persistenceid,persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid,countintento) SELECT  (case when (SELECT max(persistenceId)+1 from padresTutorRespaldo) is null then 0 else (SELECT max(persistenceId)+1 from padresTutorRespaldo) END) as persistenceid,persistenceid as persistenceversion,apellidos,calle,caseid,ciudad,codigopostal,colonia,correoelectronico,delegacionmunicipio,desconozcodatospadres,empresatrabaja,estadoextranjero,giroempresa,istutor,nombre,numeroexterior,numerointerior,otroparentesco, puesto,telefono,vencido,vivecontigo,catcampusegreso_pid,categresoanahuac_pid,catescolaridad_pid,catestado_pid,catpais_pid,catparentezco_pid,cattitulo_pid,cattrabaja_pid,vive_pid, ${intentos} as countintento FROM PadresTutor WHERE caseid = ${caseid} AND Persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+				
+				errorlog+=", UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid');
+				pstm = con.prepareStatement("UPDATE padresTutor SET countIntento = ${intentos} WHERE  caseid = ${caseid} AND  persistenceid = "+rs.getString('persistenceid') );
+				pstm.executeUpdate();
+			}
+			
+			if(executar) {
+				con.commit();
+			}
+			
+			resultado.setSuccess(true);
+			//resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+			if(executar) {
+				con.rollback();
+			}
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)

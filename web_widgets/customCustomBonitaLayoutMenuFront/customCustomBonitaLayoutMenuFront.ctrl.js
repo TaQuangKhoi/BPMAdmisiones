@@ -144,10 +144,26 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
     ctrl.redirectToPage = function(token) {
         var previousToken = ctrl.pageToken;
         var previousPath = window.location.pathname;
-
+        if(token=="autodescripcion"){
+            token=($scope.processVersion<1.53)?"autodescripcion":"autodescripcionV2";
+            if(token=="autodescripcionV2"){
+                var taskName = $scope.properties.currentTaskName;
+                if(taskName === "Seleccionar cita" ||
+                taskName === "Generar credencial" ||
+                taskName === "Pase de lista Prueba 1" ||
+                taskName === "Pase de lista Prueba 2" ||
+                taskName === "Pase de lista Prueba 3" ||
+                taskName === "Carga y consulta de resultados" ||
+                taskName === "Resultado final de comité" ||
+                taskName === "Reactivar usuario rechazado"){
+                    token="autodescripcionV2vista";
+                }
+            }
+        }
+        
         ctrl.pageToken = token;
         var urlPath = "";
-        if (previousToken === "autodescripcion" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones") {
+        if (previousToken === "autodescripcion" || previousToken === "autodescripcionV2" || previousToken === "pago_de_examen" || previousToken === "confirmacion_credencial" || previousToken === "verSesiones") {
             previousPath.substring(0, previousPath.length - previousToken.length - 2) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);
         } else {
             previousPath.substring(0, previousPath.length - previousToken.length - 1) + token + '/' + ($window.location.search === undefined || $window.location.search === "undefined" ? "" : $window.location.search);

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPRegistro",
   "name" : "APPRegistro",
-  "lastUpdate" : 1631129633990,
+  "lastUpdate" : 1637113913737,
   "rows" : [
     [
       {
@@ -4781,6 +4781,7 @@
     "validar" : {
       "type" : "expression",
       "value" : [
+        "debugger\r",
         "var validado = true;\r",
         "// $data.strRegistro.error = false;\r",
         "// const re = /^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$/;\r",
@@ -4866,7 +4867,12 @@
         "    $data.strRegistro.error = true;\r",
         "    $data.campoError = \"Aviso de privacidad\";\r",
         "    $data.erroMessage = \"Debes aceptar el aviso de privacidad.\";\r",
-        "} else if($data.strRegistro.CorreoElectronico.trim().length > 1 && !$data.strRegistro.error){\r",
+        "}else if($data.strRegistro.numeroContacto == null||$data.strRegistro.numeroContacto.trim() === \"\" || $data.strRegistro.numeroContacto.trim().length < 10 ){\r",
+        "        validado = false;\r",
+        "        $data.strRegistro.error = true;\r",
+        "        $data.campoError = \"Telefono Celular\";\r",
+        "        $data.erroMessage = \"El campo teléfono Celular no debe estar vacío y tiene que tener un mínimo de 10 dígitos\";  \r",
+        "}else if($data.strRegistro.CorreoElectronico.trim().length > 1 && !$data.strRegistro.error){\r",
         "    if(!re.test(String($data.strRegistro.CorreoElectronico.trim()).toLowerCase())){\r",
         "        validado = false;\r",
         "        $data.strRegistro.error = true;\r",
@@ -4903,6 +4909,7 @@
         "    \"ConfirmarCorreo\":\"\",",
         "    \"Password\":\"\",",
         "    \"ConfirmarPassword\":\"\",",
+        "    \"numeroContacto\":\"\",",
         "    \"Ayuda\": false,",
         "    \"Aceptar\":false,",
         "    \"Validado\":false,",

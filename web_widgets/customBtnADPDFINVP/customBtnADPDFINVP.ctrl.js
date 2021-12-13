@@ -1,5 +1,6 @@
 function PbButtonCtrl($scope, modalService, blockUI, $q) {
-
+    
+      
     $scope.generatePDF = function() {
         //blockUI.start();
         $scope.properties.idsDivGrafica.forEach(data => {
@@ -12,24 +13,24 @@ function PbButtonCtrl($scope, modalService, blockUI, $q) {
         var element = document.querySelector($scope.properties.elementSelector);
     
         var opt = {
-            margin: [15, 5, 15, 5],
+            margin: [5,5,1,5],
             filename: $scope.properties.idBanner+"_"+$scope.properties.fileName + ".pdf",
-            image: { type: 'jpeg', quality: 1},
-            html2canvas: { dpi: 100, letterRendering: true, useCORS: true },
+            image: { type: 'jpeg',quality: 0.98},
+            html2canvas: { dpi: 192, letterRendering: true, useCORS: true },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' },
-            pagebreak: { mode: ['css']}
+            pagebreak: { mode: [ 'legacy'], before:[".break-before"]},
             // pagebreak: { avoid: '.avoid' }
         };
 
-        var promise
+        var promise;
+        primise = getPDF(element, opt);
         setTimeout(function(){ 
-            primise = getPDF(element, opt);
             $scope.properties.idsDivGrafica.forEach(data => {
                 //document.getElementById(data.id).style.height = "40vh";
                 document.getElementById(data.id).removeAttribute("style")
                 //document.getElementById(data.id).classList.add('chart-container')
             })
-        }, 500);
+        }, 1000);
         
         promise.then(function(resultado) {
             alert("Fin de la promesa");

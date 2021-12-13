@@ -9,6 +9,20 @@ class AzureConfig {
 	private String azureAccountKey;
 	private String azureDefaultEndpointsProtocol;
 	private String bannerToken;
+	private String adminPassword;
+	private String bannerMatchPerson;
+	public String getBannerMatchPerson() {
+		return bannerMatchPerson;
+	}
+	public void setBannerMatchPerson(String bannerMatchPerson) {
+		this.bannerMatchPerson = bannerMatchPerson;
+	}
+	public String getAdminPassword() {
+		return adminPassword;
+	}
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
 	public String getAzureAccountName() {
 		return azureAccountName;
 	}

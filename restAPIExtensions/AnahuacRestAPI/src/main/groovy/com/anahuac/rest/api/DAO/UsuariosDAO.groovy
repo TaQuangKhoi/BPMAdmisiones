@@ -121,43 +121,61 @@ class UsuariosDAO {
 			creator.setProfessionalContactData(proContactDataCreator);
 			//inicializa la cuenta con la cual tendras permisos para registrar el usuario
 			apiClient.login(username, password)
+			error_log = error_log + " | "+apiClient.login(username, password);
 			error_log = error_log + " | apiClient.login(username, password)";
 			
 			closeCon = validarConexion();
 			
-			/*while (step <= 0) {
-				try {
-					con.setAutoCommit(false);
-					pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
-					pstm.setString(1, idioma);
-					pstm.setString(2, object.nombreusuario);
-					error_log ="idioma"
-					resultReq = pstm.executeUpdate();
-					con.commit();
-					error_log ="termino idioma"
-					step = step+1;
-					success = true;
-					error_log = resultReq + " exito! query update"
-				}	catch (Exception e) {
-					if(success == false) {
-						pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
-						resultReqA = pstm.executeUpdate();
-						con.commit();
-						if(resultReqA > 0) {
-							error_log = resultReqA + " exito! query alter"
-							step = 0;
-							pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
-							pstm.setString(1, idioma);
-							pstm.setString(2, object.nombreusuario);
-				
-							resultReq = pstm.executeUpdate();
-							con.commit();
-						}
+			    try {
+			        con.setAutoCommit(false);
+			        pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+			        pstm.setString(1, object.idioma);
+			        pstm.setString(2, object.nombreusuario);
+			
+			        resultReq = pstm.executeUpdate();
+			        con.commit();
+					
+			        success = true;
+					if(resultReq > 0) {
+						error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+						//error_log = resultReq + " Exito! query update_idioma_registro_by_username_1"
+					} else {
+						error_log = resultReq + " Error! query update_idioma_registro_by_username_1"
 					}
+			        
+			    } catch (Exception e) {
 					con.rollback();
-					error_log = "Error catch: "+e+ " error query1: "+resultReq+" error query2: "+resultReqA;
-				}
-			}*/
+			        if (success == false) {
+			            try {
+			                con.setAutoCommit(false);
+			                pstm = con.prepareStatement(Statements.UPDATE_TABLE_CATREGISTRO);
+			                resultReqA = pstm.executeUpdate();
+			                con.commit();
+
+			                if (resultReqA > 0) {
+			                    con.setAutoCommit(false);
+			                    pstm = con.prepareStatement(Statements.UPDATE_IDIOMA_REGISTRO_BY_USERNAME);
+			                    pstm.setString(1, parameterIdioma);
+			                    pstm.setString(2, object.nombreusuario);
+			
+			                    resultReq = pstm.executeUpdate();
+			                    con.commit();
+								if(resultReq > 0) {
+									error_log = resultReq + " Exito! query update_idioma_registro_by_username_2"
+								} else {
+									error_log = resultReq + " Error! query update_idioma_registro_by_username_2"
+								}
+			                    
+			                } else {
+								error_log = resultReqA + " Error! query update_table_registro"
+							}
+			            } catch (Exception e1) {
+			                con.rollback();
+			                error_log = "Error catch_1: " + e + " error query1: " + resultReq + " error query2: " + resultReqA;
+			            }
+			        }
+
+			    }
 				
 			//Registro del usuario
 			IdentityAPI identityAPI = apiClient.getIdentityAPI()
@@ -208,9 +226,9 @@ class UsuariosDAO {
 			error_log = error_log + " | resultado = dao.sendEmailPlantilla(str.correo,";
 			lstResultado.add(plantilla.replace("\\", ""))
 			error_log = error_log + " | lstResultado.add(plantilla.replace(";
-			//Result resultado2 = new Result();
-			//resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
-			//error_log = error_log + resultado2.getError();
+			Result resultado2 = new Result();
+			resultado2 = updateNumeroContacto(object.nombreusuario,object.numeroContacto);
+			error_log = error_log + resultado2.getError();
 			resultado.setData(lstResultado);
 			error_log = error_log + " | resultado.setData(lstResultado);";
 			resultado.setSuccess(true);
@@ -845,7 +863,23 @@ class UsuariosDAO {
 					pstm.setLong(6, new Long(object.caseId))
 					pstm.setLong(7, new Long(object.caseId))
 					pstm.execute()
+					
+					new DBConnect().closeObj(con, stm, rs, pstm)
+					
+					closeCon = validarConexion();
+					
+					pstm = con.prepareStatement("SELECT  estatussolicitud FROM solicituddeadmision where caseid=?")
+					pstm.setString(1, object.caseId.toString())
+					rs= pstm.executeQuery()
+					if(rs.next()) {
+						
+						pstm = con.prepareStatement("UPDATE solicituddeadmision set estatussolicitud=? where caseid=?;")
+						pstm.setString(1, rs.getString("estatussolicitud").split(":")[1].trim())
+						pstm.setString(2, object.caseId.toString())
+						pstm.execute()
+					}
 					resultado.setSuccess(true)
+					
 				}else {
 					resultado.setError(" No tiene tareas abortadas")
 					resultado.setSuccess(true)
@@ -934,7 +968,7 @@ class UsuariosDAO {
 			
 			assert object instanceof Map;
 			where+=" WHERE sda.iseliminado=false and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
-			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
+			where+=" AND (sda.ESTATUSSOLICITUD <> 'Solicitud rechazada' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados sin validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Aspirantes registrados con validación de cuenta' AND sda.ESTATUSSOLICITUD <> 'Solicitud en progreso' AND sda.ESTATUSSOLICITUD <> 'Aspirante migrado' AND sda.ESTATUSSOLICITUD <> 'estatus1' AND sda.ESTATUSSOLICITUD <> 'estatus2' AND sda.ESTATUSSOLICITUD <> 'estatus3' AND sda.ESTATUSSOLICITUD <> 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')"
 			//sda.ESTATUSSOLICITUD <> 'Solicitud lista roja' AND
 //				if(object.estatusSolicitud !=null) {
 				
@@ -1425,6 +1459,15 @@ class UsuariosDAO {
 			
 			consulta+=" WHERE ";
 			con.setAutoCommit(false)
+			
+			if(object.telefonoCelular != null ) {
+				errorLog +="actualizar contacto";
+				pstm = con.prepareStatement(Statements.UPDATE_REGISTRO_NUMEROCONTACTO);
+				pstm.setString(1,object.telefonoCelular);
+				pstm.setString(2,object.correoelectronico);
+				pstm.executeUpdate();
+			}		
+			
 			errorLog += " consulta = "+Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta)
 			pstm = con.prepareStatement(Statements.UPDATE_USUARIOS_REGISTRADOS.replace("WHERE", consulta))
 			pstm.setString(1,object.primernombre);
@@ -1454,7 +1497,7 @@ class UsuariosDAO {
 			}else{
 				pstm.setLong(11, object.sexo);
 			}
-			pstm.setString(12, object.fechanacimiento);
+			pstm.setString(12, object.fechanacimiento?.toString().replace("t","T"));
 			/*if(object.estado == null){
 				pstm.setNull(13, java.sql.Types.BIGINT);
 			}else{
@@ -1488,9 +1531,10 @@ class UsuariosDAO {
 			}else {
 				pstm.setLong(21, object.catPaisExamen.persistenceId)
 			}
+			pstm.setString(22, object.telefonoCelular);
 			
 			// el where final
-			pstm.setLong(22, Long.valueOf(object.caseid));
+			pstm.setLong(23, Long.valueOf(object.caseid));
 			pstm.executeUpdate();
 			String detalleSolicitud ="";
 			
@@ -1622,7 +1666,7 @@ class UsuariosDAO {
 				
 			}
 			errorLog += " descuento = "+object.descuento
-			if(object.descuento.toString().equals("100")) {
+			if( object.descuento.toString().equals("100")) {
 				errorLog += " en el if con el caseid " + object.caseid
 				SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
 				searchBuilder.filter(HumanTaskInstanceSearchDescriptor.PROCESS_INSTANCE_ID, object.caseid);
@@ -1644,6 +1688,12 @@ class UsuariosDAO {
 						processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 					}
 				}
+			}
+			HubspotDAO hDAO = new HubspotDAO()
+			Result hResultado = hDAO.createOrUpdateUsuarioRegistrado(jsonData)
+			
+			if(!hResultado.success) {
+				throw new Exception("hubspot: "+hResultado.error + " | " + hResultado.error_info)
 			}
 			
 			con.commit();
@@ -1715,6 +1765,10 @@ class UsuariosDAO {
 			pstm.setString(1,object.correoNuevo);
 			pstm.setString(2,object.correoAnterior);
 			pstm.execute()
+			pstm = con.prepareStatement(Statements.UPDATE_CORREO_ELECTRONICO_BITACORACORREO)
+			pstm.setString(1,object.correoNuevo);
+			pstm.setString(2,object.correoAnterior);
+			pstm.execute();
 			con.commit();
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
@@ -1982,12 +2036,12 @@ class UsuariosDAO {
 						pstm = con.prepareStatement(AppMenuRole.INSERT)
 						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
-						pstm.execute()
+						pstm.execute();
 					}else if(!rol.nuevo && rol.eliminado) {
 						pstm = con.prepareStatement(AppMenuRole.DELETE)
 						pstm.setString(1, row.getDisplayname())
 						pstm.setLong(2, rol.getId())
-						pstm.execute()
+						pstm.execute();
 					}
 				}
 				
@@ -3115,7 +3169,7 @@ class UsuariosDAO {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
 			
-			if (lstGrupo.size() > 0) {
+			/*if (lstGrupo.size() > 0) {
 				campus += " AND ("
 			}
 			for (Integer i = 0; i < lstGrupo.size(); i++) {
@@ -3126,7 +3180,7 @@ class UsuariosDAO {
 				} else {
 					campus += " OR "
 				}
-			}
+			}*/
 
 			errorlog += "campus" + campus;
 			errorlog += "object.lstFiltro" + object.lstFiltro
@@ -3628,6 +3682,44 @@ class UsuariosDAO {
 	}
 
 	
+	public Result getIdiomaByUsername(String username) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String idioma = "";
+		String errorlog = "";
+		List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+		
+		try {
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.SELECT_IDIOMA_BY_USERNAME);
+			pstm.setString(1, username);
+			rs = pstm.executeQuery();
+			
+			Map<String, Object> columns = new LinkedHashMap<String, Object>();
+			errorlog = "Se ejecuto la consulta";
+				while(rs.next()) {
+					idioma = rs.getString("idioma").toString();
+					columns.put("idioma", idioma);
+				}
+				
+				errorlog = "Se completo el llenado del mapa "+ columns;
+				
+				rows.add(columns);
+				resultado.setData(rows);
+				resultado.setSuccess(true);
+				
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError_info(errorlog)
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Result updateNumeroContacto(String nombreUsuario, String numeroContacto) {
 		Result resultado = new Result();
@@ -3637,6 +3729,11 @@ class UsuariosDAO {
 				closeCon = validarConexion();
 				con.setAutoCommit(false)
 				pstm = con.prepareStatement("UPDATE CATREGISTRO SET numeroContacto = ? WHERE nombreusuario = ?")
+				pstm.setString(1, numeroContacto)
+				pstm.setString(2, nombreUsuario)
+				pstm.executeUpdate();
+				
+				pstm = con.prepareStatement("UPDATE SolicitudDeAdmision SET telefonocelular = ? WHERE correoelectronico = ?")
 				pstm.setString(1, numeroContacto)
 				pstm.setString(2, nombreUsuario)
 				pstm.executeUpdate();
@@ -3656,4 +3753,346 @@ class UsuariosDAO {
 		return resultado
 	}
 	
+	
+	
+	public Result selectAspirantesSmartCampus( String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorlog = "";
+
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			 
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+			if(object.campus != null) {
+				where += " WHERE LOWER(campusDestino) = LOWER('" + object.campus + "') " ;
+			}
+			
+			String consulta = Statements.GET_ASPIRANTES_SMART_CAMPUS;
+
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+				errorlog = consulta + " 1";
+				switch (filtro.get("columna")) {
+					case "NOMBRE,CURP,CORREO":
+						errorlog += "NOMBRE,CURP"
+						if (where.contains("WHERE")) {
+							where += " AND "
+						} else {
+							where += " WHERE "
+						}
+						where += " ( LOWER(concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre)) like lower('%[valor]%') ";
+						where = where.replace("[valor]", filtro.get("valor"))
+
+						where += " OR LOWER(curp) like lower('%[valor]%')  ";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						where += " OR LOWER(correo) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"))
+						
+						break;
+
+				case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+					errorlog += "PREPARATORIA,ESTADO,PROMEDIO"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += "( LOWER(estadoPreparatoria) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += "  OR LOWER(concat(clavePreparatoria,' - ',preparatoria)) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					/*where += " OR LOWER(clavePreparatoria) like lower('%[valor]%')";
+					where = where.replace("[valor]", filtro.get("valor"))*/
+
+					where += " OR LOWER(promedio) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				case "ULTIMA MODIFICACION":
+					errorlog += "FECHAULTIMAMODIFICACION"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " LOWER(fechaUltimaModificacion) ";
+					if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}
+
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+				case "FECHA SOLICITUD, FECHA PAGO":
+					errorlog += "fechaEnvioSolicitud"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " ( LOWER(fechaEnvioSolicitud) like lower('%[valor]%') ";
+					/*if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}*/
+
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(fechaPago) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				case "CAMPUS,PROGRAMA,INGRESO":
+					errorlog += "PROGRAMA,INGRESO,CAMPUS"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " ( LOWER(campusDestino) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(licenciatura) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(periodo) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					break;
+					
+				case "RESIDENCIA,ESTATUS":
+					errorlog += "ESTATUS"
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " ( LOWER(residencia) like lower('%[valor]%') ";
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(estatus) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+				
+				case "ID BANNER, VPD":
+					if (where.contains("WHERE")) {
+						where += " AND "
+					} else {
+						where += " WHERE "
+					}
+					where += " ( LOWER(idbanner) like lower('%[valor]%') ";
+					/*if (filtro.get("operador").equals("Igual a")) {
+						where += "=LOWER('[valor]')"
+					} else {
+						where += "LIKE LOWER('%[valor]%')"
+					}*/
+					where = where.replace("[valor]", filtro.get("valor"))
+
+					where += " OR LOWER(vpd) like lower('%[valor]%') )";
+					where = where.replace("[valor]", filtro.get("valor"))
+					break;
+					
+					
+				}
+
+			}
+			
+			switch (object.orderby) {
+				case "IDBANNER":
+					orderby += "idbanner";
+				break;
+				case "NOMBRE":
+					orderby += "nombre";
+				break;
+				case "CURP":
+					orderby += "CURP";
+				break;
+				case "VPD":
+					orderby += "VPD";
+				break;
+				
+				case "CAMPUS":
+					orderby += "CAMPUSDESTIONE";
+				break;
+				case "PROGRAMA":
+					orderby += "LICENCIATURA";
+				break;
+				case "PERIODO":
+					orderby += "PERIODO";
+				break;
+				
+				case "PROCEDENCIA":
+					orderby += "ESTADOPREPARATORIA";
+				break;
+				case "PREPARATORIA":
+					orderby += "PREPARATORIA";
+				break;
+				case "PROMEDIO":
+					orderby += "PROMEDIO";
+				break;
+				
+				
+				case "RESIDENCIA":
+					orderby += "RESIDENCIA";
+				break;
+				case "ESTATUS":
+					orderby += "ESTATUS";
+				break;
+				case "FECHA SOLICITUD":
+					orderby += "fechaEnvioSolicitud";
+				break;
+				case "ULTIMA MODIFICACION":
+					orderby += "fechaUltimaModificacion";
+				break;
+				case "FECHA PAGO":
+					orderby += "fechaPago";
+				break;
+				case "CORREO":
+					orderby += "correo";
+				break;
+				/*case "CLAVE":
+					orderby += "clavePreparatoria";
+				break;*/
+				default:					
+					orderby += "NOMBRE"
+				break;
+			}
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			
+			pstm = con.prepareStatement(consulta.replace("idbanner,concat(apellidopaterno,' ',apellidomaterno,' ',nombre,' ',segundonombre) as nombre, curp, vpd, campusDestino as campus, licenciatura as programa, periodo, estadoPreparatoria as procedencia, concat(clavePreparatoria,' - ',preparatoria) as preparatoria, promedio, residencia, estatus, fechaEnvioSolicitud, fechaUltimaModificacion, correo, fechaPago, rutaPago, rutaSolicitud, foto", "COUNT(persistenceid) as registros").replace("[LIMITOFFSET]", "").replace("[ORDERBY]", ""));
+			rs = pstm.executeQuery()
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"))
+			}
+			consulta = consulta.replace("[ORDERBY]", orderby)
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
+
+			pstm = con.prepareStatement(consulta)
+			pstm.setInt(1, object.limit)
+			pstm.setInt(2, object.offset)
+			rs = pstm.executeQuery();
+			rows = new ArrayList < Map < String, Object >> ();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					String encoded = "";
+					boolean noAzure = false;
+					try {
+						String urlfoto = rs.getString("foto");
+						if (urlfoto != null && !urlfoto.isEmpty()) {
+							columns.put("fotografiab64", rs.getString("foto") + SSA);
+							columns.put("rutaPagob64", rs.getString("rutaPago") + SSA);
+							columns.put("rutaSolicitudb64", rs.getString("rutaSolicitud") + SSA);
+						} else {
+							noAzure = true;
+							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10);
+							for (Document doc: doc1) {
+									encoded = "../API/formsDocumentImage?document=" + doc.getId();
+									columns.put("fotografiab64", encoded);
+								}
+						}
+						for (Document doc: context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiabpm", encoded);
+							}
+					}
+					catch(Exception e) {
+						LOGGER.error "[ERROR] " + e.getMessage();
+						columns.put("fotografiabpm", "");
+						if(noAzure){
+							columns.put("fotografiab64", "");
+						}
+						errorlog += "" + e.getMessage();
+					}
+					
+				
+
+					/*if (metaData.getColumnLabel(i).toLowerCase().equals("foto")) {
+						columns.put("foto", rs.getString(i) + SSA);
+					}else {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}*/
+				}
+
+				rows.add(columns);
+			}
+			errorlog = consulta + " 9";
+			resultado.setSuccess(true)
+
+			resultado.setError_info(errorlog);
+			resultado.setData(rows)
+
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setError_info(errorlog)
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result getUniversidadSmartCampus() {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			
+			List < Map < String, Object >> rows = new ArrayList < Map < String, Object >> ();
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement("SELECT DISTINCT campusDestino FROM AspirantesSmartCampus");
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			int columnCount = metaData.getColumnCount();
+			while (rs.next()) {
+				Map < String, Object > columns = new LinkedHashMap < String, Object > ();
+				for (int i = 1; i <= columnCount; i++) {
+					columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+				}
+				rows.add(columns);
+			}
+			
+			resultado.setSuccess(true)
+			resultado.setData(rows)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError("500 Internal Server Error")
+			resultado.setError_info(e.getMessage())
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+
 }
