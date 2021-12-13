@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "frgInformacionEscolarREVISIONUpdate",
   "name" : "frgInformacionEscolarREVISIONUpdate",
-  "lastUpdate" : 1617148304622,
+  "lastUpdate" : 1637113292233,
   "rows" : [
     [
       {
@@ -308,7 +308,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Estado"
+            "value" : "Estado:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -382,7 +382,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Estado"
+            "value" : "Estado:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -761,6 +761,81 @@
           },
           "label" : {
             "type" : "interpolation",
+            "value" : "Entre calles:"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catSolicitudDeAdmision.calle2"
+          },
+          "type" : {
+            "type" : "constant",
+            "value" : "text"
+          },
+          "min" : {
+            "type" : "constant"
+          },
+          "max" : {
+            "type" : "constant"
+          },
+          "step" : {
+            "type" : "constant",
+            "value" : 1
+          }
+        },
+        "reference" : "7bcafa06-301a-40c0-9c49-47c58b125414",
+        "hasValidationError" : false,
+        "id" : "pbInput"
+      },
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 4,
+          "md" : 4,
+          "lg" : 4
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "minLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "maxLength" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "readOnly" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
             "value" : "Núm. Exterior:"
           },
           "labelPosition" : {
@@ -796,7 +871,9 @@
         "reference" : "8deb5635-57dc-485f-a867-b11ca4a10c62",
         "hasValidationError" : false,
         "id" : "pbInput"
-      },
+      }
+    ],
+    [
       {
         "type" : "component",
         "dimension" : {
@@ -871,9 +948,7 @@
         "reference" : "49fe992b-e0a5-4cfb-9cfc-289de14092d8",
         "hasValidationError" : false,
         "id" : "pbInput"
-      }
-    ],
-    [
+      },
       {
         "type" : "component",
         "dimension" : {
@@ -913,7 +988,7 @@
           },
           "label" : {
             "type" : "interpolation",
-            "value" : "Teléfono"
+            "value" : "Teléfono:"
           },
           "labelPosition" : {
             "type" : "constant",
@@ -2078,7 +2153,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "urlKardex !== undefined && urlKardex !== \"\""
+                  "value" : "!imgBDMKardex"
                 },
                 "type" : {
                   "type" : "constant",
@@ -2122,7 +2197,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isPDFKardex === \"true\""
+                  "value" : "!imgPBDMKardex&& isPDFKardex=== \"true\""
                 },
                 "srcType" : {
                   "type" : "constant",
@@ -2168,7 +2243,51 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isImageKardex === \"true\""
+                  "value" : "!imgAzureKardex"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "urlConstancia +  azureTempKeyRes.data[0]"
+                },
+                "document" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "showPreview" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "idmodal" : {
+                  "type" : "constant",
+                  "value" : "idmodal1kardexazure"
+                }
+              },
+              "reference" : "36a4b7b4-4915-4e18-82b1-82628c2c0fd8",
+              "hasValidationError" : false,
+              "id" : "customFileViewerPopupUpdate"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "validacionimgpdfkardex"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -2349,7 +2468,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "archivoAA.length === 0 || archivoAA === null || archivoAA === undefined"
+            "value" : "!catSolicitudDeAdmision.admisionAnahuac"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -2412,7 +2531,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "urlcartaAA !== undefined && urlcartaAA !== \"\""
+                  "value" : "!imgBDMAA"
                 },
                 "type" : {
                   "type" : "constant",
@@ -2452,11 +2571,11 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "isPDFAA === \"true\""
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isPDFAA === \"true\""
+                  "value" : "!imgPBDMAA  && isPDFAA=== \"true\""
                 },
                 "srcType" : {
                   "type" : "constant",
@@ -2502,7 +2621,51 @@
                 },
                 "hidden" : {
                   "type" : "expression",
+                  "value" : "!imgAzureAA"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "urlcartaAAAzure +  azureTempKeyRes.data[0]"
+                },
+                "document" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "showPreview" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "idmodal" : {
+                  "type" : "constant",
+                  "value" : "idmodal1aaazure"
+                }
+              },
+              "reference" : "a3dc6642-ca49-4066-b229-2f69f5723ed9",
+              "hasValidationError" : false,
+              "id" : "customFileViewerPopupUpdate"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : "isImagenAA === \"true\""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "validacionimgpdfcartaAA"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -2593,7 +2756,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "archivoPAA.length === 0 || archivoPAA=== null || archivoPAA=== undefined"
+            "value" : "!catSolicitudDeAdmision.tienePAA"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -2656,7 +2819,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "urlCollageBoard !== undefined && urlCollageBoard !== \"\""
+                  "value" : "!imgBDMCB"
                 },
                 "type" : {
                   "type" : "constant",
@@ -2696,11 +2859,11 @@
               "propertyValues" : {
                 "cssClasses" : {
                   "type" : "constant",
-                  "value" : ""
+                  "value" : "isPDFCollageBoard === \"true\""
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isPDFCollageBoard === \"true\""
+                  "value" : "!imgPBDMCB && isPDFCollageBoard=== \"true\""
                 },
                 "srcType" : {
                   "type" : "constant",
@@ -2746,7 +2909,51 @@
                 },
                 "hidden" : {
                   "type" : "expression",
+                  "value" : "!imgAzureCB"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "urlPAAAzure +  azureTempKeyRes.data[0]"
+                },
+                "document" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "showPreview" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "idmodal" : {
+                  "type" : "constant",
+                  "value" : "idmodal1cbazure"
+                }
+              },
+              "reference" : "a8b9e6c2-240e-4bad-b979-1a021aad31a0",
+              "hasValidationError" : false,
+              "id" : "customFileViewerPopupUpdate"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
                   "value" : "isImagenCollage === \"true\""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "validacionimgpdfcollageboard"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -2837,7 +3044,7 @@
           },
           "hidden" : {
             "type" : "expression",
-            "value" : "archivoDescuento.length === 0 || archivoDescuento=== null || archivoDescuento === undefined"
+            "value" : "!catSolicitudDeAdmision.tieneDescuento"
           },
           "repeatedCollection" : {
             "type" : "variable",
@@ -2900,7 +3107,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "urlDescuento !== undefined && urlDescuento !== \"\""
+                  "value" : "!imgBDMDesc"
                 },
                 "type" : {
                   "type" : "constant",
@@ -2944,7 +3151,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isPDFDescuento === \"true\""
+                  "value" : "!imgPBDMDesc && isPDFDescuento=== \"true\""
                 },
                 "srcType" : {
                   "type" : "constant",
@@ -2990,7 +3197,51 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "isImagenDescuento === \"true\""
+                  "value" : "!imgAzureDesc"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "URL"
+                },
+                "url" : {
+                  "type" : "expression",
+                  "value" : "urlDescuentoAzure +  azureTempKeyRes.data[0]"
+                },
+                "document" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "showPreview" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "idmodal" : {
+                  "type" : "constant",
+                  "value" : "idmodal1descazure"
+                }
+              },
+              "reference" : "d90c2895-a143-4f89-a494-a6d8a42170ad",
+              "hasValidationError" : false,
+              "id" : "customFileViewerPopupUpdate"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "expression",
+                  "value" : "validacionimgpdfdescuento"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -3343,6 +3594,492 @@
         ""
       ],
       "exposed" : true
+    },
+    "azureTempKeyRes" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlConstancia" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlcartaAAAzure" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlPAAAzure" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "urlDescuentoAzure" : {
+      "type" : "constant",
+      "value" : [
+        ""
+      ],
+      "exposed" : true
+    },
+    "imgKardexAzure" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "\r",
+        "$data.imgPBDMKardex=false;\r",
+        "$data.imgAzureKardex=false;\r",
+        "$data.imgBDMKardex=false;\r",
+        "\r",
+        "if($data.urlConstancia !==null && $data.urlConstancia  !==\"\"){\r",
+        "    $data.imgAzureKardex=true;\r",
+        "}else{\r",
+        "    $data.imgAzureKardex=false;\r",
+        "}\r",
+        "if($data.urlKardex!==null && $data.urlKardex !==\"\" && $data.urlKardex !==undefined){\r",
+        "    $data.imgPBDMKardex=true;\r",
+        "}else{\r",
+        "    $data.imgPBDMKardex=false;\r",
+        "}\r",
+        "if($data.archivoKardex!==null && $data.archivoKardex !==\"\" && $data.archivoKardex !==undefined){\r",
+        "    $data.imgBDMKardex=true;\r",
+        "}else{\r",
+        "    $data.imgBDMKardex=false;\r",
+        "}\r",
+        "console.log(\"$data.imgAzureKardex: \"+$data.imgAzureKardex)\r",
+        "console.log(\"$data.imgBDMKardex: \"+$data.imgBDMKardex)\r",
+        "console.log(\"$data.imgPBDMKardex: \"+$data.imgPBDMKardex)\r",
+        "\r",
+        "if(!$data.imgAzureKardex && !$data.imgBDMKardex){\r",
+        "    console.log(\"1\")\r",
+        "    $data.imgPBDMKardex=true;\r",
+        "    $data.imgAzureKardex=false;\r",
+        "    $data.imgBDMKardex=false;\r",
+        "}\r",
+        "else{\r",
+        "    console.log(\"2\")\r",
+        "    if($data.imgAzureKardex && $data.imgPBDMKardex){\r",
+        "        console.log(\"3\")\r",
+        "        $data.imgPBDMKardex=true;\r",
+        "        $data.imgAzureKardex=false;\r",
+        "        $data.imgBDMKardex=false;\r",
+        "    }\r",
+        "    else {\r",
+        "        console.log(\"4\")\r",
+        "        if($data.imgAzureKardex && $data.imgBDMKardex){\r",
+        "            console.log(\"5\")\r",
+        "            $data.imgPBDMKardex=false;\r",
+        "            $data.imgAzureKardex=false;\r",
+        "            $data.imgBDMKardex=true;\r",
+        "        }\r",
+        "        else {\r",
+        "            console.log(\"6\")\r",
+        "            if(!$data.imgAzureKardex && !$data.imgPBDMKardex){\r",
+        "                console.log(\"7\")\r",
+        "                $data.imgPBDMKardex=false;\r",
+        "                $data.imgAzureKardex=false;\r",
+        "                $data.imgBDMKardex=true;\r",
+        "            }\r",
+        "            else if($data.imgBDMKardex && $data.imgPBDMKardex){\r",
+        "                console.log(\"8\")\r",
+        "                $data.imgPBDMKardex=true;\r",
+        "                $data.imgAzureKardex=false;\r",
+        "                $data.imgBDMKardex=false;\r",
+        "            }else{\r",
+        "                console.log(\"9\")\r",
+        "                $data.imgPBDMKardex=false;\r",
+        "                $data.imgAzureKardex=true;\r",
+        "                $data.imgBDMKardex=false;\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "console.log($data.imgAzureKardex)\r",
+        "console.log($data.imgBDMKardex)\r",
+        "console.log($data.imgPBDMKardex)"
+      ],
+      "exposed" : false
+    },
+    "imgPBDMKardex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgAzureKardex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgBDMKardex" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "validacionimgpdfkardex" : {
+      "type" : "expression",
+      "value" : [
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "console.log($data.isPDFKardex)\r",
+        "console.log($data.isImageKardex)\r",
+        "console.log(typeof $data.isPDFKardex)\r",
+        "console.log(typeof $data.isImageKardex)\r",
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "\r",
+        "var resultado = false;\r",
+        "if($data.isPDFKardex === \"true\" && $data.isImageKardex === \"true\"){\r",
+        "    resultado = true;\r",
+        "} else if($data.isPDFKardex === \"false\" && $data.isImageKardex === \"true\" ){\r",
+        "    resultado = true;\r",
+        "}else {\r",
+        "    resultado = false\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "validacionimgpdfcartaAA" : {
+      "type" : "expression",
+      "value" : [
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "console.log($data.isPDFAA)\r",
+        "console.log($data.isImagenAA)\r",
+        "console.log(typeof $data.isPDFAA)\r",
+        "console.log(typeof $data.isImagenAA)\r",
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "\r",
+        "var resultado = false;\r",
+        "if($data.isPDFAA === \"true\" && $data.isImagenAA === \"true\"){\r",
+        "    resultado = true;\r",
+        "} else if($data.isPDFAA === \"false\" && $data.isImagenAA === \"true\" ){\r",
+        "    resultado = true;\r",
+        "}else {\r",
+        "    resultado = false\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "imgPBDMAA" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgAzureAA" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgBDMAA" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgAAAzure" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "\r",
+        "$data.imgPBDMAA=false;\r",
+        "$data.imgAzureAA=false;\r",
+        "$data.imgBDMAA=false;\r",
+        "\r",
+        "if($data.urlcartaAAAzure  !==null && $data.urlcartaAAAzure   !==\"\"){\r",
+        "    $data.imgAzureAA=true;\r",
+        "}else{\r",
+        "    $data.imgAzureAA=false;\r",
+        "}\r",
+        "if($data.urlcartaAA!==null && $data.urlcartaAA !==\"\" && $data.urlcartaAA !== undefined){\r",
+        "    $data.imgPBDMAA=true;\r",
+        "}else{\r",
+        "    $data.imgPBDMAA=false;\r",
+        "}\r",
+        "if($data.archivoAA!==null && $data.archivoAA !==\"\" && $data.archivoAA !==undefined){\r",
+        "    $data.imgBDMAA=true;\r",
+        "}else{\r",
+        "    $data.imgBDMAA=false;\r",
+        "}\r",
+        "console.log(\"$data.imgAzureAA: \"+$data.imgAzureAA)\r",
+        "console.log(\"$data.imgBDMAA: \"+$data.imgBDMAA)\r",
+        "console.log(\"$data.imgPBDMAA: \"+$data.imgPBDMAA)\r",
+        "\r",
+        "if(!$data.imgAzureAA && !$data.imgBDMAA){\r",
+        "    console.log(\"1\")\r",
+        "    $data.imgPBDMAA=true;\r",
+        "    $data.imgAzureAA=false;\r",
+        "    $data.imgBDMAA=false;\r",
+        "}\r",
+        "else{\r",
+        "    console.log(\"2\")\r",
+        "    if($data.imgAzureAA && $data.imgPBDMAA){\r",
+        "        console.log(\"3\")\r",
+        "        $data.imgPBDMAA=true;\r",
+        "        $data.imgAzureAA=false;\r",
+        "        $data.imgBDMAA=false;\r",
+        "    }\r",
+        "    else {\r",
+        "        console.log(\"4\")\r",
+        "        if($data.imgAzureAA && $data.imgBDMAA){\r",
+        "            console.log(\"5\")\r",
+        "            $data.imgPBDMAA=false;\r",
+        "            $data.imgAzureAA=false;\r",
+        "            $data.imgBDMAA=true;\r",
+        "        }\r",
+        "        else {\r",
+        "            console.log(\"6\")\r",
+        "            if(!$data.imgAzureAA && !$data.imgPBDMAA){\r",
+        "                console.log(\"7\")\r",
+        "                $data.imgPBDMAA=false;\r",
+        "                $data.imgAzureAA=false;\r",
+        "                $data.imgBDMAA=true;\r",
+        "            }\r",
+        "            else if($data.imgBDMAA && $data.imgPBDMAA){\r",
+        "                console.log(\"8\")\r",
+        "                $data.imgPBDMAA=true;\r",
+        "                $data.imgAzureAA=false;\r",
+        "                $data.imgBDMAA=false;\r",
+        "            }else{\r",
+        "                console.log(\"9\")\r",
+        "                $data.imgPBDMAA=false;\r",
+        "                $data.imgAzureAA=true;\r",
+        "                $data.imgBDMAA=false;\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "console.log($data.imgAzureAA)\r",
+        "console.log($data.imgBDMAA)\r",
+        "console.log($data.imgPBDMAA)"
+      ],
+      "exposed" : false
+    },
+    "validacionimgpdfcollageboard" : {
+      "type" : "expression",
+      "value" : [
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "console.log($data.isPDFCollageBoard)\r",
+        "console.log($data.isImagenCollage)\r",
+        "console.log(typeof $data.isPDFCollageBoard)\r",
+        "console.log(typeof $data.isImagenCollage)\r",
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "\r",
+        "var resultado = false;\r",
+        "if($data.isPDFCollageBoard === \"true\" && $data.isImagenCollage === \"true\"){\r",
+        "    resultado = true;\r",
+        "} else if($data.isPDFCollageBoard === \"false\" && $data.isImagenCollage === \"true\" ){\r",
+        "    resultado = true;\r",
+        "}else {\r",
+        "    resultado = false\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "imgCBAzure" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "$data.imgPBDMCB=false;\r",
+        "$data.imgAzureCB=false;\r",
+        "$data.imgBDMCB=false;\r",
+        "\r",
+        "if($data.urlPAAAzure  !==null && $data.urlPAAAzure   !==\"\"){\r",
+        "    $data.imgAzureCB=true;\r",
+        "}else{\r",
+        "    $data.imgAzureCB=false;\r",
+        "}\r",
+        "if($data.urlCollageBoard!==null && $data.urlCollageBoard !==\"\" && $data.urlCollageBoard !==undefined){\r",
+        "    $data.imgPBDMCB=true;\r",
+        "}else{\r",
+        "    $data.imgPBDMCB=false;\r",
+        "}\r",
+        "if($data.archivoPAA!==null && $data.archivoPAA !==\"\" && $data.archivoPAA !==undefined){\r",
+        "    $data.imgBDMCB=true;\r",
+        "}else{\r",
+        "    $data.imgBDMCB=false;\r",
+        "}\r",
+        "console.log(\"$data.imgAzureCB: \"+$data.imgAzureCB)\r",
+        "console.log(\"$data.imgBDMCB: \"+$data.imgBDMCB)\r",
+        "console.log(\"$data.imgPBDMCB: \"+$data.imgPBDMCB)\r",
+        "\r",
+        "if(!$data.imgAzureCB && !$data.imgBDMCB){\r",
+        "    console.log(\"1\")\r",
+        "    $data.imgPBDMCB=true;\r",
+        "    $data.imgAzureCB=false;\r",
+        "    $data.imgBDMCB=false;\r",
+        "}\r",
+        "else{\r",
+        "    console.log(\"2\")\r",
+        "    if($data.imgAzureCB && $data.imgPBDMCB){\r",
+        "        console.log(\"3\")\r",
+        "        $data.imgPBDMCB=true;\r",
+        "        $data.imgAzureCB=false;\r",
+        "        $data.imgBDMCB=false;\r",
+        "    }\r",
+        "    else {\r",
+        "        console.log(\"4\")\r",
+        "        if($data.imgAzureCB && $data.imgBDMCB){\r",
+        "            console.log(\"5\")\r",
+        "            $data.imgPBDMCB=false;\r",
+        "            $data.imgAzureCB=false;\r",
+        "            $data.imgBDMCB=true;\r",
+        "        }\r",
+        "        else {\r",
+        "            console.log(\"6\")\r",
+        "            if(!$data.imgAzureCB && !$data.imgPBDMCB){\r",
+        "                console.log(\"7\")\r",
+        "                $data.imgPBDMCB=false;\r",
+        "                $data.imgAzureCB=false;\r",
+        "                $data.imgBDMCB=true;\r",
+        "            }\r",
+        "            else if($data.imgBDMCB && $data.imgPBDMCB){\r",
+        "                console.log(\"8\")\r",
+        "                $data.imgPBDMCB=true;\r",
+        "                $data.imgAzureCB=false;\r",
+        "                $data.imgBDMCB=false;\r",
+        "            }else{\r",
+        "                console.log(\"9\")\r",
+        "                $data.imgPBDMCB=false;\r",
+        "                $data.imgAzureCB=true;\r",
+        "                $data.imgBDMCB=false;\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "console.log($data.imgAzureCB)\r",
+        "console.log($data.imgBDMCB)\r",
+        "console.log($data.imgPBDMCB)"
+      ],
+      "exposed" : false
+    },
+    "imgPBDMCB" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgAzureCB" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgBDMCB" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "validacionimgpdfdescuento" : {
+      "type" : "expression",
+      "value" : [
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "console.log($data.isPDFDescuento)\r",
+        "console.log($data.isImagenDescuento)\r",
+        "console.log(typeof $data.isPDFDescuento)\r",
+        "console.log(typeof $data.isImagenDescuento)\r",
+        "console.log(\"////////////////////////////////////////////////////\")\r",
+        "\r",
+        "var resultado = false;\r",
+        "if($data.isPDFDescuento === \"true\" && $data.isImagenDescuento === \"true\"){\r",
+        "    resultado = true;\r",
+        "} else if($data.isPDFDescuento === \"false\" && $data.isImagenDescuento === \"true\" ){\r",
+        "    resultado = true;\r",
+        "}else {\r",
+        "    resultado = false\r",
+        "}\r",
+        "\r",
+        "return resultado;"
+      ],
+      "exposed" : false
+    },
+    "imgDescAzure" : {
+      "type" : "expression",
+      "value" : [
+        "\r",
+        "\r",
+        "$data.imgPBDMDesc=false;\r",
+        "$data.imgAzureDesc=false;\r",
+        "$data.imgBDMDesc=false;\r",
+        "\r",
+        "if($data.urlDescuentoAzure  !==null && $data.urlDescuentoAzure   !==\"\"){\r",
+        "    $data.imgAzureDesc=true;\r",
+        "}else{\r",
+        "    $data.imgAzureDesc=false;\r",
+        "}\r",
+        "if($data.urlDescuento!==null && $data.urlDescuento !==\"\" && $data.urlDescuento !==undefined){\r",
+        "    $data.imgPBDMDesc=true;\r",
+        "}else{\r",
+        "    $data.imgPBDMDesc=false;\r",
+        "}\r",
+        "if($data.archivoDescuento!==null && $data.archivoDescuento !==\"\" && $data.archivoDescuento !==undefined){\r",
+        "    $data.imgBDMDesc=true;\r",
+        "}else{\r",
+        "    $data.imgBDMDesc=false;\r",
+        "}\r",
+        "console.log(\"$data.imgAzureDesc: \"+$data.imgAzureDesc)\r",
+        "console.log(\"$data.imgBDMDesc: \"+$data.imgBDMDesc)\r",
+        "console.log(\"$data.imgPBDMDesc: \"+$data.imgPBDMDesc)\r",
+        "\r",
+        "if(!$data.imgAzureDesc && !$data.imgBDMDesc){\r",
+        "    console.log(\"1\")\r",
+        "    $data.imgPBDMDesc=true;\r",
+        "    $data.imgAzureDesc=false;\r",
+        "    $data.imgBDMDesc=false;\r",
+        "}\r",
+        "else{\r",
+        "    console.log(\"2\")\r",
+        "    if($data.imgAzureDesc && $data.imgPBDMDesc){\r",
+        "        console.log(\"3\")\r",
+        "        $data.imgPBDMDesc=true;\r",
+        "        $data.imgAzureDesc=false;\r",
+        "        $data.imgBDMDesc=false;\r",
+        "    }\r",
+        "    else {\r",
+        "        console.log(\"4\")\r",
+        "        if($data.imgAzureDesc && $data.imgBDMDesc){\r",
+        "            console.log(\"5\")\r",
+        "            $data.imgPBDMDesc=false;\r",
+        "            $data.imgAzureDesc=false;\r",
+        "            $data.imgBDMDesc=true;\r",
+        "        }\r",
+        "        else {\r",
+        "            console.log(\"6\")\r",
+        "            if(!$data.imgAzureDesc && !$data.imgPBDMDesc){\r",
+        "                console.log(\"7\")\r",
+        "                $data.imgPBDMDesc=false;\r",
+        "                $data.imgAzureDesc=false;\r",
+        "                $data.imgBDMDesc=true;\r",
+        "            }\r",
+        "            else if($data.imgBDMDesc && $data.imgPBDMDesc){\r",
+        "                console.log(\"8\")\r",
+        "                $data.imgPBDMDesc=true;\r",
+        "                $data.imgAzureDesc=false;\r",
+        "                $data.imgBDMDesc=false;\r",
+        "            }else{\r",
+        "                console.log(\"9\")\r",
+        "                $data.imgPBDMDesc=false;\r",
+        "                $data.imgAzureDesc=true;\r",
+        "                $data.imgBDMDesc=false;\r",
+        "            }\r",
+        "        }\r",
+        "    }\r",
+        "}\r",
+        "console.log($data.imgAzureDesc)\r",
+        "console.log($data.imgBDMDesc)\r",
+        "console.log($data.imgPBDMDesc)"
+      ],
+      "exposed" : false
+    },
+    "imgPBDMDesc" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgAzureDesc" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "imgBDMDesc" : {
+      "type" : "constant",
+      "exposed" : false
     }
   },
   "hasValidationError" : false,

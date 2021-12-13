@@ -9,20 +9,18 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
         $scope.properties.selectedRow = row;
         $scope.properties.isSelected = 'editar';
     };
-    $scope.displayed=function(header){
-       var retorno = "";
-       
-       if(header=='PERSISTENCEID'){
-           retorno='Clave';
-       }
-       else if(header=='FECHACREACION'){
-          retorno = 'Fecha creación'; 
-       }
-       else{
-           retorno=header;
-       }
-       
-       return retorno;
+    $scope.displayed = function(header) {
+        var retorno = "";
+
+        if (header == 'PERSISTENCEID') {
+            retorno = 'Clave';
+        } else if (header == 'FECHACREACION') {
+            retorno = 'Fecha creación';
+        } else {
+            retorno = header;
+        }
+
+        return retorno;
     }
 
     this.selectRowDelete = function(row) {
@@ -38,7 +36,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger
+                        
                         $scope.properties.selectedRow = row;
                         row.isEliminado = true
                         $scope.properties.selectedRow["todelete"] = false;
@@ -100,7 +98,7 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             "operador": "Igual a",
             "valor": $scope.properties.campusSelected.grupoBonita
         }
-        var dataToSend=angular.copy($scope.properties.filtroToSend);
+        var dataToSend = angular.copy($scope.properties.filtroToSend);
         for (let index = 0; index < dataToSend.lstFiltro.length; index++) {
             const element = dataToSend.lstFiltro[index];
             if (element.columna == "CAMPUS") {
@@ -286,8 +284,21 @@ function PbTableCtrl($scope, $http, $location, $log, $window, localStorageServic
             $scope.firma = angular.copy(data.data)
             var value = data.data;
             var element = document.getElementById("firma");
-            element.innerHTML = value
-            $(`#previewFirma`).modal('show')
+            if (dataToSend.codigo == 'cambios' || dataToSend.codigo == 'rechazada' || dataToSend.codigo == 'listaroja') {
+                doRequest("GET", "/API/bdm/businessData/com.anahuac.catalogos.CatRegistro?q=findByCorreoelectronico&p=0&c=999&f=correoelectronico=" + dataToSend.correo, null, null, function(response) {
+                    doRequest("GET", "/API/bdm/businessData/com.anahuac.model.DetalleSolicitud?q=findByCaseId&p=0&c=999&f=caseId=" + response[0].caseId, null, null, function(response) {
+                        value = value[0];
+                        value = value.replace("[COMENTARIOS-CAMBIO]", response[0].observacionesCambio)
+                        value = value.replace("[RECHAZO-COMENTARIOS]", response[0].observacionesRechazo)
+                        value = value.replace("[LISTAROJA-COMENTARIOS]", response[0].observacionesListaRoja)
+                        element.innerHTML = value
+                        $(`#previewFirma`).modal('show')
+                    })
+                })
+            } else {
+                element.innerHTML = value
+                $(`#previewFirma`).modal('show')
+            }
         })
 
     }

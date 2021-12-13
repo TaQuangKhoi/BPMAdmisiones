@@ -2,15 +2,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var cont = 0;
     $scope.action = function() {
         $scope.properties.disabled = true;
-        if ($scope.properties.selectedIndex === 0) {
-        } else if ($scope.properties.selectedIndex === 1) {
+        if ($scope.properties.selectedIndex === 0) {} else if ($scope.properties.selectedIndex === 1) {
             console.log("Modal continuar");
-            debugger;
+
             if ($scope.properties.catSolicitudDeAdmision.catCampus.persistenceId_string === "") {
                 swal("¡Campus!", "Debes seleccionar un campus donde cursarás tus estudios", "warning");
             } else if ($scope.properties.catSolicitudDeAdmision.catGestionEscolar === null) {
                 swal("¡Licenciatura!", "Debes seleccionar una licenciatura", "warning");
-            }else if ($scope.properties.catSolicitudDeAdmision.catGestionEscolar.propedeutico) {
+            } else if ($scope.properties.catSolicitudDeAdmision.catGestionEscolar.propedeutico) {
                 if ($scope.properties.catSolicitudDeAdmision.catPropedeutico === null) {
                     swal("¡Curso propedéutico!", "Favor de seleccionar un curso propedéutico", "warning");
                 } else {
@@ -57,12 +56,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     } else {
                         swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
                     }
-                   /* if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                                $scope.properties.selectedIndex--;
-                            } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                                //$scope.properties.selectedIndex++;
-                                $scope.assignTask();
-                            }*/
+                    /* if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                 $scope.properties.selectedIndex--;
+                             } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                 //$scope.properties.selectedIndex++;
+                                 $scope.assignTask();
+                             }*/
                 }
             } else if ($scope.properties.catSolicitudDeAdmision.catPeriodo === null) {
                 swal("¡Periodo!", "Debes seleccionar un periodo donde cursarás tus estudios", "warning");
@@ -104,22 +103,22 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             } else {
                 swal("¡Lugar de examen!", "Debes seleccionar un lugar donde realizarás el examen", "warning");
             }
-        /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
-                            $scope.properties.selectedIndex--;
-                        } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
-                            $scope.assignTask();
-                        }*/
+            /*if ($scope.properties.action === "Anterior" && $scope.properties.selectedIndex > 0) {
+                                $scope.properties.selectedIndex--;
+                            } else if ($scope.properties.action === "Siguiente" && $scope.properties.wizardLength > ($scope.properties.selectedIndex + 1)) {
+                                $scope.assignTask();
+                            }*/
 
         } else if ($scope.properties.selectedIndex === 2) {
-            
+
         } else if ($scope.properties.selectedIndex === 3) {
 
         } else if ($scope.properties.selectedIndex === 4) {
-            
+
         }
 
     }
-    
+
     function openModal(modalid) {
 
         modalService.open(modalid);
@@ -129,12 +128,11 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (shouldClose)
             modalService.close();
     }
-    
+
     $scope.assignTask = function() {
         //$scope.showModal();
         blockUI.start();
         let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-
         var req = {
             method: "PUT",
             url: url,
@@ -153,9 +151,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             .finally(function() {
 
             });
+
     }
-  
-  function submitTask() {
+
+    function submitTask() {
         var id;
         //id = getUrlParam('id');
         id = $scope.properties.taskId;
@@ -169,7 +168,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             $log.log('Impossible to retrieve the task id value from the URL');
         }
     }
-  
+
     function getUserParam() {
         var userId = getUrlParam('user');
         if (userId) {
@@ -179,7 +178,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return {};
     }
-  
+
     function getUrlParam(param) {
         var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
         if (paramValue) {
@@ -187,10 +186,10 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
         return '';
     }
-  
-  function doRequest(method, url, params) {
+
+    function doRequest(method, url, params) {
         //vm.busy = true;
-        $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex+1;
+        $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex + 1;
         console.log($scope.properties.dataToSend.catSolicitudDeAdmisionInput);
         var req = {
             method: method,
@@ -238,31 +237,31 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     //         .finally(function() {
     //             //vm.busy = false;
     //         });
-            
+
     //     }, 1000);
-        
+
     // }
 
     function getTask() {
-        debugger;
+
         var req = {
             method: 'GET',
             url: $scope.properties.urlCurrentTask
         };
-    
+
         return $http(req)
             .success(function(data, status) {
                 console.log("SUCCSES")
                 console.log(data);
-                if(data.length > 0){
-                    if(data[0].id === $scope.properties.taskId){
+                if (data.length > 0) {
+                    if (data[0].id === $scope.properties.taskId) {
                         if (cont === 100) {
                             location.reload();
                         } else {
                             getTask();
                             cont++;
                         }
-                    }else{
+                    } else {
                         $scope.properties.currentTask = data;
                         topFunction();
                         closeModal($scope.properties.modalid);
@@ -270,7 +269,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         blockUI.stop();
                         $scope.properties.selectedIndex++;
                     }
-                }else{
+                } else {
                     if (cont === 100) {
                         location.reload();
                     } else {
@@ -288,7 +287,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 //vm.busy = false;
             });
     }
-    
+
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;

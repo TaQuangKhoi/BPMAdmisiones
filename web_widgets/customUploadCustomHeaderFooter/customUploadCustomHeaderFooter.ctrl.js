@@ -1,4 +1,4 @@
-function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout, $log, gettextCatalog) {
+function PbUploadCtrl($scope, $sce, $element, $http, widgetNameFactory, $timeout, $log, gettextCatalog) {
     var ctrl = this;
     this.name = widgetNameFactory.getName('pbInput');
     this.filename = '';
@@ -10,7 +10,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
     this.uploadComplete = uploadComplete;
 
     this.name = widgetNameFactory.getName('pbUpload');
-    $scope.progress=0;
+    $scope.progress = 0;
     this.preventFocus = function($event) {
         $event.target.blur();
     };
@@ -44,7 +44,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
         }
 
         if ($scope.procesar === true) {
-            
+
             $scope.properties.urlretorno = URL.createObjectURL(event.target.files[0]);
             $scope.properties.filename = event.target.files[0].name;
             $scope.properties.filetype = event.target.files[0].type
@@ -52,7 +52,7 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
             /* var reader = new FileReader();
              reader.readAsDataURL(event.target.files[0]); 
              reader.onloadend = function() {
-                 debugger;
+                 
                  $scope.properties.urlretorno  = reader.result;                
                  //console.log(base64data);
              }*/
@@ -76,23 +76,23 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
             $log.warn('you need to define a url for pbUpload');
         }
     });
-    
- $scope.upload= function(){
-    var file = $('input[name="pbUpload0"]').get(0).files[0];
-    Main()
-    var jsonData = {"b64":toBase64(file)}
-    var formData = new FormData();
-    formData.append('file', file);
-    
-    
 
-}
+    $scope.upload = function() {
+        var file = $('input[name="pbUpload0"]').get(0).files[0];
+        Main()
+        var jsonData = { "b64": toBase64(file) }
+        var formData = new FormData();
+        formData.append('file', file);
+
+
+
+    }
 
     function progress(e) {
         if (e.lengthComputable) {
             $('#progress_percent').text(Math.floor((e.loaded * 100) / e.total));
             $('progress').attr({ value: e.loaded, max: e.total });
-            $scope.progress=Math.floor((e.loaded * 100) / e.total);
+            $scope.progress = Math.floor((e.loaded * 100) / e.total);
         }
     }
     //the filename displayed is not bound to the value as a bidirectionnal
@@ -148,26 +148,27 @@ function PbUploadCtrl($scope, $sce, $element,$http, widgetNameFactory, $timeout,
 
     }
     const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
     });
-    
+
     async function Main() {
-       const file = $('input[name="pbUpload0"]').get(0).files[0];
-       
-       var b64 =await toBase64(file);
-       var jsonData={"b64":b64,
-           "filename":file.name,
-           "filetype":file.type,
-           "contenedor":"publico"
-       }
-       return $http.post('/bonita/API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=10', jsonData, {
-       headers: { 'Content-Type': "application/json" }
-     }).then(function (results) {
-        $scope.properties.urlretorno=results.data.data[0]       
-    });
+        const file = $('input[name="pbUpload0"]').get(0).files[0];
+
+        var b64 = await toBase64(file);
+        var jsonData = {
+            "b64": b64,
+            "filename": file.name,
+            "filetype": file.type,
+            "contenedor": "publico"
+        }
+        return $http.post('/bonita/API/extension/AnahuacAzureRest?url=uploadFile&p=0&c=10', jsonData, {
+            headers: { 'Content-Type': "application/json" }
+        }).then(function(results) {
+            $scope.properties.urlretorno = results.data.data[0]
+        });
     }
 
 

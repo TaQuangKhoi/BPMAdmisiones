@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "APPConsultaDeResultadosAspirantes",
   "name" : "APPConsultaDeResultadosAspirantes",
-  "lastUpdate" : 1617148248895,
+  "lastUpdate" : 1636401502215,
   "rows" : [
     [
       {
@@ -658,7 +658,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "lstMembership === 1"
+                  "value" : "lstCampusByUser.length <= 1"
                 },
                 "disabled" : {
                   "type" : "constant",
@@ -1060,6 +1060,10 @@
                             "campusSeleccionado" : {
                               "type" : "variable",
                               "value" : "campus_selected"
+                            },
+                            "idtext" : {
+                              "type" : "constant",
+                              "value" : "3216451"
                             }
                           },
                           "reference" : "01a91900-7011-4f55-a5c1-90eadb2f8e8f",
@@ -1381,18 +1385,18 @@
                               "type" : "variable",
                               "value" : "userData.user_id"
                             },
-                            "cartasSeleccionadas" : {
-                              "type" : "variable",
-                              "value" : ""
-                            },
                             "campusSeleccionado" : {
                               "type" : "variable",
                               "value" : "campus_selected"
+                            },
+                            "formOutput" : {
+                              "type" : "variable",
+                              "value" : "formOutput"
                             }
                           },
-                          "reference" : "e087c723-4fe8-4600-8024-b131564b0991",
+                          "reference" : "b7d61502-ed48-4dd5-a937-5569baed6048",
                           "hasValidationError" : false,
-                          "id" : "customCustomTableResultados"
+                          "id" : "customCustomTableSinResultados"
                         }
                       ],
                       [
@@ -1703,6 +1707,10 @@
                             "campusSeleccionado" : {
                               "type" : "variable",
                               "value" : "campus_selected"
+                            },
+                            "idtext" : {
+                              "type" : "constant",
+                              "value" : "3216452"
                             }
                           },
                           "reference" : "dd28c983-ce79-45ff-887d-3f60b89f17ea",
@@ -1779,6 +1787,155 @@
                           "reference" : "66bdfd4b-5475-4745-9422-69cb0a05a021",
                           "hasValidationError" : false,
                           "id" : "customCustomTableConsultaResultadosAspirantes"
+                        }
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "type" : "tabContainer",
+                  "dimension" : {
+                    "xs" : 12,
+                    "sm" : 12,
+                    "md" : 12,
+                    "lg" : 12
+                  },
+                  "propertyValues" : {
+                    "cssClasses" : {
+                      "type" : "constant",
+                      "value" : ""
+                    },
+                    "hidden" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "disabled" : {
+                      "type" : "constant",
+                      "value" : false
+                    },
+                    "title" : {
+                      "type" : "interpolation",
+                      "value" : "Aceptados Manual"
+                    }
+                  },
+                  "reference" : "950e7d32-7a16-47d2-906f-cb6c593b8c8d",
+                  "hasValidationError" : false,
+                  "id" : "pbTabContainer",
+                  "container" : {
+                    "type" : "container",
+                    "dimension" : {
+                      "xs" : 12
+                    },
+                    "propertyValues" : { },
+                    "reference" : "d89976f0-351e-4bbc-986d-1f73b61d4d72",
+                    "hasValidationError" : false,
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "container",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "repeatedCollection" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "0d26640a-3604-46dc-827c-e7079ea48028",
+                          "hasValidationError" : false,
+                          "id" : "pbContainer",
+                          "rows" : [
+                            [ ]
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "headers" : {
+                              "type" : "constant",
+                              "value" : [
+                                "Id",
+                                "Name",
+                                "Description",
+                                "Date"
+                              ]
+                            },
+                            "columnsKey" : {
+                              "type" : "constant"
+                            },
+                            "selectedRow" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "striped" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "condensed" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "bordered" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "urlPost" : {
+                              "type" : "constant",
+                              "value" : "/bonita/API/extension/AnahuacRest?url=selectConsultaDeResultadosManual&p=0&c=100"
+                            },
+                            "dataToSend" : {
+                              "type" : "variable",
+                              "value" : "dataToSendAceptadosManual"
+                            },
+                            "lstContenido" : {
+                              "type" : "variable",
+                              "value" : "lstContenidoAceptadosManual"
+                            },
+                            "userId" : {
+                              "type" : "variable",
+                              "value" : "userData.user_id"
+                            },
+                            "campusSeleccionado" : {
+                              "type" : "variable",
+                              "value" : "campus_selected"
+                            }
+                          },
+                          "reference" : "e842402f-9e2e-41ef-b33a-23b2905fe0ae",
+                          "hasValidationError" : false,
+                          "id" : "customCustomTableResultadosManual"
                         }
                       ]
                     ]
@@ -2740,10 +2897,10 @@
   ],
   "assets" : [
     {
-      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
-      "name" : "bootstrap.min.js",
-      "type" : "js",
-      "order" : 3,
+      "id" : "d4d1a4d6-33a3-4587-be52-f4e00b2f8fa4",
+      "name" : "encabezados.css",
+      "type" : "css",
+      "order" : 5,
       "external" : false
     },
     {
@@ -2761,13 +2918,6 @@
       "external" : false
     },
     {
-      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
-      "name" : "jquery.min.js",
-      "type" : "js",
-      "order" : 1,
-      "external" : false
-    },
-    {
       "id" : "d0ac635b-20b5-4d32-927b-da10f383b08f",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
@@ -2779,6 +2929,20 @@
       "name" : "bootstrap.min.css",
       "type" : "css",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "31b3aa66-df18-47f9-8d51-16cfc5f8ddc3",
+      "name" : "bootstrap.min.js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "ed5e92e4-1434-4f13-9dcf-c3e46875bcec",
+      "name" : "jquery.min.js",
+      "type" : "js",
+      "order" : 1,
       "external" : false
     }
   ],
@@ -2921,6 +3085,9 @@
         "        }        \r",
         "    }\r",
         "}\r",
+        "if($data.lstCampusByUser.length == 1){\r",
+        "    $data.campus_selected = resultado[1];\r",
+        "}\r",
         "return resultado;"
       ],
       "exposed" : false
@@ -2931,7 +3098,7 @@
         "var resultado = [];\r",
         "var isSerua = false;\r",
         "var obj= {descripcion: \"Todos los campus\", valor: null}\r",
-        " resultado.push(obj);\r",
+        "resultado.push(obj);\r",
         "for(var x in $data.lstCampusByUser){\r",
         "    for(var index in $data.lstCampusRole){\r",
         "        if($data.lstCampusByUser[x] === $data.lstCampusRole[index].valor){\r",
@@ -2948,10 +3115,19 @@
       "type" : "expression",
       "value" : [
         "var resultado=[];\r",
-        " resultado.push(\"Todos los campus\")\r",
+        "// resultado.push(\"Todos los campus\")\r",
         "for(var x in $data.lstMembership){\r",
         "    if($data.lstMembership[x].group_id.name.indexOf(\"CAMPUS\") != -1){\r",
-        "        resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        //resultado.push($data.lstMembership[x].group_id.name);\r",
+        "        let i = 0;\r",
+        "        resultado.forEach(value =>{\r",
+        "            if(value == $data.lstMembership[x].group_id.name){\r",
+        "                i++;\r",
+        "            }\r",
+        "        });\r",
+        "        if(i === 0){\r",
+        "            resultado.push($data.lstMembership[x].group_id.name);  \r",
+        "        }\r",
         "    }\r",
         "}\r",
         "\r",
@@ -3053,6 +3229,64 @@
         "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
         "    \"tipoResultado\":\"Sin resultado\"\r",
         "};"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "        \"infoCartaInput\": {\r",
+        "            \"numerodematricula\":  null,\r",
+        "            \"nombre\":  null,\r",
+        "            \"sse\": null,\r",
+        "            \"pdu\": null,\r",
+        "            \"pdp\": null,\r",
+        "            \"pia\": null,\r",
+        "            \"pcda\": null,\r",
+        "            \"pca\": null,\r",
+        "            \"curp\": null,\r",
+        "            \"carta\": null,\r",
+        "            \"notaslistaroja\": null,\r",
+        "            \"notastransferencia\": null,\r",
+        "            \"statuspdu\": null,\r",
+        "            \"descuentoprontopagomes1\": null,\r",
+        "            \"descuentoprontopagomes1fecha\": null,\r",
+        "            \"descuentoprontopagomes2\": null,\r",
+        "            \"descuentoprontopagomes2fecha\": null,\r",
+        "            \"sihaceonomatematicas\": null,\r",
+        "            \"espanol\": null,\r",
+        "            \"fechalimiteentregadocumentacion\":  null,\r",
+        "            \"fechalimitedepago\": null,\r",
+        "            \"universidad\": null,\r",
+        "            \"fechaEnvio\": null\r",
+        "        }\r",
+        "    }"
+      ],
+      "exposed" : false
+    },
+    "dataToSendAceptadosManual" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"type\": \"consulta_resultados\",\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"campus\":$data.getCampus != null? ($data.getCampus+\"\"):$data.getCampus,\r",
+        "    \"tipoResultado\":\"AceptadoManual\"\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstContenidoAceptadosManual" : {
+      "type" : "json",
+      "value" : [
+        "{}"
       ],
       "exposed" : false
     }

@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appAutodescripcion",
   "name" : "appAutodescripcion",
-  "lastUpdate" : 1617148219312,
+  "lastUpdate" : 1633479660800,
   "rows" : [
     [
       {
@@ -346,6 +346,42 @@
         "reference" : "c7bd9067-6eac-434e-869c-b20ff480bcac",
         "hasValidationError" : false,
         "id" : "customLoadDataBDM"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "value" : {
+            "type" : "constant",
+            "value" : "This is the initial value"
+          },
+          "color" : {
+            "type" : "constant",
+            "value" : "RebeccaPurple"
+          },
+          "background" : {
+            "type" : "constant",
+            "value" : "Yellow"
+          }
+        },
+        "reference" : "f43c4893-e8a4-4d91-a9b2-c9b7dce6e885",
+        "hasValidationError" : false,
+        "id" : "customWidgetChat"
       }
     ],
     [
@@ -5347,7 +5383,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -5502,7 +5538,8 @@
                   "value" : [
                     "Universidad",
                     "Año inicio",
-                    "Año fin"
+                    "Año fin",
+                    "Motivo de suspensión"
                   ]
                 },
                 "content" : {
@@ -5514,7 +5551,8 @@
                   "value" : [
                     "nombre",
                     "anoInicio",
-                    "anoFin"
+                    "anoFin",
+                    "motivoSuspension"
                   ]
                 },
                 "selectedRow" : {
@@ -6573,7 +6611,7 @@
                         },
                         "disabled" : {
                           "type" : "expression",
-                          "value" : "accionModalGradoEscolar === \"ver\" || prepaDefault === true"
+                          "value" : "(accionModalGradoEscolar === \"ver\" || prepaDefault === true) && objNuevoInformacionEscolar.pais != null && objNuevoInformacionEscolar.pais != undefined"
                         },
                         "required" : {
                           "type" : "constant",
@@ -6783,6 +6821,10 @@
                               "step" : {
                                 "type" : "constant",
                                 "value" : 1
+                              },
+                              "idInput" : {
+                                "type" : "variable",
+                                "value" : ""
                               }
                             },
                             "reference" : "3c8e128f-50f9-4d27-9c30-362ab2271c82",
@@ -13719,7 +13761,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -13777,7 +13819,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -13992,8 +14034,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "formInput.catPadreVive.descripcion !== \"Sí\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -14036,7 +14078,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14096,7 +14138,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14223,7 +14265,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14267,8 +14309,8 @@
                   "value" : ""
                 },
                 "hidden" : {
-                  "type" : "constant",
-                  "value" : false
+                  "type" : "expression",
+                  "value" : "formInput.catMadreVive.descripcion !== \"Sí\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -14311,7 +14353,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14371,7 +14413,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -14498,7 +14540,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -15345,7 +15387,7 @@
                       },
                       "label" : {
                         "type" : "interpolation",
-                        "value" : "¿Participas en alguna organización que realice ayuda social? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
+                        "value" : "¿Participas o asistes a alguna organización, club o grupo? <span class=\"glyphicon glyphicon-asterisk color-orange\"></span>"
                       },
                       "labelPosition" : {
                         "type" : "constant",
@@ -15412,7 +15454,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -15567,7 +15609,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18575,7 +18617,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18702,7 +18744,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18790,7 +18832,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18850,7 +18892,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18910,7 +18952,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -18973,7 +19015,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -19031,7 +19073,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 1000
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -19091,7 +19133,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -19375,6 +19417,34 @@
           ],
           [
             {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : "taskContext"
+                }
+              },
+              "reference" : "86a15dfd-3a33-4b2a-a0d1-b34425e326dd",
+              "hasValidationError" : false,
+              "id" : "customLoadContextForce"
+            }
+          ],
+          [
+            {
               "type" : "container",
               "dimension" : {
                 "xs" : 12,
@@ -19546,7 +19616,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catReligion.descripcion === \"Ninguna\""
+                        "value" : "formInput.catReligion.descripcion === \"Ninguna\" || formInput.catReligion.descripcion === \"Ateo\" || formInput.catReligion.descripcion === \"Agnóstico\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -19613,7 +19683,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catReligion.descripcion === \"Ninguna\""
+                        "value" : "formInput.catReligion.descripcion === \"Ninguna\" || formInput.catReligion.descripcion === \"Ateo\" || formInput.catReligion.descripcion === \"Agnóstico\""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -19680,7 +19750,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catReligion.descripcion === \"Ninguna\""
+                        "value" : "formInput.catReligion.descripcion === \"Ninguna\" || formInput.catReligion.descripcion === \"Ateo\" || formInput.catReligion.descripcion === \"Agnóstico\""
                       },
                       "readOnly" : {
                         "type" : "constant",
@@ -19696,7 +19766,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -19741,7 +19811,7 @@
                 },
                 "hidden" : {
                   "type" : "expression",
-                  "value" : "formInput.catReligion.descripcion === \"Ninguna\""
+                  "value" : "formInput.catReligion.descripcion === \"Ninguna\" || formInput.catReligion.descripcion === \"Ateo\" || formInput.catReligion.descripcion === \"Agnóstico\""
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -19768,7 +19838,7 @@
                       },
                       "hidden" : {
                         "type" : "expression",
-                        "value" : "formInput.catReligion.descripcion === \"Ninguna\""
+                        "value" : ""
                       },
                       "disabled" : {
                         "type" : "constant",
@@ -19918,7 +19988,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -19978,7 +20048,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -20557,7 +20627,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -20693,7 +20763,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -20753,7 +20823,7 @@
                 },
                 "maxLength" : {
                   "type" : "constant",
-                  "value" : 500
+                  "value" : 250
                 },
                 "labelHidden" : {
                   "type" : "constant",
@@ -20776,9 +20846,9 @@
                   "value" : "formInput.motivoElegisteCarrera"
                 }
               },
-              "reference" : "d604bfeb-bcd8-4529-bf22-aeb18d586d0c",
+              "reference" : "8226563f-4b51-4d41-ba22-e9ec3c501181",
               "hasValidationError" : false,
-              "id" : "pbTextarea"
+              "id" : "customCustomTextAreaLimit"
             },
             {
               "type" : "component",
@@ -20905,7 +20975,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 498
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -20928,9 +20998,9 @@
                         "value" : "formInput.expectativasCarrera"
                       }
                     },
-                    "reference" : "8ef3be9f-d6db-4df5-b3ba-208b7da94d70",
+                    "reference" : "f010baa9-3ccc-4595-bcc0-17829d7ce34d",
                     "hasValidationError" : false,
-                    "id" : "pbTextarea"
+                    "id" : "customCustomTextAreaLimit"
                   }
                 ],
                 [
@@ -21123,7 +21193,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -21146,9 +21216,9 @@
                         "value" : "formInput.motivoPadresNoAcuerdo"
                       }
                     },
-                    "reference" : "cd681859-f9c6-454c-8256-7b02b199f635",
+                    "reference" : "a5c967e7-2230-4bd2-9a69-5d0158ab7dbf",
                     "hasValidationError" : false,
-                    "id" : "pbTextarea"
+                    "id" : "customCustomTextAreaLimit"
                   }
                 ],
                 [
@@ -21250,7 +21320,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -21377,7 +21447,7 @@
                       },
                       "maxLength" : {
                         "type" : "constant",
-                        "value" : 500
+                        "value" : 250
                       },
                       "labelHidden" : {
                         "type" : "constant",
@@ -22575,6 +22645,22 @@
                       },
                       "messageTitle" : {
                         "type" : "constant"
+                      },
+                      "formOutput" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "taskId" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "reloadTask" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "caseId" : {
+                        "type" : "variable",
+                        "value" : ""
                       }
                     },
                     "reference" : "10d0b98b-7db6-4a03-b1a7-dfcb2bd688f7",
@@ -22605,17 +22691,24 @@
       "external" : false
     },
     {
-      "id" : "6ac335e9-1cbe-4781-9159-591df2da541b",
-      "name" : "localization.json",
-      "type" : "json",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "e3542ff5-c399-411a-90a8-7160254f2d75",
       "name" : "anahuac_custom_styles (1) (1) (1).css",
       "type" : "css",
       "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "a1971d69-b0f6-4e9a-928c-5a42b633f185",
+      "name" : "jquery.min (1).js",
+      "type" : "js",
+      "order" : 3,
+      "external" : false
+    },
+    {
+      "id" : "6ac335e9-1cbe-4781-9159-591df2da541b",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
       "external" : false
     }
   ],
@@ -23643,6 +23736,60 @@
     "validateStep6" : {
       "type" : "expression",
       "value" : [
+        "// let isValid = true;\r",
+        "\r",
+        "// if($data.formInput.comoDescribesTuFamilia === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Cómo describirías a tu familia?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.queCambiariasDeTuFamilia === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Si pudieras cambiar algo de tu familia, qué sería?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if($data.formInput.catFamiliarTeLlevasMejor === null){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Con quién de tu familia te llevas mejor?\";\r",
+        "//     $data.errorMessageStep6 = \"Selecciona un valor.\";\r",
+        "// } else if($data.formInput.catRelacionHermanos === null && $data.formInput.hermanos.length > 0){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Cómo es la relación con tus hermanos?\";\r",
+        "//     $data.errorMessageStep6 = \"Si en la sección Información familiar agregaste uno o más hermanos, debes seleccionar un valor.\";\r",
+        "// } else if ($data.formInput.admirasPersonalidadPadre === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Qué características de personalidad admiras de tu padre?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.defectosObservasPadre === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Qué defectos observas en él?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.catPlaticasProblemasPadre === null && $data.returnPadreVive.descripcion === \"Sí\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Platicas tus problemas con él?\";\r",
+        "//     $data.errorMessageStep6 = \"Selecciona un valor.\";\r",
+        "// } else if (!validarPadreProblemas()){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Cómo te ayuda tu padre a resolver tus problemas?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.admirasPersonalidadMadre === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Qué características de personalidad admiras de tu madre?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.defectosObservasMadre === \"\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Qué defectos observas en ella?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } else if ($data.formInput.catPlaticasProblemasMadre === null && $data.returnMadreVive.descripcion === \"Sí\"){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Platicas tus problemas con ella?\";\r",
+        "//     $data.errorMessageStep6 = \"Selecciona un valor.\";\r",
+        "// } else if (!validarMadreProblemas()){\r",
+        "//     isValid = false;\r",
+        "//     $data.titleMessageStep6 = \"¿Cómo te ayuda tu madre a resolver tus problemas?\";\r",
+        "//     $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
+        "// } \r",
+        "\r",
+        "// return isValid;\r",
+        "\r",
         "let isValid = true;\r",
         "\r",
         "if($data.formInput.comoDescribesTuFamilia === \"\"){\r",
@@ -23661,15 +23808,15 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Cómo es la relación con tus hermanos?\";\r",
         "    $data.errorMessageStep6 = \"Si en la sección Información familiar agregaste uno o más hermanos, debes seleccionar un valor.\";\r",
-        "} else if ($data.formInput.admirasPersonalidadPadre === \"\"){\r",
+        "} else if ($data.formInput.admirasPersonalidadPadre === \"\" && $data.formInput.catPadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Qué características de personalidad admiras de tu padre?\";\r",
         "    $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
-        "} else if ($data.formInput.defectosObservasPadre === \"\"){\r",
+        "} else if ($data.formInput.defectosObservasPadre === \"\"  && $data.formInput.catPadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Qué defectos observas en él?\";\r",
         "    $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
-        "} else if ($data.formInput.catPlaticasProblemasPadre === null && $data.returnPadreVive.descripcion === \"Sí\"){\r",
+        "} else if ($data.formInput.catPlaticasProblemasPadre === null && $data.formInput.catPadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Platicas tus problemas con él?\";\r",
         "    $data.errorMessageStep6 = \"Selecciona un valor.\";\r",
@@ -23677,15 +23824,15 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Cómo te ayuda tu padre a resolver tus problemas?\";\r",
         "    $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
-        "} else if ($data.formInput.admirasPersonalidadMadre === \"\"){\r",
+        "} else if ($data.formInput.admirasPersonalidadMadre === \"\" && $data.formInput.catMadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Qué características de personalidad admiras de tu madre?\";\r",
         "    $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
-        "} else if ($data.formInput.defectosObservasMadre === \"\"){\r",
+        "} else if ($data.formInput.defectosObservasMadre === \"\" && $data.formInput.catMadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Qué defectos observas en ella?\";\r",
         "    $data.errorMessageStep6 = \"Este campo no debe ir vacío.\";\r",
-        "} else if ($data.formInput.catPlaticasProblemasMadre === null && $data.returnMadreVive.descripcion === \"Sí\"){\r",
+        "} else if ($data.formInput.catPlaticasProblemasMadre === null && $data.formInput.catMadreVive.descripcion === \"Sí\"){\r",
         "    isValid = false;\r",
         "    $data.titleMessageStep6 = \"¿Platicas tus problemas con ella?\";\r",
         "    $data.errorMessageStep6 = \"Selecciona un valor.\";\r",
@@ -23722,7 +23869,33 @@
         "    }\r",
         "    \r",
         "    return isValid;\r",
-        "}"
+        "}\r",
+        "\r",
+        "// function validarPadreProblemas(){\r",
+        "//     let isValid = true;\r",
+        "//     if($data.returnPadreVive.descripcion === \"Sí\"){\r",
+        "//         if($data.formInput.catPlaticasProblemasPadre === null){\r",
+        "//             isValid = false;\r",
+        "//         } else if ($data.formInput.catPlaticasProblemasPadre.descripcion === \"Sí\" && $data.formInput.padreAyudaProblemas === \"\"){\r",
+        "//             isValid = false;\r",
+        "//         }\r",
+        "//     }\r",
+        "    \r",
+        "//     return isValid;\r",
+        "// }\r",
+        "\r",
+        "// function validarMadreProblemas(){\r",
+        "//     let isValid = true;\r",
+        "//     if($data.returnMadreVive.descripcion === \"Sí\"){\r",
+        "//         if($data.formInput.catPlaticasProblemasMadre === null){\r",
+        "//             isValid = false;\r",
+        "//         } else if ($data.formInput.catPlaticasProblemasMadre.descripcion === \"Sí\" && $data.formInput.madreAyudaProblemas === \"\"){\r",
+        "//             isValid = false;\r",
+        "//         }\r",
+        "//     }\r",
+        "    \r",
+        "//     return isValid;\r",
+        "// }"
       ],
       "exposed" : false
     },
@@ -23781,7 +23954,7 @@
         "    $data.errorMessageStep7 = \"Si seleccionaste Sí en el campo ¿Te gusta leer? debes seleccionar al menos una opción.\";\r",
         "} else if($data.formInput.catParticipasGrupoSocial === null){\r",
         "    isValid = false;\r",
-        "    $data.titleMessageStep7 = \"¿Participas en alguna organización que realice ayuda social?\";\r",
+        "    $data.titleMessageStep7 = \"¿Participas o asistes a alguna organización, club o grupo?\";\r",
         "    $data.errorMessageStep7 = \"Selecciona un valor.\";\r",
         "} else if ($data.formInput.catParticipasGrupoSocial.descripcion === \"Sí\" && $data.formInput.organizacionParticipas === \"\"){\r",
         "    isValid = false;\r",
@@ -24177,9 +24350,17 @@
         "    isValid = false;\r",
         "    $data.titleMessageStep9 = \"¿Qué sacramentos has recibido?\";\r",
         "    $data.errorMessageStep9 = \"Selecciona al menos una de las opciones.\";\r",
+        "} else if($data.formInput.catReligion.descripcion === \"Ninguna\"){\r",
+        "    isValid = true;\r",
+        "    $data.titleMessageStep9 = \"\";\r",
+        "    $data.errorMessageStep9 = \"\";\r",
         "} \r",
         "\r",
-        "else if($data.formInput.catReligion.descripcion === \"Ninguna\"){\r",
+        "else if($data.formInput.catReligion.descripcion === \"Ateo\"){\r",
+        "    isValid = true;\r",
+        "    $data.titleMessageStep9 = \"\";\r",
+        "    $data.errorMessageStep9 = \"\";\r",
+        "} else if($data.formInput.catReligion.descripcion === \"Agnóstico\"){\r",
         "    isValid = true;\r",
         "    $data.titleMessageStep9 = \"\";\r",
         "    $data.errorMessageStep9 = \"\";\r",
@@ -24585,9 +24766,14 @@
       "type" : "expression",
       "value" : [
         "let output = false;",
-        "",
+        "        console.log(\"JUSQUER\");",
+        "        console.log($data.objNuevoInformacionEscolar);",
         "if($data.objectSolicitud !== undefined){",
-        "    if($data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString && $data.objectSolicitud.catBachilleratos.descripcion !== \"Otro\"){",
+        "    if(",
+        "        $data.objectSolicitud.catBachilleratos.descripcion === $data.objNuevoInformacionEscolar.escuelaString ",
+        "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"Otro\" ",
+        "        && $data.objectSolicitud.catBachilleratos.descripcion !== \"OTRO\"",
+        "    ){",
         "        output = true;",
         "    }",
         "}",
@@ -24614,6 +24800,19 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "loadData" : {
+      "type" : "expression",
+      "value" : [
+        "try{",
+        "  $data.formInput.catReligion=$data.objectSolicitud.catReligion; ",
+        "}catch(e){",
+        "    console.log(\"Aun no carga religión\")",
+        "}",
+        "",
+        "return true;"
       ],
       "exposed" : false
     }

@@ -72,112 +72,112 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
- function startProcess() {
-	debugger
-	if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-		if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) {// && $scope.properties.dataToChange2.pais) {
-            var req = {
-                method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
-            };
-            return $http(req)
-            .success(function(data, status) {
-                if (data.data[0]) {
-                    claveValida = validarClaveEditar($scope.properties.dataToChange2);
-                    if(claveValida){
-                        if ($scope.properties.processId) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                            doRequest("GET", $scope.properties.url).then(function () {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                            });
-                            localStorageService.delete($window.location.href);
-                        });
+    function startProcess() {
         
-                    } else {
-                        $log.log('Impossible to retrieve the process definition id value from the URL');
-                    }
-                    }else{
-                        swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                    }
-                } else {
-                    $scope.continuar = false;
-                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning"); 
+        if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
+            if ($scope.properties.dataToChange2.orden && $scope.properties.dataToChange2.clave && $scope.properties.dataToChange2.descripcion) { // && $scope.properties.dataToChange2.pais) {
+                var req = {
+                    method: 'GET',
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        if (data.data[0]) {
+                            claveValida = validarClaveEditar($scope.properties.dataToChange2);
+                            if (claveValida) {
+                                if ($scope.properties.processId) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+
+                                } else {
+                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                }
+                            } else {
+                                swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                            }
+                        } else {
+                            $scope.continuar = false;
+                            swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.log(data);
+                        console.log(status);
+                        $scope.continuar = false;
+                    });
+            } else {
+                /*if (!$scope.properties.dataToChange2.pais) {
+                	swal("¡Aviso!", "Faltó capturar información en: País.", "warning");
+                }*/
+                if (!$scope.properties.dataToChange2.descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 }
-            })
-            .error(function(data, status) {
-                console.log(data);
-                console.log(status);
-                $scope.continuar = false;
-            });
-		} else {
-			/*if (!$scope.properties.dataToChange2.pais) {
-				swal("¡Aviso!", "Faltó capturar información en: País.", "warning");
-			}*/
-			if (!$scope.properties.dataToChange2.descripcion) {
-				swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
-			}
-			if (!$scope.properties.dataToChange2.clave) {
-				swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
-			}
-			if (!$scope.properties.dataToChange2.orden) {
-				swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
-			}
-		}
-
-
-	} else {
-		if ($scope.properties.dataToChange2.lstCatEstadosInput[0].orden && $scope.properties.dataToChange2.lstCatEstadosInput[0].clave && $scope.properties.dataToChange2.lstCatEstadosInput[0].descripcion){// && $scope.properties.dataToChange2.lstCatEstadosInput[0].pais) {
-            var req = {
-                method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.lstCatEstadosInput[0].orden + "&id="
-            };
-            return $http(req)
-            .success(function(data, status) {
-                if (data.data[0]) {
-                    claveValida = validarNuevaClave($scope.properties.dataToChange2);
-                    if(claveValida){
-                        if ($scope.properties.processId) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                            doRequest("GET", $scope.properties.url).then(function () {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                            });
-                            localStorageService.delete($window.location.href);
-                        });
-
-                    } else {
-                        $log.log('Impossible to retrieve the process definition id value from the URL');
-                    }
-                    }else{
-                        swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
-                    }
-                } else {
-                    $scope.continuar = false;
-                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning"); 
+                if (!$scope.properties.dataToChange2.clave) {
+                    swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 }
-            })
-            .error(function(data, status) {
-                console.log(data);
-                console.log(status);
-                $scope.continuar = false;
-            });
-		} else {
-			/*if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].pais) {
-				swal("¡Aviso!", "Faltó capturar información en: País.", "warning");
-			}*/
-			if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].descripcion) {
-				swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
-			}
-			if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].clave) {
-				swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
-			}
-			if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].orden) {
-				swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
-			}
-		}
-	}
-}
+                if (!$scope.properties.dataToChange2.orden) {
+                    swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
+                }
+            }
+
+
+        } else {
+            if ($scope.properties.dataToChange2.lstCatEstadosInput[0].orden && $scope.properties.dataToChange2.lstCatEstadosInput[0].clave && $scope.properties.dataToChange2.lstCatEstadosInput[0].descripcion) { // && $scope.properties.dataToChange2.lstCatEstadosInput[0].pais) {
+                var req = {
+                    method: 'GET',
+                    url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATESTADOS&orden=" + $scope.properties.dataToChange2.lstCatEstadosInput[0].orden + "&id="
+                };
+                return $http(req)
+                    .success(function(data, status) {
+                        if (data.data[0]) {
+                            claveValida = validarNuevaClave($scope.properties.dataToChange2);
+                            if (claveValida) {
+                                if ($scope.properties.processId) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+
+                                } else {
+                                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                                }
+                            } else {
+                                swal("¡Aviso!", "La clave capturada ya existe, por favor ingrese una diferente.", "warning");
+                            }
+                        } else {
+                            $scope.continuar = false;
+                            swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+                    })
+                    .error(function(data, status) {
+                        console.log(data);
+                        console.log(status);
+                        $scope.continuar = false;
+                    });
+            } else {
+                /*if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].pais) {
+                	swal("¡Aviso!", "Faltó capturar información en: País.", "warning");
+                }*/
+                if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
+                }
+                if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].clave) {
+                    swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
+                }
+                if (!$scope.properties.dataToChange2.lstCatEstadosInput[0].orden) {
+                    swal("¡Aviso!", "Faltó capturar información en: Orden.", "warning");
+                }
+            }
+        }
+    }
 
 
 
@@ -188,14 +188,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * @return {void}
      */
     function doRequest(method, url, params) {
-        debugger;
+
         vm.busy = true;
-        if(method ==="GET"){
+        if (method === "GET") {
             var req = {
                 method: method,
                 url: url
             };
-        }else{
+        } else {
             var req = {
                 method: method,
                 url: url,
@@ -203,7 +203,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 params: params
             };
         }
-        
+
 
         return $http(req)
             .success(function(data, status) {
@@ -280,12 +280,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
-  function validarNuevaClave(_value){
+    function validarNuevaClave(_value) {
         let data = angular.copy($scope.properties.dataFromSuccess);
         let isValid = true;
-        
-        for(let i = 0; i< data.length; i++){
-            if(data[i].clave.toLowerCase() === _value.lstCatEstadosInput[0].clave.toLowerCase()){
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].clave.toLowerCase() === _value.lstCatEstadosInput[0].clave.toLowerCase()) {
                 isValid = false;
                 break;
             }
@@ -293,14 +293,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
         return isValid;
     }
-    
-    function validarClaveEditar(_value){
+
+    function validarClaveEditar(_value) {
         let data = angular.copy($scope.properties.dataFromSuccess);
         let isValid = true;
         let pidString = _value.persistenceId + "";
-        
-        for(let i = 0; i< data.length; i++){
-            if(data[i].clave.toLowerCase() === _value.clave.toLowerCase() && pidString !== (data[i].persistenceId + "")){
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].clave.toLowerCase() === _value.clave.toLowerCase() && pidString !== (data[i].persistenceId + "")) {
                 isValid = false;
                 break;
             }
@@ -310,20 +310,20 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
 
     function checkorder(funcion) {
-        debugger;
+
         $scope.continuar = false;
-        if(funcion === 'agregar'){
+        if (funcion === 'agregar') {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
             };
-        }else{
+        } else {
             var req = {
                 method: 'GET',
                 url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
             };
         }
-        
+
         return $http(req)
             .success(function(data, status) {
                 if (data.data[0]) {
@@ -331,7 +331,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                     checkclave(funcion);
                 } else {
                     $scope.continuar = false;
-                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning"); 
+                    swal("¡Aviso!", "El ordenamiento ingresado ya existe, por favor ingrese uno diferente.", "warning");
                 }
             })
             .error(function(data, status) {

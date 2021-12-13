@@ -18,7 +18,9 @@ import com.anahuac.rest.api.DB.Statements
 import com.anahuac.rest.api.Entity.ConektaOxxo
 import com.anahuac.rest.api.Entity.ConektaPaymentResponse
 import com.anahuac.rest.api.Entity.OrdenBitacora
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 import groovy.json.JsonSlurper
 import io.conekta.Charge
@@ -38,7 +40,7 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class ConektaDAO {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ConektaDAO.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConektaDAO.class);
 	
 	Connection con;
 	Statement stm;
@@ -56,16 +58,16 @@ class ConektaDAO {
 		return retorno
 	}
 
-    public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
-        Result resultado = new Result();
-        List < ConektaOxxo > lstResultado = new ArrayList < ConektaOxxo > ();
-        Long userLogged = 0L;
-        Long caseId = 0L;
-        Long total = 0L;
-        Integer start = 0;
-        Integer end = 99999;
-        Boolean isFound = true;
-        String nombreCandidato = "";
+	public Result pagoOxxoCash(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		List < ConektaOxxo > lstResultado = new ArrayList < ConektaOxxo > ();
+		Long userLogged = 0L;
+		Long caseId = 0L;
+		Long total = 0L;
+		Integer start = 0;
+		Integer end = 99999;
+		Boolean isFound = true;
+		String nombreCandidato = "";
 		Long nowUnixTimestamp = System.currentTimeMillis();
 		Long thirtyDaysFromNowUnixTimestamp = (nowUnixTimestamp + 30L * 24 * 60 * 60 * 1000)/ 1000L;
 		String thirtyDaysFromNow = thirtyDaysFromNowUnixTimestamp.toString();
@@ -79,8 +81,9 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
+		String idbanner = "";
 		
-        try {
+		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 			
@@ -91,6 +94,7 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -103,7 +107,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Admisión',"
+						+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -113,7 +117,7 @@ class ConektaDAO {
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+					 +"'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
 						  + "'payment_method': {"
 						  + "'type': 'oxxo_cash',"
@@ -124,18 +128,18 @@ class ConektaDAO {
 			);
 			
 			
-            LineItems line_item = (LineItems) order.line_items.get(0);
-            Charge charge = (Charge) order.charges.get(0);
-            OxxoPayment oxxoPayment = (OxxoPayment) charge.payment_method;
+			LineItems line_item = (LineItems) order.line_items.get(0);
+			Charge charge = (Charge) order.charges.get(0);
+			OxxoPayment oxxoPayment = (OxxoPayment) charge.payment_method;
 
 			double amount = order.amount / 100;
 			DecimalFormat twoPlaces = new DecimalFormat("0.00");
 			
-            lstResultado.add(new ConektaOxxo(
+			lstResultado.add(new ConektaOxxo(
 				order.id,
-                "\$" + twoPlaces.format(amount).toString() + " " + order.currency,
-                line_item.quantity + " - " + line_item.name + " - " + (line_item.unit_price / 100),
-                oxxoPayment.reference)
+				"\$" + twoPlaces.format(amount).toString() + " " + order.currency,
+				line_item.quantity + " - " + line_item.name + " - " + (line_item.unit_price / 100),
+				oxxoPayment.reference)
 			);
 			
 			
@@ -155,23 +159,22 @@ class ConektaDAO {
 			crearRegistroPago(ordenBit);
 			//--------------------FIN PARA LA BITACORA DE PAGOS-----------------------
 								
-            resultado.setData(lstResultado);
-            resultado.setSuccess(true);
-        } catch (io.conekta.ErrorList error) {
+			resultado.setData(lstResultado);
+			resultado.setSuccess(true);
+		} catch (io.conekta.ErrorList error) {
 			LOGGER.error error.details.get(0).message
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
-            resultado.setSuccess(false);
-            resultado.setError(e.getMessage());
-            LOGGER.error "ERROR=================================";
-            LOGGER.error e.getMessage();
-            e.printStackTrace();
-        } 
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
 		
 		
-        return resultado
-    }
+		return resultado
+	}
 	
 	public Result pagoTarjeta(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
@@ -194,6 +197,7 @@ class ConektaDAO {
 		Long caseId = 0L;
 		String campus = "";
 		String nombrePago = "";
+		String idbanner = "";
 		
 		try{
 			def jsonSlurper = new JsonSlurper();
@@ -210,6 +214,7 @@ class ConektaDAO {
 			caseId = Long.valueOf(object.caseId);
 			nombrePago = object.nombrePago;
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -223,7 +228,7 @@ class ConektaDAO {
 				+ "'name': '" + name + "',"
 				+ "'email': '" + email + "',"
 				+ "'phone': '" + phone + "',"
-				+ "'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+				+ "'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 				+ "'payment_sources':[{"
 					+ "'type': 'card',"
 					+ "'token_id': '" + token + "'"
@@ -237,7 +242,7 @@ class ConektaDAO {
 					+ "'customer_id': '" + customer.getId() + "'"
 				+ "},"
 				+ "'line_items': [{"
-					+ "'name': 'Admisión',"
+					+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 					+ "'unit_price': " + unit_price + ","
 					+ "'quantity': 1"
 				+ "}],"
@@ -253,6 +258,8 @@ class ConektaDAO {
 			Charge charge = (Charge) order.charges.get(0);
 			PaymentMethod payment_method = (PaymentMethod) charge.payment_method;
 			order_id = order.id;
+			amount = order.amount / 100;
+			
 			lstResultado.add(new ConektaPaymentResponse(order.id, "" + (order.amount/100) + order.currency, line_item.quantity + " - "
 				+ line_item.name + " - "
 				+ (line_item.unit_price/100), payment_method.getVal("auth_code")+"", payment_method.getVal("name") + " - "
@@ -299,13 +306,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-		    System.out.println(e.getMessage());
-		} 
+		}
 		
 		return resultado;
 	}
@@ -326,7 +331,7 @@ class ConektaDAO {
 		String unit_price = "";
 		String campus_id = "";
 		String campus = "";
-		
+		String idbanner = "idbanner";
 		try{
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -337,6 +342,7 @@ class ConektaDAO {
 			campus_id = object.campus_id;
 			caseId = Long.valueOf(object.caseId);
 			campus = object.campus;
+			idbanner = object.idbanner;
 			
 			Result resultApiKey = getApiKeyByCampus(context, campus_id);
 			
@@ -349,7 +355,7 @@ class ConektaDAO {
 			Order order = Order.create(
 				new JSONObject("{"
 					+ "'line_items': [{"
-						+ "'name': 'Admisión',"
+						+ "'name': 'Pago de Examen de Admision - ID:" + idbanner + "',"
 						+ "'unit_price': " + unit_price + ","
 						+ "'quantity': 1"
 					+ "}],"
@@ -359,9 +365,9 @@ class ConektaDAO {
 						+ "'email': '" + email + "',"
 						+ "'phone': '" + phone + "'"
 					+ "},"
-					 +"'metadata': {'description': 'Pago de examen de Admisión' , 'reference' : '1334523452345'},"
+					 +"'metadata': {'description': 'Pago de examen de Admision' , 'reference' : '1334523452345'},"
 					+ "'charges':[{"
-					  	+ "'payment_method': {"
+						  + "'payment_method': {"
 						  + "'type': 'spei',"
 							+ "'expires_at': " + thirtyDaysFromNow
 						+ "}"
@@ -405,13 +411,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-		} 
+		}
 		return resultado;
 	}
 	
@@ -437,12 +441,10 @@ class ConektaDAO {
 			
 			resultado.toString();
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 
 		return resultado;
@@ -487,12 +489,10 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		return resultado;
 	}
@@ -556,6 +556,7 @@ class ConektaDAO {
 				mapResultado.put("type", payment_method.type);
 				mapResultado.put("authorizationCode", oxxoPayment.reference);
 				mapResultado.put("status", status);
+				mapResultado.put("barcodeUrl", oxxoPayment.barcode_url);
 			} else {
 				mapResultado.put("cardNumber", payment_method.getVal("last4"));
 				mapResultado.put("amount", "\$" + twoPlaces.format(amount).toString() + " " + order.currency);
@@ -578,14 +579,11 @@ class ConektaDAO {
 			resultado.setSuccess(false);
 			resultado.setError(error.details.get(0).message);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
 		}
-		
-		
 		return resultado
 	}
 	
@@ -615,12 +613,10 @@ class ConektaDAO {
 			
 			resultado.toString();
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 
 		return resultado;
@@ -629,23 +625,21 @@ class ConektaDAO {
 	public Result ejecutarEsperarPago(Integer parameterP,Integer parameterC, String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
 		List<DetalleSolicitud> lstResultado = new ArrayList<DetalleSolicitud>();
-		
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
+			
 			String propFileName = "configuration.properties";
 			InputStream inputStream;
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+						
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -658,11 +652,12 @@ class ConektaDAO {
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			apiClient.processAPI.executeFlowNode(startedBy, apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Esperar pago", 0, 1).get(0).getId());
 			resultado.setSuccess(true);
-		}catch(Exception ex) {
-			LOGGER.error ex.getMessage()
+		} catch (Exception ex) {
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
+		
 		
 		return resultado;
 	}
@@ -688,11 +683,10 @@ class ConektaDAO {
 			}
 			
 			Order order = Order.find();
-			LOGGER.error "ORDER INFO : " +  order.toString();
 			
 			resultado.setSuccess(true);
-		}catch(Exception ex) {
-			LOGGER.error ex.getMessage()
+		}catch (Exception ex) {
+			LOGGER.error "[ERROR] " + ex.getMessage();
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
@@ -725,12 +719,10 @@ class ConektaDAO {
 			con.commit();
 			resultado.setSuccess(true);
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			con.rollback();
-			LOGGER.error "ERROR EN EL LOGUEO"
-			LOGGER.error "ERROR=================================";
-			LOGGER.error e.getMessage();
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -889,10 +881,10 @@ class ConektaDAO {
 				break;
 				case "FECHAMOVIMIENTO":
 					orderby += "fechaMovimiento";
-				break; 
+				break;
 				case "MONTO":
 					orderby += "monto";
-				break; 
+				break;
 				case "MEDIOPAGO":
 					orderby += "medioPago";
 				break;
@@ -950,6 +942,63 @@ class ConektaDAO {
 			resultado.setData(rows);
 			
 		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog)
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+//	public Result getBitacoraPagosByEmail(String email, Long caseId, RestAPIContext context) {
+	public Result getBitacoraPagosByEmail(String email, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", errorlog = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		
+		try {
+//			def jsonSlurper = new JsonSlurper();
+//			def object = jsonSlurper.parseText(jsonData);
+			OrdenBitacora row = new OrdenBitacora();
+			List<OrdenBitacora> rows = new ArrayList<OrdenBitacora>();
+			closeCon = validarConexion();
+			
+//			where = " WHERE usuarioAspirante = '" + email + "' AND caseId = " + caseId.toString();
+			where = " WHERE usuarioAspirante = '" + email + " ";
+			String consulta = Statements.GET_BITACORA_PAGO;
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[ORDERBY]", "");
+			consulta = consulta.replace("[LIMITOFFSET]", "");
+			
+			pstm = con.prepareStatement(consulta);
+			
+			rs = pstm.executeQuery();
+			
+			while(rs.next()){
+				row = new OrdenBitacora();
+				row.setNoTransaccion(rs.getString("noTransaccion"));
+				row.setUsuarioAspirante(rs.getString("usuarioAspirante"));
+				row.setFechaMovimiento(rs.getString("fechaMovimiento"));
+				row.setMonto(rs.getString("monto"));
+				row.setMedioPago(rs.getString("medioPago"));
+				row.setEstatus(rs.getString("estatus"));
+				row.setObservaciones(rs.getString("observaciones"));
+				row.setCaseId(rs.getLong("caseId"));
+				row.setNombrePago(rs.getString("nombrePago"))
+				
+				rows.add(row);
+			}
+			resultado.setSuccess(true);
+			resultado.setError_info(errorlog);
+			resultado.setData(rows);
+			
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 			resultado.setError_info(errorlog)

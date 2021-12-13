@@ -72,105 +72,106 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         }
     }
 
- 
-var validar = false;
-function startProcess() {
-    debugger
-    if ($scope.properties.dataToChange2.campus || $scope.properties.dataToChange2.lstCatApiKeyInput[0].campus) {
-        validar = true
-        if ($scope.properties.dataToChange2.mailgun || $scope.properties.dataToChange2.mailgun === "") {
-            if ($scope.properties.dataToChange2.mailgun && $scope.properties.dataToChange2.mailgunCorreo && $scope.properties.dataToChange2.mailgunDominio && $scope.properties.dataToChange2.conekta && $scope.properties.dataToChange2.conektaPublicKey && $scope.properties.dataToChange2.crispChat && $scope.properties.dataToChange2.hubspotKey) {
-                claveValida = validarClaveEditar($scope.properties.dataToChange2);
-                if(claveValida){
-                    if ($scope.properties.processId) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                            doRequest("GET", $scope.properties.url).then(function () {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+
+    var validar = false;
+
+    function startProcess() {
+
+        if ($scope.properties.dataToChange2.campus || $scope.properties.dataToChange2.lstCatApiKeyInput[0].campus) {
+            validar = true
+            if ($scope.properties.dataToChange2.mailgun || $scope.properties.dataToChange2.mailgun === "") {
+                if ($scope.properties.dataToChange2.mailgun && $scope.properties.dataToChange2.mailgunCorreo && $scope.properties.dataToChange2.mailgunDominio && $scope.properties.dataToChange2.conekta && $scope.properties.dataToChange2.conektaPublicKey && $scope.properties.dataToChange2.crispChat && $scope.properties.dataToChange2.hubspotKey) {
+                    claveValida = validarClaveEditar($scope.properties.dataToChange2);
+                    if (claveValida) {
+                        if ($scope.properties.processId) {
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
                             });
-                            localStorageService.delete($window.location.href);
-                        });
-    
+
+                        } else {
+                            $log.log('Impossible to retrieve the process definition id value from the URL');
+                        }
                     } else {
-                        $log.log('Impossible to retrieve the process definition id value from the URL');
+                        swal("¡Aviso!", "Ya están  registrados las API Keys del campus seleccionado", "warning");
                     }
+
                 } else {
-                    swal("¡Aviso!", "Ya están  registrados las API Keys del campus seleccionado", "warning");
+                    if (!$scope.properties.dataToChange2.hubspotKey) {
+                        swal("¡Falto capurar informacion en!", "Hubspot key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.crispChat) {
+                        swal("¡Falto capurar informacion en!", "Crisp Chat key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.conektaPublicKey) {
+                        swal("¡Falto capurar informacion en!", "Conekta Public Key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.conekta) {
+                        swal("¡Falto capurar informacion en!", "Conekta Key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.mailgunDominio) {
+                        swal("¡Falto capurar informacion en!", "Mailgun dominio", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.mailgunCorreo) {
+                        swal("¡Falto capurar informacion en!", "Mailgun correo", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.mailgun) {
+                        swal("¡Falto capurar informacion en!", "Mailgun key", "warning");
+                    }
                 }
-                
+
             } else {
-                if (!$scope.properties.dataToChange2.hubspotKey) {
-                    swal("¡Falto capurar informacion en!", "Hubspot key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.crispChat) {
-                    swal("¡Falto capurar informacion en!", "Crisp Chat key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.conektaPublicKey) {
-                    swal("¡Falto capurar informacion en!", "Conekta Public Key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.conekta) {
-                    swal("¡Falto capurar informacion en!", "Conekta Key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.mailgunDominio) {
-                    swal("¡Falto capurar informacion en!", "Mailgun dominio", "warning");
-                }
-                if (!$scope.properties.dataToChange2.mailgunCorreo) {
-                    swal("¡Falto capurar informacion en!", "Mailgun correo", "warning");
-                }
-                if (!$scope.properties.dataToChange2.mailgun) {
-                    swal("¡Falto capurar informacion en!", "Mailgun key", "warning");
+                if ($scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgun && $scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunCorreo && $scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunDominio && $scope.properties.dataToChange2.lstCatApiKeyInput[0].conekta && $scope.properties.dataToChange2.lstCatApiKeyInput[0].conektaPublicKey && $scope.properties.dataToChange2.lstCatApiKeyInput[0].crispChat && $scope.properties.dataToChange2.lstCatApiKeyInput[0].hubspotKey) {
+                    claveValida = validarNuevaClave($scope.properties.dataToChange2);
+                    if (claveValida) {
+                        if ($scope.properties.processId) {
+                            var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                doRequest("GET", $scope.properties.url).then(function() {
+                                    $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                    $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                });
+                                localStorageService.delete($window.location.href);
+                            });
+
+                        } else {
+                            $log.log('Impossible to retrieve the process definition id value from the URL');
+                        }
+                    } else {
+                        swal("¡Aviso!", "Ya están  registrados las API Keys del campus seleccionado", "warning");
+                    }
+
+                } else {
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].hubspotKey) {
+                        swal("¡Falto capurar informacion en!", "Hubspot key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].crispChat) {
+                        swal("¡Falto capurar informacion en!", "Crisp Chat key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].conektaPublicKey) {
+                        swal("¡Falto capurar informacion en!", "Conekta Public Key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].conekta) {
+                        swal("¡Falto capurar informacion en!", "Conekta Key", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunDominio) {
+                        swal("¡Falto capurar informacion en!", "Mailgun dominio", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunCorreo) {
+                        swal("¡Falto capurar informacion en!", "Mailgun correo", "warning");
+                    }
+                    if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgun) {
+                        swal("¡Falto capurar informacion en!", "Mailgun key", "warning");
+                    }
                 }
             }
-
         } else {
-            if ($scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgun && $scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunCorreo && $scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunDominio && $scope.properties.dataToChange2.lstCatApiKeyInput[0].conekta && $scope.properties.dataToChange2.lstCatApiKeyInput[0].conektaPublicKey && $scope.properties.dataToChange2.lstCatApiKeyInput[0].crispChat && $scope.properties.dataToChange2.lstCatApiKeyInput[0].hubspotKey) {
-                claveValida = validarNuevaClave($scope.properties.dataToChange2);
-                if(claveValida){
-                    if ($scope.properties.processId) {
-                        var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                            doRequest("GET", $scope.properties.url).then(function () {
-                                $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                            });
-                            localStorageService.delete($window.location.href);
-                        });
-    
-                    } else {
-                        $log.log('Impossible to retrieve the process definition id value from the URL');
-                    }
-                } else {
-                    swal("¡Aviso!", "Ya están  registrados las API Keys del campus seleccionado", "warning");
-                }
-                
-            } else {
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].hubspotKey) {
-                    swal("¡Falto capurar informacion en!", "Hubspot key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].crispChat) {
-                    swal("¡Falto capurar informacion en!", "Crisp Chat key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].conektaPublicKey) {
-                    swal("¡Falto capurar informacion en!", "Conekta Public Key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].conekta) {
-                    swal("¡Falto capurar informacion en!", "Conekta Key", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunDominio) {
-                    swal("¡Falto capurar informacion en!", "Mailgun dominio", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgunCorreo) {
-                    swal("¡Falto capurar informacion en!", "Mailgun correo", "warning");
-                }
-                if (!$scope.properties.dataToChange2.lstCatApiKeyInput[0].mailgun) {
-                    swal("¡Falto capurar informacion en!", "Mailgun key", "warning");
-                }
-            }
+            swal("¡Atencion!", "Por favor seleccione un campus", "warning");
         }
-    } else {
-        swal("¡Atencion!", "Por favor seleccione un campus", "warning");
-    }
 
-}
+    }
     /**
      * Execute a get/post request to an URL
      * It also bind custom data from success|error to a data
@@ -260,34 +261,34 @@ function startProcess() {
         }
     }
 
-    function validarNuevaClave(_value){
+    function validarNuevaClave(_value) {
         let data = angular.copy($scope.properties.dataFromSuccess);
         let isValid = true;
-        
-        for(let i = 0; i< data.length; i++){
-            if(data[i].campus.descripcion.toLowerCase() === _value.lstCatApiKeyInput[0].campus.descripcion.toLowerCase()){
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].campus.descripcion.toLowerCase() === _value.lstCatApiKeyInput[0].campus.descripcion.toLowerCase()) {
                 isValid = false;
                 break;
             }
         }
-    
+
         return isValid;
     }
-    
-    function validarClaveEditar(_value){
+
+    function validarClaveEditar(_value) {
         let data = angular.copy($scope.properties.dataFromSuccess);
         let isValid = true;
         let pidString = _value.persistenceId + "";
-        
-        for(let i = 0; i< data.length; i++){
-            if(data[i].campus.descripcion.toLowerCase() === _value.campus.descripcion.toLowerCase() && pidString !== (data[i].persistenceId + "")){
+
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].campus.descripcion.toLowerCase() === _value.campus.descripcion.toLowerCase() && pidString !== (data[i].persistenceId + "")) {
                 isValid = false;
                 break;
             }
         }
-    
+
         return isValid;
     }
-    
+
 
 }

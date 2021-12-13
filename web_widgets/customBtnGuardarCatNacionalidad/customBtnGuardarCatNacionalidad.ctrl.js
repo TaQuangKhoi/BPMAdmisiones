@@ -5,7 +5,7 @@ function PbButtonCtrl($scope, $http, modalService) {
     $scope.loading = false;
 
     $scope.sendData = function() {
-        debugger;
+
         if ($scope.loading == false) {
             $("#loading").modal("show");
             $scope.loading = true;

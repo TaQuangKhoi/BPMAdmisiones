@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:actormapping="http://www.bonitasoft.org/ns/actormapping/6.0" xmlns:configuration="http://www.bonitasoft.org/ns/studio/configuration" xmlns:decision="http://www.bonitasoft.org/ns/studio/process/decision" xmlns:expression="http://www.bonitasoft.org/ns/studio/expression" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:process="http://www.bonitasoft.org/ns/studio/process" xsi:schemaLocation="http://www.bonitasoft.org/ns/studio/process/decision http://www.bonitasoft.org/ns/studio/process#//decision">
+  <process:MainProcess xmi:id="_62JksHq3EeuQyJvohNP0LQ" name="ManejoCartaTemporal" author="joseg" bonitaVersion="7.11.2" bonitaModelVersion="7.11.1-001" configId="ACED00057400254D616E656A6F436172746154656D706F72616C372E31312E312D303031372E31312E327370">
+    <elements xmi:type="process:Pool" xmi:id="_62JksXq3EeuQyJvohNP0LQ" name="Agregar carta temporal">
+      <elements xmi:type="process:Lane" xmi:id="_62Jksnq3EeuQyJvohNP0LQ" name="Employee lane" actor="_62Jky3q3EeuQyJvohNP0LQ">
+        <elements xmi:type="process:StartEvent" xmi:id="_62Jks3q3EeuQyJvohNP0LQ" name="Start1" outgoing="_GLgTYHq4EeuQyJvohNP0LQ">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_62JktHq3EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_62JktXq3EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_62Jktnq3EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+        </elements>
+        <elements xmi:type="process:EndTerminatedEvent" xmi:id="_GLK8MHq4EeuQyJvohNP0LQ" name="End1" incoming="_GLgTYHq4EeuQyJvohNP0LQ">
+          <dynamicLabel xmi:type="expression:Expression" xmi:id="_GLLjQHq4EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+          <dynamicDescription xmi:type="expression:Expression" xmi:id="_GLK8MXq4EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+          <stepSummary xmi:type="expression:Expression" xmi:id="_GLLjQXq4EeuQyJvohNP0LQ" name="" content="" returnTypeFixed="true"/>
+        </elements>
+      </elements>
+      <data xmi:type="process:BusinessObjectData" xmi:id="_QUECUHq5EeuQyJvohNP0LQ" name="infoCartaTemporal" multiple="true" dataType="_62Jk5Hq3EeuQyJvohNP0LQ" className="com.anahuac.model.InfoCartaTemporal">
+        <defaultValue xmi:type="expression:Expression" xmi:id="_Rh8x8Xq5EeuQyJvohNP0LQ" name="initInfoCartaTemporal()" content="def infoCartaTemporalList = []&#xD;&#xA;//For each item collected in multiple input&#xD;&#xA;infoCartaTemporalInput.each{&#xD;&#xA;&#x9;//Add a new composed InfoCartaTemporal instance&#xD;&#xA;&#x9;infoCartaTemporalList.add({ currentInfoCartaTemporalInput ->&#xD;&#xA;&#x9;&#x9;def infoCartaTemporalVar = new com.anahuac.model.InfoCartaTemporal()&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.admitido = currentInfoCartaTemporalInput.admitido&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.campusadmision = currentInfoCartaTemporalInput.campusadmision&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.carrera = currentInfoCartaTemporalInput.carrera&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.carta = currentInfoCartaTemporalInput.carta&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.curp = currentInfoCartaTemporalInput.curp&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.decisiondeadmision = currentInfoCartaTemporalInput.decisiondeadmision&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.descuentoprontopagomes1 = currentInfoCartaTemporalInput.descuentoprontopagomes1&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.descuentoprontopagomes2 = currentInfoCartaTemporalInput.descuentoprontopagomes2&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eema = currentInfoCartaTemporalInput.eema&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eemi = currentInfoCartaTemporalInput.eemi&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eemn = currentInfoCartaTemporalInput.eemn&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eemq = currentInfoCartaTemporalInput.eemq&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eems = currentInfoCartaTemporalInput.eems&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.eemt = currentInfoCartaTemporalInput.eemt&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.escm = currentInfoCartaTemporalInput.escm&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.escp = currentInfoCartaTemporalInput.escp&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.espanol = currentInfoCartaTemporalInput.espanol&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.examinado = currentInfoCartaTemporalInput.examinado&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.fechalimitedepago = currentInfoCartaTemporalInput.fechalimitedepago&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.fechalimiteentregadocumentacion = currentInfoCartaTemporalInput.fechalimiteentregadocumentacion&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.inscrito = currentInfoCartaTemporalInput.inscrito&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.universidad = currentInfoCartaTemporalInput.universidad&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.mmpi = currentInfoCartaTemporalInput.mmpi&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.nivel = currentInfoCartaTemporalInput.nivel&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.nombre = currentInfoCartaTemporalInput.nombre&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.notastransferencia = currentInfoCartaTemporalInput.notastransferencia&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.paa = currentInfoCartaTemporalInput.paa&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.paanumerica = currentInfoCartaTemporalInput.paanumerica&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.paaverbal = currentInfoCartaTemporalInput.paaverbal&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pagoinscripcion = currentInfoCartaTemporalInput.pagoinscripcion&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.para = currentInfoCartaTemporalInput.para&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pca = currentInfoCartaTemporalInput.pca&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pcda = currentInfoCartaTemporalInput.pcda&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pdp = currentInfoCartaTemporalInput.pdp&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pdu = currentInfoCartaTemporalInput.pdu&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.periodo = currentInfoCartaTemporalInput.periodo&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.pia = currentInfoCartaTemporalInput.pia&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.preparatoriade = currentInfoCartaTemporalInput.preparatoriade&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.promedio = currentInfoCartaTemporalInput.promedio&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.religion = currentInfoCartaTemporalInput.religion&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.selecciondecursosprevia = currentInfoCartaTemporalInput.selecciondecursosprevia&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.sesion = currentInfoCartaTemporalInput.sesion&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.sexo = currentInfoCartaTemporalInput.sexo&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.solicitante = currentInfoCartaTemporalInput.solicitante&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.sse = currentInfoCartaTemporalInput.sse&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.statuspdu = currentInfoCartaTemporalInput.statuspdu&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.tipodeadmision = currentInfoCartaTemporalInput.tipodeadmision&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.tipodeestudiante = currentInfoCartaTemporalInput.tipodeestudiante&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.filaExcel = currentInfoCartaTemporalInput.filaExcel&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.numerodematricula = currentInfoCartaTemporalInput.numerodematricula&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.descuentoprontopagomes1fecha = currentInfoCartaTemporalInput.descuentoprontopagomes1fecha&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.descuentoprontopagomes2fecha = currentInfoCartaTemporalInput.descuentoprontopagomes2fecha&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.sihaceonomatematicas = currentInfoCartaTemporalInput.sihaceonomatematicas&#xD;&#xA;&#x9;&#x9;infoCartaTemporalVar.notaslistaroja = currentInfoCartaTemporalInput.notaslistaroja&#xD;&#xA;&#x9;&#x9;return infoCartaTemporalVar&#xD;&#xA;&#x9;}(it))&#xD;&#xA;}&#xD;&#xA;return infoCartaTemporalList" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_QRsI4H3cEeuWMbPe7PSSqA" name="infoCartaTemporalInput" type="COMPLEX" multiple="true"/>
+        </defaultValue>
+      </data>
+      <formMapping xmi:type="process:FormMapping" xmi:id="_62JkxHq3EeuQyJvohNP0LQ" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_mN3SQHrcEeuQyJvohNP0LQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </formMapping>
+      <overviewFormMapping xmi:type="process:FormMapping" xmi:id="_62Jkxnq3EeuQyJvohNP0LQ" type="NONE">
+        <targetForm xmi:type="expression:Expression" xmi:id="_62Jkx3q3EeuQyJvohNP0LQ" name="" content="" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
+      </overviewFormMapping>
+      <connections xmi:type="process:SequenceFlow" xmi:id="_GLgTYHq4EeuQyJvohNP0LQ" target="_GLK8MHq4EeuQyJvohNP0LQ" source="_62Jks3q3EeuQyJvohNP0LQ">
+        <decisionTable xmi:type="decision:DecisionTable" xmi:id="_GLg6cHq4EeuQyJvohNP0LQ"/>
+        <condition xmi:type="expression:Expression" xmi:id="_GLg6cXq4EeuQyJvohNP0LQ" name="" type="TYPE_CONDITION" returnType="java.lang.Boolean" returnTypeFixed="true"/>
+      </connections>
+      <actors xmi:type="process:Actor" xmi:id="_62Jky3q3EeuQyJvohNP0LQ" documentation="This is an example of actor that is mapped to any ACME users" name="Employee actor" initiator="true"/>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_mkEgsHq5EeuQyJvohNP0LQ" name="Qualification" version="7.11.1-001" username="acuna.karol@correo.com" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_mkEgt3q5EeuQyJvohNP0LQ">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_mkEguHq5EeuQyJvohNP0LQ" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_mkEguXq5EeuQyJvohNP0LQ"/>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_mkEgunq5EeuQyJvohNP0LQ"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_mkEgu3q5EeuQyJvohNP0LQ">
+              <role>ADMINISTRADOR</role>
+              <role>ADMISIONES</role>
+              <role>EXTERIOR</role>
+              <role>ORIENTADOR-VOCACIONAL</role>
+              <role>SERUA</role>
+            </roles>
+            <users xmi:type="actormapping:Users" xmi:id="_mkEgvHq5EeuQyJvohNP0LQ"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgsXq5EeuQyJvohNP0LQ" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgsnq5EeuQyJvohNP0LQ" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgs3q5EeuQyJvohNP0LQ" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgtHq5EeuQyJvohNP0LQ" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgtXq5EeuQyJvohNP0LQ" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_mkEgtnq5EeuQyJvohNP0LQ" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_N7f4IJi4EeuukfHM51Sy0g" name="Production" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_N7ppIJi4EeuukfHM51Sy0g">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_N7ppIZi4EeuukfHM51Sy0g" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_N7ppIpi4EeuukfHM51Sy0g">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_N7ppI5i4EeuukfHM51Sy0g"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_N7ppJJi4EeuukfHM51Sy0g"/>
+            <users xmi:type="actormapping:Users" xmi:id="_N7ppJZi4EeuukfHM51Sy0g"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4IZi4EeuukfHM51Sy0g" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4Ipi4EeuukfHM51Sy0g" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4I5i4EeuukfHM51Sy0g" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4JJi4EeuukfHM51Sy0g" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4JZi4EeuukfHM51Sy0g" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_N7f4Jpi4EeuukfHM51Sy0g" id="OTHER"/>
+      </configurations>
+      <contract xmi:type="process:Contract" xmi:id="_62JkzHq3EeuQyJvohNP0LQ">
+        <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xwHq5EeuQyJvohNP0LQ" name="infoCartaTemporalInput" type="COMPLEX" multiple="true" dataReference="infoCartaTemporal">
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xwXq5EeuQyJvohNP0LQ" name="admitido"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xwnq5EeuQyJvohNP0LQ" name="campusadmision"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xw3q5EeuQyJvohNP0LQ" name="carrera"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xxHq5EeuQyJvohNP0LQ" name="carta"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xxXq5EeuQyJvohNP0LQ" name="curp"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xxnq5EeuQyJvohNP0LQ" name="decisiondeadmision"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xx3q5EeuQyJvohNP0LQ" name="descuentoprontopagomes1"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xyHq5EeuQyJvohNP0LQ" name="descuentoprontopagomes2"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xyXq5EeuQyJvohNP0LQ" name="eema"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xynq5EeuQyJvohNP0LQ" name="eemi"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xy3q5EeuQyJvohNP0LQ" name="eemn"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xzHq5EeuQyJvohNP0LQ" name="eemq"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xzXq5EeuQyJvohNP0LQ" name="eems"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xznq5EeuQyJvohNP0LQ" name="eemt"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8xz3q5EeuQyJvohNP0LQ" name="escm"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x0Hq5EeuQyJvohNP0LQ" name="escp"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x0Xq5EeuQyJvohNP0LQ" name="espanol"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x0nq5EeuQyJvohNP0LQ" name="examinado"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x03q5EeuQyJvohNP0LQ" name="fechalimitedepago"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x1Hq5EeuQyJvohNP0LQ" name="fechalimiteentregadocumentacion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x1Xq5EeuQyJvohNP0LQ" name="inscrito"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x1nq5EeuQyJvohNP0LQ" name="universidad"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x13q5EeuQyJvohNP0LQ" name="mmpi"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x2Hq5EeuQyJvohNP0LQ" name="nivel"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x2Xq5EeuQyJvohNP0LQ" name="nombre"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x2nq5EeuQyJvohNP0LQ" name="notastransferencia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x23q5EeuQyJvohNP0LQ" name="paa"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x3Hq5EeuQyJvohNP0LQ" name="paanumerica"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x3Xq5EeuQyJvohNP0LQ" name="paaverbal"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x3nq5EeuQyJvohNP0LQ" name="pagoinscripcion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x33q5EeuQyJvohNP0LQ" name="para"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x4Hq5EeuQyJvohNP0LQ" name="pca"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x4Xq5EeuQyJvohNP0LQ" name="pcda"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x4nq5EeuQyJvohNP0LQ" name="pdp"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x43q5EeuQyJvohNP0LQ" name="pdu"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x5Hq5EeuQyJvohNP0LQ" name="periodo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x5Xq5EeuQyJvohNP0LQ" name="pia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x5nq5EeuQyJvohNP0LQ" name="preparatoriade"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x53q5EeuQyJvohNP0LQ" name="promedio"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x6Hq5EeuQyJvohNP0LQ" name="religion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x6Xq5EeuQyJvohNP0LQ" name="selecciondecursosprevia"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x6nq5EeuQyJvohNP0LQ" name="sesion"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x63q5EeuQyJvohNP0LQ" name="sexo"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x7Hq5EeuQyJvohNP0LQ" name="solicitante"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x7Xq5EeuQyJvohNP0LQ" name="sse"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x7nq5EeuQyJvohNP0LQ" name="statuspdu"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x73q5EeuQyJvohNP0LQ" name="tipodeadmision"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_Rh8x8Hq5EeuQyJvohNP0LQ" name="tipodeestudiante"/>
+          <inputs xmi:type="process:ContractInput" xmi:id="_9ZrFwHuFEeuEdI6QvtVrWQ" name="filaExcel">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_9Zrs0HuFEeuEdI6QvtVrWQ"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_S12AcHxXEeuNyKo58PKG-A" name="numerodematricula">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_S12AcXxXEeuNyKo58PKG-A"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_9PaLEHx4EeuNyKo58PKG-A" name="descuentoprontopagomes1fecha">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_9PayIHx4EeuNyKo58PKG-A"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_AL-C0Hx5EeuNyKo58PKG-A" name="descuentoprontopagomes2fecha">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_AL-C0Xx5EeuNyKo58PKG-A"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_XhJx0Hx_EeuNyKo58PKG-A" name="sihaceonomatematicas">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_XhJx0Xx_EeuNyKo58PKG-A"/>
+          </inputs>
+          <inputs xmi:type="process:ContractInput" xmi:id="_IjnC4H3cEeuWMbPe7PSSqA" name="notaslistaroja">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_IjnC4X3cEeuWMbPe7PSSqA"/>
+          </inputs>
+        </inputs>
+      </contract>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_62JkzXq3EeuQyJvohNP0LQ">
+        <name xmi:type="expression:Expression" xmi:id="_62Jkznq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_62Jkz3q3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_62Jk0Hq3EeuQyJvohNP0LQ">
+        <name xmi:type="expression:Expression" xmi:id="_62Jk0Xq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_62Jk0nq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_62Jk03q3EeuQyJvohNP0LQ">
+        <name xmi:type="expression:Expression" xmi:id="_62Jk1Hq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_62Jk1Xq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_62Jk1nq3EeuQyJvohNP0LQ">
+        <name xmi:type="expression:Expression" xmi:id="_62Jk13q3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_62Jk2Hq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+      <searchIndexes xmi:type="process:SearchIndex" xmi:id="_62Jk2Xq3EeuQyJvohNP0LQ">
+        <name xmi:type="expression:Expression" xmi:id="_62Jk2nq3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+        <value xmi:type="expression:Expression" xmi:id="_62Jk23q3EeuQyJvohNP0LQ" content="" returnTypeFixed="true"/>
+      </searchIndexes>
+    </elements>
+    <datatypes xmi:type="process:BooleanType" xmi:id="_62Jk3Hq3EeuQyJvohNP0LQ" name="Boolean"/>
+    <datatypes xmi:type="process:DateType" xmi:id="_62Jk3Xq3EeuQyJvohNP0LQ" name="Date"/>
+    <datatypes xmi:type="process:IntegerType" xmi:id="_62Jk3nq3EeuQyJvohNP0LQ" name="Integer"/>
+    <datatypes xmi:type="process:LongType" xmi:id="_62Jk33q3EeuQyJvohNP0LQ" name="Long"/>
+    <datatypes xmi:type="process:DoubleType" xmi:id="_62Jk4Hq3EeuQyJvohNP0LQ" name="Double"/>
+    <datatypes xmi:type="process:StringType" xmi:id="_62Jk4Xq3EeuQyJvohNP0LQ" name="Text"/>
+    <datatypes xmi:type="process:JavaType" xmi:id="_62Jk4nq3EeuQyJvohNP0LQ" name="Java_object"/>
+    <datatypes xmi:type="process:XMLType" xmi:id="_62Jk43q3EeuQyJvohNP0LQ" name="XML"/>
+    <datatypes xmi:type="process:BusinessObjectType" xmi:id="_62Jk5Hq3EeuQyJvohNP0LQ" name="Business_Object"/>
+  </process:MainProcess>
+  <notation:Diagram xmi:id="_62Jk5Xq3EeuQyJvohNP0LQ" type="Process" element="_62JksHq3EeuQyJvohNP0LQ" name="MyDiagram" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_62Jk5nq3EeuQyJvohNP0LQ" type="2007" element="_62JksXq3EeuQyJvohNP0LQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_62Jk53q3EeuQyJvohNP0LQ" type="5008"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_62Jk6Hq3EeuQyJvohNP0LQ" type="7001">
+        <children xmi:type="notation:Node" xmi:id="_62Jk6Xq3EeuQyJvohNP0LQ" type="3007" element="_62Jksnq3EeuQyJvohNP0LQ">
+          <children xmi:type="notation:DecorationNode" xmi:id="_62Jk6nq3EeuQyJvohNP0LQ" type="5007"/>
+          <children xmi:type="notation:DecorationNode" xmi:id="_62Jk63q3EeuQyJvohNP0LQ" type="7002">
+            <children xmi:type="notation:Shape" xmi:id="_62Jk73q3EeuQyJvohNP0LQ" type="3002" element="_62Jks3q3EeuQyJvohNP0LQ" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_62Jk8Hq3EeuQyJvohNP0LQ" type="5024">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_62Jk8Xq3EeuQyJvohNP0LQ" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_62Jk8nq3EeuQyJvohNP0LQ" x="60" y="68"/>
+            </children>
+            <children xmi:type="notation:Shape" xmi:id="_GLOmkHq4EeuQyJvohNP0LQ" type="3062" element="_GLK8MHq4EeuQyJvohNP0LQ" fontName="Segoe UI">
+              <children xmi:type="notation:DecorationNode" xmi:id="_GLPNoHq4EeuQyJvohNP0LQ" type="5090">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_GLPNoXq4EeuQyJvohNP0LQ" y="5"/>
+              </children>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GLOmkXq4EeuQyJvohNP0LQ" x="278" y="68"/>
+            </children>
+          </children>
+          <styles xmi:type="notation:DescriptionStyle" xmi:id="_62Jk83q3EeuQyJvohNP0LQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_62Jk9Hq3EeuQyJvohNP0LQ" fontName="Segoe UI"/>
+          <styles xmi:type="notation:LineStyle" xmi:id="_62Jk9Xq3EeuQyJvohNP0LQ"/>
+          <styles xmi:type="notation:FillStyle" xmi:id="_62Jk9nq3EeuQyJvohNP0LQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_62Jk93q3EeuQyJvohNP0LQ" x="28" y="10" width="1772" height="163"/>
+        </children>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_62Jk-Hq3EeuQyJvohNP0LQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_62Jk-Xq3EeuQyJvohNP0LQ" fontName="Segoe UI"/>
+      <styles xmi:type="notation:LineStyle" xmi:id="_62Jk-nq3EeuQyJvohNP0LQ"/>
+      <styles xmi:type="notation:FillStyle" xmi:id="_62Jk-3q3EeuQyJvohNP0LQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_62Jk_Hq3EeuQyJvohNP0LQ" width="1800" height="250"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_62Jk_Xq3EeuQyJvohNP0LQ"/>
+    <edges xmi:type="notation:Connector" xmi:id="_GLiIkHq4EeuQyJvohNP0LQ" type="4001" element="_GLgTYHq4EeuQyJvohNP0LQ" source="_62Jk73q3EeuQyJvohNP0LQ" target="_GLOmkHq4EeuQyJvohNP0LQ" roundedBendpointsRadius="10" routing="Rectilinear">
+      <children xmi:type="notation:DecorationNode" xmi:id="_GLiIk3q4EeuQyJvohNP0LQ" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GLiIlHq4EeuQyJvohNP0LQ" y="-10"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_GLiIkXq4EeuQyJvohNP0LQ" fontName="Segoe UI"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GLiIknq4EeuQyJvohNP0LQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

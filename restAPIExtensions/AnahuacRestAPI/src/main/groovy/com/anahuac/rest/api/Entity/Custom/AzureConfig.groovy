@@ -8,6 +8,21 @@ class AzureConfig {
 	private String azureAccountName;
 	private String azureAccountKey;
 	private String azureDefaultEndpointsProtocol;
+	private String bannerToken;
+	private String adminPassword;
+	private String bannerMatchPerson;
+	public String getBannerMatchPerson() {
+		return bannerMatchPerson;
+	}
+	public void setBannerMatchPerson(String bannerMatchPerson) {
+		this.bannerMatchPerson = bannerMatchPerson;
+	}
+	public String getAdminPassword() {
+		return adminPassword;
+	}
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
 	public String getAzureAccountName() {
 		return azureAccountName;
 	}
@@ -25,6 +40,12 @@ class AzureConfig {
 	}
 	public void setAzureDefaultEndpointsProtocol(String azureDefaultEndpointsProtocol) {
 		this.azureDefaultEndpointsProtocol = azureDefaultEndpointsProtocol;
+	}
+	public String getBannerToken() {
+		return bannerToken;
+	}
+	public void setBannerToken(String bannerToken) {
+		this.bannerToken = bannerToken;
 	}
 	
 }

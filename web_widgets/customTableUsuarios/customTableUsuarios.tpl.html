@@ -28,11 +28,11 @@ margin-right: 15px;
 
             </tr>
             <tr>
-                <th></th>
-                <th></th>
-                <th ng-repeat="column in properties.headers">
-                    <input ng-model="dynamicInput[column]" autocomplete="off" class="form-control" type="text" ng-enter="filterKeyPress(column,dynamicInput[column])">
-                </th>
+                <td></td>
+                <td></td>
+                <td ng-repeat="column in properties.headers">
+                    <input ng-model="dynamicInput[column]" name="{{column}}" autocomplete="off" class="form-control" type="text" ng-enter="filterKeyPress(column,dynamicInput[column])">
+                </td>
 
             </tr>
         </thead>

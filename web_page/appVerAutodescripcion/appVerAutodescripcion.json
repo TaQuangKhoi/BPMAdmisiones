@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "appVerAutodescripcion",
   "name" : "appVerAutodescripcion",
-  "lastUpdate" : 1616525297678,
+  "lastUpdate" : 1632520175735,
   "rows" : [
     [
       {
@@ -414,6 +414,58 @@
                 ],
                 [
                   {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : "jusquer"
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "labelHidden" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Default label"
+                      },
+                      "labelPosition" : {
+                        "type" : "constant",
+                        "value" : "top"
+                      },
+                      "labelWidth" : {
+                        "type" : "constant",
+                        "value" : 4
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "text" : {
+                        "type" : "interpolation",
+                        "value" : "<div></div>"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "left"
+                      }
+                    },
+                    "reference" : "9d5a3406-b212-4871-bc7a-67cce9f701ef",
+                    "hasValidationError" : false,
+                    "id" : "pbText"
+                  }
+                ],
+                [
+                  {
                     "type" : "fragment",
                     "dimension" : {
                       "xs" : 12,
@@ -424,7 +476,7 @@
                     "propertyValues" : {
                       "cssClasses" : {
                         "type" : "constant",
-                        "value" : ""
+                        "value" : "jusquer2"
                       },
                       "hidden" : {
                         "type" : "constant",
@@ -438,7 +490,8 @@
                       "formInput" : "formInput",
                       "selectedIndex" : "",
                       "objectSolicitud" : "objectSolicitud",
-                      "idBanner" : "objDetalleSolicitud.idBanner"
+                      "idBanner" : "objetoDetalleSolicitud.idBanner",
+                      "catResidencia" : "catResidencia"
                     }
                   }
                 ]
@@ -1012,6 +1065,13 @@
       "type" : "url",
       "value" : [
         "../{{taskContext.detalleSolicitud_ref.link}}"
+      ],
+      "exposed" : false
+    },
+    "catResidencia" : {
+      "type" : "url",
+      "value" : [
+        "..{{objDetalleSolicitud.links[2].href}}"
       ],
       "exposed" : false
     }

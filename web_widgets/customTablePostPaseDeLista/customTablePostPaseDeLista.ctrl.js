@@ -41,7 +41,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     }
 
     $scope.asignarTarea = function (rowData) {
-
+        blockUI.start();
         var req = {
             method: "GET",
             url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
@@ -56,7 +56,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             .error(function (data, status) {
                 console.error(data);
             })
-            .finally(function () { });
+            .finally(function () { 
+                blockUI.stop();
+            });
     }
     $scope.isenvelope = false;
     $scope.selectedrow = {};
@@ -78,6 +80,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 }
             }
         }
+        blockUI.start();
         var req = {
             method: "POST",
             url: "/bonita/API/extension/AnahuacRest?url=generateHtml&p=0&c=10",
@@ -98,7 +101,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
             .error(function (data, status) {
                 console.error(data)
             })
-            .finally(function () { });
+            .finally(function () { 
+                blockUI.stop();
+            });
     }
     $scope.lstCampus = [{
         "descripcion": "Anáhuac Cancún",
@@ -272,7 +277,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 method: "GET",
                 url: `/API/identity/membership?p=0&c=10&f=user_id%3d${$scope.properties.userId}&d=role_id&d=group_id`
             };
-
+            blockUI.start();
             return $http(req)
                 .success(function (data, status) {
                     $scope.lstMembership = data;
@@ -280,7 +285,9 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 .error(function (data, status) {
                     console.error(data);
                 })
-                .finally(function () { });
+                .finally(function () { 
+                    blockUI.stop();
+                });
         }
     });
     $scope.filtroCampus = ""
@@ -326,12 +333,13 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
     
     
      $scope.doRequestRedirect = function(row) {
+         blockUI.start();
         var info = angular.copy($scope.properties.dataToSend);
         info.limit= 1; 
         info.lstFiltro =  [{"columna": "ID BANNER","operador": "Igual a","valor": row.idbanner}];
         var reqInfo = {
             method: "POST",
-            url: "/bonita/API/extension/AnahuacRest?url=getSesionesAspirantes&p=0&c=10",
+            url: "/bonita/API/extension/AnahuacRest?url=getSesionesPsicologoAdministradorAspirantes&p=0&c=10",
             data: info
         };
 
@@ -345,7 +353,7 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
             })
             .finally(function () {
-                
+                blockUI.stop();
             });
     }
     
@@ -460,15 +468,14 @@ function PbTableCtrl($scope, $http, $window,blockUI) {
         };
         return $http(req)
             .success(function (data, status) {
-                for(let i = 0;i<5;i++){
-                    let fecha =moment(angular.copy(data.data[0].fecha)).subtract(i, 'day');
-                    if(fecha.isSame(aplicacion)  ){
+                //for(let i = 0;i<3;i++){
+                    let fecha =moment(angular.copy(data.data[0].fecha));
+                    if(fecha.isSameOrAfter(aplicacion)  ){
                         $scope.habilitado = true;
-                        break;
                     }else{
                         $scope.habilitado = false;
                     }
-                }
+                //}
             })
             .error(function (data, status) {
                 notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });

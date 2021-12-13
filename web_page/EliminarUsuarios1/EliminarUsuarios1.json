@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "EliminarUsuarios1",
   "name" : "EliminarUsuarios",
-  "lastUpdate" : 1617042796992,
+  "lastUpdate" : 1619741224478,
   "rows" : [
     [
       {
@@ -285,7 +285,7 @@
           ],
           [
             {
-              "type" : "container",
+              "type" : "component",
               "dimension" : {
                 "xs" : 12,
                 "sm" : 12,
@@ -300,6 +300,81 @@
                 "hidden" : {
                   "type" : "constant",
                   "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [
+                    "Id",
+                    "Name",
+                    "Description",
+                    "Date"
+                  ]
+                },
+                "content" : {
+                  "type" : "constant"
+                },
+                "columnsKey" : {
+                  "type" : "constant"
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "urlUsuario" : {
+                  "type" : "variable",
+                  "value" : "\"../API/identity/user?p=0&c=10&o=lastname%20ASC&s=[USUARIO]\""
+                },
+                "urlMembresia" : {
+                  "type" : "variable",
+                  "value" : "\"../API/identity/membership?p=0&c=10&f=user_id%3d[USERID]&d=role_id&d=group_id\""
+                },
+                "usuario" : {
+                  "type" : "variable",
+                  "value" : "usuarioSeleccionado"
+                }
+              },
+              "reference" : "6cd492de-f4c6-42b6-a3a0-65f70510e34d",
+              "hasValidationError" : false,
+              "id" : "customTableEliminarUsuario"
+            }
+          ],
+          [
+            {
+              "type" : "container",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : true
                 },
                 "repeatedCollection" : {
                   "type" : "variable",
@@ -460,6 +535,159 @@
                     "reference" : "be2320c9-ede7-49d9-afbe-7545ca852fb9",
                     "hasValidationError" : false,
                     "id" : "pbInput"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "disabled" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "label" : {
+                        "type" : "interpolation",
+                        "value" : "Membresia"
+                      },
+                      "alignment" : {
+                        "type" : "constant",
+                        "value" : "right"
+                      },
+                      "buttonStyle" : {
+                        "type" : "constant",
+                        "value" : "default"
+                      },
+                      "action" : {
+                        "type" : "constant",
+                        "value" : "GET"
+                      },
+                      "assign" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "url" : {
+                        "type" : "interpolation",
+                        "value" : "../API/identity/membership?p=0&c=10&f=user_id%3d{{$item.id}}&d=role_id&d=group_id"
+                      },
+                      "responseStatusCode" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "dataToSend" : {
+                        "type" : "constant"
+                      },
+                      "dataFromSuccess" : {
+                        "type" : "variable",
+                        "value" : "lstMembership"
+                      },
+                      "closeOnSuccess" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "dataFromError" : {
+                        "type" : "variable",
+                        "value" : ""
+                      },
+                      "targetUrlOnSuccess" : {
+                        "type" : "interpolation"
+                      },
+                      "collectionToModify" : {
+                        "type" : "variable"
+                      },
+                      "modalId" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "collectionPosition" : {
+                        "type" : "constant",
+                        "value" : "Last"
+                      },
+                      "valueToAdd" : {
+                        "type" : "constant"
+                      },
+                      "removeItem" : {
+                        "type" : "variable"
+                      }
+                    },
+                    "reference" : "64369ca3-c6ad-4893-bc7b-ecd935c9872a",
+                    "hasValidationError" : false,
+                    "id" : "pbButton"
+                  }
+                ],
+                [
+                  {
+                    "type" : "component",
+                    "dimension" : {
+                      "xs" : 12,
+                      "sm" : 12,
+                      "md" : 12,
+                      "lg" : 12
+                    },
+                    "propertyValues" : {
+                      "cssClasses" : {
+                        "type" : "constant",
+                        "value" : ""
+                      },
+                      "hidden" : {
+                        "type" : "constant",
+                        "value" : false
+                      },
+                      "allowHTML" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "headers" : {
+                        "type" : "constant",
+                        "value" : [
+                          "Rol",
+                          "Grupo"
+                        ]
+                      },
+                      "content" : {
+                        "type" : "expression",
+                        "value" : "lstMembership"
+                      },
+                      "columnsKey" : {
+                        "type" : "constant",
+                        "value" : [
+                          "role_id.name",
+                          "group_id.name"
+                        ]
+                      },
+                      "selectedRow" : {
+                        "type" : "variable",
+                        "value" : "lstMembership"
+                      },
+                      "striped" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "condensed" : {
+                        "type" : "constant",
+                        "value" : true
+                      },
+                      "bordered" : {
+                        "type" : "constant",
+                        "value" : true
+                      }
+                    },
+                    "reference" : "6376ccc3-e8aa-4f0e-9660-8b077e2c146c",
+                    "hasValidationError" : false,
+                    "id" : "pbTable"
                   }
                 ],
                 [
@@ -871,6 +1099,27 @@
       "type" : "json",
       "value" : [
         "{}"
+      ],
+      "exposed" : false
+    },
+    "dataMembership" : {
+      "type" : "constant",
+      "value" : [
+        "../API/identity/membership?p=0&c=10&f=user_id%3d1143&d=role_id&d=group_id"
+      ],
+      "exposed" : false
+    },
+    "lstMembership" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
       ],
       "exposed" : false
     }

@@ -1,0 +1,30 @@
+<div class="col-md-12" style="text-align: left;padding: 0;">
+    <label>Escalas de Validez</label>
+</div>
+<div class="">
+    <table class="">
+        <tbody>
+            <tr><td ng-repeat="row in respuestaProcesadas" ng-if="row.tipo==1"><label>{{row.escala}}</label><br>{{row.puntuacion}}</td></tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-12"  style="text-align: left;padding: 0;">
+    <label>Escalas Básicas</label>
+</div>
+<div class="">
+    <table class="">
+        <tbody>
+            <tr><td ng-repeat="row in respuestaProcesadas" ng-if="row.tipo==2"><label>{{row.escala.replace("(femenino)","").replace("(masculino)","")}}</label><br>{{row.puntuacion}}</td></tr>
+        </tbody>
+    </table>
+</div>
+<div class="col-md-12" style="text-align: left;padding: 0;">
+    <label>Escalas de contenido</label>
+</div>
+<div class="">
+    <table class="">
+        <tbody>
+            <tr><td ng-repeat="row in respuestaProcesadas" ng-if="row.tipo==3"><label>{{row.escala}}</label><br>{{row.puntuacion}}</td></tr>
+        </tbody>
+    </table>
+</div>

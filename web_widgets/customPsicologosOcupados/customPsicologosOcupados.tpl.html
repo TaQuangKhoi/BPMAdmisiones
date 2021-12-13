@@ -1,0 +1,36 @@
+<div ng-class="col-xs-12">
+    <div class="form-group">
+        <label
+            class="control-label col-xs-12">Psicólogos
+        </label>
+        <div class="col-xs-12" >
+            <select
+                class="form-control"
+                ng-model="psicologo"
+                ng-options="responsable as (responsable.firstname+' '+responsable.lastname)  for responsable in lstResponsables">
+                <option value="">Seleccionar</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 text-left" style="margin-top:15px;">
+    <button style=""
+        ng-class="'btn btn-primary'"
+        ng-click="ctrl.action()"
+        type="button">Buscar</button>
+</div>
+
+<div style="padding-bottom:15px;">
+    <table class="table" >
+        <tr>
+            <th>Sesión</th>
+            <th>Prueba</th>
+            <th>Aplicación</th>
+        </tr>
+        <tr ng-repeat="row in sesiones">
+            <td>{{row.nombre}}</td>
+            <td>{{row.prueba}}</td>
+            <td>{{row.aplicacion}}</td>
+        </tr>
+    </table>
+</div>

@@ -75,147 +75,147 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 
 
 
-function startProcess() {
-    debugger;
-    var count = 0;
+    function startProcess() {
+
+        var count = 0;
         if ($scope.properties.dataToChange2.clave || $scope.properties.dataToChange2.clave === "") {
-            count= ($scope.properties.dataToChange2.isCuatrimestral ? 1:0)+($scope.properties.dataToChange2.isSemestral?1:0)+($scope.properties.dataToChange2.isAnual?1:0)
-            let inicio = typeof $scope.properties.dataToChange2.fechaInicio === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.fechaInicio.slice(0,10)) + "Z")):angular.copy($scope.properties.dataToChange2.fechaInicio) ;
-            let fin = typeof $scope.properties.dataToChange2.fechaFin === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.fechaFin.slice(0,10)) + "Z")):angular.copy($scope.properties.dataToChange2.fechaFin) ;
+            count = ($scope.properties.dataToChange2.isCuatrimestral ? 1 : 0) + ($scope.properties.dataToChange2.isSemestral ? 1 : 0) + ($scope.properties.dataToChange2.isAnual ? 1 : 0)
+            let inicio = typeof $scope.properties.dataToChange2.fechaInicio === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.fechaInicio.slice(0, 10)) + "Z")) : angular.copy($scope.properties.dataToChange2.fechaInicio);
+            let fin = typeof $scope.properties.dataToChange2.fechaFin === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.fechaFin.slice(0, 10)) + "Z")) : angular.copy($scope.properties.dataToChange2.fechaFin);
             $scope.properties.dataToChange2.fechaInicio = inicio;
             $scope.properties.dataToChange2.fechaFin = fin;
             //$scope.properties.dataToChange2.campus.persistenceId_string=$scope.properties.dataToChange2.campus.persistenceId;
-            if ( $scope.properties.dataToChange2.year && $scope.properties.dataToChange2.codigo  && $scope.properties.dataToChange2.descripcion  && count >= 1 && ( inicio < fin) && $scope.properties.dataToChange2.year && $scope.properties.dataToChange2.codigo && inicio && fin ) {
-                $scope.properties.dataToChange2.clave = angular.copy($scope.properties.dataToChange2.year)+""+angular.copy($scope.properties.dataToChange2.codigo)
-                var tipo = ($scope.properties.dataToChange2.isCuatrimestral ?"ISCUATRIMESTRAL":"" ) +($scope.properties.dataToChange2.isSemestral?"ISSEMESTRAL":"");
+            if ($scope.properties.dataToChange2.year && $scope.properties.dataToChange2.codigo && $scope.properties.dataToChange2.descripcion && count >= 1 && (inicio < fin) && $scope.properties.dataToChange2.year && $scope.properties.dataToChange2.codigo && inicio && fin) {
+                $scope.properties.dataToChange2.clave = angular.copy($scope.properties.dataToChange2.year) + "" + angular.copy($scope.properties.dataToChange2.codigo)
+                var tipo = ($scope.properties.dataToChange2.isCuatrimestral ? "ISCUATRIMESTRAL" : "") + ($scope.properties.dataToChange2.isSemestral ? "ISSEMESTRAL" : "");
                 if ($scope.properties.processId) {
                     var req = {
                         method: 'GET',
                         url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CATPERIODO&idBanner=${$scope.properties.dataToChange2.id}&id=${$scope.properties.dataToChange2.persistenceId}`,
                     };
                     return $http(req).success(function(data, status) {
-                        if(data.data[0]){
+                        if (data.data[0]) {
                             req = {
                                 method: 'GET',
                                 url: `/API/extension/AnahuacRestGet?url=getValidarClavePeriodo&p=0&c=10&clave=${$scope.properties.dataToChange2.clave}&tipo=${tipo}&id=${$scope.properties.dataToChange2.persistenceId}`,
                             };
                             return $http(req).success(function(datos, status) {
-                                if(datos.totalRegistros<1){
-                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                                        doRequest("GET", $scope.properties.url).then(function () {
-                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
-                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
-                                        });
-                                        localStorageService.delete($window.location.href);
-                                    }); 
-                                }else{
-                                     swal("¡Aviso!", "la combinación de año y codigo capturado ya existe, por favor ingrese uno diferente.", "warning");
-                                }
-                            }).error(function(data, status) {})
-                             
-                        }else{
-                            swal("¡Aviso!", "el id capturado ya existe, por favor ingrese uno diferente.", "warning");
-                        }
-                        
-                    }).error(function(data, status) {})
-                } else {
-                    $log.log('Impossible to retrieve the process definition id value from the URL');
-                }
-            } else {
-                if(inicio >= fin){
-                    swal("¡Aviso!", "La fecha de fin captación no puede ser menor o iguarl a la fecha de inicio captación" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.fechaInicio) {
-                    swal("¡Aviso!", "Faltó capturar información en: fecha de inicio captación" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.fechaFin) {
-                    swal("¡Aviso!", "Faltó capturar información en: fecha de fin captación " , "warning");
-                }
-                if(count < 1){
-                    swal("¡Aviso!", "Debe seleccionar uno de los tres: cuatrimestral, semestral, anual" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.codigo) {
-                    swal("¡Aviso!", "Faltó capturar información en: Código" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.year) {
-                    swal("¡Aviso!", "Faltó capturar información en: Año" , "warning");
-                }
-                if (!$scope.properties.dataToChange2.id) {
-                    swal("¡Aviso!", "Faltó capturar información en: Id" , "warning");
-                }
-            }
-
-        } else {
-            count= ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isCuatrimestral ? 1:0)+($scope.properties.dataToChange2.lstCatPeriodoInput[0].isSemestral?1:0)+($scope.properties.dataToChange2.lstCatPeriodoInput[0].isAnual?1:0)
-            let fin = typeof $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) + "Z")):angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) ;
-            $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin = fin;
-            if ( $scope.properties.dataToChange2.lstCatPeriodoInput[0].year && $scope.properties.dataToChange2.lstCatPeriodoInput[0].codigo && $scope.properties.dataToChange2.lstCatPeriodoInput[0].descripcion && count >= 1 &&($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio < $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) && $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio && $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) {
-                if ($scope.properties.processId) {
-                    $scope.properties.dataToChange2.lstCatPeriodoInput[0].clave = angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].year)+""+angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].codigo)
-                    var tipo = ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isCuatrimestral ?"ISCUATRIMESTRAL":"" ) +($scope.properties.dataToChange2.lstCatPeriodoInput[0].isSemestral?"ISSEMESTRAL":"");
-                    var req = {
-                        method: 'GET',
-                        url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CATPERIODO&idBanner=${$scope.properties.dataToChange2.lstCatPeriodoInput[0].id}&id=`,
-                    };
-                    return $http(req).success(function(data, status) {
-                        if(data.data[0]){
-                           req = {
-                                method: 'GET',
-                                url: `/API/extension/AnahuacRestGet?url=getValidarClavePeriodo&p=0&c=10&clave=${$scope.properties.dataToChange2.lstCatPeriodoInput[0].clave}&tipo=${tipo}&id=`,
-                            };
-                            return $http(req).success(function(datos, status) {
-                                if(datos.totalRegistros<1){
-                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function () {
-                                        doRequest("GET", $scope.properties.url).then(function () {
+                                if (datos.totalRegistros < 1) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
                                             $scope.properties.dataToChange = $scope.properties.dataToSet;
                                             $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
                                         });
                                         localStorageService.delete($window.location.href);
                                     });
-                                }else{
+                                } else {
                                     swal("¡Aviso!", "la combinación de año y codigo capturado ya existe, por favor ingrese uno diferente.", "warning");
                                 }
                             }).error(function(data, status) {})
-                        }else {
+
+                        } else {
                             swal("¡Aviso!", "el id capturado ya existe, por favor ingrese uno diferente.", "warning");
                         }
-                        
+
                     }).error(function(data, status) {})
                 } else {
                     $log.log('Impossible to retrieve the process definition id value from the URL');
                 }
             } else {
-                if($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio >= $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin){
-                    swal("¡Aviso!", "La fecha de fin captación no puede ser menor o iguarl a la fecha de inicio captación" , "warning");
+                if (inicio >= fin) {
+                    swal("¡Aviso!", "La fecha de fin captación no puede ser menor o iguarl a la fecha de inicio captación", "warning");
+                }
+                if (!$scope.properties.dataToChange2.fechaInicio) {
+                    swal("¡Aviso!", "Faltó capturar información en: fecha de inicio captación", "warning");
+                }
+                if (!$scope.properties.dataToChange2.fechaFin) {
+                    swal("¡Aviso!", "Faltó capturar información en: fecha de fin captación ", "warning");
+                }
+                if (count < 1) {
+                    swal("¡Aviso!", "Debe seleccionar uno de los tres: cuatrimestral, semestral, anual", "warning");
+                }
+                if (!$scope.properties.dataToChange2.descripcion) {
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
+                }
+                if (!$scope.properties.dataToChange2.codigo) {
+                    swal("¡Aviso!", "Faltó capturar información en: Código", "warning");
+                }
+                if (!$scope.properties.dataToChange2.year) {
+                    swal("¡Aviso!", "Faltó capturar información en: Año", "warning");
+                }
+                if (!$scope.properties.dataToChange2.id) {
+                    swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
+                }
+            }
+
+        } else {
+            count = ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isCuatrimestral ? 1 : 0) + ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isSemestral ? 1 : 0) + ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isAnual ? 1 : 0)
+            let fin = typeof $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin === 'string' ? (new Date(angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) + "Z")) : angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin);
+            $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin = fin;
+            if ($scope.properties.dataToChange2.lstCatPeriodoInput[0].year && $scope.properties.dataToChange2.lstCatPeriodoInput[0].codigo && $scope.properties.dataToChange2.lstCatPeriodoInput[0].descripcion && count >= 1 && ($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio < $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) && $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio && $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) {
+                if ($scope.properties.processId) {
+                    $scope.properties.dataToChange2.lstCatPeriodoInput[0].clave = angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].year) + "" + angular.copy($scope.properties.dataToChange2.lstCatPeriodoInput[0].codigo)
+                    var tipo = ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isCuatrimestral ? "ISCUATRIMESTRAL" : "") + ($scope.properties.dataToChange2.lstCatPeriodoInput[0].isSemestral ? "ISSEMESTRAL" : "");
+                    var req = {
+                        method: 'GET',
+                        url: `/API/extension/AnahuacRestGet?url=getValidarIdBanner&p=0&c=10&tabla=CATPERIODO&idBanner=${$scope.properties.dataToChange2.lstCatPeriodoInput[0].id}&id=`,
+                    };
+                    return $http(req).success(function(data, status) {
+                        if (data.data[0]) {
+                            req = {
+                                method: 'GET',
+                                url: `/API/extension/AnahuacRestGet?url=getValidarClavePeriodo&p=0&c=10&clave=${$scope.properties.dataToChange2.lstCatPeriodoInput[0].clave}&tipo=${tipo}&id=`,
+                            };
+                            return $http(req).success(function(datos, status) {
+                                if (datos.totalRegistros < 1) {
+                                    var prom = doRequest('POST', '../API/bpm/process/' + $scope.properties.processId + '/instantiation', $scope.properties.userId).then(function() {
+                                        doRequest("GET", $scope.properties.url).then(function() {
+                                            $scope.properties.dataToChange = $scope.properties.dataToSet;
+                                            $scope.properties.dataToChange2 = $scope.properties.dataToSet2;
+                                        });
+                                        localStorageService.delete($window.location.href);
+                                    });
+                                } else {
+                                    swal("¡Aviso!", "la combinación de año y codigo capturado ya existe, por favor ingrese uno diferente.", "warning");
+                                }
+                            }).error(function(data, status) {})
+                        } else {
+                            swal("¡Aviso!", "el id capturado ya existe, por favor ingrese uno diferente.", "warning");
+                        }
+
+                    }).error(function(data, status) {})
+                } else {
+                    $log.log('Impossible to retrieve the process definition id value from the URL');
+                }
+            } else {
+                if ($scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio >= $scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) {
+                    swal("¡Aviso!", "La fecha de fin captación no puede ser menor o iguarl a la fecha de inicio captación", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaInicio) {
-                    swal("¡Aviso!", "Faltó capturar información en: fecha de inicio captación" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: fecha de inicio captación", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].fechaFin) {
-                    swal("¡Aviso!", "Faltó capturar información en: fecha de fin captación " , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: fecha de fin captación ", "warning");
                 }
-                if(count < 1){
-                    swal("¡Aviso!", "Debe seleccionar uno de los tres: cuatrimestral, semestral, anual" , "warning");
+                if (count < 1) {
+                    swal("¡Aviso!", "Debe seleccionar uno de los tres: cuatrimestral, semestral, anual", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].descripcion) {
-                    swal("¡Aviso!", "Faltó capturar información en: Descripción" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Descripción", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].codigo) {
-                    swal("¡Aviso!", "Faltó capturar información en: Código" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Código", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].year) {
-                    swal("¡Aviso!", "Faltó capturar información en: Año" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Año", "warning");
                 }
                 if (!$scope.properties.dataToChange2.lstCatPeriodoInput[0].id) {
-                    swal("¡Aviso!", "Faltó capturar información en: Id" , "warning");
+                    swal("¡Aviso!", "Faltó capturar información en: Id", "warning");
                 }
-               
+
             }
         }
-}
+    }
 
 
     /**

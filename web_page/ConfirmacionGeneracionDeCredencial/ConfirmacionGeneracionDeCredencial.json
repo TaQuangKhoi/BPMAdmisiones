@@ -2,7 +2,7 @@
   "designerVersion" : "1.11.52",
   "id" : "ConfirmacionGeneracionDeCredencial",
   "name" : "ConfirmacionGeneracionDeCredencial",
-  "lastUpdate" : 1617148455391,
+  "lastUpdate" : 1632943312950,
   "rows" : [
     [
       {
@@ -435,7 +435,8 @@
                         "type" : "constant"
                       },
                       "alt" : {
-                        "type" : "interpolation"
+                        "type" : "interpolation",
+                        "value" : "No foto"
                       },
                       "userData" : {
                         "type" : "variable",
@@ -507,7 +508,7 @@
                 },
                 "label" : {
                   "type" : "interpolation",
-                  "value" : "Cambiar citas"
+                  "value" : "Cambiar fecha"
                 },
                 "alignment" : {
                   "type" : "constant",
@@ -761,7 +762,15 @@
     "rutaFotoUsuario" : {
       "type" : "expression",
       "value" : [
-        "return $data.usuario[0].foto;"
+        "// return $data.usuario[0].foto;",
+        "",
+        "let url = \"\";",
+        "",
+        "if($data.usuario !==  undefined && $data.azureTempKeyRes !== undefined){",
+        "    url = $data.usuario[0].urlFoto  + $data.azureTempKeyRes.data[0] ",
+        "}",
+        "",
+        "return url;"
       ],
       "exposed" : false
     },
@@ -834,6 +843,13 @@
       "type" : "expression",
       "value" : [
         "return false;"
+      ],
+      "exposed" : false
+    },
+    "azureTempKeyRes" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getTempKeyAzure&p=0&c=10"
       ],
       "exposed" : false
     }

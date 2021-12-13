@@ -29,7 +29,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         var req = {
             method: "POST",
             url: "/API/extension/AnahuacRest?url=reagendarExamen&p=0&c=100",
-            data: angular.copy({ "caseid": $scope.properties.caseId })
+            //data: angular.copy({ "caseid": $scope.properties.caseId })
+            data: angular.copy({ "caseid": $scope.properties.caseId, "isProceso" : false})
         };
         return $http(req)
             .success(function (data, status) {

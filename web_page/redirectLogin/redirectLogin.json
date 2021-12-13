@@ -1,0 +1,141 @@
+{
+  "designerVersion" : "1.11.46",
+  "previousDesignerVersion" : "1.10.54",
+  "id" : "redirectLogin",
+  "name" : "redirectLogin",
+  "lastUpdate" : 1621962206535,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "{{redirectLogin}}"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "ad8f84cd-ce1c-4ba9-95f1-f8fcf44fb5db",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          }
+        },
+        "reference" : "52735ab7-d6c0-4d3c-8931-6d51f14bf1b1",
+        "hasValidationError" : false,
+        "id" : "customBlockUI"
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "a4c92e3a-cd43-4577-a594-6d741d155e58",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "9428b76b-dfbd-4779-bdb4-13cbce065007",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "redirectLogin" : {
+      "type" : "expression",
+      "value" : [
+        "var redireccion = true;",
+        "if(membership.length>0){",
+        "    for (let index = 0; index < membership.length; index++) {",
+        "        const element = membership[index];",
+        "        if(element.name=='ADMINISTRADOR' || element.name=='TI SERUA'){",
+        "            redireccion=false;",
+        "        }",
+        "    }",
+        "    if(redireccion){",
+        "        window.top.location.href=\"/apps/login/admisiones/\";",
+        "    }",
+        "}",
+        "return \"\";"
+      ],
+      "exposed" : false
+    },
+    "unusedId" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "exposed" : false
+    },
+    "membership" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/membership?p=0&c=100&f=user_id%3d{{unusedId.user_id}}&d=role_id&d=group_id"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "45eb15b8-6ddb-4489-a2d3-fe01fee3d5e9",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

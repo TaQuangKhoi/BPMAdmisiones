@@ -26,7 +26,9 @@ import com.anahuac.model.DetalleSolicitud
 import com.anahuac.model.DetalleSolicitudDAO
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
+import com.anahuac.rest.api.Entity.PropertiesEntity
 import com.anahuac.rest.api.Entity.Result
+import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.engine.api.APIClient
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
@@ -697,25 +699,23 @@ class ResultadosAdmisionDAO {
 			assert object instanceof Map;
 			String consulta = "";
 			 
-				 if(object.tipoResultado.equals("Sin resultado")){
-					 consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
-					 where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
-				 }else{
-					  consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
-					 where+=" WHERE INFTEMP.persistenceid IS NOT null";
-					 if(object.tipoResultado.equals("Aceptado")) {
-						where+="  AND (carta='Aceptado') ";
-					 }else if(object.tipoResultado.equals("Rechazada")){
-						where+="  AND (carta='Rechazado') ";
-					 }
-				 }
-			 
-			
-			
+			if(object.tipoResultado.equals("Sin resultado")){
+				consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
+				where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
+			}else{
+				consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
+				where+=" WHERE INFTEMP.persistenceid IS NOT null";
+				if(object.tipoResultado.equals("Aceptado")) {
+					where+="  AND (carta='Aceptado') ";
+				}else if(object.tipoResultado.equals("Rechazada")){
+					where+="  AND (carta='Rechazado') ";
+				}
+			}
+			errorlog=errorlog+" | INICIO";
 			//where+=" WHERE INFTEMP.persistenceid IS NOT null";
 			if(object.campus != null){
 				if(!object.campus.equals("Todos los campus")) {
-					where+=" AND LOWER(campusEstudio.descripcion) = LOWER('" + object.campus + "') ";
+					where+=" AND LOWER(campus.descripcion) = LOWER('" + object.campus + "') ";
 				}
 
 			}
@@ -727,7 +727,7 @@ class ResultadosAdmisionDAO {
 			for(Integer i=0; i<lstGrupo.size(); i++) {
 				String campusMiembro=lstGrupo.get(i);
 				//campus += "universidad='" + campusMiembro + "'"
-				campus += "campusEstudio.descripcion='" + campusMiembro + "'"
+				campus += "campus.descripcion='" + campusMiembro + "'"
 				if(i == (lstGrupo.size() - 1)) {
 					campus += ") "
 				} else {
@@ -738,10 +738,19 @@ class ResultadosAdmisionDAO {
 
 			List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 			closeCon = validarConexion();
+			
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
 			//String consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
 
 			
 			for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+				errorlog=errorlog+" | =======================================================================";
+				errorlog=errorlog+" | COLUMNA FILTRO"+ filtro.get("columna");
 				switch(filtro.get("columna")) {
 					case "IDBANNER":
 						if(where.contains("WHERE")) {
@@ -749,8 +758,9 @@ class ResultadosAdmisionDAO {
 						}else {
 							where+= " WHERE ";
 						}
-						where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') ";
+						where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "NOMBRE,EMAIL,CURP":
 					
@@ -767,6 +777,7 @@ class ResultadosAdmisionDAO {
 						
 						where +=" OR LOWER(SOLAD.curp) like lower('%[valor]%') ) ";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CAMPUS,PROGRAMA,PERÍODO":
 					errorlog="5";
@@ -783,6 +794,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					
 					case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
@@ -799,6 +811,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(SOLAD.PROMEDIOGENERAL) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 
 					case "RESIDENCIA,TIPO DE ADMISIÓN,TIPO DE ALUMNO":
@@ -815,6 +828,7 @@ class ResultadosAdmisionDAO {
 
 						where +=" OR LOWER(TAL.descripcion) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 
 					case "FECHA DE ENVÍO":
@@ -825,61 +839,63 @@ class ResultadosAdmisionDAO {
 						}
 						where +=" ( LOWER(to_char( TO_TIMESTAMP(SOLAD.fechasolicitudenviada, 'YYYY-MM-DDTHH:MI'), 'DD/MM/YYYY') ) like lower('%[valor]%') )";
 						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CIUDAD":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(SOLAD.ciudad) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(SOLAD.ciudad) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PAÍS":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(paisvives.descripcion) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(paisvives.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PROCEDENCIA":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "CAMPUS INGRESO":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					case "PERÍODO":
-					if(where.contains("WHERE")) {
-						where+= " AND ";
-					}else {
-						where+= " WHERE ";
-					}
-					where +=" ( LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
-					where = where.replace("[valor]", filtro.get("valor"));
+						if(where.contains("WHERE")) {
+							where+= " AND ";
+						}else {
+							where+= " WHERE ";
+						}
+						where +=" ( LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+						where = where.replace("[valor]", filtro.get("valor"));
+						errorlog=errorlog+" | WHERE: " + where;
 					break;
 					/*====================================================================*/
 				}
-
-
 			}
-			   
+			errorlog=errorlog+" | FIN FOR======================================";
 			
-			
-	
 			switch(object.orderby) {
 				case "IDBANNER":
 					orderby += "DETSOL.IDBANNER";
@@ -954,22 +970,24 @@ class ResultadosAdmisionDAO {
 			//String countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT;
 			String countQuery = "";
 			
-			  if(object.tipoResultado.equals("Sin resultado")){
-				 countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
-			 }else{
-				 countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT; 
-			 }
+			if(object.tipoResultado.equals("Sin resultado")){
+				countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
+			}else{
+				countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT; 
+			}
 			 
-
-			
 			countQuery = countQuery.replace("[WHERE]", where); 
+			errorlog=errorlog+" | countQuery: " + countQuery;
 			pstm = con.prepareStatement(countQuery); 
-			rs= pstm.executeQuery()
+			rs= pstm.executeQuery();
+			
 			if(rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"));
 			}
+			
 			consulta = consulta.replace("[ORDERBY]", orderby);
-			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?"); 
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			errorlog=errorlog+" | consulta: " + consulta;
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit);
 			pstm.setInt(2, object.offset);
@@ -990,9 +1008,15 @@ class ResultadosAdmisionDAO {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 							String encoded = "";
 							try {
-								for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
-									encoded = "../API/formsDocumentImage?document="+doc.getId();
-									columns.put("fotografiab64", encoded);
+								String urlFoto = rs.getString("urlfoto");
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+									List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+									for(Document doc : doc1) {
+										encoded = "../API/formsDocumentImage?document="+doc.getId();
+										columns.put("fotografiab64", encoded);
+									}
 								}
 							}catch(Exception e) {
 								columns.put("fotografiab64", "");
@@ -1022,8 +1046,6 @@ class ResultadosAdmisionDAO {
 		}
 		return resultado
 	}
-	
-	
 	
 	public Result seleccionarCarta(Integer parameterP, Integer parameterC, String jsonData) {
 		Result resultado = new Result();
@@ -1095,11 +1117,14 @@ class ResultadosAdmisionDAO {
 			while(rs.next()) {
 				String correo = rs.getString("email");
 				String carta = rs.getString("carta");
-				String campusCorreo = "CAMPUS-CANCUN";
+				String campusCorreo = rs.getString("grupobonita");
+				Boolean isMedicina = rs.getBoolean("ismedicina");
 				String codigo = "";
 				
-				if(carta.equals("Aceptado")) {
+				if(carta.equals("Aceptado") && !isMedicina) {
 					codigo = "carta-aceptar";
+				} else if(carta.equals("Aceptado") && isMedicina) {
+					codigo = "carta-propedeutico";
 				} else if (carta.equals("Rechazado")) {
 					codigo = "carta-rechazo";
 				} else {
@@ -1113,6 +1138,8 @@ class ResultadosAdmisionDAO {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					} else if (metaData.getColumnLabel(i).toLowerCase().equals("seleccionado")) {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getBoolean(i));
+					} else if (metaData.getColumnLabel(i).toLowerCase().equals("ismedicina")) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getBoolean(i));
 					} else {
 						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
 					}
@@ -1121,47 +1148,37 @@ class ResultadosAdmisionDAO {
 				LocalDate local = LocalDate.now(); 
 				columns.put("fechaEnvio", local);
 				String jsonCorreo = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigo + '","isEnviar":true}"';
+				//se envia al principio
 				Result resultadoEnvioCarta = nDAO.generateHtml(parameterP, parameterC, jsonCorreo, context);
 				Map<String, Object> contract = new LinkedHashMap<String, Object>();
 				contract.put("isTransferencia", false);
 				contract.put("infoCartaInput", columns);
-				errorlog = columns.get("numerodematricula") +  "||" + contract.toString() +  "||" + context.toString();
 				
 				String correoLog = "";
 				Boolean isError = false;
 				String errorInfo = "";
+				
 				if(resultadoEnvioCarta.isSuccess()) {
 					correoLog += "Se envió la carta.";
-//					Result resultadoEjecucionTarea = ejecutarCargaResultado(columns.get("numerodematricula"), columns, context);
-//					if(resultadoEjecucionTarea.isSuccess()) {
-//						Map<String, Object> correoEnviado = new LinkedHashMap<String, Object>();
-//						correoLog += "Se envió la carta";
-//						correoEnviado.put("correo", correo);
-//						correoEnviado.put("correoLog", correoLog);
-//						correoEnviado.put("error", false);
-//						lstEnviados.add(correoEnviado);
-//					} else {
-//						Map<String, Object> correoError = new LinkedHashMap<String, Object>();
-//						correoError.put("correo", correo);
-//						correoError.put("error", resultadoEjecucionTarea.getError());
-//						correoError.put("errorInfo", "IDBANNER: " + columns.get("numerodematricula"));
-//						lstNoEnviados.add(correo);
-//					}
-					if(!columns.get("pdu").equals("No")) {
-						String codigoPDU = "carta-pdu";
-						String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
-						Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);
-						
-						if(resultadoEnvioPDU.isSuccess()) {
-							correoLog += " Se envió el correo del PDU.";
+					if(!codigo.equals("carta-propedeutico") && !codigo.equals("carta-rechazo")) {
+						if(!columns.get("pdu").equals("No") && carta.equals("Aceptado")) {
+							String codigoPDU = "carta-pdu";
+							String jsonCorreoPDU = '{"campus":"' + campusCorreo + '","correo":"' + correo +  '","codigo":"' + codigoPDU + '","isEnviar":true}"';
+							Result resultadoEnvioPDU = nDAO.generateHtml(parameterP, parameterC, jsonCorreoPDU, context);
+							
+							if(resultadoEnvioPDU.isSuccess()) {
+								correoLog += " Se envió el correo del PDU.";
+							} else {
+								isError = true;
+								errorInfo = resultadoEnvioPDU.getError();
+							}
+							
 						} else {
-							isError = true;
-							errorInfo = resultadoEnvioPDU.getError();
+							correoLog += " No requiere PDU.";
 						}
-					} else {
-						correoLog += " No requiere PDU.";
 					}
 				} else {
+//					throw new Exception(resultadoEnvioCarta.getError());
 					correoLog += "No se pudo enviar la carta";
 					isError = true;
 					errorInfo = resultadoEnvioCarta.getError();
@@ -1200,8 +1217,7 @@ class ResultadosAdmisionDAO {
 			resultado.setSuccess(true);
 			resultado.setError_info(errorlog);
 		} catch (Exception e) {
-			resultado.setError_info(errorlog)
-			//resultado.setError_info(consulta)
+			resultado.setError_info(errorlog);
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		}finally {
@@ -1215,23 +1231,17 @@ class ResultadosAdmisionDAO {
 	public Result ejecutarCargaResultado(String idBanner, Map<String, Serializable> contract, RestAPIContext context) {
 		Result resultado = new Result();
 		List<DetalleSolicitud> lstResultado = new ArrayList<DetalleSolicitud>();
-		
+		Boolean closeCon = false;
 		try {
 			String username = "";
 			String password = "";
-			Properties prop = new Properties();
-			String propFileName = "configuration.properties";
-			InputStream inputStream;
-			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-
-			if (inputStream != null) {
-				prop.load(inputStream);
-			} else {
-				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-			}
-
-			username = prop.getProperty("USERNAME");
-			password = prop.getProperty("PASSWORD");
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
 			
 			org.bonitasoft.engine.api.APIClient apiClient = new APIClient();
 			def objDetalleSolicitudDAO = context.getApiClient().getDAO(DetalleSolicitudDAO.class);
@@ -1240,7 +1250,6 @@ class ResultadosAdmisionDAO {
 			String caseId = detalleSolicitud.get(0).caseId;
 			def startedBy = apiClient.getProcessAPI().getProcessInstance(Integer.parseInt(caseId)).startedBy;
 			Long taskID = apiClient.processAPI.getHumanTaskInstances(Long.valueOf(caseId), "Carga y consulta de resultados", 0, 1).get(0).getId();
-//			apiClient.processAPI.executeUserTask(startedBy, taskID, contract);
 			apiClient.processAPI.assignAndExecuteUserTask(startedBy, taskID, contract);
 			resultado.setSuccess(true);
 		}catch(Exception ex) {
@@ -1248,7 +1257,369 @@ class ResultadosAdmisionDAO {
 			resultado.setSuccess(false)
 			resultado.setError(ex.getMessage())
 		}
-		
 		return resultado;
 	}
+	
+	public Result selectConsultaDeResultadosManual(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+        Result resultado = new Result();
+        Boolean closeCon = false;
+        String where = "", bachillerato = "", campus = "", programa = "", ingreso = "", estado = "", tipoalumno = "", orderby = "ORDER BY ", errorlog = "";
+        List<String> lstGrupo = new ArrayList<String>();
+        List<Map<String, String>> lstGrupoCampus = new ArrayList<Map<String, String>>();
+        Long userLogged = 0L;
+        Long caseId = 0L;
+        Long total = 0L;
+        Map<String, String> objGrupoCampus = new HashMap<String, String>();
+        
+        try {
+            def jsonSlurper = new JsonSlurper();
+            def object = jsonSlurper.parseText(jsonData);
+            def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+            
+            List<CatCampus> lstCatCampus = objCatCampusDAO.find(0, 9999)
+            
+            userLogged = context.getApiSession().getUserId();
+            List<UserMembership> lstUserMembership = context.getApiClient().getIdentityAPI().getUserMemberships(userLogged, 0, 99999, UserMembershipCriterion.GROUP_NAME_ASC)
+            for(UserMembership objUserMembership : lstUserMembership) {
+                for(CatCampus rowGrupo : lstCatCampus) {
+                    if(objUserMembership.getGroupName().equals(rowGrupo.getGrupoBonita())) {
+                        lstGrupo.add(rowGrupo.getDescripcion());
+                        break;
+                    }
+                }
+            }
+            
+            assert object instanceof Map;
+            String consulta = "";
+             
+                 if(object.tipoResultado.equals("Sin resultado")){
+                     consulta =  Statements.GET_INFO_CONSULTA_SIN_RESULTADOS;
+                     where+="WHERE SOLAD.ESTATUSSOLICITUD='Carga y consulta de resultados'";
+                 }else{
+                      consulta = Statements.GET_INFO_CONSULTA_RESULTADOS_MANUAL;
+                     if(object.tipoResultado.equals("AceptadoManual")) {
+                        where+=" WHERE SOLAD.aceptado = true ";
+                     }else if(object.tipoResultado.equals("Rechazada")){
+                        where+="  AND (carta='Rechazado') ";
+                     }
+                 }
+             
+            
+            if(object.campus != null){
+                if(!object.campus.equals("Todos los campus")) {
+                    where+=" AND LOWER(campus.descripcion) = LOWER('" + object.campus + "') ";
+                }
+
+            }
+            
+            if(lstGrupo.size()>0) {
+                campus+=" AND ("
+            }
+            
+            for(Integer i=0; i<lstGrupo.size(); i++) {
+                String campusMiembro=lstGrupo.get(i);
+                //campus += "universidad='" + campusMiembro + "'"
+                campus += "campus.descripcion='" + campusMiembro + "'"
+                if(i == (lstGrupo.size() - 1)) {
+                    campus += ") "
+                } else {
+                    campus += " OR "
+                }
+            }
+            
+
+            List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+            closeCon = validarConexion();
+			String SSA = "";
+			pstm = con.prepareStatement(Statements.CONFIGURACIONESSSA)
+			rs= pstm.executeQuery();
+			if(rs.next()) {
+				SSA = rs.getString("valor")
+			}
+			
+            //String consulta = Statements.GET_INFO_CONSULTA_RESULTADOS;
+
+            
+            for(Map<String, Object> filtro:(List<Map<String, Object>>) object.lstFiltro) {
+                switch(filtro.get("columna")) {
+                    case "IDBANNER":
+                        if(where.contains("WHERE")) {
+                            where+= " AND ";
+                        }else {
+                            where+= " WHERE ";
+                        }
+                        where +=" ( LOWER(DETSOL.IDBANNER) like lower('%[valor]%') )";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "NOMBRE,EMAIL,CURP":
+                    
+                        if(where.contains("WHERE")) {
+                            where += " AND ";
+                        }else {
+                            where += " WHERE ";
+                        }
+                        where +=" ( LOWER(concat(SOLAD.apellidopaterno,' ',SOLAD.apellidomaterno,' ',SOLAD.primernombre,' ', SOLAD.segundonombre)) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                        
+                        where +=" OR LOWER(SOLAD.CORREOELECTRONICO) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                        
+                        where +=" OR LOWER(SOLAD.curp) like lower('%[valor]%') ) ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "CAMPUS,PROGRAMA,PERÍODO":
+                    errorlog="5";
+                        if(where.contains("WHERE")) {
+                            where+= " AND ";
+                        }else {
+                            where+= " WHERE ";
+                        }
+                        where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                        
+                        where +=" OR LOWER(gestionescolar.NOMBRE) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+
+                        where +=" OR LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    
+                    case "PROCEDENCIA,PREPARATORIA,PROMEDIO":
+                        if(where.contains("WHERE")) {
+                            where+= " AND ";
+                        }else {
+                            where+= " WHERE ";
+                        }
+                        where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                        
+                        where +=" OR LOWER(CASE WHEN prepa.DESCRIPCION = 'Otro' THEN SOLAD.bachillerato ELSE prepa.DESCRIPCION END) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+
+                        where +=" OR LOWER(SOLAD.PROMEDIOGENERAL) like lower('%[valor]%') )";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+
+                    case "RESIDENCIA,TIPO DE ADMISIÓN,TIPO DE ALUMNO":
+                        if(where.contains("WHERE")) {
+                            where+= " AND ";
+                        }else {
+                            where+= " WHERE ";
+                        }
+                        where +=" ( LOWER(R.descripcion) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                        
+                        where +=" OR LOWER(TA.descripcion) like lower('%[valor]%') ";
+                        where = where.replace("[valor]", filtro.get("valor"));
+
+                        where +=" OR LOWER(TAL.descripcion) like lower('%[valor]%') )";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+
+                    case "FECHA DE ENVÍO":
+                        if(where.contains("WHERE")) {
+                            where+= " AND ";
+                        }else {
+                            where+= " WHERE ";
+                        }
+                        where +=" ( LOWER(to_char( TO_TIMESTAMP(SOLAD.fechasolicitudenviada, 'YYYY-MM-DDTHH:MI'), 'DD/MM/YYYY') ) like lower('%[valor]%') )";
+                        where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "CIUDAD":
+                    if(where.contains("WHERE")) {
+                        where+= " AND ";
+                    }else {
+                        where+= " WHERE ";
+                    }
+                    where +=" ( LOWER(SOLAD.ciudad) like lower('%[valor]%') )";
+                    where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "PAÍS":
+                    if(where.contains("WHERE")) {
+                        where+= " AND ";
+                    }else {
+                        where+= " WHERE ";
+                    }
+                    where +=" ( LOWER(paisvives.descripcion) like lower('%[valor]%') )";
+                    where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "PROCEDENCIA":
+                    if(where.contains("WHERE")) {
+                        where+= " AND ";
+                    }else {
+                        where+= " WHERE ";
+                    }
+                    where +=" ( LOWER(CASE WHEN prepa.descripcion = 'Otro' THEN SOLAD.estadobachillerato ELSE prepa.estado END) like lower('%[valor]%') )";
+                    where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "CAMPUS INGRESO":
+                    if(where.contains("WHERE")) {
+                        where+= " AND ";
+                    }else {
+                        where+= " WHERE ";
+                    }
+                    where +=" ( LOWER(campusEstudio.descripcion) like lower('%[valor]%') )";
+                    where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    case "PERÍODO":
+                    if(where.contains("WHERE")) {
+                        where+= " AND ";
+                    }else {
+                        where+= " WHERE ";
+                    }
+                    where +=" ( LOWER(periodo.DESCRIPCION) like lower('%[valor]%') )";
+                    where = where.replace("[valor]", filtro.get("valor"));
+                    break;
+                    /*====================================================================*/
+                }
+
+
+            }
+            
+            switch(object.orderby) {
+                case "IDBANNER":
+                    orderby += "DETSOL.IDBANNER";
+                break;
+                case "NOMBRE":
+                orderby+="SOLAD.apellidopaterno";
+                break;
+                case "EMAIL":
+                    orderby += "SOLAD.CORREOELECTRONICO";
+                break;
+                case "CURP":
+                orderby += "SOLAD.curp";
+                break;
+                case "CAMPUS":
+                    orderby += "campusEstudio.descripcion";
+                break;
+                case "PROGRAMA":
+                    orderby += "gestionescolar.NOMBRE";
+                break;
+                case "INGRESO":
+                    orderby += "periodo.DESCRIPCION";
+                break;
+                case "PROCEDENCIA":
+                    orderby += "procedencia";
+                break;
+                case "PREPARATORIA":
+                    orderby += "preparatoria";
+                break;
+                case "PROMEDIO":
+                    orderby += "SOLAD.PROMEDIOGENERAL";
+                break;
+                case "RESIDEICA":
+                orderby += "R.descripcion";
+                break;
+                case "TIPODEADMISION":
+                orderby += "TA.descripcion";
+                break;
+                case "TIPODEALUMNO":
+                orderby += "TAL.descripcion";
+                break;
+                case "RESULTADOADMISION":
+                orderby += "SOLAD.ESTATUSSOLICITUD";
+                break;
+                case "FECHAENVIO":
+                orderby += "fechaSolicitudEnviadaFormato";
+                break;
+                case "NOMBRESESION":
+                orderby += "DETSOL.IDBANNER";
+                break;
+                case "FECHASESION":
+                orderby += "DETSOL.IDBANNERE";
+                break;
+                default:
+                    orderby += "DETSOL.IDBANNER";
+                break;
+            }
+
+            
+            orderby += " " + object.orientation;
+            
+            LOGGER.error "orderby : : " + orderby;
+            
+            consulta = consulta.replace("[CAMPUS]", campus);
+            where += " " + campus + " " + programa + " " + ingreso + " " + estado + " " + bachillerato + " " + tipoalumno;
+
+            consulta = consulta.replace("[WHERE]", where);
+            //String countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT;
+            String countQuery = "";
+            
+            if(object.tipoResultado.equals("Sin resultado")){
+                countQuery = Statements.GET_INFO_CONSULTA_SIN_RESULTADOS_COUNT;
+            }else{
+                countQuery = Statements.GET_INFO_CONSULTA_RESULTADOS_COUNT_MANUAL;
+            }
+             
+            countQuery = countQuery.replace("[WHERE]", where);
+            pstm = con.prepareStatement(countQuery);
+            rs= pstm.executeQuery();
+            
+            if(rs.next()) {
+                resultado.setTotalRegistros(rs.getInt("registros"));
+            }
+            
+            consulta = consulta.replace("[ORDERBY]", orderby);
+            consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+
+            pstm = con.prepareStatement(consulta)
+            pstm.setInt(1, object.limit);
+            pstm.setInt(2, object.offset);
+            rs = pstm.executeQuery()
+            rows = new ArrayList<Map<String, Object>>();
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+			String urlFoto = "";
+			
+            while(rs.next()) {
+                Map<String, Object> columns = new LinkedHashMap<String, Object>();
+				
+                for (int i = 1; i <= columnCount; i++) {
+                    if(metaData.getColumnLabel(i).toLowerCase().equals("persistenceid")) {
+                        columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+                    } else if (metaData.getColumnLabel(i).toLowerCase().equals("seleccionado")) {
+                        columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getBoolean(i));
+                    } else if(metaData.getColumnLabel(i).toLowerCase().equals("urlfoto")) {
+						urlFoto = rs.getString(i);
+						errorlog += " urlFoto " + urlFoto  
+                	}else if(metaData.getColumnLabel(i).toLowerCase().equals("caseid")) {
+                        columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+                            String encoded = "";
+                            try {
+								if(urlFoto != null && !urlFoto.isEmpty()) {
+									columns.put("fotografiab64", rs.getString("urlfoto") +SSA);
+								}else {
+	                                for(Document doc : context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)) {
+	                                    encoded = "../API/formsDocumentImage?document="+doc.getId();
+	                                    columns.put("fotografiab64", encoded);
+	                                }
+								}
+                            }catch(Exception e) {
+                                columns.put("fotografiab64", "");
+                                errorlog+= ""+e.getMessage();
+                            }
+                        } else {
+                        columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+                    }
+                }
+    
+                rows.add(columns);
+            }
+            resultado.setSuccess(true);
+            
+            resultado.setError_info(errorlog);
+            resultado.setData(rows);
+            
+        } catch (Exception e) {
+            resultado.setError_info(errorlog);
+            resultado.setSuccess(false);
+            resultado.setError(e.getMessage());
+            LOGGER.error e.getMessage();
+        }finally {
+            if(closeCon) {
+                new DBConnect().closeObj(con, stm, rs, pstm)
+            }
+        }
+        return resultado
+    }
 }

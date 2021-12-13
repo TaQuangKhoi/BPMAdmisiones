@@ -78,7 +78,7 @@
           <cardinalityExpression xmi:type="expression:Expression" xmi:id="_wckGfCB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Integer" returnTypeFixed="true"/>
           <iteratorExpression xmi:type="expression:Expression" xmi:id="_wckGfSB9EeutYKHMa0KIkQ" name="multiInstanceIterator" content="multiInstanceIterator" type="MULTIINSTANCE_ITERATOR_TYPE" returnType="java.lang.Object" returnTypeFixed="true"/>
           <completionCondition xmi:type="expression:Expression" xmi:id="_wckGfiB9EeutYKHMa0KIkQ" name="" content="" returnType="java.lang.Boolean" returnTypeFixed="true"/>
-          <formMapping xmi:type="process:FormMapping" xmi:id="_wckGfyB9EeutYKHMa0KIkQ">
+          <formMapping xmi:type="process:FormMapping" xmi:id="_wckGfyB9EeutYKHMa0KIkQ" type="NONE">
             <targetForm xmi:type="expression:Expression" xmi:id="_HjAEMCO4Eeuus_kbSTzppw" name="Notificaciones" content="46e89ea6-416f-458f-879b-72726c0b913c" type="FORM_REFERENCE_TYPE" returnTypeFixed="true"/>
           </formMapping>
           <contract xmi:type="process:Contract" xmi:id="_wckGgSB9EeutYKHMa0KIkQ">
@@ -138,12 +138,12 @@
         </defaultValue>
       </data>
       <data xmi:type="process:BusinessObjectData" xmi:id="_xXuU0CO3Eeuus_kbSTzppw" name="lstCatNotificaciones" multiple="true" dataType="_wckGoyB9EeutYKHMa0KIkQ" className="com.anahuac.catalogos.CatNotificaciones">
-        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> catNotificacionesList = new ArrayList&lt;CatNotificaciones>();&#xD;&#xA;&#xD;&#xA;for(Long persistenceId : lstCatNotificacionesInput){&#xD;&#xA;&#x9;if(persistenceId != null){&#xD;&#xA;&#x9;&#x9;CatNotificaciones objCatNotificaciones = catNotificacionesDAO.findByPersistenceId(persistenceId);&#xD;&#xA;&#x9;&#x9;objCatNotificaciones.caseId = processInstanceId;&#xD;&#xA;&#x9;&#x9;catNotificacionesList.add(objCatNotificaciones);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catNotificacionesList;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
-          <referencedElements xmi:type="process:ContractInput" xmi:id="_QAljsHFYEeuFn-MBT6psmw" name="lstCatNotificacionesInput" type="LONG" multiple="true">
-            <mapping xmi:type="process:ContractInputMapping" xmi:id="_QAljsXFYEeuFn-MBT6psmw"/>
+        <defaultValue xmi:type="expression:Expression" xmi:id="_VyogsCbvEeuqIoyirEDk3w" name="init_lstCatNotificaciones()" content="import com.anahuac.catalogos.CatNotificaciones&#xD;&#xA;&#xD;&#xA;List&lt;CatNotificaciones> catNotificacionesList = new ArrayList&lt;CatNotificaciones>();&#xD;&#xA;&#xD;&#xA;for(Long persistenceId : lstCatNotificacionesInput){&#xD;&#xA;&#x9;if(persistenceId != null){&#xD;&#xA;&#x9;&#x9;CatNotificaciones objCatNotificaciones = catNotificacionesDAO.findByPersistenceId(persistenceId);&#xD;&#xA;&#x9;&#x9;objCatNotificaciones.caseId = processInstanceId.toString();&#xD;&#xA;&#x9;&#x9;catNotificacionesList.add(objCatNotificaciones);&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return catNotificacionesList;&#xD;&#xA;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.List">
+          <referencedElements xmi:type="process:ContractInput" xmi:id="_3oN-EB1jEey0C6zuS2SJ1g" name="lstCatNotificacionesInput" type="LONG" multiple="true">
+            <mapping xmi:type="process:ContractInputMapping" xmi:id="_3oN-ER1jEey0C6zuS2SJ1g"/>
           </referencedElements>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljsnFYEeuFn-MBT6psmw" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
-          <referencedElements xmi:type="expression:Expression" xmi:id="_QAljs3FYEeuFn-MBT6psmw" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3oOlIB1jEey0C6zuS2SJ1g" name="processInstanceId" content="processInstanceId" type="TYPE_ENGINE_CONSTANT" returnType="java.lang.Long"/>
+          <referencedElements xmi:type="expression:Expression" xmi:id="_3oOlIR1jEey0C6zuS2SJ1g" name="catNotificacionesDAO" content="catNotificacionesDAO" type="TYPE_BUSINESS_OBJECT_DAO" returnType="com.anahuac.catalogos.CatNotificacionesDAO" returnTypeFixed="true"/>
         </defaultValue>
       </data>
       <formMapping xmi:type="process:FormMapping" xmi:id="_wckGgyB9EeutYKHMa0KIkQ" type="NONE">
@@ -243,6 +243,34 @@
         <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJI20EeuHuIm_wpFQCQ" id="OTHER"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJY20EeuHuIm_wpFQCQ" id="GROOVY_SCRIPT"/>
         <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_R2cWJo20EeuHuIm_wpFQCQ" id="OTHER"/>
+      </configurations>
+      <configurations xmi:type="configuration:Configuration" xmi:id="_QPEuwJ4SEeu8uKnYpW1Dbw" name="integration" version="7.11.1-001" username="Administrador" password="bpm">
+        <actorMappings xmi:type="actormapping:ActorMappingsType" xmi:id="_QPOfwJ4SEeu8uKnYpW1Dbw">
+          <actorMapping xmi:type="actormapping:ActorMapping" xmi:id="_QPOfwZ4SEeu8uKnYpW1Dbw" name="Employee actor">
+            <groups xmi:type="actormapping:Groups" xmi:id="_QPOfwp4SEeu8uKnYpW1Dbw">
+              <group>/CAMPUS-CANCUN</group>
+              <group>/CAMPUS-CORDOBA</group>
+              <group>/CAMPUS-JP2</group>
+              <group>/CAMPUS-JP2G</group>
+              <group>/CAMPUS-MAYAB</group>
+              <group>/CAMPUS-MNORTE</group>
+              <group>/CAMPUS-MSUR</group>
+              <group>/CAMPUS-OAXACA</group>
+              <group>/CAMPUS-PUEBLA</group>
+              <group>/CAMPUS-QUERETARO</group>
+              <group>/CAMPUS-XALAPA</group>
+            </groups>
+            <memberships xmi:type="actormapping:Membership" xmi:id="_QPOfw54SEeu8uKnYpW1Dbw"/>
+            <roles xmi:type="actormapping:Roles" xmi:id="_QPOfxJ4SEeu8uKnYpW1Dbw"/>
+            <users xmi:type="actormapping:Users" xmi:id="_QPOfxZ4SEeu8uKnYpW1Dbw"/>
+          </actorMapping>
+        </actorMappings>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuwZ4SEeu8uKnYpW1Dbw" id="ACTOR_FILTER"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuwp4SEeu8uKnYpW1Dbw" id="CONNECTOR"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuw54SEeu8uKnYpW1Dbw" id="GROOVY_SCRIPT"/>
+        <processDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuxJ4SEeu8uKnYpW1Dbw" id="OTHER"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuxZ4SEeu8uKnYpW1Dbw" id="GROOVY_SCRIPT"/>
+        <applicationDependencies xmi:type="configuration:FragmentContainer" xmi:id="_QPEuxp4SEeu8uKnYpW1Dbw" id="OTHER"/>
       </configurations>
       <contract xmi:type="process:Contract" xmi:id="_wckGiyB9EeutYKHMa0KIkQ">
         <inputs xmi:type="process:ContractInput" xmi:id="_mycFICLbEeuFGp2BUVc6QA" name="imageHeaderDocumentInput" type="FILE" multiple="true" dataReference="imageHeader"/>

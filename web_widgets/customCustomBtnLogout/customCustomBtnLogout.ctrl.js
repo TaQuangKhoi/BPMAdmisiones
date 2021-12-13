@@ -107,7 +107,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         //   redirectIfNeeded();
         // }
         // closeModal($scope.properties.closeOnSuccess);
-        let href = window.location.protocol + "//" + window.location.host + "/apps/login/login";
+        let href = window.location.protocol + "//" + window.location.host + "/apps/login/admisiones";
         window.top.location = href;
       })
       .error(function(data, status) {

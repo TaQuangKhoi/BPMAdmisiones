@@ -10,5 +10,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 Swal.fire("¡Aviso!", "¿Está seguro de validar la Admisión Anáhuac sin revisar la carta?", "warning");
             }
     });
+       
+
 
 }

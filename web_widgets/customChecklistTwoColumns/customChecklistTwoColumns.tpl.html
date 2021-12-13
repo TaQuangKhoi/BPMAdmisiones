@@ -1,0 +1,44 @@
+<div class="row form-group">
+    <div ng-if="!properties.inline" class="checkbox col-xs-6" ng-repeat="choice in properties.availableValues track by $index">
+        <label>
+            <input
+                    type="checkbox"
+                    name="{{ctrl.name}}"
+                    ng-model="ctrl.selectedItems[$index]"
+                    ng-change="ctrl.updateValues()"
+                    ng-disabled="properties.disabled">
+            {{ (ctrl.getLabel(choice) || choice) | uiTranslate }}
+        </label>
+    </div>
+    <!-- <label
+            ng-if="!properties.labelHidden"
+            class="control-label col-xs-{{ !properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 12 }}"
+            ng-bind-html="properties.label | uiTranslate">
+    </label>
+
+    <div ng-if="properties.inline" class="col-xs-{{ 12 - (!properties.labelHidden && properties.labelPosition === 'left' ? properties.labelWidth : 0) }}">
+        <label class="checkbox-inline col-xs-6" ng-repeat="choice in properties.availableValues track by $index">
+            <input
+                    type="checkbox"
+                    name="{{ctrl.name}}"
+                    ng-model="ctrl.selectedItems[$index]"
+                    ng-change="ctrl.updateValues()"
+                    ng-disabled="properties.disabled">
+            {{ (ctrl.getLabel(choice) || choice) | uiTranslate }}
+        </label>
+    </div> -->
+
+    <!--<div class="col-xs-12">-->
+    <!--    <div ng-if="!properties.inline" class="checkbox col-xs-6" ng-repeat="choice in properties.availableValues track by $index">-->
+    <!--        <label>-->
+    <!--            <input-->
+    <!--                    type="checkbox"-->
+    <!--                    name="{{ctrl.name}}"-->
+    <!--                    ng-model="ctrl.selectedItems[$index]"-->
+    <!--                    ng-change="ctrl.updateValues()"-->
+    <!--                    ng-disabled="properties.disabled">-->
+    <!--            {{ (ctrl.getLabel(choice) || choice) | uiTranslate }}-->
+    <!--        </label>-->
+    <!--    </div>-->
+    <!--</div>-->
+</div>

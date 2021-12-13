@@ -5,29 +5,51 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     var vm = this;
 
     this.action = function action() {
-        swal({
-                text: 'Asignar hora. Ejemplo "23:00"',
-                content: "input",
-                buttons: {
-        confirm : {text:'Asignar',className:'sweet-warning'},
-        cancel : 'Cancelar'
-    },
-                confirmButtonColor:"#ff5900" 
-            })
-            .then(name => {
-                if (!name) throw null;
-                alert(name);
-                swal.stopLoading();
-                    swal.close();
-
-            }).catch(err => {
-                if (err) {
-                    swal("Oh noes!", "The AJAX request failed!", "error");
-                } else {
-                    swal.stopLoading();
-                    swal.close();
+        doRequest("GET", "/API/bpm/process?p=0&c=10&o=displayName%20DESC&f=activationState%3dENABLED&f=name=SincronizarBachillerato", null, null, function(respuesta) {
+            var processid = respuesta[0].id;
+            doRequest("GET", "/API/bpm/processParameter?c=5&f=process_id%3D5418862459988991995&o=name+ASC&p=0", null, null, function(respuesta) {
+                var horaInicio = "23:59"
+                for (let index = 0; index < respuesta.length; index++) {
+                    const element = respuesta[index];
+                    if (element.name == 'horaInicio') {
+                        var result = element.value.split(" ");
+                        horaInicio = result[2] + ":" + result[1];
+                    }
                 }
+                swal({
+                        text: 'Asignar hora. Ejemplo "23:00"',
+                        content: "input",
+                        buttons: {
+                            confirm: { text: 'Asignar', className: 'sweet-warning' },
+                            cancel: 'Cancelar'
+                        },
+                        confirmButtonColor: "#ff5900"
+                    })
+                    .then(name => {
+                        if (!name) throw null;
+                        if (!/^([01][0-9]|2[0-3]):([0-5][0-9])$/g.test(name)) throw "Formato incorrecto";
+                        var arr = name.split(":")
+                        var datosAEnviar = { "description": "", "value": "0 " + arr[1] + " " + arr[0] + " 1/1 * ? *", "type": "java.lang.String" }
+                        doRequest("PUT", "/API/bpm/processParameter/" + processid + "/horaInicio", null, datosAEnviar, function(respuesta) {
+                            window.top.location.href = "/apps/administrativo/bachillerato/";
+                        })
+
+                        swal.stopLoading();
+                        swal.close();
+
+                    }).catch(err => {
+                        if (err) {
+                            swal("Error", "¡Favor de asignar hora correcta!", "error");
+                        } else {
+                            swal.stopLoading();
+                            swal.close();
+                        }
+                    });
+                    setTimeout(() => {
+                        document.getElementsByClassName("swal-content__input")[0].value = horaInicio;
+                    }, 300);
             });
+        });
     };
 
     function openModal(modalId) {
@@ -93,31 +115,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
      * It also bind custom data from success|error to a data
      * @return {void}
      */
-    function doRequest(method, url, params) {
+    function doRequest(method, url, params, dataToSend, value) {
         vm.busy = true;
         var req = {
             method: method,
             url: url,
-            data: angular.copy($scope.properties.dataToSend),
+            data: angular.copy(dataToSend),
             params: params
         };
 
         return $http(req)
             .success(function(data, status) {
-                $scope.properties.dataFromSuccess = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromError = undefined;
-                notifyParentFrame({ message: 'success', status: status, dataFromSuccess: data, dataFromError: undefined, responseStatusCode: status });
-                if ($scope.properties.targetUrlOnSuccess || $scope.properties.targetUrlOnSuccess) {
-                    redirectIfNeeded();
-                }
-                closeModal($scope.properties.closeOnSuccess);
+                value(data);
             })
             .error(function(data, status) {
-                $scope.properties.dataFromError = data;
-                $scope.properties.responseStatusCode = status;
-                $scope.properties.dataFromSuccess = undefined;
-                notifyParentFrame({ message: 'error', status: status, dataFromError: data, dataFromSuccess: undefined, responseStatusCode: status });
+                console.error(data)
             })
             .finally(function() {
                 vm.busy = false;

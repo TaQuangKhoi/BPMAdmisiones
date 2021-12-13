@@ -23,17 +23,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             }
         } else if ($scope.properties.action === 'Submit task') {
             console.log("Enviara a guardar");
-            debugger;
-            if($scope.properties.fotopasaportearchivo.length > 0){
+
+            if ($scope.properties.fotopasaportearchivo.length > 0) {
                 var auxData = null;
                 if ($scope.properties.fotopasaportearchivo[0].newValue === undefined) {
                     auxData = $scope.properties.fotopasaportearchivo[0];
                 } else {
                     auxData = angular.copy($scope.properties.fotopasaportearchivo[0].newValue);
                 }
-                auxData.filename = $scope.properties.fotopasaporte === undefined?null:($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
-                auxData.tempPath = $scope.properties.fotopasaporte === undefined?null:($scope.properties.fotopasaporte.tempPath === ''?null:$scope.properties.fotopasaporte.tempPath);
-                auxData.contentType = $scope.properties.fotopasaporte === undefined?null:($scope.properties.fotopasaporte.contentType === ''?null:$scope.properties.fotopasaporte.contentType);
+                auxData.filename = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.filename === '' ? null : $scope.properties.fotopasaporte.filename)
+                auxData.tempPath = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.tempPath === '' ? null : $scope.properties.fotopasaporte.tempPath);
+                auxData.contentType = $scope.properties.fotopasaporte === undefined ? null : ($scope.properties.fotopasaporte.contentType === '' ? null : $scope.properties.fotopasaporte.contentType);
                 if (auxData.id !== undefined) {
                     $scope.properties.fotopasaportearchivo[0] = {
                         "id": angular.copy(auxData.id),
@@ -46,25 +46,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            } else{
-				if($scope.properties.fotopasaporte !== undefined){
-					$scope.properties.fotopasaportearchivo = [];
-					$scope.properties.fotopasaportearchivo.push({
-						"newValue": angular.copy($scope.properties.fotopasaporte)
-					});
-				}
+            } else {
+                if ($scope.properties.fotopasaporte !== undefined) {
+                    $scope.properties.fotopasaportearchivo = [];
+                    $scope.properties.fotopasaportearchivo.push({
+                        "newValue": angular.copy($scope.properties.fotopasaporte)
+                    });
+                }
             }
-            
-            if($scope.properties.actanacimientoarchivo.length > 0){
+
+            if ($scope.properties.actanacimientoarchivo.length > 0) {
                 var auxData = null;
                 if ($scope.properties.actanacimientoarchivo[0].newValue === undefined) {
                     auxData = $scope.properties.actanacimientoarchivo[0];
                 } else {
                     auxData = angular.copy($scope.properties.actanacimientoarchivo[0].newValue);
                 }
-                auxData.filename = $scope.properties.actanacimiento === undefined?null:($scope.properties.actanacimiento.filename === ''?null:$scope.properties.actanacimiento.filename);
-                auxData.tempPath = $scope.properties.actanacimiento === undefined?null:($scope.properties.actanacimiento.tempPath === ''?null:$scope.properties.actanacimiento.tempPath);
-                auxData.contentType = $scope.properties.actanacimiento === undefined?null:($scope.properties.actanacimiento.contentType === ''?null:$scope.properties.actanacimiento.contentType);
+                auxData.filename = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.filename === '' ? null : $scope.properties.actanacimiento.filename);
+                auxData.tempPath = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.tempPath === '' ? null : $scope.properties.actanacimiento.tempPath);
+                auxData.contentType = $scope.properties.actanacimiento === undefined ? null : ($scope.properties.actanacimiento.contentType === '' ? null : $scope.properties.actanacimiento.contentType);
                 if (auxData.id !== undefined) {
                     $scope.properties.actanacimientoarchivo[0] = {
                         "id": angular.copy(auxData.id),
@@ -77,25 +77,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            }else{
-				if($scope.properties.actanacimiento !== undefined){
-					$scope.properties.actanacimientoarchivo = [];
-					$scope.properties.actanacimientoarchivo.push({
-						"newValue": angular.copy($scope.properties.actanacimiento)
-					});
-				}
+            } else {
+                if ($scope.properties.actanacimiento !== undefined) {
+                    $scope.properties.actanacimientoarchivo = [];
+                    $scope.properties.actanacimientoarchivo.push({
+                        "newValue": angular.copy($scope.properties.actanacimiento)
+                    });
+                }
             }
-            
-            if($scope.properties.constanciaarchivo.length > 0){
+
+            if ($scope.properties.constanciaarchivo.length > 0) {
                 var auxData = null;
                 if ($scope.properties.constanciaarchivo[0].newValue === undefined) {
                     auxData = $scope.properties.constanciaarchivo[0];
                 } else {
                     auxData = angular.copy($scope.properties.constanciaarchivo[0].newValue);
                 }
-                auxData.filename = $scope.properties.constancia === undefined?null:($scope.properties.constancia.filename === ''?null:$scope.properties.constancia.filename);
-                auxData.tempPath = $scope.properties.constancia === undefined?null:($scope.properties.constancia.tempPath === ''?null:$scope.properties.constancia.tempPath);
-                auxData.contentType = $scope.properties.constancia === undefined?null:($scope.properties.constancia.contentType === ''?null:$scope.properties.constancia.contentType);
+                auxData.filename = $scope.properties.constancia === undefined ? null : ($scope.properties.constancia.filename === '' ? null : $scope.properties.constancia.filename);
+                auxData.tempPath = $scope.properties.constancia === undefined ? null : ($scope.properties.constancia.tempPath === '' ? null : $scope.properties.constancia.tempPath);
+                auxData.contentType = $scope.properties.constancia === undefined ? null : ($scope.properties.constancia.contentType === '' ? null : $scope.properties.constancia.contentType);
                 if (auxData.id !== undefined) {
                     $scope.properties.constanciaarchivo[0] = {
                         "id": angular.copy(auxData.id),
@@ -108,25 +108,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            }else{
-				if($scope.properties.constancia !== undefined){
-					$scope.properties.constanciaarchivo = [];
-					$scope.properties.constanciaarchivo.push({
-						"newValue": angular.copy($scope.properties.constancia)
-					});
-				}
+            } else {
+                if ($scope.properties.constancia !== undefined) {
+                    $scope.properties.constanciaarchivo = [];
+                    $scope.properties.constanciaarchivo.push({
+                        "newValue": angular.copy($scope.properties.constancia)
+                    });
+                }
             }
-            
-            if($scope.properties.descuentoarchivo.length > 0){
+
+            if ($scope.properties.descuentoarchivo.length > 0) {
                 var auxData = null;
                 if ($scope.properties.descuentoarchivo[0].newValue === undefined) {
                     auxData = $scope.properties.descuentoarchivo[0];
                 } else {
                     auxData = angular.copy($scope.properties.descuentoarchivo[0].newValue);
                 }
-                auxData.filename = $scope.properties.descuento === undefined?null:($scope.properties.descuento.filename === ''?null:$scope.properties.descuento.filename);
-                auxData.tempPath = $scope.properties.descuento === undefined?null:($scope.properties.descuento.tempPath === ''?null:$scope.properties.descuento.tempPath);
-                auxData.contentType = $scope.properties.descuento === undefined?null:($scope.properties.descuento.contentType === ''?null:$scope.properties.descuento.contentType);
+                auxData.filename = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.filename === '' ? null : $scope.properties.descuento.filename);
+                auxData.tempPath = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.tempPath === '' ? null : $scope.properties.descuento.tempPath);
+                auxData.contentType = $scope.properties.descuento === undefined ? null : ($scope.properties.descuento.contentType === '' ? null : $scope.properties.descuento.contentType);
                 if (auxData.id !== undefined) {
                     $scope.properties.descuentoarchivo[0] = {
                         "id": angular.copy(auxData.id),
@@ -139,25 +139,25 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            }else{
-				if($scope.properties.descuento !== undefined && $scope.properties.descuento !=="" && $scope.properties.descuento !== null){
-					$scope.properties.descuentoarchivo = [];
-					$scope.properties.descuentoarchivo.push({
-						"newValue": angular.copy($scope.properties.descuento)
-					});
-				}
+            } else {
+                if ($scope.properties.descuento !== undefined && $scope.properties.descuento !== "" && $scope.properties.descuento !== null) {
+                    $scope.properties.descuentoarchivo = [];
+                    $scope.properties.descuentoarchivo.push({
+                        "newValue": angular.copy($scope.properties.descuento)
+                    });
+                }
             }
-            
-            if($scope.properties.collageBoardarchivo.length > 0){
+
+            if ($scope.properties.collageBoardarchivo.length > 0) {
                 var auxData = null;
                 if ($scope.properties.collageBoardarchivo[0].newValue === undefined) {
                     auxData = $scope.properties.collageBoardarchivo[0];
                 } else {
                     auxData = angular.copy($scope.properties.collageBoardarchivo[0].newValue);
                 }
-                auxData.filename = $scope.properties.collageBoard === undefined?null:($scope.properties.collageBoard.filename === ''?null:$scope.properties.collageBoard.filename);
-                auxData.tempPath = $scope.properties.collageBoard === undefined?null:($scope.properties.collageBoard.tempPath === ''?null:$scope.properties.collageBoard.tempPath);
-                auxData.contentType = $scope.properties.collageBoard === undefined?null:($scope.properties.collageBoard.contentType === ''?null:$scope.properties.collageBoard.contentType);
+                auxData.filename = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.filename === '' ? null : $scope.properties.collageBoard.filename);
+                auxData.tempPath = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.tempPath === '' ? null : $scope.properties.collageBoard.tempPath);
+                auxData.contentType = $scope.properties.collageBoard === undefined ? null : ($scope.properties.collageBoard.contentType === '' ? null : $scope.properties.collageBoard.contentType);
                 if (auxData.id !== undefined) {
                     $scope.properties.collageBoardarchivo[0] = {
                         "id": angular.copy(auxData.id),
@@ -170,34 +170,34 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                         });
                     }
                 }
-            }else{
-				if($scope.properties.collageBoard !== undefined){
-					$scope.properties.collageBoardarchivo = [];
-					$scope.properties.collageBoardarchivo.push({
-						"newValue": angular.copy($scope.properties.collageBoard)
-					});
-				}
+            } else {
+                if ($scope.properties.collageBoard !== undefined) {
+                    $scope.properties.collageBoardarchivo = [];
+                    $scope.properties.collageBoardarchivo.push({
+                        "newValue": angular.copy($scope.properties.collageBoard)
+                    });
+                }
             }
-            
+
             $scope.properties.dataToSend.isEnviarSolicitudCont = false;
-            if($scope.properties.selectedIndex === undefined){
+            if ($scope.properties.selectedIndex === undefined) {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = null;
-            }else{
+            } else {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndex = $scope.properties.selectedIndex;
             }
-            if($scope.properties.selectedIndexPersonal === undefined){
+            if ($scope.properties.selectedIndexPersonal === undefined) {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexPersonal = null;
-            }else{
+            } else {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexPersonal = $scope.properties.selectedIndexPersonal;
             }
-            if($scope.properties.selectedIndexFamiliar === undefined){
+            if ($scope.properties.selectedIndexFamiliar === undefined) {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexFamiliar = null;
-            }else{
+            } else {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexFamiliar = $scope.properties.selectedIndexFamiliar;
             }
-            if($scope.properties.selectedIndexRevision === undefined){
+            if ($scope.properties.selectedIndexRevision === undefined) {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexRevision = null;
-            }else{
+            } else {
                 $scope.properties.dataToSend.catSolicitudDeAdmisionInput.selectedIndexRevision = $scope.properties.selectedIndexRevision;
             }
             console.log($scope.properties.dataToSend);

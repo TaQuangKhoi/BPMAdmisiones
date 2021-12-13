@@ -29,7 +29,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger
+                        
                         $scope.properties.selectedRow = row;
                         row.isEliminado = true
                         $scope.properties.selectedRow["todelete"] = false;
@@ -320,7 +320,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
             .then((value) => {
                 switch (value) {
                     case "Si":
-                        debugger
+                        
                         $scope.properties.selectedRow = row;
                         row.isEliminado = true
                         $scope.properties.selectedRow["todelete"] = false;

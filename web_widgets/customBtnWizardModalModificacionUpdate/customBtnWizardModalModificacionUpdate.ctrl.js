@@ -76,27 +76,26 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     
     $scope.assignTask = function() {
         //$scope.showModal();
-        let url = "../API/bpm/userTask/" + $scope.properties.taskId;
-
-        var req = {
-            method: "PUT",
-            url: url,
-            data: {
-                "assigned_id": $scope.properties.userId
-            }
-        };
-
-        return $http(req).success(function(data, status) {
-                //$scope.executeTask();
-                submitTask();
-            })
-            .error(function(data, status) {
-                $scope.hideModal();
-                swal("¡Error", data.message, "error");
-            })
-            .finally(function() {
-
-            });
+            let url = "../API/bpm/userTask/" + $scope.properties.taskId;
+            var req = {
+                method: "PUT",
+                url: url,
+                data: {
+                    "assigned_id": $scope.properties.userId
+                }
+            };
+    
+            return $http(req).success(function(data, status) {
+                    //$scope.executeTask();
+                    submitTask();
+                })
+                .error(function(data, status) {
+                    $scope.hideModal();
+                    swal("¡Error", data.message, "error");
+                })
+                .finally(function() {
+    
+                });   
     }
 	
 	function submitTask() {
