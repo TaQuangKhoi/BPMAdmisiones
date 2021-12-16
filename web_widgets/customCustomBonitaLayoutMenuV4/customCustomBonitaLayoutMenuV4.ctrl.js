@@ -83,7 +83,7 @@ function WidgetlivingApplicationMenuController($scope, $http, $window, $location
         // so we change it's value to undefined and then delay to the correct value
         $scope.properties.targetUrl = undefined;
         $timeout(function() {
-            $scope.properties.targetUrl = "/portal/resource/app/" + ctrl.applicationToken + "/" + ctrl.pageToken + "/content/" + $window.location.search + searchSeparator() + "app=" + ctrl.applicationToken;
+            $scope.properties.targetUrl = "/bonita/portal/resource/app/" + ctrl.applicationToken + "/" + ctrl.pageToken + "/content/" + $window.location.search + searchSeparator() + "app=" + ctrl.applicationToken;
         }, 0);
     }
 
