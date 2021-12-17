@@ -218,12 +218,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (funcion === 'agregar') {
             var req = {
                 method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
+                url: "/bonita/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].orden + "&id="
             };
         } else {
             var req = {
                 method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
+                url: "/bonita/API/extension/AnahuacRestGet?url=getValidarOrden&p=0&c=10&tabla=CATPAIS&orden=" + $scope.properties.dataToChange2.orden + "&id=" + $scope.properties.dataToChange2.persistenceId
             };
         }
 
@@ -248,12 +248,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         if (funcion === 'agregar') {
             var req = {
                 method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave + "&id="
+                url: "/bonita/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2[$scope.properties.nombreTabla][0].clave + "&id="
             };
         } else {
             var req = {
                 method: 'GET',
-                url: "/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
+                url: "/bonita/API/extension/AnahuacRestGet?url=getValidarClave&p=0&c=10&tabla=CATPAIS&clave=" + $scope.properties.dataToChange2.clave + "&id=" + $scope.properties.dataToChange2.persistenceId
             };
         }
 
