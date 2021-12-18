@@ -52,14 +52,24 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenPrimeraFila, (height / 2) - 83, 'Nombre:');
         doc.text(margenPrimeraFila, (height / 2) - 71, 'ID:');
         doc.text(margenPrimeraFila, (height / 2) - 59, 'Correo electrónico:');
-        doc.text(margenPrimeraFila, (height / 2) - 47, 'Residencia');
-        doc.text(margenPrimeraFila, (height / 2) - 42, 'Periodo de ingreso:');
+        doc.text(margenPrimeraFila, (height / 2) - 49, 'Residencia');
+        doc.text(margenPrimeraFila, (height / 2) - 39, 'Periodo de ingreso:');
 
+        //Respuestas
+        doc.setFont(undefined, 'normal');
+        doc.text($scope.properties.objectSolicitud.primerNombre + " " + $scope.properties.objectSolicitud.segundoNombre + " " + $scope.properties.objectSolicitud.apellidoPaterno + " " + $scope.properties.objectSolicitud.apellidoMaterno, respuestasPrimeraFila, (height / 2) - 76);
+        doc.text($scope.properties.idBanner, respuestasPrimeraFila, (height / 2) - 66);
+        doc.text($scope.properties.objectSolicitud.correoElectronico, respuestasPrimeraFila, (height / 2) - 55);
+        doc.text($scope.properties.catResidencia, respuestasPrimeraFila, (height / 2) - 45);
+        doc.text($scope.properties.objectSolicitud.catPeriodo.descripcion, respuestasPrimeraFila, (height / 2) - 35);
+        
+        
+    
+        //  ----------------------------------------- SEGUNDA SECCIÓN  ----------------------------------------- 
         doc.setDrawColor(115, 66, 34)
         //doc.rect(margenSegundaFila,((height / 2)-84),35,45)
         doc.rect(157.5,((height / 2)-84),35,45)
-    
-        //  ----------------------------------------- SEGUNDA SECCIÓN  ----------------------------------------- 
+
         doc.setFontSize(fontTitle);
         doc.setFont(undefined, 'bold');
         doc.text(margenPrimeraFila, (height / 2) - 12, 'Información familiar');
@@ -69,7 +79,10 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.setFont(undefined, 'bold');
         doc.text(margenPrimeraFila, (height / 2) - 2, '¿Quiénes conforman tu familia?:');
         
-
+        //Respuestas
+        doc.setFont(undefined, 'normal');
+        debugger
+        doc.text($scope.properties.autodescripcionV2.comoEstaConformadaFamilia , respuestasPrimeraFila, (height / 2) + 5);
 
 
         //  ----------------------------------------- TERCERA SECCIÓN  ----------------------------------------- 
@@ -88,187 +101,186 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenSegundaFila, (height / 2) + 70, 'Año fin:');
 
         doc.text(margenPrimeraFila, (height / 2) + 84.5, 'Promedio:');
-        
+        doc.text(margenFilaIntermedia, (height / 2) + 84.5,  '¿Has estudiado en el extranjero?');
 
 
         doc.addPage();
         //  ----------------------------------- NUEVA HOJA Y CUARTA SECCIÓN  ----------------------------------- 
-        doc.setFontSize(fontSubTitle);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 116, 'Información del bachillerato');
-        
-        //Encabezados
-        doc.setFontSize(fontText);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 106, 'Nombre bachillerato:');
-        doc.text(margenFilaIntermedia, (height / 2) - 106, 'País de tu bachillerato:');
-        doc.text(margenSegundaFila, (height / 2) - 106, 'Estado de tu bachillerato:');
-
-        doc.text(margenPrimeraFila, (height / 2) - 94, 'Ciudad de tu bachillerato');
-        doc.text(margenFilaIntermedia, (height / 2) - 94, 'Promedio general:');
-        doc.text(margenSegundaFila, (height / 2) - 94, 'Resultado PAA:');
-
-        
-        //  ----------------------------------------- QUINTA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
-        doc.rect(10, (height / 2) - 84, 190, 130, 'F');
-
-        //$scope.properties.PDFobjTutor.forEach(function(PDFitem, i, objeto) {
-
-
-                doc.setFontSize(fontSubTitle);
-                doc.setFont(undefined, 'bold');
-                doc.text(margenPrimeraFila, (height / 2) - 74, 'Información del tutor');
-
-                doc.setFontSize(fontText);
-                doc.setFont(undefined, 'bold');
-                doc.text(margenPrimeraFila, (height / 2) - 64, 'Título:');
-                doc.text(margenFilaIntermedia, (height / 2) - 64, 'Nombre (s):');
-                doc.text(margenSegundaFila, (height / 2) - 64, 'Apellido (s):');
-
-              
-
-                doc.text(margenPrimeraFila, (height / 2) - 52, 'Parentesco:');
-                doc.text(margenFilaIntermedia, (height / 2) - 52, 'Correo eletrónico:');
-                doc.text(margenSegundaFila, (height / 2) - 52, 'Escolaridad del tutor:');
-
-                doc.text(margenPrimeraFila, (height / 2) - 40, 'Ocupación del tutor:');
-                doc.text(margenFilaIntermedia, (height / 2) - 40, 'Empresa:');
-                doc.text(margenSegundaFila, (height / 2) - 40, 'Universidad Anáhuac:');
-
-               
-
-                doc.setFontSize(fontSubTitle);
-                doc.setFont(undefined, 'bold');
-                doc.text(margenPrimeraFila, (height / 2) - 20, 'Domicilio permanente del tutor');
-
-                //Encabezados
-                doc.setFontSize(fontText);
-                doc.setFont(undefined, 'bold');
-                doc.text(margenPrimeraFila, (height / 2) - 10, 'País:');
-                doc.text(margenFilaIntermedia, (height / 2) - 10, 'Código postal:');
-                doc.text(margenSegundaFila, (height / 2) - 10, 'Estado:');
-
-                doc.text(margenPrimeraFila, (height / 2) + 3.5, 'Ciudad:');
-                doc.text(margenFilaIntermedia, (height / 2) + 2, 'Ciudad/Municipio/');
-                doc.text(margenFilaIntermedia, (height / 2) + 7, 'Delegación/Poblado:');
-                doc.text(margenSegundaFila, (height / 2) + 3.5, 'Colonia:');
-
-                doc.text(margenPrimeraFila, (height / 2) + 19, 'Calle:');
-                doc.text(margenFilaIntermedia, (height / 2) + 19, 'Núm. Exterior:');
-                doc.text(margenSegundaFila, (height / 2) + 19, 'Núm. Interior:');
-                doc.text(margenPrimeraFila, (height / 2) + 31, 'Teléfono:');
-
-                
-
-        //})
-
-        //  ----------------------------------------- SEXTA SECCIÓN  ----------------------------------------- 
-        doc.setFontSize(fontSubTitle);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 55, 'Información del padre');
+        doc.rect(10, (height / 2) - 130, 190, 165, 'F');
 
         //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 65, 'Título:');
-        doc.text(margenFilaIntermedia, (height / 2) + 65, 'Nombre (s):');
-        doc.text(margenSegundaFila, (height / 2) + 65, 'Apellido (s):');
+        doc.text(margenPrimeraFila, (height / 2) - 114, '¿Has estado inscrito en otras universidades?')
+        doc.text(margenPrimeraFila, (height / 2) - 98, '¿Qué área cursas o cursaste en el último año de bachillerato?');
+        
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 85,  '¿En qué materia has obtenido calificaciones más altas?');
+        doc.text(margenPrimeraFila, (height / 2) - 60,  '¿Qué materias te gustan más?');
+        doc.text(margenPrimeraFila, (height / 2) - 35,  '¿En qué materia has obtenido calificaciones más bajas?');
 
-        doc.text(margenPrimeraFila, (height / 2) + 77, 'Correo eletrónico:');
-        doc.text(margenFilaIntermedia, (height / 2) + 77, 'Escolaridad del padre:');
-        doc.text(margenSegundaFila, (height / 2) + 77, 'Universidad Anáhuac:');
+        doc.text(margenPrimeraFila, (height / 2) - 10,  '¿Qué materias te gustan menos?');
+        doc.text(margenPrimeraFila, (height / 2) + 10,  '¿Has presentado exámenes extraordinarios?');
+        doc.text(margenPrimeraFila, (height / 2) + 25 ,  '¿Has reprobado algún año o semestre?');
 
-        doc.text(margenPrimeraFila, (height / 2) + 89, 'Ocupación del padre:');
-        doc.text(margenFilaIntermedia, (height / 2) + 89, 'Empresa:');
 
-       
+        //Respuestas
+        doc.setFont(undefined, 'normal');
+        debugger
+        //doc.text($scope.properties.autodescripcionV2.catInscritoOtraUniversidad.descripcion, respuestasPrimeraFila, (height / 2) - 18);
+       // doc.text($scope.properties.autodescripcionV2.catAreaBachillerato.descripcion, respuestasPrimeraFila, (height / 2) - 90);
+       // doc.text($scope.properties.autodescripcionV2.materiasTeGustan, respuestasPrimeraFila, (height / 2) - 110);
+        
 
+
+
+
+
+        //  ----------------------------------------- QUINTA SECCIÓN  ----------------------------------------- 
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) + 43, 'Información laboral');
+
+        //Encabezados
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) + 50, '¿Has tenido algún trabajo?');
+        doc.text(margenFilaIntermedia, (height / 2) + 50, '¿Actualmente trabajas?');
+        
         //  ----------------------------------- NUEVA HOJA Y SEPTIMA SECCIÓN  ----------------------------------- 
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 116, 'Domicilio permanente del padre');
+        doc.text(margenPrimeraFila, (height / 2) + 65, 'Idiomas');
 
         //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 106, 'País:');
-        doc.text(margenFilaIntermedia, (height / 2) - 106, 'Código postal:');
-        doc.text(margenSegundaFila, (height / 2) - 106, 'Estado:');
-
-        doc.text(margenPrimeraFila, (height / 2) - 90.5, 'Ciudad:');
-        doc.text(margenFilaIntermedia, (height / 2) - 93, 'Ciudad/Municipio/');
-        doc.text(margenFilaIntermedia, (height / 2) - 88, 'Delegación/Poblado:');
-        doc.text(margenSegundaFila, (height / 2) - 90.5, 'Colonia:');
-
-        doc.text(margenPrimeraFila, (height / 2) - 76, 'Calle:');
-        doc.text(margenFilaIntermedia, (height / 2) - 76, 'Núm. Exterior:');
-        doc.text(margenSegundaFila, (height / 2) - 76, 'Núm. Interior:');
-        doc.text(margenPrimeraFila, (height / 2) - 64, 'Teléfono:');
-
+        doc.text(margenPrimeraFila, (height / 2) + 75, 'Adicional a tu lengua materna, ¿hablas o estudias algún otro idioma?');
         
+        doc.addPage();
         //  ----------------------------------------- OCTAVA SECCIÓN  ----------------------------------------- 
-
         doc.setFillColor(228, 212, 200);
-        doc.rect(10, (height / 2) - 51, 190, 120, 'F');
+        doc.rect(10, (height / 2) - 140, 190, 60, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 41, 'Información de la madre');
+        doc.text(margenPrimeraFila, (height / 2) - 130, 'Salud');
 
-        //Encabezados
+       //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 31, 'Título:');
-        doc.text(margenFilaIntermedia, (height / 2) - 31, 'Nombre (s):');
-        doc.text(margenSegundaFila, (height / 2) - 31, 'Apellido (s):');
+        doc.text(margenPrimeraFila, (height / 2) - 120, '¿Te consideras una persona saludable?');
+        doc.text(margenSegundaFila, (height / 2) - 120, '¿Vives en situación de discapacidad?');
+        doc.text(margenPrimeraFila, (height / 2) - 100, '¿Tienes algún problema de salud que necesite atención médica continua?');
 
-        doc.text(margenPrimeraFila, (height / 2) - 19, 'Correo eletrónico:');
-        doc.text(margenFilaIntermedia, (height / 2) - 19, 'Escolaridad del tutor:');
-        doc.text(margenSegundaFila, (height / 2) - 19, 'Universidad Anáhuac:');
-
-        doc.text(margenPrimeraFila, (height / 2) - 7, 'Ocupación del tutor:');
-        doc.text(margenFilaIntermedia, (height / 2) - 7, 'Empresa:');
-
-       
-        doc.setFontSize(fontSubTitle);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 8, 'Domicilio permanente de la madre');
-
-        //Encabezados
-        doc.setFontSize(fontText);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 18, 'País:');
-        doc.text(margenFilaIntermedia, (height / 2) + 18, 'Código postal:');
-        doc.text(margenSegundaFila, (height / 2) + 18, 'Estado:');
-
-        doc.text(margenPrimeraFila, (height / 2) + 31.5, 'Ciudad:');
-        doc.text(margenFilaIntermedia, (height / 2) + 30, 'Ciudad/Municipio/');
-        doc.text(margenFilaIntermedia, (height / 2) + 35, 'Delegación/Poblado:');
-        doc.text(margenSegundaFila, (height / 2) + 31.5, 'Colonia:');
-
-        doc.text(margenPrimeraFila, (height / 2) + 47, 'Calle:');
-        doc.text(margenFilaIntermedia, (height / 2) + 47, 'Núm. Exterior:');
-        doc.text(margenSegundaFila, (height / 2) + 47, 'Núm. Interior:');
-        doc.text(margenPrimeraFila, (height / 2) + 59, 'Teléfono:');
-
-       
+        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Has recibido alguna terapia?');
         
-
         //  ----------------------------------------- NOVENA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 79, 'Contacto(s) en caso de emergencia');
-
+        doc.text(margenPrimeraFila, (height / 2) - 75, 'Entorno familiar');
+        
         //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 89, 'Contacto de emergencia:');
-        doc.text(margenFilaIntermedia, (height / 2) + 89, 'Parentesco:');
-        doc.text(margenSegundaFila, (height / 2) + 89, 'Teléfono de emergencia:');
+        doc.text(margenPrimeraFila, (height / 2) - 70, '¿Cómo describirías a tu familia?');
+        doc.text(margenPrimeraFila, (height / 2) - 50, '¿Si pudieras cambiar algo de tu familia, qué sería?');
+        doc.text(margenPrimeraFila, (height / 2) - 30, '¿Con quién de tu familia tienes una mejor relación?');
+        doc.text(margenPrimeraFila, (height / 2) - 5, 'Cuándo tienes un problema, ¿con quién lo platicas?');
 
-        doc.text(margenPrimeraFila, (height / 2) + 101, 'Celular de emergencia:');
+        //  ----------------------------------------- DECÍMA SECCIÓN  ----------------------------------------- 
+        doc.text(margenPrimeraFila, (height / 2) + 20, '¿Qué características de personalidad admiras de tu padre?');
+        doc.text(margenPrimeraFila, (height / 2) + 40, '¿Qué defectos observas en él?');
+        doc.text(margenPrimeraFila, (height / 2) + 60, '¿Qué características de personalidad admiras de tu madre?');
+        doc.text(margenPrimeraFila, (height / 2) + 80, '¿Qué defectos observas en ella?');
+        doc.text(margenPrimeraFila, (height / 2) + 100, '¿Cómo describirías la relación con tus hermanos?');
+
+        doc.addPage();
+
+        //  ----------------------------------------- ONCEAVA SECCIÓN  ----------------------------------------- 
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, (height / 2) - 140, 190, 90, 'F');
+
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 130, 'Entorno social');
+        
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 120, '¿Practicas algún deporte?');
+        doc.text(margenPrimeraFila, (height / 2) - 110, '¿Te gusta leer?');
+        doc.text(margenPrimeraFila, (height / 2) - 100, '¿Participas o asistes a alguna organización, club o grupo?');
+        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Has sido jefe o directivo de algún grupo o asociación?');
+        doc.text(margenPrimeraFila, (height / 2) - 80, '¿Qué haces en tu tiempo libre?');
+        doc.text(margenPrimeraFila, (height / 2) - 60, '¿Perteneces o has pertenecido a alguna organización?');
+
+        //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 43, 'Valoración personal');
+        
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 37, '¿Cuáles crees que son tus principales cualidades o virtudes?');
+        doc.text(margenPrimeraFila, (height / 2) - 10, '¿Cuál ha sido el mayor problema que has enfrentado?');
+
+        doc.text(margenPrimeraFila, (height / 2) + 20, '¿Ya resolviste ese problema?');
+        doc.text(margenPrimeraFila, (height / 2) + 50, '¿Cómo crees que te describirían tus amigos?');
+        doc.text(margenPrimeraFila, (height / 2) + 70, '¿Si pudieras, qué cambiarías de ti?');
+        doc.text(margenPrimeraFila, (height / 2) + 90, '¿Cuáles crees que son tus principales defectos o puntos débiles?');
+      
+        doc.addPage()
+      //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, (height / 2) - 140, 190, 85, 'F');
+
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 130, '¿Cuáles son tus principales metas a corto plazo?');
+        doc.text(margenPrimeraFila, (height / 2) - 110, '¿Cuáles son tus principales metas a mediano plazo?');
+
+        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Cuáles son tus principales metas a largo plazo?');
+        doc.text(margenPrimeraFila, (height / 2) - 70, 'Describe detalladamente tus características de personalidad:');
+
+      //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 48, 'Religión');
+        
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 40, '¿A qué religión perteneces?');
+
+
+  //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, (height / 2) - 30, 190, 180, 'F');
+        doc.setFontSize(fontSubTitle);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 25, 'Información vocacional');
+
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold');
+        doc.text(margenPrimeraFila, (height / 2) - 20, '¿A cuál de las Universidades de la Red Anáhuac deseas ingresar?');
+        doc.text(margenSegundaFila, (height / 2) - 20, 'Licenciatura que deseas estudiar:');
+
+        doc.setFontSize(fontText);
+        doc.setFont(undefined, 'bold')
+        doc.text(margenPrimeraFila, (height / 2) - 5, '¿Por qué decidiste ingresar a esta carrera?');
+        doc.text(margenPrimeraFila, (height / 2) + 15, '¿Qué expectativas tienes de la carrera?');
+        doc.text(margenPrimeraFila, (height / 2) + 30, '¿Has recibido Orientación Vocacional?');
+        doc.text(margenPrimeraFila, (height / 2) + 50, '¿Qué características y habilidades consideras tener para lograr éxito en la carrera que has elegido?');
+
+        doc.text(margenPrimeraFila, (height / 2) + 70, 'Profesionalmente, ¿Cómo te ves en 6 años?');
+        doc.text(margenPrimeraFila, (height / 2) + 90, '¿Tus padres están de acuerdo con tu elección?');
+        doc.text(margenPrimeraFila, (height / 2) + 110, '¿Por qué tus padres piensan eso?');
+        doc.text(margenPrimeraFila, (height / 2) + 130, '¿Qué o quiénes influyeron en la elección de tu carrera?');
+
+
+
 
 
         doc.save(`CuestionarioSolicitud.pdf`);
