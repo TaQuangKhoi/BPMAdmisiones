@@ -279,10 +279,6 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenPrimeraFila, (height / 2) + 110, '¿Por qué tus padres piensan eso?');
         doc.text(margenPrimeraFila, (height / 2) + 130, '¿Qué o quiénes influyeron en la elección de tu carrera?');
 
-
-
-
-
         doc.save(`CuestionarioSolicitud.pdf`);
     }
 }
