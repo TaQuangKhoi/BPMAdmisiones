@@ -124,7 +124,7 @@ class BannerDAO {
 			//errorLog += " | " + barrerToken;
 			errorLog += " | " + ("================================================");
 
-			//jsonResultado = getConsumePrepa(barrerToken);
+			jsonResultado = getConsumePrepa(barrerToken);
 			
 			//errorLog += " | " + jsonResultado;
 			//CREAR-------------------------------------------------------
