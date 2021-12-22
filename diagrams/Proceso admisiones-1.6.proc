@@ -9451,8 +9451,8 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_gkJTChJ5Eeykc59XoAc5zg" name="fechaPrueba1" content="fechaPrueba1" type="TYPE_VARIABLE" returnType="java.util.Date">
               <referencedElements xmi:type="process:Data" xmi:id="_gkJTCxJ5Eeykc59XoAc5zg" name="fechaPrueba1" dataType="_gkcORBJ5Eeykc59XoAc5zg"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTDBJ5Eeykc59XoAc5zg" name="newScript()" content="Long tsDate = (objPrueba1.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba1.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;return new Date(tsDate);" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
-              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_gkJTDRJ5Eeykc59XoAc5zg" name="objPrueba1" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTDBJ5Eeykc59XoAc5zg" name="newScript()" content="Long tsDate = 0L&#xD;&#xA;try{&#xD;&#xA;    tsDate = (objPrueba1.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba1.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;}catch(Exception e){&#xD;&#xA;    tsDate = 0L&#xD;&#xA;}&#xD;&#xA;return new Date(tsDate);" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
+              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_SckYIGNyEeyV_-1naroJ8Q" name="objPrueba1" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_gkJTDhJ5Eeykc59XoAc5zg" type="ASSIGNMENT"/>
           </operations>
@@ -9460,8 +9460,8 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_gkJTEBJ5Eeykc59XoAc5zg" name="fechaPrueba2" content="fechaPrueba2" type="TYPE_VARIABLE" returnType="java.util.Date">
               <referencedElements xmi:type="process:Data" xmi:id="_gkJTERJ5Eeykc59XoAc5zg" name="fechaPrueba2" dataType="_gkcORBJ5Eeykc59XoAc5zg"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTEhJ5Eeykc59XoAc5zg" name="newScript()" content="Long tsDate = (objPrueba2.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba2.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;return new Date(tsDate);" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
-              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_gkJTExJ5Eeykc59XoAc5zg" name="objPrueba2" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTEhJ5Eeykc59XoAc5zg" name="newScript()" content="Long tsDate = 0L&#xD;&#xA;try{&#xD;&#xA;    tsDate = (objPrueba2.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba2.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;}catch(Exception ex){&#xD;&#xA;    tsDate = 0L&#xD;&#xA;}&#xD;&#xA;return new Date(tsDate);" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
+              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_VzWGsGNyEeyV_-1naroJ8Q" name="objPrueba2" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_gkJTFBJ5Eeykc59XoAc5zg" type="ASSIGNMENT"/>
           </operations>
@@ -9469,8 +9469,8 @@
             <leftOperand xmi:type="expression:Expression" xmi:id="_gkJTFhJ5Eeykc59XoAc5zg" name="fechaPrueba3" content="fechaPrueba3" type="TYPE_VARIABLE" returnType="java.util.Date">
               <referencedElements xmi:type="process:Data" xmi:id="_gkJTFxJ5Eeykc59XoAc5zg" name="fechaPrueba3" dataType="_gkcORBJ5Eeykc59XoAc5zg"/>
             </leftOperand>
-            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTGBJ5Eeykc59XoAc5zg" name="newScript()" content="import java.text.DateFormat&#xD;&#xA;import java.text.SimpleDateFormat&#xD;&#xA;&#xD;&#xA;DateFormat dfSalida= new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);&#xD;&#xA;Date resultado = new Date();&#xD;&#xA;if(objPrueba3.get(&quot;tiempoText&quot;) == null){&#xD;&#xA;&#x9;Long tsDate = (objPrueba3.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba3.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;&#x9;resultado = new Date(tsDate);&#xD;&#xA;}&#xD;&#xA;else{&#xD;&#xA;&#x9;resultado = dfSalida.parse(objPrueba3.get(&quot;tiempoText&quot;));&#xD;&#xA;}&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
-              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_gkJTGRJ5Eeykc59XoAc5zg" name="objPrueba3" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
+            <rightOperand xmi:type="expression:Expression" xmi:id="_gkJTGBJ5Eeykc59XoAc5zg" name="newScript()" content="import java.text.DateFormat&#xD;&#xA;&#xD;&#xA;import java.text.SimpleDateFormat&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;DateFormat dfSalida= new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);&#xD;&#xA;&#xD;&#xA;Date resultado = new Date();&#xD;&#xA;&#xD;&#xA;if(objPrueba3.get(&quot;tiempoText&quot;) == null){&#xD;&#xA;&#xD;&#xA;&#x9;Long tsDate = 0L&#xD;&#xA;    try{&#xD;&#xA;        tsDate = (objPrueba3.get(&quot;tiempo&quot;) == null ? 0L : Long.valueOf(objPrueba3.get(&quot;tiempo&quot;).toString()))&#xD;&#xA;    }catch(Exception ex){&#xD;&#xA;        tsDate = 0L&#xD;&#xA;    }&#xD;&#xA;&#x9;resultado = new Date(tsDate);&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;else{&#xD;&#xA;&#xD;&#xA;&#x9;resultado = dfSalida.parse(objPrueba3.get(&quot;tiempoText&quot;));&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;return resultado;" interpreter="GROOVY" type="TYPE_READ_ONLY_SCRIPT" returnType="java.util.Date">
+              <referencedElements xmi:type="process:JavaObjectData" xmi:id="_YdexsGNyEeyV_-1naroJ8Q" name="objPrueba3" dataType="_gkcOSRJ5Eeykc59XoAc5zg" className="java.util.Map"/>
             </rightOperand>
             <operator xmi:type="expression:Operator" xmi:id="_gkJTGhJ5Eeykc59XoAc5zg" type="ASSIGNMENT"/>
           </operations>
