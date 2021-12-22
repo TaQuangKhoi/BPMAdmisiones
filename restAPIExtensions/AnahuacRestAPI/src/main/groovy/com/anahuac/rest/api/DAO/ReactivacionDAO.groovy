@@ -1275,7 +1275,7 @@ class ReactivacionDAO {
 	            if (rs.getString("istutor").equals("t")) {
 	                for (int i = 1; i <= columnCount; i++) {
 	                	errorlog += " | Itero al tutor: ";
-	                    objResultado.put(objTutor.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
+	                    objResultado.put(objTutor.add(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
 	                    errorlog += " | Termino la iteracion del tutor: ";
 	                }
 	            } else if (rs.getString("parentezcopadrestutor").equals("Padre")) {
@@ -1331,7 +1331,7 @@ class ReactivacionDAO {
 
 	            for (int i = 1; i <= columnCount; i++) {
 	            		errorlog += " | Itero a los numeros de emergencia: ";
-	                    objResultado.put(objEmergencia.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
+	                    objResultado.put(objEmergencia.add(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
 	                    errorlog += " | Termino la iteracion de  los numeros de emergencia: ";
 	            }
 
