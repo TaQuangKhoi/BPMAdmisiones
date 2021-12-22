@@ -17,6 +17,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 if($scope.final.length > 0){
                     isKp($scope.properties.value)
                     $scope.final[0].fechaExamen = formatDate($scope.properties.value.fechaExamen)
+                    $scope.final[0].username = $scope.properties.username;
                     doRequest("POST",$scope.properties.urlPost,$scope.final)
                 }
                 

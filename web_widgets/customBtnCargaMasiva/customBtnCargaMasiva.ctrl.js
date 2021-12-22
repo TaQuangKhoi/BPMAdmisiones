@@ -124,6 +124,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
                 $scope.enviar = false;
             } else {
                 //hacer la conversion segun la tabla y guardar los valores originales para mostrar
+                datos[indice].username = $scope.properties.username;
                 $scope.final = [...$scope.final, datos[indice]]
             }
         })
