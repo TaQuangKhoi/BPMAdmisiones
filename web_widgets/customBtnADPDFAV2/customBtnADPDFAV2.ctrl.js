@@ -60,7 +60,7 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text($scope.properties.objectSolicitud.primerNombre + " " + $scope.properties.objectSolicitud.segundoNombre + " " + $scope.properties.objectSolicitud.apellidoPaterno + " " + $scope.properties.objectSolicitud.apellidoMaterno, respuestasPrimeraFila, (height / 2) - 76);
         doc.text($scope.properties.idBanner, respuestasPrimeraFila, (height / 2) - 66);
         doc.text($scope.properties.objectSolicitud.correoElectronico, respuestasPrimeraFila, (height / 2) - 55);
-        doc.text($scope.properties.catResidencia, respuestasPrimeraFila, (height / 2) - 45);
+        doc.text($scope.properties.catResidencia.descripcion, respuestasPrimeraFila, (height / 2) - 45);
         doc.text($scope.properties.objectSolicitud.catPeriodo.descripcion, respuestasPrimeraFila, (height / 2) - 35);
         
         
@@ -81,7 +81,6 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         
         //Respuestas
         doc.setFont(undefined, 'normal');
-        debugger
         doc.text($scope.properties.autodescripcionV2.comoEstaConformadaFamilia , respuestasPrimeraFila, (height / 2) + 5);
 
 
@@ -101,8 +100,11 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenSegundaFila, (height / 2) + 70, 'Año fin:');
 
         doc.text(margenPrimeraFila, (height / 2) + 84.5, 'Promedio:');
-        doc.text(margenFilaIntermedia, (height / 2) + 84.5,  '¿Has estudiado en el extranjero?');
+        doc.text(margenFilaIntermedia, (height / 2) + 84.5,  '¿Has estudiado en el extranjero?:');
 
+        //Respuestas
+        doc.setFont(undefined, 'normal');
+        doc.text($scope.properties.autodescripcionV2.catEstudiadoExtranjero.descripcion, margenFilaIntermedia, (height / 2) + 89);        
 
         doc.addPage();
         //  ----------------------------------- NUEVA HOJA Y CUARTA SECCIÓN  ----------------------------------- 
@@ -128,14 +130,17 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        debugger
-        //doc.text($scope.properties.autodescripcionV2.catInscritoOtraUniversidad.descripcion, respuestasPrimeraFila, (height / 2) - 18);
-       // doc.text($scope.properties.autodescripcionV2.catAreaBachillerato.descripcion, respuestasPrimeraFila, (height / 2) - 90);
-       // doc.text($scope.properties.autodescripcionV2.materiasTeGustan, respuestasPrimeraFila, (height / 2) - 110);
+        doc.text($scope.properties.autodescripcionV2.catInscritoOtraUniversidad.descripcion, respuestasPrimeraFila, (height / 2) - 108);
+        doc.text($scope.properties.autodescripcionV2.catAreaBachillerato.descripcion, respuestasPrimeraFila, (height / 2) - 93);
+        doc.text($scope.properties.autodescripcionV2.materiasCalifAltas, respuestasPrimeraFila, (height / 2) - 82);
+        doc.text($scope.properties.autodescripcionV2.materiasTeGustan, respuestasPrimeraFila, (height / 2) - 56);
+
+        doc.text($scope.properties.autodescripcionV2.materiasNoTeGustan, respuestasPrimeraFila, (height / 2) - 7);
+        doc.text($scope.properties.autodescripcionV2.materiasCalifBajas, respuestasPrimeraFila, (height / 2) - 32);
+        doc.text($scope.properties.autodescripcionV2.catHasPresentadoExamenExtraordinario.descripcion, respuestasPrimeraFila, (height / 2) + 14);
+        doc.text($scope.properties.autodescripcionV2.catHasReprobado.descripcion, respuestasPrimeraFila, (height / 2) + 30);
+
         
-
-
-
 
 
         //  ----------------------------------------- QUINTA SECCIÓN  ----------------------------------------- 
@@ -148,22 +153,40 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.setFont(undefined, 'bold');
         doc.text(margenPrimeraFila, (height / 2) + 50, '¿Has tenido algún trabajo?');
         doc.text(margenFilaIntermedia, (height / 2) + 50, '¿Actualmente trabajas?');
+        doc.text(margenPrimeraFila, (height / 2) + 65, 'Nombre de la organización o empresa donde trabajaste:');
+        doc.text(margenPrimeraFila, (height / 2) + 75, 'Nombre de la organización o empresa donde trabajas actualmente:');
+        doc.text(margenPrimeraFila, (height / 2) + 85, '¿Sientes que tu experiencia de trabajo te ayudó a elegir tu carrera?:');
+        
+        //Respuestas
+        doc.setFont(undefined, 'normal');
+        doc.text($scope.properties.autodescripcionV2.catHasTenidoTrabajo.descripcion, respuestasPrimeraFila, (height / 2) + 56);
+        doc.text($scope.properties.autodescripcionV2.catActualnenteTrabajas.descripcion, margenFilaIntermedia, (height / 2) + 56);
+        debugger
+        if($scope.properties.autodescripcionV2.catExperienciaAyudaCarrera == null){
+        doc.text("N/A", margenPrimeraFila, (height / 2) + 70);            
+        }else{
+        doc.text(($scope.properties.autodescripcionV2.catExperienciaAyudaCarrera.descripcion == null ? "N/A" : $scope.properties.autodescripcionV2.catExperienciaAyudaCarrera.descripcion), margenPrimeraFila, (height / 2) + 70);            
+        }
+        doc.text(($scope.properties.autodescripcionV2.empresaTrabajas == null || $scope.properties.autodescripcionV2.empresaTrabajas == "" ? "N/A" :$scope.properties.autodescripcionV2.empresaTrabajas), margenPrimeraFila, (height / 2) + 80);
+        doc.text(($scope.properties.autodescripcionV2.empresaTrabajaste == null || $scope.properties.autodescripcionV2.empresaTrabajaste == "" ? "N/A" :$scope.properties.autodescripcionV2.empresaTrabajaste), margenPrimeraFila, (height / 2) + 91);
         
         //  ----------------------------------- NUEVA HOJA Y SEPTIMA SECCIÓN  ----------------------------------- 
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 65, 'Idiomas');
+        doc.text(margenPrimeraFila, (height / 2) + 100, 'Idiomas');
 
         //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) + 75, 'Adicional a tu lengua materna, ¿hablas o estudias algún otro idioma?');
+        doc.text(margenPrimeraFila, (height / 2) + 105, 'Adicional a tu lengua materna, ¿hablas o estudias algún otro idioma?');
+        doc.text(margenPrimeraFila, (height / 2) + 110, 'Idiomas');
+        doc.text(margenFilaIntermedia, (height / 2) + 110, 'Nivel');
         
         doc.addPage();
         //  ----------------------------------------- OCTAVA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
-        doc.rect(10, (height / 2) - 140, 190, 60, 'F');
+        doc.rect(10, (height / 2) - 140, 190, 80, 'F');
 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
@@ -172,12 +195,26 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
        //Encabezados
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 120, '¿Te consideras una persona saludable?');
-        doc.text(margenSegundaFila, (height / 2) - 120, '¿Vives en situación de discapacidad?');
-        doc.text(margenPrimeraFila, (height / 2) - 100, '¿Tienes algún problema de salud que necesite atención médica continua?');
-
-        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Has recibido alguna terapia?');
+        doc.text(margenPrimeraFila, (height / 2) - 120, '¿Te consideras una persona saludable?:');
+        doc.text(margenSegundaFila, (height / 2) - 120, '¿Vives en situación de discapacidad?:');
+        doc.text(margenPrimeraFila, (height / 2) - 110, '¿Tienes algún problema de salud que necesite atención médica continua?:');
+        doc.text(margenPrimeraFila, (height / 2) - 100, 'Describe brevemente:');
+        doc.text(margenPrimeraFila, (height / 2) - 80, '¿Has recibido alguna terapia?:');
         
+        //Respuestas
+       // doc.setFont(undefined, 'normal');
+       // doc.text($scope.properties.autodescripcionV2.catPersonaSaludable.descripcion, respuestasPrimeraFila, (height / 2) - 116);
+        //doc.text($scope.properties.autodescripcionV2.catVivesEstadoDiscapacidad.descripcion, margenSegundaFila, (height / 2) - 116);
+
+        //doc.text($scope.properties.autodescripcionV2.catProblemasSaludAtencion.descripcion, respuestasPrimeraFila, (height / 2) - 95);
+        //doc.text($scope.properties.autodescripcionV2.catVivesEstadoDiscapacidad.descripcion, margenSegundaFila, (height / 2) - 116);
+
+
+
+
+
+
+
         //  ----------------------------------------- NOVENA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
@@ -245,15 +282,27 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenPrimeraFila, (height / 2) - 90, '¿Cuáles son tus principales metas a largo plazo?');
         doc.text(margenPrimeraFila, (height / 2) - 70, 'Describe detalladamente tus características de personalidad:');
 
+        doc.addPage()
+
       //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 48, 'Religión');
+        doc.text(margenPrimeraFila, (height / 2) - 140, 'Religión');
         
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 40, '¿A qué religión perteneces?');
+        doc.text(margenPrimeraFila, (height / 2) - 133, '¿A qué religión perteneces?:');
+        doc.text(margenFilaIntermedia, (height / 2) - 133, '¿Practicas tu religión?:');
+        doc.text(margenPrimeraFila, (height / 2) - 75, '¿Existe algún aspecto de tu religión que no te guste?:');
+        doc.text(margenSegundaFila, (height / 2) - 133, '¿Qué aspectos no te gustan de tu religión?:');
+        doc.text(margenPrimeraFila, (height / 2) - 60, '¿Por qué no te gustan estos aspectos de tu religión?:');
 
+    
+
+    //Respuestas
+       doc.setFont(undefined, 'normal');
+       doc.text($scope.properties.autodescripcionV2.catPersonaSaludable.descripcion, respuestasPrimeraFila, (height / 2) - 116);
+       doc.text($scope.properties.autodescripcionV2.catVivesEstadoDiscapacidad.descripcion, margenSegundaFila, (height / 2) - 116);
 
   //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
@@ -278,6 +327,8 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         doc.text(margenPrimeraFila, (height / 2) + 90, '¿Tus padres están de acuerdo con tu elección?');
         doc.text(margenPrimeraFila, (height / 2) + 110, '¿Por qué tus padres piensan eso?');
         doc.text(margenPrimeraFila, (height / 2) + 130, '¿Qué o quiénes influyeron en la elección de tu carrera?');
+
+
 
         doc.save(`CuestionarioSolicitud.pdf`);
     }
