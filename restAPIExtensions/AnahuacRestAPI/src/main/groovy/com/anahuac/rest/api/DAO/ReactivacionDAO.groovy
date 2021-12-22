@@ -1201,6 +1201,159 @@ class ReactivacionDAO {
 		}
 		return resultado
 	}
+
+		public Result getInformacionReporteSolicitudRespaldo(String jsonData) {
+	    Result resultado = new Result();
+	    Boolean closeCon = false;
+
+	    String errorlog = "";
+	    List < Map < String, Object >> lstResultado = new ArrayList < Map < String, Object >> ();
+	    Map < String, Object > objResultado = new HashMap < String, Object > ();
+	    List < Map < String, Object >> objTutor = new ArrayList < Map < String, Object >> ();
+	    List < Map < String, Object >> objEmergencia = new ArrayList < Map < String, Object >> ();
+
+	    try {
+	        def jsonSlurper = new JsonSlurper();
+	        def object = jsonSlurper.parseText(jsonData);
+	        closeCon = validarConexion();
+
+	        ResultSetMetaData metaData = rs.getMetaData();
+	        int columnCount = metaData.getColumnCount();
+
+	        errorlog += " | consulta: " + Statements.GET_INFORMACION_REPORTE_SOLICITUD_RESPALDO;
+
+	        pstm = con.prepareStatement(Statements.GET_INFORMACION_REPORTE_SOLICITUD_RESPALDO);
+	        pstm.setString(1, object.caseid);
+	        rs = pstm.executeQuery();
+
+	        errorlog += " | pstm: " + pstm;
+
+	        while (rs.next()) {
+	            objResultado = new HashMap < String, Object > ();
+	            objTutor = new HashMap < String, Object > ();
+	            objEmergencia = new HashMap < String, Object > ();
+	            
+	            objResultado.put("campuscursar1", rs.getString("campuscursar1"));
+	            objResultado.put("periodo", rs.getString("periodo"));
+	            objResultado.put("presentasteenotrocampus", rs.getString("presentasteenotrocampus"));
+	            objResultado.put("lugarexamen", rs.getString("lugarexamen"));
+	            objResultado.put("caseid", rs.getString("caseid"));
+	            objResultado.put("primernombre", rs.getString("primernombre"));
+	            objResultado.put("segundonombre", rs.getString("segundonombre"));
+	            objResultado.put("apellidopaterno", rs.getString("apellidopaterno"));
+	            objResultado.put("apellidomaterno", rs.getString("apellidomaterno"));
+	            objResultado.put("correoelectronico", rs.getString("correoelectronico"));
+	            objResultado.put("fechanacimiento", rs.getString("fechanacimiento"));
+	            objResultado.put("sexo", rs.getString("sexo"));
+	            objResultado.put("nacionalidad", rs.getString("nacionalidad"));
+	            objResultado.put("religion", rs.getString("religion"));
+	            objResultado.put("curp", rs.getString("curp"));
+	            objResultado.put("estadocivil", rs.getString("estadocivil"));
+	            objResultado.put("telefonocelular", rs.getString("telefonocelular"));
+	            objResultado.put("pais", rs.getString("pais"));
+	            objResultado.put("codigopostal", rs.getString("codigopostal"));
+	            objResultado.put("estado", rs.getString("estado"));
+	            objResultado.put("ciudad", rs.getString("ciudad"));
+	            objResultado.put("delegacionmunicipio", rs.getString("delegacionmunicipio"));
+	            objResultado.put("colonia", rs.getString("colonia"));
+	            objResultado.put("calle", rs.getString("calle"));
+	            objResultado.put("calle2", rs.getString("calle2"));
+	            objResultado.put("numexterior", rs.getString("numexterior"));
+	            objResultado.put("numinterior", rs.getString("numinterior"));
+	            objResultado.put("telefono", rs.getString("telefono"));
+	            objResultado.put("otrotelefonocontacto", rs.getString("otrotelefonocontacto"));
+	            objResultado.put("nombrebachillerato", rs.getString("nombrebachillerato"));
+	            objResultado.put("paisbachillerato", rs.getString("paisbachillerato"));
+	            objResultado.put("estadobachillerato", rs.getString("estadobachillerato"));
+	            objResultado.put("ciudadbachillerato", rs.getString("ciudadbachillerato"));
+	            objResultado.put("promediogeneral", rs.getString("promediogeneral"));
+	            objResultado.put("resultadopaa", rs.getString("resultadopaa"));
+	            objResultado.put("bachillerato", rs.getString("bachillerato"));
+
+	            errorlog += " | Se termino la informacion del alumno: ";
+
+	            if (rs.getString("istutor").equals("t")) {
+	                for (int i = 1; i <= columnCount; i++) {
+	                	errorlog += " | Itero al tutor: ";
+	                    objResultado.put(objTutor.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
+	                    errorlog += " | Termino la iteracion del tutor: ";
+	                }
+	            } else if (rs.getString("parentezcopadrestutor").equals("Padre")) {
+	            	errorlog += " | Itero al padre: ";
+	            	objResultado.put("vive", rs.getString("vive"));
+		            objResultado.put("desconozcodatoPadre", rs.getString("desconozcodatoPadre"));
+		            objResultado.put("trabajaPadre", rs.getString("trabajaPadre"));
+		            objResultado.put("tituloPadre", rs.getString("tituloPadre"));
+		            objResultado.put("nombrePadre", rs.getString("nombrePadre"));
+		            objResultado.put("apellidoPadre", rs.getString("apellidoPadre"));
+		            objResultado.put("correoPadre", rs.getString("correoPadre"));
+		            objResultado.put("escolaridadPadre", rs.getString("escolaridadPadre"));
+		            objResultado.put("ocupacionPadre", rs.getString("ocupacionPadre"));
+		            objResultado.put("empresatrabajaPadre", rs.getString("empresatrabajaPadre"));
+		            objResultado.put("egresouniversidadanahuacPadre", rs.getString("egresouniversidadanahuacPadre"));
+		            objResultado.put("paisPadre", rs.getString("paisPadre"));
+		            objResultado.put("codigopostalPadre", rs.getString("codigopostalPadre"));
+		            objResultado.put("estadoPadre", rs.getString("estadoPadre"));
+		            objResultado.put("ciudadPadre", rs.getString("ciudadPadre"));
+		            objResultado.put("delegacionPadre", rs.getString("delegacionPadre"));
+		            objResultado.put("coloniaPadre", rs.getString("coloniaPadre"));
+		            objResultado.put("callePadre", rs.getString("callePadre"));
+		            objResultado.put("numexteriorPadre", rs.getString("numexteriorPadre"));
+		            objResultado.put("numinteriorPadre", rs.getString("numinteriorPadre"));
+		            objResultado.put("telefonoPadre", rs.getString("telefonoPadre"));
+		            errorlog += " | Termino la iteracion del padre: ";
+
+	            } else if (rs.getString("parentezcopadrestutor").equals("Madre")) {
+	            	errorlog += " | Itero a la madre: ";
+					objResultado.put("vive", rs.getString("vive"));
+		            objResultado.put("desconozcodatoMadre", rs.getString("desconozcodatoMadre"));
+		            objResultado.put("trabajaMadre", rs.getString("trabajaMadre"));
+		            objResultado.put("tituloMadre", rs.getString("tituloMadre"));
+		            objResultado.put("nombreMadre", rs.getString("nombreMadre"));
+		            objResultado.put("apellidoMadre", rs.getString("apellidoMadre"));
+		            objResultado.put("correoMadre", rs.getString("correoMadre"));
+		            objResultado.put("escolaridadMadre", rs.getString("escolaridadMadre"));
+		            objResultado.put("ocupacionMadre", rs.getString("ocupacionMadre"));
+		            objResultado.put("empresatrabajaMadre", rs.getString("empresatrabajaMadre"));
+		            objResultado.put("egresouniversidadanahuacMadre", rs.getString("egresouniversidadanahuacMadre"));
+		            objResultado.put("paisMadre", rs.getString("paisMadre"));
+		            objResultado.put("codigopostalMadre", rs.getString("codigopostalMadre"));
+		            objResultado.put("estadoMadre", rs.getString("estadoMadre"));
+		            objResultado.put("ciudadMadre", rs.getString("ciudadMadre"));
+		            objResultado.put("delegacionMadre", rs.getString("delegacionMadre"));
+		            objResultado.put("coloniaMadre", rs.getString("coloniaMadre"));
+		            objResultado.put("calleMadre", rs.getString("calleMadre"));
+		            objResultado.put("numexteriorMadre", rs.getString("numexteriorMadre"));
+		            objResultado.put("numinteriorMadre", rs.getString("numinteriorMadre"));
+		            objResultado.put("telefonoMadre", rs.getString("telefonoMadre"));
+		            errorlog += " | Termino la iteracion de la madre: ";
+	            }
+
+	            for (int i = 1; i <= columnCount; i++) {
+	            		errorlog += " | Itero a los numeros de emergencia: ";
+	                    objResultado.put(objEmergencia.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i)));
+	                    errorlog += " | Termino la iteracion de  los numeros de emergencia: ";
+	            }
+
+	            lstResultado.add(objResultado);
+	        }
+
+	        resultado.setError_info(errorlog);
+	        resultado.setSuccess(true);
+	        resultado.setData(lstResultado);
+	    } catch (Exception e) {
+	    	errorlog += " | Exception: "+e;
+	        resultado.setSuccess(false);
+	        resultado.setError(e.getMessage());
+	        resultado.setError_info(errorlog)
+	    } finally {
+	        if (closeCon) {
+	            new DBConnect().closeObj(con, stm, rs, pstm)
+	        }
+	    }
+	    return resultado
+	}
+	
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
