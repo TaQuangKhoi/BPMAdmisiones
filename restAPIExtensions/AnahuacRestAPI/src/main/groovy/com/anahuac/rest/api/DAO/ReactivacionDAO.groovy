@@ -817,7 +817,7 @@ class ReactivacionDAO {
 
 			assert object instanceof Map;
 			//(sda.ESTATUSSOLICITUD != 'Solicitud vencida') AND (sda.ESTATUSSOLICITUD != 'Periodo vencido') AND (sda.ESTATUSSOLICITUD != 'Solicitud caduca') AND (sda.ESTATUSSOLICITUD not like '%Solicitud vencida en:%') AND (sda.ESTATUSSOLICITUD not like '%Período vencido en:%')
-			where += " WHERE sda.iseliminado IS NOT TRUE and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) "
+			where += " WHERE sda.iseliminado IS NOT TRUE and (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = 'false' ) "
 			
 			if (lstGrupo.size() > 0) {
 				campus += " AND ("
@@ -1202,7 +1202,7 @@ class ReactivacionDAO {
 		return resultado
 	}
 
-		public Result getInformacionReporteSolicitudRespaldo(String jsonData) {
+		public Result getInformacionReporteSolicitudRespaldo(String caseid, RestAPIContext context) {
 	    Result resultado = new Result();
 	    Boolean closeCon = false;
 
@@ -1213,26 +1213,25 @@ class ReactivacionDAO {
 	    List < Map < String, Object >> objEmergencia = new ArrayList < Map < String, Object >> ();
 
 	    try {
-	        def jsonSlurper = new JsonSlurper();
-	        def object = jsonSlurper.parseText(jsonData);
 	        closeCon = validarConexion();
-
-	        ResultSetMetaData metaData = rs.getMetaData();
-	        int columnCount = metaData.getColumnCount();
 
 	        errorlog += " | consulta: " + Statements.GET_INFORMACION_REPORTE_SOLICITUD_RESPALDO;
 
 	        pstm = con.prepareStatement(Statements.GET_INFORMACION_REPORTE_SOLICITUD_RESPALDO);
-	        pstm.setString(1, object.caseid);
+	        pstm.setInt(1, parseInt(caseid));
+	        errorlog += " | consulta setString: " + pstm;
 	        rs = pstm.executeQuery();
 
+	        ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
 	        errorlog += " | pstm: " + pstm;
 
 	        while (rs.next()) {
 	            objResultado = new HashMap < String, Object > ();
 	            objTutor = new HashMap < String, Object > ();
 	            objEmergencia = new HashMap < String, Object > ();
-	            
+	            errorlog += " | Comienza la iteracion principal";
+
 	            objResultado.put("campuscursar1", rs.getString("campuscursar1"));
 	            objResultado.put("periodo", rs.getString("periodo"));
 	            objResultado.put("presentasteenotrocampus", rs.getString("presentasteenotrocampus"));

@@ -1903,7 +1903,8 @@ class Index implements RestApiController {
 					break;
 
 				case "getInformacionReporteSolicitudRespaldo":
-					result = reDAO.getInformacionReporteSolicitudRespaldo(jsonData, context)
+					String caseid = request.getParameter "caseid";
+					result = reDAO.getInformacionReporteSolicitudRespaldo(caseid, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

@@ -1,5 +1,4 @@
 function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
-
     this.isArray = Array.isArray;
 
     this.isClickable = function() {
@@ -528,16 +527,10 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
             method: "GET",
             url: "../API/bdm/businessData/com.anahuac.catalogos.CatCampus?q=find&p=0&c=100"
         };
-
+        debugger
         return $http(req)
             .success(function(data, status) {
-                $scope.lstCampus = [];
-                for (var index in data) {
-                    $scope.lstCampus.push({
-                        "descripcion": data[index].descripcion,
-                        "valor": data[index].grupoBonita
-                    })
-                }
+                $scope.lstDatosAlumno = data;
             })
             .error(function(data, status) {
                 console.error(data);
@@ -588,8 +581,27 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
     }
     
     /*              GENERACIÓN PDF              */
+    $scope.getReporteSolicitudAdmisionRespaldo = function(row) {
+        debugger
+        var req = {
+            method: "POST",
+            url: "../API/extension/AnahuacRest?url=getInformacionReporteSolicitudRespaldo&p=0&c=10&caseid="+row.caseid
+        };
+
+        return $http(req)
+            .success(function(data, status) {
+                $scope.lstInReporteAdmision = [];
+                $scope.lstInReporteAdmision = data;
+                $scope.generatePDF(row);
+            })
+            .error(function(data, status) {
+                console.error(data);
+            });
+    }
+
     
-    $scope.generatePDF = function() {
+    $scope.generatePDF = function(row) {
+        debugger
         var doc = new jspdf.jsPDF('p', 'mm', 'a4');
         var width = doc.internal.pageSize.getWidth();
         var height = doc.internal.pageSize.getHeight();
@@ -1120,5 +1132,4 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService) {
 
         doc.save(`CuestionarioSolicitud.pdf`);
     }
-
 }
