@@ -57,11 +57,11 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
 
         //Respuestas
         doc.setFont(undefined, 'normal');
-        doc.text($scope.properties.objectSolicitud.primerNombre + " " + $scope.properties.objectSolicitud.segundoNombre + " " + $scope.properties.objectSolicitud.apellidoPaterno + " " + $scope.properties.objectSolicitud.apellidoMaterno, respuestasPrimeraFila, (height / 2) - 76);
-        doc.text($scope.properties.idBanner, respuestasPrimeraFila, (height / 2) - 66);
-        doc.text($scope.properties.objectSolicitud.correoElectronico, respuestasPrimeraFila, (height / 2) - 55);
-        doc.text($scope.properties.catResidencia.descripcion, respuestasPrimeraFila, (height / 2) - 45);
-        doc.text($scope.properties.objectSolicitud.catPeriodo.descripcion, respuestasPrimeraFila, (height / 2) - 35);
+       // doc.text($scope.properties.objectSolicitud.primerNombre + " " + $scope.properties.objectSolicitud.segundoNombre + " " + $scope.properties.objectSolicitud.apellidoPaterno + " " + $scope.properties.objectSolicitud.apellidoMaterno, respuestasPrimeraFila, (height / 2) - 76);
+       // doc.text($scope.properties.idBanner, respuestasPrimeraFila, (height / 2) - 66);
+        //doc.text($scope.properties.objectSolicitud.correoElectronico, respuestasPrimeraFila, (height / 2) - 55);
+        //doc.text($scope.properties.catResidencia.descripcion, respuestasPrimeraFila, (height / 2) - 45);
+        //doc.text($scope.properties.objectSolicitud.catPeriodo.descripcion, respuestasPrimeraFila, (height / 2) - 35);
         
         
     
@@ -247,28 +247,20 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
         
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 120, '¿Practicas algún deporte?');
-        doc.text(margenPrimeraFila, (height / 2) - 110, '¿Te gusta leer?');
-        doc.text(margenPrimeraFila, (height / 2) - 100, '¿Participas o asistes a alguna organización, club o grupo?');
-        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Has sido jefe o directivo de algún grupo o asociación?');
-        doc.text(margenPrimeraFila, (height / 2) - 80, '¿Qué haces en tu tiempo libre?');
-        doc.text(margenPrimeraFila, (height / 2) - 60, '¿Perteneces o has pertenecido a alguna organización?');
+        //doc.text(margenPrimeraFila, (height / 2) - 120, '¿Practicas algún deporte?');
+        //doc.text(margenPrimeraFila, (height / 2) - 110, '¿Te gusta leer?');
+        //doc.text(margenPrimeraFila, (height / 2) - 100, '¿Participas o asistes a alguna organización, club o grupo?');
+        //doc.text(margenPrimeraFila, (height / 2) - 90, '¿Has sido jefe o directivo de algún grupo o asociación?');
+        //doc.text(margenPrimeraFila, (height / 2) - 80, '¿Qué haces en tu tiempo libre?');
+        //doc.text(margenPrimeraFila, (height / 2) - 60, '¿Perteneces o has pertenecido a alguna organización?');
 
         //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
         doc.text(margenPrimeraFila, (height / 2) - 43, 'Valoración personal');
         
-        doc.setFontSize(fontText);
-        doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 37, '¿Cuáles crees que son tus principales cualidades o virtudes?');
-        doc.text(margenPrimeraFila, (height / 2) - 10, '¿Cuál ha sido el mayor problema que has enfrentado?');
+    
 
-        doc.text(margenPrimeraFila, (height / 2) + 20, '¿Ya resolviste ese problema?');
-        doc.text(margenPrimeraFila, (height / 2) + 50, '¿Cómo crees que te describirían tus amigos?');
-        doc.text(margenPrimeraFila, (height / 2) + 70, '¿Si pudieras, qué cambiarías de ti?');
-        doc.text(margenPrimeraFila, (height / 2) + 90, '¿Cuáles crees que son tus principales defectos o puntos débiles?');
-      
         doc.addPage()
       //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
@@ -276,33 +268,43 @@ function PbButtonCtrl($scope, modalService, $http, blockUI, $q, $filter) {
 
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 130, '¿Cuáles son tus principales metas a corto plazo?');
-        doc.text(margenPrimeraFila, (height / 2) - 110, '¿Cuáles son tus principales metas a mediano plazo?');
+        
+        doc.text(margenPrimeraFila, (height / 2) - 85, '¿Cuáles crees que son tus principales cualidades o virtudes?');
+        doc.text(margenPrimeraFila, (height / 2) - 65, '¿Cuál ha sido el mayor problema que has enfrentado?');
+        doc.text(margenPrimeraFila, (height / 2) - 45, '¿Ya resolviste ese problema?');
 
-        doc.text(margenPrimeraFila, (height / 2) - 90, '¿Cuáles son tus principales metas a largo plazo?');
-        doc.text(margenPrimeraFila, (height / 2) - 70, 'Describe detalladamente tus características de personalidad:');
+
+        doc.text(margenPrimeraFila, (height / 2) - 30, '¿Cómo crees que te describirían tus amigos?');
+        doc.text(margenPrimeraFila, (height / 2) - 10, '¿Si pudieras, qué cambiarías de ti?');
+        doc.text(margenPrimeraFila, (height / 2) + 15, '¿Cuáles crees que son tus principales defectos o puntos débiles?');
+
+        doc.text(margenPrimeraFila, (height / 2) + 35, '¿Cuáles son tus principales metas a corto plazo?');
+        doc.text(margenPrimeraFila, (height / 2) + 55, '¿Cuáles son tus principales metas a mediano plazo?');
+
+        doc.text(margenPrimeraFila, (height / 2) + 75, '¿Cuáles son tus principales metas a largo plazo?');
+        doc.text(margenPrimeraFila, (height / 2) + 100, 'Describe detalladamente tus características de personalidad:');
 
         doc.addPage()
 
       //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFontSize(fontSubTitle);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 140, 'Religión');
+        doc.text(margenPrimeraFila, (height / 2) - 110, 'Religión');
         
         doc.setFontSize(fontText);
         doc.setFont(undefined, 'bold');
-        doc.text(margenPrimeraFila, (height / 2) - 133, '¿A qué religión perteneces?:');
-        doc.text(margenFilaIntermedia, (height / 2) - 133, '¿Practicas tu religión?:');
+        doc.text(margenPrimeraFila, (height / 2) - 90, '¿A qué religión perteneces?:');
+        doc.text(margenFilaIntermedia, (height / 2) - 90, '¿Practicas tu religión?:');
         doc.text(margenPrimeraFila, (height / 2) - 75, '¿Existe algún aspecto de tu religión que no te guste?:');
-        doc.text(margenSegundaFila, (height / 2) - 133, '¿Qué aspectos no te gustan de tu religión?:');
+        doc.text(margenSegundaFila, (height / 2) - 90, '¿Qué aspectos no te gustan de tu religión?:');
         doc.text(margenPrimeraFila, (height / 2) - 60, '¿Por qué no te gustan estos aspectos de tu religión?:');
 
     
 
     //Respuestas
-       doc.setFont(undefined, 'normal');
+      /* doc.setFont(undefined, 'normal');
        doc.text($scope.properties.autodescripcionV2.catPersonaSaludable.descripcion, respuestasPrimeraFila, (height / 2) - 116);
-       doc.text($scope.properties.autodescripcionV2.catVivesEstadoDiscapacidad.descripcion, margenSegundaFila, (height / 2) - 116);
+       doc.text($scope.properties.autodescripcionV2.catVivesEstadoDiscapacidad.descripcion, margenSegundaFila, (height / 2) - 116);*/
 
   //  ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
         doc.setFillColor(228, 212, 200);
