@@ -167,7 +167,7 @@ class ImportacionPAADAO {
 					/*Result resultado2 = new Result();
 					resultado2 = subirDatosBannerEthos(jsonData,context);
 					errorLog += "INTEGRACION:"+resultado2.isSuccess()+"ERROR:"+resultado2.getError()+"ERROR_INFO:"+resultado2.getError_info();*/
-					resultado.setError_info(errorLog);
+					//resultado.setError_info(errorLog);
 				}
 				resultado.setSuccess(true);
 				//resultado.setData(estatus)
@@ -187,9 +187,10 @@ class ImportacionPAADAO {
 	public Result asistenciaCollegeBoard(String idbanner,idsesion,username, RestAPIContext context) {
 		Result resultado = new Result();
 		Result dataResult = new Result();
+		String errorLog = "";
 		try {
 			String caseid = "", prueba="",username2 = "";
-			
+			errorLog+="1";
 			pstm = con.prepareStatement("Select sda.caseid, ap.prueba_pid, ap.username FROM solicituddeadmision AS SDA INNER JOIN detallesolicitud AS DS ON DS.caseid = SDA.caseid::varchar AND DS.idbanner = '${idbanner}' INNER JOIN aspirantespruebas AS AP ON AP.username = SDA.correoelectronico AND AP.catTipoPrueba_pid = 4 and AP.sesiones_pid = ${idsesion} ")
 			rs= pstm.executeQuery();
 			if(rs.next()) {
@@ -197,34 +198,39 @@ class ImportacionPAADAO {
 				prueba = rs.getString("prueba_pid");
 				username2 = rs.getString("username");
 			}
-			
+			errorLog+="2";
 			if(!prueba.equals("") && !prueba.equals("null") && prueba != null ){
 				boolean update = false;
-				pstm = con.prepareStatement(" SELECT * FROM paselista WHERE prueba_pid = ${prueba} and username = ${username2}")
+				errorLog+="3";
+				pstm = con.prepareStatement(" SELECT * FROM paselista WHERE prueba_pid = ${prueba} and username = '${username2}'")
 				rs= pstm.executeQuery();
 				if(rs.next()) {
 					update = true;
 				}
+				errorLog+="4";
 				String jsdonPaseLista = "{\"prueba\":${prueba},\"username\":\"${username2}\",\"asistencia\":true,\"usuarioPaseLista\":\"${username}\"}";
 				if(update) {
+					errorLog+="5";
 					dataResult = new SesionesDAO().updatePaseLista(jsdonPaseLista,context);
 				}else {
+					errorLog+="6";
 					dataResult = new SesionesDAO().insertPaseLista(jsdonPaseLista,context);
 				}
-				
+				errorLog+="7";
 				ProcessAPI processAPI = context.getApiClient().getProcessAPI();
 				Map<String, Serializable> rows = new HashMap<String, Serializable>();
 				
 				rows.put("asistenciaCollegeBoard", true);
-				processAPI.updateProcessDataInstances(caseid, rows)
+				processAPI.updateProcessDataInstances(Long.parseLong(caseid),rows)
 			}
 			
 			
 			resultado.setSuccess(true)
 			resultado.setError_info(dataResult.toString())
+			resultado.setError(errorLog);
 		} catch (Exception e) {
 			resultado.setSuccess(false)
-			resultado.setError("500 Internal Server Error")
+			resultado.setError(errorLog);
 			resultado.setError_info(e.getMessage())
 		}
 		return resultado
