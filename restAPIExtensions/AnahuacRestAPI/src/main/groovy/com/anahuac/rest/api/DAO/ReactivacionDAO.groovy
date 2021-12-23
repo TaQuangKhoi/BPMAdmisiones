@@ -1219,7 +1219,7 @@ class ReactivacionDAO {
 
 	        pstm = con.prepareStatement(Statements.GET_INFORMACION_REPORTE_SOLICITUD_RESPALDO);
 	        pstm.setInt(1, parseInt(caseid));
-	        errorlog += " | consulta setString: " + pstm;
+	        errorlog += " | consulta setString " + pstm;
 	        rs = pstm.executeQuery();
 
 	        ResultSetMetaData metaData = rs.getMetaData();
