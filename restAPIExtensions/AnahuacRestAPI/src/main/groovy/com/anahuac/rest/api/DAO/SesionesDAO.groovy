@@ -2913,6 +2913,7 @@ class SesionesDAO {
 		return resultado
 	}
 	
+	
 	public Result updateBitacoraAspirantesPruebas(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
