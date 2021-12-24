@@ -82,7 +82,7 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
                         break;
                     case 9:
                         if (data.length > 0) {
-                        	debugger
+                            debugger
                             $scope.datosBitacoraComentarios = data;
                         }
                         $scope.generatePDF();
@@ -545,8 +545,10 @@ function PbButtonCtrl($scope, $filter, $http, modalService, blockUI, $q) {
     
         }
 
-        doc.setFillColor(228, 212, 200)
-        doc.rect(10, yValor+=20, 190, nuevaLogitud, 'F');
+     
+
+        doc.setFillColor(228, 212, 200);
+        doc.rect(10, (height / 2) - 20, 190, 85, 'F');
 
         /*doc.setFillColor(228, 212, 200)
         doc.rect(10, yValor+=10, 190, 35, 'F');*/
