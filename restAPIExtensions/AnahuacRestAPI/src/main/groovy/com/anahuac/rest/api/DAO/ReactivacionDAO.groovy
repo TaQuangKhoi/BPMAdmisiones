@@ -467,6 +467,19 @@ class ReactivacionDAO {
 							columns.put("fotografiab64", "");
 							errorlog += "" + e.getMessage();
 						}
+
+
+						try {
+							List<Document>doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+							for(Document doc : doc1) {
+								encoded = "../API/formsDocumentImage?document="+doc.getId();
+								columns.put("fotografiaReporteb64", encoded);
+							}
+							
+						} catch (Exception e) {
+							columns.put("fotografiaReporteb64", "");
+							errorlog += "" + e.getMessage();
+						}
 					}
 				}
 
@@ -1178,6 +1191,22 @@ class ReactivacionDAO {
 							}
 							errorlog += "" + e.getMessage();
 						}
+
+						try {
+							noAzure = true;
+							List < Document > doc1 = context.getApiClient().getProcessAPI().getDocumentList(Long.parseLong(rs.getString(i)), "fotoPasaporte", 0, 10)
+							for (Document doc: doc1) {
+								encoded = "../API/formsDocumentImage?document=" + doc.getId();
+								columns.put("fotografiaReporteb64", encoded);
+							}
+
+						} catch (Exception e) {
+							LOGGER.error "[ERROR] " + e.getMessage();
+							if(noAzure){
+								columns.put("fotografiaReporteb64", "");
+							}
+							errorlog += "" + e.getMessage();
+						}
 					}
 				}
 
@@ -1235,6 +1264,8 @@ class ReactivacionDAO {
 		            objResultado.put("campuscursar1", rs.getString("campuscursar1"));
 		            objResultado.put("periodo", rs.getString("periodo"));
 		            objResultado.put("presentasteenotrocampus", rs.getString("presentasteenotrocampus"));
+		            objResultado.put("licenciatura", rs.getString("licenciatura"));
+		            objResultado.put("ismedicina", rs.getString("ismedicina"));
 		            objResultado.put("lugarexamen", rs.getString("lugarexamen"));
 		            objResultado.put("caseid", rs.getString("caseid"));
 		            objResultado.put("primernombre", rs.getString("primernombre"));
@@ -1280,6 +1311,10 @@ class ReactivacionDAO {
 
 		            } 
 
+		            objResultado.put("objTutor", null);
+		            objResultado.put("objPadre", null);
+		            objResultado.put("objMadre", null);
+
 		            if (rs.getString("istutor").equals("t")) {
 		             	errorlog += " | Itero al tutor: ";
 		             	objTutor.put("caseid", rs.getString("caseidPadresTutor"));
@@ -1306,6 +1341,7 @@ class ReactivacionDAO {
 				        objTutor.put("telefonoTutor", rs.getString("telefonoPadresTutor"));
 		                errorlog += " | Termino la iteracion del tutor: ";
 
+		                objResultado.put("objTutor", objTutor);
 		            } 
 
 		            if (rs.getString("parentezcopadrestutor").equals("Padre")) {
@@ -1335,6 +1371,7 @@ class ReactivacionDAO {
 			            objPadre.put("telefonoPadre", rs.getString("telefonoPadresTutor"));
 			            errorlog += " | Termino la iteracion del padre: ";
 
+			            objResultado.put("objPadre", objPadre);
 		            }
 
 		            if (rs.getString("parentezcopadrestutor").equals("Madre")) {
@@ -1363,33 +1400,37 @@ class ReactivacionDAO {
 			            objMadre.put("numinteriorMadre", rs.getString("numInteriorPadresTutor"));
 			            objMadre.put("telefonoMadre", rs.getString("telefonoPadresTutor"));
 			            errorlog += " | Termino la iteracion de la madre: ";
+
+			             objResultado.put("objMadre", objMadre);
 		            }
 
 		            errorlog += " | Itero a los numeros de emergencia: metaData"
 		            objEmergencia.put("nombreEmergencia", rs.getString("nombreEmergencia"));
+		            objEmergencia.put("parentescoEmergencia", rs.getString("parentescoemergencia"));
 		            objEmergencia.put("telefonoEmergencia", rs.getString("telefonoEmergencia"));
 		            objEmergencia.put("telefonoCelularEmergencia", rs.getString("telefonocelularEmergencia"));
 		            errorlog += " | Termino la iteracion de  los numeros de emergencia: ";
 
 		        objResultado.put("lstPreparatoria", objBachillerato);
 		        objResultado.put("lstEmergencia", objEmergencia);
-		        objResultado.put("objTutor", objTutor);
-		        objResultado.put("objPadre", objPadre);
-		        objResultado.put("objMadre", objMadre);
-	            
 
 				for (Map < String, Object > item : lstResultado){
-					if(item.get("caseid").equals(objTutor.get("caseid"))){
-						agregar=false
-						item.put("objTutor", objTutor);
+					try {
+						if(item.get("caseid").equals(objTutor.get("caseid"))){
+							agregar=false
+							item.put("objTutor", objTutor);
+						}
+						if(item.get("caseid").equals(objPadre.get("caseid")) && rs.getString("parentezcopadrestutor").equals("Padre")) {
+							agregar=false
+							item.put("objPadre", objPadre);
+						}
+						if(item.get("caseid").equals(objMadre.get("caseid")) && rs.getString("parentezcopadrestutor").equals("Madre")){
+							agregar=false
+							item.put("objMadre", objMadre);
+						}
 					}
-					if(item.get("caseid").equals(objPadre.get("caseid"))){
-						agregar=false
-						item.put("objPadre", objPadre);
-					}
-					if(item.get("caseid").equals(objMadre.get("caseid"))){
-						agregar=false
-						item.put("objMadre", objMadre);
+					catch(Exception e) {
+						
 					}
 				}
 

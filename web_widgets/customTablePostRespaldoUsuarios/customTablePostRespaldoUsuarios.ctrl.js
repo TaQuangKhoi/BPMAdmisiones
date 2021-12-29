@@ -593,7 +593,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService, $filter) {
         return $http(req)
             .success(function(data, status) {
                 $scope.fotobase64 = "";
-                $scope.fotobase64 = row.fotografiab64;
+                $scope.fotobase64 = row.fotografiaReporteb64;
                 $scope.lstInReporteAdmision = [];
                 $scope.lstInReporteAdmision = data.data[0];
                 $scope.generatePDF($scope.lstInReporteAdmision);
@@ -674,7 +674,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService, $filter) {
         //Respuestas
         doc.setFont(undefined, 'normal');
         doc.text($scope.lstInReporteAdmision.campuscursar1, respuestasPrimeraFila, (height / 2) - 78);
-        doc.text("N/A", respuestasPrimeraFila, (height / 2) - 66);
+        doc.text($scope.lstInReporteAdmision.licenciatura, respuestasPrimeraFila, (height / 2) - 66);
         doc.text($scope.lstInReporteAdmision.periodo, respuestasPrimeraFila, (height / 2) - 54);
         doc.text($scope.lstInReporteAdmision.presentasteenotrocampus, respuestasPrimeraFila, (height / 2) - 37);
         doc.text($scope.lstInReporteAdmision.lugarexamen, respuestasPrimeraFila, (height / 2) - 25);
@@ -1129,7 +1129,7 @@ function PbTableCtrl($scope, $http, $window, blockUI, modalService, $filter) {
         //Respuestas
         doc.setFont(undefined, 'normal');
         doc.text($scope.lstInReporteAdmision.lstEmergencia.nombreEmergencia, respuestasPrimeraFila, (height / 2) + 94);
-        doc.text("N/A", respuestasFilaIntermedia, (height / 2) + 94);
+        doc.text($scope.lstInReporteAdmision.lstEmergencia.parentescoEmergencia, respuestasFilaIntermedia, (height / 2) + 94);
         doc.text($scope.lstInReporteAdmision.lstEmergencia.telefonoEmergencia, respuestasSegundaFila, (height / 2) + 94);
 
         doc.text($scope.lstInReporteAdmision.lstEmergencia.telefonoCelularEmergencia, respuestasPrimeraFila, (height / 2) + 106);
