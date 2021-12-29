@@ -1241,6 +1241,7 @@ class IndexGet implements RestApiController {
 					String segundoNombre = request.getParameter "segundoNombre";
 					String apellidoPaterno = request.getParameter "apellidoPaterno";
 					String apellidoMaterno = request.getParameter "apellidoMaterno";
+					String sexo = request.getParameter "sexo";
 					
 					if(curp.equals(null)) {
 						curp = "";
@@ -1252,7 +1253,7 @@ class IndexGet implements RestApiController {
 					
 					nombre = nombre.replace("%20", " ");
 					
-					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, correo, fecha, caseid);
+					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, correo, fecha, caseid, sexo);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());

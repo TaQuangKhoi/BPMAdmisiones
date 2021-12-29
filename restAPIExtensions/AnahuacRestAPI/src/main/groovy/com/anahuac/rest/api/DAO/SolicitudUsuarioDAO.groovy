@@ -671,17 +671,19 @@ class SolicitudUsuarioDAO {
 	public Result getDuplicados(String curp, String nombre, 
 		String primerNombre, String segundoNombre, 
 		String apellidoPaterno, String apellidoMaterno, 
-		String correoElectronico, String fechaNacimiento,String caseid
+		String correoElectronico, String fechaNacimiento,String caseid,String sexo
 	) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorlog = "";
 		
 		try {
+			String consulta = Statements.GET_DUPLICADOSV3.replace("[CASEID]", caseid).replace("[CURP]", curp).replace("[PRIMERNOMBRE]", primerNombre).replace("[SEGUNDONOMBRE]", segundoNombre).replace("[APELLIDOPATERNO]", apellidoPaterno).replace("[APELLIDOMATERNO]", apellidoMaterno).replace("[SEXO]", sexo)
+			errorlog +=consulta;
 			
 			closeCon = validarConexion();
 			
-			pstm = con.prepareStatement(Statements.GET_DUPLICADOSV2);
+			/*pstm = con.prepareStatement(Statements.GET_DUPLICADOSV2);
 			pstm.setString(1, primerNombre);
 			pstm.setString(2, segundoNombre);
 			pstm.setString(3, apellidoPaterno);
@@ -690,14 +692,15 @@ class SolicitudUsuarioDAO {
 			pstm.setString(6, correoElectronico);
 			pstm.setString(7, curp);
 
-			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento;
+			errorlog+= " curp: "+curp+" nombre: "+nombre+" correoElectronico: "+correoElectronico+" fecha: "+fechaNacimiento;*/
+			
+			pstm = con.prepareStatement(consulta);
 			rs= pstm.executeQuery();
 			
 			
 			ResultSetMetaData metaData = rs.getMetaData();
 			int columnCount = metaData.getColumnCount();
 			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
-			errorlog = Statements.GET_DUPLICADOS;
 			
 			while(rs.next()) {
 				Map<String, Object> columns = new LinkedHashMap<String, Object>();
