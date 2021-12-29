@@ -668,17 +668,19 @@ class SolicitudUsuarioDAO {
 	
 	
 //	public Result getDuplicados(String curp, String nombre, String correoElectronico, String fechaNacimiento,String caseid) {
-	public Result getDuplicados(String curp, String nombre, 
-		String primerNombre, String segundoNombre, 
-		String apellidoPaterno, String apellidoMaterno, 
-		String correoElectronico, String fechaNacimiento,String caseid,String sexo
+	public Result getDuplicados(String curp, 
+		 primerNombre,  segundoNombre, 
+		 apellidoPaterno,apellidoMaterno, 
+		 sexo,idbanner
 	) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		String  errorlog = "";
 		
+		//.replace("[IDBANNER]", caseid)
+		
 		try {
-			String consulta = Statements.GET_DUPLICADOSV3.replace("[CASEID]", caseid).replace("[CURP]", curp).replace("[PRIMERNOMBRE]", primerNombre).replace("[SEGUNDONOMBRE]", segundoNombre).replace("[APELLIDOPATERNO]", apellidoPaterno).replace("[APELLIDOMATERNO]", apellidoMaterno).replace("[SEXO]", sexo)
+			String consulta = Statements.GET_DUPLICADOSV3.replace("[IDBANNER]", idbanner).replace("[CURP]", curp).replace("[PRIMERNOMBRE]", primerNombre).replace("[SEGUNDONOMBRE]", segundoNombre).replace("[APELLIDOPATERNO]", apellidoPaterno).replace("[APELLIDOMATERNO]", apellidoMaterno).replace("[SEXO]", sexo)
 			errorlog +=consulta;
 			
 			closeCon = validarConexion();
