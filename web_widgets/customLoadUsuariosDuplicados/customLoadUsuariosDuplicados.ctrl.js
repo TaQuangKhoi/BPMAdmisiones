@@ -1,7 +1,7 @@
 function loadUsuariosDuplicadosCtrl($scope, $http) {
 
     $scope.loadUsuariosDuplicados = function(parametros) {
-        var url = "../API/extension/AnahuacRestGet?url=getDuplicado&correoElectronico=[CORREOELECTRONICO]&fechaNacimiento=[FECHANACIMIENTO]&curp=[CURP]&nombre=[NOMBRE]&caseid=[CASEID]&primerNombre=[PRIMERNOMBRE]&segundoNombre=[SEGUNDONOMBRE]&apellidoPaterno=[APELLIDOPATERNO]&apellidoMaterno=[APELLIDOMATERNO]&&sexo=[SEXO]&p=0&c=9999";
+        var url = "../API/extension/AnahuacRestGet?url=getDuplicado&correoElectronico=[CORREOELECTRONICO]&fechaNacimiento=[FECHANACIMIENTO]&curp=[CURP]&nombre=[NOMBRE]&caseid=[CASEID]&primerNombre=[PRIMERNOMBRE]&segundoNombre=[SEGUNDONOMBRE]&apellidoPaterno=[APELLIDOPATERNO]&apellidoMaterno=[APELLIDOMATERNO]&sexo=[SEXO]&p=0&c=9999";
         url = url.replace("[CORREOELECTRONICO]", $scope.properties.parametros["correoElectronico"]);
         url = url.replace("[FECHANACIMIENTO]", $scope.properties.parametros["fechaNacimiento"]);
         url = url.replace("[CURP]", $scope.properties.parametros["curp"]);
