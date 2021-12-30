@@ -12,6 +12,8 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.rest.api.Entity.Result
+
 import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.bonitasoft.web.extension.rest.RestApiController
 
@@ -23,48 +25,79 @@ class Index implements RestApiController {
 
     @Override
     RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
-        // To retrieve query parameters use the request.getParameter(..) method.
-        // Be careful, parameter values are always returned as String values
-
-        // Retrieve p parameter
-        def p = request.getParameter "p"
+		Result result = new Result();
+		def p = request.getParameter "p"
         if (p == null) {
             return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter p is missing"}""")
         }
-
-        // Retrieve c parameter
         def c = request.getParameter "c"
         if (c == null) {
             return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter c is missing"}""")
         }
-
-        // Retrieve url parameter
         def url = request.getParameter "url"
         if (url == null) {
             return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter url is missing"}""")
         }
+		
+		//VARIABLES===========================================================
+		Integer parameterP = Integer.valueOf(p);
+		Integer parameterC = Integer.valueOf(c);
+		String jsonData = "{}"
+		try {
+			jsonData = request.reader.readLines().join("\n")
+		}catch (Exception e) {
+			jsonData = "{}" 
+		}
+		
+		try {
+			switch(url) {
+				case "test":
+					result = dao.testFuction(parameterP, parameterC, jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				default:
+					result = notFound(url);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+			}
+			
+		} catch (Exception e) {
 
-        // Here is an example of how you can retrieve configuration parameters from a properties file
-        // It is safe to remove this if no configuration is required
+			result.setSuccess(false)
+			result.setError("500 INTERNAL SERVER ERROR")
+			result.setError_info(e.getMessage())
+			return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,new JsonBuilder(result).toString())
+		}
+		// Send the result as a JSON representation
+		
+		// You may use buildPagedResponse if your result is multiple
+		return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+		
+		//return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+		
+		/*
         Properties props = loadProperties("configuration.properties", context.resourceProvider)
-        String paramValue = props["myParameterKey"]
-
-        /* 
-         * Execute business logic here
-         * 
-         * 
-         * Your code goes here
-         * 
-         * 
-         */
-        // Prepare the result
-        def result = [ "p" : p ,"c" : c ,"url" : url , "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ]
-
+        String paramValue = props["myParameterKey"] 
+        def result = [ "p" : p ,"c" : c ,"url" : url , "myParameterKey" : paramValue, "currentDate" : LocalDate.now().toString() ] 
         // Send the result as a JSON representation
         // You may use buildPagedResponse if your result is multiple
         return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+		*/
     }
-
+	public Result notFound(String url) {
+		Result resultado = new Result();
+		resultado.setSuccess(false);
+		resultado.setError("No se reconoce el servicio: "+url);
+		return resultado
+	}
     /**
      * Build an HTTP response.
      *
