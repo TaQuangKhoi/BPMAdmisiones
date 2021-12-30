@@ -12,6 +12,7 @@ import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+import com.anahuac.rest.api.DAO.CatalogosDAO
 import com.anahuac.rest.api.Entity.Result
 
 import org.bonitasoft.web.extension.rest.RestAPIContext
@@ -53,6 +54,15 @@ class Index implements RestApiController {
 			switch(url) {
 				case "test":
 					result = dao.testFuction(parameterP, parameterC, jsonData);
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				case "getCatGenerico":
+					result = new CatalogosDAO().getCatGenerico(jsonData, context)
+					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {

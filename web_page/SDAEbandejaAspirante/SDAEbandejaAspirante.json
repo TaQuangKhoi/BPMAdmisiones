@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1640814108381,
+  "lastUpdate" : 1640891758909,
   "rows" : [
     [
       {
@@ -422,15 +422,15 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "lstTipoMoneda"
+                          "value" : "lstmoneda"
                         },
                         "displayedKey" : {
                           "type" : "constant",
-                          "value" : "nombre_moneda"
+                          "value" : "descripcion+' ('+clave+')'"
                         },
                         "returnedKey" : {
                           "type" : "constant",
-                          "value" : "id"
+                          "value" : "PERSISTENCEID"
                         },
                         "value" : {
                           "type" : "variable",
@@ -700,17 +700,25 @@
       "value" : [
         "[",
         "    {",
-        "    \"id\":1,",
-        "    \"nombre_moneda\":\"Pesos Mexicanos (MXN)\",",
+        "    \"PERSISTENCEID\":1,",
+        "    \"descripcion\":\"Pesos Mexicanos\",",
         "    \"clave\":\"MXN\"",
         "    },",
         "    {",
-        "    \"id\":2,",
-        "    \"nombre_moneda\":\"Dolares americanos (USD)\",",
+        "    \"PERSISTENCEID\":2,",
+        "    \"descripcion\":\"Dolares americanos\",",
         "    \"clave\":\"USD\"  ",
         "    }",
         "]"
       ],
+      "exposed" : false
+    },
+    "lstmoneda" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestAPI?url=getCatTipoMoneda"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
