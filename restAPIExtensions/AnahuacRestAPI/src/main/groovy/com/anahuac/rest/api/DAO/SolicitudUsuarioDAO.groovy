@@ -671,7 +671,7 @@ class SolicitudUsuarioDAO {
 	public Result getDuplicados(String curp, 
 		 primerNombre,  segundoNombre, 
 		 apellidoPaterno,apellidoMaterno, 
-		 sexo,idbanner
+		 sexo,idbanner,caseid
 	) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
@@ -680,7 +680,7 @@ class SolicitudUsuarioDAO {
 		//.replace("[IDBANNER]", caseid)
 		
 		try {
-			String consulta = Statements.GET_DUPLICADOSV3.replace("[IDBANNER]", idbanner).replace("[CURP]", curp).replace("[PRIMERNOMBRE]", primerNombre).replace("[SEGUNDONOMBRE]", segundoNombre).replace("[APELLIDOPATERNO]", apellidoPaterno).replace("[APELLIDOMATERNO]", apellidoMaterno).replace("[SEXO]", sexo)
+			String consulta = Statements.GET_DUPLICADOSV3.replace("[CASEID]", caseid).replace("[IDBANNER]", idbanner).replace("[CURP]", curp).replace("[PRIMERNOMBRE]", primerNombre).replace("[SEGUNDONOMBRE]", segundoNombre).replace("[APELLIDOPATERNO]", apellidoPaterno).replace("[APELLIDOMATERNO]", apellidoMaterno).replace("[SEXO]", sexo)
 			errorlog +=consulta;
 			
 			closeCon = validarConexion();
@@ -859,6 +859,75 @@ class SolicitudUsuarioDAO {
 		return resultado
 	}
 	
+	
+	public Result getIsPeriodoVencido(String periodo) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			
+			closeCon = validarConexion();
+			
+			pstm = con.prepareStatement(Statements.GET_IS_PERIODO_VENCIDO);
+			pstm.setLong(1, Long.parseLong(periodo));
+			
+			rs= pstm.executeQuery();
+			
+			List<Map<String, Object>> info = new ArrayList<Map<String, Object>>();
+			Map<String, Object> columns = new LinkedHashMap<String, Object>();
+			if(rs.next()) {
+				columns.put("isVencido", true);
+			}else {
+				columns.put("isVencido", false);
+			}
+			info.add(columns)
+			
+			
+			resultado.setSuccess(true);
+			resultado.setData(info);
+			resultado.setError_info(errorlog);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			resultado.setError_info(errorlog);
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result postUpdatePeriodoVencido(String jsonData) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String  errorlog="";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			closeCon = validarConexion();
+			con.setAutoCommit(false);
+			
+			pstm = con.prepareStatement(Statements.UPDATE_PERIODO_VENCIDO_SOLICITUD);
+			pstm.setLong(1, Long.parseLong(object.persistenceid));
+			pstm.setLong(2, Long.parseLong(object.caseid));
+			
+			pstm.executeUpdate();
+			
+			con.commit();
+			
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	
 	public Result getUpdateFamiliaresIntento(String caseid, intentos, cantidad) {
 		Result resultado = new Result();

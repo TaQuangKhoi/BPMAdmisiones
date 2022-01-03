@@ -1235,7 +1235,7 @@ class IndexGet implements RestApiController {
 					//String correo = request.getParameter "correoElectronico";
 					//String nombre = request.getParameter "nombre";
 					//String fecha = request.getParameter "fechaNacimiento";
-					//String caseid = request.getParameter "caseid";
+					String caseid = request.getParameter "caseid";
 					String idbanner = request.getParameter "idbanner";
 					String curp = request.getParameter "curp";
 					String primerNombre = request.getParameter "primerNombre";
@@ -1252,7 +1252,19 @@ class IndexGet implements RestApiController {
 					}
 					nombre = nombre.replace("%20", " ");
 					*/
-					result = new SolicitudUsuarioDAO().getDuplicados(curp, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, sexo,idbanner);
+					result = new SolicitudUsuarioDAO().getDuplicados(curp, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, sexo,idbanner,caseid);
+					responseBuilder.withMediaType("application/json");
+					if (result.isSuccess()) {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
+					}else {
+						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
+					}
+				break;
+				
+				case "getIsPeriodoVencido":
+					String periodo = request.getParameter "periodo";
+					
+					result = new SolicitudUsuarioDAO().getIsPeriodoVencido(periodo);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
