@@ -1156,7 +1156,7 @@ class SolicitudUsuarioDAO {
 
         resultado.setData(rows)
         resultado.setSuccess(true)
-        resultado.setError_info(errorlog);
+        resultado.setError_info(errorLog);
     } catch (Exception e) {
         resultado.setSuccess(false);
         resultado.setError(e.getMessage());
