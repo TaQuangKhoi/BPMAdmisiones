@@ -41,7 +41,93 @@ class CatalogosDAO {
 		}
 		return retorno;
 	}
+	public Result simpleSelect(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexion();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
 	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
+	
+	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			
+			assert object instanceof List;
+			
+				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
+				closeCon = validarConexionBonita();
+				for(def row: object) {
+				pstm = con.prepareStatement(row)
+				
+				
+				rs = pstm.executeQuery()
+				rows = new ArrayList<Map<String, Object>>();
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+				while(rs.next()) {
+					Map<String, Object> columns = new LinkedHashMap<String, Object>();
+	
+					for (int i = 1; i <= columnCount; i++) {
+						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
+					}
+	
+					rows.add(columns);
+				}
+				resultado.setSuccess(true)
+				
+				resultado.setData(rows)
+				}
+			} catch (Exception e) {
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		}finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado
+	}
 	public Result getCatGenerico(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = validarConexion();
@@ -201,10 +287,9 @@ class CatalogosDAO {
 	public Result getCatTipoMoneda() {
 		Result resultado = new Result();
 		Boolean closeCon = false;
-		
+		CatGenerico objCatGenerico = new CatGenerico();
+		List<CatGenerico> lstCatGenerico= new ArrayList<CatGenerico>();
 		try {
-		
-				List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 				closeCon = validarConexion();
 				String consulta = StatementsCatalogos.GET_CATGENERICO;
 				consulta = consulta.replace("[WHERE]", " WHERE isEliminado = false");
@@ -214,27 +299,24 @@ class CatalogosDAO {
 
 				pstm = con.prepareStatement(consulta);
 				rs = pstm.executeQuery();
-
-				rows = new ArrayList<Map<String, Object>>();
-				ResultSetMetaData metaData = rs.getMetaData();
-				int columnCount = metaData.getColumnCount();
 				while(rs.next()) {
-					Map<String, Object> columns = new LinkedHashMap<String, Object>();
-	
-					for (int i = 1; i <= columnCount; i++) {
-						columns.put(metaData.getColumnLabel(i).toLowerCase(), rs.getString(i));
-					}
-	
-					rows.add(columns);
+					objCatGenerico = new CatGenerico();
+					objCatGenerico.setPersistenceId(rs.getLong("PERSISTENCEID"));
+					objCatGenerico.setClave(rs.getString("CLAVE"));
+					objCatGenerico.setDescripcion(rs.getString("DESCRIPCION"));
+					objCatGenerico.setFechaCreacion(rs.getString("FECHACREACION"));
+					objCatGenerico.setIsEliminado(rs.getBoolean("ISELIMINADO"));
+					objCatGenerico.setPersistenceVersion(rs.getLong("PERSISTENCEVERSION"));
+					objCatGenerico.setUsuarioCreacion(rs.getString("USUARIOCREACION"));
+					lstCatGenerico.add(objCatGenerico)
 				}
+				resultado.setData(lstCatGenerico)
 				resultado.setSuccess(true)
-				
-				resultado.setData(rows)
 				
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 			resultado.setSuccess(false);
-			resultado.setError(e.getMessage());
+			resultado.setError("[getCatTipoMoneda] " + e.getMessage());
 		}finally {
 			if(closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -242,4 +324,47 @@ class CatalogosDAO {
 		}
 		return resultado
 	}
+	
+	public Result insertUpdateCatTipoMoneda(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		assert objCatGenerico instanceof CatGenerico;
+
+		//CatGenerico objCatGenerico;
+		try {
+
+			 closeCon = validarConexion();
+					 if(objCatGenerico.getPersistenceId() != 0) {
+						pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
+						pstm.setString(1, objCatGenerico.getClave());
+						pstm.setString(2, objCatGenerico.getDescripcion());
+						pstm.setBoolean(3, objCatGenerico.getIsEliminado());
+						pstm.setString(4, objCatGenerico.getUsuarioCreacion()); 
+						pstm.setLong(4, objCatGenerico.getPersistenceId());
+						pstm.execute();
+					}else {
+						pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
+						pstm.setString(1, objCatGenerico.getClave());
+						pstm.setString(2, objCatGenerico.getDescripcion());
+						pstm.setString(3, objCatGenerico.getUsuarioCreacion());
+						pstm.execute();
+					}
+					con.commit();
+				resultado.setError(false);
+					
+			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
+				resultado.setSuccess(false);
+				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+			} finally {
+				if(closeCon) {
+					new DBConnect().closeObj(con, stm, rs, pstm)
+				}
+			}
+			return resultado;
+		}
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEbandejaAspirante",
   "name" : "SDAEbandejaAspirante",
-  "lastUpdate" : 1640909166540,
+  "lastUpdate" : 1641251811563,
   "rows" : [
     [
       {
@@ -422,7 +422,7 @@
                         },
                         "availableValues" : {
                           "type" : "expression",
-                          "value" : "lstTipoMoneda"
+                          "value" : "lstTipoMoneda.data"
                         },
                         "displayedKey" : {
                           "type" : "constant",
@@ -430,7 +430,7 @@
                         },
                         "returnedKey" : {
                           "type" : "constant",
-                          "value" : "persistenceId"
+                          "value" : ""
                         },
                         "value" : {
                           "type" : "variable",
@@ -683,40 +683,18 @@
       ],
       "exposed" : false
     },
-    "userData" : {
-      "type" : "json",
-      "value" : [
-        "{",
-        "    \"id\":1,",
-        "    \"solicitudesCurso\":[],",
-        "    \"periodo\":\"Enero-Mayo 2021\",",
-        "    \"nombre\":\"Alejandro Polanco\"",
-        "}"
-      ],
-      "exposed" : false
-    },
     "lstTipoMoneda" : {
-      "type" : "json",
-      "value" : [
-        "[",
-        "    {",
-        "    \"persistenceId\":1,",
-        "    \"descripcion\":\"Pesos Mexicanos\",",
-        "    \"clave\":\"MXN\"",
-        "    },",
-        "    {",
-        "    \"persistenceId\":2,",
-        "    \"descripcion\":\"Dolares americanos\",",
-        "    \"clave\":\"USD\"  ",
-        "    }",
-        "]"
-      ],
-      "exposed" : false
-    },
-    "lstmoneda" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestAPI?url=getCatTipoMoneda"
+        "../API/extension/AnahuacBecasRestGET?url=getCatTipoMoneda&p=0&c=0"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
       ],
       "advancedOptions" : { },
       "exposed" : false
