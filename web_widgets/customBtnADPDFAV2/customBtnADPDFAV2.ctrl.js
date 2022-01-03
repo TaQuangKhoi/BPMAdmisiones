@@ -262,7 +262,7 @@
                 //  ----------------------------------------- NOVENA SECCIÓN  ----------------------------------------- 
                 doc.setFontSize(fontSubTitle);
                 doc.setFont(undefined, 'bold');
-                doc.text(margenPrimeraFila, (height / 2) + 35, 'Entorno familiar');
+                doc.text(margenPrimeraFila, (height / 2) + 29, 'Entorno familiar');
                 
                 //Encabezados
                 doc.setFontSize(fontText);
@@ -401,8 +401,8 @@
                 doc.text(margenPrimeraFila, (height / 2) - 100, '¿A qué religión perteneces?:');
                 doc.text(margenFilaIntermedia, (height / 2) - 100, '¿Practicas tu religión?:');
                 doc.text(margenSegundaFila, (height / 2) - 100, '¿Qué aspectos no te gustan de tu religión?:');
-                doc.text(margenPrimeraFila, (height / 2) - 85, '¿Existe algún aspecto de tu religión que no te guste?:');
-                doc.text(margenPrimeraFila, (height / 2) - 75, '¿Por qué no te gustan estos aspectos de tu religión?:');
+                doc.text(margenPrimeraFila, (height / 2) - 80, '¿Existe algún aspecto de tu religión que no te guste?:');
+                doc.text(118, (height / 2) - 80, '¿Por qué no te gustan estos aspectos de tu religión?:');
 
                //Respuestas
                doc.setFont(undefined, 'normal');
@@ -410,8 +410,8 @@
                doc.text($scope.properties.autodescripcionV2.catPracticasReligion.descripcion, margenFilaIntermedia, (height / 2) - 96);
                doc.text(($scope.properties.autodescripcionV2.asprctosNoGustanReligion == null || $scope.properties.autodescripcionV2.asprctosNoGustanReligion == "" ? "N/A" : $scope.properties.autodescripcionV2.asprctosNoGustanReligion), margenSegundaFila, (height / 2) - 96);
 
-               doc.text($scope.properties.autodescripcionV2.catAspectoDesagradaReligion.descripcion, margenPrimeraFila, (height / 2) - 80);
-               doc.text(($scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion == null || $scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion == "" ? "N/A" : $scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion), margenPrimeraFila, (height / 2) - 70);
+               doc.text($scope.properties.autodescripcionV2.catAspectoDesagradaReligion.descripcion, margenPrimeraFila, (height / 2) - 75);
+               doc.text(($scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion == null || $scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion == "" ? "N/A" : $scope.properties.autodescripcionV2.motivoAspectosNoGustanReligion), 118, (height / 2) - 75);
 
             // ----------------------------------------- DOCEAVA SECCIÓN  ----------------------------------------- 
                 doc.setFillColor(228, 212, 200);
