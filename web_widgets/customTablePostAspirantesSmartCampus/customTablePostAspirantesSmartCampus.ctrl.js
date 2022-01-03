@@ -298,7 +298,7 @@ function PbTableCtrl($scope, $http, $window, blockUI) {
     }
     
     $scope.rutaSolicitudDownload = function(row) {
-        $window.open(row.rutaSolicitudb64);
+        $window.open(row.rutasolicitud);
         
         /*axios({
                 url: row.rutaSolicitudb64,
