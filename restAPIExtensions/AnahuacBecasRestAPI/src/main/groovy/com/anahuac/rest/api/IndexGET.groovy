@@ -60,9 +60,9 @@ class IndexGET implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
-				case "getCatTipoMoneda":
-					//String username =request.getParameter "username"
-					result = new CatalogosDAO().getCatTipoMoneda();
+				case "getCatalogosGenericos":
+					String catalogo =request.getParameter "catalogo"
+					result = new CatalogosDAO().getCatalogosGenericos(catalogo);
 					responseBuilder.withMediaType("application/json")
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())

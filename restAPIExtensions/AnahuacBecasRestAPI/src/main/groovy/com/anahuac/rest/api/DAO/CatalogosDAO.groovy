@@ -131,17 +131,17 @@ class CatalogosDAO {
 	public Result getCatGenerico(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = validarConexion();
-		String where = "", orderby = "ORDER BY ", errorLog = ""
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
 
-			//assert object instanceof List;
 			String consulta = StatementsCatalogos.GET_CATGENERICO;
 			CatGenerico row = new CatGenerico();
 			List < CatGenerico > rows = new ArrayList < CatGenerico > ();
 			closeCon = validarConexion();
 			where += " WHERE isEliminado = false";
+			errorLog +=" 1";
 			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
 
 				switch (filtro.get("columna")) {
@@ -201,6 +201,7 @@ class CatalogosDAO {
 						break;
 				}
 			}
+			errorLog +=" 2";
 			switch (object.orderby) {
 				case "CLAVE":
 					orderby += "clave";
@@ -227,31 +228,29 @@ class CatalogosDAO {
 					orderby += "persistenceid"
 					break;
 			}
-			errorLog += "orderby"
+			errorLog +=" 3";
 			orderby += " " + object.orientation;
 			consulta = consulta.replace("[WHERE]", where);
 			consulta = consulta.replace("[CATALOGO]", object.catalogo)
 
-			String consultaCount = StatementsCatalogos.GET_CATGENERICO
+			String consultaCount = StatementsCatalogos.GET_COUNT_CATGENERICO
 			consultaCount = consultaCount.replace("[WHERE]", where);
 			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo)
-			
+			errorLog +=" 4";
 			pstm = con.prepareStatement(consultaCount);
 			rs = pstm.executeQuery()
 			if (rs.next()) {
 				resultado.setTotalRegistros(rs.getInt("registros"))
 			}
+			errorLog +=" 4";
 			consulta = consulta.replace("[ORDERBY]", orderby)
 			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?")
-			errorLog += "consulta"
-			errorLog += consulta
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 			pstm = con.prepareStatement(consulta)
 			pstm.setInt(1, object.limit)
 			pstm.setInt(2, object.offset)
 
-			errorLog += " fecha=="
-
+			errorLog +=" 5";
 			rs = pstm.executeQuery()
 			while (rs.next()) {
 
@@ -266,14 +265,14 @@ class CatalogosDAO {
 
 				rows.add(row)
 			}
-			errorLog += " paso el listado";
+			errorLog +=" 6";
+			//resultado.setError_info(errorLog);
 			resultado.setSuccess(true)
-			resultado.setError(errorLog)
 			resultado.setData(rows)
 
 		} catch (Exception e) {
+			resultado.setError_info(errorLog);
 			LOGGER.error "[ERROR] " + e.getMessage();
-			resultado.setError_info(errorLog)
 			resultado.setSuccess(false);
 			resultado.setError(e.getMessage());
 		} finally {
@@ -284,7 +283,7 @@ class CatalogosDAO {
 		return resultado
 	}
 	
-	public Result getCatTipoMoneda() {
+	public Result getCatalogosGenericos(String catalogo) {
 		Result resultado = new Result();
 		Boolean closeCon = false;
 		CatGenerico objCatGenerico = new CatGenerico();
@@ -293,7 +292,7 @@ class CatalogosDAO {
 				closeCon = validarConexion();
 				String consulta = StatementsCatalogos.GET_CATGENERICO;
 				consulta = consulta.replace("[WHERE]", " WHERE isEliminado = false");
-				consulta = consulta.replace("[CATALOGO]", "CATTIPOMONEDA");
+				consulta = consulta.replace("[CATALOGO]", catalogo);
 				consulta = consulta.replace("[ORDERBY]", "");
 				consulta = consulta.replace("[LIMITOFFSET]", "");
 
@@ -332,34 +331,36 @@ class CatalogosDAO {
 		def jsonSlurper = new JsonSlurper();
 		def objCatGenerico = jsonSlurper.parseText(jsonData);
 
-		assert objCatGenerico instanceof CatGenerico;
-
-		//CatGenerico objCatGenerico;
+		String errorLog = "Entro";
 		try {
-
+			errorLog+= " 1";
 			 closeCon = validarConexion();
-					 if(objCatGenerico.getPersistenceId() != 0) {
+					 if(objCatGenerico.persistenceId != 0) {
+						 errorLog+= " update";
 						pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATTIPOMONEDA);
-						pstm.setString(1, objCatGenerico.getClave());
-						pstm.setString(2, objCatGenerico.getDescripcion());
-						pstm.setBoolean(3, objCatGenerico.getIsEliminado());
-						pstm.setString(4, objCatGenerico.getUsuarioCreacion()); 
-						pstm.setLong(4, objCatGenerico.getPersistenceId());
+						pstm.setString(1, objCatGenerico.clave);
+						pstm.setString(2, objCatGenerico.descripcion);
+						pstm.setBoolean(3, objCatGenerico.isEliminado);
+						pstm.setString(4, objCatGenerico.usuarioCreacion); 
+						pstm.setLong(5, objCatGenerico.persistenceId);
 						pstm.execute();
 					}else {
+						errorLog+= " insert";
 						pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATTIPOMONEDA);
-						pstm.setString(1, objCatGenerico.getClave());
-						pstm.setString(2, objCatGenerico.getDescripcion());
-						pstm.setString(3, objCatGenerico.getUsuarioCreacion());
+						pstm.setString(1, objCatGenerico.clave);
+						pstm.setString(2, objCatGenerico.descripcion);
+						pstm.setString(3, objCatGenerico.usuarioCreacion);
 						pstm.execute();
 					}
+					errorLog+= " salio";
 					con.commit();
-				resultado.setError(false);
-					
+				resultado.setSuccess(true)
+				resultado.setError_info(errorLog);
 			} catch (Exception e) {
 				LOGGER.error "[ERROR] " + e.getMessage();
 				resultado.setSuccess(false);
 				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+				resultado.setError_info(errorLog);
 			} finally {
 				if(closeCon) {
 					new DBConnect().closeObj(con, stm, rs, pstm)
@@ -367,4 +368,101 @@ class CatalogosDAO {
 			}
 			return resultado;
 		}
+		
+		public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
+			Result resultado = new Result();
+			Boolean closeCon = false;
+			
+			def jsonSlurper = new JsonSlurper();
+			def objCatGenerico = jsonSlurper.parseText(jsonData);
+	
+			String errorLog = "Entro";
+			try {
+				errorLog+= " 1";
+				 closeCon = validarConexion();
+						 if(objCatGenerico.persistenceId != 0) {
+							 errorLog+= " update";
+							pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATPROVIENENINGRESOS);
+							pstm.setString(1, objCatGenerico.clave);
+							pstm.setString(2, objCatGenerico.descripcion);
+							pstm.setBoolean(3, objCatGenerico.isEliminado);
+							pstm.setString(4, objCatGenerico.usuarioCreacion);
+							pstm.setLong(5, objCatGenerico.persistenceId);
+							pstm.execute();
+						}else {
+							errorLog+= " insert";
+							pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATPROVIENENINGRESOS);
+							pstm.setString(1, objCatGenerico.clave);
+							pstm.setString(2, objCatGenerico.descripcion);
+							pstm.setString(3, objCatGenerico.usuarioCreacion);
+							pstm.execute();
+						}
+						errorLog+= " salio";
+						con.commit();
+					resultado.setSuccess(true)
+					resultado.setError_info(errorLog);
+				} catch (Exception e) {
+					LOGGER.error "[ERROR] " + e.getMessage();
+					resultado.setSuccess(false);
+					resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+					resultado.setError_info(errorLog);
+				} finally {
+					if(closeCon) {
+						new DBConnect().closeObj(con, stm, rs, pstm)
+					}
+				}
+				return resultado;
+			}
+			
+			public Result insertUpdateCatGenerico(String jsonData, RestAPIContext context) {
+				Result resultado = new Result();
+				Boolean closeCon = false;
+				
+				def jsonSlurper = new JsonSlurper();
+				def objeto = jsonSlurper.parseText(jsonData);
+		
+				//assert objCatGenerico instanceof CatGenerico;
+				String errorLog = "Entro", consulta = "";
+				//CatGenerico objCatGenerico;
+				try {
+					errorLog+= " 1";
+					 closeCon = validarConexion();
+							 if(objeto.objCatGenerico.persistenceId != 0) {
+								 consulta= StatementsCatalogos.UPDATE_CAT_GENERICO
+								 errorLog = consulta;
+								 consulta=consulta.replaceAll("CATGEN", objeto.catalogo)
+								 errorLog += "|| "+consulta;
+								pstm = con.prepareStatement(consulta);
+								pstm.setString(1, objeto.objCatGenerico.clave);
+								pstm.setString(2, objeto.objCatGenerico.descripcion);
+								pstm.setBoolean(3, objeto.objCatGenerico.isEliminado);
+								pstm.setString(4, objeto.objCatGenerico.usuarioCreacion);
+								pstm.setLong(5, objeto.objCatGenerico.persistenceId);
+								pstm.execute();
+							}else {
+								consulta= StatementsCatalogos.INSERT_CAT_GENERICO
+								errorLog = consulta;
+								consulta = consulta.replaceAll("CATGEN", objeto.catalogo)
+								errorLog += "|| "+consulta;
+								pstm = con.prepareStatement(consulta);
+								pstm.setString(1, objeto.objCatGenerico.clave);
+								pstm.setString(2, objeto.objCatGenerico.descripcion);
+								pstm.setString(3, objeto.objCatGenerico.usuarioCreacion);
+								pstm.execute();
+							}
+							con.commit();
+						resultado.setSuccess(true)
+						resultado.setError_info(errorLog);
+					} catch (Exception e) {
+						LOGGER.error "[ERROR] " + e.getMessage();
+						resultado.setSuccess(false);
+						resultado.setError("[insertUpdateCatGenerico] " + e.getMessage());
+						resultado.setError_info(errorLog);
+					} finally {
+						if(closeCon) {
+							new DBConnect().closeObj(con, stm, rs, pstm)
+						}
+					}
+					return resultado;
+				}
 }

@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1640978536679,
+  "lastUpdate" : 1641330796961,
   "rows" : [
     [
       {
@@ -7002,10 +7002,14 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : [
+                          "lstTipoApoyo"
+                        ]
                       },
                       "displayedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : ""
                       },
                       "returnedKey" : {
                         "type" : "constant"
@@ -7609,14 +7613,6 @@
       ],
       "exposed" : false
     },
-    "contoBecaPreparatoria" : {
-      "type" : "expression",
-      "value" : [
-        "",
-        "return false;"
-      ],
-      "exposed" : false
-    },
     "datosUsuario" : {
       "type" : "json",
       "value" : [
@@ -7634,6 +7630,70 @@
         "    }",
         "}"
       ],
+      "exposed" : false
+    },
+    "lstTipoApoyo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatTipoApoyo"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstPorcentajeBeca" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeBeca"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstPorcentajeFinanciamiento" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeFinanciamiento"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstProvienenIngresos" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatProvienenIngresos"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstTipoInversionesPosee" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=TipoInversionesPosee"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "userDataEmail" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "usuario" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },
