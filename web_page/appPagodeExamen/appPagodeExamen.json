@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appPagodeExamen",
   "name" : "appPagodeExamen",
-  "lastUpdate" : 1639508440133,
+  "lastUpdate" : 1641335226557,
   "rows" : [
     [
       {
@@ -107,6 +107,70 @@
         "reference" : "1271f741-1de3-43a4-9d25-08f384165468",
         "hasValidationError" : false,
         "id" : "customCustomExecuceTaskPagoExamenPAGO"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Submit"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          },
+          "buttonStyle" : {
+            "type" : "constant",
+            "value" : "default"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "catPeriodo.data"
+          },
+          "url" : {
+            "type" : "constant",
+            "value" : "getIsPeriodoVencido"
+          },
+          "urlInfo" : {
+            "type" : "expression",
+            "value" : "urlParametro"
+          },
+          "urlPost" : {
+            "type" : "constant",
+            "value" : "postUpdatePeriodoVencido"
+          },
+          "caseId" : {
+            "type" : "expression",
+            "value" : "objectSolicitud.caseId"
+          },
+          "returnValue" : {
+            "type" : "variable",
+            "value" : "isPeriodoVencido.isVencido"
+          }
+        },
+        "reference" : "5b6ad1a5-4ab3-451b-baaf-58279c0c4f03",
+        "hasValidationError" : false,
+        "id" : "customBtnGetInfoModal"
       }
     ],
     [
@@ -7775,6 +7839,35 @@
       "type" : "constant",
       "value" : [
         "https://procesos.bpm.anahuac.mx/apps/login/admisiones/"
+      ],
+      "exposed" : false
+    },
+    "urlParametro" : {
+      "type" : "expression",
+      "value" : [
+        "return \"&periodo=\"+$data.objectSolicitud.catPeriodo.persistenceId;"
+      ],
+      "exposed" : false
+    },
+    "objTipoLicenciatura" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.objectSolicitud.catGestionEscolar.tipoLicenciatura"
+      ],
+      "exposed" : false
+    },
+    "catPeriodo" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatPeriodoActivo&p=0&c=10&tipo={{objTipoLicenciatura}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "isPeriodoVencido" : {
+      "type" : "json",
+      "value" : [
+        "{ \"isVencido\":false }"
       ],
       "exposed" : false
     }
