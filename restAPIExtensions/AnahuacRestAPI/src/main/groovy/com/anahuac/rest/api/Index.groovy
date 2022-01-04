@@ -2052,6 +2052,17 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+				case "updateViewDownloadSolicitud":
+					String key = request.getParameter "key";
+					String intento = request.getParameter "intento";
+					String solicitud = request.getParameter "solicitud";
+					result = suDAO.updateViewDownloadSolicitud(key, intento, solicitud, jsonData, context)
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
 				/*******************MARIO ICEDO FIN**********************/
 				case "getActiveProcess":
 					result = cuDAO.getActiveProcess(context);
