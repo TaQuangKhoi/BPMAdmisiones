@@ -668,7 +668,7 @@ class SolicitudUsuarioDAO {
 	
 	
 //	public Result getDuplicados(String curp, String nombre, String correoElectronico, String fechaNacimiento,String caseid) {
-	public Result getDuplicados(String curp, 
+public Result getDuplicados(String curp, 
 		 primerNombre,  segundoNombre, 
 		 apellidoPaterno,apellidoMaterno, 
 		 sexo,idbanner,caseid
