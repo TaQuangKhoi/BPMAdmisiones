@@ -1151,7 +1151,7 @@ class SolicitudUsuarioDAO {
 
         pstm.executeUpdate();
 
-        errorLog += "Se ejecuto el update correctamente - Consulta | - " + pstm;
+        errorLog += "Se ejecuto el update correctamente - Consulta: | - " + pstm;
         con.commit();
 
         resultado.setData(rows)
