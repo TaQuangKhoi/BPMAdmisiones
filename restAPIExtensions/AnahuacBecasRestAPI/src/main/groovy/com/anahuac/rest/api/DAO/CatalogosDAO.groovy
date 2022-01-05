@@ -43,7 +43,7 @@ class CatalogosDAO {
 	}
 	public Result simpleSelect(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
-		Boolean closeCon = false;
+		Boolean closeCon = validarConexion();
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -87,7 +87,7 @@ class CatalogosDAO {
 	
 	public Result simpleSelectBonita(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
-		Boolean closeCon = false;
+		Boolean closeCon = validarConexion();
 		
 		try {
 			def jsonSlurper = new JsonSlurper();
@@ -285,7 +285,7 @@ class CatalogosDAO {
 	
 	public Result getCatalogosGenericos(String catalogo) {
 		Result resultado = new Result();
-		Boolean closeCon = false;
+		Boolean closeCon = validarConexion();
 		CatGenerico objCatGenerico = new CatGenerico();
 		List<CatGenerico> lstCatGenerico= new ArrayList<CatGenerico>();
 		try {
@@ -326,7 +326,7 @@ class CatalogosDAO {
 	
 	public Result insertUpdateCatTipoMoneda(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
-		Boolean closeCon = false;
+		Boolean closeCon = validarConexion();
 		
 		def jsonSlurper = new JsonSlurper();
 		def objCatGenerico = jsonSlurper.parseText(jsonData);
@@ -371,7 +371,7 @@ class CatalogosDAO {
 		
 		public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
 			Result resultado = new Result();
-			Boolean closeCon = false;
+			Boolean closeCon = validarConexion();
 			
 			def jsonSlurper = new JsonSlurper();
 			def objCatGenerico = jsonSlurper.parseText(jsonData);
@@ -416,7 +416,7 @@ class CatalogosDAO {
 			
 			public Result insertUpdateCatGenerico(String jsonData, RestAPIContext context) {
 				Result resultado = new Result();
-				Boolean closeCon = false;
+				Boolean closeCon = validarConexion();
 				
 				def jsonSlurper = new JsonSlurper();
 				def objeto = jsonSlurper.parseText(jsonData);

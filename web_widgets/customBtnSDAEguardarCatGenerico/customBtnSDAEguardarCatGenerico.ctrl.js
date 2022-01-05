@@ -9,7 +9,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
             if($scope.properties.objCatGenerico.objCatGenerico.clave.trim()=== ""){
                 swal("¡Aviso!", "Faltó capturar información en: Clave.", "warning");
                 validar = false;
-            }else if($scope.properties.objCatProvienenIngreso.descripcion.trim()=== ""){
+            }else if($scope.properties.objCatGenerico.objCatGenerico.descripcion.trim()=== ""){
                 swal("¡Aviso!", "Faltó capturar información en: Descripción.", "warning");
                 validar = false;
             }
@@ -25,7 +25,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
         return validar;
     };
     $scope.Guardar = function() {
-        
+        debugger
         $scope.properties.objCatGenerico.objCatGenerico.usuarioCreacion =   $scope.properties.userData.user_name;
         if(fnctvalidar()){
                   var prom = doRequest('POST', '../API/extension/AnahuacBecasRest?url=insertUpdateCatGenerico&p=0&c=0' ).then(function () {
