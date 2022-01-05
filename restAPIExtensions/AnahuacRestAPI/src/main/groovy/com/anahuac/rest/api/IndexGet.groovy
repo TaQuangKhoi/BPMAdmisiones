@@ -1232,35 +1232,34 @@ class IndexGet implements RestApiController {
 				
 				case "getDuplicado":
 					//String idbanner = request.getParameter "idbanner";
-					String correo = request.getParameter "correoElectronico";
-					String curp = request.getParameter "curp";
-					String nombre = request.getParameter "nombre";
-					String fecha = request.getParameter "fechaNacimiento";
+					//String correo = request.getParameter "correoElectronico";
+					//String nombre = request.getParameter "nombre";
+					//String fecha = request.getParameter "fechaNacimiento";
 					String caseid = request.getParameter "caseid";
+					String idbanner = request.getParameter "idbanner";
+					String curp = request.getParameter "curp";
 					String primerNombre = request.getParameter "primerNombre";
 					String segundoNombre = request.getParameter "segundoNombre";
 					String apellidoPaterno = request.getParameter "apellidoPaterno";
 					String apellidoMaterno = request.getParameter "apellidoMaterno";
+					String sexo = request.getParameter "sexo";
 					
-					if(curp.equals(null)) {
+					/*if(curp.equals(null)) {
 						curp = "";
 					}
-					
-					/*if(idbanner.equals(null)) {
+					if(idbanner.equals(null)) {
 						idbanner = "";
-					}*/
-					
+					}
 					nombre = nombre.replace("%20", " ");
-					
-					result = new SolicitudUsuarioDAO().getDuplicados(curp, nombre, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, correo, fecha, caseid);
+					*/
+					result = new SolicitudUsuarioDAO().getDuplicados(curp, primerNombre, segundoNombre, apellidoPaterno, apellidoMaterno, sexo,idbanner,caseid);
 					responseBuilder.withMediaType("application/json");
 					if (result.isSuccess()) {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString());
 					}else {
 						 return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString());
 					}
-				break;
-				
+				break;	
 				case "getConstanciasHistorico":
 					String caseId = request.getParameter "caseId";
 					

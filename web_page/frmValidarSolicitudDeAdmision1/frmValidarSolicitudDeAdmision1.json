@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "frmValidarSolicitudDeAdmision1",
   "name" : "frmValidarSolicitudDeAdmision",
-  "lastUpdate" : 1639508430855,
+  "lastUpdate" : 1640817147098,
   "rows" : [
     [
       {
@@ -5942,7 +5942,7 @@
                                   },
                                   "text" : {
                                     "type" : "interpolation",
-                                    "value" : "El tutor hace referencia a la(s) personas encargadas de pagar tus estudios.<br>\nSi contratas el servicio de educación garantizada se tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio, en caso de ser requerido. Puedes agregar más de un tutor.  NOTA: El primer tutor de la lista será considerado como el tutor principal."
+                                    "value" : "El tutor hace referencia a la(s) personas encargadas de pagar tus estudios.<br>\nEl servicio de educación garantizada tomará como tutor a la persona registrada en este apartado para hacer efectivo el beneficio. En caso de ser requerido puedes agregar mas de un tutor. NOTA: El primer tutor de la lista será considerado como el tutor principal."
                                   },
                                   "alignment" : {
                                     "type" : "constant",
@@ -24336,7 +24336,7 @@
                   "headers" : {
                     "type" : "constant",
                     "value" : [
-                      "Solicitud",
+                      "Id Banner",
                       "Nombre",
                       "Licenciatura",
                       "Periodo",
@@ -24344,8 +24344,8 @@
                       "VPD",
                       "Estatus",
                       "Fecha Nacimiento",
+                      "Sexo",
                       "Curp",
-                      "Id Banner",
                       "Acciones"
                     ]
                   },
@@ -24356,7 +24356,7 @@
                   "columnsKey" : {
                     "type" : "constant",
                     "value" : [
-                      "caseid",
+                      "idbanner==null?\"Sin Id Banner\":idbanner",
                       "primernombre + \" \" + segundonombre + \" \" + apellidopaterno + \" \" + apellidomaterno",
                       "licenciatura",
                       "periodo",
@@ -24365,7 +24365,7 @@
                       "estatussolicitud",
                       "fechanacimiento | date:'dd-MM-yyyy'",
                       "curp",
-                      "idbanner",
+                      "sexo",
                       "null"
                     ]
                   },
@@ -28793,16 +28793,18 @@
     "parametros" : {
       "type" : "expression",
       "value" : [
+        "//\"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
+        "//\"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
+        "//\"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
+        "//\"nombre\": $data.NombreAspirante,\r",
         "return {\r",
-        "    \"correoElectronico\": $data.objSolicitudDeAdmision.correoElectronico,\r",
-        "    \"fechaNacimiento\": $data.objSolicitudDeAdmision.fechaNacimiento.toString(),\r",
         "    \"curp\": $data.curp,\r",
-        "    \"nombre\": $data.NombreAspirante,\r",
-        "    \"caseid\": $data.objSolicitudDeAdmision.caseId,\r",
         "    \"primerNombre\": $data.objSolicitudDeAdmision.primerNombre,\r",
         "    \"segundoNombre\": $data.objSolicitudDeAdmision.segundoNombre,\r",
         "    \"apellidoPaterno\": $data.objSolicitudDeAdmision.apellidoPaterno,\r",
-        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno\r",
+        "    \"apellidoMaterno\": $data.objSolicitudDeAdmision.apellidoMaterno,\r",
+        "    \"sexo\": $data.objSolicitudDeAdmision.catSexo.persistenceId,\r",
+        "    \"idbanner\":($data.formOutput.detalleSolicitudInput.idBanner == null ?\"\":$data.formOutput.detalleSolicitudInput.idBanner)\r",
         "}"
       ],
       "exposed" : false
