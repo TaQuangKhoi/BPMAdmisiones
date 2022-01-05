@@ -1,0 +1,664 @@
+{
+  "modelVersion" : "2.2",
+  "id" : "SDAECatProvienenIngresosAcciones",
+  "name" : "SDAECatProvienenIngresosAcciones",
+  "lastUpdate" : 1641341740874,
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "Catálogo proveniencia de ingresos"
+          },
+          "level" : {
+            "type" : "constant",
+            "value" : "Level 2"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "center"
+          }
+        },
+        "reference" : "37a5c6c0-1dbc-4f5a-a1d2-5317f20ed0fc",
+        "hasValidationError" : false,
+        "id" : "pbTitle"
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "accion != 'tabla'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "da482a5b-e3df-4586-944b-b8ebbb6d7674",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "<span class=\"glyphicon glyphicon-plus\"></span> Agregar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "variableDestino" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "variableAcopiar" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "objCatProvienenIngreso" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso"
+                },
+                "objCatProvienenIngresoNuevo" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngresoNuevo"
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
+                },
+                "objCatGenerico" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso"
+                },
+                "objCatGenericoNuevo" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngresoNuevo"
+                }
+              },
+              "reference" : "342039e5-6363-4e61-b8dd-0a6201cd0d54",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAEalternarValor"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "allowHTML" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "headers" : {
+                  "type" : "constant",
+                  "value" : [ ]
+                },
+                "content" : {
+                  "type" : "constant"
+                },
+                "columnsKey" : {
+                  "type" : "constant",
+                  "value" : [
+                    "clave",
+                    "descripcion",
+                    "usuarioCreacion",
+                    "persistenceId",
+                    "fechaCreacion"
+                  ]
+                },
+                "selectedRow" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "striped" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "condensed" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "bordered" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "isSelected" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "processId" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "userId" : {
+                  "type" : "variable",
+                  "value" : "userData.user_id"
+                },
+                "dataToSend" : {
+                  "type" : "variable",
+                  "value" : ""
+                },
+                "contenido" : {
+                  "type" : "variable",
+                  "value" : "lstContenido"
+                },
+                "urlGet" : {
+                  "type" : "constant"
+                },
+                "dataToFilter" : {
+                  "type" : "variable",
+                  "value" : "dataToFilter"
+                },
+                "urlPost" : {
+                  "type" : "constant",
+                  "value" : "../API/extension/AnahuacBecasRest?url=getCatGenerico&p=0&c=0"
+                },
+                "objCatGenerico" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso.objCatGenerico"
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
+                }
+              },
+              "reference" : "32542420-db25-4186-becb-78a749f214c9",
+              "hasValidationError" : false,
+              "id" : "customSDAETableSeleccionarFiltradoNoCombo"
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      {
+        "type" : "container",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "expression",
+            "value" : "accion == 'tabla'"
+          },
+          "repeatedCollection" : {
+            "type" : "variable",
+            "value" : ""
+          }
+        },
+        "reference" : "0cc993ea-a785-4ced-a0dd-ebcc417cd5f7",
+        "hasValidationError" : false,
+        "id" : "pbContainer",
+        "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Clave"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso.objCatGenerico.clave"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "469c32b9-f78b-444d-9d40-bdfa71898690",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "required" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "minLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "maxLength" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "readOnly" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "labelHidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Descripción"
+                },
+                "labelPosition" : {
+                  "type" : "constant",
+                  "value" : "top"
+                },
+                "labelWidth" : {
+                  "type" : "constant",
+                  "value" : 4
+                },
+                "placeholder" : {
+                  "type" : "interpolation"
+                },
+                "value" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso.objCatGenerico.descripcion"
+                },
+                "type" : {
+                  "type" : "constant",
+                  "value" : "text"
+                },
+                "min" : {
+                  "type" : "constant"
+                },
+                "max" : {
+                  "type" : "constant"
+                },
+                "step" : {
+                  "type" : "constant",
+                  "value" : 1
+                }
+              },
+              "reference" : "d541f5c5-1934-4c86-940f-888d0cb51ba5",
+              "hasValidationError" : false,
+              "id" : "pbInput"
+            }
+          ],
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Cancelar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "left"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "info"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "assign" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
+                }
+              },
+              "reference" : "728a77f6-c4d5-4e8d-91b6-310caeec98c8",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAECancelarCatalogos"
+            },
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 6,
+                "lg" : 6
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "disabled" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "label" : {
+                  "type" : "interpolation",
+                  "value" : "Guardar"
+                },
+                "alignment" : {
+                  "type" : "constant",
+                  "value" : "right"
+                },
+                "buttonStyle" : {
+                  "type" : "constant",
+                  "value" : "primary"
+                },
+                "action" : {
+                  "type" : "constant",
+                  "value" : "Submit task"
+                },
+                "objCatGenerico" : {
+                  "type" : "variable",
+                  "value" : "objCatProvienenIngreso"
+                },
+                "OpenModal" : {
+                  "type" : "constant",
+                  "value" : true
+                },
+                "modalId" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "accion" : {
+                  "type" : "variable",
+                  "value" : "accion"
+                },
+                "userData" : {
+                  "type" : "variable",
+                  "value" : "userData"
+                },
+                "url" : {
+                  "type" : "variable",
+                  "value" : ""
+                }
+              },
+              "reference" : "e9474d1f-74ef-4226-8120-955e5eef1085",
+              "hasValidationError" : false,
+              "id" : "customBtnSDAEguardarCatGenerico"
+            }
+          ]
+        ]
+      }
+    ]
+  ],
+  "assets" : [
+    {
+      "id" : "a54ff005-3d10-4203-98a0-7a8c6b8863c7",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "6bd4cac6-369a-4884-a912-ff650a05ec4f",
+      "name" : "anahuac_custom_styles.css",
+      "type" : "css",
+      "order" : 1,
+      "external" : false
+    },
+    {
+      "id" : "04db386e-2a69-4037-98f9-a7d19459dbd9",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "variables" : {
+    "lstContenido" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "dataToFilter" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"catalogo\":\"CatProvienenIngresos\",\r",
+        "    \"lstFiltro\": $data.lstFiltros,\r",
+        "    \"usuario\":$data.userData.user_name,\r",
+        "    \"orderby\":\"\",\r",
+        "    \"orientation\":\"ASC\",\r",
+        "    \"limit\":20,\r",
+        "    \"offset\":0\r",
+        "};"
+      ],
+      "exposed" : false
+    },
+    "lstFiltros" : {
+      "type" : "json",
+      "value" : [
+        "[]"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objCatProvienenIngreso" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"catalogo\":\"CatProvienenIngresos\",\r",
+        "    \"objCatGenerico\": {\r",
+        "        \"persistenceId\": 0,\r",
+        "        \"isEliminado\": false,\r",
+        "        \"descripcion\": \"\",\r",
+        "        \"fechaCreacion\": \"\",\r",
+        "        \"clave\": \"\",\r",
+        "        \"persistenceVersion\": 1,\r",
+        "        \"usuarioCreacion\": \"\"\r",
+        "    }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "objCatProvienenIngresoNuevo" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "    \"catalogo\":\"CatProvienenIngresos\",\r",
+        "    \"objCatGenerico\": {\r",
+        "        \"persistenceId\": 0,\r",
+        "        \"isEliminado\": false,\r",
+        "        \"descripcion\": \"\",\r",
+        "        \"fechaCreacion\": \"\",\r",
+        "        \"clave\": \"\",\r",
+        "        \"persistenceVersion\": 1,\r",
+        "        \"usuarioCreacion\": \"\"\r",
+        "    }\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "accion" : {
+      "type" : "constant",
+      "value" : [
+        "tabla"
+      ],
+      "exposed" : false
+    }
+  },
+  "hasValidationError" : false,
+  "uuid" : "32c75c1d-7cf0-45cc-9731-59c4e829ee21",
+  "type" : "page",
+  "description" : "Page generated with Bonita UI designer"
+}

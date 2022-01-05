@@ -452,7 +452,7 @@ class CatalogosDAO {
 							}
 							con.commit();
 						resultado.setSuccess(true)
-						resultado.setError_info(errorLog);
+						//resultado.setError_info(errorLog);
 					} catch (Exception e) {
 						LOGGER.error "[ERROR] " + e.getMessage();
 						resultado.setSuccess(false);
