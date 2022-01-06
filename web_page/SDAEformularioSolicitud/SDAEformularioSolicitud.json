@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1641429833153,
+  "lastUpdate" : 1641492747581,
   "rows" : [
     [
       {
@@ -2161,7 +2161,7 @@
                             },
                             "availableValues" : {
                               "type" : "expression",
-                              "value" : "catTieneHijos"
+                              "value" : "lstCatTienesHijos.data"
                             },
                             "displayedKey" : {
                               "type" : "constant",
@@ -2980,7 +2980,7 @@
                             },
                             "availableValues" : {
                               "type" : "expression",
-                              "value" : "catBecaPreparatoria"
+                              "value" : "lstCatContoBecaPreparatoria.data"
                             },
                             "displayedKey" : {
                               "type" : "constant",
@@ -4735,7 +4735,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "lstProvienenIngresos.data"
+                        "value" : "lstCatProvienenIngresos.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -5047,7 +5047,7 @@
                       },
                       "lstTipoInversionesPosee" : {
                         "type" : "variable",
-                        "value" : "lstTipoInversionesPosee.data"
+                        "value" : "lstCatTipoInversionesPosee.data"
                       }
                     },
                     "reference" : "d5ad83f5-aeb0-452d-90e6-1867da43c343",
@@ -7284,10 +7284,12 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant"
+                        "type" : "expression",
+                        "value" : "lstCatTienesHermanos.data"
                       },
                       "displayedKey" : {
-                        "type" : "constant"
+                        "type" : "constant",
+                        "value" : "descripcion"
                       },
                       "returnedKey" : {
                         "type" : "constant"
@@ -7620,7 +7622,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "lstTipoApoyo.data"
+                        "value" : "lstCatTipoApoyo.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -7685,7 +7687,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "lstPorcentajeBeca.data"
+                        "value" : "lstCatPorcentajeBeca.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -7752,7 +7754,7 @@
                       },
                       "availableValues" : {
                         "type" : "expression",
-                        "value" : "lstPorcentajeFinanciamiento.data"
+                        "value" : "lstCatPorcentajeFinanciamiento.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -8196,42 +8198,6 @@
       ],
       "exposed" : false
     },
-    "catTieneHijos" : {
-      "type" : "json",
-      "value" : [
-        "[",
-        "    {",
-        "    \"persistenceId\":1,",
-        "    \"descripcion\":\"Sí\",",
-        "    \"clave\":\"\"",
-        "    },",
-        "    {",
-        "    \"persistenceId\":2,",
-        "    \"descripcion\":\"No\",",
-        "    \"clave\":\"\"  ",
-        "    }",
-        "]"
-      ],
-      "exposed" : false
-    },
-    "catBecaPreparatoria" : {
-      "type" : "json",
-      "value" : [
-        "[",
-        "    {",
-        "    \"persistenceId\":1,",
-        "    \"descripcion\":\"Sí\",",
-        "    \"clave\":\"\"",
-        "    },",
-        "    {",
-        "    \"persistenceId\":2,",
-        "    \"descripcion\":\"No\",",
-        "    \"clave\":\"\"  ",
-        "    }",
-        "]"
-      ],
-      "exposed" : false
-    },
     "datosUsuario" : {
       "type" : "json",
       "value" : [
@@ -8249,46 +8215,6 @@
         "    }",
         "}"
       ],
-      "exposed" : false
-    },
-    "lstTipoApoyo" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatTipoApoyo"
-      ],
-      "advancedOptions" : { },
-      "exposed" : false
-    },
-    "lstPorcentajeBeca" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeBeca"
-      ],
-      "advancedOptions" : { },
-      "exposed" : false
-    },
-    "lstPorcentajeFinanciamiento" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatPorcentajeFinanciamiento"
-      ],
-      "advancedOptions" : { },
-      "exposed" : false
-    },
-    "lstProvienenIngresos" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatProvienenIngresos"
-      ],
-      "advancedOptions" : { },
-      "exposed" : false
-    },
-    "lstTipoInversionesPosee" : {
-      "type" : "url",
-      "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatTipoInversionesPosee"
-      ],
-      "advancedOptions" : { },
       "exposed" : false
     },
     "userData" : {
@@ -8430,6 +8356,77 @@
       "type" : "url",
       "value" : [
         "../{{context.madre_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "ligaApiGetCatalogos" : {
+      "type" : "constant",
+      "value" : [
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo="
+      ],
+      "exposed" : false
+    },
+    "lstCatPorcentajeBeca" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatPorcentajeBeca"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatPorcentajeFinanciamiento" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatPorcentajeFinanciamiento"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatProvienenIngresos" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatProvienenIngresos"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatTipoApoyo" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatTipoApoyo"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatTipoInversionesPosee" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatTipoInversionesPosee"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatTienesHermanos" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatTienesHermanos"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatContoBecaPreparatoria" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatContoBecaPreparatoria"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "lstCatTienesHijos" : {
+      "type" : "url",
+      "value" : [
+        "{{ligaApiGetCatalogos}}CatTienesHijos"
       ],
       "advancedOptions" : { },
       "exposed" : false
