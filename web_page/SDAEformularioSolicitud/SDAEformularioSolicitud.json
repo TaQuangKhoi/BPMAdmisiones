@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEformularioSolicitud",
   "name" : "SDAEformularioSolicitud",
-  "lastUpdate" : 1641410262336,
+  "lastUpdate" : 1641429833153,
   "rows" : [
     [
       {
@@ -31,6 +31,42 @@
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
+          [
+            {
+              "type" : "component",
+              "dimension" : {
+                "xs" : 12,
+                "sm" : 12,
+                "md" : 12,
+                "lg" : 12
+              },
+              "propertyValues" : {
+                "cssClasses" : {
+                  "type" : "constant",
+                  "value" : ""
+                },
+                "hidden" : {
+                  "type" : "constant",
+                  "value" : false
+                },
+                "caseId" : {
+                  "type" : "variable",
+                  "value" : "caseId"
+                },
+                "taskId" : {
+                  "type" : "variable",
+                  "value" : "taskId"
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : "context"
+                }
+              },
+              "reference" : "428d5f57-6c5d-41ce-80d0-7823b3a2f277",
+              "hasValidationError" : false,
+              "id" : "customLoadContextSDAEdatosAdmisiones"
+            }
+          ],
           [
             {
               "type" : "component",
@@ -1396,7 +1432,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : ""
+                                    "value" : "objSolicitudDeAdmision.catGestionEscolar.nombre"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -1566,7 +1602,7 @@
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : ""
+                                    "value" : "objSolicitudDeAdmision.catPeriodo.descripcion"
                                   },
                                   "type" : {
                                     "type" : "constant",
@@ -2471,8 +2507,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -2495,7 +2531,7 @@
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : ""
+                              "value" : "usuario.promedioGeneral"
                             },
                             "type" : {
                               "type" : "constant",
@@ -2700,8 +2736,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "vista"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -4698,10 +4734,8 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "lstProvienenIngresos"
-                        ]
+                        "type" : "expression",
+                        "value" : "lstProvienenIngresos.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -5013,7 +5047,7 @@
                       },
                       "lstTipoInversionesPosee" : {
                         "type" : "variable",
-                        "value" : "lstTipoInversionesPosee"
+                        "value" : "lstTipoInversionesPosee.data"
                       }
                     },
                     "reference" : "d5ad83f5-aeb0-452d-90e6-1867da43c343",
@@ -5486,7 +5520,7 @@
                 ],
                 [
                   {
-                    "type" : "component",
+                    "type" : "container",
                     "dimension" : {
                       "xs" : 12,
                       "sm" : 12,
@@ -5502,51 +5536,161 @@
                         "type" : "constant",
                         "value" : false
                       },
-                      "disabled" : {
-                        "type" : "expression",
-                        "value" : "vista"
-                      },
-                      "required" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "labelHidden" : {
-                        "type" : "constant",
-                        "value" : false
-                      },
-                      "label" : {
-                        "type" : "interpolation",
-                        "value" : "¿Vive?"
-                      },
-                      "labelPosition" : {
-                        "type" : "constant",
-                        "value" : "top"
-                      },
-                      "labelWidth" : {
-                        "type" : "constant",
-                        "value" : 4
-                      },
-                      "placeholder" : {
-                        "type" : "interpolation",
-                        "value" : "Selecciona una opción"
-                      },
-                      "availableValues" : {
-                        "type" : "constant"
-                      },
-                      "displayedKey" : {
-                        "type" : "constant"
-                      },
-                      "returnedKey" : {
-                        "type" : "constant"
-                      },
-                      "value" : {
+                      "repeatedCollection" : {
                         "type" : "variable",
                         "value" : ""
                       }
                     },
-                    "reference" : "978f5388-9c0a-4b95-957c-003bd628a16b",
+                    "reference" : "375aaf51-ce51-4ff8-8660-7e72d69badff",
                     "hasValidationError" : false,
-                    "id" : "pbSelect"
+                    "id" : "pbContainer",
+                    "rows" : [
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "disabled" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Vive?"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation",
+                              "value" : "Selecciona una opción"
+                            },
+                            "availableValues" : {
+                              "type" : "constant",
+                              "value" : [
+                                "objPadre.vive.descripcion"
+                              ]
+                            },
+                            "displayedKey" : {
+                              "type" : "constant"
+                            },
+                            "returnedKey" : {
+                              "type" : "constant"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : ""
+                            }
+                          },
+                          "reference" : "978f5388-9c0a-4b95-957c-003bd628a16b",
+                          "hasValidationError" : false,
+                          "id" : "pbSelect"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "minLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "maxLength" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "readOnly" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "¿Vive?"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "objPadre.vive.descripcion"
+                            },
+                            "type" : {
+                              "type" : "constant",
+                              "value" : "text"
+                            },
+                            "min" : {
+                              "type" : "constant"
+                            },
+                            "max" : {
+                              "type" : "constant"
+                            },
+                            "step" : {
+                              "type" : "constant",
+                              "value" : 1
+                            }
+                          },
+                          "reference" : "0e03b49a-9ce8-412d-a5f1-ec23146f82c7",
+                          "hasValidationError" : false,
+                          "id" : "pbInput"
+                        }
+                      ]
+                    ]
                   },
                   {
                     "type" : "component",
@@ -7475,10 +7619,8 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "lstTipoApoyo"
-                        ]
+                        "type" : "expression",
+                        "value" : "lstTipoApoyo.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -7542,10 +7684,8 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "lstPorcentajeBeca"
-                        ]
+                        "type" : "expression",
+                        "value" : "lstPorcentajeBeca.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -7611,10 +7751,8 @@
                         "value" : "Selecciona una opción"
                       },
                       "availableValues" : {
-                        "type" : "constant",
-                        "value" : [
-                          "lstPorcentajeFinanciamiento"
-                        ]
+                        "type" : "expression",
+                        "value" : "lstPorcentajeFinanciamiento.data"
                       },
                       "displayedKey" : {
                         "type" : "constant",
@@ -8148,7 +8286,7 @@
     "lstTipoInversionesPosee" : {
       "type" : "url",
       "value" : [
-        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=TipoInversionesPosee"
+        "../API/extension/AnahuacBecasRestGET?url=getCatalogosGenericos&p=0&c=0&catalogo=CatTipoInversionesPosee"
       ],
       "advancedOptions" : { },
       "exposed" : false
@@ -8241,6 +8379,59 @@
         "",
         "return url;"
       ],
+      "exposed" : false
+    },
+    "context" : {
+      "type" : "json",
+      "value" : [
+        "{}"
+      ],
+      "exposed" : false
+    },
+    "objSolicitudDeAdmision" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.catSolicitudDeAdmision_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "currentTask" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/humanTask?p=0&c=10&f=caseId={{caseId}}&fstate=ready"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "caseId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.usuario[0].caseId;"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "expression",
+      "value" : [
+        "return $data.currentTask[0].id;"
+      ],
+      "exposed" : false
+    },
+    "objPadre" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.padre_ref.link}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "objMadre" : {
+      "type" : "url",
+      "value" : [
+        "../{{context.madre_ref.link}}"
+      ],
+      "advancedOptions" : { },
       "exposed" : false
     }
   },

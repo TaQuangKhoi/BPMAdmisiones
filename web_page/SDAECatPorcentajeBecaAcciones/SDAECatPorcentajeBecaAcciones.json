@@ -1,8 +1,8 @@
 {
   "modelVersion" : "2.2",
-  "id" : "SDAECatProvienenIngresosAcciones",
-  "name" : "SDAECatProvienenIngresosAcciones",
-  "lastUpdate" : 1641424835191,
+  "id" : "SDAECatPorcentajeBecaAcciones",
+  "name" : "SDAECatPorcentajeBecaAcciones",
+  "lastUpdate" : 1641425299314,
   "rows" : [
     [
       {
@@ -24,7 +24,7 @@
           },
           "text" : {
             "type" : "interpolation",
-            "value" : "Catálogo proveniencia de ingresos"
+            "value" : "Catálogotipo porcentaje (%) de beca"
           },
           "level" : {
             "type" : "constant",
@@ -35,7 +35,7 @@
             "value" : "center"
           }
         },
-        "reference" : "37a5c6c0-1dbc-4f5a-a1d2-5317f20ed0fc",
+        "reference" : "6aa662dc-87cb-4f5c-a744-afd789d11004",
         "hasValidationError" : false,
         "id" : "pbTitle"
       }
@@ -63,7 +63,7 @@
             "value" : ""
           }
         },
-        "reference" : "da482a5b-e3df-4586-944b-b8ebbb6d7674",
+        "reference" : "87327792-b00b-4179-83fa-71197399eea2",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -142,7 +142,7 @@
                   "value" : "objCatalogoEnviarNuevo"
                 }
               },
-              "reference" : "342039e5-6363-4e61-b8dd-0a6201cd0d54",
+              "reference" : "63b3c029-998e-4f04-97d8-195ab6d133ae",
               "hasValidationError" : false,
               "id" : "customBtnSDAEalternarValor"
             }
@@ -237,7 +237,7 @@
                   "value" : "accion"
                 }
               },
-              "reference" : "32542420-db25-4186-becb-78a749f214c9",
+              "reference" : "b7b519b1-d200-474a-966f-518d8ab95f93",
               "hasValidationError" : false,
               "id" : "customSDAETableSeleccionarFiltradoNoCombo"
             }
@@ -268,7 +268,7 @@
             "value" : ""
           }
         },
-        "reference" : "0cc993ea-a785-4ced-a0dd-ebcc417cd5f7",
+        "reference" : "a4808e7d-7114-4aaa-9cc0-b2439eab7f0d",
         "hasValidationError" : false,
         "id" : "pbContainer",
         "rows" : [
@@ -344,7 +344,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "469c32b9-f78b-444d-9d40-bdfa71898690",
+              "reference" : "6079dc5a-2dc1-41b5-99da-39d5b3486412",
               "hasValidationError" : false,
               "id" : "pbInput"
             },
@@ -419,7 +419,7 @@
                   "value" : 1
                 }
               },
-              "reference" : "d541f5c5-1934-4c86-940f-888d0cb51ba5",
+              "reference" : "365134b3-beb7-45f1-9bac-59696633ee43",
               "hasValidationError" : false,
               "id" : "pbInput"
             }
@@ -471,7 +471,7 @@
                   "value" : "accion"
                 }
               },
-              "reference" : "728a77f6-c4d5-4e8d-91b6-310caeec98c8",
+              "reference" : "5d6b8f62-d81b-4bce-8ec6-00f29cc72112",
               "hasValidationError" : false,
               "id" : "customBtnSDAECancelarCatalogos"
             },
@@ -537,7 +537,7 @@
                   "value" : ""
                 }
               },
-              "reference" : "e9474d1f-74ef-4226-8120-955e5eef1085",
+              "reference" : "a18d8399-3045-4770-abce-a855462a5cf4",
               "hasValidationError" : false,
               "id" : "customBtnSDAEguardarCatGenerico"
             }
@@ -618,25 +618,7 @@
     "nombreCatalogo" : {
       "type" : "constant",
       "value" : [
-        "CatProvienenIngresos"
-      ],
-      "exposed" : false
-    },
-    "objCatalogoEnviarNuevo" : {
-      "type" : "expression",
-      "value" : [
-        "return {\r",
-        "    \"catalogo\": $data.nombreCatalogo,\r",
-        "    \"objCatGenerico\": {\r",
-        "        \"persistenceId\": 0,\r",
-        "        \"isEliminado\": false,\r",
-        "        \"descripcion\": \"\",\r",
-        "        \"fechaCreacion\": \"\",\r",
-        "        \"clave\": \"\",\r",
-        "        \"persistenceVersion\": 1,\r",
-        "        \"usuarioCreacion\": \"\"\r",
-        "    }\r",
-        "};"
+        "CatPorcentajeBeca"
       ],
       "exposed" : false
     },
@@ -657,10 +639,28 @@
         "};"
       ],
       "exposed" : false
+    },
+    "objCatalogoEnviarNuevo" : {
+      "type" : "expression",
+      "value" : [
+        "return {\r",
+        "    \"catalogo\": $data.nombreCatalogo,\r",
+        "    \"objCatGenerico\": {\r",
+        "        \"persistenceId\": 0,\r",
+        "        \"isEliminado\": false,\r",
+        "        \"descripcion\": \"\",\r",
+        "        \"fechaCreacion\": \"\",\r",
+        "        \"clave\": \"\",\r",
+        "        \"persistenceVersion\": 1,\r",
+        "        \"usuarioCreacion\": \"\"\r",
+        "    }\r",
+        "};"
+      ],
+      "exposed" : false
     }
   },
   "hasValidationError" : false,
-  "uuid" : "32c75c1d-7cf0-45cc-9731-59c4e829ee21",
+  "uuid" : "d5af835d-ee76-44f0-88fc-5251293c8ea9",
   "type" : "page",
   "description" : "Page generated with Bonita UI designer"
 }
