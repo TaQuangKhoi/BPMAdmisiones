@@ -860,7 +860,7 @@ public Result getDuplicados(String curp,
 	}
 
 
-public Result updateViewDownloadSolicitud(String key, String intento, Boolean table, String jsonData, RestAPIContext context) {
+public Result updateViewDownloadSolicitud(String key, String intento, Boolean tipoTabla, String jsonData, RestAPIContext context) {
     Result resultado = new Result();
     Boolean closeCon = false;
 	Boolean executionQuery = false;
@@ -870,8 +870,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
     String replaceTableSolicitud = "";
     String replaceTablePadresTutor = "";
     String replaceTableContacEmergencia = "";
-    String estado = "";
-    Long resultReq = 0;
     List < String > rows = new ArrayList < String > ();
 
     try {
@@ -881,7 +879,7 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
         def jsonSlurper = new JsonSlurper();
         def object = jsonSlurper.parseText(jsonData);
 
-        if (table == true) {
+        if (tipoTabla == true) {
             replaceTableSolicitud = " SolicitudDeAdmision ";
             replaceTablePadresTutor = " PadresTutor ";
             replaceTableContacEmergencia = " ContactoEmergencias ";
@@ -891,6 +889,16 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
             replaceTablePadresTutor = " PadresTutorRespaldo ";
             replaceTableContacEmergencia = " ContactoEmergenciasRespaldo ";
             executionQuery = true;
+        }
+
+        if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IT") || key.equals("DPT")) {
+            where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
+        } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || key.equals("DPT")) {
+             where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
+        } else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IPA") || key.equals("DPPA") || key.equals("IMA") || key.equals("DPMA")) {
+              where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+        } else if (replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IPA") || key.equals("DPPA") || key.equals("IMA") || key.equals("DPMA")) {
+             where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
         }
 
         if (key.equals("IP")) {
@@ -948,12 +956,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
             errorLog += "Fin sección: Información bachillerato | "+pstm;
 
         } else if (key.equals("IT")) {
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
-            }
-
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Información tutor | "+pstm;
@@ -987,12 +989,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
             }
 
         } else if (key.equals("DPT")) {
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
-            }
-
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Domicilio tutor | "+pstm;
@@ -1016,7 +1012,7 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
                 }
                 if (replaceTablePadresTutor.equals(" PadresTutor ")) {
                      replaceTablePadresTutor = " PadresTutorRespaldo ";
-                     where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  ";
+                     where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
                 }
 
                 errorLog += "Fin sección: Domicilio tutor | "+pstm;
@@ -1024,12 +1020,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
             }
 
         } else if (key.equals("IPA")) {
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
-            }
-
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Información padre | "+pstm;
@@ -1060,13 +1050,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
                 pstm.executeUpdate();
             }
         } else if (key.equals("DPPA")) {
-
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
-            }
-
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Domicilio padre | "+pstm;
@@ -1098,11 +1081,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
                 pstm.executeUpdate();
             }
         } else if (key.equals("IMA")) {
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
-            }
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Información madre | "+pstm;
@@ -1133,12 +1111,6 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ta
             }
 
         } else if (key.equals("DPMA")) {
-            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
-            }
-
             while (executionQuery == true) {
                 pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
                 errorLog += "Sección: Domicilio madre | "+pstm;

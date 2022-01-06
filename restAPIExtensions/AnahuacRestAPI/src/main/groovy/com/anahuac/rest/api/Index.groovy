@@ -2055,8 +2055,8 @@ class Index implements RestApiController {
 				case "updateViewDownloadSolicitud":
 					String key = request.getParameter "key";
 					String intento = request.getParameter "intento";
-					String solicitud = request.getParameter "solicitud";
-					result = suDAO.updateViewDownloadSolicitud(key, intento, solicitud, jsonData, context)
+					Boolean tipoTabla = request.getParameter "tipoTabla";
+					result = suDAO.updateViewDownloadSolicitud(key, intento, tipoTabla, jsonData, context)
 					if (result.isSuccess()) {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
 					}else {
