@@ -860,15 +860,17 @@ public Result getDuplicados(String curp,
 	}
 
 
-	public Result updateViewDownloadSolicitud(String key, String intento, String solicitud, String jsonData, RestAPIContext context) {
+public Result updateViewDownloadSolicitud(String key, String intento, Boolean table, String jsonData, RestAPIContext context) {
     Result resultado = new Result();
     Boolean closeCon = false;
+	Boolean executionQuery = false;
     String errorLog = "";
     String replaceColumn = "";
     String where = "";
     String replaceTableSolicitud = "";
     String replaceTablePadresTutor = "";
     String replaceTableContacEmergencia = "";
+    String estado = "";
     Long resultReq = 0;
     List < String > rows = new ArrayList < String > ();
 
@@ -879,19 +881,21 @@ public Result getDuplicados(String curp,
         def jsonSlurper = new JsonSlurper();
         def object = jsonSlurper.parseText(jsonData);
 
-        if (intento.equals(solicitud)) {
+        if (table == true) {
             replaceTableSolicitud = " SolicitudDeAdmision ";
-            replaceTablePadresTutor = "PadresTutor";
-            replaceTableContacEmergencia = "ContactoEmergencias";
+            replaceTablePadresTutor = " PadresTutor ";
+            replaceTableContacEmergencia = " ContactoEmergencias ";
+			executionQuery = true;
         } else {
             replaceTableSolicitud = " SolicitudDeAdmisionRespaldo ";
-            replaceTablePadresTutor = "PadresTutorRespaldo";
-            replaceTableContacEmergencia = "ContactoEmergenciasRespaldo";
+            replaceTablePadresTutor = " PadresTutorRespaldo ";
+            replaceTableContacEmergencia = " ContactoEmergenciasRespaldo ";
+            executionQuery = true;
         }
 
         if (key.equals("IP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PERSONAL.replace("[TABLA]", replaceTableSolicitud));
-            errorLog += "Sección: Información personal | ";
+            errorLog += "Sección: Información personal | "+pstm;
             pstm.setString(1, object.primerNombre);
             pstm.setString(2, object.segundoNombre);
             pstm.setString(3, object.apellidoPaterno);
@@ -906,37 +910,32 @@ public Result getDuplicados(String curp,
             pstm.setString(12, object.telefonoCelular);
             pstm.setString(13, object.caseid);
             pstm.setString(14, object.correoElectronico);
-            errorLog += "Fin sección: Información personal | ";
+            errorLog += "Fin sección: Información personal | "+pstm;
 
         } else if (key.equals("DP")) {
-            if (object.estado_pid == null) {
-                replaceColumn = " estadoextranjero = ? ";
-            } else {
-                replaceColumn = " catestado_pid = ? ";
-            }
-
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PERMANENTE.replace("[TABLA]", replaceTableSolicitud).replace("[ESTADO]", replaceColumn));
+            pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PERMANENTE.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Domicilio permanente | " + pstm;
             pstm.setString(1, object.pais_pid);
             pstm.setString(2, object.codigoPostal);
-            pstm.setString(3, (object.estado_pid == null ? object.estadoExtranjero : object.estado_pid));
-            pstm.setString(4, object.ciudad);
-            pstm.setString(5, object.delegacionMunicipio);
-            pstm.setString(6, object.colonia);
-            pstm.setString(7, object.calle);
-            pstm.setString(8, object.calle2);
-            pstm.setString(9, object.numExterior);
-            pstm.setString(10, object.numInterior);
-            pstm.setString(11, object.telefono);
-            pstm.setString(12, object.otroTelefonoContacto);
-            pstm.setString(13, object.caseid);
-            pstm.setString(14, object.correoElectronico);
+            pstm.setString(3, object.estadoExtranjero);
+            pstm.setString(4, object.estado_pid);
+            pstm.setString(5, object.ciudad);
+            pstm.setString(6, object.delegacionMunicipio);
+            pstm.setString(7, object.colonia);
+            pstm.setString(8, object.calle);
+            pstm.setString(9, object.calle2);
+            pstm.setString(10, object.numExterior);
+            pstm.setString(11, object.numInterior);
+            pstm.setString(12, object.telefono);
+            pstm.setString(13, object.otroTelefonoContacto);
+            pstm.setString(14, object.caseid);
+            pstm.setString(15, object.correoElectronico);
 
-            errorLog += "Fin sección: Domicilio permanente | ";
+            errorLog += "Fin sección: Domicilio permanente | "+pstm;
 
         } else if (key.equals("IB")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_BACHILLERATO.replace("[TABLA]", replaceTableSolicitud));
-            errorLog += "Sección: Información bachillerato | ";
+            errorLog += "Sección: Información bachillerato | "+pstm;
             pstm.setString(1, object.bachillerato_pid);
             pstm.setString(2, object.nombreBachillerato);
             pstm.setString(3, object.paisBachillerato);
@@ -946,221 +945,255 @@ public Result getDuplicados(String curp,
             pstm.setString(7, object.resultadoPAA);
             pstm.setString(8, object.caseid);
             pstm.setString(9, object.correoElectronico);
-            errorLog += "Fin sección: Información bachillerato | ";
+            errorLog += "Fin sección: Información bachillerato | "+pstm;
 
         } else if (key.equals("IT")) {
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  "
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
             } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' "
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
             }
 
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
-            errorLog += "Sección: Información tutor | ";
-            pstm.setString(1, object.titulo_pid);
-            pstm.setString(2, object.nombre);
-            pstm.setString(3, object.apellidos);
-            pstm.setString(4, object.parentesco_pid);
-            pstm.setString(5, object.otroParentesco);
-            pstm.setString(6, object.correoElectronico);
-            pstm.setString(7, object.escolaridad_pid);
-            pstm.setString(8, object.egresoAnahuac_pid);
-            pstm.setString(9, object.campusegreso_pid);
-            pstm.setString(10, object.trabaja_pid);
-            pstm.setString(11, object.empresaTrabaja);
-            pstm.setString(12, object.giro);
-            pstm.setString(13, object.puesto);
-            pstm.setString(14, object.caseid);
-            pstm.setString(15, object.persistenceid);
-            //pstm.setString(16, object.istutor);
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(16, object.countintento);
-            }
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Información tutor | "+pstm;
+                pstm.setString(1, object.titulo_pid);
+                pstm.setString(2, object.nombre);
+                pstm.setString(3, object.apellidos);
+                pstm.setString(4, object.parentesco_pid);
+                pstm.setString(5, object.otroParentesco);
+                pstm.setString(6, object.correoElectronico);
+                pstm.setString(7, object.escolaridad_pid);
+                pstm.setString(8, object.egresoAnahuac_pid);
+                pstm.setString(9, object.campusegreso_pid);
+                pstm.setString(10, object.trabaja_pid);
+                pstm.setString(11, object.empresaTrabaja);
+                pstm.setString(12, object.giro);
+                pstm.setString(13, object.puesto);
+                pstm.setString(14, object.caseid);
+                pstm.setString(15, object.persistenceid);
 
-            errorLog += "Fin sección: Información tutor | ";
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(16, object.countintento);
+                    executionQuery = false;
+                }
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                    replaceTablePadresTutor = " PadresTutorRespaldo ";
+                    where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
+                }
+
+                errorLog += "Fin sección: Información tutor | "+pstm;
+                pstm.executeUpdate(); 
+            }
 
         } else if (key.equals("DPT")) {
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  "
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  ";
             } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' "
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
             }
 
-            if (object.estado_pid == null) {
-                replaceColumn = " estadoextranjero = ? ";
-            } else {
-                replaceColumn = " catestado_pid = ? ";
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Domicilio tutor | "+pstm;
+                pstm.setString(1, object.pais_pid);
+                pstm.setString(2, object.codigoPostal);
+                pstm.setString(3, object.estadoExtranjero);
+                pstm.setString(4, object.estado_pid);
+                pstm.setString(5, object.ciudad);
+                pstm.setString(6, object.delegacionMunicipio);
+                pstm.setString(7, object.colonia);
+                pstm.setString(8, object.calle);
+                pstm.setString(9, object.numExterior);
+                pstm.setString(10, object.numInterior);
+                pstm.setString(11, object.telefono);
+                pstm.setString(12, object.caseid);
+                pstm.setString(13, object.persistenceid);
+
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(14, object.countintento);
+                    executionQuery = false;
+                }
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                     replaceTablePadresTutor = " PadresTutorRespaldo ";
+                     where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ?  ";
+                }
+
+                errorLog += "Fin sección: Domicilio tutor | "+pstm;
+                pstm.executeUpdate();
             }
-
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_TUTOR.replace("[TABLA]", replaceTablePadresTutor).replace("[ESTADO]", replaceColumn).replace("[WHERE]", where));
-            errorLog += "Sección: Domicilio tutor | ";
-            pstm.setString(1, object.pais_pid);
-            pstm.setString(2, object.codigoPostal);
-            pstm.setString(3, (object.estado_pid == null ? object.estadoExtranjero : object.estado_pid));
-            pstm.setString(4, object.ciudad);
-            pstm.setString(5, object.delegacionMunicipio);
-            pstm.setString(6, object.colonia);
-            pstm.setString(7, object.calle);
-            pstm.setString(8, object.numExterior);
-            pstm.setString(9, object.numInterior);
-            pstm.setString(10, object.telefono);
-            pstm.setString(11, object.caseid);
-            pstm.setString(12, object.persistenceid);
-
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(13, object.countintento);
-            }
-
-            errorLog += "Fin sección: Domicilio tutor | ";
 
         } else if (key.equals("IPA")) {
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  "
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
             } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' "
-            }
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
-            errorLog += "Sección: Información padre | ";
-            pstm.setString(1, object.titulo_pid);
-            pstm.setString(2, object.nombre);
-            pstm.setString(3, object.apellidos);
-            pstm.setString(4, object.correoElectronico);
-            pstm.setString(5, object.escolaridad_pid);
-            pstm.setString(6, object.egresoAnahuac_pid);
-            pstm.setString(7, object.campusegreso_pid);
-            pstm.setString(8, object.trabaja_pid);
-            pstm.setString(9, object.empresaTrabaja);
-            pstm.setString(10, object.giro);
-            pstm.setString(11, object.puesto);
-            pstm.setString(12, object.caseid);
-            pstm.setString(13, object.persistenceid);
-
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(14, object.countintento);
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
             }
 
-            errorLog += "Fin sección: Información padre | ";
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Información padre | "+pstm;
+                pstm.setString(1, object.titulo_pid);
+                pstm.setString(2, object.nombre);
+                pstm.setString(3, object.apellidos);
+                pstm.setString(4, object.correoElectronico);
+                pstm.setString(5, object.escolaridad_pid);
+                pstm.setString(6, object.egresoAnahuac_pid);
+                pstm.setString(7, object.campusegreso_pid);
+                pstm.setString(8, object.trabaja_pid);
+                pstm.setString(9, object.empresaTrabaja);
+                pstm.setString(10, object.giro);
+                pstm.setString(11, object.puesto);
+                pstm.setString(12, object.caseid);
+                pstm.setString(13, object.persistenceid);
 
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(14, object.countintento);
+                    executionQuery = false;
+                }
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                    replaceTablePadresTutor = " PadresTutorRespaldo ";
+                    where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+                }
+
+                errorLog += "Fin sección: Información padre | "+pstm;
+                pstm.executeUpdate();
+            }
         } else if (key.equals("DPPA")) {
 
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  "
-            } else {
-                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' "
-            }
-
-            if (object.estado_pid == null) {
-                replaceColumn = " estadoextranjero = ? ";
-            } else {
-                replaceColumn = " catestado_pid = ? ";
-            }
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[ESTADO]", replaceColumn).replace("[WHERE]", where));
-            errorLog += "Sección: Domicilio padre | ";
-            pstm.setString(1, object.pais_pid);
-            pstm.setString(2, object.codigoPostal);
-            pstm.setString(3, (object.estado_pid == null ? object.estadoExtranjero : object.estado_pid));
-            pstm.setString(4, object.ciudad);
-            pstm.setString(5, object.delegacionMunicipio);
-            pstm.setString(6, object.colonia);
-            pstm.setString(7, object.calle);
-            pstm.setString(8, object.numExterior);
-            pstm.setString(9, object.numInterior);
-            pstm.setString(10, object.telefono);
-            pstm.setString(11, object.viveContigo);
-            pstm.setString(12, object.caseid);
-            pstm.setString(13, object.persistenceid);
-
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(14, object.countintento);
-            }
-
-            errorLog += "Fin sección: Domicilio padre | ";
-
-        } else if (key.equals("IMA")) {
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
                 where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
             } else {
                 where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
             }
 
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
-            errorLog += "Sección: Información madre | ";
-            pstm.setString(1, object.titulo_pid);
-            pstm.setString(2, object.nombre);
-            pstm.setString(3, object.apellidos);
-            pstm.setString(4, object.correoElectronico);
-            pstm.setString(5, object.escolaridad_pid);
-            pstm.setString(6, object.egresoAnahuac_pid);
-            pstm.setString(7, object.campusegreso_pid);
-            pstm.setString(8, object.trabaja_pid);
-            pstm.setString(9, object.empresaTrabaja);
-            pstm.setString(10, object.giro);
-            pstm.setString(11, object.puesto);
-            pstm.setString(12, object.caseid);
-            pstm.setString(13, object.persistenceid);
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(14, object.countintento);
-            }
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Domicilio padre | "+pstm;
+                pstm.setString(1, object.pais_pid);
+                pstm.setString(2, object.codigoPostal);
+                pstm.setString(3, object.estadoExtranjero);
+                pstm.setString(4, object.estado_pid);
+                pstm.setString(5, object.ciudad);
+                pstm.setString(6, object.delegacionMunicipio);
+                pstm.setString(7, object.colonia);
+                pstm.setString(8, object.calle);
+                pstm.setString(9, object.numExterior);
+                pstm.setString(10, object.numInterior);
+                pstm.setString(11, object.telefono);
+                pstm.setString(12, object.viveContigo);
+                pstm.setString(13, object.caseid);
+                pstm.setString(14, object.persistenceid);
 
-            errorLog += "fin sección: Información madre | ";
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(15, object.countintento);
+                    executionQuery = false;
+                }
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                    replaceTablePadresTutor = " PadresTutorRespaldo ";
+                    where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+                }
+
+                errorLog += "Fin sección: Domicilio padre | "+pstm;
+                pstm.executeUpdate();
+            }
+        } else if (key.equals("IMA")) {
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+            } else {
+                where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
+            }
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Información madre | "+pstm;
+                pstm.setString(1, object.titulo_pid);
+                pstm.setString(2, object.nombre);
+                pstm.setString(3, object.apellidos);
+                pstm.setString(4, object.correoElectronico);
+                pstm.setString(5, object.escolaridad_pid);
+                pstm.setString(6, object.egresoAnahuac_pid);
+                pstm.setString(7, object.campusegreso_pid);
+                pstm.setString(8, object.trabaja_pid);
+                pstm.setString(9, object.empresaTrabaja);
+                pstm.setString(10, object.giro);
+                pstm.setString(11, object.puesto);
+                pstm.setString(12, object.caseid);
+                pstm.setString(13, object.persistenceid);
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(14, object.countintento);
+                    executionQuery = false;
+                }
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                    replaceTablePadresTutor = " PadresTutorRespaldo ";
+                    where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+                }
+
+                errorLog += "fin sección: Información madre | "+pstm;
+                pstm.executeUpdate();
+            }
 
         } else if (key.equals("DPMA")) {
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
+            if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
                 where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
             } else {
                 where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' ";
             }
 
-            if (object.estado_pid == null) {
-                replaceColumn = " estadoextranjero = ? ";
-            } else {
-                replaceColumn = " catestado_pid = ? ";
+            while (executionQuery == true) {
+                pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[WHERE]", where));
+                errorLog += "Sección: Domicilio madre | "+pstm;
+                pstm.setString(1, object.pais_pid);
+                pstm.setString(2, object.codigoPostal);
+                pstm.setString(3, object.estadoExtranjero);
+                pstm.setString(4, object.estado_pid);
+                pstm.setString(5, object.ciudad);
+                pstm.setString(6, object.delegacionMunicipio);
+                pstm.setString(7, object.colonia);
+                pstm.setString(8, object.calle);
+                pstm.setString(9, object.numExterior);
+                pstm.setString(10, object.numInterior);
+                pstm.setString(11, object.telefono);
+                pstm.setString(12, object.viveContigo);
+                pstm.setString(13, object.caseid);
+                pstm.setString(14, object.persistenceid);
+
+                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                    pstm.setString(15, object.countintento);
+                    executionQuery = false;
+                }
+
+                if (replaceTablePadresTutor.equals(" PadresTutor ")) {
+                    replaceTablePadresTutor = " PadresTutorRespaldo ";
+                    where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
+                }
+
+                errorLog += "Fin sección: Domicilio madre | "+pstm;
+                pstm.executeUpdate();
             }
-
-            pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_MADRE.replace("[TABLA]", replaceTablePadresTutor).replace("[ESTADO]", replaceColumn).replace("[WHERE]", where));
-            errorLog += "Sección: Domicilio madre | ";
-            pstm.setString(1, object.pais_pid);
-            pstm.setString(2, object.codigoPostal);
-            pstm.setString(3, (object.estado_pid == null ? object.estadoExtranjero : object.estado_pid));
-            pstm.setString(4, object.ciudad);
-            pstm.setString(5, object.delegacionMunicipio);
-            pstm.setString(6, object.colonia);
-            pstm.setString(7, object.calle);
-            pstm.setString(8, object.numExterior);
-            pstm.setString(9, object.numInterior);
-            pstm.setString(10, object.telefono);
-            pstm.setString(11, object.viveContigo);
-            pstm.setString(12, object.caseid);
-            pstm.setString(13, object.persistenceid);
-
-            if (replaceTablePadresTutor.equals("PadresTutorRespaldo")) {
-                pstm.setString(14, object.countintento);
-            }
-            errorLog += "Fin sección: Domicilio madre | ";
-
         } else if (key.equals("CE")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_CONTACTO_EMERGENCIA.replace("[TABLA]", replaceTableContacEmergencia));
-            errorLog += "Sección: Información contacto de emergencia | ";
+            errorLog += "Sección: Información contacto de emergencia | "+pstm;
             pstm.setString(1, object.nombre);
             pstm.setString(2, object.parentesco);
             pstm.setString(3, object.telefono);
             pstm.setString(4, object.caseid);
             pstm.setString(5, object.parentesco_pid);
-            errorLog += "Fin sección: Información contacto de emergencia | ";
+            errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
-        pstm.executeUpdate();
-
+        if(key.equals("IP") || key.equals("DP") || key.equals("IB") || key.equals("CE")) {
+            pstm.executeUpdate();
+        }
         errorLog += "Se ejecuto el update correctamente - Consulta | " + pstm;
         con.commit();
 
         resultado.setData(rows)
         resultado.setSuccess(true)
-        resultado.setError_info(errorLog);
+        resultado.setError_info(errorLog+" | "+pstm);
     } catch (Exception e) {
         resultado.setSuccess(false);
         resultado.setError(e.getMessage());
-        resultado.setError_info(errorLog + " " + e.getMessage())
+        resultado.setError_info(errorLog + " " + e.getMessage() + " | " + pstm)
         con.rollback();
     } finally {
         if (closeCon) {
