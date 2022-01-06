@@ -1,12 +1,14 @@
 function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
     this.isArray = Array.isArray;
-
+    var vm = this;
+    
     this.isClickable = function () {
         return $scope.properties.isBound('selectedRow');
     };
 
     this.selectRow = function (row) {
+        debugger
         /*if (this.isClickable()) {
             $scope.properties.selectedRow = row;
         }*/
@@ -37,6 +39,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
     }
 
     function doRequest(method, url, params) {
+        debugger
         blockUI.start();
         var req = {
             method: method,
@@ -156,7 +159,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
             
         }
         if(aplicado){
-            var obj = 	{ "columna":columna, "operador":"Que contengan", "valor":press }
+            var obj =   { "columna":columna, "operador":"Que contengan", "valor":press }
             $scope.properties.dataToSend.lstFiltro.push(obj);
         }
         
@@ -390,8 +393,6 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
     }
 
     $scope.getCatCampus();
-<<<<<<< Updated upstream
-=======
 
     $scope.viewEditarDownloadSolicitud = function(rowData) {
         debugger
@@ -412,6 +413,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                                     url = url.replace("[TASKID]", "");
                                 }
                                 url = url.replace("[CASEID]", rowData.caseid);
+                                url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
                                 window.open(url, '_blank');
                             })
                             .error(function(data, status) {
@@ -424,6 +426,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                         method: "GET",
                         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
                     };
+                    debugger
 
                     return $http(req)
                         .success(function(data, status) {
@@ -434,6 +437,7 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                                 url = url.replace("[TASKID]", "");
                             }
                             url = url.replace("[CASEID]", rowData.caseid);
+                            url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
                             window.open(url, '_blank');
                         })
                         .error(function(data, status) {
@@ -472,5 +476,4 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                 vm.busy = false;
             });
     }
->>>>>>> Stashed changes
 }
