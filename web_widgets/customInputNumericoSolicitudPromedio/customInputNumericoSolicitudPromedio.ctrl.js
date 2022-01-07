@@ -15,7 +15,7 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
             var charInput = e.keyCode;
             var letter = /^[a-zA-Z+-]+$/;
             var number = /^[0-9.]+$/;
-
+            
             if ($scope.properties.preparatoriaSeleccionada != 'México') {
                 var limite = $scope.properties.maxLength === 0 ? 250 : $scope.properties.maxLength;
                 if (e.target.value.length === 0) {
@@ -205,6 +205,9 @@ function PbInputCtrl($scope, $log, widgetNameFactory) {
                 }
             }
             //$scope.otroPais.pais = isNaN($scope.properties.value)?"":$scope.properties.value.toString();
+        }
+        if( $scope.properties.value != null && ($scope.properties.value == "0" || $scope.properties.value == 0) && $scope.properties.value.toString().length == 1){
+            $scope.properties.value = null;
         }
 
     });
