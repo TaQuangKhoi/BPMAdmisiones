@@ -6,7 +6,7 @@ function loadUsuariosDuplicadosCtrl($scope, $http) {
         //url = url.replace("[FECHANACIMIENTO]", $scope.properties.parametros["fechaNacimiento"]);
         url = url.replace("[CURP]", $scope.properties.parametros["curp"]);
         //url = url.replace("[NOMBRE]", $scope.properties.parametros["nombre"]);
-        //url = url.replace("[CASEID]", $scope.properties.parametros["caseid"]);
+        url = url.replace("[CASEID]", $scope.properties.parametros["caseid"]);
         url = url.replace("[IDBANNER]", $scope.properties.parametros["idbanner"]);
         url = url.replace("[PRIMERNOMBRE]", $scope.properties.parametros["primerNombre"]);
         url = url.replace("[SEGUNDONOMBRE]", $scope.properties.parametros["segundoNombre"]);

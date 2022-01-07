@@ -3071,7 +3071,7 @@ public Result getPsicometricoCompleto(String caseId, Long intentos,RestAPIContex
 			}
 
 			assert object instanceof Map;
-			where += " WHERE sda.persistenceid IS NOT NULL AND (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado = false ) AND tp.persistenceid IS NOT NULL"
+			where += " WHERE sda.persistenceid IS NOT NULL AND (sda.isAspiranteMigrado is null  or sda.isAspiranteMigrado::boolean IS false ) AND tp.persistenceid IS NOT NULL"
 			if (object.campus != null) {
 				where += " AND LOWER(campus.grupoBonita) = LOWER('" + object.campus + "') "
 			}
