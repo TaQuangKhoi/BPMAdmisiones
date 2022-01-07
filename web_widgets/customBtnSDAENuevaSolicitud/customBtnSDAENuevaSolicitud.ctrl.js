@@ -8,7 +8,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
 //   if ($scope.properties.url) {
 //       doRequest($scope.properties.action, $scope.properties.url);
 //     }
-    var url= "/portal/resource/app/sdae/solicitudApoyoEducativo/content/"
+    var url= "/portal/resource/app/sdae/avisoPrivacidadSDAE/content/"
     window.location.replace(url); 
   };
 
