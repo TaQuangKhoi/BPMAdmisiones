@@ -1354,6 +1354,18 @@ class ReactivacionDAO {
 	    return resultado
 	}
 	
+	public Result nuevoCasoSolicitud(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		try {
+			Long processId = context.getApiClient().getProcessAPI()
+			.getProcessDefinitionId("Proceso admisiones", "1.6");
+			
+			
+		}catch(Exception e){
+			
+		}
+		return resultado;
+	}
 	
 	public Boolean validarConexion() {
 		Boolean retorno = false
