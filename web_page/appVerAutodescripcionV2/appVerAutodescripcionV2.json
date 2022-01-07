@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appVerAutodescripcionV2",
   "name" : "appVerAutodescripcionV2",
-  "lastUpdate" : 1640194792599,
+  "lastUpdate" : 1640797156068,
   "rows" : [
     [
       {
@@ -282,6 +282,18 @@
                       "autodescripcionV2" : {
                         "type" : "variable",
                         "value" : "autodescripcionV2"
+                      },
+                      "lstIdiomasV2" : {
+                        "type" : "variable",
+                        "value" : "lstIdiomasV2"
+                      },
+                      "urlFoto" : {
+                        "type" : "variable",
+                        "value" : "urlImagen"
+                      },
+                      "lstInformacionEscolarMod" : {
+                        "type" : "variable",
+                        "value" : "lstInformacionEscolarMod"
                       }
                     },
                     "reference" : "ae7104ce-aff5-4cf5-9222-39b4500093cb",
@@ -2255,6 +2267,13 @@
       "type" : "url",
       "value" : [
         "..{{detalleSolicitud.links[2].href}}"
+      ],
+      "exposed" : false
+    },
+    "urlImagen" : {
+      "type" : "expression",
+      "value" : [
+        "return \"../API/formsDocumentImage?document=\"+$data.context.fotoPasaporte_ref[0].id"
       ],
       "exposed" : false
     }

@@ -406,14 +406,13 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
                         return $http(req)
                             .success(function(data, status) {
-                                var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                var url = "/apps/administrativo/EditarDatosUsuario/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                                 if (data.length > 0) {
                                     url = url.replace("[TASKID]", data[0].id);
                                 } else {
                                     url = url.replace("[TASKID]", "");
                                 }
                                 url = url.replace("[CASEID]", rowData.caseid);
-                                url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
                                 window.open(url, '_blank');
                             })
                             .error(function(data, status) {
@@ -426,18 +425,16 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                         method: "GET",
                         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
                     };
-                    debugger
 
                     return $http(req)
                         .success(function(data, status) {
-                            var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                            var url = "/apps/administrativo/EditarDatosUsuario/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
                             if (data.length > 0) {
                                 url = url.replace("[TASKID]", data[0].id);
                             } else {
                                 url = url.replace("[TASKID]", "");
                             }
                             url = url.replace("[CASEID]", rowData.caseid);
-                            url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
                             window.open(url, '_blank');
                         })
                         .error(function(data, status) {
