@@ -1,25 +1,24 @@
-function PbButtonCtrl($scope, $http,  modalService) {
-  
-    $scope.intento = "";
+function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageService, modalService) {
+
+$scope.intento = "";
 
     $scope.Objeto = {
-    "primerNombre" : $scope.properties.datosUsuario.primerNombre,
-    "segundoNombre" : $scope.properties.datosUsuario.segundoNombre,
-    "apellidoPaterno" :$scope.properties.datosUsuario.apellidoPaterno,
-    "apellidoMaterno" : $scope.properties.datosUsuario.apellidoMaterno,
-    "correoElectronico": $scope.properties.datosUsuario.correoElectronico,
-    "fechaNacimiento" : $scope.properties.datosUsuario.fechaNacimiento,
-    "sexo_pid" : $scope.properties.datosUsuario.catSexo.descripcion,
-    "nacionalidad_pid" : $scope.properties.datosUsuario.catNacionalidad.descripcion,
-    "religion_pid" : $scope.properties.datosUsuario.catReligion.descripcion,
-    "curp" : $scope.properties.datosUsuario.curp,
-    "estadoCivil_pid" : $scope.properties.datosUsuario.catEstadoCivil.descripcion,
-    "telefonoCelular" : $scope.properties.datosUsuario.telefonoCelular,
+    "primerNombre" : datosUsuario.primerNombre,
+    "segundoNombre" : objSolicitudDeAdmision.segundoNombre,
+    "apellidoPaterno" :objSolicitudDeAdmision.apellidoPaterno,
+    "apellidoMaterno" : objSolicitudDeAdmision.apellidoMaterno,
+    "correoElectronico": objSolicitudDeAdmision.correoElectronico,
+    "fechaNacimiento" : objSolicitudDeAdmision.fechaNacimiento,
+    "sexo_pid" : objSolicitudDeAdmision.catSexo.descripcion,
+    "nacionalidad_pid" : objSolicitudDeAdmision.catNacionalidad.descripcion,
+    "religion_pid" : objSolicitudDeAdmision.catReligion.descripcion,
+    "curp" : objSolicitudDeAdmision.curp,
+    "estadoCivil_pid" : objSolicitudDeAdmision.catEstadoCivil.descripcion,
+    "telefonoCelular" : objSolicitudDeAdmision.telefonoCelular,
     "caseid" : $scope.caseId,
     }
-
-
-    var GET_parameters = {};
+    
+      var GET_parameters = {};
     debugger
     if (location.search) {
         var splitts = location.search.substring(1).split('&');
@@ -32,10 +31,10 @@ function PbButtonCtrl($scope, $http,  modalService) {
 
     $scope.intento = GET_parameters.intento;
 
+  var vm = this;
 
-    $scope.postEditar = function() {
-            
-        debugger
+  this.action = function action() {
+     debugger
           
           var req = {
               method: "POST",

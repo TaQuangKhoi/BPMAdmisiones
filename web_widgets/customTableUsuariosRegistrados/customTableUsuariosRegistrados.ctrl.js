@@ -39,7 +39,6 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
     }
 
     function doRequest(method, url, params) {
-        debugger
         blockUI.start();
         var req = {
             method: method,
@@ -406,14 +405,15 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
 
                         return $http(req)
                             .success(function(data, status) {
-                                var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                                var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&intento=[COUNTRECHAZO]&[RESULTADO]&displayConfirmation=false";
                                 if (data.length > 0) {
                                     url = url.replace("[TASKID]", data[0].id);
                                 } else {
                                     url = url.replace("[TASKID]", "");
                                 }
                                 url = url.replace("[CASEID]", rowData.caseid);
-                                url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
+                                url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazos==null? "null":rowData.countrechazos):rowData.countrechazos );
+                                url = url.replace("[RESULTADO]", rowData.catresultadoadmision_pid == '711143' ||  rowData.catresultadoadmision_pid == null ? rowData.catresultadoadmision_pid = true : rowData.catresultadoadmision_pid = false);
                                 window.open(url, '_blank');
                             })
                             .error(function(data, status) {
@@ -426,18 +426,20 @@ function PbTableCtrl($scope, $http, $window,blockUI,modalService) {
                         method: "GET",
                         url: `/API/bpm/task?p=0&c=10&f=caseId%3d${rowData.caseid}&f=isFailed%3dfalse`
                     };
-                    debugger
 
                     return $http(req)
                         .success(function(data, status) {
-                            var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&displayConfirmation=false";
+                            var url = "/apps/administrativo/EditarSolicitud/?id=[TASKID]&caseId=[CASEID]&intento=[COUNTRECHAZO]&[RESULTADO]&displayConfirmation=false";
                             if (data.length > 0) {
                                 url = url.replace("[TASKID]", data[0].id);
                             } else {
                                 url = url.replace("[TASKID]", "");
                             }
                             url = url.replace("[CASEID]", rowData.caseid);
-                            url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null? (rowData.countrechazo==null? "null":rowData.countrechazo):rowData.countrechazos );        
+                            url = url.replace("[COUNTRECHAZO]", rowData.countrechazos == null ? (rowData.countrechazos==null? "null":rowData.countrechazos):rowData.countrechazos );
+                            url = url.replace("[RESULTADO]", rowData.catresultadoadmision_pid == '711143' ||  rowData.catresultadoadmision_pid == null ? rowData.catresultadoadmision_pid = true : rowData.catresultadoadmision_pid = false);
+                                
+
                             window.open(url, '_blank');
                         })
                         .error(function(data, status) {
