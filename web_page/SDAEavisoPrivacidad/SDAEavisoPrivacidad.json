@@ -2,7 +2,7 @@
   "modelVersion" : "2.2",
   "id" : "SDAEavisoPrivacidad",
   "name" : "SDAEavisoPrivacidad",
-  "lastUpdate" : 1640820655545,
+  "lastUpdate" : 1641577377631,
   "rows" : [
     [
       {
@@ -187,7 +187,7 @@
                 },
                 "value" : {
                   "type" : "variable",
-                  "value" : ""
+                  "value" : "acceptoAvisoPrivacidad"
                 }
               },
               "reference" : "aecd8bd4-3af3-497e-9443-548898ff7345",
@@ -270,6 +270,10 @@
                 },
                 "removeItem" : {
                   "type" : "variable"
+                },
+                "aceptoAvisoPrivacidad" : {
+                  "type" : "variable",
+                  "value" : "acceptoAvisoPrivacidad"
                 }
               },
               "reference" : "33c15aa8-5451-4983-8a6b-867e0d90558a",
@@ -305,7 +309,39 @@
     }
   ],
   "inactiveAssets" : [ ],
-  "variables" : { },
+  "variables" : {
+    "acceptoAvisoPrivacidad" : {
+      "type" : "constant",
+      "value" : [
+        "false"
+      ],
+      "exposed" : false
+    },
+    "userData" : {
+      "type" : "url",
+      "value" : [
+        "../API/system/session/unusedId"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "userDataEmail" : {
+      "type" : "url",
+      "value" : [
+        "../API/identity/user?p=0&c=10&f=id={{userData.user_id}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "usuario" : {
+      "type" : "url",
+      "value" : [
+        "../API/bdm/businessData/com.anahuac.model.SolicitudDeAdmision?q=findByCorreoElectronico&p=0&c=10&f=correoElectronico={{userDataEmail[0].userName}}"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    }
+  },
   "hasValidationError" : false,
   "uuid" : "6b7e0636-882f-4080-b7a8-43683665b152",
   "type" : "page",
