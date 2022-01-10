@@ -104,7 +104,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     vm.busy = true;
     var req = {
       method: method,
-      url: "/bonita/API/extension/AnahuacRest?url=updateViewDownloadSolicitud&key='IP'&intento=null&tipoTabla=true",
+      url: "/bonita/API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&key='IP'&intento=null&tipoTabla=true",
+                                                  
       data: angular.copy($scope.Objeto),
       params: params
     };
