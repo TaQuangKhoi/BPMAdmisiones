@@ -860,7 +860,7 @@ public Result getDuplicados(String curp,
 	}
 
 
-public Result updateViewDownloadSolicitud(String key, String intento, Boolean tipoTabla, String jsonData, RestAPIContext context) {
+public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter, String key, String intento, Boolean tipoTabla, String jsonData, RestAPIContext context) {
     Result resultado = new Result();
     Boolean closeCon = false;
 	Boolean executionQuery = false;
@@ -878,13 +878,16 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ti
 
         def jsonSlurper = new JsonSlurper();
         def object = jsonSlurper.parseText(jsonData);
-
+		errorLog += " Se hizo la conversión del objeto | ";
+		
         if (tipoTabla == true) {
+			errorLog += " Tipo tabla es true | ";
             replaceTableSolicitud = " SolicitudDeAdmision ";
             replaceTablePadresTutor = " PadresTutor ";
             replaceTableContacEmergencia = " ContactoEmergencias ";
 			executionQuery = true;
         } else {
+			errorLog += " Tipo tabla es false | ";
             replaceTableSolicitud = " SolicitudDeAdmisionRespaldo ";
             replaceTablePadresTutor = " PadresTutorRespaldo ";
             replaceTableContacEmergencia = " ContactoEmergenciasRespaldo ";
@@ -910,23 +913,23 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ti
             pstm.setString(4, object.apellidoMaterno);
             pstm.setString(5, object.correoElectronico);
             pstm.setString(6, object.fechaNacimiento);
-            pstm.setString(7, object.sexo_pid);
-            pstm.setString(8, object.nacionalidad_pid);
-            pstm.setString(9, object.religion_pid);
+            pstm.setLong(7, object.sexo_pid);
+            pstm.setLong(8, object.nacionalidad_pid);
+            pstm.setLong(9, object.religion_pid);
             pstm.setString(10, object.curp);
-            pstm.setString(11, object.estadoCivil_pid);
+            pstm.setLong(11, object.estadoCivil_pid);
             pstm.setString(12, object.telefonoCelular);
-            pstm.setString(13, object.caseid);
+            pstm.setLong(13, object.caseid);
             pstm.setString(14, object.correoElectronico);
             errorLog += "Fin sección: Información personal | "+pstm;
 
         } else if (key.equals("DP")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_DOMICILIO_PERMANENTE.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Domicilio permanente | " + pstm;
-            pstm.setString(1, object.pais_pid);
+            pstm.setLong(1, object.pais_pid);
             pstm.setString(2, object.codigoPostal);
             pstm.setString(3, object.estadoExtranjero);
-            pstm.setString(4, object.estado_pid);
+            pstm.setLong(4, object.estado_pid);
             pstm.setString(5, object.ciudad);
             pstm.setString(6, object.delegacionMunicipio);
             pstm.setString(7, object.colonia);
@@ -936,7 +939,7 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ti
             pstm.setString(11, object.numInterior);
             pstm.setString(12, object.telefono);
             pstm.setString(13, object.otroTelefonoContacto);
-            pstm.setString(14, object.caseid);
+            pstm.setLong(14, object.caseid);
             pstm.setString(15, object.correoElectronico);
 
             errorLog += "Fin sección: Domicilio permanente | "+pstm;
@@ -944,14 +947,14 @@ public Result updateViewDownloadSolicitud(String key, String intento, Boolean ti
         } else if (key.equals("IB")) {
             pstm = con.prepareStatement(Statements.UPDATE_SECCION_INFORMACION_BACHILLERATO.replace("[TABLA]", replaceTableSolicitud));
             errorLog += "Sección: Información bachillerato | "+pstm;
-            pstm.setString(1, object.bachillerato_pid);
+            pstm.setLong(1, object.bachillerato_pid);
             pstm.setString(2, object.nombreBachillerato);
             pstm.setString(3, object.paisBachillerato);
             pstm.setString(4, object.estadoBachillerato);
             pstm.setString(5, object.ciudadBachillerato);
             pstm.setString(6, object.promedioGeneral);
-            pstm.setString(7, object.resultadoPAA);
-            pstm.setString(8, object.caseid);
+            pstm.setLong(7, object.resultadoPAA);
+            pstm.setLong(8, object.caseid);
             pstm.setString(9, object.correoElectronico);
             errorLog += "Fin sección: Información bachillerato | "+pstm;
 
