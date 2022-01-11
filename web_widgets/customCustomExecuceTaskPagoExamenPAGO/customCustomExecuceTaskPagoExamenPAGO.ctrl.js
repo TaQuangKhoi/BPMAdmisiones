@@ -92,7 +92,7 @@ function ($scope, $http, modalService) {
 
             setTimeout(function(){
                 window.location.reload();
-            }, 3000);  
+            }, 5000);  
             // if($scope.isPagoTarjeta){
             //     setTimeout(function(){
             //         window.location.reload();
