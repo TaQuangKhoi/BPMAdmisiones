@@ -583,5 +583,5 @@ class Statements {
 	public static final String UPDATE_SECCION_DOMICILIO_PADRE = "UPDATE [TABLA] SET catpais_pid = ?, codigopostal = ?, estadoExtranjero = ?, catestado_pid = ?, ciudad = ?, delegacionmunicipio = ?, colonia = ?, calle = ?, numeroexterior = ?, numerointerior = ?, telefono = ?, vivecontigo = ? [WHERE]";
 	public static final String UPDATE_SECCION_INFORMACION_MADRE = "UPDATE [TABLA] SET cattitulo_pid = ?, nombre = ?, apellidos = ?, correoelectronico = ?, catescolaridad_pid = ?, categresoanahuac_pid = ?, catcampusegreso_pid = ?, cattrabaja_pid = ?, giroempresa = ?, puesto = ? [WHERE]";
 	public static final String UPDATE_SECCION_DOMICILIO_MADRE = "UPDATE [TABLA] SET catpais_pid = ?, codigopostal = ?, estadoExtranjero = ?, catestado_pid = ?, ciudad = ?, delegacionmunicipio = ?, colonia = ?, calle = ?, numeroexterior = ?, numerointerior = ?, telefono = ?, vivecontigo = ? [WHERE]";
-	public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ? WHERE caseid = ? AND catparentesco_pid = ? AND persistenceid = ?";
+	public static final String UPDATE_SECCION_CONTACTO_EMERGENCIA = "UPDATE [TABLA] SET nombre = ?, parentesco = ?, telefono = ?, telefonoCelular = ? WHERE caseid = ? AND catparentesco_pid = ? AND persistenceid = ?";
 }

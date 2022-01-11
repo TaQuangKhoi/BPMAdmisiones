@@ -895,9 +895,9 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
         }
 
         if(replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IT") || key.equals("DPT")) {
-            where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' AND countintento = ? ";
+			 where = " WHERE caseid = ? AND catvive_pid IS NULL AND istutor = 't' AND countintento = ?";
         } else if(replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IT") || key.equals("DPT")) {
-             where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 't' ";
+             where = " WHERE caseid = ? AND catvive_pid IS NULL AND istutor = 't' AND persistenceid = ?";
         } else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") && key.equals("IPA") || key.equals("DPPA") || key.equals("IMA") || key.equals("DPMA")) {
               where = " WHERE caseid = ? AND persistenceid = ? AND istutor = 'f' AND countintento = ?  ";
         } else if (replaceTablePadresTutor.equals(" PadresTutor ") && key.equals("IPA") || key.equals("DPPA") || key.equals("IMA") || key.equals("DPMA")) {
@@ -976,15 +976,17 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
                 pstm.setString(12, object.giro);
                 pstm.setString(13, object.puesto);
                 pstm.setLong(14, object.caseid);
-                pstm.setLong(15, (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") ? object.persistenceversion : object.persistenceid));
-
-                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+				pstm.setLong(15, object.vive_pid);
+                
+				if(replaceTablePadresTutor.equals("PadresTutor")) {
+					pstm.setLong(16, object.persistenceid);
+				}else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
                     pstm.setString(16, object.countintento);
                     executionQuery = false;
                 }
                 if (replaceTablePadresTutor.equals(" PadresTutor ")) {
                     replaceTablePadresTutor = " PadresTutorRespaldo ";
-                    where = " WHERE caseid = ? AND persistenceversion = ? AND istutor = 't' AND countintento = ? ";
+					where = " WHERE caseid = ? AND catvive_pid IS NULL AND istutor = 't' AND countintento = ?";
                 }
 
                 errorLog += "Fin sección: Información tutor | "+pstm;
@@ -1007,15 +1009,17 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
                 pstm.setString(10, object.numInterior);
                 pstm.setString(11, object.telefono);
                 pstm.setLong(12, object.caseid);
-                pstm.setLong(13, (replaceTablePadresTutor.equals(" PadresTutorRespaldo ") ? object.persistenceversion : object.persistenceid));
+				pstm.setLong(13, object.vive_pid);
 
-                if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
+                if(replaceTablePadresTutor.equals("PadresTutor")) {
+					pstm.setLong(14, object.persistenceid);
+				}else if (replaceTablePadresTutor.equals(" PadresTutorRespaldo ")) {
                     pstm.setString(14, object.countintento);
                     executionQuery = false;
                 }
                 if (replaceTablePadresTutor.equals(" PadresTutor ")) {
                      replaceTablePadresTutor = " PadresTutorRespaldo ";
-                     where = " WHERE caseid = ? AND persistenceversion = ? AND istutor = 't' AND countintento = ? ";
+					where = " WHERE caseid = ? AND catvive_pid IS NULL AND istutor = 't' AND countintento = ?";
                 }
 
                 errorLog += "Fin sección: Domicilio tutor | "+pstm;
@@ -1151,9 +1155,10 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setString(1, object.nombre);
             pstm.setString(2, object.parentesco);
             pstm.setString(3, object.telefono);
-            pstm.setString(4, object.caseid);
-            pstm.setString(5, object.parentesco_pid);
-            pstm.setString(6, object.persistenceid);
+			pstm.setString(4, object.telefono);
+            pstm.setString(5, object.caseid);
+            pstm.setString(6, object.parentesco_pid);
+            pstm.setString(7, object.persistenceid);
             errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
