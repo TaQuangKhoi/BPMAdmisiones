@@ -20,29 +20,8 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       openModal($scope.properties.modalId);
     } else if ($scope.properties.action === 'Close modal') {
       closeModal(true);
-    } else if ($scope.properties.action) {
-      debugger
-      
-    $scope.ObjetoInformacionPersonal = {
-
-    "apellidoMaterno": $scope.properties.dataToSend.apellidoMaterno,
-    "apellidoPaterno": $scope.properties.dataToSend.apellidoPaterno,
-    "caseid": $scope.properties.dataToSend.caseId,
-    "correoElectronico": $scope.properties.dataToSend.correoElectronico,
-    "curp" : $scope.properties.dataToSend.curp,
-    "estadoCivil_pid" : $scope.properties.dataToSend.catEstadoCivil.persistenceId,
-    "fechaNacimiento": $scope.properties.dataToSend.fechaNacimiento,
-    "nacionalidad_pid": $scope.properties.dataToSend.catNacionalidad.persistenceId,
-    "primerNombre" : $scope.properties.dataToSend.primerNombre,
-    "religion_pid": $scope.properties.dataToSend.catReligion.persistenceId,
-    "segundoNombre" : $scope.properties.dataToSend.segundoNombre,
-    "sexo_pid": $scope.properties.dataToSend.catSexo.persistenceId,
-    "telefonoCelular" : $scope.properties.dataToSend.telefonoCelular,
-    }
-
-    //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
-    
-      doRequest($scope.properties.action);
+    } else if ($scope.properties.url) {
+      doRequest($scope.properties.action, $scope.properties.url);
     }
   };
 
@@ -104,14 +83,17 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
   }
 
+  /**
+   * Execute a get/post request to an URL
+   * It also bind custom data from success|error to a data
+   * @return {void}
+   */
   function doRequest(method, url, params) {
-    debugger
     vm.busy = true;
     var req = {
       method: method,
-      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&key=IP&intento=0&tipoTabla=true",
-                                                  
-      data: angular.copy($scope.ObjetoInformacionPersonal),
+      url: url,
+      data: angular.copy($scope.properties.dataToSend),
       params: params
     };
 
@@ -160,6 +142,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     return {};
   }
 
+  /**
+   * Extract the param value from a URL query
+   * e.g. if param = "id", it extracts the id value in the following cases:
+   *  1. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?id=8880000
+   *  2. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en
+   *  3. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en#hash=value
+   * @returns {id}
+   */
   function getUrlParam(param) {
     var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
     if (paramValue) {
@@ -173,7 +163,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     id = getUrlParam('id');
     if (id) {
       var params = getUserParam();
-      params.assign = $scope.properties.assign;
+	    params.assign = $scope.properties.assign;
       doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
         localStorageService.delete($window.location.href);
       });
