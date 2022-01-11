@@ -1153,6 +1153,7 @@ public Result updateViewDownloadSolicitud(Integer parameterP, Integer parameter,
             pstm.setString(3, object.telefono);
             pstm.setString(4, object.caseid);
             pstm.setString(5, object.parentesco_pid);
+            pstm.setString(6, object.persistenceid);
             errorLog += "Fin sección: Información contacto de emergencia | "+pstm;
         }
 
