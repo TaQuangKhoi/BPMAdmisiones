@@ -398,7 +398,6 @@ class CatalogosDAO {
 							pstm.execute();
 						}
 						errorLog+= " salio";
-						con.commit();
 					resultado.setSuccess(true)
 					resultado.setError_info(errorLog);
 				} catch (Exception e) {
