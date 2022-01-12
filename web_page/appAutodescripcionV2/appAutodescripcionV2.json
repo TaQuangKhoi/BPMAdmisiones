@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "appAutodescripcionV2",
   "name" : "appAutodescripcionV2",
-  "lastUpdate" : 1641410501853,
+  "lastUpdate" : 1642021489810,
   "rows" : [
     [
       {
@@ -135,6 +135,10 @@
                 "reloadTask" : {
                   "type" : "variable",
                   "value" : "reloadTask"
+                },
+                "context" : {
+                  "type" : "variable",
+                  "value" : ""
                 }
               },
               "reference" : "d1cb684b-432c-4ad1-92c3-ad24e9e9a375",
@@ -16426,7 +16430,19 @@
         "    $data.titleMessageStep3 = \"Nombre de la organización o empresa donde trabajas actualmente\";\r",
         "}\r",
         "if(!output && $data.selectedIndex>2  ){\r",
-        "    $data.selectedIndex=2  \r",
+        "    //$data.selectedIndex=2\r",
+        "    try{\r",
+        "var theUrl= \t\"../\"+$data.context.autodescripcionV2_ref.link\r",
+        "    var xmlHttp = new XMLHttpRequest();\r",
+        "    xmlHttp.open( \"GET\", theUrl, false ); // false for synchronous request\r",
+        "    xmlHttp.send( null );\r",
+        "    $data.autodescripcionV2=JSON.parse(xmlHttp.responseText);\r",
+        "    \r",
+        "}catch(e){\r",
+        "    console.error(e)\r",
+        "    $data.selectedIndex=2\r",
+        "}\r",
+        "    \r",
         "}\r",
         "return output;"
       ],
