@@ -20,8 +20,38 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       openModal($scope.properties.modalId);
     } else if ($scope.properties.action === 'Close modal') {
       closeModal(true);
-    } else if ($scope.properties.url) {
-      doRequest($scope.properties.action, $scope.properties.url);
+    } else if ($scope.properties.action) {
+      debugger
+      
+    $scope.ObjetoDomicilioPermanente = {
+
+        "nombre": $scope.properties.dataToSend.nombre,
+        "parentesco": "Pareja",
+        "telefono": "31232131231231",
+        "telefonoCelular": "21312312313123",
+        "caseid": 45057,
+        "parentesco_pid": 146000,
+        "persistenceid": 717112
+
+       /* "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
+        "codigoPostal": $scope.properties.dataToSend.codigoPostal,
+        "estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
+        "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
+        "ciudad": $scope.properties.dataToSend.ciudad,
+        "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
+        "colonia": $scope.properties.dataToSend.colonia,
+        "calle": $scope.properties.dataToSend.calle,
+        "calle2": $scope.properties.dataToSend.calle2,
+        "numExterior": $scope.properties.dataToSend.numExterior,
+        "numInterior": $scope.properties.dataToSend.numInterior,
+        "telefono": $scope.properties.dataToSend.telefono,
+        "otroTelefonoContacto": $scope.properties.dataToSend.otroTelefonoContacto,
+        "caseid": $scope.properties.dataToSend.caseId,
+        "correoElectronico": $scope.properties.dataToSend.correoElectronico*/
+    }
+    //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
+    
+      doRequest($scope.properties.action);
     }
   };
 
@@ -83,17 +113,14 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     }
   }
 
-  /**
-   * Execute a get/post request to an URL
-   * It also bind custom data from success|error to a data
-   * @return {void}
-   */
   function doRequest(method, url, params) {
+    debugger
     vm.busy = true;
     var req = {
       method: method,
-      url: url,
-      data: angular.copy($scope.properties.dataToSend),
+      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&&key=DP&intento=null&tipoTabla=true",
+        
+      data: angular.copy($scope.ObjetoDomicilioPermanente),
       params: params
     };
 
@@ -142,14 +169,6 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     return {};
   }
 
-  /**
-   * Extract the param value from a URL query
-   * e.g. if param = "id", it extracts the id value in the following cases:
-   *  1. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?id=8880000
-   *  2. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en
-   *  3. http://localhost/bonita/portal/resource/process/ProcName/1.0/content/?param=value&id=8880000&locale=en#hash=value
-   * @returns {id}
-   */
   function getUrlParam(param) {
     var paramValue = $location.absUrl().match('[//?&]' + param + '=([^&#]*)($|[&#])');
     if (paramValue) {
@@ -163,7 +182,7 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     id = getUrlParam('id');
     if (id) {
       var params = getUserParam();
-	    params.assign = $scope.properties.assign;
+      params.assign = $scope.properties.assign;
       doRequest('POST', '../API/bpm/userTask/' + getUrlParam('id') + '/execution', params).then(function() {
         localStorageService.delete($window.location.href);
       });
