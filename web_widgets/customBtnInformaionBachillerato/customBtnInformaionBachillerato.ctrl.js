@@ -23,22 +23,21 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action) {
       debugger
       
-    $scope.ObjetoInformacionPersonal = {
+    $scope.ObjetoInformacionBachillerato = {
 
-    "apellidoMaterno": $scope.properties.dataToSend.apellidoMaterno,
-    "apellidoPaterno": $scope.properties.dataToSend.apellidoPaterno,
-    "caseid": $scope.properties.dataToSend.caseId,
-    "correoElectronico": $scope.properties.dataToSend.correoElectronico,
-    "curp" : $scope.properties.dataToSend.curp,
-    "estadoCivil_pid" : $scope.properties.dataToSend.catEstadoCivil.persistenceId,
-    "fechaNacimiento": $scope.properties.dataToSend.fechaNacimiento,
-    "nacionalidad_pid": $scope.properties.dataToSend.catNacionalidad.persistenceId,
-    "primerNombre" : $scope.properties.dataToSend.primerNombre,
-    "religion_pid": $scope.properties.dataToSend.catReligion.persistenceId,
-    "segundoNombre" : $scope.properties.dataToSend.segundoNombre,
-    "sexo_pid": $scope.properties.dataToSend.catSexo.persistenceId,
-    "telefonoCelular" : $scope.properties.dataToSend.telefonoCelular,
+    
+    "bachillerato_pid": $scope.properties.dataToSend.catBachilleratos.persistenceId,
+    "nombreBachillerato": $scope.properties.datosPreparatoria.nombreBachillerato,
+    "paisBachillerato": $scope.properties.datosPreparatoria.paisBachillerato,
+    "estadoBachillerato": $scope.properties.datosPreparatoria.estadoBachillerato,
+    "ciudadBachillerato": $scope.properties.datosPreparatoria.ciudadBachillerato,
+    "promedioGeneral": $scope.properties.dataToSend.promedioGeneral,
+    "resultadoPAA": $scope.properties.dataToSend.resultadoPAA,
+    "caseid": $scope.properties.dataToSend.caseId,   
+    "correoElectronico": $scope.properties.dataToSend.correoElectronico
+    
     }
+
 
     //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
     
@@ -109,9 +108,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     vm.busy = true;
     var req = {
       method: method,
-      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&key=IP&intento=0&tipoTabla=true",
-                                                  
-      data: angular.copy($scope.ObjetoInformacionPersonal),
+      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&&key=IB&intento=null&tipoTabla=true",
+        
+      data: angular.copy($scope.ObjetoInformacionBachillerato),
       params: params
     };
 

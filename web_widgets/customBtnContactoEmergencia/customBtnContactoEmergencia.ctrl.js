@@ -23,23 +23,32 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     } else if ($scope.properties.action) {
       debugger
       
-    $scope.ObjetoInformacionPersonal = {
+    $scope.ObjetoDomicilioPermanente = {
 
-    "apellidoMaterno": $scope.properties.dataToSend.apellidoMaterno,
-    "apellidoPaterno": $scope.properties.dataToSend.apellidoPaterno,
-    "caseid": $scope.properties.dataToSend.caseId,
-    "correoElectronico": $scope.properties.dataToSend.correoElectronico,
-    "curp" : $scope.properties.dataToSend.curp,
-    "estadoCivil_pid" : $scope.properties.dataToSend.catEstadoCivil.persistenceId,
-    "fechaNacimiento": $scope.properties.dataToSend.fechaNacimiento,
-    "nacionalidad_pid": $scope.properties.dataToSend.catNacionalidad.persistenceId,
-    "primerNombre" : $scope.properties.dataToSend.primerNombre,
-    "religion_pid": $scope.properties.dataToSend.catReligion.persistenceId,
-    "segundoNombre" : $scope.properties.dataToSend.segundoNombre,
-    "sexo_pid": $scope.properties.dataToSend.catSexo.persistenceId,
-    "telefonoCelular" : $scope.properties.dataToSend.telefonoCelular,
+        "nombre": $scope.properties.dataToSend.nombre,
+        "parentesco": "Pareja",
+        "telefono": "31232131231231",
+        "telefonoCelular": "21312312313123",
+        "caseid": 45057,
+        "parentesco_pid": 146000,
+        "persistenceid": 717112
+
+       /* "pais_pid": $scope.properties.dataToSend.catPais.persistenceId,
+        "codigoPostal": $scope.properties.dataToSend.codigoPostal,
+        "estado_pid": $scope.properties.dataToSend.catEstado.persistenceId,
+        "estadoExtranjero": $scope.properties.dataToSend.estadoExtranjero,
+        "ciudad": $scope.properties.dataToSend.ciudad,
+        "delegacionMunicipio": $scope.properties.dataToSend.delegacionMunicipio,
+        "colonia": $scope.properties.dataToSend.colonia,
+        "calle": $scope.properties.dataToSend.calle,
+        "calle2": $scope.properties.dataToSend.calle2,
+        "numExterior": $scope.properties.dataToSend.numExterior,
+        "numInterior": $scope.properties.dataToSend.numInterior,
+        "telefono": $scope.properties.dataToSend.telefono,
+        "otroTelefonoContacto": $scope.properties.dataToSend.otroTelefonoContacto,
+        "caseid": $scope.properties.dataToSend.caseId,
+        "correoElectronico": $scope.properties.dataToSend.correoElectronico*/
     }
-
     //"persistenceversion" : $scope.properties.objtutorTemp.persistenceid
     
       doRequest($scope.properties.action);
@@ -109,9 +118,9 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
     vm.busy = true;
     var req = {
       method: method,
-      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&key=IP&intento=0&tipoTabla=true",
-                                                  
-      data: angular.copy($scope.ObjetoInformacionPersonal),
+      url: "../API/extension/AnahuacRest?url=updateViewDownloadSolicitud&p=0&c=100&&key=DP&intento=null&tipoTabla=true",
+        
+      data: angular.copy($scope.ObjetoDomicilioPermanente),
       params: params
     };
 
