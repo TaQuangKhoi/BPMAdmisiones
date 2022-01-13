@@ -11,6 +11,7 @@ import org.bonitasoft.engine.api.ProcessAPI
 import org.bonitasoft.engine.bpm.document.Document
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstance
 import org.bonitasoft.engine.bpm.flownode.HumanTaskInstanceSearchDescriptor
+import org.bonitasoft.engine.bpm.process.ProcessInstance
 import org.bonitasoft.engine.identity.UserMembership
 import org.bonitasoft.engine.identity.UserMembershipCriterion
 import org.bonitasoft.engine.search.Order
@@ -22,6 +23,24 @@ import org.slf4j.LoggerFactory
 
 import com.anahuac.catalogos.CatCampus
 import com.anahuac.catalogos.CatCampusDAO
+import com.anahuac.catalogos.CatCiudad
+import com.anahuac.catalogos.CatCiudadDAO
+import com.anahuac.catalogos.CatEstados
+import com.anahuac.catalogos.CatEstadosDAO
+import com.anahuac.catalogos.CatGestionEscolar
+import com.anahuac.catalogos.CatGestionEscolarDAO
+import com.anahuac.catalogos.CatLugarExamen
+import com.anahuac.catalogos.CatLugarExamenDAO
+import com.anahuac.catalogos.CatPais
+import com.anahuac.catalogos.CatPaisDAO
+import com.anahuac.catalogos.CatPeriodo
+import com.anahuac.catalogos.CatPeriodoDAO
+import com.anahuac.catalogos.CatPropedeutico
+import com.anahuac.catalogos.CatPropedeuticoDAO
+import com.anahuac.catalogos.CatRegistro
+import com.anahuac.catalogos.CatRegistroDAO
+import com.anahuac.model.ContactoEmergencias
+import com.anahuac.model.ContactoEmergenciasDAO
 import com.anahuac.model.DetalleSolicitud
 import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.Statements
@@ -30,6 +49,7 @@ import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Utilities.LoadParametros
 import com.bonitasoft.web.extension.rest.RestAPIContext
 
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 class ReactivacionDAO {
@@ -37,6 +57,7 @@ class ReactivacionDAO {
 	Connection con;
 	Statement stm;
 	ResultSet rs;
+	ResultSet rs2;
 	PreparedStatement pstm;
 	
 	public Result getUsuariosRechazadosComite(Integer parameterP, Integer parameterC, String jsonData, RestAPIContext context) {
@@ -493,6 +514,7 @@ class ReactivacionDAO {
 		Result resultado = new Result();
 		String errorLog = "";
 		Boolean closeCon = false;
+		Boolean autoCommit = false;
 		try {
 			ProcessAPI processAPI = context.getApiClient().getProcessAPI()
 			Boolean avanzartarea = false;
@@ -520,42 +542,49 @@ class ReactivacionDAO {
 			final SearchOptions searchOptions = searchBuilder.done();
 			SearchResult < HumanTaskInstance > SearchHumanTaskInstanceSearch = context.getApiClient().getProcessAPI().searchHumanTaskInstances(searchOptions)
 			List < HumanTaskInstance > lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			int intento = Integer.valueOf(object.countrechazos);
 			
 			for (HumanTaskInstance objHumanTaskInstance: lstHumanTaskInstanceSearch) {
 				if (objHumanTaskInstance.getName().equals("Reactivar usuario rechazado")) {
 					Map < String, Serializable > inputs = new HashMap < String, Serializable > ()
-					inputs.put("activoUsuario", true);
-					inputs.put("countReactivacion",(object.countrechazos as Integer));
+					inputs.put("activoUsuario", false);
+					inputs.put("countReactivacion",((intento == 1)?0:intento-1));
 					processAPI.assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
 					processAPI.executeUserTask(objHumanTaskInstance.getId(), inputs);
 				}
 			}
 			
-			con.setAutoCommit(false)
-			
-			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
-			pstm.setLong(1, object.campus);
-			pstm.setLong(2, object.licenciatura);
-			if (object.propedeutico == null) {
-				pstm.setNull(3, java.sql.Types.BIGINT);
-			} else {
-				pstm.setLong(3, object.propedeutico);
+			Result nuevaSolicitud = nuevoCasoSolicitud(jsonData,context);
+			errorLog += ", nuevaSolicitud:"+nuevaSolicitud+", data:"+nuevaSolicitud.getData();
+			if(nuevaSolicitud.isSuccess()) {
+				autoCommit = true;
+				con.setAutoCommit(false)
+				
+				pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO)
+				pstm.setLong(1, object.campus);
+				pstm.setLong(2, object.licenciatura);
+				if (object.propedeutico == null) {
+					pstm.setNull(3, java.sql.Types.BIGINT);
+				} else {
+					pstm.setLong(3, object.propedeutico);
+				}
+				pstm.setLong(4, object.periodo);
+				pstm.setLong(5, object.campusestudio);
+				pstm.setInt(6, ((intento == 1)?0:intento-1));
+				pstm.setLong(7, Long.valueOf(nuevaSolicitud.getData().get(0)));
+				pstm.executeUpdate();
+				
+				//pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO_AUTODESCRIPCION)
+				//pstm.setLong(1, Long.valueOf(object.caseid));
+				//pstm.executeUpdate();
+	
+				con.commit();
 			}
-			pstm.setLong(4, object.periodo);
-			pstm.setLong(5, object.campusestudio);
-			pstm.setInt(6, Integer.valueOf(object.countrechazos));
-			pstm.setLong(7, Long.valueOf(object.caseid));
-			pstm.executeUpdate();
 			
-			pstm = con.prepareStatement(Statements.UPDATE_DATOS_REACTIVARUSUARIO_AUTODESCRIPCION)
-			pstm.setLong(1, Long.valueOf(object.caseid));
-			pstm.executeUpdate(); 
-
-			con.commit();
 			
-			Result formateo = new Result();
-			formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
-			errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
+			//Result formateo = new Result();
+			//formateo = formateoVariablesPaseListaProceso(Long.valueOf(object.caseid),context);
+			//errorLog += "Formateo: "+formateo.isSuccess().toString()+" Errores: "+formateo.getError()+" Error_info: "+formateo.getError_info();
 			
 			resultado.setSuccess(true)
 			resultado.setError_info(errorLog);
@@ -563,7 +592,10 @@ class ReactivacionDAO {
 			resultado.setError_info(errorLog);
 			resultado.setSuccess(false);
 			resultado.setError(ex.getMessage());
-			con.rollback();
+			if(autoCommit) {
+				con.rollback();
+			}
+			
 		} finally {
 			if (closeCon) {
 				new DBConnect().closeObj(con, stm, rs, pstm)
@@ -1354,15 +1386,551 @@ class ReactivacionDAO {
 	    return resultado
 	}
 	
+	public Result nuevoCasoSolicitud2(String jsonData,RestAPIContext context) {
+		Result resultado = new Result();
+		Long caseId = 0L;
+		String errorLog = "";
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+			assert object instanceof Map
+			
+			Map<String, Serializable> contract = new HashMap<String, Serializable>();
+			Map<String, Serializable> catRegistroInput = new HashMap<String, Serializable>();
+			
+			catRegistroInput.put("apellidomaterno",object.catRegistroInput.apellidomaterno);
+			catRegistroInput.put("apellidopaterno",object.catRegistroInput.apellidopaterno);
+			catRegistroInput.put("ayuda",object.catRegistroInput.ayuda);
+			catRegistroInput.put("catCampus",object.catRegistroInput.catCampus);
+			catRegistroInput.put("catGestionEscolar",object.catRegistroInput.catGestionEscolar);
+			catRegistroInput.put("correoelectronico",object.catRegistroInput.correoelectronico);
+			catRegistroInput.put("isEliminado",object.catRegistroInput.isEliminado);
+			catRegistroInput.put("nombreusuario",object.catRegistroInput.nombreusuario);
+			catRegistroInput.put("password",object.catRegistroInput.password);
+			catRegistroInput.put("primernombre",object.catRegistroInput.primernombre);
+			catRegistroInput.put("segundonombre",object.catRegistroInput.segundonombre);
+			
+			contract.put("catRegistroInput",catRegistroInput)
+			
+			Map<String, Serializable> catSolicitudDeAdmisionInput = new HashMap<String, Serializable>();
+			
+			catSolicitudDeAdmisionInput.put("apellidoMaterno",object.catSolicitudDeAdmisionInput.apellidoMaterno);
+			catSolicitudDeAdmisionInput.put("apellidoPaterno",object.catSolicitudDeAdmisionInput.apellidoPaterno);
+			catSolicitudDeAdmisionInput.put("avisoPrivacidad",object.catSolicitudDeAdmisionInput.avisoPrivacidad);
+			catSolicitudDeAdmisionInput.put("catCampus",object.catSolicitudDeAdmisionInput.catCampus);
+			catSolicitudDeAdmisionInput.put("catCampusEstudio",object.catSolicitudDeAdmisionInput.catCampusEstudio);
+			catSolicitudDeAdmisionInput.put("catEstadoExamen",object.catSolicitudDeAdmisionInput.catEstadoExamen);
+			catSolicitudDeAdmisionInput.put("catGestionEscolar",object.catSolicitudDeAdmisionInput.catGestionEscolar);
+			catSolicitudDeAdmisionInput.put("catLugarExamen",object.catSolicitudDeAdmisionInput.catLugarExamen);
+			catSolicitudDeAdmisionInput.put("catPaisExamen",object.catSolicitudDeAdmisionInput.catPaisExamen);
+			
+			assert object.catSolicitudDeAdmisionInput.catPeriodo instanceof Map
+			def map = [:]
+			for ( prop in object.catSolicitudDeAdmisionInput.catPeriodo ) {
+				map[prop.key] = prop.value
+			}
+			
+			catSolicitudDeAdmisionInput.put("catPeriodo",map);
+			catSolicitudDeAdmisionInput.put("catPropedeutico",object.catSolicitudDeAdmisionInput.catPropedeutico);
+			catSolicitudDeAdmisionInput.put("ciudadExamen",object.catSolicitudDeAdmisionInput.ciudadExamen);
+			catSolicitudDeAdmisionInput.put("ciudadExamenPais",object.catSolicitudDeAdmisionInput.ciudadExamenPais);
+			catSolicitudDeAdmisionInput.put("correoElectronico",object.catSolicitudDeAdmisionInput.correoElectronico);
+			catSolicitudDeAdmisionInput.put("isEliminado",object.catSolicitudDeAdmisionInput.isEliminado);
+			catSolicitudDeAdmisionInput.put("necesitoAyuda",object.catSolicitudDeAdmisionInput.necesitoAyuda);
+			catSolicitudDeAdmisionInput.put("primerNombre",object.catSolicitudDeAdmisionInput.primerNombre);
+			catSolicitudDeAdmisionInput.put("segundoNombre",object.catSolicitudDeAdmisionInput.segundoNombre);
+			//catSolicitudDeAdmisionInput.put("segundonombre",object.segundonombre);
+			
+			contract.put("catSolicitudDeAdmisionInput",catSolicitudDeAdmisionInput)
+			contract.put("nuevaoportunidad",object.nuevaoportunidad)
+			errorLog="4";
+			
+			
+			
+			Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Proceso admisiones");
+			ProcessInstance processInstance = context.getApiClient().getProcessAPI().startProcessWithInputs(processId, contract);
+			caseId = processInstance.getRootProcessInstanceId();
+			resultado.setSuccess(true);
+		} catch (Exception loginApi) {
+			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
+			resultado.setSuccess(false);
+			resultado.setError(loginApi.getMessage())
+			resultado.setError_info(errorLog)
+		}
+		return resultado;
+	}
+	
 	public Result nuevoCasoSolicitud(String jsonData,RestAPIContext context) {
 		Result resultado = new Result();
+		Long caseId = 0L;
+		String errorLog = "";
+		Boolean closeCon = false;
 		try {
-			Long processId = context.getApiClient().getProcessAPI()
-			.getProcessDefinitionId("Proceso admisiones", "1.6");
+			def jsonSlurper = new JsonSlurper();
+			def JsonOutput = new JsonOutput();
+			def object = jsonSlurper.parseText(jsonData);
+			assert object instanceof Map
+			
+			closeCon = validarConexion();
+			
+			def valorString = ["apellidomaterno","apellidopaterno","correoelectronico","nombreusuario","numeroContacto","password","persistenceversion","primernombre","segundonombre","catCampus","catGestionEscolar" ]
+			def valorBoolean = ["isEliminado","ayuda"];
+			String consulta = "SELECT apellidomaterno,apellidopaterno,ayuda,correoelectronico,isEliminado,nombreusuario,numeroContacto,password,persistenceversion,primernombre,segundonombre, null as catCampus,null as catGestionEscolar FROM CatRegistro WHERE caseid = "+object.caseid;
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery();
+			
+			Map<String, Serializable> contract = new HashMap<String, Serializable>();
+			contract.put("nuevaoportunidad",false)
+			
+			Map<String, Serializable> registro = new HashMap<String, Serializable>();
+			
+			if(rs.next()) {
+				for(int i=0; i<valorString.size(); i++) {
+					registro.put(valorString[i],rs.getString(valorString[i]))
+				}
+				
+				for(int i=0; i<valorBoolean.size(); i++) {
+					registro.put(valorBoolean[i],rs.getBoolean(valorBoolean [i]))
+				}
+			}
+			
+			contract.put("catRegistroInput",registro);
+			
+			consulta = "SELECT apellidoMaterno,apellidoPaterno,avisoPrivacidad,correoelectronico,isEliminado,necesitoAyuda, primerNombre,segundoNombre,ciudadExamen_pid,ciudadExamenPais_pid,catCampus_pid,catCampusEstudio_pid, catEstadoExamen_pid, catGestionEscolar_pid, catLugarExamen_pid, catPaisExamen_pid,catPeriodo_pid,catPropedeutico_pid FROM SolicitudDeAdmision WHERE caseid::Integer = "+object.caseid;
+			pstm = con.prepareStatement(consulta)
+			rs = pstm.executeQuery();
+			Map<String, Serializable> catSolicitudDeAdmisionInput = new HashMap<String, Serializable>();
+			def objCatCampusDAO = context.apiClient.getDAO(CatCampusDAO.class);
+			def objCatCiudadDAO = context.apiClient.getDAO(CatCiudadDAO.class);
+			def objCatPeriodoDAO = context.apiClient.getDAO(CatPeriodoDAO.class);
+			def objCatEstadoDAO = context.apiClient.getDAO(CatEstadosDAO.class);
+			def objCatGestionEscolarDAO = context.apiClient.getDAO(CatGestionEscolarDAO.class);
+			def objCatLugarExamenDAO = context.apiClient.getDAO(CatLugarExamenDAO.class);
+			def objCatPaisDAO = context.apiClient.getDAO(CatPaisDAO.class);
+			def objCatPropedeuticoDAO = context.apiClient.getDAO(CatPropedeuticoDAO.class);
+			def objContactoEmergenciaDAO = context.apiClient.getDAO(ContactoEmergenciasDAO.class);
+			def map = [:]
+			String correo = "";
+			if(rs.next()) {
+				catSolicitudDeAdmisionInput.put("apellidoMaterno",rs.getString("apellidoMaterno"));
+				catSolicitudDeAdmisionInput.put("apellidoPaterno",rs.getString("apellidoPaterno"));
+				catSolicitudDeAdmisionInput.put("avisoPrivacidad",rs.getBoolean("avisoPrivacidad"));
+				catSolicitudDeAdmisionInput.put("correoElectronico",rs.getString("correoElectronico"));
+				catSolicitudDeAdmisionInput.put("isEliminado",rs.getBoolean("isEliminado"));
+				catSolicitudDeAdmisionInput.put("necesitoAyuda",rs.getBoolean("necesitoAyuda"));
+				catSolicitudDeAdmisionInput.put("primerNombre",rs.getString("primerNombre"));
+				catSolicitudDeAdmisionInput.put("segundoNombre",rs.getString("segundoNombre"));
+				
+				correo = rs.getString("correoElectronico");
+				
+				if(rs.getString("ciudadExamen_pid") != null) {
+					CatCiudad ciudadExamen = objCatCiudadDAO.findByPersistenceId(rs.getLong("ciudadExamen_pid"))				
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(ciudadExamen));
+					errorLog+="  obj:"+ obj
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+					
+					catSolicitudDeAdmisionInput.put("ciudadExamen",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("ciudadExamen",null);
+				}
+				
+				if(rs.getString("ciudadExamenPais_pid") != null) {
+					CatCiudad ciudadExamenPais = objCatCiudadDAO.findByPersistenceId(rs.getLong("ciudadExamenPais_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(ciudadExamenPais));
+					errorLog+="  obj:"+ obj
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+					
+					catSolicitudDeAdmisionInput.put("ciudadExamenPais",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("ciudadExamenPais",null);
+				}
+				
+				if(rs.getString("catPeriodo_pid") != null) {
+					CatPeriodo CatPeriodo = objCatPeriodoDAO.findByPersistenceId(rs.getLong("catPeriodo_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(CatPeriodo)); 
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catPeriodo",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catPeriodo",null);
+				}
+				
+				
+				if(rs.getString("catCampus_pid") != null) {
+					CatCampus CatCampus = objCatCampusDAO.findByPersistenceId(rs.getLong("catCampus_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(CatCampus)); 
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catCampus",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catCampus",null);
+				}
+				
+				if(rs.getString("catCampusEstudio_pid") != null) {
+					CatCampus CatCampusEstudio = objCatCampusDAO.findByPersistenceId(rs.getLong("catCampusEstudio_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(CatCampusEstudio));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catCampusEstudio",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catCampusEstudio",null);
+				}
+				
+				
+				if(rs.getString("catEstadoExamen_pid") != null) {
+					CatEstados CatEstadoExamen = objCatEstadoDAO.findByPersistenceId(rs.getLong("catEstadoExamen_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(CatEstadoExamen));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						
+						map[prop.key] = prop.value;
+						
+						
+						
+					}
+				
+					catSolicitudDeAdmisionInput.put("catEstadoExamen",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catEstadoExamen",null);
+				}
+				
+				if(rs.getString("catGestionEscolar_pid") != null) {
+					CatGestionEscolar catGestionEscolar = objCatGestionEscolarDAO.findByPersistenceId(rs.getLong("catGestionEscolar_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(catGestionEscolar));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catGestionEscolar",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catGestionEscolar",null);
+				}
+				
+				
+				if(rs.getString("catLugarExamen_pid") != null) {
+					CatLugarExamen catLugarExamen = objCatLugarExamenDAO.findByPersistenceId(rs.getLong("catLugarExamen_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(catLugarExamen));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catLugarExamen",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catLugarExamen",null);
+				}
+				
+				if(rs.getString("catPaisExamen_pid") != null) {
+					CatPais catPaisExamen = objCatPaisDAO.findByPersistenceId(rs.getLong("catPaisExamen_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(catPaisExamen));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catPaisExamen",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catPaisExamen",null);
+				}
+				
+				if(rs.getString("catPropedeutico_pid") != null) {
+					CatPropedeutico catPropedeutico = objCatPropedeuticoDAO.findByPersistenceId(rs.getLong("catPropedeutico_pid"))
+					def obj = jsonSlurper.parseText(JsonOutput.toJson(catPropedeutico));
+					map = [:]
+					for ( prop in obj ) {
+						if(prop.key == "persistenceId") {
+							map["persistenceId_string"] = prop.value+"";
+						}
+						map[prop.key] = prop.value;
+					}
+				
+					catSolicitudDeAdmisionInput.put("catPropedeutico",map);
+					
+				}else {
+					catSolicitudDeAdmisionInput.put("catPropedeutico",null);
+				}
+				
+				
+			}
+			
+			contract.put("catSolicitudDeAdmisionInput",catSolicitudDeAdmisionInput);
 			
 			
-		}catch(Exception e){
+			ContactoEmergencias contactoEmergencia = objContactoEmergenciaDAO.findByPersistenceId(1)
+			def obj = jsonSlurper.parseText(JsonOutput.toJson(contactoEmergencia));
+			map = [:]
+			for ( prop in obj ) {
+				if(prop.key == "persistenceId") {
+					
+				}else {
+					map[prop.key] = prop.value;
+				}
+				
+			}
+		
+			contract.put("contactoEmergenciaInput",map);
 			
+			//errorLog+= contract
+			
+			Long processId = context.getApiClient().getProcessAPI().getLatestProcessDefinitionId("Proceso admisiones");
+			ProcessInstance processInstance = context.getApiClient().getProcessAPI().startProcessWithInputs(processId, contract);
+			caseId = processInstance.getRootProcessInstanceId();
+			
+			contract.put("isEnviarSolicitudCont",false);
+			map = [];
+			contract.put("actaNacimientoDocumentInput",map);
+			contract.put("cartaAADocumentInput",map);
+			contract.put("constanciaDocumentInput",map);
+			contract.put("fotoPasaporteDocumentInput",map);
+			contract.put("descuentoDocumentInput",map);
+			contract.put("resultadoCBDocumentInput",map);
+			contract.put("tutorInput",map);
+			//map = jsonSlurper.parseText("{}")
+			//contract.put("madreInput",null);
+			//contract.put("padreInput",null);
+			
+			sleep(5000);
+			Result respuesta = new Result();
+			//respuesta = updateDatosSolicitud(object.caseid,caseId,context);
+			errorLog ="Update:"+ respuesta;
+			respuesta = validarAspirante(caseId, context,contract);
+			errorLog +=", tarea:"+ respuesta;
+			
+			List < String> rows = new ArrayList <String> ();
+			rows.add("${caseId}")
+			
+			resultado.setSuccess(true);
+			resultado.setError_info(errorLog);
+			resultado.setData(rows);
+		} catch (Exception loginApi) {
+			LOGGER.error("[EXCEPTION]" + loginApi.getMessage());
+			resultado.setSuccess(false);
+			resultado.setError(loginApi.getMessage())
+			resultado.setError_info(errorLog)
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	public Result validarAspirante(Long caseid,RestAPIContext context,Map<String, Serializable> contract) {
+		Result resultado = new Result();
+		List<CatRegistro> lstCatRegistro = new ArrayList<CatRegistro>();
+		CatRegistro objCatRegistro = new CatRegistro();
+		String errorLog ="";
+		Boolean closeCon = false;
+		try {
+			String username = "";
+			String password = "";
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			SearchOptionsBuilder searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Validar Cuenta");
+			
+			final SearchOptions searchOptions = searchBuilder.done();
+			SearchResult<HumanTaskInstance>  SearchHumanTaskInstanceSearch = apiClient.getProcessAPI().searchHumanTaskInstances(searchOptions);
+			List<HumanTaskInstance> lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			def catRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				lstCatRegistro = catRegistroDAO.findByCaseId(objHumanTaskInstance.getRootContainerId(), 0, 1)
+				if(lstCatRegistro != null) {
+					if(lstCatRegistro.size() > 0) {
+						objCatRegistro = new CatRegistro();
+						objCatRegistro = lstCatRegistro.get(0);
+						if(objCatRegistro.getCaseId().equals(caseid)) {
+							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+							apiClient.getProcessAPI().executeFlowNode(objHumanTaskInstance.getId());
+						}
+					}
+				}
+			}
+			
+			sleep(5000);
+			
+			searchBuilder = new SearchOptionsBuilder(0, 99999);
+			searchBuilder.filter(HumanTaskInstanceSearchDescriptor.NAME, "Llenar solicitud");
+			final SearchOptions searchOptions2 = searchBuilder.done();
+			SearchHumanTaskInstanceSearch = apiClient.getProcessAPI().searchHumanTaskInstances(searchOptions2);
+			lstHumanTaskInstanceSearch = SearchHumanTaskInstanceSearch.getResult();
+			catRegistroDAO = context.apiClient.getDAO(CatRegistroDAO.class);
+			for(HumanTaskInstance objHumanTaskInstance : lstHumanTaskInstanceSearch) {
+				lstCatRegistro = catRegistroDAO.findByCaseId(objHumanTaskInstance.getRootContainerId(), 0, 1)
+				if(lstCatRegistro != null) {
+					if(lstCatRegistro.size() > 0) {
+						objCatRegistro = new CatRegistro();
+						objCatRegistro = lstCatRegistro.get(0);
+						if(objCatRegistro.getCaseId().equals(caseid)) {
+							apiClient.getProcessAPI().assignUserTask(objHumanTaskInstance.getId(), context.getApiSession().getUserId());
+							apiClient.getProcessAPI().executeUserTask(objHumanTaskInstance.getId(), contract)
+						}
+					}
+				}
+			}
+			resultado.setSuccess(true);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	
+	public Result updateDatosSolicitud(String caseIdOrigen,caseIdDestino,RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String errorLog = "";
+		try {
+			closeCon = validarConexion();
+			
+			con.setAutoCommit(false)
+			// INSERTAR ISELIMINADO
+			pstm = con.prepareStatement("UPDATE solicitudDeAdmision SET catSexo_pid = sda.catSexo_pid, fechaNacimiento = sda.fechaNacimiento, catEstadoCivil_pid = sda.catEstadoCivil_pid, catNacionalidad_pid = sda.catNacionalidad_pid, catPresentasteEnOtroCampus_pid = sda.catPresentasteEnOtroCampus_pid, catReligion_pid = sda.catReligion_pid, curp = sda.curp, telefonoCelular = sda.telefonoCelular, foto = sda.foto, actaNacimiento = sda.actaNacimiento, calle = sda.calle, codigoPostal = sda.codigoPostal, catPais_pid = sda.catPais_pid, catEstado_pid = sda.catEstado_pid, ciudad = sda.ciudad, calle2 = sda.calle2, numExterior = sda.numExterior, numInterior = sda.numInterior, colonia = sda.colonia, telefono = sda.telefono, otroTelefonoContacto = sda.otroTelefonoContacto, promedioGeneral = sda.promedioGeneral, comprobanteCalificaciones = sda.comprobanteCalificaciones, datosVeridicos = sda.datosVeridicos, aceptoAvisoPrivacidad = sda.aceptoAvisoPrivacidad, confirmarAutorDatos = sda.confirmarAutorDatos, catBachilleratos_pid = sda.catBachilleratos_pid, paisBachillerato = sda.paisBachillerato, estadoBachillerato = sda.estadoBachillerato, ciudadBachillerato = sda.ciudadBachillerato, bachillerato = sda.bachillerato, delegacionMunicipio = sda.delegacionMunicipio, estadoExtranjero = sda.estadoExtranjero, resultadoPAA = sda.resultadoPAA, tienePAA = sda.tienePAA, tieneDescuento = sda.tieneDescuento, admisionAnahuac = sda.admisionAnahuac, necesitoAyuda = sda.necesitoAyuda, countRechazos = sda.countRechazos, urlFoto = sda.urlFoto, urlConstancia = sda.urlConstancia, urlCartaAA = sda.urlCartaAA, urlResultadoPAA = sda.urlResultadoPAA, urlActaNacimiento = sda.urlActaNacimiento, urldescuentos = sda.urldescuentos, isEliminado = false  FROM (SELECT catSexo_pid,fechaNacimiento,catEstadoCivil_pid,catNacionalidad_pid,catPresentasteEnOtroCampus_pid,catReligion_pid,curp,telefonoCelular,foto,actaNacimiento,calle,codigoPostal,catPais_pid,catEstado_pid,ciudad,calle2,numExterior,numInterior,colonia,telefono,otroTelefonoContacto,promedioGeneral,comprobanteCalificaciones,datosVeridicos,aceptoAvisoPrivacidad,confirmarAutorDatos,catBachilleratos_pid,paisBachillerato,estadoBachillerato,ciudadBachillerato,bachillerato,delegacionMunicipio,estadoExtranjero,resultadoPAA,tienePAA,tieneDescuento,admisionAnahuac, necesitoAyuda,countRechazos, urlFoto,urlConstancia,urlCartaAA,urlResultadoPAA,urlActaNacimiento,urldescuentos FROM solicitudDeAdmision WHERE caseid::integer = ${caseIdOrigen} ) as sda WHERE solicitudDeAdmision.caseid::integer = "+caseIdDestino);
+			pstm.executeUpdate();
+			errorLog+="solicitud";
+			
+			pstm = con.prepareStatement("SELECT persistenceid FROM solicitudDeAdmision WHERE caseid::integer = "+caseIdOrigen);
+			rs = pstm.executeQuery();
+			errorLog+=", persistenceid1";
+			Long persistenceIdDestino = 0L;
+			if(rs.next()) {
+				persistenceIdDestino = rs.getLong("persistenceid")
+			}
+			
+			pstm = con.prepareStatement("SELECT persistenceid FROM solicitudDeAdmision WHERE caseid::integer = "+caseIdDestino);
+			rs = pstm.executeQuery();
+			errorLog+=", persistenceid2";
+			if(rs.next()) {
+				pstm = con.prepareStatement("INSERT INTO SOLICITUDDEADM_CATCAMPUSPRESE (SOLICITUDDEADMISION_PID,CATCAMPUS_PID,CATCAMPUSPRESENTADOSOLICITUD_ORDER) SELECT ${rs.getLong("persistenceid")} AS SOLICITUDDEADMISION_PID,CATCAMPUS_PID,CATCAMPUSPRESENTADOSOLICITUD_ORDER FROM SOLICITUDDEADM_CATCAMPUSPRESE WHERE SOLICITUDDEADMISION_PID = "+persistenceIdDestino);
+				pstm.executeUpdate();
+				errorLog+=", insert campusPresente";
+			}
+			
+			pstm = con.prepareStatement("INSERT INTO AutodescripcionV2 (persistenceid,admiraspersonalidadmadre,admiraspersonalidadpadre,asprctosnogustanreligion,caracteristicasexitocarrera,caseid,comodescribesrelacionhermanos,comodescribestufamilia,comoestaconformadafamilia,comoresolvisteproblema,comotedescribentusamigos,conquienplaticasproblemas,cualexamenextrapresentaste,defectosobservasmadre,defectosobservaspadre,detallespersonalidad,empresatrabajas,empresatrabajaste,expectativascarrera,familiarmejorrelacion,fuentesinfluyerondesicion,hasrecibidoalgunaterapia,materiascalifaltas,materiascalifbajas,materiasnotegustan,materiastegustan,mayorproblemaenfrentado,metascortoplazo,metaslargoplazo,metasmedianoplazo,motivoaspectosnogustanreligion,motivoelegistecarrera,motivoexamenextraordinario,motivopadresnoacuerdo,motivoreprobaste,organizacionhassidojefe,organizacionparticipas,organizacionesperteneces,pageindex,periodoreprobaste,persistenceversion,personasinfluyerondesicion,principalesdefectos,principalesvirtudes,problemassaludatencioncontinua,profesionalcomoteves,quecambiariasdeti,quecambiariasdetufamilia,quedeportepracticas,quehacesentutiempolibre,quelecturaprefieres,tipodiscapacidad,catactualnentetrabajas_pid,catareabachillerato_pid,cataspectodesagradareligio_pid,catestudiadoextranjero_pid,catexperienciaayudacarrera_pid,cathaspresentadoexamenextr_pid,cathasreprobado_pid,cathastenidotrabajo_pid,catinscritootrauniversidad_pid,catjefeorganizacionsocial_pid,catorientacionvocacional_pid,catpadresdeacuerdo_pid,catparticipasgruposocial_pid,catpersonasaludable_pid,catpracticasdeporte_pid,catpracticasreligion_pid,catproblemassaludatencion_pid,catrecibidoterapia_pid,cattegustaleer_pid,catvivesestadodiscapacidad_pid,catyaresolvisteelproblema_pid,paisestudiasteextranjero_pid,pertenecesorganizacion_pid,tiempoestudiasteextranjero_pid) SELECT (case when (SELECT max(persistenceId)+1 from AutodescripcionV2 ) is null then 1 else (SELECT max(persistenceId)+1 from AutodescripcionV2) end) AS persistenceid,admiraspersonalidadmadre,admiraspersonalidadpadre,asprctosnogustanreligion,caracteristicasexitocarrera, ${caseIdDestino} AS caseid,comodescribesrelacionhermanos,comodescribestufamilia,comoestaconformadafamilia,comoresolvisteproblema,comotedescribentusamigos,conquienplaticasproblemas,cualexamenextrapresentaste,defectosobservasmadre,defectosobservaspadre,detallespersonalidad,empresatrabajas,empresatrabajaste,expectativascarrera,familiarmejorrelacion,fuentesinfluyerondesicion,hasrecibidoalgunaterapia,materiascalifaltas,materiascalifbajas,materiasnotegustan,materiastegustan,mayorproblemaenfrentado,metascortoplazo,metaslargoplazo,metasmedianoplazo,motivoaspectosnogustanreligion,motivoelegistecarrera,motivoexamenextraordinario,motivopadresnoacuerdo,motivoreprobaste,organizacionhassidojefe,organizacionparticipas,organizacionesperteneces,pageindex,periodoreprobaste,persistenceversion,personasinfluyerondesicion,principalesdefectos,principalesvirtudes,problemassaludatencioncontinua,profesionalcomoteves,quecambiariasdeti,quecambiariasdetufamilia,quedeportepracticas,quehacesentutiempolibre,quelecturaprefieres,tipodiscapacidad,catactualnentetrabajas_pid,catareabachillerato_pid,cataspectodesagradareligio_pid,catestudiadoextranjero_pid,catexperienciaayudacarrera_pid,cathaspresentadoexamenextr_pid,cathasreprobado_pid,cathastenidotrabajo_pid,catinscritootrauniversidad_pid,catjefeorganizacionsocial_pid,catorientacionvocacional_pid,catpadresdeacuerdo_pid,catparticipasgruposocial_pid,catpersonasaludable_pid,catpracticasdeporte_pid,catpracticasreligion_pid,catproblemassaludatencion_pid,catrecibidoterapia_pid,cattegustaleer_pid,catvivesestadodiscapacidad_pid,catyaresolvisteelproblema_pid,paisestudiasteextranjero_pid,pertenecesorganizacion_pid,tiempoestudiasteextranjero_pid FROM AutodescripcionV2 WHERE caseid ="+caseIdOrigen)
+			pstm.executeUpdate();
+			errorLog+=", insertAutoDescripcion";
+
+			pstm = con.prepareStatement("INSERT INTO DetalleSolicitud (persistenceid,caseid,idbanner) SELECT (case when (SELECT max(persistenceId)+1 from DetalleSolicitud ) is null then 1 else (SELECT max(persistenceId)+1 from DetalleSolicitud) end) AS persistenceid, '${caseIdDestino}' as caseid,idbanner FROM DetalleSolicitud WHERE caseid = '"+caseIdOrigen+"'");
+			pstm.executeUpdate();
+			errorLog+=", detalleSolicitud";
+			
+			con.commit();
+			
+			resultado.setSuccess(true)
+			resultado.setError_info(errorLog)
+		} catch (Exception e) {
+			resultado.setSuccess(false)
+			resultado.setError(e.getMessage())
+			resultado.setError_info(errorLog)
+			con.rollback();
+		}finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	public Result getUserContext(Long caseid,RestAPIContext context) {
+		Result resultado = new Result();
+		String errorLog ="";
+		try {
+			String username = "";
+			String password = "";
+			
+			List < Map < String, Serializable >> rows = new ArrayList < Map < String, Serializable >> ();
+			Map<String, Serializable> contexto = new HashMap<String, Serializable>();
+			
+			/*-------------------------------------------------------------*/
+			LoadParametros objLoad = new LoadParametros();
+			PropertiesEntity objProperties = objLoad.getParametros();
+			username = objProperties.getUsuario();
+			password = objProperties.getPassword();
+			/*-------------------------------------------------------------*/
+			
+			org.bonitasoft.engine.api.APIClient apiClient = new APIClient()//context.getApiClient();
+			apiClient.login(username, password)
+			
+			try {
+				contexto = apiClient.getProcessAPI().getProcessInstanceExecutionContext(caseid);
+			}catch(Exception a) {
+				contexto = apiClient.getProcessAPI().getArchivedProcessInstanceExecutionContext(caseid);
+			}
+			
+			rows.add(contexto);
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows)
+
+			} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+			e.printStackTrace();
 		}
 		return resultado;
 	}
