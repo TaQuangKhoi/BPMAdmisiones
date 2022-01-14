@@ -1,0 +1,38 @@
+<div class="table-responsive">
+    <table class="table" ng-class="{'table-hover': ctrl.isClickable(), 'table-striped': properties.striped, 'table-condensed': properties.condensed, 'table-bordered': properties.bordered}">
+        <thead>
+            <tr>
+                <!--<th ng-repeat="header in properties.headers">-->
+                <!--     <span ng-if="properties.allowHTML" ng-bind-html="header | uiTranslate"></span>-->
+                <!--  	 <span ng-if="!properties.allowHTML">{{ header | uiTranslate }}</span>-->
+                <!--</th>-->
+                <th>
+                    <span >{{ 'Nombre' | uiTranslate }}</span>
+                </th>
+                <th>
+                    <span >{{ 'Obligatorio' | uiTranslate }}</span>
+                </th>
+                <th>
+                    <span >{{ 'Documento adjunto' | uiTranslate }}</span>
+                </th>
+                <th>
+                    <span >{{ 'Acciones' | uiTranslate }}</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody ng-if="ctrl.isArray(properties.content)">
+            <tr ng-repeat="row in properties.content" ng-click="ctrl.selectRow(row)" ng-class="{'info': ctrl.isSelected(row)}">
+                <td>{{row.nombreDocumento}}</td>
+                <td>{{row.nombreDocumento}}</td>
+                <td>
+                    <span class="glyphicon glyphicon-file"></span>
+                </td>
+                <td>
+                   <button class="btn btn-link">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

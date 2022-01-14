@@ -105,6 +105,31 @@ class Index implements RestApiController {
 						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
 					}
 					break;
+					
+				/*Cat manejo documentos*/
+				case "getCatManejoDocumento":
+					result = new CatalogosDAO().getCatManejoDocumento(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				/*Fin Cat manejo documentos*/
+					
+				/*Cat manejo documentos*/
+				case "getCatTipoAoyo":
+					result = new CatalogosDAO().getCatTipoAoyo(jsonData, context)
+					responseBuilder.withMediaType("application/json")
+					if (result.isSuccess()) {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_OK, new JsonBuilder(result).toString())
+					}else {
+						return buildResponse(responseBuilder, HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  new JsonBuilder(result).toString())
+					}
+					break;
+				/*Fin Cat manejo documentos*/
+					
 				default:
 					result = notFound(url);
 					if (result.isSuccess()) {
@@ -116,7 +141,6 @@ class Index implements RestApiController {
 			}
 			
 		} catch (Exception e) {
-
 			result.setSuccess(false)
 			result.setError("500 INTERNAL SERVER ERROR")
 			result.setError_info(e.getMessage())

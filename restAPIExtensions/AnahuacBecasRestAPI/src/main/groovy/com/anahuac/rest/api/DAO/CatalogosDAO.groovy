@@ -15,6 +15,8 @@ import com.anahuac.rest.api.DB.DBConnect
 import com.anahuac.rest.api.DB.StatementsCatalogos
 import com.anahuac.rest.api.Entity.Result
 import com.anahuac.rest.api.Entity.db.CatGenerico
+import com.anahuac.rest.api.Entity.db.CatManejoDocumentos
+import com.anahuac.rest.api.Entity.db.CatTypoApoyo
 
 import groovy.json.JsonSlurper
 
@@ -128,6 +130,7 @@ class CatalogosDAO {
 		}
 		return resultado
 	}
+	
 	public Result getCatGenerico(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		Boolean closeCon = false;;
@@ -367,102 +370,427 @@ class CatalogosDAO {
 				}
 			}
 			return resultado;
-		}
+	}
 		
-		public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
-			Result resultado = new Result();
-			Boolean closeCon = false;
-			
-			def jsonSlurper = new JsonSlurper();
-			def objCatGenerico = jsonSlurper.parseText(jsonData);
-	
-			String errorLog = "Entro";
-			try {
-				errorLog+= " 1";
-				 closeCon = validarConexion();
-						 if(objCatGenerico.persistenceId != 0) {
-							 errorLog+= " update";
-							pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATPROVIENENINGRESOS);
-							pstm.setString(1, objCatGenerico.clave);
-							pstm.setString(2, objCatGenerico.descripcion);
-							pstm.setBoolean(3, objCatGenerico.isEliminado);
-							pstm.setString(4, objCatGenerico.usuarioCreacion);
-							pstm.setLong(5, objCatGenerico.persistenceId);
-							pstm.execute();
-						}else {
-							errorLog+= " insert";
-							pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATPROVIENENINGRESOS);
-							pstm.setString(1, objCatGenerico.clave);
-							pstm.setString(2, objCatGenerico.descripcion);
-							pstm.setString(3, objCatGenerico.usuarioCreacion);
-							pstm.execute();
-						}
-						errorLog+= " salio";
-						con.commit();
-					resultado.setSuccess(true)
-					resultado.setError_info(errorLog);
-				} catch (Exception e) {
-					LOGGER.error "[ERROR] " + e.getMessage();
-					resultado.setSuccess(false);
-					resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
-					resultado.setError_info(errorLog);
-				} finally {
-					if(closeCon) {
-						new DBConnect().closeObj(con, stm, rs, pstm)
+	public Result insertUpdateCatProvienenIngresos(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objCatGenerico = jsonSlurper.parseText(jsonData);
+
+		String errorLog = "Entro";
+		try {
+			errorLog+= " 1";
+			 closeCon = validarConexion();
+					 if(objCatGenerico.persistenceId != 0) {
+						 errorLog+= " update";
+						pstm = con.prepareStatement(StatementsCatalogos.UPDATE_CATPROVIENENINGRESOS);
+						pstm.setString(1, objCatGenerico.clave);
+						pstm.setString(2, objCatGenerico.descripcion);
+						pstm.setBoolean(3, objCatGenerico.isEliminado);
+						pstm.setString(4, objCatGenerico.usuarioCreacion);
+						pstm.setLong(5, objCatGenerico.persistenceId);
+						pstm.execute();
+					}else {
+						errorLog+= " insert";
+						pstm = con.prepareStatement(StatementsCatalogos.INSERT_CATPROVIENENINGRESOS);
+						pstm.setString(1, objCatGenerico.clave);
+						pstm.setString(2, objCatGenerico.descripcion);
+						pstm.setString(3, objCatGenerico.usuarioCreacion);
+						pstm.execute();
 					}
+					errorLog+= " salio";
+					con.commit();
+				resultado.setSuccess(true)
+				resultado.setError_info(errorLog);
+			} catch (Exception e) {
+				LOGGER.error "[ERROR] " + e.getMessage();
+				resultado.setSuccess(false);
+				resultado.setError("[insertarCatTipoMoneda] " + e.getMessage());
+				resultado.setError_info(errorLog);
+			} finally {
+				if(closeCon) {
+					new DBConnect().closeObj(con, stm, rs, pstm)
 				}
-				return resultado;
+			}
+			return resultado;
+	}
+			
+	public Result insertUpdateCatGenerico(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		
+		def jsonSlurper = new JsonSlurper();
+		def objeto = jsonSlurper.parseText(jsonData);
+	
+		//assert objCatGenerico instanceof CatGenerico;
+		String errorLog = "Entro", consulta = "";
+		//CatGenerico objCatGenerico;
+		try {
+			errorLog+= " 1";
+			 closeCon = validarConexion();
+			 if(objeto.objCatGenerico.persistenceId != 0) {
+				 consulta= StatementsCatalogos.UPDATE_CAT_GENERICO
+				 errorLog = consulta;
+				 consulta=consulta.replaceAll("CATGEN", objeto.catalogo)
+				 errorLog += "|| "+consulta;
+				pstm = con.prepareStatement(consulta);
+				pstm.setString(1, objeto.objCatGenerico.clave);
+				pstm.setString(2, objeto.objCatGenerico.descripcion);
+				pstm.setBoolean(3, objeto.objCatGenerico.isEliminado);
+				pstm.setString(4, objeto.objCatGenerico.usuarioCreacion);
+				pstm.setLong(5, objeto.objCatGenerico.persistenceId);
+				pstm.execute();
+			}else {
+				consulta= StatementsCatalogos.INSERT_CAT_GENERICO
+				errorLog = consulta;
+				consulta = consulta.replaceAll("CATGEN", objeto.catalogo)
+				errorLog += "|| "+consulta;
+				pstm = con.prepareStatement(consulta);
+				pstm.setString(1, objeto.objCatGenerico.clave);
+				pstm.setString(2, objeto.objCatGenerico.descripcion);
+				pstm.setString(3, objeto.objCatGenerico.usuarioCreacion);
+				pstm.execute();
+			}
+			con.commit();
+			resultado.setSuccess(true)
+			//resultado.setError_info(errorLog);
+		} catch (Exception e) {
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError("[insertUpdateCatGenerico] " + e.getMessage());
+			resultado.setError_info(errorLog);
+		} finally {
+			if(closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm)
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Obtiene la lista de registros del catálogo de manejo de documentos para cada tipo de apoyo educativo y campus 
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCatManejoDocumento(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
+		
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			String consulta = StatementsCatalogos.GET_CAT_MANEJO_DOCUMENTOS;
+			CatManejoDocumentos row = new CatManejoDocumentos();
+			List < CatManejoDocumentos > rows = new ArrayList < CatManejoDocumentos > ();
+			closeCon = validarConexion();
+			where += " WHERE isEliminado = false";
+			errorLog +=" 1";
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+
+				switch (filtro.get("columna")) {
+					case "CLAVE":
+						where += " AND LOWER(clave) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "DESCRIPCION":
+						where += " AND LOWER(DESCRIPCION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "FECHACREACION":
+						where += " AND LOWER(FECHACREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "PERSISTENCEID":
+						where += " AND LOWER(PERSISTENCEID) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "PERSISTENCEVERSION":
+						where += " AND LOWER(PERSISTENCEVERSION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "USUARIOCREACION":
+						where += " AND LOWER(USUARIOCREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += " =LOWER('[valor]')";
+						} else {
+							where += " LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+				}
 			}
 			
-			public Result insertUpdateCatGenerico(String jsonData, RestAPIContext context) {
-				Result resultado = new Result();
-				Boolean closeCon = false;
-				
-				def jsonSlurper = new JsonSlurper();
-				def objeto = jsonSlurper.parseText(jsonData);
+			switch (object.orderby) {
+				case "CLAVE":
+					orderby += "clave";
+					break;
+				case "DESCRIPCION":
+					orderby += "descripcion";
+					break;
+				case "FECHACREACION":
+					orderby += "fechaCreacion";
+					break;
+				case "ISELIMINADO":
+					orderby += "isEliminado";
+					break;
+				case "PERSISTENCEID":
+					orderby += "persistenceId";
+					break;
+				case "PERSISTENCEVERSION":
+					orderby += "persistenceVersion";
+					break;
+				case "USUARIOCREACION":
+					orderby += "usuarioCreacion";
+					break;
+				default:
+					orderby += "persistenceid";
+					break;
+			}
+			
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[CATALOGO]", object.catalogo);
+
+			String consultaCount = StatementsCatalogos.GET_COUNT_CAT_MANEJO_DOCUMENTOS;
+			consultaCount = consultaCount.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
+			
+			pstm = con.prepareStatement(consultaCount);
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"));
+			}
+			
+			consulta = consulta.replace("[ORDERBY]", orderby);
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				row = new CatGenerico();
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.idCampus(rs.getLong("IDCAMPUS"));
+				row.idTipoApoyo(rs.getLong("IDTIPOAPOYO"));
+				row.setNombreDocumento(rs.getString("NOMBREDOCUMENTO"));
+				row.setUrlDocumentoAzure(rs.getString("URLDOCUMENTOAZURE"));
+				row.setFechaCreacion(rs.getString("fechacreacion"));
+				row.setIsEliminado(rs.getBoolean("isEliminado"));
+				row.setUsuarioCreacion(rs.getString("usuariocreacion"));
+
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
+	
+	/**
+	 * Obtiene la lista de registros del catálogo detipo de apoyo 
+	 * @author José Carlos García Romero
+	 * @param jsonData (String)
+	 * @param context (RestAPIContext)
+	 * @return resultado (Result)
+	 */
+	public Result getCatTipoAoyo(String jsonData, RestAPIContext context) {
+		Result resultado = new Result();
+		Boolean closeCon = false;
+		String where = "", orderby = "ORDER BY ", errorLog="entro";
 		
-				//assert objCatGenerico instanceof CatGenerico;
-				String errorLog = "Entro", consulta = "";
-				//CatGenerico objCatGenerico;
-				try {
-					errorLog+= " 1";
-					 closeCon = validarConexion();
-							 if(objeto.objCatGenerico.persistenceId != 0) {
-								 consulta= StatementsCatalogos.UPDATE_CAT_GENERICO
-								 errorLog = consulta;
-								 consulta=consulta.replaceAll("CATGEN", objeto.catalogo)
-								 errorLog += "|| "+consulta;
-								pstm = con.prepareStatement(consulta);
-								pstm.setString(1, objeto.objCatGenerico.clave);
-								pstm.setString(2, objeto.objCatGenerico.descripcion);
-								pstm.setBoolean(3, objeto.objCatGenerico.isEliminado);
-								pstm.setString(4, objeto.objCatGenerico.usuarioCreacion);
-								pstm.setLong(5, objeto.objCatGenerico.persistenceId);
-								pstm.execute();
-							}else {
-								consulta= StatementsCatalogos.INSERT_CAT_GENERICO
-								errorLog = consulta;
-								consulta = consulta.replaceAll("CATGEN", objeto.catalogo)
-								errorLog += "|| "+consulta;
-								pstm = con.prepareStatement(consulta);
-								pstm.setString(1, objeto.objCatGenerico.clave);
-								pstm.setString(2, objeto.objCatGenerico.descripcion);
-								pstm.setString(3, objeto.objCatGenerico.usuarioCreacion);
-								pstm.execute();
-							}
-							con.commit();
-						resultado.setSuccess(true)
-						//resultado.setError_info(errorLog);
-					} catch (Exception e) {
-						LOGGER.error "[ERROR] " + e.getMessage();
-						resultado.setSuccess(false);
-						resultado.setError("[insertUpdateCatGenerico] " + e.getMessage());
-						resultado.setError_info(errorLog);
-					} finally {
-						if(closeCon) {
-							new DBConnect().closeObj(con, stm, rs, pstm)
+		try {
+			def jsonSlurper = new JsonSlurper();
+			def object = jsonSlurper.parseText(jsonData);
+
+			String consulta = StatementsCatalogos.GET_CAT_MANEJO_DOCUMENTOS;
+			CatTypoApoyo row = new CatTypoApoyo();
+			List < CatTypoApoyo > rows = new ArrayList < CatTypoApoyo > ();
+			closeCon = validarConexion();
+			where += " WHERE isEliminado = false";
+			errorLog +=" 1";
+			for (Map < String, Object > filtro: (List < Map < String, Object >> ) object.lstFiltro) {
+
+				switch (filtro.get("columna")) {
+					case "CLAVE":
+						where += " AND LOWER(clave) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
 						}
-					}
-					return resultado;
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "DESCRIPCION":
+						where += " AND LOWER(DESCRIPCION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "FECHACREACION":
+						where += " AND LOWER(FECHACREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "PERSISTENCEID":
+						where += " AND LOWER(PERSISTENCEID) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "PERSISTENCEVERSION":
+						where += " AND LOWER(PERSISTENCEVERSION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += "=LOWER('[valor]')";
+						} else {
+							where += "LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
+					case "USUARIOCREACION":
+						where += " AND LOWER(USUARIOCREACION) ";
+						if (filtro.get("operador").equals("Igual a")) {
+							where += " =LOWER('[valor]')";
+						} else {
+							where += " LIKE LOWER('%[valor]%')";
+						}
+						where = where.replace("[valor]", filtro.get("valor"));
+						break;
 				}
+			}
+			
+			switch (object.orderby) {
+				case "CLAVE":
+					orderby += "clave";
+					break;
+				case "DESCRIPCION":
+					orderby += "descripcion";
+					break;
+				case "FECHACREACION":
+					orderby += "fechaCreacion";
+					break;
+				case "ISELIMINADO":
+					orderby += "isEliminado";
+					break;
+				case "PERSISTENCEID":
+					orderby += "persistenceId";
+					break;
+				case "PERSISTENCEVERSION":
+					orderby += "persistenceVersion";
+					break;
+				case "USUARIOCREACION":
+					orderby += "usuarioCreacion";
+					break;
+				case "CONDICIONESVIDEO":
+					orderby += "CONDICIONESVIDEO";
+					break;
+				default:
+					orderby += "persistenceid";
+					break;
+			}
+			
+			orderby += " " + object.orientation;
+			consulta = consulta.replace("[WHERE]", where);
+			consulta = consulta.replace("[CATALOGO]", object.catalogo);
+
+			String consultaCount = StatementsCatalogos.GET_COUNT_CAT_MANEJO_DOCUMENTOS;
+			consultaCount = consultaCount.replace("[WHERE]", where);
+			consultaCount = consultaCount.replace("[CATALOGO]", object.catalogo);
+			
+			pstm = con.prepareStatement(consultaCount);
+			rs = pstm.executeQuery();
+			if (rs.next()) {
+				resultado.setTotalRegistros(rs.getInt("registros"));
+			}
+			
+			consulta = consulta.replace("[ORDERBY]", orderby);
+			consulta = consulta.replace("[LIMITOFFSET]", " LIMIT ? OFFSET ?");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			pstm = con.prepareStatement(consulta);
+			pstm.setInt(1, object.limit);
+			pstm.setInt(2, object.offset);
+
+			rs = pstm.executeQuery()
+			while (rs.next()) {
+				row = new CatTypoApoyo();
+				row.setPersistenceId(rs.getLong("PERSISTENCEID"));
+				row.setClave(rs.getString("CLAVE"));
+				row.setDescripcion(rs.getString("DESCRIPCION"))
+				row.setFechaCreacion(rs.getString("FECHACREACION"));
+				row.setIsEliminado(rs.getBoolean("ISELIMINADO"));
+				row.setUsuarioCreacion(rs.getString("USUARIOCREACION"));
+				row.setRequiereVideo(rs.getBoolean("REQUIEREVIDEO"));
+				row.setCondicionesVideo(rs.getString("CONDICIONESVIDEO"));
+
+				rows.add(row);
+			}
+			
+			resultado.setSuccess(true);
+			resultado.setData(rows);
+
+		} catch (Exception e) {
+			resultado.setError_info(errorLog);
+			LOGGER.error "[ERROR] " + e.getMessage();
+			resultado.setSuccess(false);
+			resultado.setError(e.getMessage());
+		} finally {
+			if (closeCon) {
+				new DBConnect().closeObj(con, stm, rs, pstm);
+			}
+		}
+		return resultado;
+	}
 }
