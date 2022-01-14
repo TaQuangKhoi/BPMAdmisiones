@@ -239,6 +239,11 @@ class ImportacionPAADAO {
 	public Result subirDatosBannerEthos(String jsonData, RestAPIContext context) {
 		Result resultado = new Result();
 		String errorLog = "";
+		List<Map<String,Object>> machine = new ArrayList <Map<String,Object>> ()
+		Map<String,Object> coins =  new HashMap < String, Object > ();
+		
+		
+
 		try {
 			def jsonSlurper = new JsonSlurper();
 			def object = jsonSlurper.parseText(jsonData);
@@ -251,24 +256,66 @@ class ImportacionPAADAO {
 				
 				String fecha =  it.fechaExamen.substring(6, 10)+"-"+it.fechaExamen.substring(3, 5)+"-"+it.fechaExamen.substring(0, 2);
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
-				errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAV", it.PAAV, fecha);
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PAAV")
+				coins.put("score", it.PAAV)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				//errorLog += "INTEGRACION SUBIDA PAAV:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAN", it.PAAN, fecha);
-				errorLog += ", INTEGRACION SUBIDA PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PAAN", it.PAAN, fecha);
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PAAN")
+				coins.put("score", it.PAAN)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				//errorLog += ", INTEGRACION SUBIDA PAAN:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
-				resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
-				errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+				//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "PARA", it.PARA, fecha);
+				coins =  new HashMap < String, Object > ();
+				coins.put("context", context)
+				coins.put("idBanner", it.IDBANNER)
+				coins.put("codeScore", "PARA")
+				coins.put("score", it.PARA)
+				coins.put("fecha", fecha)
+				machine.add(coins)
+				//errorLog += ", INTEGRACION SUBIDA PARA:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 				
 				if(it.tipoExamen.toString().equals("KP")) {
 					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "MLEX", it.MLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "MLEX")
+					coins.put("score", it.MLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+					//errorLog += ", INTEGRACION SUBIDA MLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CLEX", it.CLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "CLEX", it.CLEX, fecha);
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "CLEX")
+					coins.put("score", it.CLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+					//errorLog += ", INTEGRACION SUBIDA CLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
-					resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
-					errorLog += ", INTEGRACION SUBIDA HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
+					//resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "HLEX", it.HLEX, fecha);
+					coins =  new HashMap < String, Object > ();
+					coins.put("context", context)
+					coins.put("idBanner", it.IDBANNER)
+					coins.put("codeScore", "HLEX")
+					coins.put("score", it.HLEX)
+					coins.put("fecha", fecha)
+					machine.add(coins)
+					//errorLog += ", INTEGRACION SUBIDA HLEX:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
 					
 					/*resultado = new BannerDAO().integracionBannerEthos(context, it.IDBANNER, "LA01", it.LA1, fecha);
 					errorLog += ", INTEGRACION SUBIDA LA1:"+resultado.isSuccess()+"ERROR:"+resultado.getError()+"ERROR_INFO:"+resultado.getError_info();
@@ -343,7 +390,7 @@ class ImportacionPAADAO {
 				resultado.setError_info(errorLog);
 				
 			}
-			
+			resultado = new BannerDAO().multiThread(machine)
 			
 		}catch(Exception e) {
 			resultado.setSuccess(false);

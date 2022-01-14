@@ -7,6 +7,11 @@ import java.sql.ResultSet
 import java.sql.Statement
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.concurrent.Callable
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -1890,6 +1895,10 @@ class BannerDAO {
 		
 		def jsonSlurper = new JsonSlurper();
 		try {
+			errorLog += "| idBanner" +idBanner;
+			errorLog += "| codeScore" +codeScore;
+			errorLog += "| score" +score;
+			errorLog += "| fecha" +fecha;
 			closeCon = validarConexion();
 			pstm = con.prepareStatement("SELECT ck.tokenbanner, (SELECT valor from catconfiguracion where clave='bannerMatchPerson' limit 1) as bannerMatchPerson  FROM catapikey ck inner join solicituddeadmision sda on sda.catcampus_pid=ck.campus_pid inner join detallesolicitud ds on ds.caseid::bigint=sda.caseid and ds.idbanner=? limit 1")
 			pstm.setString(1, idBanner);
@@ -1897,6 +1906,8 @@ class BannerDAO {
 			if(rs.next()) {
 				barrerToken = rs.getString("tokenbanner")
 				bannerMatchPerson = rs.getString("bannerMatchPerson")
+			}else {
+				throw new Exception("La universidad no cuenta con token Banner Ethos")
 			}
 			
 			if(barrerToken==null) {
@@ -2144,6 +2155,78 @@ class BannerDAO {
 
 		return resultado;
 	}
+	public Result testMultiThread(RestAPIContext context) {
+		Result result = new Result();
+		 Map<String,Object> coins =  new HashMap < String, Object > ();
+		 List<Map<String,Object>> machine = new ArrayList <Map<String,Object>> ()
+		 
+		 coins.put("context", context)
+		 coins.put("idBanner", "00525252")
+		 coins.put("codeScore", "PAAN")
+		 coins.put("score", "1")
+		 coins.put("fecha", "2022-01-13")
+		 
+		 machine.add(coins)
+		 
+		 result = multiThread(machine)
+		 return result;
+	}
+	/**
+	 * Inserta o actualiza puntuacion de aspirantes en banner
+	 * @author Juan Esquer
+	 * @param fecha yyyy-MM-dd es la fecha del examen
+	 * */
+	public Result multiThread(List<Map<String,Object>> threads) {
+		Result result = new Result();
+		String errorLog="[1]"
+		ExecutorService executorService = Executors.newFixedThreadPool(threads.size());
+		List<Callable<Result[]>> callableTasks = new ArrayList<>();
+		try {
+			
+			errorLog+="[2]"
+			threads.each { 
+				errorLog+="[2.1]"
+				errorLog+=""+it.toString()
+				Callable<Result[]> callable = new MyCallable(it);
+				errorLog+="[2.2]"
+				callableTasks.add(callable);
+				errorLog+="[2.3]"
+			}
+			executorService.awaitTermination(10, TimeUnit.SECONDS);
+			List<Future<Result[]>> futures = executorService.invokeAll(callableTasks);
+			for(Future<Result[]> future: futures) {
+				errorLog+="[3]"
+				Result[] results = future.get();
+				errorLog+=" || " + results[0].error_info
+			}
+			executorService.shutdown();
+			executorService.shutdownNow();
+			result.setSuccess(true)
+			errorLog+="[4]"
+			}catch(Exception e) {
+				errorLog+="[e]" + e.getMessage()
+				result.setSuccess(false)
+				result.setError(e.getMessage())
+		}
+		result.setSuccess(true)
+		result.setError_info(errorLog)
+		return result;
+	}
+	
+	private class MyCallable implements Callable<Result[]> {
+			private Map<String,Object> graph = new HashMap < String, Object > ();
+
+			public MyCallable(Map<String,Object> graph) {
+				this.graph = graph;
+			}
+
+			@Override
+			public Result[] call() {
+				Result[] arrayResult = new Result[1];
+				arrayResult[0]= new BannerDAO().integracionBannerEthos(null, graph.get("idBanner").toString(), graph.get("codeScore").toString(), graph.get("score").toString(), graph.get("fecha".toString()))
+				return arrayResult
+			}
+	 }
 	
 	
 }
