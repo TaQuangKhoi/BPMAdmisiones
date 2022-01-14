@@ -501,6 +501,7 @@ class CatalogosDAO {
 						} else {
 							where += "LIKE LOWER('%[valor]%')";
 						}
+
 						where = where.replace("[valor]", filtro.get("valor"));
 						break;
 					case "DESCRIPCION":
