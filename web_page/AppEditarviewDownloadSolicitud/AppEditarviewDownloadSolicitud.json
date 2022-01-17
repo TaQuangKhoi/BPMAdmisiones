@@ -3,7 +3,7 @@
   "previousArtifactVersion" : "1.11.52",
   "id" : "AppEditarviewDownloadSolicitud",
   "name" : "AppEditarviewDownloadSolicitud",
-  "lastUpdate" : 1642092308247,
+  "lastUpdate" : 1642456710869,
   "rows" : [
     [
       {
@@ -338,6 +338,58 @@
                           "hasValidationError" : false,
                           "id" : "pbContainer",
                           "rows" : [
+                            [
+                              {
+                                "type" : "component",
+                                "dimension" : {
+                                  "xs" : 12,
+                                  "sm" : 12,
+                                  "md" : 12,
+                                  "lg" : 12
+                                },
+                                "propertyValues" : {
+                                  "cssClasses" : {
+                                    "type" : "constant",
+                                    "value" : ""
+                                  },
+                                  "hidden" : {
+                                    "type" : "constant",
+                                    "value" : false
+                                  },
+                                  "labelHidden" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "label" : {
+                                    "type" : "interpolation",
+                                    "value" : "Default label"
+                                  },
+                                  "labelPosition" : {
+                                    "type" : "constant",
+                                    "value" : "top"
+                                  },
+                                  "labelWidth" : {
+                                    "type" : "constant",
+                                    "value" : 4
+                                  },
+                                  "allowHTML" : {
+                                    "type" : "constant",
+                                    "value" : true
+                                  },
+                                  "text" : {
+                                    "type" : "interpolation",
+                                    "value" : "{{objSolicitudDeAdmision.catBachilleratos.descripcion}}"
+                                  },
+                                  "alignment" : {
+                                    "type" : "constant",
+                                    "value" : "left"
+                                  }
+                                },
+                                "reference" : "fa07a70d-3642-4ea0-b681-e8976b86fa3b",
+                                "hasValidationError" : false,
+                                "id" : "pbText"
+                              }
+                            ],
                             [
                               {
                                 "type" : "component",
@@ -2857,8 +2909,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarbtnEditar"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -2984,6 +3036,14 @@
                                   "banderaEdicion" : {
                                     "type" : "variable",
                                     "value" : "banderaDeshabilitarEdicion"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnGuardar"
+                                  },
+                                  "banderaOcultarbtnEditar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnEditar"
                                   }
                                 },
                                 "reference" : "179257b6-69bd-4162-b974-14cc71b1951d",
@@ -3004,8 +3064,8 @@
                                     "value" : ""
                                   },
                                   "hidden" : {
-                                    "type" : "constant",
-                                    "value" : false
+                                    "type" : "expression",
+                                    "value" : "banderaOcultarbtnGuardar"
                                   },
                                   "disabled" : {
                                     "type" : "constant",
@@ -3077,6 +3137,10 @@
                                   "objtutorTemp" : {
                                     "type" : "variable",
                                     "value" : "objTutorTemp"
+                                  },
+                                  "banderaOcultarbtnGuardar" : {
+                                    "type" : "variable",
+                                    "value" : "banderaOcultarbtnGuardar"
                                   }
                                 },
                                 "reference" : "42594516-ca6d-4e9b-9600-a67dfaecb4ab",
@@ -4539,15 +4603,71 @@
                           "dimension" : {
                             "xs" : 12,
                             "sm" : 12,
-                            "md" : 6,
-                            "lg" : 6
+                            "md" : 12,
+                            "lg" : 12
                           },
                           "propertyValues" : {
                             "cssClasses" : {
                               "type" : "constant",
-                              "value" : "avoid"
+                              "value" : ""
                             },
                             "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Default label"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "allowHTML" : {
+                              "type" : "constant",
+                              "value" : true
+                            },
+                            "text" : {
+                              "type" : "interpolation",
+                              "value" : "{{datosPreparatoria}}"
+                            },
+                            "alignment" : {
+                              "type" : "constant",
+                              "value" : "left"
+                            }
+                          },
+                          "reference" : "65ec32f3-79d6-4d29-b08c-319a0a1c1f14",
+                          "hasValidationError" : false,
+                          "id" : "pbText"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "readOnly" : {
                               "type" : "constant",
                               "value" : false
                             },
@@ -4555,25 +4675,13 @@
                               "type" : "constant",
                               "value" : false
                             },
-                            "minLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "maxLength" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "readOnly" : {
-                              "type" : "expression",
-                              "value" : "banderaEditarInfoBachillerato"
-                            },
                             "labelHidden" : {
                               "type" : "constant",
                               "value" : false
                             },
                             "label" : {
                               "type" : "interpolation",
-                              "value" : "bachillerato:"
+                              "value" : "Default name"
                             },
                             "labelPosition" : {
                               "type" : "constant",
@@ -4584,32 +4692,138 @@
                               "value" : 4
                             },
                             "placeholder" : {
-                              "type" : "interpolation",
-                              "value" : ""
+                              "type" : "interpolation"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catBachillerato"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "clave"
                             },
                             "value" : {
                               "type" : "variable",
-                              "value" : "objSolicitudDeAdmision.catBachilleratos.descripcion"
+                              "value" : "preparatoriaSeleccionadaClave"
                             },
-                            "type" : {
-                              "type" : "constant",
-                              "value" : "text"
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
                             },
-                            "min" : {
-                              "type" : "constant"
+                            "urlCollageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
                             },
-                            "max" : {
-                              "type" : "constant"
+                            "isPDFCollageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
                             },
-                            "step" : {
-                              "type" : "constant",
-                              "value" : 1
+                            "isImagenCollage" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision"
                             }
                           },
-                          "reference" : "a7399551-ee8b-450d-b50b-98033aba38da",
+                          "reference" : "f67dd44d-80be-411f-a1af-37aad4bc9950",
                           "hasValidationError" : false,
-                          "id" : "pbInput"
-                        },
+                          "id" : "customAutocompletePreparatoriasClave"
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "component",
+                          "dimension" : {
+                            "xs" : 12,
+                            "sm" : 12,
+                            "md" : 12,
+                            "lg" : 12
+                          },
+                          "propertyValues" : {
+                            "cssClasses" : {
+                              "type" : "constant",
+                              "value" : ""
+                            },
+                            "hidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "readOnly" : {
+                              "type" : "expression",
+                              "value" : "banderaEditarInfoBachillerato"
+                            },
+                            "required" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "labelHidden" : {
+                              "type" : "constant",
+                              "value" : false
+                            },
+                            "label" : {
+                              "type" : "interpolation",
+                              "value" : "Bachillerato autocomplete"
+                            },
+                            "labelPosition" : {
+                              "type" : "constant",
+                              "value" : "top"
+                            },
+                            "labelWidth" : {
+                              "type" : "constant",
+                              "value" : 4
+                            },
+                            "placeholder" : {
+                              "type" : "interpolation"
+                            },
+                            "availableValues" : {
+                              "type" : "expression",
+                              "value" : "catBachillerato"
+                            },
+                            "displayedKey" : {
+                              "type" : "constant",
+                              "value" : "descripcion"
+                            },
+                            "value" : {
+                              "type" : "variable",
+                              "value" : "preparatoriaSeleccionada"
+                            },
+                            "datosPreparatoria" : {
+                              "type" : "variable",
+                              "value" : "datosPreparatoria"
+                            },
+                            "urlCollageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isPDFCollageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "isImagenCollage" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "collageBoard" : {
+                              "type" : "variable",
+                              "value" : ""
+                            },
+                            "catSolicitudDeAdmision" : {
+                              "type" : "variable",
+                              "value" : "objSolicitudDeAdmision"
+                            }
+                          },
+                          "reference" : "133c4f22-0505-49cb-a147-2da002ed6d93",
+                          "hasValidationError" : false,
+                          "id" : "customAutocompletePreparatoriasUsuariosEditar"
+                        }
+                      ],
+                      [
                         {
                           "type" : "component",
                           "dimension" : {
@@ -4715,8 +4929,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "banderaEditarInfoBachillerato"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -4791,8 +5005,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "banderaEditarInfoBachillerato"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -4867,8 +5081,8 @@
                               "value" : ""
                             },
                             "readOnly" : {
-                              "type" : "expression",
-                              "value" : "banderaEditarInfoBachillerato"
+                              "type" : "constant",
+                              "value" : true
                             },
                             "labelHidden" : {
                               "type" : "constant",
@@ -6143,21 +6357,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -6177,30 +6383,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catTitulo"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catTitulo.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catTitulo.persistenceId"
                                   }
                                 },
-                                "reference" : "76cbd1ac-47e4-40e0-ba67-16cec652e848",
+                                "reference" : "d43e3851-b826-4c4e-935a-c55eadf3bc3c",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarTitulo"
                               },
                               {
                                 "type" : "component",
@@ -6594,21 +6798,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -6628,30 +6824,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catEscolaridad"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catEscolaridad.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catEscolaridad.persistenceId"
                                   }
                                 },
-                                "reference" : "7c116811-793f-476c-b523-f40a17c1496e",
+                                "reference" : "c4bc21a4-f280-41a4-a08f-3c92ce194ecd",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEscolaridad"
                               },
                               {
                                 "type" : "component",
@@ -6670,21 +6864,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -6704,30 +6890,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "CatEgresadoUniversidadAnahuac"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catEgresoAnahuac.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catEgresoAnahuac.persistenceId"
                                   }
                                 },
-                                "reference" : "306bfaf1-2cde-46d3-809e-9b98c78b40bb",
+                                "reference" : "c0712619-0e66-42ac-8f19-ea9bc1d7408c",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarEgreso"
                               },
                               {
                                 "type" : "component",
@@ -6746,21 +6930,13 @@
                                     "type" : "expression",
                                     "value" : "$item.catEgresoAnahuac.descripcion !== \"Sí\""
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -6780,30 +6956,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catCampus"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catCampusEgreso.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catCampusEgreso.persistenceId"
                                   }
                                 },
-                                "reference" : "2a18420d-77c2-4e06-b254-2abbe4eb4609",
+                                "reference" : "5339c463-a853-43a5-a02a-1c09ac7bd8c0",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarCampuesEgresoMadre"
                               },
                               {
                                 "type" : "component",
@@ -6822,21 +6996,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -6856,30 +7022,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catPadreTrabaja"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catTrabaja.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catTrabaja.persistenceId"
                                   }
                                 },
-                                "reference" : "08a20030-3d85-48a1-a823-821ec7cc1862",
+                                "reference" : "b3729e28-b5fd-425b-a4ce-6d84720c3a11",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarPadreTrabaja"
                               },
                               {
                                 "type" : "component",
@@ -7161,21 +7325,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -7195,30 +7351,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catPais"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catPais.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catPais.persistenceId"
                                   }
                                 },
-                                "reference" : "70318c5c-3e9a-42a3-9638-94158732a21b",
+                                "reference" : "03249269-dcca-484f-a84f-1f2b8d5fa197",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarPais"
                               },
                               {
                                 "type" : "component",
@@ -7312,21 +7466,13 @@
                                     "type" : "expression",
                                     "value" : "$item.catPais.descripcion !== \"México\""
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "BanderaInformacionTutor"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "BanderaInformacionTutor"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -7346,30 +7492,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catESTADOS"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "$item.catEstado.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "$item.catEstado.persistenceId"
                                   }
                                 },
-                                "reference" : "865ae6d7-5785-45c0-b64a-da7c9b708271",
+                                "reference" : "2453e797-ed3c-4b45-ad03-ca092aaf3d27",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarEstado"
                               },
                               {
                                 "type" : "component",
@@ -8433,58 +8577,6 @@
                           "reference" : "7acb8527-f6a6-48c3-8100-9984464e701b",
                           "hasValidationError" : false,
                           "id" : "pbTitle"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "{{objPadre}}"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "ab61c1fd-a673-4cc7-b35e-0c6605e63bcf",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
                         }
                       ],
                       [
@@ -10554,7 +10646,7 @@
                                       "dimension" : {
                                         "xs" : 12,
                                         "sm" : 12,
-                                        "md" : 3,
+                                        "md" : 2,
                                         "lg" : 3
                                       },
                                       "propertyValues" : {
@@ -10781,58 +10873,6 @@
                           "reference" : "74b66e2d-ec3c-4650-a3cd-f7a985e6f3c3",
                           "hasValidationError" : false,
                           "id" : "pbTitle"
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "component",
-                          "dimension" : {
-                            "xs" : 12,
-                            "sm" : 12,
-                            "md" : 12,
-                            "lg" : 12
-                          },
-                          "propertyValues" : {
-                            "cssClasses" : {
-                              "type" : "constant",
-                              "value" : ""
-                            },
-                            "hidden" : {
-                              "type" : "constant",
-                              "value" : false
-                            },
-                            "labelHidden" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "label" : {
-                              "type" : "interpolation",
-                              "value" : "Default label"
-                            },
-                            "labelPosition" : {
-                              "type" : "constant",
-                              "value" : "top"
-                            },
-                            "labelWidth" : {
-                              "type" : "constant",
-                              "value" : 4
-                            },
-                            "allowHTML" : {
-                              "type" : "constant",
-                              "value" : true
-                            },
-                            "text" : {
-                              "type" : "interpolation",
-                              "value" : "{{objMadreCatTitulo}}"
-                            },
-                            "alignment" : {
-                              "type" : "constant",
-                              "value" : "left"
-                            }
-                          },
-                          "reference" : "2b17ee5b-481c-436e-a651-0cfe0544fe30",
-                          "hasValidationError" : false,
-                          "id" : "pbText"
                         }
                       ],
                       [
@@ -11844,21 +11884,13 @@
                                     "type" : "constant",
                                     "value" : false
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "banderaEditarInfoMadre"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "banderaEditarInfoMadre"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -11878,30 +11910,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catPais"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objMadreCatPais.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "objMadreCatPais.persistenceId"
                                   }
                                 },
-                                "reference" : "a26a53f0-d4a9-449a-bfae-9e5dd2dc711e",
+                                "reference" : "bf314fb6-dcc6-4162-b01c-09fd287c6cb2",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarPais"
                               },
                               {
                                 "type" : "component",
@@ -11995,21 +12025,13 @@
                                     "type" : "expression",
                                     "value" : "objMadreCatPais.descripcion !== 'México'"
                                   },
+                                  "disabled" : {
+                                    "type" : "expression",
+                                    "value" : "banderaEditarInfoMadre"
+                                  },
                                   "required" : {
                                     "type" : "constant",
                                     "value" : false
-                                  },
-                                  "minLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "maxLength" : {
-                                    "type" : "constant",
-                                    "value" : ""
-                                  },
-                                  "readOnly" : {
-                                    "type" : "expression",
-                                    "value" : "banderaEditarInfoMadre"
                                   },
                                   "labelHidden" : {
                                     "type" : "constant",
@@ -12029,30 +12051,28 @@
                                   },
                                   "placeholder" : {
                                     "type" : "interpolation",
-                                    "value" : ""
+                                    "value" : "Seleccionar una opción"
+                                  },
+                                  "availableValues" : {
+                                    "type" : "expression",
+                                    "value" : "catESTADOS"
+                                  },
+                                  "displayedKey" : {
+                                    "type" : "constant",
+                                    "value" : "descripcion"
+                                  },
+                                  "returnedKey" : {
+                                    "type" : "constant",
+                                    "value" : "persistenceId"
                                   },
                                   "value" : {
                                     "type" : "variable",
-                                    "value" : "objMadreCatEstado.descripcion"
-                                  },
-                                  "type" : {
-                                    "type" : "constant",
-                                    "value" : "text"
-                                  },
-                                  "min" : {
-                                    "type" : "constant"
-                                  },
-                                  "max" : {
-                                    "type" : "constant"
-                                  },
-                                  "step" : {
-                                    "type" : "constant",
-                                    "value" : 1
+                                    "value" : "objMadreCatEstado.persistenceId"
                                   }
                                 },
-                                "reference" : "399bcd85-2a94-4710-8091-acc53595d848",
+                                "reference" : "92f68643-97d9-42cb-bb8e-4fcb67e1f463",
                                 "hasValidationError" : false,
-                                "id" : "pbInput"
+                                "id" : "customCatEditarEstado"
                               },
                               {
                                 "type" : "component",
@@ -13824,17 +13844,17 @@
       "external" : false
     },
     {
-      "id" : "25ed5e66-d559-4ff1-9542-2dae267ca6cf",
-      "name" : "style.css",
-      "type" : "css",
-      "order" : 0,
-      "external" : false
-    },
-    {
       "id" : "5c7ed86e-de35-47d7-bbbf-5bed60025e9d",
       "name" : "sweetalert.min.js",
       "type" : "js",
       "order" : 2,
+      "external" : false
+    },
+    {
+      "id" : "25ed5e66-d559-4ff1-9542-2dae267ca6cf",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
       "external" : false
     },
     {
@@ -13924,6 +13944,30 @@
       "type" : "expression",
       "value" : [
         "var mostrar = true;\r",
+        "if($data.preparatoriaSeleccionada === \"Otro\"){\r",
+        "    for (var x = 0; x < $data.catBachillerato.length; x++) {\r",
+        "        if($data.catBachillerato[x].descripcion === $data.preparatoriaSeleccionada){\r",
+        "            $data.objSolicitudDeAdmision.catBachilleratos = $data.catBachillerato[x];\r",
+        "        }\r",
+        "    }\r",
+        "    mostrar = false;\r",
+        "}else{\r",
+        "    for (var x = 0; x < $data.catBachillerato.length; x++) {\r",
+        "        if($data.catBachillerato[x].descripcion === $data.preparatoriaSeleccionada){\r",
+        "            mostrar = true;\r",
+        "            $data.objSolicitudDeAdmision.catBachilleratos = $data.catBachillerato[x];\r",
+        "            $data.datosPreparatoria.paisBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.pais;\r",
+        "            $data.datosPreparatoria.estadoBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.estado;\r",
+        "            $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad;        \r",
+        "        }\r",
+        "    }\r",
+        "    \r",
+        "}\r",
+        "\r",
+        "return mostrar\r",
+        "\r",
+        "\r",
+        "/*var mostrar = true;\r",
         "if($data.objSolicitudDeAdmision.catBachilleratos.descripcion === \"Otro\"){\r",
         "    mostrar = false;\r",
         "    $data.datosPreparatoria.nombreBachillerato = $data.objSolicitudDeAdmision.bachillerato;\r",
@@ -13937,7 +13981,7 @@
         "    $data.datosPreparatoria.ciudadBachillerato = $data.objSolicitudDeAdmision.catBachilleratos.ciudad;\r",
         "}\r",
         "\r",
-        "return mostrar"
+        "return mostrar*/"
       ],
       "exposed" : false
     },
@@ -14250,6 +14294,47 @@
         "../API/bdm/businessData/com.anahuac.catalogos.CatEscolaridad?q=getCatEscolaridad&p=0&c=500"
       ],
       "advancedOptions" : { },
+      "exposed" : false
+    },
+    "banderaOcultarbtnGuardar" : {
+      "type" : "expression",
+      "value" : [
+        "return true;"
+      ],
+      "exposed" : false
+    },
+    "banderaOcultarbtnEditar" : {
+      "type" : "expression",
+      "value" : [
+        "return false;"
+      ],
+      "exposed" : false
+    },
+    "catBachillerato" : {
+      "type" : "url",
+      "value" : [
+        "../API/extension/AnahuacRestGet?url=getCatBachilleratos&p=0&c=10"
+      ],
+      "advancedOptions" : { },
+      "exposed" : false
+    },
+    "preparatoriaSeleccionada" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "catUsuarios_selectedNR" : {
+      "type" : "constant",
+      "exposed" : false
+    },
+    "datosPrepa" : {
+      "type" : "json",
+      "value" : [
+        "{ \"nombreBachillerato\":\"\", \"paisBachillerato\":\"\", \"estadoBachillerato\":\"\", \"ciudadBachillerato\":\"\" }\t"
+      ],
+      "exposed" : false
+    },
+    "preparatoriaSeleccionadaClave" : {
+      "type" : "constant",
       "exposed" : false
     }
   },

@@ -135,6 +135,12 @@ function PbButtonCtrl($scope, $http, $location, $log, $window, localStorageServi
       .finally(function() {
         vm.busy = false;
       });
+      $scope.ocultarbtn();
+  }
+  
+  $scope.ocultarbtn = function(){
+      debugger
+      $scope.properties.banderaOcultarbtnGuardar = true;
   }
 
   function redirectIfNeeded() {
